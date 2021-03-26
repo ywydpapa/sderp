@@ -6,18 +6,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <select id="listCont"
  		resultType="contDto">
- 		select a.*, b.userName , c.custName from swc_cont a  
+ 		select a.*, b.userName , c.custName, d.desc03 contTypeN from swc_cont a  
 		left join swc_user b on a.userNo = b.userNo
-		left join swc_cust c on a.custNo = c.custNo 
+		left join swc_cust c on a.custNo = c.custNo
+		left join swc_code d on a.contType = d.codeNo 
 		where a.attrib not like 'XXX%' and a.compNo = #{compNo}
 		order by contNo 
  </select>
  
  <select id="listconCont"
  		resultType="contDto">
- 		select a.*, b.userName , c.custName from swc_cont a  
+ 		select a.*, b.userName , c.custName, d.desc03 contTypeN from swc_cont a  
 		left join swc_user b on a.userNo = b.userNo
-		left join swc_cust c on a.custNo = c.custNo 
+		left join swc_cust c on a.custNo = c.custNo
+		left join swc_code d on a.contType = d.codeNo 
 		where a.attrib not like 'XXX%' and a.compNo = #{compNo}
 		<if test="custNo != null and custNo != ''">
  		 	and a.custNo = #{custNo}

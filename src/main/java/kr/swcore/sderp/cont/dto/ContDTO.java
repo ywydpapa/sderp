@@ -37,7 +37,14 @@ public class ContDTO {
 	private int buyrNo;
 	private String buyrName;
 	private String businessType;
+	private String contTypeN;
 	
+	public String getContTypeN() {
+		return contTypeN;
+	}
+	public void setContTypeN(String contTypeN) {
+		this.contTypeN = contTypeN;
+	}
 	public String getTargetDatefrom() {
 		return targetDatefrom;
 	}

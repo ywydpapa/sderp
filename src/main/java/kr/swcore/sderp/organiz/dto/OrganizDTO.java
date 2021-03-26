@@ -7,6 +7,7 @@ public class OrganizDTO {
 	private String org_code;
 	private String org_title;
 	private String org_level;
+	private String org_parentLv;
 	private String org_mcode;
 	private String org_regdatetime;
 	private String org_moddatetime;
@@ -42,6 +43,12 @@ public class OrganizDTO {
 	}
 	public void setOrg_level(String org_level) {
 		this.org_level = org_level;
+	}	
+	public String getOrg_parentLv() {
+		return org_parentLv;
+	}
+	public void setOrg_parentLv(String org_parentLv) {
+		this.org_parentLv = org_parentLv;
 	}
 	public String getOrg_mcode() {
 		return org_mcode;
@@ -82,9 +89,9 @@ public class OrganizDTO {
 	@Override
 	public String toString() {
 		return "OrganizDTO [org_id=" + org_id + ", compNo=" + compNo + ", org_code=" + org_code + ", org_title="
-				+ org_title + ", org_level=" + org_level + ", org_mcode=" + org_mcode + ", org_regdatetime="
-				+ org_regdatetime + ", org_moddatetime=" + org_moddatetime + ", org_desc=" + org_desc + ", org_rolemap="
-				+ org_rolemap + ", attrib=" + attrib + "]";
+				+ org_title + ", org_level=" + org_level + ", org_parentLv=" + org_parentLv + ", org_mcode=" + org_mcode
+				+ ", org_regdatetime=" + org_regdatetime + ", org_moddatetime=" + org_moddatetime + ", org_desc="
+				+ org_desc + ", org_rolemap=" + org_rolemap + ", attrib=" + attrib + "]";
 	}
 	public OrganizDTO() {
 		super();

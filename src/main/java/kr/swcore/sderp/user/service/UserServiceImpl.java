@@ -80,6 +80,12 @@ public class UserServiceImpl implements UserService {
 		return userDao.insertUserdata(dto);
 	}
 
+	@Override
+	public List<UserDTO> userListWithOrgId(UserDTO dto) {
+		return userDao.userListWithOrgId(dto);
+	}
+
+
 	
 
 }

@@ -27,6 +27,7 @@
 		    <div class="col-auto my-1">
 		    	<label class="mr-sm-2" for="inlineFormCustomSelect">부서</label>
 				<select class="custom-select mr-sm-2" name="targetDepartment" id="targetDepartment">
+					<!-- <option value = "ALL">전체</option> -->
 					<c:forEach var ="row" items="${listDept}">
 						<option value = "${row.org_id}">${row.org_title}</option>
 					</c:forEach>

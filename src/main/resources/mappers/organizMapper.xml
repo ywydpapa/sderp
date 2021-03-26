@@ -6,7 +6,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <select id="listDept" resultType="organizDto">
  		select * from swc_organiz where attrib not like 'XXX%' and compNo=#{compNo} and org_level > 0 ORDER BY org_code, org_level 
- </select>
+</select>
+
+<select id="listDeptChainExtend" resultType="organizDto">
+	<![CDATA[
+		select so2.org_id, so.org_code, so.org_title, so2.org_title
+		from swc_organiz so
+		left join swc_organiz so2 on so.org_id = so2.org_parentLv
+		where so.compNo = #{compNo}
+		and  so2.org_level <= (
+								select max(so3.org_level)
+								from swc_organiz so3
+								where so3.compNo = #{compNo}
+							  )
+  	]]>
+</select>
 
 <!-- 아래 insert 수정 필요 -->
 <insert id="insert">

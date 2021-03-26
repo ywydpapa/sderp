@@ -72,6 +72,11 @@ public class UserDAOImpl implements UserDAO {
 		return sqlSession.insert("user.insertUserdata", dto);
 	}
 
+	@Override
+	public List<UserDTO> userListWithOrgId(UserDTO userDTO) {
+		return sqlSession.selectList("user.userListWithOrgId", userDTO);
+	}
+
 	
 
 

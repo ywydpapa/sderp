@@ -18,5 +18,6 @@ public interface UserDAO {
 	public int insertUser(UserDTO dto);
 	public int insertUserdata(UserDTO dto);
 	public int userCheck(UserDTO dto);
+	public List<UserDTO> userListWithOrgId(UserDTO userDTO);
 	
 }

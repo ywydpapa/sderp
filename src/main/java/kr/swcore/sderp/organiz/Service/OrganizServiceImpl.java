@@ -22,4 +22,13 @@ public class OrganizServiceImpl implements OrganizService {
 		return organizDao.listDept(compNo);
 	}
 
+	@Override
+	public List<OrganizDTO> listDeptChainExtend(HttpSession session) {
+		Integer compNo = Integer.valueOf((String) session.getAttribute("compNo"));
+		OrganizDTO organizDTO = new OrganizDTO();
+		organizDTO.setCompNo(compNo);
+		
+		return organizDao.listDeptChainExtend(organizDTO);
+	}
+
 }

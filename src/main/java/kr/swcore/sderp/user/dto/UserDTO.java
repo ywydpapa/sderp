@@ -12,6 +12,7 @@ public class UserDTO {
 	private String compNo;
 	private String userRank;
 	private String userDept;
+	private int orgId;
 	
 	public String getUserId() {
 		return userId;
@@ -42,8 +43,7 @@ public class UserDTO {
 	}
 	public void setUserNo(int userNo) {
 		this.userNo = userNo;
-	}
-	
+	}	
 	public String getUserRole() {
 		return userRole;
 	}
@@ -80,12 +80,20 @@ public class UserDTO {
 	}
 	public void setUserDept(String userDept) {
 		this.userDept = userDept;
+	}	
+	public int getOrgId() {
+		return orgId;
 	}
+	public void setOrgId(int orgId) {
+		this.orgId = orgId;
+	}
+	
 	@Override
 	public String toString() {
 		return "UserDTO [userNo=" + userNo + ", userId=" + userId + ", compId=" + compId + ", userName=" + userName
 				+ ", userPasswd=" + userPasswd + ", userRole=" + userRole + ", userKey=" + userKey + ", userOtp="
-				+ userOtp + ", compNo=" + compNo + ", userRank=" + userRank + ", userDept=" + userDept + "]";
+				+ userOtp + ", compNo=" + compNo + ", userRank=" + userRank + ", userDept=" + userDept + ", orgId="
+				+ orgId + "]";
 	}
 	public UserDTO() {
 		

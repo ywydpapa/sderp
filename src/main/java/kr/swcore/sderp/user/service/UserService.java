@@ -27,4 +27,6 @@ public interface UserService {
     	public int insertUserdata(UserDTO dto);
 
     	public int userCheck(UserDTO dto);
+    	
+    	public List<UserDTO> userListWithOrgId(UserDTO dto);
 }

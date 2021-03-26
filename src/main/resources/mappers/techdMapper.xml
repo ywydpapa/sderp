@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="techd">
+
+<select id="listTechd"
+ 		resultType="TechdDto">
+ 		select a.*, b.userName , c.custName from swc_techd a  
+		left join swc_user b on a.userNo = b.userNo
+		left join swc_cust c on a.custNo = c.custNo
+		left join swc_sopp d on a.soppNo = d.soppNo
+		left join swc_cont e on a.contNo = e.contNo 
+		where a.attrib not like 'XXX%' and a.compNo = #{compNo} order by techdNo 
+ </select>
+
+<select id="detailTechd"
+ 		resultType="techdDto">
+ 		select a.*, b.userName , c.custName from swc_techd a  
+		left join swc_user b on a.userNo = b.userNo
+		left join swc_cust c on a.custNo = c.custNo
+		left join swc_sopp d on a.soppNo = d.soppNo
+		left join swc_cont e on a.contNo = e.contNo 
+		where a.attrib not like 'XXX%' and techdNo=#{techdNo} order by techdNo
+ </select>
+ 
+ <insert id="insertTechd">
+ insert into swc_techd 
+ (
+	compNo,
+	custNo,
+	custmemberNo,
+	techdTitle,
+	techdDesc,
+	techdItemmodel,
+	techdItemversion,
+	techdPlace,
+	techdFrom,
+	techdTo,
+	techdType,
+	techdSteps,
+	regdatetime,
+	attrib,
+	userNo
+ )
+ values 
+ (
+	#{compNo},
+	#{custNo},
+	#{custmemberNo},
+	#{techdTitle},
+	#{techdDesc},
+	#{techdItemmodel},
+	#{techdItemversion},
+	#{techdPlace},
+	#{techdFrom},
+	#{techdTo},
+	#{techdType},
+	#{techdSteps},
+	now(),
+	'10000',
+	#{userNo}
+ )
+ </insert>
+
+ <update id="updateCont">
+	update swc_techd 
+	set 
+	custNo = #{custNo},
+	soppNo = #{soppNo},
+	contNo = #{contNo},
+	custmemberNo = #{custmemberNo},
+	techdTitle = #{techdTitle},
+	techdDesc = #{techdDesc},
+	techdItemmodel = #{techdItemmodel},
+	techdItemversion = #{techdItemversion},
+	techdPlace = #{techdPlace},
+	techdFrom = #{techdFrom},
+	techdTo = #{techdTo},
+	techdType = #{techdType},
+	techdSteps = #{techdSteps},
+	modDatetime	= NOW()
+	where techdNo=#{techdNo}
+ </update>
+ 
+ <delete id="deleteCont">
+	update swc_techd 
+	set attrib = 'XXXXX'
+	where techdNo=#{techdNo}
+ </delete>
+ 		
+</mapper>

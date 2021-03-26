@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="organiz">
+
+<select id="listDept" resultType="organizDto">
+ 		select * from swc_organiz where attrib not like 'XXX%' and compNo=#{compNo} and org_level > 0 ORDER BY org_code, org_level 
+ </select>
+
+<!-- 아래 insert 수정 필요 -->
+<insert id="insert">
+ insert into swc_organiz (
+boardDept,
+boardCode,
+boardNum,
+boardOpen,
+boardAdmin,
+boardTitle,
+boardType,
+boardRead,
+boardDesc,
+boardDownyn,
+boardMoveyn,
+regDatetime,
+attrib )
+ values (
+#{boardDept},
+#{boardCode},
+#{boardNum},
+#{boardOpen},
+#{boardAdmin},
+#{boardTitle},
+#{boardType},
+#{boardRead},
+#{boardDesc},
+#{boardDownyn},
+#{boardMoveyn},
+now(),
+'100001'
+ )
+ </insert>
+
+
+</mapper>

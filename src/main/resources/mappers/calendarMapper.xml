@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="calendar">
+
+<select id="listEvent"
+ 		resultType="calendarDto">
+		select concat(d.userName," : ", a.schedTitle) title,  
+ 		concat(left(a.schedFrom,10),"T",substring(a.schedFrom,12,9)) start,
+ 		concat(left(a.schedTo,10),"T",substring(a.schedTo,12,9)) end,
+ 		a.schedNo id
+ 		from swc_sched a 
+ 		left join swc_cust b on a.custNo=b.custNo
+ 		left join swc_sopp c on a.soppNo=c.soppNo
+ 		left join swc_user d on a.userNo=d.userNo
+ </select>
+
+
+<select id="detailEvent"
+ 		resultType="calendarDto">
+ 		select a.*, b.custName, c.soppTitle, d.userName  
+ 		from swc_sched a 
+ 		left join swc_cust b on a.custNo=b.custNo
+ 		left join swc_sopp c on a.soppNo=c.soppNo
+ 		left join swc_user d on a.userNo=d.userNo
+ 		where a.schedNo=#{schedNo}  
+ </select>
+ 
+ <delete id="deleteEvent">
+ update swc_sched set attrib='XXXXX' where schedNo=#{schedNo}
+ </delete>
+ 		
+</mapper>

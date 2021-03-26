@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	
+	<settings>
+		<setting name="jdbcTypeForNull" value="NULL"/>
+	</settings>
+ 
+    <typeAliases>
+    <typeAlias alias="userDto" type="kr.swcore.sderp.user.dto.UserDTO"/>
+    <typeAlias alias="productDto" type="kr.swcore.sderp.product.dto.ProductDTO"/>
+    <typeAlias alias="custDto" type="kr.swcore.sderp.cust.dto.CustDTO"/>
+    <typeAlias alias="schedDto" type="kr.swcore.sderp.sched.dto.SchedDTO"/>
+    <typeAlias alias="calendarDto" type="kr.swcore.sderp.calendar.dto.CalendarDTO"/>
+    <typeAlias alias="soppDto" type="kr.swcore.sderp.sopp.dto.SoppDTO"/>
+    <typeAlias alias="salesDto" type="kr.swcore.sderp.sales.dto.SalesDTO"/>
+    <typeAlias alias="contDto" type="kr.swcore.sderp.cont.dto.ContDTO"/>
+    <typeAlias alias="codeDto" type="kr.swcore.sderp.code.dto.CodeDTO"/>
+    <typeAlias alias="bcodeDto" type="kr.swcore.sderp.bcode.dto.BcodeDTO"/>
+    <typeAlias alias="techdDto" type="kr.swcore.sderp.techd.dto.TechdDTO"/>
+    <typeAlias alias="soppdataDto" type="kr.swcore.sderp.sopp.dto.SoppdataDTO"/>
+    <typeAlias alias="boardDto" type="kr.swcore.sderp.board.dto.BoardDTO"/>
+    <typeAlias alias="organizDto" type="kr.swcore.sderp.organiz.dto.OrganizDTO"/>
+    </typeAliases>
+ 
+</configuration>

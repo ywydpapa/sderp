@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="product">
+
+<select id="listProduct"
+ 		resultType="productDto">
+ 		select * from swc_product where compNo = #{compNo} order by productNo
+ </select>
+
+
+<select id="detailProduct"
+ 		resultType="productDto">
+ 		select * from swc_product where productNo=#{productNo}
+ </select>
+ 
+ <insert id="insertProduct">
+ insert into swc_product (compNo, custNo, productName, productDesc, attrib)
+ values ('100001',#{custNo},#{productName},#{productDesc},'10000')
+ </insert>
+
+ <update id="updateProduct">
+ update swc_product set productName=#{productName},
+ productDesc=#{productDesc}
+ where productNo=#{productNo}
+ </update>
+ 
+ <delete id="deleteProduct">
+ update swc_product set attrib = 'XXXXX'  where productNo=#{productNo}
+ </delete>
+ 		
+</mapper>

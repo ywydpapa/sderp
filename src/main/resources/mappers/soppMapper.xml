@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="sopp">
+
+<select id="listSopp"
+ 		resultType="soppDto">
+ 		select a.*, b.userName , c.custName, d.desc03 soppTypeN, e.desc03 soppStatusN from swc_sopp a  
+		left join swc_user b on a.userNo = b.userNo
+		left join swc_cust c on a.custNo = c.custNo
+		left join swc_code d on a.soppType = d.codeNo 
+		left join swc_code e on a.soppStatus = e.codeNo
+		where a.attrib not like 'XXX%' and b.compNo = #{compNo}
+		order by soppNo 
+ </select>
+
+<select id="listSopp2"
+ 		resultType="soppDto">
+ 		select a.*, b.userName , c.custName, d.desc03 soppTypeN, e.desc03 soppStatusN from swc_sopp a  
+		left join swc_user b on a.userNo = b.userNo
+		left join swc_cust c on a.custNo = c.custNo
+		left join swc_code d on a.soppType = d.codeNo 
+		left join swc_code e on a.soppStatus = e.codeNo
+		where a.attrib not like 'XXX%' and a.soppStatus='10057' order by soppNo 
+ </select>
+
+
+<select id="detailSopp"
+ 		resultType="soppDto">
+ 		select a.*, b.userName , c.custName, d.custName ptncName from swc_sopp a  
+		left join swc_user b on a.userNo = b.userNo
+		left join swc_cust c on a.custNo = c.custNo 
+		left join swc_cust d on a.ptncNo = d.custNo
+		where a.attrib not like 'XXX%' and  soppNo=#{soppNo} order by soppNo
+ </select>
+ 
+ <insert id="insertSopp">
+ insert into swc_sopp (compNo, custNo,userNo, ptncNo, soppTitle, soppDesc, soppType, soppSrate, soppStatus, soppTargetDate, soppTargetAmt,attrib)
+ values (#{compNo}, #{custNo},#{userNo},#{ptncNo}, #{soppTitle}, #{soppDesc}, #{soppType}, #{soppSrate}, #{soppStatus}, #{soppTargetDate}, #{soppTargetAmt},'10000')
+ </insert>
+
+ <update id="updateSopp">
+	update swc_sopp 
+	set 
+	 soppDesc=#{soppDesc}
+	,soppTitle=#{soppTitle}
+	,soppStatus=#{soppStatus}
+	,soppTargetDate=#{soppTargetDate}
+	,soppTargetAmt=#{soppTargetAmt}
+	,soppSrate=#{soppSrate}
+	,soppType=#{soppType}
+	where soppNo=#{soppNo}
+ </update>
+
+ <update id="update2Sopp">
+	update swc_sopp 
+	set 
+	 sopp2Desc=#{sopp2Desc}
+	,soppStatus=#{soppStatus}
+	where soppNo=#{soppNo}
+ </update>
+
+ 
+ <delete id="deleteSopp">
+	update swc_sopp 
+	set attrib = 'XXXXX'
+	where soppNo=#{soppNo}
+ </delete>
+ 
+<select id="detailSopp2222"
+ 		resultType="soppDto">
+ 		select a.*, b.userName , c.custName, d.custName ptncName from swc_sopp a  
+		left join swc_user b on a.userNo = b.userNo
+		left join swc_cust c on a.custNo = c.custNo 
+		left join swc_cust d on a.ptncNo = d.custNo
+		where a.attrib not like 'XXX%' 
+		and  soppNo=#{soppNo}
+		<if test='userName != null and userName != ""'>
+    	AND b.userName = #{userName}
+        </if>
+        <if test='soppSrate over 50 or soppSrate under 5' >
+    	AND b.userName = #{userName}
+        </if>
+		order by soppNo
+ </select>
+
+<select id="listSoppcon"
+ 		resultType="soppDto">
+ 		select a.*, b.userName , d.custName from swc_sopp a  
+		left join swc_user b on a.userNo = b.userNo
+		left join swc_cust d on a.custNo = d.custNo 
+		where a.attrib not like 'XXX%'
+		<if test='userNo != null and userNo !=""'>
+		and a.userNo = #{userNo}
+		</if>
+		<if test='custNo != null and custNo != 0'>
+		and a.custNo = #{custNo}
+		</if>
+		<if test='soppSrate != null and soppSrate == 50'>
+		and a.soppSrate >= 50
+		</if>
+		<if test='soppType != null'>
+		and a.soppType = #{soppType}
+		</if>
+		<if test='soppStatus != null'>
+		and a.soppStatus = #{soppStatus}
+		</if>
+		order by soppNo 
+ </select>
+
+ <insert id="insertSoppdata01">
+ insert into swc_soppData01 
+ (soppNo,
+catNo,
+dataTitle,
+dataDesc,
+dataType,
+dataQuanty,
+dataAmt,
+dataNetprice,
+dataRemark,
+linkType,
+linkNo,
+regDatetime)
+ values (#{soppNo},
+#{catNo},
+#{dataTitle},
+#{dataDesc},
+#{dataType},
+#{dataQuanty},
+#{dataAmt},
+#{dataNetprice},
+#{dataRemark},
+#{linkType},
+#{linkNo},
+now()
+)
+</insert>
+
+<delete id="deleteSoppdata01">
+	update swc_soppData01 
+	set attrib = 'XXXXX'
+	where soppdataNo=#{soppdataNo}
+ </delete>
+
+<select id="listSoppdata01"
+ 		resultType="soppdataDto">
+ 		select a.*, b.soppTitle from swc_soppData01 a  
+		left join swc_sopp b on a.soppNo = b.soppNo
+		where a.attrib not like 'XXX%' 
+		AND a.soppNo=#{soppNo} and a.catNo=100001
+		order by soppdataNo 
+ </select>
+
+<select id="listSoppdata02"
+ 		resultType="soppdataDto">
+ 		select a.*, b.soppTitle from swc_soppData01 a  
+		left join swc_sopp b on a.soppNo = b.soppNo
+		where a.attrib not like 'XXX%' 
+		AND a.soppNo=#{soppNo} and a.catNo=100004
+		order by soppdataNo 
+ </select>
+ 
+ 		
+</mapper>

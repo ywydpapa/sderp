@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cont">
+
+<select id="listCont"
+ 		resultType="contDto">
+ 		select a.*, b.userName , c.custName from swc_cont a  
+		left join swc_user b on a.userNo = b.userNo
+		left join swc_cust c on a.custNo = c.custNo 
+		where a.attrib not like 'XXX%' and a.compNo = #{compNo}
+		order by contNo 
+ </select>
+
+<select id="detailCont"
+ 		resultType="contDto">
+select a.*, b.userName , c.custName, d.custName ptncName, e.soppTitle  from swc_cont a  
+		left join swc_user b on a.userNo = b.userNo
+		left join swc_cust c on a.custNo = c.custNo 
+		left join swc_cust d on a.ptncNo = d.custNo
+		left join swc_sopp e on a.soppNo = e.soppNo
+		where a.attrib not like 'XXX%' and  contNo=#{contNo} order by contNo
+ </select>
+ 
+ <insert id="insertCont">
+ insert into swc_cont (contTitle, contDesc, compNo, soppNo, userNo, custNo, custmemberNo, ptncNo, supplyNo, contOrddate, supplyDate, delivDate, contAmt, freemaintSdate, freemaintEdate, vatYn, contArea, contType, attrib)
+ values (#{contTitle}, #{contDesc}, #{compNo}, #{soppNo}, #{userNo}, #{custNo}, #{custmemberNo}, #{ptncNo}, #{supplyNo}, #{contOrddate}, #{supplyDate}, #{delivDate}, #{contAmt}, #{freemaintSdate}, #{freemaintEdate}, #{vatYn}, #{contArea}, #{contType}, '10000')
+ </insert>
+
+ <update id="updateCont">
+	update swc_cont 
+	set 
+	contTitle=#{contTitle},
+	contDesc=#{contDesc}, 
+	soppNo=#{soppNo}, 
+	userNo=#{userNo}, 
+	custNo=#{custNo}, 
+	custmemberNo=#{custmemberNo}, 
+	ptncNo=#{ptncNo}, 
+	supplyNo=#{supplyNo}, 
+	contOrddate=#{contOrddate}, 
+	supplyDate=#{supplyDate}, 
+	delivDate=#{delivDate}, 
+	contAmt=#{contAmt}, 
+	freemaintSdate=#{freemaintSdate}, 
+	freemaintEdate=#{freemaintEdate}, 
+	vatYn=#{vatYn}, 
+	contArea=#{contArea}, 
+	contType=#{contType}
+	where contNo=#{contNo}
+ </update>
+ 
+ <delete id="deleteCont">
+	update swc_cont 
+	set attrib = 'XXXXX'
+	where contNo=#{contNo}
+ </delete>
+ 		
+</mapper>

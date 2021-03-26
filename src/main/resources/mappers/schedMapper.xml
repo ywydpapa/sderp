@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="sched">
+
+<select id="listSched"
+ 		resultType="schedDto">
+ 		select a.*, b.custName, c.soppTitle, d.userName, e.desc03 schedCatN, f.desc03 schedTypeN  
+ 		from swc_sched a 
+ 		left join swc_cust b on a.custNo=b.custNo
+ 		left join swc_sopp c on a.soppNo=c.soppNo
+ 		left join swc_user d on a.userNo=d.userNo
+ 		left join swc_code e on a.schedCat = e.codeNo
+ 		left join swc_code f on a.schedType = f.codeNo
+ 		where a.attrib not like 'XXX%' and a.compNo = #{compNo}
+ 		order by schedNo 
+ </select>
+
+
+<select id="detailSched"
+ 		resultType="schedDto">
+ 		select a.*, b.custName, c.soppTitle, d.userName, concat(left(a.schedFrom,10),'T',substring(a.schedFrom,12,9)) sTime, CONCAT(left(a.schedTo,10),'T',substring(a.schedTo,12,9)) eTime   
+ 		from swc_sched a 
+ 		left join swc_cust b on a.custNo=b.custNo
+ 		left join swc_sopp c on a.soppNo=c.soppNo
+ 		left join swc_user d on a.userNo=d.userNo
+ 		where a.schedNo=#{schedNo}  
+ </select>
+ 
+ <insert id="insertSched">
+<selectKey keyProperty="userNo" order="BEFORE" resultType="int">
+			SELECT userNo FROM swc_user where userId = #{userId} 
+</selectKey>
+ insert into swc_sched (
+	userNo
+	,compNo
+	,soppNo
+	,custNo
+	,schedName
+	,schedFrom
+	,schedTo
+	,schedTitle
+	,schedDesc
+	,subschedNo
+	,schedActive
+	,schedAllday
+	,remindflag
+	,schedPlace
+	,schedType
+	,schedColor
+	,schedCat
+	,attrib )
+ values (
+	#{userNo}
+	,#{compNo}
+	,#{soppNo}
+	,#{custNo}
+	,#{schedName}
+	,#{schedFrom}
+	,#{schedTo}
+	,#{schedTitle}
+	,#{schedDesc}
+	,#{subschedNo}
+	,#{schedActive}
+	,#{schedAllday}
+	,#{remindflag}
+	,#{schedPlace}
+	,#{schedType}
+	,#{schedColor}
+	,#{schedCat}
+	,'100000' )
+ </insert>
+
+ <update id="updateSched">
+ update swc_sched set 
+	 soppNo=#{soppNo}
+	,custNo=#{custNo}
+	,schedName=#{schedName}
+	,schedFrom=#{schedFrom}
+	,schedTo=#{schedTo}
+	,schedTitle=#{schedTitle}
+	,schedDesc=#{schedDesc}
+	,subschedNo=#{subschedNo}
+	,schedActive=#{schedActive}
+	,schedAllday=#{schedAllday}
+	,remindflag=#{remindflag}
+	,schedType=#{schedType}
+	,schedCat=#{schedCat}
+	,schedPlace=#{schedPlace}
+ where schedNo=#{schedNo}
+ </update>
+ 
+ <delete id="deleteSched">
+ update swc_sched set attrib='XXXXX' where schedNo=#{schedNo}
+ </delete>
+ 		
+</mapper>

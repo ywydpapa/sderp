@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="salesTarget">
+
+<select id="listSalesTargetDTO"	resultType="SalesTargetDTO">
+ 		select sst.userNo, sst.targetType,
+				sst.mm01, sst.mm02, sst.mm03, sst.mm04, sst.mm05,
+				sst.mm06, sst.mm07, sst.mm08, sst.mm09, sst.mm10,
+				sst.mm11, sst.mm12
+		from swc_sales_target sst
+		where sst.compNo = #{compNo} and sst.targetYear = #{targetYear}
+		and sst.targetType = #{targetType} and userNo IN
+		<foreach collection="userDtoList" item="item" open="(" close=")" separator=",">
+			#{item.userNo}
+		</foreach>
+ </select>
+
+ <insert id="insertSalesTarget">
+ </insert>
+
+ <update id="updateSalesTarget">
+ </update>
+ 
+ <delete id="deleteSalesTarget">
+ </delete>
+ 		
+</mapper>

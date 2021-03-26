@@ -140,10 +140,10 @@ $('input[name=radio]').on('click', function() {
 										<input type="text" class="form-control" name="custmemberName"  id="custmemberName" value="" readonly/> 
 										<input type="hidden" name="custmemberNo" id="custmemberNo" value="" />
 										<span class="input-group-btn">
-											<button class="btn btn-primary sch-partner"
+											<button class="btn btn-danger sch-partner"
 												data-remote="${path}/modal/popup.do?popId=custmem&compNo="
 												type="button" data-toggle="modal" data-target="#custmemberModal" 
-												id="custmemberModalbtn">
+												id="custmemberModalbtn" disabled>
 												<i class="icofont icofont-search"></i>
 											</button>
 										</span>
@@ -251,12 +251,10 @@ $('#userModal').on('show.bs.modal', function(e) {
 	modal.find('.modal-body').load(button.data("remote"));
 });
 
+// 
+
+
 $('#custmemberModal').on('show.bs.modal', function(e) {
-	if ($("#custName").val() == "") {
-		alert("거래처를 먼저 선택해주십시오.");
-		return false;
-	}
-	
 	var custNo = $("#custNo").val();
 	var url = '${path}/modal/popup.do?popId=custmem&compNo=' + custNo;
 	$("#custmemberModalbtn").data("remote",url);
@@ -273,6 +271,9 @@ function fnSetCustData(a, b) {
 	$("#custName").val(a);
 	$(".modal-backdrop").remove();
 	$("#custModal").modal("hide");
+	$("#custmemberModalbtn").attr('disabled', false);
+	$("#custmemberModalbtn").removeClass("btn-danger");
+	$("#custmemberModalbtn").addClass("btn-primary");	
 }
 
 function fnSetUserData(a, b) {

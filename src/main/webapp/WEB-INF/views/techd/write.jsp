@@ -140,10 +140,10 @@ $('input[name=radio]').on('click', function() {
 										<input type="text" class="form-control" name="custmemberName"  id="custmemberName" value="" readonly/> 
 										<input type="hidden" name="custmemberNo" id="custmemberNo" value="" />
 										<span class="input-group-btn">
-											<button class="btn btn-danger sch-partner"
+											<button class="btn btn-primary sch-partner"
 												data-remote="${path}/modal/popup.do?popId=custmem&compNo="
 												type="button" data-toggle="modal" data-target="#custmemberModal" 
-												id="custmemberModalbtn" disabled>
+												id="custmemberModalbtn">
 												<i class="icofont icofont-search"></i>
 											</button>
 										</span>
@@ -160,7 +160,7 @@ $('input[name=radio]').on('click', function() {
 													</div>
 													<div class="modal-body">
 														<h5>고객 목록</h5>
-														<p>Loading!!!</p>
+														<p>거래처를 먼저 입력해주셔야 목록이 보입니다.</p>
 													</div>
 													<div class="modal-footer">
 														<button type="button"
@@ -271,9 +271,12 @@ function fnSetCustData(a, b) {
 	$("#custName").val(a);
 	$(".modal-backdrop").remove();
 	$("#custModal").modal("hide");
+	/* 	
 	$("#custmemberModalbtn").attr('disabled', false);
 	$("#custmemberModalbtn").removeClass("btn-danger");
-	$("#custmemberModalbtn").addClass("btn-primary");	
+	$("#custmemberModalbtn").addClass("btn-primary");
+	// 고객검색 아이콘을 danger
+	*/
 }
 
 function fnSetUserData(a, b) {

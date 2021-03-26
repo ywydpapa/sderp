@@ -152,7 +152,7 @@ $(function(){
 												</div>
 												<div class="modal-body">
 													<h5>고객목록</h5>
-													<p>Loading!!!</p>
+													<p>거래처를 먼저 입력해주셔야 목록이 보입니다.</p>
 												</div>
 												<div class="modal-footer">
 													<button type="button" class="btn btn-default waves-effect "
@@ -253,11 +253,6 @@ $(function(){
 		modal.find('.modal-body').load(button.data("remote"));
 	});
 	$('#custmemberModal').on('show.bs.modal', function(e) {
-		if ($("#custName").val() == "") {
-			alert("거래처를 먼저 선택해주십시오.");
-			return false;
-		}
-		
 		var custNo = $("#custNo").val();
 		var url = '${path}/modal/popup.do?popId=custmem&compNo=' + custNo;
 		$("#custmemberModalbtn").data("remote",url);

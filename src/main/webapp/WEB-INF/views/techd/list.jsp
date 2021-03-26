@@ -134,7 +134,7 @@ $(function(){
 										name="custmemberNo" id="custmemberNo" value="" /> <span
 										class="input-group-btn">
 										<button class="btn btn-primary sch-company"
-											data-remote="${path}/modal/popup.do?popId=cust" type="button"
+											data-remote="${path}/modal/popup.do?popId=custmem&compNo=" type="button"
 											data-toggle="modal" data-target="#custmemberModal">
 											<i class="icofont icofont-search"></i>
 										</button>
@@ -252,6 +252,20 @@ $(function(){
 		var modal = $(this);
 		modal.find('.modal-body').load(button.data("remote"));
 	});
+	$('#custmemberModal').on('show.bs.modal', function(e) {
+		if ($("#custName").val() == "") {
+			alert("거래처를 먼저 선택해주십시오.");
+			return false;
+		}
+		
+		var custNo = $("#custNo").val();
+		var url = '${path}/modal/popup.do?popId=custmem&compNo=' + custNo;
+		$("#custmemberModalbtn").data("remote",url);
+		
+		var button = $(e.relatedTarget);
+		var modal = $(this);
+		modal.find('.modal-body').load(button.data("remote"));
+	});
 	function fnSetUserData(a, b) {
 		$("#userName").val(b);
 		$("#userNo").val(a);
@@ -263,6 +277,12 @@ $(function(){
 		$("#custName").val(a);
 		$(".modal-backdrop").remove();
 		$("#custModal").modal("hide");
+	}
+	function fnSetCustmereData(a, b) {
+		$("#custmemberNo").val(a);
+		$("#custmemberName").val(b);
+		$(".modal-backdrop").remove();
+		$("#custmemberModal").modal("hide");
 	}
 	
 	function fnListcon() {

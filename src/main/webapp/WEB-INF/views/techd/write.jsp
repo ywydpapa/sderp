@@ -258,7 +258,7 @@ $('#custmemberModal').on('show.bs.modal', function(e) {
 	}
 	
 	var custNo = $("#custNo").val();
-	var url = '/modal/popup.do?popId=custmem&compNo=' + custNo;	
+	var url = '${path}/modal/popup.do?popId=custmem&compNo=' + custNo;
 	$("#custmemberModalbtn").data("remote",url);
 	
 	var button = $(e.relatedTarget);

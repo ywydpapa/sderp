@@ -25,9 +25,48 @@ public class SoppDTO {
 	private String soppTypeN;
 	private String soppStatusN;
 	private String sopp2Desc;
+	private String targetDatefrom;
+	private String targetDateto;
+	private String businessType;
+	
+	
+	
+	public String getBusinessType() {
+		return businessType;
+	}
 
-	
-	
+
+
+	public void setBusinessType(String businessType) {
+		this.businessType = businessType;
+	}
+
+
+
+	public String getTargetDatefrom() {
+		return targetDatefrom;
+	}
+
+
+
+	public void setTargetDatefrom(String targetDatefrom) {
+		this.targetDatefrom = targetDatefrom;
+	}
+
+
+
+	public String getTargetDateto() {
+		return targetDateto;
+	}
+
+
+
+	public void setTargetDateto(String targetDateto) {
+		this.targetDateto = targetDateto;
+	}
+
+
+
 	public String getSopp2Desc() {
 		return sopp2Desc;
 	}

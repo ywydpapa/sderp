@@ -224,6 +224,23 @@ public class CodeDAOImpl implements CodeDAO {
 		return sqlSession.selectList("code.listBoardtype", soppdto);
 	}
 
+	@Override
+	public List<CodeDTO> listBusinessType() {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("code.listBusinessType");
+	}
+	
+	@Override
+	public List<CodeDTO> listContractType() {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("code.listContractType");
+	}
+	
+	@Override
+	public List<CodeDTO> listTechdSteps() {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("code.listTechdSteps");
+	}
 	
 
 	

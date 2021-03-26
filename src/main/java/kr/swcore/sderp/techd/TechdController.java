@@ -34,7 +34,16 @@ public class TechdController {
 	@RequestMapping("list.do")
 	public ModelAndView list(HttpSession session, ModelAndView mav) {
 		mav.setViewName("techd/list");
+		mav.addObject("techdSteps", codeService.listTechdSteps());
 		mav.addObject("list", techdService.listTechd(session));
+		return mav;
+	}
+	
+	@RequestMapping("listcon.do")
+	public ModelAndView listcon(HttpSession session, ModelAndView mav, TechdDTO dto) {
+		mav.setViewName("techd/list");
+		mav.addObject("preserveSearchCondition", "Y");
+		mav.addObject("list", techdService.listconTechd(session, dto));
 		return mav;
 	}
 

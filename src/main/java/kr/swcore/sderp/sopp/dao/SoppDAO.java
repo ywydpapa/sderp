@@ -7,8 +7,10 @@ import kr.swcore.sderp.sopp.dto.SoppDTO;
 public interface SoppDAO {
 	List<SoppDTO> listSopp();
 	List<SoppDTO> listSopp(SoppDTO dto);
+	List<SoppDTO> listconSopp(SoppDTO dto);
 	List<SoppDTO> listSopp2();
-	List<SoppDTO> listSoppcon(SoppDTO dto);
+	List<SoppDTO> listSopp2(SoppDTO dto);
+	List<SoppDTO> listconSopp2(SoppDTO dto);
 	SoppDTO detailSopp(int soppNo);
 	int updateSopp(SoppDTO dto);
 	int deleteSopp(int soppNo);

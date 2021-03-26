@@ -17,6 +17,36 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  		order by schedNo 
  </select>
 
+<select id="listconSched"
+ 		resultType="schedDto">
+ 		select a.*, b.custName, c.soppTitle, d.userName, e.desc03 schedCatN, f.desc03 schedTypeN  
+ 		from swc_sched a 
+ 		left join swc_cust b on a.custNo=b.custNo
+ 		left join swc_sopp c on a.soppNo=c.soppNo
+ 		left join swc_user d on a.userNo=d.userNo
+ 		left join swc_code e on a.schedCat = e.codeNo
+ 		left join swc_code f on a.schedType = f.codeNo
+ 		where a.attrib not like 'XXX%' and a.compNo = #{compNo}
+ 		<if test="userNo != null and userNo != ''">
+ 		 	and a.userNo = #{userNo}
+ 		</if>
+ 		<if test="soppNo != null and soppNo != ''">
+ 		 	and a.soppNo = #{soppNo}
+ 		</if>
+ 		<if test="custNo != null and custNo != ''">
+ 		 	and a.custNo = #{custNo}
+ 		</if>
+ 		<if test="schedCat != null and schedCat != ''">
+ 		 	and a.schedCat = #{schedCat}
+ 		</if>
+ 		<if test="schedFrom != null and schedFrom != ''">
+ 		 	and date_format(a.schedFrom, '%Y-%m-%d') <![CDATA[>=]]> #{schedFrom}
+ 		</if>
+ 		<if test="schedTo != null and schedTo != ''">
+ 			and date_format(a.schedTo, '%Y-%m-%d') <![CDATA[<=]]> #{schedTo}
+ 		</if>
+ 		order by schedNo 
+ </select>
 
 <select id="detailSched"
  		resultType="schedDto">

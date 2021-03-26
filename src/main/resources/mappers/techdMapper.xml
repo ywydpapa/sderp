@@ -13,6 +13,38 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		left join swc_cont e on a.contNo = e.contNo 
 		where a.attrib not like 'XXX%' and a.compNo = #{compNo} order by techdNo 
  </select>
+ 
+ <select id="listconTechd"
+ 		resultType="TechdDto">
+ 		select a.*, b.userName , c.custName from swc_techd a  
+		left join swc_user b on a.userNo = b.userNo
+		left join swc_cust c on a.custNo = c.custNo
+		left join swc_sopp d on a.soppNo = d.soppNo
+		left join swc_cont e on a.contNo = e.contNo 
+		where a.attrib not like 'XXX%' and a.compNo = #{compNo} 
+		<if test="userNo != null and userNo != ''">
+ 		 	and a.userNo = #{userNo}
+ 		</if>
+ 		<if test="custNo != null and custNo != ''">
+ 		 	and a.custNo = #{custNo}
+ 		</if>
+ 		<if test="custmemberNo != null and custmemberNo != ''">
+ 		 	and a.custmemberNo = #{custmemberNo}
+ 		</if>
+ 		<if test="techdSteps != null and techdSteps != ''">
+ 		 	and a.techdSteps = #{techdSteps}
+ 		</if>
+ 		<if test="targetDatefrom != null and targetDatefrom != ''">
+ 		 	and date_format(a.regdatetime, '%Y-%m-%d') <![CDATA[>=]]> #{targetDatefrom}
+ 		</if>
+ 		<if test="targetDateto != null and targetDateto != ''">
+ 			and date_format(a.regdatetime, '%Y-%m-%d') <![CDATA[<=]]> #{targetDateto}
+ 		</if>
+ 		<if test="techdDesc != null and techdDesc != ''">
+ 			and a.techdDesc like CONCAT('%', #{techdDesc}, '%')
+ 		</if>
+		order by techdNo 
+ </select>
 
 <select id="detailTechd"
  		resultType="techdDto">

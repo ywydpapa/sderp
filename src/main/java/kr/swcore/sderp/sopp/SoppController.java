@@ -48,19 +48,37 @@ public class SoppController {
 		mav.setViewName("sopp/list");
 		mav.addObject("saleslist", codeService.listSalestype(session));
 		mav.addObject("sstatuslist", codeService.listSstatus(session));
+		mav.addObject("businessType", codeService.listBusinessType());
 		mav.addObject("list", soppService.listSopp(session));
+		return mav;
+	}
+	
+	//검색 버튼 클릭 시
+	@RequestMapping("listcon.do")
+	public ModelAndView listcon(HttpSession session, ModelAndView mav, SoppDTO dto) {
+		mav.setViewName("sopp/list");
+		mav.addObject("list", soppService.listconSopp(session, dto));
+		mav.addObject("preserveSearchCondition", "Y");
 		return mav;
 	}
 
 	@RequestMapping("list2.do")
-	public ModelAndView list2(ModelAndView mav) {
+	public ModelAndView list2(HttpSession session, ModelAndView mav) {
 		mav.setViewName("sopp/list2");
-		mav.addObject("saleslist", codeService.listSalestype());
-		mav.addObject("sstatuslist", codeService.listSstatus());
-		mav.addObject("list", soppService.listSopp2());
+		mav.addObject("saleslist", codeService.listSalestype(session));
+		mav.addObject("sstatuslist", codeService.listSstatus(session));
+		mav.addObject("businessType", codeService.listBusinessType());
+		mav.addObject("list", soppService.listSopp2(session));
 		return mav;
 	}
 
+	@RequestMapping("list2con.do")
+	public ModelAndView list2con(HttpSession session, ModelAndView mav, SoppDTO dto) {
+		mav.setViewName("sopp/list2");
+		mav.addObject("preserveSearchCondition", "Y");
+		mav.addObject("list", soppService.listconSopp2(session, dto));
+		return mav;
+	}
 
 	@RequestMapping("listdata01.do")
 	public ModelAndView listdata01(@RequestParam int soppNo, ModelAndView mav) {
@@ -68,16 +86,6 @@ public class SoppController {
 		mav.addObject("listdata01", soppdataService.listSoppdata01(soppNo));
 		return mav;
 	}
-
-	
-	@RequestMapping("listcon.do")
-	public ModelAndView listcon(@ModelAttribute SoppDTO dto, ModelAndView mav) {
-		logger.info("soppListcon logger : " + dto.toString());
-		mav.setViewName("sopp/listcon");
-		mav.addObject("list", soppService.listSoppcon(dto));
-		return mav;
-	}
-
 
 	@RequestMapping("/detail/{soppNo}")
 	public ModelAndView detail(@PathVariable("soppNo") int soppNo, ModelAndView mav) {

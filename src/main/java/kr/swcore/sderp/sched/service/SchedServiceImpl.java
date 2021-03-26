@@ -28,6 +28,13 @@ public class SchedServiceImpl implements SchedService {
 		SoppDTO soppdto = SessionInfoGet.getCompNoDto(session);
 		return schedDao.listSched(soppdto);
 	}
+	
+	@Override
+	public List<SchedDTO> listconSched(HttpSession session, SchedDTO dto) {
+		int compNo = SessionInfoGet.getCompNo(session);
+		dto.setCompNo(compNo);
+		return schedDao.listconSched(dto);
+	}
 
 	@Override
 	public SchedDTO detailSched(int schedNo) {

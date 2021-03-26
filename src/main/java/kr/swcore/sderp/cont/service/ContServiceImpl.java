@@ -30,6 +30,13 @@ public class ContServiceImpl implements ContService {
 		
 		return contDao.listCont(soppdto);
 	}
+	
+	@Override
+	public List<ContDTO> listconCont(HttpSession session, ContDTO dto) {
+		int compNo = SessionInfoGet.getCompNo(session);
+		dto.setCompNo(compNo);
+		return contDao.listconCont(dto);
+	}
 
 	@Override
 	public ContDTO detailCont(int contNo) {

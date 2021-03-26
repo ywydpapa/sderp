@@ -42,6 +42,15 @@ public class SalesController {
 		return mav;
 	}
 	
+	//검색 버튼 클릭 시
+	@RequestMapping("listcon.do")
+	public ModelAndView listcon(HttpSession session, ModelAndView mav, @ModelAttribute SalesDTO dto) {
+		mav.setViewName("sales/list");
+		mav.addObject("list", salesService.listconSales(session, dto));
+		mav.addObject("preserveSearchCondition", "Y");
+		return mav;
+	}
+	
 	@RequestMapping("setTarget.do")		// OrganizController 컨트롤러 list 메소드는 사용안하고 현재 컨트롤러 settarget 메소드로 사용
 	public ModelAndView settarget(HttpSession session, ModelAndView mav) {
 		mav.addObject("listDept", organizService.listDept(session));

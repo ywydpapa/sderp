@@ -26,6 +26,11 @@ public class TechdDAOImpl implements TechdDAO {
 	public List<TechdDTO> listTechd(SoppDTO soppDTO) {
 		return sqlSession.selectList("techd.listTechd", soppDTO);
 	}
+	
+	@Override
+	public List<TechdDTO> listconTechd(TechdDTO dto) {
+		return sqlSession.selectList("techd.listconTechd", dto);
+	}
 
 	@Override
 	public TechdDTO detailTechd(int techdNo) {

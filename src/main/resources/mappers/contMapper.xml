@@ -12,6 +12,51 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where a.attrib not like 'XXX%' and a.compNo = #{compNo}
 		order by contNo 
  </select>
+ 
+ <select id="listconCont"
+ 		resultType="contDto">
+ 		select a.*, b.userName , c.custName from swc_cont a  
+		left join swc_user b on a.userNo = b.userNo
+		left join swc_cust c on a.custNo = c.custNo 
+		where a.attrib not like 'XXX%' and a.compNo = #{compNo}
+		<if test="custNo != null and custNo != ''">
+ 		 	and a.custNo = #{custNo}
+ 		</if>
+ 		<if test="ptncNo != null and ptncNo != ''">
+ 		 	and a.ptncNo = #{ptncNo}
+ 		</if>
+ 		<if test="supplyNo != null and supplyNo != ''">
+ 		 	and a.supplyNo = #{supplyNo}
+ 		</if>
+ 		<if test="buyrNo != null and buyrNo != ''">
+ 		 	and a.buyrNo = #{buyrNo}
+ 		</if>
+ 		<if test="contTitle != null and contTitle != ''">
+ 		 	and a.contTitle like CONCAT('%', #{contTitle}, '%')
+ 		</if>
+ 		<if test="contType != null and contType != ''">
+ 		 	and a.contType = #{contType}
+ 		</if>
+ 		<if test="targetDatefrom != null and targetDatefrom != ''">
+ 		 	and date_format(a.delivDate, '%Y-%m-%d') <![CDATA[>=]]> #{targetDatefrom}
+ 		</if>
+ 		<if test="targetDateto != null and targetDateto != ''">
+ 			and date_format(a.delivDate, '%Y-%m-%d') <![CDATA[<=]]> #{targetDateto}
+ 		</if>
+ 		<if test="userName != null and userName != ''">
+ 		 	and b.userName like CONCAT('%', #{userName}, '%')
+ 		</if>
+ 		<if test="businessType != null and businessType != ''">
+ 		 	and a.businessType = #{businessType}
+ 		</if>
+ 		<if test="freemaintSdate != null and freemaintSdate != ''">
+ 		 	and date_format(a.freemaintSdate, '%Y-%m-%d') <![CDATA[>=]]> #{freemaintSdate}
+ 		</if>
+ 		<if test="freemaintEdate != null and freemaintEdate != ''">
+ 			and date_format(a.freemaintEdate, '%Y-%m-%d') <![CDATA[<=]]> #{freemaintEdate}
+ 		</if>
+		order by contNo 
+ </select>
 
 <select id="detailCont"
  		resultType="contDto">

@@ -32,6 +32,42 @@ public class ContDTO {
 	private String supplyName;
 	private String custmemberName;
 	private String ptncName;
+	private String targetDatefrom;
+	private String targetDateto;
+	private int buyrNo;
+	private String buyrName;
+	private String businessType;
+	
+	public String getTargetDatefrom() {
+		return targetDatefrom;
+	}
+	public void setTargetDatefrom(String targetDatefrom) {
+		this.targetDatefrom = targetDatefrom;
+	}
+	public String getTargetDateto() {
+		return targetDateto;
+	}
+	public void setTargetDateto(String targetDateto) {
+		this.targetDateto = targetDateto;
+	}
+	public int getBuyrNo() {
+		return buyrNo;
+	}
+	public void setBuyrNo(int buyrNo) {
+		this.buyrNo = buyrNo;
+	}
+	public String getBuyrName() {
+		return buyrName;
+	}
+	public void setBuyrName(String buyrName) {
+		this.buyrName = buyrName;
+	}
+	public String getBusinessType() {
+		return businessType;
+	}
+	public void setBusinessType(String businessType) {
+		this.businessType = businessType;
+	}
 	public int getContNo() {
 		return contNo;
 	}

@@ -15,6 +15,36 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where a.attrib not like 'XXX%' and a.compNo = #{compNo} 
 		order by salesNo 
  </select>
+ 
+ <select id="listconSales"
+ 		resultType="salesDto">
+ 		select a.*, b.userName , c.custName, d.soppTitle, e.custName ptncName, f.desc03 salesTypeN from swc_sales a  
+		left join swc_user b on a.userNo = b.userNo
+		left join swc_cust c on a.custNo = c.custNo
+		left join swc_sopp d on a.soppNo = d.soppNo
+		left join swc_cust e on a.ptncNo = e.custNo
+		left join swc_code f on a.salesType = f.codeNo
+		where a.attrib not like 'XXX%' and a.compNo = #{compNo}
+		<if test="userNo != null and userNo != ''">
+ 		 	and a.userNo = #{userNo}
+ 		</if>
+ 		<if test="soppNo != null and soppNo != ''">
+ 		 	and a.soppNo = #{soppNo}
+ 		</if>
+ 		<if test="custNo != null and custNo != ''">
+ 		 	and a.custNo = #{custNo}
+ 		</if>
+ 		<if test="salesType != null and salesType != ''">
+ 		 	and a.salesType = #{salesType}
+ 		</if>
+ 		<if test="salesFrdatetime != null and salesFrdatetime != ''">
+ 		 	and date_format(a.salesFrdatetime, '%Y-%m-%d') <![CDATA[>=]]> #{salesFrdatetime}
+ 		</if>
+ 		<if test="salesTodatetime != null and salesTodatetime != ''">
+ 			and date_format(a.salesTodatetime, '%Y-%m-%d') <![CDATA[<=]]> #{salesTodatetime}
+ 		</if> 
+		order by salesNo 
+ </select>
 
 <select id="listSalesinsopp"
  		resultType="salesDto">

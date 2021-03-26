@@ -10,8 +10,10 @@ public interface SoppService {
 	
 		List<SoppDTO> listSopp();
 		List<SoppDTO> listSopp(HttpSession session);
+		List<SoppDTO> listconSopp(HttpSession session, SoppDTO dto);
 		List<SoppDTO> listSopp2();
-		List<SoppDTO> listSoppcon(SoppDTO dto);
+		List<SoppDTO> listSopp2(HttpSession session);
+		List<SoppDTO> listconSopp2(HttpSession session, SoppDTO dto);
 		SoppDTO detailSopp(int soppNo);
 		int updateSopp(SoppDTO dto);
 		int deleteSopp(int soppNo);

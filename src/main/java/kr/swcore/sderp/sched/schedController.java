@@ -44,6 +44,15 @@ public class schedController {
 		mav.setViewName("sched/list");
 		return mav;
 	}
+	
+	//검색 버튼 클릭 시
+	@RequestMapping("listcon.do")
+	public ModelAndView listcon(HttpSession session, ModelAndView mav, @ModelAttribute SchedDTO dto) {
+		mav.addObject("list", schedService.listconSched(session, dto));
+		mav.addObject("preserveSearchCondition", "Y");
+		mav.setViewName("sched/list");
+		return mav;
+	}
 
 	@RequestMapping("/detail/{schedNo}")
 	public ModelAndView detail(@PathVariable("schedNo") int schedNo, ModelAndView mav) {

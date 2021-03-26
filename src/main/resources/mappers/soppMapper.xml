@@ -14,6 +14,38 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where a.attrib not like 'XXX%' and b.compNo = #{compNo}
 		order by soppNo 
  </select>
+ 
+ <select id="listconSopp"
+ 		resultType="soppDto">
+ 		select a.*, b.userName , c.custName, d.desc03 soppTypeN, e.desc03 soppStatusN from swc_sopp a  
+		left join swc_user b on a.userNo = b.userNo
+		left join swc_cust c on a.custNo = c.custNo
+		left join swc_code d on a.soppType = d.codeNo 
+		left join swc_code e on a.soppStatus = e.codeNo
+		where a.attrib not like 'XXX%' and b.compNo = #{compNo}
+		<if test="userNo != null and userNo != ''">
+ 		 	and a.userNo = #{userNo}
+ 		</if>
+ 		<if test="custNo != null and custNo != ''">
+ 		 	and a.custNo = #{custNo}
+ 		</if>
+ 		<if test="targetDatefrom != null and targetDatefrom != ''">
+ 		 	and date_format(a.soppTargetDate, '%Y-%m-%d') <![CDATA[>=]]> #{targetDatefrom}
+ 		</if>
+ 		<if test="targetDateto != null and targetDateto != ''">
+ 			and date_format(a.soppTargetDate, '%Y-%m-%d') <![CDATA[<=]]> #{targetDateto}
+ 		</if>
+ 		<if test="soppType != null and soppType != ''">
+ 		 	and a.soppType = #{soppType}
+ 		</if>
+ 		<if test="soppStatus != null and soppStatus != ''">
+ 		 	and a.soppStatus = #{soppStatus}
+ 		</if>
+ 		<if test="businessType != null and businessType != ''">
+ 		 	and a.businessType = #{businessType}
+ 		</if>
+		order by soppNo 
+ </select>
 
 <select id="listSopp2"
  		resultType="soppDto">
@@ -22,7 +54,36 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		left join swc_cust c on a.custNo = c.custNo
 		left join swc_code d on a.soppType = d.codeNo 
 		left join swc_code e on a.soppStatus = e.codeNo
-		where a.attrib not like 'XXX%' and a.soppStatus='10057' order by soppNo 
+		where a.attrib not like 'XXX%' and a.soppStatus='10057' and b.compNo = #{compNo} order by soppNo 
+ </select>
+ 
+ <select id="listconSopp2"
+ 		resultType="soppDto">
+ 		select a.*, b.userName , c.custName, d.desc03 soppTypeN, e.desc03 soppStatusN from swc_sopp a  
+		left join swc_user b on a.userNo = b.userNo
+		left join swc_cust c on a.custNo = c.custNo
+		left join swc_code d on a.soppType = d.codeNo 
+		left join swc_code e on a.soppStatus = e.codeNo
+		where a.attrib not like 'XXX%' and a.soppStatus='10057' and b.compNo = #{compNo}
+		<if test="userNo != null and userNo != ''">
+ 		 	and a.userNo = #{userNo}
+ 		</if>
+ 		<if test="custNo != null and custNo != ''">
+ 		 	and a.custNo = #{custNo}
+ 		</if>
+ 		<if test="targetDatefrom != null and targetDatefrom != ''">
+ 		 	and date_format(a.soppTargetDate, '%Y-%m-%d') <![CDATA[>=]]> #{targetDatefrom}
+ 		</if>
+ 		<if test="targetDateto != null and targetDateto != ''">
+ 			and date_format(a.soppTargetDate, '%Y-%m-%d') <![CDATA[<=]]> #{targetDateto}
+ 		</if>
+ 		<if test="soppType != null and soppType != ''">
+ 		 	and a.soppType = #{soppType}
+ 		</if>
+ 		<if test="businessType != null and businessType != ''">
+ 		 	and a.businessType = #{businessType}
+ 		</if>
+		order by soppNo 
  </select>
 
 
@@ -85,7 +146,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		order by soppNo
  </select>
 
-<select id="listSoppcon"
+<!-- <select id="listSoppcon"
  		resultType="soppDto">
  		select a.*, b.userName , d.custName from swc_sopp a  
 		left join swc_user b on a.userNo = b.userNo
@@ -107,7 +168,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		and a.soppStatus = #{soppStatus}
 		</if>
 		order by soppNo 
- </select>
+ </select> -->
 
  <insert id="insertSoppdata01">
  insert into swc_soppData01 

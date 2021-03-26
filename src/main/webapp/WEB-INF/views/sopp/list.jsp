@@ -16,165 +16,166 @@ $(function(){
     });
 });
 </script>
-<!-- DB TABLE 실행 -->
-<!--영업기회조회-->
-<!-- Page-header start 페이지 타이틀-->
-<div class="page-header2">
-	<div class="row align-items-end">
-		<div class="col-lg-12">
-			<div class="page-header-title">
-				<div class="d-inline">
-					영업기회조회
+	<c:if test="${preserveSearchCondition != 'Y'}">
+		<!-- DB TABLE 실행 -->
+		<!--영업기회조회-->
+		<!-- Page-header start 페이지 타이틀-->
+		<div class="page-header2">
+			<div class="row align-items-end">
+				<div class="col-lg-12">
+					<div class="page-header-title">
+						<div class="d-inline">
+							영업기회조회
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
-	</div>
-</div>
-<!--Page-header end 페이지 타이틀 -->
-
-<!--영업기회조회-->
-<div class="cnt_wr">
-	<div class="row">
-		<form id="searchForm" method="post" onsubmit="return false;" class="col-sm-12">
-			<div class="col-sm-12">
-				<div class="card_box sch_it">
-					<div class="btn_wr text-right">
-						<button class="btn btn-sm btn-inverse" onClick="javascript:fnClearall()"><i class="icofont icofont-spinner-alt-3"></i>초기화</button>
-						<button class="btn btn-sm btn-primary" onClick="javascript:fnListcon()"><i class="icofont icofont-search"></i>검색</button>
-						<button class="btn btn-sm btn-outline" onClick="javascript:fnSetPage('${path}/sopp/write.do')"><i class="icofont icofont-pencil-alt-2"></i>등록</button>
-					</div>
-					<!--row-->
-					<div class="form-group row">
-						<!--담당자-->
-						<div class="col-sm-12 col-xl-3">
-							<label class="col-form-label" for="userName">담당자</label>
-							<div class="input-group input-group-sm mb-0">
-								<input type="text" class="form-control" name="userName" id="userName" value=""  readonly />
-								 <input type="hidden" name="userNo" 	id="userNo" value="" /> 
-								 <span class="input-group-btn">
-									<button class="btn btn-primary sch-company"
-										data-remote="${path}/modal/popup.do?popId=user"
-										type="button" data-toggle="modal" data-target="#userModal">
-										<i class="icofont icofont-search"></i>
-									</button>
-								</span>
-								<!--modal-->
-								<div class="modal fade " id="userModal" tabindex="-1" role="dialog">
-									<div class="modal-dialog modal-80size" role="document">
-										<div class="modal-content modal-80size">
-											<div class="modal-header">
-												<h4 class="modal-title"></h4>
-												<button type="button" class="close" data-dismiss="modal"
-													aria-label="Close">
-													<span aria-hidden="true">&times;</span>
-												</button>
-											</div>
-											<div class="modal-body">
-												<h5>사용자목록</h5>
-												<p>Loading!!!</p>
-											</div>
-											<div class="modal-footer">
-												<button type="button"
-													class="btn btn-default waves-effect "
-													data-dismiss="modal">Close</button>
+		<!--Page-header end 페이지 타이틀 -->
+		
+		<!--영업기회조회-->
+		<div class="cnt_wr">
+			<div class="row">
+				<form id="searchForm" method="post" onsubmit="return false;" class="col-sm-12">
+					<div class="col-sm-12">
+						<div class="card_box sch_it">
+							<div class="btn_wr text-right">
+								<button class="btn btn-sm btn-inverse" onClick="javascript:fnClearall()"><i class="icofont icofont-spinner-alt-3"></i>초기화</button>
+								<button class="btn btn-sm btn-primary" onClick="javascript:fnListcon()"><i class="icofont icofont-search"></i>검색</button>
+								<button class="btn btn-sm btn-outline" onClick="javascript:fnSetPage('${path}/sopp/write.do')"><i class="icofont icofont-pencil-alt-2"></i>등록</button>
+							</div>
+							<!--row-->
+							<div class="form-group row">
+								<!--담당자-->
+								<div class="col-sm-12 col-xl-3">
+									<label class="col-form-label" for="userName">담당자</label>
+									<div class="input-group input-group-sm mb-0">
+										<input type="text" class="form-control" name="userName" id="userName" value=""  readonly />
+										 <input type="hidden" name="userNo" 	id="userNo" value="" /> 
+										 <span class="input-group-btn">
+											<button class="btn btn-primary sch-company"
+												data-remote="${path}/modal/popup.do?popId=user"
+												type="button" data-toggle="modal" data-target="#userModal">
+												<i class="icofont icofont-search"></i>
+											</button>
+										</span>
+										<!--modal-->
+										<div class="modal fade " id="userModal" tabindex="-1" role="dialog">
+											<div class="modal-dialog modal-80size" role="document">
+												<div class="modal-content modal-80size">
+													<div class="modal-header">
+														<h4 class="modal-title"></h4>
+														<button type="button" class="close" data-dismiss="modal"
+															aria-label="Close">
+															<span aria-hidden="true">&times;</span>
+														</button>
+													</div>
+													<div class="modal-body">
+														<h5>사용자목록</h5>
+														<p>Loading!!!</p>
+													</div>
+													<div class="modal-footer">
+														<button type="button"
+															class="btn btn-default waves-effect "
+															data-dismiss="modal">Close</button>
+													</div>
+												</div>
 											</div>
 										</div>
+										<!--//modal-->
 									</div>
 								</div>
-								<!--//modal-->
+								<!--//담당자-->
+								<!--거래처-->
+								<div class="col-sm-12 col-xl-3">
+									<label class="col-form-label" for="custName">거래처</label>
+									<div class="input-group input-group-sm">
+										<input type="text" class="form-control" name="custName" id="custName" value="" readonly/>
+										<input type="hidden" name="custNo" id="custNo" value="" /> 
+										<span class="input-group-btn">
+											<button class="btn btn-primary sch-company"
+												data-remote="${path}/modal/popup.do?popId=cust"
+												type="button" data-toggle="modal" data-target="#custModal">
+												<i class="icofont icofont-search"></i>
+											</button>
+										</span>
+										<!--modal-->
+										<div class="modal fade " id="custModal" tabindex="-1"
+											role="dialog">
+											<div class="modal-dialog modal-80size" role="document">
+												<div class="modal-content modal-80size">
+													<div class="modal-header">
+														<h4 class="modal-title">거래처검색</h4>
+														<button type="button" class="close" data-dismiss="modal"
+															aria-label="Close">
+															<span aria-hidden="true">&times;</span>
+														</button>
+													</div>
+													<div class="modal-body">
+														<h5>거래처목록</h5>
+														<p>Loading!!!</p>
+													</div>
+													<div class="modal-footer">
+														<button type="button"
+															class="btn btn-default waves-effect "
+															data-dismiss="modal">Close</button>
+													</div>
+												</div> 
+											</div>
+										</div>
+										<!--//modal-->
+									</div>	
+								</div>
+								<!--//거래처-->
+								<!--매출예정일-->
+								<div class="col-sm-12 col-xl-6">
+									<label class="col-form-label" for="targetDate">매출예정일</label>
+									<p class="input_inline mb-0"><input class="form-control form-control-sm col-xl-6" type="date" id="targetDatefrom" onInput="javascript:inputDate($('#targetDatefrom').val(), $('#targetDateto').val())"> ~ <input class="form-control form-control-sm col-xl-6" type="date" id="targetDateto" onInput="javascript:inputDate($('#targetDatefrom').val(), $('#targetDateto').val())">
+									</p>
+								</div>
+								<!--//매출예정일-->
+							</div>
+							<!--//row-->
+							<div class="form-group row">
+								<div class="col-sm-12 col-xl-4">
+									<label class="col-form-label" for="soppType">판매방식</label>
+									<select class="form-control form-control-sm" name="soppType" id="soppType" title="선택">
+										<option value></option>
+										<c:forEach var = "saleslist" items="${saleslist}">	
+										<option value="${saleslist.codeNo}">${saleslist.desc03}</option>			
+										</c:forEach>
+									</select>
+								</div>
+								<div class="col-sm-12 col-xl-4">
+									<label class="col-form-label" for="soppType">영업타입</label>
+									<select name="select" class="form-control form-control-sm" id="businessType">
+										<option value></option>
+										<c:forEach var="businessType" items="${businessType}">
+											<option value="${businessType.codeNo}">${businessType.desc03}</option>
+										</c:forEach>
+									</select>
+								</div>
+								<div class="col-sm-12 col-xl-4">
+									<label class="col-form-label" for="soppStatus">진행단계</label>
+									<select class="form-control form-control-sm" name="soppStatus" id="soppStatus" title="선택">
+										<option value></option>
+										<c:forEach var = "sstatuslist" items="${sstatuslist}">	
+										<option value="${sstatuslist.codeNo}">${sstatuslist.desc03}</option>			
+										</c:forEach>
+									</select>
+								</div>
 							</div>
 						</div>
-						<!--//담당자-->
-						<!--거래처-->
-						<div class="col-sm-12 col-xl-3">
-							<label class="col-form-label" for="custName">거래처</label>
-							<div class="input-group input-group-sm">
-								<input type="text" class="form-control" name="custName" id="custName" value="" readonly/>
-								<input type="hidden" name="custNo" id="custNo" value="" /> 
-								<span class="input-group-btn">
-									<button class="btn btn-primary sch-company"
-										data-remote="${path}/modal/popup.do?popId=cust"
-										type="button" data-toggle="modal" data-target="#custModal">
-										<i class="icofont icofont-search"></i>
-									</button>
-								</span>
-								<!--modal-->
-								<div class="modal fade " id="custModal" tabindex="-1"
-									role="dialog">
-									<div class="modal-dialog modal-80size" role="document">
-										<div class="modal-content modal-80size">
-											<div class="modal-header">
-												<h4 class="modal-title">거래처검색</h4>
-												<button type="button" class="close" data-dismiss="modal"
-													aria-label="Close">
-													<span aria-hidden="true">&times;</span>
-												</button>
-											</div>
-											<div class="modal-body">
-												<h5>거래처목록</h5>
-												<p>Loading!!!</p>
-											</div>
-											<div class="modal-footer">
-												<button type="button"
-													class="btn btn-default waves-effect "
-													data-dismiss="modal">Close</button>
-											</div>
-										</div> 
-									</div>
-								</div>
-								<!--//modal-->
-							</div>	
-						</div>
-						<!--//거래처-->
-						<!--매출예정일-->
-						<div class="col-sm-12 col-xl-6">
-							<label class="col-form-label" for="targetDate">매출예정일</label>
-							<p class="input_inline mb-0"><input class="form-control form-control-sm col-xl-6" type="date" id="targetDatefrom"> ~ <input class="form-control form-control-sm col-xl-6" type="date" id="targetDateto">
-							</p>
-						</div>
-						<!--//매출예정일-->
 					</div>
-					<!--//row-->
-					<div class="form-group row">
-						<div class="col-sm-12 col-xl-4">
-							<label class="col-form-label" for="soppType">판매방식</label>
-							<select class="form-control form-control-sm" name="soppType" id="soppType" title="선택">
-								<c:forEach var = "saleslist" items="${saleslist}">	
-								<option value="${saleslist.codeNo}">${saleslist.desc03}</option>			
-								</c:forEach>
-							</select>
-						</div>
-						<div class="col-sm-12 col-xl-4">
-							<label class="col-form-label" for="soppType">영업타입</label>
-							<select name="select" class="form-control form-control-sm" id="soppType">
-								<option value="">선택</option>
-								<option value="01">신규</option>			
-								<option value="02">노후화교체</option>			
-								<option value="03">윈백</option>			
-								<option value="04">증설</option>			
-								<option value="05">이중화</option>			
-								<option value="06">조달구매</option>			
-								<option value="99">기타</option>	
-							</select>
-						</div>
-						<div class="col-sm-12 col-xl-4">
-							<label class="col-form-label" for="soppStatus">진행단계</label>
-							<select class="form-control form-control-sm" name="soppStatus" id="soppStatus" title="선택">
-								<c:forEach var = "sstatuslist" items="${sstatuslist}">	
-								<option value="${sstatuslist.codeNo}">${sstatuslist.desc03}</option>			
-								</c:forEach>
-							</select>
-						</div>
-					</div>
-				</div>
+				</form>
 			</div>
-		</form>
-	</div>
-</div>
-<!--//영업기회조회-->
+		</div>
+		<!--//영업기회조회-->
+	
+	</c:if>
 
  <!--리스트 table-->
-<div class="cnt_wr">
+<div class="cnt_wr" id="list-container">
 	<div class="row">
 		<div class="col-sm-12">
 			<div class="card-block table-border-style">
@@ -249,47 +250,17 @@ $(function(){
 			$("#userModal").modal("hide");
 		}
     		
-    	function fnClearall(){
-    		$("#searchForm").each(function(){
-    			this.reset();
-    		});
-    	}
-
     	function fnListcon() {
     		var soppData = {};
-    	 	var userNo = $("#userNo").val();
-    	 	
-    	 	if (userNo){
-    			soppData.userNo 		= $("#userNo").val();
-    		}
-/*     	 
+    		soppData.userNo = $("#userNo").val() ? $("#userNo").val() : 0;
+    		soppData.custNo = $("#custNo").val() ? $("#custNo").val() : 0;
+    		soppData.targetDatefrom = $("#targetDatefrom").val() ? $("#targetDatefrom").val() : null;
+    		soppData.targetDateto = $("#targetDateto").val() ? $("#targetDateto").val() : null;
+    		soppData.soppType = $("#soppType").val() ? $("#soppType").val() : null;
+    		soppData.businessType = $("#businessType").val() ? $("#businessType").val() : null;
+    		soppData.soppStatus = $("#soppStatus").val() ? $("#soppStatus").val() : null;
     		
-    		soppData.custNo 		= $("#custNo").val();
-    		soppData.soppStatus 		= $("#soppStatus").val();
-    		soppData.soppSrate 		= $("#soppSrate").val();
-     		soppData.soppTargetDate		= $("#soppTargetDate").val(); 
-   		    soppData.soppType 		= $("#soppType").val();
- */    		console.log(soppData);
- 
- 			fnSetPage('${path}/sopp/listcon.do', soppData);
-    		/*
-    		$.ajax({ url: "${path}/sopp/listcon.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소 
-    					data: soppData , // HTTP 요청과 함께 서버로 보낼 데이터 
-    					method: "POST", // HTTP 요청 메소드(GET, POST 등) 
-    					dataType: "json" // 서버에서 보내줄 데이터의 타입 
-    				}) // HTTP 요청이 성공하면 요청한 데이터가 done() 메소드로 전달됨. .
-    				.done(function(data) {
-    					if(data.code == 10001){
-    						alert("조회 성공");
-    						fnSetPage('${path}/sopp/list.do');
-    					}else{
-    						alert("조회 실패");
-    					}
-    				}) // HTTP 요청이 실패하면 오류와 상태에 관한 정보가 fail() 메소드로 전달됨. 
-    				.fail(function(xhr, status, errorThrown) { 
-    					alert("통신 실패");
-    				});
- 			*/
+    		fnSetList('${path}/sopp/listcon.do', soppData);
    		}
 </script>
 

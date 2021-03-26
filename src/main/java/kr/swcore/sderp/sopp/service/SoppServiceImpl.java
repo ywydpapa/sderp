@@ -30,15 +30,29 @@ public class SoppServiceImpl implements SoppService {
 	}
 	
 	@Override
+	public List<SoppDTO> listconSopp(HttpSession session, SoppDTO dto) {
+		int compNo = SessionInfoGet.getCompNo(session);
+		dto.setCompNo(compNo);
+		return soppDao.listconSopp(dto);
+	}
+	
+	@Override
 	public List<SoppDTO> listSopp2() {
 		// TODO Auto-generated method stub
 		return soppDao.listSopp2();
 	}
-
+	
 	@Override
-	public List<SoppDTO> listSoppcon(SoppDTO dto) {
-		// TODO Auto-generated method stub
-		return soppDao.listSoppcon(dto);
+	public List<SoppDTO> listSopp2(HttpSession session) {
+		SoppDTO soppdto = SessionInfoGet.getCompNoDto(session);
+		return soppDao.listSopp2(soppdto);
+	}
+	
+	@Override
+	public List<SoppDTO> listconSopp2(HttpSession session, SoppDTO dto) {
+		int compNo = SessionInfoGet.getCompNo(session);
+		dto.setCompNo(compNo);
+		return soppDao.listconSopp2(dto);
 	}
 	
 	@Override

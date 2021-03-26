@@ -24,9 +24,25 @@ public class TechdDTO {
 	private String soppTitle;
 	private String custmemberName;
 	private String regdatetime;
+	private String targetDatefrom;
+	private String targetDateto;
+	
+	public String getTargetDatefrom() {
+		return targetDatefrom;
+	}
 
-	
-	
+	public void setTargetDatefrom(String targetDatefrom) {
+		this.targetDatefrom = targetDatefrom;
+	}
+
+	public String getTargetDateto() {
+		return targetDateto;
+	}
+
+	public void setTargetDateto(String targetDateto) {
+		this.targetDateto = targetDateto;
+	}
+
 	public String getRegdatetime() {
 		return regdatetime;
 	}

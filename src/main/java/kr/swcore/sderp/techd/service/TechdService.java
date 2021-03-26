@@ -10,6 +10,7 @@ public interface TechdService {
 
 	List<TechdDTO> listTechd();
 	List<TechdDTO> listTechd(HttpSession session);
+	List<TechdDTO> listconTechd(HttpSession session, TechdDTO dto);
 	TechdDTO detailTechd(int techdNo);
 	int updateTechd(TechdDTO dto);
 	int deleteTechd(int techdNo);

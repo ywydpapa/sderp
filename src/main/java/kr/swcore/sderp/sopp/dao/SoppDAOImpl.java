@@ -27,11 +27,28 @@ public class SoppDAOImpl implements SoppDAO {
 	}
 	
 	@Override
-	public List<SoppDTO> listSoppcon(SoppDTO dto) {
-		// TODO Auto-generated method stub
-		return sqlSession.selectList("sopp.listSoppcon", dto);
+	public List<SoppDTO> listconSopp(SoppDTO dto) {
+		return sqlSession.selectList("sopp.listconSopp", dto);
 	}
-
+	
+	@Override
+	public List<SoppDTO> listSopp2() {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("sopp.listSopp2");
+	}
+	
+	@Override
+	public List<SoppDTO> listSopp2(SoppDTO dto) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("sopp.listSopp2", dto);
+	}
+	
+	@Override
+	public List<SoppDTO> listconSopp2(SoppDTO dto) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("sopp.listconSopp2", dto);
+	}
+	
 	@Override
 	public SoppDTO detailSopp(int soppNo) {
 		// TODO Auto-generated method stub
@@ -54,12 +71,6 @@ public class SoppDAOImpl implements SoppDAO {
 	public int insertSopp(SoppDTO dto) {
 		// TODO Auto-generated method stub
 		return sqlSession.insert("sopp.insertSopp", dto);
-	}
-
-	@Override
-	public List<SoppDTO> listSopp2() {
-		// TODO Auto-generated method stub
-		return sqlSession.selectList("sopp.listSopp2");
 	}
 
 	@Override

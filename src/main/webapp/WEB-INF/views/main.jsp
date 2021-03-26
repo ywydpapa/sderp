@@ -115,6 +115,35 @@
 		});
 	}
 	
+	function fnClearall(){
+		var hiddenElements = $("input[type='hidden']");
+		
+		for(var i = 0; i < hiddenElements.length; i++) {
+			hiddenElements[i].value = null;
+		}
+		
+		$("#searchForm")[0].reset();
+	}
+	
+	function fnSetList(url, data){
+		<!-- $.LoadingOverlay("show", true); -->
+			$("#list-container").empty();
+			$("#list-container").load(url, data, function(){
+				setTimeout(function(){
+					<!--$.LoadingOverlay("hide", true);-->
+				}, 500);
+		});
+	}
+	
+	function inputDate(fromDate, toDate){
+		if(fromDate != null && fromDate != '' && toDate != null && toDate != ''){
+			if(fromDate > toDate) {
+				alert('올바른 날짜를 입력해주십시오.');
+    			$("#"+event.target.id).val(null);	
+			}
+		}
+	}
+	
 
 </script> 
 </head>

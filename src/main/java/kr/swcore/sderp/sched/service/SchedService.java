@@ -10,6 +10,7 @@ public interface SchedService {
 	
 	List<SchedDTO> listSched();
 	List<SchedDTO> listSched(HttpSession session);
+	List<SchedDTO> listconSched(HttpSession session, SchedDTO dto);
 	SchedDTO detailSched(int schedNo);
 	int insertSched(SchedDTO dto);
 	int insertSched(HttpSession session, SchedDTO dto);

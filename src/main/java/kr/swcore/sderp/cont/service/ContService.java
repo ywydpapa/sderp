@@ -10,6 +10,7 @@ public interface ContService {
 	
 	List<ContDTO> listCont();
 	List<ContDTO> listCont(HttpSession session);
+	List<ContDTO> listconCont(HttpSession session, ContDTO dto);
 	ContDTO detailCont(int contNo);
 	int updateCont(ContDTO dto);
 	int deleteCont(int contNo);

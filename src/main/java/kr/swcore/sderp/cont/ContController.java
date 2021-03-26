@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import kr.swcore.sderp.code.service.CodeService;
 import kr.swcore.sderp.cont.dto.ContDTO;
 import kr.swcore.sderp.cont.service.ContService;
 
@@ -28,10 +29,23 @@ public class ContController {
 	@Inject
 	ContService contService;
 	
+	@Inject
+	CodeService codeService;
+	
 	@RequestMapping("list.do")
 	public ModelAndView list(HttpSession session, ModelAndView mav) {
 		mav.setViewName("cont/list");
+		mav.addObject("contType", codeService.listContractType());
+		mav.addObject("businessType", codeService.listBusinessType());
 		mav.addObject("list", contService.listCont(session));
+		return mav;
+	}
+	
+	@RequestMapping("listcon.do")
+	public ModelAndView listcon(HttpSession session, ModelAndView mav, @ModelAttribute ContDTO dto) {
+		mav.setViewName("cont/list");
+		mav.addObject("preserveSearchCondition", "Y");
+		mav.addObject("list", contService.listconCont(session, dto));
 		return mav;
 	}
 

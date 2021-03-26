@@ -9,6 +9,7 @@ public interface ContDAO {
 
 	List<ContDTO> listCont();	
 	List<ContDTO> listCont(SoppDTO soppDto);
+	List<ContDTO> listconCont(ContDTO contDto);
 	ContDTO detailCont(int contNo);
 	int updateCont(ContDTO dto);
 	int deleteCont(int contNo);

@@ -29,6 +29,13 @@ public class TechdServiceImpl implements TechdService {
 		SoppDTO soppdto = SessionInfoGet.getCompNoDto(session);
 		return techdDao.listTechd(soppdto);
 	}
+	
+	@Override
+	public List<TechdDTO> listconTechd(HttpSession session, TechdDTO dto) {
+		int compNo = SessionInfoGet.getCompNo(session);
+		dto.setCompNo(compNo);
+		return techdDao.listconTechd(dto);
+	}
 
 	@Override
 	public TechdDTO detailTechd(int techdNo) {

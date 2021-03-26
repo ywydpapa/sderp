@@ -237,5 +237,23 @@ public class CodeServiceImpl implements CodeService {
 		SoppDTO soppdto = SessionInfoGet.getCompNoDto(session);
 		return codeDao.listBoardType(soppdto);
 	}
+	
+	@Override
+	public List<CodeDTO> listBusinessType() {
+		// TODO Auto-generated method stub
+		return codeDao.listBusinessType();
+	}
+	
+	@Override
+	public List<CodeDTO> listContractType() {
+		// TODO Auto-generated method stub
+		return codeDao.listContractType();
+	}
+	
+	@Override
+	public List<CodeDTO> listTechdSteps() {
+		// TODO Auto-generated method stub
+		return codeDao.listTechdSteps();
+	}
 
 }

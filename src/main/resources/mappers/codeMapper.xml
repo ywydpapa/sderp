@@ -93,6 +93,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <select id="listBoardtype" resultType="codeDto">
  		select * from swc_code where attrib not like 'XXX%' and code02='BOARDTYP' and desc02 IS NULL and compNo = #{compNo}
  </select>
+ 
+<select id="listBusinessType" resultType="codeDto">
+ 		select * from swc_code where attrib not like 'XXX%' and code02='BTYPE01' and desc02 IS NULL
+</select>
+
+<select id="listContractType" resultType="codeDto">
+ 		select * from swc_code where attrib not like 'XXX%' and code02='CTYPE01' and desc02 IS NULL
+</select>
+
+<select id="listTechdSteps" resultType="codeDto">
+ 		select * from swc_code where attrib not like 'XXX%' and code02='TECHSTAT' and desc02 IS NULL
+</select>
 
  <insert id="insertCode">
  insert into swc_code (

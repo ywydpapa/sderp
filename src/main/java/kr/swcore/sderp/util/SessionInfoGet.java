@@ -16,4 +16,5 @@ public class SessionInfoGet {
 		Integer compNo = Integer.valueOf((String) session.getAttribute("compNo"));
 		return compNo;
 	}
+	//
 }

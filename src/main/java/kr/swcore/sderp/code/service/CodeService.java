@@ -16,6 +16,7 @@ public interface CodeService {
 	List<CodeDTO> listCode02(HttpSession session);
 	List<CodeDTO> listCode02n(String code01);
 	List<CodeDTO> listCode03();
+	List<CodeDTO> listCode03(HttpSession session);
 	List<CodeDTO> listCode03n(String code02);
 	List<CodeDTO> listCode003(String code02);
 	CodeDTO detailCode(int codeNo);

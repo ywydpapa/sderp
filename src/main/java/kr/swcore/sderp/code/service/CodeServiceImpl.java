@@ -59,6 +59,12 @@ public class CodeServiceImpl implements CodeService {
 		// TODO Auto-generated method stub
 		return codeDao.listCode03();
 	}
+	
+	@Override
+	public List<CodeDTO> listCode03(HttpSession session) {
+		SoppDTO soppdto = SessionInfoGet.getCompNoDto(session);
+		return codeDao.listCode03(soppdto);
+	}
 
 	@Override
 	public CodeDTO detailCode(int codeNo) {

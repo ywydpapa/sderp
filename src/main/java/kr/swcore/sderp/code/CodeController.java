@@ -65,10 +65,10 @@ public class CodeController {
 
 
 	@RequestMapping("write.do")
-	public ModelAndView write(ModelAndView mav) {
-		mav.addObject("list1", codeService.listCode01());
-		mav.addObject("list2", codeService.listCode02());
-		mav.addObject("list3", codeService.listCode03());
+	public ModelAndView write(HttpSession session, ModelAndView mav) {
+		mav.addObject("list1", codeService.listCode01(session));
+		mav.addObject("list2", codeService.listCode02(session));
+		mav.addObject("list3", codeService.listCode03(session));
 		mav.setViewName("code/write");
 		return mav;
 	}

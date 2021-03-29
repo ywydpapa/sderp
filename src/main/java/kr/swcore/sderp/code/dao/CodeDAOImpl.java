@@ -78,6 +78,11 @@ public class CodeDAOImpl implements CodeDAO {
 		// TODO Auto-generated method stub
 		return sqlSession.selectList("code.listCode03");
 	}
+	
+	@Override
+	public List<CodeDTO> listCode03(SoppDTO soppdto) {
+		return sqlSession.selectList("code.listCode03", soppdto);
+	}
 
 	@Override
 	public List<CodeDTO> listCode003(String code02) {

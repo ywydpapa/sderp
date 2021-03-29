@@ -298,7 +298,7 @@
 
 				<div class="tab-pane " id="tab02" role="tabpanel">
 					<div class="card-block table-border-style">
-						<div class="table-responsive">
+						<div class="table-responsive" style="overflow-x: hidden;">
 							<form name="form2" method="post" onsubmit="return false;">
 								<table class="table table-sm bst02" id="addinout">
 									<colgroup>
@@ -341,7 +341,7 @@
 												style="min-width: 80px;" /></td>
 											<td><input type="text" id="data01Remark" class="form-control form-control-sm" /></td>
 											<td><button id="data01Addbtn" onClick="javascript:fn_data01Insert()">추가</button></td>
-											<td class="text-center"></td>
+											<!-- <td class="text-center"></td> -->
 										</tr>
 									</tbody>
 								</table>
@@ -378,7 +378,7 @@
 										<td style="text-align:right"><fmt:formatNumber value="${row.dataAmt}" pattern="#,###"/></td>
 										<td>${row.dataRemark}</td>
 										<td><button id="inoutDelbtn" onClick="javascript:fn_data01delete(${row.soppdataNo})">삭제</button></td>
-										<td class="text-center"></td>
+										<!-- <td class="text-center"></td> -->
 									</tr>
 									</c:forEach>
 								</tbody>
@@ -389,7 +389,7 @@
 				</div>
 				<div class="tab-pane " id="tab03" role="tabpanel">
 					<div class="card-block table-border-style">
-						<div class="table-responsive">
+						<div class="table-responsive" style="overflow-x: hidden;">
 							<form name="form2" method="post" onsubmit="return false;">
 								<table class="table table-sm bst02">
 									<tbody>
@@ -440,7 +440,7 @@
 											<td><input type="text" id="data02Remark"
 												class="form-control form-control-sm" /></td>
 											<td><button id="data02Addbtn" onClick="javascript:fn_data02Insert()">추가</button></td>
-											<td class="text-center"></td>
+											<!-- <td class="text-center"></td> -->
 										</tr>
 									</tbody>
 								</table>
@@ -484,7 +484,7 @@
 										<td style="text-align:right"><fmt:formatNumber value="${row2.dataAmt}" pattern="#,###"/></td>
 										<td>${row2.dataRemark}</td>
 										<td><button id="inoutDelbtn" onClick="javascript:fn_data02delete(${row2.soppdataNo})">삭제</button></td>
-										<td class="text-center"></td>
+										<!-- <td class="text-center"></td> -->
 									</tr>
 									</c:forEach>
 								</tbody>
@@ -498,7 +498,7 @@
 				</div>
 				<div class="tab-pane " id="tab04" role="tabpanel">
 					<div class="card-block table-border-style">
-						<div class="table-responsive">
+						<div class="table-responsive" style="overflow-x: hidden;">
 							<form name="form2" method="post" onsubmit="return false;">
 								<table class="table table-sm bst02">
 									<colgroup>
@@ -532,7 +532,7 @@
 				</div>
 				<div class="tab-pane " id="tab05" role="tabpanel">
 					<div class="card-block table-border-style">
-						<div class="table-responsive">
+						<div class="table-responsive" style="overflow-x: hidden;">
 							<form name="form2" method="post" onsubmit="return false;">
 								<table class="table table-sm bst02">
 									<colgroup>
@@ -570,7 +570,7 @@
 				</div>
 				<div class="tab-pane " id="tab06" role="tabpanel">
 					<div class="card-block table-border-style">
-						<div class="table-responsive">
+						<div class="table-responsive" style="overflow-x: hidden;">
 							<form name="form2" method="post" onsubmit="return false;">
 								<table class="table table-sm bst02" id="example">
 									<colgroup>

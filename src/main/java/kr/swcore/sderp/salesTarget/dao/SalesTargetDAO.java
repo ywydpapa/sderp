@@ -9,8 +9,8 @@ import kr.swcore.sderp.user.dto.UserDTO;
 public interface SalesTargetDAO {
 	List<SalesTargetDTO> listSalesTarget();
 	List<SalesTargetDTO> listSalesTarget(int compNo, String targetYear, String targetType, List<UserDTO> userDtoList);
-	SalesDTO detailSales(SalesTargetDTO salesTargetDTO);
-	int updateSales(SalesTargetDTO salesTargetDTO);
-	int deleteSales(SalesTargetDTO salesTargetDTO);
-	int insertSales(SalesTargetDTO salesTargetDTO);
+	SalesDTO detailSalesTarget(SalesTargetDTO salesTargetDTO);
+	int updateSalesTarget(SalesTargetDTO salesTargetDTO);
+	int deleteSalesTarget(SalesTargetDTO salesTargetDTO);
+	int insertSalesTarget(SalesTargetDTO salesTargetDTO);
 }

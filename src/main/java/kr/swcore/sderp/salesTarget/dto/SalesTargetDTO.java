@@ -1,10 +1,12 @@
 package kr.swcore.sderp.salesTarget.dto;
 
+import java.util.List;
+
 public class SalesTargetDTO {
 	private int compNo;
 	private int deptNo;
 	private int userNo;
-	private String tragetYear;
+	private String targetYear;
 	private String targetType;
 	private int mm01;
 	private int mm02;
@@ -19,6 +21,12 @@ public class SalesTargetDTO {
 	private int mm11;
 	private int mm12;
 	private String attrib;
+	
+	// 확장
+	private int orgId;
+	private String userName;
+	private List<SalesTargetDTO> salesTargetlist;
+	
 	public int getCompNo() {
 		return compNo;
 	}
@@ -36,12 +44,12 @@ public class SalesTargetDTO {
 	}
 	public void setUserNo(int userNo) {
 		this.userNo = userNo;
+	}	
+	public String getTargetYear() {
+		return targetYear;
 	}
-	public String getTragetYear() {
-		return tragetYear;
-	}
-	public void setTragetYear(String tragetYear) {
-		this.tragetYear = tragetYear;
+	public void setTargetYear(String targetYear) {
+		this.targetYear = targetYear;
 	}
 	public String getTargetType() {
 		return targetType;
@@ -128,16 +136,37 @@ public class SalesTargetDTO {
 		this.attrib = attrib;
 	}
 	
+	// 확장		
+	public int getOrgId() {
+		return orgId;
+	}
+	public void setOrgId(int orgId) {
+		this.orgId = orgId;
+	}
+	public String getUserName() {
+		return userName;
+	}
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+	public List<SalesTargetDTO> getSalesTargetlist() {
+		return salesTargetlist;
+	}
+	public void setSalesTargetlist(List<SalesTargetDTO> salesTargetlist) {
+		this.salesTargetlist = salesTargetlist;
+	}
+	
 	public SalesTargetDTO() {
 		super();
 	}
-	
 	@Override
 	public String toString() {
-		return "SalesTargetDTO [compNo=" + compNo + ", deptNo=" + deptNo + ", userNo=" + userNo + ", tragetYear="
-				+ tragetYear + ", targetType=" + targetType + ", mm01=" + mm01 + ", mm02=" + mm02 + ", mm03=" + mm03
+		return "SalesTargetDTO [compNo=" + compNo + ", deptNo=" + deptNo + ", userNo=" + userNo + ", targetYear="
+				+ targetYear + ", targetType=" + targetType + ", mm01=" + mm01 + ", mm02=" + mm02 + ", mm03=" + mm03
 				+ ", mm04=" + mm04 + ", mm05=" + mm05 + ", mm06=" + mm06 + ", mm07=" + mm07 + ", mm08=" + mm08
 				+ ", mm09=" + mm09 + ", mm10=" + mm10 + ", mm11=" + mm11 + ", mm12=" + mm12 + ", attrib=" + attrib
-				+ "]";
+				+ ", orgId=" + orgId + ", userName=" + userName + ", salesTargetlist=" + salesTargetlist + "]";
 	}
+		
+	
 }

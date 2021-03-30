@@ -23,9 +23,9 @@ public class OrganizServiceImpl implements OrganizService {
 	}
 
 	@Override
-	public List<OrganizDTO> listDeptChainExtend(HttpSession session) {
+	public List<OrganizDTO> listDeptChainExtend(HttpSession session, OrganizDTO organizDTO) {
 		Integer compNo = Integer.valueOf((String) session.getAttribute("compNo"));
-		OrganizDTO organizDTO = new OrganizDTO();
+		if(organizDTO == null) organizDTO = new OrganizDTO();
 		organizDTO.setCompNo(compNo);
 		
 		return organizDao.listDeptChainExtend(organizDTO);

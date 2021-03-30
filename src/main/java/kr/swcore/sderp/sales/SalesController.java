@@ -16,8 +16,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 import kr.swcore.sderp.code.service.CodeService;
 import kr.swcore.sderp.organiz.Service.OrganizService;
+import kr.swcore.sderp.organiz.dto.OrganizDTO;
 import kr.swcore.sderp.sales.dto.SalesDTO;
 import kr.swcore.sderp.sales.service.SalesService;
+import kr.swcore.sderp.salesTarget.dto.SalesTargetDTO;
+import kr.swcore.sderp.salesTarget.service.SalesTargetService;
 
 @Controller
 
@@ -33,6 +36,9 @@ public class SalesController {
 	@Inject
 	OrganizService organizService;
 	
+	@Inject
+	SalesTargetService salesTargetService; 
+	
 	
 	@RequestMapping("list.do")
 	public ModelAndView list(HttpSession session, ModelAndView mav) {
@@ -42,7 +48,7 @@ public class SalesController {
 		return mav;
 	}
 	
-	//검색 버튼 클릭 시
+
 	@RequestMapping("listcon.do")
 	public ModelAndView listcon(HttpSession session, ModelAndView mav, @ModelAttribute SalesDTO dto) {
 		mav.setViewName("sales/list");
@@ -51,10 +57,11 @@ public class SalesController {
 		return mav;
 	}
 	
-	@RequestMapping("setTarget.do")		// OrganizController 컨트롤러 list 메소드는 사용안하고 현재 컨트롤러 settarget 메소드로 사용
-	public ModelAndView settarget(HttpSession session, ModelAndView mav) {
+	@RequestMapping("setTarget.do")
+	public ModelAndView settarget(HttpSession session, ModelAndView mav, @ModelAttribute OrganizDTO organizDto, @ModelAttribute SalesTargetDTO salesTargetDTO) {
 		mav.addObject("listDept", organizService.listDept(session));
 		mav.addObject("list", salesService.listSales(session));
+		mav.addObject("tableData", salesTargetService.listSalesTarget(session, organizDto, salesTargetDTO));
 		mav.setViewName("sales/setTarget");
 		return mav;
 	}

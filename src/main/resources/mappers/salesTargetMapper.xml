@@ -4,14 +4,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="salesTarget">
 
-<select id="listSalesTargetDTO"	resultType="SalesTargetDTO">
- 		select sst.userNo, sst.targetType,
+<select id="listSalesTarget"	resultType="SalesTargetDTO">
+ 		select sst.userNo, su.userName, sst.deptNo, sst.targetType,
 				sst.mm01, sst.mm02, sst.mm03, sst.mm04, sst.mm05,
 				sst.mm06, sst.mm07, sst.mm08, sst.mm09, sst.mm10,
 				sst.mm11, sst.mm12
 		from swc_sales_target sst
+		left join swc_user su on sst.userNo = su.userNo
 		where sst.compNo = #{compNo} and sst.targetYear = #{targetYear}
-		and sst.targetType = #{targetType} and userNo IN
+		and sst.targetType = #{targetType} and sst.userNo IN
 		<foreach collection="userDtoList" item="item" open="(" close=")" separator=",">
 			#{item.userNo}
 		</foreach>
@@ -21,6 +22,24 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  </insert>
 
  <update id="updateSalesTarget">
+ 	update swc_sales_target 
+ 	set mm01 = #{mm01},
+ 		mm02 = #{mm02},
+ 		mm03 = #{mm03},
+ 		mm04 = #{mm04},
+ 		mm05 = #{mm05},
+ 		mm06 = #{mm06},
+ 		mm07 = #{mm07},
+ 		mm08 = #{mm08},
+ 		mm09 = #{mm09},
+ 		mm10 = #{mm10},
+ 		mm11 = #{mm11},
+ 		mm12 = #{mm12}
+ 	where userNo = #{userNo} 
+ 		and deptNo = #{deptNo}
+ 		and targetYear = #{targetYear}
+ 		and targetType = #{targetType}
+ 		and compNo = #{compNo}
  </update>
  
  <delete id="deleteSalesTarget">

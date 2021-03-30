@@ -1,12 +1,17 @@
 package kr.swcore.sderp.salesTarget.service;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Service;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import kr.swcore.sderp.organiz.Service.OrganizService;
 import kr.swcore.sderp.organiz.dto.OrganizDTO;
@@ -34,11 +39,11 @@ public class SalesTargetServiceImpl implements SalesTargetService {
 	}
 
 	@Override
-	public List<SalesTargetDTO> listSales(HttpSession session, SalesTargetDTO salesTargetDTO) {
+	public List<Object> listSalesTarget(HttpSession session, OrganizDTO organizDto, SalesTargetDTO salesTargetDTO) {
 		if(salesTargetDTO == null) salesTargetDTO = new SalesTargetDTO();
 		
 		Integer compNo = Integer.valueOf((String) session.getAttribute("compNo"));
-		String targetYear = salesTargetDTO.getTragetYear();
+		String targetYear = salesTargetDTO.getTargetYear();
 		String targetType = salesTargetDTO.getTargetType();
 		
 		if(targetYear == null || targetYear.equals("")) {
@@ -53,27 +58,59 @@ public class SalesTargetServiceImpl implements SalesTargetService {
 			targetType = targetType.toUpperCase();
 		}
 		
-		// ¼¼¼ÇÀ» ÅëÇØ ºÎ¼­ ¸®½ºÆ® °Ë»ö
-		List<OrganizDTO> deptList = organizService.listDeptChainExtend(session); // select org_title 1°³¸¸ µÚ¿¡²¨¸¸ ³ÀµÎ±â
-		List<UserDTO> userList = null;
-		List<SalesTargetDTO> SalesTargetList = null;
-		
-		for(OrganizDTO organizDTO : deptList) {		
-			UserDTO userDTO = new UserDTO();
-			int orgId = organizDTO.getOrg_id();
-			userDTO.setOrgId(orgId);
-			// ºÎ¼­ ÄÚµå¿¡ ¸Â´Â swc_user Å×ÀÌºíÀ» Á¢±ÙÇÏ¿© À¯Àú¸®½ºÆ®¸¦ ¹İÈ¯ÇÑ´Ù.
-			userList = userService.userListWithOrgId(userDTO);
-			if (userList.size() > 0) {
-				// À¯Àú ¸®½ºÆ® ±âÁØÀ¸·Î salesTarget Å×ÀÌºíÀ» Á¢±ÙÇÕ´Ï´Ù.
-				List<SalesTargetDTO> temp = salesTargetDAO.listSalesTarget(compNo, targetYear, targetType, userList);
-				if (temp.size() > 0 && temp != null) {
-					SalesTargetList.addAll(temp);
-				}
-			}
+		// ì„¸ì…˜ì„ í†µí•´ ë¶€ì„œ ë¦¬ìŠ¤íŠ¸ ê²€ìƒ‰
+		List<OrganizDTO> deptList = null;
+		Integer orgId = null;
+		if(salesTargetDTO.getOrgId() == 0) {
+			// ë¶€ì„œì„ íƒì„ ì „ë¶€ ì„ íƒí•œê²½ìš°
+			deptList = organizService.listDeptChainExtend(session, null);
+		} else {
+			organizDto.setOrg_id(salesTargetDTO.getOrgId());
+			orgId = salesTargetDTO.getOrgId();
+			deptList = organizService.listDeptChainExtend(session, organizDto);
 		}
 		
-		return SalesTargetList;
+		List<Object> returnData = new ArrayList<Object>();
+		HashMap<String, Object> selectedData = new HashMap<>();
+		selectedData.put("targetYear", targetYear);
+		selectedData.put("targetType", targetType);
+		selectedData.put("orgId", orgId);
+		returnData.add(selectedData);
+		
+		HashMap<String, Object> deptData = null;
+		List<UserDTO> userList = null;
+		
+		for(OrganizDTO organizDTO : deptList) {	
+			deptData = new HashMap<String, Object>();
+			deptData.put("deptData", organizDTO);	// ë¶€ì„œëª… ì €ì¥
+			
+			UserDTO userDTO = new UserDTO();
+			int orgIdTemp = organizDTO.getOrg_id();
+			userDTO.setOrgId(orgIdTemp);
+			// ë¶€ì„œ ì½”ë“œì— ë§ëŠ” swc_user í…Œì´ë¸”ì„ ì ‘ê·¼í•˜ì—¬ ìœ ì €ë¦¬ìŠ¤íŠ¸ë¥¼ ë°˜í™˜í•œë‹¤.
+			userList = userService.userListWithOrgId(userDTO);
+			
+			//HashMap<String, Object> salesTargetDataMap = new HashMap<String, Object>();
+			if (userList.size() > 0) {
+				// ìœ ì € ë¦¬ìŠ¤íŠ¸ ê¸°ì¤€ìœ¼ë¡œ salesTarget í…Œì´ë¸”ì„ ì ‘ê·¼í•©ë‹ˆë‹¤.
+				List<SalesTargetDTO> temp = salesTargetDAO.listSalesTarget(compNo, targetYear, targetType, userList);
+				if (temp.size() > 0 && temp != null) {
+					deptData.put("salesTargetData", temp);
+				}
+			}			
+			returnData.add(deptData);
+		}
+		
+		ObjectMapper mapper = new ObjectMapper();
+		String json = "";
+		try {
+			json = mapper.writeValueAsString(returnData);
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+		}
+		System.out.println(json);
+		
+		return returnData;
 	}
 
 	@Override
@@ -83,19 +120,36 @@ public class SalesTargetServiceImpl implements SalesTargetService {
 	}
 
 	@Override
-	public int updateSalesTarget(HttpSession session, SalesTargetDTO dto) {
+	public int updateSalesTarget(HttpSession session, SalesTargetDTO salesTargetDTO) {
+		Integer compNo = Integer.valueOf((String) session.getAttribute("compNo"));
+		int schedInsert = 0;
+		
+		List<SalesTargetDTO> list = salesTargetDTO.getSalesTargetlist();
+		for(SalesTargetDTO dto : list) {
+			dto.setCompNo(compNo);
+			try {
+				schedInsert = salesTargetDAO.updateSalesTarget(dto);
+			} catch (Exception e) {
+				schedInsert = 0;
+				e.printStackTrace();
+				// TODO: handle exception
+			}
+		}
+		
+		if (schedInsert > 0) schedInsert = 10001;
+		else schedInsert = 20001; 
+
+		return schedInsert;
+	}
+
+	@Override
+	public int deleteSalesTarget(HttpSession session, SalesTargetDTO salesTargetDTO) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
-	public int deleteSalesTarget(HttpSession session, SalesTargetDTO dto) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int insertSalesTarget(HttpSession session, SalesTargetDTO dto) {
+	public int insertSalesTarget(HttpSession session, SalesTargetDTO salesTargetDTO) {
 		// TODO Auto-generated method stub
 		return 0;
 	}

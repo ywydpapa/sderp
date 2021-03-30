@@ -26,7 +26,7 @@ public class SalesTargetDAOImpl implements SalesTargetDAO{
 	@Override
 	public List<SalesTargetDTO> listSalesTarget(int compNo, String targetYear, String targetType, List<UserDTO> userDtoList) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("compNo", targetYear);
+		map.put("compNo", compNo);
 		map.put("targetYear", targetYear);
 		map.put("targetType", targetType);
 		map.put("userDtoList", userDtoList);
@@ -34,22 +34,22 @@ public class SalesTargetDAOImpl implements SalesTargetDAO{
 	}
 
 	@Override
-	public SalesDTO detailSales(SalesTargetDTO salesTargetDTO) {
+	public SalesDTO detailSalesTarget(SalesTargetDTO salesTargetDTO) {
 		return sqlSession.selectOne("salesTarget.detailSalesTarget", salesTargetDTO);
 	}
 
 	@Override
-	public int updateSales(SalesTargetDTO salesTargetDTO) {
+	public int updateSalesTarget(SalesTargetDTO salesTargetDTO) {
 		return sqlSession.update("salesTarget.updateSalesTarget", salesTargetDTO);
 	}
 
 	@Override
-	public int deleteSales(SalesTargetDTO salesTargetDTO) {
+	public int deleteSalesTarget(SalesTargetDTO salesTargetDTO) {
 		return sqlSession.delete("salesTarget.deleteSalesTarget", salesTargetDTO);
 	}
 
 	@Override
-	public int insertSales(SalesTargetDTO salesTargetDTO) {
+	public int insertSalesTarget(SalesTargetDTO salesTargetDTO) {
 		return sqlSession.insert("salesTarget.insertSalesTarget", salesTargetDTO);
 	}
 	

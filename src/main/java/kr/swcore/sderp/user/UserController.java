@@ -20,6 +20,7 @@ import kr.swcore.sderp.code.dto.CodeDTO;
 import kr.swcore.sderp.code.service.CodeService;
 import kr.swcore.sderp.user.dto.UserDTO;
 import kr.swcore.sderp.user.service.UserService;
+import kr.swcore.sderp.util.SessionInfoGet;
 
 @Controller
 @RequestMapping("/user/*")
@@ -59,8 +60,9 @@ public class UserController {
 	}
 	
 	@RequestMapping("list.do")
-	public String userList(Model model) {
-		List<UserDTO> list=userService.userList();
+	public String userList(HttpSession session, Model model) {
+		int compNo = SessionInfoGet.getCompNo(session);
+		List<UserDTO> list=userService.userList(session);
 		model.addAttribute("list",list);
 		return "user/list";
 	}

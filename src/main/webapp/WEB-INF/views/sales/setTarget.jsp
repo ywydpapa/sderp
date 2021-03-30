@@ -59,7 +59,7 @@
 				<th width="120px">12</th>
 		    </tr>
 		    <tbody id="plan_list">
-		    	<c:forEach var="item" items="${tableData}" begin="2">
+		    	<c:forEach var="item" items="${tableData}" begin="1">
 					<tr class="dept">
 						<td colspan="14">${item.deptData.org_title}</td>
 					</tr>
@@ -89,6 +89,13 @@
 						<td><input type="text" value="0" readonly="readonly" class="inputRead"/></td>
 					</tr>
 		    	</c:forEach>
+		    		<tr class="totalSum" style="border-top: 2px solid;">
+						<td>합계</td>
+						<c:forEach begin="0" end="11">
+							<td><input type="text" value="0" readonly="readonly" class="inputRead"/></td>
+						</c:forEach>
+						<td><input type="text" value="0" readonly="readonly" class="inputRead"/></td>
+					</tr>
 		    </tbody>
 		</table>
     
@@ -227,6 +234,7 @@ $(document).ready(function() {
  	var $form = $("#plan_list");
 	var $input = $form.find("input");
 	
+	// 이벤트 시작 ==========================================================================
 	// 이벤트시 동작
 	$input.on("keyup", function(event) {
 		// 긁어와서 이벤트 체크
@@ -297,7 +305,20 @@ $(document).ready(function() {
 	    	mArrSum = mArrSum + Number(($k[i].firstElementChild.value).replace(/[\D\s\._\-]+/g, ""));
 		}
 	    $t.find("input[type=text]").last().val(mArrSum.toLocaleString("en-US"));
+	    
+	    // 총합산
+	    var totalSum = 0;
+	    var $total = $(".monthSum");
+	    $total.each(function(){
+	    	var temp = $(this).find("input[type=text]").last().val();
+	    	temp = temp.replace(/[\D\s\._\-]+/g, "");
+	    	temp = Number(temp);
+	    	totalSum = totalSum + temp;
+	    });
+	    console.dir("totalSum : "+totalSum);
 	});
+	
+	// 이벤트 끝 ==========================================================================
 	
 	// 1월~12월 연간합산
 	var $year = $form.find("input[type=text].yearSum");
@@ -311,6 +332,7 @@ $(document).ready(function() {
 		$(this).val(yearSumInit.toLocaleString("en-US"));
 	});
 	
+	var totalSumArr = new Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 	
 	var $month = $form.find(".monthSum");
 	$month.each(function(){
@@ -328,6 +350,7 @@ $(document).ready(function() {
 		// 테이블 구조변경시 수정할 코드 .splice(시작,끝)
 		var $g = $(this).find("td").splice(1,13);
 		for(var i=0; i<12; i++){
+			totalSumArr[i] = totalSumArr[i] + mArr[i];
 			$g[i].firstElementChild.value = mArr[i].toLocaleString("en-US");
 		}
 		
@@ -337,7 +360,26 @@ $(document).ready(function() {
 			mArrSum = mArrSum + mArr[i];
 		}
 		$(this).find("input[type=text]").last().val(mArrSum.toLocaleString("en-US"));
+		
+		
 	});
+	
+	// 총 합산
+	console.dir(totalSumArr);
+	var $total = $form.find(".totalSum").find("td");
+	var $totalSub = $total.splice(1,12);
+	console.dir($totalSub);
+	for(var i=0; i<12; i++){
+		$totalSub[i].firstElementChild.value = totalSumArr[i].toLocaleString("en-US");
+	}
+	
+	var totalYearSum = 0;
+	for(var i=0; i<12; i++){
+		totalYearSum = totalYearSum + totalSumArr[i];
+	}
+	console.dir("totalYearSum:"+totalYearSum);
+	// 테이블 구조변경시 수정할 코드
+	$total[1].firstElementChild.value = totalYearSum.toLocaleString("en-US");
 	
 	// 초기 데이터 input창 콤마 생성
  	$input.each(function(){

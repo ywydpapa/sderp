@@ -20,7 +20,6 @@ import kr.swcore.sderp.code.dto.CodeDTO;
 import kr.swcore.sderp.code.service.CodeService;
 import kr.swcore.sderp.user.dto.UserDTO;
 import kr.swcore.sderp.user.service.UserService;
-import kr.swcore.sderp.util.SessionInfoGet;
 
 @Controller
 @RequestMapping("/user/*")
@@ -60,9 +59,8 @@ public class UserController {
 	}
 	
 	@RequestMapping("list.do")
-	public String userList(HttpSession session, Model model) {
-		int compNo = SessionInfoGet.getCompNo(session);
-		List<UserDTO> list=userService.userList(session);
+	public String userList(Model model) {
+		List<UserDTO> list=userService.userList();
 		model.addAttribute("list",list);
 		return "user/list";
 	}
@@ -78,7 +76,7 @@ public class UserController {
         	param.put("code","20001");
         }
         return ResponseEntity.ok(param);
-	} 
+	}
 
 	@RequestMapping("insert.do")
 	public ResponseEntity<?> userInsert(@ModelAttribute UserDTO dto) {
@@ -113,6 +111,7 @@ public class UserController {
 			session.setAttribute("userNo", Integer.toString(userInfo.getUserNo())); // 유저 일련번호
 		}else{
 			mav.setViewName("user/login");
+			mav.addObject("msg", "Fail");
 		}
 		return mav;
 	}

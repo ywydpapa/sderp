@@ -41,7 +41,10 @@
 		<table class="table plan-table table-bordered">
 		    <tr>
 				<th rowspan="2" style="vertical-align: middle;">담당사원</th>
-				<th colspan="12">월별매출목표</th>
+				<th colspan="12">
+					<c:if test="${targetTypeValue eq 'PROFIT'}">월별이익목표</c:if>
+					<c:if test="${targetTypeValue eq 'SALES'}">월별매출목표</c:if>
+				</th>
 				<th rowspan="2" style="vertical-align: middle;">합계</th>
 		    </tr>
 		    <tr>
@@ -181,7 +184,7 @@ function fn_update(){
 	.done(function(data) {
 		if(data.code == 10001){
 			alert("저장 성공");
-			fnSetPage('${path}/sales/setTarget.do');
+			fn_PreReload();
 		}else{
 			alert("저장 실패");
 		}
@@ -307,17 +310,26 @@ $(document).ready(function() {
 	    $t.find("input[type=text]").last().val(mArrSum.toLocaleString("en-US"));
 	    
 	    // 총합산
-	    var totalSum = 0;
 	    var $total = $(".monthSum");
-	    $total.each(function(){
-	    	var temp = $(this).find("input[type=text]").last().val();
-	    	temp = temp.replace(/[\D\s\._\-]+/g, "");
-	    	temp = Number(temp);
-	    	totalSum = totalSum + temp;
-	    });
-	    console.dir("totalSum : "+totalSum);
-	});
-	
+	    var totalMonthSumArr = new Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+	    for(var i=0; i<$total.length; i++){
+	    	for(var j=1; j<13; j++){
+	    		totalMonthSumArr[j-1] = totalMonthSumArr[j-1] + Number(($total[i].children[j].firstElementChild.value).replace(/[\D\s\._\-]+/g, ""));
+	    	}
+	    }
+	    
+	    var totalSum = 0;
+	    var $element  = $(".totalSum");
+	    var $totalSumInput = $element.find("input[type=text]");
+	    for(var i=0; i<$totalSumInput.length-1; i++){
+	    	totalSum = totalSum + totalMonthSumArr[i];
+	    	$totalSumInput[i].value = totalMonthSumArr[i].toLocaleString("en-US");
+	    }
+	    
+	    $totalSumInput.last().val(totalSum.toLocaleString("en-US"));
+
+	   
+	}); 
 	// 이벤트 끝 ==========================================================================
 	
 	// 1월~12월 연간합산

@@ -36,9 +36,8 @@ public class BoardController {
 	@Inject
 	UserService userService;
 
-	
 	@RequestMapping("board.do")
-	public String listboard() {
+	public String listboard(HttpSession session) {
 		return "board/board";
 	}
 

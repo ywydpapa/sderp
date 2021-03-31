@@ -307,17 +307,25 @@ $(document).ready(function() {
 	    $t.find("input[type=text]").last().val(mArrSum.toLocaleString("en-US"));
 	    
 	    // 총합산
-	    var totalSum = 0;
 	    var $total = $(".monthSum");
-	    $total.each(function(){
-	    	var temp = $(this).find("input[type=text]").last().val();
-	    	temp = temp.replace(/[\D\s\._\-]+/g, "");
-	    	temp = Number(temp);
-	    	totalSum = totalSum + temp;
-	    });
+	    var totalMonthSumArr = new Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+	    for(var i=0; i<$total.length; i++){
+	    	for(var j=1; j<13; j++){
+	    		totalMonthSumArr[j-1] = totalMonthSumArr[j-1] + Number(($total[i].children[j].firstElementChild.value).replace(/[\D\s\._\-]+/g, ""));
+	    	}
+	    }
 	    
+	    var totalSum = 0;
+	    var $element  = $(".totalSum");
+	    var $totalSumInput = $element.find("input[type=text]");
+	    for(var i=0; i<$totalSumInput.length-1; i++){
+	    	totalSum = totalSum + totalMonthSumArr[i];
+	    	$totalSumInput[i].value = totalMonthSumArr[i].toLocaleString("en-US");
+	    }
+	    
+	    $totalSumInput.last().val(totalSum.toLocaleString("en-US"));
 
-	    $(".totalSum").find("input[type=text]").last().val(totalSum.toLocaleString("en-US"));
+	   
 	}); 
 	// 이벤트 끝 ==========================================================================
 	

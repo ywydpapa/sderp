@@ -28,4 +28,14 @@ public class SalesTargetController {
 		param.put("code", (String.valueOf(schedInsertResult))); 
 		return ResponseEntity.ok(param);
 	}
+	
+	/*
+	@RequestMapping(value = "listSalesTargetMonthIndividual.do")
+	@ResponseBody
+	public ResponseEntity<?> listSalesTargetMonthIndividual(HttpSession session, @ModelAttribute SalesTargetDTO dto) {
+		Map<String, Object> param = new HashMap<>();
+		param = salesTargetService.listSalesTargetMonthIndividual(session, dto);
+		return ResponseEntity.ok(param);
+	}
+	*/
 }

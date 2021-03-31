@@ -10,7 +10,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -26,6 +25,7 @@ import kr.swcore.sderp.product.dto.ProductDTO;
 import kr.swcore.sderp.product.service.ProductService;
 import kr.swcore.sderp.sales.dto.SalesDTO;
 import kr.swcore.sderp.sales.service.SalesService;
+import kr.swcore.sderp.salesTarget.service.SalesTargetService;
 import kr.swcore.sderp.sopp.dto.SoppDTO;
 import kr.swcore.sderp.sopp.service.SoppService;
 import kr.swcore.sderp.user.dto.UserDTO;
@@ -60,6 +60,9 @@ public class HomeController {
 	@Inject
 	ContService contService;
 
+	// ÌÖåÏä§Ìä∏Ïö©ÎèÑ
+	@Inject
+	SalesTargetService salesTargetService;
 	
 	/**
 	 * Simply selects the home view to render by returning its name.
@@ -87,6 +90,8 @@ public class HomeController {
 		mav.addObject("sopplist", soppService.listSopp(session));
 		mav.addObject("contlist", contService.listCont(session));
 		mav.addObject("saleslist", salesService.listSales(session));
+		mav.addObject("graph2",salesTargetService.listSalesTargetMonthIndividual(session, null));
+		mav.addObject("graph3",salesTargetService.listSalesTargetYearIndividual(session, null));
 		mav.setViewName("board/myboard");
 		return mav;
 	}
@@ -180,7 +185,7 @@ public class HomeController {
 			rtn = "modal/contList";
 		}
 		
-		else if("custmem".equals(popId)) {						// ∞Ì∞¥∏Ì ∞Àªˆ
+		else if("custmem".equals(popId)) {						// ÔøΩÔøΩÔøΩÔøΩ ÔøΩÀªÔøΩ
 			Integer compNo = Integer.valueOf((String) params.get("compNo")); 
 			List<CustDTO> list = custService.listCustmember(compNo);
 			model.addAttribute("list", list);

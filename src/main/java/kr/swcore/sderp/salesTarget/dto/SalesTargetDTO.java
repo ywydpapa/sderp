@@ -1,5 +1,6 @@
 package kr.swcore.sderp.salesTarget.dto;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 public class SalesTargetDTO {
@@ -26,6 +27,8 @@ public class SalesTargetDTO {
 	private int orgId;
 	private String userName;
 	private List<SalesTargetDTO> salesTargetlist;
+	private String targetMonth;
+	private BigDecimal percent;
 	
 	public int getCompNo() {
 		return compNo;
@@ -155,7 +158,18 @@ public class SalesTargetDTO {
 	public void setSalesTargetlist(List<SalesTargetDTO> salesTargetlist) {
 		this.salesTargetlist = salesTargetlist;
 	}
-	
+	public String getTargetMonth() {
+		return targetMonth;
+	}
+	public void setTargetMonth(String targetMonth) {
+		this.targetMonth = targetMonth;
+	}
+	public BigDecimal getPercent() {
+		return percent;
+	}
+	public void setPercent(BigDecimal percent) {
+		this.percent = percent;
+	}
 	public SalesTargetDTO() {
 		super();
 	}
@@ -165,8 +179,8 @@ public class SalesTargetDTO {
 				+ targetYear + ", targetType=" + targetType + ", mm01=" + mm01 + ", mm02=" + mm02 + ", mm03=" + mm03
 				+ ", mm04=" + mm04 + ", mm05=" + mm05 + ", mm06=" + mm06 + ", mm07=" + mm07 + ", mm08=" + mm08
 				+ ", mm09=" + mm09 + ", mm10=" + mm10 + ", mm11=" + mm11 + ", mm12=" + mm12 + ", attrib=" + attrib
-				+ ", orgId=" + orgId + ", userName=" + userName + ", salesTargetlist=" + salesTargetlist + "]";
+				+ ", orgId=" + orgId + ", userName=" + userName + ", salesTargetlist=" + salesTargetlist
+				+ ", targetMonth=" + targetMonth + ", percent=" + percent + "]";
 	}
-		
 	
 }

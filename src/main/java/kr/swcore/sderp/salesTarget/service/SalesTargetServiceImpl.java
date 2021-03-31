@@ -1,9 +1,11 @@
 package kr.swcore.sderp.salesTarget.service;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
@@ -152,5 +154,98 @@ public class SalesTargetServiceImpl implements SalesTargetService {
 	public int insertSalesTarget(HttpSession session, SalesTargetDTO salesTargetDTO) {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+	@Override
+	public Map<String, Object> listSalesTargetMonthIndividual(HttpSession session, SalesTargetDTO salesTargetDTO) {
+		Map<String, Object> returnMap = new HashMap<>();
+		if(salesTargetDTO == null) salesTargetDTO = new SalesTargetDTO();
+		
+		Integer compNo = Integer.valueOf((String) session.getAttribute("compNo"));
+		salesTargetDTO.setCompNo(compNo);
+		
+		Integer userNo = Integer.valueOf((String) session.getAttribute("userNo"));
+		salesTargetDTO.setUserNo(userNo);
+		
+		Calendar cal = Calendar.getInstance();
+		String targetYear = salesTargetDTO.getTargetYear();
+		if(targetYear == null || targetYear.equals("")) {
+			targetYear = String.valueOf(cal.get(Calendar.YEAR));
+			salesTargetDTO.setTargetYear(targetYear);
+		}
+		
+		String targetMonth = salesTargetDTO.getTargetMonth();
+		if(targetMonth == null || targetMonth.equals("")) {
+			Integer month = cal.get(Calendar.MONTH)+1;
+			if(month < 10) {
+				targetMonth = "mm0"+String.valueOf(month);
+			} else {
+				targetMonth = "mm"+String.valueOf(month);
+			}			
+			salesTargetDTO.setTargetMonth(targetMonth);
+		}
+		
+		SalesTargetDTO returnDto = new SalesTargetDTO();
+		try {
+			returnDto = salesTargetDAO.listSalesTargetMonthIndividual(salesTargetDTO);
+		} catch (Exception e) {
+			e.printStackTrace();
+			returnMap.put("code", 20001);
+			returnMap.put("data", null);
+		}
+		
+		if (returnDto == null) {
+			// 쿼리는 이상없지만 0/0 또는 0/1 또는 1/0 같은경우
+			returnMap.put("code", 20001);
+			BigDecimal temp = new BigDecimal(0.0);
+			returnDto = new SalesTargetDTO();
+			returnDto.setPercent(temp);
+			returnMap.put("data", returnDto);
+		} else {
+			returnMap.put("code", 10001);
+			returnMap.put("data", returnDto);
+		}
+		return returnMap;
+	}
+
+	@Override
+	public Map<String, Object> listSalesTargetYearIndividual(HttpSession session, SalesTargetDTO salesTargetDTO) {
+		Map<String, Object> returnMap = new HashMap<>();
+		if(salesTargetDTO == null) salesTargetDTO = new SalesTargetDTO();
+		
+		Integer compNo = Integer.valueOf((String) session.getAttribute("compNo"));
+		salesTargetDTO.setCompNo(compNo);
+		
+		Integer userNo = Integer.valueOf((String) session.getAttribute("userNo"));
+		salesTargetDTO.setUserNo(userNo);
+		
+		Calendar cal = Calendar.getInstance();
+		String targetYear = salesTargetDTO.getTargetYear();
+		if(targetYear == null || targetYear.equals("")) {
+			targetYear = String.valueOf(cal.get(Calendar.YEAR));
+			salesTargetDTO.setTargetYear(targetYear);
+		}
+		
+		SalesTargetDTO returnDto = new SalesTargetDTO();
+		try {
+			returnDto = salesTargetDAO.listSalesTargetYearIndividual(salesTargetDTO);
+		} catch (Exception e) {
+			e.printStackTrace();
+			returnMap.put("code", 20001);
+			returnMap.put("data", null);
+		}
+		
+		if (returnDto == null) {
+			// 쿼리는 이상없지만 0/0 또는 0/1 또는 1/0 같은경우
+			returnMap.put("code", 20001);
+			BigDecimal temp = new BigDecimal(0.0);
+			returnDto = new SalesTargetDTO();
+			returnDto.setPercent(temp);
+			returnMap.put("data", returnDto);
+		} else {
+			returnMap.put("code", 10001);
+			returnMap.put("data", returnDto);
+		}
+		return returnMap;
 	}
 }

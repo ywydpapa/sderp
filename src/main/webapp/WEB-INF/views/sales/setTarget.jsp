@@ -41,7 +41,10 @@
 		<table class="table plan-table table-bordered">
 		    <tr>
 				<th rowspan="2" style="vertical-align: middle;">담당사원</th>
-				<th colspan="12">월별매출목표</th>
+				<th colspan="12">
+					<c:if test="${targetTypeValue eq 'PROFIT'}">월별이익목표</c:if>
+					<c:if test="${targetTypeValue eq 'SALES'}">월별매출목표</c:if>
+				</th>
 				<th rowspan="2" style="vertical-align: middle;">합계</th>
 		    </tr>
 		    <tr>
@@ -181,7 +184,7 @@ function fn_update(){
 	.done(function(data) {
 		if(data.code == 10001){
 			alert("저장 성공");
-			fnSetPage('${path}/sales/setTarget.do');
+			fn_PreReload();
 		}else{
 			alert("저장 실패");
 		}

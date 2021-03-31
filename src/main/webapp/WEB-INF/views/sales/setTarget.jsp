@@ -315,9 +315,10 @@ $(document).ready(function() {
 	    	temp = Number(temp);
 	    	totalSum = totalSum + temp;
 	    });
-	    console.dir("totalSum : "+totalSum);
-	});
-	
+	    
+
+	    $(".totalSum").find("input[type=text]").last().val(totalSum.toLocaleString("en-US"));
+	}); 
 	// 이벤트 끝 ==========================================================================
 	
 	// 1월~12월 연간합산

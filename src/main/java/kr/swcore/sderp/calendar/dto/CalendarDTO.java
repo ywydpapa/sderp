@@ -19,9 +19,14 @@ public class CalendarDTO {
 	private String end;
 	private String allday;
 	private int id;
+	private String schedType;
 	
-	
-	
+	public String getSchedType() {
+		return schedType;
+	}
+	public void setSchedType(String schedType) {
+		this.schedType = schedType;
+	}
 	public int getId() {
 		return id;
 	}

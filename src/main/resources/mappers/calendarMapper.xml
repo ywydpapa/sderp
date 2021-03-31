@@ -21,19 +21,22 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select concat(d.userName," : ", a.schedTitle) title,  
  		concat(left(a.schedFrom,10),"T",substring(a.schedFrom,12,9)) start,
  		concat(left(a.schedTo,10),"T",substring(a.schedTo,12,9)) end,
- 		a.schedNo id
+ 		a.schedNo id,
+ 		'기타일정' schedType
  		from swc_sched a 
  		left join swc_cust b on a.custNo=b.custNo
  		left join swc_sopp c on a.soppNo=c.soppNo
  		left join swc_user d on a.userNo=d.userNo
+ 		where a.compNo = #{compNo}
  		
- 		<!-- UNION 
+ 		UNION 
  		
- 		select concat(d.userName," : ", a.soppTitle) title,  
- 		concat(left(a.regDatetime,10),"T",substring(a.regDatetime,12,9)) start,
- 		concat(left(a.soppTargetDate,10),"T",substring(a.soppTargetDate,12,9)) end,
- 		a.soppNo id
- 		from swc_sopp a 
+ 		select concat(d.userName," : ", a.salesTitle) title,  
+ 		concat(left(a.salesFrdatetime,10),"T",substring(a.salesFrdatetime ,12,9)) start,
+ 		concat(left(a.salesTodatetime,10),"T",substring(a.salesTodatetime ,12,9)) end,
+ 		a.salesNo id,
+ 		'영업일정' schedType
+ 		from swc_sales a 
  		left join swc_cust b on a.custNo=b.custNo
  		left join swc_user d on a.userNo=d.userNo
  		where a.compNo = #{compNo}
@@ -43,10 +46,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  		select concat(d.userName," : ", a.techdTitle) title,  
  		concat(left(a.techdFrom,10),"T",substring(a.techdFrom,12,9)) start,
  		concat(left(a.techdTo,10),"T",substring(a.techdTo,12,9)) end,
- 		a.techdNo id
+ 		a.techdNo id,
+ 		'기술지원' schedType
  		from swc_techd a 
  		left join swc_user d on a.userNo=d.userNo
- 		where a.compNo = #{compNo} -->
+ 		where a.compNo = #{compNo}
  </select>
 
 

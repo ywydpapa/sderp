@@ -4,7 +4,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="sched">
 
-<select id="listSched"
+<!-- <select id="listSched"
  		resultType="schedDto">
  		select a.*, b.custName, c.soppTitle, d.userName, e.desc03 schedCatN, f.desc03 schedTypeN  
  		from swc_sched a 
@@ -15,6 +15,36 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  		left join swc_code f on a.schedType = f.codeNo
  		where a.attrib not like 'XXX%' and a.compNo = #{compNo}
  		order by schedNo 
+ </select> -->
+ 
+<select id="listSched"
+ 		resultType="schedDto">
+ 		select a.schedNo, a.schedTitle, a.schedFrom, a.schedTo, b.custName, c.userName, d.desc03 schedTypeN
+ 		from swc_sched a
+ 		left join swc_cust b on a.custNo = b.custNo 
+ 		left join swc_user c on a.userNo = c.userNo
+ 		left join swc_code d on a.schedType = d.codeNo
+ 		where a.attrib not like 'XXX%' and a.compNo = #{compNo}
+ 		
+ 		UNION 
+ 		
+ 		select a.salesNo schedNo, a.salesTitle schedTitle, a.salesFrdatetime schedFrom, a.salesTodatetime schedTo, b.custName, c.userName, d.desc03 schedTypeN
+ 		from swc_sales a 
+ 		left join swc_cust b on a.custNo = b.custNo
+ 		left join swc_user c on a.userNo = c.userNo
+ 		left join swc_code d on a.schedType = d.codeNo
+ 		where a.attrib not like 'XXX%' and a.compNo = #{compNo}
+
+		UNION
+ 		
+ 		select a.techdNo schedNo, a.techdTitle schedTitle, a.techdFrom schedFrom, a.techdTo schedTo, b.custName, c.userName, d.desc03 schedTypeN
+ 		from swc_techd a 
+ 		left join swc_cust b on a.custNo = b.custNo
+ 		left join swc_user c on a.userNo = c.userNo
+ 		left join swc_code d on a.schedType = d.codeNo
+ 		where a.attrib not like 'XXX%' and a.compNo = #{compNo}
+ 		
+ 		order by schedFrom desc
  </select>
 
 <select id="listconSched"

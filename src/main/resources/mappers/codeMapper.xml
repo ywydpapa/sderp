@@ -106,6 +106,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  		select * from swc_code where attrib not like 'XXX%' and code02='TECHSTAT' and desc02 IS NULL and compNo = #{compNo}
 </select>
 
+<select id="listSchedDetailType" resultType="codeDto">
+ 		select * from swc_code where attrib not like 'XXX%' and code02='ACT0003' and desc02 IS NULL and compNo = #{compNo};
+</select>
+
  <insert id="insertCode">
  insert into swc_code (
 compNo

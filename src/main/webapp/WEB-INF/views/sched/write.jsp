@@ -246,13 +246,15 @@
 								<th scope="row">일정구분</th>
 								<td><select name="schedType" id="schedType"
 									class="form-control form-control-sm">
-										<c:forEach var="schedtype" items="${schedtype}">
+										<option value="">기타일정</option>
+										<%-- <c:forEach var="schedtype" items="${schedtype}">
 											<option value="${schedtype.codeNo}">${schedtype.desc03}</option>
-										</c:forEach>
+										</c:forEach> --%>
 								</select></td>
 								<th scope="row">활동형태</th>
 								<td><select name="schedCat" id="schedCat"
 									class="form-control form-control-sm">
+										<option value=""></option>
 										<c:forEach var="acttype" items="${acttype}">
 											<option value="${acttype.codeNo}">${acttype.desc03}</option>
 										</c:forEach>
@@ -361,6 +363,7 @@
 					.done(function(data) {
 						if(data.code == 10001){
 							alert("저장 성공");
+							$(".modal-backdrop").remove();
 							fnSetPage('${path}/sched/list.do');
 						}else{
 							alert("저장 실패");

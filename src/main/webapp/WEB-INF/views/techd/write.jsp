@@ -229,9 +229,9 @@ $('input[name=radio]').on('click', function() {
 				</div>
 			</div>
 			<div class="btn_wr text-right mt-3">
-				<button class="btn btn-md btn-success f-left" onClick="javascript:fnSetPage('${path}/techd/list.do')">목록</button>
+				<%-- <button class="btn btn-md btn-success f-left" onClick="javascript:fnSetPage('${path}/techd/list.do')">목록</button> --%>
 				<button class="btn btn-md btn-primary" onClick="fn_sprtInsert()">저장</button>
-				<button class="btn btn-md btn-inverse" onClick="javascript:fnSetPage('${path}/techd/list.do')">취소</button>
+				<%-- <button class="btn btn-md btn-inverse" onClick="javascript:fnSetPage('${path}/techd/list.do')">취소</button> --%>
 			</div>
 		</div>
 	</div>
@@ -297,9 +297,9 @@ function fn_sprtInsert() {
 	var sprtData = {};
 //	sprtData.radio				= $("input[name='radio']:checked").val();	// 신규 영업지원 or 기존계약
 	sprtData.techdTitle			= $("#techdTitle").val();					// 기술지원 요청명
-	sprtData.userNo				= $("#userNo").val();						// 담당사원
-	sprtData.custNo				= $("#custNo").val();						// 거래처
-	sprtData.custmemberNo		= $("#custmemberNo").val() ? null : 0;					// 고객
+	sprtData.userNo				= $("#userNo").val() ? $("#userNo").val() : 0;						// 담당사원
+	sprtData.custNo				= $("#custNo").val() ? $("#custNo").val() : 0;						// 거래처
+	sprtData.custmemberNo		= $("#custmemberNo").val() ? $("#custmemberNo").val() : 0;					// 고객
 	sprtData.techdItemmodel		= $("#techdItemmodel").val();				// 모델
 	sprtData.techdItemversion	= $("#techdItemversion").val();				// 버전
 	sprtData.techdPlace			= $("#techdPlace").val();					// 장소
@@ -308,7 +308,6 @@ function fn_sprtInsert() {
 	sprtData.techdType			= $("#techdType").val();					// 지원형태
 	sprtData.techdSteps			= $("#techdSteps").val();					// 진행단계
 	sprtData.techdDesc			= $("#techdDesc").val();					// 설명
-	console.dir(sprtData);
 	
 	$.ajax({ url: "${path}/techd/insert.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소 
 				data: sprtData , // HTTP 요청과 함께 서버로 보낼 데이터 
@@ -318,6 +317,7 @@ function fn_sprtInsert() {
 			.done(function(data) {
 				if(data.code == 10001){
 					alert("저장 성공");
+					$(".modal-backdrop").remove();
 					fnSetPage('${path}/techd/list.do');
 				}else{
 					alert("저장 실패");

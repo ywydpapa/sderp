@@ -236,9 +236,9 @@
 				</div>
 			</div>
 			<div class="btn_wr text-right mt-3">
-				<button class="btn btn-md btn-success f-left" onClick="javascript:fnSetPage('${path}/sales/list.do')">목록</button>
+				<%-- <button class="btn btn-md btn-success f-left" onClick="javascript:fnSetPage('${path}/sales/list.do')">목록</button> --%>
 				<button class="btn btn-md btn-primary" onClick="fn_SaveSales()">등록</button>
-				<button class="btn btn-md btn-inverse" onClick="javascript:fnSetPage('${path}/sales/list.do')">취소</button>
+				<%-- <button class="btn btn-md btn-inverse" onClick="javascript:fnSetPage('${path}/sales/list.do')">취소</button> --%>
 			</div>
 		</div>
 	</div>
@@ -308,7 +308,6 @@
 			salesData.ptncNo 		= $("#ptncNo").val();
 			salesData.salesType 		= $("#salesType").val();
 			salesData.salesDesc 		= $("#salesDesc").val();
-			console.log(salesData);
 			
 			if (!salesData.salesTitle) {
 				alert("영업활동 제목을 입력하십시오.!!");		
@@ -355,6 +354,7 @@
 					.done(function(data) {
 						if(data.code == 10001){
 							alert("저장 성공");
+							$(".modal-backdrop").remove();
 							fnSetPage('${path}/sales/list.do');
 						}else{
 							alert("저장 실패");

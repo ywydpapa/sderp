@@ -83,7 +83,9 @@ salesEtime, e.soppTitle  from swc_sales a
  salesTodatetime,
  salesPlace,
  ptncNo, 
- attrib)
+ attrib,
+ schedType
+ )
  values 
  (
  #{soppNo},
@@ -97,7 +99,9 @@ salesEtime, e.soppTitle  from swc_sales a
  #{salesTodatetime},
  #{salesPlace},
  #{ptncNo},
- '10000')
+ '10000',
+ #{schedType}
+ )
  </insert>
 
  <update id="updateSales">

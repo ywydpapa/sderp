@@ -88,7 +88,7 @@
 												<div class="modal-content modal-80size">
 													<div class="modal-header">
 														<h4 class="modal-title"></h4>
-														<button type="button" class="close" data-dismiss="modal"
+														<button type="button" class="close" onclick="$('#userModal').modal('hide');"
 															aria-label="Close">
 															<span aria-hidden="true">&times;</span>
 														</button>
@@ -100,7 +100,7 @@
 													<div class="modal-footer">
 														<button type="button"
 															class="btn btn-default waves-effect "
-															data-dismiss="modal">Close</button>
+															onclick="$('#userModal').modal('hide');">Close</button>
 													</div>
 												</div>
 											</div>
@@ -125,7 +125,7 @@
 												<div class="modal-content modal-80size">
 													<div class="modal-header">
 														<h4 class="modal-title"></h4>
-														<button type="button" class="close" data-dismiss="modal"
+														<button type="button" class="close" onclick="$('#soppModal').modal('hide');"
 															aria-label="Close">
 															<span aria-hidden="true">&times;</span>
 														</button>
@@ -137,7 +137,7 @@
 													<div class="modal-footer">
 														<button type="button"
 															class="btn btn-default waves-effect "
-															data-dismiss="modal">Close</button>
+															onclick="$('#soppModal').modal('hide');">Close</button>
 													</div>
 												</div>
 											</div>
@@ -163,7 +163,7 @@
 												<div class="modal-content modal-80size">
 													<div class="modal-header">
 														<h4 class="modal-title">거래처검색</h4>
-														<button type="button" class="close" data-dismiss="modal"
+														<button type="button" class="close" onclick="$('#custModal').modal('hide');"
 															aria-label="Close">
 															<span aria-hidden="true">&times;</span>
 														</button>
@@ -175,7 +175,7 @@
 													<div class="modal-footer">
 														<button type="button"
 															class="btn btn-default waves-effect "
-															data-dismiss="modal">Close</button>
+															onclick="$('#custModal').modal('hide');">Close</button>
 													</div>
 												</div>
 											</div>
@@ -200,7 +200,7 @@
 												<div class="modal-content modal-80size">
 													<div class="modal-header">
 														<h4 class="modal-title"></h4>
-														<button type="button" class="close" data-dismiss="modal"
+														<button type="button" class="close" onclick="$('#ptncModal').modal('hide');"
 															aria-label="Close">
 															<span aria-hidden="true">&times;</span>
 														</button>
@@ -212,7 +212,7 @@
 													<div class="modal-footer">
 														<button type="button"
 															class="btn btn-default waves-effect "
-															data-dismiss="modal">Close</button>
+															onclick="$('#ptncModal').modal('hide');">Close</button>
 													</div>
 												</div>
 											</div>

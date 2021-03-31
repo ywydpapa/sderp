@@ -45,7 +45,7 @@ public interface CodeService {
 	List<CodeDTO> listSprtstat(HttpSession session);
 	List<CodeDTO> listBoardtype();
 	List<CodeDTO> listBoardtype(HttpSession session);
-	List<CodeDTO> listBusinessType();
-	List<CodeDTO> listContractType();
-	List<CodeDTO> listTechdSteps();
+	List<CodeDTO> listBusinessType(HttpSession session);
+	List<CodeDTO> listContractType(HttpSession session);
+	List<CodeDTO> listTechdSteps(HttpSession session);
 }

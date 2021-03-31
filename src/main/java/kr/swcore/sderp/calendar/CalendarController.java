@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,8 +30,8 @@ public class CalendarController {
 	
 	@ResponseBody
 	@RequestMapping("listEvent.do")
-	public ModelAndView list(ModelAndView mav) {
-		mav.addObject("list", calendarService.listEvent());
+	public ModelAndView list(ModelAndView mav, HttpSession session) {
+		mav.addObject("list", calendarService.listEvent(session));
 		mav.setViewName("calendar/listEvent");
 		return mav;
 	}
@@ -49,7 +50,7 @@ public class CalendarController {
 	
 	@RequestMapping("calmain.do")
 	public String list() {
-		return "fullcalendar4/calmain2";
+		return "fullcalendar4/calmain3";
 	}
 	
 	@RequestMapping("delete.do")

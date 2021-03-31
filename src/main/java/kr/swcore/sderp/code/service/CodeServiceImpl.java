@@ -245,21 +245,24 @@ public class CodeServiceImpl implements CodeService {
 	}
 	
 	@Override
-	public List<CodeDTO> listBusinessType() {
+	public List<CodeDTO> listBusinessType(HttpSession session) {
 		// TODO Auto-generated method stub
-		return codeDao.listBusinessType();
+		SoppDTO soppdto = SessionInfoGet.getCompNoDto(session);
+		return codeDao.listBusinessType(soppdto);
 	}
 	
 	@Override
-	public List<CodeDTO> listContractType() {
+	public List<CodeDTO> listContractType(HttpSession session) {
 		// TODO Auto-generated method stub
-		return codeDao.listContractType();
+		SoppDTO soppdto = SessionInfoGet.getCompNoDto(session);
+		return codeDao.listContractType(soppdto);
 	}
 	
 	@Override
-	public List<CodeDTO> listTechdSteps() {
+	public List<CodeDTO> listTechdSteps(HttpSession session) {
 		// TODO Auto-generated method stub
-		return codeDao.listTechdSteps();
+		SoppDTO soppdto = SessionInfoGet.getCompNoDto(session);
+		return codeDao.listTechdSteps(soppdto);
 	}
 
 }

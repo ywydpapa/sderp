@@ -64,9 +64,7 @@ public class TechdServiceImpl implements TechdService {
 	@Override
 	public int insertTechd(HttpSession session, TechdDTO dto) {
 		Integer compNo = Integer.valueOf((String) session.getAttribute("compNo"));
-		Integer userId  = Integer.valueOf((String) session.getAttribute("userNo"));
 		dto.setCompNo(compNo);
-		dto.setUserNo(userId);
 		
 		int schedInsert = 0;
 		schedInsert = techdDao.insertTechd(dto);

@@ -5,7 +5,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="user">
 
 <select id="loginCheck" resultType="String">
- 		select userName from swc_user where userId=#{userId} and userPasswd=#{userPasswd} 
+ 		select u.userName 
+ 		from swc_user u left join swc_company c on u.compNo = c.compNo
+ 		where u.userId=#{userId} and u.userPasswd=#{userPasswd} and c.compId=#{compId} 
 </select>
 
 <select id="viewUser"
@@ -27,10 +29,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  
  <update id="updateUser">
  		update swc_user set 
- 		userName=#{userName}, 
- 		userPasswd=#{userPasswd},
- 		userRole=#{userRole}
+ 		<!-- userName=#{userName}, --> 
+ 		userPasswd=#{userChangePasswd}
+ 		<!-- userRole=#{userRole} -->
  		where userId=#{userId}
+ 		and userPasswd=#{userPasswd}
  </update>
   
  <insert id="insertUser">

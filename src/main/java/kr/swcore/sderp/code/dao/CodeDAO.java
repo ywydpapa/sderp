@@ -43,8 +43,8 @@ public interface CodeDAO {
 	List<CodeDTO> listSprtstat(SoppDTO soppdto);
 	List<CodeDTO> listBoardType();
 	List<CodeDTO> listBoardType(SoppDTO soppdto);
-	List<CodeDTO> listBusinessType();
-	List<CodeDTO> listContractType();
-	List<CodeDTO> listTechdSteps();
+	List<CodeDTO> listBusinessType(SoppDTO soppdto);
+	List<CodeDTO> listContractType(SoppDTO soppdto);
+	List<CodeDTO> listTechdSteps(SoppDTO soppdto);
 
 }

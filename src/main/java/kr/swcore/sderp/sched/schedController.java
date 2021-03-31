@@ -55,10 +55,10 @@ public class schedController {
 	}
 
 	@RequestMapping("/detail/{schedNo}")
-	public ModelAndView detail(@PathVariable("schedNo") int schedNo, ModelAndView mav) {
+	public ModelAndView detail(@PathVariable("schedNo") int schedNo, ModelAndView mav, HttpSession session) {
 		mav.addObject("dto", schedService.detailSched(schedNo));
-		mav.addObject("schedtype", codeService.listSchedtype());
-		mav.addObject("acttype", codeService.listActtype());
+		mav.addObject("schedtype", codeService.listSchedtype(session));
+		mav.addObject("acttype", codeService.listActtype(session));
 		mav.setViewName("sched/detail");
 		return mav;
 	}

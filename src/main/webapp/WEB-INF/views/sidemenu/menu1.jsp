@@ -17,8 +17,9 @@
 				class="pcoded-mcaret"></span>
 		</a></li>
 		<li class="pcoded-hasmenu pcoded">
-			<%-- <a href="javascript:fnSetPage('${path}/calendar/calmain.do')"> --%>
-			<a href="javascript:fnSetPage('${path}/sched/list.do')"> <span
+			<a href="javascript:fnSetPage('${path}/calendar/calmain.do')">
+			<%-- <a href="javascript:fnSetPage('${path}/sched/list.do')"> --%> 
+			<span
 				class="pcoded-micon"><i class="ti-calendar"></i></span> <span
 				class="pcoded-mtext" data-i18n="nav.basic-components.main">일정관리</span>
 				<span class="pcoded-mcaret"></span>

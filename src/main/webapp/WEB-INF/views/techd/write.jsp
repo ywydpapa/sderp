@@ -75,7 +75,7 @@ $('input[name=radio]').on('click', function() {
 												<div class="modal-content modal-80size">
 													<div class="modal-header">
 														<h4 class="modal-title">담당사원 검색</h4>
-														<button type="button" class="close" data-dismiss="modal"
+														<button type="button" class="close" onclick="$('#userModal').modal('hide');"
 															aria-label="Close">
 															<span aria-hidden="true">&times;</span>
 														</button>
@@ -87,7 +87,7 @@ $('input[name=radio]').on('click', function() {
 													<div class="modal-footer">
 														<button type="button"
 															class="btn btn-default waves-effect "
-															data-dismiss="modal">Close</button>
+															onclick="$('#userModal').modal('hide');">Close</button>
 													</div>
 												</div>
 											</div>
@@ -114,7 +114,7 @@ $('input[name=radio]').on('click', function() {
 												<div class="modal-content modal-80size">
 													<div class="modal-header">
 														<h4 class="modal-title">거래처 검색</h4>
-														<button type="button" class="close" data-dismiss="modal"
+														<button type="button" class="close" onclick="$('#custModal').modal('hide');"
 															aria-label="Close">
 															<span aria-hidden="true">&times;</span>
 														</button>
@@ -126,7 +126,7 @@ $('input[name=radio]').on('click', function() {
 													<div class="modal-footer">
 														<button type="button"
 															class="btn btn-default waves-effect "
-															data-dismiss="modal">Close</button>
+															onclick="$('#custModal').modal('hide');">Close</button>
 													</div>
 												</div>
 											</div>
@@ -153,7 +153,7 @@ $('input[name=radio]').on('click', function() {
 												<div class="modal-content modal-80size">
 													<div class="modal-header">
 														<h4 class="modal-title">고객 검색</h4>
-														<button type="button" class="close" data-dismiss="modal"
+														<button type="button" class="close" onclick="$('#custmemberModal').modal('hide');"
 															aria-label="Close">
 															<span aria-hidden="true">&times;</span>
 														</button>
@@ -165,7 +165,7 @@ $('input[name=radio]').on('click', function() {
 													<div class="modal-footer">
 														<button type="button"
 															class="btn btn-default waves-effect "
-															data-dismiss="modal">Close</button>
+															onclick="$('#custmemberModal').modal('hide');">Close</button>
 													</div>
 												</div>
 											</div>
@@ -299,7 +299,7 @@ function fn_sprtInsert() {
 	sprtData.techdTitle			= $("#techdTitle").val();					// 기술지원 요청명
 	sprtData.userNo				= $("#userNo").val();						// 담당사원
 	sprtData.custNo				= $("#custNo").val();						// 거래처
-	sprtData.custmemberNo		= $("#custmemberNo").val();					// 고객
+	sprtData.custmemberNo		= $("#custmemberNo").val() ? null : 0;					// 고객
 	sprtData.techdItemmodel		= $("#techdItemmodel").val();				// 모델
 	sprtData.techdItemversion	= $("#techdItemversion").val();				// 버전
 	sprtData.techdPlace			= $("#techdPlace").val();					// 장소
@@ -309,7 +309,7 @@ function fn_sprtInsert() {
 	sprtData.techdSteps			= $("#techdSteps").val();					// 진행단계
 	sprtData.techdDesc			= $("#techdDesc").val();					// 설명
 	console.dir(sprtData);
-
+	
 	$.ajax({ url: "${path}/techd/insert.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소 
 				data: sprtData , // HTTP 요청과 함께 서버로 보낼 데이터 
 				method: "POST", // HTTP 요청 메소드(GET, POST 등) 

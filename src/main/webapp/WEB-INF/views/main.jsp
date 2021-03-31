@@ -144,6 +144,50 @@
 		}
 	}
 	
+	function fnChangeInfo() {
+		var userId = $("#userInfoForm").find("input[name=userId]").val();
+		var currentPassword = $("#userPasswd").val();
+		var changePassword = $("#userChangePasswd").val();
+		var checkedChangePassword = $("#checkedUserChangePasswd").val();
+		
+		if(fnIsNullOrEmpty(currentPassword) || fnIsNullOrEmpty(changePassword) || fnIsNullOrEmpty(checkedChangePassword)) {
+			alert("정보를 올바르게 입력하여 주십시오.");
+			return;
+		}
+		if(changePassword != checkedChangePassword) {
+			alert("변경할 비밀번호를 다시 확인하여 주십시오.");
+			return;
+		}
+		
+		var userData = {};
+		userData.userId = userId;
+		userData.userPasswd = currentPassword;
+		userData.userChangePasswd = changePassword;
+		
+		$.ajax({
+			url : "${path}/user/update.do",
+			data : userData,
+			method : "POST",
+			dataType : "json"
+		}).done(function(data){
+			if(data.code == 10001){
+				alert("개인정보가 수정되었습니다.")
+			}else{
+				alert("유저 정보를 찾을 수 없습니다.");
+			}
+		}).fail(function(xhr, status, errorThrown) { 
+			alert("통신 실패");
+		});
+		
+	}
+	
+	function fnIsNullOrEmpty(value) {
+		if(value == null || value == undefined || value == '') {
+			return true;
+		}else {
+			return false;
+		}
+	}
 
 </script> 
 </head>
@@ -250,9 +294,8 @@
                                 </a>
                                 <ul class="show-notification profile-notification">
                                     <li>
-                                        <a href="#">
-                                            <i class="ti-user"></i> 개인정보수정
-                                        </a>
+                                    	<i class="ti-user"></i>
+                                    	<a href="#userInfoChangeModal" data-toggle="modal">개인정보수정</a>
                                     </li>
                                     <li>
                                         <a href="${path}/user/logout.do">
@@ -290,9 +333,49 @@
   
 							<!-- Page-body start -->
 							<div class="page-body">
+								<div class="modal fade" id="userInfoChangeModal" tabindex="-1" role="dialog">
+									<div class="modal-dialog modal-80size" role="document">
+										<div class="modal-content modal-80size">
+											<div class="modal-header">
+												<h4 class="modal-title">개인정보수정</h4>
+												<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+													<span aria-hidden="true">&times;</span>
+												</button>
+											</div>
+											<div class="modal-body">
+												<form id="userInfoForm">
+													<div class="form-group">
+												    	<label for="userId">아이디</label>
+												    	<input type="text" class="form-control" name="userId" id="" value="${sessionScope.userId}" readonly>
+													</div>
+												 	<div class="form-group">
+												    	<label for="userName">이름</label>
+												    	<input type="text" class="form-control" name="userName" id="" value="${sessionScope.userName}" readonly>
+												  	</div>
+												  	<div class="form-group">
+												    	<label for="userPasswd">현재 비밀번호</label>
+												    	<input type="password" class="form-control" id="userPasswd">
+													</div>
+												 	<div class="form-group">
+												    	<label for="userChangePasswd">변경할 비밀번호</label>
+												    	<input type="password" class="form-control" id="userChangePasswd" >
+												  	</div>
+												  	<div class="form-group">
+												    	<label for="checkedUserChangePasswd">비밀번호 확인</label>
+												    	<input type="password" class="form-control" id="checkedUserChangePasswd">
+												  	</div>
+												</form>
+											</div>
+											<div class="modal-footer">
+												<button type="button" class="btn btn-default waves-effect" onclick="javascript:fnChangeInfo()">Change</button>
+												<button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
+											</div>
+										</div>
+									</div>
+								</div>
 							<!-- main_contents Start -->
 								<div id="main_content">
-
+									
 
 								</div>
 							<!-- main_contents end -->
@@ -307,6 +390,12 @@
 		</div>
 	</div>
 </div>
+
+<script>
+	$("#userInfoChangeModal").on('show.bs.modal', function(e){
+		$("#userInfoForm")[0].reset();
+	});
+</script>
 
 <!-- Custom js -->
 <script src='${path}/assets/jstree/js/jstree.js'></script>

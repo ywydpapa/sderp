@@ -26,7 +26,16 @@ public class TechdDTO {
 	private String regdatetime;
 	private String targetDatefrom;
 	private String targetDateto;
+	private String schedType;
 	
+	public String getSchedType() {
+		return schedType;
+	}
+
+	public void setSchedType(String schedType) {
+		this.schedType = schedType;
+	}
+
 	public String getTargetDatefrom() {
 		return targetDatefrom;
 	}

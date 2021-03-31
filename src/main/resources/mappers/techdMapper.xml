@@ -73,7 +73,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	techdSteps,
 	regdatetime,
 	attrib,
-	userNo
+	userNo,
+	schedType
  )
  values 
  (
@@ -91,7 +92,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	#{techdSteps},
 	now(),
 	'10000',
-	#{userNo}
+	#{userNo},
+	#{schedType}
  )
  </insert>
 

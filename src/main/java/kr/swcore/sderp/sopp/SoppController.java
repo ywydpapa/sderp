@@ -48,7 +48,7 @@ public class SoppController {
 		mav.setViewName("sopp/list");
 		mav.addObject("saleslist", codeService.listSalestype(session));
 		mav.addObject("sstatuslist", codeService.listSstatus(session));
-		mav.addObject("businessType", codeService.listBusinessType());
+		mav.addObject("businessType", codeService.listBusinessType(session));
 		mav.addObject("list", soppService.listSopp(session));
 		return mav;
 	}
@@ -67,7 +67,7 @@ public class SoppController {
 		mav.setViewName("sopp/list2");
 		mav.addObject("saleslist", codeService.listSalestype(session));
 		mav.addObject("sstatuslist", codeService.listSstatus(session));
-		mav.addObject("businessType", codeService.listBusinessType());
+		mav.addObject("businessType", codeService.listBusinessType(session));
 		mav.addObject("list", soppService.listSopp2(session));
 		return mav;
 	}
@@ -88,24 +88,24 @@ public class SoppController {
 	}
 
 	@RequestMapping("/detail/{soppNo}")
-	public ModelAndView detail(@PathVariable("soppNo") int soppNo, ModelAndView mav) {
+	public ModelAndView detail(@PathVariable("soppNo") int soppNo, ModelAndView mav, HttpSession session) {
 		mav.addObject("dto", soppService.detailSopp(soppNo));
 		mav.addObject("dtodata01", soppdataService.listSoppdata01(soppNo));
 		mav.addObject("dtodata02", soppdataService.listSoppdata02(soppNo));
-		mav.addObject("saleslist", codeService.listSalestype());
-		mav.addObject("sstatuslist", codeService.listSstatus());
+		mav.addObject("saleslist", codeService.listSalestype(session));
+		mav.addObject("sstatuslist", codeService.listSstatus(session));
 		mav.addObject("salesinsopp",salesService.listSalesinsopp(soppNo));
 		mav.setViewName("sopp/detail");
 		return mav;
 	}
 
 	@RequestMapping("/detail2/{soppNo}")
-	public ModelAndView detail2(@PathVariable("soppNo") int soppNo, ModelAndView mav) {
+	public ModelAndView detail2(@PathVariable("soppNo") int soppNo, ModelAndView mav, HttpSession session) {
 		mav.addObject("dto", soppService.detailSopp(soppNo));
 		mav.addObject("dtodata01", soppdataService.listSoppdata01(soppNo));
 		mav.addObject("dtodata02", soppdataService.listSoppdata02(soppNo));
-		mav.addObject("saleslist", codeService.listSalestype());
-		mav.addObject("sstatuslist", codeService.listSstatus());
+		mav.addObject("saleslist", codeService.listSalestype(session));
+		mav.addObject("sstatuslist", codeService.listSstatus(session));
 		mav.addObject("salesinsopp",salesService.listSalesinsopp(soppNo));
 		mav.setViewName("sopp/detail2");
 		return mav;

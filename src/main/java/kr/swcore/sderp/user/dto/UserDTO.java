@@ -13,7 +13,14 @@ public class UserDTO {
 	private String userRank;
 	private String userDept;
 	private int orgId;
+	private String userChangePasswd;
 	
+	public String getUserChangePasswd() {
+		return userChangePasswd;
+	}
+	public void setUserChangePasswd(String userChangePasswd) {
+		this.userChangePasswd = userChangePasswd;
+	}
 	public String getUserId() {
 		return userId;
 	}

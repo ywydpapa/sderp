@@ -7,6 +7,8 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Service;
 
+import kr.swcore.sderp.code.dao.CodeDAO;
+import kr.swcore.sderp.code.dto.CodeDTO;
 import kr.swcore.sderp.sales.dao.SalesDAO;
 import kr.swcore.sderp.sales.dto.SalesDTO;
 import kr.swcore.sderp.sopp.dto.SoppDTO;
@@ -17,6 +19,9 @@ public class SalesServiceImpl implements SalesService {
 
 	@Inject
 	SalesDAO salesDao;
+	
+	@Inject
+	CodeDAO codeDao;
 	
 	@Override
 	public List<SalesDTO> listSales() {
@@ -66,6 +71,17 @@ public class SalesServiceImpl implements SalesService {
 	public int insertSales(HttpSession session, SalesDTO dto) {
 		Integer compNo = Integer.valueOf((String) session.getAttribute("compNo"));
 		dto.setCompNo(compNo);
+		
+		SoppDTO soppdto = new SoppDTO();
+		soppdto.setCompNo(compNo);
+		List<CodeDTO> codeDto = codeDao.listSchedtype(soppdto);
+		
+		for(int i = 0; i < codeDto.size(); i++) {
+			CodeDTO item = codeDto.get(i);
+			if(item.getCode03().equals("SCHED001")) {
+				dto.setSchedType(String.valueOf(item.getCodeNo()));
+			}
+		}
 		
 		int schedInsert = 0;
 		schedInsert = salesDao.insertSales(dto);

@@ -26,9 +26,15 @@ public class SalesDTO {
 	private String salesStime;
 	private String salesEtime;
 	private String salesTypeN;
+	private String schedType;
 	
 	
-	
+	public String getSchedType() {
+		return schedType;
+	}
+	public void setSchedType(String schedType) {
+		this.schedType = schedType;
+	}
 	public String getSalesTypeN() {
 		return salesTypeN;
 	}

@@ -8,6 +8,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import kr.swcore.sderp.calendar.dto.CalendarDTO;
+import kr.swcore.sderp.sopp.dto.SoppDTO;
 
 @Repository
 public class CalendarDAOImpl implements CalendarDAO {
@@ -19,6 +20,12 @@ public class CalendarDAOImpl implements CalendarDAO {
 	public List<CalendarDTO> listEvent() {
 		// TODO Auto-generated method stub
 		return sqlSession.selectList("calendar.listEvent");
+	}
+	
+	@Override
+	public List<CalendarDTO> listEvent(SoppDTO soppdto) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("calendar.listEvent", soppdto);
 	}
 
 	@Override

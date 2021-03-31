@@ -67,10 +67,10 @@ public class SalesController {
 	}
 	
 	@RequestMapping("/detail/{salesNo}")
-	public ModelAndView detail(@DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss") @PathVariable("salesNo") int salesNo, ModelAndView mav) {
+	public ModelAndView detail(@DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss") @PathVariable("salesNo") int salesNo, ModelAndView mav, HttpSession session) {
 		mav.setViewName("sales/detail");
 		mav.addObject("dto", salesService.detailSales(salesNo));
-		mav.addObject("acttype", codeService.listActtype());
+		mav.addObject("acttype", codeService.listActtype(session));
 		return mav;
 	}
 	

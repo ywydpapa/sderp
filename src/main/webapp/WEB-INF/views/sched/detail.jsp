@@ -232,8 +232,8 @@
 				</div>
 			</div>
 			<div class="btn_wr text-right mt-3">
-				<button class="btn btn-md btn-primary" onClick="fn_UpdateSched()">저장</button>
-				<button class="btn btn-md btn-inverse">취소</button>
+				<button class="btn btn-md btn-primary" onClick="fn_UpdateSched()">수정</button>
+				<!-- <button class="btn btn-md btn-inverse">취소</button> -->
 			</div>
 		</div>
 	</div>
@@ -299,7 +299,7 @@
 			schedData.schedDesc 		= $("#schedDesc").val();
 			schedData.schedType 		= $("#schedType").val();
 			schedData.schedCat 		= $("#schedCat").val();
-			console.log(schedData);
+			
 			$.ajax({ url: "${path}/sched/update.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소 
 						data: schedData , // HTTP 요청과 함께 서버로 보낼 데이터 
 						method: "POST", // HTTP 요청 메소드(GET, POST 등) 
@@ -308,6 +308,7 @@
 					.done(function(data) {
 						if(data.code == 10001){
 							alert("저장 성공");
+							$(".modal-backdrop").remove();
 							fnSetPage('${path}/sched/list.do');
 						}else{
 							alert("저장 실패");

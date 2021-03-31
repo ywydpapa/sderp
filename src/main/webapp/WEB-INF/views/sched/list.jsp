@@ -219,7 +219,7 @@ $(function(){
 									<td>${row.schedTypeN}</td>
 									<td><a
 										href="javascript:fnSetPage('${path}/sched/detail/${row.schedNo}')">${row.schedTitle}</a></td>
-									<td>${row.schedFrom}<span> ~ </span>${row.schedFrom}</td>
+									<td>${row.schedFrom}<span> ~ </span>${row.schedTo}</td>
 									<td>${row.custName}</td>
 									<td>${row.userName}</td>
 									<td><a

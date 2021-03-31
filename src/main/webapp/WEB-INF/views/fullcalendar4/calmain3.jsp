@@ -39,8 +39,8 @@
 	       	views                     : { 
 	       	                                month : { eventLimit : 3 }
 	       	                            },
-	      	dateClick:function (dateInfo) {
-	      		newEvent(dateInfo);
+	      	dateClick:function (info) {
+	      		$('#eventModal').modal('show');
 	    	},
 	    	
 	     	eventSources: [{
@@ -50,12 +50,9 @@
 	        }],   
 	     	                            
 	        eventClick: function(info) {
-	       /*     alert('Event: ' + info.event.title);
-	           alert('Start: ' + info.event.start);
-	           alert('End: ' + info.event.end); */
 	           info.el.style.borderColor = 'red';
-	           $('#eventModal2').modal();
-	           fnSetDetail('detail', info);
+	           $('#eventModal2').modal('show');
+	           fnSetDetail('modify', info);
 	        },
         });
         calendar.render();
@@ -84,17 +81,6 @@
 					
 				</div>
 			</div>
-				<!-- <div class="modal-footer modalBtnContainer-addEvent">
-					<button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
-					<button type="button" class="btn btn-primary" id="save-event">저장</button>
-				</div>
-
-				<div class="modal-footer modalBtnContainer-modifyEvent">
-					<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
-					<button type="button" class="btn btn-danger" id="deleteEvent">삭제</button>
-					<button type="button" class="btn btn-primary" id="updateEvent">저장</button>
-				</div> -->
-			<!-- /.modal-content -->
 		</div>
 	</div>
 </div>
@@ -144,106 +130,6 @@
 		$("#contModal").modal("hide");
 	}
 
-	var eventModal = $('#eventModal');
-	var schedAllday = $('#schedAllday');
-	var schedPlace = $('#schedPlace');
-	var schedTitle = $('#schedTitle');
-	var schedFrom = $('#schedFrom');
-	var schedTo = $('#schedTo');
-	var schedCat = $('#schedCat');
-	var schedColor = $('#schedColor');
-	var schedDesc = $('#schedDesc');
-	var soppNo = $('#soppNo');
-	var addBtnContainer = $('.modalBtnContainer-addEvent');
-	var modifyBtnContainer = $('.modalBtnContainer-modifyEvent');
-
-	/* ****************
-	 *  새로운 일정 생성
-	 * ************** */
-	var newEvent = function(dateInfo) {
-		//modalTitle.html('새로운 일정등록');
-		schedTitle.val('');
-		/* schedFrom.val(start);
-		schedTo.val(end); */
-		schedDesc.val('');
-		addBtnContainer.show();
-		modifyBtnContainer.hide();
-		eventModal.modal('show');
-
-		//새로운 일정 저장버튼 클릭
-		$('#save-event').unbind();
-		$('#save-event').on('click', function() {
-					var schedData = {};
-					schedData.schedPlace = $("#schedPlace").val();
-					schedData.soppNo = $("#soppNo").val();
-					schedData.contNo = $("#contNo").val();
-					schedData.schedDesc = $("#schedDesc").val();
-					schedData.schedType = $("#schedType").val();
-					schedData.userNo = $("#userNo").val();
-					schedData.schedFrom = $("#schedFrom").val();
-					schedData.schedTo = $("#schedTo").val();
-					schedData.schedTitle = $("#schedTitle").val();
-					schedData.schedColor = $("#schedColor").val();
-					schedData.custNo = $("#custNo").val();
-					schedData.schedCat = $("#schedCat").val();
-					console.log(schedData);
-					
-					schedData.contNo = 0;
-					schedData.custNo = 10001;
-					schedData.soppNo = 10000021;
-					schedData.userNo = 10027;
-
-					if (schedData.schedFrom > schedData.schedTo) {
-						alert('끝나는 날짜가 앞설 수 없습니다.');
-						return false;
-					}
-
-					if (schedData.schedTitle === '') {
-						alert('일정명은 필수입니다.');
-						return false;
-					}
-
-					var realEndDay;
-
-					if (schedAllday.is(':checked')) {
-						schedData.schedFrom = moment(schedData.schedFrom)
-								.format('YYYY-MM-DD HH:mm');
-						//render시 날짜표기수정
-						schedData.schedTo = moment(schedData.schedTo).add(1,
-								'days').format('YYYY-MM-DD HH:mm');
-						//DB에 넣을때(선택)
-						realEndDay = moment(schedData.schedTo).format(
-								'YYYY-MM-DD HH:mm');
-						schedData.schedAllday = true;
-					}
-
-					$.ajax({
-						url : "${path}/sched/insert.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소 
-						data : schedData, // HTTP 요청과 함께 서버로 보낼 데이터 
-						method : "POST", // HTTP 요청 메소드(GET, POST 등) 
-						async : false,
-						dataType : "json" // 서버에서 보내줄 데이터의 타입 
-					}) // HTTP 요청이 성공하면 요청한 데이터가 done() 메소드로 전달됨. .
-					.done(function(data) {
-						if (data.code == 10001) {
-							alert("저장 성공");
-							location.reload(true);
-							location.href = location.href;
-							history.go(0);
-						} else {
-							alert("저장 실패");
-						}
-					}) // HTTP 요청이 실패하면 오류와 상태에 관한 정보가 fail() 메소드로 전달됨. 
-					.fail(function(xhr, status, errorThrown) {
-						alert("통신 실패");
-					});
-					eventModal.find('input, textarea').val('');
-					schedAllday.prop('checked', false);
-					eventModal.modal('hide');
-					//새로운 일정 저장
-				});
-	};
-	
 	function fnSetDetail(value, info) {
 		var path;
 		var detailContent = $('#detail-content'); 
@@ -252,8 +138,15 @@
 			path = '${path}/sales/write.do';
 		}else if(value == '770100'){
 			path = '${path}/techd/write.do';
-		}else if(value == 'detail'){
-			path = '${path}/sched/detail/'+info.event.id;
+		}else if(value == 'modify'){
+			var schedType = info.event.extendedProps.schedType;
+			if(schedType == '영업일정') {
+				path = '${path}/sales/detail/'+info.event.id;	
+			}else if(schedType == '기술지원'){
+				path = '${path}/techd/detail/'+info.event.id;
+			}else if(schedType == '기타일정'){
+				path = '${path}/sched/detail/'+info.event.id;
+			}
 			detailContent = $('#detail-content2');
 		}
 		

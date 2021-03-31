@@ -30,7 +30,14 @@
     
 <script>
 $(document).ready(function(){
+	var resultMsg = "${msg}";
+	if(resultMsg == "Fail") {
+		alert("로그인 정보를 다시 입력해주세요.");
+	}
+	
 	$("#btnlogin").click(function(){
+		var userData = {};
+		
 		var compId=$("#compId").val();
 		var userId=$("#userId").val();
 		var userPasswd=$("#userPasswd").val();
@@ -49,8 +56,13 @@ $(document).ready(function(){
 				$("#userPasswd").focus();
 				return;
 			}
+		
+		userData.compId = compId;
+		userData.userId = userId;
+		userData.userPasswd = userPasswd;
+		
 		document.form1.action="${pageContext.request.contextPath}/user/login_check.do";
-		ducument.form1.submit();
+		document.form1.submit();
 	});
 });
 </script>
@@ -112,7 +124,7 @@ $(document).ready(function(){
 									</div>
 									<div class="row m-t-30">
 										<div class="col-md-12">
-											<button type="submit" id="btnlogin" name="btnlogin" class="btn btn-primary btn-md btn-block waves-effect text-center m-b-20">LOGIN</button>
+											<button type="button" id="btnlogin" name="btnlogin" class="btn btn-primary btn-md btn-block waves-effect text-center m-b-20">LOGIN</button>
 										</div>
 									</div>
 								</div>

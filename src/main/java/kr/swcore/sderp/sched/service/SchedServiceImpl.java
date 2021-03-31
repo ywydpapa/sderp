@@ -7,6 +7,8 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Service;
 
+import kr.swcore.sderp.code.dao.CodeDAO;
+import kr.swcore.sderp.code.dto.CodeDTO;
 import kr.swcore.sderp.sched.dao.SchedDAO;
 import kr.swcore.sderp.sched.dto.SchedDTO;
 import kr.swcore.sderp.sopp.dto.SoppDTO;
@@ -16,6 +18,9 @@ public class SchedServiceImpl implements SchedService {
 	
 	@Inject
 	SchedDAO schedDao;
+	
+	@Inject
+	CodeDAO codeDao;
 
 	@Override
 	public List<SchedDTO> listSched() {
@@ -54,6 +59,17 @@ public class SchedServiceImpl implements SchedService {
 		String userId = (String) session.getAttribute("userId");
 		dto.setCompNo(compNo);
 		dto.setUserId(userId);
+		
+		SoppDTO soppdto = new SoppDTO();
+		soppdto.setCompNo(compNo);
+		List<CodeDTO> codeDto = codeDao.listSchedtype(soppdto);
+		
+		for(int i = 0; i < codeDto.size(); i++) {
+			CodeDTO item = codeDto.get(i);
+			if(item.getCode03().equals("SCHED004")) {
+				dto.setSchedType(String.valueOf(item.getCodeNo()));
+			}
+		}
 		
 		int schedInsert = 0;
 		schedInsert = schedDao.insertSched(dto);

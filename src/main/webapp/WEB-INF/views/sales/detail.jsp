@@ -219,9 +219,9 @@
 			</div>
 			<div class="btn_wr text-right mt-3">
 				<input type="hidden" id="salesNo" value ="${dto.salesNo}">
-				<button class="btn btn-md btn-success f-left" onClick="javascript:fnSetPage('${path}/sales/list.do')">목록</button>
-				<button class="btn btn-md btn-primary" onClick="fn_UpdateSales()">저장</button>
-				<button class="btn btn-md btn-inverse" onClick="javascript:fnSetPage('${path}/sales/list.do')">취소</button>
+				<%-- <button class="btn btn-md btn-success f-left" onClick="javascript:fnSetPage('${path}/sales/list.do')">목록</button> --%>
+				<button class="btn btn-md btn-primary" onClick="fn_UpdateSales()">수정</button>
+				<%-- <button class="btn btn-md btn-inverse" onClick="javascript:fnSetPage('${path}/sales/list.do')">취소</button> --%>
 				
 				
 			</div>
@@ -295,7 +295,6 @@
 			salesData.ptncNo 		= $("#ptncNo").val();
 			salesData.salesType 		= $("#salesType").val();
 			salesData.salesDesc 		= $("#salesDesc").val();
-			console.log(salesData);
 			
 			$.ajax({ url: "${path}/sales/update.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소 
 						data: salesData , // HTTP 요청과 함께 서버로 보낼 데이터 
@@ -305,6 +304,7 @@
 					.done(function(data) {
 						if(data.code == 10001){
 							alert("저장 성공");
+							$(".modal-backdrop").remove();
 							fnSetPage('${path}/sales/list.do');
 						}else{
 							alert("저장 실패");

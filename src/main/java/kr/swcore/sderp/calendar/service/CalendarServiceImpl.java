@@ -3,11 +3,14 @@ package kr.swcore.sderp.calendar.service;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Service;
 
 import kr.swcore.sderp.calendar.dao.CalendarDAO;
 import kr.swcore.sderp.calendar.dto.CalendarDTO;
+import kr.swcore.sderp.sopp.dto.SoppDTO;
+import kr.swcore.sderp.util.SessionInfoGet;
 
 @Service
 public class CalendarServiceImpl implements CalendarService {
@@ -20,6 +23,11 @@ public class CalendarServiceImpl implements CalendarService {
 		// TODO Auto-generated method stub
 		return calendarDao.listEvent();
 	}
+	
+	public List<CalendarDTO> listEvent(HttpSession session) {
+		SoppDTO soppdto = SessionInfoGet.getCompNoDto(session);
+		return calendarDao.listEvent(soppdto);
+	};
 
 	@Override
 	public CalendarDTO detailEvent(int eventNo) {

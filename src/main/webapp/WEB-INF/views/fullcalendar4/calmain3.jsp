@@ -17,93 +17,53 @@
     <%-- <script src='${path}/fullcalendar4/moment/main.js'></script> --%>
 
     <script>
-    
-    document.addEventListener('DOMContentLoaded', function() {
-        var calendarEl = document.getElementById('calendar');
-        var calendar = new FullCalendar.Calendar(calendarEl, {
-        	  header : {
-        		 		 left:   '',
-        		  		 center: 'title',
-        		  		 right:  'prevYear prev today next nextYear'
-        		        },
-        	plugins: [ 'dayGrid','interaction','timeGrid','list' ],
-        	locale                    : 'ko',    
-        	timezone                  : "local", 
-        	firstDay                  : 0, 
-        	weekNumbers               : false,
-        	selectable                : true,
-        	weekNumberCalculation     : "ISO",
-        	nextDayThreshold          : "09:00:00",
-        	allDaySlot                : true,
-        	displayEventTime          : false,
-        	displayEventEnd           : true,
-        	eventLimit                : true,
-        	views                     : { 
-        	                                month : { eventLimit : 3 }
-        	                            },
-        	dateClick:function (startDate, endDate, jsEvent, view) {
-        						$(".fc-body").unbind('click');
-    	                   	    $(".fc-body").on('click', 'td', function (e) {
-    	                   		newEvent(startDate, endDate, $(this).html());
-    	                  	    });
-    	                            	    //var today = moment();
-    	                            	    /* if (view.name == "month") {
-    	                            	      startDate.set({
-    	                            	        hours: today.hours(),
-    	                            	        minute: today.minutes()
-    	                            	      });
-    	                            	      startDate = moment(startDate).format('YYYY-MM-DD HH:mm');
-    	                            	      endDate = moment(endDate).subtract(1, 'days');
-
-    	                            	      endDate.set({
-    	                            	        hours: today.hours() + 1,
-    	                            	        minute: today.minutes()
-    	                            	      });
-    	                            	      endDate = moment(endDate).format('YYYY-MM-DD HH:mm');
-    	                            	    } else {
-    	                            	      startDate = moment(startDate).format('YYYY-MM-DD HH:mm');
-    	                            	      endDate = moment(endDate).format('YYYY-MM-DD HH:mm');
-    	                            	    }
-
-    	                            	    //날짜 클릭시 카테고리 선택메뉴
-    	                            	    var $contextMenu = $("#contextMenu");
-    	                            	    $contextMenu.on("click", "a", function (e) {
-    	                            	      e.preventDefault();
-
-    	                            	      //닫기 버튼이 아닐때
-    	                            	      if ($(this).data().role !== 'close') {
-    	                            	        newEvent(startDate, endDate, $(this).html());
-    	                            	      }
-    	                            	      $contextMenu.removeClass("contextOpened");
-    	                            	      $contextMenu.hide();
-    	                            	    });
-
-    	                            	   $('body').on('click', function () {
-    	                            	      $contextMenu.removeClass("contextOpened");
-    	                            	      $contextMenu.hide();
-    	                            	    }); */ 
-    	                            	  },
-        	eventSources: [
-        	                                {
-        	                                  url: '${path}/calendar/listEvent.do',
-        	                                  color: 'yellow',    // an option!
-        	                                  textColor: 'black'  // an option!
-        	                                }
-        	                                ],   
-        	                            
-            eventClick: function(info) {
- 	                                alert('Event: ' + info.event.title);
-  	                                alert('Start: ' + info.event.start);
-   	                                alert('End: ' + info.event.end);
-   	                                info.el.style.borderColor = 'red';
-        	                              },
+		var calendarEl = document.getElementById('calendar');
+		var calendar = new FullCalendar.Calendar(calendarEl, {
+		  	header : {
+	 			left:   '',
+	  			center: 'title',
+	  			right:  'prevYear prev today next nextYear'
+	      	},
+	       	plugins: [ 'dayGrid','interaction','timeGrid','list' ],
+	       	locale                    : 'ko',    
+	       	timezone                  : "local", 
+	       	firstDay                  : 0, 
+	       	weekNumbers               : false,
+	       	selectable                : true,
+	       	weekNumberCalculation     : "ISO",
+	       	nextDayThreshold          : "09:00:00",
+	       	allDaySlot                : true,
+	       	displayEventTime          : false,
+	       	displayEventEnd           : true,
+	       	eventLimit                : true,
+	       	views                     : { 
+	       	                                month : { eventLimit : 3 }
+	       	                            },
+	      	dateClick:function (dateInfo) {
+	      		newEvent(dateInfo);
+	    	},
+	    	
+	     	eventSources: [{
+	          url: '${path}/calendar/listEvent.do',
+	          color: 'yellow',    // an option!
+	          textColor: 'black'  // an option!
+	        }],   
+	     	                            
+	        eventClick: function(info) {
+	       /*     alert('Event: ' + info.event.title);
+	           alert('Start: ' + info.event.start);
+	           alert('End: ' + info.event.end); */
+	           info.el.style.borderColor = 'red';
+	           $('#eventModal2').modal();
+	           fnSetDetail('detail', info);
+	        },
         });
         calendar.render();
-      });
+  
     </script>
     
   <!-- Modal body Start -->
-<div class="modal fade" tabindex="-1" role="dialog" id="eventModal">
+<div class="modal fade" tabindex="-1" role="dialog" id="eventModal" data-backdrop="static">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -114,158 +74,17 @@
 				<h4 class="modal-title">일정추가</h4>
 			</div>
 			<div class="modal-body">
-				<table class="table table-sm bst02">
-					<colgroup>
-						<col width="30%" />
-						<col width="70%" />
-					</colgroup>
-					<tbody>
-						<tr>
-							<td><label class="col-xs-4" for="edit-type">일정구분</label>
-							<td><select class="inputCat" name="schedCat" id="schedCat">
-									<option value="770010">영업일정</option>
-									<option value="770011">영업기회</option>
-									<option value="770100">기술지원</option>
-									<option value="770800">기타일정</option>
-							</select></td>
-						</tr>
-						<tr>
-							<td><label class="col-xs-4" for="schedAllday">하루종일</label></td>
-							<td><label class="col-xs-4" for="schedAllday"></label><input
-								class='allDayNewEvent' id="schedAllday" type="checkbox"></td>
-						</tr>
-						<tr>
-							<td><label class="col-xs-4" for="edit-type">활동형태</label>
-							<td><select class="inputCat" name="schedType" id="schedType">
-									<option value="1001">선택</option>
-									<c:forEach var="actlist" items="${actlist}">
-									<option value="${actlist.code03}">${actlist.desc03}</option>
-									</c:forEach>
-							</select></td>
-						</tr>
-						<tr>
-							<td><label class="col-xs-4" for="schedTitle">일정명</label></td>
-							<td><input class="" type="text" name="schedTitle"
-								id="schedTitle" required="required" /> <input type="hidden"
-								name="userNo" id="userNo" /> <input type="hidden" name="custNo"
-								id="custNo" /></td>
-						</tr>
-						<tr>
-							<td><label class="col-xs-4" for="schedTitle">장소</label></td>
-							<td><input class="" type="text" name="schedPlace"
-								id="schedPlace" required="required" /></td>
-						</tr>
-						<tr>
-							<td><label class="col-xs-4" for="schedFrom">일정시작</label></td>
-							<td><input class="" type="datetime-local" name="schedFrom"
-								id="schedFrom" /></td>
-						</tr>
-						<tr>
-							<td><label class="col-xs-4" for="schedTo">일정종료</label></td>
-							<td><input class="" type="datetime-local" name="schedTo"
-								id="schedTo" /></td>
-						</tr>
-						<tr>
-							<td><label class="col-xs-4">영업기회</label></td>
-							<td>
-								<div class="input-group input-group-sm mb-0">
-									<input type="text" class="form-control" name="soppTitle"
-										id="soppTitle" value="" readonly /> <input type="hidden"
-										name="soppNo" id="soppNo" value="" /> <span
-										class="input-group-btn">
-										<button class="btn btn-primary sch-opportunity2"
-											data-remote="${path}/modal/popup.do?popId=sopp" type="button"
-											data-toggle="modal" data-target="#soppModal">
-											<i class="icofont icofont-search"></i>
-										</button>
-									</span>
-									<div class="modal fade " id="soppModal" tabindex="-1"
-										role="dialog">
-										<div class="modal-dialog modal-80size" role="document">
-											<div class="modal-content modal-80size">
-												<div class="modal-header">
-													<h4 class="modal-title"></h4>
-													<button type="button" class="close" data-dismiss="modal"
-														aria-label="Close">
-														<span aria-hidden="true">&times;</span>
-													</button>
-												</div>
-												<div class="modal-body">
-													<h5>영업기회목록</h5>
-													<p>Loading!!!</p>
-												</div>
-												<div class="modal-footer">
-													<button type="button" class="btn btn-default waves-effect "
-														data-dismiss="modal">Close</button>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</td>
-						</tr>
-						<tr>
-							<td><label class="col-xs-4">계약 현황</label></td>
-							<td>
-								<div class="input-group input-group-sm mb-0">
-									<input type="text" class="form-control" name="contTitle"
-										id="contTitle" value="" readonly /> <input type="hidden"
-										name="contNo" id="contNo" value="" /> <span
-										class="input-group-btn">
-										<button class="btn btn-primary sch-opportunity2"
-											data-remote="${path}/modal/popup.do?popId=cont" type="button"
-											data-toggle="modal" data-target="#contModal">
-											<i class="icofont icofont-search"></i>
-										</button>
-									</span>
-									<div class="modal fade " id="contModal" tabindex="-1"
-										role="dialog">
-										<div class="modal-dialog modal-80size" role="document">
-											<div class="modal-content modal-80size">
-												<div class="modal-header">
-													<h4 class="modal-title"></h4>
-													<button type="button" class="close" data-dismiss="modal"
-														aria-label="Close">
-														<span aria-hidden="true">&times;</span>
-													</button>
-												</div>
-												<div class="modal-body">
-													<h5>영업기회목록</h5>
-													<p>Loading!!!</p>
-												</div>
-												<div class="modal-footer">
-													<button type="button" class="btn btn-default waves-effect "
-														data-dismiss="modal">Close</button>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</td>
-						</tr>
-
-						<tr>
-							<td><label class="col-xs-4" for="schedColor">색상</label></td>
-							<td><select class="inputModal" name="color" id="schedColor">
-									<option value="#D25565" style="color: #D25565;">빨간색</option>
-									<option value="#9775fa" style="color: #9775fa;">보라색</option>
-									<option value="#ffa94d" style="color: #ffa94d;">주황색</option>
-									<option value="#74c0fc" style="color: #74c0fc;">파란색</option>
-									<option value="#f06595" style="color: #f06595;">핑크색</option>
-									<option value="#63e6be" style="color: #63e6be;">연두색</option>
-									<option value="#a9e34b" style="color: #a9e34b;">초록색</option>
-									<option value="#4d638c" style="color: #4d638c;">남색</option>
-									<option value="#495057" style="color: #495057;">검정색</option>
-							</select></td>
-						</tr>
-						<tr>
-							<td><label class="col-xs-4" for="schedDesc">설명</label></td>
-							<td><textarea rows="4" cols="50" class="inputModal"
-									name="schedDesc" id="schedDesc"></textarea></td>
-						</tr>
-					</tbody>
-				</table>
-				<div class="modal-footer modalBtnContainer-addEvent">
+				<div>
+					<label><input type="radio" name="schedCat" value="770010" onclick="fnSetDetail(this.value)"/>영업일정</label>
+					<label><input type="radio" name="schedCat" value="770100" onclick="fnSetDetail(this.value)"/>기술지원</label>
+					<label><input type="radio" name="schedCat" value="770800" onclick="fnSetDetail(this.value)"/>기타일정</label>
+				</div>
+				
+				<div id="detail-content">
+					
+				</div>
+			</div>
+				<!-- <div class="modal-footer modalBtnContainer-addEvent">
 					<button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
 					<button type="button" class="btn btn-primary" id="save-event">저장</button>
 				</div>
@@ -274,9 +93,27 @@
 					<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
 					<button type="button" class="btn btn-danger" id="deleteEvent">삭제</button>
 					<button type="button" class="btn btn-primary" id="updateEvent">저장</button>
+				</div> -->
+			<!-- /.modal-content -->
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" tabindex="-1" role="dialog" id="eventModal2" data-backdrop="static">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				<h4 class="modal-title">일정수정</h4>
+			</div>
+			<div class="modal-body">		
+				<div id="detail-content2">
+					
 				</div>
 			</div>
-			<!-- /.modal-content -->
 		</div>
 	</div>
 </div>
@@ -323,12 +160,11 @@
 	/* ****************
 	 *  새로운 일정 생성
 	 * ************** */
-	var newEvent = function(start, end, schedCat) {
-
+	var newEvent = function(dateInfo) {
 		//modalTitle.html('새로운 일정등록');
 		schedTitle.val('');
-		schedFrom.val(start);
-		schedTo.val(end);
+		/* schedFrom.val(start);
+		schedTo.val(end); */
 		schedDesc.val('');
 		addBtnContainer.show();
 		modifyBtnContainer.hide();
@@ -351,6 +187,11 @@
 					schedData.custNo = $("#custNo").val();
 					schedData.schedCat = $("#schedCat").val();
 					console.log(schedData);
+					
+					schedData.contNo = 0;
+					schedData.custNo = 10001;
+					schedData.soppNo = 10000021;
+					schedData.userNo = 10027;
 
 					if (schedData.schedFrom > schedData.schedTo) {
 						alert('끝나는 날짜가 앞설 수 없습니다.');
@@ -402,6 +243,24 @@
 					//새로운 일정 저장
 				});
 	};
+	
+	function fnSetDetail(value, info) {
+		var path;
+		var detailContent = $('#detail-content'); 
+		
+		if(value == '770010') {
+			path = '${path}/sales/write.do';
+		}else if(value == '770100'){
+			path = '${path}/techd/write.do';
+		}else if(value == 'detail'){
+			path = '${path}/sched/detail/'+info.event.id;
+			detailContent = $('#detail-content2');
+		}
+		
+		if(path) {
+			detailContent.load(path);			
+		}
+	}
 	
 </script>
     

@@ -173,15 +173,17 @@ public class SalesTargetServiceImpl implements SalesTargetService {
 			targetYear = String.valueOf(cal.get(Calendar.YEAR));
 			salesTargetDTO.setTargetYear(targetYear);
 		}
+		returnMap.put("targetYear", targetYear);
 		
 		String targetMonth = salesTargetDTO.getTargetMonth();
 		if(targetMonth == null || targetMonth.equals("")) {
 			Integer month = cal.get(Calendar.MONTH)+1;
+			returnMap.put("targetMonth", String.valueOf(month));
 			if(month < 10) {
 				targetMonth = "mm0"+String.valueOf(month);
 			} else {
 				targetMonth = "mm"+String.valueOf(month);
-			}			
+			}
 			salesTargetDTO.setTargetMonth(targetMonth);
 		}
 		
@@ -225,6 +227,13 @@ public class SalesTargetServiceImpl implements SalesTargetService {
 			targetYear = String.valueOf(cal.get(Calendar.YEAR));
 			salesTargetDTO.setTargetYear(targetYear);
 		}
+		
+		// 쓰지는 않지만 데이터 일관성을 가지기위해 임시로 targetMonth 데이터값 넣어둠
+		String targetMonth = salesTargetDTO.getTargetMonth();
+		if(targetMonth == null || targetMonth.equals("")) {
+			targetMonth = String.valueOf(cal.get(Calendar.MONTH)+1);
+		}
+		returnMap.put("targetMonth", targetMonth);
 		
 		SalesTargetDTO returnDto = new SalesTargetDTO();
 		try {

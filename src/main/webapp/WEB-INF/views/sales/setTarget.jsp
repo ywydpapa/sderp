@@ -36,6 +36,13 @@
 					<option value="SALES" <c:if test="${targetTypeValue eq 'SALES'}">selected</c:if> >매출금액</option>
 			    </select>
 			</div>
+			<c:if test="${targetTypeValue eq 'SALES'}">
+				<div class="col-auto my-1">
+					<label class="mr-sm-2" for="inlineFormCustomSelect">마진율</label>
+					<input type="number" id="marginRate" step="0.00001" value="0.0"/>
+					<button class="btn btn-success btn-sm" type="button" onclick="fn_marginRateCal();" style="float:right;">마진전체 계산</button>
+				</div>
+			</c:if>
 		</div>
 		    	
 		<table class="table plan-table table-bordered">
@@ -114,7 +121,7 @@ tr, th, td{
 	vertical-align: middle;
 }
 td > input {
-	text-align: center;
+	text-align: right;
 }
 td:last-child > input {
 	width: 100%;
@@ -231,6 +238,12 @@ function fn_Reload01(url, data){
 		setTimeout(function(){
 		}, 500);
 	});
+}
+
+// 인원 체크후 목표금액 데이터 불러와서 마진 계산후 다시 값 세팅
+// 추후에 다시 개발
+function fn_marginRateCal(){
+	
 }
 
 $(document).ready(function() {

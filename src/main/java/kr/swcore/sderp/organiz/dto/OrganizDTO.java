@@ -14,6 +14,14 @@ public class OrganizDTO {
 	private String org_desc;
 	private String org_rolemap;
 	private String attrib;
+	private String org_color;
+	
+	public String getOrg_color() {
+		return org_color;
+	}
+	public void setOrg_color(String org_color) {
+		this.org_color = org_color;
+	}
 	public int getOrg_id() {
 		return org_id;
 	}

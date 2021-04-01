@@ -223,8 +223,8 @@ $(function(){
 								<c:forEach var="row" items="${list}">
 								<tr>
 									<th scope="row"><input class="border-checkbox" type="checkbox" id="checkbox0"></th>
-									<td><a href="javascript:fnSetPage('${path}/techd/detail/${row.techdNo}')">${row.techdNo}</a></td>							
-									<td>${row.techdTitle}</td>
+									<td><a href="javascript:fnSetPage('${path}/techd/detail/${row.techdNo}')">${row.techdTitle}</a></td>							
+									<td>${row.techdDesc}</td>
 									<td>${row.custName}</td>
 									<td>${row.techdSteps}</td>
 									<td>${row.userName}</td> 

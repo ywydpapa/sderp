@@ -9,7 +9,7 @@
 	<div class="row align-items-end">
 		<div class="col-lg-12">
 			<div class="page-header-title">
-				<div class="d-inline">일정등록</div>
+				<div class="d-inline">기타일정 등록</div>
 			</div>
 		</div>
 	</div>
@@ -129,8 +129,8 @@
 								<td>
 									<div class="input-group input-group-sm mb-0">
 										<input type="text" class="form-control" name="userName"
-											id="userName" value="" readonly /> <input type="hidden"
-											name="userNo" id="userNo" value="" /> <span
+											id="userName" value="${sessionScope.userName}" readonly /> <input type="hidden"
+											name="userNo" id="userNo" value="${sessionScope.userNo}" /> <span
 											class="input-group-btn">
 											<button class="btn btn-primary sch-company"
 												data-remote="${path}/modal/popup.do?popId=user"
@@ -363,8 +363,14 @@
 					.done(function(data) {
 						if(data.code == 10001){
 							alert("저장 성공");
-							$(".modal-backdrop").remove();
-							fnSetPage('${path}/sched/list.do');
+							var eventModal = $('#eventModal');
+							if(eventModal[0]) {
+								$(".modal-backdrop").remove();
+								fnSetPage('${path}/calendar/calmain.do');
+								
+							}else {
+								fnSetPage('${path}/sched/list.do');
+							}
 						}else{
 							alert("저장 실패");
 						}

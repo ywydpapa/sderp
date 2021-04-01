@@ -4,13 +4,30 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>	
 <c:set var="path" value ="${pageContext.request.contextPath}"/>
 <script type="text/javascript">
+for(var i = 0; i < $('.techdDetailCont').length; i++) {
+	$('.techdDetailCont')[i].hidden = true;
+}
+
 $('input[name=radio]').on('click', function() {
+	var hiddenObject;
+	var showObject;
+	
 	if ($(this).val() == 'NEW') {
-	    $('.alt_B').hide();
+		hiddenObject = $('.techdDetailCont');
+		showObject = $('.techdDetailSopp');
 	} else {
-	    $('.alt_B').show();
+		hiddenObject = $('.techdDetailSopp');
+		showObject = $('.techdDetailCont');
 	}
-    });
+	
+	for(var i = 0; i < hiddenObject.length; i++) {
+		hiddenObject[i].hidden = true;
+	}
+	
+	for(var i = 0; i < showObject.length; i++) {
+		showObject[i].hidden = false;
+	}
+});
 </script>
 
 <!-- Page-header start 페이지 타이틀-->
@@ -61,8 +78,8 @@ $('input[name=radio]').on('click', function() {
 								<td>
 									<div class="input-group input-group-sm mb-0">
 										<input type="text" class="form-control" name="userName" readonly
-											id="userName" value="" /> <input type="hidden" name="userNo"
-											id="userNo" value="" /> <span class="input-group-btn"> 
+											id="userName" value="${sessionScope.userName}" /> <input type="hidden" name="userNo"
+											id="userNo" value="${sessionScope.userNo}" /> <span class="input-group-btn"> 
 											<button class="btn btn-primary sch-company"
 												data-remote="${path}/modal/popup.do?popId=user"
 												type="button" data-toggle="modal" data-target="#userModal">
@@ -133,7 +150,7 @@ $('input[name=radio]').on('click', function() {
 										</div>
 									</div>
 								</td>
-								<th scope="row">고객</th>
+								<th scope="row">엔드유저</th>
 								<td>
 									
 									<div class="input-group input-group-sm mb-0">
@@ -183,9 +200,86 @@ $('input[name=radio]').on('click', function() {
 							</tr>
 							<tr>
 								<th scope="row">장소</th>
-								<td colspan="3"><input type="text"
+								<td><input type="text"
 									class="form-control form-control-sm" id="techdPlace" name="techdPlace"
 									placeholder=""></td>
+									
+								<th scope="row" class="techdDetailSopp">영업기회</th>
+								<td class="techdDetailSopp">
+									<div class="input-group input-group-sm mb-0">
+									<input type="text" class="form-control" name="soppTitle"
+										id="soppTitle" value="${dto.soppTitle}" readonly /> <input type="hidden"
+										name="soppNo" id="soppNo" value="" /> <span
+										class="input-group-btn">
+										<button class="btn btn-primary sch-opportunity2"
+											data-remote="${path}/modal/popup.do?popId=sopp"
+											type="button" data-toggle="modal" data-target="#soppModal">
+											<i class="icofont icofont-search"></i>
+										</button>
+									</span>
+									<div class="modal fade " id="soppModal" tabindex="-1"
+										role="dialog">
+										<div class="modal-dialog modal-80size" role="document">
+											<div class="modal-content modal-80size">
+												<div class="modal-header">
+													<h4 class="modal-title"></h4>
+													<button type="button" class="close" data-dismiss="modal"
+														aria-label="Close">
+														<span aria-hidden="true">&times;</span>
+													</button>
+												</div>
+												<div class="modal-body">
+													<h5>영업기회목록</h5>
+													<p>Loading!!!</p>
+												</div>
+												<div class="modal-footer">
+													<button type="button"
+														class="btn btn-default waves-effect "
+														data-dismiss="modal">Close</button>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								</td>
+								<th scope="row" class="techdDetailCont">계약</th>
+								<td class="techdDetailCont">
+									<div class="input-group input-group-sm mb-0">
+									<input type="text" class="form-control" name="contTitle"
+										id="contTitle" value="${dto.contTitle}" readonly /> <input type="hidden"
+										name="contNo" id="contNo" value="" /> <span
+										class="input-group-btn">
+										<button class="btn btn-primary sch-opportunity2"
+											data-remote="${path}/modal/popup.do?popId=cont"
+											type="button" data-toggle="modal" data-target="#contModal">
+											<i class="icofont icofont-search"></i>
+										</button>
+									</span>
+									<div class="modal fade " id="contModal" tabindex="-1"
+										role="dialog">
+										<div class="modal-dialog modal-80size" role="document">
+											<div class="modal-content modal-80size">
+												<div class="modal-header">
+													<h4 class="modal-title"></h4>
+													<button type="button" class="close" data-dismiss="modal"
+														aria-label="Close">
+														<span aria-hidden="true">&times;</span>
+													</button>
+												</div>
+												<div class="modal-body">
+													<h5>계약 목록</h5>
+													<p>Loading!!!</p>
+												</div>
+												<div class="modal-footer">
+													<button type="button"
+														class="btn btn-default waves-effect "
+														data-dismiss="modal">Close</button>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								</td>
 							</tr>
 							<tr>
 								<th scope="row">지원일자</th>
@@ -204,7 +298,7 @@ $('input[name=radio]').on('click', function() {
 							<tr>
 								<th scope="row">지원형태</th>
 								<td><select name="techdType" id="techdType" class="form-control form-control-sm">
-								<option value="">선택</option>
+								<option value=""></option>
 								<c:forEach var="rows" items="${sprttype}">
 								<option value="${rows.codeNo}">${rows.desc03}</option>
 								</c:forEach>
@@ -212,7 +306,7 @@ $('input[name=radio]').on('click', function() {
 								<th scope="row">진행단계</th>
 								<td><select name="techdSteps" id="techdSteps"
 									class="form-control form-control-sm">
-										<option value="">선택</option>
+										<option value=""></option>
 								<c:forEach var="rows" items="${sprtstat}">
 								<option value="${rows.codeNo}">${rows.desc03}</option>
 								</c:forEach>
@@ -264,6 +358,18 @@ $('#custmemberModal').on('show.bs.modal', function(e) {
 	modal.find('.modal-body').load(button.data("remote"));
 });
 
+$('#soppModal').on('show.bs.modal', function(e) {
+	var button = $(e.relatedTarget);
+	var modal = $(this);
+	modal.find('.modal-body').load(button.data("remote"));
+});
+
+$('#contModal').on('show.bs.modal', function(e) {
+	var button = $(e.relatedTarget);
+	var modal = $(this);
+	modal.find('.modal-body').load(button.data("remote"));
+});
+
 
 
 function fnSetCustData(a, b) {
@@ -293,6 +399,20 @@ function fnSetCustmereData(a, b) {
 	$("#custmemberModal").modal("hide");
 }
 
+function fnSetSoppData(a, b) {
+	$("#soppNo").val(b);
+	$("#soppTitle").val(a);
+	$(".modal-backdrop").remove();
+	$("#soppModal").modal("hide");
+}
+
+function fnSetContData(a, b) {
+	$("#contNo").val(b);
+	$("#contTitle").val(a);
+	$(".modal-backdrop").remove();
+	$("#contModal").modal("hide");
+}
+
 function fn_sprtInsert() {
 	var sprtData = {};
 //	sprtData.radio				= $("input[name='radio']:checked").val();	// 신규 영업지원 or 기존계약
@@ -308,6 +428,8 @@ function fn_sprtInsert() {
 	sprtData.techdType			= $("#techdType").val();					// 지원형태
 	sprtData.techdSteps			= $("#techdSteps").val();					// 진행단계
 	sprtData.techdDesc			= $("#techdDesc").val();					// 설명
+	sprtData.soppNo				= $("#soppNo").val() ? $("#soppNo").val() : 0; // 영업기회번호
+	sprtData.contNo				= $("#contNo").val() ? $("#contNo").val() : 0; // 계약번호
 	
 	$.ajax({ url: "${path}/techd/insert.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소 
 				data: sprtData , // HTTP 요청과 함께 서버로 보낼 데이터 
@@ -317,8 +439,14 @@ function fn_sprtInsert() {
 			.done(function(data) {
 				if(data.code == 10001){
 					alert("저장 성공");
-					$(".modal-backdrop").remove();
-					fnSetPage('${path}/techd/list.do');
+					var eventModal = $('#eventModal');
+					if(eventModal[0]) {
+						$(".modal-backdrop").remove();
+						fnSetPage('${path}/calendar/calmain.do');
+						
+					}else {
+						fnSetPage('${path}/techd/list.do');
+					}
 				}else{
 					alert("저장 실패");
 				}

@@ -41,7 +41,7 @@ public class TechdDAOImpl implements TechdDAO {
 	@Override
 	public int updateTechd(TechdDTO dto) {
 		// TODO Auto-generated method stub
-		return sqlSession.update("techd.updsteTechd",dto);
+		return sqlSession.update("techd.updateTechd",dto);
 	}
 
 	@Override

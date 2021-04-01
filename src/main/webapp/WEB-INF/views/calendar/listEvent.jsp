@@ -9,7 +9,8 @@
       "start": "${row.start}",
       "end": "${row.end}",
       "id": "${row.id}",
-      "schedType": "${row.schedType}"
+      "schedType": "${row.schedType}",
+      "color": "${row.color}"
      } <c:if test="${!status.last}">,</c:if>     
 </c:forEach>
   ]

@@ -40,23 +40,29 @@
 	       	                                month : { eventLimit : 3 }
 	       	                            },
 	      	dateClick:function (info) {
+	      		$('.eventModalRadioGroup').show();
 	      		$('#eventModal').modal('show');
 	    	},
 	    	
 	     	eventSources: [{
 	          url: '${path}/calendar/listEvent.do',
-	          color: 'yellow',    // an option!
+	          //color: 'yellow',    // an option!
 	          textColor: 'black'  // an option!
 	        }],   
 	     	                            
 	        eventClick: function(info) {
 	           info.el.style.borderColor = 'red';
-	           $('#eventModal2').modal('show');
+	           $('.eventModalRadioGroup').hide();
+	           $('#eventModal').modal('show');
 	           fnSetDetail('modify', info);
 	        },
+	        eventRender : function(info) {
+	        	info.el.style.backgroundColor = info.event.extendedProps.color;
+	        	info.el.style.borderColor = info.event.extendedProps.color;
+	        }
         });
         calendar.render();
-  
+  		
     </script>
     
   <!-- Modal body Start -->
@@ -71,32 +77,26 @@
 				<h4 class="modal-title">일정추가</h4>
 			</div>
 			<div class="modal-body">
-				<div>
-					<label><input type="radio" name="schedCat" value="770010" onclick="fnSetDetail(this.value)"/>영업일정</label>
+				<div class="eventModalRadioGroup">
+					<div class="form-radio">
+						<form>
+							<div class="radio radio-inline">
+								<label><input type="radio" name="schedCat" value="770010" onclick="fnSetDetail(this.value)"/><i class="helper"></i>영업일정</label>
+							</div>
+							<div class="radio radio-inline">
+								<label><input type="radio" name="schedCat" value="770100" onclick="fnSetDetail(this.value)"/><i class="helper"></i>기술지원</label>
+							</div>
+							<div class="radio radio-inline">
+								<label><input type="radio" name="schedCat" value="770800" onclick="fnSetDetail(this.value)"/><i class="helper"></i>기타일정</label>
+							</div>
+						</form>
+					</div>
+					<!-- <label><input type="radio" name="schedCat" value="770010" onclick="fnSetDetail(this.value)"/>영업일정</label>
 					<label><input type="radio" name="schedCat" value="770100" onclick="fnSetDetail(this.value)"/>기술지원</label>
-					<label><input type="radio" name="schedCat" value="770800" onclick="fnSetDetail(this.value)"/>기타일정</label>
+					<label><input type="radio" name="schedCat" value="770800" onclick="fnSetDetail(this.value)"/>기타일정</label> -->
 				</div>
 				
 				<div id="detail-content">
-					
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
-
-<div class="modal fade" tabindex="-1" role="dialog" id="eventModal2" data-backdrop="static">
-	<div class="modal-dialog" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal"
-					aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-				<h4 class="modal-title">일정수정</h4>
-			</div>
-			<div class="modal-body">		
-				<div id="detail-content2">
 					
 				</div>
 			</div>
@@ -132,12 +132,13 @@
 
 	function fnSetDetail(value, info) {
 		var path;
-		var detailContent = $('#detail-content'); 
 		
 		if(value == '770010') {
 			path = '${path}/sales/write.do';
 		}else if(value == '770100'){
 			path = '${path}/techd/write.do';
+		}else if(value == '770800'){
+			path = '${path}/sched/write.do';
 		}else if(value == 'modify'){
 			var schedType = info.event.extendedProps.schedType;
 			if(schedType == '영업일정') {
@@ -147,11 +148,10 @@
 			}else if(schedType == '기타일정'){
 				path = '${path}/sched/detail/'+info.event.id;
 			}
-			detailContent = $('#detail-content2');
 		}
 		
 		if(path) {
-			detailContent.load(path);			
+			$('#detail-content').load(path);			
 		}
 	}
 	

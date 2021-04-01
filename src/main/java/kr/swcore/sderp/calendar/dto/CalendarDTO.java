@@ -20,7 +20,14 @@ public class CalendarDTO {
 	private String allday;
 	private int id;
 	private String schedType;
+	private String color;
 	
+	public String getColor() {
+		return color;
+	}
+	public void setColor(String color) {
+		this.color = color;
+	}
 	public String getSchedType() {
 		return schedType;
 	}

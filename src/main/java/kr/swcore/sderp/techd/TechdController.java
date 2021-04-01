@@ -48,9 +48,11 @@ public class TechdController {
 	}
 
 	@RequestMapping("/detail/{techdNo}")
-	public ModelAndView detail(@PathVariable("techdNo") int techdNo, ModelAndView mav) {
+	public ModelAndView detail(@PathVariable("techdNo") int techdNo, ModelAndView mav, HttpSession session) {
 		mav.setViewName("techd/detail");
 		mav.addObject("dto", techdService.detailTechd(techdNo));
+		mav.addObject("sprttype", codeService.listSprttype(session));
+		mav.addObject("sprtstat", codeService.listSprtstat(session));
 		return mav;
 	}
 

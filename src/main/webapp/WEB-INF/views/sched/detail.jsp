@@ -10,7 +10,7 @@
 		<div class="col-lg-12">
 			<div class="page-header-title">
 				<div class="d-inline">
-					일정 확인
+					기타일정 상세
 				</div>
 			</div>
 		</div>
@@ -64,7 +64,7 @@
 												<div class="modal-content modal-80size">
 													<div class="modal-header">
 														<h4 class="modal-title"></h4>
-														<button type="button" class="close" data-dismiss="modal"
+														<button type="button" class="close" onclick="$('#soppModal').modal('hide');"
 															aria-label="Close">
 															<span aria-hidden="true">&times;</span>
 														</button>
@@ -76,7 +76,7 @@
 													<div class="modal-footer">
 														<button type="button"
 															class="btn btn-default waves-effect "
-															data-dismiss="modal">Close</button>
+															onclick="$('#soppModal').modal('hide');">Close</button>
 													</div>
 												</div>
 											</div>
@@ -102,7 +102,7 @@
 												<div class="modal-content modal-80size">
 													<div class="modal-header">
 														<h4 class="modal-title"></h4>
-														<button type="button" class="close" data-dismiss="modal"
+														<button type="button" class="close" onclick="$('#userModal').modal('hide');"
 															aria-label="Close">
 															<span aria-hidden="true">&times;</span>
 														</button>
@@ -114,7 +114,7 @@
 													<div class="modal-footer">
 														<button type="button"
 															class="btn btn-default waves-effect "
-															data-dismiss="modal">Close</button>
+															onclick="$('#userModal').modal('hide');">Close</button>
 													</div>
 												</div>
 											</div>
@@ -142,7 +142,7 @@
 												<div class="modal-content modal-80size">
 													<div class="modal-header">
 														<h4 class="modal-title">거래처검색</h4>
-														<button type="button" class="close" data-dismiss="modal"
+														<button type="button" class="close" onclick="$('#custModal').modal('hide');"
 															aria-label="Close">
 															<span aria-hidden="true">&times;</span>
 														</button>
@@ -154,7 +154,7 @@
 													<div class="modal-footer">
 														<button type="button"
 															class="btn btn-default waves-effect "
-															data-dismiss="modal">Close</button>
+															onclick="$('#custModal').modal('hide');">Close</button>
 													</div>
 												</div>
 											</div>
@@ -203,15 +203,16 @@
  --%>							<tr>
 								<th scope="row">일정구분</th>
 								<td><select name="schedType" id="schedType" class="form-control form-control-sm">
-									<c:forEach var="schedtype" items="${schedtype}">
+									<option value="">기타일정</option>
+									<%-- <c:forEach var="schedtype" items="${schedtype}">
 									<option value = "${schedtype.codeNo}">${schedtype.desc03}</option>
-									</c:forEach>
+									</c:forEach> --%>
 								</select>
 								</td>
 								<th scope="row">활동형태</th>
 								<td><select name="schedCat" id="schedCat" class="form-control form-control-sm">
 									<c:forEach var="acttype" items="${acttype}">
-									<option value = "${acttype.codeNo}">${acttype.desc03}</option>
+									<option value = "${acttype.codeNo}" <c:if test="${acttype.codeNo == dto.schedCat}">selected</c:if>>${acttype.desc03}</option>
 									</c:forEach>
 								</select>
 								</td>
@@ -308,8 +309,14 @@
 					.done(function(data) {
 						if(data.code == 10001){
 							alert("저장 성공");
-							$(".modal-backdrop").remove();
-							fnSetPage('${path}/sched/list.do');
+							var eventModal = $('#eventModal');
+							if(eventModal[0]) {
+								$(".modal-backdrop").remove();
+								fnSetPage('${path}/calendar/calmain.do');
+								
+							}else {
+								fnSetPage('${path}/sched/list.do');
+							}
 						}else{
 							alert("저장 실패");
 						}

@@ -47,34 +47,18 @@
 								<td><input type="text" class="form-control form-control-sm"
 									id="salesPlace" name="salesPlace" placeholder="장소를 입력하세요"></td>
 								<th>활동형태</th>
-								<td><select name="salesType" id="salesType" 
-									class="form-control form-control-sm">
-										<option value="">선택</option>
-										<option value="10010">전화상담</option>
-										<option value="10011">회사방문</option>
-										<option value="10020">메일발송</option>
-										<option value="10030">자료전달</option>
-										<option value="10040">제품설명</option>
-										<option value="10050">제안설명</option>
-										<option value="10060">시스템데모</option>
-										<option value="10100">제품견적</option>
-										<option value="10200">견적수정</option>
-										<option value="10300">가격조정</option>
-										<option value="10700">계약전 의사결정지원</option>
-										<option value="10800">계약</option>
-										<option value="10900">사후처리</option>
-										<option value="11000">기타</option>
-										<option value="11001">협력사요청</option>
-										<option value="11002">협력사문의</option>
-										<option value="11003">교육</option>
+								<td><select name="salesType" id="salesType" class="form-control form-control-sm">
+										<c:forEach var = "salesType" items="${salesType}">
+											<option value="${salesType.codeNo}">${salesType.desc03}</option>
+										</c:forEach>
 								</select></td>
 							</tr>
 							<tr>
 								<th>담당사원</th>
 								<td>
 									<div class="input-group input-group-sm mb-0">
-										<input type="text" class="form-control" name="userName" id="userName" value="" />
-										<input type="hidden" class="form-control" name="userNo" id="userNo" value="" />
+										<input type="text" class="form-control" name="userName" id="userName" value="${sessionScope.userName}" />
+										<input type="hidden" class="form-control" name="userNo" id="userNo" value="${sessionScope.userNo}" />
 										 <span class="input-group-btn">
 											<button class="btn btn-primary sch-company"
 												data-remote="${path}/modal/popup.do?popId=user"
@@ -354,8 +338,14 @@
 					.done(function(data) {
 						if(data.code == 10001){
 							alert("저장 성공");
-							$(".modal-backdrop").remove();
-							fnSetPage('${path}/sales/list.do');
+							var eventModal = $('#eventModal');
+							if(eventModal[0]) {
+								$(".modal-backdrop").remove();
+								fnSetPage('${path}/calendar/calmain.do');
+								
+							}else {
+								fnSetPage('${path}/sales/list.do');
+							}
 						}else{
 							alert("저장 실패");
 						}

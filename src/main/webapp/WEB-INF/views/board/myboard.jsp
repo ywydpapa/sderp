@@ -182,95 +182,134 @@
 <script>
 
 function chartReady(){
- var myChart = echarts.init(document.getElementById('myChart01'));
-
-    // 차트 속성과 데이터를 지정합니다.
- option = {
-    tooltip : {
-        trigger: 'axis',
-        axisPointer : {
-            type : 'shadow'
-        },
-        formatter: function (params){
-            return params[0].name + '<br/>'
-                   + params[0].seriesName + ' : ' + (params[1].value + params[0].value) + '<br/>'
-                   + params[1].seriesName + ' : ' + (params[1].value);
-        }
-    },
-    legend: {
-        selectedMode:false,
-        data:['실적', '목표']
-    },
-    toolbox: {
-        show : false
-    },
-    calculable : true,
-    xAxis : [
-        {
-            type : 'category',
-            data : ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월']
-        }
-    ],
-    yAxis : [
-        {
-            type : 'value',
-            boundaryGap: [0, 0.1]
-        }
-    ],
-    series : [
-        {
-            name:'실적',
-            type:'bar',
-            stack: 'sum',
-            barCategoryGap: '50%',
-            itemStyle: {
-                normal: {
-                    color: 'rgba(70, 128, 255, 0.54)',
-                    barBorderColor: 'rgba(70, 128, 255, 0.54)',
-                    barBorderWidth: 3,
-                    barBorderRadius:0,
-                    label : {
-                        show: true, position: 'insideTop'
-                    }
-                }
-            },
-            data:[260, 200, 220, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-        },
-        {
-            name:'목표',
-            type:'bar',
-            stack: 'sum',
-            itemStyle: {
-                normal: {
-                    color: '#fff',
-                    barBorderColor: '#4680ff',
-                    barBorderWidth: 3,
-                    barBorderRadius:0,
-                    label : {
-                        show: true,
-                        position: 'top',
-                        formatter: function (params) {
-                            for (var i = 0, l = option.xAxis[0].data.length; i < l; i++) {
-                                if (option.xAxis[0].data[i] == params.name) {
-                                    return option.series[0].data[i] + params.value;
-                                }
-                            }
-                        },
-                        textStyle: {
-                            color: '#4680ff'
-                        }
-                    }
-                }
-            },
-            data:[40, 110, 90, 350,350, 350, 350,350, 350, 350,350, 350]
-        }
-    ]
-};
-  myChart.setOption(option);
+	// 1번째 그래프 ===================================================
+	var myChart = echarts.init(document.getElementById('myChart01'));	
+	// 차트 속성과 데이터를 지정합니다.
+	option = {
+	    tooltip : {
+	        trigger: 'axis',
+	        axisPointer : {
+	            type : 'shadow'
+	        },
+	        formatter: function (params){
+	            return params[0].name + '<br/>'
+	                   + '총'+params[2].seriesName + ' : ' + (params[2].value+params[0].value) + '<br/>'
+	                   + params[1].seriesName + ' : ' + (params[1].value) + '<br/>'
+	                   + params[0].seriesName + ' : ' + (params[0].value);
+	        }
+	    },
+	    legend: {
+	        selectedMode:false,
+	        data:['실적', '잔여목표량', '초과']
+	    },
+	    toolbox: {
+	        show : false
+	    },
+	    calculable : true,
+	    xAxis : [
+	        {
+	            type : 'category',
+	            data : ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월']
+	        }
+	    ],
+	    yAxis : [
+	        {
+	            type : 'value',
+	            boundaryGap: [0, 0.1]
+	        }
+	    ],
+	    series : [
+	        {
+	            name:'실적',
+	            type:'bar',
+	            stack: 'sum',
+	            barCategoryGap: '50%',
+	            itemStyle: {
+	                normal: {
+	                    color: 'rgba(70, 128, 255, 0.54)',
+	                    barBorderColor: 'rgba(70, 128, 255, 0.54)',
+	                    barBorderWidth: 3,
+	                    barBorderRadius:0,
+	                    label : {
+	                        show: true, position: 'insideTop'
+	                    }
+	                }
+	            },
+	            data:[350, 200, 220, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+	        },
+	        {
+	            name:'잔여목표량',
+	            type:'bar',
+	            stack: 'sum',
+	            itemStyle: {
+	                normal: {
+	                    color: '#fff',
+	                    barBorderColor: '#4680ff',
+	                    barBorderWidth: 3,
+	                    barBorderRadius:0,
+	                    label : {
+	                        show: true,
+	                        position: 'top',
+	                        formatter: function (params) {
+	                            for (var i = 0, l = option.xAxis[0].data.length; i < l; i++) {
+	                                if (option.xAxis[0].data[i] == params.name) {
+	                                    //return option.series[0].data[i] + params.value;
+	                                    if (option.series[1].data[i] != 0){
+	                                    	return option.series[1].data[i];
+	                                    } else {
+	                                    	return;
+	                                    }
+	                                }
+	                            }
+	                        },
+	                        textStyle: {
+	                            color: '#4680ff'
+	                        }
+	                    }
+	                }
+	            },
+	            data:[0, 110, 90, 350,350, 350, 350, 350, 350, 350, 350, 350]
+	        },
+	        {
+	            name:'초과',
+	            type:'bar',
+	            stack: 'sum',
+	            itemStyle: {
+	                normal: {
+	                    color: '#fc6180',
+	                    barBorderColor: '#4680ff',
+	                    barBorderWidth: 3,
+	                    barBorderRadius:0,
+	                    label : {
+	                        show: true,
+	                        position: 'top',
+	                        formatter: function (params) {
+	                            for (var i = 0, l = option.xAxis[0].data.length; i < l; i++) {
+	                                if (option.xAxis[0].data[i] == params.name) {
+	                                	if (option.series[2].data[i] != 0){
+	                                    	return option.series[2].data[i];
+	                                	} else {
+	                                		return;
+	                                	}
+	                                }
+	                            }
+	                        },
+	                        textStyle: {
+	                            color: '#4680ff'
+	                        }
+	                    }
+	                }
+	            },
+	            data:[50, 0, 0, 0,0, 0, 0, 0, 0, 0, 0, 0]
+	        }
+	    ]
+	};
+	myChart.setOption(option);
     // 위에서 설정한 속성을 차트에 반영합니다.
 
-  var myChartGauge = echarts.init(document.getElementById('myChart02'));
-  var optionGauge = {
+    // 2번째 그래프 ===================================================
+	var myChartGauge = echarts.init(document.getElementById('myChart02'));
+	var optionGauge = {
           tooltip : {
               formatter: "{b} : {c}%"
           },
@@ -322,90 +361,95 @@ function chartReady(){
                       }
                   },
 
-                  data:[{value: 50, name: 'MonthRatio (%)'}]
+                  data:[{value: ${graph2.data.percent}, name: 'MonthRatio (%)'}]
               }
        ]
-};
-
-gauge_load_chart(optionGauge);
-var timeTicket = setInterval(function (){
-gauge_load_chart(optionGauge);
-},2000000);
-function gauge_load_chart(optionGauge){
-optionGauge.series[0].data[0].value = (Math.random()*100).toFixed(2) - 0;
-myChartGauge.setOption(optionGauge,true);
-}
-
-var myChartGauge = echarts.init(document.getElementById('myChart03'));
-var optionGauge = {
-        tooltip : {
-            formatter: "{b} : {c}%"
-        },
-        toolbox: {
-            show : false,
-            feature : {
-                mark : {show: false},
-                restore : {show: false},
-                saveAsImage : {show: false}
-                }
-        },
-        series : [
-            {
-                name:'MonthRatio',
-                type:'gauge',
-                center: ['25%', '35%'],
-                radius: ['00%', '50%'],
-                axisLine: {
-                    show: true,
-                    lineStyle: {
-                        color: [
-                            [0.4,'#FC6180'],
-                            [0.7,'#4680ff'],
-                            [1,'#93BE52']
-                        ],
-                        width: 10
-                    }
-                }  ,
-                title: {
-                    show : false,
-                    offsetCenter: [0, '120%'],
-                    textStyle: {
-                        color: '#93BE52',
-                        fontSize : 30
-                    }
-                }  ,
-                detail: {
-                    show : true,
-                    backgroundColor: 'rgba(0,0,0,0)',
-                    borderWidth: 0,
-                    borderColor: '#ccc',
-                    width: 80,
-                    height: 40,
-                    offsetCenter: [0, '40%'],
-                    formatter:'{value}%',
-                    textStyle: {
-                        color: 'auto',
-                        fontSize : 25
-                    }
-                },
-
-                data:[{value: 50, name: 'MonthRatio (%)'}]
-            }
-     ]
-};
-
-gauge_load_chart(optionGauge);
-var timeTicket = setInterval(function (){
-gauge_load_chart(optionGauge);
-},2000000);
-function gauge_load_chart(optionGauge){
-optionGauge.series[0].data[0].value = (Math.random()*100).toFixed(2) - 0;
-myChartGauge.setOption(optionGauge,true);
-}
-
-var myChart = echarts.init(document.getElementById('myChart04'));
-var option = {
-	    tooltip: {
+	};
+	
+	function gauge_load_chart(optionGauge){
+//		optionGauge.series[0].data[0].value = (Math.random()*100).toFixed(2) - 0;
+		myChartGauge.setOption(optionGauge,true);
+	}
+	gauge_load_chart(optionGauge);
+	
+	var timeTicket = setInterval(function (){
+		gauge_load_chart(optionGauge);
+	},2000000);
+	
+	// 3번째 그래프 ===================================================
+	var myChartGauge = echarts.init(document.getElementById('myChart03'));
+	var optionGauge = {
+	        tooltip : {
+	            formatter: "{b} : {c}%"
+	        },
+	        toolbox: {
+	            show : false,
+	            feature : {
+	                mark : {show: false},
+	                restore : {show: false},
+	                saveAsImage : {show: false}
+	                }
+	        },
+	        series : [
+	            {
+	                name:'MonthRatio',
+	                type:'gauge',
+	                center: ['25%', '35%'],
+	                radius: ['00%', '50%'],
+	                axisLine: {
+	                    show: true,
+	                    lineStyle: {
+	                        color: [
+	                            [0.4,'#FC6180'],
+	                            [0.7,'#4680ff'],
+	                            [1,'#93BE52']
+	                        ],
+	                        width: 10
+	                    }
+	                }  ,
+	                title: {
+	                    show : false,
+	                    offsetCenter: [0, '120%'],
+	                    textStyle: {
+	                        color: '#93BE52',
+	                        fontSize : 30
+	                    }
+	                }  ,
+	                detail: {
+	                    show : true,
+	                    backgroundColor: 'rgba(0,0,0,0)',
+	                    borderWidth: 0,
+	                    borderColor: '#ccc',
+	                    width: 80,
+	                    height: 40,
+	                    offsetCenter: [0, '40%'],
+	                    formatter:'{value}%',
+	                    textStyle: {
+	                        color: 'auto',
+	                        fontSize : 25
+	                    }
+	                },
+	
+	                data:[{value:  ${graph3.data.percent}, name: 'MonthRatio (%)'}]
+	            }
+	     ]
+	};
+	
+	function gauge_load_chart(optionGauge){
+//		optionGauge.series[0].data[0].value = (Math.random()*100).toFixed(2) - 0;
+		myChartGauge.setOption(optionGauge,true);
+	}
+	gauge_load_chart(optionGauge);
+	
+	var timeTicket = setInterval(function (){
+		gauge_load_chart(optionGauge);
+	},2000000);
+	
+	
+	// 4번째 그래프 ===================================================
+	var myChart = echarts.init(document.getElementById('myChart04'));
+	var option = {
+		tooltip: {
 	        trigger: 'item',
 	        formatter: '{a} <br/>{b}: {c} ({d}%)'
 	    },
@@ -443,21 +487,21 @@ var option = {
 	            ]
 	        }
 	    ]
-	};
-	
-myChart.setOption(option);
+	};	
+	myChart.setOption(option);
+}
 
-	}
-
+/* 
 	$(function() {
+	});
+ */	
+	$(document).ready(function(){
 		$('#soppTable,#contTable,#salesTable').DataTable({
 			info : false,
 			filter : false,
 			lengthChange : false
 		});
-	});
-	
-	$(document).ready(function(){
+		
 		chartReady();
 	});
 

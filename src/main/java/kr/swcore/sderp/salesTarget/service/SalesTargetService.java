@@ -1,7 +1,7 @@
 package kr.swcore.sderp.salesTarget.service;
 
-import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -15,4 +15,6 @@ public interface SalesTargetService {
 	int updateSalesTarget(HttpSession session, SalesTargetDTO salesTargetDTO);
 	int deleteSalesTarget(HttpSession session, SalesTargetDTO salesTargetDTO);
 	int insertSalesTarget(HttpSession session, SalesTargetDTO salesTargetDTO);
+	Map<String, Object> listSalesTargetMonthIndividual(HttpSession session, SalesTargetDTO salesTargetDTO);
+	Map<String, Object> listSalesTargetYearIndividual(HttpSession session, SalesTargetDTO salesTargetDTO);
 }

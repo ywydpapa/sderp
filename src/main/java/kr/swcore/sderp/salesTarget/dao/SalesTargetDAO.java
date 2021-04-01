@@ -13,4 +13,6 @@ public interface SalesTargetDAO {
 	int updateSalesTarget(SalesTargetDTO salesTargetDTO);
 	int deleteSalesTarget(SalesTargetDTO salesTargetDTO);
 	int insertSalesTarget(SalesTargetDTO salesTargetDTO);
+	SalesTargetDTO listSalesTargetMonthIndividual(SalesTargetDTO salesTargetDTO);
+	SalesTargetDTO listSalesTargetYearIndividual(SalesTargetDTO salesTargetDTO);
 }

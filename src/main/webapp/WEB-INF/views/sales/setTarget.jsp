@@ -32,8 +32,8 @@
 			<div class="col-auto my-1">
 				<label class="mr-sm-2" for="inlineFormCustomSelect">설정</label>
 			    <select class="custom-select mr-sm-2" name="planType" id="planType">
-					<option value="PROFIT" <c:if test="${targetTypeValue eq 'PROFIT'}">selected</c:if> >이익목표금액</option>
-					<option value="SALES" <c:if test="${targetTypeValue eq 'SALES'}">selected</c:if> >매출목표금액</option>
+					<option value="PROFIT" <c:if test="${targetTypeValue eq 'PROFIT'}">selected</c:if> >목표금액</option>
+					<option value="SALES" <c:if test="${targetTypeValue eq 'SALES'}">selected</c:if> >매출금액</option>
 			    </select>
 			</div>
 		</div>
@@ -42,8 +42,8 @@
 		    <tr>
 				<th rowspan="2" style="vertical-align: middle;">담당사원</th>
 				<th colspan="12">
-					<c:if test="${targetTypeValue eq 'PROFIT'}">월별이익목표</c:if>
-					<c:if test="${targetTypeValue eq 'SALES'}">월별매출목표</c:if>
+					<c:if test="${targetTypeValue eq 'PROFIT'}">월별(목표금액)</c:if>	
+					<c:if test="${targetTypeValue eq 'SALES'}">월별(매출금액)</c:if>
 				</th>
 				<th rowspan="2" style="vertical-align: middle;">합계</th>
 		    </tr>

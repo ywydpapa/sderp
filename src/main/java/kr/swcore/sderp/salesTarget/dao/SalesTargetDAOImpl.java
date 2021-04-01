@@ -52,6 +52,16 @@ public class SalesTargetDAOImpl implements SalesTargetDAO{
 	public int insertSalesTarget(SalesTargetDTO salesTargetDTO) {
 		return sqlSession.insert("salesTarget.insertSalesTarget", salesTargetDTO);
 	}
+	
+	@Override
+	public SalesTargetDTO listSalesTargetYearTotalSalesIndividual(SalesTargetDTO salesTargetDTO) {
+		return sqlSession.selectOne("salesTarget.listSalesTargetYearTotalSalesIndividual", salesTargetDTO);
+	}
+
+	@Override
+	public SalesTargetDTO listSalesTargetYearTotalProfitIndividual(SalesTargetDTO salesTargetDTO) {
+		return sqlSession.selectOne("salesTarget.listSalesTargetYearTotalProfitIndividual", salesTargetDTO);
+	}
 
 	@Override
 	public SalesTargetDTO listSalesTargetMonthIndividual(SalesTargetDTO salesTargetDTO) {
@@ -62,5 +72,44 @@ public class SalesTargetDAOImpl implements SalesTargetDAO{
 	public SalesTargetDTO listSalesTargetYearIndividual(SalesTargetDTO salesTargetDTO) {
 		return sqlSession.selectOne("salesTarget.listSalesTargetYearIndividual", salesTargetDTO);
 	}
-	
+
+	@Override
+	public SalesTargetDTO listSalesTargetYearTotalSalesdept(SalesTargetDTO salesTargetDTO) {
+		return sqlSession.selectOne("salesTarget.listSalesTargetYearTotalSalesdept", salesTargetDTO);
+	}
+
+	@Override
+	public SalesTargetDTO listSalesTargetYearTotalProfitdept(SalesTargetDTO salesTargetDTO) {
+		return sqlSession.selectOne("salesTarget.listSalesTargetYearTotalProfitdept", salesTargetDTO);
+	}
+
+	@Override
+	public SalesTargetDTO listSalesTargetMonthdept(SalesTargetDTO salesTargetDTO) {
+		return sqlSession.selectOne("salesTarget.listSalesTargetMonthdept", salesTargetDTO);
+	}
+
+	@Override
+	public SalesTargetDTO listSalesTargetYeardept(SalesTargetDTO salesTargetDTO) {
+		return sqlSession.selectOne("salesTarget.listSalesTargetYeardept", salesTargetDTO);
+	}
+
+	@Override
+	public SalesTargetDTO listSalesTargetYearTotalSalesCompany(SalesTargetDTO salesTargetDTO) {
+		return sqlSession.selectOne("salesTarget.listSalesTargetYearTotalSalesCompany", salesTargetDTO);
+	}
+
+	@Override
+	public SalesTargetDTO listSalesTargetYearTotalProfitCompany(SalesTargetDTO salesTargetDTO) {
+		return sqlSession.selectOne("salesTarget.listSalesTargetYearTotalProfitCompany", salesTargetDTO);
+	}
+
+	@Override
+	public SalesTargetDTO listSalesTargetMonthCompany(SalesTargetDTO salesTargetDTO) {
+		return sqlSession.selectOne("salesTarget.listSalesTargetMonthCompany", salesTargetDTO);
+	}
+
+	@Override
+	public SalesTargetDTO listSalesTargetYearCompany(SalesTargetDTO salesTargetDTO) {
+		return sqlSession.selectOne("salesTarget.listSalesTargetYearCompany", salesTargetDTO);
+	}	
 }

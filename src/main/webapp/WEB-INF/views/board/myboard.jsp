@@ -11,11 +11,26 @@
 	<div class="col-md-12 col-lg-5">
 		<div class="card">
 			<div class="card-header">
-				<h5>상반기 계획대비 실적</h5>
-				<span>2021년 03월</span>
-				<div class="card-header-right">
+				<div style="display: inline-block;">
+					<h5>연간 계획대비 실적</h5>
+					<span style="vertical-align: bottom;">${graph1.targetYear}년</span>
+				</div>				
+				<!-- <div class="card-header-right">
 					<i class="icofont icofont-spinner-alt-5"></i>
-				</div>
+				</div> -->
+				<select class="custom-select mr-sm-2" name="graph1TargetYear" id="graph1TargetYear" style="float:right;">
+					<option value = "2020">2020</option>
+					<option value = "2021" selected>2021</option>
+					<option value = "2022">2022</option>
+					<option value = "2023">2023</option>
+					<option value = "2024">2024</option>
+					<option value = "2025">2025</option>
+				</select>
+				<select class="custom-select mr-sm-2" name="graph1TargetDepartment" id="graph1TargetDepartment" style="float:right;">
+					<option value = "all" selected>전체</option>
+					<option value = "dept">부서</option>
+					<option value = "individual">개인</option>
+				</select>
 			</div>
 			<div class="card-block">
 				<div id="myChart01" style="width:650px; height:400px;"></div>
@@ -24,29 +39,73 @@
 	</div>
 	<div class="col-md-12 col-lg-2">
 		<div class="card">
-			<div class="card-header">
-				<h5>월 계획대비 실적</h5>
-				<span>2021년 03월</span>
-				<div class="card-header-right">
-					<i class="icofont icofont-spinner-alt-5"></i>
+			<div class="card-header">				
+				<select class="custom-select mr-sm-1" name="graph2TargetMonth" id="graph2TargetMonth" style="float:right;">
+					<option value = "01">01</option>
+					<option value = "02">02</option>
+					<option value = "03">03</option>
+					<option value = "04">04</option>
+					<option value = "05">05</option>
+					<option value = "06">06</option>
+					<option value = "07">07</option>
+					<option value = "08">08</option>
+					<option value = "09">09</option>
+					<option value = "10">10</option>
+					<option value = "11">11</option>
+					<option value = "12">12</option>
+				</select>
+				<select class="custom-select mr-sm-1" name="graph2TargetYear" id="graph2TargetYear" style="float:right;">
+					<option value = "2020">2020</option>
+					<option value = "2021" selected>2021</option>
+					<option value = "2022">2022</option>
+					<option value = "2023">2023</option>
+					<option value = "2024">2024</option>
+					<option value = "2025">2025</option>
+				</select>
+				<select class="custom-select mr-sm-1" name="graph2TargetDepartment" id="graph2TargetDepartment" style="float:left;">
+					<option value = "all" selected>전체</option>
+					<option value = "dept">부서</option>
+					<option value = "individual">개인</option>
+				</select>
+				<div style="display: inline-block;">
+					<h5>월 계획대비 실적</h5>
+					<span style="vertical-align: bottom;">${graph2.targetYear}년 ${graph2.targetMonth}월</span>
 				</div>
+				<!-- <div class="card-header-right">
+					<i class="icofont icofont-spinner-alt-5"></i>
+				</div> -->
 			</div>
 			<div class="card-block">
-				<div id="myChart02" style="width:400px; height:400px;"></div>
+				<div id="myChart02" style="width:400px; height:362px;"></div>
 			</div>
 		</div>
 	</div>
 	<div class="col-md-12 col-lg-2">
 		<div class="card">
 			<div class="card-header">
-				<h5>누적 계획대비 실적</h5>
-				<span>2021년</span>
-				<div class="card-header-right">
+				<select class="custom-select mr-sm-1" name="graph3TargetYear" id="graph3TargetYear" style="float:right;">
+					<option value = "2020">2020</option>
+					<option value = "2021" selected>2021</option>
+					<option value = "2022">2022</option>
+					<option value = "2023">2023</option>
+					<option value = "2024">2024</option>
+					<option value = "2025">2025</option>
+				</select>
+				<select class="custom-select mr-sm-1" name="graph3TargetDepartment" id="graph3TargetDepartment" style="float:right;">
+					<option value = "all" selected>전체</option>
+					<option value = "dept">부서</option>
+					<option value = "individual">개인</option>
+				</select>
+				<div style="display: inline-block;">
+					<h5>누적 계획대비 실적</h5>
+					<span style="vertical-align: bottom;">${graph3.targetYear}년</span>
+				</div>				
+				<!-- <div class="card-header-right">
 					<i class="icofont icofont-spinner-alt-5"></i>
-				</div>
+				</div> -->
 			</div>
 			<div class="card-block">
-				<div id="myChart03" style="width:400px; height:400px;"></div>
+				<div id="myChart03" style="width:400px; height:362px;"></div>
 			</div>
 		</div>
 	</div>
@@ -183,24 +242,26 @@
 
 function chartReady(){
 	// 1번째 그래프 ===================================================
-	var myChart = echarts.init(document.getElementById('myChart01'));	
+	var myChart1 = echarts.init(document.getElementById('myChart01'));	
 	// 차트 속성과 데이터를 지정합니다.
-	option = {
+	option1 = {
 	    tooltip : {
 	        trigger: 'axis',
 	        axisPointer : {
 	            type : 'shadow'
+//				type : 'cross'
 	        },
 	        formatter: function (params){
+	        	console.dir(params);
 	            return params[0].name + '<br/>'
-	                   + '총'+params[2].seriesName + ' : ' + (params[2].value+params[0].value) + '<br/>'
+	                   + params[2].seriesName + ' : ' + (params[2].value+params[0].value) + '<br/>'
 	                   + params[1].seriesName + ' : ' + (params[1].value) + '<br/>'
 	                   + params[0].seriesName + ' : ' + (params[0].value);
 	        }
 	    },
 	    legend: {
 	        selectedMode:false,
-	        data:['실적', '잔여목표량', '초과']
+	        data:['실적(억원)', '목표량(억원)', '초과(억원)']
 	    },
 	    toolbox: {
 	        show : false
@@ -220,7 +281,7 @@ function chartReady(){
 	    ],
 	    series : [
 	        {
-	            name:'실적',
+	            name:'실적(억원)',
 	            type:'bar',
 	            stack: 'sum',
 	            barCategoryGap: '50%',
@@ -235,27 +296,30 @@ function chartReady(){
 	                    }
 	                }
 	            },
-	            data:[350, 200, 220, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+	            data:[${graph1.salesDto.mm01/10.0}, ${graph1.salesDto.mm02/10.0}, ${graph1.salesDto.mm03/10.0}, ${graph1.salesDto.mm04/10.0}, 
+	            	${graph1.salesDto.mm05/10.0}, ${graph1.salesDto.mm06/10.0}, ${graph1.salesDto.mm07/10.0}, ${graph1.salesDto.mm08}, 
+	            	${graph1.salesDto.mm09/10.0}, ${graph1.salesDto.mm10/10.0}, ${graph1.salesDto.mm11/10.0}, ${graph1.salesDto.mm12}]
 	        },
 	        {
-	            name:'잔여목표량',
-	            type:'bar',
-	            stack: 'sum',
+	            name:'목표량(억원)',
+	            type:'line',
+//	            stack: 'sum',
 	            itemStyle: {
 	                normal: {
-	                    color: '#fff',
-	                    barBorderColor: '#4680ff',
-	                    barBorderWidth: 3,
+	                    color: '#5873c7',
+	                    //barBorderColor: '#4680ff',
+	                    barBorderWidth: 1,
 	                    barBorderRadius:0,
 	                    label : {
 	                        show: true,
 	                        position: 'top',
 	                        formatter: function (params) {
-	                            for (var i = 0, l = option.xAxis[0].data.length; i < l; i++) {
-	                                if (option.xAxis[0].data[i] == params.name) {
+	                            for (var i = 0, l = option1.xAxis[0].data.length; i < l; i++) {
+	                                if (option1.xAxis[0].data[i] == params.name) {
 	                                    //return option.series[0].data[i] + params.value;
-	                                    if (option.series[1].data[i] != 0){
-	                                    	return option.series[1].data[i];
+	                                    if (option1.series[1].data[i] != 0){
+	                                    	return;
+	                                    	//return option.series[1].data[i];
 	                                    } else {
 	                                    	return;
 	                                    }
@@ -268,10 +332,12 @@ function chartReady(){
 	                    }
 	                }
 	            },
-	            data:[0, 110, 90, 350,350, 350, 350, 350, 350, 350, 350, 350]
+	            data:[${graph1.profitDto.mm01/10.0}, ${graph1.profitDto.mm02/10.0}, ${graph1.profitDto.mm03/10.0}, ${graph1.profitDto.mm04/10.0}, 
+	            	${graph1.profitDto.mm05/10.0}, ${graph1.profitDto.mm06/10.0}, ${graph1.profitDto.mm07/10.0}, ${graph1.profitDto.mm08/10.0}, 
+	            	${graph1.profitDto.mm09/10.0}, ${graph1.profitDto.mm10/10.0}, ${graph1.profitDto.mm11/10.0}, ${graph1.profitDto.mm12/10.0}]
 	        },
 	        {
-	            name:'초과',
+	            name:'초과(억원)',
 	            type:'bar',
 	            stack: 'sum',
 	            itemStyle: {
@@ -284,10 +350,10 @@ function chartReady(){
 	                        show: true,
 	                        position: 'top',
 	                        formatter: function (params) {
-	                            for (var i = 0, l = option.xAxis[0].data.length; i < l; i++) {
-	                                if (option.xAxis[0].data[i] == params.name) {
-	                                	if (option.series[2].data[i] != 0){
-	                                    	return option.series[2].data[i];
+	                            for (var i = 0, l = option1.xAxis[0].data.length; i < l; i++) {
+	                                if (option1.xAxis[0].data[i] == params.name) {
+	                                	if (option1.series[2].data[i] != 0){
+	                                    	return option1.series[2].data[i];
 	                                	} else {
 	                                		return;
 	                                	}
@@ -300,16 +366,18 @@ function chartReady(){
 	                    }
 	                }
 	            },
-	            data:[50, 0, 0, 0,0, 0, 0, 0, 0, 0, 0, 0]
+	            data:[${graph1.overDto.mm01/10.0}, ${graph1.overDto.mm02/10.0}, ${graph1.overDto.mm03/10.0}, ${graph1.overDto.mm04/10.0}, 
+	            	${graph1.overDto.mm05/10.0}, ${graph1.overDto.mm06/10.0}, ${graph1.overDto.mm07/10.0}, ${graph1.overDto.mm08/10.0}, 
+	            	${graph1.overDto.mm09/10.0}, ${graph1.overDto.mm10/10.0}, ${graph1.overDto.mm11/10.0}, ${graph1.overDto.mm12/10.0}]
 	        }
 	    ]
 	};
-	myChart.setOption(option);
+	myChart1.setOption(option1);
     // 위에서 설정한 속성을 차트에 반영합니다.
 
     // 2번째 그래프 ===================================================
-	var myChartGauge = echarts.init(document.getElementById('myChart02'));
-	var optionGauge = {
+	var myChartGauge2 = echarts.init(document.getElementById('myChart02'));
+	var option2 = {
           tooltip : {
               formatter: "{b} : {c}%"
           },
@@ -366,19 +434,21 @@ function chartReady(){
        ]
 	};
 	
-	function gauge_load_chart(optionGauge){
+	function gauge_load_chart2(option2){
 //		optionGauge.series[0].data[0].value = (Math.random()*100).toFixed(2) - 0;
-		myChartGauge.setOption(optionGauge,true);
+		myChartGauge2.setOption(option2,true);
 	}
-	gauge_load_chart(optionGauge);
+	gauge_load_chart2(option2);
 	
+	/*
 	var timeTicket = setInterval(function (){
 		gauge_load_chart(optionGauge);
 	},2000000);
+	*/
 	
 	// 3번째 그래프 ===================================================
-	var myChartGauge = echarts.init(document.getElementById('myChart03'));
-	var optionGauge = {
+	var myChartGauge3 = echarts.init(document.getElementById('myChart03'));
+	var option3 = {
 	        tooltip : {
 	            formatter: "{b} : {c}%"
 	        },
@@ -435,20 +505,21 @@ function chartReady(){
 	     ]
 	};
 	
-	function gauge_load_chart(optionGauge){
+	function gauge_load_chart3(option3){
 //		optionGauge.series[0].data[0].value = (Math.random()*100).toFixed(2) - 0;
-		myChartGauge.setOption(optionGauge,true);
+		myChartGauge3.setOption(option3, true);
 	}
-	gauge_load_chart(optionGauge);
+	gauge_load_chart3(option3);
 	
+	/*
 	var timeTicket = setInterval(function (){
 		gauge_load_chart(optionGauge);
 	},2000000);
-	
+	*/
 	
 	// 4번째 그래프 ===================================================
-	var myChart = echarts.init(document.getElementById('myChart04'));
-	var option = {
+	var myChartGauge4 = echarts.init(document.getElementById('myChart04'));
+	var option4 = {
 		tooltip: {
 	        trigger: 'item',
 	        formatter: '{a} <br/>{b}: {c} ({d}%)'
@@ -488,7 +559,7 @@ function chartReady(){
 	        }
 	    ]
 	};	
-	myChart.setOption(option);
+	myChartGauge4.setOption(option4);
 }
 
 /* 

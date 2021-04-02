@@ -15,6 +15,19 @@ public interface SalesTargetService {
 	int updateSalesTarget(HttpSession session, SalesTargetDTO salesTargetDTO);
 	int deleteSalesTarget(HttpSession session, SalesTargetDTO salesTargetDTO);
 	int insertSalesTarget(HttpSession session, SalesTargetDTO salesTargetDTO);
+	
+	Map<String, Object> listSalesTargetYearTotalSalesIndividual(HttpSession session, SalesTargetDTO salesTargetDTO);
+	Map<String, Object> listSalesTargetYearTotalProfitIndividual(HttpSession session, SalesTargetDTO salesTargetDTO);
 	Map<String, Object> listSalesTargetMonthIndividual(HttpSession session, SalesTargetDTO salesTargetDTO);
 	Map<String, Object> listSalesTargetYearIndividual(HttpSession session, SalesTargetDTO salesTargetDTO);
+	
+	Map<String, Object> listSalesTargetMonthdept(HttpSession session, SalesTargetDTO salesTargetDTO);
+	Map<String, Object> listSalesTargetYeardept(HttpSession session, SalesTargetDTO salesTargetDTO);
+	Map<String, Object> listSalesTargetYearTotalSalesdept(HttpSession session, SalesTargetDTO salesTargetDTO);
+	Map<String, Object> listSalesTargetYearTotalProfitdept(HttpSession session, SalesTargetDTO salesTargetDTO);
+	
+	Map<String, Object> listSalesTargetMonthCompany(HttpSession session, SalesTargetDTO salesTargetDTO);
+	Map<String, Object> listSalesTargetYearCompany(HttpSession session, SalesTargetDTO salesTargetDTO);
+	Map<String, Object> listSalesTargetYearTotalSalesCompany(HttpSession session, SalesTargetDTO salesTargetDTO);
+	Map<String, Object> listSalesTargetYearTotalProfitCompany(HttpSession session, SalesTargetDTO salesTargetDTO);
 }

@@ -18,6 +18,102 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		</foreach>
  </select>
  
+ <select id="listSalesTargetMonthIndividual"	resultType="SalesTargetDTO">
+	set @column := #{targetMonth};
+	select CAST(
+				(
+					TRUNCATE(( 
+						IFNULL(( 
+							select sum(case when vatYn = 'Y' then contAmt/1.1 else contAmt end) 
+							from swc_cont 
+							where compNo = #{compNo} and userNo = #{userNo}
+							and date_format(contOrddate , '%Y-%m') = CONCAT(#{targetYear},'-',#{targetMonth})
+							),0) 
+							/ 
+						IFNULL(( 
+							select 
+								(
+									case @column
+									when '01' then mm01
+									when '02' then mm02
+									when '03' then mm03
+									when '04' then mm04
+									when '05' then mm05
+									when '06' then mm06
+									when '07' then mm07
+									when '08' then mm08
+									when '09' then mm09
+									when '10' then mm10
+									when '11' then mm11
+									when '12' then mm12
+									end
+								)
+							from swc_sales_target 
+							where compNo = #{compNo} and userNo = #{userNo} and targetYear = #{targetYear} and targetType = 'PROFIT'
+							),0) 
+					),4)*100
+				) as decimal(5,2)
+			) as percent
+</select>
+
+<select id="listSalesTargetYearIndividual"	resultType="SalesTargetDTO">
+	select CAST(
+					(
+						TRUNCATE(( 
+							IFNULL(( 
+									select sum(case when vatYn = 'Y' then contAmt/1.1 else contAmt end) 
+									from swc_cont 
+									where compNo = #{compNo} and userNo = #{userNo}
+									and date_format(contOrddate , '%Y-%m')
+										IN(
+											CONCAT(#{targetYear},'-01'),
+											CONCAT(#{targetYear},'-02'),
+											CONCAT(#{targetYear},'-03'),
+											CONCAT(#{targetYear},'-04'),
+											CONCAT(#{targetYear},'-05'),
+											CONCAT(#{targetYear},'-06'),
+											CONCAT(#{targetYear},'-07'),
+											CONCAT(#{targetYear},'-08'),
+											CONCAT(#{targetYear},'-09'),
+											CONCAT(#{targetYear},'-10'),
+											CONCAT(#{targetYear},'-11'),
+											CONCAT(#{targetYear},'-12')
+										)
+									),0) 
+								/ 
+							IFNULL(( 
+									select 
+										sum(mm01+mm02+mm03+mm04+mm05+mm06+mm07+mm08+mm09+mm10+mm11+mm12)
+									from swc_sales_target 
+									where compNo = #{compNo} and userNo = #{userNo} and targetYear = #{targetYear} and targetType = 'PROFIT'
+									),0)
+					),4)*100)
+				as DECIMAL(5,2)
+				) as percent
+</select>
+
+<select id="listSalesTargetYearTotalSalesIndividual"	resultType="SalesTargetDTO">
+	select
+		IFNULL((select sum(case when vatYn = 'Y' then contAmt/1.1 else contAmt end) from swc_cont where compNo = #{compNo} and userNo = #{userNo} and date_format(contOrddate , '%Y-%m') = CONCAT(#{targetYear},'-01')),0) as mm01,
+		IFNULL((select sum(case when vatYn = 'Y' then contAmt/1.1 else contAmt end) from swc_cont where compNo = #{compNo} and userNo = #{userNo} and date_format(contOrddate , '%Y-%m') = CONCAT(#{targetYear},'-02')),0) as mm02,
+		IFNULL((select sum(case when vatYn = 'Y' then contAmt/1.1 else contAmt end) from swc_cont where compNo = #{compNo} and userNo = #{userNo} and date_format(contOrddate , '%Y-%m') = CONCAT(#{targetYear},'-03')),0) as mm03,
+		IFNULL((select sum(case when vatYn = 'Y' then contAmt/1.1 else contAmt end) from swc_cont where compNo = #{compNo} and userNo = #{userNo} and date_format(contOrddate , '%Y-%m') = CONCAT(#{targetYear},'-04')),0) as mm04,
+		IFNULL((select sum(case when vatYn = 'Y' then contAmt/1.1 else contAmt end) from swc_cont where compNo = #{compNo} and userNo = #{userNo} and date_format(contOrddate , '%Y-%m') = CONCAT(#{targetYear},'-05')),0) as mm05,
+		IFNULL((select sum(case when vatYn = 'Y' then contAmt/1.1 else contAmt end) from swc_cont where compNo = #{compNo} and userNo = #{userNo} and date_format(contOrddate , '%Y-%m') = CONCAT(#{targetYear},'-06')),0) as mm06,
+		IFNULL((select sum(case when vatYn = 'Y' then contAmt/1.1 else contAmt end) from swc_cont where compNo = #{compNo} and userNo = #{userNo} and date_format(contOrddate , '%Y-%m') = CONCAT(#{targetYear},'-07')),0) as mm07,
+		IFNULL((select sum(case when vatYn = 'Y' then contAmt/1.1 else contAmt end) from swc_cont where compNo = #{compNo} and userNo = #{userNo} and date_format(contOrddate , '%Y-%m') = CONCAT(#{targetYear},'-08')),0) as mm08,
+		IFNULL((select sum(case when vatYn = 'Y' then contAmt/1.1 else contAmt end) from swc_cont where compNo = #{compNo} and userNo = #{userNo} and date_format(contOrddate , '%Y-%m') = CONCAT(#{targetYear},'-09')),0) as mm09,
+		IFNULL((select sum(case when vatYn = 'Y' then contAmt/1.1 else contAmt end) from swc_cont where compNo = #{compNo} and userNo = #{userNo} and date_format(contOrddate , '%Y-%m') = CONCAT(#{targetYear},'-10')),0) as mm10,
+		IFNULL((select sum(case when vatYn = 'Y' then contAmt/1.1 else contAmt end) from swc_cont where compNo = #{compNo} and userNo = #{userNo} and date_format(contOrddate , '%Y-%m') = CONCAT(#{targetYear},'-11')),0) as mm11,
+		IFNULL((select sum(case when vatYn = 'Y' then contAmt/1.1 else contAmt end) from swc_cont where compNo = #{compNo} and userNo = #{userNo} and date_format(contOrddate , '%Y-%m') = CONCAT(#{targetYear},'-12')),0) as mm12
+</select>
+
+<select id="listSalesTargetYearTotalProfitIndividual"	resultType="SalesTargetDTO">
+	select * from swc_sales_target where compNo = #{compNo} and userNo = #{userNo} and targetType = 'PROFIT'
+</select>
+ 
+<!-- 아래 미사용 추후 정리시 삭제예정 -->
+<!-- 
 <select id="listSalesTargetMonthIndividual"	resultType="SalesTargetDTO">
 	set @column := #{targetMonth};
 	select CAST(
@@ -91,7 +187,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			select su2.org_id from swc_user su2 where su2.userNo = #{userNo}
 		)
 	)
-</select>
+</select> 
+
 
 
 <select id="listSalesTargetYearIndividual"	resultType="SalesTargetDTO">
@@ -113,7 +210,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				as DECIMAL(5,2)
 				) as percent
 </select>
-
+-->
  <insert id="insertSalesTarget">
  </insert>
 

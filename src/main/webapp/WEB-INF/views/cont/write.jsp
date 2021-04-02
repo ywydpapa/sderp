@@ -46,8 +46,8 @@
 								<th>영업기회</th>
 								<td>
 									<div class="input-group input-group-sm mb-0">
-										<input type="text" class="form-control" name="soppTitle" id="soppTitle" value="" />
-										<input type="hidden" class="form-control" name="soppNo" id="soppNo" value="" />
+										<input type="text" class="form-control" name="soppDTO" id="soppTitle" value="" />
+										<input type="hidden" class="form-control" name="soppDTO" id="soppNo" value="" />
 										<span class="input-group-btn">
 											<button class="btn btn-primary sch-opportunity2"
 												data-remote="${path}/modal/popup.do?popId=sopp"
@@ -176,8 +176,36 @@
 										<input type="text" id="custmemberName" name="custmemberName" class="form-control " readonly>
 										<input type="hidden" id="custmemberNo" name="custmemberNo" class="form-control ">
 										<span class="input-group-btn">
-											<button class="btn btn-primary sch-company btn-sm" type="button"><i class="icofont icofont-search"></i></button>
+											<button class="btn btn-primary sch-company btn-sm" 
+												data-remote="${path}/modal/popup.do?popId=custmem&compNo="
+												type="button" data-toggle="modal" data-target="#custmemberModal"
+												id="custmemberModalbtn" data-whatever="">
+											<i class="icofont icofont-search"></i>
+											</button>
 										</span>
+										<div class="modal fade " id="custmemberModal" tabindex="-1"
+											role="dialog">
+											<div class="modal-dialog modal-80size" role="document">
+												<div class="modal-content modal-80size">
+													<div class="modal-header">
+														<h4 class="modal-title">고객 검색</h4>
+														<button type="button" class="close" onclick="$('#custmemberModal').modal('hide');"
+															aria-label="Close">
+															<span aria-hidden="true">&times;</span>
+														</button>
+													</div>
+													<div class="modal-body">
+														<h5>고객 목록</h5>
+														<p>거래처를 먼저 입력해주셔야 목록이 보입니다.</p>
+													</div>
+													<div class="modal-footer">
+														<button type="button"
+															class="btn btn-default waves-effect "
+															onclick="$('#custmemberModal').modal('hide');">Close</button>
+													</div>
+												</div>
+											</div>
+										</div>
 									</div>
 								</td>
 							</tr>
@@ -376,10 +404,24 @@
 			var modal = $(this);
 			modal.find('.modal-body').load(button.data("remote"));
 		});
+		$('#custmemberModal').on('show.bs.modal', function(event) {
+			var button = $(event.relatedTarget) // Button that triggered the modal
+			var recipient = button.data('whatever') // Extract info from data-* attributes
+			// If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+			// Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+			
+			var url = '${path}/modal/popup.do?popId=custmem&compNo=' + recipient;
+			button.data("remote",url);
+			
+			var modal = $(this);
+			modal.find('.modal-body').load(button.data("remote"));
+		});
 
     	function fnSetCustData(a, b) {
+    		// '${row.custName}','${row.custNo}'
 			$("#custName").val(a);
 			$("#custNo").val(b);
+			$("#custmemberModalbtn").data('whatever', b);
 			$(".modal-backdrop").remove();
 			$("#custModal").modal("hide");
 		}
@@ -398,11 +440,21 @@
 			$("#ptncModal").modal("hide");
 		}
 		
-		function fnSetSoppData(a, b) {
-			$("#soppNo").val(b);
+		function fnSetSoppData(a, b, c, d) {
+			// '${row.soppTitle}','${row.soppNo}','${row.userNo}','${row.custNo}'
 			$("#soppTitle").val(a);
+			$("#soppNo").val(b);
 			$(".modal-backdrop").remove();
 			$("#soppModal").modal("hide");
+		}
+		
+		function fnSetCustmereData(a,b){
+			// '${row.custData03no}','${row.custMname}'
+			// 고객담당자번호, 고객성명
+			$("#custmemberNo").val(a);
+			$("#custmemberName").val(b);
+			$(".modal-backdrop").remove();
+			$("#custmemberModal").modal("hide");
 		}
 
 		function fnSetSupplyData(a, b) {
@@ -534,5 +586,7 @@
 						alert("통신 실패");
 					});
 			}
-	</script>
+		
+		
+</script>
 

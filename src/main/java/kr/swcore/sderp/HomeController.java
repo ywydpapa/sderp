@@ -60,7 +60,6 @@ public class HomeController {
 	@Inject
 	ContService contService;
 
-	// 테스트용도
 	@Inject
 	SalesTargetService salesTargetService;
 	
@@ -90,8 +89,9 @@ public class HomeController {
 		mav.addObject("sopplist", soppService.listSopp(session));
 		mav.addObject("contlist", contService.listCont(session));
 		mav.addObject("saleslist", salesService.listSales(session));
+		mav.addObject("graph1",salesTargetService.listSalesTargetYearTotalSalesIndividual(session, null));
 		mav.addObject("graph2",salesTargetService.listSalesTargetMonthIndividual(session, null));
-		mav.addObject("graph3",salesTargetService.listSalesTargetYearIndividual(session, null));
+		mav.addObject("graph3",salesTargetService.listSalesTargetYearIndividual(session, null));		
 		mav.setViewName("board/myboard");
 		return mav;
 	}

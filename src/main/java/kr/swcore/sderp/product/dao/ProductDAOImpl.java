@@ -21,14 +21,14 @@ public class ProductDAOImpl implements ProductDAO {
 	}
 	
 	@Override
-	public List<ProductDTO> listProduct(SoppDTO soppdto) {
-		return sqlSession.selectList("product.listProduct", soppdto);
+	public List<ProductDTO> listProduct(ProductDTO productDTO) {
+		return sqlSession.selectList("product.listProduct", productDTO);
 	}
 
 	@Override
-	public ProductDTO detailProduct(int productNo) {
+	public ProductDTO detailProduct(ProductDTO productdto) {
 		// TODO Auto-generated method stub
-		return sqlSession.selectOne("product.detailProduct", productNo);
+		return sqlSession.selectOne("product.detailProduct", productdto);
 	}
 
 	@Override
@@ -56,7 +56,8 @@ public class ProductDAOImpl implements ProductDAO {
 		return null;
 	}
 
-	
-
-
+	@Override
+	public List<ProductDTO> listProductGoodsCategory(ProductDTO productdto) {
+		return sqlSession.selectList("product.listProductGoodsCategory", productdto);
+	}
 }

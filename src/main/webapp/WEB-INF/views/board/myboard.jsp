@@ -39,7 +39,7 @@
 	</div>
 	<div class="col-md-12 col-lg-2">
 		<div class="card">
-			<div class="card-header">				
+			<div class="card-header" style="padding:25px 12px;">				
 				<select class="custom-select mr-sm-1" name="graph2TargetMonth" id="graph2TargetMonth" style="float:right;">
 					<option value = "01">01</option>
 					<option value = "02">02</option>

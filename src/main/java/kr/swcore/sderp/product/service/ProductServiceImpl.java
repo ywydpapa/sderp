@@ -14,7 +14,6 @@ import kr.swcore.sderp.util.SessionInfoGet;
 
 @Service
 public class ProductServiceImpl implements ProductService {
-
 	
 	@Inject
 	ProductDAO productDao;
@@ -27,32 +26,46 @@ public class ProductServiceImpl implements ProductService {
 	
 	@Override
 	public List<ProductDTO> listProduct(HttpSession session) {
-		SoppDTO soppdto = SessionInfoGet.getCompNoDto(session);
-		return productDao.listProduct(soppdto);
+		ProductDTO productDTO = new ProductDTO();
+		productDTO.setCompNo(SessionInfoGet.getCompNo(session));
+		return productDao.listProduct(productDTO);
 	}
 
 	@Override
-	public ProductDTO detailProduct(int productNo) {
-		// TODO Auto-generated method stub
-		return productDao.detailProduct(productNo);
+	public ProductDTO detailProduct(HttpSession session, int productNo) {
+		ProductDTO productdto = new ProductDTO();
+		productdto.setCompNo(SessionInfoGet.getCompNo(session));
+		productdto.setProductNo(productNo);
+		return productDao.detailProduct(productdto);
 	}
 
 	@Override
-	public int updateProduct(ProductDTO dto) {
-		// TODO Auto-generated method stub
+	public int updateProduct(HttpSession session, ProductDTO dto) {
+		dto.setCompNo(SessionInfoGet.getCompNo(session));
 		return productDao.updateProduct(dto);
 	}
 
 	@Override
-	public int deleteProduct(int productNo) {
+	public int deleteProduct(HttpSession session, int productNo) {
 		// TODO Auto-generated method stub
-	return productDao.deleteProduct(productNo);
+		return productDao.deleteProduct(productNo);
 	}
 
 	@Override
-	public int insertProduct(ProductDTO dto) {
-		// TODO Auto-generated method stub
-		return productDao.insertProduct(dto);
+	public int insertProduct(HttpSession session, ProductDTO dto) {
+		Integer returnValue = null;
+		dto.setCompNo(SessionInfoGet.getCompNo(session));
+		dto.setUserNo(SessionInfoGet.getUserNo(session));
+		Integer result = productDao.insertProduct(dto);
+		
+		if (result > 0) {
+			returnValue = 10001; 
+		}
+		else {
+			returnValue = 20001;
+		}
+
+		return returnValue;
 	}
 
 	@Override
@@ -61,6 +74,11 @@ public class ProductServiceImpl implements ProductService {
 		return null;
 	}
 
-	
-
+	@Override
+	public List<ProductDTO> listProductGoodsCategory(HttpSession session) {
+		ProductDTO productDTO = new ProductDTO();
+		productDTO.setCompNo(SessionInfoGet.getCompNo(session));
+		List<ProductDTO> list = productDao.listProductGoodsCategory(productDTO);
+		return list;
+	}
 }

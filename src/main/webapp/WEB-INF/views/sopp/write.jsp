@@ -175,7 +175,7 @@
 															</div>
 														</div>
 													</td>
-													<th scope="row">협력사</th>
+													<th scope="row">엔드유저</th>
 													<td>
 														<div class="input-group input-group-sm mb-0">
 															<input type="text" class="form-control" name="ptncName"
@@ -558,10 +558,6 @@ function fn_soppInsert() {
 		alert("거래처를 조회 후 선택해 주십시오.");
 		return;
 	}
-	else if (!soppData.ptncNo){
-		alert("협력사를 조회 후 선택해 주십시오.");
-		return;
-	}
 	else if (!soppData.soppStatus){
 		alert(" 진행단계를 선택해 주십시오.");
 		return;
@@ -584,10 +580,6 @@ function fn_soppInsert() {
 	}
 	else if (!soppData.soppTargetAmt){
 		alert("예상매출 금액을 입력해 주십시오.");
-		return;
-	}
-	else if (!soppData.soppDesc){
-		alert("영업기회에 대한 설명을 입력해 주십시오.");
 		return;
 	}
 	console.log(soppData);

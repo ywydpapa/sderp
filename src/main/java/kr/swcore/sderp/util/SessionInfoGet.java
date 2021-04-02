@@ -16,5 +16,9 @@ public class SessionInfoGet {
 		Integer compNo = Integer.valueOf((String) session.getAttribute("compNo"));
 		return compNo;
 	}
-	//
+	
+	public static Integer getUserNo(HttpSession session) {
+		Integer userNo = Integer.valueOf((String) session.getAttribute("userNo"));
+		return userNo;
+	}
 }

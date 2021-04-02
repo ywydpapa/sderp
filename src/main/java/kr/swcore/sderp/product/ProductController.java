@@ -32,9 +32,9 @@ public class ProductController {
 	}
 	
 	@RequestMapping("/detail/{productNo}")
-	public ModelAndView detail(@PathVariable("productNo") int productNo, ModelAndView mav) {
+	public ModelAndView detail(HttpSession session, @PathVariable("productNo") int productNo, ModelAndView mav) {
 		mav.setViewName("product/detail");
-		mav.addObject("dto", productService.detailProduct(productNo));
+		mav.addObject("dto", productService.detailProduct(session, productNo));
 		return mav;
 	}
 	
@@ -44,21 +44,16 @@ public class ProductController {
 	}
 
 	@RequestMapping("insert.do")
-	public ResponseEntity<?> insert(@ModelAttribute ProductDTO dto) {
+	public ResponseEntity<?> insert(HttpSession session, @ModelAttribute ProductDTO dto) {
 		Map<String, Object> param = new HashMap<>();
-		int productInsert = productService.insertProduct(dto);
-		if (productInsert >0) {
-			param.put("code","10001"); 
-		}
-		else {param.put("codo","20001");
-		}
+		param.put("code", productService.insertProduct(session, dto));
 		return ResponseEntity.ok(param);
 	}
 	
 	@RequestMapping("update.do")
-	public ResponseEntity<?> update(@ModelAttribute ProductDTO dto) {
+	public ResponseEntity<?> update(HttpSession session, @ModelAttribute ProductDTO dto) {
 		Map<String, Object> param = new HashMap<>();
-		int productUpdate = productService.updateProduct(dto);
+		int productUpdate = productService.updateProduct(session, dto);
 		if (productUpdate >0) {
 			param.put("code","10001"); 
 		}
@@ -69,9 +64,9 @@ public class ProductController {
 	
 	
 	@RequestMapping("delete.do")
-			public ResponseEntity<?> delete(@ModelAttribute ProductDTO dto) {
+			public ResponseEntity<?> delete(HttpSession session, @ModelAttribute ProductDTO dto) {
 			Map<String, Object> param = new HashMap<>();
-			int productUpdate = productService.deleteProduct(dto.getProductNo());
+			int productUpdate = productService.deleteProduct(session, dto.getProductNo());
 			if (productUpdate >0) {
 				param.put("code","10001"); 
 			}

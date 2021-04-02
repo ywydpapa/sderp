@@ -7,6 +7,7 @@ import javax.inject.Inject;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
+import kr.swcore.sderp.sales.dto.SalesDTO;
 import kr.swcore.sderp.sopp.dto.SoppDTO;
 import kr.swcore.sderp.techd.dto.TechdDTO;
 
@@ -30,6 +31,11 @@ public class TechdDAOImpl implements TechdDAO {
 	@Override
 	public List<TechdDTO> listconTechd(TechdDTO dto) {
 		return sqlSession.selectList("techd.listconTechd", dto);
+	}
+	
+	@Override
+	public List<SalesDTO> listTechdinsopp(SoppDTO soppDto) {
+		return sqlSession.selectList("techd.listTechdinsopp", soppDto);
 	}
 
 	@Override

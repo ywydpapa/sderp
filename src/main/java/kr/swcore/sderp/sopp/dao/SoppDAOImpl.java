@@ -8,6 +8,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import kr.swcore.sderp.sopp.dto.SoppDTO;
+import kr.swcore.sderp.sopp.dto.SoppFileDataDTO;
 
 @Repository
 public class SoppDAOImpl implements SoppDAO {
@@ -50,6 +51,11 @@ public class SoppDAOImpl implements SoppDAO {
 	}
 	
 	@Override
+	public List<SoppDTO> listFile(int soppNo) {
+		return sqlSession.selectList("sopp.listFile", soppNo);
+	}
+	
+	@Override
 	public SoppDTO detailSopp(int soppNo) {
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne("sopp.detailSopp", soppNo);
@@ -77,5 +83,15 @@ public class SoppDAOImpl implements SoppDAO {
 	public int insert2Sopp(SoppDTO dto) {
 		// TODO Auto-generated method stub
 		return sqlSession.update("sopp.update2Sopp", dto);
+	}
+	
+	@Override
+	public int uploadFile(SoppFileDataDTO dto) {
+		return sqlSession.insert("sopp.uploadFile", dto);
+	}
+	
+	@Override
+	public SoppFileDataDTO downloadFile(SoppFileDataDTO dto) {
+		return sqlSession.selectOne("sopp.downloadFile", dto);
 	}
 }

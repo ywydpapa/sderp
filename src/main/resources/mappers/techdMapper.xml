@@ -45,6 +45,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  		</if>
 		order by techdNo 
  </select>
+ 
+ <select id="listTechdinsopp"
+ 		resultType="TechdDto">
+ 		select a.*, b.userName , c.custName, f.desc03 techdTypeN from swc_techd a  
+		left join swc_user b on a.userNo = b.userNo
+		left join swc_cust c on a.custNo = c.custNo
+		left join swc_sopp d on a.soppNo = d.soppNo
+		left join swc_cont e on a.contNo = e.contNo
+		left join swc_code f on a.techdType = f.codeNo 
+		where a.attrib not like 'XXX%' and a.compNo = #{compNo} and a.soppNo = #{soppNo} 
+		order by techdNo 
+ </select>
 
 <select id="detailTechd"
  		resultType="techdDto">

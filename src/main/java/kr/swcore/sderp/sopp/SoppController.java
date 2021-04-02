@@ -1,27 +1,40 @@
 package kr.swcore.sderp.sopp;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import kr.swcore.sderp.code.service.CodeService;
 import kr.swcore.sderp.sales.service.SalesService;
 import kr.swcore.sderp.sopp.dto.SoppDTO;
+import kr.swcore.sderp.sopp.dto.SoppFileDataDTO;
 import kr.swcore.sderp.sopp.dto.SoppdataDTO;
 import kr.swcore.sderp.sopp.service.SoppService;
 import kr.swcore.sderp.sopp.service.SoppdataService;
+import kr.swcore.sderp.techd.service.TechdService;
 
 @Controller
 
@@ -42,6 +55,9 @@ public class SoppController {
 	
 	@Inject 
 	CodeService codeService;
+	
+	@Inject
+	TechdService techdService;
 	
 	@RequestMapping("list.do")
 	public ModelAndView list(HttpSession session, ModelAndView mav) {
@@ -94,7 +110,9 @@ public class SoppController {
 		mav.addObject("dtodata02", soppdataService.listSoppdata02(soppNo));
 		mav.addObject("saleslist", codeService.listSalestype(session));
 		mav.addObject("sstatuslist", codeService.listSstatus(session));
-		mav.addObject("salesinsopp",salesService.listSalesinsopp(soppNo));
+		mav.addObject("salesinsopp",salesService.listSalesinsopp(session, soppNo));
+		mav.addObject("techdinsopp",techdService.listTechdinsopp(session, soppNo));
+		mav.addObject("soppFiles",soppService.listFile(soppNo));
 		mav.setViewName("sopp/detail");
 		return mav;
 	}
@@ -106,7 +124,7 @@ public class SoppController {
 		mav.addObject("dtodata02", soppdataService.listSoppdata02(soppNo));
 		mav.addObject("saleslist", codeService.listSalestype(session));
 		mav.addObject("sstatuslist", codeService.listSstatus(session));
-		mav.addObject("salesinsopp",salesService.listSalesinsopp(soppNo));
+		mav.addObject("salesinsopp",salesService.listSalesinsopp(session, soppNo));
 		mav.setViewName("sopp/detail2");
 		return mav;
 	}
@@ -124,7 +142,32 @@ public class SoppController {
 		mav.setViewName("sopp/qutylist");
 		return mav;
 	}
-
+	
+	@RequestMapping("/uploadfile/{soppNo}")
+	public ResponseEntity<?> uploadFile(HttpSession session, @PathVariable("soppNo") int soppNo, @ModelAttribute SoppDTO dto, MultipartHttpServletRequest fileList) throws IOException {
+		int uploadFile = soppService.uploadFile(session, soppNo, fileList);
+		
+		Map<String, Object> param = new HashMap<>();
+		if(uploadFile > 0) {
+			param.put("code", "10001");
+		}else {
+			param.put("code", "20001");
+		}
+		
+		return ResponseEntity.ok(param);
+	}
+	
+	@RequestMapping("/downloadfile")
+	public ResponseEntity<?> downloadFile(HttpSession session, HttpServletResponse response, @ModelAttribute SoppFileDataDTO dto) throws IOException {
+		SoppFileDataDTO soppFile = soppService.downloadFile(dto);
+		String fileName = soppFile.getFileName();
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+		headers.add("Content-Disposition", new String(fileName.getBytes("utf-8"), "ISO-8859-1"));
+		ResponseEntity<byte[]> entity = new ResponseEntity<byte[]>(soppFile.getFileContent(), headers, HttpStatus.OK);
+		
+		return entity;
+	}
 
 	@RequestMapping("write.do")
 	public String write() {

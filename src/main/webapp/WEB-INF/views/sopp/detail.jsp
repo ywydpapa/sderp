@@ -497,9 +497,41 @@
 					</div>
 				</div>
 				<div class="tab-pane " id="tab04" role="tabpanel">
+					<a id='fileDownloadElement'></a>
+					<button class="btn btn-md btn-primary" data-toggle="modal" data-target="#fileUploadModal" onClick="openFileUploadModal()">등록</button>
+					<div class="modal fade " id="fileUploadModal" tabindex="-1"
+											role="dialog">
+											<div class="modal-dialog modal-80size" role="document">
+												<div class="modal-content modal-80size">
+													<div class="modal-header">
+														<h4 class="modal-title">파일 등록</h4>
+														<button type="button" class="close" data-dismiss="modal"
+															aria-label="Close">
+															<span aria-hidden="true">&times;</span>
+														</button>
+													</div>
+													<div class="modal-body">
+														<form id="uploadForm">
+															<input type="file" name="file" id="fileUpload"/>
+															<!-- <input type="button" id="uploadButton" value="등록" onclick="uploadFile()"/> -->
+														</form>
+														<br>
+														파일 설명<input type="text" class="form-control" id="fileDesc"/>
+													</div>
+													<div class="modal-footer">
+														<button type="button"
+															class="btn btn-default waves-effect "
+															onclick="uploadFile()">등록</button>
+														<button type="button"
+															class="btn btn-default waves-effect "
+															data-dismiss="modal">닫기</button>
+													</div>
+												</div>
+											</div>
+										</div>
 					<div class="card-block table-border-style">
 						<div class="table-responsive" style="overflow-x: hidden;">
-							<form name="form2" method="post" onsubmit="return false;">
+							<!-- <form name="form2" method="post" onsubmit="return false;"> -->
 								<table class="table table-sm bst02">
 									<colgroup>
 										<col width="25%" />
@@ -509,20 +541,20 @@
 									</colgroup>
 									<thead>
 										<th class="text-center">일자</th>
-										<th class="text-center">파일설명</th>
 										<th class="text-center">파일명</th>
-										<th class="text-center">추가</th>
+										<th class="text-center">파일설명</th>
 									</thead>
 									<tbody>
-										<tr>
-											<td></td>
-											<td></td>
-											<td></td>
-											<td><button>추가</button></td>
-										</tr>
+										<c:forEach var="row2" items="${soppFiles}">
+											<tr class="item1">
+												<td>${row2.uploadDate}</td>
+												<td><a href="javascript:downloadFile('${row2.fileId}');">${row2.fileName}</a></td>
+												<td>${row2.fileDesc}</td>
+											</tr>
+										</c:forEach>
 									</tbody>
 								</table>
-							</form>
+							<!-- </form> -->
 							<div class="btn_wr text-right mt-3">
 								<button class="btn btn-md btn-success f-left"
 									onClick="javascript:fnSetPage('${path}/sopp/list.do')">목록</button>
@@ -544,19 +576,19 @@
 									</colgroup>
 									<thead>
 										<th class="text-center">일자</th>
-										<th class="text-center">양업종류</th>
+										<th class="text-center">지원형태</th>
 										<th class="text-center">장소</th>
 										<th class="text-center">담당자</th>
 										<th class="text-center">비고</th>
 									</thead>
 									<tbody>
-									<c:forEach var="row2" items="${salesinsopp}">
+									<c:forEach var="row2" items="${techdinsopp}">
 									<tr class="item1">
-										<td>${row2.salesFrdatetime}</td>
-										<td>${row2.salesTypeN}</td>
-										<td>${row2.salesPlace}</td>
+										<td>${row2.techdFrom}</td>
+										<td>${row2.techdTypeN}</td>
+										<td>${row2.techdPlace}</td>
 										<td>${row2.userName}</td>
-										<td>${row2.salesDesc}</td>
+										<td>${row2.techdDesc}</td>
 									</tr>
 									</c:forEach>									</tbody>
 								</table>
@@ -846,5 +878,60 @@ $(function(){
          var sum = sum1 * sum2;
          $("#data02Amt").val(sum);
        });
-	 }); 
+	 });
+
+	function uploadFile() {
+		var uploadForm = $('#uploadForm')[0];
+		var uploadData = new FormData(uploadForm);
+		
+		if(!uploadData.get('file').name) {
+			alert('파일을 선택해주세요');
+				
+		}else {
+			uploadData.append('fileDesc', $('#fileDesc').val());
+			$.ajax({
+				url : "${path}/sopp/uploadfile/"+$("#soppNo").val(),
+				method : "POST",
+				data : uploadData,
+				contentType : false,
+				processData : false
+			}).done(function(data){
+				if(data.code == 10001){
+					alert('파일 업로드 완료');
+				}else {
+					alert('파일 업로드 실패');
+				}
+			}).fail(function(xhr, status, errorThrown) { 
+				alert("통신 실패");
+			});
+			
+		}
+		
+	}
+	
+	function downloadFile(fileId) {
+		var downloadData = {};
+		downloadData.soppNo = $("#soppNo").val();
+		downloadData.fileId = fileId;
+		
+		$.ajax({
+			url : "${path}/sopp/downloadfile",
+			data : downloadData,
+			method : "POST",
+		}).done(function(data, status, xhr){
+			var fileName = xhr.getResponseHeader('content-disposition');
+			var blob = new Blob([data], {type : 'application/octet-stream'});
+			var link = document.getElementById('fileDownloadElement');
+			link.href = window.URL.createObjectURL(blob);
+			link.download = fileName;
+			link.click();
+			
+		}).fail(function(xhr, status, errorThrown) { 
+			alert("통신 실패");
+		});
+	}
+	
+	function openFileUploadModal() {
+		
+	}
 </script>

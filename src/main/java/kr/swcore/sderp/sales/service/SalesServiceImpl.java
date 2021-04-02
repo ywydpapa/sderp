@@ -93,9 +93,11 @@ public class SalesServiceImpl implements SalesService {
 	}
 
 	@Override
-	public List<SalesDTO> listSalesinsopp(int soppNo) {
-		// TODO Auto-generated method stub
-		return salesDao.listSalesinsopp(soppNo);
+	public List<SalesDTO> listSalesinsopp(HttpSession session, int soppNo) {
+		SoppDTO soppdto = SessionInfoGet.getCompNoDto(session);
+		soppdto.setSoppNo(soppNo);
+		
+		return salesDao.listSalesinsopp(soppdto);
 	}
 
 	

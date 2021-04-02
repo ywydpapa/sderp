@@ -11,7 +11,7 @@ public interface SalesService {
 	List<SalesDTO> listSales();
 	List<SalesDTO> listSales(HttpSession session);
 	List<SalesDTO> listconSales(HttpSession session, SalesDTO dto);
-	List<SalesDTO> listSalesinsopp(int soppNo);
+	List<SalesDTO> listSalesinsopp(HttpSession session, int soppNo);
 	SalesDTO detailSales(int salesNo);
 	int updateSales(SalesDTO dto);
 	int deleteSales(int salesNo);

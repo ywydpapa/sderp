@@ -223,5 +223,41 @@ now()
 		order by soppdataNo 
  </select>
  
+ <insert id="uploadFile">
+	insert into swc_soppFileData
+	(
+		fileId,
+		fileName,
+		fileDesc,
+		uploadDate,
+		fileContent,
+		soppNo,
+		userNo
+	)
+ 	values 
+ 	(
+ 		#{fileId},
+ 		#{fileName},
+ 		#{fileDesc},
+ 		now(),
+ 		#{fileContent},
+ 		#{soppNo},
+ 		#{userNo}
+ 	)
+ </insert>
+ 
+ <select id="downloadFile" resultType="soppFileDataDTO">
+	select *
+	from swc_soppFileData  
+	where fileId = #{fileId} and soppNo=#{soppNo}
+ </select>
+ 
+ <select id="listFile" resultType="soppFileDataDTO">
+ 	select *
+ 	from swc_soppFileData
+ 	where soppNo=#{soppNo}
+ 	order by uploadDate desc
+ </select>
+ 
  		
 </mapper>

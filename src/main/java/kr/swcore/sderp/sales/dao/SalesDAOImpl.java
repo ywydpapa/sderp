@@ -59,8 +59,8 @@ public class SalesDAOImpl implements SalesDAO {
 	}
 
 	@Override
-	public List<SalesDTO> listSalesinsopp(int soppNo) {
+	public List<SalesDTO> listSalesinsopp(SoppDTO soppDto) {
 		// TODO Auto-generated method stub
-		return sqlSession.selectList("sales.listSalesinsopp", soppNo);
+		return sqlSession.selectList("sales.listSalesinsopp", soppDto);
 	}
 }

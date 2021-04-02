@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import kr.swcore.sderp.code.dao.CodeDAO;
 import kr.swcore.sderp.code.dto.CodeDTO;
+import kr.swcore.sderp.sales.dto.SalesDTO;
 import kr.swcore.sderp.sopp.dto.SoppDTO;
 import kr.swcore.sderp.techd.dao.TechdDAO;
 import kr.swcore.sderp.techd.dto.TechdDTO;
@@ -40,6 +41,14 @@ public class TechdServiceImpl implements TechdService {
 		int compNo = SessionInfoGet.getCompNo(session);
 		dto.setCompNo(compNo);
 		return techdDao.listconTechd(dto);
+	}
+	
+	@Override
+	public List<SalesDTO> listTechdinsopp(HttpSession session, int soppNo) {
+		SoppDTO soppdto = SessionInfoGet.getCompNoDto(session);
+		soppdto.setSoppNo(soppNo);
+		
+		return techdDao.listTechdinsopp(soppdto);
 	}
 
 	@Override

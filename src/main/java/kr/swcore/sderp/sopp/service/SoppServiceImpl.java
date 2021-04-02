@@ -1,14 +1,20 @@
 package kr.swcore.sderp.sopp.service;
 
+import java.io.IOException;
+import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import kr.swcore.sderp.sopp.dao.SoppDAO;
 import kr.swcore.sderp.sopp.dto.SoppDTO;
+import kr.swcore.sderp.sopp.dto.SoppFileDataDTO;
 import kr.swcore.sderp.util.SessionInfoGet;
 
 @Service
@@ -56,6 +62,11 @@ public class SoppServiceImpl implements SoppService {
 	}
 	
 	@Override
+	public List<SoppDTO> listFile(int soppNo) {
+		return soppDao.listFile(soppNo);
+	}
+	
+	@Override
 	public SoppDTO detailSopp(int soppNo) {
 		// TODO Auto-generated method stub
 		return soppDao.detailSopp(soppNo);
@@ -99,8 +110,24 @@ public class SoppServiceImpl implements SoppService {
 		return soppDao.insert2Sopp(dto);
 	}
 
-	
+	@Override
+	public int uploadFile(HttpSession session, int soppNo, MultipartHttpServletRequest fileList) throws IOException {
+		MultipartFile file = fileList.getFile("file");
+		SoppFileDataDTO soppFile = new SoppFileDataDTO();
+		soppFile.setFileId(UUID.randomUUID().toString());
+		soppFile.setFileName(file.getOriginalFilename());
+		soppFile.setFileContent(file.getBytes());
+		soppFile.setFileDesc(fileList.getParameter("fileDesc"));
+		soppFile.setSoppNo(soppNo);
+		soppFile.setUserNo(Integer.valueOf((String)session.getAttribute("userNo")));
+		
+		return soppDao.uploadFile(soppFile);
+	}
 
+	@Override
+	public SoppFileDataDTO downloadFile(SoppFileDataDTO dto) {
+		return soppDao.downloadFile(dto);
+	}
 	
 
 }

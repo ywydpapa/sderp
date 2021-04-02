@@ -54,7 +54,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		left join swc_sopp d on a.soppNo = d.soppNo
 		left join swc_cust e on a.ptncNo = e.custNo
 		left join swc_code f on a.salesType = f.codeNo
-		where a.attrib not like 'XXX%' and a.soppNo = #{soppNo} order by salesNo 
+		where a.attrib not like 'XXX%' and a.soppNo = #{soppNo} and a.compNo = #{compNo}
+		order by salesNo 
  </select>
 
 

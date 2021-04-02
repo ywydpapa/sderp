@@ -17,6 +17,7 @@ public class TechdDTO {
 	private String techdFrom;
 	private String techdTo;
 	private String techdType;
+	private String techdTypeN;
 	private String techdSteps;
 	private String custName;
 	private String userName;
@@ -28,6 +29,14 @@ public class TechdDTO {
 	private String targetDateto;
 	private String schedType;
 	
+	public String getTechdTypeN() {
+		return techdTypeN;
+	}
+
+	public void setTechdTypeN(String techdTypeN) {
+		this.techdTypeN = techdTypeN;
+	}
+
 	public String getSchedType() {
 		return schedType;
 	}

@@ -51,7 +51,6 @@
 	        }],   
 	     	                            
 	        eventClick: function(info) {
-	           info.el.style.borderColor = 'red';
 	           $('.eventModalRadioGroup').hide();
 	           $('#eventModal').modal('show');
 	           fnSetDetail('modify', info);

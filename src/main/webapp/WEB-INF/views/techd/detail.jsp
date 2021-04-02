@@ -137,7 +137,7 @@ for(var i = 0; i < hiddenObject.length; i++) {
 										</div>
 									</div>
 								</td>
-								<th scope="row">엔드유저</th>
+								<th scope="row">고객</th>
 								<td>
 									<div class="input-group input-group-sm mb-0">
 										<input type="text" class="form-control" name="custmemberName"  id="custmemberName" value="${dto.custmemberName}" readonly/> 

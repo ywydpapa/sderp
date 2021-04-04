@@ -53,12 +53,8 @@ public class ProductController {
 	@RequestMapping("update.do")
 	public ResponseEntity<?> update(HttpSession session, @ModelAttribute ProductDTO dto) {
 		Map<String, Object> param = new HashMap<>();
-		int productUpdate = productService.updateProduct(session, dto);
-		if (productUpdate >0) {
-			param.put("code","10001"); 
-		}
-		else {param.put("codo","20001");
-		}
+		int result = productService.updateProduct(session, dto);
+		param.put("code", (String.valueOf(result)));
 		return ResponseEntity.ok(param);
 	}
 	

@@ -8,6 +8,7 @@ import kr.swcore.sderp.product.dto.ProductDTO;
 
 public interface ProductService {
 
+	ProductDTO oneProduct(HttpSession session, ProductDTO dto);
 	List<ProductDTO> listProduct();
 	List<ProductDTO> listProduct(HttpSession session);
 	List<ProductDTO> listProductGoodsCategory(HttpSession session);

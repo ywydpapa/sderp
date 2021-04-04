@@ -2,6 +2,8 @@ package kr.swcore.sderp.product.dto;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
+
 public class ProductDTO {
 
 	private int productNo;				// 상품 번호(AUTO)
@@ -19,7 +21,9 @@ public class ProductDTO {
 	// 확장
 	private MultipartFile productImage;	// 상품 새 이미지
 	private String custName;			// 공급사 명
-	
+	private List<ProductdataDTO> productdataDTOList;	// 하위 상품 리스트
+	private int productDataLastNo;
+
 	public int getProductNo() {
 		return productNo;
 	}
@@ -98,15 +102,40 @@ public class ProductDTO {
 	public void setCustName(String custName) {
 		this.custName = custName;
 	}
-		
+	public List<ProductdataDTO> getProductdataDTOList() {
+		return productdataDTOList;
+	}
+	public void setProductdataDTOList(List<ProductdataDTO> productdataDTOList) {
+		this.productdataDTOList = productdataDTOList;
+	}
+	public int getProductDataLastNo() {
+		return productDataLastNo;
+	}
+	public void setProductDataLastNo(int productDataLastNo) {
+		this.productDataLastNo = productDataLastNo;
+	}
+
 	@Override
 	public String toString() {
-		return "ProductDTO [productNo=" + productNo + ", productCategoryNo=" + productCategoryNo
-				+ ", productCategoryName=" + productCategoryName + ", compNo=" + compNo + ", userNo=" + userNo
-				+ ", productName=" + productName + ", productDefaultPrice=" + productDefaultPrice + ", productDesc="
-				+ productDesc + ", productImageNo=" + productImageNo + ", custNo=" + custNo + ", attrib=" + attrib
-				+ ", productImage=" + productImage + ", custName=" + custName + "]";
+		return "ProductDTO{" +
+				"productNo=" + productNo +
+				", productCategoryNo=" + productCategoryNo +
+				", productCategoryName='" + productCategoryName + '\'' +
+				", compNo=" + compNo +
+				", userNo=" + userNo +
+				", productName='" + productName + '\'' +
+				", productDefaultPrice=" + productDefaultPrice +
+				", productDesc='" + productDesc + '\'' +
+				", productImageNo=" + productImageNo +
+				", custNo=" + custNo +
+				", attrib='" + attrib + '\'' +
+				", productImage=" + productImage +
+				", custName='" + custName + '\'' +
+				", productdataDTOList=" + productdataDTOList +
+				", productDataLastNo=" + productDataLastNo +
+				'}';
 	}
+
 	public ProductDTO() {
 			// TODO Auto-generated constructor stub
 	}

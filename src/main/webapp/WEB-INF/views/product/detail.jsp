@@ -145,10 +145,11 @@
 						</div>	
 					</div>
 				</div>
+				<input type="hidden" id="productDataLastNo" value="${dto.productDataLastNo}">
 				<div class="tab-pane " id="tab02" role="tabpanel">
 					<div class="card-block table-border-style">
 						<div class="table-responsive">
-							<table class="table table-sm bst02">
+							<table class="table table-sm bst01">
 								<colgroup>
 									<col width="5%" />
 									<col width="20%"/>
@@ -157,35 +158,17 @@
 								</colgroup>				
 								<thead>
 									<tr>
-										<th scope="row">번호</th>
+										<th scope="row">순서</th>
 										<th scope="row">항목</th>
 										<th scope="row">값</th>
-										<th scope="row"><input type="button" value="추가"></th>
+										<th scope="row"><input type="button" value="추가" onclick="fn_itemListAdd()"></th>
 									</tr>
 								</thead>
 								<tbody>
-									<tr>
-										<td>1</td>
-										<td><input type="text"/></td>
-										<td><input type="text"/></td>
-										<td><input type="button" value="삭제"></td>
-									</tr>
-									<tr>
-										<td>2</td>
-										<td><input type="text"/></td>
-										<td><input type="text"/></td>
-										<td><input type="button" value="삭제"></td>
-									</tr>
-									<tr>
-										<td>3</td>
-										<td><input type="text"/></td>
-										<td><input type="text"/></td>
-										<td><input type="button" value="삭제"></td>
-									</tr>
 								</tbody>
 							</table>
 							<div class="btn_wr text-right mt-3">
-								<button class="btn btn-md btn-success f-left" onClick="javascript:fnSetPage('${path}/product/list.do')">목록</button>
+								<button class="btn btn-md btn-success f-left" onClick="fnSetPage('${path}/product/list.do')">목록</button>
 								<button class="btn btn-md btn-primary" value="수정" id="btnUpdate" onClick= "fn_productUpdate()" >수정</button>
 							</div>
 						</div>	
@@ -215,6 +198,41 @@ $('#productCategoryModal').on('show.bs.modal', function(e) {
 	modal.find('.modal-body').load(button.data("remote"));
 });
 // 이벤트 영역 끝
+function fn_itemListRemove(e){
+	if(confirm("정말 삭제하시겠습니까?")) {
+		var $button = $(e);
+		$button.parent().parent().remove();
+	} else {
+		return false;
+	}
+}
+
+function fn_itemListAdd(){
+	$element = $("#tab02").find("tbody");
+	$Trelement = $element.find("tr");
+	var i = 0;
+	console.log($element.length);
+	if($Trelement.length == 0){
+		i=1;
+	}
+	else{
+		i = Number( $($Trelement.last()).find("td")[0].innerText ) + 1;
+	}
+	/*
+	var productDataLastNo = Number($("#productDataLastNo").val());
+	if(i <= productDataLastNo){
+		// DB 저장된 No보다 같거나 작은경우 크게 만듬
+		i = productDataLastNo+1;
+	}
+	*/
+	var content = '<tr>' +
+					'<td style="text-align: center;">'+i+'</td>' +
+					'<td><input type="text" name="productdataDTOList['+i+'].productModel"/></td>' +
+					'<td><input type="text" name="productdataDTOList['+i+'].productPrice"/></td>' +
+					'<td><input type="button" value="삭제" onclick="fn_itemListRemove(this);"/></td>' +
+			       '</tr>';
+	$element.append(content);
+}
 
 function fnSetCategoryData(a,b){
 	// '${row.productCategoryNo}','${row.productCategoryName}'
@@ -233,62 +251,36 @@ function fnSetCustData(a, b) {
 
 function fn_productUpdate() {
 	
-	var productData = {};
-	var productCategoryNo = $("#productCategoryNo").val();		// 상품 카테고리 번호
+	var productData = new Object();
+	productData.productNo 			= $("#productNo").val();				// 상품 번호
+	var productCategoryNo 			= $("#productCategoryNo").val();		// 상품 카테고리 번호
 	if(productCategoryNo != ""){
 		productData.productCategoryNo	= productCategoryNo;
-	}	
+	}
 	productData.productCategoryName	= $("#productCategoryName").val();		// 상품 카테고리 명
 	productData.productName 		= $("#productName").val();				// 상품 명
 	productData.productDefaultPrice = $("#productDefaultPrice").val();		// 상품 기본 가격
 	productData.productDesc	 		= $("#productDesc").val();				// 상품 설명
 	productData.custNo				= $("#custNo").val();					// 공급사(외래키)
-	
+
+	var productdataDTOList = new Array();
 	var $tableData = $("#tab02").find("tbody tr");
-	
-	/*
-	var salesTargetlist = new Object();
-	var dataList = new Array();
-	
-	$beforeData.each(function(){
-		var userNo = $(this).attr('id');	// userNo
-		var deptNo = $(this).data('deptno');// deptNo
-		// 테이블 구조변경시 수정할 코드 .splice(시작,끝)
-		var $detail = $(this).find("input[type=text]").splice(0,12);
-		var mArr = new Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
-		for(var i=0; i<12; i++){
-			mArr[i] = Number($detail[i].value.replace(/[\D\s\._\-]+/g, ""));
-		}
-		
+	$tableData.each(function(){
 		var data = new Object();
-		data['userNo'] = userNo;
-		data['deptNo'] = deptNo;
-		data['targetYear'] = targetYear;
-		data['targetType'] = targetType;
-		data['mm01'] = mArr[0];
-		data['mm02'] = mArr[1];
-		data['mm03'] = mArr[2];
-		data['mm04'] = mArr[3];
-		data['mm05'] = mArr[4];
-		data['mm06'] = mArr[5];
-		data['mm07'] = mArr[6];
-		data['mm08'] = mArr[7];
-		data['mm09'] = mArr[8];
-		data['mm10'] = mArr[9];
-		data['mm11'] = mArr[10];
-		data['mm12'] = mArr[11];
-		dataList.push(data);
+		var productModel = $(this).find("input[type=text]")[0].value;
+		var productPrice = $(this).find("input[type=text]")[1].value;
+		data['productModel'] = productModel;
+		data['productPrice'] = productPrice;
+		productdataDTOList.push(data);
 	});
-	
-	salesTargetlist["salesTargetlist"] = dataList;
-	
-	JSON.stringify(salesTargetlist)
-	*/
-	
-	console.log(productData);
-	$.ajax({ url: "${path}/product/update.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소 
-				data: productData , // HTTP 요청과 함께 서버로 보낼 데이터 
-				method: "POST", // HTTP 요청 메소드(GET, POST 등) 
+	productData['productdataDTOList'] = productdataDTOList;
+	console.dir(productData);
+	return false;
+	$.ajax({
+				url: "${path}/product/update.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
+				data: JSON.stringify(productData) , // HTTP 요청과 함께 서버로 보낼 데이터
+				method: "POST", // HTTP 요청 메소드(GET, POST 등)
+				contentType:"application/json",
 				dataType: "json" // 서버에서 보내줄 데이터의 타입 
 			}) // HTTP 요청이 성공하면 요청한 데이터가 done() 메소드로 전달됨. .
 			.done(function(data) {
@@ -327,4 +319,8 @@ function fn_productDelete() {
 				alert("통신 실패");
 			});
 }
+
+$(document).ready(function() {
+	//fn_itemListAdd();
+});
 </script>                                                

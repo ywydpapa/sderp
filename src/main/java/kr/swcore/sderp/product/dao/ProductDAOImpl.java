@@ -13,7 +13,17 @@ public class ProductDAOImpl implements ProductDAO {
 
 	@Inject
 	SqlSession sqlSession;
-	
+
+	@Override
+	public ProductDTO searchingWithMaxProductCategoryNo(ProductDTO productdto) {
+		return sqlSession.selectOne("product.searchingWithMaxProductCategoryNo", productdto);
+	}
+
+	@Override
+	public ProductDTO oneProduct(ProductDTO productdto) {
+		return sqlSession.selectOne("product.oneProduct", productdto);
+	}
+
 	@Override
 	public List<ProductDTO> listProduct() {
 		// TODO Auto-generated method stub

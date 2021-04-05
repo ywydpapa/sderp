@@ -11,6 +11,7 @@
     <typeAliases>
     <typeAlias alias="userDto" type="kr.swcore.sderp.user.dto.UserDTO"/>
     <typeAlias alias="productDto" type="kr.swcore.sderp.product.dto.ProductDTO"/>
+    <typeAlias alias="productdataDto" type="kr.swcore.sderp.product.dto.ProductdataDTO"/>
     <typeAlias alias="custDto" type="kr.swcore.sderp.cust.dto.CustDTO"/>
     <typeAlias alias="schedDto" type="kr.swcore.sderp.sched.dto.SchedDTO"/>
     <typeAlias alias="calendarDto" type="kr.swcore.sderp.calendar.dto.CalendarDTO"/>

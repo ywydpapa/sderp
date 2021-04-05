@@ -8,9 +8,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import kr.swcore.sderp.product.dto.ProductDTO;
@@ -50,14 +48,13 @@ public class ProductController {
 		return ResponseEntity.ok(param);
 	}
 	
-	@RequestMapping("update.do")
-	public ResponseEntity<?> update(HttpSession session, @ModelAttribute ProductDTO dto) {
+	@RequestMapping(value = "update.do", method= RequestMethod.POST)
+	public ResponseEntity<?> update(HttpSession session, @RequestBody ProductDTO productData) {
 		Map<String, Object> param = new HashMap<>();
-		int result = productService.updateProduct(session, dto);
+		int result = productService.updateProduct(session, productData);
 		param.put("code", (String.valueOf(result)));
 		return ResponseEntity.ok(param);
 	}
-	
 	
 	@RequestMapping("delete.do")
 			public ResponseEntity<?> delete(HttpSession session, @ModelAttribute ProductDTO dto) {

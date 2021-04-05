@@ -165,6 +165,14 @@
 									</tr>
 								</thead>
 								<tbody>
+									<c:forEach var="row" items="${dto.productdataDTOList}" varStatus="varStatus">
+										<tr>
+											<td style="text-align: center;">${varStatus.count}<input type="hidden" value="${row.productDataNo}"/></td>
+											<td><input type="text" value="${row.productModel}" class="productModel" disabled /></td>
+											<td><input type="text" value="${row.productPrice}" disabled/></td>
+											<td><input type="button" value="삭제" onclick="fn_itemListRemove(this);"/></td>
+										</tr>
+									</c:forEach>
 								</tbody>
 							</table>
 							<div class="btn_wr text-right mt-3">
@@ -197,6 +205,11 @@ $('#productCategoryModal').on('show.bs.modal', function(e) {
 	var modal = $(this);
 	modal.find('.modal-body').load(button.data("remote"));
 });
+/*
+document.querySelector('.productModel').addEventListener('', function (e){
+	console.dir(e);
+});
+*/
 // 이벤트 영역 끝
 function fn_itemListRemove(e){
 	if(confirm("정말 삭제하시겠습니까?")) {
@@ -226,9 +239,9 @@ function fn_itemListAdd(){
 	}
 	*/
 	var content = '<tr>' +
-					'<td style="text-align: center;">'+i+'</td>' +
-					'<td><input type="text" name="productdataDTOList['+i+'].productModel"/></td>' +
-					'<td><input type="text" name="productdataDTOList['+i+'].productPrice"/></td>' +
+					'<td style="text-align: center;">'+i+'<input type="hidden" value=""/></td>' +
+					'<td><input type="text" class="focusout"/></td>' +
+					'<td><input type="text" /></td>' +
 					'<td><input type="button" value="삭제" onclick="fn_itemListRemove(this);"/></td>' +
 			       '</tr>';
 	$element.append(content);
@@ -267,15 +280,16 @@ function fn_productUpdate() {
 	var $tableData = $("#tab02").find("tbody tr");
 	$tableData.each(function(){
 		var data = new Object();
+		var productDataNo = $(this).find("input[type=hidden]")[0].value;
 		var productModel = $(this).find("input[type=text]")[0].value;
 		var productPrice = $(this).find("input[type=text]")[1].value;
+		data['productDataNo'] = productDataNo;
 		data['productModel'] = productModel;
 		data['productPrice'] = productPrice;
 		productdataDTOList.push(data);
 	});
 	productData['productdataDTOList'] = productdataDTOList;
 	console.dir(productData);
-	return false;
 	$.ajax({
 				url: "${path}/product/update.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
 				data: JSON.stringify(productData) , // HTTP 요청과 함께 서버로 보낼 데이터

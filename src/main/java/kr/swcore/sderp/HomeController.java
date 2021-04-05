@@ -191,6 +191,13 @@ public class HomeController {
 			model.addAttribute("list", list);
 			rtn = "modal/custmemberList";
 		}
+		
+		else if("productGoodsCategory".equals(popId)) {
+			//Integer compNo = Integer.valueOf((String) params.get("compNo"));
+			List<ProductDTO> list = productService.listProductGoodsCategory(session);
+			model.addAttribute("list", list);
+			rtn = "modal/productGoodsCategory";
+		}
 
 		logger.debug(rtn);
 		

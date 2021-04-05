@@ -190,7 +190,7 @@
 															</div>
 														</div>
 													</td>
-													<th scope="row">협력사</th>
+													<th scope="row">엔드유저</th>
 													<td>
 														<div class="input-group input-group-sm mb-0">
 															<input type="text" class="form-control" name="ptncName"
@@ -263,9 +263,10 @@
 														value="${dto.soppTargetDate}"></td>
 												</tr>
 												<tr>
-													<th scope="row">영업 타입</th>
+													<th scope="row">판매방식</th>
 													<td><select name="soppType" id="soppType"
 														class="form-control form-control-sm col-md-4">
+															<option value></option>
 															<c:forEach var = "saleslist" items="${saleslist}">	
 																<option value="${saleslist.codeNo}">${saleslist.desc03}</option>			
 															</c:forEach>
@@ -497,7 +498,6 @@
 					</div>
 				</div>
 				<div class="tab-pane " id="tab04" role="tabpanel">
-					<a id='fileDownloadElement'></a>
 					<button class="btn btn-md btn-primary" data-toggle="modal" data-target="#fileUploadModal" onClick="openFileUploadModal()">등록</button>
 					<div class="modal fade " id="fileUploadModal" tabindex="-1"
 											role="dialog">
@@ -918,11 +918,13 @@ $(function(){
 			url : "${path}/sopp/downloadfile",
 			data : downloadData,
 			method : "POST",
+			xhrFields: {
+		        responseType: 'blob'
+		    },
 		}).done(function(data, status, xhr){
 			var fileName = xhr.getResponseHeader('content-disposition');
-			var blob = new Blob([data], {type : 'application/octet-stream'});
-			var link = document.getElementById('fileDownloadElement');
-			link.href = window.URL.createObjectURL(blob);
+			var link = document.createElement('a');
+			link.href = window.URL.createObjectURL(data);
 			link.download = fileName;
 			link.click();
 			

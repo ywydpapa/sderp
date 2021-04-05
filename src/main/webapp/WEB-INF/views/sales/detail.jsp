@@ -164,7 +164,7 @@
 										</div>
 									</div>
 								</td>
-								<th scope="row">파트너사</th>
+								<th scope="row">엔드유저</th>
 								<td>
 									<div class="input-group input-group-sm mb-0">
 										<input type="text" class="form-control" name="ptncName" id="ptncName" value="${dto.ptncName}" />
@@ -219,9 +219,9 @@
 			</div>
 			<div class="btn_wr text-right mt-3">
 				<input type="hidden" id="salesNo" value ="${dto.salesNo}">
-				<%-- <button class="btn btn-md btn-success f-left" onClick="javascript:fnSetPage('${path}/sales/list.do')">목록</button> --%>
+				<button class="btn btn-md btn-success f-left modal-list-btn" onClick="javascript:fnSetPage('${path}/sales/list.do')">목록</button>
 				<button class="btn btn-md btn-primary" onClick="fn_UpdateSales()">수정</button>
-				<%-- <button class="btn btn-md btn-inverse" onClick="javascript:fnSetPage('${path}/sales/list.do')">취소</button> --%>
+				<button class="btn btn-md btn-inverse modal-list-btn" onClick="javascript:fnSetPage('${path}/sales/list.do')">취소</button>
 				
 				
 			</div>

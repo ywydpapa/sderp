@@ -270,5 +270,11 @@ public class CodeServiceImpl implements CodeService {
 		SoppDTO soppdto = SessionInfoGet.getCompNoDto(session);
 		return codeDao.listSchedDetailType(soppdto);
 	}
+	
+	@Override
+	public List<CodeDTO> listActSprtScheduleDetailType(HttpSession session) {
+		SoppDTO soppdto = SessionInfoGet.getCompNoDto(session);
+		return codeDao.listActSprtScheduleDetailType(soppdto);
+	}
 
 }

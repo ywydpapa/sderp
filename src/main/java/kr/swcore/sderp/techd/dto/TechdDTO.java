@@ -19,6 +19,7 @@ public class TechdDTO {
 	private String techdType;
 	private String techdTypeN;
 	private String techdSteps;
+	private String techdStepsN;
 	private String custName;
 	private String userName;
 	private String contTitle;
@@ -29,6 +30,15 @@ public class TechdDTO {
 	private String targetDateto;
 	private String schedType;
 	
+	
+	public String getTechdStepsN() {
+		return techdStepsN;
+	}
+
+	public void setTechdStepsN(String techdStepsN) {
+		this.techdStepsN = techdStepsN;
+	}
+
 	public String getTechdTypeN() {
 		return techdTypeN;
 	}

@@ -137,7 +137,7 @@ for(var i = 0; i < hiddenObject.length; i++) {
 										</div>
 									</div>
 								</td>
-								<th scope="row">고객</th>
+								<th scope="row">엔드유저</th>
 								<td>
 									<div class="input-group input-group-sm mb-0">
 										<input type="text" class="form-control" name="custmemberName"  id="custmemberName" value="${dto.custmemberName}" readonly/> 
@@ -310,9 +310,9 @@ for(var i = 0; i < hiddenObject.length; i++) {
 				</div>
 			</div>
 			<div class="btn_wr text-right mt-3">
-				<%-- <button class="btn btn-md btn-success f-left" onClick="javascript:fnSetPage('${path}/techd/list.do')">목록</button> --%>
+				<button class="btn btn-md btn-success f-left modal-list-btn" onClick="javascript:fnSetPage('${path}/techd/list.do')">목록</button>
 				<button class="btn btn-md btn-primary" onClick="fn_sprtUpdate()">수정</button>
-				<%-- <button class="btn btn-md btn-inverse" onClick="javascript:fnSetPage('${path}/techd/list.do')">취소</button> --%>
+				<button class="btn btn-md btn-inverse modal-cancel-btn" onClick="javascript:fnSetPage('${path}/techd/list.do')">취소</button>
 			</div>
 		</div>
 	</div>

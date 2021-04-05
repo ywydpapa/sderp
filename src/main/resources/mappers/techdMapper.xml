@@ -6,21 +6,25 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <select id="listTechd"
  		resultType="TechdDto">
- 		select a.*, b.userName , c.custName from swc_techd a  
+ 		select a.*, b.userName , c.custName, f.desc03 techdStepsN 
+ 		from swc_techd a  
 		left join swc_user b on a.userNo = b.userNo
 		left join swc_cust c on a.custNo = c.custNo
 		left join swc_sopp d on a.soppNo = d.soppNo
-		left join swc_cont e on a.contNo = e.contNo 
+		left join swc_cont e on a.contNo = e.contNo
+		left join swc_code f on a.techdSteps = f.codeNo 
 		where a.attrib not like 'XXX%' and a.compNo = #{compNo} order by techdNo 
  </select>
  
  <select id="listconTechd"
  		resultType="TechdDto">
- 		select a.*, b.userName , c.custName from swc_techd a  
+ 		select a.*, b.userName , c.custName, f.desc03 techdStepsN 
+ 		from swc_techd a  
 		left join swc_user b on a.userNo = b.userNo
 		left join swc_cust c on a.custNo = c.custNo
 		left join swc_sopp d on a.soppNo = d.soppNo
-		left join swc_cont e on a.contNo = e.contNo 
+		left join swc_cont e on a.contNo = e.contNo
+		left join swc_code f on a.techdSteps = f.codeNo 
 		where a.attrib not like 'XXX%' and a.compNo = #{compNo} 
 		<if test="userNo != null and userNo != ''">
  		 	and a.userNo = #{userNo}

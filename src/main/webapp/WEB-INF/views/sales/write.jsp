@@ -166,7 +166,7 @@
 										</div>
 									</div>
 								</td>
-								<th scope="row">파트너사</th>
+								<th scope="row">엔드유저</th>
 								<td>
 									<div class="input-group input-group-sm mb-0">
 										<input type="text" class="form-control" name="ptncName" id="ptncName" value="" />
@@ -220,9 +220,9 @@
 				</div>
 			</div>
 			<div class="btn_wr text-right mt-3">
-				<%-- <button class="btn btn-md btn-success f-left" onClick="javascript:fnSetPage('${path}/sales/list.do')">목록</button> --%>
+				<button class="btn btn-md btn-success f-left modal-list-btn" onClick="javascript:fnSetPage('${path}/sales/list.do')">목록</button>
 				<button class="btn btn-md btn-primary" onClick="fn_SaveSales()">등록</button>
-				<%-- <button class="btn btn-md btn-inverse" onClick="javascript:fnSetPage('${path}/sales/list.do')">취소</button> --%>
+				<button class="btn btn-md btn-inverse modal-cancel-btn" onClick="javascript:fnSetPage('${path}/sales/list.do')">취소</button>
 			</div>
 		</div>
 	</div>
@@ -287,17 +287,13 @@
 			salesData.salesTitle 		= $("#salesTitle").val();
 			salesData.salesPlace		= $("#salesPlace").val();
 		 	salesData.userNo 		= $("#userNo").val();
-			salesData.custNo 		= $("#custNo").val();
-			salesData.soppNo 		= $("#soppNo").val();
-			salesData.ptncNo 		= $("#ptncNo").val();
+			salesData.custNo 		= $("#custNo").val() ? $("#custNo").val() : 0;
+			salesData.soppNo 		= $("#soppNo").val() ? $("#soppNo").val() : 0;
+			salesData.ptncNo 		= $("#ptncNo").val() ? $("#ptncNo").val() : 0;
 			salesData.salesType 		= $("#salesType").val();
 			salesData.salesDesc 		= $("#salesDesc").val();
 			
-			if (!salesData.salesTitle) {
-				alert("영업활동 제목을 입력하십시오.!!");		
-				return;
-			}
-			else if (!salesData.salesFrdatetime){
+			if (!salesData.salesFrdatetime){
 				alert("영업활동의 시작일을 선택해 주십시오.");
 				return;
 			}
@@ -309,26 +305,33 @@
 				alert("영업장소를 입력해 주십시오.");
 				return;
 			}
-			else if (!salesData.custNo){
-				alert(" 거래처를 선택해 주십시오.");
-				return;
+			else if(!salesData.salesType){
+				alert("활동형태를 선택해 주십시오.");
 			}
 			else if (!salesData.userNo){
 				alert("담당사원을 선택해 주십시오.");
 				return;
 			}
-			else if (!salesData.ptncNo){
-				alert("협력사를 선택해 주십시오.");
+			else if (!salesData.custNo && !salesData.ptncNo){
+				alert("거래처 또는 엔드유저를 선택해 주십시오.");
 				return;
 			}
-			else if (!salesData.soppNo){
-				alert("영업기회를 선택해 주십시오.");
+			else if (!salesData.salesTitle) {
+				alert("영업활동 제목을 입력해 주십시오.");		
 				return;
 			}
-			else if (!salesData.salesDesc){
-				alert("영업설명을 입력해 주십시오.");
-				return;
-			}
+// 			else if (!salesData.ptncNo){
+// 				alert("협력사를 선택해 주십시오.");
+// 				return;
+// 			}
+// 			else if (!salesData.soppNo){
+// 				alert("영업기회를 선택해 주십시오.");
+// 				return;
+// 			}
+// 			else if (!salesData.salesDesc){
+// 				alert("영업설명을 입력해 주십시오.");
+// 				return;
+// 			}
 
 			$.ajax({ url: "${path}/sales/insert.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소 
 						data: salesData , // HTTP 요청과 함께 서버로 보낼 데이터 

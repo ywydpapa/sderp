@@ -49,4 +49,5 @@ public interface CodeService {
 	List<CodeDTO> listContractType(HttpSession session);
 	List<CodeDTO> listTechdSteps(HttpSession session);
 	List<CodeDTO> listSchedDetailType(HttpSession session);
+	List<CodeDTO> listActSprtScheduleDetailType(HttpSession session);
 }

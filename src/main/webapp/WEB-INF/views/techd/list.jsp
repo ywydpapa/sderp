@@ -127,7 +127,7 @@ $(function(){
 							</div>
 							
 							<div class="col-sm-12 col-xl-3">
-								<label class="col-form-label" for="custmemberName">고객</label>
+								<label class="col-form-label" for="custmemberName">엔드유저</label>
 								<div class="input-group input-group-sm mb-0">
 									<input type="text" class="form-control" name="custmemberName"
 										id="custmemberName" value="" readonly /> <input type="hidden"
@@ -226,7 +226,7 @@ $(function(){
 									<td><a href="javascript:fnSetPage('${path}/techd/detail/${row.techdNo}')">${row.techdTitle}</a></td>							
 									<td>${row.techdDesc}</td>
 									<td>${row.custName}</td>
-									<td>${row.techdSteps}</td>
+									<td>${row.techdStepsN}</td>
 									<td>${row.userName}</td> 
 									<td>${row.regdatetime}</td>
 								</tr>

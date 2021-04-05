@@ -254,8 +254,9 @@
 														value=""></td>
 												</tr>
 												<tr>
-													<th scope="row">영업 타입</th>
-													<td><select name="soppType" id="soppType"
+													<th scope="row">판매방식</th>
+													<td>
+													<!-- <select name="soppType" id="soppType"
 														class="form-control form-control-sm col-md-4">
 															<option value="">선택</option>
 															<option value="101">신규</option>
@@ -265,7 +266,14 @@
 															<option value="105">이중화</option>
 															<option value="106">조달구매</option>
 															<option value="199">기타</option>
-													</select></td>
+													</select> -->
+														<select class="form-control form-control-sm" name="soppType" id="soppType">
+															<option value></option>
+															<c:forEach var = "saleslist" items="${saleslist}">
+																<option value="${saleslist.codeNo}">${saleslist.desc03}</option>			
+															</c:forEach>
+														</select>
+													</td>
 													<th scope="row">예상매출</th>
 													<td><span class="input_inline"><input
 															type="number" class="form-control form-control-sm"

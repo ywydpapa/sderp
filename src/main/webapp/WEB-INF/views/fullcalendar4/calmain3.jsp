@@ -150,7 +150,10 @@
 		}
 		
 		if(path) {
-			$('#detail-content').load(path);			
+			$('#detail-content').load(path, function() {
+				$('.modal-list-btn').hide();
+				$('.modal-cancel-btn').hide();
+			});			
 		}
 	}
 	

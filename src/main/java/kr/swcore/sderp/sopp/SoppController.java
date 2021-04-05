@@ -170,8 +170,10 @@ public class SoppController {
 	}
 
 	@RequestMapping("write.do")
-	public String write() {
-		return "sopp/write";
+	public ModelAndView write(HttpSession session, ModelAndView mav) {
+		mav.addObject("saleslist", codeService.listSalestype(session));
+		mav.setViewName("sopp/write");
+		return mav;
 	}
 
 	@RequestMapping("write2.do")

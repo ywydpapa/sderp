@@ -47,7 +47,7 @@ $(function(){
 							<!--row-->
 							<div class="form-group row">
 								<!--담당자-->
-								<div class="col-sm-12 col-xl-3">
+								<div class="col-sm-12 col-xl-2">
 									<label class="col-form-label" for="userName">담당자</label>
 									<div class="input-group input-group-sm mb-0">
 										<input type="text" class="form-control" name="userName" id="userName" value=""  readonly />
@@ -87,7 +87,7 @@ $(function(){
 								</div>
 								<!--//담당자-->
 								<!--거래처-->
-								<div class="col-sm-12 col-xl-3">
+								<div class="col-sm-12 col-xl-2">
 									<label class="col-form-label" for="custName">거래처</label>
 									<div class="input-group input-group-sm">
 										<input type="text" class="form-control" name="custName" id="custName" value="" readonly/>
@@ -127,6 +127,43 @@ $(function(){
 									</div>	
 								</div>
 								<!--//거래처-->
+								<div class="col-sm-12 col-xl-2">
+								<label class="col-form-label" for="custmemberName">엔드유저</label>
+								<div class="input-group input-group-sm mb-0">
+									<input type="text" class="form-control" name="custmemberName"
+										id="custmemberName" value="" readonly /> <input type="hidden"
+										name="custmemberNo" id="custmemberNo" value="" /> <span
+										class="input-group-btn">
+										<button class="btn btn-primary sch-company"
+											data-remote="${path}/modal/popup.do?popId=custmem&compNo=" type="button"
+											data-toggle="modal" data-target="#custmemberModal">
+											<i class="icofont icofont-search"></i>
+										</button>
+									</span>
+									<div class="modal fade " id="custmemberModal" tabindex="-1"
+										role="dialog">
+										<div class="modal-dialog modal-80size" role="document">
+											<div class="modal-content modal-80size">
+												<div class="modal-header">
+													<h4 class="modal-title"></h4>
+													<button type="button" class="close" data-dismiss="modal"
+														aria-label="Close">
+														<span aria-hidden="true">&times;</span>
+													</button>
+												</div>
+												<div class="modal-body">
+													<h5>고객목록</h5>
+													<p>거래처를 먼저 입력해주셔야 목록이 보입니다.</p>
+												</div>
+												<div class="modal-footer">
+													<button type="button" class="btn btn-default waves-effect "
+														data-dismiss="modal">Close</button>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
 								<!--매출예정일-->
 								<div class="col-sm-12 col-xl-6">
 									<label class="col-form-label" for="targetDate">매출예정일</label>
@@ -236,6 +273,15 @@ $(function(){
 			var modal = $(this);
 			modal.find('.modal-body').load(button.data("remote"));
 		});
+		$('#custmemberModal').on('show.bs.modal', function(e) {
+			var custNo = $("#custNo").val();
+			var url = '${path}/modal/popup.do?popId=custmem&compNo=' + custNo;
+			$("#custmemberModalbtn").data("remote",url);
+			
+			var button = $(e.relatedTarget);
+			var modal = $(this);
+			modal.find('.modal-body').load(button.data("remote"));
+		});
 		
 		function fnSetCustData(a, b) {
 			$("#custNo").val(b);
@@ -249,11 +295,18 @@ $(function(){
 			$(".modal-backdrop").remove();
 			$("#userModal").modal("hide");
 		}
+    	function fnSetCustmereData(a, b) {
+    		$("#custmemberNo").val(a);
+    		$("#custmemberName").val(b);
+    		$(".modal-backdrop").remove();
+    		$("#custmemberModal").modal("hide");
+    	}
     		
     	function fnListcon() {
     		var soppData = {};
     		soppData.userNo = $("#userNo").val() ? $("#userNo").val() : 0;
     		soppData.custNo = $("#custNo").val() ? $("#custNo").val() : 0;
+    		soppData.custmemberNo = $("#custmemberNo").val() ? $("#custmemberNo").val() : 0;
     		soppData.targetDatefrom = $("#targetDatefrom").val() ? $("#targetDatefrom").val() : null;
     		soppData.targetDateto = $("#targetDateto").val() ? $("#targetDateto").val() : null;
     		soppData.soppType = $("#soppType").val() ? $("#soppType").val() : null;

@@ -39,7 +39,8 @@ public class schedController {
 		mav.addObject("list", schedService.listSched(session));
 		List<CodeDTO> listCodeDTO = codeService.listSchedtype(session);	// 동일코드 2회 호출 -> 1회 호출
 		mav.addObject("schedtype", listCodeDTO);
-		mav.addObject("acttype", codeService.listActtype(session));
+//		mav.addObject("acttype", codeService.listActtype(session));
+		mav.addObject("listschedcat", codeService.listActSprtScheduleDetailType(session));
 		mav.addObject("listschedtype", listCodeDTO);
 		mav.setViewName("sched/list");
 		return mav;

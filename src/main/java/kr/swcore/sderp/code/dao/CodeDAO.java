@@ -47,4 +47,5 @@ public interface CodeDAO {
 	List<CodeDTO> listContractType(SoppDTO soppdto);
 	List<CodeDTO> listTechdSteps(SoppDTO soppdto);
 	List<CodeDTO> listSchedDetailType(SoppDTO soppdto);
+	List<CodeDTO> listActSprtScheduleDetailType(SoppDTO soppdto);
 }

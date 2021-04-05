@@ -164,17 +164,51 @@ $(function(){
 							</div>
 						</div>
 						<div class="col-sm-12 col-xl-3">
+								<label class="col-form-label" for="custmemberName">엔드유저</label>
+								<div class="input-group input-group-sm mb-0">
+									<input type="text" class="form-control" name="custmemberName"
+										id="custmemberName" value="" readonly /> <input type="hidden"
+										name="custmemberNo" id="custmemberNo" value="" /> <span
+										class="input-group-btn">
+										<button class="btn btn-primary sch-company"
+											data-remote="${path}/modal/popup.do?popId=custmem&compNo=" type="button"
+											data-toggle="modal" data-target="#custmemberModal">
+											<i class="icofont icofont-search"></i>
+										</button>
+									</span>
+									<div class="modal fade " id="custmemberModal" tabindex="-1"
+										role="dialog">
+										<div class="modal-dialog modal-80size" role="document">
+											<div class="modal-content modal-80size">
+												<div class="modal-header">
+													<h4 class="modal-title"></h4>
+													<button type="button" class="close" data-dismiss="modal"
+														aria-label="Close">
+														<span aria-hidden="true">&times;</span>
+													</button>
+												</div>
+												<div class="modal-body">
+													<h5>고객목록</h5>
+													<p>거래처를 먼저 입력해주셔야 목록이 보입니다.</p>
+												</div>
+												<div class="modal-footer">
+													<button type="button" class="btn btn-default waves-effect "
+														data-dismiss="modal">Close</button>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						<div class="col-sm-12 col-xl-3">
 							<label class="col-form-label" for="co_name">활동형태</label> <select
 								name="select" class="form-control form-control-sm" id="schedCat">
 								<option value></option>
-								<c:forEach var ="acttype" items="${acttype}">
-									<option value = "${acttype.codeNo}">${acttype.desc03}</option>
+								<c:forEach var ="listschedcat" items="${listschedcat}">
+									<option value = "${listschedcat.codeNo}">${listschedcat.desc03}</option>
 								</c:forEach>
 							</select>
 						</div>
-	
-					</div>
-					<div class="form-group row">
 						<div class="col-sm-12 col-xl-6">
 							<label class="col-form-label" for="co_name">활동일</label>
 							<p class="input_inline">
@@ -217,8 +251,7 @@ $(function(){
 							<c:forEach var="row" items="${list}">
 								<tr>
 									<td>${row.schedTypeN}</td>
-									<td><a
-										href="javascript:fnSetPage('${path}/sched/detail/${row.schedNo}')">${row.schedTitle}</a></td>
+									<td><a href="javascript:fnSetDetailLink('${row.schedTypeN}', '${row.schedNo}')">${row.schedTitle}</a></td>
 									<td>${row.schedFrom}<span> ~ </span>${row.schedTo}</td>
 									<td>${row.custName}</td>
 									<td>${row.userName}</td>
@@ -254,6 +287,15 @@ $(function(){
 			var modal = $(this);
 			modal.find('.modal-body').load(button.data("remote"));
 		});
+		$('#custmemberModal').on('show.bs.modal', function(e) {
+			var custNo = $("#custNo").val();
+			var url = '${path}/modal/popup.do?popId=custmem&compNo=' + custNo;
+			$("#custmemberModalbtn").data("remote",url);
+			
+			var button = $(e.relatedTarget);
+			var modal = $(this);
+			modal.find('.modal-body').load(button.data("remote"));
+		});
 
 	 	function fnSetCustData(a, b) {
 			$("#custNo").val(b);
@@ -273,16 +315,38 @@ $(function(){
 			$(".modal-backdrop").remove();
 			$("#soppModal").modal("hide");
 		}
+    	function fnSetCustmereData(a, b) {
+    		$("#custmemberNo").val(a);
+    		$("#custmemberName").val(b);
+    		$(".modal-backdrop").remove();
+    		$("#custmemberModal").modal("hide");
+    	}
+    	
     	
     	function fnListcon() {
     		var schedData = {};
     		schedData.userNo = $("#userNo").val() ? $("#userNo").val() : 0;
     		schedData.soppNo = $("#soppNo").val() ? $("#soppNo").val() : 0;
     		schedData.custNo = $("#custNo").val() ? $("#custNo").val() : 0;
+    		schedData.custmemberNo = $("#custmemberNo").val() ? $("#custmemberNo").val() : 0;
     		schedData.schedCat = $("#schedCat").val() ? $("#schedCat").val() : null;
     		schedData.schedFrom = $("#schedFrom").val() ? $("#schedFrom").val() : null;
     		schedData.schedTo = $("#schedTo").val() ? $("#schedTo").val() : null;
     		
     		fnSetList('${path}/sched/listcon.do', schedData);
+    	}
+    	
+    	function fnSetDetailLink(schedTypeN, schedNo) {
+    		var typePath;
+   
+    		if(schedTypeN == '영업일정') {
+    			typePath = 'sales'; 			
+    		}else if(schedTypeN == '기술지원') {
+    			typePath = 'techd';
+    		}else if(schedTypeN == '기타일정') {
+    			typePath = 'sched';
+    		}
+    		
+    		fnSetPage('${path}/' + typePath + '/detail/' + schedNo);
     	}
 </script>

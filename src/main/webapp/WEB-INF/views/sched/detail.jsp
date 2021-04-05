@@ -233,8 +233,9 @@
 				</div>
 			</div>
 			<div class="btn_wr text-right mt-3">
+				<button class="btn btn-md btn-success f-left modal-list-btn" onClick="javascript:fnSetPage('${path}/sched/list.do')">목록</button>
 				<button class="btn btn-md btn-primary" onClick="fn_UpdateSched()">수정</button>
-				<!-- <button class="btn btn-md btn-inverse">취소</button> -->
+				<button class="btn btn-md btn-inverse modal-cancel-btn" onClick="javascript:fnSetPage('${path}/sched/list.do')">취소</button>
 			</div>
 		</div>
 	</div>

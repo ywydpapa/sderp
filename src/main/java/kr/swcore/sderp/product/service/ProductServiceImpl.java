@@ -81,6 +81,8 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	public int updateProduct(HttpSession session, ProductDTO newDto) {
+		Integer compNo = SessionInfoGet.getCompNo(session);
+		Integer	userNo = SessionInfoGet.getUserNo(session);
 		Integer returnValue = null;
 		Integer result = 0;
 		/*
@@ -89,10 +91,10 @@ public class ProductServiceImpl implements ProductService {
 		// 상품 번호, 상품 카테고리 번호, 상품 카테고리 명, 상품 명, 상품 기본 가격, 상품 설명, 공급사
 		ProductDTO oldDto = new ProductDTO();
 		oldDto.setProductNo(newDto.getProductNo());
-		oldDto.setCompNo(SessionInfoGet.getCompNo(session));
+		oldDto.setCompNo(compNo);
 		oldDto = productDao.oneProduct(oldDto);
 
-		newDto.setCompNo(SessionInfoGet.getCompNo(session));	// 회사 번호
+		newDto.setCompNo(compNo);	// 회사 번호
 		newDto.setUserNo(SessionInfoGet.getUserNo(session));	// 유저 번호
 		// 수정 데이터중 카테고리 번호가 없거나 기존 데이터와 비교하여 상품명이 불일치 한경우 진행
 		if(newDto.getProductCategoryNo() == 0 || (oldDto.getProductCategoryName()).equals(newDto.getProductName())){
@@ -101,7 +103,7 @@ public class ProductServiceImpl implements ProductService {
 			2. 존재하지않으면 MAX(productcategoryNo) + 1 업데이트 진행
 			 */
 			ProductDTO returnDto = new ProductDTO();
-			returnDto.setCompNo(SessionInfoGet.getCompNo(session));					// 회사 번호
+			returnDto.setCompNo(compNo);					// 회사 번호
 			returnDto.setProductCategoryName(newDto.getProductCategoryName());		// 상품 카테고리 이름
 			returnDto = productDao.searchingWithMaxProductCategoryNo(returnDto);
 
@@ -122,7 +124,7 @@ public class ProductServiceImpl implements ProductService {
 
 		// update 에러만 안나면 계속 진행
 		ProductdataDTO searchProductataDTO = new ProductdataDTO();
-		searchProductataDTO.setCompNo(SessionInfoGet.getCompNo(session));
+		searchProductataDTO.setCompNo(compNo);
 		searchProductataDTO.setProductNo(oldDto.getProductNo());
 		// 기존 DB 데이터 list 검색
 		List<ProductdataDTO> oldproductdataDTOList = productdataDAO.listProductdata(searchProductataDTO);
@@ -132,14 +134,19 @@ public class ProductServiceImpl implements ProductService {
 		List<ProductdataDTO> deleteProductDTOList = new ArrayList<>();
 		// 새 DB 데이터 get
 		List<ProductdataDTO> newproductdataDTOList = newDto.getProductdataDTOList();
+
 		// 타입 셋팅
 		Integer custsNo = newDto.getCustNo();
 		if(newproductdataDTOList != null && newproductdataDTOList.size() > 0){
 			for(int i=0; i<newproductdataDTOList.size(); i++){
-				String res = newproductdataDTOList.get(i).getProductPrice();
-				String rtn = isNumber(res);
-				newproductdataDTOList.get(i).setProductType(rtn);
+				String productType = newproductdataDTOList.get(i).getProductPrice();
+				String productTypertn = isNumber(productType);
+				Integer productNo = newproductdataDTOList.get(i).getProductNo();
+				newproductdataDTOList.get(i).setProductType(productTypertn);
 				newproductdataDTOList.get(i).setCustNo(custsNo);
+				newproductdataDTOList.get(i).setCompNo(compNo);
+				newproductdataDTOList.get(i).setProductNo(productNo);
+				newproductdataDTOList.get(i).setRegUser(userNo);
 			}
 		}
 
@@ -152,9 +159,9 @@ public class ProductServiceImpl implements ProductService {
 				int indexB = 0;
 				for(ProductdataDTO B : oldproductdataDTOList){
 					indexB++;
-					if(A.getProductDataNo() == B.getProductDataNo()){
-						if(A.getProductModel().equals(B.getProductModel())
-							&& A.getProductPrice().equals(B.getProductPrice())
+					if(A.getProductModel().equals(B.getProductModel())){
+						if(
+							 A.getProductPrice().equals(B.getProductPrice())
 							&& A.getProductType().equals(B.getProductType())
 							&& A.getCustNo() == B.getCustNo()
 						 ){

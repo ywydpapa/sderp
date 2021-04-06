@@ -17,8 +17,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 </select>
 
 <insert id="insertProductdata">
-	insert into swc_productData(compNo, custNo, productNo, productModel, productPrice, productType, regUser, regDatetime, attrib)
-	values (#{compNo}, #{custNo}, #{productNo}, #{productModel}, #{productPrice}, #{productType}, #{regUser}, now(), '100000')
+	insert into swc_productData(compNo, custNo, productNo, productModel, productPrice, productType, regUser, regDatetime, attrib, parrentId)
+	values (#{compNo}, #{custNo}, #{productNo}, #{productModel}, #{productPrice}, #{productType}, #{regUser}, now(), '100000', #{parrentId})
 </insert>
 
 <update id="updateProductdata">
@@ -40,8 +40,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <delete id="deleteProductdata">
 	update swc_productData
 	set attrib = 'XXXXX'
-	where productDataNo=#{productDataNo}
-	  and compNo = #{compNo}
+	where productModel=#{productModel}
+	  and productNo =#{productNo}
+	  and custNo=#{custNo}
+	  and compNo=#{compNo}
 </delete>
 
 </mapper>

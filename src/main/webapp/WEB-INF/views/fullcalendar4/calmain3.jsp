@@ -292,6 +292,17 @@
 		});
 	}
 	
+	function fnCaretClick () {
+		if($('.organizationList-ul').is(":visible")) {
+			$('.organizationList-ul').hide();
+			$('#caret1')[0].className = 'fa-li fa fa-caret-right'
+			
+		}else {
+			$('.organizationList-ul').show();
+			$('#caret1')[0].className = 'fa-li fa fa-caret-down'
+		}
+	}
+	
 	
 	
 </script>

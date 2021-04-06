@@ -10,7 +10,7 @@
 <script src="${path}/assets/pages/dataTables.bootstrap4.min.js"></script>
 
 <div class="dt-responsive table-responsive">
-	<table id="productTable" class="table table-striped table-bordered nowrap">
+	<table id="productdataTable" class="table table-striped table-bordered nowrap">
 		<thead>
 			<tr>
 				<th>상품번호</th>
@@ -25,64 +25,55 @@
 	</table>
 </div>
 
+<%--
+<%
+	String url = request.getParameter("url");
+%>
+--%>
+
 <script>
-$(function(){
-    var productdataTable = $('#productTable').DataTable({
-		ajax : '${path}/productdata/list',
-    	info:false,
-		'processing': true,
-		'language': {
-			'loadingRecords': '&nbsp;',
-			'processing': '<div class="spinner"></div>'
-		},
-		columns : [
-			{data : 'productNo'},
-			{data : 'productCategoryName'},
-			{data : 'productName'},
-			{data : 'productDesc'},
-			{data : 'productDataNo'}
-		],
-		columnDefs: [
-			{
-				"render": function (data, type, row) {
-					return '<a href="' + data + '">Detail</a>';
-				},
-				"targets": 4
+	var productdataTable = $('#productdataTable').DataTable({
+			info:false,
+			'processing': true,
+			'language': {
+				'loadingRecords': '&nbsp;',
+				'processing': '<div class="spinner"></div>'
+			},
+			columns : [
+				{data : 'productNo'},
+				{data : 'productCategoryName'},
+				{data : 'productName'},
+				{data : 'productDesc'},
+				{data : 'productNo'}
+			],
+
+			columnDefs: [
+				{
+					"render": function (data, type, row) {
+						// 마우스 올리면 또는 클릭하면 툴팁으로 데이터 상세 표시 ** AJAX로 구현이 필요
+						return '<a href="' + '${path}/productdata/listAjax' + data.productNo + '">Detail</a>';
+					},
+					"targets": 4
+				}
+			]
+		});
+
+    function fn_productdataTableReload(){
+		$.ajax({
+			type: "get",
+			contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+			url : '${path}/product/listAjax'
+		}).done(function (result) {
+			result = JSON.parse(result);
+			console.dir(result.length);
+			console.dir(JSON.parse(result.data));
+			var arr = JSON.parse(result.data);
+			console.log(arr.length);
+			productdataTable.clear();
+			for(var i=0; i<arr.length; i++){
+				productdataTable.row.add(arr[i]).draw();
 			}
-		]
-    });
-
-    $('#btn-productdataTable').on('click', function(){
-    	productdataTable.ajax.reload();
-	});
-    /*
-    $("#TransactionTable").DataTable({
-        ajax: '/Transaction/GetData',
-        columns: [
-        { data: 'status' },
-        { data: 'transactionId' },
-        { data: 'creditCardNumber' },
-        { data: 'supplier' },
-        { data: 'createdAt' },
-        { data: 'amount' }
-        ]
-    });
-
-    {
-	"data": [
-	 {
-	 "status": 2,
-	 "transactionId": 12345,
-	 "creditCardNumber": "1234324324",
-	 "supplier": "Office Depot",
-	 "createdAt": "2008-12-28T00:00:00",
-	 "amount": 500.0
-		}
-	  ]
+		})
 	}
-	// https://stackoverflow.com/questions/45401172/jquery-datatables-load-data-ajax
-     */
-
-});
 </script>
 

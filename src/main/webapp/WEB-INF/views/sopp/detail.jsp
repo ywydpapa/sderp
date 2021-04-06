@@ -328,9 +328,37 @@
 													<option value="1101">매입</option>
 													<option value="1102">매출</option>
 											</select></td>
-											<td><input type="text" id="data01Title" required
-												class="form-control form-control-sm"
-												style="min-width: 120px;" /></td>
+											<td>
+												<div class="input-group input-group-sm mb-0">
+													<input type="text" class="form-control" name="product" id="data01Title" value="" />
+													<span class="input-group-btn">
+														<button class="btn btn-primary sch-company" onclick="fn_productdataTableReload()" <%--data-remote="${path}/modal/popup.do?popId=productdata"--%> type="button" data-toggle="modal" data-target="#productdataModal"><i class="icofont icofont-search"></i></button>
+													</span>
+												</div>
+												<!--모달 팝업-->
+												<div class="modal fade" id="productdataModal" tabindex="-1" role="dialog">
+													<div class="modal-dialog modal-80size" role="document">
+														<div class="modal-content modal-80size">
+															<div class="modal-header">
+																<h4 class="modal-title"></h4>
+																<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+																	<span aria-hidden="true">&times;</span>
+																</button>
+															</div>
+															<div class="modal-body">
+																<%--<%@ include file="/WEB-INF/views/modal/productdataList.jsp" %>--%>
+																<jsp:include page="/WEB-INF/views/modal/productdataList.jsp">
+																	<jsp:param name="url" value="${path}/product/listAjax"/>
+																</jsp:include>
+															</div>
+															<div class="modal-footer">
+																<button type="button" class="btn btn-default waves-effect " data-dismiss="modal">Close</button>
+															</div>
+														</div>
+													</div>
+												</div>
+												<!--//모달 팝업-->
+											</td>
 											<td><input type="number" id="data01Netprice" required
 												class="form-control form-control-sm"
 												style="min-width: 80px;" /></td>
@@ -617,7 +645,8 @@
 										<td>${row2.userName}</td>
 										<td>${row2.techdDesc}</td>
 									</tr>
-									</c:forEach>									</tbody>
+									</c:forEach>
+									</tbody>
 								</table>
 							</form>
 							<div class="btn_wr text-right mt-3">
@@ -660,7 +689,8 @@
 										<td>${row2.salesPlace}</td>
 										<td>경비관련 연결예정</td>
 									</tr>
-									</c:forEach>																		</tbody>
+									</c:forEach>
+									</tbody>
 								</table>
 							</form>
 							<div class="btn_wr text-right mt-3">
@@ -711,6 +741,11 @@
 			modal.find('.modal-body').load(button.data("remote"));
 		});
 		$('#ptncModal').on('show.bs.modal', function(e) {
+			var button = $(e.relatedTarget);
+			var modal = $(this);
+			modal.find('.modal-body').load(button.data("remote"));
+		});
+		$('#productdataModal').on('show.bs.modal', function(e){
 			var button = $(e.relatedTarget);
 			var modal = $(this);
 			modal.find('.modal-body').load(button.data("remote"));

@@ -259,10 +259,16 @@ function fn_focusOutEvent(e){
 	}
 }
 
-function fn_itemListRemove(e){
+function fn_itemListRemove(e, data1){
 	if(confirm("정말 삭제하시겠습니까?")) {
 		var $button = $(e);
-		$button.parent().parent().css("display", "none");
+		if(data1 == 'new'){
+			// 신규 데이터인경우 tr 삭제 처리
+			$button.parent().parent().remove();
+		} else {
+			// 기존 데이터인경우 hide 처리
+			$button.parent().parent().css("display", "none");
+		}
 	} else {
 		return false;
 	}
@@ -289,7 +295,7 @@ function fn_itemListAdd(){
 					'<td style="text-align: center;">'+i+'<input type="hidden" value=""/></td>' +
 					'<td><input type="text" class="AddItem" onfocusout="fn_focusOutEvent(this)" data-Overwrite=""/></td>' +
 					'<td><input type="text" /></td>' +
-					'<td><input type="button" value="삭제" onclick="fn_itemListRemove(this);"/></td>' +
+					'<td><input type="button" value="삭제" onclick="fn_itemListRemove(this,\'new\');"/></td>' +
 			       '</tr>';
 	$element.append(content);
 }

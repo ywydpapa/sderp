@@ -19,6 +19,7 @@ public class ProductdataDTO {
 	private List<ProductdataDTO> productdataDTO;
 	private int parrentId;
 	private String display;
+	private Integer overwrite;
 
 	public int getProductDataNo() {
 		return productDataNo;
@@ -98,6 +99,12 @@ public class ProductdataDTO {
 	public void setDisplay(String display) {
 		this.display = display;
 	}
+	public Integer getOverwrite() {
+		return overwrite;
+	}
+	public void setOverwrite(Integer overwrite) {
+		this.overwrite = overwrite;
+	}
 
 	@Override
 	public String toString() {
@@ -115,6 +122,7 @@ public class ProductdataDTO {
 				", productdataDTO=" + productdataDTO +
 				", parrentId=" + parrentId +
 				", display='" + display + '\'' +
+				", overwrite=" + overwrite +
 				'}';
 	}
 

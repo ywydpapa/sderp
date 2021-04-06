@@ -51,7 +51,40 @@
 											</td>
 										</tr>
 										<tr>
-											<th scope="row">상품 카테고리명</th>
+											<th scope="row">공급사</th>
+											<td>
+												<div class="input-group input-group-sm mb-0">
+													<input name="product" id ="custName" value="${dto.custName}" class="form-control form-control-sm">
+													<input type="hidden" name="product" id ="custNo" value="${dto.custNo}" class="form-control form-control-sm">
+													<span class="input-group-btn">
+														<button class="btn btn-primary sch-company" data-remote="${path}/modal/popup.do?popId=cust" type="button" data-toggle="modal" data-target="#custModal"><i class="icofont icofont-search"></i></button>
+													</span>
+												</div>
+												<!--모달 팝업-->
+												<div class="modal fade" id="custModal" tabindex="-1" role="dialog">
+													<div class="modal-dialog modal-80size" role="document">
+														<div class="modal-content modal-80size">
+															<div class="modal-header">
+																<h4 class="modal-title">거래처검색</h4>
+																<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+																	<span aria-hidden="true">&times;</span>
+																</button>
+															</div>
+															<div class="modal-body">
+																<h5>거래처목록</h5>
+																<p>거래처 목록이 불러오는 중이거나 없습니다.</p>
+															</div>
+															<div class="modal-footer">
+																<button type="button" class="btn btn-default waves-effect " data-dismiss="modal">Close</button>
+															</div>
+														</div>
+													</div>
+												</div>
+												<!--//모달 팝업-->
+											</td>
+										</tr>
+										<tr>
+											<th scope="row">제품그룹</th>
 											<td>
 												<div class="input-group input-group-sm mb-0">
 													<input name="product" id ="productCategoryName" value="${dto.productCategoryName}" class="form-control form-control-sm">
@@ -95,39 +128,7 @@
 												<input name="product" id ="productDefaultPrice" value="${dto.productDefaultPrice}" class="form-control form-control-sm">
 											</td>
 										</tr>
-										<tr>
-											<th scope="row">공급사</th>
-											<td>
-												<div class="input-group input-group-sm mb-0">
-													<input name="product" id ="custName" value="${dto.custName}" class="form-control form-control-sm">
-													<input type="hidden" name="product" id ="custNo" value="${dto.custNo}" class="form-control form-control-sm">
-													<span class="input-group-btn">
-														<button class="btn btn-primary sch-company" data-remote="${path}/modal/popup.do?popId=cust" type="button" data-toggle="modal" data-target="#custModal"><i class="icofont icofont-search"></i></button>
-													</span>
-												</div>
-												<!--모달 팝업-->
-												<div class="modal fade" id="custModal" tabindex="-1" role="dialog">
-													<div class="modal-dialog modal-80size" role="document">
-														<div class="modal-content modal-80size">
-															<div class="modal-header">
-																<h4 class="modal-title">거래처검색</h4>
-																<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-																	<span aria-hidden="true">&times;</span>
-																</button>
-															</div>
-															<div class="modal-body">
-																<h5>거래처목록</h5>
-																<p>거래처 목록이 불러오는 중이거나 없습니다.</p>
-															</div>
-															<div class="modal-footer">
-																<button type="button" class="btn btn-default waves-effect " data-dismiss="modal">Close</button>
-															</div>
-														</div>
-													</div>
-												</div>
-												<!--//모달 팝업-->
-											</td>
-										</tr>
+
 										<tr>
 											<th scope="row">상품설명</th>
 											<td>
@@ -238,7 +239,6 @@ function fn_focusOutEvent(e){
 	}
 
 	for(var i=0; i<AddItem.length; i++){
-		console.log(i);
 		for(var j=0; j<productModel.length; j++){
 			//console.dir(AddItem[i].value +' / '+ productModel[j].value);
 			//console.dir(AddItem[i].value == productModel[j].value);
@@ -247,6 +247,7 @@ function fn_focusOutEvent(e){
 				//console.dir($(AddItem[i]));
 				//console.dir($(productModel[j]));
 				$(AddItem[i]).css("background-color",colorObject[0]);
+				$(AddItem[i]).data('Overwrite','1');
 				$(productModel[j]).css("background-color",colorObject[0]);
 			}
 		}
@@ -254,6 +255,7 @@ function fn_focusOutEvent(e){
 
 	if(!result){
 		$(e).css("background-color","");
+		$(e).data('Overwrite','0');
 	}
 }
 
@@ -285,7 +287,7 @@ function fn_itemListAdd(){
 	*/
 	var content = '<tr>' +
 					'<td style="text-align: center;">'+i+'<input type="hidden" value=""/></td>' +
-					'<td><input type="text" class="AddItem" onfocusout="fn_focusOutEvent(this)"/></td>' +
+					'<td><input type="text" class="AddItem" onfocusout="fn_focusOutEvent(this)" data-Overwrite=""/></td>' +
 					'<td><input type="text" /></td>' +
 					'<td><input type="button" value="삭제" onclick="fn_itemListRemove(this);"/></td>' +
 			       '</tr>';
@@ -339,12 +341,19 @@ function fn_productUpdate() {
 			productdataDTOList.push(data);
 		} else if(productDataNo == "") {
 			// 신규 데이터
+			var temp = $(this).find("input[type=text]")[0];
+			if($(temp).data('Overwrite') == '1') {
+				data['overwrite'] = 1;
+				// 덮어쓰기
+			} else if($(temp).data('Overwrite') == '0'){
+				// 신규생성
+				data['overwrite'] = 0;
+			}
 			productdataDTOList.push(data);
 		}
 	});
 	productData['productdataDTOList'] = productdataDTOList;
 	console.dir(productData);
-	return false;
 	$.ajax({
 				url: "${path}/product/update.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
 				data: JSON.stringify(productData) , // HTTP 요청과 함께 서버로 보낼 데이터

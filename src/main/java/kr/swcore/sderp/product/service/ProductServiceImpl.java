@@ -123,15 +123,6 @@ public class ProductServiceImpl implements ProductService {
 		}
 
 		// update 에러만 안나면 계속 진행
-		ProductdataDTO searchProductataDTO = new ProductdataDTO();
-		searchProductataDTO.setCompNo(compNo);
-		searchProductataDTO.setProductNo(oldDto.getProductNo());
-		// 기존 DB 데이터 list 검색
-		List<ProductdataDTO> oldproductdataDTOList = productdataDAO.listProductdata(searchProductataDTO);
-
-		List<ProductdataDTO> updateProductDTOList = new ArrayList<>();
-		List<ProductdataDTO> insertProductDTOList = new ArrayList<>();
-		List<ProductdataDTO> deleteProductDTOList = new ArrayList<>();
 		// 새 DB 데이터 get
 		List<ProductdataDTO> newproductdataDTOList = newDto.getProductdataDTOList();
 
@@ -150,68 +141,20 @@ public class ProductServiceImpl implements ProductService {
 			}
 		}
 
-		List<ProductdataDTO> deleteIndex = new ArrayList<>();
-		int indexA = 0;
-		if(oldproductdataDTOList != null && newproductdataDTOList != null){
-			for(ProductdataDTO A : newproductdataDTOList){
-				indexA++;
-				Boolean search = false;
-				int indexB = 0;
-				for(ProductdataDTO B : oldproductdataDTOList){
-					indexB++;
-					if(A.getProductModel().equals(B.getProductModel())){
-						if(
-							 A.getProductPrice().equals(B.getProductPrice())
-							&& A.getProductType().equals(B.getProductType())
-							&& A.getCustNo() == B.getCustNo()
-						 ){
-							// 모델명, 상품가격, 상품가격타입, 거래처가 동일하면 update와 insert를 할 필요가 없다.
-							search = true;
-							deleteIndex.add(B);
-							break;
-						}
-						// update
-						updateProductDTOList.add(A);
-						search = true;
-						deleteIndex.add(B);
-						break;
-					}
-				}
-				if(!search){
-					// insert
-					insertProductDTOList.add(A);
-				}
-			}
-		}
-
-		if(newproductdataDTOList == null){
-			deleteProductDTOList = oldproductdataDTOList;
-		} else {
-			for(int i=0; i<deleteIndex.size(); i++){
-				oldproductdataDTOList.remove(deleteIndex.get(i));
-			}
-			deleteProductDTOList = oldproductdataDTOList;
-		}
-
 		try{
-			if(updateProductDTOList != null && updateProductDTOList.size() > 0){
-				for(ProductdataDTO dto : updateProductDTOList){
-					System.out.println(dto.toString());
-					productdataDAO.deleteProductdata(dto);
-					productdataDAO.insertProductdata(dto);
-					//productdataDAO.updateProductdata(dto);
-				}
-			}
-			if(insertProductDTOList != null && insertProductDTOList.size() > 0){
-				for(ProductdataDTO dto : insertProductDTOList){
-					System.out.println(dto.toString());
-					productdataDAO.insertProductdata(dto);
-				}
-			}
-			if(deleteProductDTOList != null && deleteProductDTOList.size() > 0){
-				for(ProductdataDTO dto : deleteProductDTOList){
-					System.out.println(dto.toString());
-					productdataDAO.deleteProductdata(dto);
+			for(int i=0; i<newproductdataDTOList.size(); i++){
+				ProductdataDTO productdataDTO = newproductdataDTOList.get(i);
+				if(productdataDTO.getDisplay() != null){
+					if(productdataDTO.getDisplay().equalsIgnoreCase("none")) {
+						productdataDAO.deleteProductdata(productdataDTO);
+					}
+				} else {
+					if(productdataDTO.getOverwrite() != null){
+						if(productdataDTO.getOverwrite() == 1){
+							productdataDAO.deleteProductdata(productdataDTO);
+						}
+						productdataDAO.insertProductdata(productdataDTO);
+					}
 				}
 			}
 			result = 1;

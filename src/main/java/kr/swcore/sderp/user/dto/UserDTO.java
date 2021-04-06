@@ -12,7 +12,7 @@ public class UserDTO {
 	private String compNo;
 	private String userRank;
 	private String userDept;
-	private int orgId;
+	private int org_id;
 	private String userChangePasswd;
 	
 	public String getUserChangePasswd() {
@@ -88,11 +88,11 @@ public class UserDTO {
 	public void setUserDept(String userDept) {
 		this.userDept = userDept;
 	}	
-	public int getOrgId() {
-		return orgId;
+	public int getOrg_id() {
+		return org_id;
 	}
-	public void setOrgId(int orgId) {
-		this.orgId = orgId;
+	public void setOrg_id(int org_id) {
+		this.org_id = org_id;
 	}
 	
 	@Override
@@ -100,7 +100,7 @@ public class UserDTO {
 		return "UserDTO [userNo=" + userNo + ", userId=" + userId + ", compId=" + compId + ", userName=" + userName
 				+ ", userPasswd=" + userPasswd + ", userRole=" + userRole + ", userKey=" + userKey + ", userOtp="
 				+ userOtp + ", compNo=" + compNo + ", userRank=" + userRank + ", userDept=" + userDept + ", orgId="
-				+ orgId + "]";
+				+ org_id + "]";
 	}
 	public UserDTO() {
 		

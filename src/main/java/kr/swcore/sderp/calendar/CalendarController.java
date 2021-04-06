@@ -1,6 +1,7 @@
 package kr.swcore.sderp.calendar;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
@@ -10,15 +11,19 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import kr.swcore.sderp.calendar.dto.CalendarDTO;
 import kr.swcore.sderp.calendar.service.CalendarService;
+import kr.swcore.sderp.code.service.CodeService;
 import kr.swcore.sderp.organiz.Service.OrganizService;
+import kr.swcore.sderp.organiz.dto.OrganizDTO;
 
 @Controller
 @RequestMapping("/calendar/*")
@@ -29,12 +34,27 @@ public class CalendarController {
 	@Inject
 	CalendarService calendarService;
 	
+	@Inject
+	OrganizService organizService;
+	
+	@Inject
+	CodeService codeService;
+	
 	@ResponseBody
 	@RequestMapping("listEvent.do")
-	public ModelAndView list(ModelAndView mav, HttpSession session) {
-		mav.addObject("list", calendarService.listEvent(session));
+	public ModelAndView list(ModelAndView mav, HttpSession session, CalendarDTO dto) {
+		mav.addObject("list", calendarService.listEvent(session, dto));
 		mav.setViewName("calendar/listEvent");
 		return mav;
+	}
+	
+	@RequestMapping("organization.do")
+	@ResponseBody
+	public Map<String, Object> organizationList(HttpSession session) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("organizationList", organizService.listDept(session));
+		map.put("companyList", codeService.listComp());
+		return map;
 	}
 	
 	/*

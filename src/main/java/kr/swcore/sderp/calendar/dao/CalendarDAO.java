@@ -8,7 +8,7 @@ import kr.swcore.sderp.sopp.dto.SoppDTO;
 public interface CalendarDAO {
 	
 		List<CalendarDTO> listEvent();
-		List<CalendarDTO> listEvent(SoppDTO soppdto);
+		List<CalendarDTO> listEvent(CalendarDTO dto);
 		CalendarDTO detailEvent(int eventNo);
 		int deleteEvent(int eventNo);
 }

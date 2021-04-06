@@ -109,6 +109,7 @@ public class UserController {
 			session.setAttribute("userOtp", userInfo.getUserOtp()); // OTP - 1회성
 			session.setAttribute("compNo", userInfo.getCompNo()); // 회사코드
 			session.setAttribute("userNo", Integer.toString(userInfo.getUserNo())); // 유저 일련번호
+			session.setAttribute("orgId", userInfo.getOrg_id()); // 부서 번호
 		}else{
 			mav.setViewName("user/login");
 			mav.addObject("msg", "Fail");

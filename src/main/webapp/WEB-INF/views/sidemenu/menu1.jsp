@@ -80,7 +80,7 @@
 				</a></li>
 			</ul></li>
 		<li class="pcoded-hasmenu pcoded"><a
-			href="javascript:fnSetPage('${path}/sopp/list.do')"> <span
+			href="javascript:fnSetPage('${path}/sopp/list2.do')"> <span
 				class="pcoded-micon"><i class="ti-package"></i></span> <span
 				class="pcoded-mtext" data-i18n="nav.basic-components.main">수주
 					판매보고</span> <span class="pcoded-mcaret"></span>

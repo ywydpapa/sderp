@@ -23,9 +23,9 @@ public class CalendarDAOImpl implements CalendarDAO {
 	}
 	
 	@Override
-	public List<CalendarDTO> listEvent(SoppDTO soppdto) {
+	public List<CalendarDTO> listEvent(CalendarDTO dto) {
 		// TODO Auto-generated method stub
-		return sqlSession.selectList("calendar.listEvent", soppdto);
+		return sqlSession.selectList("calendar.listEvent", dto);
 	}
 
 	@Override

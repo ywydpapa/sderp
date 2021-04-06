@@ -1,5 +1,7 @@
 package kr.swcore.sderp.calendar.dto;
 
+import java.util.List;
+
 public class CalendarDTO {
 
 	private int eventNo;
@@ -21,7 +23,21 @@ public class CalendarDTO {
 	private int id;
 	private String schedType;
 	private String color;
+	private List organizationList;
+	private int compNo;
 	
+	public int getCompNo() {
+		return compNo;
+	}
+	public void setCompNo(int compNo) {
+		this.compNo = compNo;
+	}
+	public List getOrganizationList() {
+		return organizationList;
+	}
+	public void setOrganizationList(List organizationList) {
+		this.organizationList = organizationList;
+	}
 	public String getColor() {
 		return color;
 	}

@@ -9,7 +9,7 @@ import kr.swcore.sderp.calendar.dto.CalendarDTO;
 public interface CalendarService {
 
 	List<CalendarDTO> listEvent();
-	List<CalendarDTO> listEvent(HttpSession session);
+	List<CalendarDTO> listEvent(HttpSession session, CalendarDTO dto);
 	CalendarDTO detailEvent(int eventNo);
 	int deleteEvent(int eventNo);
 	

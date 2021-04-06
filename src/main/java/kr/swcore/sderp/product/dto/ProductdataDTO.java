@@ -17,7 +17,10 @@ public class ProductdataDTO {
 	
 	// 확장
 	private List<ProductdataDTO> productdataDTO;
-	
+	private int parrentId;
+	private String display;
+	private Integer overwrite;
+
 	public int getProductDataNo() {
 		return productDataNo;
 	}
@@ -84,14 +87,45 @@ public class ProductdataDTO {
 	public void setProductdataDTO(List<ProductdataDTO> productdataDTO) {
 		this.productdataDTO = productdataDTO;
 	}
-	
+	public int getParrentId() {
+		return parrentId;
+	}
+	public void setParrentId(int parrentId) {
+		this.parrentId = parrentId;
+	}
+	public String getDisplay() {
+		return display;
+	}
+	public void setDisplay(String display) {
+		this.display = display;
+	}
+	public Integer getOverwrite() {
+		return overwrite;
+	}
+	public void setOverwrite(Integer overwrite) {
+		this.overwrite = overwrite;
+	}
+
 	@Override
 	public String toString() {
-		return "ProductdataDTO [productDataNo=" + productDataNo + ", compNo=" + compNo + ", custNo=" + custNo
-				+ ", productNo=" + productNo + ", productModel=" + productModel + ", productPrice=" + productPrice
-				+ ", productType=" + productType + ", regUser=" + regUser + ", regDatetime=" + regDatetime + ", attrib="
-				+ attrib + ", productdataDTO=" + productdataDTO + "]";
+		return "ProductdataDTO{" +
+				"productDataNo=" + productDataNo +
+				", compNo=" + compNo +
+				", custNo=" + custNo +
+				", productNo=" + productNo +
+				", productModel='" + productModel + '\'' +
+				", productPrice='" + productPrice + '\'' +
+				", productType='" + productType + '\'' +
+				", regUser=" + regUser +
+				", regDatetime=" + regDatetime +
+				", attrib='" + attrib + '\'' +
+				", productdataDTO=" + productdataDTO +
+				", parrentId=" + parrentId +
+				", display='" + display + '\'' +
+				", overwrite=" + overwrite +
+				'}';
 	}
+
 	public ProductdataDTO() {
 		super();
 	}	

@@ -16,7 +16,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 </select>
 
 <select id="oneProduct" resultType="productDto">
-	select * from swc_product where productCategoryNo = #{productNo} and compNo = #{compNo}
+	select * from swc_product where productNo = #{productNo} and compNo = #{compNo}
 </select>
 
 <select id="listProduct" resultType="productDto">

@@ -30,7 +30,40 @@
 						</colgroup>				
 						<tbody>
 							<tr>
-								<th scope="row">상품 카테고리명*</th>
+								<th scope="row">공급사</th>
+								<td>
+									<div class="input-group input-group-sm mb-0">
+										<input type="text" class="form-control" name="product" id="custName" value="" />
+										<input type="hidden" name="product" id="custNo" value="" />
+										<span class="input-group-btn">
+												<button class="btn btn-primary sch-company" data-remote="${path}/modal/popup.do?popId=cust" type="button" data-toggle="modal" data-target="#custModal"><i class="icofont icofont-search"></i></button>
+											</span>
+									</div>
+									<!--모달 팝업-->
+									<div class="modal fade" id="custModal" tabindex="-1" role="dialog">
+										<div class="modal-dialog modal-80size" role="document">
+											<div class="modal-content modal-80size">
+												<div class="modal-header">
+													<h4 class="modal-title">거래처검색</h4>
+													<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+														<span aria-hidden="true">&times;</span>
+													</button>
+												</div>
+												<div class="modal-body">
+													<h5>거래처목록</h5>
+													<p>거래처 목록이 불러오는 중이거나 없습니다.</p>
+												</div>
+												<div class="modal-footer">
+													<button type="button" class="btn btn-default waves-effect " data-dismiss="modal">Close</button>
+												</div>
+											</div>
+										</div>
+									</div>
+									<!--//모달 팝업-->
+								</td>
+							</tr>
+							<tr>
+								<th scope="row">제품그룹</th>
 								<td>
 									<div class="input-group input-group-sm mb-0">
 										<input type="text" class="form-control" name="product" id="productCategoryName" value="" />
@@ -63,48 +96,15 @@
 								</td>
 							</tr>
 							<tr>
-								<th scope="row">상품명*</th>
+								<th scope="row">상품명</th>
 								<td>
 									<input type="text" name="product" id ="productName" class="form-control form-control-sm" >
 								</td>
 							</tr>
 							<tr>
-								<th scope="row">상품 기본가격*</th>
+								<th scope="row">상품 기본가격</th>
 								<td>
 									<input type="text" name="product" id ="productDefaultPrice" class="form-control form-control-sm" value="0">
-								</td>
-							</tr>
-							<tr>
-								<th scope="row">공급사*</th>
-								<td>
-									<div class="input-group input-group-sm mb-0">
-										<input type="text" class="form-control" name="product" id="custName" value="" />
-										<input type="hidden" name="product" id="custNo" value="" />
-										<span class="input-group-btn">
-											<button class="btn btn-primary sch-company" data-remote="${path}/modal/popup.do?popId=cust" type="button" data-toggle="modal" data-target="#custModal"><i class="icofont icofont-search"></i></button>
-										</span>
-									</div>
-									<!--모달 팝업-->
-									<div class="modal fade" id="custModal" tabindex="-1" role="dialog">
-										<div class="modal-dialog modal-80size" role="document">
-											<div class="modal-content modal-80size">
-												<div class="modal-header">
-													<h4 class="modal-title">거래처검색</h4>
-													<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-														<span aria-hidden="true">&times;</span>
-													</button>
-												</div>
-												<div class="modal-body">
-													<h5>거래처목록</h5>
-													<p>거래처 목록이 불러오는 중이거나 없습니다.</p>
-												</div>
-												<div class="modal-footer">
-													<button type="button" class="btn btn-default waves-effect " data-dismiss="modal">Close</button>
-												</div>
-											</div>
-										</div>
-									</div>
-									<!--//모달 팝업-->
 								</td>
 							</tr>
 							<tr>
@@ -119,6 +119,7 @@
 
 				<div class="btn_wr text-right mt-3">
 					<!--<button class="btn btn-md btn-success f-left">목록</button>-->
+					<button class="btn btn-md btn-success f-left" onClick="fnSetPage('${path}/product/list.do')">목록</button
 					<button class="btn btn-md btn-primary" onClick="fn_productInsert()" value="등록">등록</button>
 				</div>
 			</div>

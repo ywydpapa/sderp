@@ -51,7 +51,40 @@
 											</td>
 										</tr>
 										<tr>
-											<th scope="row">상품 카테고리명</th>
+											<th scope="row">공급사</th>
+											<td>
+												<div class="input-group input-group-sm mb-0">
+													<input name="product" id ="custName" value="${dto.custName}" class="form-control form-control-sm">
+													<input type="hidden" name="product" id ="custNo" value="${dto.custNo}" class="form-control form-control-sm">
+													<span class="input-group-btn">
+														<button class="btn btn-primary sch-company" data-remote="${path}/modal/popup.do?popId=cust" type="button" data-toggle="modal" data-target="#custModal"><i class="icofont icofont-search"></i></button>
+													</span>
+												</div>
+												<!--모달 팝업-->
+												<div class="modal fade" id="custModal" tabindex="-1" role="dialog">
+													<div class="modal-dialog modal-80size" role="document">
+														<div class="modal-content modal-80size">
+															<div class="modal-header">
+																<h4 class="modal-title">거래처검색</h4>
+																<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+																	<span aria-hidden="true">&times;</span>
+																</button>
+															</div>
+															<div class="modal-body">
+																<h5>거래처목록</h5>
+																<p>거래처 목록이 불러오는 중이거나 없습니다.</p>
+															</div>
+															<div class="modal-footer">
+																<button type="button" class="btn btn-default waves-effect " data-dismiss="modal">Close</button>
+															</div>
+														</div>
+													</div>
+												</div>
+												<!--//모달 팝업-->
+											</td>
+										</tr>
+										<tr>
+											<th scope="row">제품그룹</th>
 											<td>
 												<div class="input-group input-group-sm mb-0">
 													<input name="product" id ="productCategoryName" value="${dto.productCategoryName}" class="form-control form-control-sm">
@@ -95,39 +128,7 @@
 												<input name="product" id ="productDefaultPrice" value="${dto.productDefaultPrice}" class="form-control form-control-sm">
 											</td>
 										</tr>
-										<tr>
-											<th scope="row">공급사</th>
-											<td>
-												<div class="input-group input-group-sm mb-0">
-													<input name="product" id ="custName" value="${dto.custName}" class="form-control form-control-sm">
-													<input type="hidden" name="product" id ="custNo" value="${dto.custNo}" class="form-control form-control-sm">
-													<span class="input-group-btn">
-														<button class="btn btn-primary sch-company" data-remote="${path}/modal/popup.do?popId=cust" type="button" data-toggle="modal" data-target="#custModal"><i class="icofont icofont-search"></i></button>
-													</span>
-												</div>
-												<!--모달 팝업-->
-												<div class="modal fade" id="custModal" tabindex="-1" role="dialog">
-													<div class="modal-dialog modal-80size" role="document">
-														<div class="modal-content modal-80size">
-															<div class="modal-header">
-																<h4 class="modal-title">거래처검색</h4>
-																<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-																	<span aria-hidden="true">&times;</span>
-																</button>
-															</div>
-															<div class="modal-body">
-																<h5>거래처목록</h5>
-																<p>거래처 목록이 불러오는 중이거나 없습니다.</p>
-															</div>
-															<div class="modal-footer">
-																<button type="button" class="btn btn-default waves-effect " data-dismiss="modal">Close</button>
-															</div>
-														</div>
-													</div>
-												</div>
-												<!--//모달 팝업-->
-											</td>
-										</tr>
+
 										<tr>
 											<th scope="row">상품설명</th>
 											<td>
@@ -165,6 +166,14 @@
 									</tr>
 								</thead>
 								<tbody>
+									<c:forEach var="row" items="${dto.productdataDTOList}" varStatus="varStatus">
+										<tr>
+											<td style="text-align: center;">${varStatus.count}<input type="hidden" value="${row.productDataNo}"/></td>
+											<td><input type="text" value="${row.productModel}" class="productModel" readonly /></td>
+											<td><input type="text" value="${row.productPrice}" readonly/></td>
+											<td><input type="button" value="삭제" onclick="fn_itemListRemove(this);"/></td>
+										</tr>
+									</c:forEach>
 								</tbody>
 							</table>
 							<div class="btn_wr text-right mt-3">
@@ -183,6 +192,9 @@
 input[type=text] {
 	width: 100%;
 }
+input:read-only{
+	border: aliceblue;
+}
 </style>
 <script type="text/javascript">
 //이벤트 영역 시작
@@ -197,11 +209,60 @@ $('#productCategoryModal').on('show.bs.modal', function(e) {
 	var modal = $(this);
 	modal.find('.modal-body').load(button.data("remote"));
 });
+
+
+
 // 이벤트 영역 끝
+var colorObject = {
+	0 : 'aliceblue',
+	1 : 'bisque',
+	2 : 'coral',
+	3 : 'cornflowerblue',
+	4 : 'darkseagreen'
+}
+
+function fn_focusOutEvent(e){
+	//console.log("focus out!!");
+	//console.log($(e).val());
+	//var searchItemVal = $(e).val();
+
+	var productModel = $(".productModel");
+	var AddItem = $(".AddItem");
+
+	var result = false;
+
+	for(var i=0; i<productModel.length; i++){
+		$(productModel[i]).css("background-color","");
+	}
+	for(var i=0; i<AddItem.length; i++){
+		$(AddItem[i]).css("background-color","");
+	}
+
+	for(var i=0; i<AddItem.length; i++){
+		for(var j=0; j<productModel.length; j++){
+			//console.dir(AddItem[i].value +' / '+ productModel[j].value);
+			//console.dir(AddItem[i].value == productModel[j].value);
+			if(AddItem[i].value == productModel[j].value){
+				result = true;
+				//console.dir($(AddItem[i]));
+				//console.dir($(productModel[j]));
+				$(AddItem[i]).css("background-color",colorObject[0]);
+				$(AddItem[i]).data('Overwrite','1');
+				$(productModel[j]).css("background-color",colorObject[0]);
+			}
+		}
+	}
+
+	if(!result){
+		$(e).css("background-color","");
+		$(e).data('Overwrite','0');
+	}
+}
+
 function fn_itemListRemove(e){
 	if(confirm("정말 삭제하시겠습니까?")) {
 		var $button = $(e);
-		$button.parent().parent().remove();
+		$button.parent().parent().css("display", "none");
 	} else {
 		return false;
 	}
@@ -211,7 +272,6 @@ function fn_itemListAdd(){
 	$element = $("#tab02").find("tbody");
 	$Trelement = $element.find("tr");
 	var i = 0;
-	console.log($element.length);
 	if($Trelement.length == 0){
 		i=1;
 	}
@@ -226,9 +286,9 @@ function fn_itemListAdd(){
 	}
 	*/
 	var content = '<tr>' +
-					'<td style="text-align: center;">'+i+'</td>' +
-					'<td><input type="text" name="productdataDTOList['+i+'].productModel"/></td>' +
-					'<td><input type="text" name="productdataDTOList['+i+'].productPrice"/></td>' +
+					'<td style="text-align: center;">'+i+'<input type="hidden" value=""/></td>' +
+					'<td><input type="text" class="AddItem" onfocusout="fn_focusOutEvent(this)" data-Overwrite=""/></td>' +
+					'<td><input type="text" /></td>' +
 					'<td><input type="button" value="삭제" onclick="fn_itemListRemove(this);"/></td>' +
 			       '</tr>';
 	$element.append(content);
@@ -251,8 +311,9 @@ function fnSetCustData(a, b) {
 
 function fn_productUpdate() {
 	
-	var productData = new Object();
-	productData.productNo 			= $("#productNo").val();				// 상품 번호
+	var productData 				= new Object();
+	var productNo 					= Number($("#productNo").val());
+	productData.productNo 			= productNo				// 상품 번호
 	var productCategoryNo 			= $("#productCategoryNo").val();		// 상품 카테고리 번호
 	if(productCategoryNo != ""){
 		productData.productCategoryNo	= productCategoryNo;
@@ -267,15 +328,32 @@ function fn_productUpdate() {
 	var $tableData = $("#tab02").find("tbody tr");
 	$tableData.each(function(){
 		var data = new Object();
+		var productDataNo = $(this).find("input[type=hidden]")[0].value;
 		var productModel = $(this).find("input[type=text]")[0].value;
 		var productPrice = $(this).find("input[type=text]")[1].value;
+		data['productNo'] = productNo;				// 상품 번호
+		data['productDataNo'] = Number(productDataNo);
 		data['productModel'] = productModel;
 		data['productPrice'] = productPrice;
-		productdataDTOList.push(data);
+		if(productDataNo != "" && $(this).css('display') == 'none') {
+			// 기존 데이터 삭제
+			data['display'] = 'none';
+			productdataDTOList.push(data);
+		} else if(productDataNo == "") {
+			// 신규 데이터
+			var temp = $(this).find("input[type=text]")[0];
+			if($(temp).data('Overwrite') == '1') {
+				data['overwrite'] = 1;
+				// 덮어쓰기
+			} else if($(temp).data('Overwrite') == '0'){
+				// 신규생성
+				data['overwrite'] = 0;
+			}
+			productdataDTOList.push(data);
+		}
 	});
 	productData['productdataDTOList'] = productdataDTOList;
 	console.dir(productData);
-	return false;
 	$.ajax({
 				url: "${path}/product/update.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
 				data: JSON.stringify(productData) , // HTTP 요청과 함께 서버로 보낼 데이터
@@ -320,7 +398,11 @@ function fn_productDelete() {
 			});
 }
 
+
 $(document).ready(function() {
 	//fn_itemListAdd();
+	// document.querySelector('.productModel').addEventListener('.focusout', function (e){
+	// 	console.dir(e);
+	// });
 });
 </script>                                                

@@ -426,9 +426,36 @@
 													<option value="2201">상품</option>
 													<option value="2202">서비스</option>
 											</select></td>
-											<td><input type="text"
-												class="form-control form-control-sm readonly" id="data02Title"
-												style="min-width: 120px;" /></td>
+											<td>
+													<div class="input-group input-group-sm mb-0">
+														<input name="product" id ="data02Title" value="" class="form-control form-control-sm">
+														<span class="input-group-btn">
+														<button class="btn btn-primary sch-company" data-remote="${path}/modal/popup.do?popId=" type="button" data-toggle="modal" data-target="#productdataModal"><i class="icofont icofont-search"></i></button>
+													</span>
+													</div>
+													<!--모달 팝업-->
+													<div class="modal fade" id="productdataModal" tabindex="-1" role="dialog">
+														<div class="modal-dialog modal-80size" role="document">
+															<div class="modal-content modal-80size">
+																<div class="modal-header">
+																	<h4 class="modal-title">카테고리 검색</h4>
+																	<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+																		<span aria-hidden="true">&times;</span>
+																	</button>
+																</div>
+																<div class="modal-body">
+																	<h5>카테고리 목록</h5>
+																	<p>등록된 카테고리가 없거나 로딩중입니다.</p>
+																</div>
+																<div class="modal-footer">
+																	<button type="button" class="btn btn-default waves-effect " data-dismiss="modal">Close</button>
+																</div>
+															</div>
+														</div>
+													</div>
+													<!--//모달 팝업-->
+
+											</td>
 											<td><input type="number"
 												class="form-control form-control-sm" id="data02Netprice"
 												style="min-width: 80px;" /></td>

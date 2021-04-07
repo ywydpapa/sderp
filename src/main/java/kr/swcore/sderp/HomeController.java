@@ -199,13 +199,6 @@ public class HomeController {
 			rtn = "modal/productGoodsCategory";
 		}
 
-		else if("productdataList".equals(popId)) {
-			//Integer compNo = Integer.valueOf((String) params.get("compNo"));
-			List<ProductDTO> list = null; // productService.listProductGoodsCategory(session);
-			model.addAttribute("list", list);
-			rtn = "modal/productdataList";
-		}
-
 		logger.debug(rtn);
 		
 		mav.setViewName(rtn);

@@ -119,7 +119,7 @@
 
 				<div class="btn_wr text-right mt-3">
 					<!--<button class="btn btn-md btn-success f-left">목록</button>-->
-					<button class="btn btn-md btn-success f-left" onClick="fnSetPage('${path}/product/list.do')">목록</button
+					<button class="btn btn-md btn-success f-left" onClick="fnSetPage('${path}/product/list.do')">목록</button>
 					<button class="btn btn-md btn-primary" onClick="fn_productInsert()" value="등록">등록</button>
 				</div>
 			</div>

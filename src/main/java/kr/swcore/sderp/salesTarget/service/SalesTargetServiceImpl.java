@@ -231,7 +231,7 @@ public class SalesTargetServiceImpl implements SalesTargetService {
 			
 			UserDTO userDTO = new UserDTO();
 			int orgIdTemp = organizDTO.getOrg_id();
-			userDTO.setOrgId(orgIdTemp);
+			userDTO.setOrg_id(orgIdTemp);
 			// 부서 코드에 맞는 swc_user 테이블을 접근하여 유저리스트를 반환한다.
 			userList = userService.userListWithOrgId(userDTO);
 			

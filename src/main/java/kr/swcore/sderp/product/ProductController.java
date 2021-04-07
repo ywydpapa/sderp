@@ -1,11 +1,14 @@
 package kr.swcore.sderp.product;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -27,6 +30,16 @@ public class ProductController {
 		mav.setViewName("product/list");
 		mav.addObject("list", productService.listProduct(session));
 		return mav;
+	}
+
+	@RequestMapping(value = "listAjax", method = RequestMethod.GET, produces="text/plain;charset=UTF-8")
+	@ResponseBody
+	public String listAjax(HttpSession session) {
+		List<ProductDTO> productDTOList  = productService.listProduct(session);
+		JsonObject jsonObject = new JsonObject();
+		jsonObject.addProperty("data", new Gson().toJson(productDTOList));
+		String json = new Gson().toJson(jsonObject);
+		return json;
 	}
 	
 	@RequestMapping("/detail/{productNo}")

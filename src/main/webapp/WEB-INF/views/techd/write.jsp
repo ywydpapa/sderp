@@ -286,12 +286,12 @@ $('input[name=radio]').on('click', function() {
 								<td colspan="3">
 									<div class="col-sm-9 f-left m-b-0 p-l-0">
 										<div class="input-group input-group-sm mb-0">
-											<input class="form-control form-control-sm col-sm-6 m-r-10"
-												type="datetime-local" id="techdFrom" name="techdFrom"> 
+											<input class="form-control form-control-sm col-sm-6 m-r-10" type="datetime-local" id="techdFrom" name="techdFrom">
+											<select id="startTime" style="width:100px"></select> 
 											<span> ~ </span>
-											<input class="form-control form-control-sm col-sm-6 m-r-10"
-												type="datetime-local" id="techdTo" name="techdTo"> 
-											</div>
+											<input class="form-control form-control-sm col-sm-6 m-r-10" type="datetime-local" id="techdTo" name="techdTo"> 
+											<select id="endTime" style="width:100px"></select> 
+										</div>
 									</div>
 								</td>
 							</tr>
@@ -423,8 +423,8 @@ function fn_sprtInsert() {
 	sprtData.techdItemmodel		= $("#techdItemmodel").val();				// 모델
 	sprtData.techdItemversion	= $("#techdItemversion").val();				// 버전
 	sprtData.techdPlace			= $("#techdPlace").val();					// 장소
-	sprtData.techdFrom			= $("#techdFrom").val();					// 지원일자 시작
-	sprtData.techdTo			= $("#techdTo").val();						// 지원일자 종료
+	sprtData.techdFrom			= setDateHourMinute($("#techdFrom").val(), $("#startTime").val());					// 지원일자 시작
+	sprtData.techdTo			= setDateHourMinute($("#techdTo").val(), $("#endTime").val());						// 지원일자 종료
 	sprtData.techdType			= $("#techdType").val();					// 지원형태
 	sprtData.techdSteps			= $("#techdSteps").val();					// 진행단계
 	sprtData.techdDesc			= $("#techdDesc").val();					// 설명
@@ -455,6 +455,10 @@ function fn_sprtInsert() {
 				alert("통신 실패");
 			});
 }
+
+$(document).ready(function(){
+	setTimeComboBox(['#startTime', '#endTime']);
+});
 
 
 </script>

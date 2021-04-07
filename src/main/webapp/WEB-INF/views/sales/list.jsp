@@ -15,6 +15,12 @@ $(function(){
     });
 });
 </script>
+<style>
+	a {
+		text-decoration:underline;
+	}
+</style>
+
 	<c:if test="${preserveSearchCondition != 'Y'}">
 		<!-- Page-header start 페이지 타이틀-->
 		<div class="page-header2">

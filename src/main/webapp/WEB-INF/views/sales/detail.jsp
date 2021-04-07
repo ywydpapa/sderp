@@ -35,9 +35,11 @@
 								<th scope="row">활동일</th>
 								<td colspan="3">
 									<div class="input-group input-group-sm mb-0">
-										<input id="salesFrdatetime" class="form-control form-control-sm col-sm-3 m-r-10" type="datetime-local" value ="${dto.salesStime}">
-										<span> ~ </span><input id="salesTodatetime" class="form-control form-control-sm col-sm-3 m-r-10 m-l-10" type="datetime-local" value ="${dto.salesEtime}">
-										
+										<input id="salesFrdatetime" class="form-control form-control-sm col-sm-3 m-r-10" type="date" value ="${dto.salesStime}">
+										<select id="startTime" style="width:100px"></select>
+										<span> ~ </span>
+										<input id="salesTodatetime" class="form-control form-control-sm col-sm-3 m-r-10 m-l-10" type="date" value ="${dto.salesEtime}">
+										<select id="endTime" style="width:100px"></select>
 									</div>
 								</td>
 							</tr>
@@ -285,8 +287,8 @@
 		function fn_UpdateSales() {
 			var salesData = {};
 			salesData.salesNo = $("#salesNo").val();
-			salesData.salesFrdatetime = $("#salesFrdatetime").val(); 
-			salesData.salesTodatetime = $("#salesTodatetime").val();
+			salesData.salesFrdatetime = setDateHourMinute($("#salesFrdatetime").val(), $("#startTime").val()); 
+			salesData.salesTodatetime = setDateHourMinute($("#salesTodatetime").val(), $("#endTime").val());
 			salesData.salesTitle 		= $("#salesTitle").val();
 		 	salesData.salesPlace		= $("#salesPlace").val();
 			salesData.userNo 		= $("#userNo").val();
@@ -320,5 +322,18 @@
 						alert("통신 실패");
 					});
 			}
+		
+		$(document).ready(function(){
+			setTimeComboBox(['#startTime', '#endTime']);
+			var startDate = '${dto.salesStime}'.split("T")[0];
+			var startTime = '${dto.salesStime}'.split("T")[1].substring(0, 5);
+			var endDate = '${dto.salesEtime}'.split("T")[0];
+			var endTime = '${dto.salesEtime}'.split("T")[1].substring(0, 5);
+			
+			$('#salesFrdatetime').val(startDate);
+			$('#startTime').val(startTime);
+			$('#salesTodatetime').val(endDate);
+			$('#endTime').val(endTime);
+		});
 
 	</script>

@@ -19,8 +19,13 @@ $(function(){
 		location.href="${path}/product/write.do "
 	});
 });
-
 </script>
+<style>
+	a {
+		text-decoration:underline;
+	}
+</style>
+
 	<c:if test="${preserveSearchCondition != 'Y'}">
 		<div class="page-header2">
 			<div class="row align-items-end">
@@ -255,11 +260,9 @@ $(function(){
 									<td>${row.schedFrom}<span> ~ </span>${row.schedTo}</td>
 									<td>${row.custName}</td>
 									<td>${row.userName}</td>
-									<td><a
-										href="javascript:fnSetPage('${path}/sched/detail/${row.schedNo}')">${row.schedPlace}</a></td>
+									<td>${row.schedPlace}</td>
 									<td>${row.schedCatN}</td>
-									<td><a
-										href="javascript:fnSetPage('${path}/sched/detail/${row.schedNo}')">${row.schedDesc}</a></td>
+									<td>${row.schedDesc}</td>
 								</tr>
 							</c:forEach>
 						</tbody>

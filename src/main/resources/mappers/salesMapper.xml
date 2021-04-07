@@ -89,9 +89,23 @@ salesEtime, e.soppTitle  from swc_sales a
  )
  values 
  (
- #{soppNo},
+ <choose>
+	<when test="soppNo == 0">
+		NULL,	
+	</when>
+	<otherwise>
+		#{soppNo},
+	</otherwise>		
+</choose>
  #{compNo},
- #{custNo}, 
+<choose>
+	<when test="custNo == 0">
+		NULL,	
+	</when>
+	<otherwise>
+		#{custNo},
+	</otherwise>		
+</choose>
  #{userNo}, 
  #{salesTitle}, 
  #{salesDesc}, 

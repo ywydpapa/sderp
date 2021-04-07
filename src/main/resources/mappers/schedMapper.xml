@@ -128,13 +128,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  		 	and a.custNo = #{custNo}
  		</if>
  		<if test="schedCat != null and schedCat != ''">
- 		 	and a.schedCat = #{schedCat}
+ 		 	and a.salesType = #{schedCat}
  		</if>
  		<if test="schedFrom != null and schedFrom != ''">
- 		 	and date_format(a.schedFrom, '%Y-%m-%d') <![CDATA[>=]]> #{schedFrom}
+ 		 	and date_format(a.salesFrdatetime, '%Y-%m-%d') <![CDATA[>=]]> #{schedFrom}
  		</if>
  		<if test="schedTo != null and schedTo != ''">
- 			and date_format(a.schedTo, '%Y-%m-%d') <![CDATA[<=]]> #{schedTo}
+ 			and date_format(a.salesTodatetime, '%Y-%m-%d') <![CDATA[<=]]> #{schedTo}
  		</if>
 
 		UNION
@@ -156,13 +156,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  		 	and a.custNo = #{custNo}
  		</if>
  		<if test="schedCat != null and schedCat != ''">
- 		 	and a.schedCat = #{schedCat}
+ 		 	and a.techdType = #{schedCat}
  		</if>
  		<if test="schedFrom != null and schedFrom != ''">
- 		 	and date_format(a.schedFrom, '%Y-%m-%d') <![CDATA[>=]]> #{schedFrom}
+ 		 	and date_format(a.techdFrom, '%Y-%m-%d') <![CDATA[>=]]> #{schedFrom}
  		</if>
  		<if test="schedTo != null and schedTo != ''">
- 			and date_format(a.schedTo, '%Y-%m-%d') <![CDATA[<=]]> #{schedTo}
+ 			and date_format(a.techdTo, '%Y-%m-%d') <![CDATA[<=]]> #{schedTo}
  		</if>
  		
  		order by schedFrom desc
@@ -205,8 +205,22 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  values (
 	#{userNo}
 	,#{compNo}
-	,#{soppNo}
-	,#{custNo}
+	<choose>
+		<when test="soppNo == 0">
+			,NULL	
+		</when>
+		<otherwise>
+			,#{soppNo}
+		</otherwise>		
+	</choose>
+	<choose>
+		<when test="custNo == 0">
+			,NULL	
+		</when>
+		<otherwise>
+			,#{custNo}
+		</otherwise>		
+	</choose>
 	,#{schedName}
 	,#{schedFrom}
 	,#{schedTo}
@@ -236,7 +250,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	,schedActive=#{schedActive}
 	,schedAllday=#{schedAllday}
 	,remindflag=#{remindflag}
-	,schedType=#{schedType}
+	<!-- ,schedType=#{schedType} -->
 	,schedCat=#{schedCat}
 	,schedPlace=#{schedPlace}
  where schedNo=#{schedNo}

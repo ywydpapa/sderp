@@ -188,6 +188,32 @@
 			return false;
 		}
 	}
+	
+	function setTimeComboBox(idArray) {
+		if(fnIsNullOrEmpty(idArray) || idArray.length == 0) {
+			return;
+		}
+		
+		for(var i = 0; i < 25; i++){
+			var hour = i;
+			if(String(i).length == 1) {
+				hour = "0"+ i;
+			}
+			
+			for(var j = 0; j < idArray.length; j++) {
+				$(idArray[j]).append('<option value=' + hour + ":" + "00" + '>' + hour + ":" + "00" + '</option>');
+				$(idArray[j]).append('<option value=' + hour + ":" + "30" + '>' + hour + ":" + "30" + '</option>');
+			}
+		}
+	}
+	
+	function setDateHourMinute(date, hourMinute) {
+		if(!fnIsNullOrEmpty(date)) {
+			return date + "T" + hourMinute;	
+		}else {
+			return null;
+		}
+	}
 
 </script> 
 </head>

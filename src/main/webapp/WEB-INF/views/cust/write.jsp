@@ -76,7 +76,7 @@
 							</form>
 							<div class="btn_wr text-right mt-3">
 								<button class="btn btn-md btn-success f-left" onClick="javascript:fnSetPage('${path}/cust/list.do')">목록</button>
-								<button class="btn btn-md btn-primary" value="" id="btnInsert01" onClick="fn_custInsert01();" disabled >등록</button>
+								<button class="btn btn-md btn-primary" value="" id="btnInsert01" onClick="fn_custInsert01();" >등록</button>
 								<button class="btn btn-md btn-inverse" value="" id="btnDelete" 	onClick="javascript:fnSetPage('${path}/cust/list.do')">취소</button>
 							</div>
 						</div>

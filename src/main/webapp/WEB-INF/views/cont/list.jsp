@@ -15,6 +15,11 @@ $(function(){
     });
 });
 </script>
+<style>
+	a {
+		text-decoration:underline;
+	}
+</style>
 	<c:if test="${preserveSearchCondition != 'Y'}">
 		<!-- Page-header start 페이지 타이틀-->
 		<div class="page-header2">
@@ -282,7 +287,7 @@ $(function(){
 									<th>무상유지보수 만료일</th>
 									<th>계산서 발행일</th>
 									<th>판매일</th>
-									<th>상세정보</th>
+									<!-- <th>상세정보</th> -->
 								</tr>
 							</thead>
 							<tbody>
@@ -298,7 +303,7 @@ $(function(){
 									<td>${row.freemaintEdate}</td>
 									<td>-</td>
 									<td>${row.delivDate}</td>
-									<td><a href="javascript:fnSetPage('${path}/cont/detail/${row.contNo}')">상세정보</a></td>
+									<%-- <td><a href="javascript:fnSetPage('${path}/cont/detail/${row.contNo}')">상세정보</a></td> --%>
 								</tr>
 							</c:forEach>								
 							</tbody>

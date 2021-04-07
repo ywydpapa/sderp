@@ -79,7 +79,7 @@ public class CustController {
 		if (custInsert >0) {
 			param.put("code","10001"); 
 		}
-		else {param.put("codo","20001");
+		else {param.put("code","20001");
 		}
 		return ResponseEntity.ok(param);
 	}
@@ -91,7 +91,7 @@ public class CustController {
 		if (custInsert02 >=0) {
 			param.put("code","10001"); 
 		}
-		else {param.put("codo","20001");
+		else {param.put("code","20001");
 		}
 		return ResponseEntity.ok(param);
 	}
@@ -110,7 +110,7 @@ public class CustController {
 		if (custInsert03 >=0) {
 			param.put("code","10001"); 
 		}
-		else {param.put("codo","20001");
+		else {param.put("code","20001");
 		}
 		return ResponseEntity.ok(param);
 	}
@@ -122,7 +122,7 @@ public class CustController {
 		if (custInsert04 >=0) {
 			param.put("code","10001"); 
 		}
-		else {param.put("codo","20001");
+		else {param.put("code","20001");
 		}
 		return ResponseEntity.ok(param);
 	}
@@ -138,7 +138,7 @@ public class CustController {
 			param.put("code","10001"); 
 		}
 		else {
-			param.put("codo","20001");
+			param.put("code","20001");
 		}
 		return ResponseEntity.ok(param);
 	}
@@ -151,7 +151,7 @@ public class CustController {
 			param.put("code","10001"); 
 		}
 		else {
-			param.put("codo","20001");
+			param.put("code","20001");
 		}
 		return ResponseEntity.ok(param);
 	}
@@ -164,7 +164,7 @@ public class CustController {
 		if (custUpdate >0) {
 			param.put("code","10001"); 
 		}
-		else {param.put("codo","20001");
+		else {param.put("code","20001");
 		}
 		return ResponseEntity.ok(param);
 	}

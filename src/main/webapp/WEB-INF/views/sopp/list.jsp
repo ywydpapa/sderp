@@ -16,6 +16,12 @@ $(function(){
     });
 });
 </script>
+<style>
+	a {
+		text-decoration:underline;
+	}
+</style>
+
 	<c:if test="${preserveSearchCondition != 'Y'}">
 		<!-- DB TABLE 실행 -->
 		<!--영업기회조회-->

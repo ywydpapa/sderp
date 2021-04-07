@@ -34,9 +34,11 @@
 								<th scope="row">일정일자</th>
 								<td colspan="3">
 									<div class="input-group input-group-sm mb-0 mr-1">  
-									<input class="form-control" type="datetime-local" id="schedFrom" value="${dto.sTime}">
+									<input class="form-control" type="date" id="schedFrom" value="${dto.sTime}.split("T")[0]">
+									<select id="startTime" style="width:100px"></select>
 									<span> ~ </span> 
-									<input class="form-control " type="datetime-local" id="schedTo" value="${dto.eTime}">
+									<input class="form-control " type="date" id="schedTo" value="${dto.eTime}">
+									<select id="endTime" style="width:100px"></select>
 									</div>
 								</td>
 							</tr>
@@ -201,14 +203,14 @@
 								</td>
 							</tr>
  --%>							<tr>
-								<th scope="row">일정구분</th>
+								<%-- <th scope="row">일정구분</th>
 								<td><select name="schedType" id="schedType" class="form-control form-control-sm">
 									<option value="">기타일정</option>
-									<%-- <c:forEach var="schedtype" items="${schedtype}">
+									<c:forEach var="schedtype" items="${schedtype}">
 									<option value = "${schedtype.codeNo}">${schedtype.desc03}</option>
-									</c:forEach> --%>
+									</c:forEach>
 								</select>
-								</td>
+								</td> --%>
 								<th scope="row">활동형태</th>
 								<td><select name="schedCat" id="schedCat" class="form-control form-control-sm">
 									<c:forEach var="acttype" items="${acttype}">
@@ -291,15 +293,15 @@
 		function fn_UpdateSched() {
 			var schedData = {};
 			schedData.schedNo 		= $("#schedNo").val();
-			schedData.schedFrom = $("#schedFrom").val(); 
-			schedData.schedTo = $("#schedTo").val();
+			schedData.schedFrom = setDateHourMinute($("#schedFrom").val(), $("#startTime").val()); 
+			schedData.schedTo = setDateHourMinute($("#schedTo").val(), $("#endTime").val());
 			schedData.schedTitle 		= $("#schedTitle").val();
 			schedData.schedPlace		= $("#schedPlace").val();
 			schedData.userNo 		= $("#userNo").val();
 			schedData.custNo 		= $("#custNo").val();
 			schedData.soppNo 		= $("#soppNo").val();
 			schedData.schedDesc 		= $("#schedDesc").val();
-			schedData.schedType 		= $("#schedType").val();
+			/* schedData.schedType 		= $("#schedType").val(); */
 			schedData.schedCat 		= $("#schedCat").val();
 			
 			$.ajax({ url: "${path}/sched/update.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소 
@@ -327,6 +329,19 @@
 					});
 			}
 		
-		$('#schedType').val('${dto.schedType}').prop("selected",true);
+		
+		/* $('#schedType').val('${dto.schedType}').prop("selected",true); */
 
+		$(document).ready(function(){
+			setTimeComboBox(['#startTime', '#endTime']);
+			var startDate = '${dto.sTime}'.split("T")[0];
+			var startTime = '${dto.sTime}'.split("T")[1].substring(0, 5);
+			var endDate = '${dto.eTime}'.split("T")[0];
+			var endTime = '${dto.eTime}'.split("T")[1].substring(0, 5);
+			
+			$('#schedFrom').val(startDate);
+			$('#startTime').val(startTime);
+			$('#schedTo').val(endDate);
+			$('#endTime').val(endTime);
+		});
 	</script>

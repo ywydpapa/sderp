@@ -34,11 +34,11 @@
 								<th scope="row">일정일자</th>
 								<td colspan="3">
 									<div class="input-group input-group-sm mb-0 mr-1">
-										<input class="form-control form-control-sm col-md-4 m-r-10"
-											type="datetime-local" id="schedSdate" value=""> <span>
-											~ </span> <input
-											class="form-control form-control-sm col-md-4 m-r-10"
-											type="datetime-local" id="schedEdate" value="">
+										<input class="form-control form-control-sm col-md-4 m-r-10" type="date" id="schedSdate" value="">
+										<select id="startTime" style="width:100px"></select>
+										<span> ~ </span> 
+										<input class="form-control form-control-sm col-md-4 m-r-10" type="date" id="schedEdate" value="">
+										<select id="endTime" style="width:100px"></select>
 									</div>
 								</td>
 							</tr>
@@ -344,17 +344,16 @@
 
 		function fn_SaveSched() {
 			var schedData = {};
-			schedData.schedFrom = $("#schedSdate").val(); 
-			schedData.schedTo = $("#schedEdate").val();
+			schedData.schedFrom = setDateHourMinute($("#schedSdate").val(), $("#startTime").val()); 
+			schedData.schedTo = setDateHourMinute($("#schedEdate").val(), $("#endTime").val());
 			schedData.schedTitle 		= $("#schedTitle").val();
 			schedData.schedPlace		= $("#schedPlace").val();
 			schedData.userNo 		= $("#userNo").val();
-			schedData.custNo 		= $("#custNo").val();
-			schedData.soppNo 		= $("#soppNo").val();
+			schedData.custNo 		= $("#custNo").val() ? $("#custNo").val() : 0;
+			schedData.soppNo 		= $("#soppNo").val() ? $("#soppNo").val() : 0;
 			schedData.schedDesc 		= $("#schedDesc").val();
 			schedData.schedType 		= $("#schedType").val();
 			schedData.schedCat 		= $("#schedCat").val();
-			console.log(schedData);
 			
 			$.ajax({ url: "${path}/sched/insert.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소 
 						data: schedData , // HTTP 요청과 함께 서버로 보낼 데이터 
@@ -379,6 +378,11 @@
 					.fail(function(xhr, status, errorThrown) { 
 						alert("통신 실패");
 					});
-			}
+		}
+		
+		
+		$(document).ready(function(){
+			setTimeComboBox(['#startTime', '#endTime']);
+		});
 
 	</script>

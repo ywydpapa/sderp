@@ -558,7 +558,7 @@ function chartReady(){
 	            ]
 	        }
 	    ]
-	};	
+	};
 	myChartGauge4.setOption(option4);
 }
 

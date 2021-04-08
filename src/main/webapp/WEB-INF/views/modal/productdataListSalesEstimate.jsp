@@ -10,7 +10,7 @@
 <script src="${path}/assets/pages/dataTables.bootstrap4.min.js"></script>
 
 <div class="dt-responsive table-responsive">
-	<table id="productdataTable" class="table table-striped table-bordered nowrap">
+	<table id="productdataTable2" class="table table-striped table-bordered nowrap">
 		<thead>
 		<tr>
 			<th>-</th>
@@ -39,12 +39,12 @@
 	tr.shown td.details-control {
 		background: url('../assets/images/details_close.png') no-repeat center center;
 	}
-	#productdataTable > tbody > tr > td > a {
+	#productdataTable2 > tbody > tr > td > a {
 		text-decoration: underline;
 	}
-</styleproductdataList
+</style>
 <script>
-	var productdataTable = $('#productdataTable').DataTable({
+	var productdataTable2 = $('#productdataTable2').DataTable({
 		info:false,
 		'processing': true,
 		'language': {
@@ -67,7 +67,7 @@
 			{
 				"render": function (data, type, row) {
 					// 마우스 올리면 또는 클릭하면 툴팁으로 데이터 상세 표시 ** AJAX로 구현이 필요
-					return '<a href="javascript:void(0);" onclick="fnSetproductdata('+row.productNo+',\''+row.productName+'\')">'+ data +'</a>';
+					return '<a href="javascript:void(0);" onclick="fnSetproductdata2('+row.productNo+',\''+row.productName+'\')">'+ data +'</a>';
 				},
 				"targets": 2
 			}
@@ -75,7 +75,7 @@
 	});
 
 	var productdataJson;
-	function fn_productdataTableReload(){
+	function fn_productdataTableReload2(){
 		$.ajax({
 			type: "get",
 			contentType: "application/x-www-form-urlencoded; charset=UTF-8",
@@ -87,18 +87,18 @@
 			var arr = JSON.parse(result.data);
 			// 글로벌 변수에 저장한다. 상세보기때 참고할 변수!!
 			productdataJson = arr;
-			productdataTable.clear();
+			productdataTable2.clear();
 			for(var i=0; i<arr.length; i++){
-				productdataTable.row.add(arr[i]).draw();
+				productdataTable2.row.add(arr[i]).draw();
 			}
 		})
 	}
 
 	var html = '';
 	// Add event listener for opening and closing details
-	$('#productdataTable tbody').on('click', 'td.details-control', function () {
+	$('#productdataTable2 tbody').on('click', 'td.details-control', function () {
 		var tr = $(this).closest('tr');
-		var row = productdataTable.row(tr);
+		var row = productdataTable2.row(tr);
 		if ( row.child.isShown() ) {
 			// This row is already open - close it
 			row.child.hide();
@@ -157,3 +157,4 @@
 		}
 	});
 </script>
+

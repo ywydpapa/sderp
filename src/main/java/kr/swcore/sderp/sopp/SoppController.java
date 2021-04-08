@@ -69,7 +69,7 @@ public class SoppController {
 		return mav;
 	}
 	
-	//°Ë»ö ¹öÆ° Å¬¸¯ ½Ã
+	//ï¿½Ë»ï¿½ ï¿½ï¿½Æ° Å¬ï¿½ï¿½ ï¿½ï¿½
 	@RequestMapping("listcon.do")
 	public ModelAndView listcon(HttpSession session, ModelAndView mav, SoppDTO dto) {
 		mav.setViewName("sopp/list");
@@ -202,9 +202,9 @@ public class SoppController {
 	}
 	
 	@RequestMapping("insertdata01.do")
-	public ResponseEntity<?> insert(@ModelAttribute SoppdataDTO dto) {
+	public ResponseEntity<?> insert(HttpSession session, @ModelAttribute SoppdataDTO dto) {
 		Map<String, Object> param = new HashMap<>();
-		int soppdataInsert = soppdataService.insertSoppdata01(dto);
+		int soppdataInsert = soppdataService.insertSoppdata01(session, dto);
 		if (soppdataInsert >0) {
 			param.put("code","10001"); 
 		}
@@ -215,9 +215,9 @@ public class SoppController {
 
 	
 	@RequestMapping("insertdata02.do")
-	public ResponseEntity<?> insert02(@ModelAttribute SoppdataDTO dto) {
+	public ResponseEntity<?> insert02(HttpSession session,@ModelAttribute SoppdataDTO dto) {
 		Map<String, Object> param = new HashMap<>();
-		int soppdataInsert = soppdataService.insertSoppdata01(dto);
+		int soppdataInsert = soppdataService.insertSoppdata01(session, dto);
 		if (soppdataInsert >0) {
 			param.put("code","10001"); 
 		}

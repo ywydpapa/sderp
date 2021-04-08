@@ -173,7 +173,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  <insert id="insertSoppdata01">
  insert into swc_soppData01 
  (soppNo,
+userNo,
 catNo,
+productNo,
 dataTitle,
 dataDesc,
 dataType,
@@ -185,7 +187,9 @@ linkType,
 linkNo,
 regDatetime)
  values (#{soppNo},
+#{userNo},
 #{catNo},
+#{productNo},
 #{dataTitle},
 #{dataDesc},
 #{dataType},

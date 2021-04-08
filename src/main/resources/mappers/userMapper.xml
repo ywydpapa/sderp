@@ -24,7 +24,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  </select>
  
  <select id="userListWithOrgId" resultType="userDto">
- 		select userNo, CompNo, userId, userName from swc_user where org_id = #{orgId};
+ 		select userNo, CompNo, userId, userName from swc_user where org_id = #{org_id};
  </select>
  
  <update id="updateUser">

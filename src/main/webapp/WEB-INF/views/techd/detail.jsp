@@ -270,15 +270,15 @@ for(var i = 0; i < hiddenObject.length; i++) {
 							<tr>
 								<th scope="row">지원일자</th>
 								<td colspan="3">
-									<div class="col-sm-9 f-left m-b-0 p-l-0">
-										<div class="input-group input-group-sm mb-0">
-											<input class="form-control form-control-sm col-sm-6 m-r-10" type="date" id="techdFrom" name="techdFrom" value="${dto.targetDatefrom}"> 
-											<select id="startTime" style="width:100px"></select>
+									<!-- <div class="col-sm-9 f-left m-b-0 p-l-0"> -->
+										<div class="input-group input-group-sm mb-0 mr-1">
+											<input class="form-control form-control-sm col-md-4 m-r-10" type="date" id="techdFrom" name="techdFrom" value="${dto.targetDatefrom}" onChange="javascript:inputDate(setDateHourMinute($('#techdFrom').val(), $('#startTime').val()), setDateHourMinute($('#techdTo').val(), $('#endTime').val()))"> 
+											<select id="startTime" style="width:100px" onChange="javascript:inputDate(setDateHourMinute($('#techdFrom').val(), $('#startTime').val()), setDateHourMinute($('#techdTo').val(), $('#endTime').val()))"></select>
 											<span> ~ </span>
-											<input class="form-control form-control-sm col-sm-6 m-r-10" type="date" id="techdTo" name="techdTo" value="${dto.targetDateto}"> 
-											<select id="endTime" style="width:100px"></select>
+											<input class="form-control form-control-sm col-md-4 m-r-10" type="date" id="techdTo" name="techdTo" value="${dto.targetDateto}" onChange="javascript:inputDate(setDateHourMinute($('#techdFrom').val(), $('#startTime').val()), setDateHourMinute($('#techdTo').val(), $('#endTime').val()))"> 
+											<select id="endTime" style="width:100px" onChange="javascript:inputDate(setDateHourMinute($('#techdFrom').val(), $('#startTime').val()), setDateHourMinute($('#techdTo').val(), $('#endTime').val()))"></select>
 										</div>
-									</div>
+									<!-- </div> -->
 								</td>
 							</tr>
 							<tr>

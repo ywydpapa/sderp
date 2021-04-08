@@ -34,11 +34,11 @@
 								<th scope="row">일정일자</th>
 								<td colspan="3">
 									<div class="input-group input-group-sm mb-0 mr-1">
-										<input class="form-control form-control-sm col-md-4 m-r-10" type="date" id="schedSdate" value="">
-										<select id="startTime" style="width:100px"></select>
+										<input class="form-control form-control-sm col-md-4 m-r-10" type="date" id="schedSdate" value="" onChange="javascript:inputDate(setDateHourMinute($('#schedSdate').val(), $('#startTime').val()), setDateHourMinute($('#schedEdate').val(), $('#endTime').val()))">
+										<select id="startTime" style="width:100px" onChange="javascript:inputDate(setDateHourMinute($('#schedSdate').val(), $('#startTime').val()), setDateHourMinute($('#schedEdate').val(), $('#endTime').val()))"></select>
 										<span> ~ </span> 
-										<input class="form-control form-control-sm col-md-4 m-r-10" type="date" id="schedEdate" value="">
-										<select id="endTime" style="width:100px"></select>
+										<input class="form-control form-control-sm col-md-4 m-r-10" type="date" id="schedEdate" value="" onChange="javascript:inputDate(setDateHourMinute($('#schedSdate').val(), $('#startTime').val()), setDateHourMinute($('#schedEdate').val(), $('#endTime').val()))">
+										<select id="endTime" style="width:100px" onChange="javascript:inputDate(setDateHourMinute($('#schedSdate').val(), $('#startTime').val()), setDateHourMinute($('#schedEdate').val(), $('#endTime').val()))"></select>
 									</div>
 								</td>
 							</tr>
@@ -66,7 +66,7 @@
 												<div class="modal-content modal-80size">
 													<div class="modal-header">
 														<h4 class="modal-title"></h4>
-														<button type="button" class="close" data-dismiss="modal"
+														<button type="button" class="close" onclick="$('#contModal').modal('hide');"
 															aria-label="Close">
 															<span aria-hidden="true">&times;</span>
 														</button>
@@ -78,7 +78,7 @@
 													<div class="modal-footer">
 														<button type="button"
 															class="btn btn-default waves-effect "
-															data-dismiss="modal">Close</button>
+															onclick="$('#contModal').modal('hide');">Close</button>
 													</div>
 												</div>
 											</div>
@@ -106,7 +106,7 @@
 												<div class="modal-content modal-80size">
 													<div class="modal-header">
 														<h4 class="modal-title"></h4>
-														<button type="button" class="close" data-dismiss="modal"
+														<button type="button" class="close" onclick="$('#soppModal').modal('hide');"
 															aria-label="Close">
 															<span aria-hidden="true">&times;</span>
 														</button>
@@ -118,7 +118,7 @@
 													<div class="modal-footer">
 														<button type="button"
 															class="btn btn-default waves-effect "
-															data-dismiss="modal">Close</button>
+															onclick="$('#soppModal').modal('hide');">Close</button>
 													</div>
 												</div>
 											</div>
@@ -144,7 +144,7 @@
 												<div class="modal-content modal-80size">
 													<div class="modal-header">
 														<h4 class="modal-title"></h4>
-														<button type="button" class="close" data-dismiss="modal"
+														<button type="button" class="close" onclick="$('#userModal').modal('hide');"
 															aria-label="Close">
 															<span aria-hidden="true">&times;</span>
 														</button>
@@ -156,7 +156,7 @@
 													<div class="modal-footer">
 														<button type="button"
 															class="btn btn-default waves-effect "
-															data-dismiss="modal">Close</button>
+															onclick="$('#userModal').modal('hide');">Close</button>
 													</div>
 												</div>
 											</div>
@@ -184,7 +184,7 @@
 												<div class="modal-content modal-80size">
 													<div class="modal-header">
 														<h4 class="modal-title">거래처검색</h4>
-														<button type="button" class="close" data-dismiss="modal"
+														<button type="button" class="close" onclick="$('#custModal').modal('hide');"
 															aria-label="Close">
 															<span aria-hidden="true">&times;</span>
 														</button>
@@ -196,7 +196,7 @@
 													<div class="modal-footer">
 														<button type="button"
 															class="btn btn-default waves-effect "
-															data-dismiss="modal">Close</button>
+															onclick="$('#custModal').modal('hide');">Close</button>
 													</div>
 												</div>
 											</div>
@@ -222,7 +222,7 @@
 												<div class="modal-content modal-80size">
 													<div class="modal-header">
 														<h4 class="modal-title"></h4>
-														<button type="button" class="close" data-dismiss="modal"
+														<button type="button" class="close" onclick="$('#ptncModal').modal('hide');"
 															aria-label="Close">
 															<span aria-hidden="true">&times;</span>
 														</button>
@@ -234,7 +234,7 @@
 													<div class="modal-footer">
 														<button type="button"
 															class="btn btn-default waves-effect "
-															data-dismiss="modal">Close</button>
+															onclick="$('#ptncModal').modal('hide');">Close</button>
 													</div>
 												</div>
 											</div>
@@ -354,6 +354,7 @@
 			schedData.schedDesc 		= $("#schedDesc").val();
 			schedData.schedType 		= $("#schedType").val();
 			schedData.schedCat 		= $("#schedCat").val();
+			schedData.contNo		= $("#contNo").val();
 			
 			$.ajax({ url: "${path}/sched/insert.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소 
 						data: schedData , // HTTP 요청과 함께 서버로 보낼 데이터 
@@ -380,9 +381,6 @@
 					});
 		}
 		
-		
-		$(document).ready(function(){
-			setTimeComboBox(['#startTime', '#endTime']);
-		});
+		setTimeComboBox(['#startTime', '#endTime']);
 
 	</script>

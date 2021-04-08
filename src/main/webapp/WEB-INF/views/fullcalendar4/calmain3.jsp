@@ -36,7 +36,6 @@
     		cursor: pointer;
 		}
 		
-		
 	</style>
     
   <!-- Modal body Start -->
@@ -152,6 +151,11 @@
 			$('#detail-content').load(path, function() {
 				$('.modal-list-btn').hide();
 				$('.modal-cancel-btn').hide();
+				$('#detail-content').find('.modal-dialog').draggable({ 
+					handle: ".modal-header" 
+				});
+				
+				fnSetCurrentDate();
 			});			
 		}
 	}
@@ -186,6 +190,8 @@
 	       	                            },
 	      	dateClick:function (info) {
 	      		$('#detail-content').empty();
+	      		$('#detail-content')[0].selectedDate = info.dateStr;
+	      		fnInitializeRadio();
 	      		$('.eventModalRadioGroup').show();
 	      		$('#eventModal').modal('show');
 	    	},
@@ -230,19 +236,6 @@
 		$('#calendar').empty();
 		setCalendar('search', organizationList);
 	}
-	
-	
-	$(document).ready(function() {
-		setCalendar();
-		setOrganizationList();
-	    $('#organizationChartOpen').on('click', function() {
-			if ($('#organizationChartView').is(":visible")) {
-			    $('#organizationChartView').hide();
-			} else {
-			    $('#organizationChartView').show();
-			}
-	    });
-	});
 	
 	function fnOrganizationCheck(companyCheckbox) {
 		var organizations = $('.organization-checkbox');
@@ -289,6 +282,7 @@
 				);
 			}
 			
+			$('#organizationChartView').append('<div style="text-align:center"><button class="btn btn-sm btn-inverse" onClick="$(\'#organizationChartView\').hide();">닫기</button></div>');
 		});
 	}
 	
@@ -303,7 +297,36 @@
 		}
 	}
 	
+	function fnSetCurrentDate() {
+		var startDate = $('#detail-content').find('input[type=date]')[0];
+		var startTime = $('#startTime');
+		var endDate = $('#detail-content').find('input[type=date]')[1];
+		var endTime = $('#endTime');
+		
+		startDate.value = $('#detail-content')[0].selectedDate;
+		startTime.val("09:00");
+		endDate.value = $('#detail-content')[0].selectedDate;
+		endTime.val(null);
+	}
 	
+	function fnInitializeRadio() {
+		var radioButtons = $('.eventModalRadioGroup').find('input[type=radio]');
+		
+		for(var i = 0; i < radioButtons.length; i++) {
+			radioButtons[i].checked = false;
+		}
+	}
 	
+	$(document).ready(function() {
+		setCalendar();
+		setOrganizationList();
+	    $('#organizationChartOpen').on('click', function() {
+			if ($('#organizationChartView').is(":visible")) {
+			    $('#organizationChartView').hide();
+			} else {
+			    $('#organizationChartView').show();
+			}
+	    });
+	});
 </script>
     

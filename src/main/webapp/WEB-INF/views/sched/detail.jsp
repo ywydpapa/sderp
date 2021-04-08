@@ -34,18 +34,57 @@
 								<th scope="row">일정일자</th>
 								<td colspan="3">
 									<div class="input-group input-group-sm mb-0 mr-1">  
-									<input class="form-control" type="date" id="schedFrom" value="${dto.sTime}.split("T")[0]">
-									<select id="startTime" style="width:100px"></select>
+									<input class="form-control" type="date" id="schedFrom" value="${dto.sTime}" onChange="javascript:inputDate(setDateHourMinute($('#schedFrom').val(), $('#startTime').val()), setDateHourMinute($('#schedTo').val(), $('#endTime').val()))">
+									<select id="startTime" style="width:100px" onChange="javascript:inputDate(setDateHourMinute($('#schedFrom').val(), $('#startTime').val()), setDateHourMinute($('#schedTo').val(), $('#endTime').val()))"></select>
 									<span> ~ </span> 
-									<input class="form-control " type="date" id="schedTo" value="${dto.eTime}">
-									<select id="endTime" style="width:100px"></select>
+									<input class="form-control " type="date" id="schedTo" value="${dto.eTime}" onChange="javascript:inputDate(setDateHourMinute($('#schedFrom').val(), $('#startTime').val()), setDateHourMinute($('#schedTo').val(), $('#endTime').val()))">
+									<select id="endTime" style="width:100px" onChange="javascript:inputDate(setDateHourMinute($('#schedFrom').val(), $('#startTime').val()), setDateHourMinute($('#schedTo').val(), $('#endTime').val()))"></select>
 									</div>
 								</td>
 							</tr>
 							<tr>
 								<th scope="row">장소</th>
-								<td colspan="3"><input type="text"
+								<td><input type="text"
 									class="form-control form-control-sm" id="schedPlace" 	name="schedPlace" value="${dto.schedPlace}"></td>
+							
+								<th scope="row">계약 관련</th>
+								<td>
+									<div class="input-group input-group-sm mb-0">
+										<input type="text" class="form-control" name="contTitle"
+											id="contTitle" value="" readonly /> <input type="hidden"
+											name="contNo" id="contNo" value="" /> <span
+											class="input-group-btn">
+											<button class="btn btn-primary sch-opportunity2"
+												data-remote="${path}/modal/popup.do?popId=cont"
+												type="button" data-toggle="modal" data-target="#contModal">
+												<i class="icofont icofont-search"></i>
+											</button>
+										</span>
+										<div class="modal fade " id="contModal" tabindex="-1"
+											role="dialog">
+											<div class="modal-dialog modal-80size" role="document">
+												<div class="modal-content modal-80size">
+													<div class="modal-header">
+														<h4 class="modal-title"></h4>
+														<button type="button" class="close" onclick="$('#contModal').modal('hide');"
+															aria-label="Close">
+															<span aria-hidden="true">&times;</span>
+														</button>
+													</div>
+													<div class="modal-body">
+														<h5>계약 목록</h5>
+														<p>Loading!!!</p>
+													</div>
+													<div class="modal-footer">
+														<button type="button"
+															class="btn btn-default waves-effect "
+															onclick="$('#contModal').modal('hide');">Close</button>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</td>
 							</tr>
 							<tr>
 								<th scope="row">영업기회</th>
@@ -126,7 +165,7 @@
 							</tr>
 							<tr>
 								<th scope="row">거래처</th>
-								<td colspan="3">
+								<td>
 									<div class="input-group input-group-sm mb-0">
 										<input type="text" class="form-control col-md-4" name="custName"
 											id="custName" value="${dto.custName}" readonly /> <input type="hidden"
@@ -163,12 +202,12 @@
 										</div>
 									</div>
 								</td>
-<%-- 								<th scope="row">협력사</th>
+								<th scope="row">엔드유저</th>
 								<td>
 									<div class="input-group input-group-sm mb-0">
 										<input type="text" class="form-control" name="ptncName"
-											id="ptncName" value="${dto.ptncName}" readonly /> <input type="hidden"
-											name="ptncNo" id="ptncNo" value="${dto.ptncNo}" /> <span
+											id="ptncName" value="" readonly /> <input type="hidden"
+											name="ptncNo" id="ptncNo" value="" /> <span
 											class="input-group-btn">
 											<button class="btn btn-primary sch-partner"
 												data-remote="${path}/modal/popup.do?popId=ptnc"
@@ -182,7 +221,7 @@
 												<div class="modal-content modal-80size">
 													<div class="modal-header">
 														<h4 class="modal-title"></h4>
-														<button type="button" class="close" data-dismiss="modal"
+														<button type="button" class="close" onclick="$('#ptncModal').modal('hide');"
 															aria-label="Close">
 															<span aria-hidden="true">&times;</span>
 														</button>
@@ -194,7 +233,7 @@
 													<div class="modal-footer">
 														<button type="button"
 															class="btn btn-default waves-effect "
-															data-dismiss="modal">Close</button>
+															onclick="$('#ptncModal').modal('hide');">Close</button>
 													</div>
 												</div>
 											</div>
@@ -202,7 +241,7 @@
 									</div>
 								</td>
 							</tr>
- --%>							<tr>
+							<tr>
 								<%-- <th scope="row">일정구분</th>
 								<td><select name="schedType" id="schedType" class="form-control form-control-sm">
 									<option value="">기타일정</option>
@@ -265,6 +304,11 @@
 			var modal = $(this);
 			modal.find('.modal-body').load(button.data("remote"));
 		});
+		$('#contModal').on('show.bs.modal', function(e) {
+			var button = $(e.relatedTarget);
+			var modal = $(this);
+			modal.find('.modal-body').load(button.data("remote"));
+		});
 		function fnSetCustData(a, b) {
 			$("#custName").val(a);
 			$("#custNo").val(b);
@@ -289,6 +333,12 @@
 			$(".modal-backdrop").remove();
 			$("#ptncModal").modal("hide");
 		}
+		function fnSetContData(a, b) {
+			$("#contNo").val(b);
+			$("#contTitle").val(a);
+			$(".modal-backdrop").remove();
+			$("#contModal").modal("hide");
+		}
 		
 		function fn_UpdateSched() {
 			var schedData = {};
@@ -303,6 +353,7 @@
 			schedData.schedDesc 		= $("#schedDesc").val();
 			/* schedData.schedType 		= $("#schedType").val(); */
 			schedData.schedCat 		= $("#schedCat").val();
+			schedData.contNo		= $("#contNo").val();
 			
 			$.ajax({ url: "${path}/sched/update.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소 
 						data: schedData , // HTTP 요청과 함께 서버로 보낼 데이터 

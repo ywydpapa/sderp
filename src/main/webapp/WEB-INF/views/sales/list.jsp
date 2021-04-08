@@ -176,7 +176,7 @@ $(function(){
 							<div class="form-group row">
 								<div class="col-sm-12 col-xl-6">
 									<label class="col-form-label" for="co_name">활동일</label>
-									<p class="input_inline"><input class="form-control form-control-sm col-xl-6" type="date" id="salesFrdatetime" onInput="javascript:inputDate($('#salesFrdatetime').val(), $('#salesTodatetime').val())"> ~ <input class="form-control form-control-sm col-xl-6" type="date" id="salesTodatetime" onInput="javascript:inputDate($('#salesFrdatetime').val(), $('#salesTodatetime').val())">
+									<p class="input_inline"><input class="form-control form-control-sm col-xl-6" type="date" id="salesFrdatetime" onChange="javascript:inputDate($('#salesFrdatetime').val(), $('#salesTodatetime').val())"> ~ <input class="form-control form-control-sm col-xl-6" type="date" id="salesTodatetime" onChange="javascript:inputDate($('#salesFrdatetime').val(), $('#salesTodatetime').val())">
 									</p>
 								</div>
 							</div>

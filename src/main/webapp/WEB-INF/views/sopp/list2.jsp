@@ -135,7 +135,7 @@ $(function(){
 								<!--매출예정일-->
 								<div class="col-sm-12 col-xl-6">
 									<label class="col-form-label" for="targetDate">매출예정일</label>
-									<p class="input_inline mb-0"><input class="form-control form-control-sm col-xl-6" type="date" id="targetDatefrom" onInput="javascript:inputDate($('#targetDatefrom').val(), $('#targetDateto').val())"> ~ <input class="form-control form-control-sm col-xl-6" type="date" id="targetDateto" onInput="javascript:inputDate($('#targetDatefrom').val(), $('#targetDateto').val())">
+									<p class="input_inline mb-0"><input class="form-control form-control-sm col-xl-6" type="date" id="targetDatefrom" onChange="javascript:inputDate($('#targetDatefrom').val(), $('#targetDateto').val())"> ~ <input class="form-control form-control-sm col-xl-6" type="date" id="targetDateto" onChange="javascript:inputDate($('#targetDatefrom').val(), $('#targetDateto').val())">
 									</p>
 								</div>
 								<!--//매출예정일-->

@@ -238,9 +238,23 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  </insert>
 
  <update id="updateSched">
- update swc_sched set 
-	 soppNo=#{soppNo}
-	,custNo=#{custNo}
+ update swc_sched set
+ 	<choose>
+		<when test="soppNo == 0">
+			soppNo=NULL	
+		</when>
+		<otherwise>
+			soppNo=#{soppNo}
+		</otherwise>		
+	</choose>
+	<choose>
+		<when test="custNo == 0">
+			,custNo=NULL	
+		</when>
+		<otherwise>
+			,custNo=#{custNo}
+		</otherwise>		
+	</choose> 
 	,schedName=#{schedName}
 	,schedFrom=#{schedFrom}
 	,schedTo=#{schedTo}

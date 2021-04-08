@@ -205,6 +205,43 @@ $(function(){
 									</div>
 								</div>
 							</div>
+							<div class="col-sm-12 col-xl-3">
+								<label class="col-form-label" for="custmemberName">계약</label>
+								<div class="input-group input-group-sm mb-0">
+									<input type="text" class="form-control" name="contTitle"
+										id="contTitle" value="" readonly /> <input type="hidden"
+										name="contNo" id="contNo" value="" /> <span
+										class="input-group-btn">
+										<button class="btn btn-primary sch-company"
+											data-remote="${path}/modal/popup.do?popId=cont" type="button"
+											data-toggle="modal" data-target="#contModal">
+											<i class="icofont icofont-search"></i>
+										</button>
+									</span>
+									<div class="modal fade " id="contModal" tabindex="-1"
+										role="dialog">
+										<div class="modal-dialog modal-80size" role="document">
+											<div class="modal-content modal-80size">
+												<div class="modal-header">
+													<h4 class="modal-title"></h4>
+													<button type="button" class="close" data-dismiss="modal"
+														aria-label="Close">
+														<span aria-hidden="true">&times;</span>
+													</button>
+												</div>
+												<div class="modal-body">
+													<h5>계약목록</h5>
+													<p>Loading!!!</p>
+												</div>
+												<div class="modal-footer">
+													<button type="button" class="btn btn-default waves-effect "
+														data-dismiss="modal">Close</button>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
 						<div class="col-sm-12 col-xl-3">
 							<label class="col-form-label" for="co_name">활동형태</label> <select
 								name="select" class="form-control form-control-sm" id="schedCat">
@@ -217,9 +254,9 @@ $(function(){
 						<div class="col-sm-12 col-xl-6">
 							<label class="col-form-label" for="co_name">활동일</label>
 							<p class="input_inline">
-								<input class="form-control form-control-sm col-xl-6" type="date" id="schedFrom" onInput="javascript:inputDate($('#schedFrom').val(), $('#schedTo').val())">
+								<input class="form-control form-control-sm col-xl-6" type="date" id="schedFrom" onChange="javascript:inputDate($('#schedFrom').val(), $('#schedTo').val())">
 								~ <input class="form-control form-control-sm col-xl-6"
-									type="date" id="schedTo" onInput="javascript:inputDate($('#schedFrom').val(), $('#schedTo').val())">
+									type="date" id="schedTo" onChange="javascript:inputDate($('#schedFrom').val(), $('#schedTo').val())">
 							</p>
 						</div>
 					</div>
@@ -299,6 +336,11 @@ $(function(){
 			var modal = $(this);
 			modal.find('.modal-body').load(button.data("remote"));
 		});
+		$('#contModal').on('show.bs.modal', function(e) {
+			var button = $(e.relatedTarget);
+			var modal = $(this);
+			modal.find('.modal-body').load(button.data("remote"));
+		});
 
 	 	function fnSetCustData(a, b) {
 			$("#custNo").val(b);
@@ -324,6 +366,12 @@ $(function(){
     		$(".modal-backdrop").remove();
     		$("#custmemberModal").modal("hide");
     	}
+    	function fnSetContData(a, b) {
+			$("#contNo").val(b);
+			$("#contTitle").val(a);
+			$(".modal-backdrop").remove();
+			$("#contModal").modal("hide");
+		}
     	
     	
     	function fnListcon() {
@@ -332,6 +380,7 @@ $(function(){
     		schedData.soppNo = $("#soppNo").val() ? $("#soppNo").val() : 0;
     		schedData.custNo = $("#custNo").val() ? $("#custNo").val() : 0;
     		schedData.custmemberNo = $("#custmemberNo").val() ? $("#custmemberNo").val() : 0;
+    		schedData.contNo = $("#contNo").val() ? $("#contNo").val() : 0;
     		schedData.schedCat = $("#schedCat").val() ? $("#schedCat").val() : null;
     		schedData.schedFrom = $("#schedFrom").val() ? $("#schedFrom").val() : null;
     		schedData.schedTo = $("#schedTo").val() ? $("#schedTo").val() : null;

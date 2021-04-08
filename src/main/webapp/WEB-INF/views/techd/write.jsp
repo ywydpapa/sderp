@@ -223,7 +223,7 @@ $('input[name=radio]').on('click', function() {
 											<div class="modal-content modal-80size">
 												<div class="modal-header">
 													<h4 class="modal-title"></h4>
-													<button type="button" class="close" data-dismiss="modal"
+													<button type="button" class="close" onclick="$('#soppModal').modal('hide');"
 														aria-label="Close">
 														<span aria-hidden="true">&times;</span>
 													</button>
@@ -235,7 +235,7 @@ $('input[name=radio]').on('click', function() {
 												<div class="modal-footer">
 													<button type="button"
 														class="btn btn-default waves-effect "
-														data-dismiss="modal">Close</button>
+														onclick="$('#soppModal').modal('hide');">Close</button>
 												</div>
 											</div>
 										</div>
@@ -261,7 +261,7 @@ $('input[name=radio]').on('click', function() {
 											<div class="modal-content modal-80size">
 												<div class="modal-header">
 													<h4 class="modal-title"></h4>
-													<button type="button" class="close" data-dismiss="modal"
+													<button type="button" class="close" onclick="$('#contModal').modal('hide');"
 														aria-label="Close">
 														<span aria-hidden="true">&times;</span>
 													</button>
@@ -273,7 +273,7 @@ $('input[name=radio]').on('click', function() {
 												<div class="modal-footer">
 													<button type="button"
 														class="btn btn-default waves-effect "
-														data-dismiss="modal">Close</button>
+														onclick="$('#contModal').modal('hide');">Close</button>
 												</div>
 											</div>
 										</div>
@@ -284,15 +284,15 @@ $('input[name=radio]').on('click', function() {
 							<tr>
 								<th scope="row">지원일자</th>
 								<td colspan="3">
-									<div class="col-sm-9 f-left m-b-0 p-l-0">
-										<div class="input-group input-group-sm mb-0">
-											<input class="form-control form-control-sm col-sm-6 m-r-10" type="datetime-local" id="techdFrom" name="techdFrom">
-											<select id="startTime" style="width:100px"></select> 
+									<!-- <div class="col-sm-9 f-left m-b-0 p-l-0"> -->
+										<div class="input-group input-group-sm mb-0 mr-1">
+											<input class="form-control form-control-sm col-md-4 m-r-10" type="date" id="techdFrom" name="techdFrom" onChange="javascript:inputDate(setDateHourMinute($('#techdFrom').val(), $('#startTime').val()), setDateHourMinute($('#techdTo').val(), $('#endTime').val()))">
+											<select id="startTime" style="width:100px" onChange="javascript:inputDate(setDateHourMinute($('#techdFrom').val(), $('#startTime').val()), setDateHourMinute($('#techdTo').val(), $('#endTime').val()))"></select> 
 											<span> ~ </span>
-											<input class="form-control form-control-sm col-sm-6 m-r-10" type="datetime-local" id="techdTo" name="techdTo"> 
-											<select id="endTime" style="width:100px"></select> 
+											<input class="form-control form-control-sm col-md-4 m-r-10" type="date" id="techdTo" name="techdTo" onChange="javascript:inputDate(setDateHourMinute($('#techdFrom').val(), $('#startTime').val()), setDateHourMinute($('#techdTo').val(), $('#endTime').val()))"> 
+											<select id="endTime" style="width:100px" onChange="javascript:inputDate(setDateHourMinute($('#techdFrom').val(), $('#startTime').val()), setDateHourMinute($('#techdTo').val(), $('#endTime').val()))"></select> 
 										</div>
-									</div>
+									<!-- </div> -->
 								</td>
 							</tr>
 							<tr>
@@ -456,9 +456,7 @@ function fn_sprtInsert() {
 			});
 }
 
-$(document).ready(function(){
-	setTimeComboBox(['#startTime', '#endTime']);
-});
+setTimeComboBox(['#startTime', '#endTime']);
 
 
 </script>

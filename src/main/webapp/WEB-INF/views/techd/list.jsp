@@ -182,7 +182,7 @@ $(function(){
 							<div class="form-group row">
 								<div class="col-sm-12 col-xl-6">
 									<label class="col-form-label" for="co_name">등록일</label>
-									<p class="input_inline"><input class="form-control form-control-sm col-xl-6" type="date" id="targetDatefrom" onInput="javascript:inputDate($('#targetDatefrom').val(), $('#targetDateto').val())"> ~ <input class="form-control form-control-sm col-xl-6" type="date" id="targetDateto" onInput="javascript:inputDate($('#targetDatefrom').val(), $('#targetDateto').val())">
+									<p class="input_inline"><input class="form-control form-control-sm col-xl-6" type="date" id="targetDatefrom" onChange="javascript:inputDate($('#targetDatefrom').val(), $('#targetDateto').val())"> ~ <input class="form-control form-control-sm col-xl-6" type="date" id="targetDateto" onChange="javascript:inputDate($('#targetDatefrom').val(), $('#targetDateto').val())">
 									</p>
 								</div>
 								<div class="col-sm-12 col-xl-6">

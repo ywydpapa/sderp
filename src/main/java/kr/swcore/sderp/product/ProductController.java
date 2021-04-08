@@ -1,14 +1,18 @@
 package kr.swcore.sderp.product;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import kr.swcore.sderp.product.dto.ProductdataDTO;
+import kr.swcore.sderp.product.service.ProductdataService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -24,6 +28,9 @@ public class ProductController {
 	
 	@Inject
 	ProductService productService;
+
+	@Inject
+	ProductdataService productdataService;
 	
 	@RequestMapping("list.do")
 	public ModelAndView list(HttpSession session, ModelAndView mav) {
@@ -40,6 +47,20 @@ public class ProductController {
 		jsonObject.addProperty("data", new Gson().toJson(productDTOList));
 		String json = new Gson().toJson(jsonObject);
 		return json;
+	}
+
+	@RequestMapping(value = "listAjax/detail", method = RequestMethod.POST, produces="application/json;charset=UTF-8")
+	@ResponseBody
+	public String listAjaxDetail(HttpSession session, @RequestBody String param) throws JsonProcessingException {
+		HashMap<String, Object> rtn = new HashMap<String, Object>();
+		List<ProductdataDTO> productdataDTOList = productdataService.listAjaxDetail(session, param);
+		JsonObject jsonObject = new JsonObject();
+		if (productdataDTOList != null && productdataDTOList.size() == 0){
+			jsonObject.addProperty("data", "");
+		} else{
+			jsonObject.addProperty("data", new Gson().toJson(productdataDTOList));
+		}
+		return new Gson().toJson(jsonObject);
 	}
 	
 	@RequestMapping("/detail/{productNo}")

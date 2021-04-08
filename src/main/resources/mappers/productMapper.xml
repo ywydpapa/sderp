@@ -20,7 +20,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 </select>
 
 <select id="listProduct" resultType="productDto">
- 	select * from swc_product where compNo = #{compNo} and attrib not like 'XXX%' order by productNo
+ 	select sp.*, sc.custName
+ 	from swc_product sp
+ 	left join swc_cust sc on sp.custNo = sc.custNo
+ 	where sp.compNo = #{compNo} and sp.attrib not like 'XXX%' order by sp.productNo
 </select>
 
 <select id="listProductGoodsCategory" resultType="productDto">

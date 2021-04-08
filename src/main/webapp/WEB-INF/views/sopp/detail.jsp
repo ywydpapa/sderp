@@ -287,6 +287,8 @@
 									</div>
 								</div>
 								<div class="btn_wr text-right mt-3">
+									<button class="btn btn-md btn-success f-left"
+											onClick="javascript:fnSetPage('${path}/sopp/list.do')">목록</button>
 									<button class="btn btn-md btn-primary"
 										onClick="fn_soppUpdate()">수정</button>
 									<button class="btn btn-md btn-inverse">취소</button>
@@ -330,6 +332,7 @@
 											</select></td>
 											<td>
 												<div class="input-group input-group-sm mb-0">
+													<input type="hidden" id="data01Seleted" value=""/>
 													<input type="text" class="form-control" name="product" id="data01Title" value="" />
 													<span class="input-group-btn">
 														<button class="btn btn-primary sch-company" onclick="fn_productdataTableReload()" <%--data-remote="${path}/modal/popup.do?popId=productdata"--%> type="button" data-toggle="modal" data-target="#productdataModal"><i class="icofont icofont-search"></i></button>
@@ -340,7 +343,7 @@
 													<div class="modal-dialog modal-80size" role="document">
 														<div class="modal-content modal-80size">
 															<div class="modal-header">
-																<h4 class="modal-title"></h4>
+																<h4 class="modal-title">상품목록</h4>
 																<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 																	<span aria-hidden="true">&times;</span>
 																</button>
@@ -407,12 +410,14 @@
 										<td style="text-align:right"><fmt:formatNumber value="${row.dataAmt}" pattern="#,###"/></td>
 										<td>${row.dataRemark}</td>
 										<td><button id="inoutDelbtn" onClick="javascript:fn_data01delete(${row.soppdataNo})">삭제</button></td>
-										<!-- <td class="text-center"></td> -->
 									</tr>
 									</c:forEach>
 								</tbody>
 							</table>
-
+							<div class="btn_wr text-right mt-3">
+								<button class="btn btn-md btn-success f-left"
+										onClick="javascript:fnSetPage('${path}/sopp/list.do')">목록</button>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -700,14 +705,13 @@
 						</div>
 					</div>
 				</div>
-
 			</div>
 		</div>
 	</div>
 	<!-- Row end -->
 </div>
 <!--영업기회등록-->
-	<script>
+<script>
 	
 	function fn_Reloaddata01(url, data){
 			$("#inoutlist").empty();
@@ -716,7 +720,7 @@
 				}, 500);
 		});
 	}
-	
+
 	function fn_Reloaddata02(url, data){
 			$("#qutylist").empty();
 			$("#qutylist").load(url, data, function(){
@@ -724,223 +728,235 @@
 				}, 500);
 		});
 	}
-	
-		$('#custModal').on('show.bs.modal', function(e) {
-			var button = $(e.relatedTarget);
-			var modal = $(this);
-			modal.find('.modal-body').load(button.data("remote"));
-		});
-		$('#userModal').on('show.bs.modal', function(e) {
-			var button = $(e.relatedTarget);
-			var modal = $(this);
-			modal.find('.modal-body').load(button.data("remote"));
-		});
-		$('#buyrModal').on('show.bs.modal', function(e) {
-			var button = $(e.relatedTarget);
-			var modal = $(this);
-			modal.find('.modal-body').load(button.data("remote"));
-		});
-		$('#ptncModal').on('show.bs.modal', function(e) {
-			var button = $(e.relatedTarget);
-			var modal = $(this);
-			modal.find('.modal-body').load(button.data("remote"));
-		});
-		$('#productdataModal').on('show.bs.modal', function(e){
-			var button = $(e.relatedTarget);
-			var modal = $(this);
-			modal.find('.modal-body').load(button.data("remote"));
-		});
-		$('#soppStatus').val('${dto.soppStatus}').prop("selected",true);
-		$('#soppType').val('${dto.soppType}').prop("selected",true);
-		$('#soppSource').val('${dto.soppSource}').prop("selected",true);
-		
-		
-		function fnSetCustData(a, b) {
-			$("#custNo").val(b);
-			$("#custName").val(a);
-			$(".modal-backdrop").remove();
-			$("#custModal").modal("hide");
+
+	$('#custModal').on('show.bs.modal', function(e) {
+		var button = $(e.relatedTarget);
+		var modal = $(this);
+		modal.find('.modal-body').load(button.data("remote"));
+	});
+	$('#userModal').on('show.bs.modal', function(e) {
+		var button = $(e.relatedTarget);
+		var modal = $(this);
+		modal.find('.modal-body').load(button.data("remote"));
+	});
+	$('#buyrModal').on('show.bs.modal', function(e) {
+		var button = $(e.relatedTarget);
+		var modal = $(this);
+		modal.find('.modal-body').load(button.data("remote"));
+	});
+	$('#ptncModal').on('show.bs.modal', function(e) {
+		var button = $(e.relatedTarget);
+		var modal = $(this);
+		modal.find('.modal-body').load(button.data("remote"));
+	});
+	$('#productdataModal').on('show.bs.modal', function(e){
+		var button = $(e.relatedTarget);
+		var modal = $(this);
+		modal.find('.modal-body').load(button.data("remote"));
+	});
+	$('#soppStatus').val('${dto.soppStatus}').prop("selected",true);
+	$('#soppType').val('${dto.soppType}').prop("selected",true);
+	$('#soppSource').val('${dto.soppSource}').prop("selected",true);
+
+	// 기존상품외 임의로 기입
+	$("#data01Title").on("change",function () {
+		$("#data01Seleted").val("");
+	});
+
+	function fnSetCustData(a, b) {
+		$("#custNo").val(b);
+		$("#custName").val(a);
+		$(".modal-backdrop").remove();
+		$("#custModal").modal("hide");
+	}
+	function fnSetUserData(a, b) {
+		$("#userName").val(b);
+		$("#userNo").val(a);
+		$(".modal-backdrop").remove();
+		$("#userModal").modal("hide");
+	}
+	function fnSetBuyrData(a, b) {
+		$("#buyrNo").val(b);
+		$("#buyrName").val(a);
+		$(".modal-backdrop").remove();
+		$("#buyrModal").modal("hide");
+	}
+	function fnSetPtncData(a, b) {
+		$("#ptncNo").val(b);
+		$("#ptncName").val(a);
+		$(".modal-backdrop").remove();
+		$("#ptncModal").modal("hide");
+	}
+	function fnSetproductdata(a,b){
+		$("#data01Seleted").val(a);
+		$("#data01Title").val(b);
+		//$(".modal-backdrop").remove();
+		//$("#productdataModal").modal("hide");
+		// 모달이 정상적으로 제거되지않아 close 버튼 트리거로 구성함
+		$("#productdataModal").find(".modal-footer button").trigger('click');
+	}
+
+	function fn_soppUpdate() {
+		var soppData = {};
+		soppData.soppNo 		= $("#soppNo").val();
+		soppData.soppTitle 		= $("#soppTitle").val();
+		soppData.userNo 		= $("#userNo").val();
+		soppData.custNo 		= $("#custNo").val();
+		soppData.ptncNo 		= $("#ptncNo").val();
+		soppData.soppStatus 	= $("#soppStatus").val();
+		soppData.soppSrate 	    = !$("#soppSrate").val()?0:$("#soppSrate").val();
+		soppData.soppSource 	= $("#soppSource").val();
+		soppData.soppTargetDate	= $("#soppTargetDate").val();
+		soppData.soppType 		= $("#soppType").val();
+		var tamt = $("#soppTargetAmt").val();
+		tamt = (tamt.replace(/,/g,""));
+		soppData.soppTargetAmt 		= tamt;
+		soppData.soppDesc 		= $("#soppDesc").val();
+		console.log(soppData);
+		$.ajax({ url: "${path}/sopp/update.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
+					data: soppData , // HTTP 요청과 함께 서버로 보낼 데이터
+					method: "POST", // HTTP 요청 메소드(GET, POST 등)
+					dataType: "json" // 서버에서 보내줄 데이터의 타입
+				}) // HTTP 요청이 성공하면 요청한 데이터가 done() 메소드로 전달됨. .
+				.done(function(data) {
+					if(data.code == 10001){
+						alert("저장 성공");
+
+					}else{
+						alert("저장 실패");
+					}
+				}) // HTTP 요청이 실패하면 오류와 상태에 관한 정보가 fail() 메소드로 전달됨.
+				.fail(function(xhr, status, errorThrown) {
+					alert("통신 실패");
+				});
 		}
-    	function fnSetUserData(a, b) {
-			$("#userName").val(b);
-			$("#userNo").val(a);
-			$(".modal-backdrop").remove();
-			$("#userModal").modal("hide");
+
+	function fn_data01Insert() {
+		var data01Data = {};
+		data01Data.soppNo 		= $("#soppNo").val();
+		data01Data.catNo	 	= '100001';
+		data01Data.dataTitle 	= $("#data01Title").val();
+		data01Data.dataType		= $("#data01Type").val();
+		data01Data.dataNetprice	= $("#data01Netprice").val();
+		data01Data.dataQuanty	= $("#data01Quanty").val();
+		data01Data.dataAmt 		= $("#data01Amt").val();
+		data01Data.dataRemark 	= $("#data01Remark").val();
+		console.log(data01Data);
+		$.ajax({ url: "${path}/sopp/insertdata01.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
+					data: data01Data , // HTTP 요청과 함께 서버로 보낼 데이터
+					method: "POST", // HTTP 요청 메소드(GET, POST 등)
+					dataType: "json" // 서버에서 보내줄 데이터의 타입
+				}) // HTTP 요청이 성공하면 요청한 데이터가 done() 메소드로 전달됨. .
+				.done(function(data) {
+					if(data.code == 10001){
+						alert("저장 성공");
+						var url="${path}/sopp/inoutlist/"+$("#soppNo").val();
+						fn_Reloaddata01(url);
+					}else{
+						alert("저장 실패");
+					}
+				}) // HTTP 요청이 실패하면 오류와 상태에 관한 정보가 fail() 메소드로 전달됨.
+				.fail(function(xhr, status, errorThrown) {
+					alert("통신 실패");
+				});
 		}
-    	function fnSetBuyrData(a, b) {
-			$("#buyrNo").val(b);
-			$("#buyrName").val(a);
-			$(".modal-backdrop").remove();
-			$("#buyrModal").modal("hide");
+
+	function fn_data02Insert() {
+		var data02Data = {};
+		data02Data.soppNo 		= $("#soppNo").val();
+		data02Data.catNo	 	= '100004';
+		data02Data.dataTitle 	= $("#data02Title").val();
+		data02Data.dataType		= $("#data02Type").val();
+		data02Data.dataNetprice	= $("#data02Netprice").val();
+		data02Data.dataQuanty	= $("#data02Qty").val();
+		data02Data.dataAmt 		= $("#data02Amt").val();
+		data02Data.dataRemark 	= $("#data02Remark").val();
+		console.log(data02Data);
+		$.ajax({ url: "${path}/sopp/insertdata02.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
+					data: data02Data , // HTTP 요청과 함께 서버로 보낼 데이터
+					method: "POST", // HTTP 요청 메소드(GET, POST 등)
+					dataType: "json" // 서버에서 보내줄 데이터의 타입
+				}) // HTTP 요청이 성공하면 요청한 데이터가 done() 메소드로 전달됨. .
+				.done(function(data) {
+					if(data.code == 10001){
+						alert("저장 성공");
+						var url="${path}/sopp/qutylist/"+$("#soppNo").val();
+						fn_Reloaddata02(url);
+					}else{
+						alert("저장 실패");
+					}
+				}) // HTTP 요청이 실패하면 오류와 상태에 관한 정보가 fail() 메소드로 전달됨.
+				.fail(function(xhr, status, errorThrown) {
+					alert("통신 실패");
+				});
 		}
-    	function fnSetPtncData(a, b) {
-			$("#ptncNo").val(b);
-			$("#ptncName").val(a);
-			$(".modal-backdrop").remove();
-			$("#ptncModal").modal("hide");
+
+
+
+
+	function fn_data01delete(soppdataNo) {
+		var msg = "선택한 건을 삭제하시겠습니까?";
+			if( confirm(msg) ){
+		$.ajax({ url: "${path}/sopp/deletedata01.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
+					data: {soppdataNo : soppdataNo}, // HTTP 요청과 함께 서버로 보낼 데이터
+					method: "POST", // HTTP 요청 메소드(GET, POST 등)
+				}) // HTTP 요청이 성공하면 요청한 데이터가 done() 메소드로 전달됨. .
+				.done(function(data) {
+					if(data.code == 10001){
+						alert("삭제 성공");
+						var url="${path}/sopp/inoutlist/"+$("#soppNo").val();
+						fn_Reloaddata01(url);
+					}else{
+						alert("삭제 실패");
+					}
+				}) // HTTP 요청이 실패하면 오류와 상태에 관한 정보가 fail() 메소드로 전달됨.
+				.fail(function(xhr, status, errorThrown) {
+					alert("통신 실패");
+				});
 		}
-    	
-function fn_soppUpdate() {
-	var soppData = {};
-	soppData.soppNo 		= $("#soppNo").val();
-	soppData.soppTitle 		= $("#soppTitle").val();
- 	soppData.userNo 		= $("#userNo").val();
-	soppData.custNo 		= $("#custNo").val();
-	soppData.ptncNo 		= $("#ptncNo").val();
-	soppData.soppStatus 	= $("#soppStatus").val();
-	soppData.soppSrate 	    = !$("#soppSrate").val()?0:$("#soppSrate").val();
-	soppData.soppSource 	= $("#soppSource").val();
-	soppData.soppTargetDate	= $("#soppTargetDate").val();
-	soppData.soppType 		= $("#soppType").val();
-	var tamt = $("#soppTargetAmt").val();
-	tamt = (tamt.replace(/,/g,""));
-	soppData.soppTargetAmt 		= tamt;
-	soppData.soppDesc 		= $("#soppDesc").val();
-	console.log(soppData);
-	$.ajax({ url: "${path}/sopp/update.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소 
-				data: soppData , // HTTP 요청과 함께 서버로 보낼 데이터 
-				method: "POST", // HTTP 요청 메소드(GET, POST 등) 
-				dataType: "json" // 서버에서 보내줄 데이터의 타입 
-			}) // HTTP 요청이 성공하면 요청한 데이터가 done() 메소드로 전달됨. .
-			.done(function(data) {
-				if(data.code == 10001){
-					alert("저장 성공");
-									
-				}else{
-					alert("저장 실패");
-				}
-			}) // HTTP 요청이 실패하면 오류와 상태에 관한 정보가 fail() 메소드로 전달됨. 
-			.fail(function(xhr, status, errorThrown) { 
-				alert("통신 실패");
-			});
 	}
 
-function fn_data01Insert() {
-	var data01Data = {};
-	data01Data.soppNo 		= $("#soppNo").val();
-	data01Data.catNo	 	= '100001';
-	data01Data.dataTitle 	= $("#data01Title").val();
-	data01Data.dataType		= $("#data01Type").val();
-	data01Data.dataNetprice	= $("#data01Netprice").val();
-	data01Data.dataQuanty	= $("#data01Quanty").val();
-	data01Data.dataAmt 		= $("#data01Amt").val();
-	data01Data.dataRemark 	= $("#data01Remark").val();
-	console.log(data01Data);
-	$.ajax({ url: "${path}/sopp/insertdata01.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소 
-				data: data01Data , // HTTP 요청과 함께 서버로 보낼 데이터 
-				method: "POST", // HTTP 요청 메소드(GET, POST 등) 
-				dataType: "json" // 서버에서 보내줄 데이터의 타입 
-			}) // HTTP 요청이 성공하면 요청한 데이터가 done() 메소드로 전달됨. .
-			.done(function(data) {
-				if(data.code == 10001){
-					alert("저장 성공");
-					var url="${path}/sopp/inoutlist/"+$("#soppNo").val();
-					fn_Reloaddata01(url);			
-				}else{
-					alert("저장 실패");
-				}
-			}) // HTTP 요청이 실패하면 오류와 상태에 관한 정보가 fail() 메소드로 전달됨. 
-			.fail(function(xhr, status, errorThrown) { 
-				alert("통신 실패");
-			});
+	function fn_data02delete(soppdataNo) {
+		var msg = "선택한 건을 삭제하시겠습니까?";
+			if( confirm(msg) ){
+		$.ajax({ url: "${path}/sopp/deletedata02.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
+					data: {soppdataNo : soppdataNo}, // HTTP 요청과 함께 서버로 보낼 데이터
+					method: "POST", // HTTP 요청 메소드(GET, POST 등)
+				}) // HTTP 요청이 성공하면 요청한 데이터가 done() 메소드로 전달됨. .
+				.done(function(data) {
+					if(data.code == 10001){
+						alert("삭제 성공");
+						var url="${path}/sopp/qutylist/"+$("#soppNo").val();
+						console.log(url);
+						fn_Reloaddata02(url);
+					}else{
+						alert("삭제 실패");
+					}
+				}) // HTTP 요청이 실패하면 오류와 상태에 관한 정보가 fail() 메소드로 전달됨.
+				.fail(function(xhr, status, errorThrown) {
+					alert("통신 실패");
+				});
+		}
 	}
 
-function fn_data02Insert() {
-	var data02Data = {};
-	data02Data.soppNo 		= $("#soppNo").val();
-	data02Data.catNo	 	= '100004';
-	data02Data.dataTitle 	= $("#data02Title").val();
-	data02Data.dataType		= $("#data02Type").val();
-	data02Data.dataNetprice	= $("#data02Netprice").val();
-	data02Data.dataQuanty	= $("#data02Qty").val();
-	data02Data.dataAmt 		= $("#data02Amt").val();
-	data02Data.dataRemark 	= $("#data02Remark").val();
-	console.log(data02Data);
-	$.ajax({ url: "${path}/sopp/insertdata02.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소 
-				data: data02Data , // HTTP 요청과 함께 서버로 보낼 데이터 
-				method: "POST", // HTTP 요청 메소드(GET, POST 등) 
-				dataType: "json" // 서버에서 보내줄 데이터의 타입 
-			}) // HTTP 요청이 성공하면 요청한 데이터가 done() 메소드로 전달됨. .
-			.done(function(data) {
-				if(data.code == 10001){
-					alert("저장 성공");
-					var url="${path}/sopp/qutylist/"+$("#soppNo").val();
-					fn_Reloaddata02(url);			
-				}else{
-					alert("저장 실패");
-				}
-			}) // HTTP 요청이 실패하면 오류와 상태에 관한 정보가 fail() 메소드로 전달됨. 
-			.fail(function(xhr, status, errorThrown) { 
-				alert("통신 실패");
-			});
-	}
+	$(function(){
+		 $('#data01Netprice,#data01Quanty').on('keyup',function(){
 
+				   var sum1 = parseInt($("#data01Netprice").val() || 0 );
+				   var sum2 = parseInt($("#data01Quanty").val() || 0);
 
+				   var sum = sum1 * sum2;
+				   $("#data01Amt").val(sum);
+				 });
+		 $('#data02Netprice,#data02Qty').on('keyup',function(){
 
+			 var sum1 = parseInt($("#data02Netprice").val() || 0 );
+			 var sum2 = parseInt($("#data02Qty").val() || 0);
 
-function fn_data01delete(soppdataNo) {
-	var msg = "선택한 건을 삭제하시겠습니까?";
-		if( confirm(msg) ){
-	$.ajax({ url: "${path}/sopp/deletedata01.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소 
-				data: {soppdataNo : soppdataNo}, // HTTP 요청과 함께 서버로 보낼 데이터 
-				method: "POST", // HTTP 요청 메소드(GET, POST 등) 
-			}) // HTTP 요청이 성공하면 요청한 데이터가 done() 메소드로 전달됨. .
-			.done(function(data) {
-				if(data.code == 10001){
-					alert("삭제 성공");
-					var url="${path}/sopp/inoutlist/"+$("#soppNo").val();
-					fn_Reloaddata01(url);
-				}else{
-					alert("삭제 실패");
-				}
-			}) // HTTP 요청이 실패하면 오류와 상태에 관한 정보가 fail() 메소드로 전달됨. 
-			.fail(function(xhr, status, errorThrown) { 
-				alert("통신 실패");
-			});
-	}
-}
-
-function fn_data02delete(soppdataNo) {
-	var msg = "선택한 건을 삭제하시겠습니까?";
-		if( confirm(msg) ){
-	$.ajax({ url: "${path}/sopp/deletedata02.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소 
-				data: {soppdataNo : soppdataNo}, // HTTP 요청과 함께 서버로 보낼 데이터 
-				method: "POST", // HTTP 요청 메소드(GET, POST 등) 
-			}) // HTTP 요청이 성공하면 요청한 데이터가 done() 메소드로 전달됨. .
-			.done(function(data) {
-				if(data.code == 10001){
-					alert("삭제 성공");
-					var url="${path}/sopp/qutylist/"+$("#soppNo").val();
-					console.log(url);
-					fn_Reloaddata02(url);
-				}else{
-					alert("삭제 실패");
-				}
-			}) // HTTP 요청이 실패하면 오류와 상태에 관한 정보가 fail() 메소드로 전달됨. 
-			.fail(function(xhr, status, errorThrown) { 
-				alert("통신 실패");
-			});
-	}
-}
-
-$(function(){
-	 $('#data01Netprice,#data01Quanty').on('keyup',function(){
-	           
-	           var sum1 = parseInt($("#data01Netprice").val() || 0 );          
-	           var sum2 = parseInt($("#data01Quanty").val() || 0);
-
-	           var sum = sum1 * sum2;
-	           $("#data01Amt").val(sum);
-	         });
-	 $('#data02Netprice,#data02Qty').on('keyup',function(){
-         
-         var sum1 = parseInt($("#data02Netprice").val() || 0 );          
-         var sum2 = parseInt($("#data02Qty").val() || 0);
-
-         var sum = sum1 * sum2;
-         $("#data02Amt").val(sum);
-       });
-	 });
+			 var sum = sum1 * sum2;
+			 $("#data02Amt").val(sum);
+		   });
+	});
 
 	function uploadFile() {
 		var uploadForm = $('#uploadForm')[0];

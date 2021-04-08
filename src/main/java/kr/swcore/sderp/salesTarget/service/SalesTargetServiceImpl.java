@@ -300,7 +300,6 @@ public class SalesTargetServiceImpl implements SalesTargetService {
 	}
 	
 	// 연간 계획대비 실적
-	// Q. 단위는 사업장마다 다른데 동적인 단위가 필요한가? 아니면 기준 리스트[ex) 1억원, 100만원, 1만원] 중에 선택하게 두는가?
 	@Override
 	public Map<String, Object> listSalesTargetYearTotalSalesIndividual(HttpSession session, SalesTargetDTO salesTargetDTO) {
 		Map<String, Object> returnMap = new HashMap<>();
@@ -366,6 +365,25 @@ public class SalesTargetServiceImpl implements SalesTargetService {
 		returnMap.put("targetYear", salesTargetDTO.getTargetYear());
 		returnMap.put("targetMonth", salesTargetDTO.getTargetMonth());
 		returnMap = searchingAfterDataReturnWithSalesTarget(returnMap, "listSalesTargetMonthIndividual", salesTargetDTO);
+
+		SalesTargetDTO temp = (SalesTargetDTO) returnMap.get("data");
+		int compareResult = temp.getSalesTarget().compareTo(temp.getProfitTarget());
+		/*
+		a : salesTarget
+		b : profitTarget
+		compareResult < 0 : a가 b보다 작다.
+		compareResult == 0 : a와 b가 같다.
+		compareResult > 0 : a가 b보다 크다.
+		 */
+		if(compareResult >= 0){
+			BigDecimal overVal = temp.getSalesTarget().subtract(temp.getProfitTarget());
+			temp.setOverTarget(overVal);
+		} else if(compareResult < 0){
+			BigDecimal overVal = temp.getSalesTarget().subtract(temp.getProfitTarget());
+			temp.setOverTarget(overVal);
+		}
+		returnMap.put("data", temp);
+
 		return returnMap;
 	}
 	
@@ -378,6 +396,24 @@ public class SalesTargetServiceImpl implements SalesTargetService {
 		returnMap.put("targetYear", salesTargetDTO.getTargetYear());
 		returnMap.put("targetMonth", salesTargetDTO.getTargetMonth());		
 		returnMap = searchingAfterDataReturnWithSalesTarget(returnMap, "listSalesTargetYearIndividual", salesTargetDTO);
+
+		SalesTargetDTO temp = (SalesTargetDTO) returnMap.get("data");
+		int compareResult = temp.getSalesTarget().compareTo(temp.getProfitTarget());
+		/*
+		a : salesTarget
+		b : profitTarget
+		compareResult < 0 : a가 b보다 작다.
+		compareResult == 0 : a와 b가 같다.
+		compareResult > 0 : a가 b보다 크다.
+		 */
+		if(compareResult >= 0){
+			BigDecimal overVal = temp.getSalesTarget().subtract(temp.getProfitTarget());
+			temp.setOverTarget(overVal);
+		} else {
+			BigDecimal overVal = temp.getSalesTarget().subtract(temp.getProfitTarget());
+			temp.setOverTarget(overVal);
+		}
+		returnMap.put("data", temp);
 		return returnMap;
 	}
 

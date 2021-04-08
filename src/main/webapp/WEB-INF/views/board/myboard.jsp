@@ -78,6 +78,26 @@
 			<div class="card-block">
 				<div id="myChart02" style="width:400px; height:362px;"></div>
 			</div>
+			<div class="chart2">
+				<div class="mbo-title ky-box ky-box-default">
+					<%--<div class="col-sm-2"><div class="icon"><i class="fa fa-tags fa-5x" aria-hidden="true"></i></div></div>--%>
+					<div class="col-sm-12">
+						<div class="ky-box-content text-right">
+							<small>목표</small>
+							<span id="chart2_month_profitTarget">₩0</span>
+						</div>
+						<div class="ky-box-content text-right">
+							<small>매출</small>
+							<span id="chart2_month_salesTarget">₩0</span>
+						</div>
+						<div class="ky-box-content text-right">
+							<small>달성률</small>
+							<span class="text-danger" id="chart2_month_percent">0%</span>
+						</div>
+						<div class="ky-box-content text-right" style="border-top:1px solid #8C8C8C" id="0_month_text"><span class="" id="chart2_month_overTarget">+₩0</span></div>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 	<div class="col-md-12 col-lg-2">
@@ -106,6 +126,26 @@
 			</div>
 			<div class="card-block">
 				<div id="myChart03" style="width:400px; height:362px;"></div>
+			</div>
+			<div class="chart3">
+				<div class="mbo-title ky-box ky-box-default">
+					<%--<div class="col-sm-2"><div class="icon"><i class="fa fa-tags fa-5x" aria-hidden="true"></i></div></div>--%>
+					<div class="col-sm-12">
+						<div class="ky-box-content text-right">
+							<small>목표</small>
+							<span id="chart3_month_profitTarget">₩0</span>
+						</div>
+						<div class="ky-box-content text-right">
+							<small>매출</small>
+							<span id="chart3_month_salesTarget">₩0</span>
+						</div>
+						<div class="ky-box-content text-right">
+							<small>달성률</small>
+							<span class="text-danger" id="chart3_month_percent">0%</span>
+						</div>
+						<div class="ky-box-content text-right" style="border-top:1px solid #8C8C8C" id="0_year_text"><span class="" id="chart3_month_overTarget">+₩0</span></div>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -238,6 +278,28 @@
 		</div>
 	</div>
 </div>
+<style>
+	.chart2{
+		padding-bottom: 21px;
+		margin-left: 6px;
+		margin-top: -148px;
+		width: 95%;
+	}
+	.ky-box-default {
+		background-color: #ebebeb;
+		color: #5e5e5e;
+	}
+	.ky-box {
+		border-radius: 5px;
+	}
+	.ky-box-content > span{
+		font-size: 20px !important;
+		font: bold;
+	}
+	.mbo-title {
+		padding: 1px 0px 5px 0px;
+	}
+</style>
 <script>
 
 function chartReady(){
@@ -378,6 +440,10 @@ function chartReady(){
     // 2번째 그래프 ===================================================
 	var myChartGauge2 = echarts.init(document.getElementById('myChart02'));
 	var option2 = {
+		  emphasis : {
+		  	  scale : true,
+			  scaleSize : 3
+		  },
           tooltip : {
               formatter: "{b} : {c}%"
           },
@@ -572,8 +638,75 @@ function chartReady(){
 			filter : false,
 			lengthChange : false
 		});
-		
+
 		chartReady();
+
+		// 그래프2 관련 아래 테이블 정보
+		var chart2_month_profitTarget = ${graph2.data.profitTarget} != '' ? ${graph2.data.profitTarget} : 0;
+		if(chart2_month_profitTarget != 0){
+			chart2_month_profitTarget = '₩'+chart2_month_profitTarget.toLocaleString("en-US");
+		}
+		var chart2_month_salesTarget = ${graph2.data.salesTarget} != '' ? ${graph2.data.salesTarget} : 0;
+		if(chart2_month_salesTarget != 0){
+			chart2_month_salesTarget = Math.floor(chart2_month_salesTarget);
+			chart2_month_salesTarget = '₩'+chart2_month_salesTarget.toLocaleString("en-US");
+		}
+		var chart2_month_percent = ${graph2.data.percent} != '' ? ${graph2.data.percent} : 0;
+		if(chart2_month_percent != 0){
+			chart2_month_percent = chart2_month_percent+'%';
+		}
+		var chart2_month_overTarget = ${graph2.data.overTarget} != '' ? ${graph2.data.overTarget} : 0;
+		if(chart2_month_overTarget != 0){
+			chart2_month_overTarget = Math.floor(chart2_month_overTarget);
+			if(chart2_month_overTarget > 0){
+				chart2_month_overTarget = '+₩' + chart2_month_overTarget.toLocaleString("en-US");
+				$("#chart2_month_overTarget").removeClass("text-danger");
+				$("#chart2_month_overTarget").addClass("text-success");
+			} else {
+				chart2_month_overTarget = '-₩' + chart2_month_overTarget.toLocaleString("en-US");
+				$("#chart2_month_overTarget").removeClass("text-success");
+				$("#chart2_month_overTarget").toggleClass("text-danger");
+			}
+		}
+
+		$("#chart2_month_profitTarget").html(chart2_month_profitTarget);
+		$("#chart2_month_salesTarget").html(chart2_month_salesTarget);
+		$("#chart2_month_percent").html(chart2_month_percent);
+		$("#chart2_month_overTarget").html(chart2_month_overTarget);
+
+		// 그래프3 관련 아래 테이블 정보
+		console.log(${graph3.data.profitTarget});
+		console.log(${graph3.data.salesTarget});
+		console.log(${graph3.data.percent});
+		console.log(${graph3.data.overTarget} == null);
+
+		var chart3_month_profitTarget = ${graph3.data.profitTarget};
+		chart3_month_profitTarget = '₩'+chart3_month_profitTarget.toLocaleString("en-US");
+
+		var chart3_month_salesTarget = ${graph3.data.salesTarget};
+		chart3_month_salesTarget = Math.floor(chart3_month_salesTarget);
+		chart3_month_salesTarget = '₩'+chart3_month_salesTarget.toLocaleString("en-US");
+
+		var chart3_month_percent = ${graph3.data.percent};
+		chart3_month_percent = chart3_month_percent+'%';
+
+		var chart3_month_overTarget = ${graph3.data.overTarget};
+		chart3_month_overTarget = Math.floor(chart3_month_overTarget);
+		if(chart3_month_overTarget > 0){
+			chart3_month_overTarget = '+₩' + chart3_month_overTarget.toLocaleString("en-US");
+			$("#chart3_month_overTarget").removeClass("text-danger");
+			$("#chart3_month_overTarget").addClass("text-success");
+		} else {
+			chart3_month_overTarget = '-₩' + chart3_month_overTarget.toLocaleString("en-US");
+			$("#chart3_month_overTarget").removeClass("text-success");
+			$("#chart3_month_overTarget").toggleClass("text-danger");
+		}
+
+
+		$("#chart3_month_profitTarget").html(chart3_month_profitTarget);
+		$("#chart3_month_salesTarget").html(chart3_month_salesTarget);
+		$("#chart3_month_percent").html(chart3_month_percent);
+		$("#chart3_month_overTarget").html(chart3_month_overTarget);
 	});
 
 </script>

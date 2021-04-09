@@ -279,7 +279,7 @@
 	</div>
 </div>
 <style>
-	.chart2{
+	.chart2, .chart3{
 		padding-bottom: 21px;
 		margin-left: 6px;
 		margin-top: -148px;

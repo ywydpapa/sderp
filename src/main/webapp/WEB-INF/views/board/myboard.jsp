@@ -177,6 +177,7 @@
 					class="table table-striped table-bordered nowrap">
 					<thead>
 						<tr >
+							<th style="text-align: center">판매방식</th>
 							<th style="text-align: center">영업기회명</th>
 							<th style="text-align: center">거래처명</th>
 							<th style="text-align: center">담당자</th>
@@ -185,9 +186,10 @@
 					<tbody>
 						<c:forEach var="row" items="${sopplist}">
 							<tr align="center">
+								<td>${row.soppTypeN}</td>
 								<td><a
 									href="javascript:fnSetPage('${path}/sopp/detail/${row.soppNo}')">${row.soppTitle}</a></td>
-								<td>${row.soppDesc}</td>
+								<td>${row.custName}</td>
 								<td>${row.userName}</td>
 							</tr>
 						</c:forEach>
@@ -220,7 +222,7 @@
 							<tr align="center">
 								<td><a
 									href="javascript:fnSetPage('${path}/sales/detail/${row.salesNo}')">${row.salesTitle}</a></td>
-								<td>${row.salesDesc}</td>
+								<td>${row.custName}</td>
 								<td>${row.userName}</td>
 								<td>${row.salesPlace}</td>
 							</tr>
@@ -268,7 +270,7 @@
 							<tr align="center">
 								<td><a
 									href="javascript:fnSetPage('${path}/cont/detail/${row.contNo}')">${row.contTitle}</a></td>
-								<td>${row.contDesc}</td>
+								<td>${row.custName}</td>
 								<td>${row.userName}</td>
 							</tr>
 						</c:forEach>
@@ -299,14 +301,14 @@
 	.mbo-title {
 		padding: 1px 0px 5px 0px;
 	}
-	#soppTable > tbody > tr > td:nth-child(1){
-		text-overflow: ellipsis;
-		max-width: 310px;
-		overflow: hidden;
-	}
 	#soppTable > tbody > tr > td:nth-child(2){
 		text-overflow: ellipsis;
-		max-width: 350px;
+		max-width: 360px;
+		overflow: hidden;
+	}
+	#soppTable > tbody > tr > td:nth-child(3){
+		text-overflow: ellipsis;
+		max-width: 180px;
 		overflow: hidden;
 	}
 	#salesTable > tbody > tr > td:nth-child(1){

@@ -20,7 +20,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  
  <select id="listSalesTargetMonthIndividual"	resultType="SalesTargetDTO">
 	set @column := #{targetMonth};
-	select CAST(
+	select IFNULL(CAST(
 				(
 					TRUNCATE(( 
 						IFNULL(( 
@@ -53,7 +53,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 							),0) 
 					),4)*100
 				) as decimal(5,2)
-			) as percent,
+			),0) as percent,
 		   IFNULL((
 					  select sum(case when vatYn = 'Y' then contAmt/1.1 else contAmt end)
 					  from swc_cont
@@ -84,7 +84,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 </select>
 
 <select id="listSalesTargetYearIndividual"	resultType="SalesTargetDTO">
-	select CAST(
+	select IFNULL(CAST(
 					(
 						TRUNCATE(( 
 							IFNULL(( 
@@ -116,7 +116,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 									),0)
 					),4)*100)
 				as DECIMAL(5,2)
-				) as percent,
+				),0) as percent,
 		   IFNULL((
 					  select sum(case when vatYn = 'Y' then contAmt/1.1 else contAmt end)
 					  from swc_cont

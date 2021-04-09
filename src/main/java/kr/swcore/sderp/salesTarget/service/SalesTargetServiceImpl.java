@@ -54,15 +54,18 @@ public class SalesTargetServiceImpl implements SalesTargetService {
 		}
 		
 		String targetMonth = salesTargetDTO.getTargetMonth();
+		Integer month = 0;
 		if(targetMonth == null || targetMonth.equals("")) {
-			Integer month = cal.get(Calendar.MONTH)+1;
-			if(month < 10) {
-				targetMonth = "0"+String.valueOf(month);
-			} else {
-				targetMonth = ""+String.valueOf(month);
-			}
-			salesTargetDTO.setTargetMonth(targetMonth);
-		}		
+			month = cal.get(Calendar.MONTH)+1;
+		} else {
+			month = Integer.valueOf(targetMonth);
+		}
+		if(month < 10) {
+			targetMonth = "0"+String.valueOf(month);
+		} else {
+			targetMonth = ""+String.valueOf(month);
+		}
+		salesTargetDTO.setTargetMonth(targetMonth);
 		return salesTargetDTO;
 	}
 	

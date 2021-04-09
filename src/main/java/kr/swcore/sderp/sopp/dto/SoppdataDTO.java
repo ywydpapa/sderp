@@ -6,8 +6,10 @@ public class SoppdataDTO {
 		
 	private int soppdataNo;
 	private int soppNo;
+	private int userNo;
 	private String soppTitle;
 	private int catNo;
+	private int productNo;
 	private String catTitle;
 	private String dataTitle;
 	private String dataDesc;
@@ -31,6 +33,12 @@ public class SoppdataDTO {
 	public void setSoppNo(int soppNo) {
 		this.soppNo = soppNo;
 	}
+	public int getUserNo() {
+		return userNo;
+	}
+	public void setUserNo(int userNo) {
+		this.userNo = userNo;
+	}
 	public String getSoppTitle() {
 		return soppTitle;
 	}
@@ -42,6 +50,12 @@ public class SoppdataDTO {
 	}
 	public void setCatNo(int catNo) {
 		this.catNo = catNo;
+	}
+	public int getProductNo() {
+		return productNo;
+	}
+	public void setProductNo(int productNo) {
+		this.productNo = productNo;
 	}
 	public String getCatTitle() {
 		return catTitle;
@@ -109,14 +123,30 @@ public class SoppdataDTO {
 	public void setAttrib(String attrib) {
 		this.attrib = attrib;
 	}
+
 	@Override
 	public String toString() {
-		return "SoppdataDTO [soppdataNo=" + soppdataNo + ", soppNo=" + soppNo + ", soppTitle=" + soppTitle + ", catNo="
-				+ catNo + ", catTitle=" + catTitle + ", dataTitle=" + dataTitle + ", dataDesc=" + dataDesc
-				+ ", dataType=" + dataType + ", dataQuanty=" + dataQuanty + ", dataAmt=" + dataAmt + ", dataNetprice="
-				+ dataNetprice + ", dataRemark=" + dataRemark + ", linkType=" + linkType + ", linkNo=" + linkNo
-				+ ", attrib=" + attrib + "]";
+		return "SoppdataDTO{" +
+				"soppdataNo=" + soppdataNo +
+				", soppNo=" + soppNo +
+				", userNo=" + userNo +
+				", soppTitle='" + soppTitle + '\'' +
+				", catNo=" + catNo +
+				", productNo=" + productNo +
+				", catTitle='" + catTitle + '\'' +
+				", dataTitle='" + dataTitle + '\'' +
+				", dataDesc='" + dataDesc + '\'' +
+				", dataType='" + dataType + '\'' +
+				", dataQuanty=" + dataQuanty +
+				", dataAmt=" + dataAmt +
+				", dataNetprice=" + dataNetprice +
+				", dataRemark='" + dataRemark + '\'' +
+				", linkType='" + linkType + '\'' +
+				", linkNo='" + linkNo + '\'' +
+				", attrib='" + attrib + '\'' +
+				'}';
 	}
+
 	public SoppdataDTO() {
 		super();
 		// TODO Auto-generated constructor stub

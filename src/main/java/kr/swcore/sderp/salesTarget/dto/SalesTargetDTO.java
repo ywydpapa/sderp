@@ -29,6 +29,9 @@ public class SalesTargetDTO {
 	private List<SalesTargetDTO> salesTargetlist;
 	private String targetMonth;
 	private BigDecimal percent;
+	private BigDecimal profitTarget;
+	private BigDecimal salesTarget;
+	private BigDecimal overTarget;
 	
 	public int getCompNo() {
 		return compNo;
@@ -173,14 +176,54 @@ public class SalesTargetDTO {
 	public SalesTargetDTO() {
 		super();
 	}
+	public BigDecimal getProfitTarget() {
+		return profitTarget;
+	}
+	public void setProfitTarget(BigDecimal profitTarget) {
+		this.profitTarget = profitTarget;
+	}
+	public BigDecimal getSalesTarget() {
+		return salesTarget;
+	}
+	public void setSalesTarget(BigDecimal salesTarget) {
+		this.salesTarget = salesTarget;
+	}
+	public BigDecimal getOverTarget() {
+		return overTarget;
+	}
+	public void setOverTarget(BigDecimal overTarget) {
+		this.overTarget = overTarget;
+	}
+
 	@Override
 	public String toString() {
-		return "SalesTargetDTO [compNo=" + compNo + ", deptNo=" + deptNo + ", userNo=" + userNo + ", targetYear="
-				+ targetYear + ", targetType=" + targetType + ", mm01=" + mm01 + ", mm02=" + mm02 + ", mm03=" + mm03
-				+ ", mm04=" + mm04 + ", mm05=" + mm05 + ", mm06=" + mm06 + ", mm07=" + mm07 + ", mm08=" + mm08
-				+ ", mm09=" + mm09 + ", mm10=" + mm10 + ", mm11=" + mm11 + ", mm12=" + mm12 + ", attrib=" + attrib
-				+ ", orgId=" + orgId + ", userName=" + userName + ", salesTargetlist=" + salesTargetlist
-				+ ", targetMonth=" + targetMonth + ", percent=" + percent + "]";
+		return "SalesTargetDTO{" +
+				"compNo=" + compNo +
+				", deptNo=" + deptNo +
+				", userNo=" + userNo +
+				", targetYear='" + targetYear + '\'' +
+				", targetType='" + targetType + '\'' +
+				", mm01=" + mm01 +
+				", mm02=" + mm02 +
+				", mm03=" + mm03 +
+				", mm04=" + mm04 +
+				", mm05=" + mm05 +
+				", mm06=" + mm06 +
+				", mm07=" + mm07 +
+				", mm08=" + mm08 +
+				", mm09=" + mm09 +
+				", mm10=" + mm10 +
+				", mm11=" + mm11 +
+				", mm12=" + mm12 +
+				", attrib='" + attrib + '\'' +
+				", orgId=" + orgId +
+				", userName='" + userName + '\'' +
+				", salesTargetlist=" + salesTargetlist +
+				", targetMonth='" + targetMonth + '\'' +
+				", percent=" + percent +
+				", profitTarget=" + profitTarget +
+				", salesTarget=" + salesTarget +
+				", overTarget=" + overTarget +
+				'}';
 	}
-	
 }

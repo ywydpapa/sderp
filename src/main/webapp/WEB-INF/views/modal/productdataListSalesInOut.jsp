@@ -42,7 +42,7 @@
 	#productdataTable > tbody > tr > td > a {
 		text-decoration: underline;
 	}
-</styleproductdataList
+</style>
 <script>
 	var productdataTable = $('#productdataTable').DataTable({
 		info:false,
@@ -157,3 +157,4 @@
 		}
 	});
 </script>
+

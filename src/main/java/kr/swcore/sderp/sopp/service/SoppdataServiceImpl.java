@@ -3,7 +3,9 @@ package kr.swcore.sderp.sopp.service;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpSession;
 
+import kr.swcore.sderp.util.SessionInfoGet;
 import org.springframework.stereotype.Service;
 
 import kr.swcore.sderp.sopp.dao.SoppdataDAO;
@@ -27,10 +29,12 @@ public class SoppdataServiceImpl implements SoppdataService {
 	}
 
 	@Override
-	public int insertSoppdata01(SoppdataDTO dto) {
+	public int insertSoppdata01(HttpSession session, SoppdataDTO dto) {
 		// TODO Auto-generated method stub
+		dto.setUserNo(SessionInfoGet.getUserNo(session));
 		return soppdataDao.insertSoppdata01(dto);
 	}
+
 
 	@Override
 	public List<SoppdataDTO> listSoppdata02(int soppNo) {

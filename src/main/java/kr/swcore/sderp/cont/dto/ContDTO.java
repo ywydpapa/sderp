@@ -7,6 +7,7 @@ public class ContDTO {
 	private int contNo;
 	private String contTitle;
 	private int soppNo;
+	private int exContNo;
 	private int userNo;
 	private int compNo;
 	private int custNo;
@@ -38,6 +39,9 @@ public class ContDTO {
 	private String buyrName;
 	private String businessType;
 	private String contTypeN;
+
+	// 확장
+	private String exContName;
 	
 	public String getContTypeN() {
 		return contTypeN;
@@ -92,6 +96,12 @@ public class ContDTO {
 	}
 	public void setSoppNo(int soppNo) {
 		this.soppNo = soppNo;
+	}
+	public int getExContNo() {
+		return exContNo;
+	}
+	public void setExContNo(int exContNo) {
+		this.exContNo = exContNo;
 	}
 	public int getUserNo() {
 		return userNo;
@@ -243,17 +253,55 @@ public class ContDTO {
 	public void setPtncName(String ptncName) {
 		this.ptncName = ptncName;
 	}
+	public String getExContName() {
+		return exContName;
+	}
+	public void setExContName(String exContName) {
+		this.exContName = exContName;
+	}
+
 	@Override
 	public String toString() {
-		return "ContDTO [contNo=" + contNo + ", contTitle=" + contTitle + ", soppNo=" + soppNo + ", userNo=" + userNo
-				+ ", custNo=" + custNo + ", salesType=" + salesType + ", custmemberNo=" + custmemberNo
-				+ ", maintcustNo=" + maintcustNo + ", supplyNo=" + supplyNo + ", ptncNo=" + ptncNo + ", contOrddate="
-				+ contOrddate + ", supplyDate=" + supplyDate + ", delivDate=" + delivDate + ", contAmt=" + contAmt
-				+ ", freemaintSdate=" + freemaintSdate + ", freemaintEdate=" + freemaintEdate + ", vatYn=" + vatYn
-				+ ", contArea=" + contArea + ", contType=" + contType + ", contDesc=" + contDesc + ", attrib=" + attrib
-				+ ", soppTitle=" + soppTitle + ", userName=" + userName + ", custName=" + custName + ", supplyName="
-				+ supplyName + ", custmemberName=" + custmemberName + ", ptncName=" + ptncName + "]";
+		return "ContDTO{" +
+				"contNo=" + contNo +
+				", contTitle='" + contTitle + '\'' +
+				", soppNo=" + soppNo +
+				", exContNo=" + exContNo +
+				", userNo=" + userNo +
+				", compNo=" + compNo +
+				", custNo=" + custNo +
+				", salesType='" + salesType + '\'' +
+				", custmemberNo=" + custmemberNo +
+				", maintcustNo=" + maintcustNo +
+				", supplyNo=" + supplyNo +
+				", ptncNo=" + ptncNo +
+				", contOrddate='" + contOrddate + '\'' +
+				", supplyDate='" + supplyDate + '\'' +
+				", delivDate='" + delivDate + '\'' +
+				", contAmt=" + contAmt +
+				", freemaintSdate='" + freemaintSdate + '\'' +
+				", freemaintEdate='" + freemaintEdate + '\'' +
+				", vatYn='" + vatYn + '\'' +
+				", contArea='" + contArea + '\'' +
+				", contType='" + contType + '\'' +
+				", contDesc='" + contDesc + '\'' +
+				", attrib='" + attrib + '\'' +
+				", soppTitle='" + soppTitle + '\'' +
+				", userName='" + userName + '\'' +
+				", custName='" + custName + '\'' +
+				", supplyName='" + supplyName + '\'' +
+				", custmemberName='" + custmemberName + '\'' +
+				", ptncName='" + ptncName + '\'' +
+				", targetDatefrom='" + targetDatefrom + '\'' +
+				", targetDateto='" + targetDateto + '\'' +
+				", buyrNo=" + buyrNo +
+				", buyrName='" + buyrName + '\'' +
+				", businessType='" + businessType + '\'' +
+				", contTypeN='" + contTypeN + '\'' +
+				", exContName='" + exContName + '\'' +
+				'}';
 	}
+
 	public ContDTO() {
 		super();
 		// TODO Auto-generated constructor stub

@@ -21,6 +21,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		left join swc_cust c on a.custNo = c.custNo
 		left join swc_code d on a.contType = d.codeNo 
 		where a.attrib not like 'XXX%' and a.compNo = #{compNo}
+		<choose>
+			<when test="soppNo != 0">and a.soppNo != 0</when>
+			<when test="exContNo != 0">and a.exContNo != 0</when>
+		</choose>
 		<if test="custNo != null and custNo != ''">
  		 	and a.custNo = #{custNo}
  		</if>
@@ -62,17 +66,24 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <select id="detailCont"
  		resultType="contDto">
-select a.*, b.userName , c.custName, d.custName ptncName, e.soppTitle  from swc_cont a  
-		left join swc_user b on a.userNo = b.userNo
-		left join swc_cust c on a.custNo = c.custNo 
-		left join swc_cust d on a.ptncNo = d.custNo
-		left join swc_sopp e on a.soppNo = e.soppNo
-		where a.attrib not like 'XXX%' and  contNo=#{contNo} order by contNo
+	select a.*,
+		   b.userName ,
+		   c.soppTitle,
+		   d.custMName as custmemberName,
+	       (select custName from swc_cust where custNo = a.custNo) custName,
+		   (select custName from swc_cust where custNo = a.ptncNo) ptncName,
+		   (select custName from swc_cust where custNo = a.supplyNo) supplyName,
+		   (select contTitle from swc_cont where contNo = a.exContNo) exContName
+	from swc_cont a
+			 left join swc_user b on a.userNo = b.userNo
+			 left join swc_sopp c on a.soppNo = c.soppNo
+			 left join swc_custData03 d on a.custmemberNo = d.custData03no
+	where a.attrib not like 'XXX%' and a.contNo=100009 order by a.contNo
  </select>
  
  <insert id="insertCont">
- insert into swc_cont (contTitle, contDesc, compNo, soppNo, userNo, custNo, custmemberNo, ptncNo, supplyNo, contOrddate, supplyDate, delivDate, contAmt, freemaintSdate, freemaintEdate, vatYn, contArea, contType, attrib)
- values (#{contTitle}, #{contDesc}, #{compNo}, #{soppNo}, #{userNo}, #{custNo}, #{custmemberNo}, #{ptncNo}, #{supplyNo}, #{contOrddate}, #{supplyDate}, #{delivDate}, #{contAmt}, #{freemaintSdate}, #{freemaintEdate}, #{vatYn}, #{contArea}, #{contType}, '10000')
+ insert into swc_cont (contTitle, contDesc, compNo, soppNo, exContNo, userNo, custNo, custmemberNo, ptncNo, supplyNo, contOrddate, supplyDate, delivDate, contAmt, freemaintSdate, freemaintEdate, vatYn, contArea, contType, attrib)
+ values (#{contTitle}, #{contDesc}, #{compNo}, #{soppNo}, #{exContNo}, #{userNo}, #{custNo}, #{custmemberNo}, #{ptncNo}, #{supplyNo}, #{contOrddate}, #{supplyDate}, #{delivDate}, #{contAmt}, #{freemaintSdate}, #{freemaintEdate}, #{vatYn}, #{contArea}, #{contType}, '10000')
  </insert>
 
  <update id="updateCont">

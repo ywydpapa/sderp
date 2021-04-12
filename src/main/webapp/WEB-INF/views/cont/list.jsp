@@ -49,42 +49,42 @@ $(function(){
 								<div class="form-group row">
 									<div class="col-sm-12 col-xl-3">
 										<label class="col-form-label" for="co_name">거래처(고객)</label>
-					<div class="input-group input-group-sm mb-0">
-																		<input type="text" class="form-control" name="custName"
-																			id="custName" value="" readonly /> <input
-																			type="hidden" name="custNo" id="custNo"
-																			value="" /> <span class="input-group-btn">
-																			<button class="btn btn-primary sch-company"
-																				data-remote="${path}/modal/popup.do?popId=cust"
-																				type="button" data-toggle="modal"
-																				data-target="#custModal">
-																				<i class="icofont icofont-search"></i>
-																			</button>
-																		</span>
-																		<div class="modal fade " id="custModal" tabindex="-1"
-																			role="dialog">
-																			<div class="modal-dialog modal-80size" role="document">
-																				<div class="modal-content modal-80size">
-																					<div class="modal-header">
-																						<h4 class="modal-title">거래처검색</h4>
-																						<button type="button" class="close"
-																							data-dismiss="modal" aria-label="Close">
-																							<span aria-hidden="true">&times;</span>
-																						</button>
-																					</div>
-																					<div class="modal-body">
-																						<h5>거래처목록</h5>
-																						<p>Loading!!!</p>
-																					</div>
-																					<div class="modal-footer">
-																						<button type="button"
-																							class="btn btn-default waves-effect "
-																							data-dismiss="modal">Close</button>
-																					</div>
-																				</div>
-																			</div>
-																		</div>
-																	</div>
+										<div class="input-group input-group-sm mb-0">
+											<input type="text" class="form-control" name="custName"
+												id="custName" value="" readonly /> <input
+												type="hidden" name="custNo" id="custNo"
+												value="" /> <span class="input-group-btn">
+												<button class="btn btn-primary sch-company"
+													data-remote="${path}/modal/popup.do?popId=cust"
+													type="button" data-toggle="modal"
+													data-target="#custModal">
+													<i class="icofont icofont-search"></i>
+												</button>
+											</span>
+											<div class="modal fade " id="custModal" tabindex="-1"
+												role="dialog">
+												<div class="modal-dialog modal-80size" role="document">
+													<div class="modal-content modal-80size">
+														<div class="modal-header">
+															<h4 class="modal-title">거래처검색</h4>
+															<button type="button" class="close"
+																data-dismiss="modal" aria-label="Close">
+																<span aria-hidden="true">&times;</span>
+															</button>
+														</div>
+														<div class="modal-body">
+															<h5>거래처목록</h5>
+															<p>Loading!!!</p>
+														</div>
+														<div class="modal-footer">
+															<button type="button"
+																class="btn btn-default waves-effect "
+																data-dismiss="modal">Close</button>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
 									</div>
 									<div class="col-sm-12 col-xl-3">
 										<label class="col-form-label" for="co_name">유지보수업체</label>
@@ -213,10 +213,10 @@ $(function(){
 									</div>
 									<div class="col-sm-12 col-xl-3">
 										<label class="col-form-label" for="co_name">계약방식</label>
-										<select name="select" class="form-control form-control-sm" id="contType">
+										<select name="select" class="form-control form-control-sm" id="contractType">
 											<option value></option>
-											<c:forEach var ="contType" items="${contType}">
-												<option value = "${contType.codeNo}">${contType.desc03}</option>
+											<c:forEach var ="contractType" items="${contractType}">
+												<option value = "${contractType.codeNo}">${contractType.desc03}</option>
 											</c:forEach>
 										</select>
 									</div>
@@ -233,11 +233,11 @@ $(function(){
 										<input type="text" class="form-control form-control-sm" id="userName" name="" placeholder="">
 									</div>
 									<div class="col-sm-12 col-xl-3">
-										<label class="col-form-label" for="co_name">영업타입</label>
-										<select name="select" class="form-control form-control-sm" id="businessType">
+										<label class="col-form-label" for="co_name">판매방식</label>
+										<select name="select" class="form-control form-control-sm" id="contType">
 											<option value></option>
-											<c:forEach var="businessType" items="${businessType}">
-												<option value="${businessType.codeNo}">${businessType.desc03}</option>
+											<c:forEach var="contType" items="${contType}">
+												<option value="${contType.codeNo}">${contType.desc03}</option>
 											</c:forEach>
 										</select>
 									</div>
@@ -265,10 +265,11 @@ $(function(){
 							<colgroup>
 								<col width="1%"/>
 								<col width="5%"/>
-								<col width="16%"/>
+								<col width="20%"/>
+								<col width="10%"/>
+								<col width="5%"/>
 								<col width="12%"/>
-								<col width="12%"/>
-								<col width="7%"/>
+								<col width="5%"/>
 								<col width="10%"/>
 								<col width="10%"/>
 								<col width="7%"/>
@@ -278,9 +279,10 @@ $(function(){
 							<thead>
 								<tr>
 									<th><input class="border-checkbox" type="checkbox" id="checkbox0"></th>
+									<th>계약방식</th>
 									<th>계약명</th>
 									<th>고객명</th>
-									<th>계약방식</th>
+									<th>판매방식</th>
 									<th>계약금액</th>
 									<th>담당자</th>
 									<th>무상유지보수 시작일</th>
@@ -293,7 +295,13 @@ $(function(){
 							<tbody>
 							<c:forEach var="row" items="${list}">
 								<tr>
-									<th scope="row"><input class="border-checkbox" type="checkbox" id="checkbox0"></th>
+									<td scope="row"><input class="border-checkbox" type="checkbox" id="checkbox0"></td>
+									<td>
+										<c:choose>
+										<c:when test="${row.soppNo != 0}">판매계약</c:when>
+										<c:when test="${row.exContNo != 0}">유지보수</c:when>
+										</c:choose>
+									</td>
 									<td><a href="javascript:fnSetPage('${path}/cont/detail/${row.contNo}')">${row.contTitle}</a></td>							
 									<td>${row.custName}</td>
 									<td>${row.contTypeN}</td>
@@ -370,16 +378,22 @@ $(function(){
 	
 	function fnListcon() {
 		var contData = {};
+		if($("#contractType").val() == "10126"){													// 계약방식
+			contData.soppNo = 1;
+			contData.exContNo = 0;
+		} else if($("#contractType").val() == "10127"){
+			contData.soppNo = 0;
+			contData.exContNo = 1;
+		}
 		contData.custNo = $("#custNo").val() ? $("#custNo").val() : 0;
 		contData.ptncNo = $("#ptncNo").val() ? $("#ptncNo").val() : 0;
 		contData.supplyNo = $("#supplyNo").val() ? $("#supplyNo").val() : 0;
 		contData.buyrNo = $("#buyrNo").val() ? $("#buyrNo").val() : 0;
 		contData.contTitle = $("#contTitle").val() ? $("#contTitle").val() : null;
-		contData.contType = $("#contType").val() ? $("#contType").val() : null;
+		contData.contType = $("#contType").val() ? $("#contType").val() : null;						// 판매방식
 		contData.targetDatefrom = $("#targetDatefrom").val() ? $("#targetDatefrom").val() : null;
 		contData.targetDateto = $("#targetDateto").val() ? $("#targetDateto").val() : null;
 		contData.userName = $("#userName").val() ? $("#userName").val() : null;
-		contData.businessType = $("#businessType").val() ? $("#businessType").val() : null;
 		contData.freemaintSdate = $("#freemaintSdate").val() ? $("#freemaintSdate").val() : null;
 		contData.freemaintEdate = $("#freemaintEdate").val() ? $("#freemaintEdate").val() : null;
 		

@@ -25,7 +25,7 @@
 					<td>${row.soppNo}</td>
 					<td><a
 						href="javascript:fnSetSoppData('${row.soppTitle}','${row.soppNo}','${row.userNo}','${row.custNo}');">${row.soppTitle}</a></td>
-					<td>${row.soppDesc}</td>
+					<td>${row.custName}</td>
 					<td>${row.userName}</td>
 				</tr>
 			</c:forEach>

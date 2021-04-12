@@ -33,6 +33,21 @@
 						</colgroup>				
 						<tbody>
 							<tr>
+								<th scope="row">등록구분</th>
+								<td colspan="3">
+									<div class="form-radio">
+										<form>
+											<div class="radio radio-inline">
+												<label> <input type="radio" name="contractType" value="NEW" checked="checked"> <i class="helper"></i>판매계약</label>
+											</div>
+											<div class="radio radio-inline">
+												<label> <input type="radio" name="contractType" value="OLD"> <i class="helper"></i>유지보수</label>
+											</div>
+										</form>
+									</div>
+								</td>
+							</tr>
+							<tr>
 								<th scope="row">계약명</th>
 								<td colspan="3">
 									<input type="text" class="form-control form-control-sm" id="contTitle" name="contTitle" placeholder="계약명을 입력해 주세요.">
@@ -43,8 +58,8 @@
 								<td>
 									<input type="text" id="contNo" name="contNo" class="form-control " readonly placeholder="자동생성 됩니다..">
 								</td>
-								<th>영업기회</th>
-								<td>
+								<th class="techdDetailCont">영업기회</th>
+								<td class="techdDetailCont">
 									<div class="input-group input-group-sm mb-0">
 										<input type="text" class="form-control" name="soppDTO" id="soppTitle" value="" />
 										<input type="hidden" class="form-control" name="soppDTO" id="soppNo" value="" />
@@ -74,6 +89,39 @@
 														<button type="button"
 															class="btn btn-default waves-effect "
 															data-dismiss="modal">Close</button>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</td>
+								<th class="techdDetailCont">계약</th>
+								<td class="techdDetailCont">
+									<div class="input-group input-group-sm mb-0">
+										<input type="text" class="form-control" name="oldContTitle" id="oldContTitle" readonly />
+										<input type="hidden" name="oldContNo" id="oldContNo" value="" />
+										<span class="input-group-btn">
+											<button class="btn btn-primary sch-opportunity2" data-remote="${path}/modal/popup.do?popId=cont"
+													type="button" data-toggle="modal" data-target="#contModal">
+												<i class="icofont icofont-search"></i>
+											</button>
+										</span>
+										<div class="modal fade " id="contModal" tabindex="-1"
+											 role="dialog">
+											<div class="modal-dialog modal-80size" role="document">
+												<div class="modal-content modal-80size">
+													<div class="modal-header">
+														<h4 class="modal-title"></h4>
+														<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+															<span aria-hidden="true">&times;</span>
+														</button>
+													</div>
+													<div class="modal-body">
+														<h5>계약 목록</h5>
+														<p>Loading!!!</p>
+													</div>
+													<div class="modal-footer">
+														<button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
 													</div>
 												</div>
 											</div>
@@ -157,17 +205,16 @@
 								</td>
 							</tr>
 							<tr>
-								<th scope="row">영업 타입</th>
+								<th>판매방식</th>
 								<td>
-									<select name="salesType" id="salesType" class="form-control form-control-sm col-md-12">
-										<option value="">선택</option>			
-										<option value="101">신규</option>			
-										<option value="102">노후화교체</option>			
-										<option value="103">윈백</option>			
-										<option value="104">증설</option>			
-										<option value="105">이중화</option>			
-										<option value="106">조달구매</option>			
-										<option value="199">기타</option>							
+									<select name="contType" id="contType" class="form-control form-control-sm">
+										<option value=""></option>
+										<option value="10048">조달직판</option>
+										<option value="10049">조달간판</option>
+										<option value="10050">조달대행</option>
+										<option value="10051">직접판매</option>
+										<option value="10095">간접판매</option>
+										<option value="10252">기타</option>
 									</select>
 								</td>
 								<th>거래처 담당자</th>
@@ -321,8 +368,7 @@
 								<th >VAT 포함여부</th>
 								<td>
 									 <select name="vatYn" id="vatYn" class="form-control form-control-sm">
-									 	<option value="" >선택</option>
-										<option value="Y" >Yes</option>
+										<option value="Y" selected>Yes</option>
 										<option value="N" >No</option>
 									</select>
 								</td>
@@ -345,16 +391,6 @@
 										<option value="712">해외</option>			
 										<option value="713">기타</option>			
 										<option value="714">세종</option>	    
-									</select>
-								</td>
-								<th>판매방법</th>
-								<td>
-									<select name="contType" id="contType" class="form-control form-control-sm">
-										<option value="">선택</option>			
-										<option value="801">조달</option>			
-										<option value="802">수의</option>			
-										<option value="803">입찰</option>			
-										<option value="804">기타</option>	    
 									</select>
 								</td>
 							</tr>
@@ -416,8 +452,13 @@
 			var modal = $(this);
 			modal.find('.modal-body').load(button.data("remote"));
 		});
+		$('#contModal').on('show.bs.modal', function(e) {
+			var button = $(e.relatedTarget);
+			var modal = $(this);
+			modal.find('.modal-body').load(button.data("remote"));
+		});
 
-    	function fnSetCustData(a, b) {
+		function fnSetCustData(a, b) {
     		// '${row.custName}','${row.custNo}'
 			$("#custName").val(a);
 			$("#custNo").val(b);
@@ -463,12 +504,37 @@
 			$(".modal-backdrop").remove();
 			$("#supplyModal").modal("hide");
 		}
+
+		function fnSetContData(a,b,c,d){
+			$("#oldContTitle").val(a);
+			$("#oldContNo").val(b);
+			$(".modal-backdrop").remove();
+			$("#contModal").modal("hide");
+		}
+
+		function fnToggleLayer() {
+			$(".techdDetailCont").each(function () {
+				if($(this).css('display') == 'none'){
+					$(this).show();
+				} else {
+					$(this).hide();
+				}
+			});
+		}
 		
 		function fn_SaveCont() {
 			var contData = {};
+			var contractType					= $("input[name='contractType']:checked").val();	// 신규 영업지원 or 기존계약
+			if(contractType == 'NEW'){
+				contData.soppNo					= $("#soppNo").val();			// 영업기회
+				contData.exContNo				= 0;							// 기존계약
+			} else {
+				contData.soppNo					= 0;							// 영업기회
+				contData.exContNo				= $("#oldContNo").val();		// 기존계약
+			}
 			contData.contTitle 				= $("#contTitle").val(); 		// 계약명
 			contData.userNo		 			= $("#userNo").val();			// 담당사원
-			contData.soppNo					= $("#soppNo").val();			// 영업기회
+
 			contData.custNo 				= $("#custNo").val();			// 거래처
 			contData.ptncNo 				= $("#ptncNo").val();			// 유지보수업체
 			contData.supplyNo 				= $("#supplyNo").val();			// 공급업체
@@ -480,7 +546,7 @@
 			contData.freemaintEdate 		= $("#freemaintEdate").val();	// 무상유지보수 마감일자
 			contData.vatYn					= $("#vatYn").val();			// VAT 포함여부 (기본값 : Y)
 			contData.contArea 				= $("#contArea").val();			// 지역				
-			contData.contType 				= $("#contType").val();			// 판매방법
+			contData.contType 				= $("#contType").val();			// 판매방식
 			contData.contDesc			 	= $("#contDesc").val();			// 계약내용
 			console.dir(contData);
 			
@@ -490,8 +556,8 @@
 			}  else if (!contData.userNo){
 				alert("담당사원을 지정하십시오.");
 				return;
-			} else if (!contData.soppNo){
-				alert("영업기회를 지정하십시오.");
+			} else if (!contData.soppNo && !contData.exContNo){
+				alert("영업기회 또는 기존계약명을 지정하십시오.");
 				return;
 			} else if (!contData.custNo){
 				alert("거래처를 지정하십시오.");
@@ -527,10 +593,7 @@
 			} else if (!contData.contType){
 				alert("판매방법을 지정하십시오.");
 				return;
-			} else if (!contData.contDesc){
-				alert("계약 내용을 입력하십시오.");
-				return;
-			}			
+			}
 
 			$.ajax({ url: "${path}/cont/insert.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소 
 						data: contData , // HTTP 요청과 함께 서버로 보낼 데이터 
@@ -587,6 +650,13 @@
 					});
 			}
 		
-		
+		$(document).ready(function(){
+			$($(".techdDetailCont")[2]).hide();
+			$($(".techdDetailCont")[3]).hide();
+
+			$('input[name=contractType]').on('click', function() {
+				fnToggleLayer();
+			});
+		});
 </script>
 

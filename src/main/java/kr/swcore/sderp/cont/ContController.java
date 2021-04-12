@@ -35,8 +35,8 @@ public class ContController {
 	@RequestMapping("list.do")
 	public ModelAndView list(HttpSession session, ModelAndView mav) {
 		mav.setViewName("cont/list");
-		mav.addObject("contType", codeService.listContractType(session));
-		mav.addObject("businessType", codeService.listBusinessType(session));
+		mav.addObject("contractType", codeService.listContractType(session));
+		mav.addObject("contType", codeService.listContType(session));
 		mav.addObject("list", contService.listCont(session));
 		return mav;
 	}

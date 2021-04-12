@@ -118,6 +118,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		and compNo = #{compNo}
 </select>
 
+<select id="listContType" resultType="codeDto">
+		select d.codeNo, d.desc03
+		from swc_cont a
+		left join swc_code d on a.contType = d.codeNo
+		where a.attrib not like 'XXX%' and a.compNo = #{compNo} order by contNo
+</select>
+
  <insert id="insertCode">
  insert into swc_code (
 compNo

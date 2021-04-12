@@ -637,6 +637,7 @@ function chartReady(){
 	// 4번째 그래프 ===================================================
 	var myChartGauge4 = echarts.init(document.getElementById('myChart04'));
 	globalmyChartGauge4 = myChartGauge4;
+	/*
 	var option4 = {
 		tooltip: {
 	        trigger: 'item',
@@ -677,6 +678,43 @@ function chartReady(){
 	        }
 	    ]
 	};
+	*/
+	var option4 = {
+		legend: {},
+		tooltip: {
+			trigger: 'axis',
+			showContent: false
+		},
+		dataset: {
+			source: [
+				['조달직판', 50],
+				['조달간판', 10],
+				['조달대행', 20],
+				['직접판매', 30],
+				['간접판매', 40],
+			]
+		},
+		xAxis: {type: 'category'},
+		yAxis: {gridIndex: 0},
+		grid: {top: '55%'},
+		series: [
+			{type: 'bar', smooth: true, seriesLayoutBy: 'row', emphasis: {focus: 'series'}},
+			{type: 'bar', smooth: true, seriesLayoutBy: 'row', emphasis: {focus: 'series'}},
+			{type: 'bar', smooth: true, seriesLayoutBy: 'row', emphasis: {focus: 'series'}},
+			{type: 'bar', smooth: true, seriesLayoutBy: 'row', emphasis: {focus: 'series'}},
+			{type: 'bar', smooth: true, seriesLayoutBy: 'row', emphasis: {focus: 'series'}},
+			{
+				type: 'pie',
+				id: 'pie',
+				radius: '30%',
+				center: ['50%', '25%'],
+				emphasis: {focus: 'data'},
+				label: {
+					formatter: '{b}: ({d}%)'
+				},
+			}
+		]
+	}
 	myChartGauge4.setOption(option4);
 	globaloption4 = option4;
 }

@@ -252,7 +252,6 @@ $(function(){
 					</form>
 				</div>
 			</div>
-	
 	</c:if>
 	<!--//계약조회-->
 	 	 <!--리스트 table-->

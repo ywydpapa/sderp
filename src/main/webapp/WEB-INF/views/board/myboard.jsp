@@ -211,6 +211,7 @@
 			<table id="salesTable" class="table table-striped table-bordered nowrap">
 					<thead>
 						<tr>
+							<th style="text-align: center">영업일정</th>
 							<th style="text-align: center">일정명</th>
 							<th style="text-align: center">거래처명</th>
 							<th style="text-align: center">담당자</th>
@@ -220,6 +221,10 @@
 					<tbody>
 						<c:forEach var="row" items="${saleslist}">
 							<tr align="center">
+								<td>
+									<fmt:parseDate value="${row.salesFrdatetime}" var="salesFrdatetime" pattern="yyyy-MM-dd HH:mm:ss"/>
+									<fmt:formatDate value="${salesFrdatetime}" pattern="yyyy-MM-dd"/>
+								</td>
 								<td><a
 									href="javascript:fnSetPage('${path}/sales/detail/${row.salesNo}')">${row.salesTitle}</a></td>
 								<td>${row.custName}</td>
@@ -260,6 +265,7 @@
 				<table id="contTable" class="table table-striped table-bordered nowrap">
 					<thead>
 						<tr>
+							<th style="text-align: center">판매일</th>
 							<th style="text-align: center">계약명</th>
 							<th style="text-align: center">거래처명</th>
 							<th style="text-align: center">담당자</th>
@@ -268,6 +274,7 @@
 					<tbody>
 						<c:forEach var="row" items="${contlist}">
 							<tr align="center">
+								<td>${row.delivDate}</td>
 								<td><a
 									href="javascript:fnSetPage('${path}/cont/detail/${row.contNo}')">${row.contTitle}</a></td>
 								<td>${row.custName}</td>

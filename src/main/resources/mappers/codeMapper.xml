@@ -119,10 +119,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 </select>
 
 <select id="listContType" resultType="codeDto">
-		select d.codeNo, d.desc03
-		from swc_cont a
-		left join swc_code d on a.contType = d.codeNo
-		where a.attrib not like 'XXX%' and a.compNo = #{compNo} order by contNo
+	select * from swc_code
+	where attrib not like 'XXX%' and code02='SALETYPE' and desc02 IS NULL and compNo = #{compNo}
 </select>
 
  <insert id="insertCode">

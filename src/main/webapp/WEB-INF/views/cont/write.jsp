@@ -525,7 +525,7 @@
 		function fn_SaveCont() {
 			var contData = {};
 			var contractType					= $("input[name='contractType']:checked").val();	// 신규 영업지원 or 기존계약
-			if(contractType == 'NEW'){
+			if(contractType == "NEW"){
 				contData.soppNo					= $("#soppNo").val();			// 영업기회
 				contData.exContNo				= 0;							// 기존계약
 			} else {
@@ -536,6 +536,7 @@
 			contData.userNo		 			= $("#userNo").val();			// 담당사원
 
 			contData.custNo 				= $("#custNo").val();			// 거래처
+			contData.custmemberNo			= $("#custmemberNo").val();		// 거래처 담당자
 			contData.ptncNo 				= $("#ptncNo").val();			// 유지보수업체
 			contData.supplyNo 				= $("#supplyNo").val();			// 공급업체
 			contData.contOrddate 			= $("#contOrddate").val();		// 발주일자
@@ -549,7 +550,7 @@
 			contData.contType 				= $("#contType").val();			// 판매방식
 			contData.contDesc			 	= $("#contDesc").val();			// 계약내용
 			console.dir(contData);
-			
+
 			if (!contData.contTitle) {
 				alert("계약명 제목을 입력하십시오.");		
 				return;
@@ -612,7 +613,7 @@
 						alert("통신 실패");
 					});
 		}
-
+		/*
 		function fn_UpdateCont() {
 			var contData = {};
 			contData.contTitle 				= $("#contTitle").val(); 
@@ -620,7 +621,6 @@
 			contData.userNo		 			= $("#userNo").val();
 			contData.soppNo					= $("#soppNo").val();
 			contData.custNo 				= $("#custNo").val();
-			contData.soppNo 				= $("#soppNo").val();
 			contData.ptncNo 				= $("#ptncNo").val();
 			contData.supplyNo 				= $("#supplyNo").val();
 			contData.contType 				= $("#contType").val();
@@ -649,12 +649,12 @@
 						alert("통신 실패");
 					});
 			}
-		
+		*/
 		$(document).ready(function(){
 			$($(".techdDetailCont")[2]).hide();
 			$($(".techdDetailCont")[3]).hide();
 
-			$('input[name=contractType]').on('click', function() {
+			$('input[name=contractType]').on('change', function() {
 				fnToggleLayer();
 			});
 		});

@@ -525,7 +525,7 @@
 				$($(".techdDetailCont")[1]).hide();
 			}
 
-			$('input[name=contractType]').on('click', function() {
+			$('input[name=contractType]').on('change', function() {
 				fnToggleLayer();
 			});
 		});

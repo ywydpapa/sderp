@@ -78,7 +78,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			 left join swc_user b on a.userNo = b.userNo
 			 left join swc_sopp c on a.soppNo = c.soppNo
 			 left join swc_custData03 d on a.custmemberNo = d.custData03no
-	where a.attrib not like 'XXX%' and a.contNo=100009 order by a.contNo
+	where a.attrib not like 'XXX%' and a.contNo=#{contNo} order by a.contNo
  </select>
  
  <insert id="insertCont">

@@ -63,7 +63,7 @@
 					<option value = "2024" <c:if test="${graph2.targetYear == 2024}">selected</c:if> >2024</option>
 					<option value = "2025" <c:if test="${graph2.targetYear == 2025}">selected</c:if> >2025</option>
 				</select>
-				<select class="custom-select mr-sm-1" name="graph2TargetDepartment" id="graph2TargetDepartment" style="float:left;">
+				<select class="custom-select mr-sm-1" name="graph2TargetDepartment" id="graph2TargetDepartment" style="float:right;">
 					<option value = "all">전체</option>
 					<option value = "dept">부서</option>
 					<option value = "individual" selected>개인</option>
@@ -119,7 +119,7 @@
 				</select>
 				<div style="display: inline-block;">
 					<h5>누적 계획대비 실적</h5>
-					<span style="vertical-align: bottom;">${graph3.targetYear}년</span>
+					<span style="vertical-align: bottom;" id="graph3TargetMiniTitle">${graph3.targetYear}년</span>
 				</div>				
 				<!-- <div class="card-header-right">
 					<i class="icofont icofont-spinner-alt-5"></i>
@@ -153,10 +153,36 @@
 	<div class="col-md-12 col-lg-3">
 		<div class="card">
 			<div class="card-header">
-				<h5>판매방법</h5>
-				<span>2021년</span>
-				<div class="card-header-right">
-					<i class="icofont icofont-spinner-alt-5"></i>
+				<select class="custom-select mr-sm-1" name="graph4TargetMonth" id="graph4TargetMonth" style="float:right;">
+					<option value = "01" <c:if test="${graph4.targetMonth == 01}">selected</c:if> >01</option>
+					<option value = "02" <c:if test="${graph4.targetMonth == 02}">selected</c:if> >02</option>
+					<option value = "03" <c:if test="${graph4.targetMonth == 03}">selected</c:if> >03</option>
+					<option value = "04" <c:if test="${graph4.targetMonth == 04}">selected</c:if> >04</option>
+					<option value = "05" <c:if test="${graph4.targetMonth == 05}">selected</c:if> >05</option>
+					<option value = "06" <c:if test="${graph4.targetMonth == 06}">selected</c:if> >06</option>
+					<option value = "07" <c:if test="${graph4.targetMonth == 07}">selected</c:if> >07</option>
+					<option value = "08" <c:if test="${graph4.targetMonth == 08}">selected</c:if> >08</option>
+					<option value = "09" <c:if test="${graph$.targetMonth == 09}">selected</c:if> >09</option>
+					<option value = "10" <c:if test="${graph4.targetMonth == 10}">selected</c:if> >10</option>
+					<option value = "11" <c:if test="${graph4.targetMonth == 11}">selected</c:if> >11</option>
+					<option value = "12" <c:if test="${graph$.targetMonth == 12}">selected</c:if> >12</option>
+				</select>
+				<select class="custom-select mr-sm-1" name="graph4TargetYear" id="graph4TargetYear" style="float:right;">
+					<option value = "2020" <c:if test="${graph4.targetYear == 2020}">selected</c:if> >2020</option>
+					<option value = "2021" <c:if test="${graph4.targetYear == 2021}">selected</c:if> >2021</option>
+					<option value = "2022" <c:if test="${graph4.targetYear == 2022}">selected</c:if> >2022</option>
+					<option value = "2023" <c:if test="${graph4.targetYear == 2023}">selected</c:if> >2023</option>
+					<option value = "2024" <c:if test="${graph4.targetYear == 2024}">selected</c:if> >2024</option>
+					<option value = "2025" <c:if test="${graph4.targetYear == 2025}">selected</c:if> >2025</option>
+				</select>
+				<select class="custom-select mr-sm-1" name="graph4TargetDepartment" id="graph4TargetDepartment" style="float:right;">
+					<option value = "all">전체</option>
+					<option value = "dept">부서</option>
+					<option value = "individual" selected>개인</option>
+				</select>
+				<div style="display: inline-block;">
+					<h5>판매방식</h5>
+					<span style="vertical-align: bottom;" id="graph4TargetMiniTitle">${graph4.targetYear}년 ${graph4.targetMonth}월</span>
 				</div>
 			</div>
 			<div class="card-block">
@@ -401,7 +427,19 @@ function chartReady(){
 	                    barBorderWidth: 3,
 	                    barBorderRadius:0,
 	                    label : {
-	                        show: true, position: 'insideTop'
+	                        show: true,
+							position: 'insideTop',
+							formatter: function (params) {
+								for (var i = 0, l = option1.xAxis[0].data.length; i < l; i++) {
+									if (option1.xAxis[0].data[i] == params.name) {
+										if (option1.series[0].data[i] > 0){
+											return option1.series[0].data[i];
+										} else {
+											return '';
+										}
+									}
+								}
+							},
 	                    }
 	                }
 	            },
@@ -648,30 +686,6 @@ function chartReady(){
 	// 4번째 그래프 ===================================================
 	var myChartGauge4 = echarts.init(document.getElementById('myChart04'));
 	globalmyChartGauge4 = myChartGauge4;
-	/*
-	var option4 = {
-		legend: {},
-		dataset: {
-			source: [
-				['조달직판', 0],
-				['조달간판', 0],
-				['조달대행', 0],
-				['직접판매', 0],
-				['간접판매', 0]
-			]
-		},
-		series: [
-			{
-				type: 'pie',
-				id: 'pie',
-				radius: '30%',
-				center: ['50%', '50%'],
-			}
-		]
-	};
-	*/
-
-
 	var option4 = {
 		legend: {},
 		tooltip: {
@@ -682,7 +696,7 @@ function chartReady(){
 			source: [
 				['product', '판매방식'],
 				['조달직판', 50],
-				['조달간판', 10],
+				['조달간판', 60],
 				['조달대행', 20],
 				['직접판매', 30],
 				['간접판매', 40],
@@ -692,11 +706,11 @@ function chartReady(){
 		yAxis: {gridIndex: 0},
 		grid: {top: '55%'},
 		series: [
-			{type: 'bar', smooth: true, seriesLayoutBy: 'row', emphasis: {focus: 'series'}, label: { show: true, formatter: '{c}'}},
-			{type: 'bar', smooth: true, seriesLayoutBy: 'row', emphasis: {focus: 'series'}, label: { show: true, formatter: '{c}'}},
-			{type: 'bar', smooth: true, seriesLayoutBy: 'row', emphasis: {focus: 'series'}, label: { show: true, formatter: '{c}'}},
-			{type: 'bar', smooth: true, seriesLayoutBy: 'row', emphasis: {focus: 'series'}, label: { show: true, formatter: '{c}'}},
-			{type: 'bar', smooth: true, seriesLayoutBy: 'row', emphasis: {focus: 'series'}, label: { show: true, formatter: '{c}'}},
+			{type: 'bar', smooth: true, seriesLayoutBy: 'row', emphasis: {focus: 'series'}, label: { show: true, color:'black', formatter: function (params){ return params[0];}}},
+			{type: 'bar', smooth: true, seriesLayoutBy: 'row', emphasis: {focus: 'series'}, label: { show: true, color:'black', formatter: function (params){ return params[1];}}},
+			{type: 'bar', smooth: true, seriesLayoutBy: 'row', emphasis: {focus: 'series'}, label: { show: true, color:'black', formatter: function (params){ return params[2];}}},
+			{type: 'bar', smooth: true, seriesLayoutBy: 'row', emphasis: {focus: 'series'}, label: { show: true, color:'black', formatter: function (params){ return params[3];}}},
+			{type: 'bar', smooth: true, seriesLayoutBy: 'row', emphasis: {focus: 'series'}, label: { show: true, color:'black', formatter: function (params){ return params[4];}}},
 			{
 				type: 'pie',
 				id: 'pie',
@@ -708,7 +722,7 @@ function chartReady(){
 				},
 				encode: {
 					itemName: 'product',
-					value: '판매방식',
+					value: '판매방식'
 				}
 			}
 		]
@@ -720,12 +734,14 @@ function chartReady(){
 
 }
 
-/* 
-	$(function() {
-	});
- */	
 	$(document).ready(function(){
-		$('#soppTable,#contTable,#salesTable').DataTable({
+		$('#salesTable,#contTable').DataTable({
+			info : false,
+			filter : false,
+			lengthChange : false,
+			order: [[ 0, "desc" ]]
+		});
+		$('#soppTable').DataTable({
 			info : false,
 			filter : false,
 			lengthChange : false
@@ -822,8 +838,10 @@ function chartReady(){
 							console.dir("profitTarget : "+result.data.profitTarget);
 							console.dir("salesTarget : "+result.data.salesTarget);
 							console.dir("overTarget : "+result.data.overTarget);
-							console.dir("targetMonth : "+result.data.targetMonth);
-							console.dir("targetYear : "+result.data.targetYear);
+							console.dir("targetMonth : "+result.targetMonth);
+							console.dir("targetYear : "+result.targetYear);
+							var graph2TargetMiniTitle = result.targetYear + "년 " + result.targetMonth+"월";
+							$("#graph2TargetMiniTitle").text(graph2TargetMiniTitle);
 
 							chart2_month_profitTarget = '₩'+Math.floor(result.data.profitTarget).toLocaleString("en-US");
 							chart2_month_salesTarget = '₩'+Math.floor(result.data.salesTarget).toLocaleString("en-US");
@@ -875,6 +893,8 @@ function chartReady(){
 							console.dir("profitTarget : "+result.data.profitTarget);
 							console.dir("salesTarget : "+result.data.salesTarget);
 							console.dir("overTarget : "+result.data.overTarget);
+							var graph3TargetMiniTitle = result.targetYear + "년";
+							$("#graph3TargetMiniTitle").text(graph3TargetMiniTitle);
 
 							chart3_month_profitTarget = '₩'+Math.floor(result.data.profitTarget).toLocaleString("en-US");
 							chart3_month_salesTarget = '₩'+Math.floor(result.data.salesTarget).toLocaleString("en-US");
@@ -902,6 +922,10 @@ function chartReady(){
 					});
 		});
 
+		var varArr = globaloption4.dataset.source[0][1];
+		console.dir(varArr);
+		globaloption4.dataset.source[1][1] = 300;
+		globalmyChartGauge4.setOption(globaloption4, true);
 	});
 
 </script>

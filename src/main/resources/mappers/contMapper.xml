@@ -79,7 +79,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			 left join swc_sopp c on a.soppNo = c.soppNo
 			 left join swc_custData03 d on a.custmemberNo = d.custData03no
 	where a.attrib not like 'XXX%' and a.contNo=#{contNo} order by a.contNo
- </select>
+</select>
+
+<select id="listSalesTargetMonthIndividual"
+		resultType="contDto">
+	select
+		count(*) contTypeCount
+	from swc_cont a
+			 left join swc_code b on a.contType = b.codeNo
+	where a.compNo = #{compNo}
+	  and a.attrib not like 'XXX%'
+	  and date_format(a.contOrddate, '%Y-%m') = CONCAT(#{targetYear},'-',#{targetMonth})
+	  and a.userNo = #{userNo}
+	  and a.contType = #{contType}
+</select>
  
  <insert id="insertCont">
  insert into swc_cont (contTitle, contDesc, compNo, soppNo, exContNo, userNo, custNo, custmemberNo, ptncNo, supplyNo, contOrddate, supplyDate, delivDate, contAmt, freemaintSdate, freemaintEdate, vatYn, contArea, contType, attrib)

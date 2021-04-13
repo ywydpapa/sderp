@@ -1,22 +1,32 @@
 package kr.swcore.sderp.cont.service;
 
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
+import kr.swcore.sderp.code.dao.CodeDAO;
+import kr.swcore.sderp.code.dto.CodeDTO;
+import kr.swcore.sderp.salesTarget.dto.SalesTargetDTO;
 import org.springframework.stereotype.Service;
 
 import kr.swcore.sderp.cont.dao.ContDAO;
 import kr.swcore.sderp.cont.dto.ContDTO;
 import kr.swcore.sderp.sopp.dto.SoppDTO;
 import kr.swcore.sderp.util.SessionInfoGet;
+import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 @Service
 public class ContServiceImpl implements ContService {
 
 	@Inject
 	ContDAO contDao;
+
+	@Inject
+	CodeDAO codeDAO;
 	
 	@Override
 	public List<ContDTO> listCont() {
@@ -77,6 +87,67 @@ public class ContServiceImpl implements ContService {
 		return schedInsert;
 	}
 
-	
+	@Override
+	public Map<String, Object> listSalesTargetMonthIndividual(HttpSession session, ContDTO contDTO) {
+		// CODE 테이블에서 code02 가 SALETYPE 인것만 가져온다.
+		SoppDTO soppDTO = new SoppDTO();
+		soppDTO.setCompNo(SessionInfoGet.getCompNo(session));
+		List<CodeDTO> codeDAOList = codeDAO.listContType(soppDTO);
 
+		if(contDTO == null) contDTO = new ContDTO();
+
+		// 시간구하기
+		Calendar cal = Calendar.getInstance();
+		String targetYear = contDTO.getTargetYear();
+		if(targetYear == null || targetYear.equals("")) {
+			targetYear = String.valueOf(cal.get(Calendar.YEAR));
+			contDTO.setTargetYear(targetYear);
+		}
+
+		String targetMonth = contDTO.getTargetMonth();
+		Integer month = 0;
+		if(targetMonth == null || targetMonth.equals("")) {
+			month = cal.get(Calendar.MONTH)+1;
+		} else {
+			month = Integer.valueOf(targetMonth);
+		}
+
+		if(month < 10) {
+			targetMonth = "0"+String.valueOf(month);
+		} else {
+			targetMonth = ""+String.valueOf(month);
+		}
+		contDTO.setTargetMonth(targetMonth);
+
+		if(codeDAOList.size() <= 0){
+			// CODE 테이블에 SALETYPE 지정되어있지 않다.
+			return null;
+		}
+
+		// 회사구분값 셋팅
+		contDTO.setCompNo(SessionInfoGet.getCompNo(session));
+		// 유저 셋팅
+		contDTO.setUserNo(SessionInfoGet.getUserNo(session));
+		List<ContDTO> contDTOList = new ArrayList<>();
+		try {
+			for(int i=0; i<codeDAOList.size(); i++){
+				// 반환시 필요한 코드명 셋팅
+				contDTO.setContTypeN(codeDAOList.get(i).getDesc03());
+				// 검색할 코드값 셋팅
+				contDTO.setContType(String.valueOf( codeDAOList.get(i).getCodeNo() ));
+				// 쿼리 조건 : 회사구분코드, contType int 값, 날짜 ex) 2021-04
+				ContDTO temp = contDao.listSalesTargetMonthIndividual(contDTO);
+
+				contDTOList.add(temp);
+			}
+		} catch (Exception e){
+			e.printStackTrace();
+		}
+
+		for(ContDTO t : contDTOList){
+			System.out.println(t.getContTypeN() + " / " + t.getContTypeCount());
+		}
+
+		return null;
+	}
 }

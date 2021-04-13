@@ -42,7 +42,11 @@ public class ContDTO {
 
 	// 확장
 	private String exContName;
-	
+	private String targetType;
+	private String targetYear;
+	private String targetMonth;
+	private Integer contTypeCount;
+
 	public String getContTypeN() {
 		return contTypeN;
 	}
@@ -259,6 +263,30 @@ public class ContDTO {
 	public void setExContName(String exContName) {
 		this.exContName = exContName;
 	}
+	public String getTargetType() {
+		return targetType;
+	}
+	public void setTargetType(String targetType) {
+		this.targetType = targetType;
+	}
+	public String getTargetYear() {
+		return targetYear;
+	}
+	public void setTargetYear(String targetYear) {
+		this.targetYear = targetYear;
+	}
+	public String getTargetMonth() {
+		return targetMonth;
+	}
+	public void setTargetMonth(String targetMonth) {
+		this.targetMonth = targetMonth;
+	}
+	public Integer getContTypeCount() {
+		return contTypeCount;
+	}
+	public void setContTypeCount(Integer contTypeCount) {
+		this.contTypeCount = contTypeCount;
+	}
 
 	@Override
 	public String toString() {
@@ -299,6 +327,7 @@ public class ContDTO {
 				", businessType='" + businessType + '\'' +
 				", contTypeN='" + contTypeN + '\'' +
 				", exContName='" + exContName + '\'' +
+				", contTypeCount=" + contTypeCount +
 				'}';
 	}
 

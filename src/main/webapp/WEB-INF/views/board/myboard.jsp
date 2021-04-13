@@ -5,7 +5,8 @@
 <c:set var="path" value="${pageContext.request.contextPath}" />
 <script src="${path}/assets/pages/jquery.dataTables.min.js"></script>
 <script src="${path}/assets/pages/dataTables.bootstrap4.min.js"></script>
-<script type="text/javascript" src="${path}/assets/echart/echarts-all.js"></script>
+<%--<script type="text/javascript" src="${path}/assets/echart/echarts-all.js"></script>--%>
+<script type="text/javascript" src="${path}/assets/echart/echarts-5.0.2.js"></script>
 
 <div class="row">
 	<div class="col-md-12 col-lg-5">
@@ -76,7 +77,7 @@
 				</div> -->
 			</div>
 			<div class="card-block">
-				<div id="myChart02" style="width:400px; height:362px;"></div>
+				<div id="myChart02" style="width:270px; height:350px;"></div>
 			</div>
 			<div class="chart2">
 				<div class="mbo-title ky-box ky-box-default">
@@ -125,7 +126,7 @@
 				</div> -->
 			</div>
 			<div class="card-block">
-				<div id="myChart03" style="width:400px; height:362px;"></div>
+				<div id="myChart03" style="width:270px; height:350px;"></div>
 			</div>
 			<div class="chart3">
 				<div class="mbo-title ky-box ky-box-default">
@@ -159,7 +160,7 @@
 				</div>
 			</div>
 			<div class="card-block">
-				<div id="myChart04" style="width:400px; height:400px;"></div>
+				<div id="myChart04" style="width:350px; height:400px;"></div>
 			</div>
 		</div>
 	</div>
@@ -289,7 +290,7 @@
 </div>
 <style>
 	.chart2, .chart3{
-		padding-bottom: 21px;
+		padding-bottom: 33px;
 		margin-left: 6px;
 		margin-top: -148px;
 		width: 95%;
@@ -361,7 +362,6 @@ function chartReady(){
 //				type : 'cross'
 	        },
 	        formatter: function (params){
-	        	console.dir(params);
 	            return params[0].name + '<br/>'
 	                   + params[2].seriesName + ' : ' + (params[2].value+params[0].value) + '<br/>'
 	                   + params[1].seriesName + ' : ' + (params[1].value) + '<br/>'
@@ -420,7 +420,7 @@ function chartReady(){
 	                    barBorderWidth: 1,
 	                    barBorderRadius:0,
 	                    label : {
-	                        show: true,
+	                        show: false,
 	                        position: 'top',
 	                        formatter: function (params) {
 	                            for (var i = 0, l = option1.xAxis[0].data.length; i < l; i++) {
@@ -461,10 +461,10 @@ function chartReady(){
 	                        formatter: function (params) {
 	                            for (var i = 0, l = option1.xAxis[0].data.length; i < l; i++) {
 	                                if (option1.xAxis[0].data[i] == params.name) {
-	                                	if (option1.series[2].data[i] != 0){
+	                                	if (option1.series[2].data[i] > 0){
 	                                    	return option1.series[2].data[i];
 	                                	} else {
-	                                		return;
+	                                		return '';
 	                                	}
 	                                }
 	                            }
@@ -489,64 +489,67 @@ function chartReady(){
 	var myChartGauge2 = echarts.init(document.getElementById('myChart02'));
 	globalmyChartGauge2 = myChartGauge2;
 	var option2 = {
-		  emphasis : {
-		  	  scale : true,
-			  scaleSize : 3
-		  },
-          tooltip : {
-              formatter: "{b} : {c}%"
-          },
-          toolbox: {
-              show : false,
-              feature : {
-                  mark : {show: false},
-                  restore : {show: false},
-                  saveAsImage : {show: false}
-                  }
-          },
-          series : [
-              {
-                  name:'MonthRatio',
-                  type:'gauge',
-                  center: ['25%', '35%'],
-                  radius: ['00%', '50%'],
-                  axisLine: {
-                      show: true,
-                      lineStyle: {
-                          color: [
-                              [0.4,'#FC6180'],
-                              [0.7,'#4680ff'],
-                              [1,'#93BE52']
-                          ],
-                          width: 10
-                      }
-                  }  ,
-                  title: {
-                      show : false,
-                      offsetCenter: [0, '120%'],
-                      textStyle: {
-                          color: '#93BE52',
-                          fontSize : 30
-                      }
-                  }  ,
-                  detail: {
-                      show : true,
-                      backgroundColor: 'rgba(0,0,0,0)',
-                      borderWidth: 0,
-                      borderColor: '#ccc',
-                      width: 80,
-                      height: 40,
-                      offsetCenter: [0, '40%'],
-                      formatter:'{value}%',
-                      textStyle: {
-                          color: 'auto',
-                          fontSize : 25
-                      }
-                  },
-
-                  data:[{value: ${graph2.data.percent}, name: 'MonthRatio (%)'}]
-              }
-       ]
+		series: [{
+			type: 'gauge',
+			center: ['39%', '30%'],
+			startAngle: 225,
+			endAngle: -45,
+			min: 0,
+			max: 100,
+			splitNumber: 10,
+			axisLine: {
+				lineStyle: {
+					width: 3,
+					color: [
+						[0.4,'#FC6180'],
+						[0.7,'#4680ff'],
+						[1,'#93BE52']
+					]
+				}
+			},
+			pointer: {
+				itemStyle: {
+					color: 'auto'
+				}
+			},
+			axisTick: {
+				length: 3,
+				lineStyle: {
+					color: 'auto',
+					width: 1
+				}
+			},
+			splitLine: {
+				length: 7,
+				lineStyle: {
+					color: 'auto',
+					width: 3
+				}
+			},
+			axisLabel: {
+				show : true,
+			},
+			title: {
+				offsetCenter: [0, '-20%'],
+				fontSize: 30
+			},
+			detail: {
+				show : true,
+				backgroundColor: 'rgba(0,0,0,0)',
+				borderWidth: 0,
+				borderColor: '#ccc',
+				fontSize: 20,
+				offsetCenter: [0, '70%'],
+				valueAnimation: true,
+				formatter: function (value) {
+					return value + '%';
+				},
+				color: 'auto'
+			},
+			data: [{
+				value: ${graph2.data.percent}
+			}]
+		}]
 	};
 	
 	function gauge_load_chart2(option2){
@@ -565,60 +568,68 @@ function chartReady(){
 	var myChartGauge3 = echarts.init(document.getElementById('myChart03'));
 	globalmyChartGauge3 = myChartGauge3;
 	var option3 = {
-	        tooltip : {
-	            formatter: "{b} : {c}%"
-	        },
-	        toolbox: {
-	            show : false,
-	            feature : {
-	                mark : {show: false},
-	                restore : {show: false},
-	                saveAsImage : {show: false}
-	                }
-	        },
-	        series : [
-	            {
-	                name:'MonthRatio',
-	                type:'gauge',
-	                center: ['25%', '35%'],
-	                radius: ['00%', '50%'],
-	                axisLine: {
-	                    show: true,
-	                    lineStyle: {
-	                        color: [
-	                            [0.4,'#FC6180'],
-	                            [0.7,'#4680ff'],
-	                            [1,'#93BE52']
-	                        ],
-	                        width: 10
-	                    }
-	                }  ,
-	                title: {
-	                    show : false,
-	                    offsetCenter: [0, '120%'],
-	                    textStyle: {
-	                        color: '#93BE52',
-	                        fontSize : 30
-	                    }
-	                }  ,
-	                detail: {
-	                    show : true,
-	                    backgroundColor: 'rgba(0,0,0,0)',
-	                    borderWidth: 0,
-	                    borderColor: '#ccc',
-	                    width: 80,
-	                    height: 40,
-	                    offsetCenter: [0, '40%'],
-	                    formatter:'{value}%',
-	                    textStyle: {
-	                        color: 'auto',
-	                        fontSize : 25
-	                    }
-	                },
-	
-	                data:[{value:  ${graph3.data.percent}, name: 'MonthRatio (%)'}]
-	            }
-	     ]
+		series: [{
+			type: 'gauge',
+			center: ['39%', '30%'],
+			startAngle: 225,
+			endAngle: -45,
+			min: 0,
+			max: 100,
+			splitNumber: 10,
+			axisLine: {
+				lineStyle: {
+					width: 3,
+					color: [
+						[0.4,'#FC6180'],
+						[0.7,'#4680ff'],
+						[1,'#93BE52']
+					]
+				}
+			},
+			pointer: {
+
+				itemStyle: {
+					color: 'auto'
+				}
+			},
+			axisTick: {
+				length: 3,
+				lineStyle: {
+					color: 'auto',
+					width: 1
+				}
+			},
+			splitLine: {
+				length: 7,
+				lineStyle: {
+					color: 'auto',
+					width: 3
+				}
+			},
+			axisLabel: {
+				show : true,
+			},
+			title: {
+				offsetCenter: [0, '-20%'],
+				fontSize: 30
+			},
+			detail: {
+				show : true,
+				backgroundColor: 'rgba(0,0,0,0)',
+				borderWidth: 0,
+				borderColor: '#ccc',
+				fontSize: 20,
+				offsetCenter: [0, '70%'],
+				valueAnimation: true,
+				formatter: function (value) {
+					return value + '%';
+				},
+				color: 'auto'
+			},
+			data: [{
+				value: ${graph3.data.percent}
+			}]
+		}]
 	};
 	
 	function gauge_load_chart3(option3){
@@ -639,46 +650,28 @@ function chartReady(){
 	globalmyChartGauge4 = myChartGauge4;
 	/*
 	var option4 = {
-		tooltip: {
-	        trigger: 'item',
-	        formatter: '{a} <br/>{b}: {c} ({d}%)'
-	    },
-	    legend: {
-	        orient: 'horizon',
-	        left: 5,
-	        data: ['조달직판', '조달간판', '조달대행', '직접판매', '간접판매']
-	    },
-	    series: [
-	        {
-	            name: '판매방법',
-	            type: 'pie',
-	            radius: ['20%', '40%'],
-	            avoidLabelOverlap: false,
-	            label: {
-	                show: false,
-	                position: 'center'
-	            },
-	            emphasis: {
-	                label: {
-	                    show: true,
-	                    fontSize: '20',
-	                    fontWeight: 'bold'
-	                }
-	            },
-	            labelLine: {
-	                show: false
-	            },
-	            data: [
-	                {value: 335, name: '조달직판'},
-	                {value: 110, name: '조달간판'},
-	                {value: 134, name: '조달대행'},
-	                {value: 135, name: '직접판매'},
-	                {value: 148, name: '간접판매'}
-	            ]
-	        }
-	    ]
+		legend: {},
+		dataset: {
+			source: [
+				['조달직판', 0],
+				['조달간판', 0],
+				['조달대행', 0],
+				['직접판매', 0],
+				['간접판매', 0]
+			]
+		},
+		series: [
+			{
+				type: 'pie',
+				id: 'pie',
+				radius: '30%',
+				center: ['50%', '50%'],
+			}
+		]
 	};
 	*/
+
+
 	var option4 = {
 		legend: {},
 		tooltip: {
@@ -687,6 +680,7 @@ function chartReady(){
 		},
 		dataset: {
 			source: [
+				['product', '판매방식'],
 				['조달직판', 50],
 				['조달간판', 10],
 				['조달대행', 20],
@@ -698,25 +692,32 @@ function chartReady(){
 		yAxis: {gridIndex: 0},
 		grid: {top: '55%'},
 		series: [
-			{type: 'bar', smooth: true, seriesLayoutBy: 'row', emphasis: {focus: 'series'}},
-			{type: 'bar', smooth: true, seriesLayoutBy: 'row', emphasis: {focus: 'series'}},
-			{type: 'bar', smooth: true, seriesLayoutBy: 'row', emphasis: {focus: 'series'}},
-			{type: 'bar', smooth: true, seriesLayoutBy: 'row', emphasis: {focus: 'series'}},
-			{type: 'bar', smooth: true, seriesLayoutBy: 'row', emphasis: {focus: 'series'}},
+			{type: 'bar', smooth: true, seriesLayoutBy: 'row', emphasis: {focus: 'series'}, label: { show: true, formatter: '{c}'}},
+			{type: 'bar', smooth: true, seriesLayoutBy: 'row', emphasis: {focus: 'series'}, label: { show: true, formatter: '{c}'}},
+			{type: 'bar', smooth: true, seriesLayoutBy: 'row', emphasis: {focus: 'series'}, label: { show: true, formatter: '{c}'}},
+			{type: 'bar', smooth: true, seriesLayoutBy: 'row', emphasis: {focus: 'series'}, label: { show: true, formatter: '{c}'}},
+			{type: 'bar', smooth: true, seriesLayoutBy: 'row', emphasis: {focus: 'series'}, label: { show: true, formatter: '{c}'}},
 			{
 				type: 'pie',
 				id: 'pie',
 				radius: '30%',
-				center: ['50%', '25%'],
+				center: ['50%', '35%'],
 				emphasis: {focus: 'data'},
 				label: {
-					formatter: '{b}: ({d}%)'
+					formatter: '{d}%'
 				},
+				encode: {
+					itemName: 'product',
+					value: '판매방식',
+				}
 			}
 		]
-	}
+	};
+
+
 	myChartGauge4.setOption(option4);
 	globaloption4 = option4;
+
 }
 
 /* 

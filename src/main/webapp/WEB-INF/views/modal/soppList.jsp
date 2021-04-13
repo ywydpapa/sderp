@@ -24,19 +24,39 @@
 				<tr align="center">
 					<td>${row.soppNo}</td>
 					<td><a
-						href="javascript:fnSetSoppData('${row.soppTitle}','${row.soppNo}','${row.userNo}','${row.custNo}');">${row.soppTitle}</a></td>
-					<td>${row.custName}</td>
+						href="javascript:fnSetSoppData('${row.soppTitle}','${row.soppNo}','${row.userNo}','${row.custNo}');" title="${row.soppTitle}">${row.soppTitle}</a></td>
+					<td title="${row.custName}">${row.custName}</td>
 					<td>${row.userName}</td>
 				</tr>
 			</c:forEach>
 		</tbody>
 	</table>
 </div>
-
+<style>
+	#soppTable > tbody > tr > td:nth-child(1){
+		max-width: 75px;
+	}
+	#soppTable > tbody > tr > td:nth-child(2){
+		text-overflow: ellipsis;
+		max-width: 250px;
+		overflow: hidden;
+	}
+	#soppTable > tbody > tr > td:nth-child(3){
+		text-overflow: ellipsis;
+		max-width: 150px;
+		overflow: hidden;
+	}
+	#soppTable > tbody > tr > td:nth-child(4){
+		text-overflow: ellipsis;
+		max-width: 70px;
+		overflow: hidden;
+	}
+</style>
 <script>
 $(function(){
     $('#soppTable').DataTable({
-    	info:false
+    	info:false,
+
     });
 });
 </script>

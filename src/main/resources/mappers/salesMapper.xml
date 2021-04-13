@@ -13,7 +13,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		left join swc_cust e on a.ptncNo = e.custNo
 		left join swc_code f on a.salesType = f.codeNo
 		where a.attrib not like 'XXX%' and a.compNo = #{compNo} 
-		order by salesNo 
+		order by salesFrdatetime desc
  </select>
  
  <select id="listconSales"
@@ -43,7 +43,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  		<if test="salesTodatetime != null and salesTodatetime != ''">
  			and date_format(a.salesTodatetime, '%Y-%m-%d') <![CDATA[<=]]> #{salesTodatetime}
  		</if> 
-		order by salesNo 
+		order by salesFrdatetime desc
  </select>
 
 <select id="listSalesinsopp"

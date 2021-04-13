@@ -44,7 +44,7 @@ public class SalesTargetController {
 
 	@RequestMapping(value = "graph2", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	@ResponseBody
-	public String listAjaxGraph1(HttpSession session, @RequestBody String param) throws JsonProcessingException {
+	public String listAjaxGraph2(HttpSession session, @RequestBody String param) throws JsonProcessingException {
 		Map<String, Object> rtn = new HashMap<String, Object>();
 		ObjectMapper mapper = new ObjectMapper();
 		SalesTargetDTO salesTargetDTO = mapper.readValue(param, SalesTargetDTO.class);
@@ -54,7 +54,7 @@ public class SalesTargetController {
 
 	@RequestMapping(value = "graph3", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	@ResponseBody
-	public String listAjaxGraph2(HttpSession session, @RequestBody String param) throws JsonProcessingException {
+	public String listAjaxGraph3(HttpSession session, @RequestBody String param) throws JsonProcessingException {
 		Map<String, Object> rtn = new HashMap<String, Object>();
 		ObjectMapper mapper = new ObjectMapper();
 		SalesTargetDTO salesTargetDTO = mapper.readValue(param, SalesTargetDTO.class);

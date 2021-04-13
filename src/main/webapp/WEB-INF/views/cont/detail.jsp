@@ -33,18 +33,33 @@
 						</colgroup>				
 						<tbody>
 							<tr>
+								<th scope="row">등록구분</th>
+								<td colspan="3">
+									<div class="form-radio">
+										<form>
+											<div class="radio radio-inline">
+												<label> <input type="radio" name="contractType" value="NEW" <c:if test="${dto.soppNo != 0}">checked</c:if>> <i class="helper"></i>판매계약</label>
+											</div>
+											<div class="radio radio-inline">
+												<label> <input type="radio" name="contractType" value="OLD" <c:if test="${dto.exContNo != 0}">checked</c:if>> <i class="helper"></i>유지보수</label>
+											</div>
+										</form>
+									</div>
+								</td>
+							</tr>
+							<tr>
 								<th scope="row">계약명</th>
 								<td colspan="3">
 									<input type="text" class="form-control form-control-sm" id="contTitle" name="contTitle" value="${dto.contTitle }">
 								</td>
 							</tr>
 							<tr>
-								<th scope="row">계약번호</th>
+								<th scope="row" >계약번호</th>
 								<td>
 									<input type="text" id="contNo" name="contNo" class="form-control " readonly value="${dto.contNo}">
 								</td>
-								<th>영업기회</th>
-								<td>
+								<th class="techdDetailCont">영업기회</th>
+								<td class="techdDetailCont">
 									<div class="input-group input-group-sm mb-0">
 										<input type="text" class="form-control" name="soppTitle" id="soppTitle" value="${dto.soppTitle}" />
 										<input type="hidden" class="form-control" name="soppNo" id="soppNo" value="${dto.soppNo}" />
@@ -74,6 +89,39 @@
 														<button type="button"
 															class="btn btn-default waves-effect "
 															data-dismiss="modal">Close</button>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</td>
+								<th class="techdDetailCont">계약</th>
+								<td class="techdDetailCont">
+									<div class="input-group input-group-sm mb-0">
+										<input type="text" class="form-control" name="oldContTitle" id="oldContTitle" value="${dto.exContName}" readonly />
+										<input type="hidden" name="oldContNo" id="oldContNo" value="${dto.exContNo}" />
+										<span class="input-group-btn">
+											<button class="btn btn-primary sch-opportunity2" data-remote="${path}/modal/popup.do?popId=cont"
+													type="button" data-toggle="modal" data-target="#contModal">
+												<i class="icofont icofont-search"></i>
+											</button>
+										</span>
+										<div class="modal fade " id="contModal" tabindex="-1"
+											 role="dialog">
+											<div class="modal-dialog modal-80size" role="document">
+												<div class="modal-content modal-80size">
+													<div class="modal-header">
+														<h4 class="modal-title"></h4>
+														<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+															<span aria-hidden="true">&times;</span>
+														</button>
+													</div>
+													<div class="modal-body">
+														<h5>계약 목록</h5>
+														<p>Loading!!!</p>
+													</div>
+													<div class="modal-footer">
+														<button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
 													</div>
 												</div>
 											</div>
@@ -157,17 +205,16 @@
 								</td>
 							</tr>
 							<tr>
-								<th scope="row">영업 타입</th>
+								<th scope="row">판매방식</th>
 								<td>
-									<select name="salesType" id="salesType" class="form-control form-control-sm col-md-12">
-										<option value="">선택</option>			
-										<option value="101">신규</option>			
-										<option value="102">노후화교체</option>			
-										<option value="103">윈백</option>			
-										<option value="104">증설</option>			
-										<option value="105">이중화</option>			
-										<option value="106">조달구매</option>			
-										<option value="199">기타</option>							
+									<select name="soppType" id="soppType" class="form-control form-control-sm">
+										<option value=""></option>
+										<option value="10048" <c:if test="${dto.contType eq 10048}">selected</c:if>>조달직판</option>
+										<option value="10049" <c:if test="${dto.contType eq 10049}">selected</c:if>>조달간판</option>
+										<option value="10050" <c:if test="${dto.contType eq 10050}">selected</c:if>>조달대행</option>
+										<option value="10051" <c:if test="${dto.contType eq 10051}">selected</c:if>>직접판매</option>
+										<option value="10095" <c:if test="${dto.contType eq 10095}">selected</c:if>>간접판매</option>
+										<option value="10252" <c:if test="${dto.contType eq 10252}">selected</c:if>>기타</option>
 									</select>
 								</td>
 								<th>거래처 담당자</th>
@@ -293,9 +340,8 @@
 								<th >VAT 포함여부</th>
 								<td>
 									 <select name="vatYn" id="vatYn" class="form-control form-control-sm">
-									 	<option value="" >선택</option>
-										<option value="Y" >Yes</option>
-										<option value="N" >No</option>
+										 <option value="Y" <c:if test="${dto.vatYn eq 'Y'}">selected</c:if> >Yes</option>
+										<option value="N" <c:if test="${dto.vatYn eq 'N'}">selected</c:if> >No</option>
 									</select>
 								</td>
 							</tr>
@@ -304,29 +350,19 @@
 								<td>
 									<select name="contArea" id="contArea" class="form-control form-control-sm">
 										<option value="">선택</option>			
-										<option value="701">서울</option>			
-										<option value="703">인천, 경기</option>			
-										<option value="704">충북</option>			
-										<option value="705">충남</option>			
-										<option value="706">강원도</option>			
-										<option value="707">경북</option>			
-										<option value="708">경남</option>			
-										<option value="709">전북</option>			
-										<option value="710">전남</option>			
-										<option value="711">제주</option>			
-										<option value="712">해외</option>			
-										<option value="713">기타</option>			
-										<option value="714">세종</option>	    
-									</select>
-								</td>
-								<th>판매방법</th>
-								<td>
-									<select name="contType" id="contType" class="form-control form-control-sm">
-										<option value="">선택</option>			
-										<option value="801">조달</option>			
-										<option value="802">수의</option>			
-										<option value="803">입찰</option>			
-										<option value="804">기타</option>	    
+										<option value="701" <c:if test="${dto.contArea eq '701'}">selected</c:if> >서울</option>
+										<option value="703" <c:if test="${dto.contArea eq '703'}">selected</c:if> >인천, 경기</option>
+										<option value="704" <c:if test="${dto.contArea eq '704'}">selected</c:if> >충북</option>
+										<option value="705" <c:if test="${dto.contArea eq '705'}">selected</c:if> >충남</option>
+										<option value="706" <c:if test="${dto.contArea eq '706'}">selected</c:if> >강원도</option>
+										<option value="707" <c:if test="${dto.contArea eq '707'}">selected</c:if> >경북</option>
+										<option value="708" <c:if test="${dto.contArea eq '708'}">selected</c:if> >경남</option>
+										<option value="709" <c:if test="${dto.contArea eq '709'}">selected</c:if> >전북</option>
+										<option value="710" <c:if test="${dto.contArea eq '710'}">selected</c:if> >전남</option>
+										<option value="711" <c:if test="${dto.contArea eq '711'}">selected</c:if> >제주</option>
+										<option value="712" <c:if test="${dto.contArea eq '712'}">selected</c:if> >해외</option>
+										<option value="713" <c:if test="${dto.contArea eq '713'}">selected</c:if> >기타</option>
+										<option value="714" <c:if test="${dto.contArea eq '714'}">selected</c:if> >세종</option>
 									</select>
 								</td>
 							</tr>
@@ -376,8 +412,14 @@
 			var modal = $(this);
 			modal.find('.modal-body').load(button.data("remote"));
 		});
+		$('#contModal').on('show.bs.modal', function(e) {
+			var button = $(e.relatedTarget);
+			var modal = $(this);
+			modal.find('.modal-body').load(button.data("remote"));
+		});
 
-    	function fnSetCustData(a, b) {
+
+		function fnSetCustData(a, b) {
 			$("#custName").val(a);
 			$("#custNo").val(b);
 			$(".modal-backdrop").remove();
@@ -412,13 +454,37 @@
 			$("#supplyModal").modal("hide");
 		}
 
+		function fnSetContData(a,b,c,d){
+			$("#oldContTitle").val(a);
+			$("#oldContNo").val(b);
+			$(".modal-backdrop").remove();
+			$("#contModal").modal("hide");
+		}
+
+		function fnToggleLayer() {
+			$(".techdDetailCont").each(function () {
+				if($(this).css('display') == 'none'){
+					$(this).show();
+				} else {
+					$(this).hide();
+				}
+			});
+		}
+
 		function fn_SaveCont() {
 			var contData = {};
 			contData.contNo 					= $("#contNo").val();
-			contData.contTitle 				= $("#contTitle").val(); 
+			var contractType					= $("input[name='contractType']:checked").val();	// 신규 영업지원 or 기존계약
+			if(contractType == 'NEW'){
+				contData.soppNo					= $("#soppNo").val();			// 영업기회
+				contData.exContNo				= 0;							// 기존계약
+			} else {
+				contData.soppNo					= 0;							// 영업기회
+				contData.exContNo				= $("#oldContNo").val();		// 기존계약
+			}
+			contData.contTitle 				= $("#contTitle").val();
 			contData.contDesc			 	= $("#contDesc").val();
 			contData.userNo		 			= $("#userNo").val();
-			contData.soppNo					= $("#soppNo").val();
 			contData.custNo 					= $("#custNo").val();
 			contData.soppNo 				= $("#soppNo").val();
 			contData.ptncNo 					= $("#ptncNo").val();
@@ -448,6 +514,20 @@
 					.fail(function(xhr, status, errorThrown) { 
 						alert("통신 실패");
 					});
+		}
+
+		$(document).ready(function() {
+			if($("#soppNo").val() != '0') {
+				$($(".techdDetailCont")[2]).hide();
+				$($(".techdDetailCont")[3]).hide();
+			} else if($("#exContNo").val() != '0') {
+				$($(".techdDetailCont")[0]).hide();
+				$($(".techdDetailCont")[1]).hide();
 			}
+
+			$('input[name=contractType]').on('change', function() {
+				fnToggleLayer();
+			});
+		});
 	</script>
 

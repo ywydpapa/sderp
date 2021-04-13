@@ -61,11 +61,11 @@ $('input[name=radio]').on('click', function() {
 									<div class="form-radio">
 										<form>
 											<div class="radio radio-inline">
-												<label> <input type="radio" name="radio" value="NEW" checked="checked"> <i class="helper"></i>신규 영업지원
+												<label> <input type="radio" name="radio" value="NEW" checked="checked"> <i class="helper"></i>신규영업지원
 												</label>
 											</div>
 											<div class="radio radio-inline">
-												<label> <input type="radio" value="ING" name="radio"> <i class="helper"></i>기존계약 </label>
+												<label> <input type="radio" value="ING" name="radio"> <i class="helper"></i>기존계약</label>
 											</div>
 										</form>
 									</div>
@@ -278,7 +278,7 @@ $('input[name=radio]').on('click', function() {
 											</div>
 										</div>
 									</div>
-								</div>
+									</div>
 								</td>
 							</tr>
 							<tr>

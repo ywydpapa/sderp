@@ -71,9 +71,8 @@
 											<div class="modal-dialog modal-80size" role="document">
 												<div class="modal-content modal-80size">
 													<div class="modal-header">
-														<h4 class="modal-title"></h4>
-														<button type="button" class="close" onclick="$('#userModal').modal('hide');"
-															aria-label="Close">
+														<h4 class="modal-title">사용자목록</h4>
+														<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 															<span aria-hidden="true">&times;</span>
 														</button>
 													</div>
@@ -82,9 +81,10 @@
 														<p>Loading!!!</p>
 													</div>
 													<div class="modal-footer">
-														<button type="button"
+														<%--<button type="button"
 															class="btn btn-default waves-effect "
-															onclick="$('#userModal').modal('hide');">Close</button>
+															onclick="$('#userModal').modal('hide');">Close</button>--%>
+														<button type="button" class="btn btn-default waves-effect " data-dismiss="modal">Close</button>
 													</div>
 												</div>
 											</div>
@@ -103,14 +103,12 @@
 												<i class="icofont icofont-search"></i>
 											</button>
 										</span>
-										<div class="modal fade " id="soppModal" tabindex="-1"
-											role="dialog">
+										<div class="modal fade " id="soppModal" tabindex="-1" role="dialog">
 											<div class="modal-dialog modal-80size" role="document">
 												<div class="modal-content modal-80size">
 													<div class="modal-header">
-														<h4 class="modal-title"></h4>
-														<button type="button" class="close" onclick="$('#soppModal').modal('hide');"
-															aria-label="Close">
+														<h4 class="modal-title">영업기회목록</h4>
+														<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 															<span aria-hidden="true">&times;</span>
 														</button>
 													</div>
@@ -119,9 +117,7 @@
 														<p>Loading!!!</p>
 													</div>
 													<div class="modal-footer">
-														<button type="button"
-															class="btn btn-default waves-effect "
-															onclick="$('#soppModal').modal('hide');">Close</button>
+														<button type="button" class="btn btn-default waves-effect " data-dismiss="modal">Close</button>
 													</div>
 												</div>
 											</div>
@@ -146,9 +142,8 @@
 											<div class="modal-dialog modal-80size" role="document">
 												<div class="modal-content modal-80size">
 													<div class="modal-header">
-														<h4 class="modal-title">거래처검색</h4>
-														<button type="button" class="close" onclick="$('#custModal').modal('hide');"
-															aria-label="Close">
+														<h4 class="modal-title">거래처목록</h4>
+														<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 															<span aria-hidden="true">&times;</span>
 														</button>
 													</div>
@@ -157,9 +152,7 @@
 														<p>Loading!!!</p>
 													</div>
 													<div class="modal-footer">
-														<button type="button"
-															class="btn btn-default waves-effect "
-															onclick="$('#custModal').modal('hide');">Close</button>
+														<button type="button" class="btn btn-default waves-effect " data-dismiss="modal">Close</button>
 													</div>
 												</div>
 											</div>
@@ -183,20 +176,17 @@
 											<div class="modal-dialog modal-80size" role="document">
 												<div class="modal-content modal-80size">
 													<div class="modal-header">
-														<h4 class="modal-title"></h4>
-														<button type="button" class="close" onclick="$('#ptncModal').modal('hide');"
-															aria-label="Close">
+														<h4 class="modal-title">엔드유저</h4>
+														<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 															<span aria-hidden="true">&times;</span>
 														</button>
 													</div>
 													<div class="modal-body">
-														<h5>협력사목록</h5>
+														<h5>엔드유저</h5>
 														<p>Loading!!!</p>
 													</div>
 													<div class="modal-footer">
-														<button type="button"
-															class="btn btn-default waves-effect "
-															onclick="$('#ptncModal').modal('hide');">Close</button>
+														<button type="button" class="btn btn-default waves-effect " data-dismiss="modal">Close</button>
 													</div>
 												</div>
 											</div>

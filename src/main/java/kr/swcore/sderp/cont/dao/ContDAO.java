@@ -15,4 +15,5 @@ public interface ContDAO {
 	int deleteCont(int contNo);
 	int insertCont(ContDTO dto);
 
+	ContDTO listSalesTargetMonthIndividual(ContDTO contDTO);
 }

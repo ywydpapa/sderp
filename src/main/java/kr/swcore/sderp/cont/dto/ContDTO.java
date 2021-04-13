@@ -2,11 +2,12 @@ package kr.swcore.sderp.cont.dto;
 
 import java.math.BigDecimal;
 
-public class ContDTO {
+public class ContDTO implements Cloneable{
 
 	private int contNo;
 	private String contTitle;
 	private int soppNo;
+	private int exContNo;
 	private int userNo;
 	private int compNo;
 	private int custNo;
@@ -38,7 +39,14 @@ public class ContDTO {
 	private String buyrName;
 	private String businessType;
 	private String contTypeN;
-	
+
+	// 확장
+	private String exContName;
+	private String targetType;
+	private String targetYear;
+	private String targetMonth;
+	private Integer contTypeCount;
+
 	public String getContTypeN() {
 		return contTypeN;
 	}
@@ -92,6 +100,12 @@ public class ContDTO {
 	}
 	public void setSoppNo(int soppNo) {
 		this.soppNo = soppNo;
+	}
+	public int getExContNo() {
+		return exContNo;
+	}
+	public void setExContNo(int exContNo) {
+		this.exContNo = exContNo;
 	}
 	public int getUserNo() {
 		return userNo;
@@ -243,22 +257,87 @@ public class ContDTO {
 	public void setPtncName(String ptncName) {
 		this.ptncName = ptncName;
 	}
+	public String getExContName() {
+		return exContName;
+	}
+	public void setExContName(String exContName) {
+		this.exContName = exContName;
+	}
+	public String getTargetType() {
+		return targetType;
+	}
+	public void setTargetType(String targetType) {
+		this.targetType = targetType;
+	}
+	public String getTargetYear() {
+		return targetYear;
+	}
+	public void setTargetYear(String targetYear) {
+		this.targetYear = targetYear;
+	}
+	public String getTargetMonth() {
+		return targetMonth;
+	}
+	public void setTargetMonth(String targetMonth) {
+		this.targetMonth = targetMonth;
+	}
+	public Integer getContTypeCount() {
+		return contTypeCount;
+	}
+	public void setContTypeCount(Integer contTypeCount) {
+		this.contTypeCount = contTypeCount;
+	}
+
 	@Override
 	public String toString() {
-		return "ContDTO [contNo=" + contNo + ", contTitle=" + contTitle + ", soppNo=" + soppNo + ", userNo=" + userNo
-				+ ", custNo=" + custNo + ", salesType=" + salesType + ", custmemberNo=" + custmemberNo
-				+ ", maintcustNo=" + maintcustNo + ", supplyNo=" + supplyNo + ", ptncNo=" + ptncNo + ", contOrddate="
-				+ contOrddate + ", supplyDate=" + supplyDate + ", delivDate=" + delivDate + ", contAmt=" + contAmt
-				+ ", freemaintSdate=" + freemaintSdate + ", freemaintEdate=" + freemaintEdate + ", vatYn=" + vatYn
-				+ ", contArea=" + contArea + ", contType=" + contType + ", contDesc=" + contDesc + ", attrib=" + attrib
-				+ ", soppTitle=" + soppTitle + ", userName=" + userName + ", custName=" + custName + ", supplyName="
-				+ supplyName + ", custmemberName=" + custmemberName + ", ptncName=" + ptncName + "]";
+		return "ContDTO{" +
+				"contNo=" + contNo +
+				", contTitle='" + contTitle + '\'' +
+				", soppNo=" + soppNo +
+				", exContNo=" + exContNo +
+				", userNo=" + userNo +
+				", compNo=" + compNo +
+				", custNo=" + custNo +
+				", salesType='" + salesType + '\'' +
+				", custmemberNo=" + custmemberNo +
+				", maintcustNo=" + maintcustNo +
+				", supplyNo=" + supplyNo +
+				", ptncNo=" + ptncNo +
+				", contOrddate='" + contOrddate + '\'' +
+				", supplyDate='" + supplyDate + '\'' +
+				", delivDate='" + delivDate + '\'' +
+				", contAmt=" + contAmt +
+				", freemaintSdate='" + freemaintSdate + '\'' +
+				", freemaintEdate='" + freemaintEdate + '\'' +
+				", vatYn='" + vatYn + '\'' +
+				", contArea='" + contArea + '\'' +
+				", contType='" + contType + '\'' +
+				", contDesc='" + contDesc + '\'' +
+				", attrib='" + attrib + '\'' +
+				", soppTitle='" + soppTitle + '\'' +
+				", userName='" + userName + '\'' +
+				", custName='" + custName + '\'' +
+				", supplyName='" + supplyName + '\'' +
+				", custmemberName='" + custmemberName + '\'' +
+				", ptncName='" + ptncName + '\'' +
+				", targetDatefrom='" + targetDatefrom + '\'' +
+				", targetDateto='" + targetDateto + '\'' +
+				", buyrNo=" + buyrNo +
+				", buyrName='" + buyrName + '\'' +
+				", businessType='" + businessType + '\'' +
+				", contTypeN='" + contTypeN + '\'' +
+				", exContName='" + exContName + '\'' +
+				", contTypeCount=" + contTypeCount +
+				'}';
 	}
+
 	public ContDTO() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	
-	
+	@Override
+	public Object clone() throws CloneNotSupportedException {
+		return super.clone();
+	}
 }

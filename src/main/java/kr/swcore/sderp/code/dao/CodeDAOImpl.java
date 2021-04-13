@@ -258,4 +258,9 @@ public class CodeDAOImpl implements CodeDAO {
 		// TODO Auto-generated method stub
 		return sqlSession.selectList("code.listActSprtScheduleDetailType", soppdto);
 	}
+
+	@Override
+	public List<CodeDTO> listContType(SoppDTO soppdto) {
+		return sqlSession.selectList("code.listContType", soppdto);
+	}
 }

@@ -5,7 +5,8 @@
 <c:set var="path" value="${pageContext.request.contextPath}" />
 <script src="${path}/assets/pages/jquery.dataTables.min.js"></script>
 <script src="${path}/assets/pages/dataTables.bootstrap4.min.js"></script>
-<script type="text/javascript" src="${path}/assets/echart/echarts-all.js"></script>
+<%--<script type="text/javascript" src="${path}/assets/echart/echarts-all.js"></script>--%>
+<script type="text/javascript" src="${path}/assets/echart/echarts-5.0.2.js"></script>
 
 <div class="row">
 	<div class="col-md-12 col-lg-5">
@@ -62,7 +63,7 @@
 					<option value = "2024" <c:if test="${graph2.targetYear == 2024}">selected</c:if> >2024</option>
 					<option value = "2025" <c:if test="${graph2.targetYear == 2025}">selected</c:if> >2025</option>
 				</select>
-				<select class="custom-select mr-sm-1" name="graph2TargetDepartment" id="graph2TargetDepartment" style="float:left;">
+				<select class="custom-select mr-sm-1" name="graph2TargetDepartment" id="graph2TargetDepartment" style="float:right;">
 					<option value = "all">전체</option>
 					<option value = "dept">부서</option>
 					<option value = "individual" selected>개인</option>
@@ -76,7 +77,7 @@
 				</div> -->
 			</div>
 			<div class="card-block">
-				<div id="myChart02" style="width:400px; height:362px;"></div>
+				<div id="myChart02" style="width:270px; height:350px;"></div>
 			</div>
 			<div class="chart2">
 				<div class="mbo-title ky-box ky-box-default">
@@ -118,14 +119,14 @@
 				</select>
 				<div style="display: inline-block;">
 					<h5>누적 계획대비 실적</h5>
-					<span style="vertical-align: bottom;">${graph3.targetYear}년</span>
+					<span style="vertical-align: bottom;" id="graph3TargetMiniTitle">${graph3.targetYear}년</span>
 				</div>				
 				<!-- <div class="card-header-right">
 					<i class="icofont icofont-spinner-alt-5"></i>
 				</div> -->
 			</div>
 			<div class="card-block">
-				<div id="myChart03" style="width:400px; height:362px;"></div>
+				<div id="myChart03" style="width:270px; height:350px;"></div>
 			</div>
 			<div class="chart3">
 				<div class="mbo-title ky-box ky-box-default">
@@ -152,14 +153,40 @@
 	<div class="col-md-12 col-lg-3">
 		<div class="card">
 			<div class="card-header">
-				<h5>판매방법</h5>
-				<span>2021년</span>
-				<div class="card-header-right">
-					<i class="icofont icofont-spinner-alt-5"></i>
+				<select class="custom-select mr-sm-1" name="graph4TargetMonth" id="graph4TargetMonth" style="float:right;">
+					<option value = "01" <c:if test="${graph4.targetMonth == 01}">selected</c:if> >01</option>
+					<option value = "02" <c:if test="${graph4.targetMonth == 02}">selected</c:if> >02</option>
+					<option value = "03" <c:if test="${graph4.targetMonth == 03}">selected</c:if> >03</option>
+					<option value = "04" <c:if test="${graph4.targetMonth == 04}">selected</c:if> >04</option>
+					<option value = "05" <c:if test="${graph4.targetMonth == 05}">selected</c:if> >05</option>
+					<option value = "06" <c:if test="${graph4.targetMonth == 06}">selected</c:if> >06</option>
+					<option value = "07" <c:if test="${graph4.targetMonth == 07}">selected</c:if> >07</option>
+					<option value = "08" <c:if test="${graph4.targetMonth == 08}">selected</c:if> >08</option>
+					<option value = "09" <c:if test="${graph4.targetMonth == 09}">selected</c:if> >09</option>
+					<option value = "10" <c:if test="${graph4.targetMonth == 10}">selected</c:if> >10</option>
+					<option value = "11" <c:if test="${graph4.targetMonth == 11}">selected</c:if> >11</option>
+					<option value = "12" <c:if test="${graph4.targetMonth == 12}">selected</c:if> >12</option>
+				</select>
+				<select class="custom-select mr-sm-1" name="graph4TargetYear" id="graph4TargetYear" style="float:right;">
+					<option value = "2020" <c:if test="${graph4.targetYear == 2020}">selected</c:if> >2020</option>
+					<option value = "2021" <c:if test="${graph4.targetYear == 2021}">selected</c:if> >2021</option>
+					<option value = "2022" <c:if test="${graph4.targetYear == 2022}">selected</c:if> >2022</option>
+					<option value = "2023" <c:if test="${graph4.targetYear == 2023}">selected</c:if> >2023</option>
+					<option value = "2024" <c:if test="${graph4.targetYear == 2024}">selected</c:if> >2024</option>
+					<option value = "2025" <c:if test="${graph4.targetYear == 2025}">selected</c:if> >2025</option>
+				</select>
+				<select class="custom-select mr-sm-1" name="graph4TargetDepartment" id="graph4TargetDepartment" style="float:right;">
+					<option value = "all">전체</option>
+					<option value = "dept">부서</option>
+					<option value = "individual" selected>개인</option>
+				</select>
+				<div style="display: inline-block;">
+					<h5>판매방식</h5>
+					<span style="vertical-align: bottom;" id="graph4TargetMiniTitle">${graph4.targetYear}년 ${graph4.targetMonth}월</span>
 				</div>
 			</div>
 			<div class="card-block">
-				<div id="myChart04" style="width:400px; height:400px;"></div>
+				<div id="myChart04" style="width:350px; height:400px;"></div>
 			</div>
 		</div>
 	</div>
@@ -211,6 +238,7 @@
 			<table id="salesTable" class="table table-striped table-bordered nowrap">
 					<thead>
 						<tr>
+							<th style="text-align: center">영업일정</th>
 							<th style="text-align: center">일정명</th>
 							<th style="text-align: center">거래처명</th>
 							<th style="text-align: center">담당자</th>
@@ -220,6 +248,10 @@
 					<tbody>
 						<c:forEach var="row" items="${saleslist}">
 							<tr align="center">
+								<td>
+									<fmt:parseDate value="${row.salesFrdatetime}" var="salesFrdatetime" pattern="yyyy-MM-dd HH:mm:ss"/>
+									<fmt:formatDate value="${salesFrdatetime}" pattern="yyyy-MM-dd"/>
+								</td>
 								<td><a
 									href="javascript:fnSetPage('${path}/sales/detail/${row.salesNo}')">${row.salesTitle}</a></td>
 								<td>${row.custName}</td>
@@ -260,6 +292,7 @@
 				<table id="contTable" class="table table-striped table-bordered nowrap">
 					<thead>
 						<tr>
+							<th style="text-align: center">판매일</th>
 							<th style="text-align: center">계약명</th>
 							<th style="text-align: center">거래처명</th>
 							<th style="text-align: center">담당자</th>
@@ -268,6 +301,7 @@
 					<tbody>
 						<c:forEach var="row" items="${contlist}">
 							<tr align="center">
+								<td>${row.delivDate}</td>
 								<td><a
 									href="javascript:fnSetPage('${path}/cont/detail/${row.contNo}')">${row.contTitle}</a></td>
 								<td>${row.custName}</td>
@@ -282,7 +316,7 @@
 </div>
 <style>
 	.chart2, .chart3{
-		padding-bottom: 21px;
+		padding-bottom: 33px;
 		margin-left: 6px;
 		margin-top: -148px;
 		width: 95%;
@@ -354,7 +388,6 @@ function chartReady(){
 //				type : 'cross'
 	        },
 	        formatter: function (params){
-	        	console.dir(params);
 	            return params[0].name + '<br/>'
 	                   + params[2].seriesName + ' : ' + (params[2].value+params[0].value) + '<br/>'
 	                   + params[1].seriesName + ' : ' + (params[1].value) + '<br/>'
@@ -394,7 +427,19 @@ function chartReady(){
 	                    barBorderWidth: 3,
 	                    barBorderRadius:0,
 	                    label : {
-	                        show: true, position: 'insideTop'
+	                        show: true,
+							position: 'insideTop',
+							formatter: function (params) {
+								for (var i = 0, l = option1.xAxis[0].data.length; i < l; i++) {
+									if (option1.xAxis[0].data[i] == params.name) {
+										if (option1.series[0].data[i] > 0){
+											return option1.series[0].data[i];
+										} else {
+											return '';
+										}
+									}
+								}
+							},
 	                    }
 	                }
 	            },
@@ -413,7 +458,7 @@ function chartReady(){
 	                    barBorderWidth: 1,
 	                    barBorderRadius:0,
 	                    label : {
-	                        show: true,
+	                        show: false,
 	                        position: 'top',
 	                        formatter: function (params) {
 	                            for (var i = 0, l = option1.xAxis[0].data.length; i < l; i++) {
@@ -454,10 +499,10 @@ function chartReady(){
 	                        formatter: function (params) {
 	                            for (var i = 0, l = option1.xAxis[0].data.length; i < l; i++) {
 	                                if (option1.xAxis[0].data[i] == params.name) {
-	                                	if (option1.series[2].data[i] != 0){
+	                                	if (option1.series[2].data[i] > 0){
 	                                    	return option1.series[2].data[i];
 	                                	} else {
-	                                		return;
+	                                		return '';
 	                                	}
 	                                }
 	                            }
@@ -482,64 +527,67 @@ function chartReady(){
 	var myChartGauge2 = echarts.init(document.getElementById('myChart02'));
 	globalmyChartGauge2 = myChartGauge2;
 	var option2 = {
-		  emphasis : {
-		  	  scale : true,
-			  scaleSize : 3
-		  },
-          tooltip : {
-              formatter: "{b} : {c}%"
-          },
-          toolbox: {
-              show : false,
-              feature : {
-                  mark : {show: false},
-                  restore : {show: false},
-                  saveAsImage : {show: false}
-                  }
-          },
-          series : [
-              {
-                  name:'MonthRatio',
-                  type:'gauge',
-                  center: ['25%', '35%'],
-                  radius: ['00%', '50%'],
-                  axisLine: {
-                      show: true,
-                      lineStyle: {
-                          color: [
-                              [0.4,'#FC6180'],
-                              [0.7,'#4680ff'],
-                              [1,'#93BE52']
-                          ],
-                          width: 10
-                      }
-                  }  ,
-                  title: {
-                      show : false,
-                      offsetCenter: [0, '120%'],
-                      textStyle: {
-                          color: '#93BE52',
-                          fontSize : 30
-                      }
-                  }  ,
-                  detail: {
-                      show : true,
-                      backgroundColor: 'rgba(0,0,0,0)',
-                      borderWidth: 0,
-                      borderColor: '#ccc',
-                      width: 80,
-                      height: 40,
-                      offsetCenter: [0, '40%'],
-                      formatter:'{value}%',
-                      textStyle: {
-                          color: 'auto',
-                          fontSize : 25
-                      }
-                  },
-
-                  data:[{value: ${graph2.data.percent}, name: 'MonthRatio (%)'}]
-              }
-       ]
+		series: [{
+			type: 'gauge',
+			center: ['39%', '30%'],
+			startAngle: 225,
+			endAngle: -45,
+			min: 0,
+			max: 100,
+			splitNumber: 10,
+			axisLine: {
+				lineStyle: {
+					width: 3,
+					color: [
+						[0.4,'#FC6180'],
+						[0.7,'#4680ff'],
+						[1,'#93BE52']
+					]
+				}
+			},
+			pointer: {
+				itemStyle: {
+					color: 'auto'
+				}
+			},
+			axisTick: {
+				length: 3,
+				lineStyle: {
+					color: 'auto',
+					width: 1
+				}
+			},
+			splitLine: {
+				length: 7,
+				lineStyle: {
+					color: 'auto',
+					width: 3
+				}
+			},
+			axisLabel: {
+				show : true,
+			},
+			title: {
+				offsetCenter: [0, '-20%'],
+				fontSize: 30
+			},
+			detail: {
+				show : true,
+				backgroundColor: 'rgba(0,0,0,0)',
+				borderWidth: 0,
+				borderColor: '#ccc',
+				fontSize: 20,
+				offsetCenter: [0, '70%'],
+				valueAnimation: true,
+				formatter: function (value) {
+					return value + '%';
+				},
+				color: 'auto'
+			},
+			data: [{
+				value: ${graph2.data.percent}
+			}]
+		}]
 	};
 	
 	function gauge_load_chart2(option2){
@@ -558,60 +606,68 @@ function chartReady(){
 	var myChartGauge3 = echarts.init(document.getElementById('myChart03'));
 	globalmyChartGauge3 = myChartGauge3;
 	var option3 = {
-	        tooltip : {
-	            formatter: "{b} : {c}%"
-	        },
-	        toolbox: {
-	            show : false,
-	            feature : {
-	                mark : {show: false},
-	                restore : {show: false},
-	                saveAsImage : {show: false}
-	                }
-	        },
-	        series : [
-	            {
-	                name:'MonthRatio',
-	                type:'gauge',
-	                center: ['25%', '35%'],
-	                radius: ['00%', '50%'],
-	                axisLine: {
-	                    show: true,
-	                    lineStyle: {
-	                        color: [
-	                            [0.4,'#FC6180'],
-	                            [0.7,'#4680ff'],
-	                            [1,'#93BE52']
-	                        ],
-	                        width: 10
-	                    }
-	                }  ,
-	                title: {
-	                    show : false,
-	                    offsetCenter: [0, '120%'],
-	                    textStyle: {
-	                        color: '#93BE52',
-	                        fontSize : 30
-	                    }
-	                }  ,
-	                detail: {
-	                    show : true,
-	                    backgroundColor: 'rgba(0,0,0,0)',
-	                    borderWidth: 0,
-	                    borderColor: '#ccc',
-	                    width: 80,
-	                    height: 40,
-	                    offsetCenter: [0, '40%'],
-	                    formatter:'{value}%',
-	                    textStyle: {
-	                        color: 'auto',
-	                        fontSize : 25
-	                    }
-	                },
-	
-	                data:[{value:  ${graph3.data.percent}, name: 'MonthRatio (%)'}]
-	            }
-	     ]
+		series: [{
+			type: 'gauge',
+			center: ['39%', '30%'],
+			startAngle: 225,
+			endAngle: -45,
+			min: 0,
+			max: 100,
+			splitNumber: 10,
+			axisLine: {
+				lineStyle: {
+					width: 3,
+					color: [
+						[0.4,'#FC6180'],
+						[0.7,'#4680ff'],
+						[1,'#93BE52']
+					]
+				}
+			},
+			pointer: {
+
+				itemStyle: {
+					color: 'auto'
+				}
+			},
+			axisTick: {
+				length: 3,
+				lineStyle: {
+					color: 'auto',
+					width: 1
+				}
+			},
+			splitLine: {
+				length: 7,
+				lineStyle: {
+					color: 'auto',
+					width: 3
+				}
+			},
+			axisLabel: {
+				show : true,
+			},
+			title: {
+				offsetCenter: [0, '-20%'],
+				fontSize: 30
+			},
+			detail: {
+				show : true,
+				backgroundColor: 'rgba(0,0,0,0)',
+				borderWidth: 0,
+				borderColor: '#ccc',
+				fontSize: 20,
+				offsetCenter: [0, '70%'],
+				valueAnimation: true,
+				formatter: function (value) {
+					return value + '%';
+				},
+				color: 'auto'
+			},
+			data: [{
+				value: ${graph3.data.percent}
+			}]
+		}]
 	};
 	
 	function gauge_load_chart3(option3){
@@ -631,55 +687,62 @@ function chartReady(){
 	var myChartGauge4 = echarts.init(document.getElementById('myChart04'));
 	globalmyChartGauge4 = myChartGauge4;
 	var option4 = {
+		legend: {},
 		tooltip: {
-	        trigger: 'item',
-	        formatter: '{a} <br/>{b}: {c} ({d}%)'
-	    },
-	    legend: {
-	        orient: 'horizon',
-	        left: 5,
-	        data: ['조달직판', '조달간판', '조달대행', '직접판매', '간접판매']
-	    },
-	    series: [
-	        {
-	            name: '판매방법',
-	            type: 'pie',
-	            radius: ['20%', '40%'],
-	            avoidLabelOverlap: false,
-	            label: {
-	                show: false,
-	                position: 'center'
-	            },
-	            emphasis: {
-	                label: {
-	                    show: true,
-	                    fontSize: '20',
-	                    fontWeight: 'bold'
-	                }
-	            },
-	            labelLine: {
-	                show: false
-	            },
-	            data: [
-	                {value: 335, name: '조달직판'},
-	                {value: 110, name: '조달간판'},
-	                {value: 134, name: '조달대행'},
-	                {value: 135, name: '직접판매'},
-	                {value: 148, name: '간접판매'}
-	            ]
-	        }
-	    ]
+			trigger: 'axis',
+			showContent: false
+		},
+		dataset: {
+			source: [
+				['product', '판매방식'],
+				['조달직판', ${graph4.data[0].contTypeCount}],
+				['조달간판', ${graph4.data[1].contTypeCount}],
+				['조달대행', ${graph4.data[2].contTypeCount}],
+				['직접판매', ${graph4.data[3].contTypeCount}],
+				['간접판매', ${graph4.data[4].contTypeCount}],
+				['기타', ${graph4.data[5].contTypeCount}],
+			]
+		},
+		xAxis: {type: 'category'},
+		yAxis: {gridIndex: 0},
+		grid: {top: '55%'},
+		series: [
+			{type: 'bar', smooth: true, seriesLayoutBy: 'row', emphasis: {focus: 'series'}, label: { show: true, color:'black', formatter: function (params){ return params[0];}}},
+			{type: 'bar', smooth: true, seriesLayoutBy: 'row', emphasis: {focus: 'series'}, label: { show: true, color:'black', formatter: function (params){ return params[1];}}},
+			{type: 'bar', smooth: true, seriesLayoutBy: 'row', emphasis: {focus: 'series'}, label: { show: true, color:'black', formatter: function (params){ return params[2];}}},
+			{type: 'bar', smooth: true, seriesLayoutBy: 'row', emphasis: {focus: 'series'}, label: { show: true, color:'black', formatter: function (params){ return params[3];}}},
+			{type: 'bar', smooth: true, seriesLayoutBy: 'row', emphasis: {focus: 'series'}, label: { show: true, color:'black', formatter: function (params){ return params[4];}}},
+			{type: 'bar', smooth: true, seriesLayoutBy: 'row', emphasis: {focus: 'series'}, label: { show: true, color:'black', formatter: function (params){ return params[5];}}},
+			{
+				type: 'pie',
+				id: 'pie',
+				radius: '30%',
+				center: ['50%', '35%'],
+				emphasis: {focus: 'data'},
+				label: {
+					formatter: '{d}%'
+				},
+				encode: {
+					itemName: 'product',
+					value: '판매방식'
+				}
+			}
+		]
 	};
+
 	myChartGauge4.setOption(option4);
 	globaloption4 = option4;
+
 }
 
-/* 
-	$(function() {
-	});
- */	
 	$(document).ready(function(){
-		$('#soppTable,#contTable,#salesTable').DataTable({
+		$('#salesTable,#contTable').DataTable({
+			info : false,
+			filter : false,
+			lengthChange : false,
+			order: [[ 0, "desc" ]]
+		});
+		$('#soppTable').DataTable({
 			info : false,
 			filter : false,
 			lengthChange : false
@@ -776,8 +839,10 @@ function chartReady(){
 							console.dir("profitTarget : "+result.data.profitTarget);
 							console.dir("salesTarget : "+result.data.salesTarget);
 							console.dir("overTarget : "+result.data.overTarget);
-							console.dir("targetMonth : "+result.data.targetMonth);
-							console.dir("targetYear : "+result.data.targetYear);
+							console.dir("targetMonth : "+result.targetMonth);
+							console.dir("targetYear : "+result.targetYear);
+							var graph2TargetMiniTitle = result.targetYear + "년 " + result.targetMonth+"월";
+							$("#graph2TargetMiniTitle").text(graph2TargetMiniTitle);
 
 							chart2_month_profitTarget = '₩'+Math.floor(result.data.profitTarget).toLocaleString("en-US");
 							chart2_month_salesTarget = '₩'+Math.floor(result.data.salesTarget).toLocaleString("en-US");
@@ -829,6 +894,8 @@ function chartReady(){
 							console.dir("profitTarget : "+result.data.profitTarget);
 							console.dir("salesTarget : "+result.data.salesTarget);
 							console.dir("overTarget : "+result.data.overTarget);
+							var graph3TargetMiniTitle = result.targetYear + "년";
+							$("#graph3TargetMiniTitle").text(graph3TargetMiniTitle);
 
 							chart3_month_profitTarget = '₩'+Math.floor(result.data.profitTarget).toLocaleString("en-US");
 							chart3_month_salesTarget = '₩'+Math.floor(result.data.salesTarget).toLocaleString("en-US");
@@ -856,6 +923,47 @@ function chartReady(){
 					});
 		});
 
+		$("#graph4TargetDepartment, #graph4TargetYear, #graph4TargetMonth").on("change", function(){
+			console.dir("change 이벤트!!")
+			var graph4TargetDepartment = $("#graph4TargetDepartment").val();
+			var graph4TargetYear = $("#graph4TargetYear").val();
+			var graph4TargetMonth = $("#graph4TargetMonth").val();
+			var obj = new Object();
+			obj.targetType = graph4TargetDepartment;
+			obj.targetYear = graph4TargetYear;
+			obj.targetMonth = graph4TargetMonth;
+			var url = "${path}/cont/graph4";
+			$.ajax({
+				url: url, // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
+				data: JSON.stringify(obj) , // HTTP 요청과 함께 서버로 보낼 데이터
+				method: "POST", // HTTP 요청 메소드(GET, POST 등)
+				contentType:"application/json",
+				dataType: "json" // 서버에서 보내줄 데이터의 타입
+			}) // HTTP 요청이 성공하면 요청한 데이터가 done() 메소드로 전달됨. .
+					.done(function(result) {
+						if(result.code == 10001){
+							console.dir("AJAX 데이터 로딩 완료");
+							globaloption4.dataset.source[1][1] = result.data[0].contTypeCount;
+							globaloption4.dataset.source[2][1] = result.data[1].contTypeCount;
+							globaloption4.dataset.source[3][1] = result.data[2].contTypeCount;
+							globaloption4.dataset.source[4][1] = result.data[3].contTypeCount;
+							globaloption4.dataset.source[5][1] = result.data[4].contTypeCount;
+							globaloption4.dataset.source[6][1] = result.data[5].contTypeCount;
+							globalmyChartGauge4.setOption(globaloption4, true);
+
+							console.dir("targetMonth : "+result.targetMonth);
+							console.dir("targetYear : "+result.targetYear);
+							var graph4TargetMiniTitle = result.targetYear + "년 " + result.targetMonth+"월";
+							$("#graph4TargetMiniTitle").text(graph4TargetMiniTitle);
+
+						}else{
+							console.dir("AJAX 데이터 로딩 실패");
+						}
+					}) // HTTP 요청이 실패하면 오류와 상태에 관한 정보가 fail() 메소드로 전달됨.
+					.fail(function(xhr, status, errorThrown) {
+						console.dir("AJAX 통신실패");
+					});
+		});
 	});
 
 </script>

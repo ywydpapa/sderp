@@ -56,10 +56,8 @@ public class ContDAOImpl implements ContDAO {
 		return sqlSession.insert("cont.insertCont",dto);
 	}
 
-
-
-
-	
-	
-
+	@Override
+	public ContDTO listSalesTargetMonthIndividual(ContDTO contDTO) {
+		return sqlSession.selectOne("cont.listSalesTargetMonthIndividual", contDTO);
+	}
 }

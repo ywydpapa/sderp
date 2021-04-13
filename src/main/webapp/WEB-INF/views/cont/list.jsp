@@ -309,7 +309,7 @@ $(function(){
 									<td>${row.freemaintSdate}</td>
 									<td>${row.freemaintEdate}</td>
 									<td>-</td>
-									<td>${row.delivDate}</td>
+									<td>${row.contOrddate}</td>
 									<%-- <td><a href="javascript:fnSetPage('${path}/cont/detail/${row.contNo}')">상세정보</a></td> --%>
 								</tr>
 							</c:forEach>								

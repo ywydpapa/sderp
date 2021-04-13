@@ -11,7 +11,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		left join swc_cust c on a.custNo = c.custNo
 		left join swc_code d on a.contType = d.codeNo 
 		where a.attrib not like 'XXX%' and a.compNo = #{compNo}
-		order by contNo 
+		order by contOrddate desc
  </select>
  
  <select id="listconCont"
@@ -61,7 +61,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  		<if test="freemaintEdate != null and freemaintEdate != ''">
  			and date_format(a.freemaintEdate, '%Y-%m-%d') <![CDATA[<=]]> #{freemaintEdate}
  		</if>
-		order by contNo 
+		order by contOrddate desc
  </select>
 
 <select id="detailCont"

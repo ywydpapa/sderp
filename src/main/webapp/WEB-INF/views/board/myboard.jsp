@@ -162,10 +162,10 @@
 					<option value = "06" <c:if test="${graph4.targetMonth == 06}">selected</c:if> >06</option>
 					<option value = "07" <c:if test="${graph4.targetMonth == 07}">selected</c:if> >07</option>
 					<option value = "08" <c:if test="${graph4.targetMonth == 08}">selected</c:if> >08</option>
-					<option value = "09" <c:if test="${graph$.targetMonth == 09}">selected</c:if> >09</option>
+					<option value = "09" <c:if test="${graph4.targetMonth == 09}">selected</c:if> >09</option>
 					<option value = "10" <c:if test="${graph4.targetMonth == 10}">selected</c:if> >10</option>
 					<option value = "11" <c:if test="${graph4.targetMonth == 11}">selected</c:if> >11</option>
-					<option value = "12" <c:if test="${graph$.targetMonth == 12}">selected</c:if> >12</option>
+					<option value = "12" <c:if test="${graph4.targetMonth == 12}">selected</c:if> >12</option>
 				</select>
 				<select class="custom-select mr-sm-1" name="graph4TargetYear" id="graph4TargetYear" style="float:right;">
 					<option value = "2020" <c:if test="${graph4.targetYear == 2020}">selected</c:if> >2020</option>
@@ -695,11 +695,12 @@ function chartReady(){
 		dataset: {
 			source: [
 				['product', '판매방식'],
-				['조달직판', 50],
-				['조달간판', 60],
-				['조달대행', 20],
-				['직접판매', 30],
-				['간접판매', 40],
+				['조달직판', ${graph4.data[0].contTypeCount}],
+				['조달간판', ${graph4.data[1].contTypeCount}],
+				['조달대행', ${graph4.data[2].contTypeCount}],
+				['직접판매', ${graph4.data[3].contTypeCount}],
+				['간접판매', ${graph4.data[4].contTypeCount}],
+				['기타', ${graph4.data[5].contTypeCount}],
 			]
 		},
 		xAxis: {type: 'category'},
@@ -711,6 +712,7 @@ function chartReady(){
 			{type: 'bar', smooth: true, seriesLayoutBy: 'row', emphasis: {focus: 'series'}, label: { show: true, color:'black', formatter: function (params){ return params[2];}}},
 			{type: 'bar', smooth: true, seriesLayoutBy: 'row', emphasis: {focus: 'series'}, label: { show: true, color:'black', formatter: function (params){ return params[3];}}},
 			{type: 'bar', smooth: true, seriesLayoutBy: 'row', emphasis: {focus: 'series'}, label: { show: true, color:'black', formatter: function (params){ return params[4];}}},
+			{type: 'bar', smooth: true, seriesLayoutBy: 'row', emphasis: {focus: 'series'}, label: { show: true, color:'black', formatter: function (params){ return params[5];}}},
 			{
 				type: 'pie',
 				id: 'pie',
@@ -727,7 +729,6 @@ function chartReady(){
 			}
 		]
 	};
-
 
 	myChartGauge4.setOption(option4);
 	globaloption4 = option4;
@@ -922,10 +923,47 @@ function chartReady(){
 					});
 		});
 
-		var varArr = globaloption4.dataset.source[0][1];
-		console.dir(varArr);
-		globaloption4.dataset.source[1][1] = 300;
-		globalmyChartGauge4.setOption(globaloption4, true);
+		$("#graph4TargetDepartment, #graph4TargetYear, #graph4TargetMonth").on("change", function(){
+			console.dir("change 이벤트!!")
+			var graph4TargetDepartment = $("#graph4TargetDepartment").val();
+			var graph4TargetYear = $("#graph4TargetYear").val();
+			var graph4TargetMonth = $("#graph4TargetMonth").val();
+			var obj = new Object();
+			obj.targetType = graph4TargetDepartment;
+			obj.targetYear = graph4TargetYear;
+			obj.targetMonth = graph4TargetMonth;
+			var url = "${path}/cont/graph4";
+			$.ajax({
+				url: url, // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
+				data: JSON.stringify(obj) , // HTTP 요청과 함께 서버로 보낼 데이터
+				method: "POST", // HTTP 요청 메소드(GET, POST 등)
+				contentType:"application/json",
+				dataType: "json" // 서버에서 보내줄 데이터의 타입
+			}) // HTTP 요청이 성공하면 요청한 데이터가 done() 메소드로 전달됨. .
+					.done(function(result) {
+						if(result.code == 10001){
+							console.dir("AJAX 데이터 로딩 완료");
+							globaloption4.dataset.source[1][1] = result.data[0].contTypeCount;
+							globaloption4.dataset.source[2][1] = result.data[1].contTypeCount;
+							globaloption4.dataset.source[3][1] = result.data[2].contTypeCount;
+							globaloption4.dataset.source[4][1] = result.data[3].contTypeCount;
+							globaloption4.dataset.source[5][1] = result.data[4].contTypeCount;
+							globaloption4.dataset.source[6][1] = result.data[5].contTypeCount;
+							globalmyChartGauge4.setOption(globaloption4, true);
+
+							console.dir("targetMonth : "+result.targetMonth);
+							console.dir("targetYear : "+result.targetYear);
+							var graph4TargetMiniTitle = result.targetYear + "년 " + result.targetMonth+"월";
+							$("#graph4TargetMiniTitle").text(graph4TargetMiniTitle);
+
+						}else{
+							console.dir("AJAX 데이터 로딩 실패");
+						}
+					}) // HTTP 요청이 실패하면 오류와 상태에 관한 정보가 fail() 메소드로 전달됨.
+					.fail(function(xhr, status, errorThrown) {
+						console.dir("AJAX 통신실패");
+					});
+		});
 	});
 
 </script>

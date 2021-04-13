@@ -2,7 +2,7 @@ package kr.swcore.sderp.cont.dto;
 
 import java.math.BigDecimal;
 
-public class ContDTO {
+public class ContDTO implements Cloneable{
 
 	private int contNo;
 	private String contTitle;
@@ -336,6 +336,8 @@ public class ContDTO {
 		// TODO Auto-generated constructor stub
 	}
 
-	
-	
+	@Override
+	public Object clone() throws CloneNotSupportedException {
+		return super.clone();
+	}
 }

@@ -542,7 +542,7 @@
 			contData.contOrddate 			= $("#contOrddate").val();		// 발주일자
 			contData.supplyDate				= $("#supplyDate").val();		// 공급일자
 			contData.delivDate				= $("#delivDate").val();		// 검수일자
-			contData.contAmt 				= $("#contAmt").val();			// 계약금액
+			contData.contAmt 				= $("#contAmt").val().replace(/[\D\s\._\-]+/g, "");			// 계약금액
 			contData.freemaintSdate 		= $("#freemaintSdate").val();	// 무상유지보수 시작일자
 			contData.freemaintEdate 		= $("#freemaintEdate").val();	// 무상유지보수 마감일자
 			contData.vatYn					= $("#vatYn").val();			// VAT 포함여부 (기본값 : Y)
@@ -650,12 +650,35 @@
 					});
 			}
 		*/
-		$(document).ready(function(){
+		$(document).ready(function() {
 			$($(".techdDetailCont")[2]).hide();
 			$($(".techdDetailCont")[3]).hide();
 
-			$('input[name=contractType]').on('change', function() {
+			$('input[name=contractType]').on('change', function () {
 				fnToggleLayer();
+			});
+
+			var $input = $("#contAmt");
+
+			// 이벤트 시작 ==========================================================================
+			// 이벤트시 동작
+			$input.on("keyup", function (event) {
+				// 긁어와서 이벤트 체크
+				var selection = window.getSelection().toString();
+				if (selection !== '') return;
+				if ($.inArray(event.keyCode, [38, 40, 37, 39]) !== -1) return;
+
+				// 긁어오는값을 콤마를 제거해서 숫자변환
+				var $this = $(this);
+				var input = $this.val();
+				var input = input.replace(/[\D\s\._\-]+/g, "");
+				input = input ? parseInt(input, 10) : 0;
+				var ti = input;
+
+				// 데이터 반환
+				$this.val(function () {
+					return (input === 0) ? "0" : input.toLocaleString("en-US");
+				});
 			});
 		});
 </script>

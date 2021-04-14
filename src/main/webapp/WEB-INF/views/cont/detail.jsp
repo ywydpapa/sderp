@@ -327,7 +327,7 @@
 								</td>
 								<th >계약금액</th>
 								<td>
-									<input type="text" id="contAmt" name="contAmt" class="form-control " value="${dto.contAmt}">
+									<input type="text" id="contAmt" name="contAmt" class="form-control " value="<fmt:formatNumber value="${dto.contAmt}" pattern="#,###"/>">
 								</td>
 							</tr>
 							<tr>
@@ -485,12 +485,12 @@
 			contData.contTitle 				= $("#contTitle").val();
 			contData.contDesc			 	= $("#contDesc").val();
 			contData.userNo		 			= $("#userNo").val();
-			contData.custNo 					= $("#custNo").val();
+			contData.custNo 				= $("#custNo").val();
 			contData.soppNo 				= $("#soppNo").val();
-			contData.ptncNo 					= $("#ptncNo").val();
+			contData.ptncNo 				= $("#ptncNo").val();
 			contData.supplyNo 				= $("#supplyNo").val();
 			contData.contType 				= $("#contType").val();
-			contData.contAmt 				= $("#contAmt").val();
+			contData.contAmt 				= $("#contAmt").val().replace(/[\D\s\._\-]+/g, "");
 			contData.contArea 				= $("#contArea").val();
 			contData.contOrddate 			= $("#contOrddate").val();
 			contData.freemaintSdate 		= $("#freemaintSdate").val();
@@ -527,6 +527,29 @@
 
 			$('input[name=contractType]').on('change', function() {
 				fnToggleLayer();
+			});
+
+			var $input = $("#contAmt");
+
+			// 이벤트 시작 ==========================================================================
+			// 이벤트시 동작
+			$input.on("keyup", function (event) {
+				// 긁어와서 이벤트 체크
+				var selection = window.getSelection().toString();
+				if (selection !== '') return;
+				if ($.inArray(event.keyCode, [38, 40, 37, 39]) !== -1) return;
+
+				// 긁어오는값을 콤마를 제거해서 숫자변환
+				var $this = $(this);
+				var input = $this.val();
+				var input = input.replace(/[\D\s\._\-]+/g, "");
+				input = input ? parseInt(input, 10) : 0;
+				var ti = input;
+
+				// 데이터 반환
+				$this.val(function () {
+					return (input === 0) ? "0" : input.toLocaleString("en-US");
+				});
 			});
 		});
 	</script>

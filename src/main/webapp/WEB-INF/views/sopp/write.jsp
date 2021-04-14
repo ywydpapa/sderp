@@ -275,10 +275,8 @@
 														</select>
 													</td>
 													<th scope="row">예상매출</th>
-													<td><span class="input_inline"><input
-															type="number" class="form-control form-control-sm"
-															id="soppTargetAmt" name="soppTargetAmt"
-															value="${dto.soppTargetAmt}"></span>원</td>
+													<td><span class="input_inline">
+														<input type="text" class="form-control form-control-sm" id="soppTargetAmt" name="soppTargetAmt" value="${dto.soppTargetAmt}"></span>원</td>
 												</tr>
 												<tr>
 													<th scope="row">설명</th>
@@ -360,12 +358,12 @@ function fn_soppInsert() {
  	soppData.userNo 		= $("#userNo").val();
 	soppData.custNo 		= $("#custNo").val();
 	soppData.ptncNo 		= $("#ptncNo").val();
-	soppData.soppStatus 		= $("#soppStatus").val();
+	soppData.soppStatus 	= $("#soppStatus").val();
 	soppData.soppSrate 		= $("#soppSrate").val();
-	soppData.soppSource 		= $("#soppSource").val();
-	soppData.soppTargetDate		= $("#soppTargetDate").val();
+	soppData.soppSource 	= $("#soppSource").val();
+	soppData.soppTargetDate	= $("#soppTargetDate").val();
 	soppData.soppType 		= $("#soppType").val();
-	soppData.soppTargetAmt 		= $("#soppTargetAmt").val();
+	soppData.soppTargetAmt 	= $("#soppTargetAmt").val().replace(/[\D\s\._\-]+/g, "");
 	soppData.soppDesc 		= $("#soppDesc").val();
 	if (!soppData.soppTitle) {
 		alert("영업기회 제목을 입력하십시오.!!");		
@@ -436,5 +434,26 @@ $(document).ready(function(){
         newitem.addClass("item"+(parseInt(lastItemNo)+1));
         $("#itemlist").append(newitem);
     });
+
+	// 이벤트 시작 ==========================================================================
+	// 이벤트시 동작
+	$("#soppTargetAmt").on("keyup", function (event) {
+		// 긁어와서 이벤트 체크
+		var selection = window.getSelection().toString();
+		if (selection !== '') return;
+		if ($.inArray(event.keyCode, [38, 40, 37, 39]) !== -1) return;
+
+		// 긁어오는값을 콤마를 제거해서 숫자변환
+		var $this = $(this);
+		var input = $this.val();
+		var input = input.replace(/[\D\s\._\-]+/g, "");
+		input = input ? parseInt(input, 10) : 0;
+		var ti = input;
+
+		// 데이터 반환
+		$this.val(function () {
+			return (input === 0) ? "0" : input.toLocaleString("en-US");
+		});
+	});
 });
 </script>

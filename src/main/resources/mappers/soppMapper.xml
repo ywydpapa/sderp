@@ -119,6 +119,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	set 
 	 sopp2Desc=#{sopp2Desc}
 	,soppStatus=#{soppStatus}
+	,sopp2regDatetime=now()
 	where soppNo=#{soppNo}
  </update>
 

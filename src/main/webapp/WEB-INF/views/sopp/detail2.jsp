@@ -65,42 +65,37 @@
 												<tr>
 													<th scope="row">영업기회</th>
 													<td>
-													<div class="input-group input-group-sm mb-0">
-																	<input type="text" class="form-control" name="soppTitle"
-																		id="soppTitle" value="" readonly /> <input
-																		type="hidden" name="soppNo" id="soppNo"
-																		value="" /> <span class="input-group-btn">
-																		<button class="btn btn-primary sch-company"
-																			data-remote="${path}/modal/popup.do?popId=sopp"
-																			type="button" data-toggle="modal"
-																			data-target="#soppModal">
-																			<i class="icofont icofont-search"></i>
-																		</button>
-																	</span>
-																	<div class="modal fade " id="soppModal" tabindex="-1"
-																		role="dialog">
-																		<div class="modal-dialog modal-80size" role="document">
-																			<div class="modal-content modal-80size">
-																				<div class="modal-header">
-																					<h4 class="modal-title">영업기회 검색</h4>
-																					<button type="button" class="close"
-																						data-dismiss="modal" aria-label="Close">
-																						<span aria-hidden="true">&times;</span>
-																					</button>
-																				</div>
-																				<div class="modal-body">
-																					<h5>영업기회 목록</h5>
-																					<p>Loading!!!</p>
-																				</div>
-																				<div class="modal-footer">
-																					<button type="button"
-																						class="btn btn-default waves-effect "
-																						data-dismiss="modal">Close</button>
-																				</div>
-																			</div>
+														<div class="input-group input-group-sm mb-0">
+															<input type="text" class="form-control" name="soppTitle" id="soppTitle" value="" readonly />
+															<input type="hidden" name="soppNo" id="soppNo"	value="${dto.soppNo}" />
+															<span class="input-group-btn">
+																<button class="btn btn-primary sch-company" data-remote="${path}/modal/popup.do?popId=sopp"	type="button" data-toggle="modal" data-target="#soppModal">
+																	<i class="icofont icofont-search"></i>
+																</button>
+															</span>
+															<div class="modal fade " id="soppModal" tabindex="-1" role="dialog">
+																<div class="modal-dialog modal-80size" role="document">
+																	<div class="modal-content modal-80size">
+																		<div class="modal-header">
+																			<h4 class="modal-title">영업기회 검색</h4>
+																			<button type="button" class="close"
+																				data-dismiss="modal" aria-label="Close">
+																				<span aria-hidden="true">&times;</span>
+																			</button>
+																		</div>
+																		<div class="modal-body">
+																			<h5>영업기회 목록</h5>
+																			<p>Loading!!!</p>
+																		</div>
+																		<div class="modal-footer">
+																			<button type="button"
+																				class="btn btn-default waves-effect "
+																				data-dismiss="modal">Close</button>
 																		</div>
 																	</div>
 																</div>
+															</div>
+														</div>
 													</td>	
 													<th scope="row">계약 관련</th>
 														<td>

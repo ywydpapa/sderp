@@ -151,7 +151,7 @@ $(function(){
 										</c:forEach>
 									</select>
 								</div>
-								<div class="col-sm-12 col-xl-4">
+								<%--<div class="col-sm-12 col-xl-4">
 									<label class="col-form-label" for="soppType">영업타입</label>
 									<select name="select" class="form-control form-control-sm" id="businessType">
 										<option value></option>
@@ -159,7 +159,7 @@ $(function(){
 											<option value = "${businessType.codeNo}">${businessType.desc03}</option>
 										</c:forEach>
 									</select>
-								</div>
+								</div>--%>
 							</div>
 						</div>
 					</div>
@@ -177,14 +177,13 @@ $(function(){
 						<table id="soppTable" class="table table-striped table-bordered nowrap ">
 							<colgroup>
 								<col width="1%"/>
-								<col width="20%"/>
-								<col width="10%"/>
-								<col width="10%"/>
+								<col width="5%"/>
+								<col width="36%"/>
+								<col width="28%"/>
+								<col width="5%"/>
 								<col width="15%"/>
-								<col width="15%"/>
-								<col width="10%"/>
-								<col width="10%"/>
-								<col width="9%"/>
+								<col width="5%"/>
+								<col width="5%"/>
 							</colgroup>							
 							<thead>
 								<tr>
@@ -251,7 +250,7 @@ $(function(){
     		soppData.targetDatefrom = $("#targetDatefrom").val() ? $("#targetDatefrom").val() : null;
     		soppData.targetDateto = $("#targetDateto").val() ? $("#targetDateto").val() : null;
     		soppData.soppType = $("#soppType").val() ? $("#soppType").val() : null;
-    		soppData.businessType = $("#businessType").val() ? $("#businessType").val() : null;
+    		/*soppData.businessType = $("#businessType").val() ? $("#businessType").val() : null;*/
     		
     		fnSetList('${path}/sopp/list2con.do', soppData);
    		}

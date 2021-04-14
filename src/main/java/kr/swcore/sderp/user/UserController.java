@@ -59,8 +59,8 @@ public class UserController {
 	}
 	
 	@RequestMapping("list.do")
-	public String userList(Model model) {
-		List<UserDTO> list=userService.userList();
+	public String userList(HttpSession session, Model model) {
+		List<UserDTO> list=userService.userList(session);
 		model.addAttribute("list",list);
 		return "user/list";
 	}
@@ -105,11 +105,11 @@ public class UserController {
 			mav.addObject("userName", userInfo.getUserName());
 			session.setAttribute("userId", userInfo.getUserId());
 			session.setAttribute("userName", userInfo.getUserName());
-			session.setAttribute("userRole", userInfo.getUserRole()); // ±ÇÇÑÄÚµå
-			session.setAttribute("userOtp", userInfo.getUserOtp()); // OTP - 1È¸¼º
-			session.setAttribute("compNo", userInfo.getCompNo()); // È¸»çÄÚµå
-			session.setAttribute("userNo", Integer.toString(userInfo.getUserNo())); // À¯Àú ÀÏ·Ã¹øÈ£
-			session.setAttribute("orgId", userInfo.getOrg_id()); // ºÎ¼­ ¹øÈ£
+			session.setAttribute("userRole", userInfo.getUserRole()); // ï¿½ï¿½ï¿½ï¿½ï¿½Úµï¿½
+			session.setAttribute("userOtp", userInfo.getUserOtp()); // OTP - 1È¸ï¿½ï¿½
+			session.setAttribute("compNo", userInfo.getCompNo()); // È¸ï¿½ï¿½ï¿½Úµï¿½
+			session.setAttribute("userNo", Integer.toString(userInfo.getUserNo())); // ï¿½ï¿½ï¿½ï¿½ ï¿½Ï·Ã¹ï¿½È£
+			session.setAttribute("orgId", userInfo.getOrg_id()); // ï¿½Î¼ï¿½ ï¿½ï¿½È£
 		}else{
 			mav.setViewName("user/login");
 			mav.addObject("msg", "Fail");

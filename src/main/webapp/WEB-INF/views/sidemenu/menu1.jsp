@@ -92,12 +92,12 @@
 						class="pcoded-mtext" data-i18n="nav.menu-levels.menu-level-21">수주
 							판매보고 조회</span> <span class="pcoded-mcaret"></span>
 				</a></li>
-				<li class="pcoded-hasmenu"><a
+				<%--<li class="pcoded-hasmenu"><a
 					href="javascript:fnSetPage('${path}/sopp/write2.do')"> <span
 						class="pcoded-micon"><i class="ti-angle-right"></i></span> <span
 						class="pcoded-mtext" data-i18n="nav.menu-levels.menu-level-22">수주
 							판매보고 등록</span> <span class="pcoded-mcaret"></span>
-				</a></li>
+				</a></li>--%>
 			</ul></li>
 		<li class="pcoded-hasmenu  pcoded"><a
 			href="javascript:fnSetPage('${path}/cont/list.do')"> <span

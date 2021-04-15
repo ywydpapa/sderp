@@ -208,15 +208,18 @@ $(function(){
 						<table id="techdTable" class="table table-striped table-bordered nowrap">
 							<colgroup>
 								<col width="1%"/>
+								<col width="7%"/>
 								<col width="30%"/>
 								<col width="24%"/>
 								<col width="15%"/>
-								<col width="15%"/>
-								<col width="15%"/>
+								<col width="8%"/>
+								<col width="5%"/>
+								<col width="10%"/>
 							</colgroup>							
 							<thead>
 								<tr>
 									<th><input class="border-checkbox" type="checkbox" id="checkbox0"></th>
+									<th>등록구분</th>
 									<th>요청명</th>
 									<th>기술지원요청내용</th>
 									<th>거래처</th>
@@ -229,14 +232,18 @@ $(function(){
 								<c:forEach var="row" items="${list}">
 								<tr>
 									<th scope="row"><input class="border-checkbox" type="checkbox" id="checkbox0"></th>
-									<td><a href="javascript:fnSetPage('${path}/techd/detail/${row.techdNo}')">${row.techdTitle}</a></td>							
+									<td>
+										<c:if test="${row.soppNo != 0}">신규 영업지원</c:if>
+										<c:if test="${row.contNo != 0}">유지보수</c:if>
+									</td>
+									<td><a href="javascript:fnSetPage('${path}/techd/detail/${row.techdNo}')">${row.techdTitle}</a></td>
 									<td>${row.techdDesc}</td>
 									<td>${row.custName}</td>
 									<td>${row.techdStepsN}</td>
 									<td>${row.userName}</td> 
 									<td>${row.regdatetime}</td>
-								</tr>
-							</c:forEach>		
+									</tr>
+								</c:forEach>
 							</tbody>
 						</table>
 					</div>

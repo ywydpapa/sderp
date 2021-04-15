@@ -56,7 +56,7 @@ $('input[name=radio]').on('click', function() {
 						</colgroup>
 						<tbody>
 							<tr>
-								<th scope="row">등록구분</th>
+								<th scope="row" class="requiredTextCss">등록구분</th>
 								<td colspan="3">
 									<div class="form-radio">
 										<form>
@@ -72,39 +72,78 @@ $('input[name=radio]').on('click', function() {
 								</td>
 							</tr>
 							<tr>
-								<th scope="row">기술지원 요청명</th>
+								<th scope="row" class="requiredTextCss">기술지원 요청명</th>
 								<td><input type="text" class="form-control form-control-sm" id="techdTitle" name="techdTitle" placeholder="기술지원 요청명을 입력하십시오" required></td>
-								<th scope="row">담당사원</th>
-								<td>
+
+								<th scope="row" class="techdDetailSopp requiredTextCss">영업기회</th>
+								<td class="techdDetailSopp">
 									<div class="input-group input-group-sm mb-0">
-										<input type="text" class="form-control" name="userName" readonly
-											id="userName" value="${sessionScope.userName}" /> <input type="hidden" name="userNo"
-											id="userNo" value="${sessionScope.userNo}" /> <span class="input-group-btn"> 
-											<button class="btn btn-primary sch-company"
-												data-remote="${path}/modal/popup.do?popId=user"
-												type="button" data-toggle="modal" data-target="#userModal">
+										<input type="text" class="form-control" name="soppTitle"
+											   id="soppTitle" value="${dto.soppTitle}" readonly /> <input type="hidden"
+																										  name="soppNo" id="soppNo" value="" /> <span
+											class="input-group-btn">
+											<button class="btn btn-primary sch-opportunity2"
+													data-remote="${path}/modal/popup.do?popId=sopp"
+													type="button" data-toggle="modal" data-target="#soppModal">
 												<i class="icofont icofont-search"></i>
 											</button>
 										</span>
-										<div class="modal fade " id="userModal" tabindex="-1"
-											role="dialog">
+										<div class="modal fade " id="soppModal" tabindex="-1" role="dialog">
 											<div class="modal-dialog modal-80size" role="document">
 												<div class="modal-content modal-80size">
 													<div class="modal-header">
-														<h4 class="modal-title">담당사원 검색</h4>
-														<button type="button" class="close" onclick="$('#userModal').modal('hide');"
-															aria-label="Close">
+														<h4 class="modal-title"></h4>
+														<button type="button" class="close" onclick="$('#soppModal').modal('hide');"
+																aria-label="Close">
 															<span aria-hidden="true">&times;</span>
 														</button>
 													</div>
 													<div class="modal-body">
-														<h5>사용자목록</h5>
+														<h5>영업기회목록</h5>
 														<p>Loading!!!</p>
 													</div>
 													<div class="modal-footer">
 														<button type="button"
-															class="btn btn-default waves-effect "
-															onclick="$('#userModal').modal('hide');">Close</button>
+																class="btn btn-default waves-effect "
+																onclick="$('#soppModal').modal('hide');">Close</button>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</td>
+								<th scope="row" class="techdDetailCont requiredTextCss">계약</th>
+								<td class="techdDetailCont">
+									<div class="input-group input-group-sm mb-0">
+										<input type="text" class="form-control" name="contTitle"
+											   id="contTitle" value="${dto.contTitle}" readonly /> <input type="hidden"
+																										  name="contNo" id="contNo" value="" /> <span
+											class="input-group-btn">
+											<button class="btn btn-primary sch-opportunity2"
+													data-remote="${path}/modal/popup.do?popId=cont"
+													type="button" data-toggle="modal" data-target="#contModal">
+												<i class="icofont icofont-search"></i>
+											</button>
+										</span>
+										<div class="modal fade " id="contModal" tabindex="-1"
+											 role="dialog">
+											<div class="modal-dialog modal-80size" role="document">
+												<div class="modal-content modal-80size">
+													<div class="modal-header">
+														<h4 class="modal-title"></h4>
+														<button type="button" class="close" onclick="$('#contModal').modal('hide');"
+																aria-label="Close">
+															<span aria-hidden="true">&times;</span>
+														</button>
+													</div>
+													<div class="modal-body">
+														<h5>계약 목록</h5>
+														<p>Loading!!!</p>
+													</div>
+													<div class="modal-footer">
+														<button type="button"
+																class="btn btn-default waves-effect "
+																onclick="$('#contModal').modal('hide');">Close</button>
 													</div>
 												</div>
 											</div>
@@ -113,7 +152,7 @@ $('input[name=radio]').on('click', function() {
 								</td>
 							</tr>
 							<tr>
-								<th scope="row">거래처</th>
+								<th scope="row" class="requiredTextCss">거래처</th>
 								<td>
 									<div class="input-group input-group-sm mb-0">
 										<input type="text" class="form-control" name="custName" readonly
@@ -200,89 +239,48 @@ $('input[name=radio]').on('click', function() {
 							</tr>
 							<tr>
 								<th scope="row">장소</th>
-								<td><input type="text"
-									class="form-control form-control-sm" id="techdPlace" name="techdPlace"
-									placeholder=""></td>
-									
-								<th scope="row" class="techdDetailSopp">영업기회</th>
-								<td class="techdDetailSopp">
+								<td><input type="text" class="form-control form-control-sm" id="techdPlace" name="techdPlace" placeholder=""></td>
+								<th scope="row" class="requiredTextCss">담당사원</th>
+								<td>
 									<div class="input-group input-group-sm mb-0">
-									<input type="text" class="form-control" name="soppTitle"
-										id="soppTitle" value="${dto.soppTitle}" readonly /> <input type="hidden"
-										name="soppNo" id="soppNo" value="" /> <span
-										class="input-group-btn">
-										<button class="btn btn-primary sch-opportunity2"
-											data-remote="${path}/modal/popup.do?popId=sopp"
-											type="button" data-toggle="modal" data-target="#soppModal">
-											<i class="icofont icofont-search"></i>
-										</button>
-									</span>
-									<div class="modal fade " id="soppModal" tabindex="-1"
-										role="dialog">
-										<div class="modal-dialog modal-80size" role="document">
-											<div class="modal-content modal-80size">
-												<div class="modal-header">
-													<h4 class="modal-title"></h4>
-													<button type="button" class="close" onclick="$('#soppModal').modal('hide');"
-														aria-label="Close">
-														<span aria-hidden="true">&times;</span>
-													</button>
-												</div>
-												<div class="modal-body">
-													<h5>영업기회목록</h5>
-													<p>Loading!!!</p>
-												</div>
-												<div class="modal-footer">
-													<button type="button"
-														class="btn btn-default waves-effect "
-														onclick="$('#soppModal').modal('hide');">Close</button>
+										<input type="text" class="form-control" name="userName" readonly
+											   id="userName" value="${sessionScope.userName}" /> <input type="hidden" name="userNo"
+																										id="userNo" value="${sessionScope.userNo}" /> <span class="input-group-btn">
+											<button class="btn btn-primary sch-company"
+													data-remote="${path}/modal/popup.do?popId=user"
+													type="button" data-toggle="modal" data-target="#userModal">
+												<i class="icofont icofont-search"></i>
+											</button>
+										</span>
+										<div class="modal fade " id="userModal" tabindex="-1"
+											 role="dialog">
+											<div class="modal-dialog modal-80size" role="document">
+												<div class="modal-content modal-80size">
+													<div class="modal-header">
+														<h4 class="modal-title">담당사원 검색</h4>
+														<button type="button" class="close" onclick="$('#userModal').modal('hide');"
+																aria-label="Close">
+															<span aria-hidden="true">&times;</span>
+														</button>
+													</div>
+													<div class="modal-body">
+														<h5>사용자목록</h5>
+														<p>Loading!!!</p>
+													</div>
+													<div class="modal-footer">
+														<button type="button"
+																class="btn btn-default waves-effect "
+																onclick="$('#userModal').modal('hide');">Close</button>
+													</div>
 												</div>
 											</div>
 										</div>
 									</div>
-								</div>
 								</td>
-								<th scope="row" class="techdDetailCont">계약</th>
-								<td class="techdDetailCont">
-									<div class="input-group input-group-sm mb-0">
-									<input type="text" class="form-control" name="contTitle"
-										id="contTitle" value="${dto.contTitle}" readonly /> <input type="hidden"
-										name="contNo" id="contNo" value="" /> <span
-										class="input-group-btn">
-										<button class="btn btn-primary sch-opportunity2"
-											data-remote="${path}/modal/popup.do?popId=cont"
-											type="button" data-toggle="modal" data-target="#contModal">
-											<i class="icofont icofont-search"></i>
-										</button>
-									</span>
-									<div class="modal fade " id="contModal" tabindex="-1"
-										role="dialog">
-										<div class="modal-dialog modal-80size" role="document">
-											<div class="modal-content modal-80size">
-												<div class="modal-header">
-													<h4 class="modal-title"></h4>
-													<button type="button" class="close" onclick="$('#contModal').modal('hide');"
-														aria-label="Close">
-														<span aria-hidden="true">&times;</span>
-													</button>
-												</div>
-												<div class="modal-body">
-													<h5>계약 목록</h5>
-													<p>Loading!!!</p>
-												</div>
-												<div class="modal-footer">
-													<button type="button"
-														class="btn btn-default waves-effect "
-														onclick="$('#contModal').modal('hide');">Close</button>
-												</div>
-											</div>
-										</div>
-									</div>
-									</div>
-								</td>
+
 							</tr>
 							<tr>
-								<th scope="row">지원일자</th>
+								<th scope="row" class="requiredTextCss">지원일자</th>
 								<td colspan="3">
 									<!-- <div class="col-sm-9 f-left m-b-0 p-l-0"> -->
 										<div class="input-group input-group-sm mb-0 mr-1">

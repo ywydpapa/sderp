@@ -52,7 +52,7 @@ for(var i = 0; i < hiddenObject.length; i++) {
 												</label>
 											</div>
 											<div class="radio radio-inline">
-												<label> <input type="radio" value="ING" name="radio" <c:if test="${dto.contNo != 0}">checked</c:if> disabled> <i class="helper"></i>기존계약 </label>
+												<label> <input type="radio" value="ING" name="radio" <c:if test="${dto.contNo != 0}">checked</c:if> disabled> <i class="helper"></i>유지보수 </label>
 											</div>
 										</form>
 									</div>
@@ -284,7 +284,7 @@ for(var i = 0; i < hiddenObject.length; i++) {
 							<tr>
 								<th scope="row">지원형태</th>
 								<td><select name="techdType" id="techdType" class="form-control form-control-sm">
-								<option value=""></option>
+								<option value="">선택</option>
 								<c:forEach var="rows" items="${sprttype}">
 								<option value="${rows.codeNo}" <c:if test="${rows.codeNo == dto.techdType}">selected</c:if>>${rows.desc03}</option>
 								</c:forEach>
@@ -294,7 +294,7 @@ for(var i = 0; i < hiddenObject.length; i++) {
 								<th scope="row">진행단계</th>
 								<td><select name="techdSteps" id="techdSteps"
 									class="form-control form-control-sm">
-										<option value=""></option>
+										<option value="">선택</option>
 								<c:forEach var="rows" items="${sprtstat}">
 								<option value="${rows.codeNo}" <c:if test="${rows.codeNo == dto.techdSteps}">selected</c:if>>${rows.desc03}</option>
 								</c:forEach>

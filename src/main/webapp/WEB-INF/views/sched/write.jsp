@@ -31,7 +31,7 @@
 						</colgroup>
 						<tbody>
 							<tr>
-								<th scope="row">일정일자</th>
+								<th scope="row" class="requiredTextCss">일정일자</th>
 								<td colspan="3">
 									<div class="input-group input-group-sm mb-0 mr-1">
 										<input class="form-control form-control-sm col-md-4 m-r-10" type="date" id="schedSdate" value="" onChange="javascript:inputDate(setDateHourMinute($('#schedSdate').val(), $('#startTime').val()), setDateHourMinute($('#schedEdate').val(), $('#endTime').val()))">
@@ -254,7 +254,7 @@
 								<th scope="row">활동형태</th>
 								<td><select name="schedCat" id="schedCat"
 									class="form-control form-control-sm">
-										<option value=""></option>
+										<option value="">선택</option>
 										<c:forEach var="acttype" items="${acttype}">
 											<option value="${acttype.codeNo}">${acttype.desc03}</option>
 										</c:forEach>

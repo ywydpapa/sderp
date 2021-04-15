@@ -37,7 +37,7 @@ public class schedController {
 	@RequestMapping("list.do")
 	public ModelAndView list(HttpSession session, ModelAndView mav) {
 		mav.addObject("list", schedService.listSched(session));
-		List<CodeDTO> listCodeDTO = codeService.listSchedtype(session);	// µ¿ÀÏÄÚµå 2È¸ È£Ãâ -> 1È¸ È£Ãâ
+		List<CodeDTO> listCodeDTO = codeService.listSchedtype(session);
 		mav.addObject("schedtype", listCodeDTO);
 //		mav.addObject("acttype", codeService.listActtype(session));
 		mav.addObject("listschedcat", codeService.listActSprtScheduleDetailType(session));
@@ -46,7 +46,7 @@ public class schedController {
 		return mav;
 	}
 	
-	//°Ë»ö ¹öÆ° Å¬¸¯ ½Ã
+	//ï¿½Ë»ï¿½ ï¿½ï¿½Æ° Å¬ï¿½ï¿½ ï¿½ï¿½
 	@RequestMapping("listcon.do")
 	public ModelAndView listcon(HttpSession session, ModelAndView mav, @ModelAttribute SchedDTO dto) {
 		mav.addObject("list", schedService.listconSched(session, dto));

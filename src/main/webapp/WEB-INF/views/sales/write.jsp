@@ -31,7 +31,7 @@
 						</colgroup>
 						<tbody>
 							<tr>
-								<th scope="row">활동일</th>
+								<th scope="row" class="requiredTextCss">활동일</th>
 								<td colspan="3">
 									<div class="input-group input-group-sm mb-0 mr-1">
 										<input id="salesFrdatetime" class="form-control form-control-sm col-md-4 m-r-10" type="date" onChange="javascript:inputDate(setDateHourMinute($('#salesFrdatetime').val(), $('#startTime').val()), setDateHourMinute($('#salesTodatetime').val(), $('#endTime').val()))">
@@ -46,7 +46,7 @@
 								<th scope="row">장소</th>
 								<td><input type="text" class="form-control form-control-sm"
 									id="salesPlace" name="salesPlace" placeholder="장소를 입력하세요"></td>
-								<th>활동형태</th>
+								<th class="requiredTextCss">활동형태</th>
 								<td><select name="salesType" id="salesType" class="form-control form-control-sm">
 										<c:forEach var = "salesType" items="${salesType}">
 											<option value="${salesType.codeNo}">${salesType.desc03}</option>
@@ -54,7 +54,7 @@
 								</select></td>
 							</tr>
 							<tr>
-								<th>담당사원</th>
+								<th class="requiredTextCss">담당사원</th>
 								<td>
 									<div class="input-group input-group-sm mb-0">
 										<input type="text" class="form-control" name="userName" id="userName" value="${sessionScope.userName}" />
@@ -91,7 +91,7 @@
 										</div>
 									</div>
 								</td>
-								<th scope="row">영업기회</th>
+								<th scope="row" class="requiredTextCss">영업기회</th>
 								<td>
 									<div class="input-group input-group-sm mb-0">
 										<input type="text" class="form-control" name="soppTitle" id="soppTitle" value="" />
@@ -130,7 +130,7 @@
 								</td>
 							</tr>
 							<tr>
-								<th scope="row">거래처</th>
+								<th scope="row" class="requiredTextCss">거래처</th>
 								<td>
 									<div class="input-group input-group-sm mb-0">
 										<input type="text" class="form-control" name="custName" id="custName" value="" />
@@ -205,7 +205,7 @@
 								</td>
 							</tr>
 							<tr>
-								<th scope="row">제목</th>
+								<th scope="row" class="requiredTextCss">제목</th>
 								<td colspan="3"><input type="text"
 									class="form-control form-control-sm" id="salesTitle" name="salesTitle"
 									placeholder=""></td>

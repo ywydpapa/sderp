@@ -172,7 +172,7 @@ $(function(){
 							<div class="col-sm-12 col-xl-3">
 								<label class="col-form-label" for="co_name">진행단계</label>
 								<select name="select" class="form-control form-control-sm" id="techdSteps">
-									<option value></option>
+									<option value>선택</option>
 									<c:forEach var ="techdSteps" items="${techdSteps}">
 										<option value = "${techdSteps.codeNo}">${techdSteps.desc03}</option>
 									</c:forEach>

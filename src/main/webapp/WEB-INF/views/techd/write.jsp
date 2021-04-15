@@ -65,7 +65,7 @@ $('input[name=radio]').on('click', function() {
 												</label>
 											</div>
 											<div class="radio radio-inline">
-												<label> <input type="radio" value="ING" name="radio"> <i class="helper"></i>기존계약</label>
+												<label> <input type="radio" value="ING" name="radio"> <i class="helper"></i>유지보수</label>
 											</div>
 										</form>
 									</div>
@@ -298,7 +298,7 @@ $('input[name=radio]').on('click', function() {
 							<tr>
 								<th scope="row">지원형태</th>
 								<td><select name="techdType" id="techdType" class="form-control form-control-sm">
-								<option value=""></option>
+								<option value="">선택</option>
 								<c:forEach var="rows" items="${sprttype}">
 								<option value="${rows.codeNo}">${rows.desc03}</option>
 								</c:forEach>
@@ -306,7 +306,7 @@ $('input[name=radio]').on('click', function() {
 								<th scope="row">진행단계</th>
 								<td><select name="techdSteps" id="techdSteps"
 									class="form-control form-control-sm">
-										<option value=""></option>
+										<option value="">선택</option>
 								<c:forEach var="rows" items="${sprtstat}">
 								<option value="${rows.codeNo}">${rows.desc03}</option>
 								</c:forEach>

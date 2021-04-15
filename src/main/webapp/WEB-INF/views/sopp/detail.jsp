@@ -63,7 +63,7 @@
 											</colgroup>
 											<tbody>
 											<tr>
-												<th scope="row">영업기회</th>
+												<th scope="row" class="requiredTextCss">영업기회</th>
 												<td colspan="3"><input type="text"
 														class="form-control form-control-sm" id="soppTitle"
 														name="soppTitle" value="${dto.soppTitle}"> <input
@@ -71,7 +71,7 @@
 														value="${dto.soppNo}"></td>
 											</tr>
 											<tr>
-												<th scope="row">담당사원</th>
+												<th scope="row" class="requiredTextCss">담당사원</th>
 												<td>
 													<div class="input-group input-group-sm mb-0">
 														<input type="text" class="form-control" name="userName"
@@ -110,7 +110,7 @@
 														</div>
 													</div>
 												</td>
-												<th scope="row">거래처</th>
+												<th scope="row" class="requiredTextCss">거래처</th>
 												<td>
 													<div class="input-group input-group-sm mb-0">
 														<input type="text" class="form-control" name="custName"
@@ -151,39 +151,35 @@
 												</td>
 											</tr>
 											<tr>
-												<th scope="row">고객</th>
+												<th scope="row" class="requiredTextCss">거래처 담당자</th>
 												<td>
 													<div class="input-group input-group-sm mb-0">
-														<input type="text" class="form-control" name="buyrName"
-															   id="buyrName" value="" readonly /> <input type="hidden"
-																name="buyrNo" id="buyrNo" value="" /> <span
-															class="input-group-btn">
+														<input type="text" class="form-control" name="custmemberName"  id="custmemberName" value="" readonly/>
+														<input type="hidden" name="custmemberNo" id="custmemberNo" value="" />
+														<span class="input-group-btn">
 																<button class="btn btn-primary sch-partner"
-																	data-remote="${path}/modal/popup.do?popId=buyr"
-																	type="button" data-toggle="modal"
-																	data-target="#buyrModal">
+																		data-remote="${path}/modal/popup.do?popId=custmem&compNo="
+																		type="button" data-toggle="modal" data-target="#custmemberModal"
+																		id="custmemberModalbtn">
 																	<i class="icofont icofont-search"></i>
 																</button>
 															</span>
-														<div class="modal fade " id="buyrModal" tabindex="-1"
+														<div class="modal fade " id="custmemberModal" tabindex="-1"
 															 role="dialog">
 															<div class="modal-dialog modal-80size" role="document">
 																<div class="modal-content modal-80size">
 																	<div class="modal-header">
-																		<h4 class="modal-title"></h4>
-																		<button type="button" class="close"
-																				data-dismiss="modal" aria-label="Close">
+																		<h4 class="modal-title">고객 검색</h4>
+																		<button type="button" class="close"	data-dismiss="modal" aria-label="Close">
 																			<span aria-hidden="true">&times;</span>
 																		</button>
 																	</div>
 																	<div class="modal-body">
-																		<h5>고객목록</h5>
-																		<p>Loading!!!</p>
+																		<h5>고객 목록</h5>
+																		<p>거래처를 먼저 입력해주셔야 목록이 보입니다.</p>
 																	</div>
 																	<div class="modal-footer">
-																		<button type="button"
-																				class="btn btn-default waves-effect "
-																				data-dismiss="modal">Close</button>
+																		<button type="button" class="close"	data-dismiss="modal" aria-label="Close">
 																	</div>
 																</div>
 															</div>
@@ -231,7 +227,7 @@
 												</td>
 											</tr>
 											<tr>
-												<th scope="row">진행단계</th>
+												<th scope="row" class="requiredTextCss">진행단계</th>
 												<td><select name="soppStatus" id="soppStatus"
 														class="form-control form-control-sm"
 														onchange="javascript:changeProbability()">
@@ -266,9 +262,9 @@
 												<th scope="row">판매방식</th>
 												<td><select name="soppType" id="soppType"
 														class="form-control form-control-sm col-md-4">
-													<option value></option>
+													<option value>선택</option>
 													<c:forEach var = "saleslist" items="${saleslist}">
-														<option value="${saleslist.codeNo}">${saleslist.desc03}</option>
+														<option value="${saleslist.codeNo}" <c:if test="">selected</c:if>>${saleslist.desc03}</option>
 													</c:forEach>
 												</select></td>
 												<th scope="row">예상매출</th>

@@ -225,46 +225,96 @@
 			</div>
 		</div>
 	</div>
-	<div class="col-md-12 col-lg-6">
-		<div class="card">
-			<div class="card-header">
-				<h5>영업일정</h5>
-				<span>영업일정 목록</span>
-				<div class="card-header-right">
-					<i class="icofont icofont-spinner-alt-5"></i>
+	<c:if test="${saleslist != null}">
+		<div class="col-md-12 col-lg-6">
+			<div class="card">
+				<div class="card-header" style="display: inline-block; width: 70%; z-index: 100;">
+					<div style="display: inline-block;">
+						<h5>일정</h5>
+						<span>영업일정 목록</span>
+					</div>
+					<select class="custom-select mr-sm-2" name="" id="" style="margin-top: -32px; margin-left: 22px;">
+						<option value = "all">전체</option>
+						<option value = "dept" selected>부서</option>
+						<option value = "individual">개인</option>
+					</select>
+				</div>
+				<div class="card-block" style="margin-top: -56px;">
+					<table id="salesTable" class="table table-striped table-bordered nowrap">
+						<thead>
+							<tr>
+								<th style="text-align: center">영업일정</th>
+								<th style="text-align: center">일정명</th>
+								<th style="text-align: center">거래처명</th>
+								<th style="text-align: center">담당자</th>
+								<th style="text-align: center">장소</th>
+							</tr>
+						</thead>
+						<tbody>
+							<c:forEach var="row" items="${saleslist}">
+								<tr align="center">
+									<td>
+										<fmt:parseDate value="${row.salesFrdatetime}" var="salesFrdatetime" pattern="yyyy-MM-dd HH:mm:ss"/>
+										<fmt:formatDate value="${salesFrdatetime}" pattern="yyyy-MM-dd"/>
+									</td>
+									<td><a
+										href="javascript:fnSetPage('${path}/sales/detail/${row.salesNo}')">${row.salesTitle}</a></td>
+									<td>${row.custName}</td>
+									<td>${row.userName}</td>
+									<td>${row.salesPlace}</td>
+								</tr>
+							</c:forEach>
+						</tbody>
+					</table>
 				</div>
 			</div>
-			<div class="card-block">
-			<table id="salesTable" class="table table-striped table-bordered nowrap">
-					<thead>
+		</div>
+	</c:if>
+	<c:if test="${techdlist != null}">
+		<div class="col-md-12 col-lg-6">
+			<div class="card">
+				<div class="card-header" style="display: inline-block; width: 70%; z-index: 100;">
+					<div style="display: inline-block;">
+						<h5>일정</h5>
+						<span>기술지원일정 목록</span>
+					</div>
+					<select class="custom-select mr-sm-2" name="" id="" style="margin-top: -32px; margin-left: 22px;">
+						<option value = "all">전체</option>
+						<option value = "dept" selected>부서</option>
+						<option value = "individual">개인</option>
+					</select>
+				</div>
+				<div class="card-block" style="margin-top: -56px;">
+					<table id="techdTable" class="table table-striped table-bordered nowrap">
+						<thead>
 						<tr>
-							<th style="text-align: center">영업일정</th>
+							<th style="text-align: center">지원일정</th>
 							<th style="text-align: center">일정명</th>
 							<th style="text-align: center">거래처명</th>
 							<th style="text-align: center">담당자</th>
 							<th style="text-align: center">장소</th>
 						</tr>
-					</thead>
-					<tbody>
-						<c:forEach var="row" items="${saleslist}">
+						</thead>
+						<tbody>
+						<c:forEach var="row" items="${techdlist}">
 							<tr align="center">
 								<td>
-									<fmt:parseDate value="${row.salesFrdatetime}" var="salesFrdatetime" pattern="yyyy-MM-dd HH:mm:ss"/>
-									<fmt:formatDate value="${salesFrdatetime}" pattern="yyyy-MM-dd"/>
+									<fmt:parseDate value="${row.techdFrom}" var="techdfromdatetime" pattern="yyyy-MM-dd HH:mm:ss"/>
+									<fmt:formatDate value="${techdfromdatetime}" pattern="yyyy-MM-dd"/>
 								</td>
 								<td><a
-									href="javascript:fnSetPage('${path}/sales/detail/${row.salesNo}')">${row.salesTitle}</a></td>
+										href="javascript:fnSetPage('${path}/techd/detail/${row.techdNo}')">${row.techdTitle}</a></td>
 								<td>${row.custName}</td>
 								<td>${row.userName}</td>
-								<td>${row.salesPlace}</td>
+								<td>${row.techdPlace}</td>
 							</tr>
 						</c:forEach>
-					</tbody>
-				</table>
-			
+						</tbody>
+					</table>
+				</div>
 			</div>
 		</div>
-	</div>
+	</c:if>
 	<div class="col-md-12 col-lg-6">
 		<div class="card">
 			<div class="card-header">
@@ -281,14 +331,14 @@
 	</div>
 	<div class="col-md-12 col-lg-6">
 		<div class="card">
-			<div class="card-header">
+			<div class="card-header" style="display: inline-block; width: 70%; z-index: 100;">
 				<h5>계약현황</h5>
 				<span>계약현황</span>
 				<div class="card-header-right">
 					<i class="icofont icofont-spinner-alt-5"></i>
 				</div>
 			</div>
-			<div class="card-block">
+			<div class="card-block" style="margin-top: -56px;">
 				<table id="contTable" class="table table-striped table-bordered nowrap">
 					<thead>
 						<tr>
@@ -370,6 +420,8 @@
 		max-width: 350px;
 		overflow: hidden;
 	}
+	.pull-left{float:left!important;}
+	.pull-right{float:right!important;}
 </style>
 <script>
 var globaloption1, globaloption2, globaloption3, globaloption4;
@@ -736,11 +788,31 @@ function chartReady(){
 }
 
 	$(document).ready(function(){
-		$('#salesTable,#contTable').DataTable({
+		<c:if test="${saleslist != null}">
+			$('#salesTable').DataTable({
+				info : false,
+				//filter : false,
+				lengthChange : false,
+				order: [[ 0, "desc" ]],
+				dom: '<"pull-right"f><"pull-right"l>tip'
+			});
+		</c:if>
+		<c:if test="${techdlist != null}">
+			$('#techdTable').DataTable({
+				info : false,
+				//filter : false,
+				lengthChange : false,
+				order: [[ 0, "desc" ]],
+				dom: '<"pull-right"f><"pull-right"l>tip'
+			});
+		</c:if>
+
+		$('#contTable').DataTable({
 			info : false,
-			filter : false,
+			//filter : false,
 			lengthChange : false,
-			order: [[ 0, "desc" ]]
+			order: [[ 0, "desc" ]],
+			dom: '<"pull-right"f><"pull-right"l>tip'
 		});
 		$('#soppTable').DataTable({
 			info : false,

@@ -145,7 +145,7 @@ $(function(){
 								<div class="col-sm-12 col-xl-4">
 									<label class="col-form-label" for="soppType">판매방식</label>
 									<select class="form-control form-control-sm" name="soppType" id="soppType" title="선택">
-										<option value></option>
+										<option value>선택</option>
 										<c:forEach var = "saleslist" items="${saleslist}">	
 										<option value="${saleslist.codeNo}">${saleslist.desc03}</option>			
 										</c:forEach>

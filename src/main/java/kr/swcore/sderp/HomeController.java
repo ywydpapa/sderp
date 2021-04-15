@@ -6,6 +6,9 @@ import java.util.Map;
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
+import kr.swcore.sderp.common.dto.DeptToPlanTblDTO;
+import kr.swcore.sderp.common.service.DeptToPlanTblService;
+import kr.swcore.sderp.techd.service.TechdService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -62,6 +65,12 @@ public class HomeController {
 
 	@Inject
 	SalesTargetService salesTargetService;
+
+	@Inject
+	TechdService techdService;
+
+	@Inject
+	DeptToPlanTblService deptToPlanTblService;
 	
 	/**
 	 * Simply selects the home view to render by returning its name.
@@ -88,7 +97,21 @@ public class HomeController {
 	public ModelAndView refresh(HttpSession session, ModelAndView mav) {	
 		mav.addObject("sopplist", soppService.listSopp(session));
 		mav.addObject("contlist", contService.listCont(session));
-		mav.addObject("saleslist", salesService.listSales(session));
+
+		Integer orgId = (Integer)session.getAttribute("orgId");
+		List<DeptToPlanTblDTO> deptToPlanTblDTOList = deptToPlanTblService.listWithOrgId(orgId);
+		for(int i=0; i<deptToPlanTblDTOList.size(); i++){
+			String tableName = deptToPlanTblDTOList.get(i).getTableName();
+			if(tableName.equalsIgnoreCase("swc_sales")){
+				mav.addObject("saleslist", salesService.listSales(session));
+			} else if(tableName.equalsIgnoreCase("swc_techd")){
+				mav.addObject("techdlist", techdService.listTechd(session));
+			}
+		}
+		if(deptToPlanTblDTOList == null || deptToPlanTblDTOList.size() <=0) {
+			mav.addObject("saleslist", salesService.listSales(session));
+		}
+
 		mav.addObject("graph1",salesTargetService.listSalesTargetYearTotalSalesIndividual(session, null));
 		mav.addObject("graph2",salesTargetService.listSalesTargetMonthIndividual(session, null));
 		mav.addObject("graph3",salesTargetService.listSalesTargetYearIndividual(session, null));

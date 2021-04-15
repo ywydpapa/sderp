@@ -214,7 +214,7 @@ $(function(){
 									<div class="col-sm-12 col-xl-3">
 										<label class="col-form-label" for="co_name">계약방식</label>
 										<select name="select" class="form-control form-control-sm" id="contractType">
-											<option value></option>
+											<option value>선택</option>
 											<c:forEach var ="contractType" items="${contractType}">
 												<option value = "${contractType.codeNo}">${contractType.desc03}</option>
 											</c:forEach>
@@ -235,7 +235,7 @@ $(function(){
 									<div class="col-sm-12 col-xl-3">
 										<label class="col-form-label" for="co_name">판매방식</label>
 										<select name="select" class="form-control form-control-sm" id="contType">
-											<option value></option>
+											<option value>선택</option>
 											<c:forEach var="contType" items="${contType}">
 												<option value="${contType.codeNo}">${contType.desc03}</option>
 											</c:forEach>

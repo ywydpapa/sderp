@@ -11,7 +11,8 @@
 <script>
 $(function(){
     $('#schedTable').DataTable({
-    	info:false
+    	info:false,
+		order: [[ 2, "desc" ]],
     });
 });
 $(function(){
@@ -245,7 +246,7 @@ $(function(){
 						<div class="col-sm-12 col-xl-3">
 							<label class="col-form-label" for="co_name">활동형태</label> <select
 								name="select" class="form-control form-control-sm" id="schedCat">
-								<option value></option>
+								<option value>선택</option>
 								<c:forEach var ="listschedcat" items="${listschedcat}">
 									<option value = "${listschedcat.codeNo}">${listschedcat.desc03}</option>
 								</c:forEach>

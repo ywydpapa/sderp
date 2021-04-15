@@ -46,7 +46,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  		left join swc_code d on a.schedType = d.codeNo
  		left join swc_code e on a.techdType = e.codeNo
  		where a.attrib not like 'XXX%' and a.compNo = #{compNo}
- 		
+
  		order by schedFrom desc
  </select>
 

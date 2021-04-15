@@ -152,7 +152,7 @@ $('input[name=radio]').on('click', function() {
 								</td>
 							</tr>
 							<tr>
-								<th scope="row" class="requiredTextCss">거래처</th>
+								<th scope="row" class="requiredTextCss">엔드유저</th>
 								<td>
 									<div class="input-group input-group-sm mb-0">
 										<input type="text" class="form-control" name="custName" readonly
@@ -189,7 +189,7 @@ $('input[name=radio]').on('click', function() {
 										</div>
 									</div>
 								</td>
-								<th scope="row">엔드유저</th>
+								<th scope="row">엔드유저 담당자</th>
 								<td>
 									
 									<div class="input-group input-group-sm mb-0">
@@ -215,8 +215,8 @@ $('input[name=radio]').on('click', function() {
 														</button>
 													</div>
 													<div class="modal-body">
-														<h5>고객 목록</h5>
-														<p>거래처를 먼저 입력해주셔야 목록이 보입니다.</p>
+														<h5>엔드유저 담당자 목록</h5>
+														<p>엔드유저(거래처)를 먼저 입력해주셔야 목록이 보입니다.</p>
 													</div>
 													<div class="modal-footer">
 														<button type="button"

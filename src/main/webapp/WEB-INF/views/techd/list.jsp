@@ -11,7 +11,8 @@
 <script>
 $(function(){
     $('#techdTable').DataTable({
-    	info:false
+    	info:false,
+		order: [[ 7, "desc" ]],
     });
 });
 $(function(){
@@ -95,12 +96,11 @@ $(function(){
 							</div>
 							
 							<div class="col-sm-12 col-xl-3">
-								<label class="col-form-label" for="custName">거래처</label>
+								<label class="col-form-label" for="custName">엔드유저</label>
 								<div class="input-group input-group-sm mb-0">
-									<input type="text" class="form-control" name="custName"
-										id="custName" value="" readonly /> <input type="hidden"
-										name="custNo" id="custNo" value="" /> <span
-										class="input-group-btn">
+									<input type="text" class="form-control" name="custName" id="custName" value="" readonly />
+									<input type="hidden" name="custNo" id="custNo" value="" />
+									<span class="input-group-btn">
 										<button class="btn btn-primary sch-company"
 											data-remote="${path}/modal/popup.do?popId=cust" type="button"
 											data-toggle="modal" data-target="#custModal">
@@ -133,7 +133,7 @@ $(function(){
 							</div>
 							
 							<div class="col-sm-12 col-xl-3">
-								<label class="col-form-label" for="custmemberName">엔드유저</label>
+								<label class="col-form-label" for="custmemberName">엔드유저 담당자</label>
 								<div class="input-group input-group-sm mb-0">
 									<input type="text" class="form-control" name="custmemberName"
 										id="custmemberName" value="" readonly /> <input type="hidden"
@@ -141,7 +141,7 @@ $(function(){
 										class="input-group-btn">
 										<button class="btn btn-primary sch-company"
 											data-remote="${path}/modal/popup.do?popId=custmem&compNo=" type="button"
-											data-toggle="modal" data-target="#custmemberModal">
+											data-toggle="modal" data-target="#custmemberModal" id="custmemberModalbtn">
 											<i class="icofont icofont-search"></i>
 										</button>
 									</span>
@@ -225,7 +225,7 @@ $(function(){
 									<th>거래처</th>
 									<th>진행단계</th>
 									<th>담당사원</th>
-									<th>등록일</th>
+									<th>기술지원 시작일</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -241,8 +241,11 @@ $(function(){
 									<td>${row.custName}</td>
 									<td>${row.techdStepsN}</td>
 									<td>${row.userName}</td> 
-									<td>${row.regdatetime}</td>
-									</tr>
+									<td>
+										<fmt:parseDate value="${row.techdFrom}" var="techdFrom" pattern="yyyy-MM-dd HH:mm:ss"/>
+										<fmt:formatDate value="${techdFrom}" pattern="yyyy-MM-dd"/>
+									</td>
+								</tr>
 								</c:forEach>
 							</tbody>
 						</table>

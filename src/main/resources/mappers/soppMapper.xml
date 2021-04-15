@@ -54,7 +54,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		left join swc_cust c on a.custNo = c.custNo
 		left join swc_code d on a.soppType = d.codeNo 
 		left join swc_code e on a.soppStatus = e.codeNo
-		where a.attrib not like 'XXX%' and a.soppStatus IN('10057', '10058', '10059') and b.compNo = #{compNo}
+		where a.attrib not like 'XXX%' and a.soppStatus IN('10057', '10058', '10059', '10182', '10183', '10184') and b.compNo = #{compNo}
 		order by soppSrate desc, soppTargetDate desc
  </select>
  

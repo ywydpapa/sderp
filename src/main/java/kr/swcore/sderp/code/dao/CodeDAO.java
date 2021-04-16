@@ -28,7 +28,7 @@ public interface CodeDAO {
 	List<CodeDTO> listDept();
 	List<CodeDTO> listRank();
 	List<CodeDTO> listSaletype();
-	List<CodeDTO> listComptype();
+	List<CodeDTO> listComptype(Integer compNo);
 	List<CodeDTO> listActtype();
 	List<CodeDTO> listActtype(SoppDTO soppdto);
 	List<CodeDTO> listSalestype();

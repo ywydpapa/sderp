@@ -115,9 +115,9 @@ public class CodeDAOImpl implements CodeDAO {
 	}
 
 	@Override
-	public List<CodeDTO> listComptype() {
+	public List<CodeDTO> listComptype(Integer compNo) {
 		// TODO Auto-generated method stub
-		return sqlSession.selectList("code.listComptype");
+		return sqlSession.selectList("code.listComptype",compNo);
 	}
 
 	@Override

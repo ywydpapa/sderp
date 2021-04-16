@@ -228,7 +228,7 @@
 	<c:if test="${saleslist != null}">
 		<div class="col-md-12 col-lg-6">
 			<div class="card">
-				<div class="card-header" style="display: inline-block; width: 70%; z-index: 100;">
+				<div class="card-header">
 					<div style="display: inline-block;">
 						<h5>일정</h5>
 						<span>영업일정 목록</span>
@@ -239,7 +239,7 @@
 						<option value = "individual">개인</option>
 					</select>
 				</div>
-				<div class="card-block" style="margin-top: -56px;">
+				<div class="card-block">
 					<table id="salesTable" class="table table-striped table-bordered nowrap">
 						<thead>
 							<tr>
@@ -273,7 +273,7 @@
 	<c:if test="${techdlist != null}">
 		<div class="col-md-12 col-lg-6">
 			<div class="card">
-				<div class="card-header" style="display: inline-block; width: 70%; z-index: 100;">
+				<div class="card-header">
 					<div style="display: inline-block;">
 						<h5>일정</h5>
 						<span>기술지원일정 목록</span>
@@ -284,7 +284,7 @@
 						<option value = "individual">개인</option>
 					</select>
 				</div>
-				<div class="card-block" style="margin-top: -56px;">
+				<div class="card-block">
 					<table id="techdTable" class="table table-striped table-bordered nowrap">
 						<thead>
 						<tr>
@@ -331,14 +331,14 @@
 	</div>
 	<div class="col-md-12 col-lg-6">
 		<div class="card">
-			<div class="card-header" style="display: inline-block; width: 70%; z-index: 100;">
+			<div class="card-header">
 				<h5>계약현황</h5>
 				<span>계약현황</span>
 				<div class="card-header-right">
 					<i class="icofont icofont-spinner-alt-5"></i>
 				</div>
 			</div>
-			<div class="card-block" style="margin-top: -56px;">
+			<div class="card-block">
 				<table id="contTable" class="table table-striped table-bordered nowrap">
 					<thead>
 						<tr>
@@ -791,28 +791,28 @@ function chartReady(){
 		<c:if test="${saleslist != null}">
 			$('#salesTable').DataTable({
 				info : false,
-				//filter : false,
+				filter : false,
 				lengthChange : false,
 				order: [[ 0, "desc" ]],
-				dom: '<"pull-right"f><"pull-right"l>tip'
+				//dom: '<"pull-right"f><"pull-right"l>tip'
 			});
 		</c:if>
 		<c:if test="${techdlist != null}">
 			$('#techdTable').DataTable({
 				info : false,
-				//filter : false,
+				filter : false,
 				lengthChange : false,
 				order: [[ 0, "desc" ]],
-				dom: '<"pull-right"f><"pull-right"l>tip'
+				//dom: '<"pull-right"f><"pull-right"l>tip'
 			});
 		</c:if>
 
 		$('#contTable').DataTable({
 			info : false,
-			//filter : false,
+			filter : false,
 			lengthChange : false,
 			order: [[ 0, "desc" ]],
-			dom: '<"pull-right"f><"pull-right"l>tip'
+			//dom: '<"pull-right"f><"pull-right"l>tip'
 		});
 		$('#soppTable').DataTable({
 			info : false,
@@ -832,10 +832,8 @@ function chartReady(){
 			chart2_month_salesTarget = Math.floor(chart2_month_salesTarget);
 			chart2_month_salesTarget = '₩'+chart2_month_salesTarget.toLocaleString("en-US");
 		}
-		var chart2_month_percent = ${graph2.data.percent} != '' ? ${graph2.data.percent} : 0;
-		if(chart2_month_percent != 0){
-			chart2_month_percent = chart2_month_percent+'%';
-		}
+		var chart2_month_percent = ${graph2.data.percent} != '' ? ${graph2.data.percent}+'%' : '0%';
+
 		var chart2_month_overTarget = ${graph2.data.overTarget} != '' ? ${graph2.data.overTarget} : 0;
 		if(chart2_month_overTarget != 0){
 			chart2_month_overTarget = Math.floor(chart2_month_overTarget);
@@ -843,7 +841,7 @@ function chartReady(){
 				chart2_month_overTarget = '+₩' + chart2_month_overTarget.toLocaleString("en-US");
 				$("#chart2_month_overTarget").removeClass("text-danger");
 				$("#chart2_month_overTarget").addClass("text-success");
-			} else {
+			} if(chart2_month_overTarget < 0){
 				chart2_month_overTarget = '-₩' + (chart2_month_overTarget*-1).toLocaleString("en-US");
 				$("#chart2_month_overTarget").removeClass("text-success");
 				$("#chart2_month_overTarget").addClass("text-danger");
@@ -865,14 +863,13 @@ function chartReady(){
 
 		var chart3_month_percent = ${graph3.data.percent};
 		chart3_month_percent = chart3_month_percent+'%';
-
 		var chart3_month_overTarget = ${graph3.data.overTarget};
 		chart3_month_overTarget = Math.floor(chart3_month_overTarget);
 		if(chart3_month_overTarget > 0){
 			chart3_month_overTarget = '+₩' + chart3_month_overTarget.toLocaleString("en-US");
 			$("#chart3_month_overTarget").removeClass("text-danger");
 			$("#chart3_month_overTarget").addClass("text-success");
-		} else {
+		} else if(chart3_month_overTarget < 0){
 			chart3_month_overTarget = '-₩' + (chart3_month_overTarget*-1).toLocaleString("en-US");
 			$("#chart3_month_overTarget").removeClass("text-success");
 			$("#chart3_month_overTarget").addClass("text-danger");
@@ -886,7 +883,6 @@ function chartReady(){
 
 		// change 이벤트 시작
 		$("#graph2TargetDepartment, #graph2TargetYear, #graph2TargetMonth").on("change", function(){
-			console.dir("change 이벤트!!")
 			var graph2TargetDepartment = $("#graph2TargetDepartment").val();
 			var graph2TargetYear = $("#graph2TargetYear").val();
 			var graph2TargetMonth = $("#graph2TargetMonth").val();
@@ -904,18 +900,10 @@ function chartReady(){
 			}) // HTTP 요청이 성공하면 요청한 데이터가 done() 메소드로 전달됨. .
 					.done(function(result) {
 						if(result.code == 10001){
-							console.dir("AJAX 데이터 로딩 완료 : "+result.data.percent);
 							globaloption2.series[0].data[0].value = result.data.percent;
 							globalmyChartGauge2.setOption(globaloption2,true);
-
-							console.dir("profitTarget : "+result.data.profitTarget);
-							console.dir("salesTarget : "+result.data.salesTarget);
-							console.dir("overTarget : "+result.data.overTarget);
-							console.dir("targetMonth : "+result.targetMonth);
-							console.dir("targetYear : "+result.targetYear);
 							var graph2TargetMiniTitle = result.targetYear + "년 " + result.targetMonth+"월";
 							$("#graph2TargetMiniTitle").text(graph2TargetMiniTitle);
-
 							chart2_month_profitTarget = '₩'+Math.floor(result.data.profitTarget).toLocaleString("en-US");
 							chart2_month_salesTarget = '₩'+Math.floor(result.data.salesTarget).toLocaleString("en-US");
 							if(result.data.overTarget >= 0) {
@@ -943,7 +931,6 @@ function chartReady(){
 		});
 
 		$("#graph3TargetDepartment, #graph3TargetYear").on("change", function(){
-			console.dir("change 이벤트!!")
 			var graph3TargetDepartment = $("#graph3TargetDepartment").val();
 			var graph3TargetYear = $("#graph3TargetYear").val();
 			var obj = new Object();
@@ -959,13 +946,8 @@ function chartReady(){
 			}) // HTTP 요청이 성공하면 요청한 데이터가 done() 메소드로 전달됨. .
 					.done(function(result) {
 						if(result.code == 10001){
-							console.dir("AJAX 데이터 로딩 완료 : "+result.data.percent);
 							globaloption3.series[0].data[0].value = result.data.percent;
 							globalmyChartGauge3.setOption(globaloption3,true);
-
-							console.dir("profitTarget : "+result.data.profitTarget);
-							console.dir("salesTarget : "+result.data.salesTarget);
-							console.dir("overTarget : "+result.data.overTarget);
 							var graph3TargetMiniTitle = result.targetYear + "년";
 							$("#graph3TargetMiniTitle").text(graph3TargetMiniTitle);
 
@@ -996,7 +978,6 @@ function chartReady(){
 		});
 
 		$("#graph4TargetDepartment, #graph4TargetYear, #graph4TargetMonth").on("change", function(){
-			console.dir("change 이벤트!!")
 			var graph4TargetDepartment = $("#graph4TargetDepartment").val();
 			var graph4TargetYear = $("#graph4TargetYear").val();
 			var graph4TargetMonth = $("#graph4TargetMonth").val();
@@ -1014,7 +995,6 @@ function chartReady(){
 			}) // HTTP 요청이 성공하면 요청한 데이터가 done() 메소드로 전달됨. .
 					.done(function(result) {
 						if(result.code == 10001){
-							console.dir("AJAX 데이터 로딩 완료");
 							globaloption4.dataset.source[1][1] = result.data[0].contTypeCount;
 							globaloption4.dataset.source[2][1] = result.data[1].contTypeCount;
 							globaloption4.dataset.source[3][1] = result.data[2].contTypeCount;
@@ -1023,8 +1003,6 @@ function chartReady(){
 							globaloption4.dataset.source[6][1] = result.data[5].contTypeCount;
 							globalmyChartGauge4.setOption(globaloption4, true);
 
-							console.dir("targetMonth : "+result.targetMonth);
-							console.dir("targetYear : "+result.targetYear);
 							var graph4TargetMiniTitle = result.targetYear + "년 " + result.targetMonth+"월";
 							$("#graph4TargetMiniTitle").text(graph4TargetMiniTitle);
 

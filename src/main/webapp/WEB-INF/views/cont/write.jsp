@@ -208,7 +208,7 @@
 								<th>판매방식</th>
 								<td>
 									<select name="contType" id="contType" class="form-control form-control-sm">
-										<option value=""></option>
+										<option value="">선택</option>
 										<option value="10048">조달직판</option>
 										<option value="10049">조달간판</option>
 										<option value="10050">조달대행</option>
@@ -339,7 +339,7 @@
 										<input class="form-control form-control-sm col-sm-12" type="date" id="contOrddate" name="contOrddate">
 									</div>
 								</td>
-								<th>공급일</th>
+								<th>공급일자</th>
 								<td>
 									<div class="input-group input-group-sm mb-0">
 										<input class="form-control form-control-sm col-sm-12" type="date" id="supplyDate" name="supplyDate">
@@ -347,23 +347,23 @@
 								</td>
 							</tr>
 							<tr>
-								<th scope="row">검수일</th>
+								<th scope="row">검수일자</th>
 								<td>
 									<div class="input-group input-group-sm mb-0">
 										<input class="form-control form-control-sm col-sm-12" type="date" id="delivDate" name="delivDate">
 									</div>
 								</td>
-								<th >계약금액</th>
-								<td>
-									<input type="text" id="contAmt" name="contAmt" class="form-control " >
-								</td>
-							</tr>
-							<tr>
-								<th scope="row">무상유지보수</th>
+								<th scope="row">무상유지보수일자</th>
 								<td>
 									<div class="input-group input-group-sm mb-0">
 										<input class="form-control form-control-sm col-sm-6 m-r-5" type="date" id="freemaintSdate"> ~ <input class="form-control form-control-sm col-sm-6 m-l-5" type="date" id="freemaintEdate">
 									</div>
+								</td>
+							</tr>
+							<tr>
+								<th >계약금액</th>
+								<td>
+									<input type="text" id="contAmt" name="contAmt" class="form-control " >
 								</td>
 								<th >VAT 포함여부</th>
 								<td>
@@ -542,7 +542,7 @@
 			contData.contOrddate 			= $("#contOrddate").val();		// 발주일자
 			contData.supplyDate				= $("#supplyDate").val();		// 공급일자
 			contData.delivDate				= $("#delivDate").val();		// 검수일자
-			contData.contAmt 				= $("#contAmt").val();			// 계약금액
+			contData.contAmt 				= $("#contAmt").val().replace(/[\D\s\._\-]+/g, "");			// 계약금액
 			contData.freemaintSdate 		= $("#freemaintSdate").val();	// 무상유지보수 시작일자
 			contData.freemaintEdate 		= $("#freemaintEdate").val();	// 무상유지보수 마감일자
 			contData.vatYn					= $("#vatYn").val();			// VAT 포함여부 (기본값 : Y)
@@ -650,12 +650,35 @@
 					});
 			}
 		*/
-		$(document).ready(function(){
+		$(document).ready(function() {
 			$($(".techdDetailCont")[2]).hide();
 			$($(".techdDetailCont")[3]).hide();
 
-			$('input[name=contractType]').on('change', function() {
+			$('input[name=contractType]').on('change', function () {
 				fnToggleLayer();
+			});
+
+			var $input = $("#contAmt");
+
+			// 이벤트 시작 ==========================================================================
+			// 이벤트시 동작
+			$input.on("keyup", function (event) {
+				// 긁어와서 이벤트 체크
+				var selection = window.getSelection().toString();
+				if (selection !== '') return;
+				if ($.inArray(event.keyCode, [38, 40, 37, 39]) !== -1) return;
+
+				// 긁어오는값을 콤마를 제거해서 숫자변환
+				var $this = $(this);
+				var input = $this.val();
+				var input = input.replace(/[\D\s\._\-]+/g, "");
+				input = input ? parseInt(input, 10) : 0;
+				var ti = input;
+
+				// 데이터 반환
+				$this.val(function () {
+					return (input === 0) ? "0" : input.toLocaleString("en-US");
+				});
 			});
 		});
 </script>

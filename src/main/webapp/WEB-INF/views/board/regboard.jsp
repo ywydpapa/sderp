@@ -177,7 +177,7 @@
                                     <button class="btn btn-md btn-primary" type="button" id="boardReg">생성하기</button>
                                 </div>
                             <hr>
-                            <div class="dt-responsive table-responsive">
+                            <div class="dt-responsive table-responsive" style="overflow-x: hidden;">
                             <table id="boardTable" class="table table-striped table-bordered nowrap ">
 							<colgroup>
 								<col width="5%"/>

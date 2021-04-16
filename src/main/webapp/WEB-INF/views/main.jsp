@@ -39,7 +39,12 @@
   <link rel="stylesheet" type="text/css" href="${path}/assets/css/_pcmenu.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,500,600">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-  <link rel="stylesheet" type="text/css" href="${path}/assets/css/style2.css"><!-- style2.css를 제일 마지막에 놓아주세요. -->
+	<!-- -->
+  <style>
+	  .requiredTextCss{
+		  color: red !important;
+	  }
+  </style>
     
 <!-- CUSTOM CSS -->
   <link rel="stylesheet" type="text/css" href="${path}/assets/css/style2.css"><!-- style2.css를 제일 마지막에 놓아주세요. -->
@@ -138,7 +143,7 @@
 	function inputDate(fromDate, toDate){
 		if(fromDate != null && fromDate != '' && toDate != null && toDate != ''){
 			if(fromDate > toDate) {
-				alert('올바른 날짜를 입력해주십시오.');
+				alert('시작날짜는 종료날짜보다 초과할수 없습니다.');
     			$("#"+event.target.id).val(null);	
 			}
 		}

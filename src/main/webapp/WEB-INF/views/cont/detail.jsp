@@ -208,7 +208,7 @@
 								<th scope="row">판매방식</th>
 								<td>
 									<select name="soppType" id="soppType" class="form-control form-control-sm">
-										<option value=""></option>
+										<option value="">선택</option>
 										<option value="10048" <c:if test="${dto.contType eq 10048}">selected</c:if>>조달직판</option>
 										<option value="10049" <c:if test="${dto.contType eq 10049}">selected</c:if>>조달간판</option>
 										<option value="10050" <c:if test="${dto.contType eq 10050}">selected</c:if>>조달대행</option>
@@ -311,7 +311,7 @@
 										<input class="form-control form-control-sm col-sm-12" type="date" id="contOrddate" name="contOrddate" value="${dto.contOrddate}">
 									</div>
 								</td>
-								<th>공급일</th>
+								<th>공급일자</th>
 								<td>
 									<div class="input-group input-group-sm mb-0">
 										<input class="form-control form-control-sm col-sm-12" type="date" id="supplyDate" name="supplyDate" value="${dto.supplyDate}" >
@@ -319,23 +319,23 @@
 								</td>
 							</tr>
 							<tr>
-								<th scope="row">검수일</th>
+								<th scope="row">검수일자</th>
 								<td>
 									<div class="input-group input-group-sm mb-0">
 										<input class="form-control form-control-sm col-sm-12" type="date" id="delivDate" name="delivDate" value="${dto.delivDate}">
 									</div>
 								</td>
-								<th >계약금액</th>
-								<td>
-									<input type="text" id="contAmt" name="contAmt" class="form-control " value="${dto.contAmt}">
-								</td>
-							</tr>
-							<tr>
-								<th scope="row">무상유지보수</th>
+								<th scope="row">무상유지보수일자</th>
 								<td>
 									<div class="input-group input-group-sm mb-0">
 										<input class="form-control form-control-sm col-sm-6 m-r-5" type="date" id="freemaintSdate" value="${dto.freemaintSdate}"> ~ <input class="form-control form-control-sm col-sm-6 m-l-5" type="date" id="freemaintEdate" value="${dto.freemaintEdate}">
 									</div>
+								</td>
+							</tr>
+							<tr>
+								<th >계약금액</th>
+								<td>
+									<input type="text" id="contAmt" name="contAmt" class="form-control " value="<fmt:formatNumber value="${dto.contAmt}" pattern="#,###"/>">
 								</td>
 								<th >VAT 포함여부</th>
 								<td>
@@ -485,12 +485,12 @@
 			contData.contTitle 				= $("#contTitle").val();
 			contData.contDesc			 	= $("#contDesc").val();
 			contData.userNo		 			= $("#userNo").val();
-			contData.custNo 					= $("#custNo").val();
+			contData.custNo 				= $("#custNo").val();
 			contData.soppNo 				= $("#soppNo").val();
-			contData.ptncNo 					= $("#ptncNo").val();
+			contData.ptncNo 				= $("#ptncNo").val();
 			contData.supplyNo 				= $("#supplyNo").val();
 			contData.contType 				= $("#contType").val();
-			contData.contAmt 				= $("#contAmt").val();
+			contData.contAmt 				= $("#contAmt").val().replace(/[\D\s\._\-]+/g, "");
 			contData.contArea 				= $("#contArea").val();
 			contData.contOrddate 			= $("#contOrddate").val();
 			contData.freemaintSdate 		= $("#freemaintSdate").val();
@@ -527,6 +527,29 @@
 
 			$('input[name=contractType]').on('change', function() {
 				fnToggleLayer();
+			});
+
+			var $input = $("#contAmt");
+
+			// 이벤트 시작 ==========================================================================
+			// 이벤트시 동작
+			$input.on("keyup", function (event) {
+				// 긁어와서 이벤트 체크
+				var selection = window.getSelection().toString();
+				if (selection !== '') return;
+				if ($.inArray(event.keyCode, [38, 40, 37, 39]) !== -1) return;
+
+				// 긁어오는값을 콤마를 제거해서 숫자변환
+				var $this = $(this);
+				var input = $this.val();
+				var input = input.replace(/[\D\s\._\-]+/g, "");
+				input = input ? parseInt(input, 10) : 0;
+				var ti = input;
+
+				// 데이터 반환
+				$this.val(function () {
+					return (input === 0) ? "0" : input.toLocaleString("en-US");
+				});
 			});
 		});
 	</script>

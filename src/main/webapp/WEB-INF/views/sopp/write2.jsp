@@ -351,7 +351,7 @@
 													</select></td>
 													<th scope="row">예상매출</th>
 													<td><span class="input_inline"><input
-															type="number" class="form-control form-control-sm"
+															type="text" class="form-control form-control-sm"
 															id="soppTargetAmt" name="soppTargetAmt"
 															value="${dto.soppTargetAmt}"></span>원</td>
 												</tr>
@@ -379,44 +379,46 @@
 				<div class="tab-pane " id="tab02" role="tabpanel">
 					<div class="card-block table-border-style">
 						<div class="table-responsive">
-						  <form name="form2" method="post" onsubmit="return false;">
-							  <table class="table table-sm bst02" id="addinout">
-								  <colgroup>
-									  <col width="5%" />
-									  <col width="30%" />
-									  <col width="15%" />
-									  <col width="10%" />
-									  <col width="20%" />
-									  <col width="15%" />
-									  <col width="5%" />
-								  </colgroup>
-								  <thead>
-									  <tr>
-										  <th class="text-center">구분(매입/매출)</th>
-										  <th class="text-center">항목</th>
-										  <th class="text-center">단가</th>
-										  <th class="text-center">수량</th>
-										  <th class="text-center">금액</th>
-										  <th class="text-center">비고</th>
-										  <th class="text-center">삭제</th>
-									  </tr>
-								  </thead>
-								  <tbody>
-									  <tr class="item1">
-										  <td><select >
-										  <option value="1101">매입</option>
-										  <option value="1102">매출</option>
-										  </select></td>
-										  <td><input type="text" class="form-control form-control-sm readonly" style="min-width:120px;" /></td>
-										  <td><input type="number" class="form-control form-control-sm" style="min-width:80px;"/></td>
-										  <td><input type="number" class="form-control form-control-sm" style="min-width:80px;"/></td>
-										  <td><input type="number" class="form-control form-control-sm" style="min-width:80px;"/></td>
-										  <td><input type="text" class="form-control form-control-sm"/></td>
-										  <td><button id="Additembtn">추가</button></td>
-										  <td class="text-center"></td>
-									  </tr>
-								  </tbody>
-							  </table>
+							<form name="form2" method="post" onsubmit="return false;">
+								<table class="table table-sm bst02" id="addinout">
+									<colgroup>
+										<col width="5%" />
+										<col width="30%" />
+										<col width="15%" />
+										<col width="10%" />
+										<col width="20%" />
+										<col width="15%" />
+										<col width="5%" />
+									</colgroup>
+									<thead>
+										<tr>
+											<th class="text-center">구분(매입/매출)</th>
+											<th class="text-center">항목</th>
+											<th class="text-center">단가</th>
+											<th class="text-center">수량</th>
+											<th class="text-center">금액</th>
+											<th class="text-center">비고</th>
+											<th class="text-center">삭제</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr class="item1">
+											<td>
+												<select>
+													<option value="1101">매입</option>
+													<option value="1102">매출</option>
+												</select>
+											</td>
+											<td><input type="text"  class="form-control form-control-sm readonly" style="min-width:120px;" /></td>
+											<td><input type="text" id="data01Netprice" class="form-control form-control-sm" style="min-width:80px;"/></td>
+											<td><input type="text" id="data01Quanty" class="form-control form-control-sm" style="min-width:80px;"/></td>
+											<td><input type="text" id="data01Amt" class="form-control form-control-sm" style="min-width:80px;"/></td>
+											<td><input type="text" class="form-control form-control-sm"/></td>
+											<td><button id="Additembtn">추가</button></td>
+											<td class="text-center"></td>
+										</tr>
+									</tbody>
+								</table>
 							</form>
 							
 							  <table class="table table-sm bst02" id="itemlist">
@@ -640,12 +642,12 @@ function fn_soppInsert() {
  	soppData.userNo 		= $("#userNo").val();
 	soppData.custNo 		= $("#custNo").val();
 	soppData.ptncNo 		= $("#ptncNo").val();
-	soppData.soppStatus 		= $("#soppStatus").val();
+	soppData.soppStatus 	= $("#soppStatus").val();
 	soppData.soppSrate 		= $("#soppSrate").val();
-	soppData.soppSource 		= $("#soppSource").val();
-	soppData.soppTargetDate		= $("#soppTargetDate").val();
+	soppData.soppSource 	= $("#soppSource").val();
+	soppData.soppTargetDate	= $("#soppTargetDate").val();
 	soppData.soppType 		= $("#soppType").val();
-	soppData.soppTargetAmt 		= $("#soppTargetAmt").val();
+	soppData.soppTargetAmt 	= $("#soppTargetAmt").val().replace(/[\D\s\._\-]+/g, "");
 	soppData.soppDesc 		= $("#soppDesc").val();
 	if (!soppData.soppTitle) {
 		alert("영업기회 제목을 입력하십시오.!!");		
@@ -716,5 +718,47 @@ $(document).ready(function(){
         newitem.addClass("item"+(parseInt(lastItemNo)+1));
         $("#itemlist").append(newitem);
     });
+
+	// 이벤트 시작 ==========================================================================
+	// 이벤트시 동작
+	$("#soppTargetAmt").on("keyup", function (event) {
+		// 긁어와서 이벤트 체크
+		var selection = window.getSelection().toString();
+		if (selection !== '') return;
+		if ($.inArray(event.keyCode, [38, 40, 37, 39]) !== -1) return;
+
+		// 긁어오는값을 콤마를 제거해서 숫자변환
+		var $this = $(this);
+		var input = $this.val();
+		var input = input.replace(/[\D\s\._\-]+/g, "");
+		input = input ? parseInt(input, 10) : 0;
+		var ti = input;
+
+		// 데이터 반환
+		$this.val(function () {
+			return (input === 0) ? "0" : input.toLocaleString("en-US");
+		});
+	});
+
+	$('#data01Netprice,#data01Quanty').on('keyup',function(){
+
+		var sum1 = parseInt($("#data01Netprice").val().replace(/[\D\s\._\-]+/g, "") || 0 );
+		var sum2 = parseInt($("#data01Quanty").val().replace(/[\D\s\._\-]+/g, "") || 0 );
+
+		var sum = sum1 * sum2;
+		$("#data01Netprice").val(sum1.toLocaleString("en-US"));
+		$("#data01Quanty").val(sum2.toLocaleString("en-US"));
+		$("#data01Amt").val(sum.toLocaleString("en-US"));
+	});
+	$('#data02Netprice,#data02Qty').on('keyup',function(){
+
+		var sum1 = parseInt($("#data02Netprice").val().replace(/[\D\s\._\-]+/g, "") || 0 );
+		var sum2 = parseInt($("#data02Qty").val().replace(/[\D\s\._\-]+/g, "") || 0);
+
+		var sum = sum1 * sum2;
+		$("#data02Netprice").val(sum1.toLocaleString("en-US"));
+		$("#data02Qty").val(sum2.toLocaleString("en-US"));
+		$("#data02Amt").val(sum.toLocaleString("en-US"));
+	});
 });
 </script>

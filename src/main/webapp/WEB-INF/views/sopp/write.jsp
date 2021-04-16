@@ -44,7 +44,7 @@
 											</colgroup>
 											<tbody>
 												<tr>
-													<th scope="row">영업기회</th>
+													<th scope="row" class="requiredTextCss">영업기회</th>
 													<td colspan="3"><input type="text"
 														class="form-control form-control-sm" id="soppTitle"
 														name="soppTitle" value=""> <input
@@ -52,7 +52,7 @@
 														value=""></td>
 												</tr>
 												<tr>
-													<th scope="row">담당사원</th>
+													<th scope="row" class="requiredTextCss">담당사원</th>
 													<td>
 														<div class="input-group input-group-sm mb-0">
 															<input type="text" class="form-control" name="userName"
@@ -91,7 +91,7 @@
 															</div>
 														</div>
 													</td>
-													<th scope="row">거래처</th>
+													<th scope="row" class="requiredTextCss">거래처</th>
 													<td>
 														<div class="input-group input-group-sm mb-0">
 															<input type="text" class="form-control" name="custName"
@@ -132,39 +132,35 @@
 													</td>
 												</tr>
 												<tr>
-													<th scope="row">고객</th>
+													<th scope="row" class="requiredTextCss">거래처 담당자</th>
 													<td>
 														<div class="input-group input-group-sm mb-0">
-															<input type="text" class="form-control" name="buyrName"
-																id="buyrName" value="" readonly /> <input type="hidden"
-																name="buyrNo" id="buyrNo" value="" /> <span
-																class="input-group-btn">
+															<input type="text" class="form-control" name="custmemberName"  id="custmemberName" value="" readonly/>
+															<input type="hidden" name="custmemberNo" id="custmemberNo" value="" />
+															<span class="input-group-btn">
 																<button class="btn btn-primary sch-partner"
-																	data-remote="${path}/modal/popup.do?popId=buyr"
-																	type="button" data-toggle="modal"
-																	data-target="#buyrModal">
+																		data-remote="${path}/modal/popup.do?popId=custmem&compNo="
+																		type="button" data-toggle="modal" data-target="#custmemberModal"
+																		id="custmemberModalbtn">
 																	<i class="icofont icofont-search"></i>
 																</button>
 															</span>
-															<div class="modal fade " id="buyrModal" tabindex="-1"
-																role="dialog">
+															<div class="modal fade " id="custmemberModal" tabindex="-1"
+																 role="dialog">
 																<div class="modal-dialog modal-80size" role="document">
 																	<div class="modal-content modal-80size">
 																		<div class="modal-header">
-																			<h4 class="modal-title"></h4>
-																			<button type="button" class="close"
-																				data-dismiss="modal" aria-label="Close">
+																			<h4 class="modal-title">고객 검색</h4>
+																			<button type="button" class="close"	data-dismiss="modal" aria-label="Close">
 																				<span aria-hidden="true">&times;</span>
 																			</button>
 																		</div>
 																		<div class="modal-body">
-																			<h5>고객목록</h5>
-																			<p>Loading!!!</p>
+																			<h5>고객 목록</h5>
+																			<p>거래처를 먼저 입력해주셔야 목록이 보입니다.</p>
 																		</div>
 																		<div class="modal-footer">
-																			<button type="button"
-																				class="btn btn-default waves-effect "
-																				data-dismiss="modal">Close</button>
+																			<button type="button" class="close"	data-dismiss="modal" aria-label="Close">
 																		</div>
 																	</div>
 																</div>
@@ -212,7 +208,7 @@
 													</td>
 												</tr>
 												<tr>
-													<th scope="row">진행단계</th>
+													<th scope="row" class="requiredTextCss">진행단계</th>
 													<td><select name="soppStatus" id="soppStatus"
 														class="form-control form-control-sm"
 														onchange="javascript:changeProbability()">
@@ -230,10 +226,12 @@
 															<option value="392">협력사요청</option>
 													</select></td>
 													<th scope="row">가능성</th>
-													<td><span class="input_inline"><input
-															type="text" class="form-control form-control-sm"
-															id="soppSrate" name="soppSrate" value="${dto.soppSrate}"></span>
-														%</td>
+													<td>
+														<span class="input_inline">
+															<input type="text" class="form-control form-control-sm" id="soppSrate" name="soppSrate" value="0">
+														</span>
+														%
+													</td>
 												</tr>
 												<tr>
 													<th scope="row">출처</th>
@@ -248,10 +246,9 @@
 															<option value="206">기타</option>
 													</select></td>
 													<th scope="row">매출예정일</th>
-													<td><input
-														class="form-control form-control-sm col-md-8"
-														name="soppTargetDate" id="soppTargetDate" type="date"
-														value=""></td>
+													<td>
+														<input class="form-control form-control-sm col-md-6" name="soppTargetDate" id="soppTargetDate" type="date"	value="0">
+													</td>
 												</tr>
 												<tr>
 													<th scope="row">판매방식</th>
@@ -268,17 +265,15 @@
 															<option value="199">기타</option>
 													</select> -->
 														<select class="form-control form-control-sm" name="soppType" id="soppType">
-															<option value></option>
+															<option value>선택</option>
 															<c:forEach var = "saleslist" items="${saleslist}">
 																<option value="${saleslist.codeNo}">${saleslist.desc03}</option>			
 															</c:forEach>
 														</select>
 													</td>
 													<th scope="row">예상매출</th>
-													<td><span class="input_inline"><input
-															type="number" class="form-control form-control-sm"
-															id="soppTargetAmt" name="soppTargetAmt"
-															value="${dto.soppTargetAmt}"></span>원</td>
+													<td><span class="input_inline">
+														<input type="text" class="form-control form-control-sm" id="soppTargetAmt" name="soppTargetAmt" value="0"></span>원</td>
 												</tr>
 												<tr>
 													<th scope="row">설명</th>
@@ -327,8 +322,22 @@
 			var modal = $(this);
 			modal.find('.modal-body').load(button.data("remote"));
 		});
+		$('#custmemberModal').on('show.bs.modal', function(e) {
+			var custNo = $("#custNo").val();
+			var url = '${path}/modal/popup.do?popId=custmem&compNo=' + custNo;
+			$("#custmemberModalbtn").data("remote",url);
 
-		
+			var button = $(e.relatedTarget);
+			var modal = $(this);
+			modal.find('.modal-body').load(button.data("remote"));
+		});
+
+		function fnSetCustmereData(a, b) {
+			$("#custmemberNo").val(a);
+			$("#custmemberName").val(b);
+			$(".modal-backdrop").remove();
+			$("#custmemberModal").modal("hide");
+		}
 		function fnSetCustData(a, b) {
 			$("#custNo").val(b);
 			$("#custName").val(a);
@@ -360,12 +369,12 @@ function fn_soppInsert() {
  	soppData.userNo 		= $("#userNo").val();
 	soppData.custNo 		= $("#custNo").val();
 	soppData.ptncNo 		= $("#ptncNo").val();
-	soppData.soppStatus 		= $("#soppStatus").val();
+	soppData.soppStatus 	= $("#soppStatus").val();
 	soppData.soppSrate 		= $("#soppSrate").val();
-	soppData.soppSource 		= $("#soppSource").val();
-	soppData.soppTargetDate		= $("#soppTargetDate").val();
+	soppData.soppSource 	= $("#soppSource").val();
+	soppData.soppTargetDate	= $("#soppTargetDate").val();
 	soppData.soppType 		= $("#soppType").val();
-	soppData.soppTargetAmt 		= $("#soppTargetAmt").val();
+	soppData.soppTargetAmt 	= $("#soppTargetAmt").val().replace(/[\D\s\._\-]+/g, "");
 	soppData.soppDesc 		= $("#soppDesc").val();
 	if (!soppData.soppTitle) {
 		alert("영업기회 제목을 입력하십시오.!!");		
@@ -436,5 +445,26 @@ $(document).ready(function(){
         newitem.addClass("item"+(parseInt(lastItemNo)+1));
         $("#itemlist").append(newitem);
     });
+
+	// 이벤트 시작 ==========================================================================
+	// 이벤트시 동작
+	$("#soppTargetAmt").on("keyup", function (event) {
+		// 긁어와서 이벤트 체크
+		var selection = window.getSelection().toString();
+		if (selection !== '') return;
+		if ($.inArray(event.keyCode, [38, 40, 37, 39]) !== -1) return;
+
+		// 긁어오는값을 콤마를 제거해서 숫자변환
+		var $this = $(this);
+		var input = $this.val();
+		var input = input.replace(/[\D\s\._\-]+/g, "");
+		input = input ? parseInt(input, 10) : 0;
+		var ti = input;
+
+		// 데이터 반환
+		$this.val(function () {
+			return (input === 0) ? "0" : input.toLocaleString("en-US");
+		});
+	});
 });
 </script>

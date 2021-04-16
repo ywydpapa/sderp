@@ -44,7 +44,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  		<if test="businessType != null and businessType != ''">
  		 	and a.businessType = #{businessType}
  		</if>
-		order by soppNo 
+		order by soppTargetDate desc
  </select>
 
 <select id="listSopp2"
@@ -54,7 +54,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		left join swc_cust c on a.custNo = c.custNo
 		left join swc_code d on a.soppType = d.codeNo 
 		left join swc_code e on a.soppStatus = e.codeNo
-		where a.attrib not like 'XXX%' and a.soppStatus='10057' and b.compNo = #{compNo} order by soppNo
+		where a.attrib not like 'XXX%' and a.soppStatus IN('10057', '10058', '10059', '10182', '10183', '10184') and b.compNo = #{compNo}
+		order by soppSrate desc, soppTargetDate desc
  </select>
  
  <select id="listconSopp2"
@@ -83,7 +84,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  		<if test="businessType != null and businessType != ''">
  		 	and a.businessType = #{businessType}
  		</if>
-		order by soppNo
+		order by soppTargetDate desc
  </select>
 
 
@@ -119,6 +120,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	set 
 	 sopp2Desc=#{sopp2Desc}
 	,soppStatus=#{soppStatus}
+	,sopp2regDatetime=now()
 	where soppNo=#{soppNo}
  </update>
 

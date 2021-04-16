@@ -63,7 +63,7 @@
 											</colgroup>
 											<tbody>
 											<tr>
-												<th scope="row">영업기회</th>
+												<th scope="row" class="requiredTextCss">영업기회</th>
 												<td colspan="3"><input type="text"
 														class="form-control form-control-sm" id="soppTitle"
 														name="soppTitle" value="${dto.soppTitle}"> <input
@@ -71,7 +71,7 @@
 														value="${dto.soppNo}"></td>
 											</tr>
 											<tr>
-												<th scope="row">담당사원</th>
+												<th scope="row" class="requiredTextCss">담당사원</th>
 												<td>
 													<div class="input-group input-group-sm mb-0">
 														<input type="text" class="form-control" name="userName"
@@ -110,7 +110,7 @@
 														</div>
 													</div>
 												</td>
-												<th scope="row">거래처</th>
+												<th scope="row" class="requiredTextCss">거래처</th>
 												<td>
 													<div class="input-group input-group-sm mb-0">
 														<input type="text" class="form-control" name="custName"
@@ -151,39 +151,35 @@
 												</td>
 											</tr>
 											<tr>
-												<th scope="row">고객</th>
+												<th scope="row" class="requiredTextCss">거래처 담당자</th>
 												<td>
 													<div class="input-group input-group-sm mb-0">
-														<input type="text" class="form-control" name="buyrName"
-															   id="buyrName" value="" readonly /> <input type="hidden"
-																name="buyrNo" id="buyrNo" value="" /> <span
-															class="input-group-btn">
+														<input type="text" class="form-control" name="custmemberName"  id="custmemberName" value="" readonly/>
+														<input type="hidden" name="custmemberNo" id="custmemberNo" value="" />
+														<span class="input-group-btn">
 																<button class="btn btn-primary sch-partner"
-																	data-remote="${path}/modal/popup.do?popId=buyr"
-																	type="button" data-toggle="modal"
-																	data-target="#buyrModal">
+																		data-remote="${path}/modal/popup.do?popId=custmem&compNo="
+																		type="button" data-toggle="modal" data-target="#custmemberModal"
+																		id="custmemberModalbtn">
 																	<i class="icofont icofont-search"></i>
 																</button>
 															</span>
-														<div class="modal fade " id="buyrModal" tabindex="-1"
+														<div class="modal fade " id="custmemberModal" tabindex="-1"
 															 role="dialog">
 															<div class="modal-dialog modal-80size" role="document">
 																<div class="modal-content modal-80size">
 																	<div class="modal-header">
-																		<h4 class="modal-title"></h4>
-																		<button type="button" class="close"
-																				data-dismiss="modal" aria-label="Close">
+																		<h4 class="modal-title">고객 검색</h4>
+																		<button type="button" class="close"	data-dismiss="modal" aria-label="Close">
 																			<span aria-hidden="true">&times;</span>
 																		</button>
 																	</div>
 																	<div class="modal-body">
-																		<h5>고객목록</h5>
-																		<p>Loading!!!</p>
+																		<h5>고객 목록</h5>
+																		<p>거래처를 먼저 입력해주셔야 목록이 보입니다.</p>
 																	</div>
 																	<div class="modal-footer">
-																		<button type="button"
-																				class="btn btn-default waves-effect "
-																				data-dismiss="modal">Close</button>
+																		<button type="button" class="close"	data-dismiss="modal" aria-label="Close">
 																	</div>
 																</div>
 															</div>
@@ -231,7 +227,7 @@
 												</td>
 											</tr>
 											<tr>
-												<th scope="row">진행단계</th>
+												<th scope="row" class="requiredTextCss">진행단계</th>
 												<td><select name="soppStatus" id="soppStatus"
 														class="form-control form-control-sm"
 														onchange="javascript:changeProbability()">
@@ -266,9 +262,9 @@
 												<th scope="row">판매방식</th>
 												<td><select name="soppType" id="soppType"
 														class="form-control form-control-sm col-md-4">
-													<option value></option>
+													<option value>선택</option>
 													<c:forEach var = "saleslist" items="${saleslist}">
-														<option value="${saleslist.codeNo}">${saleslist.desc03}</option>
+														<option value="${saleslist.codeNo}" <c:if test="">selected</c:if>>${saleslist.desc03}</option>
 													</c:forEach>
 												</select></td>
 												<th scope="row">예상매출</th>
@@ -281,6 +277,12 @@
 												<td colspan="3"><textarea name="soppDesc"
 															id="soppDesc" rows="8" class="form-control">${dto.soppDesc}</textarea></td>
 											</tr>
+											<c:if test="${dto.sopp2regDatetime != null}">
+												<tr>
+													<th scope="row">승인/반려 의견<br/>(시간 : <fmt:formatDate pattern="yyyy-MM-dd hh:mm:ss" value="${dto.sopp2regDatetime}"/>)</th>
+													<td colspan="3"><textarea name="sopp2Desc" id="sopp2Desc" rows="8" class="form-control" readonly>${dto.sopp2Desc}</textarea></td>
+												</tr>
+											</c:if>
 											</tbody>
 										</table>
 
@@ -359,15 +361,9 @@
 											</div>
 											<!--//모달 팝업-->
 										</td>
-										<td><input type="number" id="data01Netprice" required
-												class="form-control form-control-sm"
-												style="min-width: 80px;" /></td>
-										<td><input type="number" id="data01Quanty" required
-												class="form-control form-control-sm"
-												style="min-width: 80px;" /></td>
-										<td><input type="number" id="data01Amt"
-												class="form-control form-control-sm" readonly placeholder="자동계산됩니다."
-												style="min-width: 80px;" /></td>
+										<td><input type="text" id="data01Netprice" required	class="form-control form-control-sm" style="min-width: 80px;" /></td>
+										<td><input type="text" id="data01Quanty" required class="form-control form-control-sm" style="min-width: 80px;" /></td>
+										<td><input type="text" id="data01Amt" class="form-control form-control-sm" readonly placeholder="자동계산됩니다." style="min-width: 80px;" /></td>
 										<td><input type="text" id="data01Remark" class="form-control form-control-sm" /></td>
 										<td><button id="data01Addbtn" onClick="javascript:fn_data01Insert()">추가</button></td>
 									</tr>
@@ -486,13 +482,13 @@
 											<!--//모달 팝업-->
 
 										</td>
-										<td><input type="number"
+										<td><input type="text"
 												class="form-control form-control-sm" id="data02Netprice"
 												style="min-width: 80px;" /></td>
-										<td><input type="number"
+										<td><input type="text"
 												class="form-control form-control-sm" id="data02Qty"
 												style="min-width: 80px;" /></td>
-										<td><input type="number"
+										<td><input type="text"
 												class="form-control form-control-sm" id="data02Amt"
 												style="min-width: 80px;" readonly /></td>
 										<td><input type="text" id="data02Remark"
@@ -553,7 +549,7 @@
 					</div>
 				</div>
 				<div class="tab-pane " id="tab04" role="tabpanel">
-					<button class="btn btn-md btn-primary" data-toggle="modal" data-target="#fileUploadModal" onClick="openFileUploadModal()">등록</button>
+					<button class="btn btn-md btn-primary" data-toggle="modal" data-target="#fileUploadModal" onClick="openFileUploadModal()" style="float: right; padding: 5px 12px; margin-bottom: 9px;">등록</button>
 					<div class="modal fade " id="fileUploadModal" tabindex="-1"
 						 role="dialog">
 						<div class="modal-dialog modal-80size" role="document">
@@ -574,9 +570,7 @@
 									파일 설명<input type="text" class="form-control" id="fileDesc"/>
 								</div>
 								<div class="modal-footer">
-									<button type="button"
-											class="btn btn-default waves-effect "
-											onclick="uploadFile()">등록</button>
+									<button type="button" class="btn btn-default waves-effect "	onclick="uploadFile()">등록</button>
 									<button type="button"
 											class="btn btn-default waves-effect "
 											data-dismiss="modal">닫기</button>
@@ -851,9 +845,9 @@
 		}
 		data01Data.dataTitle 	= $("#data01Title").val();
 		data01Data.dataType		= $("#data01Type").val();
-		data01Data.dataNetprice	= $("#data01Netprice").val();
-		data01Data.dataQuanty	= $("#data01Quanty").val();
-		data01Data.dataAmt 		= $("#data01Amt").val();
+		data01Data.dataNetprice	= $("#data01Netprice").val().replace(/[\D\s\._\-]+/g, "");
+		data01Data.dataQuanty	= $("#data01Quanty").val().replace(/[\D\s\._\-]+/g, "");
+		data01Data.dataAmt 		= $("#data01Amt").val().replace(/[\D\s\._\-]+/g, "");
 		data01Data.dataRemark 	= $("#data01Remark").val();
 		console.log(data01Data);
 		$.ajax({ url: "${path}/sopp/insertdata01.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
@@ -887,9 +881,9 @@
 		}
 		data02Data.dataTitle 	= $("#data02Title").val();
 		data02Data.dataType		= $("#data02Type").val();
-		data02Data.dataNetprice	= $("#data02Netprice").val();
-		data02Data.dataQuanty	= $("#data02Qty").val();
-		data02Data.dataAmt 		= $("#data02Amt").val();
+		data02Data.dataNetprice	= $("#data02Netprice").val().replace(/[\D\s\._\-]+/g, "");
+		data02Data.dataQuanty	= $("#data02Qty").val().replace(/[\D\s\._\-]+/g, "");
+		data02Data.dataAmt 		= $("#data02Amt").val().replace(/[\D\s\._\-]+/g, "");
 		data02Data.dataRemark 	= $("#data02Remark").val();
 		console.log(data02Data);
 		$.ajax({ url: "${path}/sopp/insertdata02.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
@@ -959,24 +953,7 @@
 		}
 	}
 
-	$(function(){
-		$('#data01Netprice,#data01Quanty').on('keyup',function(){
 
-			var sum1 = parseInt($("#data01Netprice").val() || 0 );
-			var sum2 = parseInt($("#data01Quanty").val() || 0);
-
-			var sum = sum1 * sum2;
-			$("#data01Amt").val(sum);
-		});
-		$('#data02Netprice,#data02Qty').on('keyup',function(){
-
-			var sum1 = parseInt($("#data02Netprice").val() || 0 );
-			var sum2 = parseInt($("#data02Qty").val() || 0);
-
-			var sum = sum1 * sum2;
-			$("#data02Amt").val(sum);
-		});
-	});
 
 	function uploadFile() {
 		var uploadForm = $('#uploadForm')[0];
@@ -1034,4 +1011,50 @@
 	function openFileUploadModal() {
 
 	}
+
+	$(function(){
+		$('#data01Netprice,#data01Quanty').on('keyup',function(){
+
+			var sum1 = parseInt($("#data01Netprice").val().replace(/[\D\s\._\-]+/g, "") || 0 );
+			var sum2 = parseInt($("#data01Quanty").val().replace(/[\D\s\._\-]+/g, "") || 0 );
+
+			var sum = sum1 * sum2;
+			$("#data01Netprice").val(sum1.toLocaleString("en-US"));
+			$("#data01Quanty").val(sum2.toLocaleString("en-US"));
+			$("#data01Amt").val(sum.toLocaleString("en-US"));
+		});
+		$('#data02Netprice,#data02Qty').on('keyup',function(){
+
+			var sum1 = parseInt($("#data02Netprice").val().replace(/[\D\s\._\-]+/g, "") || 0 );
+			var sum2 = parseInt($("#data02Qty").val().replace(/[\D\s\._\-]+/g, "") || 0);
+
+			var sum = sum1 * sum2;
+			$("#data02Netprice").val(sum1.toLocaleString("en-US"));
+			$("#data02Qty").val(sum2.toLocaleString("en-US"));
+			$("#data02Amt").val(sum.toLocaleString("en-US"));
+		});
+
+		var $input = $("#soppTargetAmt");
+
+		// 이벤트 시작 ==========================================================================
+		// 이벤트시 동작
+		$input.on("keyup", function (event) {
+			// 긁어와서 이벤트 체크
+			var selection = window.getSelection().toString();
+			if (selection !== '') return;
+			if ($.inArray(event.keyCode, [38, 40, 37, 39]) !== -1) return;
+
+			// 긁어오는값을 콤마를 제거해서 숫자변환
+			var $this = $(this);
+			var input = $this.val();
+			var input = input.replace(/[\D\s\._\-]+/g, "");
+			input = input ? parseInt(input, 10) : 0;
+			var ti = input;
+
+			// 데이터 반환
+			$this.val(function () {
+				return (input === 0) ? "0" : input.toLocaleString("en-US");
+			});
+		});
+	});
 </script>

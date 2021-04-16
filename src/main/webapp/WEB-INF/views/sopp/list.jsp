@@ -20,6 +20,19 @@ $(function(){
 	a {
 		text-decoration:underline;
 	}
+	#soppTable > tbody > tr > td:nth-child(3) > a{
+		display: block;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		max-width: 530px;
+		white-space: nowrap;
+	}
+	#soppTable > tbody > tr > td:nth-child(4){
+		overflow: hidden;
+		text-overflow: ellipsis;
+		max-width: 380px;
+		white-space: nowrap;
+	}
 </style>
 
 	<c:if test="${preserveSearchCondition != 'Y'}">
@@ -183,13 +196,13 @@ $(function(){
 								<div class="col-sm-12 col-xl-4">
 									<label class="col-form-label" for="soppType">판매방식</label>
 									<select class="form-control form-control-sm" name="soppType" id="soppType" title="선택">
-										<option value></option>
+										<option value>선택</option>
 										<c:forEach var = "saleslist" items="${saleslist}">	
 										<option value="${saleslist.codeNo}">${saleslist.desc03}</option>			
 										</c:forEach>
 									</select>
 								</div>
-								<div class="col-sm-12 col-xl-4">
+								<%--<div class="col-sm-12 col-xl-4">
 									<label class="col-form-label" for="soppType">영업타입</label>
 									<select name="select" class="form-control form-control-sm" id="businessType">
 										<option value></option>
@@ -197,11 +210,11 @@ $(function(){
 											<option value="${businessType.codeNo}">${businessType.desc03}</option>
 										</c:forEach>
 									</select>
-								</div>
+								</div>--%>
 								<div class="col-sm-12 col-xl-4">
 									<label class="col-form-label" for="soppStatus">진행단계</label>
 									<select class="form-control form-control-sm" name="soppStatus" id="soppStatus" title="선택">
-										<option value></option>
+										<option value>선택</option>
 										<c:forEach var = "sstatuslist" items="${sstatuslist}">	
 										<option value="${sstatuslist.codeNo}">${sstatuslist.desc03}</option>			
 										</c:forEach>
@@ -251,7 +264,7 @@ $(function(){
 							<tr>
 								<th scope="row"><input class="border-checkbox" type="checkbox" id="checkbox0"></th>
 								<td>${row.soppTypeN}</td>
-								<td><a href="javascript:fnSetPage('${path}/sopp/detail/${row.soppNo}')">${row.soppTitle}<span class="sales_n"></span></td>
+								<td><a href="javascript:fnSetPage('${path}/sopp/detail/${row.soppNo}')" title="${row.soppTitle}">${row.soppTitle}</a></td>
 								<td>${row.custName}</td>
 								<td>${row.userName}</td>
 								<td class="text-right"><fmt:formatNumber type="number" maxFractionDigits="3" value="${row.soppTargetAmt}" /></td>
@@ -315,7 +328,7 @@ $(function(){
     		soppData.targetDatefrom = $("#targetDatefrom").val() ? $("#targetDatefrom").val() : null;
     		soppData.targetDateto = $("#targetDateto").val() ? $("#targetDateto").val() : null;
     		soppData.soppType = $("#soppType").val() ? $("#soppType").val() : null;
-    		soppData.businessType = $("#businessType").val() ? $("#businessType").val() : null;
+    		/*soppData.businessType = $("#businessType").val() ? $("#businessType").val() : null;*/
     		soppData.soppStatus = $("#soppStatus").val() ? $("#soppStatus").val() : null;
     		
     		fnSetList('${path}/sopp/listcon.do', soppData);

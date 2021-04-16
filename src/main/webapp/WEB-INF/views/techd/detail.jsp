@@ -43,7 +43,7 @@ for(var i = 0; i < hiddenObject.length; i++) {
 						</colgroup>
 						<tbody>
 							<tr>
-								<th scope="row">등록구분</th>
+								<th scope="row" class="requiredTextCss">등록구분</th>
 								<td colspan="3">
 									<div class="form-radio">
 										<form>
@@ -52,46 +52,72 @@ for(var i = 0; i < hiddenObject.length; i++) {
 												</label>
 											</div>
 											<div class="radio radio-inline">
-												<label> <input type="radio" value="ING" name="radio" <c:if test="${dto.contNo != 0}">checked</c:if> disabled> <i class="helper"></i>기존계약 </label>
+												<label> <input type="radio" value="ING" name="radio" <c:if test="${dto.contNo != 0}">checked</c:if> disabled> <i class="helper"></i>유지보수 </label>
 											</div>
 										</form>
 									</div>
 								</td>
 							</tr>
 							<tr>
-								<th scope="row">기술지원 요청명</th>
+								<th scope="row" class="requiredTextCss">기술지원 요청명</th>
 								<td><input type="text" class="form-control form-control-sm" id="techdTitle" name="techdTitle" placeholder="기술지원 요청명을 입력하십시오" value="${dto.techdTitle}" required></td>
-								<th scope="row">담당사원</th>
-								<td>
+								<th scope="row" class="techdDetailSopp requiredTextCss">영업기회</th>
+								<td class="techdDetailSopp">
 									<div class="input-group input-group-sm mb-0">
-										<input type="text" class="form-control" name="userName" readonly
-											id="userName" value="${dto.userName}" /> <input type="hidden" name="userNo"
-											id="userNo" value="${dto.userNo}" /> <span class="input-group-btn"> 
-											<button class="btn btn-primary sch-company"
-												data-remote="${path}/modal/popup.do?popId=user"
-												type="button" data-toggle="modal" data-target="#userModal">
+										<input type="text" class="form-control" name="soppTitle" id="soppTitle" value="${dto.soppTitle}" readonly />
+										<input type="hidden" name="soppNo" id="soppNo" value="${dto.soppNo}" />
+										<span class="input-group-btn">
+											<button class="btn btn-primary sch-opportunity2" data-remote="${path}/modal/popup.do?popId=sopp" type="button" data-toggle="modal" data-target="#soppModal">
 												<i class="icofont icofont-search"></i>
 											</button>
 										</span>
-										<div class="modal fade " id="userModal" tabindex="-1"
-											role="dialog">
+										<div class="modal fade" id="soppModal" tabindex="-1" role="dialog">
 											<div class="modal-dialog modal-80size" role="document">
 												<div class="modal-content modal-80size">
 													<div class="modal-header">
-														<h4 class="modal-title">담당사원 검색</h4>
-														<button type="button" class="close" onclick="$('#userModal').modal('hide');"
-															aria-label="Close">
+														<h4 class="modal-title"></h4>
+														<button type="button" class="close" onclick="$('#soppModal').modal('hide');"
+																aria-label="Close">
 															<span aria-hidden="true">&times;</span>
 														</button>
 													</div>
 													<div class="modal-body">
-														<h5>사용자목록</h5>
+														<h5>영업기회목록</h5>
 														<p>Loading!!!</p>
 													</div>
 													<div class="modal-footer">
-														<button type="button"
-															class="btn btn-default waves-effect "
-															onclick="$('#userModal').modal('hide');">Close</button>
+														<button type="button" class="btn btn-default waves-effect"	onclick="$('#soppModal').modal('hide');">Close</button>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</td>
+								<th scope="row" class="techdDetailCont requiredTextCss">계약</th>
+								<td class="techdDetailCont">
+									<div class="input-group input-group-sm mb-0">
+										<input type="text" class="form-control" name="contTitle" id="contTitle" value="${dto.contTitle}" readonly />
+										<input type="hidden" name="contNo" id="contNo" value="${dto.contNo}" />
+										<span class="input-group-btn">
+											<button class="btn btn-primary sch-opportunity2" data-remote="${path}/modal/popup.do?popId=cont" type="button" data-toggle="modal" data-target="#contModal">
+												<i class="icofont icofont-search"></i>
+											</button>
+										</span>
+										<div class="modal fade " id="contModal" tabindex="-1" role="dialog">
+											<div class="modal-dialog modal-80size" role="document">
+												<div class="modal-content modal-80size">
+													<div class="modal-header">
+														<h4 class="modal-title"></h4>
+														<button type="button" class="close" onclick="$('#contModal').modal('hide');" aria-label="Close">
+															<span aria-hidden="true">&times;</span>
+														</button>
+													</div>
+													<div class="modal-body">
+														<h5>계약 목록</h5>
+														<p>Loading!!!</p>
+													</div>
+													<div class="modal-footer">
+														<button type="button" class="btn btn-default waves-effect"	onclick="$('#contModal').modal('hide');">Close</button>
 													</div>
 												</div>
 											</div>
@@ -100,7 +126,7 @@ for(var i = 0; i < hiddenObject.length; i++) {
 								</td>
 							</tr>
 							<tr>
-								<th scope="row">거래처</th>
+								<th scope="row" class="requiredTextCss">엔드유저</th>
 								<td>
 									<div class="input-group input-group-sm mb-0">
 										<input type="text" class="form-control" name="custName" readonly
@@ -112,14 +138,12 @@ for(var i = 0; i < hiddenObject.length; i++) {
 												<i class="icofont icofont-search"></i>
 											</button>
 										</span>
-										<div class="modal fade " id="custModal" tabindex="-1"
-											role="dialog">
+										<div class="modal fade " id="custModal" tabindex="-1" role="dialog">
 											<div class="modal-dialog modal-80size" role="document">
 												<div class="modal-content modal-80size">
 													<div class="modal-header">
 														<h4 class="modal-title">거래처 검색</h4>
-														<button type="button" class="close" onclick="$('#custModal').modal('hide');"
-															aria-label="Close">
+														<button type="button" class="close" onclick="$('#custModal').modal('hide');" aria-label="Close">
 															<span aria-hidden="true">&times;</span>
 														</button>
 													</div>
@@ -128,16 +152,14 @@ for(var i = 0; i < hiddenObject.length; i++) {
 														<p>Loading!!!</p>
 													</div>
 													<div class="modal-footer">
-														<button type="button"
-															class="btn btn-default waves-effect "
-															onclick="$('#custModal').modal('hide');">Close</button>
+														<button type="button" class="btn btn-default waves-effect"	onclick="$('#custModal').modal('hide');">Close</button>
 													</div>
 												</div>
 											</div>
 										</div>
 									</div>
 								</td>
-								<th scope="row">엔드유저</th>
+								<th scope="row">엔드유저 담당자</th>
 								<td>
 									<div class="input-group input-group-sm mb-0">
 										<input type="text" class="form-control" name="custmemberName"  id="custmemberName" value="${dto.custmemberName}" readonly/> 
@@ -162,8 +184,8 @@ for(var i = 0; i < hiddenObject.length; i++) {
 														</button>
 													</div>
 													<div class="modal-body">
-														<h5>고객 목록</h5>
-														<p>거래처를 먼저 입력해주셔야 목록이 보입니다.</p>
+														<h5>엔드유저 담당자 목록</h5>
+														<p>엔드유저(거래처)를 먼저 입력해주셔야 목록이 보입니다.</p>
 													</div>
 													<div class="modal-footer">
 														<button type="button"
@@ -178,97 +200,56 @@ for(var i = 0; i < hiddenObject.length; i++) {
 							</tr>
 							<tr>
 								<th scope="row">모델</th>
-								<td><input type="text" class="form-control form-control-sm"
-									id="techdItemmodel" name="techdItemmodel" placeholder="" value="${dto.techdItemmodel}"></td>
+								<td>
+									<input type="text" class="form-control form-control-sm"	id="techdItemmodel" name="techdItemmodel" placeholder="" value="${dto.techdItemmodel}">
+								</td>
 								<th>버전</th>
-								<td><input type="text" class="form-control form-control-sm"
-									id="techdItemversion" name="techdItemversion" placeholder="" value="${dto.techdItemversion}"></td>
+								<td>
+									<input type="text" class="form-control form-control-sm"	id="techdItemversion" name="techdItemversion" placeholder="" value="${dto.techdItemversion}">
+								</td>
 							</tr>
 							<tr>
 								<th scope="row">장소</th>
-								<td><input type="text"
-									class="form-control form-control-sm" id="techdPlace" name="techdPlace"
-									placeholder="" value="${dto.techdPlace}"></td>
-									
-								<th scope="row" class="techdDetailSopp">영업기회</th>
-								<td class="techdDetailSopp">
-									<div class="input-group input-group-sm mb-0">
-									<input type="text" class="form-control" name="soppTitle"
-										id="soppTitle" value="${dto.soppTitle}" readonly /> <input type="hidden"
-										name="soppNo" id="soppNo" value="${dto.soppNo}" /> <span
-										class="input-group-btn">
-										<button class="btn btn-primary sch-opportunity2"
-											data-remote="${path}/modal/popup.do?popId=sopp"
-											type="button" data-toggle="modal" data-target="#soppModal">
-											<i class="icofont icofont-search"></i>
-										</button>
-									</span>
-									<div class="modal fade " id="soppModal" tabindex="-1"
-										role="dialog">
-										<div class="modal-dialog modal-80size" role="document">
-											<div class="modal-content modal-80size">
-												<div class="modal-header">
-													<h4 class="modal-title"></h4>
-													<button type="button" class="close" onclick="$('#soppModal').modal('hide');"
-														aria-label="Close">
-														<span aria-hidden="true">&times;</span>
-													</button>
-												</div>
-												<div class="modal-body">
-													<h5>영업기회목록</h5>
-													<p>Loading!!!</p>
-												</div>
-												<div class="modal-footer">
-													<button type="button"
-														class="btn btn-default waves-effect "
-														onclick="$('#soppModal').modal('hide');">Close</button>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
+								<td>
+									<input type="text" class="form-control form-control-sm" id="techdPlace" name="techdPlace" placeholder="" value="${dto.techdPlace}">
 								</td>
-								<th scope="row" class="techdDetailCont">계약</th>
-								<td class="techdDetailCont">
+								<th scope="row" class="requiredTextCss">담당사원</th>
+								<td>
 									<div class="input-group input-group-sm mb-0">
-									<input type="text" class="form-control" name="contTitle"
-										id="contTitle" value="${dto.contTitle}" readonly /> <input type="hidden"
-										name="contNo" id="contNo" value="${dto.contNo}" /> <span
-										class="input-group-btn">
-										<button class="btn btn-primary sch-opportunity2"
-											data-remote="${path}/modal/popup.do?popId=cont"
-											type="button" data-toggle="modal" data-target="#contModal">
-											<i class="icofont icofont-search"></i>
-										</button>
-									</span>
-									<div class="modal fade " id="contModal" tabindex="-1"
-										role="dialog">
-										<div class="modal-dialog modal-80size" role="document">
-											<div class="modal-content modal-80size">
-												<div class="modal-header">
-													<h4 class="modal-title"></h4>
-													<button type="button" class="close" onclick="$('#contModal').modal('hide');"
-														aria-label="Close">
-														<span aria-hidden="true">&times;</span>
-													</button>
-												</div>
-												<div class="modal-body">
-													<h5>계약 목록</h5>
-													<p>Loading!!!</p>
-												</div>
-												<div class="modal-footer">
-													<button type="button"
-														class="btn btn-default waves-effect "
-														onclick="$('#contModal').modal('hide');">Close</button>
+										<input type="text" class="form-control" name="userName" readonly id="userName" value="${dto.userName}" />
+										<input type="hidden" name="userNo" id="userNo" value="${dto.userNo}" />
+										<span class="input-group-btn">
+											<button class="btn btn-primary sch-company"
+													data-remote="${path}/modal/popup.do?popId=user"
+													type="button" data-toggle="modal" data-target="#userModal">
+												<i class="icofont icofont-search"></i>
+											</button>
+										</span>
+										<div class="modal fade " id="userModal" tabindex="-1"
+											 role="dialog">
+											<div class="modal-dialog modal-80size" role="document">
+												<div class="modal-content modal-80size">
+													<div class="modal-header">
+														<h4 class="modal-title">담당사원 검색</h4>
+														<button type="button" class="close" onclick="$('#userModal').modal('hide');" aria-label="Close">
+															<span aria-hidden="true">&times;</span>
+														</button>
+													</div>
+													<div class="modal-body">
+														<h5>사용자목록</h5>
+														<p>Loading!!!</p>
+													</div>
+													<div class="modal-footer">
+														<button type="button" class="btn btn-default waves-effect" onclick="$('#userModal').modal('hide');">Close</button>
+													</div>
 												</div>
 											</div>
 										</div>
 									</div>
-								</div>
 								</td>
 							</tr>
 							<tr>
-								<th scope="row">지원일자</th>
+								<th scope="row" class="requiredTextCss">지원일자</th>
 								<td colspan="3">
 									<!-- <div class="col-sm-9 f-left m-b-0 p-l-0"> -->
 										<div class="input-group input-group-sm mb-0 mr-1">
@@ -284,7 +265,7 @@ for(var i = 0; i < hiddenObject.length; i++) {
 							<tr>
 								<th scope="row">지원형태</th>
 								<td><select name="techdType" id="techdType" class="form-control form-control-sm">
-								<option value=""></option>
+								<option value="">선택</option>
 								<c:forEach var="rows" items="${sprttype}">
 								<option value="${rows.codeNo}" <c:if test="${rows.codeNo == dto.techdType}">selected</c:if>>${rows.desc03}</option>
 								</c:forEach>
@@ -294,7 +275,7 @@ for(var i = 0; i < hiddenObject.length; i++) {
 								<th scope="row">진행단계</th>
 								<td><select name="techdSteps" id="techdSteps"
 									class="form-control form-control-sm">
-										<option value=""></option>
+										<option value="">선택</option>
 								<c:forEach var="rows" items="${sprtstat}">
 								<option value="${rows.codeNo}" <c:if test="${rows.codeNo == dto.techdSteps}">selected</c:if>>${rows.desc03}</option>
 								</c:forEach>

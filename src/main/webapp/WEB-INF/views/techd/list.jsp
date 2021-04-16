@@ -11,7 +11,8 @@
 <script>
 $(function(){
     $('#techdTable').DataTable({
-    	info:false
+    	info:false,
+		order: [[ 7, "desc" ]],
     });
 });
 $(function(){
@@ -95,12 +96,11 @@ $(function(){
 							</div>
 							
 							<div class="col-sm-12 col-xl-3">
-								<label class="col-form-label" for="custName">거래처</label>
+								<label class="col-form-label" for="custName">엔드유저</label>
 								<div class="input-group input-group-sm mb-0">
-									<input type="text" class="form-control" name="custName"
-										id="custName" value="" readonly /> <input type="hidden"
-										name="custNo" id="custNo" value="" /> <span
-										class="input-group-btn">
+									<input type="text" class="form-control" name="custName" id="custName" value="" readonly />
+									<input type="hidden" name="custNo" id="custNo" value="" />
+									<span class="input-group-btn">
 										<button class="btn btn-primary sch-company"
 											data-remote="${path}/modal/popup.do?popId=cust" type="button"
 											data-toggle="modal" data-target="#custModal">
@@ -133,7 +133,7 @@ $(function(){
 							</div>
 							
 							<div class="col-sm-12 col-xl-3">
-								<label class="col-form-label" for="custmemberName">엔드유저</label>
+								<label class="col-form-label" for="custmemberName">엔드유저 담당자</label>
 								<div class="input-group input-group-sm mb-0">
 									<input type="text" class="form-control" name="custmemberName"
 										id="custmemberName" value="" readonly /> <input type="hidden"
@@ -141,7 +141,7 @@ $(function(){
 										class="input-group-btn">
 										<button class="btn btn-primary sch-company"
 											data-remote="${path}/modal/popup.do?popId=custmem&compNo=" type="button"
-											data-toggle="modal" data-target="#custmemberModal">
+											data-toggle="modal" data-target="#custmemberModal" id="custmemberModalbtn">
 											<i class="icofont icofont-search"></i>
 										</button>
 									</span>
@@ -172,7 +172,7 @@ $(function(){
 							<div class="col-sm-12 col-xl-3">
 								<label class="col-form-label" for="co_name">진행단계</label>
 								<select name="select" class="form-control form-control-sm" id="techdSteps">
-									<option value></option>
+									<option value>선택</option>
 									<c:forEach var ="techdSteps" items="${techdSteps}">
 										<option value = "${techdSteps.codeNo}">${techdSteps.desc03}</option>
 									</c:forEach>
@@ -208,35 +208,45 @@ $(function(){
 						<table id="techdTable" class="table table-striped table-bordered nowrap">
 							<colgroup>
 								<col width="1%"/>
+								<col width="7%"/>
 								<col width="30%"/>
 								<col width="24%"/>
 								<col width="15%"/>
-								<col width="15%"/>
-								<col width="15%"/>
+								<col width="8%"/>
+								<col width="5%"/>
+								<col width="10%"/>
 							</colgroup>							
 							<thead>
 								<tr>
 									<th><input class="border-checkbox" type="checkbox" id="checkbox0"></th>
+									<th>등록구분</th>
 									<th>요청명</th>
 									<th>기술지원요청내용</th>
 									<th>거래처</th>
 									<th>진행단계</th>
 									<th>담당사원</th>
-									<th>등록일</th>
+									<th>기술지원 시작일</th>
 								</tr>
 							</thead>
 							<tbody>
 								<c:forEach var="row" items="${list}">
 								<tr>
 									<th scope="row"><input class="border-checkbox" type="checkbox" id="checkbox0"></th>
-									<td><a href="javascript:fnSetPage('${path}/techd/detail/${row.techdNo}')">${row.techdTitle}</a></td>							
+									<td>
+										<c:if test="${row.soppNo != 0}">신규 영업지원</c:if>
+										<c:if test="${row.contNo != 0}">유지보수</c:if>
+									</td>
+									<td><a href="javascript:fnSetPage('${path}/techd/detail/${row.techdNo}')">${row.techdTitle}</a></td>
 									<td>${row.techdDesc}</td>
 									<td>${row.custName}</td>
 									<td>${row.techdStepsN}</td>
 									<td>${row.userName}</td> 
-									<td>${row.regdatetime}</td>
+									<td>
+										<fmt:parseDate value="${row.techdFrom}" var="techdFrom" pattern="yyyy-MM-dd HH:mm:ss"/>
+										<fmt:formatDate value="${techdFrom}" pattern="yyyy-MM-dd"/>
+									</td>
 								</tr>
-							</c:forEach>		
+								</c:forEach>
 							</tbody>
 						</table>
 					</div>

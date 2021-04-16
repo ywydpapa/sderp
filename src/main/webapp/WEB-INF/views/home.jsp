@@ -16,6 +16,7 @@
 <link href='${path}/fullcalendar/main.css' rel='stylesheet' />
 <script src='${path}/fullcalendar/main.js'></script>
 <script src='${path}/fullcalendar/locales/locales-all.js'></script>
+
 <style>
 #topMenu { 	 
 	height:30px;  

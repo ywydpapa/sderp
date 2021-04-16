@@ -19,6 +19,18 @@ $(function(){
 	a {
 		text-decoration:underline;
 	}
+	#contTable > tbody > tr > td:nth-child(3){
+		overflow: hidden;
+		text-overflow: ellipsis;
+		max-width: 420px;
+		white-space: nowrap;
+	}
+	#contTable > tbody > tr > td:nth-child(3){
+		overflow: hidden;
+		text-overflow: ellipsis;
+		max-width: 220px;
+		white-space: nowrap;
+	}
 </style>
 	<c:if test="${preserveSearchCondition != 'Y'}">
 		<!-- Page-header start 페이지 타이틀-->
@@ -77,9 +89,7 @@ $(function(){
 															<p>Loading!!!</p>
 														</div>
 														<div class="modal-footer">
-															<button type="button"
-																class="btn btn-default waves-effect "
-																data-dismiss="modal">Close</button>
+															<button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
 														</div>
 													</div>
 												</div>
@@ -88,43 +98,37 @@ $(function(){
 									</div>
 									<div class="col-sm-12 col-xl-3">
 										<label class="col-form-label" for="co_name">유지보수업체</label>
-															<div class="input-group input-group-sm mb-0">
-																		<input type="text" class="form-control" name="ptncName"
-																			id="ptncName" value="" readonly /> <input
-																			type="hidden" name="ptncNo" id="ptncNo"
-																			value="" /> <span class="input-group-btn">
-																			<button class="btn btn-primary sch-company"
-																				data-remote="${path}/modal/popup.do?popId=ptnc"
-																				type="button" data-toggle="modal"
-																				data-target="#ptncModal">
-																				<i class="icofont icofont-search"></i>
-																			</button>
-																		</span>
-																		<div class="modal fade " id="ptncModal" tabindex="-1"
-																			role="dialog">
-																			<div class="modal-dialog modal-80size" role="document">
-																				<div class="modal-content modal-80size">
-																					<div class="modal-header">
-																						<h4 class="modal-title">거래처검색</h4>
-																						<button type="button" class="close"
-																							data-dismiss="modal" aria-label="Close">
-																							<span aria-hidden="true">&times;</span>
-																						</button>
-																					</div>
-																					<div class="modal-body">
-																						<h5>거래처목록</h5>
-																						<p>Loading!!!</p>
-																					</div>
-																					<div class="modal-footer">
-																						<button type="button"
-																							class="btn btn-default waves-effect "
-																							data-dismiss="modal">Close</button>
-																					</div>
-																				</div>
-																			</div>
-																		</div>
-																	</div>						
-																	</div>
+										<div class="input-group input-group-sm mb-0">
+											<input type="text" class="form-control" name="ptncName" id="ptncName" value="" readonly />
+											<input type="hidden" name="ptncNo" id="ptncNo" value="" />
+											<span class="input-group-btn">
+												<button class="btn btn-primary sch-company" data-remote="${path}/modal/popup.do?popId=ptnc"
+															type="button" data-toggle="modal" data-target="#ptncModal">
+													<i class="icofont icofont-search"></i>
+												</button>
+											</span>
+											<div class="modal fade " id="ptncModal" tabindex="-1" role="dialog">
+												<div class="modal-dialog modal-80size" role="document">
+													<div class="modal-content modal-80size">
+														<div class="modal-header">
+															<h4 class="modal-title">거래처검색</h4>
+															<button type="button" class="close"
+																data-dismiss="modal" aria-label="Close">
+																<span aria-hidden="true">&times;</span>
+															</button>
+														</div>
+														<div class="modal-body">
+															<h5>거래처목록</h5>
+															<p>Loading!!!</p>
+														</div>
+														<div class="modal-footer">
+															<button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
 									<div class="col-sm-12 col-xl-3">
 										<label class="col-form-label" for="co_name">공급업체</label>
 										<div class="input-group input-group-sm">
@@ -264,16 +268,14 @@ $(function(){
 							<colgroup>
 								<col width="1%"/>
 								<col width="5%"/>
+								<col width="30%"/>
 								<col width="20%"/>
-								<col width="10%"/>
+								<col width="15%"/>
 								<col width="5%"/>
-								<col width="12%"/>
-								<col width="5%"/>
-								<col width="10%"/>
-								<col width="10%"/>
+								<col width="7%"/>
 								<col width="7%"/>
 								<col width="5%"/>
-								<col width="10%"/>
+								<col width="5%"/>
 							</colgroup>							
 							<thead>
 								<tr>
@@ -281,7 +283,6 @@ $(function(){
 									<th>계약방식</th>
 									<th>계약명</th>
 									<th>고객명</th>
-									<th>판매방식</th>
 									<th>계약금액</th>
 									<th>담당자</th>
 									<th>무상유지보수 시작일</th>
@@ -295,15 +296,15 @@ $(function(){
 							<c:forEach var="row" items="${list}">
 								<tr>
 									<td scope="row"><input class="border-checkbox" type="checkbox" id="checkbox0"></td>
-									<td>
+									<td>${row.contTypeN}</td>
+									<%--<td>
 										<c:choose>
 										<c:when test="${row.soppNo != 0}">판매계약</c:when>
 										<c:when test="${row.exContNo != 0}">유지보수</c:when>
 										</c:choose>
-									</td>
+									</td>--%>
 									<td><a href="javascript:fnSetPage('${path}/cont/detail/${row.contNo}')">${row.contTitle}</a></td>							
 									<td>${row.custName}</td>
-									<td>${row.contTypeN}</td>
 									<td class="text-right"><fmt:formatNumber type="number" maxFractionDigits="3" value="${row.contAmt}" /></td>
 									<td>${row.userName}</td>
 									<td>${row.freemaintSdate}</td>

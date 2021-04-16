@@ -46,8 +46,9 @@
 								<th scope="row">장소</th>
 								<td><input type="text" class="form-control form-control-sm"
 									id="salesPlace" name="salesPlace" placeholder="장소를 입력하세요"></td>
-								<th class="requiredTextCss">활동형태</th>
+								<th>활동형태</th>
 								<td><select name="salesType" id="salesType" class="form-control form-control-sm">
+										<option value="">선택</option>
 										<c:forEach var = "salesType" items="${salesType}">
 											<option value="${salesType.codeNo}">${salesType.desc03}</option>
 										</c:forEach>
@@ -91,7 +92,7 @@
 										</div>
 									</div>
 								</td>
-								<th scope="row" class="requiredTextCss">영업기회</th>
+								<th scope="row">영업기회</th>
 								<td>
 									<div class="input-group input-group-sm mb-0">
 										<input type="text" class="form-control" name="soppTitle" id="soppTitle" value="" />
@@ -130,7 +131,7 @@
 								</td>
 							</tr>
 							<tr>
-								<th scope="row" class="requiredTextCss">거래처</th>
+								<th scope="row">거래처</th>
 								<td>
 									<div class="input-group input-group-sm mb-0">
 										<input type="text" class="form-control" name="custName" id="custName" value="" />
@@ -301,37 +302,14 @@
 				alert("영업활동의 종료일을 선택해 주십시오.");
 				return;
 			}
-			else if (!salesData.salesPlace){
-				alert("영업장소를 입력해 주십시오.");
-				return;
-			}
-			else if(!salesData.salesType){
-				alert("활동형태를 선택해 주십시오.");
-			}
 			else if (!salesData.userNo){
 				alert("담당사원을 선택해 주십시오.");
-				return;
-			}
-			else if (!salesData.custNo && !salesData.ptncNo){
-				alert("거래처 또는 엔드유저를 선택해 주십시오.");
 				return;
 			}
 			else if (!salesData.salesTitle) {
 				alert("영업활동 제목을 입력해 주십시오.");		
 				return;
 			}
-// 			else if (!salesData.ptncNo){
-// 				alert("협력사를 선택해 주십시오.");
-// 				return;
-// 			}
-// 			else if (!salesData.soppNo){
-// 				alert("영업기회를 선택해 주십시오.");
-// 				return;
-// 			}
-// 			else if (!salesData.salesDesc){
-// 				alert("영업설명을 입력해 주십시오.");
-// 				return;
-// 			}
 
 			$.ajax({ url: "${path}/sales/insert.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소 
 						data: salesData , // HTTP 요청과 함께 서버로 보낼 데이터 

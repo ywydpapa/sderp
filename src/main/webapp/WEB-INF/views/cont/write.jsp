@@ -549,7 +549,6 @@
 			contData.contArea 				= $("#contArea").val();			// 지역				
 			contData.contType 				= $("#contType").val();			// 판매방식
 			contData.contDesc			 	= $("#contDesc").val();			// 계약내용
-			console.dir(contData);
 
 			if (!contData.contTitle) {
 				alert("계약명 제목을 입력하십시오.");		
@@ -629,8 +628,6 @@
 			contData.contOrddate 			= $("#contOrddate").val();
 			contData.freemaintSdate 		= $("#freemaintSdate").val();
 			contData.freemaintEdate 		= $("#freemaintEdate").val();
-			console.log(contData);
-			
 
 			$.ajax({ url: "${path}/write.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소 
 						data: contData , // HTTP 요청과 함께 서버로 보낼 데이터 

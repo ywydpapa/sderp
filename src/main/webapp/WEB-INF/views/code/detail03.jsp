@@ -96,7 +96,7 @@ function fn_codeInsert03() {
 	codeData.value03 			= $("#value03").val();
 	codeData.sortNo 			= $("#sortNo").val();
 	codeData.attrib 			= $("#attrib").val();
-	console.log(codeData);
+
 	$.ajax({ url: "${path}/code/update03.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소 
 				data: codeData , // HTTP 요청과 함께 서버로 보낼 데이터 
 				method: "POST", // HTTP 요청 메소드(GET, POST 등) 

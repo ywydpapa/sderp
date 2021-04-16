@@ -349,7 +349,7 @@ function fn_codeInsert01() {
 	codeData.code01 			= $("#code01").val();
 	codeData.desc01 			= $("#desc01").val();
 	codeData.value01 			= $("#value01").val();
-	console.log(codeData);
+
 	$.ajax({ url: "${path}/code/insert.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소 
 				data: codeData , // HTTP 요청과 함께 서버로 보낼 데이터 
 				method: "POST", // HTTP 요청 메소드(GET, POST 등) 
@@ -374,7 +374,7 @@ function fn_codeInsert02() {
 	codeData.code02 			= $("#code02").val();
 	codeData.desc02 			= $("#desc02").val();
 	codeData.value02 			= $("#value02").val();
-	console.log(codeData);
+
 	$.ajax({ url: "${path}/code/insert.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소 
 				data: codeData , // HTTP 요청과 함께 서버로 보낼 데이터 
 				method: "POST", // HTTP 요청 메소드(GET, POST 등) 
@@ -399,7 +399,7 @@ function fn_codeInsert03() {
 	codeData.code03 			= $("#code03").val();
 	codeData.desc03 			= $("#desc03").val();
 	codeData.value03 			= $("#value03").val();
-	console.log(codeData);
+
 	$.ajax({ url: "${path}/code/insert.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소 
 				data: codeData , // HTTP 요청과 함께 서버로 보낼 데이터 
 				method: "POST", // HTTP 요청 메소드(GET, POST 등) 

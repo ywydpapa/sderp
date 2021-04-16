@@ -292,7 +292,7 @@ function fn_codeInsert01() {
 	codeData.code01 			= $("#code01").val();
 	codeData.desc01 			= $("#desc01").val();
 	codeData.value01 			= $("#value01").val();
-	console.log(codeData);
+
 	if (!codeData.code01) {
 		alert("코드를 입력하십시오.");		
 		return;
@@ -329,7 +329,7 @@ function fn_codeInsert02() {
 	codeData.code02 			= $("#code02").val();
 	codeData.desc02 			= $("#desc02").val();
 	codeData.value02 			= $("#value02").val();
-	console.log(codeData);
+
 	if (!codeData.code01) {
 		alert("상위코드를 선택 하십시오.");		
 		return;
@@ -372,7 +372,7 @@ function fn_codeInsert03() {
 	codeData.code03 			= $("#code03").val();
 	codeData.desc03 			= $("#desc03").val();
 	codeData.value03 			= $("#value03").val();
-	console.log(codeData);
+
 	if (!codeData.code02) {
 		alert("상위코드를 선택 하십시오.");		
 		return;

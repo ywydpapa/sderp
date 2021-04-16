@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 
 import kr.swcore.sderp.code.dao.CodeDAO;
 import kr.swcore.sderp.code.dto.CodeDTO;
+import kr.swcore.sderp.common.dto.PageDTO;
 import kr.swcore.sderp.salesTarget.dto.SalesTargetDTO;
 import org.springframework.stereotype.Service;
 
@@ -32,9 +33,16 @@ public class ContServiceImpl implements ContService {
 	}
 	
 	@Override
-	public List<ContDTO> listCont(HttpSession session) {
+	public List<ContDTO> listCont(HttpSession session, PageDTO pageDTO) {
 		SoppDTO soppdto = SessionInfoGet.getCompNoDto(session);
-		
+
+		if(pageDTO != null) {
+			Integer limit = pageDTO.getLimit();
+			soppdto.setLimit(limit);
+			Integer offset = pageDTO.getOffset();
+			soppdto.setOffset(offset);
+		}
+
 		return contDao.listCont(soppdto);
 	}
 	

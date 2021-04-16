@@ -41,13 +41,13 @@ public class CustController {
 	}
 
 	@RequestMapping("/detail/{custNo}")
-	public ModelAndView detail(@PathVariable("custNo") int custNo, ModelAndView mav) {
+	public ModelAndView detail(HttpSession session, @PathVariable("custNo") int custNo, ModelAndView mav) {
 		mav.addObject("dto", custService.detailCust(custNo));
 		mav.addObject("dto02", custService.detailCust02(custNo));
 		mav.addObject("dto03", custService.detailCust03(custNo));
 		mav.addObject("dto04", custService.detailCust04(custNo));
 		mav.addObject("saletype", codeService.listSaletype());
-		mav.addObject("comptype", codeService.listComptype());
+		mav.addObject("comptype", codeService.listComptype(session));
 		mav.addObject("memberlist", custService.listCustmember(custNo));
 		mav.setViewName("cust/detail");
 		return mav;

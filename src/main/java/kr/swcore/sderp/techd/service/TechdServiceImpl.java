@@ -5,6 +5,7 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
+import kr.swcore.sderp.common.dto.PageDTO;
 import org.springframework.stereotype.Service;
 
 import kr.swcore.sderp.code.dao.CodeDAO;
@@ -31,8 +32,16 @@ public class TechdServiceImpl implements TechdService {
 	}
 	
 	@Override
-	public List<TechdDTO> listTechd(HttpSession session) {
+	public List<TechdDTO> listTechd(HttpSession session, PageDTO pageDTO) {
 		SoppDTO soppdto = SessionInfoGet.getCompNoDto(session);
+
+		if(pageDTO != null) {
+			Integer limit = pageDTO.getLimit();
+			soppdto.setLimit(limit);
+			Integer offset = pageDTO.getOffset();
+			soppdto.setOffset(offset);
+		}
+
 		return techdDao.listTechd(soppdto);
 	}
 	

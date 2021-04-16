@@ -39,7 +39,7 @@ public class ContController {
 		mav.setViewName("cont/list");
 		mav.addObject("contractType", codeService.listContractType(session));
 		mav.addObject("contType", codeService.listContType(session));
-		mav.addObject("list", contService.listCont(session));
+		mav.addObject("list", contService.listCont(session, null));
 		return mav;
 	}
 	

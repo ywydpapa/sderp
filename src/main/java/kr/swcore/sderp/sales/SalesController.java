@@ -43,7 +43,7 @@ public class SalesController {
 	@RequestMapping("list.do")
 	public ModelAndView list(HttpSession session, ModelAndView mav) {
 		mav.setViewName("sales/list");
-		mav.addObject("list", salesService.listSales(session));
+		mav.addObject("list", salesService.listSales(session, null));
 		mav.addObject("acttype", codeService.listActtype(session));
 		return mav;
 	}
@@ -60,7 +60,7 @@ public class SalesController {
 	@RequestMapping("setTarget.do")
 	public ModelAndView settarget(HttpSession session, ModelAndView mav, @ModelAttribute OrganizDTO organizDto, @ModelAttribute SalesTargetDTO salesTargetDTO) {
 		mav.addObject("listDept", organizService.listDept(session));
-		mav.addObject("list", salesService.listSales(session));
+		mav.addObject("list", salesService.listSales(session, null));
 		mav.addObject("tableData", salesTargetService.listSalesTarget(session, organizDto, salesTargetDTO));
 		mav.setViewName("sales/setTarget");
 		return mav;

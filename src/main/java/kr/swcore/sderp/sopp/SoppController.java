@@ -12,6 +12,8 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import kr.swcore.sderp.common.dto.PageDTO;
+import kr.swcore.sderp.user.dto.UserDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpHeaders;
@@ -65,11 +67,11 @@ public class SoppController {
 		mav.addObject("saleslist", codeService.listSalestype(session));
 		mav.addObject("sstatuslist", codeService.listSstatus(session));
 		mav.addObject("businessType", codeService.listBusinessType(session));
-		mav.addObject("list", soppService.listSopp(session));
+		mav.addObject("list", soppService.listSopp(session, null));
 		return mav;
 	}
 	
-	//�˻� ��ư Ŭ�� ��
+
 	@RequestMapping("listcon.do")
 	public ModelAndView listcon(HttpSession session, ModelAndView mav, SoppDTO dto) {
 		mav.setViewName("sopp/list");
@@ -172,6 +174,10 @@ public class SoppController {
 	@RequestMapping("write.do")
 	public ModelAndView write(HttpSession session, ModelAndView mav) {
 		mav.addObject("saleslist", codeService.listSalestype(session));
+		UserDTO userDTO =  new UserDTO();
+		userDTO.setUserName((String) session.getAttribute("userName"));
+		userDTO.setUserNo(Integer.valueOf((String)session.getAttribute("userNo")));
+		mav.addObject("userInfo",userDTO);
 		mav.setViewName("sopp/write");
 		return mav;
 	}

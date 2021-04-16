@@ -7,6 +7,7 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
 import kr.swcore.sderp.common.dto.DeptToPlanTblDTO;
+import kr.swcore.sderp.common.dto.PageDTO;
 import kr.swcore.sderp.common.service.DeptToPlanTblService;
 import kr.swcore.sderp.techd.service.TechdService;
 import org.slf4j.Logger;
@@ -94,22 +95,25 @@ public class HomeController {
 	}
 	
 	@RequestMapping("/myboard.do")
-	public ModelAndView refresh(HttpSession session, ModelAndView mav) {	
-		mav.addObject("sopplist", soppService.listSopp(session));
-		mav.addObject("contlist", contService.listCont(session));
+	public ModelAndView refresh(HttpSession session, ModelAndView mav) {
+		PageDTO pageDTO = new PageDTO();
+		pageDTO.setLimit(20);
+		pageDTO.setOffset(0);
+		mav.addObject("sopplist", soppService.listSopp(session, pageDTO));
+		mav.addObject("contlist", contService.listCont(session, pageDTO));
 
 		Integer orgId = (Integer)session.getAttribute("orgId");
 		List<DeptToPlanTblDTO> deptToPlanTblDTOList = deptToPlanTblService.listWithOrgId(orgId);
 		for(int i=0; i<deptToPlanTblDTOList.size(); i++){
 			String tableName = deptToPlanTblDTOList.get(i).getTableName();
 			if(tableName.equalsIgnoreCase("swc_sales")){
-				mav.addObject("saleslist", salesService.listSales(session));
+				mav.addObject("saleslist", salesService.listSales(session, pageDTO));
 			} else if(tableName.equalsIgnoreCase("swc_techd")){
-				mav.addObject("techdlist", techdService.listTechd(session));
+				mav.addObject("techdlist", techdService.listTechd(session, pageDTO));
 			}
 		}
 		if(deptToPlanTblDTOList == null || deptToPlanTblDTOList.size() <=0) {
-			mav.addObject("saleslist", salesService.listSales(session));
+			mav.addObject("saleslist", salesService.listSales(session, pageDTO));
 		}
 
 		mav.addObject("graph1",salesTargetService.listSalesTargetYearTotalSalesIndividual(session, null));
@@ -156,13 +160,13 @@ public class HomeController {
 			rtn = "modal/userList";
 		}
 		else if("sopp".equals(popId)) {
-			List<SoppDTO> list=soppService.listSopp(session);
+			List<SoppDTO> list=soppService.listSopp(session, null);
 			model.addAttribute("list",list);
 			rtn = "modal/soppList";
 		}
 
 		else if("sales".equals(popId)) {
-			List<SalesDTO> list=salesService.listSales(session);
+			List<SalesDTO> list=salesService.listSales(session, null);
 			model.addAttribute("list",list);
 			rtn = "modal/salesList";
 		}
@@ -204,12 +208,12 @@ public class HomeController {
 		}
 		
 		else if("cont".equals(popId)) {
-			List<ContDTO> list=contService.listCont(session);
+			List<ContDTO> list=contService.listCont(session, null);
 			model.addAttribute("list",list);
 			rtn = "modal/contList";
 		}
 		
-		else if("custmem".equals(popId)) {						// ���� �˻�
+		else if("custmem".equals(popId)) {
 			Integer compNo = Integer.valueOf((String) params.get("compNo")); 
 			List<CustDTO> list = custService.listCustmember(compNo);
 			model.addAttribute("list", list);

@@ -46,7 +46,7 @@
 							<tr>
 								<th scope="row">장소</th>
 								<td><input type="text" class="form-control form-control-sm" id="salesPlace" name="salesPlace" value="${dto.salesPlace}"></td>
-								<th class="requiredTextCss">활동형태</th>
+								<th>활동형태</th>
 								<td><select name="salesType" id="salesType" class="form-control form-control-sm">
 									<c:forEach var="acttype" items="${acttype}">
 									<option value="${acttype.codeNo}" <c:if test="${acttype.codeNo == dto.salesType}">selected</c:if>>${acttype.desc03}</option>
@@ -91,7 +91,7 @@
 										</div>
 									</div>
 								</td>
-								<th scope="row" class="requiredTextCss">영업기회</th>
+								<th scope="row">영업기회</th>
 								<td>
 									<div class="input-group input-group-sm mb-0">
 										<input type="text" class="form-control" name="soppTitle" id="soppTitle" value="${dto.soppTitle}" />
@@ -126,7 +126,7 @@
 								</td>
 							</tr>
 							<tr>
-								<th scope="row" class="requiredTextCss">거래처</th>
+								<th scope="row">거래처</th>
 								<td>
 									<div class="input-group input-group-sm mb-0">
 										<input type="text" class="form-control" name="custName" id="custName" value="${dto.custName}" />

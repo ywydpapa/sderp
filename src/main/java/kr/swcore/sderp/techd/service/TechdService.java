@@ -4,13 +4,14 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import kr.swcore.sderp.common.dto.PageDTO;
 import kr.swcore.sderp.sales.dto.SalesDTO;
 import kr.swcore.sderp.techd.dto.TechdDTO;
 
 public interface TechdService {
 
 	List<TechdDTO> listTechd();
-	List<TechdDTO> listTechd(HttpSession session);
+	List<TechdDTO> listTechd(HttpSession session, PageDTO pageDTO);
 	List<TechdDTO> listconTechd(HttpSession session, TechdDTO dto);
 	List<SalesDTO> listTechdinsopp(HttpSession session, int soppNo);
 	TechdDTO detailTechd(int techdNo);

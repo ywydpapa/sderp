@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import kr.swcore.sderp.common.dto.PageDTO;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
@@ -14,7 +15,7 @@ import kr.swcore.sderp.sopp.dto.SoppFileDataDTO;
 public interface SoppService {
 	
 		List<SoppDTO> listSopp();
-		List<SoppDTO> listSopp(HttpSession session);
+		List<SoppDTO> listSopp(HttpSession session, PageDTO pageDTO);
 		List<SoppDTO> listconSopp(HttpSession session, SoppDTO dto);
 		List<SoppDTO> listSopp2();
 		List<SoppDTO> listSopp2(HttpSession session);

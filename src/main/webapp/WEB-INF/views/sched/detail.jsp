@@ -31,7 +31,7 @@
 						</colgroup>
 						<tbody>
 							<tr>
-								<th scope="row">일정일자</th>
+								<th scope="row" class="requiredTextCss">일정일자</th>
 								<td colspan="3">
 									<div class="input-group input-group-sm mb-0 mr-1">  
 									<input class="form-control" type="date" id="schedFrom" value="${dto.sTime}" onChange="javascript:inputDate(setDateHourMinute($('#schedFrom').val(), $('#startTime').val()), setDateHourMinute($('#schedTo').val(), $('#endTime').val()))">
@@ -124,7 +124,7 @@
 										</div>
 									</div>
 								</td>
-								<th scope="row">담당사원</th>
+								<th scope="row" class="requiredTextCss">담당사원</th>
 								<td>
 									<div class="input-group input-group-sm mb-0">
 										<input type="text" class="form-control" name="userName"
@@ -167,7 +167,7 @@
 								<th scope="row">거래처</th>
 								<td>
 									<div class="input-group input-group-sm mb-0">
-										<input type="text" class="form-control col-md-4" name="custName"
+										<input type="text" class="form-control" name="custName"
 											id="custName" value="${dto.custName}" readonly /> <input type="hidden"
 											name="custNo" id="custNo" value="${dto.custNo}" /> <span
 											class="input-group-btn">
@@ -259,7 +259,7 @@
 								</td>
 							</tr>
 							<tr>
-								<th scope="row">제목</th>
+								<th scope="row" class="requiredTextCss">제목</th>
 								<td colspan="3"><input type="text" class="form-control form-control-sm" id="schedTitle" name="schedTitle" value="${dto.schedTitle}">
 								<input type="hidden" id="schedNo" name="schedNo" value="${dto.schedNo}">
 								</td>

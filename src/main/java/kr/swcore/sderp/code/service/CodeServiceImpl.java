@@ -123,9 +123,10 @@ public class CodeServiceImpl implements CodeService {
 	}
 
 	@Override
-	public List<CodeDTO> listComptype() {
+	public List<CodeDTO> listComptype(HttpSession session) {
 		// TODO Auto-generated method stub
-		return codeDao.listComptype();
+		Integer compNo = SessionInfoGet.getCompNo(session);
+		return codeDao.listComptype(compNo);
 	}
 
 	@Override

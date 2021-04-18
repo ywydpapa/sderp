@@ -19,6 +19,24 @@ $(function(){
 	a {
 		text-decoration:underline;
 	}
+	#salesTable > tbody > tr > td:nth-child(2){
+		overflow: hidden;
+		text-overflow: ellipsis;
+		max-width: 240px;
+		white-space: nowrap;
+	}
+	#salesTable > tbody > tr > td:nth-child(5){
+		overflow: hidden;
+		text-overflow: ellipsis;
+		max-width: 180px;
+		white-space: nowrap;
+	}
+	#salesTable > tbody > tr > td:nth-child(9){
+		overflow: hidden;
+		text-overflow: ellipsis;
+		max-width: 220px;
+		white-space: nowrap;
+	}
 </style>
 
 	<c:if test="${preserveSearchCondition != 'Y'}">
@@ -216,7 +234,7 @@ $(function(){
 									<th>영업기회명</th>
 									<th>거래처</th>
 									<th>담당사원</th>
-									<th>파트너사</th>
+									<th>엔드유저</th>
 									<th>활동형태</th>
 									<th>일정설명</th>
 									

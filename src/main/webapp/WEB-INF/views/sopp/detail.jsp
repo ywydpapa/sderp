@@ -63,7 +63,7 @@
 											</colgroup>
 											<tbody>
 											<tr>
-												<th scope="row" class="requiredTextCss">영업기회</th>
+												<th scope="row" class="requiredTextCss">영업기회명</th>
 												<td colspan="3"><input type="text"
 														class="form-control form-control-sm" id="soppTitle"
 														name="soppTitle" value="${dto.soppTitle}"> <input
@@ -110,7 +110,7 @@
 														</div>
 													</div>
 												</td>
-												<th scope="row" class="requiredTextCss">거래처</th>
+												<th scope="row">거래처</th>
 												<td>
 													<div class="input-group input-group-sm mb-0">
 														<input type="text" class="form-control" name="custName"
@@ -151,7 +151,7 @@
 												</td>
 											</tr>
 											<tr>
-												<th scope="row" class="requiredTextCss">거래처 담당자</th>
+												<th scope="row">거래처 담당자</th>
 												<td>
 													<div class="input-group input-group-sm mb-0">
 														<input type="text" class="form-control" name="custmemberName"  id="custmemberName" value="" readonly/>
@@ -814,7 +814,7 @@
 		tamt = (tamt.replace(/,/g,""));
 		soppData.soppTargetAmt 		= tamt;
 		soppData.soppDesc 		= $("#soppDesc").val();
-		console.log(soppData);
+
 		$.ajax({ url: "${path}/sopp/update.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
 			data: soppData , // HTTP 요청과 함께 서버로 보낼 데이터
 			method: "POST", // HTTP 요청 메소드(GET, POST 등)
@@ -849,7 +849,7 @@
 		data01Data.dataQuanty	= $("#data01Quanty").val().replace(/[\D\s\._\-]+/g, "");
 		data01Data.dataAmt 		= $("#data01Amt").val().replace(/[\D\s\._\-]+/g, "");
 		data01Data.dataRemark 	= $("#data01Remark").val();
-		console.log(data01Data);
+
 		$.ajax({ url: "${path}/sopp/insertdata01.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
 			data: data01Data , // HTTP 요청과 함께 서버로 보낼 데이터
 			method: "POST", // HTTP 요청 메소드(GET, POST 등)
@@ -885,7 +885,7 @@
 		data02Data.dataQuanty	= $("#data02Qty").val().replace(/[\D\s\._\-]+/g, "");
 		data02Data.dataAmt 		= $("#data02Amt").val().replace(/[\D\s\._\-]+/g, "");
 		data02Data.dataRemark 	= $("#data02Remark").val();
-		console.log(data02Data);
+
 		$.ajax({ url: "${path}/sopp/insertdata02.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
 			data: data02Data , // HTTP 요청과 함께 서버로 보낼 데이터
 			method: "POST", // HTTP 요청 메소드(GET, POST 등)
@@ -941,7 +941,6 @@
 					if(data.code == 10001){
 						alert("삭제 성공");
 						var url="${path}/sopp/qutylist/"+$("#soppNo").val();
-						console.log(url);
 						fn_Reloaddata02(url);
 					}else{
 						alert("삭제 실패");

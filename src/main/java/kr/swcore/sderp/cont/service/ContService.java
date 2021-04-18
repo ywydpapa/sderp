@@ -5,13 +5,14 @@ import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
+import kr.swcore.sderp.common.dto.PageDTO;
 import kr.swcore.sderp.cont.dto.ContDTO;
 import kr.swcore.sderp.salesTarget.dto.SalesTargetDTO;
 
 public interface ContService {
 	
 	List<ContDTO> listCont();
-	List<ContDTO> listCont(HttpSession session);
+	List<ContDTO> listCont(HttpSession session, PageDTO pageDTO);
 	List<ContDTO> listconCont(HttpSession session, ContDTO dto);
 	ContDTO detailCont(int contNo);
 	int updateCont(ContDTO dto);

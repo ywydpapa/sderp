@@ -179,8 +179,7 @@ function fn_update(){
 	});
 	
 	salesTargetlist["salesTargetlist"] = dataList;
-	console.dir(salesTargetlist);
-	
+
 	$.ajax({ 
 		url: "${path}/salesTarget/update.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소 
 		data: JSON.stringify(salesTargetlist) , // HTTP 요청과 함께 서버로 보낼 데이터 
@@ -390,10 +389,8 @@ $(document).ready(function() {
 	});
 	
 	// 총 합산
-	console.dir(totalSumArr);
 	var $total = $form.find(".totalSum").find("td");
 	var $totalSub = $total.splice(1,12);
-	console.dir($totalSub);
 	for(var i=0; i<12; i++){
 		$totalSub[i].firstElementChild.value = totalSumArr[i].toLocaleString("en-US");
 	}
@@ -402,7 +399,6 @@ $(document).ready(function() {
 	for(var i=0; i<12; i++){
 		totalYearSum = totalYearSum + totalSumArr[i];
 	}
-	console.dir("totalYearSum:"+totalYearSum);
 	// 테이블 구조변경시 수정할 코드
 	$total[1].firstElementChild.value = totalYearSum.toLocaleString("en-US");
 	

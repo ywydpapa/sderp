@@ -1,9 +1,11 @@
 package kr.swcore.sderp.sopp.dto;
 
+import kr.swcore.sderp.common.dto.PageDTO;
+
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 
-public class SoppDTO {
+public class SoppDTO extends PageDTO {
 
 	private int soppNo;
 	private int compNo;

@@ -450,7 +450,7 @@ function fn_Reloaddata01(url, data){
     	custData.custBossname 	= $("#custBossname").val();
     	custData.custEmail 		= $("#custEmail").val();
     	custData.custVatemail 	= $("#custVatemail").val();
-    	console.log(custData);
+
     	$.ajax({ url: "${path}/cust/update.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소 
     				data: custData , // HTTP 요청과 함께 서버로 보낼 데이터 
     				method: "POST", // HTTP 요청 메소드(GET, POST 등) 
@@ -477,7 +477,7 @@ function fn_Reloaddata01(url, data){
     	custData2.custTel 		= $("#custTel").val();
     	custData2.custFax 		= $("#custFax").val();
     	custData2.custMemo 		= $("#custMemo").val();
-    	console.log(custData2);
+
     	$.ajax({ url: "${path}/cust/insert02.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소 
     				data: custData2 , // HTTP 요청과 함께 서버로 보낼 데이터 
     				method: "POST", // HTTP 요청 메소드(GET, POST 등) 
@@ -504,7 +504,7 @@ function fn_Reloaddata01(url, data){
     	custData3.custMmobile 		= $("#custMmobile").val();
     	custData3.custMemail		= $("#custMemail").val();
     	custData3.custMmemo			= $("#custMmemo").val();
-    	console.log(custData3);
+
     	$.ajax({ url: "${path}/cust/insert03.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소 
     				data: custData3 , // HTTP 요청과 함께 서버로 보낼 데이터 
     				method: "POST", // HTTP 요청 메소드(GET, POST 등) 
@@ -532,7 +532,7 @@ function fn_Reloaddata01(url, data){
     	custData4.custVattype 	= $("#custVattype").val();
     	custData4.custVatbiz	= $("#custVatbiz").val();
     	custData4.custVatmemo 	= $("#custVatmemo").val();
-    	console.log(custData4);
+
     	$.ajax({ url: "${path}/cust/insert04.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소 
     				data: custData4 , // HTTP 요청과 함께 서버로 보낼 데이터 
     				method: "POST", // HTTP 요청 메소드(GET, POST 등) 
@@ -559,7 +559,7 @@ function fn_Reloaddata01(url, data){
     	custData5.ptncYn 		= $("#ptncYn").val();
     	custData5.buyrYn		= $("#buyrYn").val();
     	custData5.suppYn	 	= $("#suppYn").val();
-    	console.log(custData5);
+
     	$.ajax({ url: "${path}/cust/update05.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소 
     				data: custData5 , // HTTP 요청과 함께 서버로 보낼 데이터 
     				method: "POST", // HTTP 요청 메소드(GET, POST 등) 
@@ -589,7 +589,7 @@ function fn_custUpdate() {
 	custData.custVatno 		= $("#custVatno").val();
 	custData.custEmail 		= $("#custEmail").val();
 	custData.custVatemail 	= $("#custVatemail").val();
-	console.log(custData);
+
 	$.ajax({ url: "${path}/cust/update.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소 
 				data: custData , // HTTP 요청과 함께 서버로 보낼 데이터 
 				method: "POST", // HTTP 요청 메소드(GET, POST 등) 
@@ -611,9 +611,8 @@ function fn_custUpdate() {
 function fn_custDelete() {
 	
 	var custData = {};
-	
 	custData.custNo 			= $("#custNo").val();
-	console.log(custData);
+
 	$.ajax({ url: "${path}/cust/delete.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소 
 				data: custData , // HTTP 요청과 함께 서버로 보낼 데이터 
 				method: "POST", // HTTP 요청 메소드(GET, POST 등) 

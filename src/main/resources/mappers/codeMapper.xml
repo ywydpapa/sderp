@@ -63,7 +63,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  </select>
 
 <select id="listComptype" resultType="codeDto">
- 		select * from swc_code where attrib not like 'XXX%' and code02='SUPP01' and desc02 IS NULL
+ 		select * from swc_code where attrib not like 'XXX%' and code02='SUPP01' and desc02 IS NULL and compNo = #{compNo}
  </select>
 
 <select id="listActtype" resultType="codeDto">

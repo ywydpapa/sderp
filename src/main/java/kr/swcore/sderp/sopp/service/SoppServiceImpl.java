@@ -8,6 +8,7 @@ import java.util.UUID;
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
+import kr.swcore.sderp.common.dto.PageDTO;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -30,8 +31,16 @@ public class SoppServiceImpl implements SoppService {
 	}
 	
 	@Override
-	public List<SoppDTO> listSopp(HttpSession session) {
+	public List<SoppDTO> listSopp(HttpSession session, PageDTO pageDTO) {
 		SoppDTO soppdto = SessionInfoGet.getCompNoDto(session);
+
+		if(pageDTO != null) {
+			Integer limit = pageDTO.getLimit();
+			soppdto.setLimit(limit);
+			Integer offset = pageDTO.getOffset();
+			soppdto.setOffset(offset);
+		}
+
 		return soppDao.listSopp(soppdto);
 	}
 	

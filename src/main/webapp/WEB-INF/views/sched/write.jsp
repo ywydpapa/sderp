@@ -125,7 +125,7 @@
 										</div>
 									</div>
 								</td>
-								<th scope="row">담당사원</th>
+								<th scope="row" class="requiredTextCss">담당사원</th>
 								<td>
 									<div class="input-group input-group-sm mb-0">
 										<input type="text" class="form-control" name="userName"
@@ -261,7 +261,7 @@
 								</select></td>
 							</tr>
 							<tr>
-								<th scope="row">제목</th>
+								<th scope="row" class="requiredTextCss">제목</th>
 								<td colspan="3"><input type="text"
 									class="form-control form-control-sm" id="schedTitle"
 									name="schedTitle" placeholder=""></td>

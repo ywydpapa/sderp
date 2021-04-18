@@ -44,21 +44,19 @@
 											</colgroup>
 											<tbody>
 												<tr>
-													<th scope="row" class="requiredTextCss">영업기회</th>
-													<td colspan="3"><input type="text"
-														class="form-control form-control-sm" id="soppTitle"
-														name="soppTitle" value=""> <input
-														type="hidden" id="soppNo" name="soppNo"
-														value=""></td>
+													<th scope="row" class="requiredTextCss">영업기회명</th>
+													<td colspan="3">
+														<input type="text" class="form-control form-control-sm" id="soppTitle" name="soppTitle" value="">
+														<input type="hidden" id="soppNo" name="soppNo" value="">
+													</td>
 												</tr>
 												<tr>
 													<th scope="row" class="requiredTextCss">담당사원</th>
 													<td>
 														<div class="input-group input-group-sm mb-0">
-															<input type="text" class="form-control" name="userName"
-																id="userName" value="" readonly /> <input
-																type="hidden" name="userNo" id="userNo"
-																value="" /> <span class="input-group-btn">
+															<input type="text" class="form-control" name="userName"	id="userName" value="${userInfo.userName}" readonly />
+															<input type="hidden" name="userNo" id="userNo" value="${userInfo.userNo}" />
+															<span class="input-group-btn">
 																<button class="btn btn-primary sch-company"
 																	data-remote="${path}/modal/popup.do?popId=user"
 																	type="button" data-toggle="modal"
@@ -91,7 +89,7 @@
 															</div>
 														</div>
 													</td>
-													<th scope="row" class="requiredTextCss">거래처</th>
+													<th scope="row">거래처</th>
 													<td>
 														<div class="input-group input-group-sm mb-0">
 															<input type="text" class="form-control" name="custName"
@@ -132,7 +130,7 @@
 													</td>
 												</tr>
 												<tr>
-													<th scope="row" class="requiredTextCss">거래처 담당자</th>
+													<th scope="row">거래처 담당자</th>
 													<td>
 														<div class="input-group input-group-sm mb-0">
 															<input type="text" class="form-control" name="custmemberName"  id="custmemberName" value="" readonly/>
@@ -150,17 +148,17 @@
 																<div class="modal-dialog modal-80size" role="document">
 																	<div class="modal-content modal-80size">
 																		<div class="modal-header">
-																			<h4 class="modal-title">고객 검색</h4>
+																			<h4 class="modal-title">거래처 담당자 검색</h4>
 																			<button type="button" class="close"	data-dismiss="modal" aria-label="Close">
 																				<span aria-hidden="true">&times;</span>
 																			</button>
 																		</div>
 																		<div class="modal-body">
-																			<h5>고객 목록</h5>
+																			<h5>거래처 담당자 목록</h5>
 																			<p>거래처를 먼저 입력해주셔야 목록이 보입니다.</p>
 																		</div>
 																		<div class="modal-footer">
-																			<button type="button" class="close"	data-dismiss="modal" aria-label="Close">
+																			<button type="button" class="close"	data-dismiss="modal" aria-label="Close"/>
 																		</div>
 																	</div>
 																</div>
@@ -376,43 +374,21 @@ function fn_soppInsert() {
 	soppData.soppType 		= $("#soppType").val();
 	soppData.soppTargetAmt 	= $("#soppTargetAmt").val().replace(/[\D\s\._\-]+/g, "");
 	soppData.soppDesc 		= $("#soppDesc").val();
+
+	// 필수값 체크
 	if (!soppData.soppTitle) {
-		alert("영업기회 제목을 입력하십시오.!!");		
+		alert("영업기회명을 입력하십시오.!!");
 		return;
 	}
 	else if (!soppData.userNo){
 		alert("담당사원을 조회 후 선택해 주십시오.");
 		return;
 	}
-	else if (!soppData.custNo){
-		alert("거래처를 조회 후 선택해 주십시오.");
-		return;
-	}
 	else if (!soppData.soppStatus){
 		alert(" 진행단계를 선택해 주십시오.");
 		return;
 	}
-	else if (!soppData.soppSrate){
-		alert("가능성을 입력해 주십시오.");
-		return;
-	}
-	else if (!soppData.soppSource){
-		alert("영업출처를 선택해 주십시오.");
-		return;
-	}
-	else if (!soppData.soppTargetDate){
-		alert("매출예정일을 입력해 주십시오.");
-		return;
-	}
-	else if (!soppData.soppType){
-		alert("영업타입을 선택해 주십시오.");
-		return;
-	}
-	else if (!soppData.soppTargetAmt){
-		alert("예상매출 금액을 입력해 주십시오.");
-		return;
-	}
-	console.log(soppData);
+
 	$.ajax({ url: "${path}/sopp/insert.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소 
 				data: soppData , // HTTP 요청과 함께 서버로 보낼 데이터 
 				method: "POST", // HTTP 요청 메소드(GET, POST 등) 

@@ -25,6 +25,18 @@ $(function(){
 	a {
 		text-decoration:underline;
 	}
+	#schedTable > tbody > tr > td:nth-child(4){
+		overflow: hidden;
+		text-overflow: ellipsis;
+		max-width: 180px;
+		white-space: nowrap;
+	}
+	#schedTable > tbody > tr > td:nth-child(8){
+		overflow: hidden;
+		text-overflow: ellipsis;
+		max-width: 300px;
+		white-space: nowrap;
+	}
 </style>
 
 	<c:if test="${preserveSearchCondition != 'Y'}">
@@ -276,8 +288,7 @@ $(function(){
 		<div class="col-sm-12">
 			<div class="card-block table-border-style">
 				<div class="table-responsive">
-					<table id="schedTable"
-						class="table table-striped table-bordered nowrap ">
+					<table id="schedTable" class="table table-striped table-bordered nowrap ">
 						<thead>
 							<tr>
 								<th>일정구분</th>
@@ -295,12 +306,18 @@ $(function(){
 								<tr>
 									<td>${row.schedTypeN}</td>
 									<td><a href="javascript:fnSetDetailLink('${row.schedTypeN}', '${row.schedNo}')">${row.schedTitle}</a></td>
-									<td>${row.schedFrom}<span> ~ </span>${row.schedTo}</td>
-									<td>${row.custName}</td>
+									<td>
+										<fmt:parseDate value="${row.schedFrom}" var="schedFrom" pattern="yyyy-MM-dd HH:mm:ss"/>
+										<fmt:formatDate value="${schedFrom}" pattern="yyyy-MM-dd"/>
+										<span> ~ </span>
+										<fmt:parseDate value="${row.schedTo}" var="schedTo" pattern="yyyy-MM-dd HH:mm:ss"/>
+										<fmt:formatDate value="${schedTo}" pattern="yyyy-MM-dd"/>
+									</td>
+									<td title="${row.custName}">${row.custName}</td>
 									<td>${row.userName}</td>
 									<td>${row.schedPlace}</td>
 									<td>${row.schedCatN}</td>
-									<td>${row.schedDesc}</td>
+									<td title="${row.schedDesc}">${row.schedDesc}</td>
 								</tr>
 							</c:forEach>
 						</tbody>

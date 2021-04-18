@@ -30,7 +30,7 @@ public interface CodeService {
 	List<CodeDTO> listDept();
 	List<CodeDTO> listRank();
 	List<CodeDTO> listSaletype();
-	List<CodeDTO> listComptype();
+	List<CodeDTO> listComptype(HttpSession session);
 	List<CodeDTO> listActtype();
 	List<CodeDTO> listActtype(HttpSession session);
 	List<CodeDTO> listSalestype();

@@ -9,17 +9,169 @@
 	<script src="${path}/assets/pages/jquery.dataTables.min.js"></script>
 	<script src="${path}/assets/pages/dataTables.bootstrap4.min.js"></script>
 <script>
+
+
 $(function(){
-    $('#schedTable').DataTable({
-    	info:false,
+	var obj = new Object();
+    var schedTable = $('#schedTable').DataTable({
 		order: [[ 2, "desc" ]],
+		paging : true, // 페이지 처리 여부
+		ordering : true, // 컬럼 클릭 시 오더링을 적용 여부
+		// info : true, // 페이지 상태에 대한 정보 여부
+		filter : true, // 검색창 여부
+		// lengthChange : true, // 블록 단위 변경 기능 여부
+		// stateSave : false,
+
+		// pagLength : 10, // 한 페이지에 기본으로 보열줄 항목 수
+		// lengthMenu : [[10, -1],[10,"ALL"]],	// 리스트 항목을 구성할 옵션들
+		pageLength: 20,
+		pagingType : "full_numbers",
+		bPaginate: true,
+		bLengthChange: true,
+		lengthMenu : [ [20], [20] ],
+		bProcessing: true,
+		bServerSide: true,
+		sAjaxSource : "${path}/sched/list/data",
+		sServerMethod : "POST",
+		fnServerParams : function (data){
+			data.push({"name":"userName", "value" : $("#userName").val()});
+			data.push({"name":"soppTitle", "value" : $("#soppTitle").val()});
+			data.push({"name":"custNo", "value" : $("#custNo").val()});
+			data.push({"name":"custmemberNo", "value" : $("#custmemberNo").val()});
+			data.push({"name":"contNo", "value" : $("#contNo").val()});
+			data.push({"name":"schedCat", "value" : $("#schedCat option:selected").val()});
+			data.push({"name":"userName", "value" : $("#userName").val()});
+			if($("#schedFrom").val() != "" && $("#schedTo").val() != ""){
+				data.push({"name":"schedFrom", "value" : $("#schedFrom").val()});
+				data.push({"name":"schedTo", "value" : $("#schedTo").val()});
+			} else {
+				data.push({"name":"schedFrom", "value" : ""});
+				data.push({"name":"schedTo", "value" : ""});
+			}
+		},
+		columnDefs :[
+			{
+				defaultContent : "-",
+				targets : "_all"
+			}
+		],	// ajax로 데이터가 날아오면서 list를 뿌려주는데 각 컬럼에서 만약 값이 없으면 오류대처
+		columns : [
+			{data: "schedTypeN", column : '일정구분'},
+			{data: "schedTitle", column : '일정제목'},
+			{data: "schedFrom", column : '일정'},
+			{
+				data: "custName",
+				column : '고객사',
+				render : function ( data, type, row ) {
+					if(data == null || data == undefined) {
+						return '';
+					} else {
+						return data;
+					}
+				},
+			},
+			{
+				data: "userName",
+				column : '담당자',
+				render : function ( data, type, row ) {
+					if(data == null || data == undefined) {
+						return '';
+					} else {
+						return data;
+					}
+				},
+			},
+			{
+				data: "schedPlace",
+				column : '장소',
+				render : function ( data, type, row ) {
+					if(data == null || data == undefined) {
+						return '';
+					} else {
+						return data;
+					}
+				},
+			},
+			{
+				data: "schedCatN",
+				column : '활동형태',
+				render : function ( data, type, row ) {
+					if(data == null || data == undefined) {
+						return '';
+					} else {
+						return data;
+					}
+				},
+			},
+			{
+				data: "schedDesc",
+				column : '일정설명',
+				render : function ( data, type, row ) {
+					if(data == null || data == undefined) {
+						return '';
+					} else {
+						return data;
+					}
+				},
+			},
+		],
+		/*
+		oLanguage: {
+			sZeroRecords : "Nothing found - sorry",
+			sInfo : "Showing page _PAGE_ of _PAGES_",
+			slengthMenu: "Display _MENU_ records per page",
+			sInfoEmpty: "No records available",
+			sInfoFiltered: "(filtered from _MAX_ total records)",
+			oPaginate: {
+				sFirst : 'first',
+				sLast : 'last',
+				sPrevious: "prev",
+				sNext: "next"
+			}
+		},
+		 */
+		// docs : https://legacy.datatables.net/usage/i18n
+
     });
+
+    $('#schedTable_filter input').unbind();
+    $('#schedTable_filter input').bind('keyup', function (e){
+    	if(e.keyCode == 13){
+    		schedTable.search(this.value).draw();
+		}
+	});
+
 });
+
+/*
 $(function(){
-	$("#btnAdd").click(function(){
-		location.href="${path}/product/write.do "
+	$('#schedTable').dataTable({
+		pageLength: 3,
+		pagingType : "full_numbers",
+		bPaginate: true,
+		bLengthChange: true,
+		lengthMenu : [ [ 1, 3, 5, 10, -1 ], [ 1, 3, 5, 10, "All" ] ],
+		responsive: true,
+		bAutoWidth: false,
+		processing: true,
+		ordering: true,
+		bServerSide: true,
+		searching: false,
+		sAjaxSource : "${path}/sched/list/data",
+		sServerMethod: "GET",
+		columns : [
+			{data: "schedTypeN", column : '일정구분'},
+			{data: "schedTitle", column : '일정제목'},
+			{data: "schedFrom", column : '일정'},
+			{data: "custName", column : '고객사'},
+			{data: "userName", column : '담당자'},
+			{data: "schedPlace", column : '장소'},
+			{data: "schedCatN", column : '활동형태'},
+			{data: "schedDesc", column : '일정설명'},
+		]
 	});
 });
+*/
 </script>
 <style>
 	a {
@@ -301,7 +453,7 @@ $(function(){
 								<th>일정설명</th>
 							</tr>
 						</thead>
-						<tbody>
+						<%--<tbody>
 							<c:forEach var="row" items="${list}">
 								<tr>
 									<td>${row.schedTypeN}</td>
@@ -320,7 +472,7 @@ $(function(){
 									<td title="${row.schedDesc}">${row.schedDesc}</td>
 								</tr>
 							</c:forEach>
-						</tbody>
+						</tbody>--%>
 					</table>
 				</div>
 			</div>

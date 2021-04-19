@@ -1,8 +1,11 @@
 package kr.swcore.sderp.sched.service;
 
+import java.sql.Wrapper;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Service;
@@ -29,8 +32,9 @@ public class SchedServiceImpl implements SchedService {
 	}
 	
 	@Override
-	public List<SchedDTO> listSched(HttpSession session) {
+	public List<SchedDTO> listSched(HttpSession session, String param, HttpServletRequest request, HttpServletResponse response) {
 		SoppDTO soppdto = SessionInfoGet.getCompNoDto(session);
+
 		return schedDao.listSched(soppdto);
 	}
 	

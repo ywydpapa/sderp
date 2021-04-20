@@ -50,9 +50,7 @@ public class SchedDTO extends PageDTO {
 
 	private int endCustNo;
 
-	// 확장
-	private String countQuery;
-	private int cnt;
+
 
 	public SchedDTO() {
 		super();

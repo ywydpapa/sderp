@@ -15,4 +15,8 @@ public class PageDTO {
     private String sSearch;
     private String orderColumn;
     private String orderOption;
+
+    // 확장
+    private String countQuery;
+    private int cnt;
 }

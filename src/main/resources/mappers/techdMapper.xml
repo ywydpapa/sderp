@@ -5,6 +5,122 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="techd">
 
 <select id="listTechd"
+		resultType="TechdDto">
+	select subquery1.*
+	from
+	(
+	select a.*, b.userName , c.custName, f.desc03 techdStepsN
+	from swc_techd a
+	left join swc_user b on a.userNo = b.userNo
+	left join swc_cust c on a.custNo = c.custNo
+	left join swc_sopp d on a.soppNo = d.soppNo
+	left join swc_cont e on a.contNo = e.contNo
+	left join swc_code f on a.techdSteps = f.codeNo
+	where a.attrib not like 'XXX%' and a.compNo = #{compNo}
+	<if test="userNo != null and userNo != ''">
+		and a.userNo = #{userNo}
+	</if>
+	<if test="custNo != null and custNo != ''">
+		and a.custNo = #{custNo}
+	</if>
+	<if test="custmemberNo != null and custmemberNo != ''">
+		and a.custmemberNo = #{custmemberNo}
+	</if>
+	<if test="techdSteps != null and techdSteps != ''">
+		and a.techdSteps = #{techdSteps}
+	</if>
+	<if test="techdFrom != null and techdFrom != ''">
+		and date_format(a.regdatetime, '%Y-%m-%d') <![CDATA[>=]]> #{techdFrom}
+	</if>
+	<if test="techdTo != null and techdTo != ''">
+		and date_format(a.regdatetime, '%Y-%m-%d') <![CDATA[<=]]> #{techdTo}
+	</if>
+	<if test="techdDesc != null and techdDesc != ''">
+		and a.techdDesc like CONCAT('%', #{techdDesc}, '%')
+	</if>
+	) subquery1
+	<if test="sSearch != null and sSearch != ''">
+		where
+		subquery1.techdTypeN like concat('%',#{sSearch},'%')
+		or subquery1.techdTitle like concat('%',#{sSearch},'%')
+		or subquery1.techdDesc like concat('%',#{sSearch},'%')
+		or subquery1.custName like concat('%',#{sSearch},'%')
+		or subquery1.techdStepsN like concat('%',#{sSearch},'%')
+		or subquery1.userName like concat('%',#{sSearch},'%')
+		or subquery1.techdFrom like concat('%',#{sSearch},'%')
+		or subquery1.techdTo like concat('%',#{sSearch},'%')
+	</if>
+
+	<if test="'desc' == orderOption">
+		order by ${orderColumn} desc
+	</if>
+	<if test="'asc' == orderOption">
+		order by ${orderColumn} asc
+	</if>
+
+	limit #{limit} offset #{offset}
+</select>
+
+<select id="listTechdCnt"
+		resultType="_integer">
+select count(*)
+from
+(
+	select subquery1.*
+	from
+	(
+	select a.*, b.userName , c.custName, f.desc03 techdStepsN
+	from swc_techd a
+	left join swc_user b on a.userNo = b.userNo
+	left join swc_cust c on a.custNo = c.custNo
+	left join swc_sopp d on a.soppNo = d.soppNo
+	left join swc_cont e on a.contNo = e.contNo
+	left join swc_code f on a.techdSteps = f.codeNo
+	where a.attrib not like 'XXX%' and a.compNo = #{compNo}
+	<if test="userNo != null and userNo != ''">
+		and a.userNo = #{userNo}
+	</if>
+	<if test="custNo != null and custNo != ''">
+		and a.custNo = #{custNo}
+	</if>
+	<if test="custmemberNo != null and custmemberNo != ''">
+		and a.custmemberNo = #{custmemberNo}
+	</if>
+	<if test="techdSteps != null and techdSteps != ''">
+		and a.techdSteps = #{techdSteps}
+	</if>
+	<if test="techdFrom != null and techdFrom != ''">
+		and date_format(a.regdatetime, '%Y-%m-%d') <![CDATA[>=]]> #{techdFrom}
+	</if>
+	<if test="techdTo != null and techdTo != ''">
+		and date_format(a.regdatetime, '%Y-%m-%d') <![CDATA[<=]]> #{techdTo}
+	</if>
+	<if test="techdDesc != null and techdDesc != ''">
+		and a.techdDesc like CONCAT('%', #{techdDesc}, '%')
+	</if>
+	) subquery1
+	<if test="sSearch != null and sSearch != ''">
+		where
+		subquery1.techdTypeN like concat('%',#{sSearch},'%')
+		or subquery1.techdTitle like concat('%',#{sSearch},'%')
+		or subquery1.techdDesc like concat('%',#{sSearch},'%')
+		or subquery1.custName like concat('%',#{sSearch},'%')
+		or subquery1.techdStepsN like concat('%',#{sSearch},'%')
+		or subquery1.userName like concat('%',#{sSearch},'%')
+		or subquery1.techdFrom like concat('%',#{sSearch},'%')
+		or subquery1.techdTo like concat('%',#{sSearch},'%')
+	</if>
+
+	<if test="'desc' == orderOption">
+		order by ${orderColumn} desc
+	</if>
+	<if test="'asc' == orderOption">
+		order by ${orderColumn} asc
+	</if>
+) t
+</select>
+
+<!--<select id="listTechd"
  		resultType="TechdDto">
  		select a.*, b.userName , c.custName, f.desc03 techdStepsN 
  		from swc_techd a  
@@ -18,7 +134,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<if test="limit > 0">
 			limit  #{limit} offset #{offset}
 		</if>
- </select>
+ </select>-->
  
  <select id="listconTechd"
  		resultType="TechdDto">

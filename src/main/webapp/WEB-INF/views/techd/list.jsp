@@ -9,25 +9,186 @@
 	<script src="${path}/assets/pages/jquery.dataTables.min.js"></script>
 	<script src="${path}/assets/pages/dataTables.bootstrap4.min.js"></script>
 <script>
-$(function(){
-    $('#techdTable').DataTable({
-    	info:false,
-		order: [[ 7, "desc" ]],
-    });
-});
-$(function(){
-	$("#btnAdd").click(function(){
-		location.href="${path}/techd/write.do"
-	});
-});
+	$(function(){
+		var obj = new Object();
+		var techdTable = $('#techdTable').DataTable({
+			order: [[ 7, "desc" ]],
+			paging : true, // 페이지 처리 여부
+			ordering : true, // 컬럼 클릭 시 오더링을 적용 여부
+			// info : true, // 페이지 상태에 대한 정보 여부
+			filter : true, // 검색창 여부
+			// lengthChange : true, // 블록 단위 변경 기능 여부
+			// stateSave : false,
+			pageLength: 20, // 한 페이지에 기본으로 보열줄 항목 수
+			pagingType : "full_numbers",
+			bPaginate: true,
+			bLengthChange: true,
+			lengthMenu: [[20, 40, 60, 80, 100], [20, 40, 60, 80, 100]], // 리스트 항목을 구성할 옵션들
+			bProcessing: true,
+			bServerSide: true,
+			sAjaxSource : "${path}/techd/list/data",
+			sServerMethod : "POST",
+			fnServerParams : function (data){
+				data.push({"name":"userNo", "value" : $("#userNo").val()});
+				data.push({"name":"custNo", "value" : $("#custNo").val()});
+				data.push({"name":"custmemberNo", "value" : $("#custmemberNo").val()});
+				data.push({"name":"techdSteps", "value" : $("#techdSteps option:selected").val()});
+				data.push({"name":"userName", "value" : $("#userName").val()});
+				if($("#targetDatefrom").val() != "" && $("#targetDateto").val() != ""){
+					data.push({"name":"schedFrom", "value" : $("#targetDatefrom").val()});
+					data.push({"name":"schedTo", "value" : $("#targetDateto").val()});
+				} else {
+					data.push({"name":"schedFrom", "value" : ""});
+					data.push({"name":"schedTo", "value" : ""});
+				}
+				data.push({"name":"techdDesc","value":$("#techdDesc").val()});
+			},
+			// TODO 아래 주석은 서버로 부터 성공시 data 확인하는 용도
+			/*
+            fnServerData: function ( sSource, aoData, fnCallback, oSettings ) {
+                oSettings.jqXHR = $.ajax({
+                    "dataType": 'json',
+                    "type": "POST",
+                    "url": sSource,
+                    "data": aoData,
+                    "success": function (data) {
+                        console.dir(data);
+                        return data.aaData;
+                    }
+                });
+            },
+            */
+			columnDefs :[
+				{
+					defaultContent : "-",
+					targets : "_all"
+				},
+				{
+					targets : [1],
+					render : function ( data, type, row, meta ) {
+						return '<a href="javascript:fnSetPage(\''+row.techdNo+')" title="'+data+'">'+data+'</a>';
+					}
+				}
+			],	// ajax로 데이터가 날아오면서 list를 뿌려주는데 각 컬럼에서 만약 값이 없으면 오류대처
+			columns : [
+				{
+					column : '등록구분',
+					render : function (data, type, row) {
+						if(row.soppNo != 0) return '신규 영업지원';
+						if(row.contNo != 0) return '유지보수';
+						return '-';
+					}
+				},
+				{
+					data: "techdTitle",
+					column : '요청명',
+					render : function ( data, type, row ) {
+						if(data == null || data == undefined) {
+							return '';
+						} else {
+							return '<span title="'+data+'">'+data+'</span>';
+						}
+					},
+				},
+				{
+					data: "techdDesc",
+					column : '기술지원 요청내용',
+					render : function ( data, type, row ) {
+						if(data == null || data == undefined) {
+							return '';
+						} else {
+							return '<span title="'+data+'">'+data+'</span>';
+						}
+					},
+				},
+				{
+					data: "custName",
+					column : '엔드유저',
+					render : function ( data, type, row ) {
+						if(data == null || data == undefined) {
+							return '';
+						} else {
+							return '<span title="'+data+'">'+data+'</span>';
+						}
+					},
+				},
+				{
+					data: "techdStepsN",
+					column : '접수단계',
+					render : function ( data, type, row ) {
+						if(data == null || data == undefined) {
+							return '';
+						} else {
+							return data;
+						}
+					},
+				},
+				{
+					data: "userName",
+					column : '담당사원',
+					render : function ( data, type, row ) {
+						if(data == null || data == undefined) {
+							return '';
+						} else {
+							return data;
+						}
+					},
+				},
+				{
+					data: "techdFrom",
+					column : '기술지원(시작)',
+					render : function ( data, type, row ) {
+						if(data == null || data == undefined) {
+							return '';
+						} else {
+							return data;
+						}
+					},
+				},
+				{
+					data: "techdTo",
+					column : '기술지원(끝)',
+					render : function ( data, type, row ) {
+						if(data == null || data == undefined) {
+							return '';
+						} else {
+							return data;
+						}
+					},
+				}
+			],
+			oLanguage: {
+				sZeroRecords : "일치하는 데이터가 존재하지 않습니다.",
+				sInfo : "현재 _START_ - _END_ / _TOTAL_건",
+				slengthMenu: "페이지당 _MENU_ 개씩 보기",
+				sInfoEmpty: "데이터 없음",
+				sInfoFiltered: "( _MAX_건의 데이터에서 필터링됨 )",
+				sSearch : "내부검색 : ",
+				sProcessing : '데이터 불러오는중...',
+				oPaginate: {
+					sFirst : '처음으로',
+					sLast : '마지막으로',
+					sPrevious: "이전",
+					sNext: "다음"
+				}
+			},
+			// docs : https://legacy.datatables.net/usage/i18n
 
+		});
+
+		$('#techdTable_filter input').unbind();
+		$('#techdTable_filter input').bind('keyup', function (e){
+			if(e.keyCode == 13){
+				techdTable.search(this.value).draw();
+			}
+		});
+	});
 </script>
 <style>
 	a {
 		text-decoration:underline;
 	}
 </style>
-
 	<c:if test="${preserveSearchCondition != 'Y'}">
 		<!-- Page-header start 페이지 타이틀-->
 		<div class="page-header2">
@@ -196,7 +357,6 @@ $(function(){
 			</div>
 		</div>
 		<!--//기술지원 대상조회-->
-	
 	</c:if>
 
 	 <!--리스트 table-->
@@ -218,17 +378,18 @@ $(function(){
 							</colgroup>							
 							<thead>
 								<tr>
-									<th><input class="border-checkbox" type="checkbox" id="checkbox0"></th>
+									<%--<th><input class="border-checkbox" type="checkbox" id="checkbox0"></th>--%>
 									<th>등록구분</th>
 									<th>요청명</th>
 									<th>기술지원요청내용</th>
 									<th>거래처</th>
 									<th>진행단계</th>
 									<th>담당사원</th>
-									<th>기술지원 시작일</th>
+									<th>기술지원(시작)</th>
+									<th>기술지원(끝)</th>
 								</tr>
 							</thead>
-							<tbody>
+							<%--<tbody>
 								<c:forEach var="row" items="${list}">
 								<tr>
 									<th scope="row"><input class="border-checkbox" type="checkbox" id="checkbox0"></th>
@@ -247,7 +408,7 @@ $(function(){
 									</td>
 								</tr>
 								</c:forEach>
-							</tbody>
+							</tbody>--%>
 						</table>
 					</div>
 				</div>

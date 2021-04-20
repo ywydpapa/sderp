@@ -1,6 +1,8 @@
 package kr.swcore.sderp.techd.dto;
 
-public class TechdDTO {
+import kr.swcore.sderp.common.dto.PageDTO;
+
+public class TechdDTO extends PageDTO {
 
 	private int techdNo;
 	private int custNo;

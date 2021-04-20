@@ -3,13 +3,13 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <c:set var="path" value ="${pageContext.request.contextPath}"/>
-    <!-- data tables css -->
-	<link rel="stylesheet" href="${path}/assets/css/plugins/dataTables.bootstrap4.min.css">
-	<!-- datatable Js -->
-	<script src="${path}/assets/pages/jquery.dataTables.min.js"></script>
-	<script src="${path}/assets/pages/dataTables.bootstrap4.min.js"></script>
-<script>
+<!-- data tables css -->
+<link rel="stylesheet" href="${path}/assets/css/plugins/dataTables.bootstrap4.min.css">
+<!-- datatable Js -->
+<script src="${path}/assets/pages/jquery.dataTables.min.js"></script>
+<script src="${path}/assets/pages/dataTables.bootstrap4.min.js"></script>
 
+<script>
 $(function(){
 	var obj = new Object();
     var schedTable = $('#schedTable').DataTable({
@@ -134,22 +134,6 @@ $(function(){
 				},
 			}
 		],
-		/*
-		oLanguage: {
-			sZeroRecords : "Nothing found - sorry",
-			sInfo : "Showing page _PAGE_ of _PAGES_",
-			slengthMenu: "Display _MENU_ records per page",
-			sInfoEmpty: "No records available",
-			sInfoFiltered: "(filtered from _MAX_ total records)",
-			oPaginate: {
-				sFirst : 'first',
-				sLast : 'last',
-				sPrevious: "prev",
-				sNext: "next"
-			}
-		},
-		*/
-
 		oLanguage: {
 			sZeroRecords : "일치하는 데이터가 존재하지 않습니다.",
 			sInfo : "현재 _START_ - _END_ / _TOTAL_건",
@@ -165,7 +149,6 @@ $(function(){
 				sNext: "다음"
 			}
 		},
-
 		// docs : https://legacy.datatables.net/usage/i18n
 
     });

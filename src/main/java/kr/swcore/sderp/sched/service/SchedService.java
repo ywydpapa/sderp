@@ -11,7 +11,7 @@ import kr.swcore.sderp.sched.dto.SchedDTO;
 public interface SchedService {
 	
 	List<SchedDTO> listSched();
-	List<SchedDTO> listSched(HttpSession session, String param, HttpServletRequest request, HttpServletResponse response);
+	Object listSched(HttpSession session, String param, HttpServletRequest request, HttpServletResponse response);
 	List<SchedDTO> listconSched(HttpSession session, SchedDTO dto);
 	SchedDTO detailSched(int schedNo);
 	int insertSched(SchedDTO dto);

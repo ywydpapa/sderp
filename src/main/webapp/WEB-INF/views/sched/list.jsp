@@ -10,7 +10,6 @@
 	<script src="${path}/assets/pages/dataTables.bootstrap4.min.js"></script>
 <script>
 
-
 $(function(){
 	var obj = new Object();
     var schedTable = $('#schedTable').DataTable({
@@ -21,14 +20,11 @@ $(function(){
 		filter : true, // 검색창 여부
 		// lengthChange : true, // 블록 단위 변경 기능 여부
 		// stateSave : false,
-
-		// pagLength : 10, // 한 페이지에 기본으로 보열줄 항목 수
-		// lengthMenu : [[10, -1],[10,"ALL"]],	// 리스트 항목을 구성할 옵션들
-		pageLength: 20,
+		pageLength: 20, // 한 페이지에 기본으로 보열줄 항목 수
 		pagingType : "full_numbers",
 		bPaginate: true,
 		bLengthChange: true,
-		lengthMenu : [ [20], [20] ],
+		lengthMenu: [[20, 40, 60, 80, 100], [20, 40, 60, 80, 100]], // 리스트 항목을 구성할 옵션들
 		bProcessing: true,
 		bServerSide: true,
 		sAjaxSource : "${path}/sched/list/data",
@@ -48,11 +44,34 @@ $(function(){
 				data.push({"name":"schedFrom", "value" : ""});
 				data.push({"name":"schedTo", "value" : ""});
 			}
+			console.dir();
+			data.push({"name":"columns","value":this.columns});
 		},
+		// TODO 아래 주석은 서버로 부터 성공시 data 확인하는 용도
+		/*
+		fnServerData: function ( sSource, aoData, fnCallback, oSettings ) {
+			oSettings.jqXHR = $.ajax({
+				"dataType": 'json',
+				"type": "POST",
+				"url": sSource,
+				"data": aoData,
+				"success": function (data) {
+					console.dir(data);
+					return data.aaData;
+				}
+			});
+		},
+		*/
 		columnDefs :[
 			{
 				defaultContent : "-",
 				targets : "_all"
+			},
+			{
+				targets : [1],
+				render : function ( data, type, row, meta ) {
+					return '<a href="javascript:fnSetDetailLink(\''+row.schedTypeN+'\','+row.schedNo+')" title="'+data+'">'+data+'</a>';
+				}
 			}
 		],	// ajax로 데이터가 날아오면서 list를 뿌려주는데 각 컬럼에서 만약 값이 없으면 오류대처
 		columns : [
@@ -66,7 +85,7 @@ $(function(){
 					if(data == null || data == undefined) {
 						return '';
 					} else {
-						return data;
+						return '<span title="'+data+'">'+data+'</span>';
 					}
 				},
 			},
@@ -88,7 +107,7 @@ $(function(){
 					if(data == null || data == undefined) {
 						return '';
 					} else {
-						return data;
+						return '<span title="'+data+'">'+data+'</span>';
 					}
 				},
 			},
@@ -110,10 +129,10 @@ $(function(){
 					if(data == null || data == undefined) {
 						return '';
 					} else {
-						return data;
+						return '<span title="'+data+'">'+data+'</span>';
 					}
 				},
-			},
+			}
 		],
 		/*
 		oLanguage: {
@@ -129,7 +148,24 @@ $(function(){
 				sNext: "next"
 			}
 		},
-		 */
+		*/
+
+		oLanguage: {
+			sZeroRecords : "일치하는 데이터가 존재하지 않습니다.",
+			sInfo : "현재 _START_ - _END_ / _TOTAL_건",
+			slengthMenu: "페이지당 _MENU_ 개씩 보기",
+			sInfoEmpty: "데이터 없음",
+			sInfoFiltered: "( _MAX_건의 데이터에서 필터링됨 )",
+			sSearch : "내부검색 : ",
+			sProcessing : '데이터 불러오는중...',
+			oPaginate: {
+				sFirst : '처음으로',
+				sLast : '마지막으로',
+				sPrevious: "이전",
+				sNext: "다음"
+			}
+		},
+
 		// docs : https://legacy.datatables.net/usage/i18n
 
     });
@@ -140,47 +176,22 @@ $(function(){
     		schedTable.search(this.value).draw();
 		}
 	});
-
 });
-
-/*
-$(function(){
-	$('#schedTable').dataTable({
-		pageLength: 3,
-		pagingType : "full_numbers",
-		bPaginate: true,
-		bLengthChange: true,
-		lengthMenu : [ [ 1, 3, 5, 10, -1 ], [ 1, 3, 5, 10, "All" ] ],
-		responsive: true,
-		bAutoWidth: false,
-		processing: true,
-		ordering: true,
-		bServerSide: true,
-		searching: false,
-		sAjaxSource : "${path}/sched/list/data",
-		sServerMethod: "GET",
-		columns : [
-			{data: "schedTypeN", column : '일정구분'},
-			{data: "schedTitle", column : '일정제목'},
-			{data: "schedFrom", column : '일정'},
-			{data: "custName", column : '고객사'},
-			{data: "userName", column : '담당자'},
-			{data: "schedPlace", column : '장소'},
-			{data: "schedCatN", column : '활동형태'},
-			{data: "schedDesc", column : '일정설명'},
-		]
-	});
-});
-*/
 </script>
 <style>
 	a {
 		text-decoration:underline;
 	}
+	#schedTable > tbody > tr > td:nth-child(2){
+		overflow: hidden;
+		text-overflow: ellipsis;
+		max-width: 170px;
+		white-space: nowrap;
+	}
 	#schedTable > tbody > tr > td:nth-child(4){
 		overflow: hidden;
 		text-overflow: ellipsis;
-		max-width: 180px;
+		max-width: 150px;
 		white-space: nowrap;
 	}
 	#schedTable > tbody > tr > td:nth-child(8){
@@ -440,7 +451,7 @@ $(function(){
 		<div class="col-sm-12">
 			<div class="card-block table-border-style">
 				<div class="table-responsive">
-					<table id="schedTable" class="table table-striped table-bordered nowrap ">
+					<table id="schedTable" class="table table-striped table-bordered nowrap">
 						<thead>
 							<tr>
 								<th>일정구분</th>

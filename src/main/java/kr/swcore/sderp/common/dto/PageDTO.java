@@ -12,4 +12,7 @@ import lombok.ToString;
 public class PageDTO {
     private int limit;
     private int offset;
+    private String sSearch;
+    private String orderColumn;
+    private String orderOption;
 }

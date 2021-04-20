@@ -11,6 +11,7 @@ import javax.servlet.http.HttpSession;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
@@ -49,11 +50,11 @@ public class schedController {
 	}
 
 	@RequestMapping(value = "list/data", produces = "application/json;charset=UTF-8", method = RequestMethod.POST)
-	@ResponseBody
-	public String listData(HttpSession session, @RequestBody String param, HttpServletRequest request, HttpServletResponse response){
+	public @ResponseBody String listData(HttpSession session, @RequestBody String param, HttpServletRequest request, HttpServletResponse response){
 		Map<String, Object> rtn = new HashMap<String, Object>();
 		rtn.put("data", schedService.listSched(session, param, request, response));
-		return new Gson().toJson(rtn);
+		Gson ojb = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+		return ojb.toJson(schedService.listSched(session, param, request, response));
 	}
 	
 	//�˻� ��ư Ŭ�� ��

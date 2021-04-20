@@ -23,10 +23,15 @@ public class SchedDAOImpl implements SchedDAO {
 	}
 	
 	@Override
-	public List<SchedDTO> listSched(SoppDTO soppdto) {
-		return sqlSession.selectList("sched.listSched", soppdto);
+	public List<SchedDTO> listSched(SchedDTO dto) {
+		return sqlSession.selectList("sched.listSched", dto);
 	}
-	
+
+	@Override
+	public int listSchedCnt(SchedDTO dto) {
+		return sqlSession.selectOne("sched.listSchedCnt", dto);
+	}
+
 	@Override
 	public List<SchedDTO> listconSched(SchedDTO dto) {
 		// TODO Auto-generated method stub

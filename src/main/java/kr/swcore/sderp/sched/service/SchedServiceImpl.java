@@ -38,14 +38,19 @@ public class SchedServiceImpl implements SchedService {
 
 		SchedDTO dto = new SchedDTO();
 		Integer compNo = SessionInfoGet.getCompNo(session);						// 로그인 회사 구분 코드
-		Integer userNo = request.getAttribute("userNo") != null ? (Integer) request.getAttribute("userNo") : 0;			// 담당사원
-		Integer soppNo = request.getAttribute("soppNo") != null ? (Integer) request.getAttribute("soppNo") : 0;			// 영업기회
-		Integer contNo = request.getAttribute("contNo") != null ? (Integer) request.getAttribute("contNo") : 0;			// 계약
-		Integer custNo = request.getAttribute("custNo") != null ? (Integer) request.getAttribute("custNo") : 0;			// 거래처
-		Integer endCustNo = request.getAttribute("endCustNo") != null ? (Integer) request.getAttribute("endCustNo") : 0;// 엔드유저
-		String schedCat = request.getAttribute("schedCat") != null ? (String) request.getAttribute("schedCat") : "";	// 활동형태
-		String schedFrom = request.getAttribute("schedFrom") != null ? (String) request.getAttribute("schedFrom") : "";	// 시작일
-		String schedTo = request.getAttribute("schedTo") != null ? (String) request.getAttribute("schedTo") : "";		// 마감일
+		String userNostr = request.getParameter("userNo");
+		Integer userNo = userNostr.equals("") == true ? 0 : Integer.valueOf(userNostr);	// 담당사원
+		String soppNostr = request.getParameter("soppNo");
+		Integer soppNo = soppNostr.equals("") == true ? 0 : Integer.valueOf(soppNostr);	// 영업기회
+		String contNostr = request.getParameter("contNo");
+		Integer contNo = contNostr.equals("") == true ? 0 : Integer.valueOf(contNostr);	// 계약
+		String custNostr = request.getParameter("custNo");
+		Integer custNo = custNostr.equals("") == true ? 0 : Integer.valueOf(custNostr);	// 거래처
+		String endCustNostr =  request.getParameter("endCustNo");
+		Integer endCustNo = endCustNostr.equals("") == true ? 0 : Integer.valueOf(endCustNostr);	// 엔드유저
+		String schedCat = request.getParameter("schedCat") != null ? (String) request.getParameter("schedCat") : "";			// 활동형태
+		String schedFrom = request.getParameter("schedFrom") != null ? (String) request.getParameter("schedFrom") : "";			// 시작일
+		String schedTo = request.getParameter("schedTo") != null ? (String) request.getParameter("schedTo") : "";				// 마감일
 
 		dto.setCompNo(compNo);
 		dto.setUserNo(userNo);
@@ -58,11 +63,11 @@ public class SchedServiceImpl implements SchedService {
 		dto.setSchedTo(schedTo);
 
 		String sEchostr = request.getParameter("sEcho");
-		Integer sEcho = sEchostr != null ? Integer.valueOf(sEchostr) : 1;
+		Integer sEcho = sEchostr.equals("") == true ? 1 : Integer.valueOf(sEchostr);
 		String limitstr = request.getParameter("iDisplayLength");
-		Integer limit = limitstr != null ? Integer.valueOf(limitstr) : 20;	// 기본값 20 세팅
+		Integer limit = limitstr.equals("") == true ? 20 : Integer.valueOf(limitstr);	// 기본값 20 세팅
 		String offsetstr = request.getParameter("iDisplayStart");
-		Integer offset = offsetstr != null ? Integer.valueOf(offsetstr) : 0;
+		Integer offset = offsetstr.equals("") == true ? 0 : Integer.valueOf(offsetstr);
 		String sSearch = (String) request.getParameter("sSearch");
 
 		String orderColumn = request.getParameter("iSortCol_0");

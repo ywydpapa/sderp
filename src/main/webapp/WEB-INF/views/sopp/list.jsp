@@ -249,7 +249,7 @@ $(function(){
 						</colgroup>							
 						<thead>
 							<tr>
-								<th><input class="border-checkbox" type="checkbox" id="checkbox0"></th>
+								<%--<th><input class="border-checkbox" type="checkbox" id="checkbox0"></th>--%>
 								<th>판매방식</th>
 								<th>영업기회</th>
 								<th>거래처</th>
@@ -259,7 +259,7 @@ $(function(){
 								<th>매출예정일</th>
 							</tr>
 						</thead>
-						<tbody>
+						<%--<tbody>
 							<c:forEach var="row" items="${list}">
 							<tr>
 								<th scope="row"><input class="border-checkbox" type="checkbox" id="checkbox0"></th>
@@ -272,7 +272,7 @@ $(function(){
 								<td class="text-right">${row.soppTargetDate}</td>
 							</tr>
 							</c:forEach>
-						</tbody>
+						</tbody>--%>
 					</table>
 				</div>
 			</div>

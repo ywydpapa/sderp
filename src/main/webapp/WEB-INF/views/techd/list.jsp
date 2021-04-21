@@ -480,19 +480,6 @@
 		$(".modal-backdrop").remove();
 		$("#custmemberModal").modal("hide");
 	}
-	
-	function fnListcon() {
-		var techdData = {};
-		techdData.userNo = $("#userNo").val() ? $("#userNo").val() : 0;
-		techdData.custNo = $("#custNo").val() ? $("#custNo").val() : 0;
-		techdData.custmemberNo = $("#custmemberNo").val() ? $("#custmemberNo").val() : 0;
-		techdData.techdSteps = $("#techdSteps").val() ? $("#techdSteps").val() : null;
-		techdData.targetDatefrom = $("#targetDatefrom").val() ? $("#targetDatefrom").val() : null;
-		techdData.targetDateto = $("#targetDateto").val() ? $("#targetDateto").val() : null;
-		techdData.techdDesc = $("#techdDesc").val() ? $("#techdDesc").val() : null;
-		
-		fnSetList('${path}/techd/listcon.do', techdData);
-	}
 
 	function fnSetPageEx(data){
 		var url = "${path}/techd/detail/"+data;

@@ -45,8 +45,6 @@ public class TechdController {
 	@RequestMapping(value = "list/data", produces = "application/json;charset=UTF-8", method = RequestMethod.POST)
 	public @ResponseBody
 	String listData(HttpSession session, @RequestBody String param, HttpServletRequest request, HttpServletResponse response){
-		Map<String, Object> rtn = new HashMap<String, Object>();
-		rtn.put("data", techdService.listTechd(session, param, request, response));
 		Gson ojb = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
 		return ojb.toJson(techdService.listTechd(session, param, request, response));
 	}

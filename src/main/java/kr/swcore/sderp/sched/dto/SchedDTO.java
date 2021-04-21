@@ -47,10 +47,9 @@ public class SchedDTO extends PageDTO {
 	private String sTime;
 	private String eTime;
 	private String userId;
+	private String cntrctMth;
 
 	private int endCustNo;
-
-
 
 	public SchedDTO() {
 		super();

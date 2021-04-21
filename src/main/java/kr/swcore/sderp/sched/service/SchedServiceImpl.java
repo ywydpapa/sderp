@@ -48,6 +48,7 @@ public class SchedServiceImpl implements SchedService {
 		Integer custNo = custNostr.equals("") == true ? 0 : Integer.valueOf(custNostr);	// 거래처
 		String endCustNostr =  request.getParameter("endCustNo");
 		Integer endCustNo = endCustNostr.equals("") == true ? 0 : Integer.valueOf(endCustNostr);	// 엔드유저
+		String schedType = request.getParameter("schedType") != null ? (String) request.getParameter("schedType") : "";			// 활동형태
 		String schedCat = request.getParameter("schedCat") != null ? (String) request.getParameter("schedCat") : "";			// 활동형태
 		String schedFrom = request.getParameter("schedFrom") != null ? (String) request.getParameter("schedFrom") : "";			// 시작일
 		String schedTo = request.getParameter("schedTo") != null ? (String) request.getParameter("schedTo") : "";				// 마감일
@@ -58,12 +59,12 @@ public class SchedServiceImpl implements SchedService {
 		dto.setContNo(contNo);
 		dto.setCustNo(custNo);
 		dto.setEndCustNo(endCustNo);
+		dto.setSchedType(schedType);
 		dto.setSchedCat(schedCat);
 		dto.setSchedFrom(schedFrom);
 		dto.setSchedTo(schedTo);
 
-		String sEchostr = request.getParameter("sEcho");
-		Integer sEcho = sEchostr.equals("") == true ? 1 : Integer.valueOf(sEchostr);
+		String sEcho = request.getParameter("sEcho");
 		String limitstr = request.getParameter("iDisplayLength");
 		Integer limit = limitstr.equals("") == true ? 20 : Integer.valueOf(limitstr);	// 기본값 20 세팅
 		String offsetstr = request.getParameter("iDisplayStart");
@@ -108,7 +109,6 @@ public class SchedServiceImpl implements SchedService {
 		Integer cnt = schedDao.listSchedCnt(dto);
 		wrapperDTO.setITotalRecords(cnt);
 		wrapperDTO.setITotalDisplayRecords(cnt);
-		wrapperDTO.setSEcho(sSearch);
 
 		return wrapperDTO;
 	}

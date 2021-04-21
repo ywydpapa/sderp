@@ -33,6 +33,7 @@ public class SchedDTO extends PageDTO {
 	private String soppTitle;
 	private String custName;
 	private String schedType;
+	private String schedTypeN;
 	private String schedPlace;
 	private int custmemberNo;
 	private String custmemberName;
@@ -43,7 +44,6 @@ public class SchedDTO extends PageDTO {
 	private String schedColor;
 	private String schedCat;
 	private String schedCatN;
-	private String schedTypeN;
 	private String sTime;
 	private String eTime;
 	private String userId;

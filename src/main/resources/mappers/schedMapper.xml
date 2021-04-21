@@ -47,6 +47,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			<if test="schedTo != null and schedTo != ''">
 				and date_format(a.schedTo, '%Y-%m-%d') <![CDATA[<=]]> #{schedTo}
 			</if>
+			<if test="schedType != null and schedType != ''">
+				and schedType = #{schedType}
+			</if>
 			) subquery1
 		<if test="sSearch != null and sSearch != ''">
 		where
@@ -91,6 +94,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			<if test="schedTo != null and schedTo != ''">
 				and date_format(a.salesTodatetime, '%Y-%m-%d') <![CDATA[<=]]> #{schedTo}
 			</if>
+			<if test="schedType != null and schedType != ''">
+				and schedType = #{schedType}
+			</if>
 			) subquery1
 		<if test="sSearch != null and sSearch != ''">
 			where
@@ -134,6 +140,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			</if>
 			<if test="schedTo != null and schedTo != ''">
 				and date_format(a.techdTo, '%Y-%m-%d') <![CDATA[<=]]> #{schedTo}
+			</if>
+			<if test="schedType != null and schedType != ''">
+				and schedType = #{schedType}
 			</if>
 			) subquery1
 		<if test="sSearch != null and sSearch != ''">
@@ -192,6 +201,9 @@ from
 	<if test="schedTo != null and schedTo != ''">
 		and date_format(a.schedTo, '%Y-%m-%d') <![CDATA[<=]]> #{schedTo}
 	</if>
+	<if test="schedType != null and schedType != ''">
+		and schedType = #{schedType}
+	</if>
 	) subquery1
 	<if test="sSearch != null and sSearch != ''">
 		where
@@ -236,6 +248,9 @@ from
 	<if test="schedTo != null and schedTo != ''">
 		and date_format(a.salesTodatetime, '%Y-%m-%d') <![CDATA[<=]]> #{schedTo}
 	</if>
+	<if test="schedType != null and schedType != ''">
+		and schedType = #{schedType}
+	</if>
 	) subquery1
 	<if test="sSearch != null and sSearch != ''">
 		where
@@ -279,6 +294,9 @@ from
 	</if>
 	<if test="schedTo != null and schedTo != ''">
 		and date_format(a.techdTo, '%Y-%m-%d') <![CDATA[<=]]> #{schedTo}
+	</if>
+	<if test="schedType != null and schedType != ''">
+		and schedType = #{schedType}
 	</if>
 	) subquery1
 	<if test="sSearch != null and sSearch != ''">

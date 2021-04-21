@@ -9,9 +9,10 @@
 	<script src="${path}/assets/pages/jquery.dataTables.min.js"></script>
 	<script src="${path}/assets/pages/dataTables.bootstrap4.min.js"></script>
 <script>
+	var techdTable;
 	$(function(){
 		var obj = new Object();
-		var techdTable = $('#techdTable').DataTable({
+		techdTable = $('#techdTable').DataTable({
 			order: [[ 7, "desc" ]],
 			paging : true, // 페이지 처리 여부
 			ordering : true, // 컬럼 클릭 시 오더링을 적용 여부
@@ -33,13 +34,13 @@
 				data.push({"name":"custNo", "value" : $("#custNo").val()});
 				data.push({"name":"custmemberNo", "value" : $("#custmemberNo").val()});
 				data.push({"name":"techdSteps", "value" : $("#techdSteps option:selected").val()});
-				data.push({"name":"userName", "value" : $("#userName").val()});
+				data.push({"name":"cntrctMth", "value": $("#cntrctMth option:selected").val()});
 				if($("#targetDatefrom").val() != "" && $("#targetDateto").val() != ""){
-					data.push({"name":"schedFrom", "value" : $("#targetDatefrom").val()});
-					data.push({"name":"schedTo", "value" : $("#targetDateto").val()});
+					data.push({"name":"targetDatefrom", "value" : $("#targetDatefrom").val()});
+					data.push({"name":"targetDateto", "value" : $("#targetDateto").val()});
 				} else {
-					data.push({"name":"schedFrom", "value" : ""});
-					data.push({"name":"schedTo", "value" : ""});
+					data.push({"name":"targetDatefrom", "value" : ""});
+					data.push({"name":"targetDateto", "value" : ""});
 				}
 				data.push({"name":"techdDesc","value":$("#techdDesc").val()});
 			},
@@ -64,10 +65,8 @@
 					targets : "_all"
 				},
 				{
-					targets : [1],
-					render : function ( data, type, row, meta ) {
-						return '<a href="javascript:fnSetPage(\''+row.techdNo+')" title="'+data+'">'+data+'</a>';
-					}
+					targets : 0,
+					orderable: false
 				}
 			],	// ajax로 데이터가 날아오면서 list를 뿌려주는데 각 컬럼에서 만약 값이 없으면 오류대처
 			columns : [
@@ -86,7 +85,7 @@
 						if(data == null || data == undefined) {
 							return '';
 						} else {
-							return '<span title="'+data+'">'+data+'</span>';
+							return '<a href="javascript:fnSetPageEx(\''+row.techdNo+'\')" title="'+data+'">'+data+'</a>';
 						}
 					},
 				},
@@ -182,11 +181,43 @@
 				techdTable.search(this.value).draw();
 			}
 		});
+
+		techdTable.on('draw', function () {
+			console.log("draw 이벤트");
+			setTimeout(fnDrawAfterCss, 10);
+		});
+
 	});
+
+	function fnDrawAfterCss() {
+		$("#techdTable").css("width","");
+	}
+
+	function fnListcon() {
+		techdTable.search("").draw();
+	}
 </script>
 <style>
 	a {
 		text-decoration:underline;
+	}
+	#techdTable > tbody > tr > td:nth-child(2){
+		overflow: hidden;
+		text-overflow: ellipsis;
+		max-width: 300px;
+		white-space: nowrap;
+	}
+	#techdTable > tbody > tr > td:nth-child(3){
+		overflow: hidden;
+		text-overflow: ellipsis;
+		max-width: 200px;
+		white-space: nowrap;
+	}
+	#techdTable > tbody > tr > td:nth-child(4){
+		overflow: hidden;
+		text-overflow: ellipsis;
+		max-width: 100px;
+		white-space: nowrap;
 	}
 </style>
 	<c:if test="${preserveSearchCondition != 'Y'}">
@@ -218,137 +249,130 @@
 										
 							</div>
 							<div class="form-group row">
-							<div class="col-sm-12 col-xl-3">
-								<label class="col-form-label" for="userName">담당사원</label>
-								<div class="input-group input-group-sm mb-0">
-									<input type="text" class="form-control" name="userName"
-										id="userName" value="" readonly /> <input type="hidden"
-										name="userNo" id="userNo" value="" /> <span
-										class="input-group-btn">
-										<button class="btn btn-primary sch-company"
-											data-remote="${path}/modal/popup.do?popId=user" type="button"
-											data-toggle="modal" data-target="#userModal">
-											<i class="icofont icofont-search"></i>
-										</button>
-									</span>
-									<div class="modal fade " id="userModal" tabindex="-1"
-										role="dialog">
-										<div class="modal-dialog modal-80size" role="document">
-											<div class="modal-content modal-80size">
-												<div class="modal-header">
-													<h4 class="modal-title"></h4>
-													<button type="button" class="close" data-dismiss="modal"
-														aria-label="Close">
-														<span aria-hidden="true">&times;</span>
-													</button>
-												</div>
-												<div class="modal-body">
-													<h5>사용자목록</h5>
-													<p>Loading!!!</p>
-												</div>
-												<div class="modal-footer">
-													<button type="button" class="btn btn-default waves-effect "
-														data-dismiss="modal">Close</button>
+								<div class="col-sm-12 col-xl-3">
+									<label class="col-form-label" for="userName">담당사원</label>
+									<div class="input-group input-group-sm mb-0">
+										<input type="text" class="form-control" name="userName"
+											id="userName" value="" readonly /> <input type="hidden"
+											name="userNo" id="userNo" value="" /> <span
+											class="input-group-btn">
+											<button class="btn btn-primary sch-company" data-remote="${path}/modal/popup.do?popId=user" type="button" data-toggle="modal" data-target="#userModal">
+												<i class="icofont icofont-search"></i>
+											</button>
+										</span>
+										<div class="modal fade " id="userModal" tabindex="-1"
+											role="dialog">
+											<div class="modal-dialog modal-80size" role="document">
+												<div class="modal-content modal-80size">
+													<div class="modal-header">
+														<h4 class="modal-title"></h4>
+														<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+															<span aria-hidden="true">&times;</span>
+														</button>
+													</div>
+													<div class="modal-body">
+														<h5>사용자목록</h5>
+														<p>Loading!!!</p>
+													</div>
+													<div class="modal-footer">
+														<button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
+													</div>
 												</div>
 											</div>
 										</div>
 									</div>
 								</div>
-							</div>
-							
-							<div class="col-sm-12 col-xl-3">
-								<label class="col-form-label" for="custName">엔드유저</label>
-								<div class="input-group input-group-sm mb-0">
-									<input type="text" class="form-control" name="custName" id="custName" value="" readonly />
-									<input type="hidden" name="custNo" id="custNo" value="" />
-									<span class="input-group-btn">
-										<button class="btn btn-primary sch-company"
-											data-remote="${path}/modal/popup.do?popId=cust" type="button"
-											data-toggle="modal" data-target="#custModal">
-											<i class="icofont icofont-search"></i>
-										</button>
-									</span>
-									<div class="modal fade " id="custModal" tabindex="-1"
-										role="dialog">
-										<div class="modal-dialog modal-80size" role="document">
-											<div class="modal-content modal-80size">
-												<div class="modal-header">
-													<h4 class="modal-title"></h4>
-													<button type="button" class="close" data-dismiss="modal"
-														aria-label="Close">
-														<span aria-hidden="true">&times;</span>
-													</button>
-												</div>
-												<div class="modal-body">
-													<h5>거래처목록</h5>
-													<p>Loading!!!</p>
-												</div>
-												<div class="modal-footer">
-													<button type="button" class="btn btn-default waves-effect "
-														data-dismiss="modal">Close</button>
+								<div class="col-sm-12 col-xl-3">
+									<label class="col-form-label" for="custName">엔드유저</label>
+									<div class="input-group input-group-sm mb-0">
+										<input type="text" class="form-control" name="custName" id="custName" value="" readonly />
+										<input type="hidden" name="custNo" id="custNo" value="" />
+										<span class="input-group-btn">
+											<button class="btn btn-primary sch-company" data-remote="${path}/modal/popup.do?popId=cust" type="button" data-toggle="modal" data-target="#custModal">
+												<i class="icofont icofont-search"></i>
+											</button>
+										</span>
+										<div class="modal fade " id="custModal" tabindex="-1"
+											role="dialog">
+											<div class="modal-dialog modal-80size" role="document">
+												<div class="modal-content modal-80size">
+													<div class="modal-header">
+														<h4 class="modal-title"></h4>
+														<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+															<span aria-hidden="true">&times;</span>
+														</button>
+													</div>
+													<div class="modal-body">
+														<h5>거래처목록</h5>
+														<p>Loading!!!</p>
+													</div>
+													<div class="modal-footer">
+														<button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
+													</div>
 												</div>
 											</div>
 										</div>
 									</div>
 								</div>
-							</div>
-							
-							<div class="col-sm-12 col-xl-3">
-								<label class="col-form-label" for="custmemberName">엔드유저 담당자</label>
-								<div class="input-group input-group-sm mb-0">
-									<input type="text" class="form-control" name="custmemberName"
-										id="custmemberName" value="" readonly /> <input type="hidden"
-										name="custmemberNo" id="custmemberNo" value="" /> <span
-										class="input-group-btn">
-										<button class="btn btn-primary sch-company"
-											data-remote="${path}/modal/popup.do?popId=custmem&compNo=" type="button"
-											data-toggle="modal" data-target="#custmemberModal" id="custmemberModalbtn">
-											<i class="icofont icofont-search"></i>
-										</button>
-									</span>
-									<div class="modal fade " id="custmemberModal" tabindex="-1"
-										role="dialog">
-										<div class="modal-dialog modal-80size" role="document">
-											<div class="modal-content modal-80size">
-												<div class="modal-header">
-													<h4 class="modal-title"></h4>
-													<button type="button" class="close" data-dismiss="modal"
-														aria-label="Close">
-														<span aria-hidden="true">&times;</span>
-													</button>
-												</div>
-												<div class="modal-body">
-													<h5>고객목록</h5>
-													<p>거래처를 먼저 입력해주셔야 목록이 보입니다.</p>
-												</div>
-												<div class="modal-footer">
-													<button type="button" class="btn btn-default waves-effect "
-														data-dismiss="modal">Close</button>
+								<div class="col-sm-12 col-xl-3">
+									<label class="col-form-label" for="custmemberName">엔드유저 담당자</label>
+									<div class="input-group input-group-sm mb-0">
+										<input type="text" class="form-control" name="custmemberName" id="custmemberName" value="" readonly />
+										<input type="hidden" name="custmemberNo" id="custmemberNo" value="" />
+										<span class="input-group-btn">
+											<button class="btn btn-primary sch-company" data-remote="${path}/modal/popup.do?popId=custmem&compNo=" type="button" data-toggle="modal" data-target="#custmemberModal" id="custmemberModalbtn">
+												<i class="icofont icofont-search"></i>
+											</button>
+										</span>
+										<div class="modal fade " id="custmemberModal" tabindex="-1" role="dialog">
+											<div class="modal-dialog modal-80size" role="document">
+												<div class="modal-content modal-80size">
+													<div class="modal-header">
+														<h4 class="modal-title"></h4>
+														<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+															<span aria-hidden="true">&times;</span>
+														</button>
+													</div>
+													<div class="modal-body">
+														<h5>고객목록</h5>
+														<p>거래처를 먼저 입력해주셔야 목록이 보입니다.</p>
+													</div>
+													<div class="modal-footer">
+														<button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
+													</div>
 												</div>
 											</div>
 										</div>
 									</div>
 								</div>
-							</div>
-							<div class="col-sm-12 col-xl-3">
-								<label class="col-form-label" for="co_name">진행단계</label>
-								<select name="select" class="form-control form-control-sm" id="techdSteps">
-									<option value>선택</option>
-									<c:forEach var ="techdSteps" items="${techdSteps}">
-										<option value = "${techdSteps.codeNo}">${techdSteps.desc03}</option>
-									</c:forEach>
-								</select>
-							</div>
+								<div class="col-sm-1.5">
+									<label class="col-form-label" for="co_name">진행단계</label>
+									<select name="select" class="form-control form-control-sm" id="techdSteps">
+										<option value>선택</option>
+										<c:forEach var ="techdSteps" items="${techdSteps}">
+											<option value = "${techdSteps.codeNo}">${techdSteps.desc03}</option>
+										</c:forEach>
+									</select>
+								</div>
+								<div class="col-sm-1.5" style="margin-left: 20px;">
+									<label class="col-form-label" for="co_name">등록구분</label>
+									<select name="select" class="form-control form-control-sm" id="cntrctMth">
+										<option value>선택</option>
+										<c:forEach var ="contractType" items="${contractType}">
+											<option value = "${contractType.codeNo}">${contractType.desc03}</option>
+										</c:forEach>
+									</select>
+								</div>
 							</div>
 							<div class="form-group row">
 								<div class="col-sm-12 col-xl-6">
-									<label class="col-form-label" for="co_name">등록일</label>
+									<label class="col-form-label" for="co_name">일정시작일</label>
 									<p class="input_inline"><input class="form-control form-control-sm col-xl-6" type="date" id="targetDatefrom" onChange="javascript:inputDate($('#targetDatefrom').val(), $('#targetDateto').val())"> ~ <input class="form-control form-control-sm col-xl-6" type="date" id="targetDateto" onChange="javascript:inputDate($('#targetDatefrom').val(), $('#targetDateto').val())">
 									</p>
 								</div>
 								<div class="col-sm-12 col-xl-6">
 									<label class="col-form-label" for="co_name">기술지원요청내용</label>
-									<input type="text" class="form-control form-control-sm" id="techdDesc" name="" placeholder="">
+									<input type="text" class="form-control form-control-sm" id="techdDesc" name="" placeholder="" onsubmit="return false">
 								</div>
 							</div>
 						</div>	
@@ -366,7 +390,7 @@
 				<div class="card-block table-border-style">
 					<div class="table-responsive">
 						<table id="techdTable" class="table table-striped table-bordered nowrap">
-							<colgroup>
+							<%--<colgroup>
 								<col width="1%"/>
 								<col width="7%"/>
 								<col width="30%"/>
@@ -375,7 +399,7 @@
 								<col width="8%"/>
 								<col width="5%"/>
 								<col width="10%"/>
-							</colgroup>							
+							</colgroup>	--%>
 							<thead>
 								<tr>
 									<%--<th><input class="border-checkbox" type="checkbox" id="checkbox0"></th>--%>
@@ -469,5 +493,17 @@
 		
 		fnSetList('${path}/techd/listcon.do', techdData);
 	}
+
+	function fnSetPageEx(data){
+		var url = "${path}/techd/detail/"+data;
+		fnSetPage(url);
+	}
+
+	// 기술지원요청내용 엔터키 누를경우 원치않는 행동발생하여 이벤트 방지 코드 추가
+	$('#techdDesc').keydown(function(event) {
+		if (event.keyCode === 13) {
+			event.preventDefault();
+		}
+	})
 </script>
 		

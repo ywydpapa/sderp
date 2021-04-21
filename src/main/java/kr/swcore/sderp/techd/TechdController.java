@@ -37,6 +37,7 @@ public class TechdController {
 	public ModelAndView list(HttpSession session, ModelAndView mav) {
 		mav.setViewName("techd/list");
 		mav.addObject("techdSteps", codeService.listTechdSteps(session));
+		mav.addObject("contractType",codeService.listContractType(session));
 		mav.addObject("list", techdService.listTechd(session, null));
 		return mav;
 	}

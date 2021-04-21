@@ -58,25 +58,29 @@ public class TechdServiceImpl implements TechdService {
 	public Object listTechd(HttpSession session, String param, HttpServletRequest request, HttpServletResponse response) {
 		TechdDTO dto = new TechdDTO();
 		Integer compNo = SessionInfoGet.getCompNo(session);						// 로그인 회사 구분 코드
-		Integer userNo = request.getAttribute("userNo") != null ? (Integer) request.getAttribute("userNo") : 0;						// 담당사원
-		Integer custNo = request.getAttribute("custNo") != null ? (Integer) request.getAttribute("custNo") : 0;						// 엔드유저
-		Integer custmemberNo = request.getAttribute("custmemberNo") != null ? (Integer) request.getAttribute("custmemberNo") : 0;	// 엔드유저 담당자
-		String techdSteps = request.getAttribute("TechdSteps") != null ? (String) request.getAttribute("TechdSteps") : "";			// 활동형태
-		String schedFrom = request.getAttribute("schedFrom") != null ? (String) request.getAttribute("schedFrom") : "";				// 시작일
-		String schedTo = request.getAttribute("schedTo") != null ? (String) request.getAttribute("schedTo") : "";					// 마감일
-		String techdDesc = request.getAttribute("techdDesc") != null ? (String) request.getAttribute("techdDesc") : "";				// 설명
+		String userNostr = request.getParameter("userNo");
+		Integer userNo = userNostr.equals("") == true ? 0 : Integer.valueOf(userNostr);	// 담당사원
+		String custNostr =  request.getParameter("custNo");
+		Integer custNo = custNostr.equals("") == true ? 0 : Integer.valueOf(custNostr);	// 엔드유저
+		String custmemberNostr = request.getParameter("custmemberNo");
+		Integer custmemberNo = custmemberNostr.equals("") == true ? 0 : Integer.valueOf(custmemberNostr);	// 엔드유저 담당자
+		String techdSteps = request.getParameter("techdSteps") != null ? (String) request.getParameter("techdSteps") : "";				// 활동형태
+		String cntrctMth = request.getParameter("cntrctMth") != null ? (String) request.getParameter("cntrctMth") : "";					// 등록구분
+		String targetDatefrom = request.getParameter("targetDatefrom") != null ? (String) request.getParameter("targetDatefrom") : "";	// 시작일
+		String targetDateto = request.getParameter("targetDateto") != null ? (String) request.getParameter("targetDateto") : "";		// 마감일
+		String techdDesc = request.getParameter("techdDesc") != null ? (String) request.getParameter("techdDesc") : "";					// 설명
 
 		dto.setCompNo(compNo);
 		dto.setUserNo(userNo);
 		dto.setCustNo(custNo);
 		dto.setCustmemberNo(custmemberNo);
 		dto.setTechdSteps(techdSteps);
-		dto.setTechdFrom(schedFrom);
-		dto.setTechdTo(schedTo);
+		dto.setCntrctMth(cntrctMth);
+		dto.setTechdFrom(targetDatefrom);
+		dto.setTechdTo(targetDateto);
 		dto.setTechdDesc(techdDesc);
 
-		String sEchostr = request.getParameter("sEcho");
-		Integer sEcho = sEchostr != null ? Integer.valueOf(sEchostr) : 1;
+		String sEcho = request.getParameter("sEcho");
 		String limitstr = request.getParameter("iDisplayLength");
 		Integer limit = limitstr != null ? Integer.valueOf(limitstr) : 20;	// 기본값 20 세팅
 		String offsetstr = request.getParameter("iDisplayStart");
@@ -118,7 +122,6 @@ public class TechdServiceImpl implements TechdService {
 		Integer cnt = techdDao.listTechdCnt(dto);
 		wrapperDTO.setITotalRecords(cnt);
 		wrapperDTO.setITotalDisplayRecords(cnt);
-		wrapperDTO.setSEcho(sSearch);
 
 		return wrapperDTO;
 	}

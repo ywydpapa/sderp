@@ -30,19 +30,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		and a.techdSteps = #{techdSteps}
 	</if>
 	<if test="techdFrom != null and techdFrom != ''">
-		and date_format(a.regdatetime, '%Y-%m-%d') <![CDATA[>=]]> #{techdFrom}
+		and date_format(a.techdFrom, '%Y-%m-%d') <![CDATA[>=]]> #{techdFrom}
 	</if>
 	<if test="techdTo != null and techdTo != ''">
-		and date_format(a.regdatetime, '%Y-%m-%d') <![CDATA[<=]]> #{techdTo}
+		and date_format(a.techdTo, '%Y-%m-%d') <![CDATA[<=]]> #{techdTo}
 	</if>
 	<if test="techdDesc != null and techdDesc != ''">
 		and a.techdDesc like CONCAT('%', #{techdDesc}, '%')
 	</if>
+	<if test="cntrctMth != null and cntrctMth != ''">
+		and a.cntrctMth = #{cntrctMth}
+	</if>
 	) subquery1
 	<if test="sSearch != null and sSearch != ''">
 		where
-		subquery1.techdTypeN like concat('%',#{sSearch},'%')
-		or subquery1.techdTitle like concat('%',#{sSearch},'%')
+		subquery1.techdTitle like concat('%',#{sSearch},'%')
 		or subquery1.techdDesc like concat('%',#{sSearch},'%')
 		or subquery1.custName like concat('%',#{sSearch},'%')
 		or subquery1.techdStepsN like concat('%',#{sSearch},'%')
@@ -90,19 +92,21 @@ from
 		and a.techdSteps = #{techdSteps}
 	</if>
 	<if test="techdFrom != null and techdFrom != ''">
-		and date_format(a.regdatetime, '%Y-%m-%d') <![CDATA[>=]]> #{techdFrom}
+		and date_format(a.techdFrom, '%Y-%m-%d') <![CDATA[>=]]> #{techdFrom}
 	</if>
 	<if test="techdTo != null and techdTo != ''">
-		and date_format(a.regdatetime, '%Y-%m-%d') <![CDATA[<=]]> #{techdTo}
+		and date_format(a.techdTo, '%Y-%m-%d') <![CDATA[<=]]> #{techdTo}
 	</if>
 	<if test="techdDesc != null and techdDesc != ''">
 		and a.techdDesc like CONCAT('%', #{techdDesc}, '%')
 	</if>
+	<if test="cntrctMth != null and cntrctMth != ''">
+		and a.cntrctMth = #{cntrctMth}
+	</if>
 	) subquery1
 	<if test="sSearch != null and sSearch != ''">
 		where
-		subquery1.techdTypeN like concat('%',#{sSearch},'%')
-		or subquery1.techdTitle like concat('%',#{sSearch},'%')
+		subquery1.techdTitle like concat('%',#{sSearch},'%')
 		or subquery1.techdDesc like concat('%',#{sSearch},'%')
 		or subquery1.custName like concat('%',#{sSearch},'%')
 		or subquery1.techdStepsN like concat('%',#{sSearch},'%')

@@ -6,18 +6,130 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <select id="listSales"
  		resultType="salesDto">
- 		select a.*, b.userName , c.custName, d.soppTitle, e.custName ptncName, f.desc03 salesTypeN from swc_sales a  
+	select subquery1.*
+	from
+		(
+		select a.*, b.userName , c.custName, d.soppTitle, e.custName ptncName, f.desc03 salesTypeN from swc_sales a
 		left join swc_user b on a.userNo = b.userNo
 		left join swc_cust c on a.custNo = c.custNo
 		left join swc_sopp d on a.soppNo = d.soppNo
 		left join swc_cust e on a.ptncNo = e.custNo
 		left join swc_code f on a.salesType = f.codeNo
-		where a.attrib not like 'XXX%' and a.compNo = #{compNo} 
-		order by salesFrdatetime desc
-		<if test="limit > 0">
-			limit  #{limit} offset #{offset}
+		where a.attrib not like 'XXX%' and a.compNo = #{compNo}
+		<if test="userNo != null and userNo != ''">
+			and a.userNo = #{userNo}
 		</if>
- </select>
+		<if test="soppNo != null and soppNo != ''">
+			and a.soppNo = #{soppNo}
+		</if>
+		<if test="custNo != null and custNo != ''">
+			and a.custNo = #{custNo}
+		</if>
+		<if test="salesType != null and salesType != ''">
+			and a.salesType = #{salesType}
+		</if>
+		<if test="salesFrdatetime != null and salesFrdatetime != ''">
+			and date_format(a.salesFrdatetime, '%Y-%m-%d') <![CDATA[>=]]> #{salesFrdatetime}
+		</if>
+		<if test="salesTodatetime != null and salesTodatetime != ''">
+			and date_format(a.salesTodatetime, '%Y-%m-%d') <![CDATA[<=]]> #{salesTodatetime}
+		</if>
+		) subquery1
+	<if test="sSearch != null and sSearch != ''">
+	where
+		subquery1.salesTitle like concat('%',#{sSearch},'%')
+		or subquery1.salesFrdatetime like concat('%',#{sSearch},'%')
+		or subquery1.salesTodatetime like concat('%',#{sSearch},'%')
+		or subquery1.soppTitle like concat('%',#{sSearch},'%')
+		or subquery1.custName like concat('%',#{sSearch},'%')
+		or subquery1.userName like concat('%',#{sSearch},'%')
+		or subquery1.ptncName like concat('%',#{sSearch},'%')
+		/*or subquery1.salesTypeN like concat('%',#{sSearch},'%')*/
+		or subquery1.salesDesc like concat('%',#{sSearch},'%')
+	</if>
+
+	<if test="'desc' == orderOption">
+		order by ${orderColumn} desc
+	</if>
+	<if test="'asc' == orderOption">
+		order by ${orderColumn} asc
+	</if>
+
+	limit #{limit} offset #{offset}
+</select>
+
+<select id="listSalesCnt"
+		resultType="_integer">
+select count(*)
+from
+(
+	select subquery1.*
+	from
+		(
+		select a.*, b.userName , c.custName, d.soppTitle, e.custName ptncName, f.desc03 salesTypeN from swc_sales a
+		left join swc_user b on a.userNo = b.userNo
+		left join swc_cust c on a.custNo = c.custNo
+		left join swc_sopp d on a.soppNo = d.soppNo
+		left join swc_cust e on a.ptncNo = e.custNo
+		left join swc_code f on a.salesType = f.codeNo
+		where a.attrib not like 'XXX%' and a.compNo = #{compNo}
+		<if test="userNo != null and userNo != ''">
+			and a.userNo = #{userNo}
+		</if>
+		<if test="soppNo != null and soppNo != ''">
+			and a.soppNo = #{soppNo}
+		</if>
+		<if test="custNo != null and custNo != ''">
+			and a.custNo = #{custNo}
+		</if>
+		<if test="salesType != null and salesType != ''">
+			and a.salesType = #{salesType}
+		</if>
+		<if test="salesFrdatetime != null and salesFrdatetime != ''">
+			and date_format(a.salesFrdatetime, '%Y-%m-%d') <![CDATA[>=]]> #{salesFrdatetime}
+		</if>
+		<if test="salesTodatetime != null and salesTodatetime != ''">
+			and date_format(a.salesTodatetime, '%Y-%m-%d') <![CDATA[<=]]> #{salesTodatetime}
+		</if>
+		) subquery1
+	<if test="sSearch != null and sSearch != ''">
+	where
+		subquery1.salesTitle like concat('%',#{sSearch},'%')
+		or subquery1.salesFrdatetime like concat('%',#{sSearch},'%')
+		or subquery1.salesTodatetime like concat('%',#{sSearch},'%')
+		or subquery1.soppTitle like concat('%',#{sSearch},'%')
+		or subquery1.custName like concat('%',#{sSearch},'%')
+		or subquery1.userName like concat('%',#{sSearch},'%')
+		or subquery1.ptncName like concat('%',#{sSearch},'%')
+		/*or subquery1.salesTypeN like concat('%',#{sSearch},'%')*/
+		or subquery1.salesDesc like concat('%',#{sSearch},'%')
+	</if>
+
+	<if test="'desc' == orderOption">
+		order by ${orderColumn} desc
+	</if>
+	<if test="'asc' == orderOption">
+		order by ${orderColumn} asc
+	</if>
+) t
+</select>
+
+<!--
+<select id="listSales"
+		resultType="salesDto">
+	select a.*, b.userName , c.custName, d.soppTitle, e.custName ptncName, f.desc03 salesTypeN from swc_sales a
+	left join swc_user b on a.userNo = b.userNo
+	left join swc_cust c on a.custNo = c.custNo
+	left join swc_sopp d on a.soppNo = d.soppNo
+	left join swc_cust e on a.ptncNo = e.custNo
+	left join swc_code f on a.salesType = f.codeNo
+	where a.attrib not like 'XXX%' and a.compNo = #{compNo}
+	order by salesFrdatetime desc
+	<if test="limit > 0">
+		limit  #{limit} offset #{offset}
+	</if>
+</select>
+-->
  
  <select id="listconSales"
  		resultType="salesDto">

@@ -27,7 +27,17 @@ public class SalesDAOImpl implements SalesDAO {
 		// TODO Auto-generated method stub
 		return sqlSession.selectList("sales.listSales", soppDto);
 	}
-	
+
+	@Override
+	public List<SalesDTO> listSales(SalesDTO dto) {
+		return sqlSession.selectList("sales.listSales", dto);
+	}
+
+	@Override
+	public int listSalesCnt(SalesDTO dto) {
+		return sqlSession.selectOne("sales.listSalesCnt", dto);
+	}
+
 	@Override
 	public List<SalesDTO> listconSales(SalesDTO dto) {
 		// TODO Auto-generated method stub

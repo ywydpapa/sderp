@@ -123,6 +123,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	where attrib not like 'XXX%' and code02='SALETYPE' and desc03 is not NULL and compNo = #{compNo}
 </select>
 
+<select id="listSchdType" resultType="codeDto">
+	select * from swc_code where attrib not like 'XXX%' and code02 IN ('SCHED01') and desc02 IS NULL and compNo = #{compNo}
+</select>
+
  <insert id="insertCode">
  insert into swc_code (
 compNo

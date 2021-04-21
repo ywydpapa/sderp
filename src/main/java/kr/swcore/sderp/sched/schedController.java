@@ -43,6 +43,7 @@ public class schedController {
 		List<CodeDTO> listCodeDTO = codeService.listSchedtype(session);
 		mav.addObject("schedtype", listCodeDTO);
 //		mav.addObject("acttype", codeService.listActtype(session));
+		mav.addObject("listSchdType", codeService.listSchdType(session));
 		mav.addObject("listschedcat", codeService.listActSprtScheduleDetailType(session));
 		mav.addObject("listschedtype", listCodeDTO);
 		mav.setViewName("sched/list");

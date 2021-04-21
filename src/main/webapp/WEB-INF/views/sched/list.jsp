@@ -10,9 +10,10 @@
 <script src="${path}/assets/pages/dataTables.bootstrap4.min.js"></script>
 
 <script>
+var schedTable;
 $(function(){
 	var obj = new Object();
-    var schedTable = $('#schedTable').DataTable({
+    schedTable = $('#schedTable').DataTable({
 		order: [[ 2, "desc" ]],
 		paging : true, // 페이지 처리 여부
 		ordering : true, // 컬럼 클릭 시 오더링을 적용 여부
@@ -30,10 +31,10 @@ $(function(){
 		sAjaxSource : "${path}/sched/list/data",
 		sServerMethod : "POST",
 		fnServerParams : function (data){
-			data.push({"name":"userName", "value" : $("#userName").val()});
-			data.push({"name":"soppTitle", "value" : $("#soppTitle").val()});
+			data.push({"name":"userNo", "value" : $("#userNo").val()});
+			data.push({"name":"soppNo", "value" : $("#soppNo").val()});
 			data.push({"name":"custNo", "value" : $("#custNo").val()});
-			data.push({"name":"custmemberNo", "value" : $("#custmemberNo").val()});
+			data.push({"name":"endCustNo", "value" : $("#endCustNo").val()});
 			data.push({"name":"contNo", "value" : $("#contNo").val()});
 			data.push({"name":"schedCat", "value" : $("#schedCat option:selected").val()});
 			data.push({"name":"userName", "value" : $("#userName").val()});
@@ -159,7 +160,20 @@ $(function(){
     		schedTable.search(this.value).draw();
 		}
 	});
+
+	schedTable.on( 'draw', function () {
+		console.log("draw 이벤트");
+		setTimeout(fnDrawAfterCss, 10);
+	});
 });
+
+function fnDrawAfterCss() {
+	$("#schedTable").css("width","");
+}
+
+function fnListcon() {
+	schedTable.search("").draw();
+}
 </script>
 <style>
 	a {
@@ -293,13 +307,10 @@ $(function(){
 						<div class="col-sm-12 col-xl-3">
 							<label class="col-form-label" for="custName">거래처</label>
 							<div class="input-group input-group-sm mb-0">
-								<input type="text" class="form-control" name="custName"
-									id="custName" value="" readonly /> <input type="hidden"
-									name="custNo" id="custNo" value="" /> <span
-									class="input-group-btn">
-									<button class="btn btn-primary sch-company"
-										data-remote="${path}/modal/popup.do?popId=cust" type="button"
-										data-toggle="modal" data-target="#custModal">
+								<input type="text" class="form-control" name="custName" id="custName" value="" readonly />
+								<input type="hidden" name="custNo" id="custNo" value="" />
+								<span class="input-group-btn">
+									<button class="btn btn-primary sch-company" data-remote="${path}/modal/popup.do?popId=cust" type="button" data-toggle="modal" data-target="#custModal">
 										<i class="icofont icofont-search"></i>
 									</button>
 								</span>
@@ -309,8 +320,7 @@ $(function(){
 										<div class="modal-content modal-80size">
 											<div class="modal-header">
 												<h4 class="modal-title">거래처검색</h4>
-												<button type="button" class="close" data-dismiss="modal"
-													aria-label="Close">
+												<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 													<span aria-hidden="true">&times;</span>
 												</button>
 											</div>
@@ -319,8 +329,7 @@ $(function(){
 												<p>Loading!!!</p>
 											</div>
 											<div class="modal-footer">
-												<button type="button" class="btn btn-default waves-effect "
-													data-dismiss="modal">Close</button>
+												<button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
 											</div>
 										</div>
 									</div>
@@ -328,26 +337,21 @@ $(function(){
 							</div>
 						</div>
 						<div class="col-sm-12 col-xl-3">
-								<label class="col-form-label" for="custmemberName">엔드유저</label>
+								<label class="col-form-label" for="endCustName">엔드유저</label>
 								<div class="input-group input-group-sm mb-0">
-									<input type="text" class="form-control" name="custmemberName"
-										id="custmemberName" value="" readonly /> <input type="hidden"
-										name="custmemberNo" id="custmemberNo" value="" /> <span
-										class="input-group-btn">
-										<button class="btn btn-primary sch-company"
-											data-remote="${path}/modal/popup.do?popId=custmem&compNo=" type="button"
-											data-toggle="modal" data-target="#custmemberModal">
+									<input type="text" class="form-control" id="endCustName" value="" readonly />
+									<input type="hidden" id="endCustNo" value="" />
+									<span  class="input-group-btn">
+										<button class="btn btn-primary sch-company" data-remote="${path}/modal/popup.do?popId=custmem&compNo=" type="button" data-toggle="modal" data-target="#custmemberModal" disabled>
 											<i class="icofont icofont-search"></i>
 										</button>
 									</span>
-									<div class="modal fade " id="custmemberModal" tabindex="-1"
-										role="dialog">
+									<div class="modal fade " id="custmemberModal" tabindex="-1" role="dialog">
 										<div class="modal-dialog modal-80size" role="document">
 											<div class="modal-content modal-80size">
 												<div class="modal-header">
 													<h4 class="modal-title"></h4>
-													<button type="button" class="close" data-dismiss="modal"
-														aria-label="Close">
+													<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 														<span aria-hidden="true">&times;</span>
 													</button>
 												</div>
@@ -371,9 +375,7 @@ $(function(){
 										id="contTitle" value="" readonly /> <input type="hidden"
 										name="contNo" id="contNo" value="" /> <span
 										class="input-group-btn">
-										<button class="btn btn-primary sch-company"
-											data-remote="${path}/modal/popup.do?popId=cont" type="button"
-											data-toggle="modal" data-target="#contModal">
+										<button class="btn btn-primary sch-company" data-remote="${path}/modal/popup.do?popId=cont" type="button" data-toggle="modal" data-target="#contModal">
 											<i class="icofont icofont-search"></i>
 										</button>
 									</span>
@@ -383,8 +385,7 @@ $(function(){
 											<div class="modal-content modal-80size">
 												<div class="modal-header">
 													<h4 class="modal-title"></h4>
-													<button type="button" class="close" data-dismiss="modal"
-														aria-label="Close">
+													<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 														<span aria-hidden="true">&times;</span>
 													</button>
 												</div>
@@ -393,24 +394,32 @@ $(function(){
 													<p>Loading!!!</p>
 												</div>
 												<div class="modal-footer">
-													<button type="button" class="btn btn-default waves-effect "
-														data-dismiss="modal">Close</button>
+													<button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
 												</div>
 											</div>
 										</div>
 									</div>
 								</div>
 							</div>
-						<div class="col-sm-12 col-xl-3">
-							<label class="col-form-label" for="co_name">활동형태</label> <select
-								name="select" class="form-control form-control-sm" id="schedCat">
+						<div class="col-sm-1">
+							<label class="col-form-label" for="co_name">일정구분</label>
+							<select name="select" class="form-control form-control-sm" id="schdType">
+								<option value>선택</option>
+								<c:forEach var ="listschedcat" items="${listSchdType}">
+									<option value = "${listschedcat.codeNo}">${listschedcat.desc03}</option>
+								</c:forEach>
+							</select>
+						</div>
+						<div class="col-sm-1">
+							<label class="col-form-label" for="co_name">활동형태</label>
+							<select	name="select" class="form-control form-control-sm" id="schedCat">
 								<option value>선택</option>
 								<c:forEach var ="listschedcat" items="${listschedcat}">
 									<option value = "${listschedcat.codeNo}">${listschedcat.desc03}</option>
 								</c:forEach>
 							</select>
 						</div>
-						<div class="col-sm-12 col-xl-6">
+						<div class="col-sm-12 col-xl-3">
 							<label class="col-form-label" for="co_name">활동일</label>
 							<p class="input_inline">
 								<input class="form-control form-control-sm col-xl-6" type="date" id="schedFrom" onChange="javascript:inputDate($('#schedFrom').val(), $('#schedTo').val())">
@@ -536,8 +545,10 @@ $(function(){
 			$(".modal-backdrop").remove();
 			$("#contModal").modal("hide");
 		}
-    	
-    	
+
+
+
+		/*
     	function fnListcon() {
     		var schedData = {};
     		schedData.userNo = $("#userNo").val() ? $("#userNo").val() : 0;
@@ -551,7 +562,8 @@ $(function(){
     		
     		fnSetList('${path}/sched/listcon.do', schedData);
     	}
-    	
+    	*/
+
     	function fnSetDetailLink(schedTypeN, schedNo) {
     		var typePath;
    

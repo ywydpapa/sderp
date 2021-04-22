@@ -98,8 +98,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 </select>
  
  <insert id="insertCont">
- insert into swc_cont (contTitle, contDesc, compNo, soppNo, exContNo, userNo, custNo, custmemberNo, ptncNo, supplyNo, contOrddate, supplyDate, delivDate, contAmt, freemaintSdate, freemaintEdate, vatYn, contArea, contType, attrib)
- values (#{contTitle}, #{contDesc}, #{compNo}, #{soppNo}, #{exContNo}, #{userNo}, #{custNo}, #{custmemberNo}, #{ptncNo}, #{supplyNo}, #{contOrddate}, #{supplyDate}, #{delivDate}, #{contAmt}, #{freemaintSdate}, #{freemaintEdate}, #{vatYn}, #{contArea}, #{contType}, '10000')
+ insert into swc_cont (contTitle, contDesc, compNo, soppNo, exContNo, userNo, custNo, custmemberNo, ptncNo, supplyNo, contOrddate, supplyDate, delivDate, contAmt, freemaintSdate, freemaintEdate, vatYn, contArea, contType,net_profit ,attrib)
+ values (#{contTitle}, #{contDesc}, #{compNo}, #{soppNo}, #{exContNo}, #{userNo}, #{custNo}, #{custmemberNo}, #{ptncNo}, #{supplyNo}, #{contOrddate}, #{supplyDate}, #{delivDate}, #{contAmt}, #{freemaintSdate}, #{freemaintEdate}, #{vatYn}, #{contArea}, #{contType}, #{net_profit},'10000')
  </insert>
 
  <update id="updateCont">
@@ -121,8 +121,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	freemaintEdate=#{freemaintEdate}, 
 	vatYn=#{vatYn}, 
 	contArea=#{contArea}, 
-	contType=#{contType}
+	contType=#{contType},
+	net_profit=#{net_profit}
 	where contNo=#{contNo}
+
  </update>
  
  <delete id="deleteCont">

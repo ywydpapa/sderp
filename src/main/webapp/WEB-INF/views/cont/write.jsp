@@ -363,7 +363,7 @@
 							<tr>
 								<th >계약금액</th>
 								<td>
-									<input type="text" id="contAmt" name="contAmt" class="form-control " >
+									<input type="text" id="contAmt" name="contAmt" class="form-control" style="text-align: right;" >
 								</td>
 								<th >VAT 포함여부</th>
 								<td>
@@ -374,6 +374,11 @@
 								</td>
 							</tr>
 							<tr>
+								<th>매출이익</th>
+								<td><input style="text-align: right;" type="text"
+								id="netprofit" name="netprofit" class="form-control "
+								value="<fmt:formatNumber value="${dto.net_profit}" pattern="#,###"/>">
+								</td>
 								<th scope="row">지역</th>
 								<td>
 									<select name="contArea" id="contArea" class="form-control form-control-sm">
@@ -534,7 +539,7 @@
 			}
 			contData.contTitle 				= $("#contTitle").val(); 		// 계약명
 			contData.userNo		 			= $("#userNo").val();			// 담당사원
-
+			contData.net_profit		 		= $("#netprofit").val();		// 매출이익
 			contData.custNo 				= $("#custNo").val();			// 거래처
 			contData.custmemberNo			= $("#custmemberNo").val();		// 거래처 담당자
 			contData.ptncNo 				= $("#ptncNo").val();			// 유지보수업체
@@ -650,13 +655,10 @@
 		$(document).ready(function() {
 			$($(".techdDetailCont")[2]).hide();
 			$($(".techdDetailCont")[3]).hide();
-
 			$('input[name=contractType]').on('change', function () {
 				fnToggleLayer();
 			});
-
-			var $input = $("#contAmt");
-
+			var $input = $("#contAmt,#netprofit");
 			// 이벤트 시작 ==========================================================================
 			// 이벤트시 동작
 			$input.on("keyup", function (event) {

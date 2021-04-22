@@ -207,7 +207,7 @@
 							<tr>
 								<th scope="row">판매방식</th>
 								<td>
-									<select name="soppType" id="soppType" class="form-control form-control-sm">
+									<select name="contType" id="contType" class="form-control form-control-sm">
 										<option value="">선택</option>
 										<option value="10048" <c:if test="${dto.contType eq 10048}">selected</c:if>>조달직판</option>
 										<option value="10049" <c:if test="${dto.contType eq 10049}">selected</c:if>>조달간판</option>
@@ -335,7 +335,7 @@
 							<tr>
 								<th >계약금액</th>
 								<td>
-									<input type="text" id="contAmt" name="contAmt" class="form-control " value="<fmt:formatNumber value="${dto.contAmt}" pattern="#,###"/>">
+									<input style="text-align: right;" type="text" id="contAmt" name="contAmt" class="form-control " value="<fmt:formatNumber value="${dto.contAmt}" pattern="#,###"/>">
 								</td>
 								<th >VAT 포함여부</th>
 								<td>
@@ -380,8 +380,8 @@
 	</div>
 </div>
 			<div class="btn_wr text-right mt-3">
-				<button class="btn btn-md btn-success f-left" onClick="fnSetPage('${path}/cont/list.do')">목록</button>
-				<button class="btn btn-md btn-primary" onClick="fn_SaveCont()">계약등록</button>
+				<button class="btn btn-md btn-success f-left" onClick="fnSetPage('${path}/cont/list.do')">계약목록</button>
+				<button class="btn btn-md btn-primary" onClick="fn_SaveCont()">계약정보 수정</button>
 				<button class="btn btn-md btn-inverse" onClick="fnSetPage('${path}/cont/list.do')">취소</button>
 			</div>
 <!--//계약등록-->

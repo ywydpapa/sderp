@@ -232,16 +232,13 @@
 													</td>
 												</tr>
 												<tr>
-													<th scope="row">출처</th>
-													<td><select name="soppSource" id="soppSource"
+													<th scope="row">계약구분</th>
+													<td><select name="cntrctMth" id="cntrctMth"
 														class="form-control form-control-sm">
 															<option value="">선택</option>
-															<option value="201">인터넷</option>
-															<option value="202">방송</option>
-															<option value="203">신문</option>
-															<option value="204">거래처</option>
-															<option value="205">동료</option>
-															<option value="206">기타</option>
+															<option value="10247">판매계약</option>
+															<option value="10248">유지보수</option>
+															<option value="10254">임대계약</option>
 													</select></td>
 													<th scope="row">매출예정일</th>
 													<td>

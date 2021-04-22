@@ -218,7 +218,7 @@ $(function(){
 									<div class="col-sm-12 col-xl-3">
 										<label class="col-form-label" for="co_name">계약방식</label>
 										<select name="select" class="form-control form-control-sm" id="contractType">
-											<option value>선택</option>
+											<option value="">선택</option>
 											<c:forEach var ="contractType" items="${contractType}">
 												<option value = "${contractType.codeNo}">${contractType.desc03}</option>
 											</c:forEach>
@@ -239,7 +239,7 @@ $(function(){
 									<div class="col-sm-12 col-xl-3">
 										<label class="col-form-label" for="co_name">판매방식</label>
 										<select name="select" class="form-control form-control-sm" id="contType">
-											<option value>선택</option>
+											<option value="">선택</option>
 											<c:forEach var="contType" items="${contType}">
 												<option value="${contType.codeNo}">${contType.desc03}</option>
 											</c:forEach>
@@ -268,8 +268,9 @@ $(function(){
 							<colgroup>
 								<col width="1%"/>
 								<col width="5%"/>
+								<col width="5%"/>
 								<col width="30%"/>
-								<col width="20%"/>
+								<col width="15%"/>
 								<col width="15%"/>
 								<col width="5%"/>
 								<col width="7%"/>
@@ -280,6 +281,7 @@ $(function(){
 							<thead>
 								<tr>
 									<th><input class="border-checkbox" type="checkbox" id="checkbox0"></th>
+									<th>판매방식</th>
 									<th>계약방식</th>
 									<th>계약명</th>
 									<th>고객명</th>
@@ -296,6 +298,7 @@ $(function(){
 							<c:forEach var="row" items="${list}">
 								<tr>
 									<td scope="row"><input class="border-checkbox" type="checkbox" id="checkbox0"></td>
+									<td>${row.cntrctMth}</td>
 									<td>${row.contTypeN}</td>
 									<%--<td>
 										<c:choose>

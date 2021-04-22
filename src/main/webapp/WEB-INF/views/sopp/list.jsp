@@ -507,7 +507,6 @@
 							</tr>
 						</thead>
 						<tbody>
-							<%--
 							<c:forEach var="row" items="${list}">
 							<tr>
 								<th scope="row"><input class="border-checkbox" type="checkbox" id="checkbox0"></th>
@@ -520,7 +519,6 @@
 								<td class="text-right">${row.soppTargetDate}</td>
 							</tr>
 							</c:forEach>
-							--%>
 						</tbody>
 					</table>
 				</div>

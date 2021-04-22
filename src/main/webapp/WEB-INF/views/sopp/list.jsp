@@ -1,9 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+		 pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <c:set var="path" value ="${pageContext.request.contextPath}"/>
-    <!-- data tables css -->
+<!-- data tables css -->
 <link rel="stylesheet" href="${path}/assets/css/plugins/dataTables.bootstrap4.min.css">
 <!-- datatable Js -->
 <script src="${path}/assets/pages/jquery.dataTables.min.js"></script>
@@ -273,118 +273,118 @@
 	}
 </style>
 
-	<c:if test="${preserveSearchCondition != 'Y'}">
-		<!-- DB TABLE 실행 -->
-		<!--영업기회조회-->
-		<!-- Page-header start 페이지 타이틀-->
-		<div class="page-header2">
-			<div class="row align-items-end">
-				<div class="col-lg-12">
-					<div class="page-header-title">
-						<div class="d-inline">
-							영업기회조회
-						</div>
+<c:if test="${preserveSearchCondition != 'Y'}">
+	<!-- DB TABLE 실행 -->
+	<!--영업기회조회-->
+	<!-- Page-header start 페이지 타이틀-->
+	<div class="page-header2">
+		<div class="row align-items-end">
+			<div class="col-lg-12">
+				<div class="page-header-title">
+					<div class="d-inline">
+						영업기회조회
 					</div>
 				</div>
 			</div>
 		</div>
-		<!--Page-header end 페이지 타이틀 -->
-		
-		<!--영업기회조회-->
-		<div class="cnt_wr">
-			<div class="row">
-				<form id="searchForm" method="post" onsubmit="return false;" class="col-sm-12">
-					<div class="col-sm-12">
-						<div class="card_box sch_it">
-							<div class="btn_wr text-right">
-								<button class="btn btn-sm btn-inverse" onClick="javascript:fnClearall()"><i class="icofont icofont-spinner-alt-3"></i>초기화</button>
-								<button class="btn btn-sm btn-primary" onClick="javascript:fnListcon()"><i class="icofont icofont-search"></i>검색</button>
-								<button class="btn btn-sm btn-outline" onClick="javascript:fnSetPage('${path}/sopp/write.do')"><i class="icofont icofont-pencil-alt-2"></i>등록</button>
-							</div>
-							<!--row-->
-							<div class="form-group row">
-								<!--담당자-->
-								<div class="col-sm-12 col-xl-2">
-									<label class="col-form-label" for="userName">담당자</label>
-									<div class="input-group input-group-sm mb-0">
-										<input type="text" class="form-control" name="userName" id="userName" value=""  readonly />
-										 <input type="hidden" name="userNo" 	id="userNo" value="" /> 
-										 <span class="input-group-btn">
+	</div>
+	<!--Page-header end 페이지 타이틀 -->
+
+	<!--영업기회조회-->
+	<div class="cnt_wr">
+		<div class="row">
+			<form id="searchForm" method="post" onsubmit="return false;" class="col-sm-12">
+				<div class="col-sm-12">
+					<div class="card_box sch_it">
+						<div class="btn_wr text-right">
+							<button class="btn btn-sm btn-inverse" onClick="javascript:fnClearall()"><i class="icofont icofont-spinner-alt-3"></i>초기화</button>
+							<button class="btn btn-sm btn-primary" onClick="javascript:fnListcon()"><i class="icofont icofont-search"></i>검색</button>
+							<button class="btn btn-sm btn-outline" onClick="javascript:fnSetPage('${path}/sopp/write.do')"><i class="icofont icofont-pencil-alt-2"></i>등록</button>
+						</div>
+						<!--row-->
+						<div class="form-group row">
+							<!--담당자-->
+							<div class="col-sm-12 col-xl-2">
+								<label class="col-form-label" for="userName">담당자</label>
+								<div class="input-group input-group-sm mb-0">
+									<input type="text" class="form-control" name="userName" id="userName" value=""  readonly />
+									<input type="hidden" name="userNo" 	id="userNo" value="" />
+									<span class="input-group-btn">
 											<button class="btn btn-primary sch-company"
-												data-remote="${path}/modal/popup.do?popId=user"
-												type="button" data-toggle="modal" data-target="#userModal">
+													data-remote="${path}/modal/popup.do?popId=user"
+													type="button" data-toggle="modal" data-target="#userModal">
 												<i class="icofont icofont-search"></i>
 											</button>
 										</span>
-										<!--modal-->
-										<div class="modal fade " id="userModal" tabindex="-1" role="dialog">
-											<div class="modal-dialog modal-80size" role="document">
-												<div class="modal-content modal-80size">
-													<div class="modal-header">
-														<h4 class="modal-title"></h4>
-														<button type="button" class="close" data-dismiss="modal"
+									<!--modal-->
+									<div class="modal fade " id="userModal" tabindex="-1" role="dialog">
+										<div class="modal-dialog modal-80size" role="document">
+											<div class="modal-content modal-80size">
+												<div class="modal-header">
+													<h4 class="modal-title"></h4>
+													<button type="button" class="close" data-dismiss="modal"
 															aria-label="Close">
-															<span aria-hidden="true">&times;</span>
-														</button>
-													</div>
-													<div class="modal-body">
-														<h5>사용자목록</h5>
-														<p>Loading!!!</p>
-													</div>
-													<div class="modal-footer">
-														<button type="button"
+														<span aria-hidden="true">&times;</span>
+													</button>
+												</div>
+												<div class="modal-body">
+													<h5>사용자목록</h5>
+													<p>Loading!!!</p>
+												</div>
+												<div class="modal-footer">
+													<button type="button"
 															class="btn btn-default waves-effect "
 															data-dismiss="modal">Close</button>
-													</div>
 												</div>
 											</div>
 										</div>
-										<!--//modal-->
 									</div>
+									<!--//modal-->
 								</div>
-								<!--//담당자-->
-								<!--거래처-->
-								<div class="col-sm-12 col-xl-2">
-									<label class="col-form-label" for="custName">거래처</label>
-									<div class="input-group input-group-sm">
-										<input type="text" class="form-control" name="custName" id="custName" value="" readonly/>
-										<input type="hidden" name="custNo" id="custNo" value="" /> 
-										<span class="input-group-btn">
+							</div>
+							<!--//담당자-->
+							<!--거래처-->
+							<div class="col-sm-12 col-xl-2">
+								<label class="col-form-label" for="custName">거래처</label>
+								<div class="input-group input-group-sm">
+									<input type="text" class="form-control" name="custName" id="custName" value="" readonly/>
+									<input type="hidden" name="custNo" id="custNo" value="" />
+									<span class="input-group-btn">
 											<button class="btn btn-primary sch-company"
-												data-remote="${path}/modal/popup.do?popId=cust"
-												type="button" data-toggle="modal" data-target="#custModal">
+													data-remote="${path}/modal/popup.do?popId=cust"
+													type="button" data-toggle="modal" data-target="#custModal">
 												<i class="icofont icofont-search"></i>
 											</button>
 										</span>
-										<!--modal-->
-										<div class="modal fade " id="custModal" tabindex="-1"
-											role="dialog">
-											<div class="modal-dialog modal-80size" role="document">
-												<div class="modal-content modal-80size">
-													<div class="modal-header">
-														<h4 class="modal-title">거래처검색</h4>
-														<button type="button" class="close" data-dismiss="modal"
+									<!--modal-->
+									<div class="modal fade " id="custModal" tabindex="-1"
+										 role="dialog">
+										<div class="modal-dialog modal-80size" role="document">
+											<div class="modal-content modal-80size">
+												<div class="modal-header">
+													<h4 class="modal-title">거래처검색</h4>
+													<button type="button" class="close" data-dismiss="modal"
 															aria-label="Close">
-															<span aria-hidden="true">&times;</span>
-														</button>
-													</div>
-													<div class="modal-body">
-														<h5>거래처목록</h5>
-														<p>Loading!!!</p>
-													</div>
-													<div class="modal-footer">
-														<button type="button"
+														<span aria-hidden="true">&times;</span>
+													</button>
+												</div>
+												<div class="modal-body">
+													<h5>거래처목록</h5>
+													<p>Loading!!!</p>
+												</div>
+												<div class="modal-footer">
+													<button type="button"
 															class="btn btn-default waves-effect "
 															data-dismiss="modal">Close</button>
-													</div>
-												</div> 
+												</div>
 											</div>
 										</div>
-										<!--//modal-->
-									</div>	
+									</div>
+									<!--//modal-->
 								</div>
-								<!--//거래처-->
-								<div class="col-sm-12 col-xl-2">
+							</div>
+							<!--//거래처-->
+							<div class="col-sm-12 col-xl-2">
 								<label class="col-form-label" for="custmemberName">엔드유저</label>
 								<div class="input-group input-group-sm mb-0">
 									<input type="text" class="form-control" name="buyrName" id="custmemberName" value="" readonly />
@@ -395,13 +395,13 @@
 										</button>
 									</span>
 									<div class="modal fade " id="custmemberModal" tabindex="-1"
-										role="dialog">
+										 role="dialog">
 										<div class="modal-dialog modal-80size" role="document">
 											<div class="modal-content modal-80size">
 												<div class="modal-header">
 													<h4 class="modal-title"></h4>
 													<button type="button" class="close" data-dismiss="modal"
-														aria-label="Close">
+															aria-label="Close">
 														<span aria-hidden="true">&times;</span>
 													</button>
 												</div>
@@ -411,43 +411,43 @@
 												</div>
 												<div class="modal-footer">
 													<button type="button" class="btn btn-default waves-effect "
-														data-dismiss="modal">Close</button>
+															data-dismiss="modal">Close</button>
 												</div>
 											</div>
 										</div>
 									</div>
 								</div>
 							</div>
-								<!--매출예정일-->
-								<div class="col-sm-12 col-xl-6">
-									<label class="col-form-label" for="targetDate">매출예정일</label>
-									<p class="input_inline mb-0">
-										<input class="form-control form-control-sm col-xl-6" type="date" id="targetDatefrom" onChange="javascript:inputDate($('#targetDatefrom').val(), $('#targetDateto').val())"> ~
-										<input class="form-control form-control-sm col-xl-6" type="date" id="targetDateto" onChange="javascript:inputDate($('#targetDatefrom').val(), $('#targetDateto').val())">
-									</p>
-								</div>
-								<!--//매출예정일-->
+							<!--매출예정일-->
+							<div class="col-sm-12 col-xl-6">
+								<label class="col-form-label" for="targetDate">매출예정일</label>
+								<p class="input_inline mb-0">
+									<input class="form-control form-control-sm col-xl-6" type="date" id="targetDatefrom" onChange="javascript:inputDate($('#targetDatefrom').val(), $('#targetDateto').val())"> ~
+									<input class="form-control form-control-sm col-xl-6" type="date" id="targetDateto" onChange="javascript:inputDate($('#targetDatefrom').val(), $('#targetDateto').val())">
+								</p>
 							</div>
-							<!--//row-->
-							<div class="form-group row">
-								<div class="col-sm-2">
-									<label class="col-form-label" for="soppType">판매방식</label>
-									<select class="form-control form-control-sm" name="soppType" id="soppType" title="선택">
-										<option value>선택</option>
-										<c:forEach var = "saleslist" items="${saleslist}">	
-										<option value="${saleslist.codeNo}">${saleslist.desc03}</option>			
-										</c:forEach>
-									</select>
-								</div>
-								<div class="col-sm-2">
-									<label class="col-form-label" for="soppType">계약구분</label>
-									<select class="form-control form-control-sm" name="cntrctMth" id="cntrctMth" title="선택">
-										<option value>선택</option>
-										<c:forEach var = "saleslist" items="${contractType}">
-											<option value="${saleslist.codeNo}">${saleslist.desc03}</option>
-										</c:forEach>
-									</select>
-								</div>
+							<!--//매출예정일-->
+						</div>
+						<!--//row-->
+						<div class="form-group row">
+							<div class="col-sm-2">
+								<label class="col-form-label" for="soppType">판매방식</label>
+								<select class="form-control form-control-sm" name="soppType" id="soppType" title="선택">
+									<option value>선택</option>
+									<c:forEach var = "saleslist" items="${saleslist}">
+										<option value="${saleslist.codeNo}">${saleslist.desc03}</option>
+									</c:forEach>
+								</select>
+							</div>
+							<div class="col-sm-2">
+								<label class="col-form-label" for="soppType">계약구분</label>
+								<select class="form-control form-control-sm" name="cntrctMth" id="cntrctMth" title="선택">
+									<option value>선택</option>
+									<c:forEach var = "saleslist" items="${contractType}">
+										<option value="${saleslist.codeNo}">${saleslist.desc03}</option>
+									</c:forEach>
+								</select>
+							</div>
 								<%--<div class="col-sm-12 col-xl-4">
 									<label class="col-form-label" for="soppType">영업타입</label>
 									<select name="select" class="form-control form-control-sm" id="businessType">
@@ -457,25 +457,25 @@
 										</c:forEach>
 									</select>
 								</div>--%>
-								<div class="col-sm-2">
-									<label class="col-form-label" for="soppStatus">진행단계</label>
-									<select class="form-control form-control-sm" name="soppStatus" id="soppStatus" title="선택">
-										<option value>선택</option>
-										<c:forEach var = "sstatuslist" items="${sstatuslist}">	
-										<option value="${sstatuslist.codeNo}">${sstatuslist.desc03}</option>			
-										</c:forEach>
-									</select>
-								</div>
+							<div class="col-sm-2">
+								<label class="col-form-label" for="soppStatus">진행단계</label>
+								<select class="form-control form-control-sm" name="soppStatus" id="soppStatus" title="선택">
+									<option value>선택</option>
+									<c:forEach var = "sstatuslist" items="${sstatuslist}">
+										<option value="${sstatuslist.codeNo}">${sstatuslist.desc03}</option>
+									</c:forEach>
+								</select>
 							</div>
 						</div>
 					</div>
-				</form>
-			</div>
+				</div>
+			</form>
 		</div>
-		<!--//영업기회조회-->
-	</c:if>
+	</div>
+	<!--//영업기회조회-->
+</c:if>
 
- <!--리스트 table-->
+<!--리스트 table-->
 <div class="cnt_wr" id="list-container">
 	<div class="row">
 		<div class="col-sm-12">
@@ -494,31 +494,33 @@
 							<col width="3%">
 						</colgroup>
 						<thead>
-							<tr>
-								<th>등록/수정일</th>
-								<th>판매방식</th>
-								<th>계약구분</th>
-								<th>영업기회명</th>
-								<th>거래처</th>
-								<th>담당사원</th>
-								<th>예상매출액</th>
-								<th>진행단계</th>
-								<th>매출예정일</th>
-							</tr>
+						<tr>
+							<th>등록/수정일</th>
+							<th>판매방식</th>
+							<th>계약구분</th>
+							<th>영업기회명</th>
+							<th>거래처</th>
+							<th>담당사원</th>
+							<th>예상매출액</th>
+							<th>진행단계</th>
+							<th>매출예정일</th>
+						</tr>
 						</thead>
 						<tbody>
-							<c:forEach var="row" items="${list}">
-							<tr>
-								<th scope="row"><input class="border-checkbox" type="checkbox" id="checkbox0"></th>
-								<td>${row.soppTypeN}</td>
-								<td><a href="javascript:fnSetPage('${path}/sopp/detail/${row.soppNo}')" title="${row.soppTitle}">${row.soppTitle}</a></td>
-								<td>${row.custName}</td>
-								<td>${row.userName}</td>
-								<td class="text-right"><fmt:formatNumber type="number" maxFractionDigits="3" value="${row.soppTargetAmt}" /></td>
-								<td <c:if test="${row.soppStatusN eq '계약진행보류'}">style="color:red"</c:if>>${row.soppStatusN}</td>
-								<td class="text-right">${row.soppTargetDate}</td>
-							</tr>
-							</c:forEach>
+						<%--
+                        <c:forEach var="row" items="${list}">
+                        <tr>
+                            <th scope="row"><input class="border-checkbox" type="checkbox" id="checkbox0"></th>
+                            <td>${row.soppTypeN}</td>
+                            <td><a href="javascript:fnSetPage('${path}/sopp/detail/${row.soppNo}')" title="${row.soppTitle}">${row.soppTitle}</a></td>
+                            <td>${row.custName}</td>
+                            <td>${row.userName}</td>
+                            <td class="text-right"><fmt:formatNumber type="number" maxFractionDigits="3" value="${row.soppTargetAmt}" /></td>
+                            <td <c:if test="${row.soppStatusN eq '계약진행보류'}">style="color:red"</c:if>>${row.soppStatusN}</td>
+                            <td class="text-right">${row.soppTargetDate}</td>
+                        </tr>
+                        </c:forEach>
+                        --%>
 						</tbody>
 					</table>
 				</div>
@@ -526,66 +528,66 @@
 		</div>
 	</div>
 </div>
-<!--//리스트 table-->		
+<!--//리스트 table-->
 <script>
-		$('#custModal').on('show.bs.modal', function(e) {
-			var button = $(e.relatedTarget);
-			var modal = $(this);
-			modal.find('.modal-body').load(button.data("remote"));
-		});
-		$('#userModal').on('show.bs.modal', function(e) {
-			var button = $(e.relatedTarget);
-			var modal = $(this);
-			modal.find('.modal-body').load(button.data("remote"));
-		});
-		$('#custmemberModal').on('show.bs.modal', function(e) {
-			var custNo = $("#custNo").val();
-			var url = '${path}/modal/popup.do?popId=custmem&compNo=' + custNo;
-			$("#custmemberModalbtn").data("remote",url);
-			
-			var button = $(e.relatedTarget);
-			var modal = $(this);
-			modal.find('.modal-body').load(button.data("remote"));
-		});
-		
-		function fnSetCustData(a, b) {
-			$("#custNo").val(b);
-			$("#custName").val(a);
-			$(".modal-backdrop").remove();
-			$("#custModal").modal("hide");
-		}
-    	function fnSetUserData(a, b) {
-			$("#userName").val(b);
-			$("#userNo").val(a);
-			$(".modal-backdrop").remove();
-			$("#userModal").modal("hide");
-		}
-    	function fnSetCustmereData(a, b) {
-    		$("#custmemberNo").val(a);
-    		$("#custmemberName").val(b);
-    		$(".modal-backdrop").remove();
-    		$("#custmemberModal").modal("hide");
-    	}
+	$('#custModal').on('show.bs.modal', function(e) {
+		var button = $(e.relatedTarget);
+		var modal = $(this);
+		modal.find('.modal-body').load(button.data("remote"));
+	});
+	$('#userModal').on('show.bs.modal', function(e) {
+		var button = $(e.relatedTarget);
+		var modal = $(this);
+		modal.find('.modal-body').load(button.data("remote"));
+	});
+	$('#custmemberModal').on('show.bs.modal', function(e) {
+		var custNo = $("#custNo").val();
+		var url = '${path}/modal/popup.do?popId=custmem&compNo=' + custNo;
+		$("#custmemberModalbtn").data("remote",url);
 
-    	/*
-    	function fnListcon() {
-    		var soppData = {};
-    		soppData.userNo = $("#userNo").val() ? $("#userNo").val() : 0;
-    		soppData.custNo = $("#custNo").val() ? $("#custNo").val() : 0;
-    		soppData.custmemberNo = $("#custmemberNo").val() ? $("#custmemberNo").val() : 0;
-    		soppData.targetDatefrom = $("#targetDatefrom").val() ? $("#targetDatefrom").val() : null;
-    		soppData.targetDateto = $("#targetDateto").val() ? $("#targetDateto").val() : null;
-    		soppData.soppType = $("#soppType").val() ? $("#soppType").val() : null;
-    		soppData.businessType = $("#businessType").val() ? $("#businessType").val() : null;
-    		soppData.soppStatus = $("#soppStatus").val() ? $("#soppStatus").val() : null;
-    		
-    		fnSetList('${path}/sopp/listcon.do', soppData);
+		var button = $(e.relatedTarget);
+		var modal = $(this);
+		modal.find('.modal-body').load(button.data("remote"));
+	});
+
+	function fnSetCustData(a, b) {
+		$("#custNo").val(b);
+		$("#custName").val(a);
+		$(".modal-backdrop").remove();
+		$("#custModal").modal("hide");
+	}
+	function fnSetUserData(a, b) {
+		$("#userName").val(b);
+		$("#userNo").val(a);
+		$(".modal-backdrop").remove();
+		$("#userModal").modal("hide");
+	}
+	function fnSetCustmereData(a, b) {
+		$("#custmemberNo").val(a);
+		$("#custmemberName").val(b);
+		$(".modal-backdrop").remove();
+		$("#custmemberModal").modal("hide");
+	}
+
+	/*
+    function fnListcon() {
+        var soppData = {};
+        soppData.userNo = $("#userNo").val() ? $("#userNo").val() : 0;
+        soppData.custNo = $("#custNo").val() ? $("#custNo").val() : 0;
+        soppData.custmemberNo = $("#custmemberNo").val() ? $("#custmemberNo").val() : 0;
+        soppData.targetDatefrom = $("#targetDatefrom").val() ? $("#targetDatefrom").val() : null;
+        soppData.targetDateto = $("#targetDateto").val() ? $("#targetDateto").val() : null;
+        soppData.soppType = $("#soppType").val() ? $("#soppType").val() : null;
+        soppData.businessType = $("#businessType").val() ? $("#businessType").val() : null;
+        soppData.soppStatus = $("#soppStatus").val() ? $("#soppStatus").val() : null;
+
+        fnSetList('${path}/sopp/listcon.do', soppData);
    		}
    		*/
 
-		function fnSetPageEx(data){
-			var url = "${path}/sopp/detail/"+data;
-			fnSetPage(url);
-		}
+	function fnSetPageEx(data){
+		var url = "${path}/sopp/detail/"+data;
+		fnSetPage(url);
+	}
 </script>
 

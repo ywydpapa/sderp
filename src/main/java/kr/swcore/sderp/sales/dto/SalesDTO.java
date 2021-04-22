@@ -21,6 +21,7 @@ public class SalesDTO extends PageDTO {
 	private String salesPlace;
 	private String salesType;
 	private String regDatetime;
+	private String modDatetime;
 	private String salesTitle;
 	private String salesDesc;
 	private String attrib;

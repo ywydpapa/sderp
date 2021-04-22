@@ -263,4 +263,9 @@ public class CodeDAOImpl implements CodeDAO {
 	public List<CodeDTO> listContType(SoppDTO soppdto) {
 		return sqlSession.selectList("code.listContType", soppdto);
 	}
+
+	@Override
+	public List<CodeDTO> listlistSchdType(int compNo) {
+		return sqlSession.selectList("code.listSchdType", compNo);
+	}
 }

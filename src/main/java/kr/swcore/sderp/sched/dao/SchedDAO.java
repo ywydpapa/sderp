@@ -8,7 +8,8 @@ import kr.swcore.sderp.sopp.dto.SoppDTO;
 public interface SchedDAO {
 	
 	List<SchedDTO> listSched();
-	List<SchedDTO> listSched(SoppDTO soppdto);
+	List<SchedDTO> listSched(SchedDTO dto);
+	int listSchedCnt(SchedDTO dto);
 	List<SchedDTO> listconSched(SchedDTO dto);
 	SchedDTO detailSched(int schedNo);
 	int insertSched(SchedDTO dto);

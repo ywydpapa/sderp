@@ -9,6 +9,8 @@ public interface SalesDAO {
 
 	List<SalesDTO> listSales();
 	List<SalesDTO> listSales(SoppDTO soppDto);
+	List<SalesDTO> listSales(SalesDTO dto);
+	int listSalesCnt(SalesDTO dto);
 	List<SalesDTO> listconSales(SalesDTO dto);
 	List<SalesDTO> listSalesinsopp(SoppDTO soppDto);
 	SalesDTO detailSales(int salesNo);

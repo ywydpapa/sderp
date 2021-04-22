@@ -8,33 +8,234 @@
 <!-- datatable Js -->
 <script src="${path}/assets/pages/jquery.dataTables.min.js"></script>
 <script src="${path}/assets/pages/dataTables.bootstrap4.min.js"></script>
-	<script>
-$(function(){
-    $('#salesTable').DataTable({
-    	info:false
-    });
-});
+<script>
+	var salesTable;
+	$(function(){
+		var obj = new Object();
+		salesTable = $('#salesTable').DataTable({
+			order: [[ 2, "desc" ]],
+			paging : true, // 페이지 처리 여부
+			ordering : true, // 컬럼 클릭 시 오더링을 적용 여부
+			// info : true, // 페이지 상태에 대한 정보 여부
+			filter : true, // 검색창 여부
+			// lengthChange : true, // 블록 단위 변경 기능 여부
+			// stateSave : false,
+			pageLength: 20, // 한 페이지에 기본으로 보열줄 항목 수
+			pagingType : "full_numbers",
+			bPaginate: true,
+			bLengthChange: true,
+			lengthMenu: [[20, 40, 60, 80, 100], [20, 40, 60, 80, 100]], // 리스트 항목을 구성할 옵션들
+			bProcessing: true,
+			bServerSide: true,
+			sAjaxSource : "${path}/sales/list/data",
+			sServerMethod : "POST",
+			fnServerParams : function (data){
+				data.push({"name":"userNo", "value" : $("#userNo").val()});
+				data.push({"name":"soppNo", "value" : $("#soppNo").val()});
+				data.push({"name":"custNo", "value" : $("#custNo").val()});
+				data.push({"name":"salesType", "value" : $("#salesType option:selected").val()});
+				if($("#targetDatefrom").val() != "" && $("#targetDateto").val() != ""){
+					data.push({"name":"salesFrdatetime", "value" : $("#salesFrdatetime").val()});
+					data.push({"name":"salesTodatetime", "value" : $("#salesTodatetime").val()});
+				} else {
+					data.push({"name":"salesFrdatetime", "value" : ""});
+					data.push({"name":"salesTodatetime", "value" : ""});
+				}
+			},
+			// TODO 아래 주석은 서버로 부터 성공시 data 확인하는 용도
+			/*
+            fnServerData: function ( sSource, aoData, fnCallback, oSettings ) {
+                oSettings.jqXHR = $.ajax({
+                    "dataType": 'json',
+                    "type": "POST",
+                    "url": sSource,
+                    "data": aoData,
+                    "success": function (data) {
+                        console.dir(data);
+                        return data.aaData;
+                    }
+                });
+            },
+            */
+			columnDefs :[
+				{
+					defaultContent : "-",
+					targets : "_all"
+				}
+			],	// ajax로 데이터가 날아오면서 list를 뿌려주는데 각 컬럼에서 만약 값이 없으면 오류대처
+			columns : [
+				{
+					data: "salesTitle",
+					column : '영업활동명',
+					render : function ( data, type, row ) {
+						if(data == null || data == undefined) {
+							return '';
+						} else {
+							return '<a href="javascript:fnSetPageEx(\''+row.techdNo+'\')" title="'+data+'">'+data+'</a>';
+						}
+					},
+				},
+				{
+					data: "salesFrdatetime",
+					column : '영업활동(시작)',
+					render : function ( data, type, row ) {
+						if(data == null || data == undefined) {
+							return '';
+						} else {
+							return data;
+						}
+					},
+				},
+				{
+					data: "salesTodatetime",
+					column : '영업활동(끝)',
+					render : function ( data, type, row ) {
+						if(data == null || data == undefined) {
+							return '';
+						} else {
+							return data;
+						}
+					},
+				},
+				{
+					data: "soppTitle",
+					column : '영업기회명',
+					render : function ( data, type, row ) {
+						if(data == null || data == undefined) {
+							return '';
+						} else {
+							return '<span title="'+data+'">'+data+'</span>';
+						}
+					},
+				},
+				{
+					data: "userName",
+					column : '담당사원',
+					render : function ( data, type, row ) {
+						if(data == null || data == undefined) {
+							return '';
+						} else {
+							return data;
+						}
+					},
+				},
+				{
+					data: "custName",
+					column : '거래처',
+					render : function ( data, type, row ) {
+						if(data == null || data == undefined) {
+							return '';
+						} else {
+							return '<span title="'+data+'">'+data+'</span>';
+						}
+					},
+				},
+				{
+					data: "ptncName",
+					column : '엔드유저',
+					render : function ( data, type, row ) {
+						if(data == null || data == undefined) {
+							return '';
+						} else {
+							return '<span title="'+data+'">'+data+'</span>';
+						}
+					},
+				},
+				/*{
+					data: "salesTypeN",
+					column : '활동형태',
+					render : function ( data, type, row ) {
+						if(data == null || data == undefined) {
+							return '';
+						} else {
+							return data;
+						}
+					},
+				},*/
+				{
+					data: "salesDesc",
+					column : '일정설명',
+					render : function ( data, type, row ) {
+						if(data == null || data == undefined) {
+							return '';
+						} else {
+							return '<span title="'+data+'">'+data+'</span>';
+						}
+					},
+				}
+			],
+			oLanguage: {
+				sZeroRecords : "일치하는 데이터가 존재하지 않습니다.",
+				sInfo : "현재 _START_ - _END_ / _TOTAL_건",
+				slengthMenu: "페이지당 _MENU_ 개씩 보기",
+				sInfoEmpty: "데이터 없음",
+				sInfoFiltered: "( _MAX_건의 데이터에서 필터링됨 )",
+				sSearch : "내부검색 : ",
+				sProcessing : '데이터 불러오는중...',
+				oPaginate: {
+					sFirst : '처음으로',
+					sLast : '마지막으로',
+					sPrevious: "이전",
+					sNext: "다음"
+				}
+			},
+			// docs : https://legacy.datatables.net/usage/i18n
+
+		});
+
+		$('#salesTable_filter input').unbind();
+		$('#salesTable_filter input').bind('keyup', function (e){
+			if(e.keyCode == 13){
+				salesTable.search(this.value).draw();
+			}
+		});
+
+		salesTable.on('draw', function () {
+			console.log("draw 이벤트");
+			setTimeout(fnDrawAfterCss, 10);
+		});
+	});
+
+	function fnDrawAfterCss() {
+		$("#salesTable").css("width","");
+	}
+
+	function fnListcon() {
+		salesTable.search("").draw();
+	}
 </script>
 <style>
 	a {
 		text-decoration:underline;
 	}
-	#salesTable > tbody > tr > td:nth-child(2){
+	#salesTable > tbody > tr > td:nth-child(1){
 		overflow: hidden;
 		text-overflow: ellipsis;
-		max-width: 240px;
+		max-width: 400px;
 		white-space: nowrap;
 	}
-	#salesTable > tbody > tr > td:nth-child(5){
+	#salesTable > tbody > tr > td:nth-child(4){
 		overflow: hidden;
 		text-overflow: ellipsis;
-		max-width: 180px;
+		max-width: 200px;
 		white-space: nowrap;
 	}
-	#salesTable > tbody > tr > td:nth-child(9){
+	#salesTable > tbody > tr > td:nth-child(6){
 		overflow: hidden;
 		text-overflow: ellipsis;
-		max-width: 220px;
+		max-width: 200px;
+		white-space: nowrap;
+	}
+	#salesTable > tbody > tr > td:nth-child(7){
+		overflow: hidden;
+		text-overflow: ellipsis;
+		max-width: 200px;
+		white-space: nowrap;
+	}
+	#salesTable > tbody > tr > td:nth-child(8){
+		overflow: hidden;
+		text-overflow: ellipsis;
+		max-width: 250px;
 		white-space: nowrap;
 	}
 </style>
@@ -216,31 +417,30 @@ $(function(){
 				<div class="table-responsive">
 					<table id="salesTable" class="table table-striped table-bordered nowrap ">
 							<colgroup>
-								<col width="1%"/>
-								<col width="15%"/>
-								<col width="5%"/>
-								<col width="15%"/>
-								<col width="5%"/>
-								<col width="5%"/>
-								<col width="14%"/>
-								<col width="5%"/>
-								<col width="35%"/>
-							</colgroup>							
+								<col width="24%"/>
+								<col width="8.4%"/>
+								<col width="8.4%"/>
+								<col width="12%"/>
+								<col width="4%"/>
+								<col width="12%"/>
+								<col width="12%"/>
+								<col width="10%"/>
+							</colgroup>
 							<thead>
 								<tr>
-									<th><input class="border-checkbox" type="checkbox" id="checkbox0"></th>
+									<%--<th><input class="border-checkbox" type="checkbox" id="checkbox0"></th>--%>
 									<th>영업활동명</th>
-									<th>일정</th>
+									<th>영업활동(시작)</th>
+									<th>영업활동(끝)</th>
 									<th>영업기회명</th>
-									<th>거래처</th>
 									<th>담당사원</th>
+									<th>거래처</th>
 									<th>엔드유저</th>
 									<th>활동형태</th>
-									<th>일정설명</th>
-									
+									<%--<th>일정설명</th>--%>
 								</tr>
 							</thead>
-							<tbody>
+							<%--<tbody>
 							<c:forEach var="row" items="${list}">
 								<tr>
 									<th scope="row"><input class="border-checkbox" type="checkbox" ></th>
@@ -254,7 +454,7 @@ $(function(){
 									<td>${row.salesDesc}</td>
 								</tr>
 							</c:forEach>								
-							</tbody>
+							</tbody>--%>
 						</table>
 					</div>
 				</div>
@@ -299,18 +499,12 @@ $(function(){
 			$(".modal-backdrop").remove();
 			$("#soppModal").modal("hide");
 		}
-    	
-    	function fnListcon() {
-    		var salesData = {};
-    		salesData.userNo = $("#userNo").val() ? $("#userNo").val() : 0;
-    		salesData.soppNo = $("#soppNo").val() ? $("#soppNo").val() : 0;
-    		salesData.custNo = $("#custNo").val() ? $("#custNo").val() : 0;
-    		salesData.salesType = $("#salesType").val() ? $("#salesType").val() : null;
-    		salesData.salesFrdatetime = $("#salesFrdatetime").val() ? $("#salesFrdatetime").val() : null;
-    		salesData.salesTodatetime = $("#salesTodatetime").val() ? $("#salesTodatetime").val() : null;
-    		
-    		fnSetList('${path}/sales/listcon.do', salesData);
-    	}
+
+		function fnSetPageEx(data){
+			var url = "${path}/sales/detail/"+data;
+			fnSetPage(url);
+		}
+
 
 </script>
 	

@@ -284,4 +284,10 @@ public class CodeServiceImpl implements CodeService {
 		return codeDao.listContType(soppdto);
 	}
 
+	@Override
+	public List<CodeDTO> listSchdType(HttpSession session) {
+		Integer compNo = SessionInfoGet.getCompNo(session);
+		return codeDao.listlistSchdType(compNo);
+	}
+
 }

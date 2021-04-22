@@ -3,32 +3,197 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <c:set var="path" value ="${pageContext.request.contextPath}"/>
-    <!-- data tables css -->
-	<link rel="stylesheet" href="${path}/assets/css/plugins/dataTables.bootstrap4.min.css">
-	<!-- datatable Js -->
-	<script src="${path}/assets/pages/jquery.dataTables.min.js"></script>
-	<script src="${path}/assets/pages/dataTables.bootstrap4.min.js"></script>
+<!-- data tables css -->
+<link rel="stylesheet" href="${path}/assets/css/plugins/dataTables.bootstrap4.min.css">
+<!-- datatable Js -->
+<script src="${path}/assets/pages/jquery.dataTables.min.js"></script>
+<script src="${path}/assets/pages/dataTables.bootstrap4.min.js"></script>
+
 <script>
-$(function(){
-    $('#schedTable').DataTable({
-    	info:false,
-		order: [[ 2, "desc" ]],
-    });
-});
-$(function(){
-	$("#btnAdd").click(function(){
-		location.href="${path}/product/write.do "
+	var schedTable;
+	$(function(){
+		var obj = new Object();
+		schedTable = $('#schedTable').DataTable({
+			order: [[ 2, "desc" ]],
+			paging : true, // 페이지 처리 여부
+			ordering : true, // 컬럼 클릭 시 오더링을 적용 여부
+			// info : true, // 페이지 상태에 대한 정보 여부
+			filter : true, // 검색창 여부
+			// lengthChange : true, // 블록 단위 변경 기능 여부
+			// stateSave : false,
+			pageLength: 20, // 한 페이지에 기본으로 보열줄 항목 수
+			pagingType : "full_numbers",
+			bPaginate: true,
+			bLengthChange: true,
+			lengthMenu: [[20, 40, 60, 80, 100], [20, 40, 60, 80, 100]], // 리스트 항목을 구성할 옵션들
+			bProcessing: true,
+			bServerSide: true,
+			sAjaxSource : "${path}/sched/list/data",
+			sServerMethod : "POST",
+			fnServerParams : function (data){
+				data.push({"name":"userNo", "value" : $("#userNo").val()});
+				data.push({"name":"soppNo", "value" : $("#soppNo").val()});
+				data.push({"name":"custNo", "value" : $("#custNo").val()});
+				data.push({"name":"endCustNo", "value" : $("#endCustNo").val()});
+				data.push({"name":"contNo", "value" : $("#contNo").val()});
+				data.push({"name":"schedType", "value" : $("#schedType").val()});
+				data.push({"name":"schedCat", "value" : $("#schedCat option:selected").val()});
+				data.push({"name":"userName", "value" : $("#userName").val()});
+				if($("#schedFrom").val() != "" && $("#schedTo").val() != ""){
+					data.push({"name":"schedFrom", "value" : $("#schedFrom").val()});
+					data.push({"name":"schedTo", "value" : $("#schedTo").val()});
+				} else {
+					data.push({"name":"schedFrom", "value" : ""});
+					data.push({"name":"schedTo", "value" : ""});
+				}
+				console.dir();
+				data.push({"name":"columns","value":this.columns});
+			},
+			// TODO 아래 주석은 서버로 부터 성공시 data 확인하는 용도
+			/*
+			fnServerData: function ( sSource, aoData, fnCallback, oSettings ) {
+				oSettings.jqXHR = $.ajax({
+					"dataType": 'json',
+					"type": "POST",
+					"url": sSource,
+					"data": aoData,
+					"success": function (data) {
+						console.dir(data);
+						return data.aaData;
+					}
+				});
+			},
+			*/
+			columnDefs :[
+				{
+					defaultContent : "-",
+					targets : "_all"
+				},
+				{
+					targets : 0,
+					orderable: false
+				}
+			],	// ajax로 데이터가 날아오면서 list를 뿌려주는데 각 컬럼에서 만약 값이 없으면 오류대처
+			columns : [
+				{data: "schedTypeN", column : '일정구분'},
+				{
+					data: "schedTitle",
+					column : '일정제목',
+					render : function ( data, type, row) {
+						return '<a href="javascript:fnSetDetailLink(\''+row.schedTypeN+'\','+row.schedNo+')" title="'+data+'">'+data+'</a>';
+					}
+				},
+				{data: "schedFrom", column : '일정'},
+				{
+					data: "custName",
+					column : '고객사',
+					render : function ( data, type, row ) {
+						if(data == null || data == undefined) {
+							return '';
+						} else {
+							return '<span title="'+data+'">'+data+'</span>';
+						}
+					},
+				},
+				{
+					data: "userName",
+					column : '담당자',
+					render : function ( data, type, row ) {
+						if(data == null || data == undefined) {
+							return '';
+						} else {
+							return data;
+						}
+					},
+				},
+				{
+					data: "schedPlace",
+					column : '장소',
+					render : function ( data, type, row ) {
+						if(data == null || data == undefined) {
+							return '';
+						} else {
+							return '<span title="'+data+'">'+data+'</span>';
+						}
+					},
+				},
+				{
+					data: "schedCatN",
+					column : '활동형태',
+					render : function ( data, type, row ) {
+						if(data == null || data == undefined) {
+							return '';
+						} else {
+							return data;
+						}
+					},
+				},
+				{
+					data: "schedDesc",
+					column : '일정설명',
+					render : function ( data, type, row ) {
+						if(data == null || data == undefined) {
+							return '';
+						} else {
+							return '<span title="'+data+'">'+data+'</span>';
+						}
+					},
+				}
+			],
+			oLanguage: {
+				sZeroRecords : "일치하는 데이터가 존재하지 않습니다.",
+				sInfo : "현재 _START_ - _END_ / _TOTAL_건",
+				slengthMenu: "페이지당 _MENU_ 개씩 보기",
+				sInfoEmpty: "데이터 없음",
+				sInfoFiltered: "( _MAX_건의 데이터에서 필터링됨 )",
+				sSearch : "내부검색 : ",
+				sProcessing : '데이터 불러오는중...',
+				oPaginate: {
+					sFirst : '처음으로',
+					sLast : '마지막으로',
+					sPrevious: "이전",
+					sNext: "다음"
+				}
+			},
+			// docs : https://legacy.datatables.net/usage/i18n
+
+		});
+
+		$('#schedTable_filter input').unbind();
+		$('#schedTable_filter input').bind('keyup', function (e){
+			if(e.keyCode == 13){
+				schedTable.search(this.value).draw();
+			}
+		});
+
+		schedTable.on( 'draw', function () {
+			console.log("draw 이벤트");
+			setTimeout(fnDrawAfterCss, 10);
+		});
 	});
-});
+
+	function fnDrawAfterCss() {
+		$("#schedTable").css("width","");
+	}
+
+	function fnListcon() {
+		schedTable.search("").draw();
+	}
 </script>
 <style>
 	a {
 		text-decoration:underline;
 	}
+	#schedTable > tbody > tr > td:nth-child(2){
+		overflow: hidden;
+		text-overflow: ellipsis;
+		max-width: 170px;
+		white-space: nowrap;
+	}
 	#schedTable > tbody > tr > td:nth-child(4){
 		overflow: hidden;
 		text-overflow: ellipsis;
-		max-width: 180px;
+		max-width: 150px;
 		white-space: nowrap;
 	}
 	#schedTable > tbody > tr > td:nth-child(8){
@@ -147,13 +312,10 @@ $(function(){
 						<div class="col-sm-12 col-xl-3">
 							<label class="col-form-label" for="custName">거래처</label>
 							<div class="input-group input-group-sm mb-0">
-								<input type="text" class="form-control" name="custName"
-									id="custName" value="" readonly /> <input type="hidden"
-									name="custNo" id="custNo" value="" /> <span
-									class="input-group-btn">
-									<button class="btn btn-primary sch-company"
-										data-remote="${path}/modal/popup.do?popId=cust" type="button"
-										data-toggle="modal" data-target="#custModal">
+								<input type="text" class="form-control" name="custName" id="custName" value="" readonly />
+								<input type="hidden" name="custNo" id="custNo" value="" />
+								<span class="input-group-btn">
+									<button class="btn btn-primary sch-company" data-remote="${path}/modal/popup.do?popId=cust" type="button" data-toggle="modal" data-target="#custModal">
 										<i class="icofont icofont-search"></i>
 									</button>
 								</span>
@@ -163,8 +325,7 @@ $(function(){
 										<div class="modal-content modal-80size">
 											<div class="modal-header">
 												<h4 class="modal-title">거래처검색</h4>
-												<button type="button" class="close" data-dismiss="modal"
-													aria-label="Close">
+												<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 													<span aria-hidden="true">&times;</span>
 												</button>
 											</div>
@@ -173,8 +334,7 @@ $(function(){
 												<p>Loading!!!</p>
 											</div>
 											<div class="modal-footer">
-												<button type="button" class="btn btn-default waves-effect "
-													data-dismiss="modal">Close</button>
+												<button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
 											</div>
 										</div>
 									</div>
@@ -182,26 +342,21 @@ $(function(){
 							</div>
 						</div>
 						<div class="col-sm-12 col-xl-3">
-								<label class="col-form-label" for="custmemberName">엔드유저</label>
+								<label class="col-form-label" for="endCustName">엔드유저</label>
 								<div class="input-group input-group-sm mb-0">
-									<input type="text" class="form-control" name="custmemberName"
-										id="custmemberName" value="" readonly /> <input type="hidden"
-										name="custmemberNo" id="custmemberNo" value="" /> <span
-										class="input-group-btn">
-										<button class="btn btn-primary sch-company"
-											data-remote="${path}/modal/popup.do?popId=custmem&compNo=" type="button"
-											data-toggle="modal" data-target="#custmemberModal">
+									<input type="text" class="form-control" id="endCustName" value="" readonly />
+									<input type="hidden" id="endCustNo" value="" />
+									<span  class="input-group-btn">
+										<button class="btn btn-dark sch-company" data-remote="${path}/modal/popup.do?popId=custmem&compNo=" type="button" data-toggle="modal" data-target="#custmemberModal" disabled>
 											<i class="icofont icofont-search"></i>
 										</button>
 									</span>
-									<div class="modal fade " id="custmemberModal" tabindex="-1"
-										role="dialog">
+									<div class="modal fade " id="custmemberModal" tabindex="-1" role="dialog">
 										<div class="modal-dialog modal-80size" role="document">
 											<div class="modal-content modal-80size">
 												<div class="modal-header">
 													<h4 class="modal-title"></h4>
-													<button type="button" class="close" data-dismiss="modal"
-														aria-label="Close">
+													<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 														<span aria-hidden="true">&times;</span>
 													</button>
 												</div>
@@ -225,9 +380,7 @@ $(function(){
 										id="contTitle" value="" readonly /> <input type="hidden"
 										name="contNo" id="contNo" value="" /> <span
 										class="input-group-btn">
-										<button class="btn btn-primary sch-company"
-											data-remote="${path}/modal/popup.do?popId=cont" type="button"
-											data-toggle="modal" data-target="#contModal">
+										<button class="btn btn-primary sch-company" data-remote="${path}/modal/popup.do?popId=cont" type="button" data-toggle="modal" data-target="#contModal">
 											<i class="icofont icofont-search"></i>
 										</button>
 									</span>
@@ -237,8 +390,7 @@ $(function(){
 											<div class="modal-content modal-80size">
 												<div class="modal-header">
 													<h4 class="modal-title"></h4>
-													<button type="button" class="close" data-dismiss="modal"
-														aria-label="Close">
+													<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 														<span aria-hidden="true">&times;</span>
 													</button>
 												</div>
@@ -247,25 +399,33 @@ $(function(){
 													<p>Loading!!!</p>
 												</div>
 												<div class="modal-footer">
-													<button type="button" class="btn btn-default waves-effect "
-														data-dismiss="modal">Close</button>
+													<button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
 												</div>
 											</div>
 										</div>
 									</div>
 								</div>
 							</div>
-						<div class="col-sm-12 col-xl-3">
-							<label class="col-form-label" for="co_name">활동형태</label> <select
-								name="select" class="form-control form-control-sm" id="schedCat">
+						<div class="col-sm-1">
+							<label class="col-form-label" for="co_name">일정구분</label>
+							<select name="select" class="form-control form-control-sm" id="schedType">
+								<option value>선택</option>
+								<c:forEach var ="listschedcat" items="${listSchdType}">
+									<option value = "${listschedcat.codeNo}">${listschedcat.desc03}</option>
+								</c:forEach>
+							</select>
+						</div>
+						<div class="col-sm-1">
+							<label class="col-form-label" for="co_name">활동형태</label>
+							<select	name="select" class="form-control form-control-sm" id="schedCat">
 								<option value>선택</option>
 								<c:forEach var ="listschedcat" items="${listschedcat}">
 									<option value = "${listschedcat.codeNo}">${listschedcat.desc03}</option>
 								</c:forEach>
 							</select>
 						</div>
-						<div class="col-sm-12 col-xl-6">
-							<label class="col-form-label" for="co_name">활동일</label>
+						<div class="col-sm-12 col-xl-3">
+							<label class="col-form-label" for="co_name">일정시작일</label>
 							<p class="input_inline">
 								<input class="form-control form-control-sm col-xl-6" type="date" id="schedFrom" onChange="javascript:inputDate($('#schedFrom').val(), $('#schedTo').val())">
 								~ <input class="form-control form-control-sm col-xl-6"
@@ -288,7 +448,7 @@ $(function(){
 		<div class="col-sm-12">
 			<div class="card-block table-border-style">
 				<div class="table-responsive">
-					<table id="schedTable" class="table table-striped table-bordered nowrap ">
+					<table id="schedTable" class="table table-striped table-bordered nowrap">
 						<thead>
 							<tr>
 								<th>일정구분</th>
@@ -301,7 +461,7 @@ $(function(){
 								<th>일정설명</th>
 							</tr>
 						</thead>
-						<tbody>
+						<%--<tbody>
 							<c:forEach var="row" items="${list}">
 								<tr>
 									<td>${row.schedTypeN}</td>
@@ -320,7 +480,7 @@ $(function(){
 									<td title="${row.schedDesc}">${row.schedDesc}</td>
 								</tr>
 							</c:forEach>
-						</tbody>
+						</tbody>--%>
 					</table>
 				</div>
 			</div>
@@ -390,8 +550,10 @@ $(function(){
 			$(".modal-backdrop").remove();
 			$("#contModal").modal("hide");
 		}
-    	
-    	
+
+
+
+		/*
     	function fnListcon() {
     		var schedData = {};
     		schedData.userNo = $("#userNo").val() ? $("#userNo").val() : 0;
@@ -405,7 +567,8 @@ $(function(){
     		
     		fnSetList('${path}/sched/listcon.do', schedData);
     	}
-    	
+    	*/
+
     	function fnSetDetailLink(schedTypeN, schedNo) {
     		var typePath;
    

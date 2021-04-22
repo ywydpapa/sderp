@@ -22,12 +22,17 @@ public class TechdDAOImpl implements TechdDAO {
 		// TODO Auto-generated method stub
 		return sqlSession.selectList("techd.listTechd");
 	}
-	
+
 	@Override
-	public List<TechdDTO> listTechd(SoppDTO soppDTO) {
-		return sqlSession.selectList("techd.listTechd", soppDTO);
+	public List<TechdDTO> listTechd(TechdDTO dto) {
+		return sqlSession.selectList("techd.listTechd", dto);
 	}
-	
+
+	@Override
+	public int listTechdCnt(TechdDTO dto) {
+		return sqlSession.selectOne("techd.listTechdCnt", dto);
+	}
+
 	@Override
 	public List<TechdDTO> listconTechd(TechdDTO dto) {
 		return sqlSession.selectList("techd.listconTechd", dto);

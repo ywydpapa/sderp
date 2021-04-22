@@ -21,6 +21,7 @@ public class SalesDTO extends PageDTO {
 	private String salesPlace;
 	private String salesType;
 	private String regDatetime;
+	private String modDatetime;
 	private String salesTitle;
 	private String salesDesc;
 	private String attrib;
@@ -35,15 +36,10 @@ public class SalesDTO extends PageDTO {
 	private String salesEtime;
 	private String salesTypeN;
 	private String schedType;
-	
 
 	public SalesDTO() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	
-	
-	
-	
 
 }

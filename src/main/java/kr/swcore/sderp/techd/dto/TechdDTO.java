@@ -34,6 +34,7 @@ public class TechdDTO extends PageDTO {
 	private String soppTitle;
 	private String custmemberName;
 	private String regdatetime;
+	private String modDatetime;
 	private String targetDatefrom;
 	private String targetDateto;
 	private String schedType;

@@ -26,7 +26,12 @@ public class SoppDAOImpl implements SoppDAO {
 	public List<SoppDTO> listSopp(SoppDTO dto) {
 		return sqlSession.selectList("sopp.listSopp", dto);
 	}
-	
+
+	@Override
+	public int listSoppCnt(SoppDTO dto) {
+		return sqlSession.selectOne("sopp.listSoppCnt", dto);
+	}
+
 	@Override
 	public List<SoppDTO> listconSopp(SoppDTO dto) {
 		return sqlSession.selectList("sopp.listconSopp", dto);

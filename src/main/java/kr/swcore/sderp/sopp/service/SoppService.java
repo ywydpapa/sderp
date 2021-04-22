@@ -3,6 +3,8 @@ package kr.swcore.sderp.sopp.service;
 import java.io.IOException;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import kr.swcore.sderp.common.dto.PageDTO;
@@ -16,6 +18,7 @@ public interface SoppService {
 	
 		List<SoppDTO> listSopp();
 		List<SoppDTO> listSopp(HttpSession session, PageDTO pageDTO);
+		Object listSopp(HttpSession session, String param, HttpServletRequest request, HttpServletResponse response);
 		List<SoppDTO> listconSopp(HttpSession session, SoppDTO dto);
 		List<SoppDTO> listSopp2();
 		List<SoppDTO> listSopp2(HttpSession session);

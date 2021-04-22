@@ -9,9 +9,12 @@ import java.util.Map;
 import java.util.UUID;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import kr.swcore.sderp.common.dto.PageDTO;
 import kr.swcore.sderp.user.dto.UserDTO;
 import org.slf4j.Logger;
@@ -21,10 +24,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
@@ -67,10 +67,17 @@ public class SoppController {
 		mav.addObject("saleslist", codeService.listSalestype(session));
 		mav.addObject("sstatuslist", codeService.listSstatus(session));
 		mav.addObject("businessType", codeService.listBusinessType(session));
+		mav.addObject("contractType", codeService.listContractType(session));
 		mav.addObject("list", soppService.listSopp(session, null));
 		return mav;
 	}
-	
+
+	@RequestMapping(value = "list/data", produces = "application/json;charset=UTF-8", method = RequestMethod.POST)
+	public @ResponseBody
+	String listData(HttpSession session, @RequestBody String param, HttpServletRequest request, HttpServletResponse response){
+		Gson ojb = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+		return ojb.toJson(soppService.listSopp(session, param, request, response));
+	}
 
 	@RequestMapping("listcon.do")
 	public ModelAndView listcon(HttpSession session, ModelAndView mav, SoppDTO dto) {

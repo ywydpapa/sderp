@@ -259,7 +259,7 @@ $(function(){
 								<th>매출예정일</th>
 							</tr>
 						</thead>
-						<%--<tbody>
+						<tbody>
 							<c:forEach var="row" items="${list}">
 							<tr>
 								<th scope="row"><input class="border-checkbox" type="checkbox" id="checkbox0"></th>
@@ -272,7 +272,7 @@ $(function(){
 								<td class="text-right">${row.soppTargetDate}</td>
 							</tr>
 							</c:forEach>
-						</tbody>--%>
+						</tbody>
 					</table>
 				</div>
 			</div>

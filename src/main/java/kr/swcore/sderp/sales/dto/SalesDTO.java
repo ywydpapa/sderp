@@ -42,9 +42,5 @@ public class SalesDTO extends PageDTO {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	
-	
-	
-	
 
 }

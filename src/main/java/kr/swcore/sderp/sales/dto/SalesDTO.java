@@ -36,7 +36,6 @@ public class SalesDTO extends PageDTO {
 	private String salesEtime;
 	private String salesTypeN;
 	private String schedType;
-	
 
 	public SalesDTO() {
 		super();

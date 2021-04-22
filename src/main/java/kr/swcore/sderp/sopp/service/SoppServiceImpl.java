@@ -98,10 +98,11 @@ public class SoppServiceImpl implements SoppService {
 			case "2" : column = "cntrctMthN"; break;	// 계약구분
 			case "3" : column = "soppTitle"; break;		// 영업기회명
 			case "4" : column = "custName"; break;		// 거래처
-			case "5" : column = "userName"; break;		// 담당자
-			case "6" : column = "soppTargetAmt"; break;	// 예상매출액
-			case "7" : column = "soppStatusN"; break;	// 진행단계
-			case "8" : column = "soppTargetDate"; break;// 매출예정일
+			case "5" : column = "buyrName"; break;		// 거래처
+			case "6" : column = "userName"; break;		// 담당자
+			case "7" : column = "soppTargetAmt"; break;	// 예상매출액
+			case "8" : column = "soppStatusN"; break;	// 진행단계
+			case "9" : column = "soppTargetDate"; break;// 매출예정일
 			default : column = "modDatetime"; break;	// 수정일
 		}
 

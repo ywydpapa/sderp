@@ -134,6 +134,17 @@
 					},
 				},
 				{
+					data: "buyrName",
+					column : '엔드유저',
+					render : function ( data, type, row ) {
+						if(data == null || data == undefined) {
+							return '';
+						} else {
+							return '<span title="'+data+'">'+data+'</span>';
+						}
+					},
+				},
+				{
 					data: "userName",
 					column : '담당사원',
 					render : function ( data, type, row ) {
@@ -252,13 +263,6 @@
 	.numberComa {
 		float: right;
 	}
-	/*#soppTable > tbody > tr > td:nth-child(3) > a{
-		display: block;
-		overflow: hidden;
-		text-overflow: ellipsis;
-		max-width: 530px;
-		white-space: nowrap;
-	}*/
 	#soppTable > tbody > tr > td:nth-child(4) {
 		overflow: hidden;
 		text-overflow: ellipsis;
@@ -266,6 +270,12 @@
 		white-space: nowrap;
 	}
 	#soppTable > tbody > tr > td:nth-child(5) {
+		overflow: hidden;
+		text-overflow: ellipsis;
+		max-width: 240px;
+		white-space: nowrap;
+	}
+	#soppTable > tbody > tr > td:nth-child(6) {
 		overflow: hidden;
 		text-overflow: ellipsis;
 		max-width: 240px;
@@ -487,7 +497,8 @@
 							<col width="3%">
 							<col width="5%">
 							<col width="30%">
-							<col width="15%">
+							<col width="7.5%">
+							<col width="7.5%">
 							<col width="3%">
 							<col width="14%">
 							<col width="7%">
@@ -500,6 +511,7 @@
 							<th>계약구분</th>
 							<th>영업기회명</th>
 							<th>거래처</th>
+							<th>엔드유저</th>
 							<th>담당사원</th>
 							<th>예상매출액</th>
 							<th>진행단계</th>

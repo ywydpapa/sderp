@@ -41,6 +41,7 @@ public class SoppDTO extends PageDTO {
 	// 확장
 	private String userName;
 	private String custName;
+	private String buyrName;
 	private String ptncName;
 	private String soppTypeN;
 	private String soppStatusN;

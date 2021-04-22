@@ -17,28 +17,38 @@ public class SoppDTO extends PageDTO {
 	private int compNo;
 	private int userNo;
 	private int custNo;
-	private int custmemberNo;
-	private String soppTitle;
+	private int custMemberNo;
 	private int ptncNo;
+	private int ptncMemberNo;
 	private int buyrNo;
+	private int buyrMemberNo;
+	private String soppTitle;
 	private String soppDesc;
 	private BigDecimal soppTargetAmt;
 	private String soppTargetDate;
-	private String soppStatus;
-	private int soppSrate;
-	private String soppSource;
+	private int soppType;
+	private String soppStatus;	// TODO : 추후 DB에서 varchar -> int로 변경예정
+	private Double soppSrate;
+	private String soppSource;	// TODO : 출처 -> 삭제예정
+	private String attrib;
+	private String regDatetime;
+	private String modDatetime;
+	private String sopp2Desc;
+	private Timestamp sopp2regDatetime;
+	private String op_priority;
+	private Integer cntrctMth;
+	
+	// 확장
 	private String userName;
 	private String custName;
 	private String ptncName;
-	private String soppType;
 	private String soppTypeN;
 	private String soppStatusN;
-	private Timestamp regDatetime;
-	private String sopp2Desc;
-	private Timestamp sopp2regDatetime;
+	private String cntrctMthN;
 	private String targetDatefrom;
 	private String targetDateto;
-	private String businessType;
+
+	private String businessType;	// TODO : 영업타입 -> 삭제예정
 
 	public SoppDTO() {
 		super();

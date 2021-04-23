@@ -1,10 +1,15 @@
 package kr.swcore.sderp.cust.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import kr.swcore.sderp.cust.dto.CustdataDTO;
 import org.springframework.stereotype.Service;
 
 import kr.swcore.sderp.cust.dao.CustDAO;
@@ -130,6 +135,36 @@ public class CustServiceImpl implements CustService {
 	}
 
 	@Override
+	public Map<String, Object> insertSimpleRegister(HttpSession session, String param, HttpServletRequest request, HttpServletResponse response) {
+		Map<String, Object> rtn =  new HashMap<>();
+		int compNo = SessionInfoGet.getCompNo(session);
+		String custName = request.getParameter("custName");
+		String custMemberName = request.getParameter("custMemberName");
+		CustDTO dto = new CustDTO();
+		dto.setCompNo(compNo);
+		dto.setCustName(custName);
+
+		if(custMemberName.equals("")) {
+			dto.setCustMname("담당자");		// 담당자 이름
+			dto.setCustMrank("담당");		// 직급
+		} else {
+			dto.setCustMname(custMemberName);
+			dto.setCustMrank("담당");
+		}
+
+		try {
+			custDao.insertCust(dto);
+			custDao.insertCust03(dto);
+			rtn.put("code","10001");
+			rtn.put("data",dto);
+		} catch (Exception e){
+			rtn.put("code","20001");
+			e.printStackTrace();
+		}
+		return rtn;
+	}
+
+	@Override
 	public CustDTO detailCust02(int custNo) {
 		// TODO Auto-generated method stub
 		return custDao.detailCust02(custNo);
@@ -157,5 +192,28 @@ public class CustServiceImpl implements CustService {
 	public List<CustDTO> listCustmember(int custNo) {
 		// TODO Auto-generated method stub
 		return custDao.listCustmember(custNo);
+	}
+
+	@Override
+	public Map<String, Object> listcustNameCheck(HttpSession session, String param, HttpServletRequest request, HttpServletResponse response) {
+		int compNo = SessionInfoGet.getCompNo(session);
+		String custName = request.getParameter("custName");
+		CustDTO dto = new CustDTO();
+		dto.setCompNo(compNo);
+		dto.setCustName(custName);
+
+		Map<String, Object> rtn =  new HashMap<>();
+		try {
+			List<CustDTO> custDTOList1 = custDao.listCustNameCheck(dto);
+			List<CustDTO> custDTOList2 = custDao.listCustNameSimilarCheck(dto);
+			rtn.put("code","10001");
+			rtn.put("result1", custDTOList1);
+			rtn.put("result2", custDTOList2);
+		} catch (Exception e){
+			rtn.put("code","20001");
+			e.printStackTrace();
+		}
+
+		return rtn;
 	}
 }

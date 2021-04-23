@@ -148,4 +148,14 @@ public class CustDAOImpl implements CustDAO {
 		// TODO Auto-generated method stub
 		return sqlSession.selectList("cust.listCustmember", custNo);
 	}
+
+	@Override
+	public List<CustDTO> listCustNameCheck(CustDTO custDTO) {
+		return sqlSession.selectList("cust.listCustNameCheck", custDTO);
+	}
+
+	@Override
+	public List<CustDTO> listCustNameSimilarCheck(CustDTO custDTO) {
+		return sqlSession.selectList("cust.listCustNameSimilarCheck", custDTO);
+	}
 }

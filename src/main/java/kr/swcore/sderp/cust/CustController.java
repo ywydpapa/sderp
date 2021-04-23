@@ -5,16 +5,16 @@ import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import kr.swcore.sderp.code.service.CodeService;
@@ -175,5 +175,16 @@ public class CustController {
 		int result = custService.custCheck(dto);
 		return result;
 	}
-	
+
+	@RequestMapping(value = "custNameCheck", produces = "application/json;charset=UTF-8", method = RequestMethod.POST)
+	public @ResponseBody String custNameCheck(HttpSession session, @RequestBody String param, HttpServletRequest request, HttpServletResponse response){
+		Gson ojb = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+		return ojb.toJson(custService.listcustNameCheck(session, param, request, response));
+	}
+
+	@RequestMapping(value = "simpleRegister", produces = "application/json;charset=UTF-8", method = RequestMethod.POST)
+	public @ResponseBody String simpleRegister(HttpSession session, @RequestBody String param, HttpServletRequest request, HttpServletResponse response){
+		Gson ojb = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+		return ojb.toJson(custService.insertSimpleRegister(session, param, request, response));
+	}
 }

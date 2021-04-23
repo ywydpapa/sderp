@@ -16,7 +16,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			left join swc_code d on a.soppType = d.codeNo
 			left join swc_code e on a.soppStatus = e.codeNo
 			left join swc_code f on a.cntrctMth = f.codeNo
-			left join swc_cust g on a.buyrNo = c.custNo
+			left join swc_cust g on a.buyrNo = g.custNo
 		where a.attrib not like 'XXX%' and b.compNo = #{compNo}
 		<if test="userNo != null and userNo != ''">
 			and a.userNo = #{userNo}
@@ -107,7 +107,7 @@ from
 			left join swc_code d on a.soppType = d.codeNo
 			left join swc_code e on a.soppStatus = e.codeNo
 			left join swc_code f on a.cntrctMth = f.codeNo
-			left join swc_cust g on a.buyrNo = c.custNo
+			left join swc_cust g on a.buyrNo = g.custNo
 		where a.attrib not like 'XXX%' and b.compNo = #{compNo}
 		<if test="userNo != null and userNo != ''">
 			and a.userNo = #{userNo}

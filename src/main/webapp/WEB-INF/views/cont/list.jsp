@@ -298,7 +298,12 @@ $(function(){
 							<c:forEach var="row" items="${list}">
 								<tr>
 									<td scope="row"><input class="border-checkbox" type="checkbox" id="checkbox0"></td>
-									<td>${row.cntrctMth}</td>
+									<td>
+										<c:if test="${row.cntrctMth == 10173}">조달직판</c:if>
+										<c:if test="${row.cntrctMth == 10174}">조달간판</c:if>
+										<c:if test="${row.cntrctMth == 10175}">조달대행</c:if>
+										<c:if test="${row.cntrctMth == 10176}">직접판매</c:if>
+									</td>
 									<td>${row.contTypeN}</td>
 									<%--<td>
 										<c:choose>

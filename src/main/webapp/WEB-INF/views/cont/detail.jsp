@@ -230,14 +230,11 @@
 											<tr>
 												<th scope="row">판매방식</th>
 												<td>
-													<select name="contType" id="contType" class="form-control form-control-sm">
+													<select name="contType" class="form-control form-control-sm" id="contType">
 														<option value="">선택</option>
-														<option value="10048" <c:if test="${contDto.contType eq 10048}">selected</c:if>>조달직판</option>
-														<option value="10049" <c:if test="${contDto.contType eq 10049}">selected</c:if>>조달간판</option>
-														<option value="10050" <c:if test="${contDto.contType eq 10050}">selected</c:if>>조달대행</option>
-														<option value="10051" <c:if test="${contDto.contType eq 10051}">selected</c:if>>직접판매</option>
-														<option value="10095" <c:if test="${contDto.contType eq 10095}">selected</c:if>>간접판매</option>
-														<option value="10252" <c:if test="${contDto.contType eq 10252}">selected</c:if>>기타</option>
+														<c:forEach var ="contType" items="${contType}">
+															<option value = "${contType.codeNo}" <c:if test="${contDto.contType == contType.codeNo}">selected</c:if>>${contType.desc03}</option>
+														</c:forEach>
 													</select>
 												</td>
 												<th>거래처 담당자</th>
@@ -913,16 +910,24 @@
 			var contData = {};
 			contData.contNo 					= $("#contNo").val();
 			var contractType					= $("input[name='contractType']:checked").val();	// 신규 영업지원 or 기존계약
-			if(contractType == 'NEW'){
+			if(contractType == "NEW"){
 				contData.soppNo					= $("#soppNo").val();			// 영업기회
 				contData.exContNo				= 0;							// 기존계약
+				contData.cntrctMth				= ${contractType[0].codeNo};
 			} else {
 				contData.soppNo					= 0;							// 영업기회
 				contData.exContNo				= $("#oldContNo").val();		// 기존계약
+				contData.cntrctMth				= ${contractType[1].codeNo};
 			}
 			contData.contTitle 				= $("#contTitle").val();
 			contData.contDesc			 	= $("#contDesc").val();
 			contData.userNo		 			= $("#userNo").val();
+			var net_profit = Number($("#net_profit").val().replace(/[\D\s\._\-]+/g, "")); // 매출이익
+			if (net_profit > 0){
+				contData.net_profit = net_profit;
+			} else {
+				contData.net_profit = 0;
+			}
 			contData.custNo 				= $("#custNo").val();
 			contData.soppNo 				= $("#soppNo").val();
 			contData.ptncNo 				= $("#ptncNo").val();

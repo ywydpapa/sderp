@@ -11,7 +11,8 @@
 	<script>
 $(function(){
     $('#contTable').DataTable({
-    	info:false
+    	info:false,
+		order: [[ 0, "desc" ]],
     });
 });
 </script>
@@ -280,7 +281,7 @@ $(function(){
 							</colgroup>							
 							<thead>
 								<tr>
-									<th><input class="border-checkbox" type="checkbox" id="checkbox0"></th>
+									<th>수정일</th>
 									<th>판매방식</th>
 									<th>계약방식</th>
 									<th>계약명</th>
@@ -297,14 +298,12 @@ $(function(){
 							<tbody>
 							<c:forEach var="row" items="${list}">
 								<tr>
-									<td scope="row"><input class="border-checkbox" type="checkbox" id="checkbox0"></td>
 									<td>
-										<c:if test="${row.cntrctMth == 10173}">조달직판</c:if>
-										<c:if test="${row.cntrctMth == 10174}">조달간판</c:if>
-										<c:if test="${row.cntrctMth == 10175}">조달대행</c:if>
-										<c:if test="${row.cntrctMth == 10176}">직접판매</c:if>
+										<fmt:parseDate value="${row.modDatetime}" var="salesFrdatetime" pattern="yyyy-MM-dd HH:mm:ss"/>
+										<fmt:formatDate value="${salesFrdatetime}" pattern="yyyy-MM-dd"/>
 									</td>
 									<td>${row.contTypeN}</td>
+									<td>${row.cntrctMthN}</td>
 									<%--<td>
 										<c:choose>
 										<c:when test="${row.soppNo != 0}">판매계약</c:when>

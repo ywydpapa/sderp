@@ -6,10 +6,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <select id="listCont"
  		resultType="contDto">
- 		select a.*, b.userName , c.custName, d.desc03 contTypeN from swc_cont a  
+ 		select a.*, b.userName , c.custName, d.desc03 contTypeN, g.desc03 cntrctMthN
+ 		from swc_cont a
 		left join swc_user b on a.userNo = b.userNo
 		left join swc_cust c on a.custNo = c.custNo
-		left join swc_code d on a.contType = d.codeNo 
+		left join swc_code d on a.contType = d.codeNo
+ 		left join swc_code g on a.cntrctMth = g.codeNo
 		where a.attrib not like 'XXX%' and a.compNo = #{compNo}
 		order by modDatetime desc
 		<if test="limit > 0">
@@ -19,10 +21,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  
  <select id="listconCont"
  		resultType="contDto">
- 		select a.*, b.userName , c.custName, d.desc03 contTypeN from swc_cont a  
+ 		select a.*, b.userName , c.custName, d.desc03 contTypeN, g.desc03 cntrctMthN
+		from swc_cont a
 		left join swc_user b on a.userNo = b.userNo
 		left join swc_cust c on a.custNo = c.custNo
-		left join swc_code d on a.contType = d.codeNo 
+		left join swc_code d on a.contType = d.codeNo
+		left join swc_code g on a.cntrctMth = g.codeNo
 		where a.attrib not like 'XXX%' and a.compNo = #{compNo}
 		<choose>
 			<when test="soppNo != 0">and a.soppNo != 0</when>
@@ -43,6 +47,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  		<if test="contTitle != null and contTitle != ''">
  		 	and a.contTitle like CONCAT('%', #{contTitle}, '%')
  		</if>
+		<if test="cntrctMth != null and cntrctMth != ''">
+		    and a.cntrctMth = #{cntrctMth}
+		</if>
  		<if test="contType != null and contType != ''">
  		 	and a.contType = #{contType}
  		</if>
@@ -64,7 +71,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  		<if test="freemaintEdate != null and freemaintEdate != ''">
  			and date_format(a.freemaintEdate, '%Y-%m-%d') <![CDATA[<=]]> #{freemaintEdate}
  		</if>
-		order by contOrddate desc
+		 order by modDatetime desc
  </select>
 
 <select id="detailCont"
@@ -98,8 +105,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 </select>
  
  <insert id="insertCont">
- insert into swc_cont (contTitle, contDesc, compNo, soppNo, exContNo, userNo, custNo, custmemberNo, ptncNo, supplyNo, contOrddate, supplyDate, delivDate, contAmt, freemaintSdate, freemaintEdate, vatYn, contArea, contType,net_profit ,attrib)
- values (#{contTitle}, #{contDesc}, #{compNo}, #{soppNo}, #{exContNo}, #{userNo}, #{custNo}, #{custmemberNo}, #{ptncNo}, #{supplyNo}, #{contOrddate}, #{supplyDate}, #{delivDate}, #{contAmt}, #{freemaintSdate}, #{freemaintEdate}, #{vatYn}, #{contArea}, #{contType}, #{net_profit},'10000')
+ insert into swc_cont (contTitle, contDesc, compNo, soppNo, exContNo, userNo, custNo, custmemberNo, ptncNo, supplyNo, contOrddate, supplyDate, delivDate, contAmt, freemaintSdate, freemaintEdate, vatYn, contArea, cntrctMth, contType,net_profit ,attrib)
+ values (#{contTitle}, #{contDesc}, #{compNo}, #{soppNo}, #{exContNo}, #{userNo}, #{custNo}, #{custmemberNo}, #{ptncNo}, #{supplyNo}, #{contOrddate}, #{supplyDate}, #{delivDate}, #{contAmt}, #{freemaintSdate}, #{freemaintEdate}, #{vatYn}, #{contArea}, #{cntrctMth}, #{contType}, #{net_profit},'100000')
  </insert>
 
  <update id="updateCont">
@@ -120,9 +127,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	freemaintSdate=#{freemaintSdate}, 
 	freemaintEdate=#{freemaintEdate}, 
 	vatYn=#{vatYn}, 
-	contArea=#{contArea}, 
+	contArea=#{contArea},
+	cntrctMth=#{cntrctMth},
 	contType=#{contType},
-	net_profit=#{net_profit}
+	net_profit=#{net_profit},
+	modDatetime=now()
 	where contNo=#{contNo}
 	
  </update>

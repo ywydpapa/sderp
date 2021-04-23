@@ -82,12 +82,17 @@ public class ContController {
 		mav.addObject("salesinsopp",salesService.listSalesinsopp(session, soppNo));
 		mav.addObject("techdinsopp",techdService.listTechdinsopp(session, soppNo));
 		mav.addObject("soppFiles",soppService.listFile(soppNo));
+		mav.addObject("contractType", codeService.listContractType(session));
+		mav.addObject("contType", codeService.listContType(session));
 		return mav;
 	}
 
 	@RequestMapping("write.do")
-	public String write() {
-		return "cont/write";
+	public ModelAndView write(HttpSession session, ModelAndView mav) {
+		mav.setViewName("cont/write");
+		mav.addObject("contractType", codeService.listContractType(session));
+		mav.addObject("contType", codeService.listContType(session));
+		return mav;
 	}
 
 	@RequestMapping("insert.do")

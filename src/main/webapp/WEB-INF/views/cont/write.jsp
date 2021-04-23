@@ -531,13 +531,20 @@
 			if(contractType == "NEW"){
 				contData.soppNo					= $("#soppNo").val();			// 영업기회
 				contData.exContNo				= 0;							// 기존계약
+				contData.cntrctMth				= ${contractType[0].codeNo};
 			} else {
 				contData.soppNo					= 0;							// 영업기회
 				contData.exContNo				= $("#oldContNo").val();		// 기존계약
+				contData.cntrctMth				= ${contractType[1].codeNo};
 			}
 			contData.contTitle 				= $("#contTitle").val(); 		// 계약명
 			contData.userNo		 			= $("#userNo").val();			// 담당사원
-			contData.net_profit		 		= $("#netprofit").val();		// 매출이익
+			var net_profit = Number($("#net_profit").val().replace(/[\D\s\._\-]+/g, "")); // 매출이익
+			if (net_profit > 0){
+				contData.net_profit = net_profit;
+			} else {
+				contData.net_profit = 0;
+			}
 			contData.custNo 				= $("#custNo").val();			// 거래처
 			contData.custmemberNo			= $("#custmemberNo").val();		// 거래처 담당자
 			contData.ptncNo 				= $("#ptncNo").val();			// 유지보수업체
@@ -545,7 +552,12 @@
 			contData.contOrddate 			= $("#contOrddate").val();		// 발주일자
 			contData.supplyDate				= $("#supplyDate").val();		// 공급일자
 			contData.delivDate				= $("#delivDate").val();		// 검수일자
-			contData.contAmt 				= $("#contAmt").val().replace(/[\D\s\._\-]+/g, "");			// 계약금액
+			var contAmt = Number($("#contAmt").val().replace(/[\D\s\._\-]+/g, ""));			// 계약금액
+			if (net_profit > 0){
+				contData.contAmt = contAmt;
+			} else {
+				contData.contAmt = 0;
+			}
 			contData.freemaintSdate 		= $("#freemaintSdate").val();	// 무상유지보수 시작일자
 			contData.freemaintEdate 		= $("#freemaintEdate").val();	// 무상유지보수 마감일자
 			contData.vatYn					= $("#vatYn").val();			// VAT 포함여부 (기본값 : Y)

@@ -47,6 +47,7 @@ public class ContDTO implements Cloneable{
 	private String businessType;
 	private String contTypeN;
 	private String cntrctMth;
+	private String net_profit;
 
 	// 확장
 	private String exContName;

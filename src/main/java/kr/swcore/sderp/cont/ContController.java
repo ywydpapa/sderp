@@ -9,7 +9,11 @@ import javax.servlet.http.HttpSession;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
+import kr.swcore.sderp.sales.service.SalesService;
 import kr.swcore.sderp.salesTarget.dto.SalesTargetDTO;
+import kr.swcore.sderp.sopp.service.SoppService;
+import kr.swcore.sderp.sopp.service.SoppdataService;
+import kr.swcore.sderp.techd.service.TechdService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
@@ -33,6 +37,18 @@ public class ContController {
 	
 	@Inject
 	CodeService codeService;
+
+	@Inject
+	SoppService soppService;
+
+	@Inject
+	SoppdataService soppdataService;
+
+	@Inject
+	SalesService salesService;
+
+	@Inject
+	TechdService techdService;
 	
 	@RequestMapping("list.do")
 	public ModelAndView list(HttpSession session, ModelAndView mav) {
@@ -52,9 +68,20 @@ public class ContController {
 	}
 
 	@RequestMapping("/detail/{contNo}")
-	public ModelAndView detail(@PathVariable("contNo") int contNo, ModelAndView mav) {
+	public ModelAndView detail(HttpSession session, @PathVariable("contNo") int contNo, ModelAndView mav) {
 		mav.setViewName("cont/detail");
-		mav.addObject("dto", contService.detailCont(contNo));
+		ContDTO contDTO = new ContDTO();
+		contDTO = contService.detailCont(contNo);
+		int soppNo = contDTO.getSoppNo();
+		mav.addObject("contDto", contDTO);
+		mav.addObject("dto", soppService.detailSopp(soppNo));
+		mav.addObject("dtodata01", soppdataService.listSoppdata01(soppNo));
+		mav.addObject("dtodata02", soppdataService.listSoppdata02(soppNo));
+		mav.addObject("saleslist", codeService.listSalestype(session));
+		mav.addObject("sstatuslist", codeService.listSstatus(session));
+		mav.addObject("salesinsopp",salesService.listSalesinsopp(session, soppNo));
+		mav.addObject("techdinsopp",techdService.listTechdinsopp(session, soppNo));
+		mav.addObject("soppFiles",soppService.listFile(soppNo));
 		return mav;
 	}
 

@@ -71,7 +71,7 @@
 						if(data == null || data == undefined) {
 							return '';
 						} else {
-							return '<a href="javascript:fnSetPageEx(\''+row.techdNo+'\')" title="'+data+'">'+data+'</a>';
+							return '<a href="javascript:fnSetPageEx(\''+row.salesNo+'\')" title="'+data+'">'+data+'</a>';
 						}
 					},
 				},

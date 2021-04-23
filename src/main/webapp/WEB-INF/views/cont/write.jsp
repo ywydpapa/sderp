@@ -375,9 +375,7 @@
 							</tr>
 							<tr>
 								<th>매출이익</th>
-								<td><input style="text-align: right;" type="text"
-								id="netprofit" name="netprofit" class="form-control "
-								value="<fmt:formatNumber value="${dto.net_profit}" pattern="#,###"/>">
+								<td><input style="text-align: right;" type="text" id="netprofit" name="netprofit" class="form-control" value="<fmt:formatNumber value="${dto.net_profit}" pattern="#,###"/>">
 								</td>
 								<th scope="row">지역</th>
 								<td>

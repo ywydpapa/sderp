@@ -5,6 +5,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.math.BigDecimal;
+import java.sql.Timestamp;
 
 @Getter
 @Setter
@@ -55,7 +56,30 @@ public class ContDTO implements Cloneable{
 	private String targetYear;
 	private String targetMonth;
 	private Integer contTypeCount;
+	
+	// sopp 복사 시작
+	private int custMemberNo;
+	private int ptncMemberNo;
+	private int buyrMemberNo;
+	private String soppDesc;
+	private BigDecimal soppTargetAmt;
+	private String soppTargetDate;
+	private int soppType;
+	private String soppStatus;	// TODO : 추후 DB에서 varchar -> int로 변경예정
+	private Double soppSrate;
+	private String soppSource;	// TODO : 출처 -> 삭제예정
+	private String regDatetime;
+	private String modDatetime;
+	private String sopp2Desc;
+	private Timestamp sopp2regDatetime;
+	private String op_priority;
 
+	// 확장
+	private String soppTypeN;
+	private String soppStatusN;
+	private String cntrctMthN;
+	// sopp 복사 끝
+	
 	public ContDTO() {
 		super();
 		// TODO Auto-generated constructor stub

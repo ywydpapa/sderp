@@ -933,11 +933,17 @@
 			contData.ptncNo 				= $("#ptncNo").val();
 			contData.supplyNo 				= $("#supplyNo").val();
 			contData.contType 				= $("#contType").val();
-			contData.contAmt 				= $("#contAmt").val().replace(/[\D\s\._\-]+/g, "");
+			var contAmt = Number($("#contAmt").val().replace(/[\D\s\._\-]+/g, ""));			// 계약금액
+			if (net_profit > 0){
+				contData.contAmt = contAmt;
+			} else {
+				contData.contAmt = 0;
+			}
 			contData.contArea 				= $("#contArea").val();
-			contData.contOrddate 			= $("#contOrddate").val();
-			contData.freemaintSdate 		= $("#freemaintSdate").val();
-			contData.freemaintEdate 		= $("#freemaintEdate").val();
+			if($("#contOrddate").val() != "") contData.contOrddate 	= $("#contOrddate").val();
+			if($("#freemaintSdate").val() != "") contData.freemaintSdate = $("#freemaintSdate").val();
+			if($("#freemaintEdate").val() != "") contData.freemaintEdate 	= $("#freemaintEdate").val();
+
 			$.ajax({ url: "${path}/cont/update.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
 						data: contData , // HTTP 요청과 함께 서버로 보낼 데이터 
 						method: "POST", // HTTP 요청 메소드(GET, POST 등) 

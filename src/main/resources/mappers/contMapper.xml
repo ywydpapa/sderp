@@ -11,7 +11,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		left join swc_cust c on a.custNo = c.custNo
 		left join swc_code d on a.contType = d.codeNo 
 		where a.attrib not like 'XXX%' and a.compNo = #{compNo}
-		order by contOrddate desc
+		order by modDatetime desc
 		<if test="limit > 0">
 			limit  #{limit} offset #{offset}
 		</if>

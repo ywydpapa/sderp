@@ -342,7 +342,7 @@
 				<table id="contTable" class="table table-striped table-bordered nowrap">
 					<thead>
 						<tr>
-							<th style="text-align: center">판매일</th>
+							<th style="text-align: center">발주일자</th>
 							<th style="text-align: center">계약명</th>
 							<th style="text-align: center">거래처명</th>
 							<th style="text-align: center">담당자</th>
@@ -351,7 +351,7 @@
 					<tbody>
 						<c:forEach var="row" items="${contlist}">
 							<tr align="center">
-								<td>${row.delivDate}</td>
+								<td>${row.contOrddate}</td>
 								<td><a
 									href="javascript:fnSetPage('${path}/cont/detail/${row.contNo}')">${row.contTitle}</a></td>
 								<td>${row.custName}</td>

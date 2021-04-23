@@ -59,8 +59,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<if test="'asc' == orderOption">
 		order by ${orderColumn} asc
 	</if>
-
+	<if test="limit > 0">
 	limit #{limit} offset #{offset}
+	</if>
 </select>
 
 <select id="listTechdCnt"

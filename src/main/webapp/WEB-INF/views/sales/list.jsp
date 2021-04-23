@@ -13,7 +13,7 @@
 	$(function(){
 		var obj = new Object();
 		salesTable = $('#salesTable').DataTable({
-			order: [[ 2, "desc" ]],
+			order: [[ 0, "desc" ]],
 			paging : true, // 페이지 처리 여부
 			ordering : true, // 컬럼 클릭 시 오더링을 적용 여부
 			// info : true, // 페이지 상태에 대한 정보 여부
@@ -65,6 +65,17 @@
 			],	// ajax로 데이터가 날아오면서 list를 뿌려주는데 각 컬럼에서 만약 값이 없으면 오류대처
 			columns : [
 				{
+					data: "modDatetime",
+					column : '등록/수정일',
+					render : function ( data, type, row ) {
+						if(data == null || data == undefined) {
+							return '';
+						} else {
+							return data.split(" ")[0];
+						}
+					},
+				},
+				{
 					data: "salesTitle",
 					column : '영업활동명',
 					render : function ( data, type, row ) {
@@ -82,7 +93,7 @@
 						if(data == null || data == undefined) {
 							return '';
 						} else {
-							return data;
+							return data.split(" ")[0];
 						}
 					},
 				},
@@ -93,7 +104,7 @@
 						if(data == null || data == undefined) {
 							return '';
 						} else {
-							return data;
+							return data.split(" ")[0];
 						}
 					},
 				},
@@ -208,19 +219,13 @@
 	a {
 		text-decoration:underline;
 	}
-	#salesTable > tbody > tr > td:nth-child(1){
-		overflow: hidden;
-		text-overflow: ellipsis;
-		max-width: 400px;
-		white-space: nowrap;
-	}
-	#salesTable > tbody > tr > td:nth-child(4){
+	#salesTable > tbody > tr > td:nth-child(2){
 		overflow: hidden;
 		text-overflow: ellipsis;
 		max-width: 200px;
 		white-space: nowrap;
 	}
-	#salesTable > tbody > tr > td:nth-child(6){
+	#salesTable > tbody > tr > td:nth-child(5){
 		overflow: hidden;
 		text-overflow: ellipsis;
 		max-width: 200px;
@@ -235,7 +240,13 @@
 	#salesTable > tbody > tr > td:nth-child(8){
 		overflow: hidden;
 		text-overflow: ellipsis;
-		max-width: 250px;
+		max-width: 200px;
+		white-space: nowrap;
+	}
+	#salesTable > tbody > tr > td:nth-child(9){
+		overflow: hidden;
+		text-overflow: ellipsis;
+		max-width: 200px;
 		white-space: nowrap;
 	}
 </style>
@@ -417,18 +428,20 @@
 				<div class="table-responsive">
 					<table id="salesTable" class="table table-striped table-bordered nowrap ">
 							<colgroup>
-								<col width="24%"/>
-								<col width="8.4%"/>
-								<col width="8.4%"/>
-								<col width="12%"/>
 								<col width="4%"/>
+								<col width="20%"/>
+								<col width="4%"/>
+								<col width="4%"/>
+								<col width="20%"/>
+								<col width="2%"/>
+								<col width="15%"/>
+								<col width="15%"/>
 								<col width="12%"/>
-								<col width="12%"/>
-								<col width="10%"/>
 							</colgroup>
 							<thead>
 								<tr>
 									<%--<th><input class="border-checkbox" type="checkbox" id="checkbox0"></th>--%>
+									<th>등록/수정일</th>
 									<th>영업활동명</th>
 									<th>영업활동(시작)</th>
 									<th>영업활동(끝)</th>

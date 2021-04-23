@@ -200,23 +200,37 @@
 				</div>
 			</div>
 			<div class="card-block">
-				<table id="soppTable" 
-					class="table table-striped table-bordered nowrap">
+				<table id="soppTable" class="table table-striped table-bordered nowrap">
+					<colgroup>
+						<col width="4%">
+						<col width="2%">
+						<col width="20%">
+						<col width="20%">
+						<col width="15%">
+						<col width="4%">
+					</colgroup>
 					<thead>
 						<tr >
+							<th style="text-align: center">등록/수정일</th>
 							<th style="text-align: center">판매방식</th>
 							<th style="text-align: center">영업기회명</th>
 							<th style="text-align: center">거래처명</th>
+							<th style="text-align: center">예상매출액</th>
 							<th style="text-align: center">담당자</th>
 						</tr>
 					</thead>
 					<tbody>
 						<c:forEach var="row" items="${sopplist}">
 							<tr align="center">
+								<td>
+									<fmt:parseDate value="${row.modDatetime}" var="modDatetime" pattern="yyyy-MM-dd HH:mm:ss"/>
+									<fmt:formatDate value="${modDatetime}" pattern="yyyy-MM-dd"/>
+								</td>
 								<td>${row.soppTypeN}</td>
 								<td><a
-									href="javascript:fnSetPage('${path}/sopp/detail/${row.soppNo}')">${row.soppTitle}</a></td>
-								<td>${row.custName}</td>
+									href="javascript:fnSetPage('${path}/sopp/detail/${row.soppNo}')" title="${row.soppTitle}">${row.soppTitle}</a></td>
+								<td title="${row.custName}">${row.custName}</td>
+								<td><fmt:formatNumber value="${row.soppTargetAmt}" pattern="#,###"/></td>
 								<td>${row.userName}</td>
 							</tr>
 						</c:forEach>

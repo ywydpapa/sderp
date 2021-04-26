@@ -64,6 +64,18 @@ $(document).ready(function(){
 		document.form1.action="${pageContext.request.contextPath}/user/login_check.do";
 		document.form1.submit();
 	});
+
+
+    var agent = navigator.userAgent.toLowerCase();
+    var ieVersion = 0;
+    if(agent.indexOf('Trident')>-1 || agent.indexOf('trident')>-1){
+        //alert("IE");
+        ieVersion = -1;
+    }
+
+    if (ieVersion == -1) {
+        alert('서비스를 정상적으로 이용하기 위해\n크롬부라우저로 접속해주시기 바랍니다.');
+    }
 });
 </script>
 
@@ -145,5 +157,13 @@ $(document).ready(function(){
     <!-- jquery slimscroll js -->
     <script type="text/javascript" src="${path}/assets/js/common-pages.js"></script>
 </body>
+<script>
+    // ID, PW창에 엔터 누르면 로그인처리과정 진입
+    $('#userId, #userPasswd').keydown(function(event) {
+        if (event.keyCode === 13) {
+            $("#btnlogin").trigger("click");
+        }
+    });
+</script>
 
 </html>

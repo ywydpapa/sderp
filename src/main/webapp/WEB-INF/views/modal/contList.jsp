@@ -31,7 +31,8 @@
 <script>
 $(function(){
     $('#contTable').DataTable({
-    	info:false
+    	info:false,
+		searching: true
     });
 });
 </script>

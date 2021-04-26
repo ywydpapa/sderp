@@ -31,7 +31,8 @@
 <script>
 $(function(){
     $('#code02Table').DataTable({
-    	info:false
+    	info:false,
+		searching: true
     });
 });
 </script>

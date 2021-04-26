@@ -51,7 +51,7 @@
 $(function(){
     $('#soppTable').DataTable({
     	info:false,
-
+		searching: true
     });
 });
 </script>

@@ -28,7 +28,8 @@
 <script>
 $(function(){
     $('#userTable').DataTable({
-    	info:false
+    	info:false,
+		searching: true
     });
 });
 </script>

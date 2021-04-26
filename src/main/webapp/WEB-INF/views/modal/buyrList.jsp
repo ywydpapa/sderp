@@ -32,7 +32,8 @@
 <script>
 $(function(){
     $('#buyrTable').DataTable({
-    	info:false
+    	info:false,
+		searching: true
     });
 });
 </script>

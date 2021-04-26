@@ -30,8 +30,10 @@
 
 <script>
 $(function(){
-    $('#supplyTable').DataTable({});
-    info:false
+    $('#supplyTable').DataTable({
+		info : false,
+		searching: true
+	});
 });
 </script>
 

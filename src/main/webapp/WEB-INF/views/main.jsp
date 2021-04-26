@@ -39,12 +39,15 @@
   <link rel="stylesheet" type="text/css" href="${path}/assets/css/_pcmenu.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,500,600">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<!-- data tables css -->
+  <link rel="stylesheet" href="${path}/assets/css/plugins/dataTables.bootstrap4.min.css">
 	<!-- -->
   <style>
 	  .requiredTextCss{
 		  color: red !important;
 	  }
   </style>
+
     
 <!-- CUSTOM CSS -->
   <link rel="stylesheet" type="text/css" href="${path}/assets/css/style2.css"><!-- style2.css를 제일 마지막에 놓아주세요. -->
@@ -77,12 +80,11 @@
 <!-- i18next.min.js -->
 <script type="text/javascript" src="${path}/js/i18next.min.js"></script>
 <script type="text/javascript" src="${path}/js/i18nextXHRBackend.min.js"></script>
-<script type="text/javascript"
-        src="${path}/js/i18nextBrowserLanguageDetector.min.js"></script>
+<script type="text/javascript" src="${path}/js/i18nextBrowserLanguageDetector.min.js"></script>
 <script type="text/javascript" src="${path}/js/jquery-i18next.min.js"></script>
-  <!-- ChartJS css -->
+<!-- ChartJS css -->
 <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.js"></script> -->
-    <!--EChart css -->
+<!--EChart css -->
 <script type="text/javascript" src="${path}/assets/echart/echarts-all.js"></script>
 <!-- Custom js -->
 <script src="${path}/assets/pages/data-table/js/data-table-custom.js"></script>

@@ -3,11 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <c:set var="path" value ="${pageContext.request.contextPath}"/>	
-    <!-- data tables css -->
-<link rel="stylesheet" href="${path}/assets/css/plugins/dataTables.bootstrap4.min.css">
-<!-- datatable Js -->
-<script src="${path}/assets/pages/jquery.dataTables.min.js"></script>
-<script src="${path}/assets/pages/dataTables.bootstrap4.min.js"></script>
+
 <script>
 	var salesTable;
 	$(function(){

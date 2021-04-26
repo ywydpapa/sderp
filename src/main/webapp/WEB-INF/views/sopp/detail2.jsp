@@ -3,17 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>	
 <c:set var="path" value ="${pageContext.request.contextPath}"/>
-<!-- data tables css -->
-<link rel="stylesheet" href="${path}/assets/css/plugins/dataTables.bootstrap4.min.css">
-<!-- datatable Js -->
-<script src="${path}/assets/pages/jquery.dataTables.min.js"></script>
-<script src="${path}/assets/pages/dataTables.bootstrap4.min.js"></script>
-<script src="${path}/assets/js/jquery/jquery.min.js"></script>
- <!-- Editable-table js -->
-<!-- 
-<script type="text/javascript" src="${path}/assets/pages/edit-table/jquery.tabledit.js"></script>
-<script type="text/javascript" src="${path}/assets/pages/edit-table/editable.js"></script>
--->
+
 <!-- Page-header start 페이지 타이틀-->
 <div class="page-header2">
 	<div class="row align-items-end">

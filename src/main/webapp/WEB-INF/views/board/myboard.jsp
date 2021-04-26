@@ -3,9 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <c:set var="path" value="${pageContext.request.contextPath}" />
-<script src="${path}/assets/pages/jquery.dataTables.min.js"></script>
-<script src="${path}/assets/pages/dataTables.bootstrap4.min.js"></script>
-<%--<script type="text/javascript" src="${path}/assets/echart/echarts-all.js"></script>--%>
+
 <script type="text/javascript" src="${path}/assets/echart/echarts-5.0.2.js"></script>
 
 <div class="row">

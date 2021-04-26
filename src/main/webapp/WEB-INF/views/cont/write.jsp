@@ -207,14 +207,11 @@
 							<tr>
 								<th>판매방식</th>
 								<td>
-									<select name="contType" id="contType" class="form-control form-control-sm">
+									<select name="select" class="form-control form-control-sm" id="contType">
 										<option value="">선택</option>
-										<option value="10048">조달직판</option>
-										<option value="10049">조달간판</option>
-										<option value="10050">조달대행</option>
-										<option value="10051">직접판매</option>
-										<option value="10095">간접판매</option>
-										<option value="10252">기타</option>
+										<c:forEach var="contType" items="${contType}">
+											<option value="${contType.codeNo}">${contType.desc03}</option>
+										</c:forEach>
 									</select>
 								</td>
 								<th>거래처 담당자</th>
@@ -363,7 +360,7 @@
 							<tr>
 								<th >계약금액</th>
 								<td>
-									<input type="text" id="contAmt" name="contAmt" class="form-control" style="text-align: right;" >
+									<input type="text" id="contAmt" name="contAmt" class="form-control" style="text-align: right;" value="0">
 								</td>
 								<th >VAT 포함여부</th>
 								<td>
@@ -375,7 +372,7 @@
 							</tr>
 							<tr>
 								<th>매출이익</th>
-								<td><input style="text-align: right;" type="text" id="netprofit" name="netprofit" class="form-control" value="<fmt:formatNumber value="${dto.net_profit}" pattern="#,###"/>">
+								<td><input style="text-align: right;" type="text" id="netprofit" name="netprofit" class="form-control" value="0">
 								</td>
 								<th scope="row">지역</th>
 								<td>
@@ -539,8 +536,8 @@
 			}
 			contData.contTitle 				= $("#contTitle").val(); 		// 계약명
 			contData.userNo		 			= $("#userNo").val();			// 담당사원
-			var net_profit = Number($("#net_profit").val().replace(/[\D\s\._\-]+/g, "")); // 매출이익
-			if (net_profit > 0){
+			var net_profit = Number($("#netprofit").val().replace(/[\D\s\._\-]+/g, "")); // 매출이익
+			if (net_profit >= 0){
 				contData.net_profit = net_profit;
 			} else {
 				contData.net_profit = 0;
@@ -550,18 +547,19 @@
 			contData.ptncNo 				= $("#ptncNo").val();			// 유지보수업체
 			contData.supplyNo 				= $("#supplyNo").val();			// 공급업체
 			contData.contOrddate 			= $("#contOrddate").val();		// 발주일자
-			contData.supplyDate				= $("#supplyDate").val();		// 공급일자
-			contData.delivDate				= $("#delivDate").val();		// 검수일자
+			if($("#supplyDate").val() != "") contData.supplyDate = $("#supplyDate").val();		// 공급일자
+			if($("#delivDate").val() != "")  contData.delivDate	 = $("#delivDate").val();		// 검수일자
+
 			var contAmt = Number($("#contAmt").val().replace(/[\D\s\._\-]+/g, ""));			// 계약금액
-			if (net_profit > 0){
+			if (contAmt >= 0){
 				contData.contAmt = contAmt;
 			} else {
 				contData.contAmt = 0;
 			}
-			contData.freemaintSdate 		= $("#freemaintSdate").val();	// 무상유지보수 시작일자
-			contData.freemaintEdate 		= $("#freemaintEdate").val();	// 무상유지보수 마감일자
+			if($("#freemaintSdate").val() != "") contData.freemaintSdate = $("#freemaintSdate").val();	// 무상유지보수 시작일자
+			if($("#freemaintEdate").val() != "") contData.freemaintEdate = $("#freemaintEdate").val();	// 무상유지보수 마감일자
 			contData.vatYn					= $("#vatYn").val();			// VAT 포함여부 (기본값 : Y)
-			contData.contArea 				= $("#contArea").val();			// 지역				
+			if($("#contArea").val() != "") contData.contArea 				= $("#contArea").val();			// 지역
 			contData.contType 				= $("#contType").val();			// 판매방식
 			contData.contDesc			 	= $("#contDesc").val();			// 계약내용
 
@@ -584,7 +582,7 @@
 				alert("공급업체를 지정하십시오.");
 				return;
 			} else if (!contData.contType){
-				alert("유지보수업체를 지정하십시오.");
+				alert("판매방식를 지정하십시오.");
 				return;
 			} else if (!contData.supplyNo){
 				alert("공급업체를 지정합시오.");
@@ -592,20 +590,33 @@
 			} else if (!contData.contOrddate){
 				alert("발주 일자를 입력하십시오.");
 				return;
-			} else if (!contData.supplyDate){
+			}
+			/*
+			else if (!contData.supplyDate){
 				alert("공급 일자를 입력하십시오.");
 				return;
 			} else if (!contData.delivDate){
 				alert("검수 일자를 입력하십시오.");
 				return;
-			} else if (!contData.contAmt){
-				// 계약 금액 숫자에 대한 유효성 체크 필요(숫자여부, 정수/실수 여부, 최소금액, 최대금액) return 값 true 또는 flase 같은 boolean 타입
+			}
+			*/
+			else if (contData.net_profit == undefined){
+				// 숫자에 대한 유효성 체크 필요(숫자여부, 정수/실수 여부, 최소금액, 최대금액) return 값 true 또는 flase 같은 boolean 타입
+				alert("매출 이익을 입력하십시오.");
+				return;
+			}
+			else if (contData.contAmt == undefined){
+				// 숫자에 대한 유효성 체크 필요(숫자여부, 정수/실수 여부, 최소금액, 최대금액) return 값 true 또는 flase 같은 boolean 타입
 				alert("계약 금액를 입력하십시오.");
 				return;
-			} else if (!contData.contArea){
+			}
+			/*
+			else if (!contData.contArea){
 				alert("지역을 지정하십시오.");
 				return;
-			} else if (!contData.contType){
+			}
+			 */
+			else if (!contData.contType){
 				alert("판매방법을 지정하십시오.");
 				return;
 			}

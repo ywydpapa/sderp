@@ -5,7 +5,7 @@
 <c:set var="path" value ="${pageContext.request.contextPath}"/>
 
 <div class="dt-responsive table-responsive">
-	<table id="userTable" class="table table-striped table-bordered nowrap">
+	<table id="productGoodsTable" class="table table-striped table-bordered nowrap">
 		<thead>
 			<tr>
 				<th>상품 카테고리번호</th>
@@ -25,7 +25,7 @@
 </div>
 <script>
 $(function(){
-    $('#userTable').DataTable({
+    $('#productGoodsTable').DataTable({
     	info:false,
 		searching: true
     });

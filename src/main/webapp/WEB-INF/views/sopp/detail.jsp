@@ -328,19 +328,16 @@
 											</select></td>
 											<td>
 												<div class="input-group input-group-sm mb-0">
-													<input type="hidden" id="productNo1" value="" /> <input
-														type="text" class="form-control" name="product"
-														id="data01Title" value="" /> <span
-														class="input-group-btn">
-														<button class="btn btn-primary sch-company"
-															onclick="fn_productdataTableReload()" type="button"
-															data-toggle="modal" data-target="#productdataModal">
+													<input type="hidden" id="productNo1" value="" />
+													<input type="text" class="form-control" name="product" id="data01Title" value="" />
+													<span class="input-group-btn">
+														<button class="btn btn-primary sch-company" onclick="fn_productdataTableReload()" type="button" data-toggle="modal" data-target="#productdataModal">
 															<i class="icofont icofont-search"></i>
 														</button>
 													</span>
-												</div> <!--모달 팝업-->
-												<div class="modal fade" id="productdataModal" tabindex="-1"
-													role="dialog">
+												</div>
+												<!--모달 팝업-->
+												<div class="modal fade" id="productdataModal" tabindex="-1" role="dialog">
 													<div class="modal-dialog modal-80size" role="document">
 														<div class="modal-content modal-80size">
 															<div class="modal-header">
@@ -351,8 +348,7 @@
 																</button>
 															</div>
 															<div class="modal-body">
-																<jsp:include
-																	page="/WEB-INF/views/modal/productdataListSalesInOut.jsp" />
+																<jsp:include page="/WEB-INF/views/modal/productdataListSalesInOut.jsp" />
 															</div>
 															<div class="modal-footer">
 																<button type="button"
@@ -468,19 +464,16 @@
 											</select></td>
 											<td>
 												<div class="input-group input-group-sm mb-0">
-													<input type="hidden" id="productNo2" value="" /> <input
-														type="text" class="form-control" name="product"
-														id="data02Title" value="" /> <span
-														class="input-group-btn">
-														<button class="btn btn-primary sch-company"
-															onclick="fn_productdataTableReload2()" type="button"
-															data-toggle="modal" data-target="#productdataModal2">
+													<input type="hidden" id="productNo2" value="" />
+													<input type="text" class="form-control" name="product" id="data02Title" value="" />
+													<span class="input-group-btn">
+														<button class="btn btn-primary sch-company" onclick="fn_productdataTableReload2()" type="button" data-toggle="modal" data-target="#productdataModal2">
 															<i class="icofont icofont-search"></i>
 														</button>
 													</span>
-												</div> <!--모달 팝업-->
-												<div class="modal fade" id="productdataModal2" tabindex="-1"
-													role="dialog">
+												</div>
+												<!--모달 팝업-->
+												<div class="modal fade" id="productdataModal2" tabindex="-1" role="dialog">
 													<div class="modal-dialog modal-80size" role="document">
 														<div class="modal-content modal-80size">
 															<div class="modal-header">

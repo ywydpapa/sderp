@@ -167,44 +167,7 @@
 										</div>
 									</div>
 								</td>
-								<th>거래처</th>
-								<td>
-									<div class="input-group input-group-sm mb-0">
-										<input type="text" class="form-control" name="custName" id="custName" value="" />
-										 <input type="hidden" name="custNo" id="custNo" value="" /> <span class="input-group-btn">
-											<button class="btn btn-primary sch-company"
-												data-remote="${path}/modal/popup.do?popId=cust"
-												type="button" data-toggle="modal" data-target="#custModal">
-												<i class="icofont icofont-search"></i>
-											</button>
-										</span>
-										<div class="modal fade " id="custModal" tabindex="-1"
-											role="dialog">
-											<div class="modal-dialog modal-80size" role="document">
-												<div class="modal-content modal-80size">
-													<div class="modal-header">
-														<h4 class="modal-title">거래처검색</h4>
-														<button type="button" class="close" data-dismiss="modal"
-															aria-label="Close">
-															<span aria-hidden="true">&times;</span>
-														</button>
-													</div>
-													<div class="modal-body">
-														<h5>거래처목록</h5>
-														<p>Loading!!!</p>
-													</div>
-													<div class="modal-footer">
-														<button type="button"
-															class="btn btn-default waves-effect "
-															data-dismiss="modal">Close</button>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-								</td>
-							</tr>
-							<tr>
+
 								<th>판매방식</th>
 								<td>
 									<select name="select" class="form-control form-control-sm" id="contType">
@@ -214,17 +177,54 @@
 										</c:forEach>
 									</select>
 								</td>
+
+							</tr>
+							<tr>
+								<th>거래처</th>
+								<td>
+									<div class="input-group input-group-sm mb-0">
+										<input type="text" class="form-control" name="custName" id="custName" value="" />
+										<input type="hidden" name="custNo" id="custNo" value="" /> <span class="input-group-btn">
+											<button class="btn btn-primary sch-company"
+													data-remote="${path}/modal/popup.do?popId=cust"
+													type="button" data-toggle="modal" data-target="#custModal">
+												<i class="icofont icofont-search"></i>
+											</button>
+										</span>
+										<div class="modal fade " id="custModal" tabindex="-1"
+											 role="dialog">
+											<div class="modal-dialog modal-80size" role="document">
+												<div class="modal-content modal-80size">
+													<div class="modal-header">
+														<h4 class="modal-title">거래처검색</h4>
+														<button type="button" class="close" data-dismiss="modal"
+																aria-label="Close">
+															<span aria-hidden="true">&times;</span>
+														</button>
+													</div>
+													<div class="modal-body">
+														<h5>거래처목록</h5>
+														<p>Loading!!!</p>
+													</div>
+													<div class="modal-footer">
+														<button type="button"
+																class="btn btn-default waves-effect "
+																data-dismiss="modal">Close</button>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</td>
+
 								<th>거래처 담당자</th>
 								<td>
 									<div class="input-group input-group-sm mb-0">
 										<input type="text" id="custmemberName" name="custmemberName" class="form-control " readonly>
 										<input type="hidden" id="custmemberNo" name="custmemberNo" class="form-control ">
 										<span class="input-group-btn">
-											<button class="btn btn-primary sch-company btn-sm" 
-												data-remote="${path}/modal/popup.do?popId=custmem&compNo="
-												type="button" data-toggle="modal" data-target="#custmemberModal"
-												id="custmemberModalbtn" data-whatever="">
-											<i class="icofont icofont-search"></i>
+											<button class="btn btn-primary sch-company btn-sm"  data-remote="${path}/modal/popup.do?popId=custmem&compNo=" type="button" data-toggle="modal" data-target="#custmemberModal" id="custmemberModalbtn" data-whatever="">
+												<i class="icofont icofont-search"></i>
 											</button>
 										</span>
 										<div class="modal fade " id="custmemberModal" tabindex="-1"
@@ -254,74 +254,62 @@
 								</td>
 							</tr>
 							<tr>
-								<th scope="row">유지보수업체</th>
+								<th scope="row">엔드유저</th>
 								<td>
 									<div class="input-group input-group-sm mb-0">
-										<input type="text" class="form-control" name="ptncName" id="ptncName" value="" />
-										 <input type="hidden" name="ptncNo" id="ptncNo" value="" />
-										  <span class="input-group-btn">
-											<button class="btn btn-primary sch-partner"
-												data-remote="${path}/modal/popup.do?popId=ptnc"
-												type="button" data-toggle="modal" data-target="#ptncModal">
+										<input type="text" class="form-control" id="endCustName" value="" />
+										<input type="hidden" id="endCustNo" value="" />
+										<span class="input-group-btn">
+											<button class="btn btn-primary sch-partner" data-remote="${path}/modal/popup.do?popId=endCust" type="button" data-toggle="modal" data-target="#endCustModal">
 												<i class="icofont icofont-search"></i>
 											</button>
 										</span>
-										<div class="modal fade " id="ptncModal" tabindex="-1"
-											role="dialog">
+										<div class="modal fade " id="endCustModal" tabindex="-1" role="dialog">
 											<div class="modal-dialog modal-80size" role="document">
 												<div class="modal-content modal-80size">
 													<div class="modal-header">
 														<h4 class="modal-title"></h4>
-														<button type="button" class="close" data-dismiss="modal"
-															aria-label="Close">
+														<button type="button" class="close" onclick="$('#endCustModal').modal('hide');" aria-label="Close">
 															<span aria-hidden="true">&times;</span>
 														</button>
 													</div>
 													<div class="modal-body">
-														<h5>협력사목록</h5>
+														<h5>엔드유저 목록</h5>
 														<p>Loading!!!</p>
 													</div>
 													<div class="modal-footer">
-														<button type="button"
-															class="btn btn-default waves-effect "
-															data-dismiss="modal">Close</button>
+														<button type="button" class="btn btn-default waves-effect" onclick="$('#endCustModal').modal('hide');">Close</button>
 													</div>
 												</div>
 											</div>
 										</div>
 									</div>
 								</td>
-								<th>공급업체</th>
+								<th>엔드유저 담당자</th>
 								<td>
 									<div class="input-group input-group-sm mb-0">
-										<input type="text" class="form-control" name="supplyName" id="supplyName" value="" />
-										 <input type="hidden" name="supplyNo" id="supplyNo" value="" />
-										  <span class="input-group-btn">
-											<button class="btn btn-primary sch-partner"
-												data-remote="${path}/modal/popup.do?popId=supply"
-												type="button" data-toggle="modal" data-target="#supplyModal">
+										<input type="text" id="endCustmemberName" name="custmemberName" class="form-control " readonly>
+										<input type="hidden" id="endCustmemberNo" name="custmemberNo" class="form-control ">
+										<span class="input-group-btn">
+											<button class="btn btn-primary sch-company btn-sm"  data-remote="${path}/modal/popup.do?popId=endCustmem&compNo=" type="button" data-toggle="modal" data-target="#endCustmemberModal" id="endCustmemberModalbtn" data-whatever="">
 												<i class="icofont icofont-search"></i>
 											</button>
 										</span>
-										<div class="modal fade " id="supplyModal" tabindex="-1"
-											role="dialog">
+										<div class="modal fade " id="endCustmemberModal" tabindex="-1" role="dialog">
 											<div class="modal-dialog modal-80size" role="document">
 												<div class="modal-content modal-80size">
 													<div class="modal-header">
-														<h4 class="modal-title"></h4>
-														<button type="button" class="close" data-dismiss="modal"
-															aria-label="Close">
+														<h4 class="modal-title">고객 검색</h4>
+														<button type="button" class="close" onclick="$('#endCustmemberModal').modal('hide');" aria-label="Close">
 															<span aria-hidden="true">&times;</span>
 														</button>
 													</div>
 													<div class="modal-body">
-														<h5>협력사목록</h5>
-														<p>Loading!!!</p>
+														<h5>엔드유저 고객 목록</h5>
+														<p>엔드유저를 먼저 입력해주셔야 목록이 보입니다.</p>
 													</div>
 													<div class="modal-footer">
-														<button type="button"
-															class="btn btn-default waves-effect "
-															data-dismiss="modal">Close</button>
+														<button type="button" class="btn btn-default waves-effect" onclick="$('#endCustmemberModal').modal('hide');">Close</button>
 													</div>
 												</div>
 											</div>
@@ -420,6 +408,30 @@
 			var modal = $(this);
 			modal.find('.modal-body').load(button.data("remote"));
 		});
+		$('#custmemberModal').on('show.bs.modal', function(event) {
+			var button = $(event.relatedTarget);
+			var recipient = button.data('whatever');
+			var url = '${path}/modal/popup.do?popId=custmem&compNo=' + recipient;
+			button.data("remote",url);
+			var modal = $(this);
+			modal.find('.modal-body').load(button.data("remote"));
+		});
+
+		$('#endCustModal').on('show.bs.modal', function(e) {
+			var button = $(e.relatedTarget);
+			var modal = $(this);
+			modal.find('.modal-body').load(button.data("remote"));
+		});
+		$('#endCustmemberModal').on('show.bs.modal', function(e) {
+			var button = $(e.relatedTarget);
+			var recipient = button.data('whatever');
+			console.log("endCustmemberModal -> : "+recipient);
+			var url = '${path}/modal/popup.do?popId=endCustmem&compNo=' + recipient;
+			button.data("remote",url);
+			var modal = $(this);
+			modal.find('.modal-body').load(button.data("remote"));
+		});
+
 		$('#userModal').on('show.bs.modal', function(e) {
 			var button = $(e.relatedTarget);
 			var modal = $(this);
@@ -440,18 +452,7 @@
 			var modal = $(this);
 			modal.find('.modal-body').load(button.data("remote"));
 		});
-		$('#custmemberModal').on('show.bs.modal', function(event) {
-			var button = $(event.relatedTarget) // Button that triggered the modal
-			var recipient = button.data('whatever') // Extract info from data-* attributes
-			// If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
-			// Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
-			
-			var url = '${path}/modal/popup.do?popId=custmem&compNo=' + recipient;
-			button.data("remote",url);
-			
-			var modal = $(this);
-			modal.find('.modal-body').load(button.data("remote"));
-		});
+
 		$('#contModal').on('show.bs.modal', function(e) {
 			var button = $(e.relatedTarget);
 			var modal = $(this);
@@ -465,6 +466,14 @@
 			$("#custmemberModalbtn").data('whatever', b);
 			$(".modal-backdrop").remove();
 			$("#custModal").modal("hide");
+		}
+
+		function fnSetEndCustData(a, b) {
+			$("#endCustName").val(a);
+			$("#endCustNo").val(a);
+			$("#endCustmemberModalbtn").data('whatever', b);
+			$(".modal-backdrop").remove();
+			$("#endCustModal").modal("hide");
 		}
     	
 		function fnSetUserData(a, b) {
@@ -512,6 +521,7 @@
 			$("#contModal").modal("hide");
 		}
 
+
 		function fnToggleLayer() {
 			$(".techdDetailCont").each(function () {
 				if($(this).css('display') == 'none'){
@@ -544,8 +554,9 @@
 			}
 			contData.custNo 				= $("#custNo").val();			// 거래처
 			contData.custmemberNo			= $("#custmemberNo").val();		// 거래처 담당자
-			contData.ptncNo 				= $("#ptncNo").val();			// 유지보수업체
-			contData.supplyNo 				= $("#supplyNo").val();			// 공급업체
+			contData.ptncNo 				= $("#endCustName").val() != "" ? Number($("#endCustNo").val()) : 0;
+//			contData.ptncNo 				= $("#ptncNo").val();			// 유지보수업체
+//			contData.supplyNo 				= $("#supplyNo").val();			// 공급업체
 			contData.contOrddate 			= $("#contOrddate").val();		// 발주일자
 			if($("#supplyDate").val() != "") contData.supplyDate = $("#supplyDate").val();		// 공급일자
 			if($("#delivDate").val() != "")  contData.delivDate	 = $("#delivDate").val();		// 검수일자

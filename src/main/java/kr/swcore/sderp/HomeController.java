@@ -224,6 +224,13 @@ public class HomeController {
 			model.addAttribute("list", list);
 			rtn = "modal/custmemberList";
 		}
+
+		else if("endCustmem".equals(popId)) {
+			Integer compNo = Integer.valueOf((String) params.get("compNo"));
+			List<CustDTO> list = custService.listCustmember(compNo);
+			model.addAttribute("list", list);
+			rtn = "modal/custmemberList";
+		}
 		
 		else if("productGoodsCategory".equals(popId)) {
 			//Integer compNo = Integer.valueOf((String) params.get("compNo"));

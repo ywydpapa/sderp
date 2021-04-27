@@ -225,9 +225,8 @@
 									<fmt:formatDate value="${modDatetime}" pattern="yyyy-MM-dd"/>
 								</td>
 								<td>${row.soppTypeN}</td>
-								<td><a
-									href="javascript:fnSetPage('${path}/sopp/detail/${row.soppNo}')" title="${row.soppTitle}">${row.soppTitle}</a></td>
-								<td title="${row.custName}">${row.custName}</td>
+								<td><a href="javascript:fnSetPage('${path}/sopp/detail/${row.soppNo}')" title="${row.soppTitle}">${row.soppTitle}</a></td>
+								<td><span title="${row.custName}">${row.custName}</span></td>
 								<td><fmt:formatNumber value="${row.soppTargetAmt}" pattern="#,###"/></td>
 								<td>${row.userName}</td>
 							</tr>
@@ -245,7 +244,7 @@
 						<h5>일정</h5>
 						<span>영업일정 목록</span>
 					</div>
-					<select class="custom-select mr-sm-2" name="" id="" style="margin-top: -32px; margin-left: 22px;">
+					<select class="custom-select mr-sm-2" name="" id="salesTableSelect" style="margin-top: -32px; margin-left: 22px;">
 						<option value = "all">전체</option>
 						<option value = "dept" selected>부서</option>
 						<option value = "individual">개인</option>
@@ -255,6 +254,7 @@
 					<table id="salesTable" class="table table-striped table-bordered nowrap">
 						<thead>
 							<tr>
+								<th style="text-align: center">등록/수정일</th>
 								<th style="text-align: center">영업일정</th>
 								<th style="text-align: center">일정명</th>
 								<th style="text-align: center">거래처명</th>
@@ -266,14 +266,17 @@
 							<c:forEach var="row" items="${saleslist}">
 								<tr align="center">
 									<td>
+										<fmt:parseDate value="${row.modDatetime}" var="modDatetime" pattern="yyyy-MM-dd HH:mm:ss"/>
+										<fmt:formatDate value="${modDatetime}" pattern="yyyy-MM-dd"/>
+									</td>
+									<td>
 										<fmt:parseDate value="${row.salesFrdatetime}" var="salesFrdatetime" pattern="yyyy-MM-dd HH:mm:ss"/>
 										<fmt:formatDate value="${salesFrdatetime}" pattern="yyyy-MM-dd"/>
 									</td>
-									<td><a
-										href="javascript:fnSetPage('${path}/sales/detail/${row.salesNo}')">${row.salesTitle}</a></td>
-									<td>${row.custName}</td>
+									<td><a href="javascript:fnSetPage('${path}/sales/detail/${row.salesNo}')" title="${row.salesTitle}">${row.salesTitle}</a></td>
+									<td><span title="${row.custName}">${row.custName}</span></td>
 									<td>${row.userName}</td>
-									<td>${row.salesPlace}</td>
+									<td><span title="${row.salesPlace}">${row.salesPlace}</span></td>
 								</tr>
 							</c:forEach>
 						</tbody>
@@ -290,7 +293,7 @@
 						<h5>일정</h5>
 						<span>기술지원일정 목록</span>
 					</div>
-					<select class="custom-select mr-sm-2" name="" id="" style="margin-top: -32px; margin-left: 22px;">
+					<select class="custom-select mr-sm-2" name="" id="techdTableSelect" style="margin-top: -32px; margin-left: 22px;">
 						<option value = "all">전체</option>
 						<option value = "dept" selected>부서</option>
 						<option value = "individual">개인</option>
@@ -300,6 +303,7 @@
 					<table id="techdTable" class="table table-striped table-bordered nowrap">
 						<thead>
 						<tr>
+							<th style="text-align: center">등록/수정일</th>
 							<th style="text-align: center">지원일정</th>
 							<th style="text-align: center">일정명</th>
 							<th style="text-align: center">거래처명</th>
@@ -311,14 +315,17 @@
 						<c:forEach var="row" items="${techdlist}">
 							<tr align="center">
 								<td>
+									<fmt:parseDate value="${row.modDatetime}" var="modDatetime" pattern="yyyy-MM-dd HH:mm:ss"/>
+									<fmt:formatDate value="${modDatetime}" pattern="yyyy-MM-dd"/>
+								</td>
+								<td>
 									<fmt:parseDate value="${row.techdFrom}" var="techdfromdatetime" pattern="yyyy-MM-dd HH:mm:ss"/>
 									<fmt:formatDate value="${techdfromdatetime}" pattern="yyyy-MM-dd"/>
 								</td>
-								<td><a
-										href="javascript:fnSetPage('${path}/techd/detail/${row.techdNo}')">${row.techdTitle}</a></td>
-								<td>${row.custName}</td>
+								<td><a href="javascript:fnSetPage('${path}/techd/detail/${row.techdNo}')" title="${row.techdTitle}">${row.techdTitle}</a></td>
+								<td><span title="${row.custName}">${row.custName}</span></td>
 								<td>${row.userName}</td>
-								<td>${row.techdPlace}</td>
+								<td><span title="${row.techdPlace}">${row.techdPlace}</span></td>
 							</tr>
 						</c:forEach>
 						</tbody>
@@ -354,6 +361,7 @@
 				<table id="contTable" class="table table-striped table-bordered nowrap">
 					<thead>
 						<tr>
+							<th style="text-align: center">등록/수정일</th>
 							<th style="text-align: center">발주일자</th>
 							<th style="text-align: center">계약명</th>
 							<th style="text-align: center">거래처명</th>
@@ -363,10 +371,13 @@
 					<tbody>
 						<c:forEach var="row" items="${contlist}">
 							<tr align="center">
+								<td>
+									<fmt:parseDate value="${row.modDatetime}" var="modDatetime" pattern="yyyy-MM-dd HH:mm:ss"/>
+									<fmt:formatDate value="${modDatetime}" pattern="yyyy-MM-dd"/>
+								</td>
 								<td>${row.contOrddate}</td>
-								<td><a
-									href="javascript:fnSetPage('${path}/cont/detail/${row.contNo}')">${row.contTitle}</a></td>
-								<td>${row.custName}</td>
+								<td><a href="javascript:fnSetPage('${path}/cont/detail/${row.contNo}')" title="${row.contTitle}">${row.contTitle}</a></td>
+								<td><span title="${row.custName}">${row.custName}</span></td>
 								<td>${row.userName}</td>
 							</tr>
 						</c:forEach>
@@ -409,27 +420,64 @@
 	}
 	#salesTable > tbody > tr > td:nth-child(1){
 		text-overflow: ellipsis;
-		max-width: 210px;
+		max-width: 150px;
 		overflow: hidden;
 	}
 	#salesTable > tbody > tr > td:nth-child(2){
 		text-overflow: ellipsis;
-		max-width: 240px;
+		max-width: 150px;
+		overflow: hidden;
+	}
+	#salesTable > tbody > tr > td:nth-child(3){
+		text-overflow: ellipsis;
+		max-width: 180px;
 		overflow: hidden;
 	}
 	#salesTable > tbody > tr > td:nth-child(4){
 		text-overflow: ellipsis;
-		max-width: 240px;
+		max-width: 180px;
 		overflow: hidden;
 	}
-	#contTable > tbody > tr > td:nth-child(1){
+
+	#techdTable > tbody > tr > td:nth-child(2){
 		text-overflow: ellipsis;
-		max-width: 310px;
+		max-width: 360px;
 		overflow: hidden;
 	}
-	#contTable > tbody > tr > td:nth-child(1){
+	#techdTable > tbody > tr > td:nth-child(3){
 		text-overflow: ellipsis;
-		max-width: 350px;
+		max-width: 180px;
+		overflow: hidden;
+	}
+	#techdTable > tbody > tr > td:nth-child(1){
+		text-overflow: ellipsis;
+		max-width: 150px;
+		overflow: hidden;
+	}
+	#techdTable > tbody > tr > td:nth-child(2){
+		text-overflow: ellipsis;
+		max-width: 150px;
+		overflow: hidden;
+	}
+	#techdTable > tbody > tr > td:nth-child(3){
+		text-overflow: ellipsis;
+		max-width: 180px;
+		overflow: hidden;
+	}
+	#techdTable > tbody > tr > td:nth-child(4){
+		text-overflow: ellipsis;
+		max-width: 180px;
+		overflow: hidden;
+	}
+
+	#contTable > tbody > tr > td:nth-child(3){
+		text-overflow: ellipsis;
+		max-width: 250px;
+		overflow: hidden;
+	}
+	#contTable > tbody > tr > td:nth-child(4){
+		text-overflow: ellipsis;
+		max-width: 200px;
 		overflow: hidden;
 	}
 	.pull-left{float:left!important;}

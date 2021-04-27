@@ -1,7 +1,10 @@
 package kr.swcore.sderp.cust.service;
 
 import java.util.List;
+import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import kr.swcore.sderp.cust.dto.CustDTO;
@@ -17,6 +20,7 @@ public interface CustService {
 	public List<CustDTO>listSupply();
 	public List<CustDTO>listSupply(HttpSession session);
 	public List<CustDTO>listCustmember(int custNo);
+	Map<String, Object> listcustNameCheck(HttpSession session, String param, HttpServletRequest request, HttpServletResponse response);
 	CustDTO detailCust(int custNo);
 	CustDTO detailCust02(int custNo);
 	CustDTO detailCust03(int custNo);
@@ -31,4 +35,5 @@ public interface CustService {
 	public int insertCust02(CustDTO dto);
 	public int insertCust03(CustDTO dto);
 	public int insertCust04(CustDTO dto);
+	Map<String, Object> insertSimpleRegister(HttpSession session, String param, HttpServletRequest request, HttpServletResponse response);
 }

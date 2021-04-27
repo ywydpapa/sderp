@@ -70,8 +70,7 @@
 																	<div class="modal-content modal-80size">
 																		<div class="modal-header">
 																			<h4 class="modal-title"></h4>
-																			<button type="button" class="close"
-																				data-dismiss="modal" aria-label="Close">
+																			<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 																				<span aria-hidden="true">&times;</span>
 																			</button>
 																		</div>
@@ -92,14 +91,10 @@
 													<th scope="row">거래처</th>
 													<td>
 														<div class="input-group input-group-sm mb-0">
-															<input type="text" class="form-control" name="custName"
-																id="custName" value="" readonly /> <input
-																type="hidden" name="custNo" id="custNo"
-																value="" /> <span class="input-group-btn">
-																<button class="btn btn-primary sch-company"
-																	data-remote="${path}/modal/popup.do?popId=cust"
-																	type="button" data-toggle="modal"
-																	data-target="#custModal">
+															<input type="text" class="form-control" name="custName" id="custName" value="" readonly />
+															<input type="hidden" name="custNo" id="custNo" value="" />
+															<span class="input-group-btn">
+																<button class="btn btn-primary sch-company" data-remote="${path}/modal/popup.do?popId=cust" type="button" data-toggle="modal" data-target="#custModal">
 																	<i class="icofont icofont-search"></i>
 																</button>
 															</span>

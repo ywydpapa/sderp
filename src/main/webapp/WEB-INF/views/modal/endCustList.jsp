@@ -5,31 +5,35 @@
 <c:set var="path" value ="${pageContext.request.contextPath}"/>
 
 <div class="dt-responsive table-responsive">
-	<table id="userTable" class="table table-striped table-bordered nowrap">
+	<table id="endCustTable" class="table table-striped table-bordered nowrap">
 		<thead>
 			<tr>
-				<th>고객 담당자 번호</th>
-				<th>고객 성명</th>
-				<th>직급</th>
+				<th>거래처번호</th>
+				<th>거래처명</th>
+				<th>대표자명</th>
+				<th>사업자번호</th>
 			</tr>
 		</thead>
 		<tbody>
 			<c:forEach var="row" items="${list}">
 				<tr align="center">
-					<td>${row.custData03no}</td>
+					<td>${row.custNo}</td>
 					<td><a
-						href="javascript:fnSetCustmereData('${row.custData03no}','${row.custMname}');">${row.custMname}</a></td>
-					<td>${row.custMrank}</td>
+						href="javascript:fnSetEndCustData('${row.custName}','${row.custNo}');">${row.custName}</a></td>
+					<td>${row.custBossname}</td>
+					<td>${row.custVatno}</td>
 				</tr>
 			</c:forEach>
 		</tbody>
 	</table>
 </div>
+
 <script>
 $(function(){
-    $('#userTable').DataTable({
+    $('#endCustTable').DataTable({
     	info:false,
 		searching: true
     });
 });
 </script>
+

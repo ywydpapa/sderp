@@ -154,6 +154,11 @@ public class HomeController {
 			model.addAttribute("list",list);
 			rtn = "modal/custList";
 		}
+		else if("endCust".equals(popId)) {
+			List<CustDTO> list=custService.listCust(session);
+			model.addAttribute("list",list);
+			rtn = "modal/endCustList";
+		}
 		else if("user".equals(popId)) {
 			List<UserDTO> list=userService.userList(session);
 			model.addAttribute("list",list);
@@ -215,6 +220,13 @@ public class HomeController {
 		
 		else if("custmem".equals(popId)) {
 			Integer compNo = Integer.valueOf((String) params.get("compNo")); 
+			List<CustDTO> list = custService.listCustmember(compNo);
+			model.addAttribute("list", list);
+			rtn = "modal/custmemberList";
+		}
+
+		else if("endCustmem".equals(popId)) {
+			Integer compNo = Integer.valueOf((String) params.get("compNo"));
 			List<CustDTO> list = custService.listCustmember(compNo);
 			model.addAttribute("list", list);
 			rtn = "modal/custmemberList";

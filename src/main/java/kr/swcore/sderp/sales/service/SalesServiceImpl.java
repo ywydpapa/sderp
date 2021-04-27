@@ -46,7 +46,7 @@ public class SalesServiceImpl implements SalesService {
 			dto.setOffset(offset);
 		}
 
-		dto.setOrderColumn("salesFrdatetime");
+		dto.setOrderColumn("modDatetime");
 		dto.setOrderOption("desc");
 
 		return salesDao.listSales(dto);
@@ -151,15 +151,16 @@ public class SalesServiceImpl implements SalesService {
 
 		String column = "";
 		switch (orderColumn){
-			case "0" : column = "salesTitle"; break;		// 영업활동명
-			case "1" : column = "salesFrdatetime"; break;	// 일정(시작)
-			case "2" : column = "salesTodatetime"; break;	// 일정(끝)
-			case "3" : column = "soppTitle"; break;			// 영업기회명
-			case "4" : column = "userName"; break;			// 담당사원
-			case "5" : column = "custName"; break;			// 거래처
-			case "6" : column = "ptncName"; break;			// 엔드유저
+			case "0" : column = "modDatetime"; break;		// 등록/수정일
+			case "1" : column = "salesTitle"; break;		// 영업활동명
+			case "2" : column = "salesFrdatetime"; break;	// 일정(시작)
+			case "3" : column = "salesTodatetime"; break;	// 일정(끝)
+			case "4" : column = "soppTitle"; break;			// 영업기회명
+			case "5" : column = "userName"; break;			// 담당사원
+			case "6" : column = "custName"; break;			// 거래처
+			case "7" : column = "ptncName"; break;			// 엔드유저
 			/*case "7" : column = "salesTypeN"; break;*/		// 활동형태
-			case "7" : column = "salesDesc"; break;			// 일정설명
+			case "8" : column = "salesDesc"; break;			// 일정설명
 		}
 
 		String option = "";

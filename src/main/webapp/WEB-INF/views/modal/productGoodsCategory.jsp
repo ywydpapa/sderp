@@ -3,13 +3,9 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <c:set var="path" value ="${pageContext.request.contextPath}"/>
-    <!-- data tables css -->
-<link rel="stylesheet" href="${path}/assets/css/plugins/dataTables.bootstrap4.min.css">
-<!-- datatable Js -->
-<script src="${path}/assets/pages/jquery.dataTables.min.js"></script>
-<script src="${path}/assets/pages/dataTables.bootstrap4.min.js"></script>
+
 <div class="dt-responsive table-responsive">
-	<table id="userTable" class="table table-striped table-bordered nowrap">
+	<table id="productGoodsTable" class="table table-striped table-bordered nowrap">
 		<thead>
 			<tr>
 				<th>상품 카테고리번호</th>
@@ -29,8 +25,9 @@
 </div>
 <script>
 $(function(){
-    $('#userTable').DataTable({
-    	info:false
+    $('#productGoodsTable').DataTable({
+    	info:false,
+		searching: true
     });
 });
 </script>

@@ -47,7 +47,7 @@ public class SoppServiceImpl implements SoppService {
 			dto.setOffset(offset);
 		}
 
-		dto.setOrderColumn("soppTargetDate");
+		dto.setOrderColumn("modDatetime");
 		dto.setOrderOption("desc");
 
 		return soppDao.listSopp(dto);

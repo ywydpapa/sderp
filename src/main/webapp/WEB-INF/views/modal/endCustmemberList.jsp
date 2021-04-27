@@ -5,7 +5,7 @@
 <c:set var="path" value ="${pageContext.request.contextPath}"/>
 
 <div class="dt-responsive table-responsive">
-	<table id="userTable" class="table table-striped table-bordered nowrap">
+	<table id="endCustMemberTable" class="table table-striped table-bordered nowrap">
 		<thead>
 			<tr>
 				<th>고객 담당자 번호</th>
@@ -18,7 +18,7 @@
 				<tr align="center">
 					<td>${row.custData03no}</td>
 					<td><a
-						href="javascript:fnSetCustmereData('${row.custData03no}','${row.custMname}');">${row.custMname}</a></td>
+						href="javascript:fnSetEndCustmereData('${row.custData03no}','${row.custMname}');">${row.custMname}</a></td>
 					<td>${row.custMrank}</td>
 				</tr>
 			</c:forEach>
@@ -27,7 +27,7 @@
 </div>
 <script>
 $(function(){
-    $('#userTable').DataTable({
+    $('#endCustMemberTable').DataTable({
     	info:false,
 		searching: true
     });

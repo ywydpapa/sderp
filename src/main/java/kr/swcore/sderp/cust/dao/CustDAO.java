@@ -16,6 +16,8 @@ public interface CustDAO {
 	List<CustDTO> listSupply();
 	List<CustDTO> listSupply(SoppDTO soppDto);
 	List<CustDTO> listCustmember(int custNo);
+	List<CustDTO> listCustNameCheck(CustDTO custDTO);
+	List<CustDTO> listCustNameSimilarCheck(CustDTO custDTO);
 	CustDTO detailCust(int custNo);
 	CustDTO detailCust02(int custNo);
 	CustDTO detailCust03(int custNo);

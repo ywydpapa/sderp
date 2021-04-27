@@ -201,7 +201,8 @@ salesEtime, e.soppTitle  from swc_sales a
  salesPlace,
  ptncNo, 
  attrib,
- schedType
+ schedType,
+ modDatetime
  )
  values 
  (
@@ -229,9 +230,17 @@ salesEtime, e.soppTitle  from swc_sales a
  #{salesFrdatetime}, 
  #{salesTodatetime},
  #{salesPlace},
- #{ptncNo},
+ <choose>
+	 <when test="ptncNo == 0">
+		 NULL,
+	 </when>
+	 <otherwise>
+		 #{ptncNo},
+	 </otherwise>
+ </choose>
  '10000',
- #{schedType}
+ #{schedType},
+  now()
  )
  </insert>
 
@@ -243,10 +252,32 @@ salesEtime, e.soppTitle  from swc_sales a
 	,salesTodatetime=#{salesTodatetime}
 	,salesPlace=#{salesPlace}
 	,salesType=#{salesType}
-	,ptncNo=#{ptncNo}
 	,salesTitle=#{salesTitle}
-	,custNo=#{custNo}
-	,soppNo=#{soppNo}
+	 <choose>
+		 <when test="soppNo == 0">
+			 ,soppNo= NULL
+		 </when>
+		 <otherwise>
+			 ,soppNo=#{soppNo}
+		 </otherwise>
+	 </choose>
+	 <choose>
+		 <when test="custNo == 0">
+			 ,custNo= NULL
+		 </when>
+		 <otherwise>
+			 ,custNo=#{custNo}
+		 </otherwise>
+	 </choose>
+	 <choose>
+		 <when test="ptncNo == 0">
+			 ,ptncNo= NULL
+		 </when>
+		 <otherwise>
+			 ,ptncNo=#{ptncNo}
+		 </otherwise>
+	 </choose>
+	,modDatetime = now()
 	where salesNo=#{salesNo}
  </update>
  

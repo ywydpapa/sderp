@@ -154,6 +154,11 @@ public class HomeController {
 			model.addAttribute("list",list);
 			rtn = "modal/custList";
 		}
+		else if("endCust".equals(popId)) {
+			List<CustDTO> list=custService.listCust(session);
+			model.addAttribute("list",list);
+			rtn = "modal/endCustList";
+		}
 		else if("user".equals(popId)) {
 			List<UserDTO> list=userService.userList(session);
 			model.addAttribute("list",list);

@@ -162,31 +162,28 @@
 								<th scope="row">엔드유저</th>
 								<td>
 									<div class="input-group input-group-sm mb-0">
-										<input type="text" class="form-control" name="ptncName" id="ptncName" value="${dto.ptncName}" />
-										 <input type="hidden" name="ptncNo" id="ptncNo" value="${dto.ptncNo}" />
-										  <span class="input-group-btn">
-											<button class="btn btn-primary sch-partner"
-												data-remote="${path}/modal/popup.do?popId=ptnc"
-												type="button" data-toggle="modal" data-target="#ptncModal">
+										<input type="text" class="form-control" id="endCustName" value="${dto.ptncName}" />
+										<input type="hidden" id="endCustNo" value="${dto.ptncNo}" />
+										<span class="input-group-btn">
+											<button class="btn btn-primary sch-partner" data-remote="${path}/modal/popup.do?popId=endCust" type="button" data-toggle="modal" data-target="#endCustModal">
 												<i class="icofont icofont-search"></i>
 											</button>
 										</span>
-										<div class="modal fade " id="ptncModal" tabindex="-1"
-											role="dialog">
+										<div class="modal fade " id="endCustModal" tabindex="-1" role="dialog">
 											<div class="modal-dialog modal-80size" role="document">
 												<div class="modal-content modal-80size">
 													<div class="modal-header">
-														<h4 class="modal-title">엔드유저</h4>
-														<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+														<h4 class="modal-title"></h4>
+														<button type="button" class="close" onclick="$('#endCustModal').modal('hide');" aria-label="Close">
 															<span aria-hidden="true">&times;</span>
 														</button>
 													</div>
 													<div class="modal-body">
-														<h5>엔드유저</h5>
+														<h5>엔드유저 목록</h5>
 														<p>Loading!!!</p>
 													</div>
 													<div class="modal-footer">
-														<button type="button" class="btn btn-default waves-effect " data-dismiss="modal">Close</button>
+														<button type="button" class="btn btn-default waves-effect" onclick="$('#endCustModal').modal('hide');">Close</button>
 													</div>
 												</div>
 											</div>
@@ -244,6 +241,11 @@
 			var modal = $(this);
 			modal.find('.modal-body').load(button.data("remote"));
 		});
+		$('#endCustModal').on('show.bs.modal', function(e) {
+			var button = $(e.relatedTarget);
+			var modal = $(this);
+			modal.find('.modal-body').load(button.data("remote"));
+		});
 		
     	function fnSetCustData(a, b) {
 			$("#custName").val(a);
@@ -274,6 +276,13 @@
 			$("#soppModal").modal("hide");
 		}
 
+		function fnSetEndCustData(a, b) {
+			$("#endCustNo").val(b);
+			$("#endCustName").val(a);
+			$(".modal-backdrop").remove();
+			$("#endCustModal").modal("hide");
+		}
+
 		function fn_UpdateSales() {
 			var salesData = {};
 			salesData.salesNo = $("#salesNo").val();
@@ -282,9 +291,9 @@
 			salesData.salesTitle 		= $("#salesTitle").val();
 		 	salesData.salesPlace		= $("#salesPlace").val();
 			salesData.userNo 		= $("#userNo").val();
-			salesData.custNo 		= $("#custNo").val();
-			salesData.soppNo 		= $("#soppNo").val();
-			salesData.ptncNo 		= $("#ptncNo").val();
+			salesData.custNo 		= $("#custName").val() != "" ? Number($("#custNo").val()) : 0;
+			salesData.soppNo 		= $("#soppName").val() != "" ? Number($("#soppNo").val()) : 0;
+			salesData.ptncNo 		= $("#endCustName").val() != "" ? Number($("#endCustNo").val()) : 0;
 			salesData.salesType 		= $("#salesType").val();
 			salesData.salesDesc 		= $("#salesDesc").val();
 			

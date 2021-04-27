@@ -331,19 +331,18 @@
 													<input type="hidden" id="productNo1" value="" />
 													<input type="text" class="form-control" name="product" id="data01Title" value="" />
 													<span class="input-group-btn">
-														<button class="btn btn-primary sch-company" onclick="fn_productdataTableReload()" type="button" data-toggle="modal" data-target="#productdataModal">
+														<button class="btn btn-primary sch-company" onclick="fn_productdataTableReload()" type="button" data-toggle="modal" data-target="#productdataModal1">
 															<i class="icofont icofont-search"></i>
 														</button>
 													</span>
 												</div>
 												<!--모달 팝업-->
-												<div class="modal fade" id="productdataModal" tabindex="-1" role="dialog">
+												<div class="modal fade" id="productdataModal1" tabindex="-1" role="dialog">
 													<div class="modal-dialog modal-80size" role="document">
 														<div class="modal-content modal-80size">
 															<div class="modal-header">
 																<h4 class="modal-title">상품목록</h4>
-																<button type="button" class="close" data-dismiss="modal"
-																	aria-label="Close">
+																<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 																	<span aria-hidden="true">&times;</span>
 																</button>
 															</div>
@@ -762,7 +761,8 @@
 		var modal = $(this);
 		modal.find('.modal-body').load(button.data("remote"));
 	});
-	$('#productdataModal').on('show.bs.modal', function(e){
+	/*
+	$('#productdataModal1').on('show.bs.modal', function(e){
 		var button = $(e.relatedTarget);
 		var modal = $(this);
 		modal.find('.modal-body').load(button.data("remote"));
@@ -772,6 +772,7 @@
 		var modal = $(this);
 		modal.find('.modal-body').load(button.data("remote"));
 	});
+	*/
 	$('#soppStatus').val('${dto.soppStatus}').prop("selected",true);
 	$('#soppType').val('${dto.soppType}').prop("selected",true);
 	$('#soppSource').val('${dto.soppSource}').prop("selected",true);
@@ -814,7 +815,7 @@
 		//$(".modal-backdrop").remove();
 		//$("#productdataModal").modal("hide");
 		// 모달이 정상적으로 제거되지않아 close 버튼 트리거로 구성함
-		$("#productdataModal").find(".modal-footer button").trigger('click');
+		$("#productdataModal1").find(".modal-footer button").trigger('click');
 	}
 	function fnSetproductdata2(a,b){
 		$("#productNo2").val(a);

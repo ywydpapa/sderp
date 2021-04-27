@@ -41,10 +41,21 @@
 <script>
 	var productdataTable2 = $('#productdataTable2').DataTable({
 		info:false,
-		'processing': true,
-		'language': {
-			'loadingRecords': '&nbsp;',
-			'processing': '<div class="spinner"></div>'
+		searching: true,
+		oLanguage: {
+			sZeroRecords : "일치하는 데이터가 존재하지 않습니다.",
+			sInfo : "현재 _START_ - _END_ / _TOTAL_건",
+			slengthMenu: "페이지당 _MENU_ 개씩 보기",
+			sInfoEmpty: "데이터 없음",
+			sInfoFiltered: "( _MAX_건의 데이터에서 필터링됨 )",
+			sSearch : "내부검색 : ",
+			sProcessing : '데이터 불러오는중...',
+			oPaginate: {
+				sFirst : '처음으로',
+				sLast : '마지막으로',
+				sPrevious: "이전",
+				sNext: "다음"
+			}
 		},
 		columns : [
 			{
@@ -76,13 +87,19 @@
 			contentType: "application/x-www-form-urlencoded; charset=UTF-8",
 			url : '${path}/product/listAjax'
 		}).done(function (result) {
-			result = JSON.parse(result);
-			var arr = JSON.parse(result.data);
-			// 글로벌 변수에 저장한다. 상세보기때 참고할 변수!!
-			productdataJson = arr;
-			productdataTable2.clear();
-			for(var i=0; i<arr.length; i++){
-				productdataTable2.row.add(arr[i]).draw();
+			var obj = JSON.parse(result);
+			console.dir(obj);
+			if(result.data != "") {
+				result = JSON.parse(result);
+				var arr = JSON.parse(result.data);
+				// 글로벌 변수에 저장한다. 상세보기때 참고할 변수!!
+				productdataJson = arr;
+				productdataTable2.clear();
+				for (var i = 0; i < arr.length; i++) {
+					productdataTable2.row.add(arr[i]).draw();
+				}
+			} else {
+				productdataTable2.row.add("데이터 없음").draw();
 			}
 		})
 	}

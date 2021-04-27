@@ -44,9 +44,12 @@ public class ProductController {
 	public String listAjax(HttpSession session) {
 		List<ProductDTO> productDTOList  = productService.listProduct(session);
 		JsonObject jsonObject = new JsonObject();
-		jsonObject.addProperty("data", new Gson().toJson(productDTOList));
-		String json = new Gson().toJson(jsonObject);
-		return json;
+		if (productDTOList != null && productDTOList.size() == 0){
+			jsonObject.addProperty("data", "");
+		} else {
+			jsonObject.addProperty("data", new Gson().toJson(productDTOList));
+		}
+		return new Gson().toJson(jsonObject);
 	}
 
 	@RequestMapping(value = "listAjax/detail", method = RequestMethod.POST, produces="application/json;charset=UTF-8")

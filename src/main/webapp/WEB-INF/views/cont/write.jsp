@@ -288,8 +288,8 @@
 								<th>엔드유저 담당자</th>
 								<td>
 									<div class="input-group input-group-sm mb-0">
-										<input type="text" id="endCustmemberName" name="custmemberName" class="form-control " readonly>
-										<input type="hidden" id="endCustmemberNo" name="custmemberNo" class="form-control ">
+										<input type="text" id="endCustmemberName" name="endCustmemberName" class="form-control " readonly>
+										<input type="hidden" id="endCustmemberNo" name="endCustmemberNo" class="form-control ">
 										<span class="input-group-btn">
 											<button class="btn btn-primary sch-company btn-sm"  data-remote="${path}/modal/popup.do?popId=endCustmem&compNo=" type="button" data-toggle="modal" data-target="#endCustmemberModal" id="endCustmemberModalbtn" data-whatever="">
 												<i class="icofont icofont-search"></i>
@@ -469,11 +469,18 @@
 		}
 
 		function fnSetEndCustData(a, b) {
+			$("#endCustNo").val(b);
 			$("#endCustName").val(a);
-			$("#endCustNo").val(a);
 			$("#endCustmemberModalbtn").data('whatever', b);
 			$(".modal-backdrop").remove();
 			$("#endCustModal").modal("hide");
+		}
+
+		function fnSetEndCustmereData(a,b){
+			$("#endCustmemberNo").val(a);
+			$("#endCustmemberName").val(b);
+			$(".modal-backdrop").remove();
+			$("#endCustmemberModal").modal("hide");
 		}
     	
 		function fnSetUserData(a, b) {
@@ -507,6 +514,8 @@
 			$("#custmemberModal").modal("hide");
 		}
 
+
+
 		function fnSetSupplyData(a, b) {
 			$("#supplyNo").val(b);
 			$("#supplyName").val(a);
@@ -522,6 +531,8 @@
 		}
 
 
+
+
 		function fnToggleLayer() {
 			$(".techdDetailCont").each(function () {
 				if($(this).css('display') == 'none'){
@@ -535,7 +546,7 @@
 		function fn_SaveCont() {
 			var contData = {};
 			var contractType					= $("input[name='contractType']:checked").val();	// 신규 영업지원 or 기존계약
-			if(contractType == "NEW"){
+			if(contractType == 'NEW'){
 				contData.soppNo					= $("#soppNo").val();			// 영업기회
 				contData.exContNo				= 0;							// 기존계약
 				contData.cntrctMth				= ${contractType[0].codeNo};
@@ -554,8 +565,8 @@
 			}
 			contData.custNo 				= $("#custNo").val();			// 거래처
 			contData.custmemberNo			= $("#custmemberNo").val();		// 거래처 담당자
-			contData.ptncNo 				= $("#endCustName").val() != "" ? Number($("#endCustNo").val()) : 0;
-//			contData.ptncNo 				= $("#ptncNo").val();			// 유지보수업체
+			contData.buyrNo					= $("#endCustNo").val();		// 엔드유저
+			contData.buyrMemberNo			= $("#endCustmemberNo").val();	// 엔드유저 담당자
 //			contData.supplyNo 				= $("#supplyNo").val();			// 공급업체
 			contData.contOrddate 			= $("#contOrddate").val();		// 발주일자
 			if($("#supplyDate").val() != "") contData.supplyDate = $("#supplyDate").val();		// 공급일자
@@ -576,59 +587,6 @@
 
 			if (!contData.contTitle) {
 				alert("계약명 제목을 입력하십시오.");		
-				return;
-			}  else if (!contData.userNo){
-				alert("담당사원을 지정하십시오.");
-				return;
-			} else if (!contData.soppNo && !contData.exContNo){
-				alert("영업기회 또는 기존계약명을 지정하십시오.");
-				return;
-			} else if (!contData.custNo){
-				alert("거래처를 지정하십시오.");
-				return;
-			} else if (!contData.ptncNo){
-				alert("유지보수업체를 지정하십시오.");
-				return;
-			} else if (!contData.supplyNo){
-				alert("공급업체를 지정하십시오.");
-				return;
-			} else if (!contData.contType){
-				alert("판매방식를 지정하십시오.");
-				return;
-			} else if (!contData.supplyNo){
-				alert("공급업체를 지정합시오.");
-				return;
-			} else if (!contData.contOrddate){
-				alert("발주 일자를 입력하십시오.");
-				return;
-			}
-			/*
-			else if (!contData.supplyDate){
-				alert("공급 일자를 입력하십시오.");
-				return;
-			} else if (!contData.delivDate){
-				alert("검수 일자를 입력하십시오.");
-				return;
-			}
-			*/
-			else if (contData.net_profit == undefined){
-				// 숫자에 대한 유효성 체크 필요(숫자여부, 정수/실수 여부, 최소금액, 최대금액) return 값 true 또는 flase 같은 boolean 타입
-				alert("매출 이익을 입력하십시오.");
-				return;
-			}
-			else if (contData.contAmt == undefined){
-				// 숫자에 대한 유효성 체크 필요(숫자여부, 정수/실수 여부, 최소금액, 최대금액) return 값 true 또는 flase 같은 boolean 타입
-				alert("계약 금액를 입력하십시오.");
-				return;
-			}
-			/*
-			else if (!contData.contArea){
-				alert("지역을 지정하십시오.");
-				return;
-			}
-			 */
-			else if (!contData.contType){
-				alert("판매방법을 지정하십시오.");
 				return;
 			}
 

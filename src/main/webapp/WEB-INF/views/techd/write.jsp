@@ -4,28 +4,16 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>	
 <c:set var="path" value ="${pageContext.request.contextPath}"/>
 <script type="text/javascript">
-for(var i = 0; i < $('.techdDetailCont').length; i++) {
-	$('.techdDetailCont')[i].hidden = true;
-}
-
-$('input[name=radio]').on('click', function() {
-	var hiddenObject;
-	var showObject;
-	
+$(function () {
+	$('.techdDetailCont').hide();
+});
+$('input[name=contractType]').on('click', function() {
 	if ($(this).val() == 'NEW') {
-		hiddenObject = $('.techdDetailCont');
-		showObject = $('.techdDetailSopp');
+		$('.techdDetailSopp').show();
+		$('.techdDetailCont').hide();
 	} else {
-		hiddenObject = $('.techdDetailSopp');
-		showObject = $('.techdDetailCont');
-	}
-	
-	for(var i = 0; i < hiddenObject.length; i++) {
-		hiddenObject[i].hidden = true;
-	}
-	
-	for(var i = 0; i < showObject.length; i++) {
-		showObject[i].hidden = false;
+		$('.techdDetailSopp').hide();
+		$('.techdDetailCont').show();
 	}
 });
 </script>
@@ -61,11 +49,11 @@ $('input[name=radio]').on('click', function() {
 									<div class="form-radio">
 										<form>
 											<div class="radio radio-inline">
-												<label> <input type="radio" name="radio" value="NEW" checked="checked"> <i class="helper"></i>신규영업지원
+												<label> <input type="radio" name="contractType" value="NEW" checked="checked"> <i class="helper"></i>신규영업지원
 												</label>
 											</div>
 											<div class="radio radio-inline">
-												<label> <input type="radio" value="ING" name="radio"> <i class="helper"></i>유지보수</label>
+												<label> <input type="radio" name="contractType" value="ING" > <i class="helper"></i>유지보수</label>
 											</div>
 										</form>
 									</div>
@@ -412,7 +400,16 @@ function fnSetContData(a, b) {
 
 function fn_sprtInsert() {
 	var sprtData = {};
-//	sprtData.radio				= $("input[name='radio']:checked").val();	// 신규 영업지원 or 기존계약
+	var contractType					= $("input[name='contractType']:checked").val();	// 신규 영업지원 or 기존계약
+	if(contractType == "NEW"){
+		sprtData.soppNo					= $("#soppNo").val();			// 영업기회
+		sprtData.exContNo				= 0;							// 기존계약
+		sprtData.cntrctMth				= ${contractType[0].codeNo};
+	} else {
+		sprtData.soppNo					= 0;							// 영업기회
+		sprtData.exContNo				= $("#contNo").val();			// 기존계약
+		sprtData.cntrctMth				= ${contractType[1].codeNo};
+	}
 	sprtData.techdTitle			= $("#techdTitle").val();					// 기술지원 요청명
 	sprtData.userNo				= $("#userNo").val() ? $("#userNo").val() : 0;						// 담당사원
 	sprtData.custNo				= $("#custNo").val() ? $("#custNo").val() : 0;						// 거래처

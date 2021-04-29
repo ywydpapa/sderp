@@ -177,19 +177,22 @@ public class HomeController {
 		}
 
 		else if("buyr".equals(popId)) {
-			List<CustDTO> list=custService.listBuyr(session);
+//			List<CustDTO> list=custService.listBuyr(session);
+			List<CustDTO> list=custService.listCust(session);
 			model.addAttribute("list",list);
 			rtn = "modal/buyrList";
 		}
 
 		else if("ptnc".equals(popId)) {
-			List<CustDTO> list=custService.listPtnc(session);
+//			List<CustDTO> list=custService.listPtnc(session);
+			List<CustDTO> list=custService.listCust(session);
 			model.addAttribute("list",list);
 			rtn = "modal/ptncList";
 		}
 
 		else if("supply".equals(popId)) {
-			List<CustDTO> list=custService.listSupply(session);
+//			List<CustDTO> list=custService.listSupply(session);
+			List<CustDTO> list=custService.listCust(session);
 			model.addAttribute("list",list);
 			rtn = "modal/supplyList";
 		}
@@ -229,7 +232,7 @@ public class HomeController {
 			Integer compNo = Integer.valueOf((String) params.get("compNo"));
 			List<CustDTO> list = custService.listCustmember(compNo);
 			model.addAttribute("list", list);
-			rtn = "modal/custmemberList";
+			rtn = "modal/endCustmemberList";
 		}
 		
 		else if("productGoodsCategory".equals(popId)) {

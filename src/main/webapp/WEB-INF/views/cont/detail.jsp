@@ -190,25 +190,38 @@
 														</div>
 													</div>
 												</td>
+												<th scope="row">판매방식</th>
+												<td>
+													<select name="contType" class="form-control form-control-sm" id="contType">
+														<option value="">선택</option>
+														<c:forEach var ="contType" items="${contType}">
+															<option value = "${contType.codeNo}" <c:if test="${contDto.contType == contType.codeNo}">selected</c:if>>${contType.desc03}</option>
+														</c:forEach>
+													</select>
+												</td>
+
+
+											</tr>
+											<tr>
 												<th>거래처</th>
 												<td>
 													<div class="input-group input-group-sm mb-0">
 														<input type="text" class="form-control" name="custName" id="custName" value="${contDto.custName}" />
-														 <input type="hidden" name="custNo" id="custNo" value="${contDto.custNo}" /> <span class="input-group-btn">
+														<input type="hidden" name="custNo" id="custNo" value="${contDto.custNo}" /> <span class="input-group-btn">
 															<button class="btn btn-primary sch-company"
-																data-remote="${path}/modal/popup.do?popId=cust"
-																type="button" data-toggle="modal" data-target="#custModal">
+																	data-remote="${path}/modal/popup.do?popId=cust"
+																	type="button" data-toggle="modal" data-target="#custModal">
 																<i class="icofont icofont-search"></i>
 															</button>
 														</span>
 														<div class="modal fade " id="custModal" tabindex="-1"
-															role="dialog">
+															 role="dialog">
 															<div class="modal-dialog modal-80size" role="document">
 																<div class="modal-content modal-80size">
 																	<div class="modal-header">
 																		<h4 class="modal-title">거래처검색</h4>
 																		<button type="button" class="close" data-dismiss="modal"
-																			aria-label="Close">
+																				aria-label="Close">
 																			<span aria-hidden="true">&times;</span>
 																		</button>
 																	</div>
@@ -218,24 +231,13 @@
 																	</div>
 																	<div class="modal-footer">
 																		<button type="button"
-																			class="btn btn-default waves-effect "
-																			data-dismiss="modal">Close</button>
+																				class="btn btn-default waves-effect "
+																				data-dismiss="modal">Close</button>
 																	</div>
 																</div>
 															</div>
 														</div>
 													</div>
-												</td>
-											</tr>
-											<tr>
-												<th scope="row">판매방식</th>
-												<td>
-													<select name="contType" class="form-control form-control-sm" id="contType">
-														<option value="">선택</option>
-														<c:forEach var ="contType" items="${contType}">
-															<option value = "${contType.codeNo}" <c:if test="${contDto.contType == contType.codeNo}">selected</c:if>>${contType.desc03}</option>
-														</c:forEach>
-													</select>
 												</td>
 												<th>거래처 담당자</th>
 												<td>
@@ -249,74 +251,62 @@
 												</td>
 											</tr>
 											<tr>
-												<th scope="row">유지보수업체</th>
+												<th scope="row">엔드유저</th>
 												<td>
 													<div class="input-group input-group-sm mb-0">
-														<input type="text" class="form-control" name="ptncName" id="ptncName" value="${contDto.ptncName}" />
-														 <input type="hidden" name="ptncNo" id="ptncNo" value="${contDto.ptncNo}" />
-														  <span class="input-group-btn">
-															<button class="btn btn-primary sch-partner"
-																data-remote="${path}/modal/popup.do?popId=ptnc"
-																type="button" data-toggle="modal" data-target="#ptncModal">
+														<input type="text" class="form-control" id="endCustName" value="${contDto.buyrName}" />
+														<input type="hidden" id="endCustNo" value="${contDto.buyrNo}" />
+														<span class="input-group-btn">
+															<button class="btn btn-primary sch-partner" data-remote="${path}/modal/popup.do?popId=endCust" type="button" data-toggle="modal" data-target="#endCustModal">
 																<i class="icofont icofont-search"></i>
 															</button>
 														</span>
-														<div class="modal fade " id="ptncModal" tabindex="-1"
-															role="dialog">
+														<div class="modal fade " id="endCustModal" tabindex="-1" role="dialog">
 															<div class="modal-dialog modal-80size" role="document">
 																<div class="modal-content modal-80size">
 																	<div class="modal-header">
 																		<h4 class="modal-title"></h4>
-																		<button type="button" class="close" data-dismiss="modal"
-																			aria-label="Close">
+																		<button type="button" class="close" onclick="$('#endCustModal').modal('hide');" aria-label="Close">
 																			<span aria-hidden="true">&times;</span>
 																		</button>
 																	</div>
 																	<div class="modal-body">
-																		<h5>유지보수업체 목록</h5>
+																		<h5>엔드유저 목록</h5>
 																		<p>Loading!!!</p>
 																	</div>
 																	<div class="modal-footer">
-																		<button type="button"
-																			class="btn btn-default waves-effect "
-																			data-dismiss="modal">Close</button>
+																		<button type="button" class="btn btn-default waves-effect" onclick="$('#endCustModal').modal('hide');">Close</button>
 																	</div>
 																</div>
 															</div>
 														</div>
 													</div>
 												</td>
-												<th>공급업체</th>
+												<th>엔드유저 담당자</th>
 												<td>
 													<div class="input-group input-group-sm mb-0">
-														<input type="text" class="form-control" name="supplyName" id="supplyName" value="${contDto.supplyName}" />
-														 <input type="hidden" name="supplyNo" id="supplyNo" value="${contDto.supplyNo}" />
-														  <span class="input-group-btn">
-															<button class="btn btn-primary sch-partner"
-																data-remote="${path}/modal/popup.do?popId=supply"
-																type="button" data-toggle="modal" data-target="#supplyModal">
+														<input type="text" id="endCustmemberName" name="endCustmemberName" class="form-control " value="${contDto.buyrMemberName}" readonly>
+														<input type="hidden" id="endCustmemberNo" name="endCustmemberNo" class="form-control " value="${contDto.buyrMemberNo}">
+														<span class="input-group-btn">
+															<button class="btn btn-primary sch-company btn-sm"  data-remote="${path}/modal/popup.do?popId=endCustmem&compNo=" type="button" data-toggle="modal" data-target="#endCustmemberModal" id="endCustmemberModalbtn" data-whatever="">
 																<i class="icofont icofont-search"></i>
 															</button>
 														</span>
-														<div class="modal fade " id="supplyModal" tabindex="-1"
-															role="dialog">
+														<div class="modal fade " id="endCustmemberModal" tabindex="-1" role="dialog">
 															<div class="modal-dialog modal-80size" role="document">
 																<div class="modal-content modal-80size">
 																	<div class="modal-header">
-																		<h4 class="modal-title"></h4>
-																		<button type="button" class="close" data-dismiss="modal"
-																			aria-label="Close">
+																		<h4 class="modal-title">고객 검색</h4>
+																		<button type="button" class="close" onclick="$('#endCustmemberModal').modal('hide');" aria-label="Close">
 																			<span aria-hidden="true">&times;</span>
 																		</button>
 																	</div>
 																	<div class="modal-body">
-																		<h5>협력사목록</h5>
-																		<p>Loading!!!</p>
+																		<h5>엔드유저 고객 목록</h5>
+																		<p>엔드유저를 먼저 입력해주셔야 목록이 보입니다.</p>
 																	</div>
 																	<div class="modal-footer">
-																		<button type="button"
-																			class="btn btn-default waves-effect "
-																			data-dismiss="modal">Close</button>
+																		<button type="button" class="btn btn-default waves-effect" onclick="$('#endCustmemberModal').modal('hide');">Close</button>
 																	</div>
 																</div>
 															</div>
@@ -910,7 +900,7 @@
 			var contData = {};
 			contData.contNo 					= $("#contNo").val();
 			var contractType					= $("input[name='contractType']:checked").val();	// 신규 영업지원 or 기존계약
-			if(contractType == "NEW"){
+			if(contractType == 'NEW'){
 				contData.soppNo					= $("#soppNo").val();			// 영업기회
 				contData.exContNo				= 0;							// 기존계약
 				contData.cntrctMth				= ${contractType[0].codeNo};
@@ -930,7 +920,8 @@
 			}
 			contData.custNo 				= $("#custNo").val();
 			contData.soppNo 				= $("#soppNo").val();
-			contData.ptncNo 				= $("#ptncNo").val();
+			contData.buyrNo					= $("#endCustNo").val();		// 엔드유저
+			contData.buyrMemberNo			= $("#endCustmemberNo").val();	// 엔드유저 담당자
 			contData.supplyNo 				= $("#supplyNo").val();
 			contData.contType 				= $("#contType").val();
 			var contAmt = Number($("#contAmt").val().replace(/[\D\s\._\-]+/g, ""));			// 계약금액

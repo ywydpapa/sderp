@@ -92,14 +92,16 @@ public class TechdServiceImpl implements TechdService {
 
 		String column = "";
 		switch (orderColumn){
-			case "0" : column = "techdTypeN"; break;	// 등록구분
-			case "1" : column = "techdTitle"; break;	// 요청명
-			case "2" : column = "techdDesc"; break;		// 설명
-			case "3" : column = "custName"; break;		// 거래처
-			case "4" : column = "techdStepsN"; break;	// 접수단계
-			case "5" : column = "userName"; break;		// 담당사원
-			case "6" : column = "techdFrom"; break;		// 기술지원(시작)
-			case "7" : column = "techdTo"; break;		// 기술지원(끝)
+			case "0" : column = "modDatetime"; break;	// 등록/수정일
+			case "1" : column = "cntrctMth"; break;		// 등록구분
+			case "2" : column = "techdTitle"; break;	// 요청명
+			case "3" : column = "techdDesc"; break;		// 설명
+			case "4" : column = "custName"; break;		// 거래처
+			case "5" : column = "techdStepsN"; break;	// 접수단계
+			case "6" : column = "userName"; break;		// 담당사원
+			case "7" : column = "techdFrom"; break;		// 기술지원(시작)
+			case "8" : column = "techdTo"; break;		// 기술지원(끝)
+			default : column = "modDatetime"; break;
 		}
 
 		String option = "";

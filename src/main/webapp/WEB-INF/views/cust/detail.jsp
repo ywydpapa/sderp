@@ -397,12 +397,6 @@
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
 
-$(function(){
-    $('#custmemberTable').DataTable({
-    	info:false
-    });
-});
-
 function fn_Reloaddata01(url, data){
 	$("#custmemberTable").empty();
 	$("#custmemberTable").load(url, data, function(){

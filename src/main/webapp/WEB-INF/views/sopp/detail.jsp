@@ -63,7 +63,7 @@
 													<td>
 														<div class="input-group input-group-sm mb-0">
 															<input type="text" class="form-control" name="userName"
-																id="userName" value="${dto.userName}" readonly /> <input
+																id="userName" value="${dto.userName}" /> <input
 																type="hidden" name="userNo" id="userNo"
 																value="${dto.userNo}" /> <span class="input-group-btn">
 																<button class="btn btn-primary sch-company"
@@ -102,7 +102,7 @@
 													<td>
 														<div class="input-group input-group-sm mb-0">
 															<input type="text" class="form-control" name="custName"
-																id="custName" value="${dto.custName}" readonly /> <input
+																id="custName" value="${dto.custName}" /> <input
 																type="hidden" name="custNo" id="custNo"
 																value="${dto.custNo}" /> <span class="input-group-btn">
 																<button class="btn btn-primary sch-company"
@@ -143,9 +143,11 @@
 													<td>
 														<div class="input-group input-group-sm mb-0">
 															<input type="text" class="form-control"
-																name="custmemberName" id="custmemberName" value=""
-																readonly /> <input type="hidden" name="custmemberNo"
-																id="custmemberNo" value="" /> <span
+																name="custmemberName" id="custmemberName" value="${dto.custMemberName}"
+																/>
+															<input type="hidden" name="custmemberNo"
+																id="custmemberNo" value="${cto.custMemberNo}" />
+															<span
 																class="input-group-btn">
 																<button class="btn btn-primary sch-partner"
 																	data-remote="${path}/modal/popup.do?popId=custmem&compNo="
@@ -180,35 +182,28 @@
 													<th scope="row">엔드유저</th>
 													<td>
 														<div class="input-group input-group-sm mb-0">
-															<input type="text" class="form-control" name="ptncName"
-																id="ptncName" value="${dto.ptncName}" readonly /> <input
-																type="hidden" name="ptncNo" id="ptncNo"
-																value="${dto.ptncNo}" /> <span class="input-group-btn">
-																<button class="btn btn-primary sch-partner"
-																	data-remote="${path}/modal/popup.do?popId=ptnc"
-																	type="button" data-toggle="modal"
-																	data-target="#ptncModal">
+															<input type="text" class="form-control" id="endCustName" value="${dto.buyrName}" />
+															<input type="hidden" id="endCustNo" value="${dto.buyrNo}" />
+															<span class="input-group-btn">
+																<button class="btn btn-primary sch-partner" data-remote="${path}/modal/popup.do?popId=endCust" type="button" data-toggle="modal" data-target="#endCustModal">
 																	<i class="icofont icofont-search"></i>
 																</button>
 															</span>
-															<div class="modal fade " id="ptncModal" tabindex="-1"
-																role="dialog">
+															<div class="modal fade " id="endCustModal" tabindex="-1" role="dialog">
 																<div class="modal-dialog modal-80size" role="document">
 																	<div class="modal-content modal-80size">
 																		<div class="modal-header">
 																			<h4 class="modal-title"></h4>
-																			<button type="button" class="close"
-																				data-dismiss="modal" aria-label="Close">
+																			<button type="button" class="close" onclick="$('#endCustModal').modal('hide');" aria-label="Close">
 																				<span aria-hidden="true">&times;</span>
 																			</button>
 																		</div>
 																		<div class="modal-body">
-																			<h5>협력사목록</h5>
+																			<h5>엔드유저 목록</h5>
 																			<p>Loading!!!</p>
 																		</div>
 																		<div class="modal-footer">
-																			<button type="button"
-																				class="btn btn-default waves-effect " data-dismiss="modal">Close</button>
+																			<button type="button" class="btn btn-default waves-effect" onclick="$('#endCustModal').modal('hide');">Close</button>
 																		</div>
 																	</div>
 																</div>
@@ -218,9 +213,7 @@
 												</tr>
 												<tr>
 													<th scope="row" class="requiredTextCss">진행단계</th>
-													<td><select name="soppStatus" id="soppStatus"
-														class="form-control form-control-sm"
-														onchange="javascript:changeProbability()">
+													<td><select name="soppStatus" id="soppStatus" class="form-control form-control-sm" onchange="javascript:changeProbability()">
 															<c:forEach var="sstatuslist" items="${sstatuslist}">
 																<option value="${sstatuslist.codeNo}">${sstatuslist.desc03}</option>
 															</c:forEach>
@@ -236,9 +229,9 @@
 													<td><select name="cntrctMth" id="cntrctMth"
 														class="form-control form-control-sm">
 															<option value="">선택</option>
-															<option value="10247">판매계약</option>
-															<option value="10248">유지보수</option>
-															<option value="10254">임대계약</option>
+															<option value="10247" <c:if test="${dto.cntrctMth eq 10247}">selected</c:if> >판매계약</option>
+															<option value="10248" <c:if test="${dto.cntrctMth eq 10248}">selected</c:if> >유지보수</option>
+															<option value="10254" <c:if test="${dto.cntrctMth eq 10254}">selected</c:if> >임대계약</option>
 													</select></td>
 													<th scope="row">매출예정일</th>
 													<td><input
@@ -761,6 +754,20 @@
 		var modal = $(this);
 		modal.find('.modal-body').load(button.data("remote"));
 	});
+	$('#custmemberModal').on('show.bs.modal', function(e) {
+		var custNo = $("#custNo").val();
+		var url = '${path}/modal/popup.do?popId=custmem&compNo=' + custNo;
+		$("#custmemberModalbtn").data("remote",url);
+
+		var button = $(e.relatedTarget);
+		var modal = $(this);
+		modal.find('.modal-body').load(button.data("remote"));
+	});
+	$('#endCustModal').on('show.bs.modal', function(e) {
+		var button = $(e.relatedTarget);
+		var modal = $(this);
+		modal.find('.modal-body').load(button.data("remote"));
+	});
 	/*
 	$('#productdataModal1').on('show.bs.modal', function(e){
 		var button = $(e.relatedTarget);
@@ -773,9 +780,17 @@
 		modal.find('.modal-body').load(button.data("remote"));
 	});
 	*/
-	$('#soppStatus').val('${dto.soppStatus}').prop("selected",true);
-	$('#soppType').val('${dto.soppType}').prop("selected",true);
-	$('#soppSource').val('${dto.soppSource}').prop("selected",true);
+	var soppStatusSelected = '${dto.soppStatus}';
+	if (soppStatusSelected != '' && soppStatusSelected != '0') 	$('#soppStatus').val('${dto.soppStatus}').prop("selected",true);
+	else $('#soppStatus').val("").prop("selected",true);
+
+	var soppTypeSelected = '${dto.soppType}';
+	if (soppTypeSelected != '' && soppTypeSelected != '0') $('#soppType').val('${dto.soppType}').prop("selected",true);
+	else $('#soppType').val("").prop("selected",true);
+
+	var soppSourceSelected = '${dto.soppSource}';
+	if (soppSourceSelected != '' && soppSourceSelected != '0') 	$('#soppSource').val('${dto.soppSource}').prop("selected",true);
+	else $('#soppSource').val("").prop("selected",true);
 
 	// 기존상품외 임의로 기입
 	$("#data01Title").on("change",function () {
@@ -822,23 +837,31 @@
 		$("#data02Title").val(b);
 		$("#productdataModal2").find(".modal-footer button").trigger('click');
 	}
+	function fnSetEndCustData(a, b) {
+		$("#endCustNo").val(b);
+		$("#endCustName").val(a);
+		$("#endCustmemberModalbtn").data('whatever', b);
+		$(".modal-backdrop").remove();
+		$("#endCustModal").modal("hide");
+	}
+
 
 	function fn_soppUpdate() {
 		var soppData = {};
 		soppData.soppNo 		= $("#soppNo").val();
 		soppData.soppTitle 		= $("#soppTitle").val();
-		soppData.userNo 		= $("#userNo").val();
-		soppData.custNo 		= $("#custNo").val();
-		soppData.ptncNo 		= $("#ptncNo").val();
-		soppData.soppStatus 	= $("#soppStatus").val();
-		soppData.soppSrate 	    = !$("#soppSrate").val()?0:$("#soppSrate").val();
-		soppData.soppSource 	= $("#soppSource").val();
-		soppData.soppTargetDate	= $("#soppTargetDate").val();
-		soppData.soppType 		= $("#soppType").val();
-		var tamt = $("#soppTargetAmt").val();
-		tamt = (tamt.replace(/,/g,""));
-		soppData.soppTargetAmt 		= tamt;
-		soppData.soppDesc 		= $("#soppDesc").val();
+		if($("#userName").val() != "")  	soppData.userNo 	= Number($("#userNo").val());
+		if($("#custName").val() != "")	soppData.custNo 		= Number($("#custNo").val());
+		if($("#endCustName").val() != "")	soppData.buyrNo 	= Number($("#endCustNo").val());
+		if($("#soppSrate").val() != "")	soppData.soppSrate 		= Number($("#soppSrate").val());
+		if($("#soppType").val() != "")	soppData.soppType 		= Number($("#soppType").val());
+		if($("#cntrctMth").val() != "")	soppData.cntrctMth 		= Number($("#cntrctMth").val());
+		if($("#custmemberName").val() != "") soppData.custMemberNo = Number($("#custmemberNo").val());
+		if($("#soppStatus").val() != "") soppData.soppStatus 	= $("#soppStatus").val();
+		if($("#soppSource").val() != "") soppData.soppSource 	= $("#soppSource").val();
+		if($("#soppTargetDate").val() != "") soppData.soppTargetDate	= $("#soppTargetDate").val();
+		if($("#soppTargetAmt").val() != "") soppData.soppTargetAmt 	= $("#soppTargetAmt").val().replace(/[\D\s\._\-]+/g, "");
+		if($("#soppDesc").val() != "") soppData.soppDesc 		= $("#soppDesc").val();
 
 		$.ajax({ url: "${path}/sopp/update.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
 			data: soppData , // HTTP 요청과 함께 서버로 보낼 데이터
@@ -848,7 +871,7 @@
 				.done(function(data) {
 					if(data.code == 10001){
 						alert("저장 성공");
-
+						fnSetPage('${path}/sopp/list.do');
 					}else{
 						alert("저장 실패");
 					}

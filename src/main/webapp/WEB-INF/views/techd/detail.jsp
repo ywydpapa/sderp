@@ -4,17 +4,23 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>	
 <c:set var="path" value ="${pageContext.request.contextPath}"/>
 <script type="text/javascript">
-var hiddenObject;
-
-if("${dto.soppNo}" == "0") {
-	hiddenObject = $('.techdDetailSopp');
+if("${dto.soppNo}" != "0") {
+	$('.techdDetailSopp').show();
+	$('.techdDetailCont').hide();
 }else {
-	hiddenObject = $('.techdDetailCont');
+	$('.techdDetailSopp').hide();
+	$('.techdDetailCont').show();
 }
 
-for(var i = 0; i < hiddenObject.length; i++) {
-	hiddenObject[i].hidden = true;
-}
+$('input[name=contractType]').on('click', function() {
+	if ($(this).val() == 'NEW') {
+		$('.techdDetailSopp').show();
+		$('.techdDetailCont').hide();
+	} else {
+		$('.techdDetailSopp').hide();
+		$('.techdDetailCont').show();
+	}
+});
 </script>
 
 <!-- Page-header start 페이지 타이틀-->
@@ -48,11 +54,11 @@ for(var i = 0; i < hiddenObject.length; i++) {
 									<div class="form-radio">
 										<form>
 											<div class="radio radio-inline">
-												<label> <input type="radio" name="radio" value="NEW" <c:if test="${dto.soppNo != 0}">checked</c:if> disabled> <i class="helper"></i>신규 영업지원
+												<label> <input type="radio" name="contractType" value="NEW" <c:if test="${dto.soppNo != 0}">checked</c:if>> <i class="helper"></i>신규 영업지원
 												</label>
 											</div>
 											<div class="radio radio-inline">
-												<label> <input type="radio" value="ING" name="radio" <c:if test="${dto.contNo != 0}">checked</c:if> disabled> <i class="helper"></i>유지보수 </label>
+												<label> <input type="radio" name="contractType" value="ING"  <c:if test="${dto.contNo != 0}">checked</c:if>> <i class="helper"></i>유지보수 </label>
 											</div>
 										</form>
 									</div>
@@ -379,7 +385,16 @@ function fnSetContData(a, b) {
 
 function fn_sprtUpdate() {
 	var sprtData = {};
-//	sprtData.radio				= $("input[name='radio']:checked").val();	// 신규 영업지원 or 기존계약
+	var contractType					= $("input[name='contractType']:checked").val();	// 신규 영업지원 or 기존계약
+	if(contractType == 'NEW'){
+		sprtData.soppNo					= $("#soppNo").val();			// 영업기회
+		sprtData.exContNo				= 0;							// 기존계약
+		sprtData.cntrctMth				= ${contractType[0].codeNo};
+	} else if (contractType == 'ING'){
+		sprtData.soppNo					= 0;							// 영업기회
+		sprtData.exContNo				= $("#contNo").val();			// 기존계약
+		sprtData.cntrctMth				= ${contractType[1].codeNo};
+	}
 	sprtData.techdTitle			= $("#techdTitle").val();					// 기술지원 요청명
 	sprtData.userNo				= $("#userNo").val() ? $("#userNo").val() : 0;						// 담당사원
 	sprtData.custNo				= $("#custNo").val() ? $("#custNo").val() : 0;						// 거래처
@@ -392,9 +407,13 @@ function fn_sprtUpdate() {
 	sprtData.techdType			= $("#techdType").val();					// 지원형태
 	sprtData.techdSteps			= $("#techdSteps").val();					// 진행단계
 	sprtData.techdDesc			= $("#techdDesc").val();					// 설명
-	sprtData.soppNo				= $("#soppNo").val() ? $("#soppNo").val() : 0; // 영업기회번호
-	sprtData.contNo				= $("#contNo").val() ? $("#contNo").val() : 0; // 계약번호
 	sprtData.techdNo			= "${dto.techdNo}";
+
+	if(!sprtData.techdTitle){
+		alert("기술지원 요청명을 입력하십시오.!!");
+		return;
+	}
+	console.dir(sprtData);
 	
 	$.ajax({ url: "${path}/techd/update.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소 
 				data: sprtData , // HTTP 요청과 함께 서버로 보낼 데이터 

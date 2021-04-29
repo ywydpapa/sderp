@@ -54,7 +54,7 @@
 													<th scope="row" class="requiredTextCss">담당사원</th>
 													<td>
 														<div class="input-group input-group-sm mb-0">
-															<input type="text" class="form-control" name="userName"	id="userName" value="${userInfo.userName}" readonly />
+															<input type="text" class="form-control" name="userName"	id="userName" value="${userInfo.userName}" />
 															<input type="hidden" name="userNo" id="userNo" value="${userInfo.userNo}" />
 															<span class="input-group-btn">
 																<button class="btn btn-primary sch-company"
@@ -91,7 +91,7 @@
 													<th scope="row">거래처</th>
 													<td>
 														<div class="input-group input-group-sm mb-0">
-															<input type="text" class="form-control" name="custName" id="custName" value="" readonly />
+															<input type="text" class="form-control" name="custName" id="custName" value="" />
 															<input type="hidden" name="custNo" id="custNo" value="" />
 															<span class="input-group-btn">
 																<button class="btn btn-primary sch-company" data-remote="${path}/modal/popup.do?popId=cust" type="button" data-toggle="modal" data-target="#custModal">
@@ -128,7 +128,7 @@
 													<th scope="row">거래처 담당자</th>
 													<td>
 														<div class="input-group input-group-sm mb-0">
-															<input type="text" class="form-control" name="custmemberName"  id="custmemberName" value="" readonly/>
+															<input type="text" class="form-control" name="custmemberName"  id="custmemberName" value="" />
 															<input type="hidden" name="custmemberNo" id="custmemberNo" value="" />
 															<span class="input-group-btn">
 																<button class="btn btn-primary sch-partner"
@@ -163,36 +163,28 @@
 													<th scope="row">엔드유저</th>
 													<td>
 														<div class="input-group input-group-sm mb-0">
-															<input type="text" class="form-control" name="ptncName"
-																id="ptncName" value="" readonly /> <input
-																type="hidden" name="ptncNo" id="ptncNo"
-																value="" /> <span class="input-group-btn">
-																<button class="btn btn-primary sch-partner"
-																	data-remote="${path}/modal/popup.do?popId=ptnc"
-																	type="button" data-toggle="modal"
-																	data-target="#ptncModal">
+															<input type="text" class="form-control" id="endCustName" value="" />
+															<input type="hidden" id="endCustNo" value="" />
+															<span class="input-group-btn">
+																<button class="btn btn-primary sch-partner" data-remote="${path}/modal/popup.do?popId=endCust" type="button" data-toggle="modal" data-target="#endCustModal">
 																	<i class="icofont icofont-search"></i>
 																</button>
 															</span>
-															<div class="modal fade " id="ptncModal" tabindex="-1"
-																role="dialog">
+															<div class="modal fade " id="endCustModal" tabindex="-1" role="dialog">
 																<div class="modal-dialog modal-80size" role="document">
 																	<div class="modal-content modal-80size">
 																		<div class="modal-header">
 																			<h4 class="modal-title"></h4>
-																			<button type="button" class="close"
-																				data-dismiss="modal" aria-label="Close">
+																			<button type="button" class="close" onclick="$('#endCustModal').modal('hide');" aria-label="Close">
 																				<span aria-hidden="true">&times;</span>
 																			</button>
 																		</div>
 																		<div class="modal-body">
-																			<h5>협력사목록</h5>
+																			<h5>엔드유저 목록</h5>
 																			<p>Loading!!!</p>
 																		</div>
 																		<div class="modal-footer">
-																			<button type="button"
-																				class="btn btn-default waves-effect "
-																				data-dismiss="modal">Close</button>
+																			<button type="button" class="btn btn-default waves-effect" onclick="$('#endCustModal').modal('hide');">Close</button>
 																		</div>
 																	</div>
 																</div>
@@ -202,21 +194,20 @@
 												</tr>
 												<tr>
 													<th scope="row" class="requiredTextCss">진행단계</th>
-													<td><select name="soppStatus" id="soppStatus"
-														class="form-control form-control-sm"
-														onchange="javascript:changeProbability()">
-															<option value="301">영업정보파악</option>
-															<option value="320">초기접촉</option>
-															<option value="330">제안서제출 및 PT</option>
-															<option value="340">견적서제출</option>
-															<option value="350">계약요청</option>
-															<option value="360">수주</option>
-															<option value="380">매출</option>
-															<option value="385">수금완료</option>
-															<option value="386">은행입금</option>
-															<option value="390">계약실패</option>
-															<option value="391">발주서입수</option>
-															<option value="392">협력사요청</option>
+													<td><select name="soppStatus" id="soppStatus" class="form-control form-control-sm" onchange="javascript:changeProbability()">
+															<option value="10178">영업정보파악</option>
+															<option value="10179">초기접촉</option>
+															<option value="10180">제안서제출 및 PT</option>
+															<option value="10181">견적서제출</option>
+															<option value="10182">계약요청</option>
+															<option value="10183">수주</option>
+															<option value="10184">매출</option>
+															<option value="">수금완료</option>
+															<option value="">은행입금</option>
+															<option value="10187">계약실패</option>
+															<option value="10193">계약진행보류</option>
+															<option value="">발주서입수</option>
+															<option value="">협력사요청</option>
 													</select></td>
 													<th scope="row">가능성</th>
 													<td>
@@ -321,6 +312,11 @@
 			var modal = $(this);
 			modal.find('.modal-body').load(button.data("remote"));
 		});
+		$('#endCustModal').on('show.bs.modal', function(e) {
+			var button = $(e.relatedTarget);
+			var modal = $(this);
+			modal.find('.modal-body').load(button.data("remote"));
+		});
 
 		function fnSetCustmereData(a, b) {
 			$("#custmemberNo").val(a);
@@ -352,52 +348,55 @@
 			$(".modal-backdrop").remove();
 			$("#ptncModal").modal("hide");
 		}
+		function fnSetEndCustData(a, b) {
+			$("#endCustNo").val(b);
+			$("#endCustName").val(a);
+			$("#endCustmemberModalbtn").data('whatever', b);
+			$(".modal-backdrop").remove();
+			$("#endCustModal").modal("hide");
+		}
 
 function fn_soppInsert() {
 	var soppData = {};
 	soppData.soppTitle 		= $("#soppTitle").val();
- 	soppData.userNo 		= $("#userNo").val();
-	soppData.custNo 		= $("#custNo").val();
-	soppData.ptncNo 		= $("#ptncNo").val();
-	soppData.soppStatus 	= $("#soppStatus").val();
-	soppData.soppSrate 		= $("#soppSrate").val();
-	soppData.soppSource 	= $("#soppSource").val();
-	soppData.soppTargetDate	= $("#soppTargetDate").val();
-	soppData.soppType 		= $("#soppType").val();
-	soppData.soppTargetAmt 	= $("#soppTargetAmt").val().replace(/[\D\s\._\-]+/g, "");
-	soppData.soppDesc 		= $("#soppDesc").val();
+	if($("#userName").val() != "")  	soppData.userNo 		= Number($("#userNo").val());
+	if($("#custName").val() != "")	soppData.custNo 		= Number($("#custNo").val());
+	if($("#endCustName").val() != "")	soppData.buyrNo 		= Number($("#endCustNo").val());
+	if($("#soppSrate").val() != "")	soppData.soppSrate 		= Number($("#soppSrate").val());
+	if($("#soppType").val() != "")	soppData.soppType 		= Number($("#soppType").val());
+	if($("#cntrctMth").val() != "")	soppData.cntrctMth 		= Number($("#cntrctMth").val());
+	if($("#custmemberName").val() != "") soppData.custMemberNo = Number($("#custmemberNo").val());
+	if($("#soppStatus").val() != "") soppData.soppStatus 	= $("#soppStatus").val();
+	if($("#soppTargetDate").val() != "") soppData.soppTargetDate	= $("#soppTargetDate").val();
+	if($("#soppTargetAmt").val() != "") soppData.soppTargetAmt 	= $("#soppTargetAmt").val().replace(/[\D\s\._\-]+/g, "");
+	if($("#soppDesc").val() != "") soppData.soppDesc 		= $("#soppDesc").val();
 
+	console.dir(soppData);
 	// 필수값 체크
 	if (!soppData.soppTitle) {
 		alert("영업기회명을 입력하십시오.!!");
 		return;
 	}
-	else if (!soppData.userNo){
-		alert("담당사원을 조회 후 선택해 주십시오.");
-		return;
-	}
-	else if (!soppData.soppStatus){
-		alert(" 진행단계를 선택해 주십시오.");
-		return;
-	}
+
+	console.dir(soppData);
 
 	$.ajax({ url: "${path}/sopp/insert.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소 
-				data: soppData , // HTTP 요청과 함께 서버로 보낼 데이터 
-				method: "POST", // HTTP 요청 메소드(GET, POST 등) 
-				dataType: "json" // 서버에서 보내줄 데이터의 타입 
-			}) // HTTP 요청이 성공하면 요청한 데이터가 done() 메소드로 전달됨. .
-			.done(function(data) {
-				if(data.code == 10001){
-					alert("저장 성공");
-					fnSetPage('${path}/sopp/list.do');
-				}else{
-					alert("저장 실패");
-				}
-			}) // HTTP 요청이 실패하면 오류와 상태에 관한 정보가 fail() 메소드로 전달됨. 
-			.fail(function(xhr, status, errorThrown) { 
-				alert("통신 실패");
-			});
-	}
+		data: soppData, // HTTP 요청과 함께 서버로 보낼 데이터
+		method: "POST", // HTTP 요청 메소드(GET, POST 등)
+		dataType: "json" // 서버에서 보내줄 데이터의 타입
+	}) // HTTP 요청이 성공하면 요청한 데이터가 done() 메소드로 전달됨. .
+	.done(function(data) {
+		if(data.code == 10001){
+			alert("저장 성공");
+			fnSetPage('${path}/sopp/list.do');
+		}else{
+			alert("저장 실패");
+		}
+	}) // HTTP 요청이 실패하면 오류와 상태에 관한 정보가 fail() 메소드로 전달됨.
+	.fail(function(xhr, status, errorThrown) {
+		alert("통신 실패");
+	});
+}
 
 </script>
 

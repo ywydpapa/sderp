@@ -6,7 +6,7 @@
 
 
 <div class="dt-responsive table-responsive">
-	<table id="buyrTable" class="table table-striped table-bordered nowrap">
+	<table id="buyrDataTable" class="table table-striped table-bordered nowrap">
 		<thead>
 			<tr>
 				<th>고객사번호</th>
@@ -31,7 +31,7 @@
 
 <script>
 $(function(){
-    $('#buyrTable').DataTable({
+    $('#buyrDataTable').DataTable({
     	info:false,
 		searching: true
     });

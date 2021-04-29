@@ -5,7 +5,7 @@
 <c:set var="path" value ="${pageContext.request.contextPath}"/>
 
 <div class="dt-responsive table-responsive">
-	<table id="userTable" class="table table-striped table-bordered nowrap">
+	<table id="custMemberTable" class="table table-striped table-bordered nowrap">
 		<thead>
 			<tr>
 				<th>고객 담당자 번호</th>
@@ -27,7 +27,7 @@
 </div>
 <script>
 $(function(){
-    $('#userTable').DataTable({
+    $('#custMemberTable').DataTable({
     	info:false,
 		searching: true
     });

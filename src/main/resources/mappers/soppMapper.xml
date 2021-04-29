@@ -274,16 +274,20 @@ from
 
 <select id="detailSopp"
  		resultType="soppDto">
- 		select a.*, b.userName , c.custName, d.custName ptncName from swc_sopp a  
+ 		select a.*, b.userName , c.custName, d.custName buyrName,
+			   (select q.custMname from swc_custData03 q where q.custData03no = a.custMemberNo) custMemberName
+		from swc_sopp a
 		left join swc_user b on a.userNo = b.userNo
 		left join swc_cust c on a.custNo = c.custNo 
-		left join swc_cust d on a.ptncNo = d.custNo
+		left join swc_cust d on a.buyrNo = d.custNo
 		where a.attrib not like 'XXX%' and  soppNo=#{soppNo} order by soppNo
  </select>
  
  <insert id="insertSopp">
- insert into swc_sopp (compNo, custNo,userNo, ptncNo, soppTitle, soppDesc, soppType, soppSrate, soppStatus, soppTargetDate, soppTargetAmt,attrib)
- values (#{compNo}, #{custNo},#{userNo},#{ptncNo}, #{soppTitle}, #{soppDesc}, #{soppType}, #{soppSrate}, #{soppStatus}, #{soppTargetDate}, #{soppTargetAmt},'10000')
+ insert into swc_sopp (compNo, custNo,userNo, buyrNo, ptncNo, soppTitle, soppDesc, soppType, soppSrate, soppStatus
+ , soppTargetDate, soppTargetAmt,attrib, cntrctMth, custMemberNo)
+ values (#{compNo}, #{custNo},#{userNo}, #{buyrNo},#{ptncNo}, #{soppTitle}, #{soppDesc}, #{soppType}, #{soppSrate}, #{soppStatus},
+         #{soppTargetDate}, #{soppTargetAmt},'10000',#{cntrctMth}, #{custMemberNo})
  </insert>
 
  <update id="updateSopp">
@@ -296,6 +300,12 @@ from
 	,soppTargetAmt=#{soppTargetAmt}
 	,soppSrate=#{soppSrate}
 	,soppType=#{soppType}
+	,cntrctMth=#{cntrctMth}
+	,userNo=#{userNo}
+	,custNo=#{custNo}
+	,ptncNo=#{ptncNo}
+	,buyrNo=#{buyrNo}
+	,custMemberNo=#{custMemberNo}
 	where soppNo=#{soppNo}
  </update>
 

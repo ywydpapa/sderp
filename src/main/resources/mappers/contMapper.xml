@@ -81,6 +81,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		   c.soppTitle,
 		   d.custMName as custmemberName,
 	       (select custName from swc_cust where custNo = a.custNo) custName,
+		   (select q.custMname from swc_custData03 q where q.custData03no = a.custMemberNo) custMemberName,
+	       (select custName from swc_cust where custNo = a.buyrNo) buyrName,
+	       (select q.custMname from swc_custData03 q where q.custData03no = a.buyrMemberNo) buyrMemberName,
 		   (select custName from swc_cust where custNo = a.ptncNo) ptncName,
 		   (select custName from swc_cust where custNo = a.supplyNo) supplyName,
 		   (select contTitle from swc_cont where contNo = a.exContNo) exContName
@@ -105,8 +108,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 </select>
  
  <insert id="insertCont">
- insert into swc_cont (contTitle, contDesc, compNo, soppNo, exContNo, userNo, custNo, custmemberNo, ptncNo, supplyNo, contOrddate, supplyDate, delivDate, contAmt, freemaintSdate, freemaintEdate, vatYn, contArea, cntrctMth, contType,net_profit ,attrib)
- values (#{contTitle}, #{contDesc}, #{compNo}, #{soppNo}, #{exContNo}, #{userNo}, #{custNo}, #{custmemberNo}, #{ptncNo}, #{supplyNo}, #{contOrddate}, #{supplyDate}, #{delivDate}, #{contAmt}, #{freemaintSdate}, #{freemaintEdate}, #{vatYn}, #{contArea}, #{cntrctMth}, #{contType}, #{net_profit},'100000')
+ insert into swc_cont (contTitle, contDesc, compNo, soppNo, exContNo, userNo, custNo, custmemberNo, ptncNo, supplyNo, contOrddate,
+                       supplyDate, delivDate, contAmt, freemaintSdate, freemaintEdate, vatYn, contArea, cntrctMth, contType,net_profit ,attrib,
+					   buyrNo, buyrMemberNo
+                       )
+ values (#{contTitle}, #{contDesc}, #{compNo}, #{soppNo}, #{exContNo}, #{userNo}, #{custNo}, #{custmemberNo}, #{ptncNo}, #{supplyNo}, #{contOrddate},
+         #{supplyDate}, #{delivDate}, #{contAmt}, #{freemaintSdate}, #{freemaintEdate}, #{vatYn}, #{contArea}, #{cntrctMth}, #{contType}, #{net_profit},'100000',
+         #{buyrNo}, #{buyrMemberNo}
+         )
  </insert>
 
  <update id="updateCont">

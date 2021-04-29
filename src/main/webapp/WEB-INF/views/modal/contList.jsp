@@ -5,7 +5,7 @@
 <c:set var="path" value ="${pageContext.request.contextPath}"/>
 
 <div class="dt-responsive table-responsive">
-	<table id="contTable" class="table table-striped table-bordered nowrap">
+	<table id="contDataTable" class="table table-striped table-bordered nowrap">
 		<thead>
 			<tr>
 				<th>계약번호</th>
@@ -30,7 +30,7 @@
 
 <script>
 $(function(){
-    $('#contTable').DataTable({
+    $('#contDataTable').DataTable({
     	info:false,
 		searching: true
     });

@@ -56,6 +56,8 @@ public class ContDTO implements Cloneable{
 	private String targetYear;
 	private String targetMonth;
 	private Integer contTypeCount;
+	private Integer endCustmemberNo;
+	private String endCustmemberName;
 	
 	// sopp 복사 시작
 	private int custMemberNo;
@@ -78,6 +80,9 @@ public class ContDTO implements Cloneable{
 	private String soppTypeN;
 	private String soppStatusN;
 	private String cntrctMthN;
+
+	private String custMemberName;
+	private String buyrMemberName;
 	// sopp 복사 끝
 	
 	public ContDTO() {

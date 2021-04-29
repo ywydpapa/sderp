@@ -63,6 +63,7 @@ public class TechdController {
 		mav.addObject("dto", techdService.detailTechd(techdNo));
 		mav.addObject("sprttype", codeService.listSprttype(session));
 		mav.addObject("sprtstat", codeService.listSprtstat(session));
+		mav.addObject("contractType", codeService.listContractType(session));
 		return mav;
 	}
 
@@ -70,6 +71,7 @@ public class TechdController {
 	public ModelAndView write(HttpSession session, ModelAndView mav) {
 		mav.addObject("sprttype", codeService.listSprttype(session));
 		mav.addObject("sprtstat", codeService.listSprtstat(session));
+		mav.addObject("contractType", codeService.listContractType(session));
 		mav.setViewName("techd/write");
 		return mav;
 	}

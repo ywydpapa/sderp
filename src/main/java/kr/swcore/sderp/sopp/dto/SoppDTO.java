@@ -37,12 +37,14 @@ public class SoppDTO extends PageDTO {
 	private Timestamp sopp2regDatetime;
 	private String op_priority;
 	private Integer cntrctMth;
+	private Integer custmemberNo;
 	
 	// 확장
 	private String userName;
 	private String custName;
 	private String buyrName;
 	private String ptncName;
+	private String custMemberName;
 	private String soppTypeN;
 	private String soppStatusN;
 	private String cntrctMthN;

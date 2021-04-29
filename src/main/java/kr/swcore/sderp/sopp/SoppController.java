@@ -185,6 +185,7 @@ public class SoppController {
 		userDTO.setUserName((String) session.getAttribute("userName"));
 		userDTO.setUserNo(Integer.valueOf((String)session.getAttribute("userNo")));
 		mav.addObject("userInfo",userDTO);
+		mav.addObject("saleslist", codeService.listSalestype(session));
 		mav.setViewName("sopp/write");
 		return mav;
 	}
@@ -195,10 +196,10 @@ public class SoppController {
 	}
 	
 	@RequestMapping("insert.do")
-	public ResponseEntity<?> insert(HttpSession session, @ModelAttribute SoppDTO dto) {
+	public ResponseEntity<?> insert(HttpSession session, HttpServletRequest request, @ModelAttribute SoppDTO dto) {
 		Map<String, Object> param = new HashMap<>();
 		int schedInsertResult = soppService.insertSopp(session, dto);
-		param.put("code", (String.valueOf(schedInsertResult))); 
+		param.put("code", (String.valueOf(schedInsertResult)));
 		return ResponseEntity.ok(param);
 	}
 

@@ -254,7 +254,7 @@
 					<table id="salesTable" class="table table-striped table-bordered nowrap">
 						<thead>
 							<tr>
-								<th style="text-align: center">등록/수정일</th>
+								<th style="text-align: center">등록일</th>
 								<th style="text-align: center">영업일정</th>
 								<th style="text-align: center">일정명</th>
 								<th style="text-align: center">거래처명</th>
@@ -266,8 +266,8 @@
 							<c:forEach var="row" items="${saleslist}">
 								<tr align="center">
 									<td>
-										<fmt:parseDate value="${row.modDatetime}" var="modDatetime" pattern="yyyy-MM-dd HH:mm:ss"/>
-										<fmt:formatDate value="${modDatetime}" pattern="yyyy-MM-dd"/>
+										<fmt:parseDate value="${row.regDatetime}" var="regDatetime" pattern="yyyy-MM-dd HH:mm:ss"/>
+										<fmt:formatDate value="${regDatetime}" pattern="yyyy-MM-dd"/>
 									</td>
 									<td>
 										<fmt:parseDate value="${row.salesFrdatetime}" var="salesFrdatetime" pattern="yyyy-MM-dd HH:mm:ss"/>
@@ -303,7 +303,7 @@
 					<table id="techdTable" class="table table-striped table-bordered nowrap">
 						<thead>
 						<tr>
-							<th style="text-align: center">등록/수정일</th>
+							<th style="text-align: center">등록일</th>
 							<th style="text-align: center">지원일정</th>
 							<th style="text-align: center">일정명</th>
 							<th style="text-align: center">거래처명</th>
@@ -315,8 +315,8 @@
 						<c:forEach var="row" items="${techdlist}">
 							<tr align="center">
 								<td>
-									<fmt:parseDate value="${row.modDatetime}" var="modDatetime" pattern="yyyy-MM-dd HH:mm:ss"/>
-									<fmt:formatDate value="${modDatetime}" pattern="yyyy-MM-dd"/>
+									<fmt:parseDate value="${row.regdatetime}" var="regdatetime" pattern="yyyy-MM-dd HH:mm:ss"/>
+									<fmt:formatDate value="${regdatetime}" pattern="yyyy-MM-dd"/>
 								</td>
 								<td>
 									<fmt:parseDate value="${row.techdFrom}" var="techdfromdatetime" pattern="yyyy-MM-dd HH:mm:ss"/>
@@ -361,7 +361,7 @@
 				<table id="contTable" class="table table-striped table-bordered nowrap">
 					<thead>
 						<tr>
-							<th style="text-align: center">등록/수정일</th>
+							<th style="text-align: center">등록일</th>
 							<th style="text-align: center">발주일자</th>
 							<th style="text-align: center">계약명</th>
 							<th style="text-align: center">거래처명</th>
@@ -372,8 +372,8 @@
 						<c:forEach var="row" items="${contlist}">
 							<tr align="center">
 								<td>
-									<fmt:parseDate value="${row.modDatetime}" var="modDatetime" pattern="yyyy-MM-dd HH:mm:ss"/>
-									<fmt:formatDate value="${modDatetime}" pattern="yyyy-MM-dd"/>
+									<fmt:parseDate value="${row.regDatetime}" var="regDatetime" pattern="yyyy-MM-dd HH:mm:ss"/>
+									<fmt:formatDate value="${regDatetime}" pattern="yyyy-MM-dd"/>
 								</td>
 								<td>${row.contOrddate}</td>
 								<td><a href="javascript:fnSetPage('${path}/cont/detail/${row.contNo}')" title="${row.contTitle}">${row.contTitle}</a></td>

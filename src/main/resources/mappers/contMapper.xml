@@ -23,26 +23,28 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  		resultType="contDto">
  		select a.*, b.userName , c.custName, d.desc03 contTypeN, g.desc03 cntrctMthN
 		from
-			 <if test="freemaintSdate == null and freemaintSdate == '' and freemaintEdate != null and freemaintEdate == ''">
+			 <choose>
+				 <when test="freemaintSdate != null and freemaintSdate != '' and freemaintEdate != null and freemaintEdate != ''">
+					 (
+					 select *
+					 from swc_cont
+					 where (
+					 date_format(freemaintEdate, '%Y-%m-%d') <![CDATA[>=]]> #{freemaintSdate} and
+					 date_format(freemaintSdate, '%Y-%m-%d') <![CDATA[<=]]> #{freemaintEdate}
+					 )
+					 UNION
+					 select *
+					 from swc_cont
+					 where (
+					 date_format(freemaintEdate, '%Y-%m-%d') <![CDATA[>=]]> #{freemaintSdate} and
+					 date_format(freemaintSdate, '%Y-%m-%d') <![CDATA[<=]]> #{freemaintEdate}
+					 )
+					 ) a
+				 </when>
+				 <otherwise>
 					 swc_cont a
-			 </if>
-			 <if test="freemaintSdate != null and freemaintSdate != '' and freemaintEdate != null and freemaintEdate != ''">
-				 (
-				 select *
-				 from swc_cont
-				 where (
-				     	date_format(freemaintEdate, '%Y-%m-%d') <![CDATA[>=]]> #{freemaintSdate} and
-				   		date_format(freemaintSdate, '%Y-%m-%d') <![CDATA[<=]]> #{freemaintEdate}
-				     )
-				 UNION
-				 select *
-				 from swc_cont
-				 where (
-				     	date_format(freemaintEdate, '%Y-%m-%d') <![CDATA[>=]]> #{freemaintSdate} and
-				 	 	date_format(freemaintSdate, '%Y-%m-%d') <![CDATA[<=]]> #{freemaintEdate}
-				     )
-				 ) a
-			 </if>
+				 </otherwise>
+			 </choose>
 		left join swc_user b on a.userNo = b.userNo
 		left join swc_cust c on a.custNo = c.custNo
 		left join swc_code d on a.contType = d.codeNo

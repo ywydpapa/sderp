@@ -62,7 +62,7 @@
 			columns : [
 				{
 					data: "regDatetime",
-					column : '등록/수정일',
+					column : '등록일',
 					render : function ( data, type, row ) {
 						if(data == null || data == undefined) {
 							return '';
@@ -437,7 +437,7 @@
 							<thead>
 								<tr>
 									<%--<th><input class="border-checkbox" type="checkbox" id="checkbox0"></th>--%>
-									<th>등록/수정일</th>
+									<th>등록일</th>
 									<th>영업활동명</th>
 									<th>영업활동(시작)</th>
 									<th>영업활동(끝)</th>

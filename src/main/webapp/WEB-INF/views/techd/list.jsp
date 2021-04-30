@@ -410,7 +410,7 @@
 							<thead>
 								<tr>
 									<%--<th><input class="border-checkbox" type="checkbox" id="checkbox0"></th>--%>
-									<th>등록/수정일</th>
+									<th>등록일</th>
 									<th>등록구분</th>
 									<th>요청명</th>
 									<th>기술지원요청내용</th>

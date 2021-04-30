@@ -46,7 +46,7 @@ public class SalesServiceImpl implements SalesService {
 			dto.setOffset(offset);
 		}
 
-		dto.setOrderColumn("modDatetime");
+		dto.setOrderColumn("regDatetime");
 		dto.setOrderOption("desc");
 
 		return salesDao.listSales(dto);

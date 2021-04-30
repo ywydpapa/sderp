@@ -48,7 +48,7 @@ public class TechdServiceImpl implements TechdService {
 			dto.setOffset(offset);
 		}
 
-		dto.setOrderColumn("modDatetime");
+		dto.setOrderColumn("regDatetime");
 		dto.setOrderOption("desc");
 
 		return techdDao.listTechd(dto);

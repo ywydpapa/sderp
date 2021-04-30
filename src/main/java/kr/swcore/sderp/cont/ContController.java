@@ -84,6 +84,7 @@ public class ContController {
 		mav.addObject("soppFiles",soppService.listFile(soppNo));
 		mav.addObject("contractType", codeService.listContractType(session));
 		mav.addObject("contType", codeService.listContType(session));
+		mav.addObject("areaType", codeService.listAreaType(session));
 		return mav;
 	}
 
@@ -92,6 +93,7 @@ public class ContController {
 		mav.setViewName("cont/write");
 		mav.addObject("contractType", codeService.listContractType(session));
 		mav.addObject("contType", codeService.listContType(session));
+		mav.addObject("areaType", codeService.listAreaType(session));
 		return mav;
 	}
 

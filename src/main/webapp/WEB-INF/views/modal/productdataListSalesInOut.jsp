@@ -67,15 +67,15 @@
 			{data : 'productCategoryName'},
 			{data : 'productName'},
 			{data : 'productDesc'},
-			{data : 'custName'}
+			{data : 'custName'},
 		],
 		columnDefs: [
 			{
-				"render": function (data, type, row) {
+				render : function (data, type, row) {
 					// 마우스 올리면 또는 클릭하면 툴팁으로 데이터 상세 표시 ** AJAX로 구현이 필요
-					return '<a href="javascript:void(0);" onclick="fnSetproductdata('+row.productNo+',\''+row.productName+'\')">'+ data +'</a>';
+					return '<a href="javascript:void(0);" onclick="fnSetproductdata('+row.productNo+',\''+data+'\')">'+ data +'</a>';
 				},
-				"targets": 2
+				targets: 2
 			}
 		]
 	});
@@ -87,10 +87,11 @@
 			contentType: "application/x-www-form-urlencoded; charset=UTF-8",
 			url : '${path}/product/listAjax'
 		}).done(function (result) {
-			var obj = JSON.parse(result);
-			console.dir(obj);
-			if(obj.data != "") {
-				var arr = result.data;
+			var newData = JSON.parse(result);
+			console.dir(newData);
+
+			if(newData.data != "") {
+				var arr = JSON.parse(newData.data);
 				// 글로벌 변수에 저장한다. 상세보기때 참고할 변수!!
 				productdataJson = arr;
 				productdataTable.clear();

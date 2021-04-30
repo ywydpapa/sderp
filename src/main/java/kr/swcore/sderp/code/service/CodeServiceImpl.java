@@ -287,7 +287,13 @@ public class CodeServiceImpl implements CodeService {
 	@Override
 	public List<CodeDTO> listSchdType(HttpSession session) {
 		Integer compNo = SessionInfoGet.getCompNo(session);
-		return codeDao.listlistSchdType(compNo);
+		return codeDao.listSchdType(compNo);
+	}
+
+	@Override
+	public List<CodeDTO> listAreaType(HttpSession session) {
+		Integer compNo = SessionInfoGet.getCompNo(session);
+		return codeDao.listAreaType(compNo);
 	}
 
 }

@@ -92,7 +92,7 @@ public class TechdServiceImpl implements TechdService {
 
 		String column = "";
 		switch (orderColumn){
-			case "0" : column = "modDatetime"; break;	// 등록/수정일
+			case "0" : column = "regDatetime"; break;	// 등록일
 			case "1" : column = "cntrctMth"; break;		// 등록구분
 			case "2" : column = "techdTitle"; break;	// 요청명
 			case "3" : column = "techdDesc"; break;		// 설명
@@ -101,7 +101,7 @@ public class TechdServiceImpl implements TechdService {
 			case "6" : column = "userName"; break;		// 담당사원
 			case "7" : column = "techdFrom"; break;		// 기술지원(시작)
 			case "8" : column = "techdTo"; break;		// 기술지원(끝)
-			default : column = "modDatetime"; break;
+			default : column = "regDatetime"; break;
 		}
 
 		String option = "";

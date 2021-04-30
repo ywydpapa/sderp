@@ -277,15 +277,15 @@ $(function(){
 							</colgroup>							
 							<thead>
 								<tr>
-									<th>수정일</th>
+									<th>등록일</th>
 									<th>판매방식</th>
 									<th>계약방식</th>
 									<th>계약명</th>
 									<th>고객명</th>
 									<th>계약금액</th>
 									<th>담당자</th>
-									<th>무상유지보수 시작일</th>
-									<th>무상유지보수 만료일</th>
+									<th>유지보수 시작일</th>
+									<th>유지보수 만료일</th>
 									<th>계산서 발행일</th>
 									<th>판매일</th>
 									<!-- <th>상세정보</th> -->
@@ -295,8 +295,8 @@ $(function(){
 							<c:forEach var="row" items="${list}">
 								<tr>
 									<td>
-										<fmt:parseDate value="${row.modDatetime}" var="salesFrdatetime" pattern="yyyy-MM-dd HH:mm:ss"/>
-										<fmt:formatDate value="${salesFrdatetime}" pattern="yyyy-MM-dd"/>
+										<fmt:parseDate value="${row.regDatetime}" var="regDatetime" pattern="yyyy-MM-dd HH:mm:ss"/>
+										<fmt:formatDate value="${regDatetime}" pattern="yyyy-MM-dd"/>
 									</td>
 									<td>${row.contTypeN}</td>
 									<td>${row.cntrctMthN}</td>
@@ -310,8 +310,18 @@ $(function(){
 									<td>${row.custName}</td>
 									<td class="text-right"><fmt:formatNumber type="number" maxFractionDigits="3" value="${row.contAmt}" /></td>
 									<td>${row.userName}</td>
-									<td>${row.freemaintSdate}</td>
-									<td>${row.freemaintEdate}</td>
+									<td>
+										<c:choose>
+											<c:when test="${row.freemaintSdate != null && row.freemaintSdate != ''}">${row.freemaintSdate}</c:when>
+											<c:when test="${row.paymaintSdate != null && row.paymaintSdate != ''}">${row.paymaintSdate}</c:when>
+										</c:choose>
+									</td>
+									<td>
+										<c:choose>
+											<c:when test="${row.freemaintEdate != null && row.freemaintEdate != ''}">${row.freemaintEdate}</c:when>
+											<c:when test="${row.paymaintEdate != null && row.paymaintEdate != ''}">${row.paymaintEdate}</c:when>
+										</c:choose>
+									</td>
 									<td>-</td>
 									<td>${row.contOrddate}</td>
 									<%-- <td><a href="javascript:fnSetPage('${path}/cont/detail/${row.contNo}')">상세정보</a></td> --%>

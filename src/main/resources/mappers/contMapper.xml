@@ -13,7 +13,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		left join swc_code d on a.contType = d.codeNo
  		left join swc_code g on a.cntrctMth = g.codeNo
 		where a.attrib not like 'XXX%' and a.compNo = #{compNo}
-		order by modDatetime desc
+		order by regDatetime desc
 		<if test="limit > 0">
 			limit  #{limit} offset #{offset}
 		</if>
@@ -22,7 +22,27 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  <select id="listconCont"
  		resultType="contDto">
  		select a.*, b.userName , c.custName, d.desc03 contTypeN, g.desc03 cntrctMthN
-		from swc_cont a
+		from
+			 <if test="freemaintSdate == null and freemaintSdate == '' and freemaintEdate != null and freemaintEdate == ''">
+					 swc_cont a
+			 </if>
+			 <if test="freemaintSdate != null and freemaintSdate != '' and freemaintEdate != null and freemaintEdate != ''">
+				 (
+				 select *
+				 from swc_cont
+				 where (
+				     	date_format(freemaintEdate, '%Y-%m-%d') <![CDATA[>=]]> #{freemaintSdate} and
+				   		date_format(freemaintSdate, '%Y-%m-%d') <![CDATA[<=]]> #{freemaintEdate}
+				     )
+				 UNION
+				 select *
+				 from swc_cont
+				 where (
+				     	date_format(freemaintEdate, '%Y-%m-%d') <![CDATA[>=]]> #{freemaintSdate} and
+				 	 	date_format(freemaintSdate, '%Y-%m-%d') <![CDATA[<=]]> #{freemaintEdate}
+				     )
+				 ) a
+			 </if>
 		left join swc_user b on a.userNo = b.userNo
 		left join swc_cust c on a.custNo = c.custNo
 		left join swc_code d on a.contType = d.codeNo
@@ -54,10 +74,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  		 	and a.contType = #{contType}
  		</if>
  		<if test="targetDatefrom != null and targetDatefrom != ''">
- 		 	and date_format(a.delivDate, '%Y-%m-%d') <![CDATA[>=]]> #{targetDatefrom}
+ 		 	and date_format(a.contOrddate, '%Y-%m-%d') <![CDATA[>=]]> #{targetDatefrom}
  		</if>
  		<if test="targetDateto != null and targetDateto != ''">
- 			and date_format(a.delivDate, '%Y-%m-%d') <![CDATA[<=]]> #{targetDateto}
+ 			and date_format(a.contOrddate, '%Y-%m-%d') <![CDATA[<=]]> #{targetDateto}
  		</if>
  		<if test="userName != null and userName != ''">
  		 	and b.userName like CONCAT('%', #{userName}, '%')
@@ -65,13 +85,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  		<if test="businessType != null and businessType != ''">
  		 	and a.businessType = #{businessType}
  		</if>
- 		<if test="freemaintSdate != null and freemaintSdate != ''">
- 		 	and date_format(a.freemaintSdate, '%Y-%m-%d') <![CDATA[>=]]> #{freemaintSdate}
- 		</if>
- 		<if test="freemaintEdate != null and freemaintEdate != ''">
- 			and date_format(a.freemaintEdate, '%Y-%m-%d') <![CDATA[<=]]> #{freemaintEdate}
- 		</if>
-		 order by modDatetime desc
+		 order by regDatetime desc
  </select>
 
 <select id="detailCont"
@@ -109,12 +123,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  
  <insert id="insertCont">
  insert into swc_cont (contTitle, contDesc, compNo, soppNo, exContNo, userNo, custNo, custmemberNo, ptncNo, supplyNo, contOrddate,
-                       supplyDate, delivDate, contAmt, freemaintSdate, freemaintEdate, vatYn, contArea, cntrctMth, contType,net_profit ,attrib,
-					   buyrNo, buyrMemberNo
+                       supplyDate, delivDate, contAmt, freemaintSdate, freemaintEdate, paymaintSdate, paymaintEdate, vatYn, contArea, cntrctMth,
+                       contType,net_profit ,attrib, buyrNo, buyrMemberNo
                        )
  values (#{contTitle}, #{contDesc}, #{compNo}, #{soppNo}, #{exContNo}, #{userNo}, #{custNo}, #{custmemberNo}, #{ptncNo}, #{supplyNo}, #{contOrddate},
-         #{supplyDate}, #{delivDate}, #{contAmt}, #{freemaintSdate}, #{freemaintEdate}, #{vatYn}, #{contArea}, #{cntrctMth}, #{contType}, #{net_profit},'100000',
-         #{buyrNo}, #{buyrMemberNo}
+         #{supplyDate}, #{delivDate}, #{contAmt}, #{freemaintSdate}, #{freemaintEdate}, #{paymaintSdate}, #{paymaintEdate}, #{vatYn}, #{contArea}, #{cntrctMth},
+         #{contType}, #{net_profit},'100000', #{buyrNo}, #{buyrMemberNo}
          )
  </insert>
 
@@ -132,9 +146,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	contOrddate=#{contOrddate}, 
 	supplyDate=#{supplyDate}, 
 	delivDate=#{delivDate}, 
-	contAmt=#{contAmt}, 
+	contAmt=#{contAmt},
 	freemaintSdate=#{freemaintSdate}, 
-	freemaintEdate=#{freemaintEdate}, 
+	freemaintEdate=#{freemaintEdate},
+	paymaintSdate=#{paymaintSdate},
+	paymaintEdate=#{paymaintEdate},
 	vatYn=#{vatYn}, 
 	contArea=#{contArea},
 	cntrctMth=#{cntrctMth},

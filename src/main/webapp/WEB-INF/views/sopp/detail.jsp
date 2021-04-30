@@ -898,6 +898,14 @@
 		data01Data.dataAmt 		= $("#data01Amt").val().replace(/[\D\s\._\-]+/g, "");
 		data01Data.dataRemark 	= $("#data01Remark").val();
 
+		if(!data01Data.dataQuanty){
+			alert("단가를 입력해주십시오.");
+			return;
+		} else if(!data01Data.dataAmt){
+			alert("수량을 입력해주십시오.");
+			return;
+		}
+
 		$.ajax({ url: "${path}/sopp/insertdata01.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
 			data: data01Data , // HTTP 요청과 함께 서버로 보낼 데이터
 			method: "POST", // HTTP 요청 메소드(GET, POST 등)
@@ -933,6 +941,14 @@
 		data02Data.dataQuanty	= $("#data02Qty").val().replace(/[\D\s\._\-]+/g, "");
 		data02Data.dataAmt 		= $("#data02Amt").val().replace(/[\D\s\._\-]+/g, "");
 		data02Data.dataRemark 	= $("#data02Remark").val();
+
+		if(!data02Data.dataQuanty){
+			alert("단가를 입력해주십시오.");
+			return;
+		} else if(!data02Data.dataAmt){
+			alert("수량을 입력해주십시오.");
+			return;
+		}
 
 		$.ajax({ url: "${path}/sopp/insertdata02.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
 			data: data02Data , // HTTP 요청과 함께 서버로 보낼 데이터

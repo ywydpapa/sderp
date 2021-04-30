@@ -76,15 +76,16 @@ public class SchedServiceImpl implements SchedService {
 
 		String column = "";
 		switch (orderColumn){
-			case "0" : column = "schedTypeN"; break;
-			case "1" : column = "schedTitle"; break;
-			case "2" : column = "schedFrom"; break;
-			case "3" : column = "custName"; break;
-			case "4" : column = "userName"; break;
-			case "5" : column = "schedPlace"; break;
-			case "6" : column = "schedCatN"; break;
-			case "7" : column = "schedDesc"; break;
-			default : column = "schedFrom"; break;
+			case "0" : column = "regDatetime"; break;
+			case "1" : column = "schedTypeN"; break; // 비활성화 조치
+			case "2" : column = "schedTitle"; break;
+			case "3" : column = "schedFrom"; break;
+			case "4" : column = "custName"; break;
+			case "5" : column = "userName"; break;
+			case "6" : column = "schedPlace"; break;
+			case "7" : column = "schedCatN"; break;
+			case "8" : column = "schedDesc"; break;
+			default : column = "regDatetime"; break;
 		}
 
 		String option = "";

@@ -30,6 +30,8 @@ public class ContDTO implements Cloneable{
 	private BigDecimal contAmt;
 	private String freemaintSdate;
 	private String freemaintEdate;
+	private String paymaintSdate;
+	private String paymaintEdate;
 	private String vatYn;
 	private String contArea;
 	private String contType;

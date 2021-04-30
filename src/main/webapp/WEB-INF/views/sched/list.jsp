@@ -8,7 +8,7 @@
 	$(function(){
 		var obj = new Object();
 		schedTable = $('#schedTable').DataTable({
-			order: [[ 2, "desc" ]],
+			order: [[ 0, "desc" ]],
 			paging : true, // 페이지 처리 여부
 			ordering : true, // 컬럼 클릭 시 오더링을 적용 여부
 			// info : true, // 페이지 상태에 대한 정보 여부
@@ -64,11 +64,18 @@
 					targets : "_all"
 				},
 				{
-					targets : 0,
+					targets : 1,
 					orderable: false
 				}
 			],	// ajax로 데이터가 날아오면서 list를 뿌려주는데 각 컬럼에서 만약 값이 없으면 오류대처
 			columns : [
+				{
+					data: "regDatetime",
+					column: '등록일',
+					render : function (data, type, row) {
+						return data.split(" ")[0];
+					}
+				},
 				{data: "schedTypeN", column : '일정구분'},
 				{
 					data: "schedTitle",
@@ -178,22 +185,28 @@
 	a {
 		text-decoration:underline;
 	}
-	#schedTable > tbody > tr > td:nth-child(2){
+	#schedTable > tbody > tr > td:nth-child(3){
 		overflow: hidden;
 		text-overflow: ellipsis;
-		max-width: 170px;
+		max-width: 250px;
 		white-space: nowrap;
 	}
-	#schedTable > tbody > tr > td:nth-child(4){
+	#schedTable > tbody > tr > td:nth-child(5){
 		overflow: hidden;
 		text-overflow: ellipsis;
-		max-width: 150px;
+		max-width: 160px;
 		white-space: nowrap;
 	}
-	#schedTable > tbody > tr > td:nth-child(8){
+	#schedTable > tbody > tr > td:nth-child(7){
 		overflow: hidden;
 		text-overflow: ellipsis;
-		max-width: 300px;
+		max-width: 230px;
+		white-space: nowrap;
+	}
+	#schedTable > tbody > tr > td:nth-child(9){
+		overflow: hidden;
+		text-overflow: ellipsis;
+		max-width: 340px;
 		white-space: nowrap;
 	}
 </style>
@@ -443,8 +456,20 @@
 			<div class="card-block table-border-style">
 				<div class="table-responsive">
 					<table id="schedTable" class="table table-striped table-bordered nowrap">
+						<colgroup>
+							<col width="2%">
+							<col width="2%">
+							<col width="15%">
+							<col width="3%">
+							<col width="8%">
+							<col width="2%">
+							<col width="13%">
+							<col width="2%">
+							<col width="15%">
+						</colgroup>
 						<thead>
 							<tr>
+								<th>등록일</th>
 								<th>일정구분</th>
 								<th>일정제목</th>
 								<th>일정</th>

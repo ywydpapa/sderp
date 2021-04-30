@@ -191,12 +191,12 @@
 						class="pcoded-mtext" data-i18n="nav.menu-levels.menu-level-21">사용자 목록</span>
 						<span class="pcoded-mcaret"></span>
 				</a></li>
-				<li class="pcoded-hasmenu"><a
+				<%--<li class="pcoded-hasmenu"><a
 					href="javascript:fnSetPage('${path}/user/write.do')"> <span
 						class="pcoded-micon"><i class="ti-angle-right"></i></span> <span
 						class="pcoded-mtext" data-i18n="nav.menu-levels.menu-level-21">사용자 등록</span>
 						<span class="pcoded-mcaret"></span>
-				</a></li>
+				</a></li>--%>
 			</ul>
 	</ul>
 

@@ -151,7 +151,7 @@ public class SalesServiceImpl implements SalesService {
 
 		String column = "";
 		switch (orderColumn){
-			case "0" : column = "modDatetime"; break;		// 등록/수정일
+			case "0" : column = "regDatetime"; break;		// 등록일
 			case "1" : column = "salesTitle"; break;		// 영업활동명
 			case "2" : column = "salesFrdatetime"; break;	// 일정(시작)
 			case "3" : column = "salesTodatetime"; break;	// 일정(끝)

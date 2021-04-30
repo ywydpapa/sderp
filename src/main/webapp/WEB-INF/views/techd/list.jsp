@@ -67,8 +67,8 @@
 			],	// ajax로 데이터가 날아오면서 list를 뿌려주는데 각 컬럼에서 만약 값이 없으면 오류대처
 			columns : [
 				{
-					data: "modDatetime",
-					column : '등록/수정일',
+					data: "regdatetime",
+					column : '등록일',
 					render : function ( data, type, row ) {
 						if(data == null || data == undefined) {
 							return '';

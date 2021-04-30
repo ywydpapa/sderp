@@ -3,6 +3,25 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <c:set var="path" value ="${pageContext.request.contextPath}"/>
+<script type="text/javascript">
+	if("${contDto.soppNo}" != "0") {
+		$('.contDetailSopp').show();
+		$('.contDetailCont').hide();
+	}else {
+		$('.contDetailSopp').hide();
+		$('.contDetailCont').show();
+	}
+
+	$('input[name=contractType]').on('click', function() {
+		if ($(this).val() == 'NEW') {
+			$('.contDetailSopp').show();
+			$('.contDetailCont').hide();
+		} else {
+			$('.contDetailSopp').hide();
+			$('.contDetailCont').show();
+		}
+	});
+</script>
 <!-- Page-header start 페이지 타이틀-->
 <div class="page-header2">
 	<div class="row align-items-end">
@@ -71,7 +90,7 @@
 												</td>
 											</tr>
 											<tr>
-												<th scope="row">계약명</th>
+												<th scope="row" class="requiredTextCss">계약명</th>
 												<td colspan="3">
 													<input type="text" class="form-control form-control-sm" id="contTitle" name="contTitle" value="${contDto.contTitle }">
 												</td>
@@ -81,8 +100,8 @@
 												<td>
 													<input type="text" id="contNo" name="contNo" class="form-control " readonly value="${contDto.contNo}">
 												</td>
-												<th class="techdDetailCont">영업기회</th>
-												<td class="techdDetailCont">
+												<th class="contDetailSopp requiredTextCss">영업기회</th>
+												<td class="contDetailSopp">
 													<div class="input-group input-group-sm mb-0">
 														<input type="text" class="form-control" name="soppTitle" id="soppTitle" value="${contDto.soppTitle}" />
 														<input type="hidden" class="form-control" name="soppNo" id="soppNo" value="${contDto.soppNo}" />
@@ -118,10 +137,10 @@
 														</div>
 													</div>
 												</td>
-												<th class="techdDetailCont">계약</th>
-												<td class="techdDetailCont">
+												<th class="contDetailCont requiredTextCss">계약</th>
+												<td class="contDetailCont">
 													<div class="input-group input-group-sm mb-0">
-														<input type="text" class="form-control" name="oldContTitle" id="oldContTitle" value="${contDto.exContName}" readonly />
+														<input type="text" class="form-control" name="oldContTitle" id="oldContTitle" value="${contDto.exContName}"/>
 														<input type="hidden" name="oldContNo" id="oldContNo" value="${contDto.exContNo}" />
 														<span class="input-group-btn">
 															<button class="btn btn-primary sch-opportunity2" data-remote="${path}/modal/popup.do?popId=cont"
@@ -153,7 +172,7 @@
 												</td>
 											</tr>
 											<tr>
-												<th scope="row">담당사원</th>
+												<th scope="row" class="requiredTextCss">담당사원</th>
 												<td>
 													<div class="input-group input-group-sm mb-0">
 														<input type="text" class="form-control" name="userName" id="userName" value="${contDto.userName}" />
@@ -203,7 +222,7 @@
 
 											</tr>
 											<tr>
-												<th>거래처</th>
+												<th class="requiredTextCss">거래처</th>
 												<td>
 													<div class="input-group input-group-sm mb-0">
 														<input type="text" class="form-control" name="custName" id="custName" value="${contDto.custName}" />
@@ -242,7 +261,7 @@
 												<th>거래처 담당자</th>
 												<td>
 													<div class="input-group input-group-sm mb-0">
-														<input type="text" id="custmemberName" name="custmemberName" class="form-control " readonly value="${contDto.custmemberName}">
+														<input type="text" id="custmemberName" name="custmemberName" class="form-control " value="${contDto.custmemberName}">
 														<input type="hidden" id="custmemberNo" name="custmemberNo" class="form-control " value="${contDto.custmemberNo}">
 														<span class="input-group-btn">
 															<button class="btn btn-primary sch-company btn-sm" type="button"><i class="icofont icofont-search"></i></button>
@@ -285,7 +304,7 @@
 												<th>엔드유저 담당자</th>
 												<td>
 													<div class="input-group input-group-sm mb-0">
-														<input type="text" id="endCustmemberName" name="endCustmemberName" class="form-control " value="${contDto.buyrMemberName}" readonly>
+														<input type="text" id="endCustmemberName" name="endCustmemberName" class="form-control " value="${contDto.buyrMemberName}">
 														<input type="hidden" id="endCustmemberNo" name="endCustmemberNo" class="form-control " value="${contDto.buyrMemberNo}">
 														<span class="input-group-btn">
 															<button class="btn btn-primary sch-company btn-sm"  data-remote="${path}/modal/popup.do?popId=endCustmem&compNo=" type="button" data-toggle="modal" data-target="#endCustmemberModal" id="endCustmemberModalbtn" data-whatever="">
@@ -335,10 +354,16 @@
 														<input class="form-control form-control-sm col-sm-12" type="date" id="delivDate" name="delivDate" value="${contDto.delivDate}">
 													</div>
 												</td>
-												<th scope="row">무상유지보수일자</th>
-												<td>
+												<th scope="row" class="contDetailSopp">무상 유지보수일자</th>
+												<td class="contDetailSopp">
 													<div class="input-group input-group-sm mb-0">
 														<input class="form-control form-control-sm col-sm-6 m-r-5" type="date" id="freemaintSdate" value="${contDto.freemaintSdate}"> ~ <input class="form-control form-control-sm col-sm-6 m-l-5" type="date" id="freemaintEdate" value="${contDto.freemaintEdate}">
+													</div>
+												</td>
+												<th scope="row" class="contDetailCont">유상 유지보수일자</th>
+												<td class="contDetailCont">
+													<div class="input-group input-group-sm mb-0">
+														<input class="form-control form-control-sm col-sm-6 m-r-5" type="date" id="paymaintSdate" value="${contDto.paymaintSdate}"> ~ <input class="form-control form-control-sm col-sm-6 m-l-5" type="date" id="paymaintEdate" value="${contDto.paymaintEdate}">
 													</div>
 												</td>
 											</tr>
@@ -362,21 +387,11 @@
 												</td>
 												<th>지역</th>
 												<td>
-													<select name="contArea" id="contArea" class="form-control form-control-sm">
+													<select name="select" id="contArea" class="form-control form-control-sm" >
 														<option value="">선택</option>
-														<option value="701" <c:if test="${contDto.contArea eq '701'}">selected</c:if> >서울</option>
-														<option value="703" <c:if test="${contDto.contArea eq '703'}">selected</c:if> >인천, 경기</option>
-														<option value="704" <c:if test="${contDto.contArea eq '704'}">selected</c:if> >충북</option>
-														<option value="705" <c:if test="${contDto.contArea eq '705'}">selected</c:if> >충남</option>
-														<option value="706" <c:if test="${contDto.contArea eq '706'}">selected</c:if> >강원도</option>
-														<option value="707" <c:if test="${contDto.contArea eq '707'}">selected</c:if> >경북</option>
-														<option value="708" <c:if test="${contDto.contArea eq '708'}">selected</c:if> >경남</option>
-														<option value="709" <c:if test="${contDto.contArea eq '709'}">selected</c:if> >전북</option>
-														<option value="710" <c:if test="${contDto.contArea eq '710'}">selected</c:if> >전남</option>
-														<option value="711" <c:if test="${contDto.contArea eq '711'}">selected</c:if> >제주</option>
-														<option value="712" <c:if test="${contDto.contArea eq '712'}">selected</c:if> >해외</option>
-														<option value="713" <c:if test="${contDto.contArea eq '713'}">selected</c:if> >기타</option>
-														<option value="714" <c:if test="${contDto.contArea eq '714'}">selected</c:if> >세종</option>
+														<c:forEach var="contArea" items="${contArea}">
+															<option value="${contArea.codeNo}" <c:if test="${contDto.contArea eq contArea.codeNo}">selected</c:if>>${contArea.desc03}</option>
+														</c:forEach>
 													</select>
 												</td>
 											</tr>
@@ -909,31 +924,42 @@
 				contData.exContNo				= $("#oldContNo").val();		// 기존계약
 				contData.cntrctMth				= ${contractType[1].codeNo};
 			}
-			contData.contTitle 				= $("#contTitle").val();
-			contData.contDesc			 	= $("#contDesc").val();
-			contData.userNo		 			= $("#userNo").val();
+			contData.contTitle 				= $("#contTitle").val(); 		// 계약명
+			if($("#userName").val() != "")			contData.userNo		 	= Number($("#userNo").val());			// 담당사원
 			var net_profit = Number($("#net_profit").val().replace(/[\D\s\._\-]+/g, "")); // 매출이익
-			if (net_profit > 0){
+			if (net_profit >= 0){
 				contData.net_profit = net_profit;
 			} else {
 				contData.net_profit = 0;
 			}
-			contData.custNo 				= $("#custNo").val();
-			contData.soppNo 				= $("#soppNo").val();
-			contData.buyrNo					= $("#endCustNo").val();		// 엔드유저
-			contData.buyrMemberNo			= $("#endCustmemberNo").val();	// 엔드유저 담당자
-			contData.supplyNo 				= $("#supplyNo").val();
-			contData.contType 				= $("#contType").val();
+			if($("#custName").val() != "")			contData.custNo 		= Number($("#custNo").val());			// 거래처
+			if($("#custmemberName").val() != "")	contData.custmemberNo	= Number($("#custmemberNo").val());		// 거래처 담당자
+			if($("#endCustName").val() != "") 		contData.buyrNo			= Number($("#endCustNo").val());		// 엔드유저
+			if($("#endCustmemberName").val() != "") contData.buyrMemberNo	= Number($("#endCustmemberNo").val());	// 엔드유저 담당자
+			if($("#contOrddate").val() != "")		contData.contOrddate 			= $("#contOrddate").val();		// 발주일자
+			if($("#supplyDate").val() != "") 		contData.supplyDate = $("#supplyDate").val();		// 공급일자
+			if($("#delivDate").val() != "")  		contData.delivDate	 = $("#delivDate").val();		// 검수일자
+
 			var contAmt = Number($("#contAmt").val().replace(/[\D\s\._\-]+/g, ""));			// 계약금액
-			if (net_profit > 0){
+			if (contAmt >= 0){
 				contData.contAmt = contAmt;
 			} else {
 				contData.contAmt = 0;
 			}
-			contData.contArea 				= $("#contArea").val();
-			if($("#contOrddate").val() != "") contData.contOrddate 	= $("#contOrddate").val();
-			if($("#freemaintSdate").val() != "") contData.freemaintSdate = $("#freemaintSdate").val();
-			if($("#freemaintEdate").val() != "") contData.freemaintEdate 	= $("#freemaintEdate").val();
+			if($("#freemaintSdate").val() != "") contData.freemaintSdate = $("#freemaintSdate").val();	// 무상유지보수 시작일자
+			if($("#freemaintEdate").val() != "") contData.freemaintEdate = $("#freemaintEdate").val();	// 무상유지보수 마감일자
+			if($("#vatYn").val() != "")		contData.vatYn					= $("#vatYn").val();			// VAT 포함여부 (기본값 : Y)
+			if($("#contArea").val() != "") 		contData.contArea 				= $("#contArea").val();			// 지역
+			if($("#contType").val() != "")		contData.contType 				= $("#contType").val();			// 판매방식
+			if($("#contDesc").val() != "")		contData.contDesc			 	= $("#contDesc").val();			// 계약내용
+
+			if (!contData.contTitle) {
+				alert("계약명 제목을 입력하십시오.");
+				return;
+			} else if (!contData.custNo){
+				alert("거래처를 입력하십시오.");
+				return;
+			}
 
 			$.ajax({ url: "${path}/cont/update.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
 						data: contData , // HTTP 요청과 함께 서버로 보낼 데이터 

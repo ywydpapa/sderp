@@ -265,7 +265,12 @@ public class CodeDAOImpl implements CodeDAO {
 	}
 
 	@Override
-	public List<CodeDTO> listlistSchdType(int compNo) {
+	public List<CodeDTO> listSchdType(int compNo) {
 		return sqlSession.selectList("code.listSchdType", compNo);
+	}
+
+	@Override
+	public List<CodeDTO> listAreaType(int compNo) {
+		return sqlSession.selectList("code.listAreaType", compNo);
 	}
 }

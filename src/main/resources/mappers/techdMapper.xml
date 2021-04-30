@@ -44,7 +44,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		) subquery1
 	<if test="sSearch != null and sSearch != ''">
 	where
-		subquery1.techdTitle like concat('%',#{sSearch},'%')
+		date_format(subquery1.regdatetime, '%Y-%m-%d') like concat('%',#{sSearch},'%')
+		or subquery1.techdTitle like concat('%',#{sSearch},'%')
 		or subquery1.techdDesc like concat('%',#{sSearch},'%')
 		or subquery1.custName like concat('%',#{sSearch},'%')
 		or subquery1.techdStepsN like concat('%',#{sSearch},'%')
@@ -107,7 +108,8 @@ from
 	) subquery1
 	<if test="sSearch != null and sSearch != ''">
 		where
-		subquery1.techdTitle like concat('%',#{sSearch},'%')
+		date_format(subquery1.regdatetime, '%Y-%m-%d') like concat('%',#{sSearch},'%')
+		or subquery1.techdTitle like concat('%',#{sSearch},'%')
 		or subquery1.techdDesc like concat('%',#{sSearch},'%')
 		or subquery1.custName like concat('%',#{sSearch},'%')
 		or subquery1.techdStepsN like concat('%',#{sSearch},'%')
@@ -216,6 +218,7 @@ from
 	techdType,
 	techdSteps,
 	regdatetime,
+	modDatetime
 	attrib,
 	userNo,
 	schedType,
@@ -237,6 +240,7 @@ from
 	#{techdTo},
 	#{techdType},
 	#{techdSteps},
+	now(),
 	now(),
 	'10000',
 	#{userNo},

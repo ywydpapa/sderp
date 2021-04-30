@@ -22,7 +22,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select subquery1.*
 		from
 			(
-			select a.schedNo, a.schedTitle, a.schedFrom, a.schedTo, a.schedPlace, a.schedDesc, b.custName, c.userName, d.desc03 schedTypeN, e.desc03 schedCatN
+			select a.schedNo, a.schedTitle, a.schedFrom, a.schedTo, a.schedPlace, a.schedDesc, a.regDatetime, b.custName, c.userName, d.desc03 schedTypeN, e.desc03 schedCatN
 			from swc_sched a
 			left join swc_cust b on a.custNo = b.custNo
 			left join swc_user c on a.userNo = c.userNo
@@ -53,7 +53,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			) subquery1
 		<if test="sSearch != null and sSearch != ''">
 		where
-			subquery1.schedTypeN like concat('%',#{sSearch},'%')
+			date_format(subquery1.regDatetime, '%Y-%m-%d') like concat('%',#{sSearch},'%')
+			or subquery1.schedTypeN like concat('%',#{sSearch},'%')
 			or subquery1.schedTitle like concat('%',#{sSearch},'%')
 			or subquery1.custName like concat('%',#{sSearch},'%')
 			or subquery1.userName like concat('%',#{sSearch},'%')
@@ -69,7 +70,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select subquery1.*
 		from
 			(
-			select a.salesNo schedNo, a.salesTitle schedTitle, a.salesFrdatetime schedFrom, a.salesTodatetime schedTo, a.salesPlace schedPlace, a.salesDesc schedDesc, b.custName, c.userName, d.desc03 schedTypeN, e.desc03 schedCatN
+			select a.salesNo schedNo, a.salesTitle schedTitle, a.salesFrdatetime schedFrom, a.salesTodatetime schedTo, a.salesPlace schedPlace, a.salesDesc schedDesc, a.regDatetime, b.custName, c.userName, d.desc03 schedTypeN, e.desc03 schedCatN
 			from swc_sales a
 			left join swc_cust b on a.custNo = b.custNo
 			left join swc_user c on a.userNo = c.userNo
@@ -100,7 +101,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			) subquery1
 		<if test="sSearch != null and sSearch != ''">
 			where
-			subquery1.schedTypeN like concat('%',#{sSearch},'%')
+			date_format(subquery1.regDatetime, '%Y-%m-%d') like concat('%',#{sSearch},'%')
+			or subquery1.schedTypeN like concat('%',#{sSearch},'%')
 			or subquery1.schedTitle like concat('%',#{sSearch},'%')
 			or subquery1.custName like concat('%',#{sSearch},'%')
 			or subquery1.userName like concat('%',#{sSearch},'%')
@@ -116,7 +118,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select subquery1.*
 		from
 		(
-			select a.techdNo schedNo, a.techdTitle schedTitle, a.techdFrom schedFrom, a.techdTo schedTo, a.techdPlace schedPlace, a.techdDesc schedDesc, b.custName, c.userName, d.desc03 schedTypeN, e.desc03 schedCatN
+			select a.techdNo schedNo, a.techdTitle schedTitle, a.techdFrom schedFrom, a.techdTo schedTo, a.techdPlace schedPlace, a.techdDesc schedDesc, a.regDatetime, b.custName, c.userName, d.desc03 schedTypeN, e.desc03 schedCatN
 			from swc_techd a
 			left join swc_cust b on a.custNo = b.custNo
 			left join swc_user c on a.userNo = c.userNo
@@ -147,7 +149,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			) subquery1
 		<if test="sSearch != null and sSearch != ''">
 			where
-			subquery1.schedTypeN like concat('%',#{sSearch},'%')
+			date_format(subquery1.regDatetime, '%Y-%m-%d') like concat('%',#{sSearch},'%')
+			or subquery1.schedTypeN like concat('%',#{sSearch},'%')
 			or subquery1.schedTitle like concat('%',#{sSearch},'%')
 			or subquery1.custName like concat('%',#{sSearch},'%')
 			or subquery1.userName like concat('%',#{sSearch},'%')
@@ -176,7 +179,7 @@ from
 	select subquery1.*
 	from
 	(
-	select a.schedNo, a.schedTitle, a.schedFrom, a.schedTo, a.schedPlace, a.schedDesc, b.custName, c.userName, d.desc03 schedTypeN, e.desc03 schedCatN
+	select a.schedNo, a.schedTitle, a.schedFrom, a.schedTo, a.schedPlace, a.schedDesc, a.regDatetime, b.custName, c.userName, d.desc03 schedTypeN, e.desc03 schedCatN
 	from swc_sched a
 	left join swc_cust b on a.custNo = b.custNo
 	left join swc_user c on a.userNo = c.userNo
@@ -207,7 +210,8 @@ from
 	) subquery1
 	<if test="sSearch != null and sSearch != ''">
 		where
-		subquery1.schedTypeN like concat('%',#{sSearch},'%')
+		date_format(subquery1.regDatetime, '%Y-%m-%d') like concat('%',#{sSearch},'%')
+		or subquery1.schedTypeN like concat('%',#{sSearch},'%')
 		or subquery1.schedTitle like concat('%',#{sSearch},'%')
 		or subquery1.custName like concat('%',#{sSearch},'%')
 		or subquery1.userName like concat('%',#{sSearch},'%')
@@ -223,7 +227,7 @@ from
 	select subquery1.*
 	from
 	(
-	select a.salesNo schedNo, a.salesTitle schedTitle, a.salesFrdatetime schedFrom, a.salesTodatetime schedTo, a.salesPlace schedPlace, a.salesDesc schedDesc, b.custName, c.userName, d.desc03 schedTypeN, e.desc03 schedCatN
+	select a.salesNo schedNo, a.salesTitle schedTitle, a.salesFrdatetime schedFrom, a.salesTodatetime schedTo, a.salesPlace schedPlace, a.salesDesc schedDesc, a.regDatetime, b.custName, c.userName, d.desc03 schedTypeN, e.desc03 schedCatN
 	from swc_sales a
 	left join swc_cust b on a.custNo = b.custNo
 	left join swc_user c on a.userNo = c.userNo
@@ -254,7 +258,8 @@ from
 	) subquery1
 	<if test="sSearch != null and sSearch != ''">
 		where
-		subquery1.schedTypeN like concat('%',#{sSearch},'%')
+		date_format(subquery1.regDatetime, '%Y-%m-%d') like concat('%',#{sSearch},'%')
+		or subquery1.schedTypeN like concat('%',#{sSearch},'%')
 		or subquery1.schedTitle like concat('%',#{sSearch},'%')
 		or subquery1.custName like concat('%',#{sSearch},'%')
 		or subquery1.userName like concat('%',#{sSearch},'%')
@@ -270,7 +275,7 @@ from
 	select subquery1.*
 	from
 	(
-	select a.techdNo schedNo, a.techdTitle schedTitle, a.techdFrom schedFrom, a.techdTo schedTo, a.techdPlace schedPlace, a.techdDesc schedDesc, b.custName, c.userName, d.desc03 schedTypeN, e.desc03 schedCatN
+	select a.techdNo schedNo, a.techdTitle schedTitle, a.techdFrom schedFrom, a.techdTo schedTo, a.techdPlace schedPlace, a.techdDesc schedDesc, a.regDatetime, b.custName, c.userName, d.desc03 schedTypeN, e.desc03 schedCatN
 	from swc_techd a
 	left join swc_cust b on a.custNo = b.custNo
 	left join swc_user c on a.userNo = c.userNo
@@ -301,7 +306,8 @@ from
 	) subquery1
 	<if test="sSearch != null and sSearch != ''">
 		where
-		subquery1.schedTypeN like concat('%',#{sSearch},'%')
+		date_format(subquery1.regDatetime, '%Y-%m-%d') like concat('%',#{sSearch},'%')
+		or subquery1.schedTypeN like concat('%',#{sSearch},'%')
 		or subquery1.schedTitle like concat('%',#{sSearch},'%')
 		or subquery1.custName like concat('%',#{sSearch},'%')
 		or subquery1.userName like concat('%',#{sSearch},'%')

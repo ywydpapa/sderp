@@ -424,6 +424,7 @@ function fn_sprtInsert() {
 	sprtData.techdDesc			= $("#techdDesc").val();					// 설명
 	sprtData.soppNo				= $("#soppNo").val() ? $("#soppNo").val() : 0; // 영업기회번호
 	sprtData.contNo				= $("#contNo").val() ? $("#contNo").val() : 0; // 계약번호
+
 	
 	$.ajax({ url: "${path}/techd/insert.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소 
 				data: sprtData , // HTTP 요청과 함께 서버로 보낼 데이터 

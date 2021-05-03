@@ -5,36 +5,38 @@
     <c:set var="path" value ="${pageContext.request.contextPath}"/>
 <meta http-equiv="Content-Type" content="text/html charset=UTF-8">
 <title>상세 정보</title>
-<script src="http://code.jquery.com/jquery-3.5.1.min.js"></script>
+
 <script type="text/javascript">
-function fn_userUpdate() {
-	
-	var userData = {};
-	
-	userData.userId 		= $("#userId").val();
-	userData.userPasswd 	= $("#userPasswd").val();
-	userData.userName 		= $("#userName").val();
-	userData.userRole 		= $("#userRole").val();
+<c:if test="${userInfo.userId == sessionScope.userNo || sessionScope.userRole eq 'ADMIN'}">
+	function fn_userUpdate() {
 
-	$.ajax({ url: "${path}/user/update.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소 
-				data: userData , // HTTP 요청과 함께 서버로 보낼 데이터 
-				method: "POST", // HTTP 요청 메소드(GET, POST 등) 
-				dataType: "json" // 서버에서 보내줄 데이터의 타입 
-			}) // HTTP 요청이 성공하면 요청한 데이터가 done() 메소드로 전달됨. .
-			.done(function(data) {
-				if(data.code == 10001){
-					alert("저장 성공");
-					fnSetPage('${path}/user/list.do');
-				}else{
-					alert("저장 실패");
-				}
-			}) // HTTP 요청이 실패하면 오류와 상태에 관한 정보가 fail() 메소드로 전달됨. 
-			.fail(function(xhr, status, errorThrown) { 
-				alert("통신 실패");
-			});
-	}
+		var userData = {};
 
+		userData.userId 		= $("#userId").val();
+		userData.userPasswd 	= $("#userPasswd").val();
+		userData.userName 		= $("#userName").val();
+		userData.userRole 		= $("#userRole").val();
+
+		$.ajax({ url: "${path}/user/update.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
+					data: userData , // HTTP 요청과 함께 서버로 보낼 데이터
+					method: "POST", // HTTP 요청 메소드(GET, POST 등)
+					dataType: "json" // 서버에서 보내줄 데이터의 타입
+				}) // HTTP 요청이 성공하면 요청한 데이터가 done() 메소드로 전달됨. .
+				.done(function(data) {
+					if(data.code == 10001){
+						alert("저장 성공");
+						fnSetPage('${path}/user/list.do');
+					}else{
+						alert("저장 실패");
+					}
+				}) // HTTP 요청이 실패하면 오류와 상태에 관한 정보가 fail() 메소드로 전달됨.
+				.fail(function(xhr, status, errorThrown) {
+					alert("통신 실패");
+				});
+		}
+</c:if>
 </script>
+
 <!-- Page-header start 페이지 타이틀-->
 <div class="page-header2">
 	<div class="row align-items-end">
@@ -69,7 +71,7 @@ function fn_userUpdate() {
 							<tr>
 								<th scope="row">비밀번호</th>
 								<td>
-									<input type="password" name="userPasswd" id="userPasswd" value="${userInfo.userPasswd}" class="form-control form-control-sm" required>
+									<input type="password" name="userPasswd" id="userPasswd" value="" class="form-control form-control-sm" required>
 								</td>
 							</tr>
 							<tr>
@@ -91,9 +93,11 @@ function fn_userUpdate() {
 						</tbody>
 					</table>
 				</div>
-
 				<div class="btn_wr text-right mt-3">
-					<button class="btn btn-md btn-primary" onClick= "fn_userUpdate()">수정</button>
+					<button class="btn btn-md btn-success f-left" onClick="javascript:fnSetPage('${path}/user/list.do')">목록</button>
+					<c:if test="${userInfo.userNo == sessionScope.userNo || sessionScope.userRole eq 'ADMIN'}">
+							<button class="btn btn-md btn-primary" onClick= "fn_userUpdate()">수정</button>
+					</c:if>
 				</div>
 			</div>
 		</div>

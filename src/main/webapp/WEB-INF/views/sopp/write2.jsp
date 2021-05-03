@@ -174,7 +174,7 @@
 															</div>
 														</div>
 													</td>
-													<th scope="row">거래처</th>
+													<th scope="row">매출처</th>
 													<td>
 														<div class="input-group input-group-sm mb-0">
 															<input type="text" class="form-control" name="custName"
@@ -193,14 +193,14 @@
 																<div class="modal-dialog modal-80size" role="document">
 																	<div class="modal-content modal-80size">
 																		<div class="modal-header">
-																			<h4 class="modal-title">거래처검색</h4>
+																			<h4 class="modal-title">매출처검색</h4>
 																			<button type="button" class="close"
 																				data-dismiss="modal" aria-label="Close">
 																				<span aria-hidden="true">&times;</span>
 																			</button>
 																		</div>
 																		<div class="modal-body">
-																			<h5>거래처목록</h5>
+																			<h5>매출처목록</h5>
 																			<p>Loading!!!</p>
 																		</div>
 																		<div class="modal-footer">
@@ -658,7 +658,7 @@ function fn_soppInsert() {
 		return;
 	}
 	else if (!soppData.custNo){
-		alert("거래처를 조회 후 선택해 주십시오.");
+		alert("매출처를 조회 후 선택해 주십시오.");
 		return;
 	}
 	else if (!soppData.soppStatus){

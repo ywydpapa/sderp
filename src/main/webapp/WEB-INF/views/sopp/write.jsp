@@ -88,7 +88,7 @@
 															</div>
 														</div>
 													</td>
-													<th scope="row">거래처</th>
+													<th scope="row">매출처</th>
 													<td>
 														<div class="input-group input-group-sm mb-0">
 															<input type="text" class="form-control" name="custName" id="custName" value="" />
@@ -103,14 +103,14 @@
 																<div class="modal-dialog modal-80size" role="document">
 																	<div class="modal-content modal-80size">
 																		<div class="modal-header">
-																			<h4 class="modal-title">거래처검색</h4>
+																			<h4 class="modal-title">매출처검색</h4>
 																			<button type="button" class="close"
 																				data-dismiss="modal" aria-label="Close">
 																				<span aria-hidden="true">&times;</span>
 																			</button>
 																		</div>
 																		<div class="modal-body">
-																			<h5>거래처목록</h5>
+																			<h5>매출처목록</h5>
 																			<p>Loading!!!</p>
 																		</div>
 																		<div class="modal-footer">
@@ -125,7 +125,7 @@
 													</td>
 												</tr>
 												<tr>
-													<th scope="row">거래처 담당자</th>
+													<th scope="row">매출처 담당자</th>
 													<td>
 														<div class="input-group input-group-sm mb-0">
 															<input type="text" class="form-control" name="custmemberName"  id="custmemberName" value="" />
@@ -143,14 +143,14 @@
 																<div class="modal-dialog modal-80size" role="document">
 																	<div class="modal-content modal-80size">
 																		<div class="modal-header">
-																			<h4 class="modal-title">거래처 담당자 검색</h4>
+																			<h4 class="modal-title">매출처 담당자 검색</h4>
 																			<button type="button" class="close"	data-dismiss="modal" aria-label="Close">
 																				<span aria-hidden="true">&times;</span>
 																			</button>
 																		</div>
 																		<div class="modal-body">
-																			<h5>거래처 담당자 목록</h5>
-																			<p>거래처를 먼저 입력해주셔야 목록이 보입니다.</p>
+																			<h5>매출처 담당자 목록</h5>
+																			<p>매출처를 먼저 입력해주셔야 목록이 보입니다.</p>
 																		</div>
 																		<div class="modal-footer">
 																			<button type="button" class="close"	data-dismiss="modal" aria-label="Close"/>

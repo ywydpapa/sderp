@@ -77,7 +77,10 @@ public class UserDAOImpl implements UserDAO {
 		return sqlSession.selectList("user.userListWithOrgId", userDTO);
 	}
 
-	
+	@Override
+	public UserDTO userSessionCheck(UserDTO dto) {
+		return sqlSession.selectOne("user.userSessionCheck", dto);
+	}
 
 
 }

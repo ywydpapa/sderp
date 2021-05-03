@@ -128,7 +128,7 @@
 				},
 				{
 					data: "custName",
-					column : '거래처',
+					column : '매출처',
 					render : function ( data, type, row ) {
 						if(data == null || data == undefined) {
 							return '';
@@ -350,7 +350,7 @@
 																</div>
 								</div>
 								<div class="col-sm-12 col-xl-3">
-									<label class="col-form-label" for="custName">거래처</label>
+									<label class="col-form-label" for="custName">매출처</label>
 																<div class="input-group input-group-sm mb-0">
 																	<input type="text" class="form-control" name="custName"
 																		id="custName" value="" readonly /> <input
@@ -368,14 +368,14 @@
 																		<div class="modal-dialog modal-80size" role="document">
 																			<div class="modal-content modal-80size">
 																				<div class="modal-header">
-																					<h4 class="modal-title">거래처검색</h4>
+																					<h4 class="modal-title">매출처검색</h4>
 																					<button type="button" class="close"
 																						data-dismiss="modal" aria-label="Close">
 																						<span aria-hidden="true">&times;</span>
 																					</button>
 																				</div>
 																				<div class="modal-body">
-																					<h5>거래처목록</h5>
+																					<h5>매출처목록</h5>
 																					<p>Loading!!!</p>
 																				</div>
 																				<div class="modal-footer">
@@ -443,7 +443,7 @@
 									<th>영업활동(끝)</th>
 									<th>영업기회명</th>
 									<th>담당사원</th>
-									<th>거래처</th>
+									<th>매출처</th>
 									<th>엔드유저</th>
 									<th>일정설명</th>
 									<%--<th>일정설명</th>--%>

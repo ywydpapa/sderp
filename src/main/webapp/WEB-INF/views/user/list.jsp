@@ -42,8 +42,8 @@
 							<c:forEach var="row" items="${list}">
 								<tr align="center">
 									<td>${row.userId}</td>
-									<td><a href="javascript:fnSetPage('${path}/user/view.do?userId=${row.userId}')">${row.userName}</a></td>
-									<td><a href="javascript:fnSetPage('${path}/user/view.do?userId=${row.userId}')"><c:if test="${row.userRole eq 'CUSER'}">일반사용자</c:if><c:if test="${row.userRole eq 'ADMIN'}">시스템관리자</c:if><c:if test="${row.userRole eq 'PUSER'}">업무관리자</c:if></a></td>
+									<td>${row.userName}</td>
+									<td><c:if test="${row.userRole eq 'CUSER'}">일반사용자</c:if><c:if test="${row.userRole eq 'ADMIN'}">시스템관리자</c:if><c:if test="${row.userRole eq 'PUSER'}">업무관리자</c:if></td>
 									<td><a href="javascript:fnSetPage('${path}/user/view.do?userId=${row.userId}')">상세보기</a></td>
 								</tr>
 							</c:forEach>
@@ -58,7 +58,8 @@
 <script>
 $(function(){
     $('#userTable').DataTable({
-    	info:false
+    	info:false,
+		pageLength: 10 // 한 페이지에 기본으로 보열줄 항목 수
     });
 });
 </script>

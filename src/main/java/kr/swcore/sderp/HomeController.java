@@ -97,7 +97,7 @@ public class HomeController {
 	@RequestMapping("/myboard.do")
 	public ModelAndView refresh(HttpSession session, ModelAndView mav) {
 		PageDTO pageDTO = new PageDTO();
-		pageDTO.setLimit(20);
+		pageDTO.setLimit(40);
 		pageDTO.setOffset(0);
 		mav.addObject("sopplist", soppService.listSopp(session, pageDTO));
 		mav.addObject("contlist", contService.listCont(session, pageDTO));

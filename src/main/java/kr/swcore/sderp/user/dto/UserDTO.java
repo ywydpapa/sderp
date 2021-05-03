@@ -1,5 +1,12 @@
 package kr.swcore.sderp.user.dto;
 
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
+@Getter
+@Setter
+@ToString
 public class UserDTO {
 	private int userNo;
 	private String userId;
@@ -14,94 +21,7 @@ public class UserDTO {
 	private String userDept;
 	private int org_id;
 	private String userChangePasswd;
-	
-	public String getUserChangePasswd() {
-		return userChangePasswd;
-	}
-	public void setUserChangePasswd(String userChangePasswd) {
-		this.userChangePasswd = userChangePasswd;
-	}
-	public String getUserId() {
-		return userId;
-	}
-	public void setUserId(String userId) {
-		this.userId = userId;
-	}
-	public String getCompId() {
-		return compId;
-	}
-	public void setCompId(String compId) {
-		this.compId = compId;
-	}
-	public String getUserName() {
-		return userName;
-	}
-	public void setUserName(String userName) {
-		this.userName = userName;
-	}
-	public String getUserPasswd() {
-		return userPasswd;
-	}
-	public void setUserPasswd(String userPasswd) {
-		this.userPasswd = userPasswd;
-	}
-	public int getUserNo() {
-		return userNo;
-	}
-	public void setUserNo(int userNo) {
-		this.userNo = userNo;
-	}	
-	public String getUserRole() {
-		return userRole;
-	}
-	public void setUserRole(String userRole) {
-		this.userRole = userRole;
-	}
-	public String getUserKey() {
-		return userKey;
-	}
-	public void setUserKey(String userKey) {
-		this.userKey = userKey;
-	}
-	public String getUserOtp() {
-		return userOtp;
-	}
-	public void setUserOtp(String userOtp) {
-		this.userOtp = userOtp;
-	}
-		
-	public String getCompNo() {
-		return compNo;
-	}
-	public void setCompNo(String compNo) {
-		this.compNo = compNo;
-	}
-	public String getUserRank() {
-		return userRank;
-	}
-	public void setUserRank(String userRank) {
-		this.userRank = userRank;
-	}
-	public String getUserDept() {
-		return userDept;
-	}
-	public void setUserDept(String userDept) {
-		this.userDept = userDept;
-	}	
-	public int getOrg_id() {
-		return org_id;
-	}
-	public void setOrg_id(int org_id) {
-		this.org_id = org_id;
-	}
-	
-	@Override
-	public String toString() {
-		return "UserDTO [userNo=" + userNo + ", userId=" + userId + ", compId=" + compId + ", userName=" + userName
-				+ ", userPasswd=" + userPasswd + ", userRole=" + userRole + ", userKey=" + userKey + ", userOtp="
-				+ userOtp + ", compNo=" + compNo + ", userRank=" + userRank + ", userDept=" + userDept + ", orgId="
-				+ org_id + "]";
-	}
+
 	public UserDTO() {
 		
 		// TODO Auto-generated constructor stub

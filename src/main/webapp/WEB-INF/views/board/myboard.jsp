@@ -212,7 +212,7 @@
 							<th style="text-align: center">등록/수정일</th>
 							<th style="text-align: center">판매방식</th>
 							<th style="text-align: center">영업기회명</th>
-							<th style="text-align: center">거래처명</th>
+							<th style="text-align: center">매출처</th>
 							<th style="text-align: center">예상매출액</th>
 							<th style="text-align: center">담당자</th>
 						</tr>
@@ -227,7 +227,7 @@
 								<td>${row.soppTypeN}</td>
 								<td><a href="javascript:fnSetPage('${path}/sopp/detail/${row.soppNo}')" title="${row.soppTitle}">${row.soppTitle}</a></td>
 								<td><span title="${row.custName}">${row.custName}</span></td>
-								<td><fmt:formatNumber value="${row.soppTargetAmt}" pattern="#,###"/></td>
+								<td style="text-align: right"><fmt:formatNumber value="${row.soppTargetAmt}" pattern="#,###"/></td>
 								<td>${row.userName}</td>
 							</tr>
 						</c:forEach>
@@ -257,7 +257,7 @@
 								<th style="text-align: center">등록일</th>
 								<th style="text-align: center">영업일정</th>
 								<th style="text-align: center">일정명</th>
-								<th style="text-align: center">거래처명</th>
+								<th style="text-align: center">매출처</th>
 								<th style="text-align: center">담당자</th>
 								<th style="text-align: center">장소</th>
 							</tr>
@@ -306,7 +306,7 @@
 							<th style="text-align: center">등록일</th>
 							<th style="text-align: center">지원일정</th>
 							<th style="text-align: center">일정명</th>
-							<th style="text-align: center">거래처명</th>
+							<th style="text-align: center">매출처</th>
 							<th style="text-align: center">담당자</th>
 							<th style="text-align: center">장소</th>
 						</tr>
@@ -364,7 +364,7 @@
 							<th style="text-align: center">등록일</th>
 							<th style="text-align: center">발주일자</th>
 							<th style="text-align: center">계약명</th>
-							<th style="text-align: center">거래처명</th>
+							<th style="text-align: center">매출처</th>
 							<th style="text-align: center">담당자</th>
 						</tr>
 					</thead>
@@ -855,6 +855,7 @@ function chartReady(){
 				lengthChange : false,
 				order: [[ 0, "desc" ]],
 				//dom: '<"pull-right"f><"pull-right"l>tip'
+				pageLength: 20, // 한 페이지에 기본으로 보열줄 항목 수
 			});
 		</c:if>
 		<c:if test="${techdlist != null}">
@@ -864,6 +865,7 @@ function chartReady(){
 				lengthChange : false,
 				order: [[ 0, "desc" ]],
 				//dom: '<"pull-right"f><"pull-right"l>tip'
+				pageLength: 20, // 한 페이지에 기본으로 보열줄 항목 수
 			});
 		</c:if>
 
@@ -873,11 +875,13 @@ function chartReady(){
 			lengthChange : false,
 			order: [[ 0, "desc" ]],
 			//dom: '<"pull-right"f><"pull-right"l>tip'
+			pageLength: 20, // 한 페이지에 기본으로 보열줄 항목 수
 		});
 		$('#soppTable').DataTable({
 			info : false,
 			filter : false,
-			lengthChange : false
+			lengthChange : false,
+			pageLength: 20, // 한 페이지에 기본으로 보열줄 항목 수
 		});
 
 		chartReady();

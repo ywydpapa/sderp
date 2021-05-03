@@ -48,9 +48,17 @@ public class UserController {
 		mav.setViewName("user/write");
 		return mav;
 	}
+
+	// 권한체크
+	@RequestMapping("UserDetailPrepare")
+	public String UserDetailPrepare(@ModelAttribute UserDTO dto, HttpSession session){
+		Map<String, Object> param = new HashMap<>();
+		Boolean b = userService.UserDetailPrepare(dto, session);
+		return null;
+	}
 	
 	@RequestMapping("view.do")
-	public ModelAndView userView(@ModelAttribute UserDTO dto) {
+	public ModelAndView userView(@ModelAttribute UserDTO dto, HttpSession session) {
 		ModelAndView mav = new ModelAndView();
 		UserDTO userInfo = userService.viewUser(dto);
 		mav.addObject("userInfo", userInfo);

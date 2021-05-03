@@ -7,7 +7,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <select id="loginCheck" resultType="String">
  		select u.userName 
  		from swc_user u left join swc_company c on u.compNo = c.compNo
- 		where u.userId=#{userId} and u.userPasswd=#{userPasswd} and c.compId=#{compId} 
+ 		where u.userId=#{userId} and u.userPasswd=#{userPasswd} and c.compId=#{compId}
+</select>
+
+<select id="userSessionCheck" resultType="userDto">
+		select * from swc_user where userNo = #{userNo}
 </select>
 
 <select id="viewUser"
@@ -15,7 +19,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  		select a.*, b.dataStr userRank, c.dataStr userDept from swc_user a
  		left join swc_userData b on a.userNo=b.userNo and b.catNo='100003' and b.attrib not like 'XXX%'
  		left join swc_userData c on a.userNo=c.userNo and c.catNo='100002' and c.attrib not like 'XXX%'
- 		where userId=#{userId}
+ 		where
+			<choose>
+				<when test="userId != null and userId != ''">a.userId = #{userId}</when>
+				<when test="userNo > 0">a.userNo = #{userNo}</when>
+			</choose>
  </select>
  
  <select id="userList"

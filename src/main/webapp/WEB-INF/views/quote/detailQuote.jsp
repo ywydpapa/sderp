@@ -166,7 +166,7 @@
 															</div>
 														</div>
 													</td>
-													<th scope="row">거래처</th>
+													<th scope="row">매출처</th>
 													<td>
 														<div class="input-group input-group-sm mb-0">
 															<input type="text" class="form-control" name="custName"

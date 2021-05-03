@@ -14,6 +14,8 @@ public interface UserService {
 
 	    public UserDTO viewUser(UserDTO dto);
 
+	    public Boolean UserDetailPrepare(UserDTO dto, HttpSession session);
+
     	public void logout(HttpSession session);
 	
     	public List<UserDTO> userList();

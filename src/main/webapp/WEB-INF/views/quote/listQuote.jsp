@@ -88,7 +88,7 @@ $(function(){
 								<!--//담당자-->
 								<!--거래처-->
 								<div class="col-sm-12 col-xl-3">
-									<label class="col-form-label" for="custName">거래처</label>
+									<label class="col-form-label" for="custName">매출처</label>
 									<div class="input-group input-group-sm">
 										<input type="text" class="form-control" name="custName" id="custName" value="" readonly/>
 										<input type="hidden" name="custNo" id="custNo" value="" /> 
@@ -105,14 +105,14 @@ $(function(){
 											<div class="modal-dialog modal-80size" role="document">
 												<div class="modal-content modal-80size">
 													<div class="modal-header">
-														<h4 class="modal-title">거래처검색</h4>
+														<h4 class="modal-title">매출처검색</h4>
 														<button type="button" class="close" data-dismiss="modal"
 															aria-label="Close">
 															<span aria-hidden="true">&times;</span>
 														</button>
 													</div>
 													<div class="modal-body">
-														<h5>거래처목록</h5>
+														<h5>매출처목록</h5>
 														<p>Loading!!!</p>
 													</div>
 													<div class="modal-footer">

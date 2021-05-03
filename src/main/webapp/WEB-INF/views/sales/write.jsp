@@ -124,7 +124,7 @@
 								</td>
 							</tr>
 							<tr>
-								<th scope="row">거래처</th>
+								<th scope="row">매출처</th>
 								<td>
 									<div class="input-group input-group-sm mb-0">
 										<input type="text" class="form-control" name="custName" id="custName" value="" />
@@ -138,13 +138,13 @@
 											<div class="modal-dialog modal-80size" role="document">
 												<div class="modal-content modal-80size">
 													<div class="modal-header">
-														<h4 class="modal-title">거래처검색</h4>
+														<h4 class="modal-title">매출처검색</h4>
 														<button type="button" class="close" onclick="$('#custModal').modal('hide');" aria-label="Close">
 															<span aria-hidden="true">&times;</span>
 														</button>
 													</div>
 													<div class="modal-body">
-														<h5>거래처목록</h5>
+														<h5>매출처목록</h5>
 														<p>Loading!!!</p>
 													</div>
 													<div class="modal-footer">
@@ -160,7 +160,7 @@
 															</colgroup>
 															<tbody>
 																<tr>
-																	<th>거래처명*</th>
+																	<th>매출처명*</th>
 																	<td><input type="text" value="" id="custRegSimple_custName" style="width: 100%;"> </td>
 																	<td><button type="button" class="btn-sm btn-dark" id="custRegSimple_custName_check">중복확인</button></td>
 																</tr>
@@ -287,7 +287,7 @@
 						var tempArr = data.result1;
 						html += "같은 결과) \n";
 						for(var i=0; i<tempArr.length; i++){
-							html += "번호 : " + tempArr[i].custNo + " / 거래처 : " + tempArr[i].custName + "\n";
+							html += "번호 : " + tempArr[i].custNo + " / 매출처 : " + tempArr[i].custName + "\n";
 						}
 					}
 
@@ -295,7 +295,7 @@
 						var tempArr = data.result2;
 						html += "\n유사 결과) \n";
 						for(var i=0; i<tempArr.length; i++){
-							html += "번호 : " + tempArr[i].custNo + " / 거래처 : " + tempArr[i].custName + "\n";
+							html += "번호 : " + tempArr[i].custNo + " / 매출처 : " + tempArr[i].custName + "\n";
 						}
 					}
 

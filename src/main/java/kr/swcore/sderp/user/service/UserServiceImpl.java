@@ -38,6 +38,22 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
+	public Boolean UserDetailPrepare(UserDTO dto, HttpSession session) {
+		String role = (String) session.getAttribute("userRole");
+		if(role.equals("ADMIN")){
+			return true;
+		} else {
+			Integer dtoUserNo = dto.getUserNo();
+			String userNoStr = (String) session.getAttribute("userNo");
+			Integer userNo = Integer.valueOf(userNoStr);
+			if(dtoUserNo == userNo){
+				return true;
+			}
+		}
+		return false;
+	}
+
+	@Override
 	public void logout(HttpSession session) {
 		// TODO Auto-generated method stub
 		session.invalidate();

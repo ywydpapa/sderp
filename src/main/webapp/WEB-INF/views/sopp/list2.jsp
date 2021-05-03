@@ -185,7 +185,7 @@ $(function(){
 									<th><input class="border-checkbox" type="checkbox" id="checkbox0"></th>
 									<th>판매방식</th>
 									<th>영업기회</th>
-									<th>거래처</th>
+									<th>매출처</th>
 									<th>담당사원</th>
 									<th>예상매출액</th>
 									<th>진행단계</th>

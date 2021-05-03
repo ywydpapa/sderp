@@ -19,5 +19,5 @@ public interface UserDAO {
 	public int insertUserdata(UserDTO dto);
 	public int userCheck(UserDTO dto);
 	public List<UserDTO> userListWithOrgId(UserDTO userDTO);
-	
+	public UserDTO userSessionCheck(UserDTO dto);
 }

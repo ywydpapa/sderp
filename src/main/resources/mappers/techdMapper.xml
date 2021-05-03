@@ -218,7 +218,7 @@ from
 	techdType,
 	techdSteps,
 	regdatetime,
-	modDatetime
+	modDatetime,
 	attrib,
 	userNo,
 	schedType,

@@ -201,7 +201,7 @@
 			return;
 		}
 		
-		for(var i = 0; i < 25; i++){
+		for(var i = 0; i < 24; i++){
 			var hour = i;
 			if(String(i).length == 1) {
 				hour = "0"+ i;

@@ -349,12 +349,12 @@
 			schedData.schedTitle 		= $("#schedTitle").val();
 			schedData.schedPlace		= $("#schedPlace").val();
 			schedData.userNo 		= $("#userNo").val();
-			schedData.custNo 		= $("#custNo").val() ? $("#custNo").val() : 0;
-			schedData.soppNo 		= $("#soppNo").val() ? $("#soppNo").val() : 0;
+			schedData.custNo 		= $("#custNo").val() ? Number($("#custNo").val()) : 0;
+			schedData.soppNo 		= $("#soppNo").val() ? Number($("#soppNo").val()) : 0;
 			schedData.schedDesc 		= $("#schedDesc").val();
 			schedData.schedType 		= $("#schedType").val();
 			schedData.schedCat 		= $("#schedCat").val();
-			schedData.contNo		= $("#contNo").val();
+			schedData.contNo		= $("#contNo").val() ? Number($("#contNo").val()) : 0;
 			
 			$.ajax({ url: "${path}/sched/insert.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소 
 						data: schedData , // HTTP 요청과 함께 서버로 보낼 데이터 

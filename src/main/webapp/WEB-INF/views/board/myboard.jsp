@@ -365,6 +365,7 @@
 							<th style="text-align: center">발주일자</th>
 							<th style="text-align: center">계약명</th>
 							<th style="text-align: center">매출처</th>
+							<th style="text-align: center">계약금액</th>
 							<th style="text-align: center">담당자</th>
 						</tr>
 					</thead>
@@ -378,6 +379,7 @@
 								<td>${row.contOrddate}</td>
 								<td><a href="javascript:fnSetPage('${path}/cont/detail/${row.contNo}')" title="${row.contTitle}">${row.contTitle}</a></td>
 								<td><span title="${row.custName}">${row.custName}</span></td>
+								<td style="text-align: right"><fmt:formatNumber value="${row.contAmt}" pattern="#,###"/></td>
 								<td>${row.userName}</td>
 							</tr>
 						</c:forEach>
@@ -472,12 +474,12 @@
 
 	#contTable > tbody > tr > td:nth-child(3){
 		text-overflow: ellipsis;
-		max-width: 250px;
+		max-width: 240px;
 		overflow: hidden;
 	}
 	#contTable > tbody > tr > td:nth-child(4){
 		text-overflow: ellipsis;
-		max-width: 200px;
+		max-width: 150px;
 		overflow: hidden;
 	}
 	.pull-left{float:left!important;}

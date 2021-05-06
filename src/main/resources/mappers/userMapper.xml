@@ -16,14 +16,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <select id="viewUser"
  		resultType="userDto">
- 		select a.*, b.dataStr userRank, c.dataStr userDept from swc_user a
+ 		select a.*, b.dataStr userRank, c.dataStr userDept
+ 		from swc_user a
  		left join swc_userData b on a.userNo=b.userNo and b.catNo='100003' and b.attrib not like 'XXX%'
  		left join swc_userData c on a.userNo=c.userNo and c.catNo='100002' and c.attrib not like 'XXX%'
+		left join swc_company d on a.compNo = d.compNo
  		where
 			<choose>
 				<when test="userId != null and userId != ''">a.userId = #{userId}</when>
 				<when test="userNo > 0">a.userNo = #{userNo}</when>
 			</choose>
+			and d.compId=#{compId}
  </select>
  
  <select id="userList"

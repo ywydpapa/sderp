@@ -151,7 +151,7 @@
 														<button type="button" class="btn btn-default waves-effect" onclick="$('#custModal').modal('hide');">Close</button>
 														<button type="button" class="btn btn-success waves-effect" id="custRegSimple">간편추가</button>
 													</div>
-													<div style="display: none; border: solid" id="custRegSimple_div">
+													<div style="display: none; border: solid; width: 80%; margin: auto; margin-bottom: 5px;" id="custRegSimple_div">
 														<table>
 															<colgroup>
 																<col width="10%">
@@ -260,10 +260,10 @@
 		$("#custRegSimple").on("click",function (event) {
 			if($("#custRegSimple_div").is(':visible') == false){
 				$("#custRegSimple_div").show();
-				$("custRegSimple").val("간편등록 취소");
+				$("#custRegSimple").html("간편등록 취소");
 			} else {
 				$("#custRegSimple_div").hide();
-				$("custRegSimple").val("간편등록");
+				$("#custRegSimple").html("간편등록");
 			}
 		});
 

@@ -211,8 +211,6 @@
 				<button class="btn btn-md btn-success f-left modal-list-btn" onClick="javascript:fnSetPage('${path}/sales/list.do')">목록</button>
 				<button class="btn btn-md btn-primary" onClick="fn_UpdateSales()">수정</button>
 				<button class="btn btn-md btn-inverse modal-list-btn" onClick="javascript:fnSetPage('${path}/sales/list.do')">취소</button>
-				
-				
 			</div>
 		</div>
 	</div>
@@ -321,7 +319,7 @@
 						alert("통신 실패");
 					});
 			}
-		
+
 		$(document).ready(function(){
 			setTimeComboBox(['#startTime', '#endTime']);
 			var startDate = '${dto.salesStime}'.split("T")[0];

@@ -107,8 +107,11 @@ public class CodeController {
 
 	
 	@RequestMapping("insert.do")
-	public ResponseEntity<?> insert(@ModelAttribute CodeDTO dto) {
+	public ResponseEntity<?> insert(HttpSession session, @ModelAttribute CodeDTO dto) {
 		Map<String, Object> param = new HashMap<>();
+		String compNostr = (String) session.getAttribute("compNo");
+		Integer compNo = Integer.valueOf(compNostr);
+		dto.setCompNo(compNo);
 		int codeInsert = codeService.insertCode(dto);
 		if (codeInsert >0) {
 			param.put("code","10001"); 

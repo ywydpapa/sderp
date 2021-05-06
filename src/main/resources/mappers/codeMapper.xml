@@ -147,7 +147,7 @@ compNo
 ,attrib
  )
  values (
-'100001'
+#{compNo}
 ,#{code01}
 ,#{code02}
 ,#{code03}

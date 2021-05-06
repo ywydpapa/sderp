@@ -481,7 +481,9 @@ from
 
 <select id="detailSched"
  		resultType="schedDto">
- 		select a.*, b.custName, c.soppTitle, d.userName, concat(left(a.schedFrom,10),'T',substring(a.schedFrom,12,9)) sTime, CONCAT(left(a.schedTo,10),'T',substring(a.schedTo,12,9)) eTime   
+ 		select a.*, b.custName, c.soppTitle, d.userName,
+ 		       CONCAT(left(a.schedFrom,10),'T',substring(a.schedFrom,12,9)) sTime,
+ 		       CONCAT(left(a.schedTo,10),'T',substring(a.schedTo,12,9)) eTime
  		from swc_sched a 
  		left join swc_cust b on a.custNo=b.custNo
  		left join swc_sopp c on a.soppNo=c.soppNo

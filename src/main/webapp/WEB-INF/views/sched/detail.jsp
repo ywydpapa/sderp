@@ -34,10 +34,10 @@
 								<th scope="row" class="requiredTextCss">일정일자</th>
 								<td colspan="3">
 									<div class="input-group input-group-sm mb-0 mr-1">  
-									<input class="form-control" type="date" id="schedFrom" value="${dto.sTime}" onChange="javascript:inputDate(setDateHourMinute($('#schedFrom').val(), $('#startTime').val()), setDateHourMinute($('#schedTo').val(), $('#endTime').val()))">
+									<input class="form-control" type="date" id="schedFrom" value="${dto.schedFrom}" onChange="javascript:inputDate(setDateHourMinute($('#schedFrom').val(), $('#startTime').val()), setDateHourMinute($('#schedTo').val(), $('#endTime').val()))">
 									<select id="startTime" style="width:100px" onChange="javascript:inputDate(setDateHourMinute($('#schedFrom').val(), $('#startTime').val()), setDateHourMinute($('#schedTo').val(), $('#endTime').val()))"></select>
 									<span> ~ </span> 
-									<input class="form-control " type="date" id="schedTo" value="${dto.eTime}" onChange="javascript:inputDate(setDateHourMinute($('#schedFrom').val(), $('#startTime').val()), setDateHourMinute($('#schedTo').val(), $('#endTime').val()))">
+									<input class="form-control " type="date" id="schedTo" value="${dto.schedTo}" onChange="javascript:inputDate(setDateHourMinute($('#schedFrom').val(), $('#startTime').val()), setDateHourMinute($('#schedTo').val(), $('#endTime').val()))">
 									<select id="endTime" style="width:100px" onChange="javascript:inputDate(setDateHourMinute($('#schedFrom').val(), $('#startTime').val()), setDateHourMinute($('#schedTo').val(), $('#endTime').val()))"></select>
 									</div>
 								</td>
@@ -205,35 +205,28 @@
 								<th scope="row">엔드유저</th>
 								<td>
 									<div class="input-group input-group-sm mb-0">
-										<input type="text" class="form-control" name="ptncName"
-											id="ptncName" value="" readonly /> <input type="hidden"
-											name="ptncNo" id="ptncNo" value="" /> <span
-											class="input-group-btn">
-											<button class="btn btn-primary sch-partner"
-												data-remote="${path}/modal/popup.do?popId=ptnc"
-												type="button" data-toggle="modal" data-target="#ptncModal">
+										<input type="text" class="form-control" id="endCustName" value="" readonly/>
+										<input type="hidden" id="endCustNo" value="" />
+										<span class="input-group-btn">
+											<button class="btn btn-dark sch-partner" data-remote="${path}/modal/popup.do?popId=endCust" type="button" data-toggle="modal" data-target="#endCustModal" disabled>
 												<i class="icofont icofont-search"></i>
 											</button>
 										</span>
-										<div class="modal fade " id="ptncModal" tabindex="-1"
-											role="dialog">
+										<div class="modal fade " id="endCustModal" tabindex="-1" role="dialog">
 											<div class="modal-dialog modal-80size" role="document">
 												<div class="modal-content modal-80size">
 													<div class="modal-header">
 														<h4 class="modal-title"></h4>
-														<button type="button" class="close" onclick="$('#ptncModal').modal('hide');"
-															aria-label="Close">
+														<button type="button" class="close" onclick="$('#endCustModal').modal('hide');" aria-label="Close">
 															<span aria-hidden="true">&times;</span>
 														</button>
 													</div>
 													<div class="modal-body">
-														<h5>협력사목록</h5>
+														<h5>엔드유저 목록</h5>
 														<p>Loading!!!</p>
 													</div>
 													<div class="modal-footer">
-														<button type="button"
-															class="btn btn-default waves-effect "
-															onclick="$('#ptncModal').modal('hide');">Close</button>
+														<button type="button" class="btn btn-default waves-effect" onclick="$('#endCustModal').modal('hide');">Close</button>
 													</div>
 												</div>
 											</div>
@@ -339,21 +332,27 @@
 			$(".modal-backdrop").remove();
 			$("#contModal").modal("hide");
 		}
+	function fnSetEndCustData(a, b) {
+		$("#endCustNo").val(b);
+		$("#endCustName").val(a);
+		$(".modal-backdrop").remove();
+		$("#endCustModal").modal("hide");
+	}
 		
 		function fn_UpdateSched() {
 			var schedData = {};
-			schedData.schedNo 		= $("#schedNo").val();
+			schedData.schedNo 		= Number($("#schedNo").val());
 			schedData.schedFrom = setDateHourMinute($("#schedFrom").val(), $("#startTime").val()); 
 			schedData.schedTo = setDateHourMinute($("#schedTo").val(), $("#endTime").val());
 			schedData.schedTitle 		= $("#schedTitle").val();
 			schedData.schedPlace		= $("#schedPlace").val();
 			schedData.userNo 		= $("#userNo").val();
-			schedData.custNo 		= $("#custNo").val();
-			schedData.soppNo 		= $("#soppNo").val();
+			if($("#custName").val() != "") schedData.custNo 		= Number($("#custNo").val());
+			if($("#soppName").val() != "") schedData.soppNo 		= Number($("#soppNo").val());
 			schedData.schedDesc 		= $("#schedDesc").val();
 			/* schedData.schedType 		= $("#schedType").val(); */
 			schedData.schedCat 		= $("#schedCat").val();
-			schedData.contNo		= $("#contNo").val();
+			if($("#custName").val() != "") schedData.contNo		= Number($("#contNo").val());
 			
 			$.ajax({ url: "${path}/sched/update.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소 
 						data: schedData , // HTTP 요청과 함께 서버로 보낼 데이터 
@@ -385,10 +384,10 @@
 
 		$(document).ready(function(){
 			setTimeComboBox(['#startTime', '#endTime']);
-			var startDate = '${dto.sTime}'.split("T")[0];
-			var startTime = '${dto.sTime}'.split("T")[1].substring(0, 5);
-			var endDate = '${dto.eTime}'.split("T")[0];
-			var endTime = '${dto.eTime}'.split("T")[1].substring(0, 5);
+			var startDate = '${dto.schedFrom}'.split(" ")[0];
+			var startTime = '${dto.schedFrom}'.split(" ")[1].substring(0, 5);
+			var endDate = '${dto.schedTo}'.split(" ")[0];
+			var endTime = '${dto.schedTo}'.split(" ")[1].substring(0, 5);
 			
 			$('#schedFrom').val(startDate);
 			$('#startTime').val(startTime);

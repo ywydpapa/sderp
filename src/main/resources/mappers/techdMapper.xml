@@ -191,7 +191,9 @@ from
 
 <select id="detailTechd"
  		resultType="techdDto">
- 		select a.*, b.userName , c.custName, d.soppTitle, e.contTitle, f.custMname custmemberName, CONCAT(left(a.techdFrom,10),'T',substring(a.techdFrom,12,9)) targetDatefrom, CONCAT(left(a.techdTo,10),'T',substring(a.techdTo,12,9)) targetDateto 
+ 		select a.*, b.userName , c.custName, d.soppTitle, e.contTitle, f.custMname custmemberName,
+ 		       CONCAT(left(a.techdFrom,10),'T',substring(a.techdFrom,12,9)) targetDatefrom,
+ 		       CONCAT(left(a.techdTo,10),'T',substring(a.techdTo,12,9)) targetDateto
  		from swc_techd a  
 		left join swc_user b on a.userNo = b.userNo
 		left join swc_cust c on a.custNo = c.custNo

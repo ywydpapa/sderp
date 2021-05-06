@@ -207,12 +207,14 @@
 								<td>
 									<div class="input-group input-group-sm mb-0">
 										<input type="text" class="form-control" name="ptncName"
-											id="ptncName" value="" readonly /> <input type="hidden"
-											name="ptncNo" id="ptncNo" value="" /> <span
+											id="ptncName" value="" readonly />
+										<input type="hidden"
+											name="ptncNo" id="ptncNo" value="" />
+										<span
 											class="input-group-btn">
-											<button class="btn btn-primary sch-partner"
+											<button class="btn btn-dark sch-partner"
 												data-remote="${path}/modal/popup.do?popId=ptnc"
-												type="button" data-toggle="modal" data-target="#ptncModal">
+												type="button" data-toggle="modal" data-target="#ptncModal" disabled>
 												<i class="icofont icofont-search"></i>
 											</button>
 										</span>

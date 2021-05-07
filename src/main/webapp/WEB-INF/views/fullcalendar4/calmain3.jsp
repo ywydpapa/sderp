@@ -306,7 +306,7 @@
 		startDate.value = $('#detail-content')[0].selectedDate;
 		startTime.val("09:00");
 		endDate.value = $('#detail-content')[0].selectedDate;
-		endTime.val(null);
+		endTime.val("23:30");
 	}
 	
 	function fnInitializeRadio() {

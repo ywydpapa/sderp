@@ -1,8 +1,15 @@
 package kr.swcore.sderp.salesTarget.dto;
 
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
 import java.math.BigDecimal;
 import java.util.List;
 
+@Getter
+@Setter
+@ToString
 public class SalesTargetDTO {
 	private int compNo;
 	private int deptNo;
@@ -32,198 +39,23 @@ public class SalesTargetDTO {
 	private BigDecimal profitTarget;
 	private BigDecimal salesTarget;
 	private BigDecimal overTarget;
-	
-	public int getCompNo() {
-		return compNo;
-	}
-	public void setCompNo(int compNo) {
-		this.compNo = compNo;
-	}
-	public int getDeptNo() {
-		return deptNo;
-	}
-	public void setDeptNo(int deptNo) {
-		this.deptNo = deptNo;
-	}
-	public int getUserNo() {
-		return userNo;
-	}
-	public void setUserNo(int userNo) {
-		this.userNo = userNo;
-	}	
-	public String getTargetYear() {
-		return targetYear;
-	}
-	public void setTargetYear(String targetYear) {
-		this.targetYear = targetYear;
-	}
-	public String getTargetType() {
-		return targetType;
-	}
-	public void setTargetType(String targetType) {
-		this.targetType = targetType;
-	}
-	public int getMm01() {
-		return mm01;
-	}
-	public void setMm01(int mm01) {
-		this.mm01 = mm01;
-	}
-	public int getMm02() {
-		return mm02;
-	}
-	public void setMm02(int mm02) {
-		this.mm02 = mm02;
-	}
-	public int getMm03() {
-		return mm03;
-	}
-	public void setMm03(int mm03) {
-		this.mm03 = mm03;
-	}
-	public int getMm04() {
-		return mm04;
-	}
-	public void setMm04(int mm04) {
-		this.mm04 = mm04;
-	}
-	public int getMm05() {
-		return mm05;
-	}
-	public void setMm05(int mm05) {
-		this.mm05 = mm05;
-	}
-	public int getMm06() {
-		return mm06;
-	}
-	public void setMm06(int mm06) {
-		this.mm06 = mm06;
-	}
-	public int getMm07() {
-		return mm07;
-	}
-	public void setMm07(int mm07) {
-		this.mm07 = mm07;
-	}
-	public int getMm08() {
-		return mm08;
-	}
-	public void setMm08(int mm08) {
-		this.mm08 = mm08;
-	}
-	public int getMm09() {
-		return mm09;
-	}
-	public void setMm09(int mm09) {
-		this.mm09 = mm09;
-	}
-	public int getMm10() {
-		return mm10;
-	}
-	public void setMm10(int mm10) {
-		this.mm10 = mm10;
-	}
-	public int getMm11() {
-		return mm11;
-	}
-	public void setMm11(int mm11) {
-		this.mm11 = mm11;
-	}
-	public int getMm12() {
-		return mm12;
-	}
-	public void setMm12(int mm12) {
-		this.mm12 = mm12;
-	}
-	public String getAttrib() {
-		return attrib;
-	}
-	public void setAttrib(String attrib) {
-		this.attrib = attrib;
-	}
-	
-	// 확장		
-	public int getOrgId() {
-		return orgId;
-	}
-	public void setOrgId(int orgId) {
-		this.orgId = orgId;
-	}
-	public String getUserName() {
-		return userName;
-	}
-	public void setUserName(String userName) {
-		this.userName = userName;
-	}
-	public List<SalesTargetDTO> getSalesTargetlist() {
-		return salesTargetlist;
-	}
-	public void setSalesTargetlist(List<SalesTargetDTO> salesTargetlist) {
-		this.salesTargetlist = salesTargetlist;
-	}
-	public String getTargetMonth() {
-		return targetMonth;
-	}
-	public void setTargetMonth(String targetMonth) {
-		this.targetMonth = targetMonth;
-	}
-	public BigDecimal getPercent() {
-		return percent;
-	}
-	public void setPercent(BigDecimal percent) {
-		this.percent = percent;
-	}
-	public SalesTargetDTO() {
-		super();
-	}
-	public BigDecimal getProfitTarget() {
-		return profitTarget;
-	}
-	public void setProfitTarget(BigDecimal profitTarget) {
-		this.profitTarget = profitTarget;
-	}
-	public BigDecimal getSalesTarget() {
-		return salesTarget;
-	}
-	public void setSalesTarget(BigDecimal salesTarget) {
-		this.salesTarget = salesTarget;
-	}
-	public BigDecimal getOverTarget() {
-		return overTarget;
-	}
-	public void setOverTarget(BigDecimal overTarget) {
-		this.overTarget = overTarget;
-	}
 
-	@Override
-	public String toString() {
-		return "SalesTargetDTO{" +
-				"compNo=" + compNo +
-				", deptNo=" + deptNo +
-				", userNo=" + userNo +
-				", targetYear='" + targetYear + '\'' +
-				", targetType='" + targetType + '\'' +
-				", mm01=" + mm01 +
-				", mm02=" + mm02 +
-				", mm03=" + mm03 +
-				", mm04=" + mm04 +
-				", mm05=" + mm05 +
-				", mm06=" + mm06 +
-				", mm07=" + mm07 +
-				", mm08=" + mm08 +
-				", mm09=" + mm09 +
-				", mm10=" + mm10 +
-				", mm11=" + mm11 +
-				", mm12=" + mm12 +
-				", attrib='" + attrib + '\'' +
-				", orgId=" + orgId +
-				", userName='" + userName + '\'' +
-				", salesTargetlist=" + salesTargetlist +
-				", targetMonth='" + targetMonth + '\'' +
-				", percent=" + percent +
-				", profitTarget=" + profitTarget +
-				", salesTarget=" + salesTarget +
-				", overTarget=" + overTarget +
-				'}';
-	}
+	// VIEW 전용 변수 확장
+	private String monthDate_Group;
+	private String salesTarget_Group;
+	private String profitTarget_Group;
+	private String percent_Group;
+	private String cnt01_Group;
+	private String cnt01_SUM_Group;
+	private String cnt02_Group;
+	private String cnt02_SUM_Group;
+	private String cnt03_Group;
+	private String cnt03_SUM_Group;
+	private String cnt04_Group;
+	private String cnt04_SUM_Group;
+	private String cnt05_Group;
+	private String cnt05_SUM_Group;
+	private String org_id_Group;
+	private String org_title_Group;
+
 }

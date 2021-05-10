@@ -117,9 +117,9 @@ public class HomeController {
 		}
 
 		mav.addObject("graph1",salesTargetService.listSalesTargetYearTotalSalesIndividual(session, null));
-		mav.addObject("graph2",salesTargetService.listSalesTargetMonthIndividual(session, null));
-		mav.addObject("graph3",salesTargetService.listSalesTargetYearIndividual(session, null));
-		mav.addObject("graph4",contService.listSalesTargetMonthIndividual(session, null));
+//		mav.addObject("graph2",salesTargetService.listSalesTargetMonthIndividual(session, null));
+//		mav.addObject("graph3",salesTargetService.listSalesTargetYearIndividual(session, null));
+//		mav.addObject("graph4",contService.listSalesTargetMonthIndividual(session, null));
 		mav.setViewName("board/myboard");
 		return mav;
 	}

@@ -14,18 +14,20 @@ public interface SalesTargetDAO {
 	int deleteSalesTarget(SalesTargetDTO salesTargetDTO);
 	int insertSalesTarget(SalesTargetDTO salesTargetDTO);
 	
-	SalesTargetDTO listSalesTargetYearTotalSalesIndividual(SalesTargetDTO salesTargetDTO);
-	SalesTargetDTO listSalesTargetYearTotalProfitIndividual(SalesTargetDTO salesTargetDTO);
-	SalesTargetDTO listSalesTargetMonthIndividual(SalesTargetDTO salesTargetDTO);
-	SalesTargetDTO listSalesTargetYearIndividual(SalesTargetDTO salesTargetDTO);
-	
-	SalesTargetDTO listSalesTargetYearTotalSalesdept(SalesTargetDTO salesTargetDTO);
-	SalesTargetDTO listSalesTargetYearTotalProfitdept(SalesTargetDTO salesTargetDTO);
-	SalesTargetDTO listSalesTargetMonthdept(SalesTargetDTO salesTargetDTO);
-	SalesTargetDTO listSalesTargetYeardept(SalesTargetDTO salesTargetDTO);
-	
-	SalesTargetDTO listSalesTargetYearTotalSalesCompany(SalesTargetDTO salesTargetDTO);
-	SalesTargetDTO listSalesTargetYearTotalProfitCompany(SalesTargetDTO salesTargetDTO);
-	SalesTargetDTO listSalesTargetMonthCompany(SalesTargetDTO salesTargetDTO);
-	SalesTargetDTO listSalesTargetYearCompany(SalesTargetDTO salesTargetDTO);
+//	SalesTargetDTO listSalesTargetYearTotalSalesIndividual(SalesTargetDTO salesTargetDTO);
+//	SalesTargetDTO listSalesTargetYearTotalProfitIndividual(SalesTargetDTO salesTargetDTO);
+//	SalesTargetDTO listSalesTargetMonthIndividual(SalesTargetDTO salesTargetDTO);
+//	SalesTargetDTO listSalesTargetYearIndividual(SalesTargetDTO salesTargetDTO);
+//
+//	SalesTargetDTO listSalesTargetYearTotalSalesdept(SalesTargetDTO salesTargetDTO);
+//	SalesTargetDTO listSalesTargetYearTotalProfitdept(SalesTargetDTO salesTargetDTO);
+//	SalesTargetDTO listSalesTargetMonthdept(SalesTargetDTO salesTargetDTO);
+//	SalesTargetDTO listSalesTargetYeardept(SalesTargetDTO salesTargetDTO);
+//
+//	SalesTargetDTO listSalesTargetYearTotalSalesCompany(SalesTargetDTO salesTargetDTO);
+//	SalesTargetDTO listSalesTargetYearTotalProfitCompany(SalesTargetDTO salesTargetDTO);
+//	SalesTargetDTO listSalesTargetMonthCompany(SalesTargetDTO salesTargetDTO);
+//	SalesTargetDTO listSalesTargetYearCompany(SalesTargetDTO salesTargetDTO);
+
+	SalesTargetDTO listViewGraphData01CompnayMonth(SalesTargetDTO salesTargetDTO);
 }

@@ -1,15 +1,12 @@
 package kr.swcore.sderp.salesTarget.service;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
+import kr.swcore.sderp.sales.dto.SalesDTO;
 import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -33,6 +30,8 @@ public class SalesTargetServiceImpl implements SalesTargetService {
 	
 	@Inject
 	UserService userService;
+
+	private Integer n1 = 10000000;	// 천만원
 	
 	private static SalesTargetDTO defaultSetCompNoAnduserNo(HttpSession session, SalesTargetDTO salesTargetDTO) {
 		if(salesTargetDTO == null) salesTargetDTO = new SalesTargetDTO();
@@ -69,15 +68,15 @@ public class SalesTargetServiceImpl implements SalesTargetService {
 		return salesTargetDTO;
 	}
 	
-	private Map<String, Object> searchingAfterDataReturnWithSalesTarget(Map<String, Object> map, String methodName, SalesTargetDTO salesTargetDTO){
+	/*private Map<String, Object> searchingAfterDataReturnWithSalesTarget(Map<String, Object> map, String methodName, SalesTargetDTO salesTargetDTO){
 		SalesTargetDTO returnDto = new SalesTargetDTO();
 		try {
 			switch (methodName) {
 			case "listSalesTargetMonthIndividual":
-				returnDto = salesTargetDAO.listSalesTargetMonthIndividual(salesTargetDTO);
+//				returnDto = salesTargetDAO.listSalesTargetMonthIndividual(salesTargetDTO);
 				break;
 			case "listSalesTargetYearIndividual":
-				returnDto = salesTargetDAO.listSalesTargetYearIndividual(salesTargetDTO);
+//				returnDto = salesTargetDAO.listSalesTargetYearIndividual(salesTargetDTO);
 				break;			
 			default:
 				throw new Exception("SalesTargetDAO 메소드명 찾을수 없음");
@@ -179,6 +178,7 @@ public class SalesTargetServiceImpl implements SalesTargetService {
 		salesTargetDTO.setMm12(salesTargetDTO.getMm12()/n1);
 		return salesTargetDTO;
 	}
+	*/
 
 	@Override
 	public List<SalesTargetDTO> listSalesTarget() {
@@ -301,6 +301,31 @@ public class SalesTargetServiceImpl implements SalesTargetService {
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
+	private Integer[] StringToInteger(String[] data){
+		Integer[] rtn = new Integer[data.length];
+		for(int i=0; i<rtn.length; i++){
+			rtn[i] = Integer.valueOf(data[i]);
+		}
+		return rtn;
+	}
+
+	private BigDecimal[] StringToBigDecimal(String[] data){
+		BigDecimal[] rtn = new BigDecimal[data.length];
+		for(int i=0; i<rtn.length; i++){
+			rtn[i] = new BigDecimal(data[i]);
+		}
+		return rtn;
+	}
+
+	private BigDecimal[] StringToBigDecimalDivCurreny(String[] data){
+		BigDecimal[] rtn = new BigDecimal[data.length];
+		BigDecimal n1Decimal = new BigDecimal(n1);
+		for(int i=0; i<rtn.length; i++){
+			rtn[i] = new BigDecimal(data[i]).divide(n1Decimal, 1, BigDecimal.ROUND_DOWN);
+		}
+		return rtn;
+	}
 	
 	// 연간 계획대비 실적
 	@Override
@@ -310,46 +335,95 @@ public class SalesTargetServiceImpl implements SalesTargetService {
 		salesTargetDTO = defaultSetCalendarInfoYearAndMonth(salesTargetDTO);
 		returnMap.put("targetYear", salesTargetDTO.getTargetYear());
 		returnMap.put("targetMonth", salesTargetDTO.getTargetMonth());
-		
-		SalesTargetDTO salesDto = new SalesTargetDTO();
-		SalesTargetDTO profitDto = new SalesTargetDTO();
-		SalesTargetDTO overDto = new SalesTargetDTO();
+
+		SalesTargetDTO resultDto = new SalesTargetDTO();
 		
 		Boolean result = false;
 		try {
-			salesDto = salesTargetDAO.listSalesTargetYearTotalSalesIndividual(salesTargetDTO);
-			profitDto = salesTargetDAO.listSalesTargetYearTotalProfitIndividual(salesTargetDTO);
-			List<SalesTargetDTO> dtoList = new ArrayList<SalesTargetDTO>();
-			dtoList.add(salesDto);
-			dtoList.add(profitDto);
-			dtoList.add(overDto);
-			dtoList = overCurrencyCal(dtoList);
-			salesDto = currencyAppreciation(dtoList.get(0));
-			profitDto = currencyAppreciation(dtoList.get(1));
-			overDto = currencyAppreciation(dtoList.get(2));
-			result = true;
+			resultDto = salesTargetDAO.listViewGraphData01CompnayMonth(salesTargetDTO);
+			if(resultDto != null){
+				String[] monthArr = resultDto.getMonthDate_Group().split(",");
+				String[] salesArr = resultDto.getSalesTarget_Group().split(",");
+				BigDecimal[] sales = StringToBigDecimalDivCurreny(salesArr);
+				BigDecimal[] salesOrgin = StringToBigDecimal(salesArr);
+
+				String[] profitArr = resultDto.getProfitTarget_Group().split(",");
+				BigDecimal[] profit = StringToBigDecimalDivCurreny(profitArr);
+				BigDecimal[] profitOrgin = StringToBigDecimal(profitArr);
+
+				String[] overArr = resultDto.getOverTarget_Group().split(",");
+				BigDecimal[] over = StringToBigDecimalDivCurreny(overArr);
+				BigDecimal[] overOrgin = StringToBigDecimal(overArr);
+
+				String[] percentArr = resultDto.getPercent_Group().split(",");
+				BigDecimal[] percent = StringToBigDecimal(percentArr);
+
+				String[] cnt01Arr = resultDto.getCnt01_Group().split(",");
+				Integer[] cnt01 = StringToInteger(cnt01Arr);
+
+				String[] cnt01SumArr = resultDto.getCnt01_SUM_Group().split(",");
+				BigDecimal[] cnt01Sum = StringToBigDecimal(cnt01SumArr);
+
+				String[] cnt02Arr = resultDto.getCnt02_Group().split(",");
+				Integer[] cnt02 = StringToInteger(cnt02Arr);
+
+				String[] cnt02SumArr = resultDto.getCnt02_SUM_Group().split(",");
+				BigDecimal[] cnt02Sum = StringToBigDecimal(cnt02SumArr);
+
+				String[] cnt03Arr = resultDto.getCnt03_Group().split(",");
+				Integer[] cnt03 = StringToInteger(cnt03Arr);
+
+				String[] cnt03SumArr = resultDto.getCnt03_SUM_Group().split(",");
+				BigDecimal[] cnt03Sum = StringToBigDecimal(cnt03SumArr);
+
+				String[] cnt04Arr = resultDto.getCnt04_Group().split(",");
+				Integer[] cnt04 = StringToInteger(cnt04Arr);
+
+				String[] cnt04SumArr = resultDto.getCnt04_SUM_Group().split(",");
+				BigDecimal[] cnt04Sum = StringToBigDecimal(cnt04SumArr);
+
+				String[] cnt05Arr = resultDto.getCnt05_Group().split(",");
+				Integer[] cnt05 = StringToInteger(cnt05Arr);
+
+				String[] cnt05SumArr = resultDto.getCnt05_SUM_Group().split(",");
+				BigDecimal[] cnt05Sum = StringToBigDecimal(cnt05SumArr);
+
+				String[] cnt06Arr = resultDto.getCnt06_Group().split(",");
+				Integer[] cnt06 = StringToInteger(cnt06Arr);
+
+				String[] cnt06SumArr = resultDto.getCnt06_SUM_Group().split(",");
+				BigDecimal[] cnt06Sum = StringToBigDecimal(cnt06SumArr);
+
+				returnMap.put("code", 10001);
+				returnMap.put("monthArr", monthArr);
+				returnMap.put("sales", sales);
+				returnMap.put("salesOrgin", salesOrgin);
+				returnMap.put("profit", profit);
+				returnMap.put("profitOrgin", profitOrgin);
+				returnMap.put("over", over);
+				returnMap.put("overOrgin", overOrgin);
+				returnMap.put("percent", percent);
+				returnMap.put("cnt01", cnt01);
+				returnMap.put("cnt01Sum", cnt01Sum);
+				returnMap.put("cnt02", cnt02);
+				returnMap.put("cnt02Sum", cnt02Sum);
+				returnMap.put("cnt03", cnt03);
+				returnMap.put("cnt03Sum", cnt03Sum);
+				returnMap.put("cnt04", cnt04);
+				returnMap.put("cnt04Sum", cnt04Sum);
+				returnMap.put("cnt05", cnt05);
+				returnMap.put("cnt05Sum", cnt05Sum);
+				returnMap.put("cnt06", cnt06);
+				returnMap.put("cnt06Sum", cnt06Sum);
+
+				return returnMap;
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			returnMap.put("code", 20001);
 			returnMap.put("data", null);
 		}
-		
-		returnMap.put("salesDto",salesDto);
-		returnMap.put("profitDto",profitDto);
-		returnMap.put("overDto",overDto);
-		
-		System.out.println(salesDto.toString());
-		System.out.println(profitDto.toString());
-		System.out.println(overDto.toString());
-		
-		if(result) {
-			returnMap.put("code", 10001);
-			returnMap.put("salesDto",salesDto);
-			returnMap.put("profitDto",profitDto);
-			returnMap.put("overDto",overDto);
-		} else {
-			returnMap.put("code", 20001);
-		}
+
 		return returnMap;
 	}
 
@@ -367,10 +441,10 @@ public class SalesTargetServiceImpl implements SalesTargetService {
 		salesTargetDTO = defaultSetCalendarInfoYearAndMonth(salesTargetDTO);
 		returnMap.put("targetYear", salesTargetDTO.getTargetYear());
 		returnMap.put("targetMonth", salesTargetDTO.getTargetMonth());
-		returnMap = searchingAfterDataReturnWithSalesTarget(returnMap, "listSalesTargetMonthIndividual", salesTargetDTO);
+		//returnMap = searchingAfterDataReturnWithSalesTarget(returnMap, "listSalesTargetMonthIndividual", salesTargetDTO);
 
-		SalesTargetDTO temp = (SalesTargetDTO) returnMap.get("data");
-		int compareResult = temp.getSalesTarget().compareTo(temp.getProfitTarget());
+//		SalesTargetDTO temp = (SalesTargetDTO) returnMap.get("data");
+//		int compareResult = temp.getSalesTarget().compareTo(temp.getProfitTarget());
 		/*
 		a : salesTarget
 		b : profitTarget
@@ -378,14 +452,14 @@ public class SalesTargetServiceImpl implements SalesTargetService {
 		compareResult == 0 : a와 b가 같다.
 		compareResult > 0 : a가 b보다 크다.
 		 */
-		if(compareResult >= 0){
-			BigDecimal overVal = temp.getSalesTarget().subtract(temp.getProfitTarget());
-			temp.setOverTarget(overVal);
-		} else if(compareResult < 0){
-			BigDecimal overVal = temp.getSalesTarget().subtract(temp.getProfitTarget());
-			temp.setOverTarget(overVal);
-		}
-		returnMap.put("data", temp);
+//		if(compareResult >= 0){
+//			BigDecimal overVal = temp.getSalesTarget().subtract(temp.getProfitTarget());
+//			temp.setOverTarget(overVal);
+//		} else if(compareResult < 0){
+//			BigDecimal overVal = temp.getSalesTarget().subtract(temp.getProfitTarget());
+//			temp.setOverTarget(overVal);
+//		}
+//		returnMap.put("data", temp);
 
 		return returnMap;
 	}
@@ -398,10 +472,10 @@ public class SalesTargetServiceImpl implements SalesTargetService {
 		salesTargetDTO = defaultSetCalendarInfoYearAndMonth(salesTargetDTO);
 		returnMap.put("targetYear", salesTargetDTO.getTargetYear());
 		returnMap.put("targetMonth", salesTargetDTO.getTargetMonth());		
-		returnMap = searchingAfterDataReturnWithSalesTarget(returnMap, "listSalesTargetYearIndividual", salesTargetDTO);
+//		returnMap = searchingAfterDataReturnWithSalesTarget(returnMap, "listSalesTargetYearIndividual", salesTargetDTO);
 
-		SalesTargetDTO temp = (SalesTargetDTO) returnMap.get("data");
-		int compareResult = temp.getSalesTarget().compareTo(temp.getProfitTarget());
+//		SalesTargetDTO temp = (SalesTargetDTO) returnMap.get("data");
+//		int compareResult = temp.getSalesTarget().compareTo(temp.getProfitTarget());
 		/*
 		a : salesTarget
 		b : profitTarget
@@ -409,6 +483,7 @@ public class SalesTargetServiceImpl implements SalesTargetService {
 		compareResult == 0 : a와 b가 같다.
 		compareResult > 0 : a가 b보다 크다.
 		 */
+		/*
 		if(compareResult >= 0){
 			BigDecimal overVal = temp.getSalesTarget().subtract(temp.getProfitTarget());
 			temp.setOverTarget(overVal);
@@ -417,6 +492,7 @@ public class SalesTargetServiceImpl implements SalesTargetService {
 			temp.setOverTarget(overVal);
 		}
 		returnMap.put("data", temp);
+		*/
 		return returnMap;
 	}
 

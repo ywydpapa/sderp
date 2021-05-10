@@ -493,7 +493,7 @@ from
  
  <insert id="insertSched">
 <selectKey keyProperty="userNo" order="BEFORE" resultType="int">
-			SELECT userNo FROM swc_user where userId = #{userId} 
+			SELECT userNo FROM swc_user where userId = #{userId} and compNo = #{compNo}
 </selectKey>
  insert into swc_sched (
 	userNo

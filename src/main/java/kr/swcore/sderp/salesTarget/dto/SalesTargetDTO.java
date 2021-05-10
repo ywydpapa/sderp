@@ -45,6 +45,7 @@ public class SalesTargetDTO {
 	private String salesTarget_Group;
 	private String profitTarget_Group;
 	private String percent_Group;
+	private String overTarget_Group;
 	private String cnt01_Group;
 	private String cnt01_SUM_Group;
 	private String cnt02_Group;
@@ -55,6 +56,8 @@ public class SalesTargetDTO {
 	private String cnt04_SUM_Group;
 	private String cnt05_Group;
 	private String cnt05_SUM_Group;
+	private String cnt06_Group;
+	private String cnt06_SUM_Group;
 	private String org_id_Group;
 	private String org_title_Group;
 

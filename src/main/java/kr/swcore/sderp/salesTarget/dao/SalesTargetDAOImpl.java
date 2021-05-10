@@ -52,7 +52,13 @@ public class SalesTargetDAOImpl implements SalesTargetDAO{
 	public int insertSalesTarget(SalesTargetDTO salesTargetDTO) {
 		return sqlSession.insert("salesTarget.insertSalesTarget", salesTargetDTO);
 	}
-	
+
+	@Override
+	public SalesTargetDTO listViewGraphData01CompnayMonth(SalesTargetDTO salesTargetDTO) {
+		return sqlSession.selectOne("salesTarget.listViewGraphData01CompnayMonth", salesTargetDTO);
+	}
+
+	/*
 	@Override
 	public SalesTargetDTO listSalesTargetYearTotalSalesIndividual(SalesTargetDTO salesTargetDTO) {
 		return sqlSession.selectOne("salesTarget.listSalesTargetYearTotalSalesIndividual", salesTargetDTO);
@@ -111,5 +117,6 @@ public class SalesTargetDAOImpl implements SalesTargetDAO{
 	@Override
 	public SalesTargetDTO listSalesTargetYearCompany(SalesTargetDTO salesTargetDTO) {
 		return sqlSession.selectOne("salesTarget.listSalesTargetYearCompany", salesTargetDTO);
-	}	
+	}
+	*/
 }

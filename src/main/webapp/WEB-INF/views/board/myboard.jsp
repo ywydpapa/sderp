@@ -1,10 +1,21 @@
+<%@ page import="java.util.Calendar" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+		 pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <c:set var="path" value="${pageContext.request.contextPath}" />
 
 <script type="text/javascript" src="${path}/assets/echart/echarts-5.0.2.js"></script>
+<%
+	Calendar calendar = Calendar.getInstance();
+	int month = calendar.get(Calendar.MONTH)+1;
+	String monthStr = "";
+	if(month < 10){
+		monthStr = "0"+ String.valueOf(month);
+	} else {
+		monthStr = String.valueOf(month);
+	}
+%>
 
 <div class="row">
 	<div class="col-md-12 col-lg-5">
@@ -12,23 +23,18 @@
 			<div class="card-header">
 				<div style="display: inline-block;">
 					<h5>연간 계획대비 실적</h5>
-					<span style="vertical-align: bottom;">${graph1.targetYear}년</span>
+					<span style="vertical-align: bottom;">2021년</span>
 				</div>				
 				<!-- <div class="card-header-right">
 					<i class="icofont icofont-spinner-alt-5"></i>
 				</div> -->
 				<select class="custom-select mr-sm-2" name="graph1TargetYear" id="graph1TargetYear" style="float:right;">
-					<option value = "2020" <c:if test="${graph1.targetYear == 2020}">selected</c:if> >2020</option>
 					<option value = "2021" <c:if test="${graph1.targetYear == 2021}">selected</c:if> >2021</option>
-					<option value = "2022" <c:if test="${graph1.targetYear == 2022}">selected</c:if> >2022</option>
-					<option value = "2023" <c:if test="${graph1.targetYear == 2023}">selected</c:if> >2023</option>
-					<option value = "2024" <c:if test="${graph1.targetYear == 2024}">selected</c:if> >2024</option>
-					<option value = "2025" <c:if test="${graph1.targetYear == 2025}">selected</c:if> >2025</option>
 				</select>
 				<select class="custom-select mr-sm-2" name="graph1TargetDepartment" id="graph1TargetDepartment" style="float:right;">
-					<option value = "all">전체</option>
-					<option value = "dept">부서</option>
-					<option value = "individual" selected>개인</option>
+					<option value = "all" selected>전체</option>
+					<option value = "dept" disabled>부서</option>
+					<option value = "individual" disabled>개인</option>
 				</select>
 			</div>
 			<div class="card-block">
@@ -54,21 +60,16 @@
 					<option value = "12" <c:if test="${graph2.targetMonth == 12}">selected</c:if> >12</option>
 				</select>
 				<select class="custom-select mr-sm-1" name="graph2TargetYear" id="graph2TargetYear" style="float:right;">
-					<option value = "2020" <c:if test="${graph2.targetYear == 2020}">selected</c:if> >2020</option>
 					<option value = "2021" <c:if test="${graph2.targetYear == 2021}">selected</c:if> >2021</option>
-					<option value = "2022" <c:if test="${graph2.targetYear == 2022}">selected</c:if> >2022</option>
-					<option value = "2023" <c:if test="${graph2.targetYear == 2023}">selected</c:if> >2023</option>
-					<option value = "2024" <c:if test="${graph2.targetYear == 2024}">selected</c:if> >2024</option>
-					<option value = "2025" <c:if test="${graph2.targetYear == 2025}">selected</c:if> >2025</option>
 				</select>
 				<select class="custom-select mr-sm-1" name="graph2TargetDepartment" id="graph2TargetDepartment" style="float:right;">
-					<option value = "all">전체</option>
-					<option value = "dept">부서</option>
-					<option value = "individual" selected>개인</option>
+					<option value = "all" selected>전체</option>
+					<option value = "dept" disabled>부서</option>
+					<option value = "individual" disabled>개인</option>
 				</select>
 				<div style="display: inline-block;">
 					<h5>월 계획대비 실적</h5>
-					<span style="vertical-align: bottom;" id="graph2TargetMiniTitle">${graph2.targetYear}년 ${graph2.targetMonth}월</span>
+					<span style="vertical-align: bottom;" id="graph2TargetMiniTitle">2021년 <%=monthStr%>월</span>
 				</div>
 				<!-- <div class="card-header-right">
 					<i class="icofont icofont-spinner-alt-5"></i>
@@ -103,21 +104,16 @@
 		<div class="card">
 			<div class="card-header">
 				<select class="custom-select mr-sm-1" name="graph3TargetYear" id="graph3TargetYear" style="float:right;">
-					<option value = "2020" <c:if test="${graph3.targetYear == 2020}">selected</c:if> >2020</option>
 					<option value = "2021" <c:if test="${graph3.targetYear == 2021}">selected</c:if> >2021</option>
-					<option value = "2022" <c:if test="${graph3.targetYear == 2022}">selected</c:if> >2022</option>
-					<option value = "2023" <c:if test="${graph3.targetYear == 2023}">selected</c:if> >2023</option>
-					<option value = "2024" <c:if test="${graph3.targetYear == 2024}">selected</c:if> >2024</option>
-					<option value = "2025" <c:if test="${graph3.targetYear == 2025}">selected</c:if> >2025</option>
 				</select>
 				<select class="custom-select mr-sm-1" name="graph3TargetDepartment" id="graph3TargetDepartment" style="float:right;">
-					<option value = "all">전체</option>
-					<option value = "dept">부서</option>
-					<option value = "individual" selected>개인</option>
+					<option value = "all" selected>전체</option>
+					<option value = "dept" disabled>부서</option>
+					<option value = "individual" disabled>개인</option>
 				</select>
 				<div style="display: inline-block;">
 					<h5>누적 계획대비 실적</h5>
-					<span style="vertical-align: bottom;" id="graph3TargetMiniTitle">${graph3.targetYear}년</span>
+					<span style="vertical-align: bottom;" id="graph3TargetMiniTitle">2021년</span>
 				</div>				
 				<!-- <div class="card-header-right">
 					<i class="icofont icofont-spinner-alt-5"></i>
@@ -151,36 +147,17 @@
 	<div class="col-md-12 col-lg-3">
 		<div class="card">
 			<div class="card-header">
-				<select class="custom-select mr-sm-1" name="graph4TargetMonth" id="graph4TargetMonth" style="float:right;">
-					<option value = "01" <c:if test="${graph4.targetMonth == 01}">selected</c:if> >01</option>
-					<option value = "02" <c:if test="${graph4.targetMonth == 02}">selected</c:if> >02</option>
-					<option value = "03" <c:if test="${graph4.targetMonth == 03}">selected</c:if> >03</option>
-					<option value = "04" <c:if test="${graph4.targetMonth == 04}">selected</c:if> >04</option>
-					<option value = "05" <c:if test="${graph4.targetMonth == 05}">selected</c:if> >05</option>
-					<option value = "06" <c:if test="${graph4.targetMonth == 06}">selected</c:if> >06</option>
-					<option value = "07" <c:if test="${graph4.targetMonth == 07}">selected</c:if> >07</option>
-					<option value = "08" <c:if test="${graph4.targetMonth == 08}">selected</c:if> >08</option>
-					<option value = "09" <c:if test="${graph4.targetMonth == 09}">selected</c:if> >09</option>
-					<option value = "10" <c:if test="${graph4.targetMonth == 10}">selected</c:if> >10</option>
-					<option value = "11" <c:if test="${graph4.targetMonth == 11}">selected</c:if> >11</option>
-					<option value = "12" <c:if test="${graph4.targetMonth == 12}">selected</c:if> >12</option>
-				</select>
 				<select class="custom-select mr-sm-1" name="graph4TargetYear" id="graph4TargetYear" style="float:right;">
-					<option value = "2020" <c:if test="${graph4.targetYear == 2020}">selected</c:if> >2020</option>
 					<option value = "2021" <c:if test="${graph4.targetYear == 2021}">selected</c:if> >2021</option>
-					<option value = "2022" <c:if test="${graph4.targetYear == 2022}">selected</c:if> >2022</option>
-					<option value = "2023" <c:if test="${graph4.targetYear == 2023}">selected</c:if> >2023</option>
-					<option value = "2024" <c:if test="${graph4.targetYear == 2024}">selected</c:if> >2024</option>
-					<option value = "2025" <c:if test="${graph4.targetYear == 2025}">selected</c:if> >2025</option>
 				</select>
 				<select class="custom-select mr-sm-1" name="graph4TargetDepartment" id="graph4TargetDepartment" style="float:right;">
-					<option value = "all">전체</option>
-					<option value = "dept">부서</option>
-					<option value = "individual" selected>개인</option>
+					<option value = "all" selected>전체</option>
+					<option value = "dept" disabled>부서</option>
+					<option value = "individual" disabled>개인</option>
 				</select>
 				<div style="display: inline-block;">
-					<h5>판매방식</h5>
-					<span style="vertical-align: bottom;" id="graph4TargetMiniTitle">${graph4.targetYear}년 ${graph4.targetMonth}월</span>
+					<h5>누적 판매방식별 실적</h5>
+					<span style="vertical-align: bottom;" id="graph4TargetMiniTitle">2021년</span>
 				</div>
 			</div>
 			<div class="card-block">
@@ -486,9 +463,293 @@
 	.pull-right{float:right!important;}
 </style>
 <script>
+// data
+var salesJson = {
+	'0' : ${graph1.sales[0]},
+	'1' : ${graph1.sales[1]},
+	'2' : ${graph1.sales[2]},
+	'3' : ${graph1.sales[3]},
+	'4' : ${graph1.sales[4]},
+	'5' : ${graph1.sales[5]},
+	'6' : ${graph1.sales[6]},
+	'7' : ${graph1.sales[7]},
+	'8' : ${graph1.sales[8]},
+	'9' : ${graph1.sales[9]},
+	'10' : ${graph1.sales[10]},
+	'11' : ${graph1.sales[11]}
+}
+var salesOrginJson = {
+	'0' : ${graph1.salesOrgin[0]},
+	'1' : ${graph1.salesOrgin[1]},
+	'2' : ${graph1.salesOrgin[2]},
+	'3' : ${graph1.salesOrgin[3]},
+	'4' : ${graph1.salesOrgin[4]},
+	'5' : ${graph1.salesOrgin[5]},
+	'6' : ${graph1.salesOrgin[6]},
+	'7' : ${graph1.salesOrgin[7]},
+	'8' : ${graph1.salesOrgin[8]},
+	'9' : ${graph1.salesOrgin[9]},
+	'10' : ${graph1.salesOrgin[10]},
+	'11' : ${graph1.salesOrgin[11]}
+}
+var salesOrginYearJson = {
+	'0' : salesOrginJson[0] + salesOrginJson[1] + salesOrginJson[2] + salesOrginJson[3] + salesOrginJson[4] + salesOrginJson[5] + salesOrginJson[6]
+			+ salesOrginJson[7] + salesOrginJson[8] + salesOrginJson[9] + salesOrginJson[10] + salesOrginJson[11]
+}
+var profitJson = {
+	'0' : ${graph1.profit[0]},
+	'1' : ${graph1.profit[1]},
+	'2' : ${graph1.profit[2]},
+	'3' : ${graph1.profit[3]},
+	'4' : ${graph1.profit[4]},
+	'5' : ${graph1.profit[5]},
+	'6' : ${graph1.profit[6]},
+	'7' : ${graph1.profit[7]},
+	'8' : ${graph1.profit[8]},
+	'9' : ${graph1.profit[9]},
+	'10' : ${graph1.profit[10]},
+	'11' : ${graph1.profit[11]}
+}
+var profitOrginJson = {
+	'0' : ${graph1.profitOrgin[0]},
+	'1' : ${graph1.profitOrgin[1]},
+	'2' : ${graph1.profitOrgin[2]},
+	'3' : ${graph1.profitOrgin[3]},
+	'4' : ${graph1.profitOrgin[4]},
+	'5' : ${graph1.profitOrgin[5]},
+	'6' : ${graph1.profitOrgin[6]},
+	'7' : ${graph1.profitOrgin[7]},
+	'8' : ${graph1.profitOrgin[8]},
+	'9' : ${graph1.profitOrgin[9]},
+	'10' : ${graph1.profitOrgin[10]},
+	'11' : ${graph1.profitOrgin[11]}
+}
+
+var profitOrginYearJson = {
+	'0' : profitOrginJson[0] + profitOrginJson[1] + profitOrginJson[2] + profitOrginJson[3] + profitOrginJson[4] + profitOrginJson[5] + profitOrginJson[6]
+			+ profitOrginJson[7] + profitOrginJson[8] + profitOrginJson[9] + profitOrginJson[10] + profitOrginJson[11]
+}
+
+var percentJson = {
+	'0' : ${graph1.percent[0]},
+	'1' : ${graph1.percent[1]},
+	'2' : ${graph1.percent[2]},
+	'3' : ${graph1.percent[3]},
+	'4' : ${graph1.percent[4]},
+	'5' : ${graph1.percent[5]},
+	'6' : ${graph1.percent[6]},
+	'7' : ${graph1.percent[7]},
+	'8' : ${graph1.percent[8]},
+	'9' : ${graph1.percent[9]},
+	'10' : ${graph1.percent[10]},
+	'11' : ${graph1.percent[11]}
+}
+
+var overJson = {
+	'0' : ${graph1.over[0]},
+	'1' : ${graph1.over[1]},
+	'2' : ${graph1.over[2]},
+	'3' : ${graph1.over[3]},
+	'4' : ${graph1.over[4]},
+	'5' : ${graph1.over[5]},
+	'6' : ${graph1.over[6]},
+	'7' : ${graph1.over[7]},
+	'8' : ${graph1.over[8]},
+	'9' : ${graph1.over[9]},
+	'10' : ${graph1.over[10]},
+	'11' : ${graph1.over[11]}
+}
+
+var overOrginJson = {
+	'0' : ${graph1.overOrgin[0]},
+	'1' : ${graph1.overOrgin[1]},
+	'2' : ${graph1.overOrgin[2]},
+	'3' : ${graph1.overOrgin[3]},
+	'4' : ${graph1.overOrgin[4]},
+	'5' : ${graph1.overOrgin[5]},
+	'6' : ${graph1.overOrgin[6]},
+	'7' : ${graph1.overOrgin[7]},
+	'8' : ${graph1.overOrgin[8]},
+	'9' : ${graph1.overOrgin[9]},
+	'10' : ${graph1.overOrgin[10]},
+	'11' : ${graph1.overOrgin[11]}
+}
+var cnt01_OrginJson = {
+	'0' : ${graph1.cnt01[0]},
+	'1' : ${graph1.cnt01[1]},
+	'2' : ${graph1.cnt01[2]},
+	'3' : ${graph1.cnt01[3]},
+	'4' : ${graph1.cnt01[4]},
+	'5' : ${graph1.cnt01[5]},
+	'6' : ${graph1.cnt01[6]},
+	'7' : ${graph1.cnt01[7]},
+	'8' : ${graph1.cnt01[8]},
+	'9' : ${graph1.cnt01[9]},
+	'10' : ${graph1.cnt01[10]},
+	'11' : ${graph1.cnt01[11]}
+}
+var cnt01Sum_OrginJson = {
+	'0' : ${graph1.cnt01Sum[0]},
+	'1' : ${graph1.cnt01Sum[1]},
+	'2' : ${graph1.cnt01Sum[2]},
+	'3' : ${graph1.cnt01Sum[3]},
+	'4' : ${graph1.cnt01Sum[4]},
+	'5' : ${graph1.cnt01Sum[5]},
+	'6' : ${graph1.cnt01Sum[6]},
+	'7' : ${graph1.cnt01Sum[7]},
+	'8' : ${graph1.cnt01Sum[8]},
+	'9' : ${graph1.cnt01Sum[9]},
+	'10' : ${graph1.cnt01Sum[10]},
+	'11' : ${graph1.cnt01Sum[11]}
+}
+var cnt02_OrginJson = {
+	'0' : ${graph1.cnt02[0]},
+	'1' : ${graph1.cnt02[1]},
+	'2' : ${graph1.cnt02[2]},
+	'3' : ${graph1.cnt02[3]},
+	'4' : ${graph1.cnt02[4]},
+	'5' : ${graph1.cnt02[5]},
+	'6' : ${graph1.cnt02[6]},
+	'7' : ${graph1.cnt02[7]},
+	'8' : ${graph1.cnt02[8]},
+	'9' : ${graph1.cnt02[9]},
+	'10' : ${graph1.cnt02[10]},
+	'11' : ${graph1.cnt02[11]}
+}
+var cnt02Sum_OrginJson = {
+	'0' : ${graph1.cnt02Sum[0]},
+	'1' : ${graph1.cnt02Sum[1]},
+	'2' : ${graph1.cnt02Sum[2]},
+	'3' : ${graph1.cnt02Sum[3]},
+	'4' : ${graph1.cnt02Sum[4]},
+	'5' : ${graph1.cnt02Sum[5]},
+	'6' : ${graph1.cnt02Sum[6]},
+	'7' : ${graph1.cnt02Sum[7]},
+	'8' : ${graph1.cnt02Sum[8]},
+	'9' : ${graph1.cnt02Sum[9]},
+	'10' : ${graph1.cnt02Sum[10]},
+	'11' : ${graph1.cnt02Sum[11]}
+}
+
+var cnt03_OrginJson = {
+	'0' : ${graph1.cnt03[0]},
+	'1' : ${graph1.cnt03[1]},
+	'2' : ${graph1.cnt03[2]},
+	'3' : ${graph1.cnt03[3]},
+	'4' : ${graph1.cnt03[4]},
+	'5' : ${graph1.cnt03[5]},
+	'6' : ${graph1.cnt03[6]},
+	'7' : ${graph1.cnt03[7]},
+	'8' : ${graph1.cnt03[8]},
+	'9' : ${graph1.cnt03[9]},
+	'10' : ${graph1.cnt03[10]},
+	'11' : ${graph1.cnt03[11]}
+}
+var cnt03Sum_OrginJson = {
+	'0' : ${graph1.cnt03Sum[0]},
+	'1' : ${graph1.cnt03Sum[1]},
+	'2' : ${graph1.cnt03Sum[2]},
+	'3' : ${graph1.cnt03Sum[3]},
+	'4' : ${graph1.cnt03Sum[4]},
+	'5' : ${graph1.cnt03Sum[5]},
+	'6' : ${graph1.cnt03Sum[6]},
+	'7' : ${graph1.cnt03Sum[7]},
+	'8' : ${graph1.cnt03Sum[8]},
+	'9' : ${graph1.cnt03Sum[9]},
+	'10' : ${graph1.cnt03Sum[10]},
+	'11' : ${graph1.cnt03Sum[11]}
+}
+
+var cnt04_OrginJson = {
+	'0' : ${graph1.cnt04[0]},
+	'1' : ${graph1.cnt04[1]},
+	'2' : ${graph1.cnt04[2]},
+	'3' : ${graph1.cnt04[3]},
+	'4' : ${graph1.cnt04[4]},
+	'5' : ${graph1.cnt04[5]},
+	'6' : ${graph1.cnt04[6]},
+	'7' : ${graph1.cnt04[7]},
+	'8' : ${graph1.cnt04[8]},
+	'9' : ${graph1.cnt04[9]},
+	'10' : ${graph1.cnt04[10]},
+	'11' : ${graph1.cnt04[11]}
+}
+var cnt04Sum_OrginJson = {
+	'0' : ${graph1.cnt04Sum[0]},
+	'1' : ${graph1.cnt04Sum[1]},
+	'2' : ${graph1.cnt04Sum[2]},
+	'3' : ${graph1.cnt04Sum[3]},
+	'4' : ${graph1.cnt04Sum[4]},
+	'5' : ${graph1.cnt04Sum[5]},
+	'6' : ${graph1.cnt04Sum[6]},
+	'7' : ${graph1.cnt04Sum[7]},
+	'8' : ${graph1.cnt04Sum[8]},
+	'9' : ${graph1.cnt04Sum[9]},
+	'10' : ${graph1.cnt04Sum[10]},
+	'11' : ${graph1.cnt04Sum[11]}
+}
+
+var cnt05_OrginJson = {
+	'0' : ${graph1.cnt05[0]},
+	'1' : ${graph1.cnt05[1]},
+	'2' : ${graph1.cnt05[2]},
+	'3' : ${graph1.cnt05[3]},
+	'4' : ${graph1.cnt05[4]},
+	'5' : ${graph1.cnt05[5]},
+	'6' : ${graph1.cnt05[6]},
+	'7' : ${graph1.cnt05[7]},
+	'8' : ${graph1.cnt05[8]},
+	'9' : ${graph1.cnt05[9]},
+	'10' : ${graph1.cnt05[10]},
+	'11' : ${graph1.cnt05[11]}
+}
+var cnt05Sum_OrginJson = {
+	'0' : ${graph1.cnt05Sum[0]},
+	'1' : ${graph1.cnt05Sum[1]},
+	'2' : ${graph1.cnt05Sum[2]},
+	'3' : ${graph1.cnt05Sum[3]},
+	'4' : ${graph1.cnt05Sum[4]},
+	'5' : ${graph1.cnt05Sum[5]},
+	'6' : ${graph1.cnt05Sum[6]},
+	'7' : ${graph1.cnt05Sum[7]},
+	'8' : ${graph1.cnt05Sum[8]},
+	'9' : ${graph1.cnt05Sum[9]},
+	'10' : ${graph1.cnt05Sum[10]},
+	'11' : ${graph1.cnt05Sum[11]}
+}
+
+var cnt06_OrginJson = {
+	'0' : ${graph1.cnt06[0]},
+	'1' : ${graph1.cnt06[1]},
+	'2' : ${graph1.cnt06[2]},
+	'3' : ${graph1.cnt06[3]},
+	'4' : ${graph1.cnt06[4]},
+	'5' : ${graph1.cnt06[5]},
+	'6' : ${graph1.cnt06[6]},
+	'7' : ${graph1.cnt06[7]},
+	'8' : ${graph1.cnt06[8]},
+	'9' : ${graph1.cnt06[9]},
+	'10' : ${graph1.cnt06[10]},
+	'11' : ${graph1.cnt06[11]}
+}
+var cnt06Sum_OrginJson = {
+	'0' : ${graph1.cnt06Sum[0]},
+	'1' : ${graph1.cnt06Sum[1]},
+	'2' : ${graph1.cnt06Sum[2]},
+	'3' : ${graph1.cnt06Sum[3]},
+	'4' : ${graph1.cnt06Sum[4]},
+	'5' : ${graph1.cnt06Sum[5]},
+	'6' : ${graph1.cnt06Sum[6]},
+	'7' : ${graph1.cnt06Sum[7]},
+	'8' : ${graph1.cnt06Sum[8]},
+	'9' : ${graph1.cnt06Sum[9]},
+	'10' : ${graph1.cnt06Sum[10]},
+	'11' : ${graph1.cnt06Sum[11]}
+}
+
 var globaloption1, globaloption2, globaloption3, globaloption4;
 var globalmyChart1, globalmyChartGauge2, globalmyChartGauge3, globalmyChartGauge4;
-
+var now = new Date();
 function chartReady(){
 	// 1번째 그래프 ===================================================
 	var myChart1 = echarts.init(document.getElementById('myChart01'));
@@ -501,12 +762,14 @@ function chartReady(){
 	            type : 'shadow'
 //				type : 'cross'
 	        },
+			/*
 	        formatter: function (params){
 	            return params[0].name + '<br/>'
 	                   + params[2].seriesName + ' : ' + (params[2].value+params[0].value) + '<br/>'
 	                   + params[1].seriesName + ' : ' + (params[1].value) + '<br/>'
 	                   + params[0].seriesName + ' : ' + (params[0].value);
 	        }
+			*/
 	    },
 	    legend: {
 	        selectedMode:false,
@@ -557,14 +820,14 @@ function chartReady(){
 	                    }
 	                }
 	            },
-	            data:[${graph1.salesDto.mm01/10.0}, ${graph1.salesDto.mm02/10.0}, ${graph1.salesDto.mm03/10.0}, ${graph1.salesDto.mm04/10.0}, 
-	            	${graph1.salesDto.mm05/10.0}, ${graph1.salesDto.mm06/10.0}, ${graph1.salesDto.mm07/10.0}, ${graph1.salesDto.mm08}, 
-	            	${graph1.salesDto.mm09/10.0}, ${graph1.salesDto.mm10/10.0}, ${graph1.salesDto.mm11/10.0}, ${graph1.salesDto.mm12}]
+	            data:[${graph1.sales[0]/10.0}, ${graph1.sales[1]/10.0}, ${graph1.sales[2]/10.0}, ${graph1.sales[3]/10.0},
+	            	${graph1.sales[4]/10.0}, ${graph1.sales[5]/10.0}, ${graph1.sales[6]/10.0}, ${graph1.sales[7]/10.0},
+					${graph1.sales[8]/10.0}, ${graph1.sales[9]/10.0}, ${graph1.sales[10]/10.0}, ${graph1.sales[11]/10.0}]
 	        },
+
 	        {
 	            name:'목표량(억원)',
 	            type:'line',
-//	            stack: 'sum',
 	            itemStyle: {
 	                normal: {
 	                    color: '#5873c7',
@@ -593,9 +856,9 @@ function chartReady(){
 	                    }
 	                }
 	            },
-	            data:[${graph1.profitDto.mm01/10.0}, ${graph1.profitDto.mm02/10.0}, ${graph1.profitDto.mm03/10.0}, ${graph1.profitDto.mm04/10.0}, 
-	            	${graph1.profitDto.mm05/10.0}, ${graph1.profitDto.mm06/10.0}, ${graph1.profitDto.mm07/10.0}, ${graph1.profitDto.mm08/10.0}, 
-	            	${graph1.profitDto.mm09/10.0}, ${graph1.profitDto.mm10/10.0}, ${graph1.profitDto.mm11/10.0}, ${graph1.profitDto.mm12/10.0}]
+				data:[${graph1.profit[0]/10.0}, ${graph1.profit[1]/10.0}, ${graph1.profit[2]/10.0}, ${graph1.profit[3]/10.0},
+					${graph1.profit[4]/10.0}, ${graph1.profit[5]/10.0}, ${graph1.profit[6]/10.0}, ${graph1.profit[7]/10.0},
+					${graph1.profit[8]/10.0}, ${graph1.profit[9]/10.0}, ${graph1.profit[10]/10.0}, ${graph1.profit[11]/10.0}]
 	        },
 	        {
 	            name:'초과(억원)',
@@ -627,9 +890,9 @@ function chartReady(){
 	                    }
 	                }
 	            },
-	            data:[${graph1.overDto.mm01/10.0}, ${graph1.overDto.mm02/10.0}, ${graph1.overDto.mm03/10.0}, ${graph1.overDto.mm04/10.0}, 
-	            	${graph1.overDto.mm05/10.0}, ${graph1.overDto.mm06/10.0}, ${graph1.overDto.mm07/10.0}, ${graph1.overDto.mm08/10.0}, 
-	            	${graph1.overDto.mm09/10.0}, ${graph1.overDto.mm10/10.0}, ${graph1.overDto.mm11/10.0}, ${graph1.overDto.mm12/10.0}]
+				data:[${graph1.over[0]/10.0}, ${graph1.over[1]/10.0}, ${graph1.over[2]/10.0}, ${graph1.over[3]/10.0},
+					${graph1.over[4]/10.0}, ${graph1.over[5]/10.0}, ${graph1.over[6]/10.0}, ${graph1.over[7]/10.0},
+					${graph1.over[8]/10.0}, ${graph1.over[9]/10.0}, ${graph1.over[10]/10.0}, ${graph1.over[11]/10.0}]
 	        }
 	    ]
 	};
@@ -638,6 +901,7 @@ function chartReady(){
     // 위에서 설정한 속성을 차트에 반영합니다.
 
     // 2번째 그래프 ===================================================
+
 	var myChartGauge2 = echarts.init(document.getElementById('myChart02'));
 	globalmyChartGauge2 = myChartGauge2;
 	var option2 = {
@@ -699,7 +963,7 @@ function chartReady(){
 				color: 'auto'
 			},
 			data: [{
-				value: ${graph2.data.percent}
+				value: percentJson[now.getMonth()]
 			}]
 		}]
 	};
@@ -717,6 +981,7 @@ function chartReady(){
 	*/
 	
 	// 3번째 그래프 ===================================================
+
 	var myChartGauge3 = echarts.init(document.getElementById('myChart03'));
 	globalmyChartGauge3 = myChartGauge3;
 	var option3 = {
@@ -779,18 +1044,17 @@ function chartReady(){
 				color: 'auto'
 			},
 			data: [{
-				value: ${graph3.data.percent}
+				value: ((salesOrginYearJson[0] / profitOrginYearJson[0])*100).toFixed(2)
 			}]
 		}]
 	};
 	
 	function gauge_load_chart3(option3){
-//		optionGauge.series[0].data[0].value = (Math.random()*100).toFixed(2) - 0;
 		myChartGauge3.setOption(option3, true);
 	}
 	gauge_load_chart3(option3);
 	globaloption3 = option3;
-	
+
 	/*
 	var timeTicket = setInterval(function (){
 		gauge_load_chart(optionGauge);
@@ -798,6 +1062,7 @@ function chartReady(){
 	*/
 	
 	// 4번째 그래프 ===================================================
+
 	var myChartGauge4 = echarts.init(document.getElementById('myChart04'));
 	globalmyChartGauge4 = myChartGauge4;
 	var option4 = {
@@ -808,25 +1073,82 @@ function chartReady(){
 		},
 		dataset: {
 			source: [
-				['product', '판매방식'],
-				['조달직판', ${graph4.data[0].contTypeCount}],
-				['조달간판', ${graph4.data[1].contTypeCount}],
-				['조달대행', ${graph4.data[2].contTypeCount}],
-				['직접판매', ${graph4.data[3].contTypeCount}],
-				['간접판매', ${graph4.data[4].contTypeCount}],
-				['기타', ${graph4.data[5].contTypeCount}],
+				['product', '판매방식(억원)'],
+				['조달직판', Math.floor(cnt01Sum_OrginJson[0]+cnt01Sum_OrginJson[1]+cnt01Sum_OrginJson[2]+cnt01Sum_OrginJson[3]+cnt01Sum_OrginJson[4]+cnt01Sum_OrginJson[5]+cnt01Sum_OrginJson[6]+cnt01Sum_OrginJson[7]+cnt01Sum_OrginJson[8]+cnt01Sum_OrginJson[9]+cnt01Sum_OrginJson[10]+cnt01Sum_OrginJson[11])],
+				['조달간판', Math.floor(cnt02Sum_OrginJson[0]+cnt02Sum_OrginJson[1]+cnt02Sum_OrginJson[2]+cnt02Sum_OrginJson[3]+cnt02Sum_OrginJson[4]+cnt02Sum_OrginJson[5]+cnt02Sum_OrginJson[6]+cnt02Sum_OrginJson[7]+cnt02Sum_OrginJson[8]+cnt02Sum_OrginJson[9]+cnt02Sum_OrginJson[10]+cnt02Sum_OrginJson[11])],
+				['조달대행', Math.floor(cnt03Sum_OrginJson[0]+cnt03Sum_OrginJson[1]+cnt03Sum_OrginJson[2]+cnt03Sum_OrginJson[3]+cnt03Sum_OrginJson[4]+cnt03Sum_OrginJson[5]+cnt03Sum_OrginJson[6]+cnt03Sum_OrginJson[7]+cnt03Sum_OrginJson[8]+cnt03Sum_OrginJson[9]+cnt03Sum_OrginJson[10]+cnt03Sum_OrginJson[11])],
+				['직접판매', Math.floor(cnt04Sum_OrginJson[0]+cnt04Sum_OrginJson[1]+cnt04Sum_OrginJson[2]+cnt04Sum_OrginJson[3]+cnt04Sum_OrginJson[4]+cnt04Sum_OrginJson[5]+cnt04Sum_OrginJson[6]+cnt04Sum_OrginJson[7]+cnt04Sum_OrginJson[8]+cnt04Sum_OrginJson[9]+cnt04Sum_OrginJson[10]+cnt04Sum_OrginJson[11])],
+				['간접판매', Math.floor(cnt05Sum_OrginJson[0]+cnt05Sum_OrginJson[1]+cnt05Sum_OrginJson[2]+cnt05Sum_OrginJson[3]+cnt05Sum_OrginJson[4]+cnt05Sum_OrginJson[5]+cnt05Sum_OrginJson[6]+cnt05Sum_OrginJson[7]+cnt05Sum_OrginJson[8]+cnt05Sum_OrginJson[9]+cnt05Sum_OrginJson[10]+cnt05Sum_OrginJson[11])],
+				['기타', Math.floor(cnt06Sum_OrginJson[0]+cnt06Sum_OrginJson[1]+cnt06Sum_OrginJson[2]+cnt06Sum_OrginJson[3]+cnt06Sum_OrginJson[4]+cnt06Sum_OrginJson[5]+cnt06Sum_OrginJson[6]+cnt06Sum_OrginJson[7]+cnt06Sum_OrginJson[8]+cnt06Sum_OrginJson[9]+cnt06Sum_OrginJson[10]+cnt06Sum_OrginJson[11])],
 			]
 		},
 		xAxis: {type: 'category'},
-		yAxis: {gridIndex: 0},
+		yAxis: {
+			type: 'value',
+			show : false
+		},
 		grid: {top: '55%'},
 		series: [
-			{type: 'bar', smooth: true, seriesLayoutBy: 'row', emphasis: {focus: 'series'}, label: { show: true, color:'black', formatter: function (params){ return params[0];}}},
-			{type: 'bar', smooth: true, seriesLayoutBy: 'row', emphasis: {focus: 'series'}, label: { show: true, color:'black', formatter: function (params){ return params[1];}}},
-			{type: 'bar', smooth: true, seriesLayoutBy: 'row', emphasis: {focus: 'series'}, label: { show: true, color:'black', formatter: function (params){ return params[2];}}},
-			{type: 'bar', smooth: true, seriesLayoutBy: 'row', emphasis: {focus: 'series'}, label: { show: true, color:'black', formatter: function (params){ return params[3];}}},
-			{type: 'bar', smooth: true, seriesLayoutBy: 'row', emphasis: {focus: 'series'}, label: { show: true, color:'black', formatter: function (params){ return params[4];}}},
-			{type: 'bar', smooth: true, seriesLayoutBy: 'row', emphasis: {focus: 'series'}, label: { show: true, color:'black', formatter: function (params){ return params[5];}}},
+			{
+				type: 'bar', smooth: true, seriesLayoutBy: 'row', emphasis: {focus: 'series'},
+				label: {
+					show: true,
+					color:'black',
+					formatter: function (params){
+						return (params.data[1]/100000000).toFixed(2);
+					}
+				}
+			},
+			{
+				type: 'bar', smooth: true, seriesLayoutBy: 'row', emphasis: {focus: 'series'},
+				label: {
+					show: true,
+					color:'black',
+					formatter: function (params){
+						return (params.data[2]/100000000).toFixed(2);
+					}
+				}
+			},
+			{
+				type: 'bar', smooth: true, seriesLayoutBy: 'row', emphasis: {focus: 'series'},
+				label: {
+					show: true,
+					color:'black',
+					formatter: function (params){
+						return (params.data[3]/100000000).toFixed(2);
+					}
+				}
+			},
+			{
+				type: 'bar', smooth: true, seriesLayoutBy: 'row', emphasis: {focus: 'series'},
+				label: {
+					show: true,
+					color:'black',
+					formatter: function (params){
+						return (params.data[4]/100000000).toFixed(2);
+					}
+				}
+			},
+			{
+				type: 'bar', smooth: true, seriesLayoutBy: 'row', emphasis: {focus: 'series'},
+				label: {
+					show: true,
+					color:'black',
+					formatter: function (params){
+						return (params.data[5]/100000000).toFixed(2);
+					}
+				}
+			},
+			{
+				type: 'bar', smooth: true, seriesLayoutBy: 'row', emphasis: {focus: 'series'},
+				label: {
+					show: true,
+					color:'black',
+					formatter: function (params){
+						return (params.data[6]/100000000).toFixed(2);
+					}
+				}
+			},
 			{
 				type: 'pie',
 				id: 'pie',
@@ -838,7 +1160,7 @@ function chartReady(){
 				},
 				encode: {
 					itemName: 'product',
-					value: '판매방식'
+					value: '판매방식(억원)'
 				}
 			}
 		]
@@ -846,7 +1168,6 @@ function chartReady(){
 
 	myChartGauge4.setOption(option4);
 	globaloption4 = option4;
-
 }
 
 	$(document).ready(function(){
@@ -889,29 +1210,28 @@ function chartReady(){
 		chartReady();
 
 		// 그래프2 관련 아래 테이블 정보
-		var chart2_month_profitTarget = ${graph2.data.profitTarget} != '' ? ${graph2.data.profitTarget} : 0;
+
+		var chart2_month_profitTarget = profitOrginJson[now.getMonth()] != '' ? profitOrginJson[now.getMonth()] : 0;
 		if(chart2_month_profitTarget != 0){
 			chart2_month_profitTarget = '₩'+chart2_month_profitTarget.toLocaleString("en-US");
 		}
-		var chart2_month_salesTarget = ${graph2.data.salesTarget} != '' ? ${graph2.data.salesTarget} : 0;
+		var chart2_month_salesTarget = salesOrginJson[now.getMonth()] != '' ? salesOrginJson[now.getMonth()] : 0;
 		if(chart2_month_salesTarget != 0){
 			chart2_month_salesTarget = Math.floor(chart2_month_salesTarget);
 			chart2_month_salesTarget = '₩'+chart2_month_salesTarget.toLocaleString("en-US");
 		}
-		var chart2_month_percent = ${graph2.data.percent} != '' ? ${graph2.data.percent}+'%' : '0%';
+		var chart2_month_percent = percentJson[now.getMonth()] != '' ? percentJson[now.getMonth()]+'%' : '0%';
 
-		var chart2_month_overTarget = ${graph2.data.overTarget} != '' ? ${graph2.data.overTarget} : 0;
-		if(chart2_month_overTarget != 0){
-			chart2_month_overTarget = Math.floor(chart2_month_overTarget);
-			if(chart2_month_overTarget > 0){
-				chart2_month_overTarget = '+₩' + chart2_month_overTarget.toLocaleString("en-US");
-				$("#chart2_month_overTarget").removeClass("text-danger");
-				$("#chart2_month_overTarget").addClass("text-success");
-			} if(chart2_month_overTarget < 0){
-				chart2_month_overTarget = '-₩' + (chart2_month_overTarget*-1).toLocaleString("en-US");
-				$("#chart2_month_overTarget").removeClass("text-success");
-				$("#chart2_month_overTarget").addClass("text-danger");
-			}
+		var chart2_month_overTarget = salesOrginJson[now.getMonth()] - profitOrginJson[now.getMonth()];
+		chart2_month_overTarget = Math.floor(chart2_month_overTarget);
+		if(chart2_month_overTarget > 0){
+			chart2_month_overTarget = '+₩' + chart2_month_overTarget.toLocaleString("en-US");
+			$("#chart2_month_overTarget").removeClass("text-danger");
+			$("#chart2_month_overTarget").addClass("text-success");
+		} if(chart2_month_overTarget < 0){
+			chart2_month_overTarget = '-₩' + (chart2_month_overTarget*-1).toLocaleString("en-US");
+			$("#chart2_month_overTarget").removeClass("text-success");
+			$("#chart2_month_overTarget").addClass("text-danger");
 		}
 
 		$("#chart2_month_profitTarget").html(chart2_month_profitTarget);
@@ -919,17 +1239,19 @@ function chartReady(){
 		$("#chart2_month_overTarget").html(chart2_month_overTarget);
 		$("#chart2_month_percent").html(chart2_month_percent);
 
+
 		// 그래프3 관련 아래 테이블 정보
-		var chart3_month_profitTarget = ${graph3.data.profitTarget};
+
+		var chart3_month_profitTarget = profitOrginYearJson[0];
 		chart3_month_profitTarget = '₩'+chart3_month_profitTarget.toLocaleString("en-US");
 
-		var chart3_month_salesTarget = ${graph3.data.salesTarget};
+		var chart3_month_salesTarget = salesOrginYearJson[0];
 		chart3_month_salesTarget = Math.floor(chart3_month_salesTarget);
 		chart3_month_salesTarget = '₩'+chart3_month_salesTarget.toLocaleString("en-US");
 
-		var chart3_month_percent = ${graph3.data.percent};
+		var chart3_month_percent = ((salesOrginYearJson[0] / profitOrginYearJson[0])*100).toFixed(2);
 		chart3_month_percent = chart3_month_percent+'%';
-		var chart3_month_overTarget = ${graph3.data.overTarget};
+		var chart3_month_overTarget = salesOrginYearJson[0] - profitOrginYearJson[0];
 		chart3_month_overTarget = Math.floor(chart3_month_overTarget);
 		if(chart3_month_overTarget > 0){
 			chart3_month_overTarget = '+₩' + chart3_month_overTarget.toLocaleString("en-US");
@@ -948,138 +1270,160 @@ function chartReady(){
 		$("#chart3_month_percent").html(chart3_month_percent);
 
 		// change 이벤트 시작
-		$("#graph2TargetDepartment, #graph2TargetYear, #graph2TargetMonth").on("change", function(){
-			var graph2TargetDepartment = $("#graph2TargetDepartment").val();
-			var graph2TargetYear = $("#graph2TargetYear").val();
-			var graph2TargetMonth = $("#graph2TargetMonth").val();
-			var obj = new Object();
-			obj.targetType = graph2TargetDepartment;
-			obj.targetYear = graph2TargetYear;
-			obj.targetMonth = graph2TargetMonth;
-			var url = "${path}/salesTarget/graph2";
-			$.ajax({
-				url: url, // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
-				data: JSON.stringify(obj) , // HTTP 요청과 함께 서버로 보낼 데이터
-				method: "POST", // HTTP 요청 메소드(GET, POST 등)
-				contentType:"application/json",
-				dataType: "json" // 서버에서 보내줄 데이터의 타입
-			}) // HTTP 요청이 성공하면 요청한 데이터가 done() 메소드로 전달됨. .
-					.done(function(result) {
-						if(result.code == 10001){
-							globaloption2.series[0].data[0].value = result.data.percent;
-							globalmyChartGauge2.setOption(globaloption2,true);
-							var graph2TargetMiniTitle = result.targetYear + "년 " + result.targetMonth+"월";
-							$("#graph2TargetMiniTitle").text(graph2TargetMiniTitle);
-							chart2_month_profitTarget = '₩'+Math.floor(result.data.profitTarget).toLocaleString("en-US");
-							chart2_month_salesTarget = '₩'+Math.floor(result.data.salesTarget).toLocaleString("en-US");
-							if(result.data.overTarget >= 0) {
-								chart2_month_overTarget = '+₩' + Math.floor(result.data.overTarget).toLocaleString("en-US");
-								$("#chart2_month_overTarget").removeClass("text-danger");
-								$("#chart2_month_overTarget").addClass("text-success");
-							} else {
-								chart2_month_overTarget = '-₩' + Math.floor(result.data.overTarget*-1).toLocaleString("en-US");
-								$("#chart2_month_overTarget").removeClass("text-success");
-								$("#chart2_month_overTarget").addClass("text-danger");
-							}
-							chart2_month_percent = (result.data.percent) + '%';
+		$("#graph2TargetMonth").on("change", function(){
+			var graph2TargetMonth = Number($("#graph2TargetMonth").val());
+			globaloption2.series[0].data[0].value = percentJson[graph2TargetMonth-1];
+			globalmyChartGauge2.setOption(globaloption2,true);
 
-							$("#chart2_month_profitTarget").html(chart2_month_profitTarget);
-							$("#chart2_month_salesTarget").html(chart2_month_salesTarget);
-							$("#chart2_month_overTarget").html(chart2_month_overTarget);
-							$("#chart2_month_percent").html(chart2_month_percent);
-						}else{
-							console.dir("AJAX 데이터 로딩 실패");
-						}
-					}) // HTTP 요청이 실패하면 오류와 상태에 관한 정보가 fail() 메소드로 전달됨.
-					.fail(function(xhr, status, errorThrown) {
-						console.dir("AJAX 통신실패");
-					});
+			$("#chart2_month_profitTarget").html('₩'+Math.floor(profitOrginJson[graph2TargetMonth-1]).toLocaleString("en-US"));
+			$("#chart2_month_salesTarget").html('₩'+Math.floor(salesOrginJson[graph2TargetMonth-1]).toLocaleString("en-US"));
+			$("#chart2_month_percent").html(percentJson[graph2TargetMonth-1]+'%');
+			var overOrgin =  salesOrginJson[graph2TargetMonth-1] - profitOrginJson[graph2TargetMonth-1];
+			if(overOrgin >= 0) {
+				overOrgin = '+₩' + Math.floor(overOrgin).toLocaleString("en-US");
+				$("#chart2_month_overTarget").removeClass("text-danger");
+				$("#chart2_month_overTarget").addClass("text-success");
+			} else {
+				overOrgin = '-₩' + Math.floor(overOrgin*-1).toLocaleString("en-US");
+				$("#chart2_month_overTarget").removeClass("text-success");
+				$("#chart2_month_overTarget").addClass("text-danger");
+			}
+			$("#chart2_month_overTarget").html(overOrgin);
 		});
+		<%--$("#graph2TargetDepartment, #graph2TargetYear, #graph2TargetMonth").on("change", function(){--%>
+		<%--	var graph2TargetDepartment = $("#graph2TargetDepartment").val();--%>
+		<%--	var graph2TargetYear = $("#graph2TargetYear").val();--%>
+		<%--	var graph2TargetMonth = $("#graph2TargetMonth").val();--%>
+		<%--	var obj = new Object();--%>
+		<%--	obj.targetType = graph2TargetDepartment;--%>
+		<%--	obj.targetYear = graph2TargetYear;--%>
+		<%--	obj.targetMonth = graph2TargetMonth;--%>
+		<%--	var url = "${path}/salesTarget/graph2";--%>
+		<%--	$.ajax({--%>
+		<%--		url: url, // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소--%>
+		<%--		data: JSON.stringify(obj) , // HTTP 요청과 함께 서버로 보낼 데이터--%>
+		<%--		method: "POST", // HTTP 요청 메소드(GET, POST 등)--%>
+		<%--		contentType:"application/json",--%>
+		<%--		dataType: "json" // 서버에서 보내줄 데이터의 타입--%>
+		<%--	}) // HTTP 요청이 성공하면 요청한 데이터가 done() 메소드로 전달됨. .--%>
+		<%--	.done(function(result) {--%>
+		<%--		if(result.code == 10001){--%>
+		<%--			globaloption2.series[0].data[0].value = result.data.percent;--%>
+		<%--			globalmyChartGauge2.setOption(globaloption2,true);--%>
+		<%--			var graph2TargetMiniTitle = result.targetYear + "년 " + result.targetMonth+"월";--%>
+		<%--			$("#graph2TargetMiniTitle").text(graph2TargetMiniTitle);--%>
+		<%--			chart2_month_profitTarget = '₩'+Math.floor(result.data.profitTarget).toLocaleString("en-US");--%>
+		<%--			chart2_month_salesTarget = '₩'+Math.floor(result.data.salesTarget).toLocaleString("en-US");--%>
+		<%--			if(result.data.overTarget >= 0) {--%>
+		<%--				chart2_month_overTarget = '+₩' + Math.floor(result.data.overTarget).toLocaleString("en-US");--%>
+		<%--				$("#chart2_month_overTarget").removeClass("text-danger");--%>
+		<%--				$("#chart2_month_overTarget").addClass("text-success");--%>
+		<%--			} else {--%>
+		<%--				chart2_month_overTarget = '-₩' + Math.floor(result.data.overTarget*-1).toLocaleString("en-US");--%>
+		<%--				$("#chart2_month_overTarget").removeClass("text-success");--%>
+		<%--				$("#chart2_month_overTarget").addClass("text-danger");--%>
+		<%--			}--%>
+		<%--			chart2_month_percent = (result.data.percent) + '%';--%>
 
-		$("#graph3TargetDepartment, #graph3TargetYear").on("change", function(){
-			var graph3TargetDepartment = $("#graph3TargetDepartment").val();
-			var graph3TargetYear = $("#graph3TargetYear").val();
-			var obj = new Object();
-			obj.targetType = graph3TargetDepartment;
-			obj.targetYear = graph3TargetYear;
-			var url = "${path}/salesTarget/graph3";
-			$.ajax({
-				url: url, // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
-				data: JSON.stringify(obj) , // HTTP 요청과 함께 서버로 보낼 데이터
-				method: "POST", // HTTP 요청 메소드(GET, POST 등)
-				contentType:"application/json",
-				dataType: "json" // 서버에서 보내줄 데이터의 타입
-			}) // HTTP 요청이 성공하면 요청한 데이터가 done() 메소드로 전달됨. .
-					.done(function(result) {
-						if(result.code == 10001){
-							globaloption3.series[0].data[0].value = result.data.percent;
-							globalmyChartGauge3.setOption(globaloption3,true);
-							var graph3TargetMiniTitle = result.targetYear + "년";
-							$("#graph3TargetMiniTitle").text(graph3TargetMiniTitle);
+		<%--			$("#chart2_month_profitTarget").html(chart2_month_profitTarget);--%>
+		<%--			$("#chart2_month_salesTarget").html(chart2_month_salesTarget);--%>
+		<%--			$("#chart2_month_overTarget").html(chart2_month_overTarget);--%>
+		<%--			$("#chart2_month_percent").html(chart2_month_percent);--%>
+		<%--		}else{--%>
+		<%--			console.dir("AJAX 데이터 로딩 실패");--%>
+		<%--		}--%>
+		<%--	}) // HTTP 요청이 실패하면 오류와 상태에 관한 정보가 fail() 메소드로 전달됨.--%>
+		<%--	.fail(function(xhr, status, errorThrown) {--%>
+		<%--		console.dir("AJAX 통신실패");--%>
+		<%--	});--%>
+		<%--});--%>
 
-							chart3_month_profitTarget = '₩'+Math.floor(result.data.profitTarget).toLocaleString("en-US");
-							chart3_month_salesTarget = '₩'+Math.floor(result.data.salesTarget).toLocaleString("en-US");
-							if(result.data.overTarget >= 0) {
-								chart3_month_overTarget = '+₩' + Math.floor(result.data.overTarget).toLocaleString("en-US");
-								$("#chart3_month_overTarget").removeClass("text-danger");
-								$("#chart3_month_overTarget").addClass("text-success");
-							} else {
-								chart3_month_overTarget = '-₩' + Math.floor(result.data.overTarget*-1).toLocaleString("en-US");
-								$("#chart3_month_overTarget").removeClass("text-success");
-								$("#chart3_month_overTarget").addClass("text-danger");
-							}
-							chart3_month_percent = (result.data.percent) + '%';
+		<%--$("#graph3TargetDepartment, #graph3TargetYear").on("change", function(){--%>
+		<%--	var graph3TargetDepartment = $("#graph3TargetDepartment").val();--%>
+		<%--	var graph3TargetYear = $("#graph3TargetYear").val();--%>
+		<%--	var obj = new Object();--%>
+		<%--	obj.targetType = graph3TargetDepartment;--%>
+		<%--	obj.targetYear = graph3TargetYear;--%>
+		<%--	var url = "${path}/salesTarget/graph3";--%>
+		<%--	$.ajax({--%>
+		<%--		url: url, // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소--%>
+		<%--		data: JSON.stringify(obj) , // HTTP 요청과 함께 서버로 보낼 데이터--%>
+		<%--		method: "POST", // HTTP 요청 메소드(GET, POST 등)--%>
+		<%--		contentType:"application/json",--%>
+		<%--		dataType: "json" // 서버에서 보내줄 데이터의 타입--%>
+		<%--	}) // HTTP 요청이 성공하면 요청한 데이터가 done() 메소드로 전달됨. .--%>
+		<%--	.done(function(result) {--%>
+		<%--		if(result.code == 10001){--%>
+		<%--			globaloption3.series[0].data[0].value = result.data.percent;--%>
+		<%--			globalmyChartGauge3.setOption(globaloption3,true);--%>
+		<%--			var graph3TargetMiniTitle = result.targetYear + "년";--%>
+		<%--			$("#graph3TargetMiniTitle").text(graph3TargetMiniTitle);--%>
 
-							$("#chart3_month_profitTarget").html(chart3_month_profitTarget);
-							$("#chart3_month_salesTarget").html(chart3_month_salesTarget);
-							$("#chart3_month_overTarget").html(chart3_month_overTarget);
-							$("#chart3_month_percent").html(chart3_month_percent);
-						}else{
-							console.dir("AJAX 데이터 로딩 실패");
-						}
-					}) // HTTP 요청이 실패하면 오류와 상태에 관한 정보가 fail() 메소드로 전달됨.
-					.fail(function(xhr, status, errorThrown) {
-						console.dir("AJAX 통신실패");
-					});
-		});
+		<%--			chart3_month_profitTarget = '₩'+Math.floor(result.data.profitTarget).toLocaleString("en-US");--%>
+		<%--			chart3_month_salesTarget = '₩'+Math.floor(result.data.salesTarget).toLocaleString("en-US");--%>
+		<%--			if(result.data.overTarget >= 0) {--%>
+		<%--				chart3_month_overTarget = '+₩' + Math.floor(result.data.overTarget).toLocaleString("en-US");--%>
+		<%--				$("#chart3_month_overTarget").removeClass("text-danger");--%>
+		<%--				$("#chart3_month_overTarget").addClass("text-success");--%>
+		<%--			} else {--%>
+		<%--				chart3_month_overTarget = '-₩' + Math.floor(result.data.overTarget*-1).toLocaleString("en-US");--%>
+		<%--				$("#chart3_month_overTarget").removeClass("text-success");--%>
+		<%--				$("#chart3_month_overTarget").addClass("text-danger");--%>
+		<%--			}--%>
+		<%--			chart3_month_percent = (result.data.percent) + '%';--%>
 
-		$("#graph4TargetDepartment, #graph4TargetYear, #graph4TargetMonth").on("change", function(){
-			var graph4TargetDepartment = $("#graph4TargetDepartment").val();
-			var graph4TargetYear = $("#graph4TargetYear").val();
-			var graph4TargetMonth = $("#graph4TargetMonth").val();
-			var obj = new Object();
-			obj.targetType = graph4TargetDepartment;
-			obj.targetYear = graph4TargetYear;
-			obj.targetMonth = graph4TargetMonth;
-			var url = "${path}/cont/graph4";
-			$.ajax({
-				url: url, // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
-				data: JSON.stringify(obj) , // HTTP 요청과 함께 서버로 보낼 데이터
-				method: "POST", // HTTP 요청 메소드(GET, POST 등)
-				contentType:"application/json",
-				dataType: "json" // 서버에서 보내줄 데이터의 타입
-			}) // HTTP 요청이 성공하면 요청한 데이터가 done() 메소드로 전달됨. .
-					.done(function(result) {
-						if(result.code == 10001){
-							globaloption4.dataset.source[1][1] = result.data[0].contTypeCount;
-							globaloption4.dataset.source[2][1] = result.data[1].contTypeCount;
-							globaloption4.dataset.source[3][1] = result.data[2].contTypeCount;
-							globaloption4.dataset.source[4][1] = result.data[3].contTypeCount;
-							globaloption4.dataset.source[5][1] = result.data[4].contTypeCount;
-							globaloption4.dataset.source[6][1] = result.data[5].contTypeCount;
-							globalmyChartGauge4.setOption(globaloption4, true);
+		<%--			$("#chart3_month_profitTarget").html(chart3_month_profitTarget);--%>
+		<%--			$("#chart3_month_salesTarget").html(chart3_month_salesTarget);--%>
+		<%--			$("#chart3_month_overTarget").html(chart3_month_overTarget);--%>
+		<%--			$("#chart3_month_percent").html(chart3_month_percent);--%>
+		<%--		}else{--%>
+		<%--			console.dir("AJAX 데이터 로딩 실패");--%>
+		<%--		}--%>
+		<%--	}) // HTTP 요청이 실패하면 오류와 상태에 관한 정보가 fail() 메소드로 전달됨.--%>
+		<%--	.fail(function(xhr, status, errorThrown) {--%>
+		<%--		console.dir("AJAX 통신실패");--%>
+		<%--	});--%>
+		<%--});--%>
 
-							var graph4TargetMiniTitle = result.targetYear + "년 " + result.targetMonth+"월";
-							$("#graph4TargetMiniTitle").text(graph4TargetMiniTitle);
+		<%--$("#graph4TargetDepartment, #graph4TargetYear, #graph4TargetMonth").on("change", function(){--%>
+		<%--	var graph4TargetDepartment = $("#graph4TargetDepartment").val();--%>
+		<%--	var graph4TargetYear = $("#graph4TargetYear").val();--%>
+		<%--	var graph4TargetMonth = $("#graph4TargetMonth").val();--%>
+		<%--	var obj = new Object();--%>
+		<%--	obj.targetType = graph4TargetDepartment;--%>
+		<%--	obj.targetYear = graph4TargetYear;--%>
+		<%--	obj.targetMonth = graph4TargetMonth;--%>
+		<%--	var url = "${path}/cont/graph4";--%>
+		<%--	$.ajax({--%>
+		<%--		url: url, // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소--%>
+		<%--		data: JSON.stringify(obj) , // HTTP 요청과 함께 서버로 보낼 데이터--%>
+		<%--		method: "POST", // HTTP 요청 메소드(GET, POST 등)--%>
+		<%--		contentType:"application/json",--%>
+		<%--		dataType: "json" // 서버에서 보내줄 데이터의 타입--%>
+		<%--	}) // HTTP 요청이 성공하면 요청한 데이터가 done() 메소드로 전달됨. .--%>
+		<%--	.done(function(result) {--%>
+		<%--		if(result.code == 10001){--%>
+		<%--			globaloption4.dataset.source[1][1] = result.data[0].contTypeCount;--%>
+		<%--			globaloption4.dataset.source[2][1] = result.data[1].contTypeCount;--%>
+		<%--			globaloption4.dataset.source[3][1] = result.data[2].contTypeCount;--%>
+		<%--			globaloption4.dataset.source[4][1] = result.data[3].contTypeCount;--%>
+		<%--			globaloption4.dataset.source[5][1] = result.data[4].contTypeCount;--%>
+		<%--			globaloption4.dataset.source[6][1] = result.data[5].contTypeCount;--%>
+		<%--			globalmyChartGauge4.setOption(globaloption4, true);--%>
 
-						}else{
-							console.dir("AJAX 데이터 로딩 실패");
-						}
-					}) // HTTP 요청이 실패하면 오류와 상태에 관한 정보가 fail() 메소드로 전달됨.
-					.fail(function(xhr, status, errorThrown) {
-						console.dir("AJAX 통신실패");
-					});
-		});
+		<%--			var graph4TargetMiniTitle = result.targetYear + "년 " + result.targetMonth+"월";--%>
+		<%--			$("#graph4TargetMiniTitle").text(graph4TargetMiniTitle);--%>
+
+		<%--		}else{--%>
+		<%--			console.dir("AJAX 데이터 로딩 실패");--%>
+		<%--		}--%>
+		<%--	}) // HTTP 요청이 실패하면 오류와 상태에 관한 정보가 fail() 메소드로 전달됨.--%>
+		<%--	.fail(function(xhr, status, errorThrown) {--%>
+		<%--		console.dir("AJAX 통신실패");--%>
+		<%--	});--%>
+		<%--});--%>
+
+		 $("#graph2TargetMonth").val('<%=monthStr%>');
 	});
 
 </script>

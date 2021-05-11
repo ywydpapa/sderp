@@ -96,6 +96,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		   b.userName ,
 		   c.soppTitle,
 		   d.custMName as custmemberName,
+	       e.desc03 as cntrctMthN,
 	       (select custName from swc_cust where custNo = a.custNo) custName,
 		   (select q.custMname from swc_custData03 q where q.custData03no = a.custMemberNo) custMemberName,
 	       (select custName from swc_cust where custNo = a.buyrNo) buyrName,
@@ -107,6 +108,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			 left join swc_user b on a.userNo = b.userNo
 			 left join swc_sopp c on a.soppNo = c.soppNo
 			 left join swc_custData03 d on a.custmemberNo = d.custData03no
+			 left join swc_code e on a.cntrctMth = e.codeNo
 	where a.attrib not like 'XXX%' and a.contNo=#{contNo} order by a.contNo
 </select>
 

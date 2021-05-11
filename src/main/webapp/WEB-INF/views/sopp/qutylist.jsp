@@ -34,7 +34,6 @@
 										<td style="text-align:right"><fmt:formatNumber value="${row2.dataAmt}" pattern="#,###"/></td>
 										<td>${row2.dataRemark}</td>
 										<td><button id="inoutDelbtn" onClick="javascript:fn_data02delete(${row2.soppdataNo})">삭제</button></td>
-										<td class="text-center"></td>
 									</tr>
 									</c:forEach>
 								</tbody>

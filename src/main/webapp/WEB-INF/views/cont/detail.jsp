@@ -80,10 +80,10 @@
 													<div class="form-radio">
 														<form>
 															<div class="radio radio-inline">
-																<label> <input type="radio" name="contractType" value="NEW" <c:if test="${contDto.soppNo != 0}">checked</c:if>> <i class="helper"></i>판매계약</label>
+																<label> <input type="radio" name="contractType" value="NEW" <c:if test="${contDto.cntrctMthN == '판매계약'}">checked</c:if>> <i class="helper"></i>판매계약</label>
 															</div>
 															<div class="radio radio-inline">
-																<label> <input type="radio" name="contractType" value="OLD" <c:if test="${contDto.exContNo != 0}">checked</c:if>> <i class="helper"></i>유지보수</label>
+																<label> <input type="radio" name="contractType" value="OLD" <c:if test="${contDto.cntrctMthN == '유지보수'}">checked</c:if>> <i class="helper"></i>유지보수</label>
 															</div>
 														</form>
 													</div>
@@ -517,22 +517,18 @@
 								</tr>
 								</thead>
 								<tbody>
-								<c:forEach var="row" items="${dtodata01}">
-									<tr class="item1">
-										<td><c:if test="${row.dataType eq '1101'}">매입 </c:if>
-											<c:if test="${row.dataType eq '1102'}">매출 </c:if></td>
-										<td>${row.dataTitle}</td>
-										<td style="text-align: right"><fmt:formatNumber
-												value="${row.dataNetprice}" pattern="#,###" /></td>
-										<td style="text-align: right"><fmt:formatNumber
-												value="${row.dataQuanty}" pattern="#,###" /></td>
-										<td style="text-align: right"><fmt:formatNumber
-												value="${row.dataAmt}" pattern="#,###" /></td>
-										<td>${row.dataRemark}</td>
-										<td><button id="inoutDelbtn"
-													onClick="javascript:fn_data01delete(${row.soppdataNo})">삭제</button></td>
-									</tr>
-								</c:forEach>
+									<c:forEach var="row" items="${dtodata01}">
+										<tr class="item1">
+											<td><c:if test="${row.dataType eq '1101'}">매입 </c:if>
+												<c:if test="${row.dataType eq '1102'}">매출 </c:if></td>
+											<td>${row.dataTitle}</td>
+											<td style="text-align: right"><fmt:formatNumber value="${row.dataNetprice}" pattern="#,###" /></td>
+											<td style="text-align: right"><fmt:formatNumber value="${row.dataQuanty}" pattern="#,###" /></td>
+											<td style="text-align: right"><fmt:formatNumber value="${row.dataAmt}" pattern="#,###" /></td>
+											<td>${row.dataRemark}</td>
+											<td><button id="inoutDelbtn" onClick="javascript:fn_data01delete(${row.soppdataNo})">삭제</button></td>
+										</tr>
+									</c:forEach>
 								</tbody>
 							</table>
 						</div>
@@ -948,6 +944,8 @@
 			}
 			if($("#freemaintSdate").val() != "") contData.freemaintSdate = $("#freemaintSdate").val();	// 무상유지보수 시작일자
 			if($("#freemaintEdate").val() != "") contData.freemaintEdate = $("#freemaintEdate").val();	// 무상유지보수 마감일자
+			if($("#paymaintSdate").val() != "") contData.paymaintSdate = $("#paymaintSdate").val();		// 유상유지보수 시작일자
+			if($("#paymaintEdate").val() != "") contData.paymaintEdate = $("#paymaintEdate").val();		// 유상유지보수 마감일자
 			if($("#vatYn").val() != "")		contData.vatYn					= $("#vatYn").val();			// VAT 포함여부 (기본값 : Y)
 			if($("#contArea").val() != "") 		contData.contArea 				= $("#contArea").val();			// 지역
 			if($("#contType").val() != "")		contData.contType 				= $("#contType").val();			// 판매방식
@@ -979,6 +977,220 @@
 					});
 		}
 
+		function fn_Reloaddata01(url, data){
+			$("#inoutlist").empty();
+			$("#inoutlist").load(url, data, function(){
+				setTimeout(function(){
+				}, 500);
+			});
+		}
+
+		function fn_Reloaddata02(url, data){
+			$("#qutylist").empty();
+			$("#qutylist").load(url, data, function(){
+				setTimeout(function(){
+				}, 500);
+			});
+		}
+
+		function fn_data01Insert() {
+			var data01Data = {};
+			data01Data.soppNo 		= $("#soppNo").val();
+			data01Data.catNo	 	= '100001';
+			var productNo			= $("#productNo1").val();
+			if(productNo != ""){
+				data01Data.productNo	= productNo;
+			} else {
+				data01Data.productNo	= 0;
+			}
+			data01Data.dataTitle 	= $("#data01Title").val();
+			data01Data.dataType		= $("#data01Type").val();
+			data01Data.dataNetprice	= $("#data01Netprice").val().replace(/[\D\s\._\-]+/g, "");
+			data01Data.dataQuanty	= $("#data01Quanty").val().replace(/[\D\s\._\-]+/g, "");
+			data01Data.dataAmt 		= $("#data01Amt").val().replace(/[\D\s\._\-]+/g, "");
+			data01Data.dataRemark 	= $("#data01Remark").val();
+
+			if(!data01Data.dataQuanty){
+				alert("단가를 입력해주십시오.");
+				return;
+			} else if(!data01Data.dataAmt){
+				alert("수량을 입력해주십시오.");
+				return;
+			}
+
+			$.ajax({ url: "${path}/sopp/insertdata01.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
+				data: data01Data , // HTTP 요청과 함께 서버로 보낼 데이터
+				method: "POST", // HTTP 요청 메소드(GET, POST 등)
+				dataType: "json" // 서버에서 보내줄 데이터의 타입
+			}) // HTTP 요청이 성공하면 요청한 데이터가 done() 메소드로 전달됨. .
+					.done(function(data) {
+						if(data.code == 10001){
+							alert("저장 성공");
+							var url="${path}/sopp/inoutlist/"+$("#soppNo").val();
+							fn_Reloaddata01(url);
+						}else{
+							alert("저장 실패");
+						}
+					}) // HTTP 요청이 실패하면 오류와 상태에 관한 정보가 fail() 메소드로 전달됨.
+					.fail(function(xhr, status, errorThrown) {
+						alert("통신 실패");
+					});
+		}
+
+		function fn_data02Insert() {
+			var data02Data = {};
+			data02Data.soppNo 		= $("#soppNo").val();
+			data02Data.catNo	 	= '100004';
+			var productNo			= $("#productNo2").val();
+			if(productNo != ""){
+				data02Data.productNo	= productNo;
+			} else {
+				data02Data.productNo	= 0;
+			}
+			data02Data.dataTitle 	= $("#data02Title").val();
+			data02Data.dataType		= $("#data02Type").val();
+			data02Data.dataNetprice	= $("#data02Netprice").val().replace(/[\D\s\._\-]+/g, "");
+			data02Data.dataQuanty	= $("#data02Qty").val().replace(/[\D\s\._\-]+/g, "");
+			data02Data.dataAmt 		= $("#data02Amt").val().replace(/[\D\s\._\-]+/g, "");
+			data02Data.dataRemark 	= $("#data02Remark").val();
+
+			if(!data02Data.dataQuanty){
+				alert("단가를 입력해주십시오.");
+				return;
+			} else if(!data02Data.dataAmt){
+				alert("수량을 입력해주십시오.");
+				return;
+			}
+
+			$.ajax({ url: "${path}/sopp/insertdata02.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
+				data: data02Data , // HTTP 요청과 함께 서버로 보낼 데이터
+				method: "POST", // HTTP 요청 메소드(GET, POST 등)
+				dataType: "json" // 서버에서 보내줄 데이터의 타입
+			}) // HTTP 요청이 성공하면 요청한 데이터가 done() 메소드로 전달됨. .
+					.done(function(data) {
+						if(data.code == 10001){
+							alert("저장 성공");
+							var url="${path}/sopp/qutylist/"+$("#soppNo").val();
+							fn_Reloaddata02(url);
+						}else{
+							alert("저장 실패");
+						}
+					}) // HTTP 요청이 실패하면 오류와 상태에 관한 정보가 fail() 메소드로 전달됨.
+					.fail(function(xhr, status, errorThrown) {
+						alert("통신 실패");
+					});
+		}
+
+
+
+
+		function fn_data01delete(soppdataNo) {
+			var msg = "선택한 건을 삭제하시겠습니까?";
+			if( confirm(msg) ){
+				$.ajax({ url: "${path}/sopp/deletedata01.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
+					data: {soppdataNo : soppdataNo}, // HTTP 요청과 함께 서버로 보낼 데이터
+					method: "POST", // HTTP 요청 메소드(GET, POST 등)
+				}) // HTTP 요청이 성공하면 요청한 데이터가 done() 메소드로 전달됨. .
+						.done(function(data) {
+							if(data.code == 10001){
+								alert("삭제 성공");
+								var url="${path}/sopp/inoutlist/"+$("#soppNo").val();
+								fn_Reloaddata01(url);
+							}else{
+								alert("삭제 실패");
+							}
+						}) // HTTP 요청이 실패하면 오류와 상태에 관한 정보가 fail() 메소드로 전달됨.
+						.fail(function(xhr, status, errorThrown) {
+							alert("통신 실패");
+						});
+			}
+		}
+
+		function fn_data02delete(soppdataNo) {
+			var msg = "선택한 건을 삭제하시겠습니까?";
+			if( confirm(msg) ){
+				$.ajax({ url: "${path}/sopp/deletedata02.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
+					data: {soppdataNo : soppdataNo}, // HTTP 요청과 함께 서버로 보낼 데이터
+					method: "POST", // HTTP 요청 메소드(GET, POST 등)
+				}) // HTTP 요청이 성공하면 요청한 데이터가 done() 메소드로 전달됨. .
+						.done(function(data) {
+							if(data.code == 10001){
+								alert("삭제 성공");
+								var url="${path}/sopp/qutylist/"+$("#soppNo").val();
+								fn_Reloaddata02(url);
+							}else{
+								alert("삭제 실패");
+							}
+						}) // HTTP 요청이 실패하면 오류와 상태에 관한 정보가 fail() 메소드로 전달됨.
+						.fail(function(xhr, status, errorThrown) {
+							alert("통신 실패");
+						});
+			}
+		}
+
+
+
+		function uploadFile() {
+			var uploadForm = $('#uploadForm')[0];
+			var uploadData = new FormData(uploadForm);
+
+			if(!uploadData.get('file').name) {
+				alert('파일을 선택해주세요');
+
+			}else {
+				uploadData.append('fileDesc', $('#fileDesc').val());
+				$.ajax({
+					url : "${path}/sopp/uploadfile/"+$("#soppNo").val(),
+					method : "POST",
+					data : uploadData,
+					contentType : false,
+					processData : false
+				}).done(function(data){
+					if(data.code == 10001){
+						alert('파일 업로드 완료');
+					}else {
+						alert('파일 업로드 실패');
+					}
+				}).fail(function(xhr, status, errorThrown) {
+					alert("통신 실패");
+				});
+
+			}
+
+		}
+
+		function downloadFile(fileId) {
+			var downloadData = {};
+			downloadData.soppNo = $("#soppNo").val();
+			downloadData.fileId = fileId;
+
+			$.ajax({
+				url : "${path}/sopp/downloadfile",
+				data : downloadData,
+				method : "POST",
+				xhrFields: {
+					responseType: 'blob'
+				},
+			}).done(function(data, status, xhr){
+				var fileName = xhr.getResponseHeader('content-disposition');
+				var link = document.createElement('a');
+				link.href = window.URL.createObjectURL(data);
+				link.download = fileName;
+				link.click();
+
+			}).fail(function(xhr, status, errorThrown) {
+				alert("통신 실패");
+			});
+		}
+
+		function openFileUploadModal() {
+
+		}
+
+		$(function(){
+
+		});
+
 		$(document).ready(function() {
 			if($("#soppNo").val() != '0') {
 				$($(".techdDetailCont")[2]).hide();
@@ -992,7 +1204,7 @@
 				fnToggleLayer();
 			});
 
-			var $input = $("#contAmt");
+			var $input = $("#contAmt, #soppTargetAmt");
 
 			// 이벤트 시작 ==========================================================================
 			// 이벤트시 동작
@@ -1014,6 +1226,26 @@
 					return (input === 0) ? "0" : input.toLocaleString("en-US");
 				});
 			});
-		});
-	</script>
 
+			$('#data01Netprice,#data01Quanty').on('keyup',function(){
+
+				var sum1 = parseInt($("#data01Netprice").val().replace(/[\D\s\._\-]+/g, "") || 0 );
+				var sum2 = parseInt($("#data01Quanty").val().replace(/[\D\s\._\-]+/g, "") || 0 );
+
+				var sum = sum1 * sum2;
+				$("#data01Netprice").val(sum1.toLocaleString("en-US"));
+				$("#data01Quanty").val(sum2.toLocaleString("en-US"));
+				$("#data01Amt").val(sum.toLocaleString("en-US"));
+			});
+			$('#data02Netprice,#data02Qty').on('keyup',function(){
+
+				var sum1 = parseInt($("#data02Netprice").val().replace(/[\D\s\._\-]+/g, "") || 0 );
+				var sum2 = parseInt($("#data02Qty").val().replace(/[\D\s\._\-]+/g, "") || 0);
+
+				var sum = sum1 * sum2;
+				$("#data02Netprice").val(sum1.toLocaleString("en-US"));
+				$("#data02Qty").val(sum2.toLocaleString("en-US"));
+				$("#data02Amt").val(sum.toLocaleString("en-US"));
+			});
+		});
+</script>

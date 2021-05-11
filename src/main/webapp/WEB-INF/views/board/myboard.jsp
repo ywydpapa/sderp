@@ -492,6 +492,22 @@ var salesOrginJson = {
 	'10' : ${graph1.salesOrgin[10]},
 	'11' : ${graph1.salesOrgin[11]}
 }
+
+var salesOrginStackJson = {
+	'0' : salesOrginJson[0],
+	'1' : salesOrginJson[0] + salesOrginJson[1],
+	'2' : salesOrginJson[0] + salesOrginJson[1] + salesOrginJson[2],
+	'3' : salesOrginJson[0] + salesOrginJson[1] + salesOrginJson[2] + salesOrginJson[3],
+	'4' : salesOrginJson[0] + salesOrginJson[1] + salesOrginJson[2] + salesOrginJson[3] + salesOrginJson[4],
+	'5' : salesOrginJson[0] + salesOrginJson[1] + salesOrginJson[2] + salesOrginJson[3] + salesOrginJson[4] + salesOrginJson[5],
+	'6' : salesOrginJson[0] + salesOrginJson[1] + salesOrginJson[2] + salesOrginJson[3] + salesOrginJson[4] + salesOrginJson[5] + salesOrginJson[6],
+	'7' : salesOrginJson[0] + salesOrginJson[1] + salesOrginJson[2] + salesOrginJson[3] + salesOrginJson[4] + salesOrginJson[5] + salesOrginJson[6] + salesOrginJson[7],
+	'8' : salesOrginJson[0] + salesOrginJson[1] + salesOrginJson[2] + salesOrginJson[3] + salesOrginJson[4] + salesOrginJson[5] + salesOrginJson[6] + salesOrginJson[7] + salesOrginJson[8],
+	'9' : salesOrginJson[0] + salesOrginJson[1] + salesOrginJson[2] + salesOrginJson[3] + salesOrginJson[4] + salesOrginJson[5] + salesOrginJson[6] + salesOrginJson[7] + salesOrginJson[8] + salesOrginJson[9],
+	'10' : salesOrginJson[0] + salesOrginJson[1] + salesOrginJson[2] + salesOrginJson[3] + salesOrginJson[4] + salesOrginJson[5] + salesOrginJson[6] + salesOrginJson[7] + salesOrginJson[8] + salesOrginJson[9] + salesOrginJson[10],
+	'11' : salesOrginJson[0] + salesOrginJson[1] + salesOrginJson[2] + salesOrginJson[3] + salesOrginJson[4] + salesOrginJson[5] + salesOrginJson[6] + salesOrginJson[7] + salesOrginJson[8] + salesOrginJson[9] + salesOrginJson[10] + salesOrginJson[11]
+}
+
 var salesOrginYearJson = {
 	'0' : salesOrginJson[0] + salesOrginJson[1] + salesOrginJson[2] + salesOrginJson[3] + salesOrginJson[4] + salesOrginJson[5] + salesOrginJson[6]
 			+ salesOrginJson[7] + salesOrginJson[8] + salesOrginJson[9] + salesOrginJson[10] + salesOrginJson[11]
@@ -523,6 +539,21 @@ var profitOrginJson = {
 	'9' : ${graph1.profitOrgin[9]},
 	'10' : ${graph1.profitOrgin[10]},
 	'11' : ${graph1.profitOrgin[11]}
+}
+
+var profitOrginStackJson = {
+	'0' : profitOrginJson[0],
+	'1' : profitOrginJson[0] + profitOrginJson[1],
+	'2' : profitOrginJson[0] + profitOrginJson[1] + profitOrginJson[2],
+	'3' : profitOrginJson[0] + profitOrginJson[1] + profitOrginJson[2] + profitOrginJson[3],
+	'4' : profitOrginJson[0] + profitOrginJson[1] + profitOrginJson[2] + profitOrginJson[3] + profitOrginJson[4],
+	'5' : profitOrginJson[0] + profitOrginJson[1] + profitOrginJson[2] + profitOrginJson[3] + profitOrginJson[4] + profitOrginJson[5],
+	'6' : profitOrginJson[0] + profitOrginJson[1] + profitOrginJson[2] + profitOrginJson[3] + profitOrginJson[4] + profitOrginJson[5] + profitOrginJson[6],
+	'7' : profitOrginJson[0] + profitOrginJson[1] + profitOrginJson[2] + profitOrginJson[3] + profitOrginJson[4] + profitOrginJson[5] + profitOrginJson[6] + profitOrginJson[7],
+	'8' : profitOrginJson[0] + profitOrginJson[1] + profitOrginJson[2] + profitOrginJson[3] + profitOrginJson[4] + profitOrginJson[5] + profitOrginJson[6] + profitOrginJson[7] + profitOrginJson[8],
+	'9' : profitOrginJson[0] + profitOrginJson[1] + profitOrginJson[2] + profitOrginJson[3] + profitOrginJson[4] + profitOrginJson[5] + profitOrginJson[6] + profitOrginJson[7] + profitOrginJson[8] + profitOrginJson[9],
+	'10' : profitOrginJson[0] + profitOrginJson[1] + profitOrginJson[2] + profitOrginJson[3] + profitOrginJson[4] + profitOrginJson[5] + profitOrginJson[6] + profitOrginJson[7] + profitOrginJson[8] + profitOrginJson[9] + profitOrginJson[10],
+	'11' : profitOrginJson[0] + profitOrginJson[1] + profitOrginJson[2] + profitOrginJson[3] + profitOrginJson[4] + profitOrginJson[5] + profitOrginJson[6] + profitOrginJson[7] + profitOrginJson[8] + profitOrginJson[9] + profitOrginJson[10] + profitOrginJson[11]
 }
 
 var profitOrginYearJson = {
@@ -750,30 +781,33 @@ var cnt06Sum_OrginJson = {
 var globaloption1, globaloption2, globaloption3, globaloption4;
 var globalmyChart1, globalmyChartGauge2, globalmyChartGauge3, globalmyChartGauge4;
 var now = new Date();
+var colors = ['#5470C6', '#91CC75', '#EE6666'];
+
 function chartReady(){
 	// 1번째 그래프 ===================================================
 	var myChart1 = echarts.init(document.getElementById('myChart01'));
 	globalmyChart1 = myChart1;
 	// 차트 속성과 데이터를 지정합니다.
-	option1 = {
+	/*option1 = {
+		color: colors,
 	    tooltip : {
 	        trigger: 'axis',
 	        axisPointer : {
 	            type : 'shadow'
 //				type : 'cross'
 	        },
-			/*
+			/!*
 	        formatter: function (params){
 	            return params[0].name + '<br/>'
 	                   + params[2].seriesName + ' : ' + (params[2].value+params[0].value) + '<br/>'
 	                   + params[1].seriesName + ' : ' + (params[1].value) + '<br/>'
 	                   + params[0].seriesName + ' : ' + (params[0].value);
 	        }
-			*/
+			*!/
 	    },
 	    legend: {
 	        selectedMode:false,
-	        data:['실적(억원)', '목표량(억원)', '초과(억원)']
+	        data:['월별목표(억원)', '월별매출(억원)', '누적목표(억원)', '누적매출(억원)']
 	    },
 	    toolbox: {
 	        show : false
@@ -786,48 +820,23 @@ function chartReady(){
 	        }
 	    ],
 	    yAxis : [
-	        {
-	            type : 'value',
-	            boundaryGap: [0, 0.1]
-	        }
+			{
+				type: 'value',
+				name: 'var',
+				position: 'left',
+			},
+			{
+				type: 'value',
+				name: 'line',
+				position: 'right',
+				min : 0,
+				max : 999
+			},
 	    ],
 	    series : [
-	        {
-	            name:'실적(억원)',
+			{
+	            name:'월별목표(억원)',
 	            type:'bar',
-	            stack: 'sum',
-	            barCategoryGap: '50%',
-	            itemStyle: {
-	                normal: {
-	                    color: 'rgba(70, 128, 255, 0.54)',
-	                    barBorderColor: 'rgba(70, 128, 255, 0.54)',
-	                    barBorderWidth: 3,
-	                    barBorderRadius:0,
-	                    label : {
-	                        show: true,
-							position: 'insideTop',
-							formatter: function (params) {
-								for (var i = 0, l = option1.xAxis[0].data.length; i < l; i++) {
-									if (option1.xAxis[0].data[i] == params.name) {
-										if (option1.series[0].data[i] > 0){
-											return option1.series[0].data[i];
-										} else {
-											return '';
-										}
-									}
-								}
-							},
-	                    }
-	                }
-	            },
-	            data:[${graph1.sales[0]/10.0}, ${graph1.sales[1]/10.0}, ${graph1.sales[2]/10.0}, ${graph1.sales[3]/10.0},
-	            	${graph1.sales[4]/10.0}, ${graph1.sales[5]/10.0}, ${graph1.sales[6]/10.0}, ${graph1.sales[7]/10.0},
-					${graph1.sales[8]/10.0}, ${graph1.sales[9]/10.0}, ${graph1.sales[10]/10.0}, ${graph1.sales[11]/10.0}]
-	        },
-
-	        {
-	            name:'목표량(억원)',
-	            type:'line',
 	            itemStyle: {
 	                normal: {
 	                    color: '#5873c7',
@@ -840,19 +849,17 @@ function chartReady(){
 	                        formatter: function (params) {
 	                            for (var i = 0, l = option1.xAxis[0].data.length; i < l; i++) {
 	                                if (option1.xAxis[0].data[i] == params.name) {
-	                                    //return option.series[0].data[i] + params.value;
-	                                    if (option1.series[1].data[i] != 0){
-	                                    	return;
-	                                    	//return option.series[1].data[i];
+	                                    if (option1.series[1].data[i] > 0){
+	                                    	return option.series[1].data[i];
 	                                    } else {
 	                                    	return;
 	                                    }
 	                                }
 	                            }
 	                        },
-	                        textStyle: {
-	                            color: '#4680ff'
-	                        }
+	                        // textStyle: {
+	                        //     color: '#4680ff'
+	                        // }
 	                    }
 	                }
 	            },
@@ -860,7 +867,74 @@ function chartReady(){
 					${graph1.profit[4]/10.0}, ${graph1.profit[5]/10.0}, ${graph1.profit[6]/10.0}, ${graph1.profit[7]/10.0},
 					${graph1.profit[8]/10.0}, ${graph1.profit[9]/10.0}, ${graph1.profit[10]/10.0}, ${graph1.profit[11]/10.0}]
 	        },
-	        {
+			{
+				name:'월별매출(억원)',
+				type:'bar',
+//	            stack: 'sum',
+				barCategoryGap: '50%',
+				itemStyle: {
+					normal: {
+						color: 'rgba(70, 128, 255, 0.54)',
+						barBorderColor: 'rgba(70, 128, 255, 0.54)',
+						barBorderWidth: 3,
+						barBorderRadius:0,
+						label : {
+							show: false,
+							position: 'insideTop',
+							formatter: function (params) {
+								for (var i = 0, l = option1.xAxis[0].data.length; i < l; i++) {
+									if (option1.xAxis[0].data[i] == params.name) {
+										if (option1.series[0].data[i] > 0){
+											return option1.series[0].data[i];
+										} else {
+											return '';
+										}
+									}
+								}
+							},
+						}
+					}
+				},
+				data:[${graph1.sales[0]/10.0}, ${graph1.sales[1]/10.0}, ${graph1.sales[2]/10.0}, ${graph1.sales[3]/10.0},
+					${graph1.sales[4]/10.0}, ${graph1.sales[5]/10.0}, ${graph1.sales[6]/10.0}, ${graph1.sales[7]/10.0},
+					${graph1.sales[8]/10.0}, ${graph1.sales[9]/10.0}, ${graph1.sales[10]/10.0}, ${graph1.sales[11]/10.0}]
+			},
+			{
+				name:'누적목표(억원)',
+				type:'line',
+				itemStyle: {
+					normal: {
+						color: '#5873c7',
+						//barBorderColor: '#4680ff',
+						barBorderWidth: 1,
+						barBorderRadius:0,
+						label : {
+							show: false,
+							position: 'top',
+							formatter: function (params) {
+								for (var i = 0, l = option1.xAxis[0].data.length; i < l; i++) {
+									if (option1.xAxis[0].data[i] == params.name) {
+										if (option1.series[1].data[i] > 0){
+											return option.series[1].data[i];
+										} else {
+											return;
+										}
+									}
+								}
+							},
+							// textStyle: {
+							//     color: '#4680ff'
+							// }
+						}
+					}
+				},
+				data:[${graph1.profit[0]/10.0},
+					${(graph1.profit[0]+graph1.profit[1])/10.0},
+					${graph1.profit[2]/10.0}, ${graph1.profit[3]/10.0},
+					${graph1.profit[4]/10.0}, ${graph1.profit[5]/10.0}, ${graph1.profit[6]/10.0}, ${graph1.profit[7]/10.0},
+					${graph1.profit[8]/10.0}, ${graph1.profit[9]/10.0}, ${graph1.profit[10]/10.0}, ${graph1.profit[11]/10.0}]
+			},
+	       /!* {
 	            name:'초과(억원)',
 	            type:'bar',
 	            stack: 'sum',
@@ -893,9 +967,103 @@ function chartReady(){
 				data:[${graph1.over[0]/10.0}, ${graph1.over[1]/10.0}, ${graph1.over[2]/10.0}, ${graph1.over[3]/10.0},
 					${graph1.over[4]/10.0}, ${graph1.over[5]/10.0}, ${graph1.over[6]/10.0}, ${graph1.over[7]/10.0},
 					${graph1.over[8]/10.0}, ${graph1.over[9]/10.0}, ${graph1.over[10]/10.0}, ${graph1.over[11]/10.0}]
-	        }
+	        }*!/
 	    ]
-	};
+	};*/
+	option1 = {
+		tooltip : {
+			trigger: 'axis',
+			axisPointer:{
+				type:'cross',
+				crossStyle: {
+					color: '#999'
+				}
+			}
+		},
+		legend: {
+			data:["월별목표", "월별매출", "누적목표", "누적매출"]
+		},
+		xAxis : [
+			{
+				type : 'category',
+				splitLine : {
+					show:true
+				},
+				axisPointer: {
+					type: 'shadow'
+				},
+				data : ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"]
+			},
+			{
+				type : 'category',
+				axisLine : {
+					show:true
+				},
+				axisLabel : {
+					show:false
+				},
+				data : ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"]
+			}
+		],
+		yAxis : [
+			{
+				type: 'value',
+				name: '월별(억원)',
+				position: 'left',
+				axisLine: {
+					show: true,
+					lineStyle: {
+						color: colors[0]
+					}
+				},
+				axisLabel: {
+					formatter: function (data) {
+						return Math.floor(data/10000000)
+					}
+				}
+			},
+			{
+				type: 'value',
+				name: '누적(억원)',
+				position: 'right',
+				axisLine: {
+					show: true,
+					lineStyle: {
+						color: colors[0]
+					}
+				},
+				axisLabel: {
+					formatter: function (data) {
+						return Math.floor(data/10000000)
+					}
+				}
+			}
+		],
+		series : [
+			{
+				name: '월별목표',
+				type: 'bar',
+				data: [profitOrginJson[0], profitOrginJson[1], profitOrginJson[2], profitOrginJson[3], profitOrginJson[4], profitOrginJson[5], profitOrginJson[6], profitOrginJson[7], profitOrginJson[8], profitOrginJson[9], profitOrginJson[10], profitOrginJson[11]]
+			},
+			{
+				name: '월별매출',
+				type: 'bar',
+				data: [salesOrginJson[0], salesOrginJson[1], salesOrginJson[2], salesOrginJson[3], salesOrginJson[4], salesOrginJson[5], salesOrginJson[6], salesOrginJson[7], salesOrginJson[8], salesOrginJson[9], salesOrginJson[10], salesOrginJson[11]]
+			},
+			{
+				name: '누적목표',
+				type: 'line',
+				yAxisIndex: 1,
+				data: [profitOrginStackJson[0], profitOrginStackJson[1], profitOrginStackJson[2], profitOrginStackJson[3], profitOrginStackJson[4], profitOrginStackJson[5], profitOrginStackJson[6], profitOrginStackJson[7], profitOrginStackJson[8], profitOrginStackJson[9], profitOrginStackJson[10], profitOrginStackJson[11]]
+			},
+			{
+				name: '누적매출',
+				type: 'line',
+				yAxisIndex: 1,
+				data: [salesOrginStackJson[0], salesOrginStackJson[1], salesOrginStackJson[2], salesOrginStackJson[3], salesOrginStackJson[4], salesOrginStackJson[5], salesOrginStackJson[6], salesOrginStackJson[7], salesOrginStackJson[8], salesOrginStackJson[9], salesOrginStackJson[10], salesOrginStackJson[11]]
+			}
+		]
+	}
 	myChart1.setOption(option1);
 	globaloption1 = option1;
     // 위에서 설정한 속성을 차트에 반영합니다.

@@ -66,8 +66,10 @@ public class TechdServiceImpl implements TechdService {
 		Integer custmemberNo = custmemberNostr.equals("") == true ? 0 : Integer.valueOf(custmemberNostr);	// 엔드유저 담당자
 		String techdSteps = request.getParameter("techdSteps") != null ? (String) request.getParameter("techdSteps") : "";				// 활동형태
 		String cntrctMth = request.getParameter("cntrctMth") != null ? (String) request.getParameter("cntrctMth") : "";					// 등록구분
-		String targetDatefrom = request.getParameter("targetDatefrom") != null ? (String) request.getParameter("targetDatefrom") : "";	// 시작일
-		String targetDateto = request.getParameter("targetDateto") != null ? (String) request.getParameter("targetDateto") : "";		// 마감일
+		String targetDatefrom = request.getParameter("targetDatefrom") != null ? (String) request.getParameter("targetDatefrom") : "";	// 기술 시작일
+		String targetDateto = request.getParameter("targetDateto") != null ? (String) request.getParameter("targetDateto") : "";		// 기술 마감일
+		String regSDate = request.getParameter("regSDate") != null ? (String) request.getParameter("regSDate") : "";					// 등록 시작일
+		String regEDate = request.getParameter("regEDate") != null ? (String) request.getParameter("regEDate") : "";					// 등록 마감일
 		String techdDesc = request.getParameter("techdDesc") != null ? (String) request.getParameter("techdDesc") : "";					// 설명
 
 		dto.setCompNo(compNo);
@@ -78,6 +80,8 @@ public class TechdServiceImpl implements TechdService {
 		dto.setCntrctMth(cntrctMth);
 		dto.setTechdFrom(targetDatefrom);
 		dto.setTechdTo(targetDateto);
+		dto.setRegSDate(regSDate);
+		dto.setRegEDate(regEDate);
 		dto.setTechdDesc(techdDesc);
 
 		String sEcho = request.getParameter("sEcho");

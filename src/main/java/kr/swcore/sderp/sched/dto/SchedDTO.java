@@ -49,7 +49,11 @@ public class SchedDTO extends PageDTO {
 	private String userId;
 	private String cntrctMth;
 
+
+	// 확장
 	private int endCustNo;
+	private String regSDate;	// 등록일 시작
+	private String regEDate;	// 등록일 끝
 
 	public SchedDTO() {
 		super();

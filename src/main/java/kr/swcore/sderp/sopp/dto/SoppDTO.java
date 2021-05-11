@@ -50,6 +50,8 @@ public class SoppDTO extends PageDTO {
 	private String cntrctMthN;
 	private String targetDatefrom;
 	private String targetDateto;
+	private String targetDatefrom2;
+	private String targetDateto2;
 
 	private String businessType;	// TODO : 영업타입 -> 삭제예정
 

@@ -37,6 +37,10 @@ public class SalesDTO extends PageDTO {
 	private String salesTypeN;
 	private String schedType;
 
+	// 확장
+	private String regSDate;	// 등록일 시작
+	private String regEDate;	// 등록일 끝
+
 	public SalesDTO() {
 		super();
 		// TODO Auto-generated constructor stub

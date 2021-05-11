@@ -50,6 +50,13 @@
 					data.push({"name":"targetDatefrom", "value" : ""});
 					data.push({"name":"targetDateto", "value" : ""});
 				}
+				if($("#targetDatefrom2").val() != ""){
+					data.push({"name":"targetDatefrom2", "value" : $("#targetDatefrom2").val()});
+					data.push({"name":"targetDateto2", "value" : $("#targetDateto2").val()});
+				} else {
+					data.push({"name":"targetDatefrom2", "value" : ""});
+					data.push({"name":"targetDateto2", "value" : ""});
+				}
 			},
 			// TODO 아래 주석은 서버로 부터 성공시 data 확인하는 용도
 			/*
@@ -222,7 +229,6 @@
 		});
 
 		soppTable.on('draw', function () {
-			console.log("draw 이벤트");
 			setTimeout(fnDrawAfterCss, 10);
 
 			var elementArr = $(".numberComa");
@@ -261,7 +267,7 @@
 	#soppTable > tbody > tr > td:nth-child(4) {
 		overflow: hidden;
 		text-overflow: ellipsis;
-		max-width: 510px;
+		max-width: 380px;
 		white-space: nowrap;
 	}
 	#soppTable > tbody > tr > td:nth-child(5) {
@@ -425,7 +431,7 @@
 							</div>
 							<!--매출예정일-->
 							<div class="col-sm-12 col-xl-6">
-								<label class="col-form-label" for="targetDate">매출예정일</label>
+								<label class="col-form-label">매출예정일</label>
 								<p class="input_inline mb-0">
 									<input class="form-control form-control-sm col-xl-6" type="date" id="targetDatefrom" onChange="javascript:inputDate($('#targetDatefrom').val(), $('#targetDateto').val())"> ~
 									<input class="form-control form-control-sm col-xl-6" type="date" id="targetDateto" onChange="javascript:inputDate($('#targetDatefrom').val(), $('#targetDateto').val())">
@@ -453,15 +459,6 @@
 									</c:forEach>
 								</select>
 							</div>
-								<%--<div class="col-sm-12 col-xl-4">
-									<label class="col-form-label" for="soppType">영업타입</label>
-									<select name="select" class="form-control form-control-sm" id="businessType">
-										<option value></option>
-										<c:forEach var="businessType" items="${businessType}">
-											<option value="${businessType.codeNo}">${businessType.desc03}</option>
-										</c:forEach>
-									</select>
-								</div>--%>
 							<div class="col-sm-2">
 								<label class="col-form-label" for="soppStatus">진행단계</label>
 								<select class="form-control form-control-sm" name="soppStatus" id="soppStatus" title="선택">
@@ -471,6 +468,15 @@
 									</c:forEach>
 								</select>
 							</div>
+							<!--등록/수정일-->
+							<div class="col-sm-12 col-xl-6">
+								<label class="col-form-label">등록/수정일</label>
+								<p class="input_inline mb-0">
+									<input class="form-control form-control-sm col-xl-6" type="date" id="targetDatefrom2" onChange="javascript:inputDate($('#targetDatefrom2').val(), $('#targetDateto2').val())"> ~
+									<input class="form-control form-control-sm col-xl-6" type="date" id="targetDateto2" onChange="javascript:inputDate($('#targetDatefrom2').val(), $('#targetDateto2').val())">
+								</p>
+							</div>
+							<!--//등록/수정일-->
 						</div>
 					</div>
 				</div>

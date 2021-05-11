@@ -58,7 +58,7 @@ $(function(){
 								</div>
 								<div class="form-group row">
 									<div class="col-sm-12 col-xl-3">
-										<label class="col-form-label" for="co_name">매출처</label>
+										<label class="col-form-label">매출처</label>
 										<div class="input-group input-group-sm mb-0">
 											<input type="text" class="form-control" name="custName"
 												id="custName" value="" readonly /> <input
@@ -95,7 +95,7 @@ $(function(){
 										</div>
 									</div>
 									<div class="col-sm-12 col-xl-3">
-										<label class="col-form-label" for="co_name">유지보수업체</label>
+										<label class="col-form-label">유지보수업체</label>
 										<div class="input-group input-group-sm mb-0">
 											<input type="text" class="form-control" name="ptncName" id="ptncName" value="" readonly />
 											<input type="hidden" name="ptncNo" id="ptncNo" value="" />
@@ -127,7 +127,7 @@ $(function(){
 										</div>
 									</div>
 									<div class="col-sm-12 col-xl-3">
-										<label class="col-form-label" for="co_name">공급업체</label>
+										<label class="col-form-label">공급업체</label>
 										<div class="input-group input-group-sm">
 											<div class="input-group input-group-sm mb-0">
 												<input type="text" class="form-control" name="supplyName"
@@ -168,7 +168,7 @@ $(function(){
 										</div>
 									</div>
 									<div class="col-sm-12 col-xl-3">
-										<label class="col-form-label" for="co_name">계약업체</label>
+										<label class="col-form-label">계약업체</label>
 										<div class="input-group input-group-sm mb-0">
 																		<input type="text" class="form-control" name="buyrName"
 																			id="buyrName" value="" readonly /> <input
@@ -209,11 +209,11 @@ $(function(){
 								</div>
 								<div class="form-group row">
 									<div class="col-sm-12 col-xl-3">
-										<label class="col-form-label" for="co_name">계약명</label>
+										<label class="col-form-label">계약명</label>
 										<input type="text" class="form-control form-control-sm" id="contTitle" name="" placeholder="">
 									</div>
 									<div class="col-sm-12 col-xl-3">
-										<label class="col-form-label" for="co_name">계약방식</label>
+										<label class="col-form-label">계약방식</label>
 										<select name="select" class="form-control form-control-sm" id="contractType">
 											<option value="">선택</option>
 											<c:forEach var ="contractType" items="${contractType}">
@@ -221,20 +221,25 @@ $(function(){
 											</c:forEach>
 										</select>
 									</div>
-									<div class="col-sm-12 col-xl-6">
-										<label class="col-form-label" for="co_name">판매일자</label>
+									<div class="col-sm-12 col-xl-3">
+										<label class="col-form-label">판매일자</label>
 										<div class="ms-selectable sales_date">
 										<p class="input_inline"><input class="form-control form-control-sm col-xl-6" type="date" id="targetDatefrom" onChange="javascript:inputDate($('#targetDatefrom').val(), $('#targetDateto').val())"> ~ <input class="form-control form-control-sm col-xl-6" type="date" id="targetDateto" onChange="javascript:inputDate($('#targetDatefrom').val(), $('#targetDateto').val())">
 										</div>
 									</div>
+									<div class="col-sm-12 col-xl-3">
+										<label class="col-form-label">유지보수기간</label>
+										<p class="input_inline"><input class="form-control form-control-sm col-xl-6" type="date" id="freemaintSdate" onChange="javascript:inputDate($('#freemaintSdate').val(), $('#freemaintEdate').val())"> ~ <input class="form-control form-control-sm col-xl-6" type="date" id="freemaintEdate" onChange="javascript:inputDate($('#freemaintSdate').val(), $('#freemaintEdate').val())">
+										</p>
+									</div>
 								</div>
 								<div class="form-group row">
 									<div class="col-sm-12 col-xl-3">
-										<label class="col-form-label" for="co_name">담당자</label>
+										<label class="col-form-label">담당자</label>
 										<input type="text" class="form-control form-control-sm" id="userName" name="" placeholder="">
 									</div>
 									<div class="col-sm-12 col-xl-3">
-										<label class="col-form-label" for="co_name">판매방식</label>
+										<label class="col-form-label">판매방식</label>
 										<select name="select" class="form-control form-control-sm" id="contType">
 											<option value="">선택</option>
 											<c:forEach var="contType" items="${contType}">
@@ -242,9 +247,9 @@ $(function(){
 											</c:forEach>
 										</select>
 									</div>
-									<div class="col-sm-12 col-xl-6">
-										<label class="col-form-label" for="co_name">유지보수기간</label>
-										<p class="input_inline"><input class="form-control form-control-sm col-xl-6" type="date" id="freemaintSdate" onChange="javascript:inputDate($('#freemaintSdate').val(), $('#freemaintEdate').val())"> ~ <input class="form-control form-control-sm col-xl-6" type="date" id="freemaintEdate" onChange="javascript:inputDate($('#freemaintSdate').val(), $('#freemaintEdate').val())">
+									<div class="col-sm-12 col-xl-3">
+										<label class="col-form-label">등록일</label>
+										<p class="input_inline"><input class="form-control form-control-sm col-xl-6" type="date" id="regSDate" onChange="javascript:inputDate($('#regSDate').val(), $('#regEDate').val())"> ~ <input class="form-control form-control-sm col-xl-6" type="date" id="regEDate" onChange="javascript:inputDate($('#regSDate').val(), $('#regEDate').val())">
 										</p>
 									</div>
 								</div>
@@ -268,7 +273,8 @@ $(function(){
 								<col width="5%"/>
 								<col width="30%"/>
 								<col width="15%"/>
-								<col width="15%"/>
+								<col width="7.5%"/>
+								<col width="7.5%"/>
 								<col width="5%"/>
 								<col width="7%"/>
 								<col width="7%"/>
@@ -283,6 +289,7 @@ $(function(){
 									<th>계약명</th>
 									<th>매출처</th>
 									<th>계약금액</th>
+									<th>매출이익</th>
 									<th>담당자</th>
 									<th>유지보수 시작일</th>
 									<th>유지보수 만료일</th>
@@ -309,6 +316,7 @@ $(function(){
 									<td><a href="javascript:fnSetPage('${path}/cont/detail/${row.contNo}')">${row.contTitle}</a></td>							
 									<td>${row.custName}</td>
 									<td class="text-right"><fmt:formatNumber type="number" maxFractionDigits="3" value="${row.contAmt}" /></td>
+									<td class="text-right"><fmt:formatNumber type="number" maxFractionDigits="3" value="${row.net_profit}" /></td>
 									<td>${row.userName}</td>
 									<td>
 										<c:choose>
@@ -409,6 +417,8 @@ $(function(){
 		contData.userName = $("#userName").val() ? $("#userName").val() : null;
 		contData.freemaintSdate = $("#freemaintSdate").val() ? $("#freemaintSdate").val() : null;
 		contData.freemaintEdate = $("#freemaintEdate").val() ? $("#freemaintEdate").val() : null;
+		contData.regSDate = $("#regSDate").val() ? $("#regSDate").val() : null;
+		contData.regEDate = $("#regEDate").val() ? $("#regEDate").val() : null;
 		
 		fnSetList('${path}/cont/listcon.do', contData);
 	}

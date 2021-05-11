@@ -68,8 +68,10 @@ public class SoppServiceImpl implements SoppService {
 		String cntrctMthstr = request.getParameter("cntrctMth");
 		Integer cntrctMth = cntrctMthstr.equals("") == true ? 0 : Integer.valueOf(cntrctMthstr);	// 계약구분
 		String soppStatus = request.getParameter("soppStatus") != null ? (String) request.getParameter("soppStatus") : "";				// 진행단계	// TODO : varchar 에서 int 변경시 수정해야할 변경
-		String targetDatefrom = request.getParameter("targetDatefrom") != null ? (String) request.getParameter("targetDatefrom") : "";	// 시작일
-		String targetDateto = request.getParameter("targetDateto") != null ? (String) request.getParameter("targetDateto") : "";		// 마감일
+		String targetDatefrom = request.getParameter("targetDatefrom") != null ? (String) request.getParameter("targetDatefrom") : "";	// 매출예정 시작일
+		String targetDateto = request.getParameter("targetDateto") != null ? (String) request.getParameter("targetDateto") : "";		// 매출예정 마감일
+		String targetDatefrom2 = request.getParameter("targetDatefrom2") != null ? (String) request.getParameter("targetDatefrom2") : "";	// 등록/수정 시작일
+		String targetDateto2 = request.getParameter("targetDateto2") != null ? (String) request.getParameter("targetDateto2") : "";		// 등록/수정 마감일
 
 		dto.setCompNo(compNo);
 		dto.setUserNo(userNo);
@@ -80,6 +82,8 @@ public class SoppServiceImpl implements SoppService {
 		dto.setSoppStatus(soppStatus);
 		dto.setTargetDatefrom(targetDatefrom);
 		dto.setTargetDateto(targetDateto);
+		dto.setTargetDatefrom2(targetDatefrom2);
+		dto.setTargetDateto2(targetDateto2);
 
 		String sEcho = request.getParameter("sEcho");
 		String limitstr = request.getParameter("iDisplayLength");

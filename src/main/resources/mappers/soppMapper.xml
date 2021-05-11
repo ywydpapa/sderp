@@ -58,6 +58,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<if test="targetDateto != null and targetDateto != ''">
 			and date_format(a.soppTargetDate, '%Y-%m-%d') <![CDATA[<=]]> #{targetDateto}
 		</if>
+		<if test="targetDatefrom2 != null and targetDatefrom2 != ''">
+			and date_format(a.modDatetime, '%Y-%m-%d') <![CDATA[>=]]> #{targetDatefrom2}
+		</if>
+		<if test="targetDateto2 != null and targetDateto2 != ''">
+			and date_format(a.modDatetime, '%Y-%m-%d') <![CDATA[<=]]> #{targetDateto2}
+		</if>
 		<if test="soppType != null and soppType > 0">
 			and a.soppType = #{soppType}
 		</if>
@@ -149,6 +155,12 @@ from
 		</if>
 		<if test="targetDateto != null and targetDateto != ''">
 			and date_format(a.soppTargetDate, '%Y-%m-%d') <![CDATA[<=]]> #{targetDateto}
+		</if>
+		<if test="targetDatefrom2 != null and targetDatefrom2 != ''">
+			and date_format(a.modDatetime, '%Y-%m-%d') <![CDATA[>=]]> #{targetDatefrom2}
+		</if>
+		<if test="targetDateto2 != null and targetDateto2 != ''">
+			and date_format(a.modDatetime, '%Y-%m-%d') <![CDATA[<=]]> #{targetDateto2}
 		</if>
 		<if test="soppType != null and soppType > 0">
 			and a.soppType = #{soppType}

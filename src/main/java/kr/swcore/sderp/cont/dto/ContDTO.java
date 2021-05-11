@@ -60,6 +60,8 @@ public class ContDTO implements Cloneable{
 	private Integer contTypeCount;
 	private Integer endCustmemberNo;
 	private String endCustmemberName;
+	private String regSDate;	// 등록일 시작
+	private String regEDate;	// 등록일 끝
 	
 	// sopp 복사 시작
 	private int custMemberNo;

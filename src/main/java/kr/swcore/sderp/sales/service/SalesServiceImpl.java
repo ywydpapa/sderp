@@ -130,6 +130,8 @@ public class SalesServiceImpl implements SalesService {
 		String salesType = request.getParameter("salesType") != null ? (String) request.getParameter("salesType") : "";						// 활동형태
 		String salesFrdatetime = request.getParameter("salesFrdatetime") != null ? (String) request.getParameter("salesFrdatetime") : "";	// 시작일
 		String salesTodatetime = request.getParameter("salesTodatetime") != null ? (String) request.getParameter("salesTodatetime") : "";	// 마감일
+		String regSDate = request.getParameter("regSDate") != null ? (String) request.getParameter("regSDate") : "";					// 등록 시작일
+		String regEDate = request.getParameter("regEDate") != null ? (String) request.getParameter("regEDate") : "";					// 등록 마감일
 
 		dto.setCompNo(compNo);
 		dto.setUserNo(userNo);
@@ -138,6 +140,8 @@ public class SalesServiceImpl implements SalesService {
 		dto.setSalesType(salesType);
 		dto.setSalesFrdatetime(salesFrdatetime);
 		dto.setSalesTodatetime(salesTodatetime);
+		dto.setRegSDate(regSDate);
+		dto.setRegEDate(regEDate);
 
 		String sEcho = request.getParameter("sEcho");
 		String limitstr = request.getParameter("iDisplayLength");

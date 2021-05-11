@@ -38,6 +38,13 @@
 					data.push({"name":"targetDatefrom", "value" : ""});
 					data.push({"name":"targetDateto", "value" : ""});
 				}
+				if($("#regSDate").val() != "" && $("#regEDate").val() != ""){
+					data.push({"name":"regSDate", "value" : $("#regSDate").val()});
+					data.push({"name":"regEDate", "value" : $("#regEDate").val()});
+				} else {
+					data.push({"name":"regSDate", "value" : ""});
+					data.push({"name":"regEDate", "value" : ""});
+				}
 				data.push({"name":"techdDesc","value":$("#techdDesc").val()});
 			},
 			// TODO 아래 주석은 서버로 부터 성공시 data 확인하는 용도
@@ -190,7 +197,6 @@
 		});
 
 		techdTable.on('draw', function () {
-			console.log("draw 이벤트");
 			setTimeout(fnDrawAfterCss, 10);
 		});
 
@@ -372,13 +378,18 @@
 								</div>
 							</div>
 							<div class="form-group row">
-								<div class="col-sm-12 col-xl-6">
-									<label class="col-form-label" for="co_name">일정시작일</label>
+								<div class="col-sm-12 col-xl-3">
+									<label class="col-form-label">일정시작일</label>
 									<p class="input_inline"><input class="form-control form-control-sm col-xl-6" type="date" id="targetDatefrom" onChange="javascript:inputDate($('#targetDatefrom').val(), $('#targetDateto').val())"> ~ <input class="form-control form-control-sm col-xl-6" type="date" id="targetDateto" onChange="javascript:inputDate($('#targetDatefrom').val(), $('#targetDateto').val())">
 									</p>
 								</div>
+								<div class="col-sm-12 col-xl-3">
+									<label class="col-form-label">등록일</label>
+									<p class="input_inline"><input class="form-control form-control-sm col-xl-6" type="date" id="regSDate" onChange="javascript:inputDate($('#regSDate').val(), $('#regEDate').val())"> ~ <input class="form-control form-control-sm col-xl-6" type="date" id="regEDate" onChange="javascript:inputDate($('#regSDate').val(), $('#regEDate').val())">
+									</p>
+								</div>
 								<div class="col-sm-12 col-xl-6">
-									<label class="col-form-label" for="co_name">기술지원요청내용</label>
+									<label class="col-form-label">기술지원요청내용</label>
 									<input type="text" class="form-control form-control-sm" id="techdDesc" name="" placeholder="" onsubmit="return false">
 								</div>
 							</div>

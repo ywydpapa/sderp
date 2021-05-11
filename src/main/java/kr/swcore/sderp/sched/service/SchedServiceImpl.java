@@ -52,6 +52,8 @@ public class SchedServiceImpl implements SchedService {
 		String schedCat = request.getParameter("schedCat") != null ? (String) request.getParameter("schedCat") : "";			// 활동형태
 		String schedFrom = request.getParameter("schedFrom") != null ? (String) request.getParameter("schedFrom") : "";			// 시작일
 		String schedTo = request.getParameter("schedTo") != null ? (String) request.getParameter("schedTo") : "";				// 마감일
+		String regSDate = request.getParameter("regSDate") != null ? (String) request.getParameter("regSDate") : "";					// 등록 시작일
+		String regEDate = request.getParameter("regEDate") != null ? (String) request.getParameter("regEDate") : "";					// 등록 마감일
 
 		dto.setCompNo(compNo);
 		dto.setUserNo(userNo);
@@ -63,6 +65,8 @@ public class SchedServiceImpl implements SchedService {
 		dto.setSchedCat(schedCat);
 		dto.setSchedFrom(schedFrom);
 		dto.setSchedTo(schedTo);
+		dto.setRegSDate(regSDate);
+		dto.setRegEDate(regEDate);
 
 		String sEcho = request.getParameter("sEcho");
 		String limitstr = request.getParameter("iDisplayLength");

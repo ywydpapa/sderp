@@ -40,7 +40,13 @@
 					data.push({"name":"schedFrom", "value" : ""});
 					data.push({"name":"schedTo", "value" : ""});
 				}
-				console.dir();
+				if($("#regSDate").val() != "" && $("#regEDate").val() != ""){
+					data.push({"name":"regSDate", "value" : $("#regSDate").val()});
+					data.push({"name":"regEDate", "value" : $("#regEDate").val()});
+				} else {
+					data.push({"name":"regSDate", "value" : ""});
+					data.push({"name":"regEDate", "value" : ""});
+				}
 				data.push({"name":"columns","value":this.columns});
 			},
 			// TODO 아래 주석은 서버로 부터 성공시 data 확인하는 용도
@@ -168,7 +174,6 @@
 		});
 
 		schedTable.on( 'draw', function () {
-			console.log("draw 이벤트");
 			setTimeout(fnDrawAfterCss, 10);
 		});
 	});
@@ -437,6 +442,11 @@
 								<input class="form-control form-control-sm col-xl-6" type="date" id="schedFrom" onChange="javascript:inputDate($('#schedFrom').val(), $('#schedTo').val())">
 								~ <input class="form-control form-control-sm col-xl-6"
 									type="date" id="schedTo" onChange="javascript:inputDate($('#schedFrom').val(), $('#schedTo').val())">
+							</p>
+						</div>
+						<div class="col-sm-12 col-xl-3">
+							<label class="col-form-label">등록일</label>
+							<p class="input_inline"><input class="form-control form-control-sm col-xl-6" type="date" id="regSDate" onChange="javascript:inputDate($('#regSDate').val(), $('#regEDate').val())"> ~ <input class="form-control form-control-sm col-xl-6" type="date" id="regEDate" onChange="javascript:inputDate($('#regSDate').val(), $('#regEDate').val())">
 							</p>
 						</div>
 					</div>

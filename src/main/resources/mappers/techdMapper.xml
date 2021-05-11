@@ -35,6 +35,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<if test="techdTo != null and techdTo != ''">
 			and date_format(a.techdTo, '%Y-%m-%d') <![CDATA[<=]]> #{techdTo}
 		</if>
+		<if test="regSDate != null and regSDate != ''">
+			and date_format(a.regDatetime, '%Y-%m-%d') <![CDATA[>=]]> #{regSDate}
+		</if>
+		<if test="regEDate != null and regEDate != ''">
+			and date_format(a.regDatetime, '%Y-%m-%d') <![CDATA[<=]]> #{regEDate}
+		</if>
 		<if test="techdDesc != null and techdDesc != ''">
 			and a.techdDesc like CONCAT('%', #{techdDesc}, '%')
 		</if>
@@ -98,6 +104,12 @@ from
 	</if>
 	<if test="techdTo != null and techdTo != ''">
 		and date_format(a.techdTo, '%Y-%m-%d') <![CDATA[<=]]> #{techdTo}
+	</if>
+	<if test="regSDate != null and regSDate != ''">
+		and date_format(a.regDatetime, '%Y-%m-%d') <![CDATA[>=]]> #{regSDate}
+	</if>
+	<if test="regEDate != null and regEDate != ''">
+		and date_format(a.regDatetime, '%Y-%m-%d') <![CDATA[<=]]> #{regEDate}
 	</if>
 	<if test="techdDesc != null and techdDesc != ''">
 		and a.techdDesc like CONCAT('%', #{techdDesc}, '%')

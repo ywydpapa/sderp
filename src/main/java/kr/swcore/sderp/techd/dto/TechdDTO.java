@@ -39,6 +39,10 @@ public class TechdDTO extends PageDTO {
 	private String targetDateto;
 	private String schedType;
 	private String cntrctMth;
+
+	// 확장
+	private String regSDate;	// 등록일 시작
+	private String regEDate;	// 등록일 끝
 	
 	public TechdDTO() {
 		super();

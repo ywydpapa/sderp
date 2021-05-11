@@ -37,6 +37,13 @@
 					data.push({"name":"salesFrdatetime", "value" : ""});
 					data.push({"name":"salesTodatetime", "value" : ""});
 				}
+				if($("#regSDate").val() != "" && $("#regEDate").val() != ""){
+					data.push({"name":"regSDate", "value" : $("#regSDate").val()});
+					data.push({"name":"regEDate", "value" : $("#regEDate").val()});
+				} else {
+					data.push({"name":"regSDate", "value" : ""});
+					data.push({"name":"regEDate", "value" : ""});
+				}
 			},
 			// TODO 아래 주석은 서버로 부터 성공시 data 확인하는 용도
 			/*
@@ -198,7 +205,6 @@
 		});
 
 		salesTable.on('draw', function () {
-			console.log("draw 이벤트");
 			setTimeout(fnDrawAfterCss, 10);
 		});
 	});
@@ -400,12 +406,18 @@
 								
 							</div>
 							<div class="form-group row">
-								<div class="col-sm-12 col-xl-6">
-									<label class="col-form-label" for="co_name">활동일</label>
+								<div class="col-sm-12 col-xl-3">
+									<label class="col-form-label">활동일</label>
 									<p class="input_inline"><input class="form-control form-control-sm col-xl-6" type="date" id="salesFrdatetime" onChange="javascript:inputDate($('#salesFrdatetime').val(), $('#salesTodatetime').val())"> ~ <input class="form-control form-control-sm col-xl-6" type="date" id="salesTodatetime" onChange="javascript:inputDate($('#salesFrdatetime').val(), $('#salesTodatetime').val())">
 									</p>
 								</div>
+								<div class="col-sm-12 col-xl-3">
+									<label class="col-form-label">등록일</label>
+									<p class="input_inline"><input class="form-control form-control-sm col-xl-6" type="date" id="regSDate" onChange="javascript:inputDate($('#regSDate').val(), $('#regEDate').val())"> ~ <input class="form-control form-control-sm col-xl-6" type="date" id="regEDate" onChange="javascript:inputDate($('#regSDate').val(), $('#regEDate').val())">
+									</p>
+								</div>
 							</div>
+
 						</div>	
 					</div>
 				

@@ -35,6 +35,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<if test="salesTodatetime != null and salesTodatetime != ''">
 			and date_format(a.salesTodatetime, '%Y-%m-%d') <![CDATA[<=]]> #{salesTodatetime}
 		</if>
+		<if test="regSDate != null and regSDate != ''">
+			and date_format(a.regDatetime, '%Y-%m-%d') <![CDATA[>=]]> #{regSDate}
+		</if>
+		<if test="regEDate != null and regEDate != ''">
+			and date_format(a.regDatetime, '%Y-%m-%d') <![CDATA[<=]]> #{regEDate}
+		</if>
 		) subquery1
 	<if test="sSearch != null and sSearch != ''">
 	where
@@ -93,6 +99,12 @@ from
 		</if>
 		<if test="salesTodatetime != null and salesTodatetime != ''">
 			and date_format(a.salesTodatetime, '%Y-%m-%d') <![CDATA[<=]]> #{salesTodatetime}
+		</if>
+		<if test="regSDate != null and regSDate != ''">
+			and date_format(a.regDatetime, '%Y-%m-%d') <![CDATA[>=]]> #{regSDate}
+		</if>
+		<if test="regEDate != null and regEDate != ''">
+			and date_format(a.regDatetime, '%Y-%m-%d') <![CDATA[<=]]> #{regEDate}
 		</if>
 		) subquery1
 	<if test="sSearch != null and sSearch != ''">

@@ -47,6 +47,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			<if test="schedTo != null and schedTo != ''">
 				and date_format(a.schedTo, '%Y-%m-%d') <![CDATA[<=]]> #{schedTo}
 			</if>
+			<if test="regSDate != null and regSDate != ''">
+				and date_format(a.regDatetime, '%Y-%m-%d') <![CDATA[>=]]> #{regSDate}
+			</if>
+			<if test="regEDate != null and regEDate != ''">
+				and date_format(a.regDatetime, '%Y-%m-%d') <![CDATA[<=]]> #{regEDate}
+			</if>
 			<if test="schedType != null and schedType != ''">
 				and schedType = #{schedType}
 			</if>
@@ -95,6 +101,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			<if test="schedTo != null and schedTo != ''">
 				and date_format(a.salesTodatetime, '%Y-%m-%d') <![CDATA[<=]]> #{schedTo}
 			</if>
+			<if test="regSDate != null and regSDate != ''">
+				and date_format(a.regDatetime, '%Y-%m-%d') <![CDATA[>=]]> #{regSDate}
+			</if>
+			<if test="regEDate != null and regEDate != ''">
+				and date_format(a.regDatetime, '%Y-%m-%d') <![CDATA[<=]]> #{regEDate}
+			</if>
 			<if test="schedType != null and schedType != ''">
 				and schedType = #{schedType}
 			</if>
@@ -142,6 +154,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			</if>
 			<if test="schedTo != null and schedTo != ''">
 				and date_format(a.techdTo, '%Y-%m-%d') <![CDATA[<=]]> #{schedTo}
+			</if>
+			<if test="regSDate != null and regSDate != ''">
+				and date_format(a.regDatetime, '%Y-%m-%d') <![CDATA[>=]]> #{regSDate}
+			</if>
+			<if test="regEDate != null and regEDate != ''">
+				and date_format(a.regDatetime, '%Y-%m-%d') <![CDATA[<=]]> #{regEDate}
 			</if>
 			<if test="schedType != null and schedType != ''">
 				and schedType = #{schedType}
@@ -204,6 +222,12 @@ from
 	<if test="schedTo != null and schedTo != ''">
 		and date_format(a.schedTo, '%Y-%m-%d') <![CDATA[<=]]> #{schedTo}
 	</if>
+	<if test="regSDate != null and regSDate != ''">
+		and date_format(a.regDatetime, '%Y-%m-%d') <![CDATA[>=]]> #{regSDate}
+	</if>
+	<if test="regEDate != null and regEDate != ''">
+		and date_format(a.regDatetime, '%Y-%m-%d') <![CDATA[<=]]> #{regEDate}
+	</if>
 	<if test="schedType != null and schedType != ''">
 		and schedType = #{schedType}
 	</if>
@@ -252,6 +276,12 @@ from
 	<if test="schedTo != null and schedTo != ''">
 		and date_format(a.salesTodatetime, '%Y-%m-%d') <![CDATA[<=]]> #{schedTo}
 	</if>
+	<if test="regSDate != null and regSDate != ''">
+		and date_format(a.regDatetime, '%Y-%m-%d') <![CDATA[>=]]> #{regSDate}
+	</if>
+	<if test="regEDate != null and regEDate != ''">
+		and date_format(a.regDatetime, '%Y-%m-%d') <![CDATA[<=]]> #{regEDate}
+	</if>
 	<if test="schedType != null and schedType != ''">
 		and schedType = #{schedType}
 	</if>
@@ -299,6 +329,12 @@ from
 	</if>
 	<if test="schedTo != null and schedTo != ''">
 		and date_format(a.techdTo, '%Y-%m-%d') <![CDATA[<=]]> #{schedTo}
+	</if>
+	<if test="regSDate != null and regSDate != ''">
+		and date_format(a.regDatetime, '%Y-%m-%d') <![CDATA[>=]]> #{regSDate}
+	</if>
+	<if test="regEDate != null and regEDate != ''">
+		and date_format(a.regDatetime, '%Y-%m-%d') <![CDATA[<=]]> #{regEDate}
 	</if>
 	<if test="schedType != null and schedType != ''">
 		and schedType = #{schedType}

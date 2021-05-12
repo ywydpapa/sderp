@@ -295,8 +295,9 @@
 								<table class="table table-sm bst02" id="addinout">
 									<colgroup>
 										<col width="5%" />
-										<col width="30%" />
-										<col width="15%" />
+										<col width="17.5%" />
+										<col width="17.5%" />
+										<col width="10%" />
 										<col width="10%" />
 										<col width="20%" />
 										<col width="15%" />
@@ -304,7 +305,8 @@
 									</colgroup>
 									<thead>
 										<tr>
-											<th class="text-center">구분(매입/매출)</th>
+											<th class="text-center">구분<br/>(매입/매출)</th>
+											<th class="text-center">거래처<br/>(매입/매출처)</th>
 											<th class="text-center">항목</th>
 											<th class="text-center">단가</th>
 											<th class="text-center">수량</th>
@@ -315,10 +317,42 @@
 									</thead>
 									<tbody>
 										<tr class="item1">
-											<td><select id="data01Type" name="data01Type">
+											<td>
+												<select id="data01Type" name="data01Type">
 													<option value="1101">매입</option>
 													<option value="1102">매출</option>
-											</select></td>
+												</select>
+											</td>
+											<td>
+												<div class="input-group input-group-sm mb-0">
+													<input type="text" class="form-control" name="product" id="productCustName2" value="" />
+													<input type="hidden" id="productCustNo2" value="" />
+													<span class="input-group-btn">
+														<button class="btn btn-primary sch-company" data-remote="${path}/modal/popup.do?popId=cust" type="button" data-toggle="modal" data-target="#productCustModal2">
+															<i class="icofont icofont-search"></i>
+														</button>
+													</span>
+													<!--modal-->
+													<div class="modal fade " id="productCustModal2" tabindex="-1" role="dialog">
+														<div class="modal-dialog modal-80size" role="document">
+															<div class="modal-content modal-80size">
+																<div class="modal-header">
+																	<h4 class="modal-title">매입/매출 거래처 목록</h4>
+																	<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+																		<span aria-hidden="true">&times;</span>
+																	</button>
+																</div>
+																<div class="modal-body">
+																</div>
+																<div class="modal-footer">
+																	<button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
+																</div>
+															</div>
+														</div>
+													</div>
+													<!--//modal-->
+												</div>
+											</td>
 											<td>
 												<div class="input-group input-group-sm mb-0">
 													<input type="hidden" id="productNo1" value="" />
@@ -450,10 +484,12 @@
 									</thead>
 									<tbody>
 										<tr class="item1">
-											<td><select id="data02Type">
+											<td>
+												<select id="data02Type">
 													<option value="2201">상품</option>
 													<option value="2202">서비스</option>
-											</select></td>
+												</select>
+											</td>
 											<td>
 												<div class="input-group input-group-sm mb-0">
 													<input type="hidden" id="productNo2" value="" />
@@ -487,7 +523,8 @@
 															</div>
 														</div>
 													</div>
-												</div> <!--//모달 팝업-->
+												</div>
+												<!--//모달 팝업-->
 
 											</td>
 											<td><input type="text"
@@ -539,8 +576,10 @@
 								<tbody>
 									<c:forEach var="row2" items="${dtodata02}">
 										<tr class="item1">
-											<td><c:if test="${row2.dataType eq '2201'}">상품 </c:if>
-												<c:if test="${row2.dataType eq '2202'}">서비스</c:if></td>
+											<td>
+												<c:if test="${row2.dataType eq '2201'}">상품 </c:if>
+												<c:if test="${row2.dataType eq '2202'}">서비스</c:if>
+											</td>
 											<td>${row2.dataTitle}</td>
 											<td style="text-align: right"><fmt:formatNumber
 													value="${row2.dataNetprice}" pattern="#,###" /></td>
@@ -553,6 +592,13 @@
 													onClick="javascript:fn_data02delete(${row2.soppdataNo})">삭제</button></td>
 										</tr>
 									</c:forEach>
+								</tbody>
+							</table>
+							<table class="table table-sm bst02" id="qutylistSum">
+								<tbody>
+									<tr>
+										<td></td>
+									</tr>
 								</tbody>
 							</table>
 							<div class="btn_wr text-right mt-3">

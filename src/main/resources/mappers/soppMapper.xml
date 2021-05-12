@@ -384,6 +384,7 @@ from
 userNo,
 catNo,
 productNo,
+salesCustNo,
 dataTitle,
 dataDesc,
 dataType,
@@ -398,6 +399,7 @@ regDatetime)
 #{userNo},
 #{catNo},
 #{productNo},
+#{salesCustNo},
 #{dataTitle},
 #{dataDesc},
 #{dataType},
@@ -419,20 +421,24 @@ now()
 
 <select id="listSoppdata01"
  		resultType="soppdataDto">
- 		select a.*, b.soppTitle from swc_soppData01 a  
+ 		select a.*, b.soppTitle, c.custName as salesCustNoN
+ 		from swc_soppData01 a
 		left join swc_sopp b on a.soppNo = b.soppNo
+ 		left join swc_cust c on a.salesCustNo = c.custNo
 		where a.attrib not like 'XXX%' 
 		AND a.soppNo=#{soppNo} and a.catNo=100001
-		order by soppdataNo 
+		order by dataType, regDatetime desc
  </select>
 
 <select id="listSoppdata02"
  		resultType="soppdataDto">
- 		select a.*, b.soppTitle from swc_soppData01 a  
+ 		select a.*, b.soppTitle, c.custName as salesCustNoN
+ 		from swc_soppData01 a
 		left join swc_sopp b on a.soppNo = b.soppNo
+		left join swc_cust c on a.salesCustNo = c.custNo
 		where a.attrib not like 'XXX%' 
 		AND a.soppNo=#{soppNo} and a.catNo=100004
-		order by soppdataNo 
+		order by dataType, regDatetime desc
  </select>
  
  <insert id="uploadFile">

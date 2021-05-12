@@ -267,19 +267,19 @@
 	#soppTable > tbody > tr > td:nth-child(4) {
 		overflow: hidden;
 		text-overflow: ellipsis;
-		max-width: 380px;
+		max-width: 230px;
 		white-space: nowrap;
 	}
 	#soppTable > tbody > tr > td:nth-child(5) {
 		overflow: hidden;
 		text-overflow: ellipsis;
-		max-width: 240px;
+		max-width: 230px;
 		white-space: nowrap;
 	}
 	#soppTable > tbody > tr > td:nth-child(6) {
 		overflow: hidden;
 		text-overflow: ellipsis;
-		max-width: 240px;
+		max-width: 230px;
 		white-space: nowrap;
 	}
 </style>
@@ -494,8 +494,8 @@
 				<div class="table-responsive">
 					<table id="soppTable" class="table table-striped table-bordered nowrap ">
 						<colgroup>
-							<col width="3%">
-							<col width="3%">
+							<col width="2.5%">
+							<col width="2.5%">
 							<col width="5%">
 							<col width="30%">
 							<col width="7.5%">

@@ -17,6 +17,7 @@ public class SoppdataDTO {
 	private String soppTitle;
 	private int catNo;
 	private int productNo;
+	private int salesCustNo;
 	private String catTitle;
 	private String dataTitle;
 	private String dataDesc;
@@ -28,6 +29,10 @@ public class SoppdataDTO {
 	private String linkType;
 	private String linkNo;
 	private String attrib;
+	private String regDatetime;
+
+	// 확장
+	private String salesCustNoN;
 
 	public SoppdataDTO() {
 		super();

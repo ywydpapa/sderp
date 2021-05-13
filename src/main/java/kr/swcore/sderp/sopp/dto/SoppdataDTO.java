@@ -33,6 +33,7 @@ public class SoppdataDTO {
 
 	// 확장
 	private String salesCustNoN;
+	private Integer productDataNo;
 
 	public SoppdataDTO() {
 		super();

@@ -40,7 +40,7 @@
 				)
 			</td>
 			<td>${row.salesCustNoN}<input hidden value="${row.salesCustNo}"></td>
-			<td>${row.dataTitle}</td>
+			<td>${row.dataTitle}<input hidden value="${row.productNo}"></td>
 			<td style="text-align: right"><fmt:formatNumber value="${row.dataNetprice}" pattern="#,###" /></td>
 			<td style="text-align: right"><fmt:formatNumber value="${row.dataQuanty}" pattern="#,###" /></td>
 			<td style="text-align: right"><fmt:formatNumber value="${row.dataAmt}" pattern="#,###" /></td>
@@ -66,10 +66,33 @@
 			} else if(dataType== 1102){
 				$("#data01Type option:eq(1)").attr("selected","selected");
 			}
+			debugger;
+
 			var salesCustNoN = $(tr).children().eq(1)[0].innerText;
-			var salesCustNo = Number($(tr).children().eq(1).find("input[type=hidden]").val());
+			var salesCustNo = Number($(tr).children().eq(1)[0].children[0].value);
 			$("#productSalesInOutCustName").val(salesCustNoN);
 			$("#productSalesInOutCustNo").val(salesCustNo);
+
+			var data01Title = $(tr).children().eq(2)[0].innerText;
+			var productNo1 = Number($(tr).children().eq(2)[0].children[0].value);
+			$("#data01Title").val(data01Title);
+			$("#productNo1").val(productNo1);
+
+
+			var data01Netprice = $(tr).children().eq(3)[0].innerText;
+			// var data01NetpriceNum = Number(data01Netprice.replace(',',''));
+			$("#data01Netprice").val(data01Netprice);
+
+			var data01Quanty = $(tr).children().eq(4)[0].innerText;
+			// var data01QuantyNum = Number(data01Quanty.replace(',',''));
+			$("#data01Quanty").val(data01Quanty);
+
+			var data01Amt = $(tr).children().eq(5)[0].innerText;
+			$("#data01Amt").val(data01Amt);
+
+			var data01Remark = $(tr).children().eq(6)[0].innerText;
+			$("#data01Remark").val(data01Remark);
+
 			$(e).removeClass("btn-dark");
 			$(e).addClass("btn-warning");
 			$(e).html('취소');
@@ -80,6 +103,13 @@
 			$("#data01Type option:eq(0)").attr("selected","selected");
 			$("#productSalesInOutCustName").val("");
 			$("#productSalesInOutCustNo").val("");
+			$("#productNo1").val("");
+			$("#data01Title").val("");
+			$("#data01Netprice").val("");
+			$("#data01Quanty").val("");
+			$("#data01Amt").val("");
+			$("#data01Remark").val("");
+
 			$(e).addClass("btn-dark");
 			$(e).removeClass("btn-warning");
 			$(e).html('수정');

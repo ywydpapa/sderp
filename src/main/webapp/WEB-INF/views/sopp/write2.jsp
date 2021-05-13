@@ -751,6 +751,7 @@ $(document).ready(function(){
 		$("#data01Amt").val(sum.toLocaleString("en-US"));
 	});
 	$('#data02Netprice,#data02Qty').on('keyup',function(){
+		// data02Quanty
 
 		var sum1 = parseInt($("#data02Netprice").val().replace(/[\D\s\._\-]+/g, "") || 0 );
 		var sum2 = parseInt($("#data02Qty").val().replace(/[\D\s\._\-]+/g, "") || 0);

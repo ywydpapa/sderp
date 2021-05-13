@@ -165,6 +165,11 @@ public class HomeController {
 			model.addAttribute("list",list);
 			rtn = "modal/productdataListSalesInOutCust";
 		}
+		else if("productdataListSalesEstimateCust".equals(popId)) {
+			List<CustDTO> list=custService.listCust(session);
+			model.addAttribute("list",list);
+			rtn = "modal/productdataListSalesEstimateCust";
+		}
 		else if("endCust".equals(popId)) {
 			List<CustDTO> list=custService.listCust(session);
 			model.addAttribute("list",list);

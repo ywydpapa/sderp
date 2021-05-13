@@ -100,27 +100,35 @@
 <script>
 	var product01In = [
 		<c:forEach var="row" items="${dtodata01}" varStatus="i">
-			<c:if test="${row.dataType eq '1101'}">${row.dataNetprice},</c:if>
-			<c:if test="${i.last}">${row.dataNetprice}</c:if>
+			<c:if test="${row.dataType eq '1101'}">
+				<c:if test="${!i.last}">${row.dataNetprice},</c:if>
+				<c:if test="${i.last}">${row.dataNetprice}</c:if>
+			</c:if>
 		</c:forEach>
 	];
 	var product01InQuanty = [
 		<c:forEach var="row" items="${dtodata01}" varStatus="i">
-		<c:if test="${row.dataType eq '1101'}">${row.dataQuanty},</c:if>
-		<c:if test="${i.last}">${row.dataQuanty}</c:if>
+		<c:if test="${row.dataType eq '1101'}">
+			<c:if test="${!i.last}">${row.dataQuanty},</c:if>
+			<c:if test="${i.last}">${row.dataQuanty}</c:if>
+		</c:if>
 		</c:forEach>
 	];
 	var product01InSum = 0;
 	var product01Out = [
 		<c:forEach var="row" items="${dtodata01}" varStatus="i">
-		<c:if test="${row.dataType eq '1102'}">${row.dataNetprice},</c:if>
-		<c:if test="${i.last}">${row.dataNetprice}</c:if>
+		<c:if test="${row.dataType eq '1102'}">
+			<c:if test="${!i.last}">${row.dataNetprice},</c:if>
+			<c:if test="${i.last}">${row.dataNetprice}</c:if>
+		</c:if>
 		</c:forEach>
 	];
-	var product02OutQuanty = [
+	var product01OutQuanty = [
 		<c:forEach var="row" items="${dtodata01}" varStatus="i">
-		<c:if test="${row.dataType eq '1102'}">${row.dataQuanty},</c:if>
-		<c:if test="${i.last}">${row.dataQuanty}</c:if>
+		<c:if test="${row.dataType eq '1102'}">
+			<c:if test="${!i.last}">${row.dataQuanty},</c:if>
+			<c:if test="${i.last}">${row.dataQuanty}</c:if>
+		</c:if>
 		</c:forEach>
 	];
 	var product01OutSum = 0;
@@ -218,12 +226,12 @@
 		}
 	}
 
-	$(function(){
+	$(document).ready(function(){
 		for (var i = 0; i < product01In.length; i++) {
 			product01InSum += (product01In[i] * product01InQuanty[i]);
 		}
 		for (var i = 0; i < product01Out.length; i++) {
-			product01OutSum += (product01Out[i] * product02OutQuanty[i]);
+			product01OutSum += (product01Out[i] * product01OutQuanty[i]);
 		}
 		product01DiffSum = product01OutSum - product01InSum;
 		$("#product01InSum").html('₩'+product01InSum.toLocaleString("en-US"));

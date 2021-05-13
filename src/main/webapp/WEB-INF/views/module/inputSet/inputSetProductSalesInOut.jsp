@@ -3,6 +3,13 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <c:set var="path" value ="${pageContext.request.contextPath}"/>
 <form name="form2" method="post" onsubmit="return false;">
+    <table class="table table-sm bst02">
+        <tbody>
+        <tr>
+            <th scope="row">매입/매출 목록</th>
+        </tr>
+        </tbody>
+    </table>
     <table class="table table-sm bst02" id="addinout">
         <colgroup>
             <col width="5%" />
@@ -137,13 +144,12 @@
         modal.find('.modal-body').load(button.data("remote"));
     });
 
-
     $("#custRegSimple1").on("click",function (event) {
-        if($("#custRegSimple_div").is(':visible') == false){
+        if($("#custRegSimple_div1").is(':visible') == false){
             $("#custRegSimple_div1").show();
             $("#custRegSimple1").html("간편등록 취소");
         } else {
-            $("#custRegSimple_div").hide();
+            $("#custRegSimple_div1").hide();
             $("#custRegSimple1").html("간편등록");
         }
     });
@@ -218,18 +224,6 @@
                 console.dir(result);
                 if(result.code == 10001){
                     alert("저장 성공");
-
-                    $("#data01Type option:eq(0)").attr("selected","selected");
-                    $("#soppdataNo").val("");
-                    $("#productSalesInOutCustName").val("");
-                    $("#productSalesInOutCustNo").val("");
-                    $("#productNo1").val("");
-                    $("#data01Title").val("");
-                    $("#data01Netprice").val("");
-                    $("#data01Quanty").val("");
-                    $("#data01Amt").val("");
-                    $("#data01Remark").val("");
-
                     $('#productCustModal2').modal('hide');
                     $("#productSalesInOutCustName").val(result.data.custName);
                     $("#productSalesInOutCustNo").val(result.data.custNo);
@@ -268,7 +262,8 @@
             return;
         }
 
-        $.ajax({ url: "${path}/sopp/insertdata01.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
+        $.ajax({
+            url: "${path}/sopp/insertdata01.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
             data: data01Data , // HTTP 요청과 함께 서버로 보낼 데이터
             method: "POST", // HTTP 요청 메소드(GET, POST 등)
             dataType: "json" // 서버에서 보내줄 데이터의 타입
@@ -334,16 +329,6 @@
         .done(function(data) {
             if(data.code == 10001){
                 alert("저장 성공");
-                /*
-                var list = $("#inoutlist").find("tbody > tr > td:nth-last-child(2)");
-                for(var i=0; i<list.length; i++){
-                    console.dir(list[i].children[0].innerText);
-                    var text = list[i].children[0].innerText;
-                    if(text = "취소"){
-                        $(list[i].children[0]).trigger('click');
-                    }
-                }
-                */
                 $("#data01Type option:eq(0)").attr("selected","selected");
                 $("#soppdataNo").val("");
                 $("#productSalesInOutCustName").val("");
@@ -376,7 +361,7 @@
 
 
 
-    $(function(){
+    $(document).ready(function(){
         $('#data01Netprice,#data01Quanty').on('keyup',function(){
 
             var sum1 = parseInt($("#data01Netprice").val().replace(/[\D\s\._\-]+/g, "") || 0 );

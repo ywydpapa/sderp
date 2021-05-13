@@ -33,8 +33,10 @@
 				</select>
 				<select class="custom-select mr-sm-2" name="graph1TargetDepartment" id="graph1TargetDepartment" style="float:right;">
 					<option value = "all" selected>전체</option>
+					<%--
 					<option value = "dept" disabled>부서</option>
 					<option value = "individual" disabled>개인</option>
+					--%>
 				</select>
 			</div>
 			<div class="card-block">
@@ -64,8 +66,10 @@
 				</select>
 				<select class="custom-select mr-sm-1" name="graph2TargetDepartment" id="graph2TargetDepartment" style="float:right;">
 					<option value = "all" selected>전체</option>
+					<%--
 					<option value = "dept" disabled>부서</option>
 					<option value = "individual" disabled>개인</option>
+					--%>
 				</select>
 				<div style="display: inline-block;">
 					<h5>월 계획대비 실적</h5>
@@ -108,8 +112,10 @@
 				</select>
 				<select class="custom-select mr-sm-1" name="graph3TargetDepartment" id="graph3TargetDepartment" style="float:right;">
 					<option value = "all" selected>전체</option>
+					<%--
 					<option value = "dept" disabled>부서</option>
 					<option value = "individual" disabled>개인</option>
+					--%>
 				</select>
 				<div style="display: inline-block;">
 					<h5>누적 계획대비 실적</h5>
@@ -152,8 +158,10 @@
 				</select>
 				<select class="custom-select mr-sm-1" name="graph4TargetDepartment" id="graph4TargetDepartment" style="float:right;">
 					<option value = "all" selected>전체</option>
+					<%--
 					<option value = "dept" disabled>부서</option>
 					<option value = "individual" disabled>개인</option>
+					--%>
 				</select>
 				<div style="display: inline-block;">
 					<h5>누적 판매방식별 실적</h5>
@@ -223,8 +231,10 @@
 					</div>
 					<select class="custom-select mr-sm-2" name="" id="salesTableSelect" style="margin-top: -32px; margin-left: 22px;">
 						<option value = "all">전체</option>
+						<%--
 						<option value = "dept" selected>부서</option>
 						<option value = "individual">개인</option>
+						--%>
 					</select>
 				</div>
 				<div class="card-block">
@@ -272,8 +282,10 @@
 					</div>
 					<select class="custom-select mr-sm-2" name="" id="techdTableSelect" style="margin-top: -32px; margin-left: 22px;">
 						<option value = "all">전체</option>
+						<%--
 						<option value = "dept" selected>부서</option>
 						<option value = "individual">개인</option>
+						--%>
 					</select>
 				</div>
 				<div class="card-block">

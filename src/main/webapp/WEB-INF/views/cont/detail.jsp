@@ -42,19 +42,13 @@
 	<div class="row">
 		<div class="col-lg-12 col-xl-12">
 			<!-- Nav tabs -->
-			<ul class="nav nav-tabs  tabs" role="tablist">
-				<li class="nav-item"><a class="nav-link active"
-										data-toggle="tab" href="#tab01" role="tab">기본정보</a></li>
-				<li class="nav-item"><a class="nav-link" data-toggle="tab"
-										href="#tab02" role="tab">매입매출 내역</a></li>
-				<li class="nav-item"><a class="nav-link" data-toggle="tab"
-										href="#tab03" role="tab">견적 내역</a></li>
-				<li class="nav-item"><a class="nav-link" data-toggle="tab"
-										href="#tab04" role="tab">파일첨부</a></li>
-				<li class="nav-item"><a class="nav-link" data-toggle="tab"
-										href="#tab05" role="tab">기술지원 내역</a></li>
-				<li class="nav-item"><a class="nav-link" data-toggle="tab"
-										href="#tab06" role="tab">영업활동 내역</a></li>
+			<ul class="nav nav-tabs  tabs" role="tablist" id="tablist">
+				<li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#tab01" role="tab">기본정보</a></li>
+				<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#tab02" role="tab">매입매출 내역</a></li>
+				<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#tab03" role="tab">견적 내역</a></li>
+				<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#tab04" role="tab">파일첨부</a></li>
+				<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#tab05" role="tab">기술지원 내역</a></li>
+				<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#tab06" role="tab">영업활동 내역</a></li>
 			</ul>
 			<!-- Tab panes -->
 			<div class="tab-content tabs m-t-20">
@@ -407,275 +401,26 @@
 							</div>
 						</div>
 					</div>
+					<div class="btn_wr text-right mt-3" id="tab01_bottom">
+						<button class="btn btn-md btn-success f-left" onClick="fnSetPage('${path}/cont/list.do')">계약목록</button>
+						<button class="btn btn-md btn-primary" onClick="fn_SaveCont()">계약정보 수정</button>
+						<button class="btn btn-md btn-inverse" onClick="fnSetPage('${path}/cont/list.do')">취소</button>
+					</div>
 				</div>
 				</div>
 				<div class="tab-pane " id="tab02" role="tabpanel">
 					<div class="card-block table-border-style">
 						<div class="table-responsive" style="overflow-x: hidden;">
-							<form name="form2" method="post" onsubmit="return false;">
-								<table class="table table-sm bst02" id="addinout">
-									<colgroup>
-										<col width="5%" />
-										<col width="30%" />
-										<col width="15%" />
-										<col width="10%" />
-										<col width="20%" />
-										<col width="15%" />
-										<col width="5%" />
-									</colgroup>
-									<thead>
-									<tr>
-										<th class="text-center">구분(매입/매출)</th>
-										<th class="text-center">항목</th>
-										<th class="text-center">단가</th>
-										<th class="text-center">수량</th>
-										<th class="text-center">금액</th>
-										<th class="text-center">비고</th>
-										<th class="text-center">삭제</th>
-									</tr>
-									</thead>
-									<tbody>
-									<tr class="item1">
-										<td><select id="data01Type" name="data01Type">
-											<option value="1101">매입</option>
-											<option value="1102">매출</option>
-										</select></td>
-										<td>
-											<div class="input-group input-group-sm mb-0">
-												<input type="hidden" id="productNo1" value="" /> <input
-													type="text" class="form-control" name="product"
-													id="data01Title" value="" /> <span
-													class="input-group-btn">
-														<button class="btn btn-primary sch-company"
-																onclick="fn_productdataTableReload()" type="button"
-																data-toggle="modal" data-target="#productdataModal">
-															<i class="icofont icofont-search"></i>
-														</button>
-													</span>
-											</div> <!--모달 팝업-->
-											<div class="modal fade" id="productdataModal" tabindex="-1"
-												 role="dialog">
-												<div class="modal-dialog modal-80size" role="document">
-													<div class="modal-content modal-80size">
-														<div class="modal-header">
-															<h4 class="modal-title">상품목록</h4>
-															<button type="button" class="close" data-dismiss="modal"
-																	aria-label="Close">
-																<span aria-hidden="true">&times;</span>
-															</button>
-														</div>
-														<div class="modal-body">
-															<jsp:include
-																	page="/WEB-INF/views/modal/productdataListSalesInOut.jsp" />
-														</div>
-														<div class="modal-footer">
-															<button type="button"
-																	class="btn btn-default waves-effect "
-																	data-dismiss="modal">Close</button>
-														</div>
-													</div>
-												</div>
-											</div> <!--//모달 팝업-->
-										</td>
-										<td><input type="text" id="data01Netprice" required
-												   class="form-control form-control-sm"
-												   style="min-width: 80px;" /></td>
-										<td><input type="text" id="data01Quanty" required
-												   class="form-control form-control-sm"
-												   style="min-width: 80px;" /></td>
-										<td><input type="text" id="data01Amt"
-												   class="form-control form-control-sm" readonly
-												   placeholder="자동계산됩니다." style="min-width: 80px;" /></td>
-										<td><input type="text" id="data01Remark"
-												   class="form-control form-control-sm" /></td>
-										<td><button id="data01Addbtn"
-													onClick="javascript:fn_data01Insert()">추가</button></td>
-									</tr>
-									</tbody>
-								</table>
-							</form>
-
-							<table class="table table-sm bst02" id="inoutlist">
-								<colgroup>
-									<col width="5%" />
-									<col width="30%" />
-									<col width="15%" />
-									<col width="10%" />
-									<col width="20%" />
-									<col width="15%" />
-									<col width="5%" />
-								</colgroup>
-								<thead>
-								<tr>
-									<th class="text-center">구분(매입/매출)</th>
-									<th class="text-center">항목</th>
-									<th class="text-center">단가</th>
-									<th class="text-center">수량</th>
-									<th class="text-center">금액</th>
-									<th class="text-center">비고</th>
-									<th class="text-center">삭제</th>
-								</tr>
-								</thead>
-								<tbody>
-									<c:forEach var="row" items="${dtodata01}">
-										<tr class="item1">
-											<td><c:if test="${row.dataType eq '1101'}">매입 </c:if>
-												<c:if test="${row.dataType eq '1102'}">매출 </c:if></td>
-											<td>${row.dataTitle}</td>
-											<td style="text-align: right"><fmt:formatNumber value="${row.dataNetprice}" pattern="#,###" /></td>
-											<td style="text-align: right"><fmt:formatNumber value="${row.dataQuanty}" pattern="#,###" /></td>
-											<td style="text-align: right"><fmt:formatNumber value="${row.dataAmt}" pattern="#,###" /></td>
-											<td>${row.dataRemark}</td>
-											<td><button id="inoutDelbtn" onClick="javascript:fn_data01delete(${row.soppdataNo})">삭제</button></td>
-										</tr>
-									</c:forEach>
-								</tbody>
-							</table>
+							<jsp:include page="/WEB-INF/views/module/inputSet/inputSetProductSalesInOut.jsp"/>
+							<jsp:include page="/WEB-INF/views/sopp/inoutlist.jsp"/>
 						</div>
 					</div>
 				</div>
 				<div class="tab-pane " id="tab03" role="tabpanel">
 					<div class="card-block table-border-style">
 						<div class="table-responsive" style="overflow-x: hidden;">
-							<form name="form2" method="post" onsubmit="return false;">
-								<table class="table table-sm bst02">
-									<tbody>
-									<tr>
-										<th scope="row">견적추가</th>
-									</tr>
-									</tbody>
-								</table>
-								<table class="table table-sm bst02" id="addquty">
-									<colgroup>
-										<col width="5%" />
-										<col width="30%" />
-										<col width="15%" />
-										<col width="10%" />
-										<col width="20%" />
-										<col width="15%" />
-										<col width="5%" />
-									</colgroup>
-									<thead>
-									<tr>
-										<th class="text-center">구분(상품/서비스)</th>
-										<th class="text-center">항목</th>
-										<th class="text-center">단가</th>
-										<th class="text-center">수량</th>
-										<th class="text-center">금액</th>
-										<th class="text-center">비고</th>
-										<th class="text-center">추가</th>
-									</tr>
-									</thead>
-									<tbody>
-									<tr class="item1">
-										<td><select id="data02Type">
-											<option value="2201">상품</option>
-											<option value="2202">서비스</option>
-										</select></td>
-										<td>
-											<div class="input-group input-group-sm mb-0">
-												<input type="hidden" id="productNo2" value="" /> <input
-													type="text" class="form-control" name="product"
-													id="data02Title" value="" /> <span
-													class="input-group-btn">
-														<button class="btn btn-primary sch-company"
-																onclick="fn_productdataTableReload2()" type="button"
-																data-toggle="modal" data-target="#productdataModal2">
-															<i class="icofont icofont-search"></i>
-														</button>
-													</span>
-											</div> <!--모달 팝업-->
-											<div class="modal fade" id="productdataModal2" tabindex="-1"
-												 role="dialog">
-												<div class="modal-dialog modal-80size" role="document">
-													<div class="modal-content modal-80size">
-														<div class="modal-header">
-															<h4 class="modal-title">상품목록</h4>
-															<button type="button" class="close" data-dismiss="modal"
-																	aria-label="Close">
-																<span aria-hidden="true">&times;</span>
-															</button>
-														</div>
-														<div class="modal-body">
-															<%--<%@ include file="/WEB-INF/views/modal/productdataList.jsp" %>--%>
-															<jsp:include
-																	page="/WEB-INF/views/modal/productdataListSalesEstimate.jsp" />
-														</div>
-														<div class="modal-footer">
-															<button type="button"
-																	class="btn btn-default waves-effect "
-																	data-dismiss="modal">Close</button>
-														</div>
-													</div>
-												</div>
-											</div> <!--//모달 팝업-->
-
-										</td>
-										<td><input type="text"
-												   class="form-control form-control-sm" id="data02Netprice"
-												   style="min-width: 80px;" /></td>
-										<td><input type="text"
-												   class="form-control form-control-sm" id="data02Qty"
-												   style="min-width: 80px;" /></td>
-										<td><input type="text"
-												   class="form-control form-control-sm" id="data02Amt"
-												   style="min-width: 80px;" readonly /></td>
-										<td><input type="text" id="data02Remark"
-												   class="form-control form-control-sm" /></td>
-										<td><button id="data02Addbtn"
-													onClick="javascript:fn_data02Insert()">추가</button></td>
-									</tr>
-									</tbody>
-								</table>
-
-							</form>
-							<table class="table table-sm bst02">
-								<tbody>
-								<tr>
-									<th scope="row">견적목록</th>
-								</tr>
-								</tbody>
-							</table>
-							<table class="table table-sm bst02" id="qutylist">
-								<colgroup>
-									<col width="5%" />
-									<col width="30%" />
-									<col width="15%" />
-									<col width="10%" />
-									<col width="20%" />
-									<col width="15%" />
-									<col width="5%" />
-								</colgroup>
-								<thead>
-								<tr>
-									<th class="text-center">구분(상품/서비스)</th>
-									<th class="text-center">항목</th>
-									<th class="text-center">단가</th>
-									<th class="text-center">수량</th>
-									<th class="text-center">금액</th>
-									<th class="text-center">비고</th>
-									<th class="text-center">삭제</th>
-								</tr>
-								</thead>
-								<tbody>
-								<c:forEach var="row2" items="${dtodata02}">
-									<tr class="item1">
-										<td><c:if test="${row2.dataType eq '2201'}">상품 </c:if>
-											<c:if test="${row2.dataType eq '2202'}">서비스</c:if></td>
-										<td>${row2.dataTitle}</td>
-										<td style="text-align: right"><fmt:formatNumber
-												value="${row2.dataNetprice}" pattern="#,###" /></td>
-										<td style="text-align: right"><fmt:formatNumber
-												value="${row2.dataQuanty}" pattern="#,###" /></td>
-										<td style="text-align: right"><fmt:formatNumber
-												value="${row2.dataAmt}" pattern="#,###" /></td>
-										<td>${row2.dataRemark}</td>
-										<td><button id="inoutDelbtn"
-													onClick="javascript:fn_data02delete(${row2.soppdataNo})">삭제</button></td>
-									</tr>
-								</c:forEach>
-								</tbody>
-							</table>
+							<jsp:include page="/WEB-INF/views/module/inputSet/inputSetProductSalesEstimate.jsp"/>
+							<jsp:include page="/WEB-INF/views/sopp/qutylist.jsp"/>
 						</div>
 					</div>
 				</div>
@@ -815,439 +560,425 @@
 					</div>
 				</div>
 			</div>
-			<div class="btn_wr text-right mt-3">
+			<div class="btn_wr text-right mt-3" id="tab_common_bottom">
 				<button class="btn btn-md btn-success f-left" onClick="fnSetPage('${path}/cont/list.do')">계약목록</button>
-				<button class="btn btn-md btn-primary" onClick="fn_SaveCont()">계약정보 수정</button>
-				<button class="btn btn-md btn-inverse" onClick="fnSetPage('${path}/cont/list.do')">취소</button>
 			</div>
 <!--//계약등록-->
 
 <script>
-		$('#custModal').on('show.bs.modal', function(e) {
-			var button = $(e.relatedTarget);
-			var modal = $(this);
-			modal.find('.modal-body').load(button.data("remote"));
-		});
-		$('#userModal').on('show.bs.modal', function(e) {
-			var button = $(e.relatedTarget);
-			var modal = $(this);
-			modal.find('.modal-body').load(button.data("remote"));
-		});
-		$('#ptncModal').on('show.bs.modal', function(e) {
-			var button = $(e.relatedTarget);
-			var modal = $(this);
-			modal.find('.modal-body').load(button.data("remote"));
-		});
-		$('#soppModal').on('show.bs.modal', function(e) {
-			var button = $(e.relatedTarget);
-			var modal = $(this);
-			modal.find('.modal-body').load(button.data("remote"));
-		});
-		$('#supplyModal').on('show.bs.modal', function(e) {
-			var button = $(e.relatedTarget);
-			var modal = $(this);
-			modal.find('.modal-body').load(button.data("remote"));
-		});
-		$('#contModal').on('show.bs.modal', function(e) {
-			var button = $(e.relatedTarget);
-			var modal = $(this);
-			modal.find('.modal-body').load(button.data("remote"));
-		});
+	$("#tablist > li:nth-child(1)").click(function (){
+		$("#tab01_bottom").show();
+		$("#tab_common_bottom").hide();
+	});
+
+	$("#tablist > li:nth-child(n+2)").click(function (){
+		$("#tab01_bottom").hide();
+		$("#tab_common_bottom").show();
+	});
+
+	$('#custModal').on('show.bs.modal', function(e) {
+		var button = $(e.relatedTarget);
+		var modal = $(this);
+		modal.find('.modal-body').load(button.data("remote"));
+	});
+	$('#userModal').on('show.bs.modal', function(e) {
+		var button = $(e.relatedTarget);
+		var modal = $(this);
+		modal.find('.modal-body').load(button.data("remote"));
+	});
+	$('#ptncModal').on('show.bs.modal', function(e) {
+		var button = $(e.relatedTarget);
+		var modal = $(this);
+		modal.find('.modal-body').load(button.data("remote"));
+	});
+	$('#soppModal').on('show.bs.modal', function(e) {
+		var button = $(e.relatedTarget);
+		var modal = $(this);
+		modal.find('.modal-body').load(button.data("remote"));
+	});
+	$('#supplyModal').on('show.bs.modal', function(e) {
+		var button = $(e.relatedTarget);
+		var modal = $(this);
+		modal.find('.modal-body').load(button.data("remote"));
+	});
+	$('#contModal').on('show.bs.modal', function(e) {
+		var button = $(e.relatedTarget);
+		var modal = $(this);
+		modal.find('.modal-body').load(button.data("remote"));
+	});
 
 
-		function fnSetCustData(a, b) {
-			$("#custName").val(a);
-			$("#custNo").val(b);
-			$(".modal-backdrop").remove();
-			$("#custModal").modal("hide");
-		}
-    	
-		function fnSetUserData(a, b) {
-			$("#userNo").val(a);
-			$("#userName").val(b);
-			$(".modal-backdrop").remove();
-			$("#userModal").modal("hide");
-		}
-		
-		function fnSetPtncData(a, b) {
-			$("#ptncNo").val(b);
-			$("#ptncName").val(a);
-			$(".modal-backdrop").remove();
-			$("#ptncModal").modal("hide");
-		}
-		
-		function fnSetSoppData(a, b) {
-			$("#soppNo").val(b);
-			$("#soppTitle").val(a);
-			$(".modal-backdrop").remove();
-			$("#soppModal").modal("hide");
-		}
+	function fnSetCustData(a, b) {
+		$("#custName").val(a);
+		$("#custNo").val(b);
+		$(".modal-backdrop").remove();
+		$("#custModal").modal("hide");
+	}
 
-		function fnSetSupplyData(a, b) {
-			$("#supplyNo").val(b);
-			$("#supplyName").val(a);
-			$(".modal-backdrop").remove();
-			$("#supplyModal").modal("hide");
-		}
+	function fnSetUserData(a, b) {
+		$("#userNo").val(a);
+		$("#userName").val(b);
+		$(".modal-backdrop").remove();
+		$("#userModal").modal("hide");
+	}
 
-		function fnSetContData(a,b,c,d){
-			$("#oldContTitle").val(a);
-			$("#oldContNo").val(b);
-			$(".modal-backdrop").remove();
-			$("#contModal").modal("hide");
-		}
+	function fnSetPtncData(a, b) {
+		$("#ptncNo").val(b);
+		$("#ptncName").val(a);
+		$(".modal-backdrop").remove();
+		$("#ptncModal").modal("hide");
+	}
 
-		function fnToggleLayer() {
-			$(".techdDetailCont").each(function () {
-				if($(this).css('display') == 'none'){
-					$(this).show();
-				} else {
-					$(this).hide();
-				}
-			});
-		}
+	function fnSetSoppData(a, b) {
+		$("#soppNo").val(b);
+		$("#soppTitle").val(a);
+		$(".modal-backdrop").remove();
+		$("#soppModal").modal("hide");
+	}
 
-		function fn_SaveCont() {
-			var contData = {};
-			contData.contNo 					= $("#contNo").val();
-			var contractType					= $("input[name='contractType']:checked").val();	// 신규 영업지원 or 기존계약
-			if(contractType == 'NEW'){
-				contData.soppNo					= $("#soppNo").val();			// 영업기회
-				contData.exContNo				= 0;							// 기존계약
-				contData.cntrctMth				= ${contractType[0].codeNo};
+	function fnSetSupplyData(a, b) {
+		$("#supplyNo").val(b);
+		$("#supplyName").val(a);
+		$(".modal-backdrop").remove();
+		$("#supplyModal").modal("hide");
+	}
+
+	function fnSetContData(a,b,c,d){
+		$("#oldContTitle").val(a);
+		$("#oldContNo").val(b);
+		$(".modal-backdrop").remove();
+		$("#contModal").modal("hide");
+	}
+
+	function fnToggleLayer() {
+		$(".techdDetailCont").each(function () {
+			if($(this).css('display') == 'none'){
+				$(this).show();
 			} else {
-				contData.soppNo					= 0;							// 영업기회
-				contData.exContNo				= $("#oldContNo").val();		// 기존계약
-				contData.cntrctMth				= ${contractType[1].codeNo};
+				$(this).hide();
 			}
-			contData.contTitle 				= $("#contTitle").val(); 		// 계약명
-			if($("#userName").val() != "")			contData.userNo		 	= Number($("#userNo").val());			// 담당사원
-			var net_profit = Number($("#net_profit").val().replace(/[\D\s\._\-]+/g, "")); // 매출이익
-			if (net_profit >= 0){
-				contData.net_profit = net_profit;
-			} else {
-				contData.net_profit = 0;
-			}
-			if($("#custName").val() != "")			contData.custNo 		= Number($("#custNo").val());			// 거래처
-			if($("#custmemberName").val() != "")	contData.custmemberNo	= Number($("#custmemberNo").val());		// 거래처 담당자
-			if($("#endCustName").val() != "") 		contData.buyrNo			= Number($("#endCustNo").val());		// 엔드유저
-			if($("#endCustmemberName").val() != "") contData.buyrMemberNo	= Number($("#endCustmemberNo").val());	// 엔드유저 담당자
-			if($("#contOrddate").val() != "")		contData.contOrddate 			= $("#contOrddate").val();		// 발주일자
-			if($("#supplyDate").val() != "") 		contData.supplyDate = $("#supplyDate").val();		// 공급일자
-			if($("#delivDate").val() != "")  		contData.delivDate	 = $("#delivDate").val();		// 검수일자
+		});
+	}
 
-			var contAmt = Number($("#contAmt").val().replace(/[\D\s\._\-]+/g, ""));			// 계약금액
-			if (contAmt >= 0){
-				contData.contAmt = contAmt;
-			} else {
-				contData.contAmt = 0;
-			}
-			if($("#freemaintSdate").val() != "") contData.freemaintSdate = $("#freemaintSdate").val();	// 무상유지보수 시작일자
-			if($("#freemaintEdate").val() != "") contData.freemaintEdate = $("#freemaintEdate").val();	// 무상유지보수 마감일자
-			if($("#paymaintSdate").val() != "") contData.paymaintSdate = $("#paymaintSdate").val();		// 유상유지보수 시작일자
-			if($("#paymaintEdate").val() != "") contData.paymaintEdate = $("#paymaintEdate").val();		// 유상유지보수 마감일자
-			if($("#vatYn").val() != "")		contData.vatYn					= $("#vatYn").val();			// VAT 포함여부 (기본값 : Y)
-			if($("#contArea").val() != "") 		contData.contArea 				= $("#contArea").val();			// 지역
-			if($("#contType").val() != "")		contData.contType 				= $("#contType").val();			// 판매방식
-			if($("#contDesc").val() != "")		contData.contDesc			 	= $("#contDesc").val();			// 계약내용
+	function fn_SaveCont() {
+		var contData = {};
+		contData.contNo 					= $("#contNo").val();
+		var contractType					= $("input[name='contractType']:checked").val();	// 신규 영업지원 or 기존계약
+		if(contractType == 'NEW'){
+			contData.soppNo					= $("#soppNo").val();			// 영업기회
+			contData.exContNo				= 0;							// 기존계약
+			contData.cntrctMth				= ${contractType[0].codeNo};
+		} else {
+			contData.soppNo					= 0;							// 영업기회
+			contData.exContNo				= $("#oldContNo").val();		// 기존계약
+			contData.cntrctMth				= ${contractType[1].codeNo};
+		}
+		contData.contTitle 				= $("#contTitle").val(); 		// 계약명
+		if($("#userName").val() != "")			contData.userNo		 	= Number($("#userNo").val());			// 담당사원
+		var net_profit = Number($("#net_profit").val().replace(/[\D\s\._\-]+/g, "")); // 매출이익
+		if (net_profit >= 0){
+			contData.net_profit = net_profit;
+		} else {
+			contData.net_profit = 0;
+		}
+		if($("#custName").val() != "")			contData.custNo 		= Number($("#custNo").val());			// 거래처
+		if($("#custmemberName").val() != "")	contData.custmemberNo	= Number($("#custmemberNo").val());		// 거래처 담당자
+		if($("#endCustName").val() != "") 		contData.buyrNo			= Number($("#endCustNo").val());		// 엔드유저
+		if($("#endCustmemberName").val() != "") contData.buyrMemberNo	= Number($("#endCustmemberNo").val());	// 엔드유저 담당자
+		if($("#contOrddate").val() != "")		contData.contOrddate 			= $("#contOrddate").val();		// 발주일자
+		if($("#supplyDate").val() != "") 		contData.supplyDate = $("#supplyDate").val();		// 공급일자
+		if($("#delivDate").val() != "")  		contData.delivDate	 = $("#delivDate").val();		// 검수일자
 
-			if (!contData.contTitle) {
-				alert("계약명 제목을 입력하십시오.");
-				return;
-			} else if (!contData.custNo){
-				alert("매출처를 입력하십시오.");
-				return;
-			}
+		var contAmt = Number($("#contAmt").val().replace(/[\D\s\._\-]+/g, ""));			// 계약금액
+		if (contAmt >= 0){
+			contData.contAmt = contAmt;
+		} else {
+			contData.contAmt = 0;
+		}
+		if($("#freemaintSdate").val() != "") contData.freemaintSdate = $("#freemaintSdate").val();	// 무상유지보수 시작일자
+		if($("#freemaintEdate").val() != "") contData.freemaintEdate = $("#freemaintEdate").val();	// 무상유지보수 마감일자
+		if($("#paymaintSdate").val() != "") contData.paymaintSdate = $("#paymaintSdate").val();		// 유상유지보수 시작일자
+		if($("#paymaintEdate").val() != "") contData.paymaintEdate = $("#paymaintEdate").val();		// 유상유지보수 마감일자
+		if($("#vatYn").val() != "")		contData.vatYn					= $("#vatYn").val();			// VAT 포함여부 (기본값 : Y)
+		if($("#contArea").val() != "") 		contData.contArea 				= $("#contArea").val();			// 지역
+		if($("#contType").val() != "")		contData.contType 				= $("#contType").val();			// 판매방식
+		if($("#contDesc").val() != "")		contData.contDesc			 	= $("#contDesc").val();			// 계약내용
 
-			$.ajax({ url: "${path}/cont/update.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
-						data: contData , // HTTP 요청과 함께 서버로 보낼 데이터 
-						method: "POST", // HTTP 요청 메소드(GET, POST 등) 
-						dataType: "json" // 서버에서 보내줄 데이터의 타입 
-					}) // HTTP 요청이 성공하면 요청한 데이터가 done() 메소드로 전달됨. .
-					.done(function(data) {
-						if(data.code == 10001){
-							alert("저장 성공");
-							fnSetPage('${path}/cont/list.do');
-						}else{
-							alert("저장 실패");
-						}
-					}) // HTTP 요청이 실패하면 오류와 상태에 관한 정보가 fail() 메소드로 전달됨. 
-					.fail(function(xhr, status, errorThrown) { 
-						alert("통신 실패");
-					});
+		if (!contData.contTitle) {
+			alert("계약명 제목을 입력하십시오.");
+			return;
+		} else if (!contData.custNo){
+			alert("매출처를 입력하십시오.");
+			return;
 		}
 
-		function fn_Reloaddata01(url, data){
-			$("#inoutlist").empty();
-			$("#inoutlistSum").remove();
-			$("#inoutlist").load(url, data, function(){
-				setTimeout(function(){
-				}, 500);
-			});
+		$.ajax({
+			url: "${path}/cont/update.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
+			data: contData , // HTTP 요청과 함께 서버로 보낼 데이터
+			method: "POST", // HTTP 요청 메소드(GET, POST 등)
+			dataType: "json" // 서버에서 보내줄 데이터의 타입
+		}) // HTTP 요청이 성공하면 요청한 데이터가 done() 메소드로 전달됨. .
+		.done(function(data) {
+			if(data.code == 10001){
+				alert("저장 성공");
+				fnSetPage('${path}/cont/list.do');
+			}else{
+				alert("저장 실패");
+			}
+		}) // HTTP 요청이 실패하면 오류와 상태에 관한 정보가 fail() 메소드로 전달됨.
+		.fail(function(xhr, status, errorThrown) {
+			alert("통신 실패");
+		});
+	}
 
+	function fn_Reloaddata01(url, data){
+		$("#inoutlist").empty();
+		$("#inoutlistSum").remove();
+		$("#inoutlist").load(url, data, function(){
+			setTimeout(function(){
+			}, 500);
+		});
+	}
+
+	function fn_Reloaddata02(url, data){
+		$("#qutylist").empty();
+		$("#qutylistSum").remove();
+		$("#qutylist").load(url, data, function(){
+			setTimeout(function(){
+			}, 500);
+		});
+	}
+
+	function fn_data01Insert() {
+		var data01Data = {};
+		data01Data.soppNo 		= $("#soppNo").val();
+		data01Data.catNo	 	= '100001';
+		var productNo			= $("#productNo1").val();
+		if(productNo != ""){
+			data01Data.productNo	= productNo;
+		} else {
+			data01Data.productNo	= 0;
+		}
+		data01Data.dataTitle 	= $("#data01Title").val();
+		data01Data.dataType		= $("#data01Type").val();
+		data01Data.dataNetprice	= $("#data01Netprice").val().replace(/[\D\s\._\-]+/g, "");
+		data01Data.dataQuanty	= $("#data01Quanty").val().replace(/[\D\s\._\-]+/g, "");
+		data01Data.dataAmt 		= $("#data01Amt").val().replace(/[\D\s\._\-]+/g, "");
+		data01Data.dataRemark 	= $("#data01Remark").val();
+
+		if(!data01Data.dataQuanty){
+			alert("단가를 입력해주십시오.");
+			return;
+		} else if(!data01Data.dataAmt){
+			alert("수량을 입력해주십시오.");
+			return;
 		}
 
-		function fn_Reloaddata02(url, data){
-			$("#qutylist").empty();
-			$("#qutylist").load(url, data, function(){
-				setTimeout(function(){
-				}, 500);
-			});
+		$.ajax({ url: "${path}/sopp/insertdata01.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
+			data: data01Data , // HTTP 요청과 함께 서버로 보낼 데이터
+			method: "POST", // HTTP 요청 메소드(GET, POST 등)
+			dataType: "json" // 서버에서 보내줄 데이터의 타입
+		}) // HTTP 요청이 성공하면 요청한 데이터가 done() 메소드로 전달됨. .
+				.done(function(data) {
+					if(data.code == 10001){
+						alert("저장 성공");
+						var url="${path}/sopp/inoutlist/"+$("#soppNo").val();
+						fn_Reloaddata01(url);
+					}else{
+						alert("저장 실패");
+					}
+				}) // HTTP 요청이 실패하면 오류와 상태에 관한 정보가 fail() 메소드로 전달됨.
+				.fail(function(xhr, status, errorThrown) {
+					alert("통신 실패");
+				});
+	}
+
+	function fn_data02Insert() {
+		var data02Data = {};
+		data02Data.soppNo 		= $("#soppNo").val();
+		data02Data.catNo	 	= '100004';
+		var productNo			= $("#productNo2").val();
+		if(productNo != ""){
+			data02Data.productNo	= productNo;
+		} else {
+			data02Data.productNo	= 0;
+		}
+		data02Data.dataTitle 	= $("#data02Title").val();
+		data02Data.dataType		= $("#data02Type").val();
+		data02Data.dataNetprice	= $("#data02Netprice").val().replace(/[\D\s\._\-]+/g, "");
+		data02Data.dataQuanty	= $("#data02Qty").val().replace(/[\D\s\._\-]+/g, "");
+		data02Data.dataAmt 		= $("#data02Amt").val().replace(/[\D\s\._\-]+/g, "");
+		data02Data.dataRemark 	= $("#data02Remark").val();
+
+		if(!data02Data.dataQuanty){
+			alert("단가를 입력해주십시오.");
+			return;
+		} else if(!data02Data.dataAmt){
+			alert("수량을 입력해주십시오.");
+			return;
 		}
 
-		function fn_data01Insert() {
-			var data01Data = {};
-			data01Data.soppNo 		= $("#soppNo").val();
-			data01Data.catNo	 	= '100001';
-			var productNo			= $("#productNo1").val();
-			if(productNo != ""){
-				data01Data.productNo	= productNo;
-			} else {
-				data01Data.productNo	= 0;
-			}
-			data01Data.dataTitle 	= $("#data01Title").val();
-			data01Data.dataType		= $("#data01Type").val();
-			data01Data.dataNetprice	= $("#data01Netprice").val().replace(/[\D\s\._\-]+/g, "");
-			data01Data.dataQuanty	= $("#data01Quanty").val().replace(/[\D\s\._\-]+/g, "");
-			data01Data.dataAmt 		= $("#data01Amt").val().replace(/[\D\s\._\-]+/g, "");
-			data01Data.dataRemark 	= $("#data01Remark").val();
+		$.ajax({ url: "${path}/sopp/insertdata02.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
+			data: data02Data , // HTTP 요청과 함께 서버로 보낼 데이터
+			method: "POST", // HTTP 요청 메소드(GET, POST 등)
+			dataType: "json" // 서버에서 보내줄 데이터의 타입
+		}) // HTTP 요청이 성공하면 요청한 데이터가 done() 메소드로 전달됨. .
+				.done(function(data) {
+					if(data.code == 10001){
+						alert("저장 성공");
+						var url="${path}/sopp/qutylist/"+$("#soppNo").val();
+						fn_Reloaddata02(url);
+					}else{
+						alert("저장 실패");
+					}
+				}) // HTTP 요청이 실패하면 오류와 상태에 관한 정보가 fail() 메소드로 전달됨.
+				.fail(function(xhr, status, errorThrown) {
+					alert("통신 실패");
+				});
+	}
 
-			if(!data01Data.dataQuanty){
-				alert("단가를 입력해주십시오.");
-				return;
-			} else if(!data01Data.dataAmt){
-				alert("수량을 입력해주십시오.");
-				return;
-			}
 
-			$.ajax({ url: "${path}/sopp/insertdata01.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
-				data: data01Data , // HTTP 요청과 함께 서버로 보낼 데이터
+
+
+	function fn_data01delete(soppdataNo) {
+		var msg = "선택한 건을 삭제하시겠습니까?";
+		if( confirm(msg) ){
+			$.ajax({ url: "${path}/sopp/deletedata01.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
+				data: {soppdataNo : soppdataNo}, // HTTP 요청과 함께 서버로 보낼 데이터
 				method: "POST", // HTTP 요청 메소드(GET, POST 등)
-				dataType: "json" // 서버에서 보내줄 데이터의 타입
 			}) // HTTP 요청이 성공하면 요청한 데이터가 done() 메소드로 전달됨. .
 					.done(function(data) {
 						if(data.code == 10001){
-							alert("저장 성공");
+							alert("삭제 성공");
 							var url="${path}/sopp/inoutlist/"+$("#soppNo").val();
 							fn_Reloaddata01(url);
 						}else{
-							alert("저장 실패");
+							alert("삭제 실패");
 						}
 					}) // HTTP 요청이 실패하면 오류와 상태에 관한 정보가 fail() 메소드로 전달됨.
 					.fail(function(xhr, status, errorThrown) {
 						alert("통신 실패");
 					});
 		}
+	}
 
-		function fn_data02Insert() {
-			var data02Data = {};
-			data02Data.soppNo 		= $("#soppNo").val();
-			data02Data.catNo	 	= '100004';
-			var productNo			= $("#productNo2").val();
-			if(productNo != ""){
-				data02Data.productNo	= productNo;
-			} else {
-				data02Data.productNo	= 0;
-			}
-			data02Data.dataTitle 	= $("#data02Title").val();
-			data02Data.dataType		= $("#data02Type").val();
-			data02Data.dataNetprice	= $("#data02Netprice").val().replace(/[\D\s\._\-]+/g, "");
-			data02Data.dataQuanty	= $("#data02Qty").val().replace(/[\D\s\._\-]+/g, "");
-			data02Data.dataAmt 		= $("#data02Amt").val().replace(/[\D\s\._\-]+/g, "");
-			data02Data.dataRemark 	= $("#data02Remark").val();
-
-			if(!data02Data.dataQuanty){
-				alert("단가를 입력해주십시오.");
-				return;
-			} else if(!data02Data.dataAmt){
-				alert("수량을 입력해주십시오.");
-				return;
-			}
-
-			$.ajax({ url: "${path}/sopp/insertdata02.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
-				data: data02Data , // HTTP 요청과 함께 서버로 보낼 데이터
+	function fn_data02delete(soppdataNo) {
+		var msg = "선택한 건을 삭제하시겠습니까?";
+		if( confirm(msg) ){
+			$.ajax({ url: "${path}/sopp/deletedata02.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
+				data: {soppdataNo : soppdataNo}, // HTTP 요청과 함께 서버로 보낼 데이터
 				method: "POST", // HTTP 요청 메소드(GET, POST 등)
-				dataType: "json" // 서버에서 보내줄 데이터의 타입
 			}) // HTTP 요청이 성공하면 요청한 데이터가 done() 메소드로 전달됨. .
 					.done(function(data) {
 						if(data.code == 10001){
-							alert("저장 성공");
+							alert("삭제 성공");
 							var url="${path}/sopp/qutylist/"+$("#soppNo").val();
 							fn_Reloaddata02(url);
 						}else{
-							alert("저장 실패");
+							alert("삭제 실패");
 						}
 					}) // HTTP 요청이 실패하면 오류와 상태에 관한 정보가 fail() 메소드로 전달됨.
 					.fail(function(xhr, status, errorThrown) {
 						alert("통신 실패");
 					});
 		}
+	}
 
 
 
+	function uploadFile() {
+		var uploadForm = $('#uploadForm')[0];
+		var uploadData = new FormData(uploadForm);
 
-		function fn_data01delete(soppdataNo) {
-			var msg = "선택한 건을 삭제하시겠습니까?";
-			if( confirm(msg) ){
-				$.ajax({ url: "${path}/sopp/deletedata01.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
-					data: {soppdataNo : soppdataNo}, // HTTP 요청과 함께 서버로 보낼 데이터
-					method: "POST", // HTTP 요청 메소드(GET, POST 등)
-				}) // HTTP 요청이 성공하면 요청한 데이터가 done() 메소드로 전달됨. .
-						.done(function(data) {
-							if(data.code == 10001){
-								alert("삭제 성공");
-								var url="${path}/sopp/inoutlist/"+$("#soppNo").val();
-								fn_Reloaddata01(url);
-							}else{
-								alert("삭제 실패");
-							}
-						}) // HTTP 요청이 실패하면 오류와 상태에 관한 정보가 fail() 메소드로 전달됨.
-						.fail(function(xhr, status, errorThrown) {
-							alert("통신 실패");
-						});
-			}
-		}
+		if(!uploadData.get('file').name) {
+			alert('파일을 선택해주세요');
 
-		function fn_data02delete(soppdataNo) {
-			var msg = "선택한 건을 삭제하시겠습니까?";
-			if( confirm(msg) ){
-				$.ajax({ url: "${path}/sopp/deletedata02.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
-					data: {soppdataNo : soppdataNo}, // HTTP 요청과 함께 서버로 보낼 데이터
-					method: "POST", // HTTP 요청 메소드(GET, POST 등)
-				}) // HTTP 요청이 성공하면 요청한 데이터가 done() 메소드로 전달됨. .
-						.done(function(data) {
-							if(data.code == 10001){
-								alert("삭제 성공");
-								var url="${path}/sopp/qutylist/"+$("#soppNo").val();
-								fn_Reloaddata02(url);
-							}else{
-								alert("삭제 실패");
-							}
-						}) // HTTP 요청이 실패하면 오류와 상태에 관한 정보가 fail() 메소드로 전달됨.
-						.fail(function(xhr, status, errorThrown) {
-							alert("통신 실패");
-						});
-			}
-		}
-
-
-
-		function uploadFile() {
-			var uploadForm = $('#uploadForm')[0];
-			var uploadData = new FormData(uploadForm);
-
-			if(!uploadData.get('file').name) {
-				alert('파일을 선택해주세요');
-
-			}else {
-				uploadData.append('fileDesc', $('#fileDesc').val());
-				$.ajax({
-					url : "${path}/sopp/uploadfile/"+$("#soppNo").val(),
-					method : "POST",
-					data : uploadData,
-					contentType : false,
-					processData : false
-				}).done(function(data){
-					if(data.code == 10001){
-						alert('파일 업로드 완료');
-					}else {
-						alert('파일 업로드 실패');
-					}
-				}).fail(function(xhr, status, errorThrown) {
-					alert("통신 실패");
-				});
-
-			}
-
-		}
-
-		function downloadFile(fileId) {
-			var downloadData = {};
-			downloadData.soppNo = $("#soppNo").val();
-			downloadData.fileId = fileId;
-
+		}else {
+			uploadData.append('fileDesc', $('#fileDesc').val());
 			$.ajax({
-				url : "${path}/sopp/downloadfile",
-				data : downloadData,
+				url : "${path}/sopp/uploadfile/"+$("#soppNo").val(),
 				method : "POST",
-				xhrFields: {
-					responseType: 'blob'
-				},
-			}).done(function(data, status, xhr){
-				var fileName = xhr.getResponseHeader('content-disposition');
-				var link = document.createElement('a');
-				link.href = window.URL.createObjectURL(data);
-				link.download = fileName;
-				link.click();
-
+				data : uploadData,
+				contentType : false,
+				processData : false
+			}).done(function(data){
+				if(data.code == 10001){
+					alert('파일 업로드 완료');
+				}else {
+					alert('파일 업로드 실패');
+				}
 			}).fail(function(xhr, status, errorThrown) {
 				alert("통신 실패");
 			});
-		}
-
-		function openFileUploadModal() {
 
 		}
 
-		$(function(){
+	}
 
+	function downloadFile(fileId) {
+		var downloadData = {};
+		downloadData.soppNo = $("#soppNo").val();
+		downloadData.fileId = fileId;
+
+		$.ajax({
+			url : "${path}/sopp/downloadfile",
+			data : downloadData,
+			method : "POST",
+			xhrFields: {
+				responseType: 'blob'
+			},
+		}).done(function(data, status, xhr){
+			var fileName = xhr.getResponseHeader('content-disposition');
+			var link = document.createElement('a');
+			link.href = window.URL.createObjectURL(data);
+			link.download = fileName;
+			link.click();
+
+		}).fail(function(xhr, status, errorThrown) {
+			alert("통신 실패");
+		});
+	}
+
+	function openFileUploadModal() {
+
+	}
+
+	$(document).ready(function() {
+		if($("#soppNo").val() != '0') {
+			$($(".techdDetailCont")[2]).hide();
+			$($(".techdDetailCont")[3]).hide();
+		} else if($("#exContNo").val() != '0') {
+			$($(".techdDetailCont")[0]).hide();
+			$($(".techdDetailCont")[1]).hide();
+		}
+
+		$('input[name=contractType]').on('change', function() {
+			fnToggleLayer();
 		});
 
-		$(document).ready(function() {
-			if($("#soppNo").val() != '0') {
-				$($(".techdDetailCont")[2]).hide();
-				$($(".techdDetailCont")[3]).hide();
-			} else if($("#exContNo").val() != '0') {
-				$($(".techdDetailCont")[0]).hide();
-				$($(".techdDetailCont")[1]).hide();
-			}
+		var $input = $("#contAmt, #soppTargetAmt");
 
-			$('input[name=contractType]').on('change', function() {
-				fnToggleLayer();
-			});
+		// 이벤트 시작 ==========================================================================
+		// 이벤트시 동작
+		$input.on("keyup", function (event) {
+			// 긁어와서 이벤트 체크
+			var selection = window.getSelection().toString();
+			if (selection !== '') return;
+			if ($.inArray(event.keyCode, [38, 40, 37, 39]) !== -1) return;
 
-			var $input = $("#contAmt, #soppTargetAmt");
+			// 긁어오는값을 콤마를 제거해서 숫자변환
+			var $this = $(this);
+			var input = $this.val();
+			var input = input.replace(/[\D\s\._\-]+/g, "");
+			input = input ? parseInt(input, 10) : 0;
+			var ti = input;
 
-			// 이벤트 시작 ==========================================================================
-			// 이벤트시 동작
-			$input.on("keyup", function (event) {
-				// 긁어와서 이벤트 체크
-				var selection = window.getSelection().toString();
-				if (selection !== '') return;
-				if ($.inArray(event.keyCode, [38, 40, 37, 39]) !== -1) return;
-
-				// 긁어오는값을 콤마를 제거해서 숫자변환
-				var $this = $(this);
-				var input = $this.val();
-				var input = input.replace(/[\D\s\._\-]+/g, "");
-				input = input ? parseInt(input, 10) : 0;
-				var ti = input;
-
-				// 데이터 반환
-				$this.val(function () {
-					return (input === 0) ? "0" : input.toLocaleString("en-US");
-				});
-			});
-
-			$('#data01Netprice,#data01Quanty').on('keyup',function(){
-
-				var sum1 = parseInt($("#data01Netprice").val().replace(/[\D\s\._\-]+/g, "") || 0 );
-				var sum2 = parseInt($("#data01Quanty").val().replace(/[\D\s\._\-]+/g, "") || 0 );
-
-				var sum = sum1 * sum2;
-				$("#data01Netprice").val(sum1.toLocaleString("en-US"));
-				$("#data01Quanty").val(sum2.toLocaleString("en-US"));
-				$("#data01Amt").val(sum.toLocaleString("en-US"));
-			});
-			$('#data02Netprice,#data02Qty').on('keyup',function(){
-
-				var sum1 = parseInt($("#data02Netprice").val().replace(/[\D\s\._\-]+/g, "") || 0 );
-				var sum2 = parseInt($("#data02Qty").val().replace(/[\D\s\._\-]+/g, "") || 0);
-
-				var sum = sum1 * sum2;
-				$("#data02Netprice").val(sum1.toLocaleString("en-US"));
-				$("#data02Qty").val(sum2.toLocaleString("en-US"));
-				$("#data02Amt").val(sum.toLocaleString("en-US"));
+			// 데이터 반환
+			$this.val(function () {
+				return (input === 0) ? "0" : input.toLocaleString("en-US");
 			});
 		});
+
+		$("#tab_common_bottom").hide();
+	});
 </script>

@@ -38,6 +38,7 @@
                 <div class="input-group input-group-sm mb-0">
                     <input type="text" class="form-control" name="product" id="productSalesInOutCustName" value="" />
                     <input type="hidden" id="productSalesInOutCustNo" value="" />
+                    <input type="hidden" id="soppdataNo" value="">
                     <span class="input-group-btn">
                         <button class="btn btn-primary sch-company" data-remote="${path}/modal/popup.do?popId=productdataListSalesInOutCust" type="button" data-toggle="modal" data-target="#productCustModal2">
                             <i class="icofont icofont-search"></i>
@@ -121,8 +122,8 @@
             <td><input type="text" id="data01Amt" class="form-control form-control-sm" readonly placeholder="자동계산됩니다." style="min-width: 80px;" /></td>
             <td><input type="text" id="data01Remark" class="form-control form-control-sm" /></td>
             <td>
-                <button id="data01Addbtn" onClick="javascript:fn_data01Insert()">추가</button>
-                <button id="data01Modbtn" onClick="javascript:fn_data01Modify()">수정</button>
+                <button id="data01Addbtn" class="btn btn-success btn-sm" onClick="javascript:fn_data01Insert()">추가</button>
+                <button id="data01Modbtn" class="btn btn-instagram btn-sm" onClick="javascript:fn_data01Update()">수정</button>
             </td>
         </tr>
         </tbody>
@@ -217,6 +218,18 @@
                 console.dir(result);
                 if(result.code == 10001){
                     alert("저장 성공");
+
+                    $("#data01Type option:eq(0)").attr("selected","selected");
+                    $("#soppdataNo").val("");
+                    $("#productSalesInOutCustName").val("");
+                    $("#productSalesInOutCustNo").val("");
+                    $("#productNo1").val("");
+                    $("#data01Title").val("");
+                    $("#data01Netprice").val("");
+                    $("#data01Quanty").val("");
+                    $("#data01Amt").val("");
+                    $("#data01Remark").val("");
+
                     $('#productCustModal2').modal('hide');
                     $("#productSalesInOutCustName").val(result.data.custName);
                     $("#productSalesInOutCustNo").val(result.data.custNo);
@@ -233,25 +246,25 @@
         var data01Data = {};
         data01Data.soppNo 		= $("#soppNo").val();
         data01Data.catNo	 	= '100001';
-        var productNo			= $("#productNo1").val();
-        if(productNo != ""){
-            data01Data.productNo	= productNo;
-        } else {
-            data01Data.productNo	= 0;
+        if($("#productSalesInOutCustName").val() != "") data01Data.salesCustNo = Number($("#productSalesInOutCustNo").val());
+        if($("#data01Title").val() != "") {
+            if($("#productNo1").val() != "") data01Data.productNo	= $("#productNo1").val();
+            data01Data.dataTitle 	= $("#data01Title").val();
         }
-        data01Data.dataTitle 	= $("#data01Title").val();
         data01Data.dataType		= $("#data01Type").val();
         data01Data.dataNetprice	= $("#data01Netprice").val().replace(/[\D\s\._\-]+/g, "");
         data01Data.dataQuanty	= $("#data01Quanty").val().replace(/[\D\s\._\-]+/g, "");
         data01Data.dataAmt 		= $("#data01Amt").val().replace(/[\D\s\._\-]+/g, "");
         data01Data.dataRemark 	= $("#data01Remark").val();
-        if($("#productSalesInOutCustName").val() != "") data01Data.salesCustNo = Number($("#productSalesInOutCustNo").val());
 
         if(!data01Data.dataQuanty){
             alert("단가를 입력해주십시오.");
             return;
         } else if(!data01Data.dataAmt){
             alert("수량을 입력해주십시오.");
+            return;
+        } else if (!data01Data.dataTitle){
+            alert("상품명을 입력해주십시오.");
             return;
         }
 
@@ -260,18 +273,105 @@
             method: "POST", // HTTP 요청 메소드(GET, POST 등)
             dataType: "json" // 서버에서 보내줄 데이터의 타입
         }) // HTTP 요청이 성공하면 요청한 데이터가 done() 메소드로 전달됨. .
-            .done(function(data) {
-                if(data.code == 10001){
-                    alert("저장 성공");
-                    var url="${path}/sopp/inoutlist/"+$("#soppNo").val();
-                    fn_Reloaddata01(url);
-                }else{
-                    alert("저장 실패");
+        .done(function(data) {
+            if(data.code == 10001){
+                alert("저장 성공");
+
+                $("#data01Type option:eq(0)").attr("selected","selected");
+                $("#soppdataNo").val("");
+                $("#productSalesInOutCustName").val("");
+                $("#productSalesInOutCustNo").val("");
+                $("#productNo1").val("");
+                $("#data01Title").val("");
+                $("#data01Netprice").val("");
+                $("#data01Quanty").val("");
+                $("#data01Amt").val("");
+                $("#data01Remark").val("");
+
+                var url="${path}/sopp/inoutlist/"+$("#soppNo").val();
+                fn_Reloaddata01(url);
+            }else{
+                alert("저장 실패");
+            }
+        }) // HTTP 요청이 실패하면 오류와 상태에 관한 정보가 fail() 메소드로 전달됨.
+        .fail(function(xhr, status, errorThrown) {
+            alert("통신 실패");
+        });
+    }
+
+    function fn_data01Update() {
+        var data01Data = {};
+        data01Data.soppNo 		= $("#soppNo").val();
+        data01Data.catNo	 	= '100001';
+        data01Data.soppdataNo   = $("#soppdataNo").val();
+        if($("#productSalesInOutCustName").val() != "") data01Data.salesCustNo = Number($("#productSalesInOutCustNo").val());
+        if($("#data01Title").val() != "") {
+            if($("#productNo1").val() != "") data01Data.productNo	= $("#productNo1").val();
+            data01Data.dataTitle 	= $("#data01Title").val();
+        }
+        data01Data.dataType		= $("#data01Type").val();
+        data01Data.dataNetprice	= $("#data01Netprice").val().replace(/[\D\s\._\-]+/g, "");
+        data01Data.dataQuanty	= $("#data01Quanty").val().replace(/[\D\s\._\-]+/g, "");
+        data01Data.dataAmt 		= $("#data01Amt").val().replace(/[\D\s\._\-]+/g, "");
+        data01Data.dataRemark 	= $("#data01Remark").val();
+
+        if(!data01Data.dataQuanty){
+            alert("단가를 입력해주십시오.");
+            return;
+        } else if(!data01Data.dataAmt){
+            alert("수량을 입력해주십시오.");
+            return;
+        } else if (!data01Data.dataTitle){
+            alert("상품명을 입력해주십시오.");
+            return;
+        }
+
+        $.ajax({ url: "${path}/sopp/updatedata01.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
+            data: data01Data , // HTTP 요청과 함께 서버로 보낼 데이터
+            method: "POST", // HTTP 요청 메소드(GET, POST 등)
+            dataType: "json" // 서버에서 보내줄 데이터의 타입
+        }) // HTTP 요청이 성공하면 요청한 데이터가 done() 메소드로 전달됨. .
+        .done(function(data) {
+            if(data.code == 10001){
+                alert("저장 성공");
+                /*
+                var list = $("#inoutlist").find("tbody > tr > td:nth-last-child(2)");
+                for(var i=0; i<list.length; i++){
+                    console.dir(list[i].children[0].innerText);
+                    var text = list[i].children[0].innerText;
+                    if(text = "취소"){
+                        $(list[i].children[0]).trigger('click');
+                    }
                 }
-            }) // HTTP 요청이 실패하면 오류와 상태에 관한 정보가 fail() 메소드로 전달됨.
-            .fail(function(xhr, status, errorThrown) {
-                alert("통신 실패");
-            });
+                */
+                $("#data01Type option:eq(0)").attr("selected","selected");
+                $("#soppdataNo").val("");
+                $("#productSalesInOutCustName").val("");
+                $("#productSalesInOutCustNo").val("");
+                $("#productNo1").val("");
+                $("#data01Title").val("");
+                $("#data01Netprice").val("");
+                $("#data01Quanty").val("");
+                $("#data01Amt").val("");
+                $("#data01Remark").val("");
+
+                $("#data01Addbtn").show();
+                $("#data01Modbtn").hide();
+
+                var url="${path}/sopp/inoutlist/"+$("#soppNo").val();
+                fn_Reloaddata01(url);
+            }else{
+                alert("저장 실패");
+            }
+        }) // HTTP 요청이 실패하면 오류와 상태에 관한 정보가 fail() 메소드로 전달됨.
+        .fail(function(xhr, status, errorThrown) {
+            $(e).addClass("btn-dark");
+            $(e).removeClass("btn-warning");
+            $(e).html('수정');
+            $("#data01Addbtn").show();
+            $("#data01Modbtn").hide();
+            alert("통신 실패");
+        });
     }
 
 

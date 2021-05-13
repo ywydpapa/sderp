@@ -17,8 +17,8 @@
 	</colgroup>
 	<thead>
 		<tr>
-			<th class="text-center">구분<br/>(매입/매출)</th>
-			<th class="text-center">거래처<br/>(매입/매출처)</th>
+			<th class="text-center">구분(등록/수정일)</th>
+			<th class="text-center">거래처(매입/매출처)</th>
 			<th class="text-center">항목</th>
 			<th class="text-center">단가</th>
 			<th class="text-center">수량</th>
@@ -30,29 +30,103 @@
 	</thead>
 	<tbody>
 	<c:forEach var="row" items="${dtodata01}">
-		<tr class="item1" id="${row.soppdataNo}">
-			<td data-type="${row.dataType}">
-				<c:if test="${row.dataType eq '1101'}">매입 </c:if>
-				<c:if test="${row.dataType eq '1102'}">매출 </c:if>
-				(
-				<fmt:parseDate value="${row.regDatetime}" var="regDatetime" pattern="yyyy-MM-dd HH:mm:ss"/>
-				<fmt:formatDate value="${regDatetime}" pattern="yyyy-MM-dd"/>
-				)
-			</td>
-			<td>${row.salesCustNoN}<input hidden value="${row.salesCustNo}"></td>
-			<td>${row.dataTitle}<input hidden value="${row.productNo}"></td>
-			<td style="text-align: right"><fmt:formatNumber value="${row.dataNetprice}" pattern="#,###" /></td>
-			<td style="text-align: right"><fmt:formatNumber value="${row.dataQuanty}" pattern="#,###" /></td>
-			<td style="text-align: right"><fmt:formatNumber value="${row.dataAmt}" pattern="#,###" /></td>
-			<td>${row.dataRemark}</td>
-			<td><button class="btn btn-sm btn-dark" onClick="javascript:fn_data01modify(this)">수정</button></td>
-			<td><button class="btn btn-sm btn-danger" onClick="javascript:fn_data01delete(${row.soppdataNo})">삭제</button></td>
-		</tr>
+		<c:if test="${row.dataType eq '1101'}">
+			<tr class="item1" id="${row.soppdataNo}">
+				<td data-type="${row.dataType}">
+					매입
+					(
+					<fmt:parseDate value="${row.regDatetime}" var="regDatetime" pattern="yyyy-MM-dd HH:mm:ss"/>
+					<fmt:formatDate value="${regDatetime}" pattern="yyyy-MM-dd"/>
+					)
+				</td>
+				<td>${row.salesCustNoN}<input hidden value="${row.salesCustNo}"></td>
+				<td>${row.dataTitle}<input hidden value="${row.productNo}"></td>
+				<td style="text-align: right">₩<fmt:formatNumber value="${row.dataNetprice}" pattern="#,###" /></td>
+				<td style="text-align: right"><fmt:formatNumber value="${row.dataQuanty}" pattern="#,###" /></td>
+				<td style="text-align: right">₩<fmt:formatNumber value="${row.dataAmt}" pattern="#,###" /></td>
+				<td>${row.dataRemark}</td>
+				<td><button class="btn btn-sm btn-dark" onClick="javascript:fn_data01modify(this)">수정</button></td>
+				<td><button class="btn btn-sm btn-danger" onClick="javascript:fn_data01delete(${row.soppdataNo})">삭제</button></td>
+			</tr>
+		</c:if>
 	</c:forEach>
+	<tr class="item1">
+		<td colspan="1" style="text-align: center; background: #80808030;">매입합계</td>
+		<td colspan="8" style="text-align: right; background: #80808030;" id="product01InSum_table">-</td>
+	</tr>
+	<c:forEach var="row" items="${dtodata01}">
+		<c:if test="${row.dataType eq '1102'}">
+			<tr class="item1" id="${row.soppdataNo}">
+				<td data-type="${row.dataType}">
+					매출
+					(
+					<fmt:parseDate value="${row.regDatetime}" var="regDatetime" pattern="yyyy-MM-dd HH:mm:ss"/>
+					<fmt:formatDate value="${regDatetime}" pattern="yyyy-MM-dd"/>
+					)
+				</td>
+				<td>${row.salesCustNoN}<input hidden value="${row.salesCustNo}"></td>
+				<td>${row.dataTitle}<input hidden value="${row.productNo}"></td>
+				<td style="text-align: right">₩<fmt:formatNumber value="${row.dataNetprice}" pattern="#,###" /></td>
+				<td style="text-align: right"><fmt:formatNumber value="${row.dataQuanty}" pattern="#,###" /></td>
+				<td style="text-align: right">₩<fmt:formatNumber value="${row.dataAmt}" pattern="#,###" /></td>
+				<td>${row.dataRemark}</td>
+				<td><button class="btn btn-sm btn-dark" onClick="javascript:fn_data01modify(this)">수정</button></td>
+				<td><button class="btn btn-sm btn-danger" onClick="javascript:fn_data01delete(${row.soppdataNo})">삭제</button></td>
+			</tr>
+		</c:if>
+	</c:forEach>
+	<tr class="item1" style="text-align: right">
+		<td colspan="1" style="text-align: center; background: #80808030;">매출합계</td>
+		<td colspan="8" style="text-align: right; background: #80808030;" id="product01OutSum_table">-</td>
+	</tr>
+	</tbody>
+</table>
+<br/>
+<table class="table table-sm bst02" id="inoutlistSum">
+	<tbody class="">
+		<tr>
+			<td style="text-align: center; background: #80808030;">매입 합계</td>
+			<td id="product01InSum" style="text-align: right">-</td>
+			<td style="text-align: center; background: #80808030;">매출 합계</td>
+			<td id="product01OutSum" style="text-align: right">-</td>
+			<td style="text-align: center; background: #80808030;">이익 합계</td>
+			<td id="product01DiffSum" style="text-align: right">-</td>
+			<td style="text-align: center; background: #80808030;">이익률</td>
+			<td id="product01Percent" style="text-align: right">-</td>
+		</tr>
 	</tbody>
 </table>
 
 <script>
+	var product01In = [
+		<c:forEach var="row" items="${dtodata01}" varStatus="i">
+			<c:if test="${row.dataType eq '1101'}">${row.dataNetprice},</c:if>
+			<c:if test="${i.last}">${row.dataNetprice}</c:if>
+		</c:forEach>
+	];
+	var product01InQuanty = [
+		<c:forEach var="row" items="${dtodata01}" varStatus="i">
+		<c:if test="${row.dataType eq '1101'}">${row.dataQuanty},</c:if>
+		<c:if test="${i.last}">${row.dataQuanty}</c:if>
+		</c:forEach>
+	];
+	var product01InSum = 0;
+	var product01Out = [
+		<c:forEach var="row" items="${dtodata01}" varStatus="i">
+		<c:if test="${row.dataType eq '1102'}">${row.dataNetprice},</c:if>
+		<c:if test="${i.last}">${row.dataNetprice}</c:if>
+		</c:forEach>
+	];
+	var product02OutQuanty = [
+		<c:forEach var="row" items="${dtodata01}" varStatus="i">
+		<c:if test="${row.dataType eq '1102'}">${row.dataQuanty},</c:if>
+		<c:if test="${i.last}">${row.dataQuanty}</c:if>
+		</c:forEach>
+	];
+	var product01OutSum = 0;
+	var product01DiffSum = 0;
+	var product01Percent = 0;
+
 	function fn_data01modify(e) {
 		if($(e).html() == "수정"){
 			if($("#data01Modbtn").is(':visible') == true){
@@ -62,11 +136,13 @@
 			var tr = $(e).closest("tr");
 			var dataType = $(tr).children().eq(0).data('type');
 			if(dataType == 1101){
-				$("#data01Type option:eq(0)").attr("selected","selected");
-			} else if(dataType== 1102){
-				$("#data01Type option:eq(1)").attr("selected","selected");
+				$("#data01Type").val("1101");
+			} else if(dataType == 1102){
+				$("#data01Type").val("1102");
 			}
-			debugger;
+
+			var soppdataNo = Number(tr.attr("id"));
+			$("#soppdataNo").val(soppdataNo);
 
 			var salesCustNoN = $(tr).children().eq(1)[0].innerText;
 			var salesCustNo = Number($(tr).children().eq(1)[0].children[0].value);
@@ -79,7 +155,7 @@
 			$("#productNo1").val(productNo1);
 
 
-			var data01Netprice = $(tr).children().eq(3)[0].innerText;
+			var data01Netprice = $(tr).children().eq(3)[0].innerText.replace('₩','');
 			// var data01NetpriceNum = Number(data01Netprice.replace(',',''));
 			$("#data01Netprice").val(data01Netprice);
 
@@ -87,7 +163,7 @@
 			// var data01QuantyNum = Number(data01Quanty.replace(',',''));
 			$("#data01Quanty").val(data01Quanty);
 
-			var data01Amt = $(tr).children().eq(5)[0].innerText;
+			var data01Amt = $(tr).children().eq(5)[0].innerText.replace('₩','');
 			$("#data01Amt").val(data01Amt);
 
 			var data01Remark = $(tr).children().eq(6)[0].innerText;
@@ -101,6 +177,7 @@
 			$("#data01Modbtn").show();
 		} else if($(e).html() == "취소"){
 			$("#data01Type option:eq(0)").attr("selected","selected");
+			$("#soppdataNo").val("");
 			$("#productSalesInOutCustName").val("");
 			$("#productSalesInOutCustNo").val("");
 			$("#productNo1").val("");
@@ -121,7 +198,8 @@
 	function fn_data01delete(soppdataNo) {
 		var msg = "선택한 건을 삭제하시겠습니까?";
 		if( confirm(msg) ){
-			$.ajax({ url: "${path}/sopp/deletedata01.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
+			$.ajax({
+				url: "${path}/sopp/deletedata01.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
 				data: {soppdataNo : soppdataNo}, // HTTP 요청과 함께 서버로 보낼 데이터
 				method: "POST", // HTTP 요청 메소드(GET, POST 등)
 			}) // HTTP 요청이 성공하면 요청한 데이터가 done() 메소드로 전달됨. .
@@ -139,4 +217,29 @@
 			});
 		}
 	}
+
+	$(function(){
+		for (var i = 0; i < product01In.length; i++) {
+			product01InSum += (product01In[i] * product01InQuanty[i]);
+		}
+		for (var i = 0; i < product01Out.length; i++) {
+			product01OutSum += (product01Out[i] * product02OutQuanty[i]);
+		}
+		product01DiffSum = product01OutSum - product01InSum;
+		$("#product01InSum").html('₩'+product01InSum.toLocaleString("en-US"));
+		$("#product01InSum_table").html('₩'+product01InSum.toLocaleString("en-US"));
+		$("#product01OutSum").html('₩'+product01OutSum.toLocaleString("en-US"));
+		$("#product01OutSum_table").html('₩'+product01OutSum.toLocaleString("en-US"));
+		$("#product01DiffSum").html('₩'+product01DiffSum.toLocaleString("en-US"));
+
+		product01Percent = Math.floor(product01DiffSum / product01OutSum * 100).toFixed(2);
+		if(product01Percent == 'NaN'){
+			$("#product01Percent").html('0'+'%');
+		} else if(product01DiffSum >= 0){
+			$("#product01Percent").html('+'+product01Percent+'%');
+		} else if(product01DiffSum < 0){
+			$("#product01Percent").html(product01Percent+'%');
+		}
+		console.dir(product01Percent);
+	});
 </script>

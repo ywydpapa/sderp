@@ -240,6 +240,18 @@ public class SoppController {
 		return ResponseEntity.ok(param);
 	}
 
+	@RequestMapping("updatedata01.do")
+	public ResponseEntity<?> updatedata01(HttpSession session, @ModelAttribute SoppdataDTO dto, HttpServletRequest servletRequest) {
+		Map<String, Object> param = new HashMap<>();
+		int soppdataInsert = soppdataService.updateSoppdata01(session, dto, servletRequest);
+		if (soppdataInsert >0) {
+			param.put("code","10001");
+		}
+		else {param.put("code","20001");
+		}
+		return ResponseEntity.ok(param);
+	}
+
 	
 	@RequestMapping("update1.do")
 	public ResponseEntity<?> update(@RequestParam Map<String, Object> params) {

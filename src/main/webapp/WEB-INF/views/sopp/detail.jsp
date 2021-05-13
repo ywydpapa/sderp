@@ -614,6 +614,7 @@
 
 	function fn_Reloaddata01(url, data){
 		$("#inoutlist").empty();
+		$("#inoutlistSum").remove();
 		$("#inoutlist").load(url, data, function(){
 			setTimeout(function(){
 			}, 500);

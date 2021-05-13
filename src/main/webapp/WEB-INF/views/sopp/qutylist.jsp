@@ -83,17 +83,27 @@
 </table>
 <br/>
 <table class="table table-sm bst02" id="qutylistSum">
-	<tbody class="">
-	<tr>
-		<td style="text-align: center; background: #80808030;">매입 합계</td>
-		<td id="product02InSum" style="text-align: right">-</td>
-		<td style="text-align: center; background: #80808030;">매출 합계</td>
-		<td id="product02OutSum" style="text-align: right">-</td>
-		<td style="text-align: center; background: #80808030;">이익 합계</td>
-		<td id="product02DiffSum" style="text-align: right">-</td>
-		<td style="text-align: center; background: #80808030;">이익률</td>
-		<td id="product02Percent" style="text-align: right">-</td>
-	</tr>
+	<tbody>
+		<colgroup>
+			<col width="5%" />
+			<col width="20%" />
+			<col width="5%" />
+			<col width="20%" />
+			<col width="5%" />
+			<col width="20%" />
+			<col width="5%" />
+			<col width="20%" />
+		</colgroup>
+		<tr>
+			<td style="text-align: center; background: #80808030;">매입 합계</td>
+			<td id="product02InSum" style="text-align: right">-</td>
+			<td style="text-align: center; background: #80808030;">매출 합계</td>
+			<td id="product02OutSum" style="text-align: right">-</td>
+			<td style="text-align: center; background: #80808030;">이익 합계</td>
+			<td id="product02DiffSum" style="text-align: right">-</td>
+			<td style="text-align: center; background: #80808030;">이익률</td>
+			<td id="product02Percent" style="text-align: right">-</td>
+		</tr>
 	</tbody>
 </table>
 
@@ -243,11 +253,14 @@
 		product02Percent = Math.floor(product02DiffSum / product02OutSum * 100).toFixed(2);
 		if(product02Percent == 'NaN'){
 			$("#product02Percent").html('0'+'%');
-		} else if(product02DiffSum >= 0){
+		} else if (product02Percent == '-Infinity'){
+			$("#product02Percent").html('0'+'%');
+		} else if (product02Percent == 'Infinity'){
+			$("#product02Percent").html('0'+'%');
+		} else if(product02Percent >= 0){
 			$("#product02Percent").html('+'+product02Percent+'%');
-		} else if(product02DiffSum < 0){
+		} else if(product02Percent < 0){
 			$("#product02Percent").html(product02Percent+'%');
 		}
-		console.dir(product02Percent);
 	});
 </script>

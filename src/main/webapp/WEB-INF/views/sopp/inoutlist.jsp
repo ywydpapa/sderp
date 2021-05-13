@@ -83,7 +83,17 @@
 </table>
 <br/>
 <table class="table table-sm bst02" id="inoutlistSum">
-	<tbody class="">
+	<tbody>
+		<colgroup>
+			<col width="5%" />
+			<col width="20%" />
+			<col width="5%" />
+			<col width="20%" />
+			<col width="5%" />
+			<col width="20%" />
+			<col width="5%" />
+			<col width="20%" />
+		</colgroup>
 		<tr>
 			<td style="text-align: center; background: #80808030;">매입 합계</td>
 			<td id="product01InSum" style="text-align: right">-</td>
@@ -243,9 +253,13 @@
 		product01Percent = Math.floor(product01DiffSum / product01OutSum * 100).toFixed(2);
 		if(product01Percent == 'NaN'){
 			$("#product01Percent").html('0'+'%');
-		} else if(product01DiffSum >= 0){
+		} else if (product01Percent == '-Infinity'){
+			$("#product01Percent").html('0'+'%');
+		} else if (product01Percent == 'Infinity'){
+			$("#product01Percent").html('0'+'%');
+		} else if(product01Percent >= 0){
 			$("#product01Percent").html('+'+product01Percent+'%');
-		} else if(product01DiffSum < 0){
+		} else if(product01Percent < 0){
 			$("#product01Percent").html(product01Percent+'%');
 		}
 		console.dir(product01Percent);

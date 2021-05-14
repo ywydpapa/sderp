@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <c:set var="path" value="${pageContext.request.contextPath}" />
 
 <!-- Page-header start 페이지 타이틀-->
@@ -22,11 +23,11 @@
 			<!-- Nav tabs -->
 			<ul class="nav nav-tabs  tabs" role="tablist" id="tablist">
 				<li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#tab01" role="tab">기본정보</a></li>
-				<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#tab02" role="tab">매입매출 내역</a></li>
-				<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#tab03" role="tab">견적 내역</a></li>
-				<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#tab04" role="tab">파일첨부</a></li>
-				<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#tab05" role="tab">기술지원 내역</a></li>
-				<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#tab06" role="tab">영업활동 내역</a></li>
+				<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#tab02" role="tab" id="dataType01_tab02">매입매출 내역</a></li>
+				<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#tab03" role="tab" id="dataType01_tab03">견적 내역</a></li>
+				<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#tab04" role="tab">파일첨부(${fn:length(soppFiles)})</a></li>
+				<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#tab05" role="tab">기술지원 내역(${fn:length(techdinsopp)})</a></li>
+				<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#tab06" role="tab">영업활동 내역(${fn:length(salesinsopp)})</a></li>
 			</ul>
 			<!-- Tab panes -->
 			<div class="tab-content tabs m-t-20">

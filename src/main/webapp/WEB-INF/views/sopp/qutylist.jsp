@@ -262,5 +262,8 @@
 		} else if(product02Percent < 0){
 			$("#product02Percent").html(product02Percent+'%');
 		}
+
+		var prduct02Cnt = product02In.length + product02Out.length;
+		$("#dataType01_tab03").html("견적 내역("+prduct02Cnt+")");
 	});
 </script>

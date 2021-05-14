@@ -262,6 +262,8 @@
 		} else if(product01Percent < 0){
 			$("#product01Percent").html(product01Percent+'%');
 		}
-		console.dir(product01Percent);
+
+		var prduct01Cnt = product01In.length + product01Out.length;
+		$("#dataType01_tab02").html("매입매출 내역("+prduct01Cnt+")");
 	});
 </script>

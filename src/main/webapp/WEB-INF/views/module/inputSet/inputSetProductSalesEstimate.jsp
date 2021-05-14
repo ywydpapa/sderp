@@ -34,107 +34,115 @@
         </tr>
         </thead>
         <tbody>
-        <tr class="item1">
-            <td>
-                <select id="data02Type">
-                    <option value="2201">매입</option>
-                    <option value="2202">매출</option>
-                </select>
-            </td>
-            <td>
-                <div class="input-group input-group-sm mb-0">
-                    <input type="text" class="form-control" name="product" id="productSalesEstimateCustName" value="" />
-                    <input type="hidden" id="productSalesEstimateCustNo" value="" />
-                    <input type="hidden" id="soppdataNoEstimate" value="">
-                    <span class="input-group-btn">
-                        <button class="btn btn-primary sch-company" data-remote="${path}/modal/popup.do?popId=productdataListSalesEstimateCust" type="button" data-toggle="modal" data-target="#productCustModal3">
-                            <i class="icofont icofont-search"></i>
-                        </button>
-                    </span>
-                    <!--modal-->
-                    <div class="modal fade " id="productCustModal3" tabindex="-1" role="dialog">
+            <tr class="item1">
+                <td>
+                    <select id="data02Type">
+                        <option value="2201">매입</option>
+                        <option value="2202">매출</option>
+                    </select>
+                </td>
+                <td>
+                    <div class="input-group input-group-sm mb-0">
+                        <input type="text" class="form-control" name="product" id="productSalesEstimateCustName" value="" />
+                        <input type="hidden" id="productSalesEstimateCustNo" value="" />
+                        <input type="hidden" id="soppdataNoEstimate" value="">
+                        <span class="input-group-btn">
+                            <button class="btn btn-primary sch-company" data-remote="${path}/modal/popup.do?popId=productdataListSalesEstimateCust" type="button" data-toggle="modal" data-target="#productCustModal3">
+                                <i class="icofont icofont-search"></i>
+                            </button>
+                        </span>
+                        <!--modal-->
+                        <div class="modal fade " id="productCustModal3" tabindex="-1" role="dialog">
+                            <div class="modal-dialog modal-80size" role="document">
+                                <div class="modal-content modal-80size">
+                                    <div class="modal-header">
+                                        <h4 class="modal-title">매입/매출 거래처 목록</h4>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-success waves-effect" id="custRegSimple2">간편추가</button>
+                                    </div>
+                                    <div style="display: none; border: solid; width: 80%; margin: auto; margin-bottom: 5px;" id="custRegSimple_div2">
+                                        <table>
+                                            <colgroup>
+                                                <col width="10%">
+                                                <col width="75%">
+                                                <col width="15%">
+                                            </colgroup>
+                                            <tbody>
+                                            <tr>
+                                                <th>매출처명*</th>
+                                                <td><input type="text" value="" id="custRegSimple_custName2" style="width: 100%;"> </td>
+                                                <td><button type="button" class="btn-sm btn-dark" id="custRegSimple_custName_check2">중복확인</button></td>
+                                            </tr>
+                                            <tr>
+                                                <th>담당자</th>
+                                                <td><input type="text" value="" id="custRegSimple_custMemerName2" style="width: 100%;" placeholder="미입력시 미정으로 세팅됩니다."></td>
+                                                <td><button type="button" class="btn-sm btn-success" id="custRegSimple_custName_register2">등록</button></td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--//modal-->
+                    </div>
+                </td>
+                <td>
+                    <div class="input-group input-group-sm mb-0">
+                        <input type="hidden" id="productNo2" value="" />
+                        <input type="text" class="form-control" name="product" id="data02Title" value="" />
+                        <span class="input-group-btn">
+                            <button class="btn btn-primary sch-company" onclick="fn_productdataTableReload2()" type="button" data-toggle="modal" data-target="#productdataModal2">
+                                <i class="icofont icofont-search"></i>
+                            </button>
+                        </span>
+                    </div>
+                    <!--모달 팝업-->
+                    <div class="modal fade" id="productdataModal2" tabindex="-1" role="dialog">
                         <div class="modal-dialog modal-80size" role="document">
                             <div class="modal-content modal-80size">
                                 <div class="modal-header">
-                                    <h4 class="modal-title">매입/매출 거래처 목록</h4>
+                                    <h4 class="modal-title">상품목록</h4>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                     </button>
                                 </div>
                                 <div class="modal-body">
+                                    <%--<%@ include file="/WEB-INF/views/modal/productdataList.jsp" %>--%>
+                                    <jsp:include page="/WEB-INF/views/modal/productdataListSalesEstimate.jsp" />
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
-                                    <button type="button" class="btn btn-success waves-effect" id="custRegSimple2">간편추가</button>
-                                </div>
-                                <div style="display: none; border: solid; width: 80%; margin: auto; margin-bottom: 5px;" id="custRegSimple_div2">
-                                    <table>
-                                        <colgroup>
-                                            <col width="10%">
-                                            <col width="75%">
-                                            <col width="15%">
-                                        </colgroup>
-                                        <tbody>
-                                        <tr>
-                                            <th>매출처명*</th>
-                                            <td><input type="text" value="" id="custRegSimple_custName2" style="width: 100%;"> </td>
-                                            <td><button type="button" class="btn-sm btn-dark" id="custRegSimple_custName_check2">중복확인</button></td>
-                                        </tr>
-                                        <tr>
-                                            <th>담당자</th>
-                                            <td><input type="text" value="" id="custRegSimple_custMemerName2" style="width: 100%;" placeholder="미입력시 미정으로 세팅됩니다."></td>
-                                            <td><button type="button" class="btn-sm btn-success" id="custRegSimple_custName_register2">등록</button></td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <!--//modal-->
-                </div>
-            </td>
-            <td>
-                <div class="input-group input-group-sm mb-0">
-                    <input type="hidden" id="productNo2" value="" />
-                    <input type="text" class="form-control" name="product" id="data02Title" value="" />
-                    <span class="input-group-btn">
-                        <button class="btn btn-primary sch-company" onclick="fn_productdataTableReload2()" type="button" data-toggle="modal" data-target="#productdataModal2">
-                            <i class="icofont icofont-search"></i>
-                        </button>
-                    </span>
-                </div>
-                <!--모달 팝업-->
-                <div class="modal fade" id="productdataModal2" tabindex="-1" role="dialog">
-                    <div class="modal-dialog modal-80size" role="document">
-                        <div class="modal-content modal-80size">
-                            <div class="modal-header">
-                                <h4 class="modal-title">상품목록</h4>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <%--<%@ include file="/WEB-INF/views/modal/productdataList.jsp" %>--%>
-                                <jsp:include page="/WEB-INF/views/modal/productdataListSalesEstimate.jsp" />
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!--//모달 팝업-->
-            </td>
-            <td><input type="text" class="form-control form-control-sm" id="data02Netprice" style="min-width: 80px;" /></td>
-            <td><input type="text" class="form-control form-control-sm" id="data02Quanty" style="min-width: 80px;" /></td>
-            <td><input type="text" class="form-control form-control-sm" id="data02Amt" style="min-width: 80px;" readonly /></td>
-            <td><input type="text" id="data02Remark" class="form-control form-control-sm" /></td>
-            <td>
-                <button id="data02Addbtn" class="btn btn-success btn-sm" onClick="javascript:fn_data02Insert()">추가</button>
-                <button id="data02Modbtn" class="btn btn-instagram btn-sm" onClick="javascript:fn_data02Update()">수정</button>
-            </td>
-        </tr>
+                    <!--//모달 팝업-->
+                </td>
+                <td><input type="text" class="form-control form-control-sm" id="data02Netprice" style="min-width: 80px;" /></td>
+                <td><input type="text" class="form-control form-control-sm" id="data02Quanty" style="min-width: 80px;" /></td>
+                <td><input type="text" class="form-control form-control-sm" id="data02Amt" style="min-width: 80px;" readonly /></td>
+                <td><input type="text" id="data02Remark" class="form-control form-control-sm" /></td>
+                <td>
+                    <button id="data02Addbtn" class="btn btn-success btn-sm" onClick="javascript:fn_data02Insert()">추가</button>
+                    <button id="data02Modbtn" class="btn btn-instagram btn-sm" onClick="javascript:fn_data02Update()">수정</button>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="8">
+                    <details>
+                        <summary><span style="color: red">등록시 주의사항</span></summary>
+                        <p>매입/매출처(거래처)는 모달창을 통해 추가하셔야 됩니다. 삭제는 직접 지우시면 됩니다.</p>
+                    </details>
+                </td>
+            </tr>
         </tbody>
     </table>
 </form>

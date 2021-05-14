@@ -268,6 +268,9 @@
 			</div>
 			<div class="btn_wr text-right mt-3">
 				<button class="btn btn-md btn-success f-left modal-list-btn" onClick="javascript:fnSetPage('${path}/sched/list.do')">목록</button>
+				<c:if test="${dto.userNo eq sessionScope.userNo || sessionScope.userRole eq 'ADMIN'}">
+					<button class="btn btn-md btn-danger" onClick="fn_DeleteSched()">삭제</button>
+				</c:if>
 				<button class="btn btn-md btn-primary" onClick="fn_UpdateSched()">수정</button>
 				<button class="btn btn-md btn-inverse modal-cancel-btn" onClick="javascript:fnSetPage('${path}/sched/list.do')">취소</button>
 			</div>
@@ -339,45 +342,75 @@
 		$("#endCustModal").modal("hide");
 	}
 		
-		function fn_UpdateSched() {
-			var schedData = {};
-			schedData.schedNo 		= Number($("#schedNo").val());
-			schedData.schedFrom = setDateHourMinute($("#schedFrom").val(), $("#startTime").val()); 
-			schedData.schedTo = setDateHourMinute($("#schedTo").val(), $("#endTime").val());
-			schedData.schedTitle 		= $("#schedTitle").val();
-			schedData.schedPlace		= $("#schedPlace").val();
-			schedData.userNo 		= $("#userNo").val();
-			if($("#custName").val() != "") schedData.custNo 		= Number($("#custNo").val());
-			if($("#soppName").val() != "") schedData.soppNo 		= Number($("#soppNo").val());
-			schedData.schedDesc 		= $("#schedDesc").val();
-			/* schedData.schedType 		= $("#schedType").val(); */
-			schedData.schedCat 		= $("#schedCat").val();
-			if($("#custName").val() != "") schedData.contNo		= Number($("#contNo").val());
-			
-			$.ajax({ url: "${path}/sched/update.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소 
-						data: schedData , // HTTP 요청과 함께 서버로 보낼 데이터 
-						method: "POST", // HTTP 요청 메소드(GET, POST 등) 
-						dataType: "json" // 서버에서 보내줄 데이터의 타입 
-					}) // HTTP 요청이 성공하면 요청한 데이터가 done() 메소드로 전달됨. .
-					.done(function(data) {
-						if(data.code == 10001){
-							alert("저장 성공");
-							var eventModal = $('#eventModal');
-							if(eventModal[0]) {
-								$(".modal-backdrop").remove();
-								fnSetPage('${path}/calendar/calmain.do');
-								
-							}else {
-								fnSetPage('${path}/sched/list.do');
-							}
-						}else{
-							alert("저장 실패");
-						}
-					}) // HTTP 요청이 실패하면 오류와 상태에 관한 정보가 fail() 메소드로 전달됨. 
-					.fail(function(xhr, status, errorThrown) { 
-						alert("통신 실패");
-					});
+	function fn_UpdateSched() {
+		var schedData = {};
+		schedData.schedNo 		= Number($("#schedNo").val());
+		schedData.schedFrom = setDateHourMinute($("#schedFrom").val(), $("#startTime").val());
+		schedData.schedTo = setDateHourMinute($("#schedTo").val(), $("#endTime").val());
+		schedData.schedTitle 		= $("#schedTitle").val();
+		schedData.schedPlace		= $("#schedPlace").val();
+		schedData.userNo 		= $("#userNo").val();
+		if($("#custName").val() != "") schedData.custNo 		= Number($("#custNo").val());
+		if($("#soppName").val() != "") schedData.soppNo 		= Number($("#soppNo").val());
+		schedData.schedDesc 		= $("#schedDesc").val();
+		/* schedData.schedType 		= $("#schedType").val(); */
+		schedData.schedCat 		= $("#schedCat").val();
+		if($("#custName").val() != "") schedData.contNo		= Number($("#contNo").val());
+
+		$.ajax({
+			url: "${path}/sched/update.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
+			data: schedData , // HTTP 요청과 함께 서버로 보낼 데이터
+			method: "POST", // HTTP 요청 메소드(GET, POST 등)
+			dataType: "json" // 서버에서 보내줄 데이터의 타입
+		}) // HTTP 요청이 성공하면 요청한 데이터가 done() 메소드로 전달됨..
+		.done(function(data) {
+			if(data.code == 10001){
+				alert("저장 성공");
+				var eventModal = $('#eventModal');
+				if(eventModal[0]) {
+					$(".modal-backdrop").remove();
+					fnSetPage('${path}/calendar/calmain.do');
+
+				}else {
+					fnSetPage('${path}/sched/list.do');
+				}
+			}else{
+				alert("저장 실패");
 			}
+		}) // HTTP 요청이 실패하면 오류와 상태에 관한 정보가 fail() 메소드로 전달됨.
+		.fail(function(xhr, status, errorThrown) {
+			alert("통신 실패");
+		});
+	}
+
+	function fn_DeleteSched(){
+		var schedData = {};
+		schedData.schedNo 		= Number($("#schedNo").val());
+
+		$.ajax({
+			url: "${path}/sched/delete.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
+			data: schedData , // HTTP 요청과 함께 서버로 보낼 데이터
+			method: "POST", // HTTP 요청 메소드(GET, POST 등)
+			dataType: "json" // 서버에서 보내줄 데이터의 타입
+		}) // HTTP 요청이 성공하면 요청한 데이터가 done() 메소드로 전달됨..
+		.done(function(data) {
+			if(data.code == 10001){
+				alert("삭제 성공");
+				var eventModal = $('#eventModal');
+				if(eventModal[0]) {
+					$(".modal-backdrop").remove();
+					fnSetPage('${path}/calendar/calmain.do');
+				}else {
+					fnSetPage('${path}/sched/list.do');
+				}
+			}else{
+				alert("삭제 실패");
+			}
+		}) // HTTP 요청이 실패하면 오류와 상태에 관한 정보가 fail() 메소드로 전달됨.
+		.fail(function(xhr, status, errorThrown) {
+			alert("통신 실패");
+		});
+	}
 		
 		
 		/* $('#schedType').val('${dto.schedType}').prop("selected",true); */

@@ -285,7 +285,7 @@ from
 	where techdNo=#{techdNo}
  </update>
  
- <delete id="deleteCont">
+ <delete id="deleteTechd">
 	update swc_techd 
 	set attrib = 'XXXXX'
 	where techdNo=#{techdNo}

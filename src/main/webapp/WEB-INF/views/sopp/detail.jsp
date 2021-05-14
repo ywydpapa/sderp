@@ -123,9 +123,7 @@
 																			<p>Loading!!!</p>
 																		</div>
 																		<div class="modal-footer">
-																			<button type="button"
-																				class="btn btn-default waves-effect "
-																				data-dismiss="modal">Close</button>
+																			<button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
 																		</div>
 																	</div>
 																</div>
@@ -137,17 +135,10 @@
 													<th scope="row">매출처 담당자</th>
 													<td>
 														<div class="input-group input-group-sm mb-0">
-															<input type="text" class="form-control"
-																name="custmemberName" id="custmemberName" value="${dto.custMemberName}"
-																/>
-															<input type="hidden" name="custmemberNo"
-																id="custmemberNo" value="${cto.custMemberNo}" />
-															<span
-																class="input-group-btn">
-																<button class="btn btn-primary sch-partner"
-																	data-remote="${path}/modal/popup.do?popId=custmem&compNo="
-																	type="button" data-toggle="modal"
-																	data-target="#custmemberModal" id="custmemberModalbtn">
+															<input type="text" class="form-control" name="custmemberName" id="custmemberName" value="${dto.custMemberName}" />
+															<input type="hidden" name="custmemberNo" id="custmemberNo" value="${cto.custMemberNo}" />
+															<span class="input-group-btn">
+																<button class="btn btn-primary sch-partner" data-remote="${path}/modal/popup.do?popId=custmem&compNo=" type="button" data-toggle="modal" data-target="#custmemberModal" id="custmemberModalbtn">
 																	<i class="icofont icofont-search"></i>
 																</button>
 															</span>
@@ -273,8 +264,11 @@
 								</div>
 								<div class="btn_wr text-right mt-3" id="tab01_bottom">
 									<button class="btn btn-md btn-success f-left" onClick="javascript:fnSetPage('${path}/sopp/list.do')">목록</button>
+									<c:if test="${dto.userNo eq sessionScope.userNo || sessionScope.userRole eq 'ADMIN'}">
+										<button class="btn btn-md btn-danger" onClick="fn_soppDelete()">삭제</button>
+									</c:if>
 									<button class="btn btn-md btn-primary" onClick="fn_soppUpdate()">수정</button>
-									<button class="btn btn-md btn-inverse">취소</button>
+									<button class="btn btn-md btn-inverse" onClick="javascript:fnSetPage('${path}/sopp/list.do')">취소</button>
 								</div>
 							</div>
 						</div>
@@ -600,6 +594,27 @@
 				fnSetPage('${path}/sopp/list.do');
 			}else{
 				alert("저장 실패");
+			}
+		}) // HTTP 요청이 실패하면 오류와 상태에 관한 정보가 fail() 메소드로 전달됨.
+		.fail(function(xhr, status, errorThrown) {
+			alert("통신 실패");
+		});
+	}
+
+	function fn_soppDelete(){
+		var soppData = {};
+		soppData.soppNo 		= $("#soppNo").val();
+		$.ajax({ url: "${path}/sopp/delete.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
+			data: soppData , // HTTP 요청과 함께 서버로 보낼 데이터
+			method: "POST", // HTTP 요청 메소드(GET, POST 등)
+			dataType: "json" // 서버에서 보내줄 데이터의 타입
+		}) // HTTP 요청이 성공하면 요청한 데이터가 done() 메소드로 전달됨. .
+		.done(function(data) {
+			if(data.code == 10001){
+				alert("삭제 성공");
+				fnSetPage('${path}/sopp/list.do');
+			}else{
+				alert("삭제 실패");
 			}
 		}) // HTTP 요청이 실패하면 오류와 상태에 관한 정보가 fail() 메소드로 전달됨.
 		.fail(function(xhr, status, errorThrown) {

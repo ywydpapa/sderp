@@ -49,7 +49,7 @@ $('input[name=contractType]').on('click', function() {
 						</colgroup>
 						<tbody>
 							<tr>
-								<th scope="row" class="requiredTextCss">등록구분</th>
+								<th scope="row" class="requiredTextCss">등록구분<input hidden value="${dto.techdNo}" id="techdNo"></th>
 								<td colspan="3">
 									<div class="form-radio">
 										<form>
@@ -298,6 +298,9 @@ $('input[name=contractType]').on('click', function() {
 			</div>
 			<div class="btn_wr text-right mt-3">
 				<button class="btn btn-md btn-success f-left modal-list-btn" onClick="javascript:fnSetPage('${path}/techd/list.do')">목록</button>
+				<c:if test="${dto.userNo eq sessionScope.userNo || sessionScope.userRole eq 'ADMIN'}">
+					<button class="btn btn-md btn-danger" onClick="fn_sprtDelete()">삭제</button>
+				</c:if>
 				<button class="btn btn-md btn-primary" onClick="fn_sprtUpdate()">수정</button>
 				<button class="btn btn-md btn-inverse modal-cancel-btn" onClick="javascript:fnSetPage('${path}/techd/list.do')">취소</button>
 			</div>
@@ -407,7 +410,7 @@ function fn_sprtUpdate() {
 	sprtData.techdType			= $("#techdType").val();					// 지원형태
 	sprtData.techdSteps			= $("#techdSteps").val();					// 진행단계
 	sprtData.techdDesc			= $("#techdDesc").val();					// 설명
-	sprtData.techdNo			= "${dto.techdNo}";
+	sprtData.techdNo			= $("#techdNo").val();
 
 	if(!sprtData.techdTitle){
 		alert("기술지원 요청명을 입력하십시오.!!");
@@ -415,29 +418,59 @@ function fn_sprtUpdate() {
 	}
 	console.dir(sprtData);
 	
-	$.ajax({ url: "${path}/techd/update.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소 
-				data: sprtData , // HTTP 요청과 함께 서버로 보낼 데이터 
-				method: "POST", // HTTP 요청 메소드(GET, POST 등) 
-				dataType: "json" // 서버에서 보내줄 데이터의 타입 
-			}) // HTTP 요청이 성공하면 요청한 데이터가 done() 메소드로 전달됨. .
-			.done(function(data) {
-				if(data.code == 10001){
-					alert("저장 성공");
-					var eventModal = $('#eventModal');
-					if(eventModal[0]) {
-						$(".modal-backdrop").remove();
-						fnSetPage('${path}/calendar/calmain.do');
-						
-					}else {
-						fnSetPage('${path}/techd/list.do');
-					}
-				}else{
-					alert("저장 실패");
-				}
-			}) // HTTP 요청이 실패하면 오류와 상태에 관한 정보가 fail() 메소드로 전달됨. 
-			.fail(function(xhr, status, errorThrown) { 
-				alert("통신 실패");
-			});
+	$.ajax({
+		url: "${path}/techd/update.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
+		data: sprtData , // HTTP 요청과 함께 서버로 보낼 데이터
+		method: "POST", // HTTP 요청 메소드(GET, POST 등)
+		dataType: "json" // 서버에서 보내줄 데이터의 타입
+	}) // HTTP 요청이 성공하면 요청한 데이터가 done() 메소드로 전달됨..
+	.done(function(data) {
+		if(data.code == 10001){
+			alert("저장 성공");
+			var eventModal = $('#eventModal');
+			if(eventModal[0]) {
+				$(".modal-backdrop").remove();
+				fnSetPage('${path}/calendar/calmain.do');
+
+			}else {
+				fnSetPage('${path}/techd/list.do');
+			}
+		}else{
+			alert("저장 실패");
+		}
+	}) // HTTP 요청이 실패하면 오류와 상태에 관한 정보가 fail() 메소드로 전달됨.
+	.fail(function(xhr, status, errorThrown) {
+		alert("통신 실패");
+	});
+}
+
+function fn_sprtDelete() {
+	var sprtData = {};
+	sprtData.techdNo = $("#techdNo").val();
+	$.ajax({
+		url: "${path}/techd/delete.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
+		data: sprtData , // HTTP 요청과 함께 서버로 보낼 데이터
+		method: "POST", // HTTP 요청 메소드(GET, POST 등)
+		dataType: "json" // 서버에서 보내줄 데이터의 타입
+	}) // HTTP 요청이 성공하면 요청한 데이터가 done() 메소드로 전달됨..
+	.done(function(data) {
+		if(data.code == 10001){
+			alert("삭제 성공");
+			var eventModal = $('#eventModal');
+			if(eventModal[0]) {
+				$(".modal-backdrop").remove();
+				fnSetPage('${path}/calendar/calmain.do');
+
+			}else {
+				fnSetPage('${path}/techd/list.do');
+			}
+		}else{
+			alert("삭제 실패");
+		}
+	}) // HTTP 요청이 실패하면 오류와 상태에 관한 정보가 fail() 메소드로 전달됨.
+	.fail(function(xhr, status, errorThrown) {
+		alert("통신 실패");
+	});
 }
 
 $(document).ready(function(){

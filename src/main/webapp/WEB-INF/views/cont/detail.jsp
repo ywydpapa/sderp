@@ -404,6 +404,9 @@
 					</div>
 					<div class="btn_wr text-right mt-3" id="tab01_bottom">
 						<button class="btn btn-md btn-success f-left" onClick="fnSetPage('${path}/cont/list.do')">계약목록</button>
+						<c:if test="${contDto.userNo eq sessionScope.userNo || sessionScope.userRole eq 'ADMIN'}">
+							<button class="btn btn-md btn-danger" onClick="fn_DeleteCont()">삭제</button>
+						</c:if>
 						<button class="btn btn-md btn-primary" onClick="fn_SaveCont()">계약정보 수정</button>
 						<button class="btn btn-md btn-inverse" onClick="fnSetPage('${path}/cont/list.do')">취소</button>
 					</div>
@@ -725,6 +728,28 @@
 				fnSetPage('${path}/cont/list.do');
 			}else{
 				alert("저장 실패");
+			}
+		}) // HTTP 요청이 실패하면 오류와 상태에 관한 정보가 fail() 메소드로 전달됨.
+		.fail(function(xhr, status, errorThrown) {
+			alert("통신 실패");
+		});
+	}
+
+	function fn_DeleteCont(){
+		var contData = {};
+		contData.contNo 					= $("#contNo").val();
+		$.ajax({
+			url: "${path}/cont/delete.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
+			data: contData , // HTTP 요청과 함께 서버로 보낼 데이터
+			method: "POST", // HTTP 요청 메소드(GET, POST 등)
+			dataType: "json" // 서버에서 보내줄 데이터의 타입
+		}) // HTTP 요청이 성공하면 요청한 데이터가 done() 메소드로 전달됨. .
+		.done(function(data) {
+			if(data.code == 10001){
+				alert("삭제 성공");
+				fnSetPage('${path}/cont/list.do');
+			}else{
+				alert("삭제 실패");
 			}
 		}) // HTTP 요청이 실패하면 오류와 상태에 관한 정보가 fail() 메소드로 전달됨.
 		.fail(function(xhr, status, errorThrown) {

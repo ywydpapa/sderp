@@ -18,7 +18,7 @@
 %>
 
 <div class="row">
-	<div class="col-md-12 col-lg-5">
+	<div class="col-md-12 col-lg-5" style="min-width: 697.08px; min-height: 545px;">
 		<div class="card">
 			<div class="card-header">
 				<div style="display: inline-block;">
@@ -44,7 +44,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="col-md-12 col-lg-2">
+	<div class="col-md-12 col-lg-2" style="min-width: 278.83px; min-height: 545px;">
 		<div class="card">
 			<div class="card-header" style="padding:25px 12px;">				
 				<select class="custom-select mr-sm-1" name="graph2TargetMonth" id="graph2TargetMonth" style="float:right;">
@@ -104,7 +104,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="col-md-12 col-lg-2">
+	<div class="col-md-12 col-lg-2" style="min-width: 278.83px; min-height: 545px;">
 		<div class="card">
 			<div class="card-header">
 				<select class="custom-select mr-sm-1" name="graph3TargetYear" id="graph3TargetYear" style="float:right;">
@@ -150,7 +150,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="col-md-12 col-lg-3">
+	<div class="col-md-12 col-lg-3" style="min-width: 418.25px; min-height: 545px;">
 		<div class="card">
 			<div class="card-header">
 				<select class="custom-select mr-sm-1" name="graph4TargetYear" id="graph4TargetYear" style="float:right;">
@@ -173,7 +173,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="col-md-12 col-lg-6">
+	<div class="col-md-12 col-lg-6" style="min-width: 836.5px; min-height: 917px;">
 		<div class="card">
 			<div class="card-header">
 				<h5>영업기회현황</h5>
@@ -222,7 +222,7 @@
 		</div>
 	</div>
 	<c:if test="${saleslist != null}">
-		<div class="col-md-12 col-lg-6">
+		<div class="col-md-12 col-lg-6" style="min-width: 836.5px; min-height: 917px;">
 			<div class="card">
 				<div class="card-header">
 					<div style="display: inline-block;">
@@ -273,7 +273,7 @@
 		</div>
 	</c:if>
 	<c:if test="${techdlist != null}">
-		<div class="col-md-12 col-lg-6">
+		<div class="col-md-12 col-lg-6" style="min-width: 836.5px; min-height: 917px;">
 			<div class="card">
 				<div class="card-header">
 					<div style="display: inline-block;">
@@ -323,21 +323,7 @@
 			</div>
 		</div>
 	</c:if>
-	<div class="col-md-12 col-lg-6">
-		<div class="card">
-			<div class="card-header">
-				<h5>공지사항</h5>
-				<span>사내 공지사항</span>
-				<div class="card-header-right">
-					<i class="icofont icofont-spinner-alt-5"></i>
-				</div>
-			</div>
-			<div class="card-block">
-				<canvas id="barChart" width="400" height="400"></canvas>
-			</div>
-		</div>
-	</div>
-	<div class="col-md-12 col-lg-6">
+	<div class="col-md-12 col-lg-6" style="min-width: 836.5px; min-height: 917px;">
 		<div class="card">
 			<div class="card-header">
 				<h5>계약현황</h5>
@@ -374,6 +360,20 @@
 						</c:forEach>
 					</tbody>
 				</table>
+			</div>
+		</div>
+	</div>
+	<div class="col-md-12 col-lg-6" style="min-width: 836.5px; min-height: 917px;">
+		<div class="card">
+			<div class="card-header">
+				<h5>공지사항</h5>
+				<span>사내 공지사항</span>
+				<div class="card-header-right">
+					<i class="icofont icofont-spinner-alt-5"></i>
+				</div>
+			</div>
+			<div class="card-block">
+				<canvas id="barChart" width="400" height="400"></canvas>
 			</div>
 		</div>
 	</div>

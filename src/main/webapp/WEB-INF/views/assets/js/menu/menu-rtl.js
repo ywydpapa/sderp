@@ -6,7 +6,7 @@ $(document).ready(function () {
         MenuTrigger: 'click',
         SubMenuTrigger: 'click',
         activeMenuClass: 'active',
-        ThemeBackgroundPattern: 'pattern4',
+        ThemeBackgroundPattern: '',
         HeaderBackground: 'theme1',
         LHeaderBackground: 'theme1',
         NavbarBackground: 'themelight1',

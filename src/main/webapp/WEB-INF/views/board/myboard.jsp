@@ -17,7 +17,7 @@
 	}
 %>
 
-<div class="row">
+<div class="row" style="min-width: 1673px; min-height: 2379px; max-width: 1673px; max-height: 2379px;">
 	<div class="col-md-12 col-lg-5" style="min-width: 697.08px; min-height: 545px;">
 		<div class="card">
 			<div class="card-header">

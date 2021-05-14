@@ -6,7 +6,7 @@ $(document).ready(function () {
         MenuTrigger: 'click', // click / hover
         SubMenuTrigger: 'click', // click / hover
         activeMenuClass: 'active',
-        ThemeBackgroundPattern: 'pattern4',  // pattern1, pattern2, pattern3, pattern4, pattern5, pattern6
+        ThemeBackgroundPattern: '',  // pattern1, pattern2, pattern3, pattern4, pattern5, pattern6
         HeaderBackground: 'theme1',  // theme1, theme2, theme3, theme4, theme5  header color
         LHeaderBackground: 'theme1', // theme1, theme2, theme3, theme4, theme5, theme6   brand color
         NavbarBackground: 'themelight1', // themelight1, theme1  // light  and dark sidebar

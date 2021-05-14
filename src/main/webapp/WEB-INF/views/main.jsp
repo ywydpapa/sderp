@@ -46,6 +46,11 @@
 	  .requiredTextCss{
 		  color: red !important;
 	  }
+	  @media only screen and (min-width: 993px) and (max-width: 1672px) {
+		  body{
+			  overflow-x: scroll;
+		  }
+	  }
   </style>
 
     
@@ -362,7 +367,7 @@
 					<!-- Main-body start -->
 					<div class="main-body">
 						<!--page-wrapper-->
-						<div class="page-wrapper card">
+						<div class="page-wrapper <%--card--%>">
   
 							<!-- Page-body start -->
 							<div class="page-body">
@@ -442,6 +447,7 @@
 <script type="text/javascript">
 $( document ).ready(function() {
 	fnSetPage('${path}/myboard.do');
+
 });
 </script>
 </body>

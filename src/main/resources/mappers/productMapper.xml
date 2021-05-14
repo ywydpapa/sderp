@@ -98,7 +98,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 </update>
  
  <delete id="deleteProduct">
- update swc_product set attrib = 'XXXXX'  where productNo=#{productNo} and compNo = #{compNo}
+ update swc_product set attrib = 'XXXXX'  where productNo=#{productNo}
  </delete>
  		
 </mapper>

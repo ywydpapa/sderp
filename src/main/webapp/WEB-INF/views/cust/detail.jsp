@@ -87,7 +87,8 @@
 							</form>
 							<div class="btn_wr text-right mt-3">
 								<button class="btn btn-md btn-success f-left" onClick="javascript:fnSetPage('${path}/cust/list.do')">목록</button>
-								<button class="btn btn-md btn-primary" value="수정" id="btnUpdate" onClick="fn_custUpdate01();">수정</button>
+								<button class="btn btn-md btn-primary" onClick="fn_custDelete01();">삭제</button>
+								<button class="btn btn-md btn-primary" onClick="fn_custUpdate01();">수정</button>
 							</div>
 						</div>
 					</div>
@@ -145,8 +146,7 @@
 							</form>
 							<div class="btn_wr text-right mt-3">
 								<button class="btn btn-md btn-success f-left" onClick="javascript:fnSetPage('${path}/cust/list.do')">목록</button>
-								<button class="btn btn-md btn-primary" value="수정" id="btnUpdate"
-									onClick="fn_custUpdate02();">수정</button>
+								<button class="btn btn-md btn-primary" onClick="fn_custUpdate02();">수정</button>
 							</div>
 						</div>
 					</div>
@@ -203,8 +203,7 @@
 							</form>
 							<div class="btn_wr text-right mt-3">
 								<button class="btn btn-md btn-success f-left" onClick="javascript:fnSetPage('${path}/cust/list.do')">목록</button>
-								<button class="btn btn-md btn-primary" value="추가" id="btnUpdate"
-									onClick="fn_custUpdate03();">추가</button>
+								<button class="btn btn-md btn-primary" onClick="fn_custUpdate03();">추가</button>
 							</div>
 							<div id="custMemberlist" class="col-sm-12">
 								<table id="custmemberTable"
@@ -292,8 +291,7 @@
 							</form>
 							<div class="btn_wr text-right mt-3">
 								<button class="btn btn-md btn-success f-left" onClick="javascript:fnSetPage('${path}/cust/list.do')">목록</button>
-								<button class="btn btn-md btn-primary" value="수정" id="btnUpdate"
-									onClick="fn_custUpdate04();">수정</button>
+								<button class="btn btn-md btn-primary" onClick="fn_custUpdate04();">수정</button>
 							</div>
 						</div>
 					</div>

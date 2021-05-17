@@ -28,8 +28,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  		left join swc_cust b on a.custNo=b.custNo
  		left join swc_sopp c on a.soppNo=c.soppNo
  		left join swc_user d on a.userNo=d.userNo
- 		left join swc_organiz e on d.org_id = e.org_id 
- 		where a.compNo = #{compNo}
+ 		left join swc_organiz e on d.org_id = e.org_id
+	 	where a.attrib not like 'XXX%' and a.compNo = #{compNo}
  		<if test = "organizationList != null">
  			and e.org_id in
  			<foreach collection="organizationList" item="item" separator="," open="(" close=")">
@@ -48,8 +48,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  		from swc_sales a 
  		left join swc_cust b on a.custNo=b.custNo
  		left join swc_user d on a.userNo=d.userNo
- 		left join swc_organiz e on d.org_id = e.org_id 
- 		where a.compNo = #{compNo}
+ 		left join swc_organiz e on d.org_id = e.org_id
+	 	where a.attrib not like 'XXX%' and a.compNo = #{compNo}
  		<if test = "organizationList != null">
  			and e.org_id in
  			<foreach collection="organizationList" item="item" separator="," open="(" close=")">
@@ -67,8 +67,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  		e.org_color color
  		from swc_techd a 
  		left join swc_user d on a.userNo=d.userNo
- 		left join swc_organiz e on d.org_id = e.org_id 
- 		where a.compNo = #{compNo}
+ 		left join swc_organiz e on d.org_id = e.org_id
+	 	where a.attrib not like 'XXX%' and a.compNo = #{compNo}
  		<if test = "organizationList != null">
  			and e.org_id in
  			<foreach collection="organizationList" item="item" separator="," open="(" close=")">
@@ -85,7 +85,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  		left join swc_cust b on a.custNo=b.custNo
  		left join swc_sopp c on a.soppNo=c.soppNo
  		left join swc_user d on a.userNo=d.userNo
- 		where a.schedNo=#{schedNo}  
+		where a.attrib not like 'XXX%' and a.compNo = #{compNo}
  </select>
  
  <delete id="deleteEvent">

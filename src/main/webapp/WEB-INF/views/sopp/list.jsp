@@ -362,37 +362,7 @@
 							<!--//거래처-->
 							<div class="col-sm-12 col-xl-2">
 								<label class="col-form-label" for="custmemberName">엔드유저</label>
-								<div class="input-group input-group-sm mb-0">
-									<input type="text" class="form-control" name="buyrName" id="custmemberName" value="" readonly />
-									<input type="hidden" name="custmemberNo" id="buyrNo" value="" />
-									<span class="input-group-btn">
-										<button class="btn btn-dark sch-company" data-remote="${path}/modal/popup.do?popId=custmem&compNo=" type="button" data-toggle="modal" data-target="#custmemberModal" disabled>
-											<i class="icofont icofont-search"></i>
-										</button>
-									</span>
-									<div class="modal fade " id="custmemberModal" tabindex="-1"
-										 role="dialog">
-										<div class="modal-dialog modal-80size" role="document">
-											<div class="modal-content modal-80size">
-												<div class="modal-header">
-													<h4 class="modal-title"></h4>
-													<button type="button" class="close" data-dismiss="modal"
-															aria-label="Close">
-														<span aria-hidden="true">&times;</span>
-													</button>
-												</div>
-												<div class="modal-body">
-													<h5>고객목록</h5>
-													<p>거래처를 먼저 입력해주셔야 목록이 보입니다.</p>
-												</div>
-												<div class="modal-footer">
-													<button type="button" class="btn btn-default waves-effect "
-															data-dismiss="modal">Close</button>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
+								<jsp:include page="/WEB-INF/views/module/input/inputBuyr.jsp"/>
 							</div>
 							<!--매출예정일-->
 							<div class="col-sm-12 col-xl-6">

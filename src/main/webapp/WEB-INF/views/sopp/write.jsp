@@ -98,34 +98,7 @@
 													</td>
 													<th scope="row">엔드유저</th>
 													<td>
-														<div class="input-group input-group-sm mb-0">
-															<input type="text" class="form-control" id="endCustName" value="" />
-															<input type="hidden" id="endCustNo" value="" />
-															<span class="input-group-btn">
-																<button class="btn btn-primary sch-partner" data-remote="${path}/modal/popup.do?popId=endCust" type="button" data-toggle="modal" data-target="#endCustModal">
-																	<i class="icofont icofont-search"></i>
-																</button>
-															</span>
-															<div class="modal fade " id="endCustModal" tabindex="-1" role="dialog">
-																<div class="modal-dialog modal-80size" role="document">
-																	<div class="modal-content modal-80size">
-																		<div class="modal-header">
-																			<h4 class="modal-title"></h4>
-																			<button type="button" class="close" onclick="$('#endCustModal').modal('hide');" aria-label="Close">
-																				<span aria-hidden="true">&times;</span>
-																			</button>
-																		</div>
-																		<div class="modal-body">
-																			<h5>엔드유저 목록</h5>
-																			<p>Loading!!!</p>
-																		</div>
-																		<div class="modal-footer">
-																			<button type="button" class="btn btn-default waves-effect" onclick="$('#endCustModal').modal('hide');">Close</button>
-																		</div>
-																	</div>
-																</div>
-															</div>
-														</div>
+														<jsp:include page="/WEB-INF/views/module/input/inputBuyr.jsp"/>
 													</td>
 												</tr>
 												<tr>
@@ -170,17 +143,6 @@
 												<tr>
 													<th scope="row">판매방식</th>
 													<td>
-													<!-- <select name="soppType" id="soppType"
-														class="form-control form-control-sm col-md-4">
-															<option value="">선택</option>
-															<option value="101">신규</option>
-															<option value="102">노후화교체</option>
-															<option value="103">윈백</option>
-															<option value="104">증설</option>
-															<option value="105">이중화</option>
-															<option value="106">조달구매</option>
-															<option value="199">기타</option>
-													</select> -->
 														<select class="form-control form-control-sm" name="soppType" id="soppType">
 															<option value>선택</option>
 															<c:forEach var = "saleslist" items="${saleslist}">
@@ -217,13 +179,8 @@
 	</div>
 	<!-- Row end -->
 </div>
-	<!--영업기회등록-->
+<!--영업기회등록-->
 <script>
-		$('#buyrModal').on('show.bs.modal', function(e) {
-			var button = $(e.relatedTarget);
-			var modal = $(this);
-			modal.find('.modal-body').load(button.data("remote"));
-		});
 		$('#ptncModal').on('show.bs.modal', function(e) {
 			var button = $(e.relatedTarget);
 			var modal = $(this);
@@ -249,12 +206,6 @@
 			$("#custmemberName").val(b);
 			$(".modal-backdrop").remove();
 			$("#custmemberModal").modal("hide");
-		}
-    	function fnSetBuyrData(a, b) {
-			$("#buyrNo").val(b);
-			$("#buyrName").val(a);
-			$(".modal-backdrop").remove();
-			$("#buyrModal").modal("hide");
 		}
     	function fnSetPtncData(a, b) {
 			$("#ptncNo").val(b);
@@ -285,14 +236,11 @@ function fn_soppInsert() {
 	if($("#soppTargetAmt").val() != "") soppData.soppTargetAmt 	= $("#soppTargetAmt").val().replace(/[\D\s\._\-]+/g, "");
 	if($("#soppDesc").val() != "") soppData.soppDesc 		= $("#soppDesc").val();
 
-	console.dir(soppData);
 	// 필수값 체크
 	if (!soppData.soppTitle) {
 		alert("영업기회명을 입력하십시오.!!");
 		return;
 	}
-
-	console.dir(soppData);
 
 	$.ajax({ url: "${path}/sopp/insert.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소 
 		data: soppData, // HTTP 요청과 함께 서버로 보낼 데이터

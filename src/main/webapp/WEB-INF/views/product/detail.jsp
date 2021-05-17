@@ -234,12 +234,8 @@ function fn_focusOutEvent(e){
 
 	for(var i=0; i<AddItem.length; i++){
 		for(var j=0; j<productModel.length; j++){
-			//console.dir(AddItem[i].value +' / '+ productModel[j].value);
-			//console.dir(AddItem[i].value == productModel[j].value);
 			if(AddItem[i].value == productModel[j].value){
 				result = true;
-				//console.dir($(AddItem[i]));
-				//console.dir($(productModel[j]));
 				$(AddItem[i]).css("background-color",colorObject[0]);
 				$(AddItem[i]).data('Overwrite','1');
 				$(productModel[j]).css("background-color",colorObject[0]);
@@ -392,9 +388,6 @@ function fn_productDelete() {
 
 
 $(document).ready(function() {
-	//fn_itemListAdd();
-	// document.querySelector('.productModel').addEventListener('.focusout', function (e){
-	// 	console.dir(e);
-	// });
+
 });
 </script>                                                

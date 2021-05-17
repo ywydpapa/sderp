@@ -136,34 +136,7 @@
 								</td>
 								<th scope="row">엔드유저</th>
 								<td>
-									<div class="input-group input-group-sm mb-0">
-										<input type="text" class="form-control" id="endCustName" value="" readonly/>
-										<input type="hidden" id="endCustNo" value="" />
-										<span class="input-group-btn">
-											<button class="btn btn-dark sch-partner" data-remote="${path}/modal/popup.do?popId=endCust" type="button" data-toggle="modal" data-target="#endCustModal" disabled>
-												<i class="icofont icofont-search"></i>
-											</button>
-										</span>
-										<div class="modal fade " id="endCustModal" tabindex="-1" role="dialog">
-											<div class="modal-dialog modal-80size" role="document">
-												<div class="modal-content modal-80size">
-													<div class="modal-header">
-														<h4 class="modal-title"></h4>
-														<button type="button" class="close" onclick="$('#endCustModal').modal('hide');" aria-label="Close">
-															<span aria-hidden="true">&times;</span>
-														</button>
-													</div>
-													<div class="modal-body">
-														<h5>엔드유저 목록</h5>
-														<p>Loading!!!</p>
-													</div>
-													<div class="modal-footer">
-														<button type="button" class="btn btn-default waves-effect" onclick="$('#endCustModal').modal('hide');">Close</button>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
+									<jsp:include page="/WEB-INF/views/module/input/inputBuyr.jsp"/>
 								</td>
 							</tr>
 							<tr>

@@ -311,11 +311,6 @@ $(function(){
 	</div>
 	<!--//리스트 table-->
 	<script>
-	$('#buyrModal').on('show.bs.modal', function(e) {
-		var button = $(e.relatedTarget);
-		var modal = $(this);
-		modal.find('.modal-body').load(button.data("remote"));
-	});
 	$('#supplyModal').on('show.bs.modal', function(e) {
 		var button = $(e.relatedTarget);
 		var modal = $(this);
@@ -326,12 +321,6 @@ $(function(){
 		var modal = $(this);
 		modal.find('.modal-body').load(button.data("remote"));
 	});
-	function fnSetBuyrData(a, b) {
-		$("#buyrNo").val(b);
-		$("#buyrName").val(a);
-		$(".modal-backdrop").remove();
-		$("#buyrModal").modal("hide");
-	}
 	function fnSetSupplyData(a, b) {
 		$("#supplyNo").val(b);
 		$("#supplyName").val(a);

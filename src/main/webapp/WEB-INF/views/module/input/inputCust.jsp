@@ -112,7 +112,6 @@
             dataType: "json" // 서버에서 보내줄 데이터의 타입
         }) // HTTP 요청이 성공하면 요청한 데이터가 done() 메소드로 전달됨. .
             .done(function(data) {
-                console.dir(data);
                 if(data.code == 10001){
                     console.log("응답 성공");
                     var html= "";
@@ -168,7 +167,6 @@
             dataType: "json" // 서버에서 보내줄 데이터의 타입
         }) // HTTP 요청이 성공하면 요청한 데이터가 done() 메소드로 전달됨. .
             .done(function(result) {
-                console.dir(result);
                 if(result.code == 10001){
                     alert("저장 성공");
                     $('#custModal').modal('hide');

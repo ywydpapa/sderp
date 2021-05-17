@@ -77,8 +77,6 @@
 			url : '${path}/product/listAjax'
 		}).done(function (result) {
 			result = JSON.parse(result);
-			console.dir(result.length);
-			console.dir(JSON.parse(result.data));
 			var arr = JSON.parse(result.data);
 			// 글로벌 변수에 저장한다. 상세보기때 참고할 변수!!
 			productdataJson = arr;
@@ -122,7 +120,6 @@
 			}).done(function (result) {
 				if(result.data != "") {
 					result = JSON.parse(result.data);
-					console.dir(result);
 					html = '<table class="miniTable">' +
 							'<colgroup>' +
 							'<col width="10%"/>' +

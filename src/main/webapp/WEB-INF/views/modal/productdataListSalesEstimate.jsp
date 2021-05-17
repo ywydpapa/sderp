@@ -88,8 +88,6 @@
 			url : '${path}/product/listAjax'
 		}).done(function (result) {
 			var newData = JSON.parse(result);
-			console.dir(newData);
-
 			if(newData.data != "") {
 				var arr = JSON.parse(newData.data);
 				// 글로벌 변수에 저장한다. 상세보기때 참고할 변수!!

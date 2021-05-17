@@ -142,39 +142,7 @@ $('input[name=contractType]').on('click', function() {
 							<tr>
 								<th scope="row" class="requiredTextCss">엔드유저</th>
 								<td>
-									<div class="input-group input-group-sm mb-0">
-										<input type="text" class="form-control" name="custName" readonly id="custName" value="" />
-										<input type="hidden" name="custNo" id="custNo" value="" /> <span class="input-group-btn">
-											<button class="btn btn-primary sch-company"
-												data-remote="${path}/modal/popup.do?popId=cust"
-												type="button" data-toggle="modal" data-target="#custModal">
-												<i class="icofont icofont-search"></i>
-											</button>
-										</span>
-										<div class="modal fade " id="custModal" tabindex="-1"
-											role="dialog">
-											<div class="modal-dialog modal-80size" role="document">
-												<div class="modal-content modal-80size">
-													<div class="modal-header">
-														<h4 class="modal-title">거래처 검색</h4>
-														<button type="button" class="close" onclick="$('#custModal').modal('hide');"
-															aria-label="Close">
-															<span aria-hidden="true">&times;</span>
-														</button>
-													</div>
-													<div class="modal-body">
-														<h5>거래처목록</h5>
-														<p>Loading!!!</p>
-													</div>
-													<div class="modal-footer">
-														<button type="button"
-															class="btn btn-default waves-effect "
-															onclick="$('#custModal').modal('hide');">Close</button>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
+									<jsp:include page="/WEB-INF/views/module/input/inputBuyr.jsp"/>
 								</td>
 								<th scope="row">엔드유저 담당자</th>
 								<td>

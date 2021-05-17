@@ -487,17 +487,7 @@
 		$("#tab01_bottom").hide();
 		$("#tab_common_bottom").show();
 	});
-	$('#ptncModal').on('show.bs.modal', function(e) {
-		var button = $(e.relatedTarget);
-		var modal = $(this);
-		modal.find('.modal-body').load(button.data("remote"));
-	});
 	$('#soppModal').on('show.bs.modal', function(e) {
-		var button = $(e.relatedTarget);
-		var modal = $(this);
-		modal.find('.modal-body').load(button.data("remote"));
-	});
-	$('#supplyModal').on('show.bs.modal', function(e) {
 		var button = $(e.relatedTarget);
 		var modal = $(this);
 		modal.find('.modal-body').load(button.data("remote"));
@@ -507,35 +497,18 @@
 		var modal = $(this);
 		modal.find('.modal-body').load(button.data("remote"));
 	});
-
-	function fnSetPtncData(a, b) {
-		$("#ptncNo").val(b);
-		$("#ptncName").val(a);
-		$(".modal-backdrop").remove();
-		$("#ptncModal").modal("hide");
-	}
-
 	function fnSetSoppData(a, b) {
 		$("#soppNo").val(b);
 		$("#soppTitle").val(a);
 		$(".modal-backdrop").remove();
 		$("#soppModal").modal("hide");
 	}
-
-	function fnSetSupplyData(a, b) {
-		$("#supplyNo").val(b);
-		$("#supplyName").val(a);
-		$(".modal-backdrop").remove();
-		$("#supplyModal").modal("hide");
-	}
-
 	function fnSetContData(a,b,c,d){
 		$("#oldContTitle").val(a);
 		$("#oldContNo").val(b);
 		$(".modal-backdrop").remove();
 		$("#contModal").modal("hide");
 	}
-
 	function fnToggleLayer() {
 		$(".techdDetailCont").each(function () {
 			if($(this).css('display') == 'none'){
@@ -569,7 +542,7 @@
 		}
 		if($("#custName").val() != "")			contData.custNo 		= Number($("#custNo").val());			// 거래처
 		if($("#custmemberName").val() != "")	contData.custmemberNo	= Number($("#custmemberNo").val());		// 거래처 담당자
-		if($("#endCustName").val() != "") 		contData.buyrNo			= Number($("#endCustNo").val());		// 엔드유저
+		if($("#buyrName").val() != "") 		contData.buyrNo			= Number($("#buyrNo").val());			// 엔드유저
 		if($("#endCustmemberName").val() != "") contData.buyrMemberNo	= Number($("#endCustmemberNo").val());	// 엔드유저 담당자
 		if($("#contOrddate").val() != "")		contData.contOrddate 			= $("#contOrddate").val();		// 발주일자
 		if($("#supplyDate").val() != "") 		contData.supplyDate = $("#supplyDate").val();		// 공급일자
@@ -682,23 +655,24 @@
 			return;
 		}
 
-		$.ajax({ url: "${path}/sopp/insertdata01.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
+		$.ajax({
+			url: "${path}/sopp/insertdata01.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
 			data: data01Data , // HTTP 요청과 함께 서버로 보낼 데이터
 			method: "POST", // HTTP 요청 메소드(GET, POST 등)
 			dataType: "json" // 서버에서 보내줄 데이터의 타입
 		}) // HTTP 요청이 성공하면 요청한 데이터가 done() 메소드로 전달됨. .
-				.done(function(data) {
-					if(data.code == 10001){
-						alert("저장 성공");
-						var url="${path}/sopp/inoutlist/"+$("#soppNo").val();
-						fn_Reloaddata01(url);
-					}else{
-						alert("저장 실패");
-					}
-				}) // HTTP 요청이 실패하면 오류와 상태에 관한 정보가 fail() 메소드로 전달됨.
-				.fail(function(xhr, status, errorThrown) {
-					alert("통신 실패");
-				});
+		.done(function(data) {
+			if(data.code == 10001){
+				alert("저장 성공");
+				var url="${path}/sopp/inoutlist/"+$("#soppNo").val();
+				fn_Reloaddata01(url);
+			}else{
+				alert("저장 실패");
+			}
+		}) // HTTP 요청이 실패하면 오류와 상태에 관한 정보가 fail() 메소드로 전달됨.
+		.fail(function(xhr, status, errorThrown) {
+			alert("통신 실패");
+		});
 	}
 
 	function fn_data02Insert() {
@@ -726,23 +700,24 @@
 			return;
 		}
 
-		$.ajax({ url: "${path}/sopp/insertdata02.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
+		$.ajax({
+			url: "${path}/sopp/insertdata02.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
 			data: data02Data , // HTTP 요청과 함께 서버로 보낼 데이터
 			method: "POST", // HTTP 요청 메소드(GET, POST 등)
 			dataType: "json" // 서버에서 보내줄 데이터의 타입
 		}) // HTTP 요청이 성공하면 요청한 데이터가 done() 메소드로 전달됨. .
-				.done(function(data) {
-					if(data.code == 10001){
-						alert("저장 성공");
-						var url="${path}/sopp/qutylist/"+$("#soppNo").val();
-						fn_Reloaddata02(url);
-					}else{
-						alert("저장 실패");
-					}
-				}) // HTTP 요청이 실패하면 오류와 상태에 관한 정보가 fail() 메소드로 전달됨.
-				.fail(function(xhr, status, errorThrown) {
-					alert("통신 실패");
-				});
+		.done(function(data) {
+			if(data.code == 10001){
+				alert("저장 성공");
+				var url="${path}/sopp/qutylist/"+$("#soppNo").val();
+				fn_Reloaddata02(url);
+			}else{
+				alert("저장 실패");
+			}
+		}) // HTTP 요청이 실패하면 오류와 상태에 관한 정보가 fail() 메소드로 전달됨.
+		.fail(function(xhr, status, errorThrown) {
+			alert("통신 실패");
+		});
 	}
 
 
@@ -751,44 +726,46 @@
 	function fn_data01delete(soppdataNo) {
 		var msg = "선택한 건을 삭제하시겠습니까?";
 		if( confirm(msg) ){
-			$.ajax({ url: "${path}/sopp/deletedata01.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
+			$.ajax({
+				url: "${path}/sopp/deletedata01.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
 				data: {soppdataNo : soppdataNo}, // HTTP 요청과 함께 서버로 보낼 데이터
 				method: "POST", // HTTP 요청 메소드(GET, POST 등)
 			}) // HTTP 요청이 성공하면 요청한 데이터가 done() 메소드로 전달됨. .
-					.done(function(data) {
-						if(data.code == 10001){
-							alert("삭제 성공");
-							var url="${path}/sopp/inoutlist/"+$("#soppNo").val();
-							fn_Reloaddata01(url);
-						}else{
-							alert("삭제 실패");
-						}
-					}) // HTTP 요청이 실패하면 오류와 상태에 관한 정보가 fail() 메소드로 전달됨.
-					.fail(function(xhr, status, errorThrown) {
-						alert("통신 실패");
-					});
+			.done(function(data) {
+				if(data.code == 10001){
+					alert("삭제 성공");
+					var url="${path}/sopp/inoutlist/"+$("#soppNo").val();
+					fn_Reloaddata01(url);
+				}else{
+					alert("삭제 실패");
+				}
+			}) // HTTP 요청이 실패하면 오류와 상태에 관한 정보가 fail() 메소드로 전달됨.
+			.fail(function(xhr, status, errorThrown) {
+				alert("통신 실패");
+			});
 		}
 	}
 
 	function fn_data02delete(soppdataNo) {
 		var msg = "선택한 건을 삭제하시겠습니까?";
 		if( confirm(msg) ){
-			$.ajax({ url: "${path}/sopp/deletedata02.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
+			$.ajax({
+				url: "${path}/sopp/deletedata02.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
 				data: {soppdataNo : soppdataNo}, // HTTP 요청과 함께 서버로 보낼 데이터
 				method: "POST", // HTTP 요청 메소드(GET, POST 등)
 			}) // HTTP 요청이 성공하면 요청한 데이터가 done() 메소드로 전달됨. .
-					.done(function(data) {
-						if(data.code == 10001){
-							alert("삭제 성공");
-							var url="${path}/sopp/qutylist/"+$("#soppNo").val();
-							fn_Reloaddata02(url);
-						}else{
-							alert("삭제 실패");
-						}
-					}) // HTTP 요청이 실패하면 오류와 상태에 관한 정보가 fail() 메소드로 전달됨.
-					.fail(function(xhr, status, errorThrown) {
-						alert("통신 실패");
-					});
+			.done(function(data) {
+				if(data.code == 10001){
+					alert("삭제 성공");
+					var url="${path}/sopp/qutylist/"+$("#soppNo").val();
+					fn_Reloaddata02(url);
+				}else{
+					alert("삭제 실패");
+				}
+			}) // HTTP 요청이 실패하면 오류와 상태에 관한 정보가 fail() 메소드로 전달됨.
+			.fail(function(xhr, status, errorThrown) {
+				alert("통신 실패");
+			});
 		}
 	}
 
@@ -818,9 +795,7 @@
 			}).fail(function(xhr, status, errorThrown) {
 				alert("통신 실패");
 			});
-
 		}
-
 	}
 
 	function downloadFile(fileId) {

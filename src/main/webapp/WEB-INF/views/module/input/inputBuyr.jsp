@@ -3,9 +3,12 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <c:set var="path" value ="${pageContext.request.contextPath}"/>
 <div class="input-group input-group-sm mb-0">
-    <input type="text" class="form-control" id="buyrName" value="${dto.buyrName}" />
+    <input type="text" class="form-control" id="buyrName" value="${dto.buyrName}" readonly/>
     <input type="hidden" id="buyrNo" value="${dto.buyrNo}" />
     <span class="input-group-btn">
+        <button class="btn btn-dark" id="buyrInputDelete">
+            <i class="icofont icofont-close"></i>
+        </button>
 		<button class="btn btn-primary sch-partner" data-remote="${path}/modal/popup.do?popId=buyr" type="button" data-toggle="modal" data-target="#buyrModal">
 			<i class="icofont icofont-search"></i>
 		</button>
@@ -14,7 +17,7 @@
         <div class="modal-dialog modal-80size" role="document">
             <div class="modal-content modal-80size">
                 <div class="modal-header">
-                    <h4 class="modal-title"></h4>
+                    <h4 class="modal-title">엔드유저</h4>
                     <button type="button" class="close" onclick="$('#buyrModal').modal('hide');" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -32,6 +35,11 @@
 </div>
 
 <script>
+    $("#buyrInputDelete").on("click",function (e) {
+        $("#buyrName").val("");
+        $("#buyrNo").val("");
+    })
+
     $('#buyrModal').on('show.bs.modal', function(e) {
         var button = $(e.relatedTarget);
         var modal = $(this);
@@ -39,8 +47,8 @@
     });
 
     function fnSetBuyrData(a, b) {
-        $("#buyrNo").val(b);
         $("#buyrName").val(a);
+        $("#buyrNo").val(b);
         $(".modal-backdrop").remove();
         $("#buyrModal").modal("hide");
     }

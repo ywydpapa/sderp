@@ -133,54 +133,28 @@
 
 
 <script>
-		$('#ptncModal').on('show.bs.modal', function(e) {
-			var button = $(e.relatedTarget);
-			var modal = $(this);
-			modal.find('.modal-body').load(button.data("remote"));
-		});
 		$('#soppModal').on('show.bs.modal', function(e) {
 			var button = $(e.relatedTarget);
 			var modal = $(this);
 			modal.find('.modal-body').load(button.data("remote"));
 		});
-		$('#endCustModal').on('show.bs.modal', function(e) {
-			var button = $(e.relatedTarget);
-			var modal = $(this);
-			modal.find('.modal-body').load(button.data("remote"));
-		});
-
-		function fnSetPtncData(a, b) {
-			$("#ptncNo").val(b);
-			$("#ptncName").val(a);
-			$(".modal-backdrop").remove();
-			$("#ptncModal").modal("hide");
-		}
-		
 		function fnSetSoppData(a, b) {
 			$("#soppNo").val(b);
 			$("#soppTitle").val(a);
 			$(".modal-backdrop").remove();
 			$("#soppModal").modal("hide");
 		}
-
-		function fnSetEndCustData(a, b) {
-			$("#endCustNo").val(b);
-			$("#endCustName").val(a);
-			$(".modal-backdrop").remove();
-			$("#endCustModal").modal("hide");
-		}
-
 		function fn_UpdateSales() {
 			var salesData = {};
-			salesData.salesNo = $("#salesNo").val();
-			salesData.salesFrdatetime = setDateHourMinute($("#salesFrdatetime").val(), $("#startTime").val()); 
-			salesData.salesTodatetime = setDateHourMinute($("#salesTodatetime").val(), $("#endTime").val());
+			salesData.salesNo 			= $("#salesNo").val();
+			salesData.salesFrdatetime 	= setDateHourMinute($("#salesFrdatetime").val(), $("#startTime").val());
+			salesData.salesTodatetime 	= setDateHourMinute($("#salesTodatetime").val(), $("#endTime").val());
 			salesData.salesTitle 		= $("#salesTitle").val();
 		 	salesData.salesPlace		= $("#salesPlace").val();
-			salesData.userNo 		= $("#userNo").val();
-			salesData.custNo 		= $("#custName").val() != "" ? Number($("#custNo").val()) : 0;
-			salesData.soppNo 		= $("#soppName").val() != "" ? Number($("#soppNo").val()) : 0;
-			salesData.ptncNo 		= $("#endCustName").val() != "" ? Number($("#endCustNo").val()) : 0;
+			salesData.userNo 			= $("#userNo").val();
+			salesData.custNo 			= $("#custName").val() != "" ? Number($("#custNo").val()) : 0;
+			salesData.soppNo 			= $("#soppName").val() != "" ? Number($("#soppNo").val()) : 0;
+			salesData.ptncNo 			= $("#buyrName").val() != "" ? Number($("#buyrNo").val()) : 0;
 			salesData.salesType 		= $("#salesType").val();
 			salesData.salesDesc 		= $("#salesDesc").val();
 			

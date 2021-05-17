@@ -28,7 +28,7 @@
 				data.push({"name":"userNo", "value" : $("#userNo").val()});
 				data.push({"name":"soppNo", "value" : $("#soppNo").val()});
 				data.push({"name":"custNo", "value" : $("#custNo").val()});
-				data.push({"name":"endCustNo", "value" : $("#endCustNo").val()});
+				data.push({"name":"buyrNo", "value" : $("#buyrNo").val()});
 				data.push({"name":"contNo", "value" : $("#contNo").val()});
 				data.push({"name":"schedType", "value" : $("#schedType").val()});
 				data.push({"name":"schedCat", "value" : $("#schedCat option:selected").val()});
@@ -289,15 +289,15 @@
 							</div>
 						</div>
 						<div class="col-sm-12 col-xl-3">
-							<label class="col-form-label" for="custName">매출처</label>
+							<label class="col-form-label">매출처</label>
 							<jsp:include page="/WEB-INF/views/module/input/inputCust.jsp"/>
 						</div>
 						<div class="col-sm-12 col-xl-3">
-							<label class="col-form-label" for="endCustName">엔드유저</label>
+							<label class="col-form-label">엔드유저</label>
 							<jsp:include page="/WEB-INF/views/module/input/inputBuyr.jsp"/>
 						</div>
 						<div class="col-sm-12 col-xl-3">
-							<label class="col-form-label" for="custmemberName">계약</label>
+							<label class="col-form-label">계약</label>
 							<div class="input-group input-group-sm mb-0">
 								<input type="text" class="form-control" name="contTitle"
 									id="contTitle" value="" readonly /> <input type="hidden"
@@ -330,7 +330,7 @@
 							</div>
 						</div>
 						<div class="col-sm-1">
-							<label class="col-form-label" for="co_name">일정구분</label>
+							<label class="col-form-label">일정구분</label>
 							<select name="select" class="form-control form-control-sm" id="schedType">
 								<option value>선택</option>
 								<c:forEach var ="listschedcat" items="${listSchdType}">
@@ -339,7 +339,7 @@
 							</select>
 						</div>
 						<div class="col-sm-1">
-							<label class="col-form-label" for="co_name">활동형태</label>
+							<label class="col-form-label">활동형태</label>
 							<select	name="select" class="form-control form-control-sm" id="schedCat">
 								<option value>선택</option>
 								<c:forEach var ="listschedcat" items="${listschedcat}">
@@ -348,7 +348,7 @@
 							</select>
 						</div>
 						<div class="col-sm-12 col-xl-3">
-							<label class="col-form-label" for="co_name">일정시작일</label>
+							<label class="col-form-label">일정시작일</label>
 							<p class="input_inline">
 								<input class="form-control form-control-sm col-xl-6" type="date" id="schedFrom" onChange="javascript:inputDate($('#schedFrom').val(), $('#schedTo').val())">
 								~ <input class="form-control form-control-sm col-xl-6"
@@ -362,7 +362,6 @@
 						</div>
 					</div>
 				</div>
-			</div>
 			</form>
 			<div class="col-sm-12">
 		</div>
@@ -401,26 +400,6 @@
 								<th>일정설명</th>
 							</tr>
 						</thead>
-						<%--<tbody>
-							<c:forEach var="row" items="${list}">
-								<tr>
-									<td>${row.schedTypeN}</td>
-									<td><a href="javascript:fnSetDetailLink('${row.schedTypeN}', '${row.schedNo}')">${row.schedTitle}</a></td>
-									<td>
-										<fmt:parseDate value="${row.schedFrom}" var="schedFrom" pattern="yyyy-MM-dd HH:mm:ss"/>
-										<fmt:formatDate value="${schedFrom}" pattern="yyyy-MM-dd"/>
-										<span> ~ </span>
-										<fmt:parseDate value="${row.schedTo}" var="schedTo" pattern="yyyy-MM-dd HH:mm:ss"/>
-										<fmt:formatDate value="${schedTo}" pattern="yyyy-MM-dd"/>
-									</td>
-									<td title="${row.custName}">${row.custName}</td>
-									<td>${row.userName}</td>
-									<td>${row.schedPlace}</td>
-									<td>${row.schedCatN}</td>
-									<td title="${row.schedDesc}">${row.schedDesc}</td>
-								</tr>
-							</c:forEach>
-						</tbody>--%>
 					</table>
 				</div>
 			</div>
@@ -467,24 +446,6 @@
 			$(".modal-backdrop").remove();
 			$("#contModal").modal("hide");
 		}
-
-
-
-		/*
-    	function fnListcon() {
-    		var schedData = {};
-    		schedData.userNo = $("#userNo").val() ? $("#userNo").val() : 0;
-    		schedData.soppNo = $("#soppNo").val() ? $("#soppNo").val() : 0;
-    		schedData.custNo = $("#custNo").val() ? $("#custNo").val() : 0;
-    		schedData.custmemberNo = $("#custmemberNo").val() ? $("#custmemberNo").val() : 0;
-    		schedData.contNo = $("#contNo").val() ? $("#contNo").val() : 0;
-    		schedData.schedCat = $("#schedCat").val() ? $("#schedCat").val() : null;
-    		schedData.schedFrom = $("#schedFrom").val() ? $("#schedFrom").val() : null;
-    		schedData.schedTo = $("#schedTo").val() ? $("#schedTo").val() : null;
-    		
-    		fnSetList('${path}/sched/listcon.do', schedData);
-    	}
-    	*/
 
     	function fnSetDetailLink(schedTypeN, schedNo) {
     		var typePath;

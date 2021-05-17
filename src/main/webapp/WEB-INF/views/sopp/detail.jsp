@@ -369,21 +369,12 @@
 			}, 500);
 		});
 	}
-	$('#ptncModal').on('show.bs.modal', function(e) {
-		var button = $(e.relatedTarget);
-		var modal = $(this);
-		modal.find('.modal-body').load(button.data("remote"));
-	});
+
 	$('#custmemberModal').on('show.bs.modal', function(e) {
 		var custNo = $("#custNo").val();
 		var url = '${path}/modal/popup.do?popId=custmem&compNo=' + custNo;
 		$("#custmemberModalbtn").data("remote",url);
 
-		var button = $(e.relatedTarget);
-		var modal = $(this);
-		modal.find('.modal-body').load(button.data("remote"));
-	});
-	$('#endCustModal').on('show.bs.modal', function(e) {
 		var button = $(e.relatedTarget);
 		var modal = $(this);
 		modal.find('.modal-body').load(button.data("remote"));
@@ -409,12 +400,6 @@
 		$("#productNo2").val("");
 	});
 
-	function fnSetPtncData(a, b) {
-		$("#ptncNo").val(b);
-		$("#ptncName").val(a);
-		$(".modal-backdrop").remove();
-		$("#ptncModal").modal("hide");
-	}
 	function fnSetproductdata(a,b){
 		$("#productNo1").val(a);
 		$("#data01Title").val(b);
@@ -428,13 +413,6 @@
 		$("#data02Title").val(b);
 		$("#productdataModal2").find(".modal-footer button").trigger('click');
 	}
-	function fnSetEndCustData(a, b) {
-		$("#endCustNo").val(b);
-		$("#endCustName").val(a);
-		$("#endCustmemberModalbtn").data('whatever', b);
-		$(".modal-backdrop").remove();
-		$("#endCustModal").modal("hide");
-	}
 
 
 	function fn_soppUpdate() {
@@ -443,7 +421,7 @@
 		soppData.soppTitle 		= $("#soppTitle").val();
 		if($("#userName").val() != "")  	soppData.userNo 	= Number($("#userNo").val());
 		if($("#custName").val() != "")	soppData.custNo 		= Number($("#custNo").val());
-		if($("#endCustName").val() != "")	soppData.buyrNo 	= Number($("#endCustNo").val());
+		if($("#buyrName").val() != "")	soppData.buyrNo 		= Number($("#buyrNo").val());
 		if($("#soppSrate").val() != "")	soppData.soppSrate 		= Number($("#soppSrate").val());
 		if($("#soppType").val() != "")	soppData.soppType 		= Number($("#soppType").val());
 		if($("#cntrctMth").val() != "")	soppData.cntrctMth 		= Number($("#cntrctMth").val());

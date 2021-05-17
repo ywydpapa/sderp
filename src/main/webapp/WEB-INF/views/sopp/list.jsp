@@ -316,42 +316,8 @@
 						<div class="form-group row">
 							<!--담당자-->
 							<div class="col-sm-12 col-xl-2">
-								<label class="col-form-label" for="userName">담당자</label>
-								<div class="input-group input-group-sm mb-0">
-									<input type="text" class="form-control" name="userName" id="userName" value=""  readonly />
-									<input type="hidden" name="userNo" 	id="userNo" value="" />
-									<span class="input-group-btn">
-											<button class="btn btn-primary sch-company"
-													data-remote="${path}/modal/popup.do?popId=user"
-													type="button" data-toggle="modal" data-target="#userModal">
-												<i class="icofont icofont-search"></i>
-											</button>
-										</span>
-									<!--modal-->
-									<div class="modal fade " id="userModal" tabindex="-1" role="dialog">
-										<div class="modal-dialog modal-80size" role="document">
-											<div class="modal-content modal-80size">
-												<div class="modal-header">
-													<h4 class="modal-title"></h4>
-													<button type="button" class="close" data-dismiss="modal"
-															aria-label="Close">
-														<span aria-hidden="true">&times;</span>
-													</button>
-												</div>
-												<div class="modal-body">
-													<h5>사용자목록</h5>
-													<p>Loading!!!</p>
-												</div>
-												<div class="modal-footer">
-													<button type="button"
-															class="btn btn-default waves-effect "
-															data-dismiss="modal">Close</button>
-												</div>
-											</div>
-										</div>
-									</div>
-									<!--//modal-->
-								</div>
+								<label class="col-form-label" for="userName">담당사원</label>
+								<jsp:include page="/WEB-INF/views/module/input/inputActiveUser.jsp"/>
 							</div>
 							<!--//담당자-->
 							<!--거래처-->
@@ -455,20 +421,6 @@
 						</tr>
 						</thead>
 						<tbody>
-						<%--
-                        <c:forEach var="row" items="${list}">
-                        <tr>
-                            <th scope="row"><input class="border-checkbox" type="checkbox" id="checkbox0"></th>
-                            <td>${row.soppTypeN}</td>
-                            <td><a href="javascript:fnSetPage('${path}/sopp/detail/${row.soppNo}')" title="${row.soppTitle}">${row.soppTitle}</a></td>
-                            <td>${row.custName}</td>
-                            <td>${row.userName}</td>
-                            <td class="text-right"><fmt:formatNumber type="number" maxFractionDigits="3" value="${row.soppTargetAmt}" /></td>
-                            <td <c:if test="${row.soppStatusN eq '계약진행보류'}">style="color:red"</c:if>>${row.soppStatusN}</td>
-                            <td class="text-right">${row.soppTargetDate}</td>
-                        </tr>
-                        </c:forEach>
-                        --%>
 						</tbody>
 					</table>
 				</div>
@@ -494,22 +446,6 @@
 		$(".modal-backdrop").remove();
 		$("#custmemberModal").modal("hide");
 	}
-
-	/*
-    function fnListcon() {
-        var soppData = {};
-        soppData.userNo = $("#userNo").val() ? $("#userNo").val() : 0;
-        soppData.custNo = $("#custNo").val() ? $("#custNo").val() : 0;
-        soppData.custmemberNo = $("#custmemberNo").val() ? $("#custmemberNo").val() : 0;
-        soppData.targetDatefrom = $("#targetDatefrom").val() ? $("#targetDatefrom").val() : null;
-        soppData.targetDateto = $("#targetDateto").val() ? $("#targetDateto").val() : null;
-        soppData.soppType = $("#soppType").val() ? $("#soppType").val() : null;
-        soppData.businessType = $("#businessType").val() ? $("#businessType").val() : null;
-        soppData.soppStatus = $("#soppStatus").val() ? $("#soppStatus").val() : null;
-
-        fnSetList('${path}/sopp/listcon.do', soppData);
-   		}
-   		*/
 
 	function fnSetPageEx(data){
 		var url = "${path}/sopp/detail/"+data;

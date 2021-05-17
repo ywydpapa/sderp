@@ -29,7 +29,7 @@
         <div class="modal-dialog modal-80size" role="document">
             <div class="modal-content modal-80size">
                 <div class="modal-header">
-                    <h4 class="modal-title"></h4>
+                    <h4 class="modal-title">담당사원</h4>
                     <button type="button" class="close" onclick="$('#userModal').modal('hide');" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -45,9 +45,6 @@
         </div>
     </div>
 </div>
-<style>
-
-</style>
 <script>
     $("#userInputDelete").on("click",function (e) {
         $("#userName").val("");

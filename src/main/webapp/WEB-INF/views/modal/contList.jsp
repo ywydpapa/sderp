@@ -3,7 +3,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <c:set var="path" value ="${pageContext.request.contextPath}"/>
-
 <div class="dt-responsive table-responsive">
 	<table id="contDataTable" class="table table-striped table-bordered nowrap">
 		<thead>
@@ -18,8 +17,7 @@
 			<c:forEach var="row" items="${list}">
 				<tr align="center">
 					<td>${row.contNo}</td>
-					<td><a
-						href="javascript:fnSetContData('${row.contTitle}','${row.contNo}','${row.userNo}','${row.custNo}');">${row.contTitle}</a></td>
+					<td><a href="javascript:fnSetContData('${row.contTitle}','${row.contNo}','${row.userNo}','${row.custNo}');" style="text-decoration:underline;">${row.contTitle}</a></td>
 					<td>${row.custName}</td>
 					<td>${row.userName}</td>
 				</tr>
@@ -27,7 +25,6 @@
 		</tbody>
 	</table>
 </div>
-
 <script>
 $(function(){
     $('#contDataTable').DataTable({

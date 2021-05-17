@@ -18,8 +18,7 @@
 			<c:forEach var="row" items="${list}">
 				<tr align="center">
 					<td>${row.custNo}</td>
-					<td><a
-						href="javascript:fnSetCustData('${row.custName}','${row.custNo}');">${row.custName}</a></td>
+					<td><a href="javascript:fnSetCustData('${row.custName}','${row.custNo}');" style="text-decoration:underline;">${row.custName}</a></td>
 					<td>${row.custBossname}</td>
 					<td>${row.custVatno}</td>
 				</tr>
@@ -27,7 +26,6 @@
 		</tbody>
 	</table>
 </div>
-
 <script>
 $(function(){
     $('#custDataTable').DataTable({

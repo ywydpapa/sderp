@@ -51,6 +51,8 @@ public class SchedDTO extends PageDTO {
 
 
 	// 확장
+	private int buyrNo;
+	private String buyrName;
 	private int endCustNo;
 	private String regSDate;	// 등록일 시작
 	private String regEDate;	// 등록일 끝

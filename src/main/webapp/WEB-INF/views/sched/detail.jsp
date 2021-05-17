@@ -206,24 +206,12 @@
 			$(".modal-backdrop").remove();
 			$("#soppModal").modal("hide");
 		}
-		function fnSetPtncData(a, b) {
-			$("#ptncNo").val(b);
-			$("#ptncName").val(a);
-			$(".modal-backdrop").remove();
-			$("#ptncModal").modal("hide");
-		}
 		function fnSetContData(a, b) {
 			$("#contNo").val(b);
 			$("#contTitle").val(a);
 			$(".modal-backdrop").remove();
 			$("#contModal").modal("hide");
 		}
-	function fnSetEndCustData(a, b) {
-		$("#endCustNo").val(b);
-		$("#endCustName").val(a);
-		$(".modal-backdrop").remove();
-		$("#endCustModal").modal("hide");
-	}
 		
 	function fn_UpdateSched() {
 		var schedData = {};

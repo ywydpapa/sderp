@@ -46,8 +46,8 @@ public class SchedServiceImpl implements SchedService {
 		Integer contNo = contNostr.equals("") == true ? 0 : Integer.valueOf(contNostr);	// 계약
 		String custNostr = request.getParameter("custNo");
 		Integer custNo = custNostr.equals("") == true ? 0 : Integer.valueOf(custNostr);	// 거래처
-		String endCustNostr =  request.getParameter("endCustNo");
-		Integer endCustNo = endCustNostr.equals("") == true ? 0 : Integer.valueOf(endCustNostr);	// 엔드유저
+		String buyrNostr =  request.getParameter("buyrNo");
+		Integer buyrNo = buyrNostr.equals("") == true ? 0 : Integer.valueOf(buyrNostr);	// 엔드유저
 		String schedType = request.getParameter("schedType") != null ? (String) request.getParameter("schedType") : "";			// 활동형태
 		String schedCat = request.getParameter("schedCat") != null ? (String) request.getParameter("schedCat") : "";			// 활동형태
 		String schedFrom = request.getParameter("schedFrom") != null ? (String) request.getParameter("schedFrom") : "";			// 시작일
@@ -60,7 +60,7 @@ public class SchedServiceImpl implements SchedService {
 		dto.setSoppNo(soppNo);
 		dto.setContNo(contNo);
 		dto.setCustNo(custNo);
-		dto.setEndCustNo(endCustNo);
+		dto.setBuyrNo(buyrNo);
 		dto.setSchedType(schedType);
 		dto.setSchedCat(schedCat);
 		dto.setSchedFrom(schedFrom);

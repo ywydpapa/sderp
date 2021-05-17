@@ -42,42 +42,8 @@ $(function(){
 					<div class="form-group row">
 						<!--담당자-->
 						<div class="col-sm-12 col-xl-3">
-							<label class="col-form-label" for="userName">담당자</label>
-							<div class="input-group input-group-sm mb-0">
-								<input type="text" class="form-control" name="userName" id="userName" value=""  readonly />
-								 <input type="hidden" name="userNo" 	id="userNo" value="" /> 
-								 <span class="input-group-btn">
-									<button class="btn btn-primary sch-company"
-										data-remote="${path}/modal/popup.do?popId=user"
-										type="button" data-toggle="modal" data-target="#userModal">
-										<i class="icofont icofont-search"></i>
-									</button>
-								</span>
-								<!--modal-->
-								<div class="modal fade " id="userModal" tabindex="-1" role="dialog">
-									<div class="modal-dialog modal-80size" role="document">
-										<div class="modal-content modal-80size">
-											<div class="modal-header">
-												<h4 class="modal-title"></h4>
-												<button type="button" class="close" data-dismiss="modal"
-													aria-label="Close">
-													<span aria-hidden="true">&times;</span>
-												</button>
-											</div>
-											<div class="modal-body">
-												<h5>사용자목록</h5>
-												<p>Loading!!!</p>
-											</div>
-											<div class="modal-footer">
-												<button type="button"
-													class="btn btn-default waves-effect "
-													data-dismiss="modal">Close</button>
-											</div>
-										</div>
-									</div>
-								</div>
-								<!--//modal-->
-							</div>
+							<label class="col-form-label" for="userName">담당사원</label>
+							<jsp:include page="/WEB-INF/views/module/input/inputActiveUser.jsp"/>
 						</div>
 						<!--//담당자-->
 						<!--거래처-->
@@ -239,38 +205,10 @@ $(function(){
     	function fnListcon() {
     		var soppData = {};
     	 	var userNo = $("#userNo").val();
-    	 	
     	 	if (userNo){
     			soppData.userNo 		= $("#userNo").val();
     		}
-/*     	 
-    		
-    		soppData.custNo 		= $("#custNo").val();
-    		soppData.soppStatus 		= $("#soppStatus").val();
-    		soppData.soppSrate 		= $("#soppSrate").val();
-     		soppData.soppTargetDate		= $("#soppTargetDate").val(); 
-   		    soppData.soppType 		= $("#soppType").val();
- */    		console.log(soppData);
- 
  			fnSetPage('${path}/sopp/listcon.do', soppData);
-    		/*
-    		$.ajax({ url: "${path}/sopp/listcon.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소 
-    					data: soppData , // HTTP 요청과 함께 서버로 보낼 데이터 
-    					method: "POST", // HTTP 요청 메소드(GET, POST 등) 
-    					dataType: "json" // 서버에서 보내줄 데이터의 타입 
-    				}) // HTTP 요청이 성공하면 요청한 데이터가 done() 메소드로 전달됨. .
-    				.done(function(data) {
-    					if(data.code == 10001){
-    						alert("조회 성공");
-    						fnSetPage('${path}/sopp/list.do');
-    					}else{
-    						alert("조회 실패");
-    					}
-    				}) // HTTP 요청이 실패하면 오류와 상태에 관한 정보가 fail() 메소드로 전달됨. 
-    				.fail(function(xhr, status, errorThrown) { 
-    					alert("통신 실패");
-    				});
- 			*/
    		}
 </script>
 

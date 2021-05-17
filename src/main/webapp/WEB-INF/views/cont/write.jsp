@@ -282,11 +282,11 @@
 		</div>
 	</div>
 </div>
-			<div class="btn_wr text-right mt-3">
-				<button class="btn btn-md btn-success f-left" onClick="fnSetPage('${path}/cont/list.do')">목록</button>
-				<button class="btn btn-md btn-primary" onClick="fn_SaveCont()">계약등록</button>
-				<button class="btn btn-md btn-inverse" onClick="fnSetPage('${path}/cont/list.do')">취소</button>
-			</div>
+<div class="btn_wr text-right mt-3">
+	<button class="btn btn-md btn-success f-left" onClick="fnSetPage('${path}/cont/list.do')">목록</button>
+	<button class="btn btn-md btn-primary" onClick="fn_SaveCont()">계약등록</button>
+	<button class="btn btn-md btn-inverse" onClick="fnSetPage('${path}/cont/list.do')">취소</button>
+</div>
 <!--//계약등록-->
 
 <script>
@@ -298,23 +298,11 @@
 			var modal = $(this);
 			modal.find('.modal-body').load(button.data("remote"));
 		});
-
-		$('#endCustModal').on('show.bs.modal', function(e) {
-			var button = $(e.relatedTarget);
-			var modal = $(this);
-			modal.find('.modal-body').load(button.data("remote"));
-		});
 		$('#endCustmemberModal').on('show.bs.modal', function(e) {
 			var button = $(e.relatedTarget);
 			var recipient = button.data('whatever');
-			console.log("endCustmemberModal -> : "+recipient);
 			var url = '${path}/modal/popup.do?popId=endCustmem&compNo=' + recipient;
 			button.data("remote",url);
-			var modal = $(this);
-			modal.find('.modal-body').load(button.data("remote"));
-		});
-		$('#ptncModal').on('show.bs.modal', function(e) {
-			var button = $(e.relatedTarget);
 			var modal = $(this);
 			modal.find('.modal-body').load(button.data("remote"));
 		});
@@ -323,25 +311,11 @@
 			var modal = $(this);
 			modal.find('.modal-body').load(button.data("remote"));
 		});
-		$('#supplyModal').on('show.bs.modal', function(e) {
-			var button = $(e.relatedTarget);
-			var modal = $(this);
-			modal.find('.modal-body').load(button.data("remote"));
-		});
-
 		$('#contModal').on('show.bs.modal', function(e) {
 			var button = $(e.relatedTarget);
 			var modal = $(this);
 			modal.find('.modal-body').load(button.data("remote"));
 		});
-
-		function fnSetEndCustData(a, b) {
-			$("#endCustNo").val(b);
-			$("#endCustName").val(a);
-			$("#endCustmemberModalbtn").data('whatever', b);
-			$(".modal-backdrop").remove();
-			$("#endCustModal").modal("hide");
-		}
 
 		function fnSetEndCustmereData(a,b){
 			$("#endCustmemberNo").val(a);
@@ -349,14 +323,6 @@
 			$(".modal-backdrop").remove();
 			$("#endCustmemberModal").modal("hide");
 		}
-		
-		function fnSetPtncData(a, b) {
-			$("#ptncNo").val(b);
-			$("#ptncName").val(a);
-			$(".modal-backdrop").remove();
-			$("#ptncModal").modal("hide");
-		}
-		
 		function fnSetSoppData(a, b, c, d) {
 			// '${row.soppTitle}','${row.soppNo}','${row.userNo}','${row.custNo}'
 			$("#soppTitle").val(a);
@@ -364,7 +330,6 @@
 			$(".modal-backdrop").remove();
 			$("#soppModal").modal("hide");
 		}
-		
 		function fnSetCustmereData(a,b){
 			// '${row.custData03no}','${row.custMname}'
 			// 고객담당자번호, 고객성명
@@ -373,26 +338,12 @@
 			$(".modal-backdrop").remove();
 			$("#custmemberModal").modal("hide");
 		}
-
-
-
-		function fnSetSupplyData(a, b) {
-			$("#supplyNo").val(b);
-			$("#supplyName").val(a);
-			$(".modal-backdrop").remove();
-			$("#supplyModal").modal("hide");
-		}
-
 		function fnSetContData(a,b,c,d){
 			$("#oldContTitle").val(a);
 			$("#oldContNo").val(b);
 			$(".modal-backdrop").remove();
 			$("#contModal").modal("hide");
 		}
-
-
-
-
 		function fnToggleLayer() {
 			$(".techdDetailCont").each(function () {
 				if($(this).css('display') == 'none'){
@@ -437,11 +388,11 @@
 			}
 			if($("#custName").val() != "")			contData.custNo 		= Number($("#custNo").val());			// 거래처
 			if($("#custmemberName").val() != "")	contData.custmemberNo	= Number($("#custmemberNo").val());		// 거래처 담당자
-			if($("#endCustName").val() != "") 		contData.buyrNo			= Number($("#endCustNo").val());		// 엔드유저
+			if($("#buyrName").val() != "") 			contData.buyrNo			= Number($("#buyrNo").val());		// 엔드유저
 			if($("#endCustmemberName").val() != "") contData.buyrMemberNo	= Number($("#endCustmemberNo").val());	// 엔드유저 담당자
-			if($("#contOrddate").val() != "")		contData.contOrddate 			= $("#contOrddate").val();		// 발주일자
-			if($("#supplyDate").val() != "") 		contData.supplyDate = $("#supplyDate").val();		// 공급일자
-			if($("#delivDate").val() != "")  		contData.delivDate	 = $("#delivDate").val();		// 검수일자
+			if($("#contOrddate").val() != "")		contData.contOrddate 	= $("#contOrddate").val();		// 발주일자
+			if($("#supplyDate").val() != "") 		contData.supplyDate 	= $("#supplyDate").val();		// 공급일자
+			if($("#delivDate").val() != "")  		contData.delivDate	 	= $("#delivDate").val();		// 검수일자
 
 			var contAmt = Number($("#contAmt").val().replace(/[\D\s\._\-]+/g, ""));			// 계약금액
 			if (contAmt >= 0){
@@ -465,58 +416,25 @@
 				return;
 			}
 
-			$.ajax({ url: "${path}/cont/insert.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소 
-						data: contData , // HTTP 요청과 함께 서버로 보낼 데이터 
-						method: "POST", // HTTP 요청 메소드(GET, POST 등) 
-						dataType: "json" // 서버에서 보내줄 데이터의 타입 
-					}) // HTTP 요청이 성공하면 요청한 데이터가 done() 메소드로 전달됨. .
-					.done(function(data) {
-						if(data.code == 10001){
-							alert("저장 성공");
-							fnSetPage('${path}/cont/list.do');
-						}else{
-							alert("저장 실패");
-						}
-					}) // HTTP 요청이 실패하면 오류와 상태에 관한 정보가 fail() 메소드로 전달됨. 
-					.fail(function(xhr, status, errorThrown) { 
-						alert("통신 실패");
-					});
+			$.ajax({
+				url: "${path}/cont/insert.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
+				data: contData , // HTTP 요청과 함께 서버로 보낼 데이터
+				method: "POST", // HTTP 요청 메소드(GET, POST 등)
+				dataType: "json" // 서버에서 보내줄 데이터의 타입
+			}) // HTTP 요청이 성공하면 요청한 데이터가 done() 메소드로 전달됨. .
+			.done(function(data) {
+				if(data.code == 10001){
+					alert("저장 성공");
+					fnSetPage('${path}/cont/list.do');
+				}else{
+					alert("저장 실패");
+				}
+			}) // HTTP 요청이 실패하면 오류와 상태에 관한 정보가 fail() 메소드로 전달됨.
+			.fail(function(xhr, status, errorThrown) {
+				alert("통신 실패");
+			});
 		}
-		/*
-		function fn_UpdateCont() {
-			var contData = {};
-			contData.contTitle 				= $("#contTitle").val(); 
-			contData.contDesc			 	= $("#contDesc").val();
-			contData.userNo		 			= $("#userNo").val();
-			contData.soppNo					= $("#soppNo").val();
-			contData.custNo 				= $("#custNo").val();
-			contData.ptncNo 				= $("#ptncNo").val();
-			contData.supplyNo 				= $("#supplyNo").val();
-			contData.contType 				= $("#contType").val();
-			contData.contAmt 				= $("#contAmt").val();
-			contData.contArea 				= $("#contArea").val();
-			contData.contOrddate 			= $("#contOrddate").val();
-			contData.freemaintSdate 		= $("#freemaintSdate").val();
-			contData.freemaintEdate 		= $("#freemaintEdate").val();
 
-			$.ajax({ url: "${path}/write.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소 
-						data: contData , // HTTP 요청과 함께 서버로 보낼 데이터 
-						method: "POST", // HTTP 요청 메소드(GET, POST 등) 
-						dataType: "json" // 서버에서 보내줄 데이터의 타입 
-					}) // HTTP 요청이 성공하면 요청한 데이터가 done() 메소드로 전달됨. .
-					.done(function(data) {
-						if(data.code == 10001){
-							alert("저장 성공");
-							fnSetPage('${path}/cont/list.do');
-						}else{
-							alert("저장 실패");
-						}
-					}) // HTTP 요청이 실패하면 오류와 상태에 관한 정보가 fail() 메소드로 전달됨. 
-					.fail(function(xhr, status, errorThrown) { 
-						alert("통신 실패");
-					});
-			}
-		*/
 		$(document).ready(function() {
 			$($(".techdDetailCont")[2]).hide();
 			$($(".techdDetailCont")[3]).hide();

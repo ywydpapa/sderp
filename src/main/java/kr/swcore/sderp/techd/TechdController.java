@@ -72,6 +72,7 @@ public class TechdController {
 		mav.addObject("sprttype", codeService.listSprttype(session));
 		mav.addObject("sprtstat", codeService.listSprtstat(session));
 		mav.addObject("contractType", codeService.listContractType(session));
+		mav.addObject("mode","write");
 		mav.setViewName("techd/write");
 		return mav;
 	}

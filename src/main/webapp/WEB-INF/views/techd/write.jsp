@@ -229,42 +229,8 @@ $('input[name=contractType]').on('click', function() {
 								<td><input type="text" class="form-control form-control-sm" id="techdPlace" name="techdPlace" placeholder=""></td>
 								<th scope="row" class="requiredTextCss">담당사원</th>
 								<td>
-									<div class="input-group input-group-sm mb-0">
-										<input type="text" class="form-control" name="userName" readonly
-											   id="userName" value="${sessionScope.userName}" /> <input type="hidden" name="userNo"
-																										id="userNo" value="${sessionScope.userNo}" /> <span class="input-group-btn">
-											<button class="btn btn-primary sch-company"
-													data-remote="${path}/modal/popup.do?popId=user"
-													type="button" data-toggle="modal" data-target="#userModal">
-												<i class="icofont icofont-search"></i>
-											</button>
-										</span>
-										<div class="modal fade " id="userModal" tabindex="-1"
-											 role="dialog">
-											<div class="modal-dialog modal-80size" role="document">
-												<div class="modal-content modal-80size">
-													<div class="modal-header">
-														<h4 class="modal-title">담당사원 검색</h4>
-														<button type="button" class="close" onclick="$('#userModal').modal('hide');"
-																aria-label="Close">
-															<span aria-hidden="true">&times;</span>
-														</button>
-													</div>
-													<div class="modal-body">
-														<h5>사용자목록</h5>
-														<p>Loading!!!</p>
-													</div>
-													<div class="modal-footer">
-														<button type="button"
-																class="btn btn-default waves-effect "
-																onclick="$('#userModal').modal('hide');">Close</button>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
+									<jsp:include page="/WEB-INF/views/module/input/inputActiveUser.jsp"/>
 								</td>
-
 							</tr>
 							<tr>
 								<th scope="row" class="requiredTextCss">지원일자</th>
@@ -319,20 +285,6 @@ $('input[name=contractType]').on('click', function() {
 
 
 <script>
-$('#custModal').on('show.bs.modal', function(e) {
-	var button = $(e.relatedTarget);
-	var modal = $(this);
-	modal.find('.modal-body').load(button.data("remote"));
-});
-$('#userModal').on('show.bs.modal', function(e) {
-	var button = $(e.relatedTarget);
-	var modal = $(this);
-	modal.find('.modal-body').load(button.data("remote"));
-});
-
-// 
-
-
 $('#custmemberModal').on('show.bs.modal', function(e) {
 	var custNo = $("#custNo").val();
 	var url = '${path}/modal/popup.do?popId=custmem&compNo=' + custNo;
@@ -354,28 +306,6 @@ $('#contModal').on('show.bs.modal', function(e) {
 	var modal = $(this);
 	modal.find('.modal-body').load(button.data("remote"));
 });
-
-
-
-function fnSetCustData(a, b) {
-	$("#custNo").val(b);
-	$("#custName").val(a);
-	$(".modal-backdrop").remove();
-	$("#custModal").modal("hide");
-	/* 	
-	$("#custmemberModalbtn").attr('disabled', false);
-	$("#custmemberModalbtn").removeClass("btn-danger");
-	$("#custmemberModalbtn").addClass("btn-primary");
-	// 고객검색 아이콘을 danger
-	*/
-}
-
-function fnSetUserData(a, b) {
-	$("#userName").val(b);
-	$("#userNo").val(a);
-	$(".modal-backdrop").remove();
-	$("#userModal").modal("hide");
-}
 
 function fnSetCustmereData(a, b) {
 	$("#custmemberNo").val(a);

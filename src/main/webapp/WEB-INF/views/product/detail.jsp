@@ -198,12 +198,6 @@ input:read-only{
 </style>
 <script type="text/javascript">
 //이벤트 영역 시작
-$('#custModal').on('show.bs.modal', function(e) {
-	var button = $(e.relatedTarget);
-	var modal = $(this);
-	modal.find('.modal-body').load(button.data("remote"));
-});
-
 $('#productCategoryModal').on('show.bs.modal', function(e) {
 	var button = $(e.relatedTarget);
 	var modal = $(this);
@@ -306,13 +300,6 @@ function fnSetCategoryData(a,b){
 	$("#productCategoryName").val(b);
 	$(".modal-backdrop").remove();
 	$("#productCategoryModal").modal("hide");
-}
-
-function fnSetCustData(a, b) {
-	$("#custName").val(a);
-	$("#custNo").val(b);
-	$(".modal-backdrop").remove();
-	$("#custModal").modal("hide");
 }
 
 function fn_productUpdate() {

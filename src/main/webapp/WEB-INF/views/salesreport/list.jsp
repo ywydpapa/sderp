@@ -304,16 +304,6 @@ $(function(){
 	</div>
 	<!--//리스트 table-->
 	<script>
-		$('#custModal').on('show.bs.modal', function(e) {
-			var button = $(e.relatedTarget);
-			var modal = $(this);
-			modal.find('.modal-body').load(button.data("remote"));
-		});
-		$('#userModal').on('show.bs.modal', function(e) {
-			var button = $(e.relatedTarget);
-			var modal = $(this);
-			modal.find('.modal-body').load(button.data("remote"));
-		});
 		$('#buyrModal').on('show.bs.modal', function(e) {
 			var button = $(e.relatedTarget);
 			var modal = $(this);
@@ -325,19 +315,7 @@ $(function(){
 			modal.find('.modal-body').load(button.data("remote"));
 		});
 
-		
-		function fnSetCustData(a, b) {
-			$("#custNo").val(b);
-			$("#custName").val(a);
-			$(".modal-backdrop").remove();
-			$("#custModal").modal("hide");
-		}
-    	function fnSetUserData(a, b) {
-			$("#userName").val(b);
-			$("#userNo").val(a);
-			$(".modal-backdrop").remove();
-			$("#userModal").modal("hide");
-		}
+
     	function fnSetBuyrData(a, b) {
 			$("#buyrNo").val(b);
 			$("#buyrName").val(a);

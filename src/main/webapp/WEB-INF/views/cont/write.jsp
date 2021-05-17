@@ -146,40 +146,7 @@
 							<tr>
 								<th scope="row" class="requiredTextCss">담당사원</th>
 								<td>
-									<div class="input-group input-group-sm mb-0">
-										<input type="text" class="form-control" name="userName" id="userName" value="${sessionScope.userName}" />
-										<input type="hidden" class="form-control" name="userNo" id="userNo" value="${sessionScope.userNo}" />
-										 <span class="input-group-btn">
-											<button class="btn btn-primary sch-company"
-												data-remote="${path}/modal/popup.do?popId=user"
-												type="button" data-toggle="modal" data-target="#userModal">
-												<i class="icofont icofont-search"></i>
-											</button>
-										</span>
-										<div class="modal fade " id="userModal" tabindex="-1"
-											role="dialog">
-											<div class="modal-dialog modal-80size" role="document">
-												<div class="modal-content modal-80size">
-													<div class="modal-header">
-														<h4 class="modal-title"></h4>
-														<button type="button" class="close" data-dismiss="modal"
-															aria-label="Close">
-															<span aria-hidden="true">&times;</span>
-														</button>
-													</div>
-													<div class="modal-body">
-														<h5>사용자목록</h5>
-														<p>Loading!!!</p>
-													</div>
-													<div class="modal-footer">
-														<button type="button"
-															class="btn btn-default waves-effect "
-															data-dismiss="modal">Close</button>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
+									<jsp:include page="/WEB-INF/views/module/input/inputActiveUser.jsp"/>
 								</td>
 
 								<th>판매방식</th>
@@ -196,75 +163,12 @@
 							<tr>
 								<th class="requiredTextCss">매출처</th>
 								<td>
-									<div class="input-group input-group-sm mb-0">
-										<input type="text" class="form-control" name="custName" id="custName" value="" />
-										<input type="hidden" name="custNo" id="custNo" value="" /> <span class="input-group-btn">
-											<button class="btn btn-primary sch-company"
-													data-remote="${path}/modal/popup.do?popId=cust"
-													type="button" data-toggle="modal" data-target="#custModal">
-												<i class="icofont icofont-search"></i>
-											</button>
-										</span>
-										<div class="modal fade " id="custModal" tabindex="-1"
-											 role="dialog">
-											<div class="modal-dialog modal-80size" role="document">
-												<div class="modal-content modal-80size">
-													<div class="modal-header">
-														<h4 class="modal-title">매출처검색</h4>
-														<button type="button" class="close" data-dismiss="modal"
-																aria-label="Close">
-															<span aria-hidden="true">&times;</span>
-														</button>
-													</div>
-													<div class="modal-body">
-														<h5>매출처목록</h5>
-														<p>Loading!!!</p>
-													</div>
-													<div class="modal-footer">
-														<button type="button"
-																class="btn btn-default waves-effect "
-																data-dismiss="modal">Close</button>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
+									<jsp:include page="/WEB-INF/views/module/input/inputCust.jsp"/>
 								</td>
 
 								<th>매출처 담당자</th>
 								<td>
-									<div class="input-group input-group-sm mb-0">
-										<input type="text" id="custmemberName" name="custmemberName" class="form-control ">
-										<input type="hidden" id="custmemberNo" name="custmemberNo" class="form-control ">
-										<span class="input-group-btn">
-											<button class="btn btn-primary sch-company btn-sm"  data-remote="${path}/modal/popup.do?popId=custmem&compNo=" type="button" data-toggle="modal" data-target="#custmemberModal" id="custmemberModalbtn" data-whatever="">
-												<i class="icofont icofont-search"></i>
-											</button>
-										</span>
-										<div class="modal fade " id="custmemberModal" tabindex="-1"
-											role="dialog">
-											<div class="modal-dialog modal-80size" role="document">
-												<div class="modal-content modal-80size">
-													<div class="modal-header">
-														<h4 class="modal-title">매출처 담당자 목록</h4>
-														<button type="button" class="close" onclick="$('#custmemberModal').modal('hide');"
-															aria-label="Close">
-															<span aria-hidden="true">&times;</span>
-														</button>
-													</div>
-													<div class="modal-body">
-														<h5>매출처 담당자 목록</h5>
-														<p>매출처를 먼저 입력해주셔야 목록이 보입니다.</p>
-													</div>
-													<div class="modal-footer">
-														<button type="button"
-															class="btn btn-default waves-effect "
-															onclick="$('#custmemberModal').modal('hide');">Close</button>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
+									<jsp:include page="/WEB-INF/views/module/input/inputCust.jsp"/>
 								</td>
 							</tr>
 							<tr>
@@ -413,11 +317,6 @@
 <!--//계약등록-->
 
 <script>
-		$('#custModal').on('show.bs.modal', function(e) {
-			var button = $(e.relatedTarget);
-			var modal = $(this);
-			modal.find('.modal-body').load(button.data("remote"));
-		});
 		$('#custmemberModal').on('show.bs.modal', function(event) {
 			var button = $(event.relatedTarget);
 			var recipient = button.data('whatever');
@@ -438,12 +337,6 @@
 			console.log("endCustmemberModal -> : "+recipient);
 			var url = '${path}/modal/popup.do?popId=endCustmem&compNo=' + recipient;
 			button.data("remote",url);
-			var modal = $(this);
-			modal.find('.modal-body').load(button.data("remote"));
-		});
-
-		$('#userModal').on('show.bs.modal', function(e) {
-			var button = $(e.relatedTarget);
 			var modal = $(this);
 			modal.find('.modal-body').load(button.data("remote"));
 		});
@@ -469,15 +362,6 @@
 			modal.find('.modal-body').load(button.data("remote"));
 		});
 
-		function fnSetCustData(a, b) {
-    		// '${row.custName}','${row.custNo}'
-			$("#custName").val(a);
-			$("#custNo").val(b);
-			$("#custmemberModalbtn").data('whatever', b);
-			$(".modal-backdrop").remove();
-			$("#custModal").modal("hide");
-		}
-
 		function fnSetEndCustData(a, b) {
 			$("#endCustNo").val(b);
 			$("#endCustName").val(a);
@@ -491,13 +375,6 @@
 			$("#endCustmemberName").val(b);
 			$(".modal-backdrop").remove();
 			$("#endCustmemberModal").modal("hide");
-		}
-    	
-		function fnSetUserData(a, b) {
-			$("#userNo").val(a);
-			$("#userName").val(b);
-			$(".modal-backdrop").remove();
-			$("#userModal").modal("hide");
 		}
 		
 		function fnSetPtncData(a, b) {

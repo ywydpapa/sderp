@@ -94,6 +94,7 @@ public class ContController {
 		mav.addObject("contractType", codeService.listContractType(session));
 		mav.addObject("contType", codeService.listContType(session));
 		mav.addObject("areaType", codeService.listAreaType(session));
+		mav.addObject("mode","write");
 		return mav;
 	}
 

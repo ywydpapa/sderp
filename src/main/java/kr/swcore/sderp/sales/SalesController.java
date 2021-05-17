@@ -85,6 +85,7 @@ public class SalesController {
 	@RequestMapping("write.do")
 	public ModelAndView write(HttpSession session, ModelAndView mav) {
 		mav.addObject("salesType", codeService.listActtype(session));
+		mav.addObject("mode","write");
 		mav.setViewName("sales/write");
 		return mav;
 	}

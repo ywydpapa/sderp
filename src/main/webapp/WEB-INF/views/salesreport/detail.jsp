@@ -84,40 +84,7 @@
 							<tr>
 								<th scope="row">담당사원</th>
 								<td>
-									<div class="input-group input-group-sm mb-0">
-										<input type="text" class="form-control" name="userName" id="userName" value="${dto.userName}" />
-										<input type="hidden" class="form-control" name="userNo" id="userNo" value="${dto.userNo}" />
-										 <span class="input-group-btn">
-											<button class="btn btn-primary sch-company"
-												data-remote="${path}/modal/popup.do?popId=user"
-												type="button" data-toggle="modal" data-target="#userModal">
-												<i class="icofont icofont-search"></i>
-											</button>
-										</span>
-										<div class="modal fade " id="userModal" tabindex="-1"
-											role="dialog">
-											<div class="modal-dialog modal-80size" role="document">
-												<div class="modal-content modal-80size">
-													<div class="modal-header">
-														<h4 class="modal-title"></h4>
-														<button type="button" class="close" data-dismiss="modal"
-															aria-label="Close">
-															<span aria-hidden="true">&times;</span>
-														</button>
-													</div>
-													<div class="modal-body">
-														<h5>사용자목록</h5>
-														<p>Loading!!!</p>
-													</div>
-													<div class="modal-footer">
-														<button type="button"
-															class="btn btn-default waves-effect "
-															data-dismiss="modal">Close</button>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
+									<jsp:include page="/WEB-INF/views/module/input/inputActiveUser.jsp"/>
 								</td>
 								<th>거래처</th>
 								<td>
@@ -351,16 +318,6 @@
 <!--//계약등록-->
 
 <script>
-		$('#custModal').on('show.bs.modal', function(e) {
-			var button = $(e.relatedTarget);
-			var modal = $(this);
-			modal.find('.modal-body').load(button.data("remote"));
-		});
-		$('#userModal').on('show.bs.modal', function(e) {
-			var button = $(e.relatedTarget);
-			var modal = $(this);
-			modal.find('.modal-body').load(button.data("remote"));
-		});
 		$('#ptncModal').on('show.bs.modal', function(e) {
 			var button = $(e.relatedTarget);
 			var modal = $(this);
@@ -377,20 +334,6 @@
 			modal.find('.modal-body').load(button.data("remote"));
 		});
 
-    	function fnSetCustData(a, b) {
-			$("#custName").val(a);
-			$("#custNo").val(b);
-			$(".modal-backdrop").remove();
-			$("#custModal").modal("hide");
-		}
-    	
-		function fnSetUserData(a, b) {
-			$("#userNo").val(a);
-			$("#userName").val(b);
-			$(".modal-backdrop").remove();
-			$("#userModal").modal("hide");
-		}
-		
 		function fnSetPtncData(a, b) {
 			$("#ptncNo").val(b);
 			$("#ptncName").val(a);

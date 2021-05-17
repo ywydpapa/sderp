@@ -186,6 +186,7 @@ public class SoppController {
 		userDTO.setUserNo(Integer.valueOf((String)session.getAttribute("userNo")));
 		mav.addObject("userInfo",userDTO);
 		mav.addObject("saleslist", codeService.listSalestype(session));
+		mav.addObject("mode","write");
 		mav.setViewName("sopp/write");
 		return mav;
 	}

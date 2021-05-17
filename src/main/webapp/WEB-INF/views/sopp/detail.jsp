@@ -56,79 +56,11 @@
 												<tr>
 													<th scope="row" class="requiredTextCss">담당사원</th>
 													<td>
-														<div class="input-group input-group-sm mb-0">
-															<input type="text" class="form-control" name="userName"
-																id="userName" value="${dto.userName}" /> <input
-																type="hidden" name="userNo" id="userNo"
-																value="${dto.userNo}" /> <span class="input-group-btn">
-																<button class="btn btn-primary sch-company"
-																	data-remote="${path}/modal/popup.do?popId=user"
-																	type="button" data-toggle="modal"
-																	data-target="#userModal">
-																	<i class="icofont icofont-search"></i>
-																</button>
-															</span>
-															<div class="modal fade " id="userModal" tabindex="-1"
-																role="dialog">
-																<div class="modal-dialog modal-80size" role="document">
-																	<div class="modal-content modal-80size">
-																		<div class="modal-header">
-																			<h4 class="modal-title"></h4>
-																			<button type="button" class="close"
-																				data-dismiss="modal" aria-label="Close">
-																				<span aria-hidden="true">&times;</span>
-																			</button>
-																		</div>
-																		<div class="modal-body">
-																			<h5>사용자목록</h5>
-																			<p>Loading!!!</p>
-																		</div>
-																		<div class="modal-footer">
-																			<button type="button"
-																				class="btn btn-default waves-effect "
-																				data-dismiss="modal">Close</button>
-																		</div>
-																	</div>
-																</div>
-															</div>
-														</div>
+														<jsp:include page="/WEB-INF/views/module/input/inputActiveUser.jsp"/>
 													</td>
 													<th scope="row">매출처</th>
 													<td>
-														<div class="input-group input-group-sm mb-0">
-															<input type="text" class="form-control" name="custName"
-																id="custName" value="${dto.custName}" /> <input
-																type="hidden" name="custNo" id="custNo"
-																value="${dto.custNo}" /> <span class="input-group-btn">
-																<button class="btn btn-primary sch-company"
-																	data-remote="${path}/modal/popup.do?popId=cust"
-																	type="button" data-toggle="modal"
-																	data-target="#custModal">
-																	<i class="icofont icofont-search"></i>
-																</button>
-															</span>
-															<div class="modal fade " id="custModal" tabindex="-1"
-																role="dialog">
-																<div class="modal-dialog modal-80size" role="document">
-																	<div class="modal-content modal-80size">
-																		<div class="modal-header">
-																			<h4 class="modal-title">거래처검색</h4>
-																			<button type="button" class="close"
-																				data-dismiss="modal" aria-label="Close">
-																				<span aria-hidden="true">&times;</span>
-																			</button>
-																		</div>
-																		<div class="modal-body">
-																			<h5>매출처목록</h5>
-																			<p>Loading!!!</p>
-																		</div>
-																		<div class="modal-footer">
-																			<button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
-																		</div>
-																	</div>
-																</div>
-															</div>
-														</div>
+														<jsp:include page="/WEB-INF/views/module/input/inputCust.jsp"/>
 													</td>
 												</tr>
 												<tr>
@@ -464,17 +396,6 @@
 			}, 500);
 		});
 	}
-
-	$('#custModal').on('show.bs.modal', function(e) {
-		var button = $(e.relatedTarget);
-		var modal = $(this);
-		modal.find('.modal-body').load(button.data("remote"));
-	});
-	$('#userModal').on('show.bs.modal', function(e) {
-		var button = $(e.relatedTarget);
-		var modal = $(this);
-		modal.find('.modal-body').load(button.data("remote"));
-	});
 	$('#buyrModal').on('show.bs.modal', function(e) {
 		var button = $(e.relatedTarget);
 		var modal = $(this);
@@ -520,18 +441,6 @@
 		$("#productNo2").val("");
 	});
 
-	function fnSetCustData(a, b) {
-		$("#custNo").val(b);
-		$("#custName").val(a);
-		$(".modal-backdrop").remove();
-		$("#custModal").modal("hide");
-	}
-	function fnSetUserData(a, b) {
-		$("#userName").val(b);
-		$("#userNo").val(a);
-		$(".modal-backdrop").remove();
-		$("#userModal").modal("hide");
-	}
 	function fnSetBuyrData(a, b) {
 		$("#buyrNo").val(b);
 		$("#buyrName").val(a);

@@ -45,6 +45,7 @@ public class UserController {
 		mav.addObject("listComp",listcomp);
 		mav.addObject("listDept",listdept);
 		mav.addObject("listRank",listrank);
+		mav.addObject("mode","write");
 		mav.setViewName("user/write");
 		return mav;
 	}

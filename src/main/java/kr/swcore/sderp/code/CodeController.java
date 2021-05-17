@@ -69,6 +69,7 @@ public class CodeController {
 		mav.addObject("list1", codeService.listCode01(session));
 		mav.addObject("list2", codeService.listCode02(session));
 		mav.addObject("list3", codeService.listCode03(session));
+		mav.addObject("mode","write");
 		mav.setViewName("code/write");
 		return mav;
 	}

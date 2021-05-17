@@ -32,56 +32,7 @@
 							<tr>
 								<th scope="row">공급사</th>
 								<td>
-									<div class="input-group input-group-sm mb-0">
-										<input type="text" class="form-control" name="product" id="custName" value="" readonly/>
-										<input type="hidden" name="product" id="custNo" value="" />
-										<span class="input-group-btn">
-											<button class="btn btn-primary sch-company" data-remote="${path}/modal/popup.do?popId=cust" type="button" data-toggle="modal" data-target="#custModal"><i class="icofont icofont-search"></i></button>
-										</span>
-									</div>
-									<!--모달 팝업-->
-									<div class="modal fade" id="custModal" tabindex="-1" role="dialog">
-										<div class="modal-dialog modal-80size" role="document">
-											<div class="modal-content modal-80size">
-												<div class="modal-header">
-													<h4 class="modal-title">거래처검색</h4>
-													<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-														<span aria-hidden="true">&times;</span>
-													</button>
-												</div>
-												<div class="modal-body">
-													<h5>거래처목록</h5>
-													<p>거래처 목록이 불러오는 중이거나 없습니다.</p>
-												</div>
-												<div class="modal-footer">
-													<button type="button" class="btn btn-default waves-effect" onclick="$('#custModal').modal('hide');">Close</button>
-													<button type="button" class="btn btn-success waves-effect" id="custRegSimple">간편추가</button>
-												</div>
-												<div style="display: none; border: solid; width: 80%; margin: auto; margin-bottom: 5px;" id="custRegSimple_div">
-													<table>
-														<colgroup>
-															<col width="10%">
-															<col width="75%">
-															<col width="15%">
-														</colgroup>
-														<tbody>
-														<tr>
-															<th>매출처명*</th>
-															<td><input type="text" value="" id="custRegSimple_custName" style="width: 100%;"> </td>
-															<td><button type="button" class="btn-sm btn-dark" id="custRegSimple_custName_check">중복확인</button></td>
-														</tr>
-														<tr>
-															<th>담당자</th>
-															<td><input type="text" value="" id="custRegSimple_custMemerName" style="width: 100%;" placeholder="미입력시 미정으로 세팅됩니다."></td>
-															<td><button type="button" class="btn-sm btn-success" id="custRegSimple_custName_register">등록</button></td>
-														</tr>
-														</tbody>
-													</table>
-												</div>
-											</div>
-										</div>
-									</div>
-									<!--//모달 팝업-->
+									<jsp:include page="/WEB-INF/views/module/input/inputCust.jsp"/>
 								</td>
 							</tr>
 							<tr>
@@ -151,12 +102,6 @@
 
 <script>
 // 이벤트 영역 시작
-$('#custModal').on('show.bs.modal', function(e) {
-	var button = $(e.relatedTarget);
-	var modal = $(this);
-	modal.find('.modal-body').load(button.data("remote"));
-});
-
 $('#productCategoryModal').on('show.bs.modal', function(e) {
 	var button = $(e.relatedTarget);
 	var modal = $(this);
@@ -172,13 +117,6 @@ function fnSetCategoryData(a,b){
 	$("#productCategoryModal").modal("hide");
 }
 
-function fnSetCustData(a, b) {
-	$("#custName").val(a);
-	$("#custNo").val(b);
-	$(".modal-backdrop").remove();
-	$("#custModal").modal("hide");
-}
-		
 function fn_productInsert() {
 	var productData = {};
 	var productCategoryNo = $("#productCategoryNo").val();		// 상품 카테고리 번호

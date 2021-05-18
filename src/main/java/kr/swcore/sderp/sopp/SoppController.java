@@ -66,7 +66,6 @@ public class SoppController {
 		mav.setViewName("sopp/list");
 		mav.addObject("saleslist", codeService.listSalestype(session));
 		mav.addObject("sstatuslist", codeService.listSstatus(session));
-		mav.addObject("businessType", codeService.listBusinessType(session));
 		mav.addObject("contractType", codeService.listContractType(session));
 		mav.addObject("list", soppService.listSopp(session, null));
 		return mav;
@@ -92,9 +91,16 @@ public class SoppController {
 		mav.setViewName("sopp/list2");
 		mav.addObject("saleslist", codeService.listSalestype(session));
 		mav.addObject("sstatuslist", codeService.listSstatus(session));
-		mav.addObject("businessType", codeService.listBusinessType(session));
+		mav.addObject("contractType", codeService.listContractType(session));
 		mav.addObject("list", soppService.listSopp2(session));
 		return mav;
+	}
+
+	@RequestMapping(value = "list2/data", produces = "application/json;charset=UTF-8", method = RequestMethod.POST)
+	public @ResponseBody
+	String list2Data(HttpSession session, @RequestBody String param, HttpServletRequest request, HttpServletResponse response){
+		Gson ojb = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+		return ojb.toJson(soppService.listSopp2(session, param, request, response));
 	}
 
 	@RequestMapping("list2con.do")
@@ -203,10 +209,10 @@ public class SoppController {
 		return ResponseEntity.ok(param);
 	}
 
-	@RequestMapping("insert2.do")
+	@RequestMapping("update2Sopp.do")
 	public ResponseEntity<?> insert2(@ModelAttribute SoppDTO dto) {
 		Map<String, Object> param = new HashMap<>();
-		int soppInsert = soppService.insert2Sopp(dto);
+		int soppInsert = soppService.update2Sopp(dto);
 		if (soppInsert >0) {
 			param.put("code","10001"); 
 		}

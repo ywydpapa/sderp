@@ -582,22 +582,6 @@
 		$("#custmemberModal").modal("hide");
 	}
 
-	/*
-    function fnListcon() {
-        var soppData = {};
-        soppData.userNo = $("#userNo").val() ? $("#userNo").val() : 0;
-        soppData.custNo = $("#custNo").val() ? $("#custNo").val() : 0;
-        soppData.custmemberNo = $("#custmemberNo").val() ? $("#custmemberNo").val() : 0;
-        soppData.targetDatefrom = $("#targetDatefrom").val() ? $("#targetDatefrom").val() : null;
-        soppData.targetDateto = $("#targetDateto").val() ? $("#targetDateto").val() : null;
-        soppData.soppType = $("#soppType").val() ? $("#soppType").val() : null;
-        soppData.businessType = $("#businessType").val() ? $("#businessType").val() : null;
-        soppData.soppStatus = $("#soppStatus").val() ? $("#soppStatus").val() : null;
-
-        fnSetList('${path}/sopp/listcon.do', soppData);
-   		}
-   		*/
-
 	function fnSetPageEx(data){
 		var url = "${path}/sopp/detail/"+data;
 		fnSetPage(url);

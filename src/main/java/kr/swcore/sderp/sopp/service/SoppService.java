@@ -19,6 +19,7 @@ public interface SoppService {
 		List<SoppDTO> listSopp();
 		List<SoppDTO> listSopp(HttpSession session, PageDTO pageDTO);
 		Object listSopp(HttpSession session, String param, HttpServletRequest request, HttpServletResponse response);
+		Object listSopp2(HttpSession session, String param, HttpServletRequest request, HttpServletResponse response);
 		List<SoppDTO> listconSopp(HttpSession session, SoppDTO dto);
 		List<SoppDTO> listSopp2();
 		List<SoppDTO> listSopp2(HttpSession session);
@@ -29,7 +30,7 @@ public interface SoppService {
 		int deleteSopp(int soppNo);
 		int insertSopp(SoppDTO dto);
 		int insertSopp(HttpSession session, SoppDTO dto);
-		int insert2Sopp(SoppDTO dto);
+		int update2Sopp(SoppDTO dto);
 		int uploadFile(HttpSession session, int soppNo, MultipartHttpServletRequest fileList) throws IOException;
 		SoppFileDataDTO downloadFile(SoppFileDataDTO dto);
 }

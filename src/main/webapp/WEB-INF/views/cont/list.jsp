@@ -17,13 +17,13 @@ $(function(){
 	a {
 		text-decoration:underline;
 	}
-	#contTable > tbody > tr > td:nth-child(3){
+	#contTable > tbody > tr > td:nth-child(4){
 		overflow: hidden;
 		text-overflow: ellipsis;
-		max-width: 420px;
+		max-width: 220px;
 		white-space: nowrap;
 	}
-	#contTable > tbody > tr > td:nth-child(3){
+	#contTable > tbody > tr > td:nth-child(5){
 		overflow: hidden;
 		text-overflow: ellipsis;
 		max-width: 220px;

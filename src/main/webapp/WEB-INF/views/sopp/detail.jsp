@@ -249,12 +249,12 @@
 												</tr>
 												<c:if test="${dto.sopp2regDatetime != null}">
 													<tr>
-														<th scope="row">승인/반려 의견<br />(시간 : <fmt:formatDate
-																pattern="yyyy-MM-dd hh:mm:ss"
-																value="${dto.sopp2regDatetime}" />)
+														<th scope="row">승인/반려 의견<br />(시간 :
+															<fmt:parseDate value="${dto.sopp2regDatetime}" var="sopp2regDatetime" pattern="yyyy-MM-dd HH:mm:ss"/>
+															<fmt:formatDate value="${sopp2regDatetime}" pattern="yyyy-MM-dd HH:mm:ss"/>
+															)
 														</th>
-														<td colspan="3"><textarea name="sopp2Desc"
-																id="sopp2Desc" rows="8" class="form-control" readonly>${dto.sopp2Desc}</textarea></td>
+														<td colspan="3"><textarea name="sopp2Desc" id="sopp2Desc" rows="8" class="form-control" readonly>${dto.sopp2Desc}</textarea></td>
 													</tr>
 												</c:if>
 											</tbody>

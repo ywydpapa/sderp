@@ -23,8 +23,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<if test="custNo != null and custNo != ''">
 			and a.custNo = #{custNo}
 		</if>
-		<if test="custmemberNo != null and custmemberNo != ''">
-			and a.custmemberNo = #{custmemberNo}
+		<if test="custMemberNo != null and custMemberNo != ''">
+			and a.custMemberNo = #{custMemberNo}
 		</if>
 		<if test="techdSteps != null and techdSteps != ''">
 			and a.techdSteps = #{techdSteps}
@@ -93,8 +93,8 @@ from
 	<if test="custNo != null and custNo != ''">
 		and a.custNo = #{custNo}
 	</if>
-	<if test="custmemberNo != null and custmemberNo != ''">
-		and a.custmemberNo = #{custmemberNo}
+	<if test="custMemberNo != null and custMemberNo != ''">
+		and a.custMemberNo = #{custMemberNo}
 	</if>
 	<if test="techdSteps != null and techdSteps != ''">
 		and a.techdSteps = #{techdSteps}
@@ -155,8 +155,8 @@ from
  		<if test="custNo != null and custNo != ''">
  		 	and a.custNo = #{custNo}
  		</if>
- 		<if test="custmemberNo != null and custmemberNo != ''">
- 		 	and a.custmemberNo = #{custmemberNo}
+ 		<if test="custMemberNo != null and custMemberNo != ''">
+ 		 	and a.custMemberNo = #{custMemberNo}
  		</if>
  		<if test="techdSteps != null and techdSteps != ''">
  		 	and a.techdSteps = #{techdSteps}
@@ -200,7 +200,7 @@ from
 		left join swc_cust c on a.custNo = c.custNo
 		left join swc_sopp d on a.soppNo = d.soppNo
 		left join swc_cont e on a.contNo = e.contNo
-		left join swc_custData03 f on a.custmemberNo = f.custData03No 
+		left join swc_custData03 f on a.custMemberNo = f.custData03No
 		where a.attrib not like 'XXX%' and techdNo=#{techdNo} order by techdNo
  </select>
  
@@ -209,7 +209,7 @@ from
  (
 	compNo,
 	custNo,
-	custmemberNo,
+	custMemberNo,
 	cntrctMth,
 	techdTitle,
 	techdDesc,
@@ -232,7 +232,7 @@ from
  (
 	#{compNo},
 	#{custNo},
-	#{custmemberNo},
+	#{custMemberNo},
 	#{cntrctMth},
 	#{techdTitle},
 	#{techdDesc},
@@ -259,7 +259,7 @@ from
 	custNo = #{custNo},
 	soppNo = #{soppNo},
 	contNo = #{contNo},
-	custmemberNo = #{custmemberNo},
+	custMemberNo = #{custMemberNo},
 	cntrctMth = #{cntrctMth},
 	techdTitle = #{techdTitle},
 	techdDesc = #{techdDesc},

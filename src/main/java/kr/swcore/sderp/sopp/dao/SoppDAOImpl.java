@@ -48,7 +48,12 @@ public class SoppDAOImpl implements SoppDAO {
 		// TODO Auto-generated method stub
 		return sqlSession.selectList("sopp.listSopp2", dto);
 	}
-	
+
+	@Override
+	public int listSoppCnt2(SoppDTO dto) {
+		return sqlSession.selectOne("sopp.listSoppCnt2", dto);
+	}
+
 	@Override
 	public List<SoppDTO> listconSopp2(SoppDTO dto) {
 		// TODO Auto-generated method stub
@@ -85,7 +90,7 @@ public class SoppDAOImpl implements SoppDAO {
 	}
 
 	@Override
-	public int insert2Sopp(SoppDTO dto) {
+	public int update2Sopp(SoppDTO dto) {
 		// TODO Auto-generated method stub
 		return sqlSession.update("sopp.update2Sopp", dto);
 	}

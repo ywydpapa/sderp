@@ -13,13 +13,14 @@ public interface SoppDAO {
 	List<SoppDTO> listconSopp(SoppDTO dto);
 	List<SoppDTO> listSopp2();
 	List<SoppDTO> listSopp2(SoppDTO dto);
+	int listSoppCnt2(SoppDTO dto);
 	List<SoppDTO> listconSopp2(SoppDTO dto);
 	List<SoppDTO> listFile(int soppNo);
 	SoppDTO detailSopp(int soppNo);
 	int updateSopp(SoppDTO dto);
 	int deleteSopp(int soppNo);
 	int insertSopp(SoppDTO dto);
-	int insert2Sopp(SoppDTO dto);
+	int update2Sopp(SoppDTO dto);
 	int uploadFile(SoppFileDataDTO dto);
 	SoppFileDataDTO downloadFile(SoppFileDataDTO dto);
 	

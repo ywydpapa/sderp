@@ -44,9 +44,7 @@
 							</tr>
 							<tr>
 								<th scope="row">장소</th>
-								<td><input type="text"
-									class="form-control form-control-sm" id="schedPlace" 	name="schedPlace" value="${dto.schedPlace}"></td>
-							
+								<td><input type="text" class="form-control form-control-sm" id="schedPlace" 	name="schedPlace" value="${dto.schedPlace}"></td>
 								<th scope="row">계약 관련</th>
 								<td>
 									<div class="input-group input-group-sm mb-0">

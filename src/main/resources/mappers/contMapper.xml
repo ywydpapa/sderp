@@ -101,7 +101,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	select a.*,
 		   b.userName ,
 		   c.soppTitle,
-		   d.custMName as custmemberName,
 	       e.desc03 as cntrctMthN,
 	       (select custName from swc_cust where custNo = a.custNo) custName,
 		   (select q.custMname from swc_custData03 q where q.custData03no = a.custMemberNo) custMemberName,
@@ -113,7 +112,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	from swc_cont a
 			 left join swc_user b on a.userNo = b.userNo
 			 left join swc_sopp c on a.soppNo = c.soppNo
-			 left join swc_custData03 d on a.custmemberNo = d.custData03no
 			 left join swc_code e on a.cntrctMth = e.codeNo
 	where a.attrib not like 'XXX%' and a.contNo=#{contNo} order by a.contNo
 </select>
@@ -132,11 +130,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 </select>
  
  <insert id="insertCont">
- insert into swc_cont (contTitle, contDesc, compNo, soppNo, exContNo, userNo, custNo, custmemberNo, ptncNo, supplyNo, contOrddate,
+ insert into swc_cont (contTitle, contDesc, compNo, soppNo, exContNo, userNo, custNo, custMemberNo, ptncNo, supplyNo, contOrddate,
                        supplyDate, delivDate, contAmt, freemaintSdate, freemaintEdate, paymaintSdate, paymaintEdate, vatYn, contArea, cntrctMth,
                        contType,net_profit ,attrib, buyrNo, buyrMemberNo
                        )
- values (#{contTitle}, #{contDesc}, #{compNo}, #{soppNo}, #{exContNo}, #{userNo}, #{custNo}, #{custmemberNo}, #{ptncNo}, #{supplyNo}, #{contOrddate},
+ values (#{contTitle}, #{contDesc}, #{compNo}, #{soppNo}, #{exContNo}, #{userNo}, #{custNo}, #{custMemberNo}, #{ptncNo}, #{supplyNo}, #{contOrddate},
          #{supplyDate}, #{delivDate}, #{contAmt}, #{freemaintSdate}, #{freemaintEdate}, #{paymaintSdate}, #{paymaintEdate}, #{vatYn}, #{contArea}, #{cntrctMth},
          #{contType}, #{net_profit},'100000', #{buyrNo}, #{buyrMemberNo}
          )
@@ -144,31 +142,35 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
  <update id="updateCont">
 	update swc_cont 
-	set 
-	contTitle=#{contTitle},
-	contDesc=#{contDesc}, 
-	soppNo=#{soppNo}, 
-	userNo=#{userNo}, 
-	custNo=#{custNo}, 
-	custmemberNo=#{custmemberNo}, 
-	ptncNo=#{ptncNo}, 
-	supplyNo=#{supplyNo}, 
-	contOrddate=#{contOrddate}, 
-	supplyDate=#{supplyDate}, 
-	delivDate=#{delivDate}, 
-	contAmt=#{contAmt},
-	freemaintSdate=#{freemaintSdate}, 
-	freemaintEdate=#{freemaintEdate},
-	paymaintSdate=#{paymaintSdate},
-	paymaintEdate=#{paymaintEdate},
-	vatYn=#{vatYn}, 
-	contArea=#{contArea},
-	cntrctMth=#{cntrctMth},
-	contType=#{contType},
-	net_profit=#{net_profit},
-	modDatetime=now()
+	set
+		soppNo=#{soppNo},
+		cntrctMth=#{cntrctMth},
+		contType=#{contType},
+		exContNo=#{exContNo},
+		userNo=#{userNo},
+		custNo=#{custNo},
+		custMemberNo=#{custMemberNo},
+		contTitle=#{contTitle},
+		contDesc=#{contDesc},
+		buyrNo=#{buyrNo},
+		buyrMemberNo=#{buyrMemberNo},
+		ptncNo=#{ptncNo},
+		ptncMemberNo=#{ptncMemberNo},
+		supplyNo=#{supplyNo},
+		supplyMemberNo=#{supplyMemberNo},
+		contOrddate=#{contOrddate},
+		supplyDate=#{supplyDate},
+		delivDate=#{delivDate},
+		contAmt=#{contAmt},
+		vatYn=#{vatYn},
+		net_profit=#{net_profit},
+		freemaintSdate=#{freemaintSdate},
+		freemaintEdate=#{freemaintEdate},
+		paymaintSdate=#{paymaintSdate},
+		paymaintEdate=#{paymaintEdate},
+		contArea=#{contArea},
+		modDatetime=now()
 	where contNo=#{contNo}
-	
  </update>
  
  <delete id="deleteCont">

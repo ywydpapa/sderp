@@ -102,41 +102,7 @@ $('input[name=contractType]').on('click', function() {
 								</td>
 								<th scope="row" class="techdDetailCont requiredTextCss">계약</th>
 								<td class="techdDetailCont">
-									<div class="input-group input-group-sm mb-0">
-										<input type="text" class="form-control" name="contTitle"
-											   id="contTitle" value="${dto.contTitle}" readonly /> <input type="hidden"
-																										  name="contNo" id="contNo" value="" /> <span
-											class="input-group-btn">
-											<button class="btn btn-primary sch-opportunity2"
-													data-remote="${path}/modal/popup.do?popId=cont"
-													type="button" data-toggle="modal" data-target="#contModal">
-												<i class="icofont icofont-search"></i>
-											</button>
-										</span>
-										<div class="modal fade " id="contModal" tabindex="-1"
-											 role="dialog">
-											<div class="modal-dialog modal-80size" role="document">
-												<div class="modal-content modal-80size">
-													<div class="modal-header">
-														<h4 class="modal-title"></h4>
-														<button type="button" class="close" onclick="$('#contModal').modal('hide');"
-																aria-label="Close">
-															<span aria-hidden="true">&times;</span>
-														</button>
-													</div>
-													<div class="modal-body">
-														<h5>계약 목록</h5>
-														<p>Loading!!!</p>
-													</div>
-													<div class="modal-footer">
-														<button type="button"
-																class="btn btn-default waves-effect "
-																onclick="$('#contModal').modal('hide');">Close</button>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
+									<jsp:include page="/WEB-INF/views/module/input/inputCont.jsp"/>
 								</td>
 							</tr>
 							<tr>
@@ -148,8 +114,8 @@ $('input[name=contractType]').on('click', function() {
 								<td>
 									
 									<div class="input-group input-group-sm mb-0">
-										<input type="text" class="form-control" name="custmemberName"  id="custmemberName" value="" readonly/> 
-										<input type="hidden" name="custmemberNo" id="custmemberNo" value="" />
+										<input type="text" class="form-control" id="custMemberName" value="" readonly/>
+										<input type="hidden" id="custMemberNo" value="" />
 										<span class="input-group-btn">
 											<button class="btn btn-primary sch-partner"
 												data-remote="${path}/modal/popup.do?popId=custmem&compNo="
@@ -269,15 +235,9 @@ $('#soppModal').on('show.bs.modal', function(e) {
 	modal.find('.modal-body').load(button.data("remote"));
 });
 
-$('#contModal').on('show.bs.modal', function(e) {
-	var button = $(e.relatedTarget);
-	var modal = $(this);
-	modal.find('.modal-body').load(button.data("remote"));
-});
-
 function fnSetCustmereData(a, b) {
-	$("#custmemberNo").val(a);
-	$("#custmemberName").val(b);
+	$("#custMemberNo").val(a);
+	$("#custMemberName").val(b);
 	$(".modal-backdrop").remove();
 	$("#custmemberModal").modal("hide");
 }
@@ -287,13 +247,6 @@ function fnSetSoppData(a, b) {
 	$("#soppTitle").val(a);
 	$(".modal-backdrop").remove();
 	$("#soppModal").modal("hide");
-}
-
-function fnSetContData(a, b) {
-	$("#contNo").val(b);
-	$("#contTitle").val(a);
-	$(".modal-backdrop").remove();
-	$("#contModal").modal("hide");
 }
 
 function fn_sprtInsert() {
@@ -311,7 +264,7 @@ function fn_sprtInsert() {
 	sprtData.techdTitle			= $("#techdTitle").val();					// 기술지원 요청명
 	sprtData.userNo				= $("#userNo").val() ? $("#userNo").val() : 0;						// 담당사원
 	sprtData.custNo				= $("#custNo").val() ? $("#custNo").val() : 0;						// 거래처
-	sprtData.custmemberNo		= $("#custmemberNo").val() ? $("#custmemberNo").val() : 0;					// 고객
+	sprtData.custMemberNo		= $("#custMemberNo").val() ? $("#custMemberNo").val() : 0;					// 고객
 	sprtData.techdItemmodel		= $("#techdItemmodel").val();				// 모델
 	sprtData.techdItemversion	= $("#techdItemversion").val();				// 버전
 	sprtData.techdPlace			= $("#techdPlace").val();					// 장소
@@ -324,29 +277,30 @@ function fn_sprtInsert() {
 	sprtData.contNo				= $("#contNo").val() ? $("#contNo").val() : 0; // 계약번호
 
 	
-	$.ajax({ url: "${path}/techd/insert.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소 
-				data: sprtData , // HTTP 요청과 함께 서버로 보낼 데이터 
-				method: "POST", // HTTP 요청 메소드(GET, POST 등) 
-				dataType: "json" // 서버에서 보내줄 데이터의 타입 
-			}) // HTTP 요청이 성공하면 요청한 데이터가 done() 메소드로 전달됨. .
-			.done(function(data) {
-				if(data.code == 10001){
-					alert("저장 성공");
-					var eventModal = $('#eventModal');
-					if(eventModal[0]) {
-						$(".modal-backdrop").remove();
-						fnSetPage('${path}/calendar/calmain.do');
-						
-					}else {
-						fnSetPage('${path}/techd/list.do');
-					}
-				}else{
-					alert("저장 실패");
-				}
-			}) // HTTP 요청이 실패하면 오류와 상태에 관한 정보가 fail() 메소드로 전달됨. 
-			.fail(function(xhr, status, errorThrown) { 
-				alert("통신 실패");
-			});
+	$.ajax({
+		url: "${path}/techd/insert.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
+		data: sprtData , // HTTP 요청과 함께 서버로 보낼 데이터
+		method: "POST", // HTTP 요청 메소드(GET, POST 등)
+		dataType: "json" // 서버에서 보내줄 데이터의 타입
+	}) // HTTP 요청이 성공하면 요청한 데이터가 done() 메소드로 전달됨. .
+	.done(function(data) {
+		if(data.code == 10001){
+			alert("저장 성공");
+			var eventModal = $('#eventModal');
+			if(eventModal[0]) {
+				$(".modal-backdrop").remove();
+				fnSetPage('${path}/calendar/calmain.do');
+
+			}else {
+				fnSetPage('${path}/techd/list.do');
+			}
+		}else{
+			alert("저장 실패");
+		}
+	}) // HTTP 요청이 실패하면 오류와 상태에 관한 정보가 fail() 메소드로 전달됨.
+	.fail(function(xhr, status, errorThrown) {
+		alert("통신 실패");
+	});
 }
 
 setTimeComboBox(['#startTime', '#endTime']);

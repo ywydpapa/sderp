@@ -11,18 +11,18 @@ import java.math.BigDecimal;
 @ToString
 public class SoppdataDTO {
 		
-	private int soppdataNo;
-	private int soppNo;
-	private int userNo;
+	private Integer soppdataNo;
+	private Integer soppNo;
+	private Integer userNo;
 	private String soppTitle;
-	private int catNo;
-	private int productNo;
-	private int salesCustNo;
+	private Integer catNo;
+	private Integer productNo;
+	private Integer salesCustNo;
 	private String catTitle;
 	private String dataTitle;
 	private String dataDesc;
 	private String dataType;
-	private int dataQuanty;
+	private Integer dataQuanty;
 	private BigDecimal dataAmt;
 	private BigDecimal dataNetprice;
 	private String dataRemark;

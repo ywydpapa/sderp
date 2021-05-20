@@ -10,13 +10,13 @@ import lombok.ToString;
 @ToString
 public class TechdDTO extends PageDTO {
 
-	private int techdNo;
-	private int custNo;
-	private int compNo;
-	private int soppNo;
-	private int contNo;
-	private int custmemberNo;
-	private int userNo;
+	private Integer techdNo;
+	private Integer custNo;
+	private Integer compNo;
+	private Integer soppNo;
+	private Integer contNo;
+	private Integer custMemberNo;
+	private Integer userNo;
 	private String techdTitle;
 	private String techdDesc;
 	private String techdItemmodel;
@@ -32,7 +32,6 @@ public class TechdDTO extends PageDTO {
 	private String userName;
 	private String contTitle;
 	private String soppTitle;
-	private String custmemberName;
 	private String regdatetime;
 	private String modDatetime;
 	private String targetDatefrom;
@@ -43,6 +42,7 @@ public class TechdDTO extends PageDTO {
 	// 확장
 	private String regSDate;	// 등록일 시작
 	private String regEDate;	// 등록일 끝
+	private String custMemberName;
 	
 	public TechdDTO() {
 		super();

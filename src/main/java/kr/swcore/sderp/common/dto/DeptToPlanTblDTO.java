@@ -10,10 +10,10 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 public class DeptToPlanTblDTO {
-    private int id;
-    private int orgId;
+    private Integer id;
+    private Integer orgId;
     private String tableName;
 
     // 확장
-    private int compNo;
+    private Integer compNo;
 }

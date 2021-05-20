@@ -140,8 +140,8 @@
 								<th>거래처 담당자</th>
 								<td>
 									<div class="input-group input-group-sm mb-0">
-										<input type="text" id="custmemberName" name="custmemberName" class="form-control " readonly value="${dto.custmemberName}">
-										<input type="hidden" id="custmemberNo" name="custmemberNo" class="form-control " value="${dto.custmemberNo}">
+										<input type="text" id="custmemberName" name="custmemberName" class="form-control " readonly value="${dto.custMemberName}">
+										<input type="hidden" id="custmemberNo" name="custmemberNo" class="form-control " value="${dto.custMemberNo}">
 										<span class="input-group-btn">
 											<button class="btn btn-primary sch-company btn-sm" type="button"><i class="icofont icofont-search"></i></button>
 										</span>

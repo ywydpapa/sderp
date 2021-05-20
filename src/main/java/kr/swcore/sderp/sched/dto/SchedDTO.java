@@ -10,13 +10,14 @@ import lombok.ToString;
 @ToString
 public class SchedDTO extends PageDTO {
 		
-	private int schedNo;
-	private int userNo;
-	private int compNo;
-	private int soppNo;
-	private int custNo;
-	private int contNo;
-	private int id;
+	private Integer schedNo;
+	private Integer userNo;
+	private Integer compNo;
+	private Integer soppNo;
+	private Integer contNo;
+	private Integer custNo;
+	private Integer buyrNo;
+	private Integer id;
 	private String schedName;
 	private String schedFrom;
 	private String schedTo;
@@ -35,7 +36,7 @@ public class SchedDTO extends PageDTO {
 	private String schedType;
 	private String schedTypeN;
 	private String schedPlace;
-	private int custmemberNo;
+	private Integer custmemberNo;
 	private String custmemberName;
 	private String schedSdate;
 	private String schedEdate;
@@ -51,9 +52,9 @@ public class SchedDTO extends PageDTO {
 
 
 	// 확장
-	private int buyrNo;
 	private String buyrName;
-	private int endCustNo;
+	private Integer endCustNo;
+	private String contName;
 	private String regSDate;	// 등록일 시작
 	private String regEDate;	// 등록일 끝
 

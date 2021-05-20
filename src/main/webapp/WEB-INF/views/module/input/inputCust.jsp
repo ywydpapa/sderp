@@ -4,11 +4,11 @@
 <c:set var="path" value ="${pageContext.request.contextPath}"/>
 <div class="input-group input-group-sm mb-0">
     <c:choose>
-        <c:when test="${dto.userNo ne ''}">
+        <c:when test="${!empty dto.userNo}">
             <input type="text" class="form-control" name="custName" id="custName" value="${dto.custName}" data-type="dto" readonly/>
             <input type="hidden" name="custNo" id="custNo" value="${dto.custNo}" />
         </c:when>
-        <c:when test="${contDto.userNo ne ''}">
+        <c:when test="${!empty contDto.userNo}">
             <input type="text" class="form-control" name="custName" id="custName" value="${contDto.custName}" data-type="dto" readonly/>
             <input type="hidden" name="custNo" id="custNo" value="${contDto.custNo}" />
         </c:when>

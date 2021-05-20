@@ -6,7 +6,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <select id="listSales"
  		resultType="salesDto">
-	select subquery1.*
+	select subquery1.*,
+	       subquery1.ptncNo buyrNo,
+	       subquery1.ptncName buyrName
 	from
 		(
 		select a.*, b.userName , c.custName, d.soppTitle, e.custName ptncName, f.desc03 salesTypeN
@@ -191,8 +193,15 @@ from
 
 <select id="detailSales"
  		resultType="salesDto">
-select a.*, b.userName , c.custName, d.custName ptncName, concat(left(a.salesFrdatetime,10),'T',substring(a.salesFrdatetime,12,9)) salesStime, CONCAT(left(a.salesTodatetime,10),'T',substring(a.salesTodatetime,12,9)) 
-salesEtime, e.soppTitle  from swc_sales a  
+	select a.*,
+	    b.userName,
+	    c.custName,
+    	a.ptncNo buyrNo,
+		d.custName buyrName,
+		CONCAT(left(a.salesFrdatetime,10),'T', substring(a.salesFrdatetime,12,9)) salesStime,
+		CONCAT(left(a.salesTodatetime,10),'T',substring(a.salesTodatetime,12,9)) salesEtime,
+		e.soppTitle
+	from swc_sales a
 		left join swc_user b on a.userNo = b.userNo
 		left join swc_cust c on a.custNo = c.custNo 
 		left join swc_cust d on a.ptncNo = d.custNo

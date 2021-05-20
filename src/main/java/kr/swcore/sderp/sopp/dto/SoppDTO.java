@@ -13,20 +13,20 @@ import java.sql.Timestamp;
 @ToString
 public class SoppDTO extends PageDTO {
 
-	private int soppNo;
-	private int compNo;
-	private int userNo;
-	private int custNo;
-	private int custMemberNo;
-	private int ptncNo;
-	private int ptncMemberNo;
-	private int buyrNo;
-	private int buyrMemberNo;
+	private Integer soppNo;
+	private Integer compNo;
+	private Integer userNo;
+	private Integer custNo;
+	private Integer custMemberNo;
+	private Integer ptncNo;
+	private Integer ptncMemberNo;
+	private Integer buyrNo;
+	private Integer buyrMemberNo;
 	private String soppTitle;
 	private String soppDesc;
 	private BigDecimal soppTargetAmt;
 	private String soppTargetDate;
-	private int soppType;
+	private Integer soppType;
 	private String soppStatus;	// TODO : 추후 DB에서 varchar -> int로 변경예정
 	private Double soppSrate;
 	private String soppSource;	// TODO : 출처 -> 삭제예정

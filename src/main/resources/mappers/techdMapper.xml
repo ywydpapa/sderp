@@ -139,23 +139,7 @@ from
 ) t
 </select>
 
-<!--<select id="listTechd"
- 		resultType="TechdDto">
- 		select a.*, b.userName , c.custName, f.desc03 techdStepsN 
- 		from swc_techd a  
-		left join swc_user b on a.userNo = b.userNo
-		left join swc_cust c on a.custNo = c.custNo
-		left join swc_sopp d on a.soppNo = d.soppNo
-		left join swc_cont e on a.contNo = e.contNo
-		left join swc_code f on a.techdSteps = f.codeNo 
-		where a.attrib not like 'XXX%' and a.compNo = #{compNo}
- 		order by techdFrom desc
-		<if test="limit > 0">
-			limit  #{limit} offset #{offset}
-		</if>
- </select>-->
- 
- <select id="listconTechd"
+<select id="listconTechd"
  		resultType="TechdDto">
  		select a.*, b.userName , c.custName, f.desc03 techdStepsN 
  		from swc_techd a  
@@ -203,7 +187,12 @@ from
 
 <select id="detailTechd"
  		resultType="techdDto">
- 		select a.*, b.userName , c.custName, d.soppTitle, e.contTitle, f.custMname custmemberName,
+ 		select a.*,
+ 		       b.userName,
+ 		       c.custName,
+ 		       d.soppTitle,
+ 		       e.contTitle,
+ 		       f.custMname custMemberName,
  		       CONCAT(left(a.techdFrom,10),'T',substring(a.techdFrom,12,9)) targetDatefrom,
  		       CONCAT(left(a.techdTo,10),'T',substring(a.techdTo,12,9)) targetDateto
  		from swc_techd a  

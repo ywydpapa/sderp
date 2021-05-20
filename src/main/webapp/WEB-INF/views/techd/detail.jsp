@@ -168,8 +168,8 @@ $('input[name=contractType]').on('click', function() {
 								<th scope="row">엔드유저 담당자</th>
 								<td>
 									<div class="input-group input-group-sm mb-0">
-										<input type="text" class="form-control" name="custmemberName"  id="custmemberName" value="${dto.custmemberName}" readonly/> 
-										<input type="hidden" name="custmemberNo" id="custmemberNo" value="${dto.custmemberNo}" />
+										<input type="text" class="form-control" name="custMemberName"  id="custMemberName" value="${dto.custMemberName}" readonly/>
+										<input type="hidden" name="custMemberNo" id="custMemberNo" value="${dto.custMemberNo}" />
 										<span class="input-group-btn">
 											<button class="btn btn-primary sch-partner"
 												data-remote="${path}/modal/popup.do?popId=custmem&compNo="
@@ -304,8 +304,8 @@ $('#contModal').on('show.bs.modal', function(e) {
 });
 
 function fnSetCustmereData(a, b) {
-	$("#custmemberNo").val(a);
-	$("#custmemberName").val(b);
+	$("#custMemberNo").val(a);
+	$("#custMemberName").val(b);
 	$(".modal-backdrop").remove();
 	$("#custmemberModal").modal("hide");
 }
@@ -339,7 +339,7 @@ function fn_sprtUpdate() {
 	sprtData.techdTitle			= $("#techdTitle").val();					// 기술지원 요청명
 	sprtData.userNo				= $("#userNo").val() ? $("#userNo").val() : 0;						// 담당사원
 	sprtData.custNo				= $("#custNo").val() ? $("#custNo").val() : 0;						// 거래처
-	sprtData.custmemberNo		= $("#custmemberNo").val() ? $("#custmemberNo").val() : 0;					// 고객
+	sprtData.custMemberNo		= $("#custMemberNo").val() ? $("#custMemberNo").val() : 0;					// 고객
 	sprtData.techdItemmodel		= $("#techdItemmodel").val();				// 모델
 	sprtData.techdItemversion	= $("#techdItemversion").val();				// 버전
 	sprtData.techdPlace			= $("#techdPlace").val();					// 장소
@@ -354,7 +354,6 @@ function fn_sprtUpdate() {
 		alert("기술지원 요청명을 입력하십시오.!!");
 		return;
 	}
-	console.dir(sprtData);
 	
 	$.ajax({
 		url: "${path}/techd/update.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소

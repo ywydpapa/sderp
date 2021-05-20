@@ -8,7 +8,7 @@ import lombok.ToString;
 @Setter
 @ToString
 public class UserDTO {
-	private int userNo;
+	private Integer userNo;
 	private String userId;
 	private String compId;
 	private String userName;
@@ -19,14 +19,11 @@ public class UserDTO {
 	private String compNo;
 	private String userRank;
 	private String userDept;
-	private int org_id;
+	private Integer org_id;
 	private String userChangePasswd;
 
 	public UserDTO() {
 		
 		// TODO Auto-generated constructor stub
 	}
-
-	
-
 }

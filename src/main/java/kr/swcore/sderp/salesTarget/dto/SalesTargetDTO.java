@@ -11,27 +11,27 @@ import java.util.List;
 @Setter
 @ToString
 public class SalesTargetDTO {
-	private int compNo;
-	private int deptNo;
-	private int userNo;
+	private Integer compNo;
+	private Integer deptNo;
+	private Integer userNo;
 	private String targetYear;
 	private String targetType;
-	private int mm01;
-	private int mm02;
-	private int mm03;
-	private int mm04;
-	private int mm05;
-	private int mm06;
-	private int mm07;
-	private int mm08;
-	private int mm09;
-	private int mm10;
-	private int mm11;
-	private int mm12;
+	private Integer mm01;
+	private Integer mm02;
+	private Integer mm03;
+	private Integer mm04;
+	private Integer mm05;
+	private Integer mm06;
+	private Integer mm07;
+	private Integer mm08;
+	private Integer mm09;
+	private Integer mm10;
+	private Integer mm11;
+	private Integer mm12;
 	private String attrib;
 	
 	// 확장
-	private int orgId;
+	private Integer orgId;
 	private String userName;
 	private List<SalesTargetDTO> salesTargetlist;
 	private String targetMonth;

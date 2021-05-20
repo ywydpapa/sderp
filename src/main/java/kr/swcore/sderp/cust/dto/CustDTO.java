@@ -10,28 +10,28 @@ import org.springframework.web.multipart.MultipartFile;
 @ToString
 public class CustDTO {
 	
-	private int custNo;
-	private int compNo;
+	private Integer custNo;
+	private Integer compNo;
 	private String custName;
 	private String custVatno;
 	private String custEmail;
 	private String custVatemail;
 	private String custBossname;
-	private int custdataNo;
-	private int catNo;
+	private Integer custdataNo;
+	private Integer catNo;
 	private String dataStr;
-	private int dataNum;
+	private Integer dataNum;
 	private MultipartFile dataBlob;
 	private String attrib;
-	private int buyrNo;
+	private Integer buyrNo;
 	private String buyrName;
-	private int ptncNo;
+	private Integer ptncNo;
 	private String ptncName;
 	private String custYn;
 	private String buyrYn;
 	private String ptncYn;
 	private String suppYn;
-	private int supplyNo;
+	private Integer supplyNo;
 	private String supplyName;
 	private String custVattype;
 	private String custVatbiz;
@@ -50,9 +50,9 @@ public class CustDTO {
 	private String custMemo;
 	private String compType;
 	private String saleType;
-	private int custData02no;
-	private int custData03no;
-	private int custData04no;
+	private Integer custData02no;
+	private Integer custData03no;
+	private Integer custData04no;
 
 	public CustDTO() {
 		super();

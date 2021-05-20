@@ -4,17 +4,21 @@
 <c:set var="path" value ="${pageContext.request.contextPath}"/>
 <div class="input-group input-group-sm mb-0 has-feedback has-clear">
     <c:choose>
-        <c:when test="${dto.userNo ne '' && mode ne 'write'}">
+        <c:when test="${!empty dto.userNo && mode ne 'write'}">
             <input type="text" class="form-control" name="userName" id="userName" value="${dto.userName}" data-type="dto" readonly/>
             <input type="hidden" class="form-control" name="userNo" id="userNo" value="${dto.userNo}" />
         </c:when>
-        <c:when test="${contDto.userNo ne '' && mode ne 'write'}">
+        <c:when test="${!empty contDto.userNo && mode ne 'write'}">
             <input type="text" class="form-control" name="userName" id="userName" value="${contDto.userName}" data-type="contDto" readonly/>
             <input type="hidden" class="form-control" name="userNo" id="userNo" value="${contDto.userNo}" />
         </c:when>
-        <c:otherwise>
+        <c:when test="${mode eq 'write'}">
             <input type="text" class="form-control" name="userName" id="userName" value="${sessionScope.userName}" data-type="sessionScope" readonly/>
             <input type="hidden" class="form-control" name="userNo" id="userNo" value="${sessionScope.userNo}" />
+        </c:when>
+        <c:otherwise>
+            <input type="text" class="form-control" name="userName" id="userName" value="" data-type="list" readonly/>
+            <input type="hidden" class="form-control" name="userNo" id="userNo" value="" />
         </c:otherwise>
     </c:choose>
     <span class="input-group-btn">

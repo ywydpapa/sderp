@@ -4,19 +4,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="sched">
 
-<!-- <select id="listSched"
- 		resultType="schedDto">
- 		select a.*, b.custName, c.soppTitle, d.userName, e.desc03 schedCatN, f.desc03 schedTypeN  
- 		from swc_sched a 
- 		left join swc_cust b on a.custNo=b.custNo
- 		left join swc_sopp c on a.soppNo=c.soppNo
- 		left join swc_user d on a.userNo=d.userNo
- 		left join swc_code e on a.schedCat = e.codeNo
- 		left join swc_code f on a.schedType = f.codeNo
- 		where a.attrib not like 'XXX%' and a.compNo = #{compNo}
- 		order by schedNo 
- </select> -->
- 
 <select id="listSched"
  		resultType="schedDto">
 		select subquery1.*
@@ -362,72 +349,8 @@ from
 	</if>
 ) t
 </select>
-<!-- listSched 백업 -->
-<!--<select id="listSched"
-		resultType="schedDto">
-	select a.schedNo, a.schedTitle, a.schedFrom, a.schedTo, a.schedPlace, a.schedDesc, b.custName, c.userName, d.desc03 schedTypeN, e.desc03 schedCatN
-	from swc_sched a
-			 left join swc_cust b on a.custNo = b.custNo
-			 left join swc_user c on a.userNo = c.userNo
-			 left join swc_code d on a.schedType = d.codeNo
-			 left join swc_code e on a.schedCat = e.codeNo
-	where a.attrib not like 'XXX%' and a.compNo = #{compNo}
-
-	UNION
-
-	select a.salesNo schedNo, a.salesTitle schedTitle, a.salesFrdatetime schedFrom, a.salesTodatetime schedTo, a.salesPlace schedPlace, a.salesDesc schedDesc, b.custName, c.userName, d.desc03 schedTypeN, e.desc03 schedCatN
-	from swc_sales a
-			 left join swc_cust b on a.custNo = b.custNo
-			 left join swc_user c on a.userNo = c.userNo
-			 left join swc_code d on a.schedType = d.codeNo
-			 left join swc_code e on a.salesType = e.codeNo
-	where a.attrib not like 'XXX%' and a.compNo = #{compNo}
-
-	UNION
-
-	select a.techdNo schedNo, a.techdTitle schedTitle, a.techdFrom schedFrom, a.techdTo schedTo, a.techdPlace schedPlace, a.techdDesc schedDesc, b.custName, c.userName, d.desc03 schedTypeN, e.desc03 schedCatN
-	from swc_techd a
-			 left join swc_cust b on a.custNo = b.custNo
-			 left join swc_user c on a.userNo = c.userNo
-			 left join swc_code d on a.schedType = d.codeNo
-			 left join swc_code e on a.techdType = e.codeNo
-	where a.attrib not like 'XXX%' and a.compNo = #{compNo}
-
-	order by schedFrom desc
-</select>-->
-
-<!-- <select id="listconSched"
- 		resultType="schedDto">
- 		select a.*, b.custName, c.soppTitle, d.userName, e.desc03 schedCatN, f.desc03 schedTypeN  
- 		from swc_sched a 
- 		left join swc_cust b on a.custNo=b.custNo
- 		left join swc_sopp c on a.soppNo=c.soppNo
- 		left join swc_user d on a.userNo=d.userNo
- 		left join swc_code e on a.schedCat = e.codeNo
- 		left join swc_code f on a.schedType = f.codeNo
- 		where a.attrib not like 'XXX%' and a.compNo = #{compNo}
- 		<if test="userNo != null and userNo != ''">
- 		 	and a.userNo = #{userNo}
- 		</if>
- 		<if test="soppNo != null and soppNo != ''">
- 		 	and a.soppNo = #{soppNo}
- 		</if>
- 		<if test="custNo != null and custNo != ''">
- 		 	and a.custNo = #{custNo}
- 		</if>
- 		<if test="schedCat != null and schedCat != ''">
- 		 	and a.schedCat = #{schedCat}
- 		</if>
- 		<if test="schedFrom != null and schedFrom != ''">
- 		 	and date_format(a.schedFrom, '%Y-%m-%d') <![CDATA[>=]]> #{schedFrom}
- 		</if>
- 		<if test="schedTo != null and schedTo != ''">
- 			and date_format(a.schedTo, '%Y-%m-%d') <![CDATA[<=]]> #{schedTo}
- 		</if>
- 		order by schedNo 
- </select> -->
  
- <select id="listconSched"
+<select id="listconSched"
  		resultType="schedDto">
  		select a.schedNo, a.schedTitle, a.schedFrom, a.schedTo, a.schedPlace, a.schedDesc, b.custName, c.userName, d.desc03 schedTypeN, e.desc03 schedCatN
 	 from swc_sched a
@@ -517,13 +440,20 @@ from
 
 <select id="detailSched"
  		resultType="schedDto">
- 		select a.*, b.custName, c.soppTitle, d.userName,
+ 		select a.*,
+ 		       b.custName,
+ 		       c.soppTitle,
+ 		       d.userName,
+ 		       e.contTitle contName,
+ 		       f.custName buyrName,
  		       CONCAT(left(a.schedFrom,10),'T',substring(a.schedFrom,12,9)) sTime,
  		       CONCAT(left(a.schedTo,10),'T',substring(a.schedTo,12,9)) eTime
  		from swc_sched a 
- 		left join swc_cust b on a.custNo=b.custNo
- 		left join swc_sopp c on a.soppNo=c.soppNo
- 		left join swc_user d on a.userNo=d.userNo
+ 		left join swc_cust b on a.custNo = b.custNo
+ 		left join swc_sopp c on a.soppNo = c.soppNo
+ 		left join swc_user d on a.userNo = d.userNo
+		left join swc_cont e on a.contNo = e.contNo
+ 		left join swc_cust f on a.buyrNo = f.custNo
  		where a.schedNo=#{schedNo}  
  </select>
  
@@ -532,89 +462,67 @@ from
 			SELECT userNo FROM swc_user where userId = #{userId} and compNo = #{compNo}
 </selectKey>
  insert into swc_sched (
-	userNo
-	,compNo
-	,soppNo
-	,custNo
-	,schedName
-	,schedFrom
-	,schedTo
-	,schedTitle
-	,schedDesc
-	,subschedNo
-	,schedActive
-	,schedAllday
-	,remindflag
-	,schedPlace
-	,schedType
-	,schedColor
-	,schedCat
-	,attrib )
+	userNo,
+	compNo,
+	soppNo,
+	contNo,
+	custNo,
+	buyrNo,
+	schedName,
+	schedFrom,
+	schedTo,
+	schedTitle,
+	schedDesc,
+	subschedNo,
+	schedActive,
+	schedAllday,
+	remindflag,
+	schedPlace,
+	schedType,
+	schedColor,
+	schedCat,
+	attrib )
  values (
-	#{userNo}
-	,#{compNo}
-	<choose>
-		<when test="soppNo == 0">
-			,NULL	
-		</when>
-		<otherwise>
-			,#{soppNo}
-		</otherwise>		
-	</choose>
-	<choose>
-		<when test="custNo == 0">
-			,NULL	
-		</when>
-		<otherwise>
-			,#{custNo}
-		</otherwise>		
-	</choose>
-	,#{schedName}
-	,#{schedFrom}
-	,#{schedTo}
-	,#{schedTitle}
-	,#{schedDesc}
-	,#{subschedNo}
-	,#{schedActive}
-	,#{schedAllday}
-	,#{remindflag}
-	,#{schedPlace}
-	,#{schedType}
-	,#{schedColor}
-	,#{schedCat}
-	,'100000' )
+	#{userNo},
+	#{compNo},
+	#{soppNo},
+	#{contNo},
+	#{custNo},
+    #{buyrNo},
+	#{schedName},
+	#{schedFrom},
+	#{schedTo},
+	#{schedTitle},
+	#{schedDesc},
+	#{subschedNo},
+	#{schedActive},
+	#{schedAllday},
+	#{remindflag},
+	#{schedPlace},
+	#{schedType},
+	#{schedColor},
+	#{schedCat},
+	'100000' )
  </insert>
 
  <update id="updateSched">
  update swc_sched set
- 	<choose>
-		<when test="soppNo == 0">
-			soppNo=NULL	
-		</when>
-		<otherwise>
-			soppNo=#{soppNo}
-		</otherwise>		
-	</choose>
-	<choose>
-		<when test="custNo == 0">
-			,custNo=NULL	
-		</when>
-		<otherwise>
-			,custNo=#{custNo}
-		</otherwise>		
-	</choose> 
-	,schedName=#{schedName}
-	,schedFrom=#{schedFrom}
-	,schedTo=#{schedTo}
-	,schedTitle=#{schedTitle}
-	,schedDesc=#{schedDesc}
-	,subschedNo=#{subschedNo}
-	,schedActive=#{schedActive}
-	,schedAllday=#{schedAllday}
-	,remindflag=#{remindflag}
-	<!-- ,schedType=#{schedType} -->
-	,schedCat=#{schedCat}
-	,schedPlace=#{schedPlace}
+	  userNo=#{userNo},
+	  soppNo=#{soppNo},
+	  contNo=#{contNo},
+	  custNo=#{custNo},
+	  buyrNo=#{buyrNo},
+	  schedName=#{schedName},
+	  schedFrom=#{schedFrom},
+	  schedTo=#{schedTo},
+	  schedTitle=#{schedTitle},
+	  schedDesc=#{schedDesc},
+	  subschedNo=#{subschedNo},
+	  schedActive=#{schedActive},
+	  schedAllday=#{schedAllday},
+	  remindflag=#{remindflag},
+	  schedPlace=#{schedPlace},
+	  schedCat=#{schedCat}
  where schedNo=#{schedNo}
  </update>
  

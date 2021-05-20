@@ -3,8 +3,22 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <c:set var="path" value ="${pageContext.request.contextPath}"/>
 <div class="input-group input-group-sm mb-0">
-    <input type="text" class="form-control" id="buyrName" value="${dto.buyrName}" readonly/>
-    <input type="hidden" id="buyrNo" value="${dto.buyrNo}" />
+    <c:choose>
+        <c:when test="${!empty contDto.buyrNo}">
+            <input type="text" class="form-control" id="buyrName" value="${contDto.buyrName}" readonly/>
+            <input type="hidden" id="buyrNo" value="${contDto.buyrNo}" />
+        </c:when>
+        <c:when test="${!empty dto.buyrNo}">
+            <input type="text" class="form-control" id="buyrName" value="${dto.buyrName}" readonly/>
+            <input type="hidden" id="buyrNo" value="${dto.buyrNo}" />
+        </c:when>
+        <c:otherwise>
+            <input type="text" class="form-control" id="buyrName" value="" readonly/>
+            <input type="hidden" id="buyrNo" value="" />
+        </c:otherwise>
+    </c:choose>
+
+
     <span class="input-group-btn">
         <button class="btn btn-dark" id="buyrInputDelete">
             <i class="icofont icofont-close"></i>

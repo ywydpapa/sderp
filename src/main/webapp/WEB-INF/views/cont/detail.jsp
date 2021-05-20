@@ -93,7 +93,7 @@
 											<tr>
 												<th scope="row" >계약번호</th>
 												<td>
-													<input type="text" id="contNo" name="contNo" class="form-control " readonly value="${contDto.contNo}">
+													<input type="text" id="contNoAI" class="form-control " readonly value="${contDto.contNo}">
 												</td>
 												<th class="contDetailSopp requiredTextCss">영업기회</th>
 												<td class="contDetailSopp">
@@ -134,36 +134,7 @@
 												</td>
 												<th class="contDetailCont requiredTextCss">계약</th>
 												<td class="contDetailCont">
-													<div class="input-group input-group-sm mb-0">
-														<input type="text" class="form-control" name="oldContTitle" id="oldContTitle" value="${contDto.exContName}"/>
-														<input type="hidden" name="oldContNo" id="oldContNo" value="${contDto.exContNo}" />
-														<span class="input-group-btn">
-															<button class="btn btn-primary sch-opportunity2" data-remote="${path}/modal/popup.do?popId=cont"
-																	type="button" data-toggle="modal" data-target="#contModal">
-																<i class="icofont icofont-search"></i>
-															</button>
-														</span>
-														<div class="modal fade " id="contModal" tabindex="-1"
-															 role="dialog">
-															<div class="modal-dialog modal-80size" role="document">
-																<div class="modal-content modal-80size">
-																	<div class="modal-header">
-																		<h4 class="modal-title"></h4>
-																		<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-																			<span aria-hidden="true">&times;</span>
-																		</button>
-																	</div>
-																	<div class="modal-body">
-																		<h5>계약 목록</h5>
-																		<p>Loading!!!</p>
-																	</div>
-																	<div class="modal-footer">
-																		<button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
-																	</div>
-																</div>
-															</div>
-														</div>
-													</div>
+													<jsp:include page="/WEB-INF/views/module/input/inputCont.jsp"/>
 												</td>
 											</tr>
 											<tr>
@@ -180,8 +151,6 @@
 														</c:forEach>
 													</select>
 												</td>
-
-
 											</tr>
 											<tr>
 												<th class="requiredTextCss">매출처</th>
@@ -191,8 +160,8 @@
 												<th>매출처 담당자</th>
 												<td>
 													<div class="input-group input-group-sm mb-0">
-														<input type="text" id="custmemberName" name="custmemberName" class="form-control " value="${contDto.custmemberName}">
-														<input type="hidden" id="custmemberNo" name="custmemberNo" class="form-control " value="${contDto.custmemberNo}">
+														<input type="text" id="custMemberName" class="form-control " value="${contDto.custMemberName}">
+														<input type="hidden" id="custMemberNo" class="form-control " value="${contDto.custMemberNo}">
 														<span class="input-group-btn">
 															<button class="btn btn-primary sch-company btn-sm" type="button"><i class="icofont icofont-search"></i></button>
 														</span>
@@ -492,23 +461,14 @@
 		var modal = $(this);
 		modal.find('.modal-body').load(button.data("remote"));
 	});
-	$('#contModal').on('show.bs.modal', function(e) {
-		var button = $(e.relatedTarget);
-		var modal = $(this);
-		modal.find('.modal-body').load(button.data("remote"));
-	});
+
 	function fnSetSoppData(a, b) {
 		$("#soppNo").val(b);
 		$("#soppTitle").val(a);
 		$(".modal-backdrop").remove();
 		$("#soppModal").modal("hide");
 	}
-	function fnSetContData(a,b,c,d){
-		$("#oldContTitle").val(a);
-		$("#oldContNo").val(b);
-		$(".modal-backdrop").remove();
-		$("#contModal").modal("hide");
-	}
+
 	function fnToggleLayer() {
 		$(".techdDetailCont").each(function () {
 			if($(this).css('display') == 'none'){
@@ -521,7 +481,7 @@
 
 	function fn_SaveCont() {
 		var contData = {};
-		contData.contNo 					= $("#contNo").val();
+		contData.contNo 					= $("#contNoAI").val();
 		var contractType					= $("input[name='contractType']:checked").val();	// 신규 영업지원 or 기존계약
 		if(contractType == 'NEW'){
 			contData.soppNo					= $("#soppNo").val();			// 영업기회
@@ -529,7 +489,7 @@
 			contData.cntrctMth				= ${contractType[0].codeNo};
 		} else {
 			contData.soppNo					= 0;							// 영업기회
-			contData.exContNo				= $("#oldContNo").val();		// 기존계약
+			contData.exContNo				= $("#exContNo").val();			// 기존계약
 			contData.cntrctMth				= ${contractType[1].codeNo};
 		}
 		contData.contTitle 				= $("#contTitle").val(); 		// 계약명
@@ -541,8 +501,8 @@
 			contData.net_profit = 0;
 		}
 		if($("#custName").val() != "")			contData.custNo 		= Number($("#custNo").val());			// 거래처
-		if($("#custmemberName").val() != "")	contData.custmemberNo	= Number($("#custmemberNo").val());		// 거래처 담당자
-		if($("#buyrName").val() != "") 		contData.buyrNo			= Number($("#buyrNo").val());			// 엔드유저
+		if($("#custMemberName").val() != "")	contData.custMemberNo	= Number($("#custMemberNo").val());		// 거래처 담당자
+		if($("#buyrName").val() != "") 			contData.buyrNo			= Number($("#buyrNo").val());			// 엔드유저
 		if($("#endCustmemberName").val() != "") contData.buyrMemberNo	= Number($("#endCustmemberNo").val());	// 엔드유저 담당자
 		if($("#contOrddate").val() != "")		contData.contOrddate 			= $("#contOrddate").val();		// 발주일자
 		if($("#supplyDate").val() != "") 		contData.supplyDate = $("#supplyDate").val();		// 공급일자
@@ -558,10 +518,10 @@
 		if($("#freemaintEdate").val() != "") contData.freemaintEdate = $("#freemaintEdate").val();	// 무상유지보수 마감일자
 		if($("#paymaintSdate").val() != "") contData.paymaintSdate = $("#paymaintSdate").val();		// 유상유지보수 시작일자
 		if($("#paymaintEdate").val() != "") contData.paymaintEdate = $("#paymaintEdate").val();		// 유상유지보수 마감일자
-		if($("#vatYn").val() != "")		contData.vatYn					= $("#vatYn").val();			// VAT 포함여부 (기본값 : Y)
-		if($("#contArea").val() != "") 		contData.contArea 				= $("#contArea").val();			// 지역
-		if($("#contType").val() != "")		contData.contType 				= $("#contType").val();			// 판매방식
-		if($("#contDesc").val() != "")		contData.contDesc			 	= $("#contDesc").val();			// 계약내용
+		if($("#vatYn").val() != "")			contData.vatYn					= $("#vatYn").val();	// VAT 포함여부 (기본값 : Y)
+		if($("#contArea").val() != "") 		contData.contArea 				= $("#contArea").val();	// 지역
+		if($("#contType").val() != "")		contData.contType 				= $("#contType").val();	// 판매방식
+		if($("#contDesc").val() != "")		contData.contDesc			 	= $("#contDesc").val();	// 계약내용
 
 		if (!contData.contTitle) {
 			alert("계약명 제목을 입력하십시오.");
@@ -569,6 +529,20 @@
 		} else if (!contData.custNo){
 			alert("매출처를 입력하십시오.");
 			return;
+		} else if (!contData.userNo){
+			alert("담당사원을 입력하십시오.");
+			return;
+		}
+		if(contractType == 'NEW'){
+			if (!contData.soppNo) {
+				alert("영업기회를 입력하십시오.");
+				return;
+			}
+		} else {
+			if (!contData.exContNo) {
+				alert("기존 계약을 입력하십시오.");
+				return;
+			}
 		}
 
 		$.ajax({
@@ -720,9 +694,6 @@
 		});
 	}
 
-
-
-
 	function fn_data01delete(soppdataNo) {
 		var msg = "선택한 건을 삭제하시겠습니까?";
 		if( confirm(msg) ){
@@ -768,8 +739,6 @@
 			});
 		}
 	}
-
-
 
 	function uploadFile() {
 		var uploadForm = $('#uploadForm')[0];

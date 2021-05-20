@@ -70,7 +70,7 @@
 							<tr>
 								<th scope="row">계약번호</th>
 								<td>
-									<input type="text" id="contNo" name="contNo" class="form-control " readonly placeholder="자동생성 됩니다..">
+									<input type="text" id="contNoAI" class="form-control" readonly placeholder="자동생성 됩니다..">
 								</td>
 								<th class="contDetailSopp requiredTextCss">영업기회</th>
 								<td class="contDetailSopp">
@@ -111,36 +111,7 @@
 								</td>
 								<th class="contDetailCont requiredTextCss">계약</th>
 								<td class="contDetailCont">
-									<div class="input-group input-group-sm mb-0">
-										<input type="text" class="form-control" name="oldContTitle" id="oldContTitle" readonly />
-										<input type="hidden" name="oldContNo" id="oldContNo" value="" />
-										<span class="input-group-btn">
-											<button class="btn btn-primary sch-opportunity2" data-remote="${path}/modal/popup.do?popId=cont"
-													type="button" data-toggle="modal" data-target="#contModal">
-												<i class="icofont icofont-search"></i>
-											</button>
-										</span>
-										<div class="modal fade " id="contModal" tabindex="-1"
-											 role="dialog">
-											<div class="modal-dialog modal-80size" role="document">
-												<div class="modal-content modal-80size">
-													<div class="modal-header">
-														<h4 class="modal-title"></h4>
-														<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-															<span aria-hidden="true">&times;</span>
-														</button>
-													</div>
-													<div class="modal-body">
-														<h5>계약 목록</h5>
-														<p>Loading!!!</p>
-													</div>
-													<div class="modal-footer">
-														<button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
+									<jsp:include page="/WEB-INF/views/module/input/inputCont.jsp"/>
 								</td>
 							</tr>
 							<tr>
@@ -165,10 +136,40 @@
 								<td>
 									<jsp:include page="/WEB-INF/views/module/input/inputCust.jsp"/>
 								</td>
-
 								<th>매출처 담당자</th>
 								<td>
-									<jsp:include page="/WEB-INF/views/module/input/inputCust.jsp"/>
+									<div class="input-group input-group-sm mb-0">
+										<input type="text" id="custmemberName" name="custmemberName" class="form-control ">
+										<input type="hidden" id="custmemberNo" name="custmemberNo" class="form-control ">
+										<span class="input-group-btn">
+											<button class="btn btn-primary sch-company btn-sm"  data-remote="${path}/modal/popup.do?popId=custmem&compNo=" type="button" data-toggle="modal" data-target="#custmemberModal" id="custmemberModalbtn" data-whatever="">
+												<i class="icofont icofont-search"></i>
+											</button>
+										</span>
+										<div class="modal fade " id="custmemberModal" tabindex="-1"
+											 role="dialog">
+											<div class="modal-dialog modal-80size" role="document">
+												<div class="modal-content modal-80size">
+													<div class="modal-header">
+														<h4 class="modal-title">매출처 담당자 목록</h4>
+														<button type="button" class="close" onclick="$('#custmemberModal').modal('hide');"
+																aria-label="Close">
+															<span aria-hidden="true">&times;</span>
+														</button>
+													</div>
+													<div class="modal-body">
+														<h5>매출처 담당자 목록</h5>
+														<p>매출처를 먼저 입력해주셔야 목록이 보입니다.</p>
+													</div>
+													<div class="modal-footer">
+														<button type="button"
+																class="btn btn-default waves-effect "
+																onclick="$('#custmemberModal').modal('hide');">Close</button>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
 								</td>
 							</tr>
 							<tr>
@@ -311,11 +312,6 @@
 			var modal = $(this);
 			modal.find('.modal-body').load(button.data("remote"));
 		});
-		$('#contModal').on('show.bs.modal', function(e) {
-			var button = $(e.relatedTarget);
-			var modal = $(this);
-			modal.find('.modal-body').load(button.data("remote"));
-		});
 
 		function fnSetEndCustmereData(a,b){
 			$("#endCustmemberNo").val(a);
@@ -338,12 +334,6 @@
 			$(".modal-backdrop").remove();
 			$("#custmemberModal").modal("hide");
 		}
-		function fnSetContData(a,b,c,d){
-			$("#oldContTitle").val(a);
-			$("#oldContNo").val(b);
-			$(".modal-backdrop").remove();
-			$("#contModal").modal("hide");
-		}
 		function fnToggleLayer() {
 			$(".techdDetailCont").each(function () {
 				if($(this).css('display') == 'none'){
@@ -356,64 +346,67 @@
 		
 		function fn_SaveCont() {
 			var contData = {};
-			var contractType					= $("input[name='contractType']:checked").val();	// 신규 영업지원 or 기존계약
+			var contractType													= $("input[name='contractType']:checked").val();	// 신규 영업지원 or 기존계약
 			if(contractType == 'NEW'){
-				contData.soppNo					= $("#soppNo").val();			// 영업기회
-				contData.exContNo				= 0;							// 기존계약
-				contData.cntrctMth				= ${contractType[0].codeNo};
-				if($("#freemaintSdate").val() != "") contData.freemaintSdate = $("#freemaintSdate").val();	// 무상유지보수 시작일자
-				if($("#freemaintEdate").val() != "") contData.freemaintEdate = $("#freemaintEdate").val();	// 무상유지보수 마감일자
-				if(!contData.soppNo){
-					alert("영업기회명을 입력하십시오.");
-					return;
-				}
+				contData.soppNo													= $("#soppNo").val();			// 영업기회
+				contData.exContNo												= 0;							// 기존계약
+				contData.cntrctMth												= ${contractType[0].codeNo};
+				if($("#freemaintSdate").val() != "") contData.freemaintSdate 	= $("#freemaintSdate").val();	// 무상유지보수 시작일자
+				if($("#freemaintEdate").val() != "") contData.freemaintEdate 	= $("#freemaintEdate").val();	// 무상유지보수 마감일자
 			} else {
-				contData.soppNo					= 0;							// 영업기회
-				contData.exContNo				= $("#oldContNo").val();		// 기존계약
-				contData.cntrctMth				= ${contractType[1].codeNo};
-				if($("#paymaintSdate").val() != "") contData.paymaintSdate = $("#paymaintSdate").val();		// 유상유지보수 시작일자
-				if($("#paymaintEdate").val() != "") contData.paymaintEdate = $("#paymaintEdate").val();		// 유상유지보수 마감일자
-				if(!contData.exContNo){
-					alert("기존계약을 입력하십시오.");
-					return;
-				}
+				contData.soppNo													= 0;							// 영업기회
+				contData.exContNo												= $("#contNo").val();		// 기존계약
+				contData.cntrctMth												= ${contractType[1].codeNo};
+				if($("#paymaintSdate").val() != "") contData.paymaintSdate 		= $("#paymaintSdate").val();		// 유상유지보수 시작일자
+				if($("#paymaintEdate").val() != "") contData.paymaintEdate 		= $("#paymaintEdate").val();		// 유상유지보수 마감일자
 			}
 			contData.contTitle 				= $("#contTitle").val(); 		// 계약명
-			if($("#userName").val() != "")			contData.userNo		 	= Number($("#userNo").val());			// 담당사원
-			var net_profit = Number($("#netprofit").val().replace(/[\D\s\._\-]+/g, "")); // 매출이익
+			if($("#userName").val() != "")			contData.userNo		 		= Number($("#userNo").val());			// 담당사원
+			var net_profit 														= Number($("#netprofit").val().replace(/[\D\s\._\-]+/g, "")); // 매출이익
 			if (net_profit >= 0){
 				contData.net_profit = net_profit;
 			} else {
 				contData.net_profit = 0;
 			}
-			if($("#custName").val() != "")			contData.custNo 		= Number($("#custNo").val());			// 거래처
-			if($("#custmemberName").val() != "")	contData.custmemberNo	= Number($("#custmemberNo").val());		// 거래처 담당자
-			if($("#buyrName").val() != "") 			contData.buyrNo			= Number($("#buyrNo").val());		// 엔드유저
-			if($("#endCustmemberName").val() != "") contData.buyrMemberNo	= Number($("#endCustmemberNo").val());	// 엔드유저 담당자
-			if($("#contOrddate").val() != "")		contData.contOrddate 	= $("#contOrddate").val();		// 발주일자
-			if($("#supplyDate").val() != "") 		contData.supplyDate 	= $("#supplyDate").val();		// 공급일자
-			if($("#delivDate").val() != "")  		contData.delivDate	 	= $("#delivDate").val();		// 검수일자
+			if($("#custName").val() != "")			contData.custNo 			= Number($("#custNo").val());			// 거래처
+			if($("#custmemberName").val() != "")	contData.custmemberNo		= Number($("#custmemberNo").val());		// 거래처 담당자
+			if($("#buyrName").val() != "") 			contData.buyrNo				= Number($("#buyrNo").val());		// 엔드유저
+			if($("#endCustmemberName").val() != "") contData.buyrMemberNo		= Number($("#endCustmemberNo").val());	// 엔드유저 담당자
+			if($("#contOrddate").val() != "")		contData.contOrddate 		= $("#contOrddate").val();		// 발주일자
+			if($("#supplyDate").val() != "") 		contData.supplyDate 		= $("#supplyDate").val();		// 공급일자
+			if($("#delivDate").val() != "")  		contData.delivDate	 		= $("#delivDate").val();		// 검수일자
 
-			var contAmt = Number($("#contAmt").val().replace(/[\D\s\._\-]+/g, ""));			// 계약금액
+			var contAmt 														= Number($("#contAmt").val().replace(/[\D\s\._\-]+/g, ""));			// 계약금액
 			if (contAmt >= 0){
 				contData.contAmt = contAmt;
 			} else {
 				contData.contAmt = 0;
 			}
-			if($("#vatYn").val() != "")		contData.vatYn					= $("#vatYn").val();			// VAT 포함여부 (기본값 : Y)
+			if($("#vatYn").val() != "")		contData.vatYn						= $("#vatYn").val();			// VAT 포함여부 (기본값 : Y)
 			if($("#contArea").val() != "") 		contData.contArea 				= $("#contArea").val();			// 지역
 			if($("#contType").val() != "")		contData.contType 				= $("#contType").val();			// 판매방식
 			if($("#contDesc").val() != "")		contData.contDesc			 	= $("#contDesc").val();			// 계약내용
 
 			if (!contData.contTitle) {
-				alert("계약명 제목을 입력하십시오.");		
-				return;
-			} else if(!contData.userNo){
-				alert("담당자를 입력하십시오.");
+				alert("계약명 제목을 입력하십시오.");
 				return;
 			} else if (!contData.custNo){
 				alert("매출처를 입력하십시오.");
 				return;
+			} else if (!contData.userNo){
+				alert("담당사원을 입력하십시오.");
+				return;
+			}
+			if(contractType == 'NEW'){
+				if (!contData.soppNo) {
+					alert("영업기회를 입력하십시오.");
+					return;
+				}
+			} else {
+				if (!contData.exContNo) {
+					alert("기존 계약을 입력하십시오.");
+					return;
+				}
 			}
 
 			$.ajax({

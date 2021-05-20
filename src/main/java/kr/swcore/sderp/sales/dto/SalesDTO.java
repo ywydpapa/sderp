@@ -10,12 +10,12 @@ import lombok.ToString;
 @ToString
 public class SalesDTO extends PageDTO {
 	
-	private int salesNo;
-	private int soppNo;
-	private int userNo;
-	private int compNo;
-	private int custNo;
-	private int ptncNo;
+	private Integer salesNo;
+	private Integer soppNo;
+	private Integer userNo;
+	private Integer compNo;
+	private Integer custNo;
+	private Integer ptncNo;
 	private String salesFrdatetime;
 	private String salesTodatetime;
 	private String salesPlace;
@@ -40,6 +40,8 @@ public class SalesDTO extends PageDTO {
 	// 확장
 	private String regSDate;	// 등록일 시작
 	private String regEDate;	// 등록일 끝
+	private Integer buyrNo;
+	private String buyrName;
 
 	public SalesDTO() {
 		super();

@@ -75,7 +75,7 @@ public class TechdServiceImpl implements TechdService {
 		dto.setCompNo(compNo);
 		dto.setUserNo(userNo);
 		dto.setCustNo(custNo);
-		dto.setCustmemberNo(custmemberNo);
+		dto.setCustMemberNo(custmemberNo);
 		dto.setTechdSteps(techdSteps);
 		dto.setCntrctMth(cntrctMth);
 		dto.setTechdFrom(targetDatefrom);

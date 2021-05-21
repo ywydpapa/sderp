@@ -43,6 +43,9 @@ public class TechdDTO extends PageDTO {
 	private String regSDate;	// 등록일 시작
 	private String regEDate;	// 등록일 끝
 	private String custMemberName;
+	private String contName;
+	private Integer buyrNo;
+	private Integer buyrMemberNo;
 	
 	public TechdDTO() {
 		super();

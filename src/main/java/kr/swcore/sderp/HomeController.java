@@ -244,6 +244,13 @@ public class HomeController {
 			rtn = "modal/custmemberList";
 		}
 
+		else if("buyrmem".equals(popId)) {
+			Integer compNo = Integer.valueOf((String) params.get("compNo"));
+			List<CustDTO> list = custService.listCustmember(compNo);
+			model.addAttribute("list", list);
+			rtn = "modal/buyrMemberList";
+		}
+
 		else if("endCustmem".equals(popId)) {
 			Integer compNo = Integer.valueOf((String) params.get("compNo"));
 			List<CustDTO> list = custService.listCustmember(compNo);

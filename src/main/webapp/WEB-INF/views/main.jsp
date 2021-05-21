@@ -229,7 +229,7 @@
 
 </script> 
 </head>
-<body>
+<body style="overflow-y: scroll;">
 
   	<%
 	String userId = "";

@@ -28,7 +28,8 @@
 			fnServerParams : function (data){
 				data.push({"name":"userNo", "value" : $("#userNo").val()});
 				data.push({"name":"custNo", "value" : $("#custNo").val()});
-				data.push({"name":"custmemberNo", "value" : $("#custmemberNo").val()});
+				data.push({"name":"contNo", "value" : $("#contNo").val()});
+				data.push({"name":"custMemberNo", "value" : $("#custMemberNo").val()});
 				data.push({"name":"techdSteps", "value" : $("#techdSteps option:selected").val()});
 				data.push({"name":"cntrctMth", "value": $("#cntrctMth option:selected").val()});
 				if($("#targetDatefrom").val() != "" && $("#targetDateto").val() != ""){
@@ -267,42 +268,14 @@
 									<jsp:include page="/WEB-INF/views/module/input/inputActiveUser.jsp"/>
 								</div>
 								<div class="col-sm-12 col-xl-3">
-									<label class="col-form-label" for="custName">엔드유저</label>
-									<div class="input-group input-group-sm mb-0">
-										<input type="text" class="form-control" name="custName" id="custName" value="" readonly />
-										<input type="hidden" name="custNo" id="custNo" value="" />
-										<span class="input-group-btn">
-											<button class="btn btn-primary sch-company" data-remote="${path}/modal/popup.do?popId=cust" type="button" data-toggle="modal" data-target="#custModal">
-												<i class="icofont icofont-search"></i>
-											</button>
-										</span>
-										<div class="modal fade " id="custModal" tabindex="-1"
-											role="dialog">
-											<div class="modal-dialog modal-80size" role="document">
-												<div class="modal-content modal-80size">
-													<div class="modal-header">
-														<h4 class="modal-title"></h4>
-														<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-															<span aria-hidden="true">&times;</span>
-														</button>
-													</div>
-													<div class="modal-body">
-														<h5>거래처목록</h5>
-														<p>Loading!!!</p>
-													</div>
-													<div class="modal-footer">
-														<button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
+									<label class="col-form-label">엔드유저</label>
+									<jsp:include page="/WEB-INF/views/module/input/inputCust.jsp"/>
 								</div>
 								<div class="col-sm-12 col-xl-3">
-									<label class="col-form-label" for="custmemberName">엔드유저 담당자</label>
+									<label class="col-form-label">엔드유저 담당자</label>
 									<div class="input-group input-group-sm mb-0">
-										<input type="text" class="form-control" name="custmemberName" id="custmemberName" value="" readonly />
-										<input type="hidden" name="custmemberNo" id="custmemberNo" value="" />
+										<input type="text" class="form-control" id="custMemberName" value="" readonly />
+										<input type="hidden" id="custMemberNo" value="" />
 										<span class="input-group-btn">
 											<button class="btn btn-primary sch-company" data-remote="${path}/modal/popup.do?popId=custmem&compNo=" type="button" data-toggle="modal" data-target="#custmemberModal" id="custmemberModalbtn">
 												<i class="icofont icofont-search"></i>
@@ -350,6 +323,10 @@
 							</div>
 							<div class="form-group row">
 								<div class="col-sm-12 col-xl-3">
+									<label class="col-form-label">계약</label>
+									<jsp:include page="/WEB-INF/views/module/input/inputCont.jsp"/>
+								</div>
+								<div class="col-sm-12 col-xl-3">
 									<label class="col-form-label">일정시작일</label>
 									<p class="input_inline"><input class="form-control form-control-sm col-xl-6" type="date" id="targetDatefrom" onChange="javascript:inputDate($('#targetDatefrom').val(), $('#targetDateto').val())"> ~ <input class="form-control form-control-sm col-xl-6" type="date" id="targetDateto" onChange="javascript:inputDate($('#targetDatefrom').val(), $('#targetDateto').val())">
 									</p>
@@ -359,7 +336,7 @@
 									<p class="input_inline"><input class="form-control form-control-sm col-xl-6" type="date" id="regSDate" onChange="javascript:inputDate($('#regSDate').val(), $('#regEDate').val())"> ~ <input class="form-control form-control-sm col-xl-6" type="date" id="regEDate" onChange="javascript:inputDate($('#regSDate').val(), $('#regEDate').val())">
 									</p>
 								</div>
-								<div class="col-sm-12 col-xl-6">
+								<div class="col-sm-12 col-xl-3" style="margin-left: -15px;">
 									<label class="col-form-label">기술지원요청내용</label>
 									<input type="text" class="form-control form-control-sm" id="techdDesc" name="" placeholder="" onsubmit="return false">
 								</div>
@@ -379,50 +356,19 @@
 				<div class="card-block table-border-style">
 					<div class="table-responsive">
 						<table id="techdTable" class="table table-striped table-bordered nowrap">
-							<%--<colgroup>
-								<col width="1%"/>
-								<col width="7%"/>
-								<col width="30%"/>
-								<col width="24%"/>
-								<col width="15%"/>
-								<col width="8%"/>
-								<col width="5%"/>
-								<col width="10%"/>
-							</colgroup>	--%>
 							<thead>
 								<tr>
-									<%--<th><input class="border-checkbox" type="checkbox" id="checkbox0"></th>--%>
 									<th>등록일</th>
 									<th>등록구분</th>
 									<th>요청명</th>
 									<th>기술지원요청내용</th>
-									<th>매출처</th>
+									<th>엔드유저</th>
 									<th>진행단계</th>
 									<th>담당사원</th>
 									<th>기술지원(시작)</th>
 									<th>기술지원(끝)</th>
 								</tr>
 							</thead>
-							<%--<tbody>
-								<c:forEach var="row" items="${list}">
-								<tr>
-									<th scope="row"><input class="border-checkbox" type="checkbox" id="checkbox0"></th>
-									<td>
-										<c:if test="${row.soppNo != 0}">신규 영업지원</c:if>
-										<c:if test="${row.contNo != 0}">유지보수</c:if>
-									</td>
-									<td><a href="javascript:fnSetPage('${path}/techd/detail/${row.techdNo}')">${row.techdTitle}</a></td>
-									<td>${row.techdDesc}</td>
-									<td>${row.custName}</td>
-									<td>${row.techdStepsN}</td>
-									<td>${row.userName}</td> 
-									<td>
-										<fmt:parseDate value="${row.techdFrom}" var="techdFrom" pattern="yyyy-MM-dd HH:mm:ss"/>
-										<fmt:formatDate value="${techdFrom}" pattern="yyyy-MM-dd"/>
-									</td>
-								</tr>
-								</c:forEach>
-							</tbody>--%>
 						</table>
 					</div>
 				</div>
@@ -442,6 +388,7 @@
 		var modal = $(this);
 		modal.find('.modal-body').load(button.data("remote"));
 	});
+
 	function fnSetCustmereData(a, b) {
 		$("#custmemberNo").val(a);
 		$("#custmemberName").val(b);

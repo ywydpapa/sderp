@@ -46,7 +46,7 @@
 	</div>
 	<div class="col-md-12 col-lg-2" style="min-width: 278.83px; min-height: 545px;">
 		<div class="card">
-			<div class="card-header" style="padding:25px 12px;">				
+			<div class="card-header" style="padding:25px 12px;">
 				<select class="custom-select mr-sm-1" name="graph2TargetMonth" id="graph2TargetMonth" style="float:right;">
 					<option value = "01" <c:if test="${graph2.targetMonth == 01}">selected</c:if> >01</option>
 					<option value = "02" <c:if test="${graph2.targetMonth == 02}">selected</c:if> >02</option>
@@ -1058,7 +1058,7 @@ function chartReady(){
 		gauge_load_chart(optionGauge);
 	},2000000);
 	*/
-	
+
 	// 4번째 그래프 ===================================================
 
 	var myChartGauge4 = echarts.init(document.getElementById('myChart04'));

@@ -22,6 +22,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			<if test="soppNo != null and soppNo != ''">
 				and a.soppNo = #{soppNo}
 			</if>
+			<if test="contNo != null and contNo != ''">
+				and a.contNo = #{contNo}
+			</if>
 			<if test="custNo != null and custNo != ''">
 				and a.custNo = #{custNo}
 			</if>
@@ -53,13 +56,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			or subquery1.userName like concat('%',#{sSearch},'%')
 			or subquery1.schedPlace like concat('%',#{sSearch},'%')
 			or subquery1.schedCatN like concat('%',#{sSearch},'%')
-			or subquery1.schedDesc like concat('%',#{sSearch},'%')
+			or subquery1.schedDesc like concat('%',#{sSearch},'%')z
 			or subquery1.schedFrom like concat('%',#{sSearch},'%')
 			or subquery1.schedTo like concat('%',#{sSearch},'%')
 		</if>
  		
  		UNION
 
+	<if test="contNo == null or contNo == '' or contNo == 0">
 		select subquery1.*
 		from
 			(
@@ -113,7 +117,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		</if>
 
 		UNION
-
+	</if>
 		select subquery1.*
 		from
 		(
@@ -129,6 +133,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			</if>
 			<if test="soppNo != null and soppNo != ''">
 				and a.soppNo = #{soppNo}
+			</if>
+			<if test="contNo != null and contNo != ''">
+				and a.contNo = #{contNo}
 			</if>
 			<if test="custNo != null and custNo != ''">
 				and a.custNo = #{custNo}
@@ -197,6 +204,9 @@ from
 	<if test="soppNo != null and soppNo != ''">
 		and a.soppNo = #{soppNo}
 	</if>
+	<if test="contNo != null and contNo != ''">
+		and a.contNo = #{contNo}
+	</if>
 	<if test="custNo != null and custNo != ''">
 		and a.custNo = #{custNo}
 	</if>
@@ -234,7 +244,7 @@ from
 	</if>
 
 	UNION
-
+	<if test="contNo == null or contNo == '' or contNo == 0">
 	select subquery1.*
 	from
 	(
@@ -288,6 +298,7 @@ from
 	</if>
 
 	UNION
+	</if>
 
 	select subquery1.*
 	from
@@ -304,6 +315,9 @@ from
 	</if>
 	<if test="soppNo != null and soppNo != ''">
 		and a.soppNo = #{soppNo}
+	</if>
+	<if test="contNo != null and contNo != ''">
+		and a.contNo = #{contNo}
 	</if>
 	<if test="custNo != null and custNo != ''">
 		and a.custNo = #{custNo}

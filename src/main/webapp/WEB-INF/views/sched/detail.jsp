@@ -33,18 +33,14 @@
 							<tr>
 								<th scope="row" class="requiredTextCss">일정일자</th>
 								<td colspan="3">
-									<div class="input-group input-group-sm mb-0 mr-1">  
-									<input class="form-control" type="date" id="schedFrom" value="${dto.schedFrom}" onChange="javascript:inputDate(setDateHourMinute($('#schedFrom').val(), $('#startTime').val()), setDateHourMinute($('#schedTo').val(), $('#endTime').val()))">
-									<select id="startTime" style="width:100px" onChange="javascript:inputDate(setDateHourMinute($('#schedFrom').val(), $('#startTime').val()), setDateHourMinute($('#schedTo').val(), $('#endTime').val()))"></select>
-									<span> ~ </span> 
-									<input class="form-control " type="date" id="schedTo" value="${dto.schedTo}" onChange="javascript:inputDate(setDateHourMinute($('#schedFrom').val(), $('#startTime').val()), setDateHourMinute($('#schedTo').val(), $('#endTime').val()))">
-									<select id="endTime" style="width:100px" onChange="javascript:inputDate(setDateHourMinute($('#schedFrom').val(), $('#startTime').val()), setDateHourMinute($('#schedTo').val(), $('#endTime').val()))"></select>
-									</div>
+									<jsp:include page="/WEB-INF/views/module/input/inputSchedule.jsp"/>
 								</td>
 							</tr>
 							<tr>
 								<th scope="row">장소</th>
-								<td><input type="text" class="form-control form-control-sm" id="schedPlace" 	name="schedPlace" value="${dto.schedPlace}"></td>
+								<td>
+									<input type="text" class="form-control form-control-sm" id="schedPlace" 	name="schedPlace" value="${dto.schedPlace}">
+								</td>
 								<th scope="row">계약 관련</th>
 								<td>
 									<jsp:include page="/WEB-INF/views/module/input/inputCont.jsp"/>
@@ -53,40 +49,7 @@
 							<tr>
 								<th scope="row">영업기회</th>
 								<td>
-									<div class="input-group input-group-sm mb-0">
-										<input type="text" class="form-control" name="soppTitle" id="soppTitle" readonly value="${dto.soppTitle}"/> <input type="hidden"
-											name="soppNo" id="soppNo" value="${dto.soppNo}" /> <span
-											class="input-group-btn">
-											<button class="btn btn-primary sch-opportunity2"
-												data-remote="${path}/modal/popup.do?popId=sopp"
-												type="button" data-toggle="modal" data-target="#soppModal">
-												<i class="icofont icofont-search"></i>
-											</button>
-										</span>
-										<div class="modal fade " id="soppModal" tabindex="-1"
-											role="dialog">
-											<div class="modal-dialog modal-80size" role="document">
-												<div class="modal-content modal-80size">
-													<div class="modal-header">
-														<h4 class="modal-title"></h4>
-														<button type="button" class="close" onclick="$('#soppModal').modal('hide');"
-															aria-label="Close">
-															<span aria-hidden="true">&times;</span>
-														</button>
-													</div>
-													<div class="modal-body">
-														<h5>영업기회목록</h5>
-														<p>Loading!!!</p>
-													</div>
-													<div class="modal-footer">
-														<button type="button"
-															class="btn btn-default waves-effect "
-															onclick="$('#soppModal').modal('hide');">Close</button>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
+									<jsp:include page="/WEB-INF/views/module/input/inputSopp.jsp"/>
 								</td>
 								<th scope="row" class="requiredTextCss">담당사원</th>
 								<td>
@@ -104,14 +67,6 @@
 								</td>
 							</tr>
 							<tr>
-								<%-- <th scope="row">일정구분</th>
-								<td><select name="schedType" id="schedType" class="form-control form-control-sm">
-									<option value="">기타일정</option>
-									<c:forEach var="schedtype" items="${schedtype}">
-									<option value = "${schedtype.codeNo}">${schedtype.desc03}</option>
-									</c:forEach>
-								</select>
-								</td> --%>
 								<th scope="row">활동형태</th>
 								<td>
 									<select name="schedCat" id="schedCat" class="form-control form-control-sm">

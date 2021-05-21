@@ -23,6 +23,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<if test="custNo != null and custNo != ''">
 			and a.custNo = #{custNo}
 		</if>
+		<if test="contNo != null and contNo != ''">
+			and a.contNo = #{contNo}
+		</if>
 		<if test="custMemberNo != null and custMemberNo != ''">
 			and a.custMemberNo = #{custMemberNo}
 		</if>
@@ -93,6 +96,9 @@ from
 	<if test="custNo != null and custNo != ''">
 		and a.custNo = #{custNo}
 	</if>
+	<if test="contNo != null and contNo != ''">
+		and a.contNo = #{contNo}
+	</if>
 	<if test="custMemberNo != null and custMemberNo != ''">
 		and a.custMemberNo = #{custMemberNo}
 	</if>
@@ -155,6 +161,9 @@ from
  		<if test="custNo != null and custNo != ''">
  		 	and a.custNo = #{custNo}
  		</if>
+		<if test="contNo != null and contNo != ''">
+			and a.contNo = #{contNo}
+		</if>
  		<if test="custMemberNo != null and custMemberNo != ''">
  		 	and a.custMemberNo = #{custMemberNo}
  		</if>

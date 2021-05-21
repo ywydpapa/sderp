@@ -33,13 +33,7 @@
 							<tr>
 								<th scope="row" class="requiredTextCss">일정일자</th>
 								<td colspan="3">
-									<div class="input-group input-group-sm mb-0 mr-1">
-										<input class="form-control form-control-sm col-md-4 m-r-10" type="date" id="schedSdate" value="" onChange="javascript:inputDate(setDateHourMinute($('#schedSdate').val(), $('#startTime').val()), setDateHourMinute($('#schedEdate').val(), $('#endTime').val()))">
-										<select id="startTime" style="width:100px" onChange="javascript:inputDate(setDateHourMinute($('#schedSdate').val(), $('#startTime').val()), setDateHourMinute($('#schedEdate').val(), $('#endTime').val()))"></select>
-										<span> ~ </span> 
-										<input class="form-control form-control-sm col-md-4 m-r-10" type="date" id="schedEdate" value="" onChange="javascript:inputDate(setDateHourMinute($('#schedSdate').val(), $('#startTime').val()), setDateHourMinute($('#schedEdate').val(), $('#endTime').val()))">
-										<select id="endTime" style="width:100px" onChange="javascript:inputDate(setDateHourMinute($('#schedSdate').val(), $('#startTime').val()), setDateHourMinute($('#schedEdate').val(), $('#endTime').val()))"></select>
-									</div>
+									<jsp:include page="/WEB-INF/views/module/input/inputSchedule.jsp"/>
 								</td>
 							</tr>
 							<tr>
@@ -108,13 +102,11 @@
 							</tr>
 							<tr>
 								<th scope="row">일정구분</th>
-								<td><select name="schedType" id="schedType"
-									class="form-control form-control-sm">
+								<td>
+									<select name="schedType" id="schedType" class="form-control form-control-sm">
 										<option value="">기타일정</option>
-										<%-- <c:forEach var="schedtype" items="${schedtype}">
-											<option value="${schedtype.codeNo}">${schedtype.desc03}</option>
-										</c:forEach> --%>
-								</select></td>
+									</select>
+								</td>
 								<th scope="row">활동형태</th>
 								<td>
 									<select name="schedCat" id="schedCat" class="form-control form-control-sm">
@@ -176,8 +168,8 @@
 
 		function fn_SaveSched() {
 			var schedData = {};
-			schedData.schedFrom 									= setDateHourMinute($("#schedSdate").val(), $("#startTime").val());
-			schedData.schedTo 										= setDateHourMinute($("#schedEdate").val(), $("#endTime").val());
+			schedData.schedFrom 									= setDateHourMinute($("#schedFrom").val(), $("#startTime").val());
+			schedData.schedTo 										= setDateHourMinute($("#schedTo").val(), $("#endTime").val());
 			schedData.schedTitle 									= $("#schedTitle").val();
 			schedData.schedPlace									= $("#schedPlace").val();
 			schedData.userNo 										= $("#userNo").val();

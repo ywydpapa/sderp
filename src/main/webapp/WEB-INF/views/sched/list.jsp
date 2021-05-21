@@ -298,36 +298,7 @@
 						</div>
 						<div class="col-sm-12 col-xl-3">
 							<label class="col-form-label">계약</label>
-							<div class="input-group input-group-sm mb-0">
-								<input type="text" class="form-control" name="contTitle"
-									id="contTitle" value="" readonly /> <input type="hidden"
-									name="contNo" id="contNo" value="" /> <span
-									class="input-group-btn">
-									<button class="btn btn-primary sch-company" data-remote="${path}/modal/popup.do?popId=cont" type="button" data-toggle="modal" data-target="#contModal">
-										<i class="icofont icofont-search"></i>
-									</button>
-								</span>
-								<div class="modal fade " id="contModal" tabindex="-1"
-									role="dialog">
-									<div class="modal-dialog modal-80size" role="document">
-										<div class="modal-content modal-80size">
-											<div class="modal-header">
-												<h4 class="modal-title"></h4>
-												<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-													<span aria-hidden="true">&times;</span>
-												</button>
-											</div>
-											<div class="modal-body">
-												<h5>계약목록</h5>
-												<p>Loading!!!</p>
-											</div>
-											<div class="modal-footer">
-												<button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
+							<jsp:include page="/WEB-INF/views/module/input/inputCont.jsp"/>
 						</div>
 						<div class="col-sm-1">
 							<label class="col-form-label">일정구분</label>
@@ -423,11 +394,6 @@
 			var modal = $(this);
 			modal.find('.modal-body').load(button.data("remote"));
 		});
-		$('#contModal').on('show.bs.modal', function(e) {
-			var button = $(e.relatedTarget);
-			var modal = $(this);
-			modal.find('.modal-body').load(button.data("remote"));
-		});
     	function fnSetSoppData(a, b) {
 			$("#soppNo").val(b);
 			$("#soppTitle").val(a);
@@ -440,12 +406,6 @@
     		$(".modal-backdrop").remove();
     		$("#custmemberModal").modal("hide");
     	}
-    	function fnSetContData(a, b) {
-			$("#contNo").val(b);
-			$("#contTitle").val(a);
-			$(".modal-backdrop").remove();
-			$("#contModal").modal("hide");
-		}
 
     	function fnSetDetailLink(schedTypeN, schedNo) {
     		var typePath;

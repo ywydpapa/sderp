@@ -9,8 +9,18 @@
             <input type="text" class="form-control" id="exContName" value="${contDto.exContName}" data-type="contDto" readonly/>
             <input type="hidden" id="exContNo" value="${contDto.exContNo}" />
         </c:when>
-        <c:when test="${!empty dto.contNo}">
-            <input type="text" class="form-control" id="contName" value="${dto.contName}" data-type="dto" readonly/>
+        <c:when test="${!empty dto.contNo || !empty dto.techdNo}">
+            <c:choose>
+                <c:when test="${!empty dto.contName}">
+                    <input type="text" class="form-control" id="contName" value="${dto.contName}" data-type="dto" readonly/>
+                </c:when>
+                <c:when test="${!empty dto.contTitle}">
+                    <input type="text" class="form-control" id="contName" value="${dto.contTitle}" data-type="dto" readonly/>
+                </c:when>
+                <c:otherwise>
+                    <input type="text" class="form-control" id="contName" value="" data-type="dto" readonly/>
+                </c:otherwise>
+            </c:choose>
             <input type="hidden" id="contNo" value="${dto.contNo}" />
         </c:when>
         <c:otherwise>

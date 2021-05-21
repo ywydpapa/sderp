@@ -12,6 +12,10 @@
             <input type="text" class="form-control" id="buyrName" value="${dto.buyrName}" readonly/>
             <input type="hidden" id="buyrNo" value="${dto.buyrNo}" />
         </c:when>
+        <c:when test="${!empty dto.techdNo}">
+            <input type="text" class="form-control" id="buyrName" value="${dto.custName}" readonly/>
+            <input type="hidden" id="buyrNo" value="${dto.custNo}" />
+        </c:when>
         <c:otherwise>
             <input type="text" class="form-control" id="buyrName" value="" readonly/>
             <input type="hidden" id="buyrNo" value="" />
@@ -52,6 +56,10 @@
     $("#buyrInputDelete").on("click",function (e) {
         $("#buyrName").val("");
         $("#buyrNo").val("");
+        if($("#buyrMemberName").length > 0){
+            $("#buyrMemberName").val("");
+            $("#buyrMemberNo").val("");
+        }
     })
 
     $('#buyrModal').on('show.bs.modal', function(e) {
@@ -65,5 +73,8 @@
         $("#buyrNo").val(b);
         $(".modal-backdrop").remove();
         $("#buyrModal").modal("hide");
+        if($("#buyrMemberInputDelete").length > 0){
+            $("#buyrMemberInputDelete").trigger("click");
+        }
     }
 </script>

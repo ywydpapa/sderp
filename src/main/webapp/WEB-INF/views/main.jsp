@@ -267,7 +267,7 @@
 						<i class="ti-search"></i>
 					</a>
 					<a href="${path}/">
-						<img class="img-fluid" src="${path}/assets/images/sc_ci2_wh.png" alt="Theme-Logo" />
+						<img class="img-fluid" src="${path}/assets/images/auth/sderp_logo-png.png" alt="Theme-Logo" style="width: 110px; height: 28px;"/>
 					</a>
 					<a class="mobile-options">
 						<i class="ti-more"></i>

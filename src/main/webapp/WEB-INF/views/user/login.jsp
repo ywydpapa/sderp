@@ -110,7 +110,7 @@ $(document).ready(function(){
                     <div class="signin-card card-block auth-body">
                         <form name="form1" class="md-float-material" method="post">
                             <div class="text-center">
-								<img src="${path}/assets/images/auth/sc_ci2.png" alt="소프트코어">
+                                <img src="${path}/assets/images/auth/sderp_logo-png.png" alt="소프트코어" style="width: 50%; height: 50%;">
                                 <!--<img src="${path}/assets/images/auth/logo-dark.png" alt="logo.png">-->
                             </div>
                             <div class="auth-box">

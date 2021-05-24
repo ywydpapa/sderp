@@ -9,7 +9,6 @@ import kr.swcore.sderp.techd.dto.TechdDTO;
 public interface ContDAO {
 
 	List<ContDTO> listCont();
-	List<ContDTO> listCont(SoppDTO soppDto);
 	List<ContDTO> listCont(ContDTO dto);
 	int listContCnt(ContDTO dto);
 	List<ContDTO> listconCont(ContDTO contDto);

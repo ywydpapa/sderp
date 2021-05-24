@@ -68,14 +68,6 @@ public class ContController {
 		Gson ojb = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
 		return ojb.toJson(contService.listCont(session, param, request, response));
 	}
-	
-	@RequestMapping("listcon.do")
-	public ModelAndView listcon(HttpSession session, ModelAndView mav, @ModelAttribute ContDTO dto) {
-		mav.setViewName("cont/list");
-		mav.addObject("preserveSearchCondition", "Y");
-		mav.addObject("list", contService.listconCont(session, dto));
-		return mav;
-	}
 
 	@RequestMapping("/detail/{contNo}")
 	public ModelAndView detail(HttpSession session, @PathVariable("contNo") int contNo, ModelAndView mav) {

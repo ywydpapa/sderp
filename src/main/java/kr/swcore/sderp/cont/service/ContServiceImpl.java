@@ -29,25 +29,24 @@ public class ContServiceImpl implements ContService {
 
 	@Inject
 	CodeDAO codeDAO;
-	
-	@Override
-	public List<ContDTO> listCont() {
-		// TODO Auto-generated method stub
-		return contDao.listCont();
-	}
-	
+
 	@Override
 	public List<ContDTO> listCont(HttpSession session, PageDTO pageDTO) {
-		SoppDTO soppdto = SessionInfoGet.getCompNoDto(session);
+		Integer compNo = SessionInfoGet.getCompNo(session);
+		ContDTO dto = new ContDTO();
+		dto.setCompNo(compNo);
 
 		if(pageDTO != null) {
 			Integer limit = pageDTO.getLimit();
-			soppdto.setLimit(limit);
+			dto.setLimit(limit);
 			Integer offset = pageDTO.getOffset();
-			soppdto.setOffset(offset);
+			dto.setOffset(offset);
 		}
 
-		return contDao.listCont(soppdto);
+		dto.setOrderColumn("regDatetime");
+		dto.setOrderOption("desc");
+
+		return contDao.listCont(dto);
 	}
 
 	@Override
@@ -87,11 +86,15 @@ public class ContServiceImpl implements ContService {
 		String regSDate = request.getParameter("regSDate") != null ? (String) request.getParameter("regSDate") : "";					// 등록 시작일
 		String regEDate = request.getParameter("regEDate") != null ? (String) request.getParameter("regEDate") : "";					// 등록 마감일
 
+		String maintIncludeCheckstr = request.getParameter("maintIncludeCheck");
+		Boolean maintIncludeCheck =  Boolean.valueOf(maintIncludeCheckstr);
+
 		dto.setCompNo(compNo);
 		dto.setUserNo(userNo);
 		dto.setCustNo(custNo);
 		dto.setContNo(contNo);
 		dto.setCustMemberNo(custMemberNo);
+		dto.setContTitle(contTitle);
 		dto.setContType(contTypestr);	// TODO : String to Integer 필요함
 		dto.setCntrctMth(cntrctMthstr); // TODO : String to Integer 필요함
 		dto.setTargetDatefrom(targetDatefrom);
@@ -102,6 +105,7 @@ public class ContServiceImpl implements ContService {
 		dto.setPaymaintEdate(freemaintEdate);
 		dto.setRegSDate(regSDate);
 		dto.setRegEDate(regEDate);
+		dto.setMaintIncludeCheck(maintIncludeCheck);
 
 		String sEcho = request.getParameter("sEcho");
 		String limitstr = request.getParameter("iDisplayLength");
@@ -151,13 +155,6 @@ public class ContServiceImpl implements ContService {
 		wrapperDTO.setITotalDisplayRecords(cnt);
 
 		return wrapperDTO;
-	}
-
-	@Override
-	public List<ContDTO> listconCont(HttpSession session, ContDTO dto) {
-		int compNo = SessionInfoGet.getCompNo(session);
-		dto.setCompNo(compNo);
-		return contDao.listconCont(dto);
 	}
 
 	@Override

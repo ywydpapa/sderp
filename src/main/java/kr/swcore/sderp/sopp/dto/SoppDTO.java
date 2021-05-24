@@ -40,6 +40,8 @@ public class SoppDTO extends PageDTO {
 	private Integer custmemberNo;
 	
 	// 확장
+	private Integer contNo;
+	private Integer techdNo;
 	private String userName;
 	private String custName;
 	private String buyrName;

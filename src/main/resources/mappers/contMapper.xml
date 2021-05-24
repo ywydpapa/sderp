@@ -6,28 +6,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <select id="listCont"
  		resultType="contDto">
- 		select a.*, b.userName , c.custName, d.desc03 contTypeN, g.desc03 cntrctMthN
- 		from swc_cont a
-		left join swc_user b on a.userNo = b.userNo
-		left join swc_cust c on a.custNo = c.custNo
-		left join swc_code d on a.contType = d.codeNo
- 		left join swc_code g on a.cntrctMth = g.codeNo
-		where a.attrib not like 'XXX%' and a.compNo = #{compNo}
-		order by regDatetime desc
-		<if test="limit > 0">
-			limit  #{limit} offset #{offset}
-		</if>
- </select>
- 
-<select id="listCont"
- 		resultType="contDto">
 select subquery1.*
 	 from
 	  (
 			select a.*, b.userName , c.custName, d.desc03 contTypeN, g.desc03 cntrctMthN
 			from
 				 <choose>
-					 <when test="freemaintSdate != null and freemaintSdate != '' and freemaintEdate != null and freemaintEdate != ''">
+					 <when test="freemaintSdate != null and freemaintSdate != '' and freemaintEdate != null and freemaintEdate != '' and maintIncludeCheck.equals(true)">
 						 (
 							 select * from swc_cont where (date_format(freemaintEdate, '%Y-%m-%d') <![CDATA[>=]]> #{freemaintSdate} and date_format(freemaintEdate, '%Y-%m-%d') <![CDATA[<=]]> #{freemaintEdate})
 							 UNION
@@ -44,6 +29,13 @@ select subquery1.*
 							 select * from swc_cont where (date_format(paymaintSdate, '%Y-%m-%d') <![CDATA[>=]]> #{freemaintSdate} and date_format(paymaintEdate, '%Y-%m-%d') <![CDATA[<=]]> #{freemaintEdate})
 							 UNION
 							 select * from swc_cont where (date_format(paymaintSdate, '%Y-%m-%d') <![CDATA[<=]]> #{freemaintSdate} and date_format(paymaintEdate, '%Y-%m-%d') <![CDATA[>=]]> #{freemaintEdate})
+						 ) a
+					 </when>
+					 <when test="freemaintSdate != null and freemaintSdate != '' and freemaintEdate != null and freemaintEdate != '' and maintIncludeCheck.equals(false)">
+						 (
+						 select * from swc_cont where (date_format(freemaintSdate, '%Y-%m-%d') <![CDATA[>=]]> #{freemaintSdate} and date_format(freemaintEdate, '%Y-%m-%d') <![CDATA[<=]]> #{freemaintEdate})
+						 UNION
+						 select * from swc_cont where (date_format(paymaintSdate, '%Y-%m-%d') <![CDATA[>=]]> #{freemaintSdate} and date_format(paymaintEdate, '%Y-%m-%d') <![CDATA[<=]]> #{freemaintEdate})
 						 ) a
 					 </when>
 					 <otherwise>
@@ -74,7 +66,7 @@ select subquery1.*
 				and a.buyrMemberNo = #{buyrMemberNo}
 			</if>
 			<if test="contTitle != null and contTitle != ''">
-				and a.contTitle = #{contTitle}
+				and a.contTitle like concat('%',#{contTitle},'%')
 			</if>
 			<if test="contType != null and contType != ''">
 				and a.contType = #{contType}
@@ -125,7 +117,7 @@ select subquery1.*
 
 
 <select id="listContCnt"
-		resultType="contDto">
+		resultType="_integer">
 	select count(*)
 	from
 		(
@@ -135,7 +127,7 @@ select subquery1.*
 				select a.*, b.userName , c.custName, d.desc03 contTypeN, g.desc03 cntrctMthN
 				from
 				<choose>
-					<when test="freemaintSdate != null and freemaintSdate != '' and freemaintEdate != null and freemaintEdate != ''">
+					<when test="freemaintSdate != null and freemaintSdate != '' and freemaintEdate != null and freemaintEdate != '' and maintIncludeCheck.equals(true)">
 						(
 						select * from swc_cont where (date_format(freemaintEdate, '%Y-%m-%d') <![CDATA[>=]]> #{freemaintSdate} and date_format(freemaintEdate, '%Y-%m-%d') <![CDATA[<=]]> #{freemaintEdate})
 						UNION
@@ -152,6 +144,13 @@ select subquery1.*
 						select * from swc_cont where (date_format(paymaintSdate, '%Y-%m-%d') <![CDATA[>=]]> #{freemaintSdate} and date_format(paymaintEdate, '%Y-%m-%d') <![CDATA[<=]]> #{freemaintEdate})
 						UNION
 						select * from swc_cont where (date_format(paymaintSdate, '%Y-%m-%d') <![CDATA[<=]]> #{freemaintSdate} and date_format(paymaintEdate, '%Y-%m-%d') <![CDATA[>=]]> #{freemaintEdate})
+						) a
+					</when>
+					<when test="freemaintSdate != null and freemaintSdate != '' and freemaintEdate != null and freemaintEdate != '' and maintIncludeCheck.equals(false)">
+						(
+						select * from swc_cont where (date_format(freemaintSdate, '%Y-%m-%d') <![CDATA[>=]]> #{freemaintSdate} and date_format(freemaintEdate, '%Y-%m-%d') <![CDATA[<=]]> #{freemaintEdate})
+						UNION
+						select * from swc_cont where (date_format(paymaintSdate, '%Y-%m-%d') <![CDATA[>=]]> #{freemaintSdate} and date_format(paymaintEdate, '%Y-%m-%d') <![CDATA[<=]]> #{freemaintEdate})
 						) a
 					</when>
 					<otherwise>
@@ -182,7 +181,7 @@ select subquery1.*
 					and a.buyrMemberNo = #{buyrMemberNo}
 				</if>
 				<if test="contTitle != null and contTitle != ''">
-					and a.contTitle = #{contTitle}
+					and a.contTitle like concat('%',#{contTitle},'%')
 				</if>
 				<if test="contType != null and contType != ''">
 					and a.contType = #{contType}
@@ -225,9 +224,6 @@ select subquery1.*
 			</if>
 			<if test="'asc' == orderOption">
 				order by ${orderColumn} asc
-			</if>
-			<if test="limit > 0">
-				limit #{limit} offset #{offset}
 			</if>
 		) t
 </select>

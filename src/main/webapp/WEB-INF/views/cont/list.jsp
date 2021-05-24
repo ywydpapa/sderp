@@ -56,6 +56,7 @@
 					data.push({"name":"regSDate", "value" : ""});
 					data.push({"name":"regEDate", "value" : ""});
 				}
+				data.push({"name":"maintIncludeCheck", "value" : $("#maintIncludeCheck").is(":checked")});
 			},
 			// TODO 아래 주석은 서버로 부터 성공시 data 확인하는 용도
 			/*
@@ -78,13 +79,21 @@
 					targets : "_all"
 				},
 				{
+					targets : 8,
+					orderable: false
+				},
+				{
+					targets : 9,
+					orderable: false
+				},
+				{
 					targets : 11,
 					orderable: false
 				}
 			],	// ajax로 데이터가 날아오면서 list를 뿌려주는데 각 컬럼에서 만약 값이 없으면 오류대처
 			columns : [
 				{
-					data: "regdatetime",
+					data: "regDatetime",
 					column : '등록일',
 					render : function ( data, type, row ) {
 						if(data == null || data == undefined) {
@@ -145,7 +154,7 @@
 						if(data == null || data == undefined) {
 							return '';
 						} else {
-							return data;
+							return '<span style="display: inline-block; width: 95%; text-align: right;">'+data.toLocaleString("en-US")+'</span>';
 						}
 					},
 				},
@@ -156,7 +165,7 @@
 						if(data == null || data == undefined) {
 							return '';
 						} else {
-							return data;
+							return '<span style="display: inline-block; width: 95%; text-align: right;">'+data.toLocaleString("en-US")+'</span>';
 						}
 					},
 				},
@@ -174,30 +183,20 @@
 				{
 					column : '유지보수(시작)',
 					render : function ( data, type, row ) {
-						if(data == null || data == undefined) {
-							return '';
-						} else {
-							if(row.freemaintSdate != null && row.freemaintSdate != undefined){
-								return data.split(" ")[0];
-							}
-							if(row.paymaintSdate != null && row.paymaintSdate != undefined){
-								return data.split(" ")[0];
-							}
+						if(row.paymaintSdate != undefined){
+							return row.paymaintSdate;
+						} else if(row.freemaintSdate != undefined){
+							return row.freemaintSdate;
 						}
 					},
 				},
 				{
 					column : '유지보수(끝)',
 					render : function ( data, type, row ) {
-						if(data == null || data == undefined) {
-							return '';
-						} else {
-							if(row.freemaintEdate != null && row.freemaintEdate != undefined){
-								return data.split(" ")[0];
-							}
-							if(row.paymaintEdate != null && row.paymaintEdate != undefined){
-								return data.split(" ")[0];
-							}
+						if(row.paymaintEdate != undefined){
+							return row.paymaintEdate;
+						} else if(row.freemaintEdate != undefined){
+							return row.freemaintEdate;
 						}
 					},
 				},
@@ -347,6 +346,7 @@
 								</div>
 								<div class="col-sm-12 col-xl-3">
 									<label class="col-form-label">유지보수기간</label>
+									<span class="pull-right">기간포함(<input type="checkbox" value="" id="maintIncludeCheck" checked>)</span>
 									<p class="input_inline">
 										<input class="form-control form-control-sm col-xl-6" type="date" id="freemaintSdate" onChange="javascript:inputDate($('#freemaintSdate').val(), $('#freemaintEdate').val())">
 										~
@@ -418,4 +418,11 @@
 		var url = "${path}/cont/detail/"+data;
 		fnSetPage(url);
 	}
+
+	// 계약명 엔터키 누를경우 원치않는 행동발생하여 이벤트 방지 코드 추가
+	$('#contTitle').keydown(function(event) {
+		if (event.keyCode === 13) {
+			event.preventDefault();
+		}
+	})
 </script>

@@ -35,7 +35,7 @@ public class ContDTO extends PageDTO implements Cloneable {
 	private String delivDate;
 	private BigDecimal contAmt;
 	private String vatYn;
-	private String net_profit;
+	private Integer net_profit;
 	private String freemaintSdate;
 	private String freemaintEdate;
 	private String paymaintSdate;
@@ -83,6 +83,8 @@ public class ContDTO extends PageDTO implements Cloneable {
 	private String custMemberName;
 	private String buyrMemberName;
 	// sopp 복사 끝
+
+	private boolean maintIncludeCheck;	// 유지보수기간 기간포함 여부(기본값 true)
 	
 	public ContDTO() {
 		super();

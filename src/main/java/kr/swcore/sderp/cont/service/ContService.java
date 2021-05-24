@@ -12,11 +12,9 @@ import kr.swcore.sderp.cont.dto.ContDTO;
 import kr.swcore.sderp.salesTarget.dto.SalesTargetDTO;
 
 public interface ContService {
-	
-	List<ContDTO> listCont();
+
 	List<ContDTO> listCont(HttpSession session, PageDTO pageDTO);
 	Object listCont(HttpSession session, String param, HttpServletRequest request, HttpServletResponse response);
-	List<ContDTO> listconCont(HttpSession session, ContDTO dto);
 	ContDTO detailCont(int contNo);
 	int updateCont(ContDTO dto);
 	int deleteCont(int contNo);

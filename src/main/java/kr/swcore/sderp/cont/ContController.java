@@ -4,11 +4,14 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import kr.swcore.sderp.sales.service.SalesService;
 import kr.swcore.sderp.salesTarget.dto.SalesTargetDTO;
 import kr.swcore.sderp.sopp.service.SoppService;
@@ -57,6 +60,13 @@ public class ContController {
 		mav.addObject("contType", codeService.listContType(session));
 		mav.addObject("list", contService.listCont(session, null));
 		return mav;
+	}
+
+	@RequestMapping(value = "list/data", produces = "application/json;charset=UTF-8", method = RequestMethod.POST)
+	public @ResponseBody
+	String listData(HttpSession session, @RequestBody String param, HttpServletRequest request, HttpServletResponse response){
+		Gson ojb = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+		return ojb.toJson(contService.listCont(session, param, request, response));
 	}
 	
 	@RequestMapping("listcon.do")

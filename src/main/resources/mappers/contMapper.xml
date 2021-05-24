@@ -19,82 +19,218 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		</if>
  </select>
  
- <select id="listconCont"
+<select id="listCont"
  		resultType="contDto">
- 		select a.*, b.userName , c.custName, d.desc03 contTypeN, g.desc03 cntrctMthN
-		from
-			 <choose>
-				 <when test="freemaintSdate != null and freemaintSdate != '' and freemaintEdate != null and freemaintEdate != ''">
-					 (
-					 select *
-					 from swc_cont
-					 where (
-					 date_format(freemaintEdate, '%Y-%m-%d') <![CDATA[>=]]> #{freemaintSdate} and
-					 date_format(freemaintSdate, '%Y-%m-%d') <![CDATA[<=]]> #{freemaintEdate}
-					 )
-					 UNION
-					 select *
-					 from swc_cont
-					 where (
-					 date_format(freemaintEdate, '%Y-%m-%d') <![CDATA[>=]]> #{freemaintSdate} and
-					 date_format(freemaintSdate, '%Y-%m-%d') <![CDATA[<=]]> #{freemaintEdate}
-					 )
-					 ) a
-				 </when>
-				 <otherwise>
-					 swc_cont a
-				 </otherwise>
-			 </choose>
-		left join swc_user b on a.userNo = b.userNo
-		left join swc_cust c on a.custNo = c.custNo
-		left join swc_code d on a.contType = d.codeNo
-		left join swc_code g on a.cntrctMth = g.codeNo
-		where a.attrib not like 'XXX%' and a.compNo = #{compNo}
-		<choose>
-			<when test="soppNo != 0">and a.soppNo != 0</when>
-			<when test="exContNo != 0">and a.exContNo != 0</when>
-		</choose>
-		<if test="custNo != null and custNo != ''">
- 		 	and a.custNo = #{custNo}
- 		</if>
- 		<if test="ptncNo != null and ptncNo != ''">
- 		 	and a.ptncNo = #{ptncNo}
- 		</if>
- 		<if test="supplyNo != null and supplyNo != ''">
- 		 	and a.supplyNo = #{supplyNo}
- 		</if>
- 		<if test="buyrNo != null and buyrNo != ''">
- 		 	and a.buyrNo = #{buyrNo}
- 		</if>
- 		<if test="contTitle != null and contTitle != ''">
- 		 	and a.contTitle like CONCAT('%', #{contTitle}, '%')
- 		</if>
-		<if test="cntrctMth != null and cntrctMth != ''">
-		    and a.cntrctMth = #{cntrctMth}
-		</if>
- 		<if test="contType != null and contType != ''">
- 		 	and a.contType = #{contType}
- 		</if>
- 		<if test="targetDatefrom != null and targetDatefrom != ''">
- 		 	and date_format(a.contOrddate, '%Y-%m-%d') <![CDATA[>=]]> #{targetDatefrom}
- 		</if>
- 		<if test="targetDateto != null and targetDateto != ''">
- 			and date_format(a.contOrddate, '%Y-%m-%d') <![CDATA[<=]]> #{targetDateto}
- 		</if>
-		 <if test="regSDate != null and regSDate != ''">
-			 and date_format(a.regDatetime, '%Y-%m-%d') <![CDATA[>=]]> #{regSDate}
-		 </if>
-		 <if test="regEDate != null and regEDate != ''">
-			 and date_format(a.regDatetime, '%Y-%m-%d') <![CDATA[<=]]> #{regEDate}
-		 </if>
- 		<if test="userName != null and userName != ''">
- 		 	and b.userName like CONCAT('%', #{userName}, '%')
- 		</if>
- 		<if test="businessType != null and businessType != ''">
- 		 	and a.businessType = #{businessType}
- 		</if>
-		 order by regDatetime desc
- </select>
+select subquery1.*
+	 from
+	  (
+			select a.*, b.userName , c.custName, d.desc03 contTypeN, g.desc03 cntrctMthN
+			from
+				 <choose>
+					 <when test="freemaintSdate != null and freemaintSdate != '' and freemaintEdate != null and freemaintEdate != ''">
+						 (
+							 select * from swc_cont where (date_format(freemaintEdate, '%Y-%m-%d') <![CDATA[>=]]> #{freemaintSdate} and date_format(freemaintEdate, '%Y-%m-%d') <![CDATA[<=]]> #{freemaintEdate})
+							 UNION
+							 select * from swc_cont where (date_format(freemaintSdate, '%Y-%m-%d') <![CDATA[>=]]> #{freemaintSdate} and date_format(freemaintSdate, '%Y-%m-%d') <![CDATA[<=]]> #{freemaintEdate})
+							 UNION
+							 select * from swc_cont where (date_format(freemaintSdate, '%Y-%m-%d') <![CDATA[>=]]> #{freemaintSdate} and date_format(freemaintEdate, '%Y-%m-%d') <![CDATA[<=]]> #{freemaintEdate})
+							 UNION
+							 select * from swc_cont where (date_format(freemaintSdate, '%Y-%m-%d') <![CDATA[<=]]> #{freemaintSdate} and date_format(freemaintEdate, '%Y-%m-%d') <![CDATA[>=]]> #{freemaintEdate})
+							 UNION
+							 select * from swc_cont where (date_format(paymaintEdate, '%Y-%m-%d') <![CDATA[>=]]> #{freemaintSdate} and date_format(paymaintEdate, '%Y-%m-%d') <![CDATA[<=]]> #{freemaintEdate})
+							 UNION
+							 select * from swc_cont where (date_format(paymaintSdate, '%Y-%m-%d') <![CDATA[>=]]> #{freemaintSdate} and date_format(paymaintSdate, '%Y-%m-%d') <![CDATA[<=]]> #{freemaintEdate})
+							 UNION
+							 select * from swc_cont where (date_format(paymaintSdate, '%Y-%m-%d') <![CDATA[>=]]> #{freemaintSdate} and date_format(paymaintEdate, '%Y-%m-%d') <![CDATA[<=]]> #{freemaintEdate})
+							 UNION
+							 select * from swc_cont where (date_format(paymaintSdate, '%Y-%m-%d') <![CDATA[<=]]> #{freemaintSdate} and date_format(paymaintEdate, '%Y-%m-%d') <![CDATA[>=]]> #{freemaintEdate})
+						 ) a
+					 </when>
+					 <otherwise>
+						 swc_cont a
+					 </otherwise>
+				 </choose>
+			left join swc_user b on a.userNo = b.userNo
+			left join swc_cust c on a.custNo = c.custNo
+			left join swc_code d on a.contType = d.codeNo
+			left join swc_code g on a.cntrctMth = g.codeNo
+			where a.attrib not like 'XXX%' and a.compNo = #{compNo}
+			<if test="userNo != null and userNo > 0">
+				and a.userNo = #{userNo}
+			</if>
+			<if test="contNo != null and contNo > 0">
+				and a.contNo = #{contNo}
+			</if>
+			<if test="custNo != null and custNo > 0">
+				and a.custNo = #{custNo}
+			</if>
+			<if test="custMemberNo != null and custMemberNo > 0">
+				and a.custMemberNo = #{custMemberNo}
+			</if>
+			<if test="buyrNo != null and buyrNo > 0">
+				and a.buyrNo = #{buyrNo}
+			</if>
+			<if test="buyrMemberNo != null and buyrMemberNo > 0">
+				and a.buyrMemberNo = #{buyrMemberNo}
+			</if>
+			<if test="contTitle != null and contTitle != ''">
+				and a.contTitle = #{contTitle}
+			</if>
+			<if test="contType != null and contType != ''">
+				and a.contType = #{contType}
+			</if>
+			<if test="cntrctMth != null and cntrctMth != ''">
+				and a.cntrctMth = #{cntrctMth}
+			</if>
+			<if test="targetDatefrom != null and targetDatefrom != ''">
+				and date_format(a.contOrddate, '%Y-%m-%d') <![CDATA[>=]]> #{targetDatefrom}
+			</if>
+			<if test="targetDateto != null and targetDateto != ''">
+				and date_format(a.contOrddate, '%Y-%m-%d') <![CDATA[<=]]> #{targetDateto}
+			</if>
+			<if test="regSDate != null and regSDate != ''">
+				and date_format(a.regDatetime, '%Y-%m-%d') <![CDATA[>=]]> #{regSDate}
+			</if>
+			<if test="regEDate != null and regEDate != ''">
+				and date_format(a.regDatetime, '%Y-%m-%d') <![CDATA[<=]]> #{regEDate}
+			</if>
+ 	 ) subquery1
+	 <if test="sSearch != null and sSearch != ''">
+		 where
+		 date_format(subquery1.regdatetime, '%Y-%m-%d') like concat('%',#{sSearch},'%')
+		 or subquery1.contTypeN like concat('%',#{sSearch},'%')
+		 or subquery1.cntrctMthN like concat('%',#{sSearch},'%')
+		 or subquery1.contTitle like concat('%',#{sSearch},'%')
+		 or subquery1.custName like concat('%',#{sSearch},'%')
+		 or subquery1.contAmt like concat('%',#{sSearch},'%')
+		 or subquery1.net_profit like concat('%',#{sSearch},'%')
+		 or subquery1.userName like concat('%',#{sSearch},'%')
+		 or date_format(subquery1.freemaintSdate, '%Y-%m-%d') like concat('%',#{sSearch},'%')
+		 or date_format(subquery1.freemaintEdate, '%Y-%m-%d') like concat('%',#{sSearch},'%')
+		 or date_format(subquery1.paymaintSdate, '%Y-%m-%d') like concat('%',#{sSearch},'%')
+		 or date_format(subquery1.paymaintEdate, '%Y-%m-%d') like concat('%',#{sSearch},'%')
+		 or subquery1.contOrddate like concat('%',#{sSearch},'%')
+	 </if>
+
+	 <if test="'desc' == orderOption">
+		 order by ${orderColumn} desc
+	 </if>
+	 <if test="'asc' == orderOption">
+		 order by ${orderColumn} asc
+	 </if>
+	 <if test="limit > 0">
+		 limit #{limit} offset #{offset}
+	 </if>
+</select>
+
+
+<select id="listContCnt"
+		resultType="contDto">
+	select count(*)
+	from
+		(
+			select subquery1.*
+			from
+			(
+				select a.*, b.userName , c.custName, d.desc03 contTypeN, g.desc03 cntrctMthN
+				from
+				<choose>
+					<when test="freemaintSdate != null and freemaintSdate != '' and freemaintEdate != null and freemaintEdate != ''">
+						(
+						select * from swc_cont where (date_format(freemaintEdate, '%Y-%m-%d') <![CDATA[>=]]> #{freemaintSdate} and date_format(freemaintEdate, '%Y-%m-%d') <![CDATA[<=]]> #{freemaintEdate})
+						UNION
+						select * from swc_cont where (date_format(freemaintSdate, '%Y-%m-%d') <![CDATA[>=]]> #{freemaintSdate} and date_format(freemaintSdate, '%Y-%m-%d') <![CDATA[<=]]> #{freemaintEdate})
+						UNION
+						select * from swc_cont where (date_format(freemaintSdate, '%Y-%m-%d') <![CDATA[>=]]> #{freemaintSdate} and date_format(freemaintEdate, '%Y-%m-%d') <![CDATA[<=]]> #{freemaintEdate})
+						UNION
+						select * from swc_cont where (date_format(freemaintSdate, '%Y-%m-%d') <![CDATA[<=]]> #{freemaintSdate} and date_format(freemaintEdate, '%Y-%m-%d') <![CDATA[>=]]> #{freemaintEdate})
+						UNION
+						select * from swc_cont where (date_format(paymaintEdate, '%Y-%m-%d') <![CDATA[>=]]> #{freemaintSdate} and date_format(paymaintEdate, '%Y-%m-%d') <![CDATA[<=]]> #{freemaintEdate})
+						UNION
+						select * from swc_cont where (date_format(paymaintSdate, '%Y-%m-%d') <![CDATA[>=]]> #{freemaintSdate} and date_format(paymaintSdate, '%Y-%m-%d') <![CDATA[<=]]> #{freemaintEdate})
+						UNION
+						select * from swc_cont where (date_format(paymaintSdate, '%Y-%m-%d') <![CDATA[>=]]> #{freemaintSdate} and date_format(paymaintEdate, '%Y-%m-%d') <![CDATA[<=]]> #{freemaintEdate})
+						UNION
+						select * from swc_cont where (date_format(paymaintSdate, '%Y-%m-%d') <![CDATA[<=]]> #{freemaintSdate} and date_format(paymaintEdate, '%Y-%m-%d') <![CDATA[>=]]> #{freemaintEdate})
+						) a
+					</when>
+					<otherwise>
+						swc_cont a
+					</otherwise>
+				</choose>
+				left join swc_user b on a.userNo = b.userNo
+				left join swc_cust c on a.custNo = c.custNo
+				left join swc_code d on a.contType = d.codeNo
+				left join swc_code g on a.cntrctMth = g.codeNo
+				where a.attrib not like 'XXX%' and a.compNo = #{compNo}
+				<if test="userNo != null and userNo > 0">
+					and a.userNo = #{userNo}
+				</if>
+				<if test="contNo != null and contNo > 0">
+					and a.contNo = #{contNo}
+				</if>
+				<if test="custNo != null and custNo > 0">
+					and a.custNo = #{custNo}
+				</if>
+				<if test="custMemberNo != null and custMemberNo > 0">
+					and a.custMemberNo = #{custMemberNo}
+				</if>
+				<if test="buyrNo != null and buyrNo > 0">
+					and a.buyrNo = #{buyrNo}
+				</if>
+				<if test="buyrMemberNo != null and buyrMemberNo > 0">
+					and a.buyrMemberNo = #{buyrMemberNo}
+				</if>
+				<if test="contTitle != null and contTitle != ''">
+					and a.contTitle = #{contTitle}
+				</if>
+				<if test="contType != null and contType != ''">
+					and a.contType = #{contType}
+				</if>
+				<if test="cntrctMth != null and cntrctMth != ''">
+					and a.cntrctMth = #{cntrctMth}
+				</if>
+				<if test="targetDatefrom != null and targetDatefrom != ''">
+					and date_format(a.contOrddate, '%Y-%m-%d') <![CDATA[>=]]> #{targetDatefrom}
+				</if>
+				<if test="targetDateto != null and targetDateto != ''">
+					and date_format(a.contOrddate, '%Y-%m-%d') <![CDATA[<=]]> #{targetDateto}
+				</if>
+				<if test="regSDate != null and regSDate != ''">
+					and date_format(a.regDatetime, '%Y-%m-%d') <![CDATA[>=]]> #{regSDate}
+				</if>
+				<if test="regEDate != null and regEDate != ''">
+					and date_format(a.regDatetime, '%Y-%m-%d') <![CDATA[<=]]> #{regEDate}
+				</if>
+			) subquery1
+			<if test="sSearch != null and sSearch != ''">
+				where
+				date_format(subquery1.regdatetime, '%Y-%m-%d') like concat('%',#{sSearch},'%')
+				or subquery1.contTypeN like concat('%',#{sSearch},'%')
+				or subquery1.cntrctMthN like concat('%',#{sSearch},'%')
+				or subquery1.contTitle like concat('%',#{sSearch},'%')
+				or subquery1.custName like concat('%',#{sSearch},'%')
+				or subquery1.contAmt like concat('%',#{sSearch},'%')
+				or subquery1.net_profit like concat('%',#{sSearch},'%')
+				or subquery1.userName like concat('%',#{sSearch},'%')
+				or date_format(subquery1.freemaintSdate, '%Y-%m-%d') like concat('%',#{sSearch},'%')
+				or date_format(subquery1.freemaintEdate, '%Y-%m-%d') like concat('%',#{sSearch},'%')
+				or date_format(subquery1.paymaintSdate, '%Y-%m-%d') like concat('%',#{sSearch},'%')
+				or date_format(subquery1.paymaintEdate, '%Y-%m-%d') like concat('%',#{sSearch},'%')
+				or subquery1.contOrddate like concat('%',#{sSearch},'%')
+			</if>
+
+			<if test="'desc' == orderOption">
+				order by ${orderColumn} desc
+			</if>
+			<if test="'asc' == orderOption">
+				order by ${orderColumn} asc
+			</if>
+			<if test="limit > 0">
+				limit #{limit} offset #{offset}
+			</if>
+		) t
+</select>
 
 <select id="detailCont"
  		resultType="contDto">

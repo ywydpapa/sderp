@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <c:set var="path" value ="${pageContext.request.contextPath}"/>
@@ -249,7 +248,6 @@
 		</div>
 		<!--Page-header end 페이지 타이틀 -->
 	
-	
 		<!--기술지원 대상조회-->
 		<div class="cnt_wr">
 			<div class="row">
@@ -260,7 +258,6 @@
 								<button class="btn btn-sm btn-inverse" onClick="javascript:fnClearall()"><i class="icofont icofont-spinner-alt-3"></i>초기화</button>
 								<button class="btn btn-sm btn-primary" onClick="javascript:fnListcon()"><i class="icofont icofont-search"></i>검색</button>
 		      					<button class="btn btn-sm btn-outline"onClick="javascript:fnSetPage('${path}/techd/write.do')"><i class="icofont icofont-pencil-alt-2"></i>등록</button>
-										
 							</div>
 							<div class="form-group row">
 								<div class="col-sm-12 col-xl-3">
@@ -286,12 +283,7 @@
 								</div>
 								<div class="col-sm-1.5" style="margin-left: 20px;">
 									<label class="col-form-label">등록구분</label>
-									<select name="select" class="form-control form-control-sm" id="cntrctMth">
-										<option value>선택</option>
-										<c:forEach var ="contractType" items="${contractType}">
-											<option value = "${contractType.codeNo}">${contractType.desc03}</option>
-										</c:forEach>
-									</select>
+									<jsp:include page="/WEB-INF/views/module/input/inputContractType.jsp"/>
 								</div>
 							</div>
 							<div class="form-group row">

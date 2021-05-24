@@ -1,5 +1,6 @@
 package kr.swcore.sderp.cont.dto;
 
+import kr.swcore.sderp.common.dto.PageDTO;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -10,7 +11,7 @@ import java.sql.Timestamp;
 @Getter
 @Setter
 @ToString
-public class ContDTO implements Cloneable{
+public class ContDTO extends PageDTO implements Cloneable {
 
 	private Integer contNo;
 	private Integer compNo;
@@ -46,7 +47,6 @@ public class ContDTO implements Cloneable{
 	private String attrib;
 
 	// 확장
-	//private int custmemberNo;
 	private int maintcustNo;
 	private String soppTitle;
 	private String userName;

@@ -3,12 +3,16 @@ package kr.swcore.sderp.cont.service;
 import java.util.*;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import kr.swcore.sderp.code.dao.CodeDAO;
 import kr.swcore.sderp.code.dto.CodeDTO;
 import kr.swcore.sderp.common.dto.PageDTO;
+import kr.swcore.sderp.common.dto.WrapperDTO;
 import kr.swcore.sderp.salesTarget.dto.SalesTargetDTO;
+import kr.swcore.sderp.techd.dto.TechdDTO;
 import org.springframework.stereotype.Service;
 
 import kr.swcore.sderp.cont.dao.ContDAO;
@@ -45,7 +49,110 @@ public class ContServiceImpl implements ContService {
 
 		return contDao.listCont(soppdto);
 	}
-	
+
+	@Override
+	public Object listCont(HttpSession session, String param, HttpServletRequest request, HttpServletResponse response) {
+		ContDTO dto = new ContDTO();
+		Integer compNo = SessionInfoGet.getCompNo(session);						// 로그인 회사 구분 코드
+		String userNostr = request.getParameter("userNo");
+		Integer userNo = userNostr.equals("") == true ? null : Integer.valueOf(userNostr);					// 담당사원
+
+		String contNostr =  request.getParameter("contNo");
+		Integer contNo = contNostr.equals("") == true ? null : Integer.valueOf(contNostr);					// 계약
+
+		String custNostr =  request.getParameter("custNo");
+		Integer custNo = custNostr.equals("") == true ? null : Integer.valueOf(custNostr);					// 매출처
+
+		String custMemberNostr = request.getParameter("custMemberNo");
+		Integer custMemberNo = custMemberNostr.equals("") == true ? null : Integer.valueOf(custMemberNostr);// 매출처 담당자
+		
+		String buyrNostr = request.getParameter("buyrNo");
+		Integer buyrNo = buyrNostr.equals("") == true ? null : Integer.valueOf(buyrNostr);					// 엔드유저
+
+		String buyrMemberNostr = request.getParameter("buyrMemberNo");
+		Integer buyrMemberNo = buyrMemberNostr.equals("") == true ? null : Integer.valueOf(buyrMemberNostr);// 엔드유저 담당자
+
+		String contTitle = request.getParameter("contTitle");
+
+		String contTypestr = request.getParameter("contType");
+		Integer contType = contTypestr.equals("") == true ? null : Integer.valueOf(contTypestr);			// 	판매방식
+
+		String cntrctMthstr = request.getParameter("cntrctMth");
+		Integer cntrctMth = cntrctMthstr.equals("") == true ? null : Integer.valueOf(cntrctMthstr);			// 등록구분
+
+		String targetDatefrom = request.getParameter("targetDatefrom") != null ? (String) request.getParameter("targetDatefrom") : "";	// 판매일자 시작일
+		String targetDateto = request.getParameter("targetDateto") != null ? (String) request.getParameter("targetDateto") : "";		// 판매일자 마감일
+		String freemaintSdate = request.getParameter("freemaintSdate") != null ? (String) request.getParameter("freemaintSdate") : "";	// 유지보수 시작일
+		String freemaintEdate = request.getParameter("freemaintEdate") != null ? (String) request.getParameter("freemaintEdate") : "";	// 유지보수 마감일
+		String regSDate = request.getParameter("regSDate") != null ? (String) request.getParameter("regSDate") : "";					// 등록 시작일
+		String regEDate = request.getParameter("regEDate") != null ? (String) request.getParameter("regEDate") : "";					// 등록 마감일
+
+		dto.setCompNo(compNo);
+		dto.setUserNo(userNo);
+		dto.setCustNo(custNo);
+		dto.setContNo(contNo);
+		dto.setCustMemberNo(custMemberNo);
+		dto.setContType(contTypestr);	// TODO : String to Integer 필요함
+		dto.setCntrctMth(cntrctMthstr); // TODO : String to Integer 필요함
+		dto.setTargetDatefrom(targetDatefrom);
+		dto.setTargetDateto(targetDateto);
+		dto.setFreemaintSdate(freemaintSdate);
+		dto.setFreemaintEdate(freemaintEdate);
+		dto.setPaymaintSdate(freemaintSdate);
+		dto.setPaymaintEdate(freemaintEdate);
+		dto.setRegSDate(regSDate);
+		dto.setRegEDate(regEDate);
+
+		String sEcho = request.getParameter("sEcho");
+		String limitstr = request.getParameter("iDisplayLength");
+		Integer limit = limitstr != null ? Integer.valueOf(limitstr) : 20;	// 기본값 20 세팅
+		String offsetstr = request.getParameter("iDisplayStart");
+		Integer offset = offsetstr != null ? Integer.valueOf(offsetstr) : 0;
+		String sSearch = (String) request.getParameter("sSearch");
+
+		String orderColumn = request.getParameter("iSortCol_0");
+		String orderOption = request.getParameter("sSortDir_0");
+
+		String column = "";
+		switch (orderColumn){
+			case "0" : column = "regDatetime"; break;	// 등록일
+			case "1" : column = "contTypeN"; break;		// 판매방식
+			case "2" : column = "cntrctMthN"; break;	// 계약방식
+			case "3" : column = "contTitle"; break;		// 계약명
+			case "4" : column = "custName"; break;		// 매출처
+			case "5" : column = "contAmt"; break;		// 계약금액
+			case "6" : column = "net_profit"; break;	// 매출이익
+			case "7" : column = "userName"; break;		// 담당사원
+			case "8" : column = "techdFrom"; break;		// 기술지원(시작)
+			case "9" : column = "techdTo"; break;		// 기술지원(끝)
+			case "10": column = "contOrddate"; break;	// 판매일자
+			default : column = "regDatetime"; break;
+		}
+
+		String option = "";
+		switch (orderOption){
+			case "desc" : option = "desc"; break;
+			case "asc" : option = "asc"; break;
+			default : option = "desc"; break;
+		}
+
+		dto.setLimit(limit);
+		dto.setOffset(offset);
+		dto.setSSearch(sSearch);
+
+		dto.setOrderColumn(column);
+		dto.setOrderOption(option);
+
+		WrapperDTO wrapperDTO = new WrapperDTO();
+		wrapperDTO.setAaData(contDao.listCont(dto));
+
+		Integer cnt = contDao.listContCnt(dto);
+		wrapperDTO.setITotalRecords(cnt);
+		wrapperDTO.setITotalDisplayRecords(cnt);
+
+		return wrapperDTO;
+	}
+
 	@Override
 	public List<ContDTO> listconCont(HttpSession session, ContDTO dto) {
 		int compNo = SessionInfoGet.getCompNo(session);

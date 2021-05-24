@@ -27,9 +27,9 @@
 			sServerMethod : "POST",
 			fnServerParams : function (data){
 				data.push({"name":"userNo", "value" : $("#userNo").val()});
-				data.push({"name":"custNo", "value" : $("#custNo").val()});
 				data.push({"name":"contNo", "value" : $("#contNo").val()});
-				data.push({"name":"custMemberNo", "value" : $("#custMemberNo").val()});
+				data.push({"name":"custNo", "value" : $("#buyrNo").val()});
+				data.push({"name":"custMemberNo", "value" : $("#buyrMemberNo").val()});
 				data.push({"name":"techdSteps", "value" : $("#techdSteps option:selected").val()});
 				data.push({"name":"cntrctMth", "value": $("#cntrctMth option:selected").val()});
 				if($("#targetDatefrom").val() != "" && $("#targetDateto").val() != ""){
@@ -269,41 +269,14 @@
 								</div>
 								<div class="col-sm-12 col-xl-3">
 									<label class="col-form-label">엔드유저</label>
-									<jsp:include page="/WEB-INF/views/module/input/inputCust.jsp"/>
+									<jsp:include page="/WEB-INF/views/module/input/inputBuyr.jsp"/>
 								</div>
 								<div class="col-sm-12 col-xl-3">
 									<label class="col-form-label">엔드유저 담당자</label>
-									<div class="input-group input-group-sm mb-0">
-										<input type="text" class="form-control" id="custMemberName" value="" readonly />
-										<input type="hidden" id="custMemberNo" value="" />
-										<span class="input-group-btn">
-											<button class="btn btn-primary sch-company" data-remote="${path}/modal/popup.do?popId=custmem&compNo=" type="button" data-toggle="modal" data-target="#custmemberModal" id="custmemberModalbtn">
-												<i class="icofont icofont-search"></i>
-											</button>
-										</span>
-										<div class="modal fade " id="custmemberModal" tabindex="-1" role="dialog">
-											<div class="modal-dialog modal-80size" role="document">
-												<div class="modal-content modal-80size">
-													<div class="modal-header">
-														<h4 class="modal-title"></h4>
-														<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-															<span aria-hidden="true">&times;</span>
-														</button>
-													</div>
-													<div class="modal-body">
-														<h5>고객목록</h5>
-														<p>거래처를 먼저 입력해주셔야 목록이 보입니다.</p>
-													</div>
-													<div class="modal-footer">
-														<button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
+									<jsp:include page="/WEB-INF/views/module/input/inputBuyrMember.jsp"/>
 								</div>
 								<div class="col-sm-1.5">
-									<label class="col-form-label" for="co_name">진행단계</label>
+									<label class="col-form-label">진행단계</label>
 									<select name="select" class="form-control form-control-sm" id="techdSteps">
 										<option value>선택</option>
 										<c:forEach var ="techdSteps" items="${techdSteps}">
@@ -312,7 +285,7 @@
 									</select>
 								</div>
 								<div class="col-sm-1.5" style="margin-left: 20px;">
-									<label class="col-form-label" for="co_name">등록구분</label>
+									<label class="col-form-label">등록구분</label>
 									<select name="select" class="form-control form-control-sm" id="cntrctMth">
 										<option value>선택</option>
 										<c:forEach var ="contractType" items="${contractType}">
@@ -328,12 +301,14 @@
 								</div>
 								<div class="col-sm-12 col-xl-3">
 									<label class="col-form-label">일정시작일</label>
-									<p class="input_inline"><input class="form-control form-control-sm col-xl-6" type="date" id="targetDatefrom" onChange="javascript:inputDate($('#targetDatefrom').val(), $('#targetDateto').val())"> ~ <input class="form-control form-control-sm col-xl-6" type="date" id="targetDateto" onChange="javascript:inputDate($('#targetDatefrom').val(), $('#targetDateto').val())">
+									<p class="input_inline">
+										<input class="form-control form-control-sm col-xl-6" type="date" id="targetDatefrom" onChange="javascript:inputDate($('#targetDatefrom').val(), $('#targetDateto').val())"> ~ <input class="form-control form-control-sm col-xl-6" type="date" id="targetDateto" onChange="javascript:inputDate($('#targetDatefrom').val(), $('#targetDateto').val())">
 									</p>
 								</div>
 								<div class="col-sm-12 col-xl-3">
 									<label class="col-form-label">등록일</label>
-									<p class="input_inline"><input class="form-control form-control-sm col-xl-6" type="date" id="regSDate" onChange="javascript:inputDate($('#regSDate').val(), $('#regEDate').val())"> ~ <input class="form-control form-control-sm col-xl-6" type="date" id="regEDate" onChange="javascript:inputDate($('#regSDate').val(), $('#regEDate').val())">
+									<p class="input_inline">
+										<input class="form-control form-control-sm col-xl-6" type="date" id="regSDate" onChange="javascript:inputDate($('#regSDate').val(), $('#regEDate').val())"> ~ <input class="form-control form-control-sm col-xl-6" type="date" id="regEDate" onChange="javascript:inputDate($('#regSDate').val(), $('#regEDate').val())">
 									</p>
 								</div>
 								<div class="col-sm-12 col-xl-3" style="margin-left: -15px;">
@@ -379,23 +354,6 @@
 
 	
 <script>
-	$('#custmemberModal').on('show.bs.modal', function(e) {
-		var custNo = $("#custNo").val();
-		var url = '${path}/modal/popup.do?popId=custmem&compNo=' + custNo;
-		$("#custmemberModalbtn").data("remote",url);
-		
-		var button = $(e.relatedTarget);
-		var modal = $(this);
-		modal.find('.modal-body').load(button.data("remote"));
-	});
-
-	function fnSetCustmereData(a, b) {
-		$("#custmemberNo").val(a);
-		$("#custmemberName").val(b);
-		$(".modal-backdrop").remove();
-		$("#custmemberModal").modal("hide");
-	}
-
 	function fnSetPageEx(data){
 		var url = "${path}/techd/detail/"+data;
 		fnSetPage(url);

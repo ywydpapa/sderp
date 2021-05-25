@@ -149,6 +149,7 @@
 				<input type="hidden" id="productDataLastNo" value="${dto.productDataLastNo}">
 				<div class="tab-pane " id="tab02" role="tabpanel">
 					<div class="card-block table-border-style">
+						<button class="btn btn-sm btn-secondary pull-right" style="margin-bottom: 5px;" onclick="fn_itemListAdd()">추가</button>
 						<div class="table-responsive">
 							<table class="table table-sm bst01">
 								<colgroup>
@@ -162,7 +163,7 @@
 										<th scope="row">순서</th>
 										<th scope="row">항목</th>
 										<th scope="row">값</th>
-										<th scope="row"><input type="button" value="추가" onclick="fn_itemListAdd()"></th>
+										<th >기능</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -171,7 +172,7 @@
 											<td style="text-align: center;">${varStatus.count}<input type="hidden" value="${row.productDataNo}"/></td>
 											<td><input type="text" value="${row.productModel}" class="productModel" readonly /></td>
 											<td><input type="text" value="${row.productPrice}" readonly/></td>
-											<td><input type="button" value="삭제" onclick="fn_itemListRemove(this);"/></td>
+											<td><button class="btn btn-sm btn-danger" onclick="fn_itemListRemove(this);">삭제</button></td>
 										</tr>
 									</c:forEach>
 								</tbody>
@@ -295,7 +296,7 @@ function fn_itemListAdd(){
 					'<td style="text-align: center;">'+i+'<input type="hidden" value=""/></td>' +
 					'<td><input type="text" class="AddItem" onfocusout="fn_focusOutEvent(this)" data-Overwrite=""/></td>' +
 					'<td><input type="text" /></td>' +
-					'<td><input type="button" value="삭제" onclick="fn_itemListRemove(this,\'new\');"/></td>' +
+					'<td><button class="btn btn-sm btn-danger" onclick="fn_itemListRemove(this,\'new\');">삭제</button></td>' +
 			       '</tr>';
 	$element.append(content);
 }

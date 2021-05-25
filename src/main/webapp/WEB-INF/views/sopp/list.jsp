@@ -17,6 +17,8 @@
 		'계약진행보류' : 'red'
 	}
 	var soppTable;
+	var soppSearhing = false || ${first eq 'N'};
+	var soppSCB = false;
 	$(function(){
 		var obj = new Object();
 		soppTable = $('#soppTable').DataTable({
@@ -37,7 +39,11 @@
 			sAjaxSource : "${path}/sopp/list/data",
 			sServerMethod : "POST",
 			fnServerParams : function (data){
-				data.push({"name":"userNo", "value" : $("#userNo").val()});							// 담당자
+				if(soppSearhing || soppSCB) {
+					data.push({"name": "userNo", "value": $("#userNo").val()});							// 담당자
+				} else {
+					data.push({"name": "userNo", "value": ""});
+				}
 				data.push({"name":"custNo", "value" : $("#custNo").val()});							// 거래처
 				data.push({"name":"buyrNo", "value" : $("#buyrNo").val()});							// 엔드유저
 				data.push({"name":"soppType", "value" : $("#soppType option:selected").val()});		// 판매방식
@@ -254,6 +260,7 @@
 	}
 
 	function fnListcon() {
+		soppSCB = true;
 		soppTable.search("").draw();
 	}
 </script>
@@ -318,8 +325,8 @@
 							<div class="col-sm-12 col-xl-2">
 								<label class="col-form-label" for="userName">담당자</label>
 								<div class="input-group input-group-sm mb-0">
-									<input type="text" class="form-control" name="userName" id="userName" value=""  readonly />
-									<input type="hidden" name="userNo" 	id="userNo" value="" />
+									<input type="text" class="form-control" name="userName" id="userName" value="${sessionScope.userName}"  readonly />
+									<input type="hidden" name="userNo" 	id="userNo" value="${sessionScope.userNo}" />
 									<span class="input-group-btn">
 											<button class="btn btn-primary sch-company"
 													data-remote="${path}/modal/popup.do?popId=user"

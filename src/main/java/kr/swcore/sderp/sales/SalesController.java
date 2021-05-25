@@ -47,6 +47,7 @@ public class SalesController {
 		mav.setViewName("sales/list");
 		mav.addObject("list", salesService.listSales(session, null));
 		mav.addObject("acttype", codeService.listActtype(session));
+		mav.addObject("first","Y");
 		return mav;
 	}
 

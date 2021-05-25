@@ -266,9 +266,9 @@
 									<button class="btn btn-md btn-success f-left" onClick="javascript:fnSetPage('${path}/sopp/list.do')">목록</button>
 									<c:if test="${dto.userNo eq sessionScope.userNo || sessionScope.userRole eq 'ADMIN'}">
 										<button class="btn btn-md btn-danger" onClick="fn_soppDelete()">삭제</button>
+										<button class="btn btn-md btn-primary" onClick="fn_soppUpdate()">수정</button>
+										<button class="btn btn-md btn-inverse" onClick="javascript:fnSetPage('${path}/sopp/list.do')">취소</button>
 									</c:if>
-									<button class="btn btn-md btn-primary" onClick="fn_soppUpdate()">수정</button>
-									<button class="btn btn-md btn-inverse" onClick="javascript:fnSetPage('${path}/sopp/list.do')">취소</button>
 								</div>
 							</div>
 						</div>

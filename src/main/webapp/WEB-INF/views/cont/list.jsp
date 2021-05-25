@@ -61,9 +61,10 @@ $(function(){
 										<label class="col-form-label">매출처</label>
 										<div class="input-group input-group-sm mb-0">
 											<input type="text" class="form-control" name="custName"
-												id="custName" value="" readonly /> <input
-												type="hidden" name="custNo" id="custNo"
-												value="" /> <span class="input-group-btn">
+												id="custName" value="" readonly />
+											<input type="hidden" name="custNo" id="custNo"
+												value="" />
+											<span class="input-group-btn">
 												<button class="btn btn-primary sch-company"
 													data-remote="${path}/modal/popup.do?popId=cust"
 													type="button" data-toggle="modal"
@@ -236,7 +237,7 @@ $(function(){
 								<div class="form-group row">
 									<div class="col-sm-12 col-xl-3">
 										<label class="col-form-label">담당자</label>
-										<input type="text" class="form-control form-control-sm" id="userName" name="" placeholder="">
+										<input type="text" class="form-control form-control-sm" id="userName" name="" placeholder="" value="${sessionScope.userName}">
 									</div>
 									<div class="col-sm-12 col-xl-3">
 										<label class="col-form-label">판매방식</label>
@@ -396,7 +397,7 @@ $(function(){
 		$(".modal-backdrop").remove();
 		$("#ptncModal").modal("hide");
 	}
-	
+
 	function fnListcon() {
 		var contData = {};
 		if($("#contractType").val() == "10126"){													// 계약방식

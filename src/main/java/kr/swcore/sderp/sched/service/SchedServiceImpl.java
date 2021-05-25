@@ -39,15 +39,15 @@ public class SchedServiceImpl implements SchedService {
 		SchedDTO dto = new SchedDTO();
 		Integer compNo = SessionInfoGet.getCompNo(session);						// 로그인 회사 구분 코드
 		String userNostr = request.getParameter("userNo");
-		Integer userNo = userNostr.equals("") == true ? 0 : Integer.valueOf(userNostr);	// 담당사원
+		Integer userNo = userNostr.equals("") == true ? null : Integer.valueOf(userNostr);	// 담당사원
 		String soppNostr = request.getParameter("soppNo");
-		Integer soppNo = soppNostr.equals("") == true ? 0 : Integer.valueOf(soppNostr);	// 영업기회
+		Integer soppNo = soppNostr.equals("") == true ? null : Integer.valueOf(soppNostr);	// 영업기회
 		String contNostr = request.getParameter("contNo");
-		Integer contNo = contNostr.equals("") == true ? 0 : Integer.valueOf(contNostr);	// 계약
+		Integer contNo = contNostr.equals("") == true ? null : Integer.valueOf(contNostr);	// 계약
 		String custNostr = request.getParameter("custNo");
-		Integer custNo = custNostr.equals("") == true ? 0 : Integer.valueOf(custNostr);	// 거래처
+		Integer custNo = custNostr.equals("") == true ? null : Integer.valueOf(custNostr);	// 거래처
 		String endCustNostr =  request.getParameter("endCustNo");
-		Integer endCustNo = endCustNostr.equals("") == true ? 0 : Integer.valueOf(endCustNostr);	// 엔드유저
+		Integer endCustNo = endCustNostr.equals("") == true ? null : Integer.valueOf(endCustNostr);	// 엔드유저
 		String schedType = request.getParameter("schedType") != null ? (String) request.getParameter("schedType") : "";			// 활동형태
 		String schedCat = request.getParameter("schedCat") != null ? (String) request.getParameter("schedCat") : "";			// 활동형태
 		String schedFrom = request.getParameter("schedFrom") != null ? (String) request.getParameter("schedFrom") : "";			// 시작일
@@ -56,11 +56,11 @@ public class SchedServiceImpl implements SchedService {
 		String regEDate = request.getParameter("regEDate") != null ? (String) request.getParameter("regEDate") : "";					// 등록 마감일
 
 		dto.setCompNo(compNo);
-		dto.setUserNo(userNo);
-		dto.setSoppNo(soppNo);
-		dto.setContNo(contNo);
-		dto.setCustNo(custNo);
-		dto.setEndCustNo(endCustNo);
+		if(userNo != null) dto.setUserNo(userNo);
+		if(soppNo != null) dto.setSoppNo(soppNo);
+		if(contNo != null) dto.setContNo(contNo);
+		if(custNo != null) dto.setCustNo(custNo);
+		if(endCustNo != null) dto.setEndCustNo(endCustNo);
 		dto.setSchedType(schedType);
 		dto.setSchedCat(schedCat);
 		dto.setSchedFrom(schedFrom);

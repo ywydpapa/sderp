@@ -39,6 +39,7 @@ public class TechdController {
 		mav.addObject("techdSteps", codeService.listTechdSteps(session));
 		mav.addObject("contractType",codeService.listContractType(session));
 		mav.addObject("list", techdService.listTechd(session, null));
+		mav.addObject("first","Y");
 		return mav;
 	}
 

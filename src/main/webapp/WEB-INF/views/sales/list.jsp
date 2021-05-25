@@ -6,6 +6,8 @@
 
 <script>
 	var salesTable;
+	var salesSearhing = false || ${first eq 'N'};
+	var salesSCB = false;
 	$(function(){
 		var obj = new Object();
 		salesTable = $('#salesTable').DataTable({
@@ -26,7 +28,11 @@
 			sAjaxSource : "${path}/sales/list/data",
 			sServerMethod : "POST",
 			fnServerParams : function (data){
-				data.push({"name":"userNo", "value" : $("#userNo").val()});
+				if(salesSearhing || salesSCB) {
+					data.push({"name": "userNo", "value": $("#userNo").val()});							// 담당자
+				} else {
+					data.push({"name": "userNo", "value": ""});
+				}
 				data.push({"name":"soppNo", "value" : $("#soppNo").val()});
 				data.push({"name":"custNo", "value" : $("#custNo").val()});
 				data.push({"name":"salesType", "value" : $("#salesType option:selected").val()});
@@ -214,6 +220,7 @@
 	}
 
 	function fnListcon() {
+		salesSCB = true;
 		salesTable.search("").draw();
 	}
 </script>
@@ -283,8 +290,8 @@
 							<label class="col-form-label" for="userName">담당사원</label>
 								<div class="input-group input-group-sm mb-0">
 									<input type="text" class="form-control" name="userName"
-										id="userName" value="" readonly /> <input type="hidden"
-										name="userNo" id="userNo" value="" /> <span
+										id="userName" value="${sessionScope.userName}" readonly /> <input type="hidden"
+										name="userNo" id="userNo" value="${sessionScope.userNo}" /> <span
 										class="input-group-btn">
 										<button class="btn btn-primary sch-company"
 											data-remote="${path}/modal/popup.do?popId=user" type="button"

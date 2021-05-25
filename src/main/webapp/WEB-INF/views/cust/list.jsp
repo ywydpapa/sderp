@@ -7,7 +7,8 @@
 <script>
 $(function(){
     $('#custTable').DataTable({
-    	info:false
+    	info:false,
+		searching: true
     });
 });
 

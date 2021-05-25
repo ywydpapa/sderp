@@ -406,9 +406,9 @@
 						<button class="btn btn-md btn-success f-left" onClick="fnSetPage('${path}/cont/list.do')">계약목록</button>
 						<c:if test="${contDto.userNo eq sessionScope.userNo || sessionScope.userRole eq 'ADMIN'}">
 							<button class="btn btn-md btn-danger" onClick="fn_DeleteCont()">삭제</button>
+							<button class="btn btn-md btn-primary" onClick="fn_SaveCont()">계약정보 수정</button>
+							<button class="btn btn-md btn-inverse" onClick="fnSetPage('${path}/cont/list.do')">취소</button>
 						</c:if>
-						<button class="btn btn-md btn-primary" onClick="fn_SaveCont()">계약정보 수정</button>
-						<button class="btn btn-md btn-inverse" onClick="fnSetPage('${path}/cont/list.do')">취소</button>
 					</div>
 				</div>
 				</div>

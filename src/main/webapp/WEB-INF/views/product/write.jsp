@@ -187,7 +187,12 @@ function fn_productInsert() {
 	}	
 	productData.productCategoryName	= $("#productCategoryName").val();		// 상품 카테고리 명
 	productData.productName 		= $("#productName").val();				// 상품 명
-	productData.productDefaultPrice = $("#productDefaultPrice").val();		// 상품 기본 가격
+	var productDefaultPrice = $("#productDefaultPrice").val();
+	if(productDefaultPrice.indexOf(',') != -1){
+		productDefaultPrice = productDefaultPrice.replaceAll(',','');
+		console.log(productDefaultPrice);
+	}
+	productData.productDefaultPrice = Number(productDefaultPrice);		// 상품 기본 가격
 	productData.productDesc	 		= $("#productDesc").val();				// 상품 설명
 	productData.custNo				= $("#custNo").val();					// 공급사(외래키)
 

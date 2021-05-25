@@ -68,6 +68,7 @@ public class SoppController {
 		mav.addObject("sstatuslist", codeService.listSstatus(session));
 		mav.addObject("contractType", codeService.listContractType(session));
 		mav.addObject("list", soppService.listSopp(session, null));
+		mav.addObject("first","Y");
 		return mav;
 	}
 
@@ -93,6 +94,7 @@ public class SoppController {
 		mav.addObject("sstatuslist", codeService.listSstatus(session));
 		mav.addObject("contractType", codeService.listContractType(session));
 		mav.addObject("list", soppService.listSopp2(session));
+		mav.addObject("first","Y");
 		return mav;
 	}
 

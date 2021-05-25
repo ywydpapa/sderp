@@ -128,13 +128,22 @@
 	}
 	
 	function fnClearall(){
+		/*
 		var hiddenElements = $("input[type='hidden']");
 		
 		for(var i = 0; i < hiddenElements.length; i++) {
 			hiddenElements[i].value = null;
 		}
-		
 		$("#searchForm")[0].reset();
+		*/
+		var parrentElement = $(this).closest("#searchForm");
+		console.dir(parrentElement);
+
+		var elements = $("#searchForm").find("input");
+		for(var i = 0; i < elements.length; i++) {
+			elements[i].value = null;
+		}
+
 	}
 	
 	function fnSetList(url, data){

@@ -300,9 +300,9 @@ $('input[name=contractType]').on('click', function() {
 				<button class="btn btn-md btn-success f-left modal-list-btn" onClick="javascript:fnSetPage('${path}/techd/list.do')">목록</button>
 				<c:if test="${dto.userNo eq sessionScope.userNo || sessionScope.userRole eq 'ADMIN'}">
 					<button class="btn btn-md btn-danger" onClick="fn_sprtDelete()">삭제</button>
+					<button class="btn btn-md btn-primary" onClick="fn_sprtUpdate()">수정</button>
+					<button class="btn btn-md btn-inverse modal-cancel-btn" onClick="javascript:fnSetPage('${path}/techd/list.do')">취소</button>
 				</c:if>
-				<button class="btn btn-md btn-primary" onClick="fn_sprtUpdate()">수정</button>
-				<button class="btn btn-md btn-inverse modal-cancel-btn" onClick="javascript:fnSetPage('${path}/techd/list.do')">취소</button>
 			</div>
 		</div>
 	</div>

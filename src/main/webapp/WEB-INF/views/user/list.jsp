@@ -59,6 +59,7 @@
 $(function(){
     $('#userTable').DataTable({
     	info:false,
+		searching: true,
 		pageLength: 10 // 한 페이지에 기본으로 보열줄 항목 수
     });
 });

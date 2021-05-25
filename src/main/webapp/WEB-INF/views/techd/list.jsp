@@ -6,6 +6,8 @@
 
 <script>
 	var techdTable;
+	var techdSearhing = false || ${first eq 'N'};
+	var techdSCB = false;
 	$(function(){
 		var obj = new Object();
 		techdTable = $('#techdTable').DataTable({
@@ -26,7 +28,11 @@
 			sAjaxSource : "${path}/techd/list/data",
 			sServerMethod : "POST",
 			fnServerParams : function (data){
-				data.push({"name":"userNo", "value" : $("#userNo").val()});
+				if(techdSearhing || techdSCB) {
+					data.push({"name": "userNo", "value": $("#userNo").val()});
+				} else {
+					data.push({"name": "userNo", "value" : ""});
+				}
 				data.push({"name":"custNo", "value" : $("#custNo").val()});
 				data.push({"name":"custmemberNo", "value" : $("#custmemberNo").val()});
 				data.push({"name":"techdSteps", "value" : $("#techdSteps option:selected").val()});
@@ -207,6 +213,7 @@
 	}
 
 	function fnListcon() {
+		techdSCB = true;
 		techdTable.search("").draw();
 	}
 </script>
@@ -265,10 +272,9 @@
 								<div class="col-sm-12 col-xl-3">
 									<label class="col-form-label" for="userName">담당사원</label>
 									<div class="input-group input-group-sm mb-0">
-										<input type="text" class="form-control" name="userName"
-											id="userName" value="" readonly /> <input type="hidden"
-											name="userNo" id="userNo" value="" /> <span
-											class="input-group-btn">
+										<input type="text" class="form-control" name="userName" id="userName" value="${sessionScope.userName}" readonly />
+										<input type="hidden" name="userNo" id="userNo" value="${sessionScope.userNo}" />
+										<span class="input-group-btn">
 											<button class="btn btn-primary sch-company" data-remote="${path}/modal/popup.do?popId=user" type="button" data-toggle="modal" data-target="#userModal">
 												<i class="icofont icofont-search"></i>
 											</button>

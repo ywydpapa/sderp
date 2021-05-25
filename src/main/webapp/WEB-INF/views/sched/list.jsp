@@ -5,6 +5,8 @@
 <c:set var="path" value ="${pageContext.request.contextPath}"/>
 <script>
 	var schedTable;
+	var schedSearhing = false || ${first eq 'N'};
+	var schedSCB = false;
 	$(function(){
 		var obj = new Object();
 		schedTable = $('#schedTable').DataTable({
@@ -25,14 +27,18 @@
 			sAjaxSource : "${path}/sched/list/data",
 			sServerMethod : "POST",
 			fnServerParams : function (data){
-				data.push({"name":"userNo", "value" : $("#userNo").val()});
+				if(schedSearhing || schedSCB){
+					data.push({"name":"userNo", "value" : $("#userNo").val()});
+				} else {
+					data.push({"name":"userNo", "value" : ""});
+				}
 				data.push({"name":"soppNo", "value" : $("#soppNo").val()});
 				data.push({"name":"custNo", "value" : $("#custNo").val()});
 				data.push({"name":"endCustNo", "value" : $("#endCustNo").val()});
 				data.push({"name":"contNo", "value" : $("#contNo").val()});
 				data.push({"name":"schedType", "value" : $("#schedType").val()});
 				data.push({"name":"schedCat", "value" : $("#schedCat option:selected").val()});
-				data.push({"name":"userName", "value" : $("#userName").val()});
+				//data.push({"name":"userName", "value" : $("#userName").val()});
 				if($("#schedFrom").val() != "" && $("#schedTo").val() != ""){
 					data.push({"name":"schedFrom", "value" : $("#schedFrom").val()});
 					data.push({"name":"schedTo", "value" : $("#schedTo").val()});
@@ -183,6 +189,7 @@
 	}
 
 	function fnListcon() {
+		schedSCB = true;
 		schedTable.search("").draw();
 	}
 </script>
@@ -235,7 +242,7 @@
 			<form id="searchForm" method="post" onsubmit="return false;" class="col-sm-12">
 				<div class="card_box sch_it">
 					<div class="btn_wr text-right">
-						<button class="btn btn-sm btn-inverse" onClick="javascript:fnClearall()">
+						<button class="btn btn-sm btn-inverse" onClick="javascript:fnClearall(this);">
 							<i class="icofont icofont-spinner-alt-3"></i>초기화
 						</button>
 						<button class="btn btn-sm btn-primary" onClick="javascript:fnListcon()">
@@ -251,8 +258,8 @@
 							<label class="col-form-label" for="userName">담당사원</label>
 							<div class="input-group input-group-sm mb-0">
 								<input type="text" class="form-control" name="userName"
-									id="userName" value="" readonly /> <input type="hidden"
-									name="userNo" id="userNo" value="" /> <span
+									id="userName" value="${sessionScope.userName}" readonly /> <input type="hidden"
+									name="userNo" id="userNo" value="${sessionScope.userNo}" /> <span
 									class="input-group-btn">
 									<button class="btn btn-primary sch-company"
 										data-remote="${path}/modal/popup.do?popId=user" type="button"
@@ -580,24 +587,6 @@
 			$("#contModal").modal("hide");
 		}
 
-
-
-		/*
-    	function fnListcon() {
-    		var schedData = {};
-    		schedData.userNo = $("#userNo").val() ? $("#userNo").val() : 0;
-    		schedData.soppNo = $("#soppNo").val() ? $("#soppNo").val() : 0;
-    		schedData.custNo = $("#custNo").val() ? $("#custNo").val() : 0;
-    		schedData.custmemberNo = $("#custmemberNo").val() ? $("#custmemberNo").val() : 0;
-    		schedData.contNo = $("#contNo").val() ? $("#contNo").val() : 0;
-    		schedData.schedCat = $("#schedCat").val() ? $("#schedCat").val() : null;
-    		schedData.schedFrom = $("#schedFrom").val() ? $("#schedFrom").val() : null;
-    		schedData.schedTo = $("#schedTo").val() ? $("#schedTo").val() : null;
-    		
-    		fnSetList('${path}/sched/listcon.do', schedData);
-    	}
-    	*/
-
     	function fnSetDetailLink(schedTypeN, schedNo) {
     		var typePath;
    
@@ -611,4 +600,10 @@
     		
     		fnSetPage('${path}/' + typePath + '/detail/' + schedNo);
     	}
+
+    	// 클리어 버튼 누를시 이 페이지 특화 스크립트
+    	function fnClearallExt(){
+	 		console.log("click")
+			schedSCB = false;
+		}
 </script>

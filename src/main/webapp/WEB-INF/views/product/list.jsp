@@ -43,9 +43,7 @@ String userRole = "";
 	<div class="row">
 		<div class="col-sm-12">
 			<div class="btn_wr text-right">
-				<c:if test="${userRole == 'ADMIN'}">
-					<button class="btn btn-sm btn-primary f-right" type="button" id="btnAdd" onClick="fnSetPage('${path}/product/write.do')"><i class="icofont icofont-plus"></i>상품등록</button>
-				</c:if>
+				<button class="btn btn-sm btn-primary f-right" type="button" id="btnAdd" onClick="fnSetPage('${path}/product/write.do')"><i class="icofont icofont-plus"></i>상품등록</button>
 			</div>
 			<div class="card-block table-border-style">
 				<div class="dt-responsive table-responsive">

@@ -291,7 +291,9 @@
 							</form>
 							<div class="btn_wr text-right mt-3">
 								<button class="btn btn-md btn-success f-left" onClick="javascript:fnSetPage('${path}/cust/list.do')">목록</button>
-								<button class="btn btn-md btn-primary" onClick="fn_custUpdate04();">수정</button>
+								<c:if test="${userRole =='ADMIN'}">
+									<button class="btn btn-md btn-primary" onClick="fn_custUpdate04();">수정</button>
+								</c:if>
 							</div>
 						</div>
 					</div>

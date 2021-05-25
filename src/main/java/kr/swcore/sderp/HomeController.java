@@ -241,7 +241,7 @@ public class HomeController {
 			Integer compNo = Integer.valueOf((String) params.get("compNo")); 
 			List<CustDTO> list = custService.listCustmember(compNo);
 			model.addAttribute("list", list);
-			rtn = "modal/custmemberList";
+			rtn = "modal/custMemberList";
 		}
 
 		else if("buyrmem".equals(popId)) {

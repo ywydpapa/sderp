@@ -72,6 +72,10 @@
     $("#custInputDelete").on("click",function (e) {
         $("#custName").val("");
         $("#custNo").val("");
+        if($("#custMemberName").length > 0){
+            $("#custMemberName").val("");
+            $("#custMemberNo").val("");
+        }
     })
 
     $('#custModal').on('show.bs.modal', function(e) {
@@ -83,9 +87,6 @@
     function fnSetCustData(a, b) {
         $("#custName").val(a);
         $("#custNo").val(b);
-        if($("#custmemberModalbtn").length > 0){
-            $("#custmemberModalbtn").data('whatever', b);
-        }
         $(".modal-backdrop").remove();
         $("#custModal").modal("hide");
     }

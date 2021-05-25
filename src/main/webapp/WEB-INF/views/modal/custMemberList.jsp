@@ -18,7 +18,7 @@
 				<tr align="center">
 					<td>${row.custData03no}</td>
 					<td><a
-						href="javascript:fnSetCustmereData('${row.custData03no}','${row.custMname}');">${row.custMname}</a></td>
+						href="javascript:fnSetCustMemberData('${row.custData03no}','${row.custMname}');">${row.custMname}</a></td>
 					<td>${row.custMrank}</td>
 				</tr>
 			</c:forEach>

@@ -38,7 +38,7 @@
                 </div>
                 <div class="modal-body">
                     <h5>엔드유저 담당자 목록</h5>
-                    <p>엔드유저(거래처)를 먼저 입력해주셔야 목록이 보입니다.</p>
+                    <p>엔드유저를 먼저 입력해주셔야 목록이 보입니다.</p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default waves-effect " onclick="$('#buyrMemberModal').modal('hide');">Close</button>
@@ -55,6 +55,9 @@
     })
 
     $('#buyrMemberModal').on('show.bs.modal', function(e) {
+        if($("#buyrNo").val() == ""){
+            return;
+        }
         var buyrNo = Number($("#buyrNo").val());
         var url = "${path}/modal/popup.do?popId=buyrmem&compNo=";
         url = url + buyrNo;

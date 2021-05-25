@@ -145,6 +145,7 @@ from
 ) t
 </select>
 
+<!--
 <select id="listconTechd"
  		resultType="TechdDto">
  		select a.*, b.userName , c.custName, f.desc03 techdStepsN 
@@ -180,9 +181,10 @@ from
  			and a.techdDesc like CONCAT('%', #{techdDesc}, '%')
  		</if>
 		order by techdFrom desc
- </select>
+</select>
+-->
  
- <select id="listTechdinsopp"
+<select id="listTechdinsopp"
  		resultType="TechdDto">
  		select a.*, b.userName , c.custName, f.desc03 techdTypeN from swc_techd a  
 		left join swc_user b on a.userNo = b.userNo
@@ -192,7 +194,7 @@ from
 		left join swc_code f on a.techdType = f.codeNo 
 		where a.attrib not like 'XXX%' and a.compNo = #{compNo} and a.soppNo = #{soppNo} 
 		order by techdNo 
- </select>
+</select>
 
 <select id="detailTechd"
  		resultType="techdDto">

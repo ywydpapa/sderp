@@ -49,6 +49,7 @@ public class TechdController {
 		return ojb.toJson(techdService.listTechd(session, param, request, response));
 	}
 	
+	/*
 	@RequestMapping("listcon.do")
 	public ModelAndView listcon(HttpSession session, ModelAndView mav, TechdDTO dto) {
 		mav.setViewName("techd/list");
@@ -56,6 +57,7 @@ public class TechdController {
 		mav.addObject("list", techdService.listconTechd(session, dto));
 		return mav;
 	}
+	*/
 
 	@RequestMapping("/detail/{techdNo}")
 	public ModelAndView detail(@PathVariable("techdNo") int techdNo, ModelAndView mav, HttpSession session) {

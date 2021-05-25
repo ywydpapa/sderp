@@ -29,7 +29,7 @@
                     <p>Loading!!!</p>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default waves-effect"	onclick="$('#soppModal').modal('hide');">Close</button>
+                    <button type="button" class="btn btn-default waves-effect" onclick="$('#soppModal').modal('hide');">Close</button>
                 </div>
             </div>
         </div>
@@ -40,7 +40,7 @@
     $("#soppInputDelete").on("click",function (e) {
         $("#soppTitle").val("");
         $("#soppNo").val("");
-    })
+    });
 
     $('#soppModal').on('show.bs.modal', function(e) {
         var button = $(e.relatedTarget);

@@ -74,7 +74,7 @@ public class ContController {
 		mav.setViewName("cont/detail");
 		ContDTO contDTO = new ContDTO();
 		contDTO = contService.detailCont(contNo);
-		int soppNo = contDTO.getSoppNo();
+		Integer soppNo = contDTO.getSoppNo();
 		mav.addObject("contDto", contDTO);
 		mav.addObject("dto", soppService.detailSopp(soppNo));
 		mav.addObject("dtodata01", soppdataService.listSoppdata01(soppNo));

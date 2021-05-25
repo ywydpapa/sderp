@@ -4,20 +4,20 @@
 <c:set var="path" value ="${pageContext.request.contextPath}"/>
 <div class="input-group input-group-sm mb-0">
     <c:choose>
-        <c:when test="${!empty contDto.buyrNo}">
-            <input type="text" class="form-control" id="buyrName" value="${contDto.buyrName}" readonly/>
+        <c:when test="${!empty contDto.contNo}">
+            <input type="text" class="form-control" id="buyrName" value="${contDto.buyrName}" data-type="contDto" readonly/>
             <input type="hidden" id="buyrNo" value="${contDto.buyrNo}" />
         </c:when>
-        <c:when test="${!empty dto.buyrNo}">
-            <input type="text" class="form-control" id="buyrName" value="${dto.buyrName}" readonly/>
+        <c:when test="${!empty dto.soppNo and empty contDto.contNo}">
+            <input type="text" class="form-control" id="buyrName" value="${dto.buyrName}" data-type="buyrNo" readonly/>
             <input type="hidden" id="buyrNo" value="${dto.buyrNo}" />
         </c:when>
         <c:when test="${!empty dto.techdNo}">
-            <input type="text" class="form-control" id="buyrName" value="${dto.custName}" readonly/>
+            <input type="text" class="form-control" id="buyrName" value="${dto.custName}" data-type="techNo" readonly/>
             <input type="hidden" id="buyrNo" value="${dto.custNo}" />
         </c:when>
         <c:otherwise>
-            <input type="text" class="form-control" id="buyrName" value="" readonly/>
+            <input type="text" class="form-control" id="buyrName" value="" data-type="default" readonly/>
             <input type="hidden" id="buyrNo" value="" />
         </c:otherwise>
     </c:choose>

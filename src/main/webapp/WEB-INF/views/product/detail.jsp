@@ -138,11 +138,6 @@
 									</tbody>
 								</table>
 							</form>
-							<div class="btn_wr text-right mt-3">
-								<button class="btn btn-md btn-success f-left" onClick="javascript:fnSetPage('${path}/product/list.do')">목록</button>
-								<button class="btn btn-md btn-primary" value="수정" id="btnUpdate" onClick= "fn_productUpdate()">수정</button>
-								<button class="btn btn-md btn-inverse" value="삭제" id="btnDelete" onClick= "fn_productDelete()">삭제</button>
-							</div>
 						</div>	
 					</div>
 				</div>
@@ -161,29 +156,46 @@
 								<thead>
 									<tr>
 										<th scope="row">순서</th>
-										<th scope="row">항목</th>
-										<th scope="row">값</th>
-										<th >기능</th>
+										<th>항목</th>
+										<th>값</th>
+										<th>수정</th>
+										<th>삭제</th>
 									</tr>
 								</thead>
 								<tbody>
 									<c:forEach var="row" items="${dto.productdataDTOList}" varStatus="varStatus">
-										<tr>
-											<td style="text-align: center;">${varStatus.count}<input type="hidden" value="${row.productDataNo}"/></td>
-											<td><input type="text" value="${row.productModel}" class="productModel" readonly /></td>
+										<tr id="${row.productDataNo}">
+											<td style="text-align: center;">${varStatus.count}</td>
+											<td><input class="productModel" type="text" value="${row.productModel}" onfocusout="fn_focusOutOrChangeEvent(this)" readonly /></td>
 											<td><input type="text" value="${row.productPrice}" readonly/></td>
-											<td><button class="btn btn-sm btn-danger" onclick="fn_itemListRemove(this);">삭제</button></td>
+											<td>
+												<div class="modify">
+													<button class="btn btn-sm btn-warning" onclick="fn_itemListModify(this);">수정</button>
+												</div>
+												<div class="update">
+													<%--<button class="btn btn-sm btn-instagram" onClick="fn_itemListUpdate(this);">등록</button>--%>
+													<button class="btn btn-sm btn-dark" onClick="fn_itemListCancel(this);">취소</button>
+												</div>
+											</td>
+											<td>
+												<button class="btn btn-sm btn-danger" onclick="fn_itemListRemove(this);">삭제</button>
+											</td>
 										</tr>
 									</c:forEach>
 								</tbody>
 							</table>
-							<div class="btn_wr text-right mt-3">
-								<button class="btn btn-md btn-success f-left" onClick="fnSetPage('${path}/product/list.do')">목록</button>
-								<button class="btn btn-md btn-primary" value="수정" id="btnUpdate" onClick= "fn_productUpdate()" >수정</button>
-							</div>
 						</div>	
 					</div>
-				</div>				
+				</div>
+
+				<div class="btn_wr text-right mt-3">
+					<button class="btn btn-md btn-success f-left" onClick="javascript:fnSetPage('${path}/product/list.do')">목록</button>
+					<button class="btn btn-md btn-danger" id="btnCopy" onClick= "fn_productCopy()">복제</button>
+					<button class="btn btn-md btn-primary" id="btnInsert" onClick= "fn_productInsert()">등록</button>
+					<button class="btn btn-md btn-inverse" id="btnCancel" onClick= "fn_productCancel()">취소</button>
+					<button class="btn btn-md btn-primary" id="btnUpdate" onClick= "fn_productUpdate()">수정</button>
+					<button class="btn btn-md btn-inverse" id="btnDelete" onClick= "fn_productDelete()">삭제</button>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -195,6 +207,9 @@ input[type=text] {
 }
 input:read-only{
 	border: aliceblue;
+}
+.itemRemove{
+	display: none;
 }
 </style>
 <script type="text/javascript">
@@ -211,8 +226,6 @@ $('#productCategoryModal').on('show.bs.modal', function(e) {
 	modal.find('.modal-body').load(button.data("remote"));
 });
 
-
-
 // 이벤트 영역 끝
 var colorObject = {
 	0 : 'aliceblue',
@@ -222,57 +235,126 @@ var colorObject = {
 	4 : 'darkseagreen'
 }
 
-function fn_focusOutEvent(e){
-	//console.log("focus out!!");
-	//console.log($(e).val());
-	//var searchItemVal = $(e).val();
+function fn_focusOutOrChangeEvent(e){
+	if($(e).css('backgroundColor') != 'rgb(255, 255, 255)'){
+		$(e).css('backgroundColor','rgb(255, 255, 255)');
+	}
 
-	var productModel = $(".productModel");
-	var AddItem = $(".AddItem");
+	var productModel1 = $(".productModel");
+	var productModel2 = $(".productModel");
 
 	var result = false;
-
-	for(var i=0; i<productModel.length; i++){
-		$(productModel[i]).css("background-color","");
-	}
-	for(var i=0; i<AddItem.length; i++){
-		$(AddItem[i]).css("background-color","");
+	for(var i=0; i<productModel1.length; i++){
+		productModel1[i].style.backgroundColor = "";
 	}
 
-	for(var i=0; i<AddItem.length; i++){
-		for(var j=0; j<productModel.length; j++){
-			//console.dir(AddItem[i].value +' / '+ productModel[j].value);
-			//console.dir(AddItem[i].value == productModel[j].value);
-			if(AddItem[i].value == productModel[j].value){
-				result = true;
-				//console.dir($(AddItem[i]));
-				//console.dir($(productModel[j]));
-				$(AddItem[i]).css("background-color",colorObject[0]);
-				$(AddItem[i]).data('Overwrite','1');
-				$(productModel[j]).css("background-color",colorObject[0]);
+	for(var i=0; i<productModel1.length-1; i++){
+		for(var j=1; j<productModel2.length; j++){
+			if(productModel1[i].value == productModel2[j].value){
+				if($(productModel1[i]).closest('tr').attr('id') != $(productModel2[j]).closest('tr').attr('id')){
+					result = true;
+					productModel1[i].style.backgroundColor = colorObject[0];
+					productModel2[j].style.backgroundColor = colorObject[0];
+				}
 			}
 		}
 	}
 
 	if(!result){
-		$(e).css("background-color","");
-		$(e).data('Overwrite','0');
+		$(e).css('backgroundColor','rgb(255, 255, 255)');
 	}
 }
 
-function fn_itemListRemove(e, data1){
+function fn_itemListUpdate(e) {
+	var parrent = $(e).closest('tr');
+	var inputChildren = $(parrent).find('input');
+	$(inputChildren[0]).prop('readonly',true);
+	$(inputChildren[1]).prop('readonly',true);
+	$(e).parent().prev().show();
+	$(e).parent().hide();
+	$(parrent).removeClass("itemModify");
+}
+
+function fn_itemListCancel(e) {
+	var parrent = $(e).closest('tr');
+	var inputChildren = $(parrent).find('input');
+	$(inputChildren[0]).prop('readonly',true);
+	$(inputChildren[1]).prop('readonly',true);
+	$(e).parent().prev().show();
+	$(e).parent().hide();
+	$(parrent).removeClass("itemModify");
+}
+
+function fn_itemListModify(e) {
+	var parrent = $(e).closest('tr');
+	var inputChildren = $(parrent).find('input');
+	console.dir(inputChildren);
+	$(inputChildren[0]).prop('readonly',false);
+	$(inputChildren[1]).prop('readonly',false);
+	$(e).parent().next().show();
+	$(e).parent().hide();
+	$(parrent).addClass("itemModify");
+}
+
+function fn_itemListRemove(e){
 	if(confirm("정말 삭제하시겠습니까?")) {
-		var $button = $(e);
-		if(data1 == 'new'){
+		var button = $(e);
+		var tr = $(e).closest('tr');
+		if(tr.hasClass('itemAdd')){
 			// 신규 데이터인경우 tr 삭제 처리
-			$button.parent().parent().remove();
+			tr.remove();
 		} else {
 			// 기존 데이터인경우 hide 처리
-			$button.parent().parent().css("display", "none");
+			// tr.css("display", "none");
+			tr.addClass('itemRemove');
+			if(tr.hasClass('itemModify')){
+				tr.removeClass('itemModify');
+			}
 		}
 	} else {
 		return false;
 	}
+}
+
+var productNo, custName, custNo, productCategoryName, productCategoryNo, productName, productDefaultPrice, productDesc;
+var tableDataId = new Array();
+var tableDataItem = new Array();
+var tableDataValue = new Array();
+
+function fn_productCopy(){
+	$("#btnInsert, #btnCancel").show();
+	$("#btnCopy, #btnUpdate, #btnDelete").hide();
+	productNo = $("#productNo").val();
+	$("#productNo").val("자동생성 됩니다..");
+	custName = $("#custName").val();
+	custNo = $("#custNo").val();
+	productCategoryName = $("#productCategoryName").val();
+	productCategoryNo = $("#productCategoryNo").val();
+	productName = $("#productName").val();
+	productDefaultPrice = $("#productDefaultPrice").val();
+	productDesc = $("#productDesc").val();
+	var tableData = $("#tab02").find("tbody tr");
+	tableData.each(function() {
+		var Id = $(this).attr('id');
+		tableDataId.push(Id);
+		$(this).attr('id','');
+		$(this).removeClass('itemRemove');
+		$(this).removeClass('itemModify');
+		$(this).addClass('itemAdd');
+		var in0 = $(this).find("input[type=text]")[0];
+		var in1 = $(this).find("input[type=text]")[1];
+		tableDataItem.push(in0.value);
+		in0.readOnly = false;
+		tableDataValue.push(in1.value);
+		in1.readOnly = false;
+		var btn = $(this).find("button");
+		$(btn[0]).hide();
+		$(btn[1]).hide();
+	});
+}
+
+function fn_productCancel(){
+
 }
 
 function fn_itemListAdd(){
@@ -285,18 +367,12 @@ function fn_itemListAdd(){
 	else{
 		i = Number( $($Trelement.last()).find("td")[0].innerText ) + 1;
 	}
-	/*
-	var productDataLastNo = Number($("#productDataLastNo").val());
-	if(i <= productDataLastNo){
-		// DB 저장된 No보다 같거나 작은경우 크게 만듬
-		i = productDataLastNo+1;
-	}
-	*/
-	var content = '<tr>' +
+	var content = '<tr class="itemAdd">' +
 					'<td style="text-align: center;">'+i+'<input type="hidden" value=""/></td>' +
-					'<td><input type="text" class="AddItem" onfocusout="fn_focusOutEvent(this)" data-Overwrite=""/></td>' +
+					'<td><input type="text" class="productModel" onfocusout="fn_focusOutOrChangeEvent(this)"/></td>' +
 					'<td><input type="text" /></td>' +
-					'<td><button class="btn btn-sm btn-danger" onclick="fn_itemListRemove(this,\'new\');">삭제</button></td>' +
+					'<td></td>' +
+					'<td><button class="btn btn-sm btn-danger" onclick="fn_itemListRemove(this);">삭제</button></td>' +
 			       '</tr>';
 	$element.append(content);
 }
@@ -316,11 +392,32 @@ function fnSetCustData(a, b) {
 	$("#custModal").modal("hide");
 }
 
+function fn_itemDuplicate(){
+	var itemDuplicate = false;
+	var element = $("#tab02").find("tbody  tr");
+	var inputElement = element.find("input:first");
+	var item = new Set();
+	for(var i=0; i<inputElement.length; i++){
+		var addItem = $(inputElement[i]).val();
+		item.add(addItem);
+	}
+	if(item.size == inputElement.length){
+		itemDuplicate = false;
+	} else {
+		itemDuplicate = true;
+	}
+	return itemDuplicate;
+}
+
 function fn_productUpdate() {
+	if(fn_itemDuplicate()){
+		alert("항목은 중복으로 저장할수 없습니다.");
+		return false;
+	}
 	
 	var productData 				= new Object();
 	var productNo 					= Number($("#productNo").val());
-	productData.productNo 			= productNo				// 상품 번호
+	productData.productNo 			= productNo								// 상품 번호
 	var productCategoryNo 			= $("#productCategoryNo").val();		// 상품 카테고리 번호
 	if(productCategoryNo != ""){
 		productData.productCategoryNo	= productCategoryNo;
@@ -332,30 +429,27 @@ function fn_productUpdate() {
 	productData.custNo				= $("#custNo").val();					// 공급사(외래키)
 
 	var productdataDTOList = new Array();
-	var $tableData = $("#tab02").find("tbody tr");
-	$tableData.each(function(){
+	var tableData = $("#tab02").find("tbody tr");
+	tableData.each(function(){
 		var data = new Object();
-		var productDataNo = $(this).find("input[type=hidden]")[0].value;
+		var productDataNo = $(this).attr("id");
 		var productModel = $(this).find("input[type=text]")[0].value;
 		var productPrice = $(this).find("input[type=text]")[1].value;
 		data['productNo'] = productNo;				// 상품 번호
 		data['productDataNo'] = Number(productDataNo);
 		data['productModel'] = productModel;
 		data['productPrice'] = productPrice;
-		if(productDataNo != "" && $(this).css('display') == 'none') {
+		if($(this).hasClass('itemRemove')) {
 			// 기존 데이터 삭제
-			data['display'] = 'none';
+			data['mode'] = 'delete';
 			productdataDTOList.push(data);
-		} else if(productDataNo == "") {
-			// 신규 데이터
-			var temp = $(this).find("input[type=text]")[0];
-			if($(temp).data('Overwrite') == '1') {
-				data['overwrite'] = 1;
-				// 덮어쓰기
-			} else if($(temp).data('Overwrite') == '0'){
-				// 신규생성
-				data['overwrite'] = 0;
-			}
+		} else if($(this).hasClass('itemAdd')) {
+			// 기존 데이터 삭제
+			data['mode'] = 'insert';
+			productdataDTOList.push(data);
+		} else if($(this).hasClass('itemModify')) {
+			// 기존 데이터 삭제
+			data['mode'] = 'update';
 			productdataDTOList.push(data);
 		}
 	});
@@ -366,7 +460,7 @@ function fn_productUpdate() {
 				data: JSON.stringify(productData) , // HTTP 요청과 함께 서버로 보낼 데이터
 				method: "POST", // HTTP 요청 메소드(GET, POST 등)
 				contentType:"application/json",
-				dataType: "json" // 서버에서 보내줄 데이터의 타입 
+				dataType: "json" // 서버에서 보내줄 데이터의 타입
 			}) // HTTP 요청이 성공하면 요청한 데이터가 done() 메소드로 전달됨. .
 			.done(function(data) {
 				if(data.code == 10001){
@@ -375,8 +469,8 @@ function fn_productUpdate() {
 				}else{
 					alert("저장 실패");
 				}
-			}) // HTTP 요청이 실패하면 오류와 상태에 관한 정보가 fail() 메소드로 전달됨. 
-			.fail(function(xhr, status, errorThrown) { 
+			}) // HTTP 요청이 실패하면 오류와 상태에 관한 정보가 fail() 메소드로 전달됨.
+			.fail(function(xhr, status, errorThrown) {
 				alert("통신 실패");
 			});
 	}
@@ -410,5 +504,7 @@ $(document).ready(function() {
 	// document.querySelector('.productModel').addEventListener('.focusout', function (e){
 	// 	console.dir(e);
 	// });
+	$(".update").hide();
+	$("#btnInsert, #btnCancel").hide();
 });
 </script>                                                

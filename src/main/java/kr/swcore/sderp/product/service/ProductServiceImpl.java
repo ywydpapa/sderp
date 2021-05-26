@@ -132,11 +132,11 @@ public class ProductServiceImpl implements ProductService {
 			for(int i=0; i<newproductdataDTOList.size(); i++){
 				String productType = newproductdataDTOList.get(i).getProductPrice();
 				String productTypertn = isNumber(productType);
-				Integer productNo = newproductdataDTOList.get(i).getProductNo();
+				Integer productDataNo = newproductdataDTOList.get(i).getProductDataNo();
 				newproductdataDTOList.get(i).setProductType(productTypertn);
 				newproductdataDTOList.get(i).setCustNo(custsNo);
 				newproductdataDTOList.get(i).setCompNo(compNo);
-				newproductdataDTOList.get(i).setProductNo(productNo);
+				newproductdataDTOList.get(i).setProductDataNo(productDataNo);
 				newproductdataDTOList.get(i).setRegUser(userNo);
 			}
 		}
@@ -144,17 +144,13 @@ public class ProductServiceImpl implements ProductService {
 		try{
 			for(int i=0; i<newproductdataDTOList.size(); i++){
 				ProductdataDTO productdataDTO = newproductdataDTOList.get(i);
-				if(productdataDTO.getDisplay() != null){
-					if(productdataDTO.getDisplay().equalsIgnoreCase("none")) {
-						productdataDAO.deleteProductdata(productdataDTO);
-					}
-				} else {
-					if(productdataDTO.getOverwrite() != null){
-						if(productdataDTO.getOverwrite() == 1){
-							productdataDAO.deleteProductdata(productdataDTO);
-						}
-						productdataDAO.insertProductdata(productdataDTO);
-					}
+				if(productdataDTO.getMode().equals("delete")) {
+					productdataDAO.deleteProductdata(productdataDTO);
+				} else if(productdataDTO.getMode().equals("insert")) {
+					productdataDAO.insertProductdata(productdataDTO);
+				} else if(productdataDTO.getMode().equals("update")) {
+					productdataDAO.deleteProductdata(productdataDTO);
+					productdataDAO.insertProductdata(productdataDTO);
 				}
 			}
 			result = 1;

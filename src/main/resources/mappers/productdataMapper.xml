@@ -41,9 +41,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <delete id="deleteProductdata">
 	update swc_productData
 	set attrib = 'XXXXX'
-	where productModel=#{productModel}
-	  and productNo =#{productNo}
-	  and custNo=#{custNo}
+	where productDataNo=#{productDataNo}
 	  and compNo=#{compNo}
 </delete>
 

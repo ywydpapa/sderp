@@ -27,6 +27,7 @@ public class ProductdataDTO {
 	private int parrentId;
 	private String display;
 	private Integer overwrite;
+	private String mode;
 
 	public ProductdataDTO() {
 		super();

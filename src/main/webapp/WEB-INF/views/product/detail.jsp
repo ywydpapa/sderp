@@ -398,9 +398,6 @@ var productNo, custName, custNo, productCategoryName, productCategoryNo, product
 var tableDataId = new Array();
 var tableDataItem = new Array();
 var tableDataValue = new Array();
-function fn_copyInit(){
-	productNo = 0; custName = ''; custNo = 0; productCategoryName = ''; productCategoryNo = 0; productName = ''; productDefaultPrice = 0; productDesc = '';
-}
 
 function fn_productCopy(){
 	$("#btnInsert, #btnCancel").show();

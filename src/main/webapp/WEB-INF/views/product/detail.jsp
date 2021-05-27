@@ -440,7 +440,7 @@ function fn_productCancel(){
 	for(var i=0; i<tableDataId.length; i++){
 		var html =
 		'<tr id="'+tableDataId[i]+'">'+
-			'<td style="text-align: center;">'+i+'</td>'+
+			'<td style="text-align: center;">'+(i+1)+'</td>'+
 			'<td><input class="productModel" type="text" value="'+tableDataItem[i]+'" onfocusout="fn_focusOutOrChangeEvent(this)" readonly="" style="background-color: rgb(255, 255, 255);"></td>'+
 			'<td><input type="text" value="'+tableDataValue[i]+'" readonly=""></td>'+
 			'<td>'+

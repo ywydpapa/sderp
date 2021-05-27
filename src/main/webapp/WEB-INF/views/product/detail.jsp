@@ -469,7 +469,7 @@ function fn_itemListAdd(){
 		i = Number( $($Trelement.last()).find("td")[0].innerText ) + 1;
 	}
 	var content = '<tr class="itemAdd">' +
-					'<td style="text-align: center;">'+i+'<input type="hidden" value=""/></td>' +
+					'<td style="text-align: center;">'+i+'</td>' +
 					'<td><input type="text" class="productModel" onfocusout="fn_focusOutOrChangeEvent(this)"/></td>' +
 					'<td><input type="text" /></td>' +
 					'<td></td>' +

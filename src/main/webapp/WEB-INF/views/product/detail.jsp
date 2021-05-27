@@ -459,7 +459,6 @@ function fn_productCancel(){
 	}
 	$("#btnInsert, #btnCancel").hide();
 	$("#btnCopy, #btnUpdate, #btnDelete").show();
-	fn_copyInit();
 }
 
 function fn_itemListAdd(){

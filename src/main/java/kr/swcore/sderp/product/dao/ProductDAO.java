@@ -14,7 +14,7 @@ public interface ProductDAO {
 	ProductDTO oneDetailProudct(ProductDTO productDTO);
 	ProductDTO checkDetailProudct(ProductDTO productDTO);
 	int updateProduct(ProductDTO productdto);
-	int deleteProduct(int productNo);
+	int deleteProduct(ProductDTO productNo);
 	int insertProduct(ProductDTO dto);
 	String fileInfo(int productNo);
 	

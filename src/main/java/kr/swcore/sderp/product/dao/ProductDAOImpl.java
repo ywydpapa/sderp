@@ -58,7 +58,7 @@ public class ProductDAOImpl implements ProductDAO {
 	}
 
 	@Override
-	public int deleteProduct(int productNo) {
+	public int deleteProduct(ProductDTO productNo) {
 		// TODO Auto-generated method stub
 		return sqlSession.delete("product.deleteProduct", productNo);
 	}

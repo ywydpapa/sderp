@@ -181,8 +181,23 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	public int deleteProduct(HttpSession session, int productNo) {
-		// TODO Auto-generated method stub
-		return productDao.deleteProduct(productNo);
+		Integer rtn = 0;
+		Integer compNo = SessionInfoGet.getCompNo(session);
+		try {
+			ProductDTO productDTO = new ProductDTO();
+			productDTO.setProductNo(productNo);
+			productDTO.setCompNo(compNo);
+			productDao.deleteProduct(productDTO);
+			ProductdataDTO productdataDTO = new ProductdataDTO();
+			productdataDTO.setProductNo(productNo);
+			productdataDTO.setCompNo(compNo);
+			productdataDAO.deleteProductdataWithProductNo(productdataDTO);
+			rtn = 1;
+		} catch (Exception e){
+			e.printStackTrace();
+			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly(); // 쿼리 에러시 롤백
+		}
+		return rtn;
 	}
 
 	@Override

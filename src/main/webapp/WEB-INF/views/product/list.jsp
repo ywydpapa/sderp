@@ -49,26 +49,30 @@ String userRole = "";
 				<div class="dt-responsive table-responsive">
 					<table id="productTable" class="table table-striped table-bordered nowrap dataTable">
 						<colgroup>
-							<col width="12%"/>
-							<col width="28%"/>
-							<col width="50%"/>
+							<col width="5%"/>
+							<col width="15%"/>
+							<col width="15%"/>
+							<col width="15%"/>
+							<col width="20%"/>
 							<col width="10%"/>
 						</colgroup>					
 						<thead>
 							<tr>
 								<th class="text-center">상품 번호</th>
+								<th class="text-center">공급사</th>
+								<th class="text-center">제품그룹</th>
 								<th class="text-center">상품명</th>
 								<th class="text-center">상품설명</th>
-								<th class="text-center">비고</th>
 							</tr>
 						</thead>
 						<tbody>
 							<c:forEach var="row" items="${list}">
 								<tr align="center">
-								<td>${row.productNo}</td>
-								<td><a href="javascript:fnSetPage('${path}/product/detail/${row.productNo}')">${row.productName}</a></td>
-								<td>${row.productDesc}</td>
-								<td><a href="javascript:fnSetPage('${path}/product/detail/${row.productNo}')">상세정보</a></td>
+									<td>${row.productNo}</td>
+									<td>${row.custName}</td>
+									<td>${row.productCategoryName}</td>
+									<td><a href="javascript:fnSetPage('${path}/product/detail/${row.productNo}')" style="text-decoration:underline;">${row.productName}</a></td>
+									<td>${row.productDesc}</td>
 								</tr>
 							</c:forEach>
 						</tbody>

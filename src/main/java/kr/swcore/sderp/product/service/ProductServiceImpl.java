@@ -1,7 +1,9 @@
 package kr.swcore.sderp.product.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
@@ -12,7 +14,6 @@ import org.springframework.stereotype.Service;
 
 import kr.swcore.sderp.product.dao.ProductDAO;
 import kr.swcore.sderp.product.dto.ProductDTO;
-import kr.swcore.sderp.sopp.dto.SoppDTO;
 import kr.swcore.sderp.util.SessionInfoGet;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
@@ -80,10 +81,19 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public int updateProduct(HttpSession session, ProductDTO newDto) {
+	public Map<String, Object> updateProduct(HttpSession session, ProductDTO newDto) {
 		Integer compNo = SessionInfoGet.getCompNo(session);
+		newDto.setCompNo(compNo);
 		Integer	userNo = SessionInfoGet.getUserNo(session);
+
+		Map<String, Object> param = new HashMap<>();
 		Integer returnValue = null;
+		ProductDTO checkDetailProudct = productDao.checkDetailProudct(newDto);
+		if(checkDetailProudct != null){
+			param.put("code",20001);
+			param.put("msg","상품번호("+checkDetailProudct.getProductNo()+"번)와 일치하는 데이터 입니다.");
+			return param;
+		}
 		Integer result = 0;
 		/*
 		1. 기존데이터 select / 신규데이터 비교
@@ -160,12 +170,13 @@ public class ProductServiceImpl implements ProductService {
 		}
 
 		if (result > 0) {
-			returnValue = 10001;
+			param.put("code",10001);
 		}
 		else {
-			returnValue = 20001;
+			param.put("code",20001);
 		}
-		return returnValue;
+
+		return param;
 	}
 
 	@Override
@@ -175,20 +186,92 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public int insertProduct(HttpSession session, ProductDTO dto) {
+	public Map<String, Object> insertProduct(HttpSession session, ProductDTO dto) {
+		Integer compNo = SessionInfoGet.getCompNo(session);
+		dto.setCompNo(compNo);
+
+		Map<String, Object> param = new HashMap<>();
 		Integer returnValue = null;
-		dto.setCompNo(SessionInfoGet.getCompNo(session));
-		dto.setUserNo(SessionInfoGet.getUserNo(session));
-		Integer result = productDao.insertProduct(dto);
-		
-		if (result > 0) {
-			returnValue = 10001; 
+		ProductDTO checkDetailProudct = productDao.checkDetailProudct(dto);
+		if(checkDetailProudct != null){
+			param.put("code",20001);
+			param.put("msg","상품번호("+checkDetailProudct.getProductNo()+"번)와 일치하는 데이터 입니다.");
+			return param;
 		}
-		else {
-			returnValue = 20001;
+		// 새 DB 데이터 get
+
+		List<ProductdataDTO> newproductdataDTOList = new ArrayList<ProductdataDTO>();
+		if(newproductdataDTOList != null) {
+			newproductdataDTOList = dto.getProductdataDTOList();
+		}
+		Integer	userNo = SessionInfoGet.getUserNo(session);
+		dto.setUserNo(userNo);
+		Integer result = 0;
+		// 수정 데이터중 카테고리 번호가 없거나 기존 데이터와 비교하여 상품명이 불일치 한경우 진행
+		if(dto.getProductCategoryNo() == 0){
+			/*
+			1. productCategoryName 이 존재하면  set 후 업데이트 진행
+			2. 존재하지않으면 MAX(productcategoryNo) + 1 업데이트 진행
+			 */
+			ProductDTO returnDto = new ProductDTO();
+			returnDto.setCompNo(compNo);					// 회사 번호
+			returnDto.setProductCategoryName(dto.getProductCategoryName());		// 상품 카테고리 이름
+			returnDto = productDao.searchingWithMaxProductCategoryNo(returnDto);
+
+			if(returnDto.getProductCategoryName() == null){
+				// 신규 카테고리 생성해서 update
+				dto.setProductNo(returnDto.getProductNo()+1);
+			} else {
+				// 기존 카테고리로 update
+				dto.setProductNo(returnDto.getProductNo());
+			}
+		}
+		try {
+			result = productDao.insertProduct(dto);
+			dto = productDao.oneDetailProudct(dto);	// productNo 을 얻기위해 다시 selectOne 질의
+		} catch (Exception e){
+			e.printStackTrace();
+			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly(); // 쿼리 에러시 롤백
 		}
 
-		return returnValue;
+		// 에러만 안나면 계속 진행
+		if(newproductdataDTOList != null) {
+			// 타입 셋팅
+			Integer custsNo = dto.getCustNo();
+			Integer productNo = dto.getProductNo();
+			if (newproductdataDTOList != null && newproductdataDTOList.size() > 0) {
+				for (int i = 0; i < newproductdataDTOList.size(); i++) {
+					String productType = newproductdataDTOList.get(i).getProductPrice();
+					String productTypertn = isNumber(productType);
+					Integer productDataNo = newproductdataDTOList.get(i).getProductDataNo();
+					newproductdataDTOList.get(i).setProductNo(productNo);
+					newproductdataDTOList.get(i).setProductType(productTypertn);
+					newproductdataDTOList.get(i).setCustNo(custsNo);
+					newproductdataDTOList.get(i).setCompNo(compNo);
+					newproductdataDTOList.get(i).setRegUser(userNo);
+				}
+			}
+
+			try {
+				for (int i = 0; i < newproductdataDTOList.size(); i++) {
+					ProductdataDTO productdataDTO = newproductdataDTOList.get(i);
+					productdataDAO.insertProductdata(productdataDTO);
+				}
+				result = 1;
+			} catch (Exception e) {
+				e.printStackTrace();
+				TransactionAspectSupport.currentTransactionStatus().setRollbackOnly(); // 쿼리 에러시 롤백
+			}
+		}
+
+		if (result > 0) {
+			param.put("code",10001);
+		}
+		else {
+			param.put("code",20001);
+		}
+
+		return param;
 	}
 
 	@Override

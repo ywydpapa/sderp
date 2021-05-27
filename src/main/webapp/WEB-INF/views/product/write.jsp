@@ -126,7 +126,7 @@
 							<tr>
 								<th scope="row">상품 기본가격</th>
 								<td>
-									<input type="text" name="product" id ="productDefaultPrice" class="form-control form-control-sm" value="0">
+									<input type="text" name="product" id ="productDefaultPrice" class="form-control form-control-sm" value="0" style="text-align: right;">
 								</td>
 							</tr>
 							<tr>
@@ -190,7 +190,6 @@ function fn_productInsert() {
 	var productDefaultPrice = $("#productDefaultPrice").val();
 	if(productDefaultPrice.indexOf(',') != -1){
 		productDefaultPrice = productDefaultPrice.replaceAll(',','');
-		console.log(productDefaultPrice);
 	}
 	productData.productDefaultPrice = Number(productDefaultPrice);		// 상품 기본 가격
 	productData.productDesc	 		= $("#productDesc").val();				// 상품 설명
@@ -206,23 +205,29 @@ function fn_productInsert() {
 		}
 	}
 
-	$.ajax({ url: "${path}/product/insert.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
-				data: productData , // HTTP 요청과 함께 서버로 보낼 데이터 
-				method: "POST", // HTTP 요청 메소드(GET, POST 등) 
-				dataType: "json" // 서버에서 보내줄 데이터의 타입 
-			}) // HTTP 요청이 성공하면 요청한 데이터가 done() 메소드로 전달됨..
-			.done(function(data) {
-				if(data.code == 10001){
-					alert("저장 성공");
-					fnSetPage('${path}/product/list.do');
-				}else{
-					alert("저장 실패");
-				}
-			}) // HTTP 요청이 실패하면 오류와 상태에 관한 정보가 fail() 메소드로 전달됨. 
-			.fail(function(xhr, status, errorThrown) { 
-				alert("통신 실패");
-			});
-	}
+	$.ajax({
+		url: "${path}/product/insert.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
+		data: JSON.stringify(productData) , // HTTP 요청과 함께 서버로 보낼 데이터
+		method: "POST", // HTTP 요청 메소드(GET, POST 등)
+		contentType:"application/json",
+		dataType: "json" // 서버에서 보내줄 데이터의 타입
+	}) // HTTP 요청이 성공하면 요청한 데이터가 done() 메소드로 전달됨..
+	.done(function(data) {
+		if(data.code == 10001){
+			alert("저장 성공");
+			fnSetPage('${path}/product/list.do');
+		}else{
+			if(data.msg != ''){
+				alert("저장 실패 \n 사유 : "+data.msg);
+			} else {
+				alert("저장 실패");
+			}
+		}
+	}) // HTTP 요청이 실패하면 오류와 상태에 관한 정보가 fail() 메소드로 전달됨.
+	.fail(function(xhr, status, errorThrown) {
+		alert("통신 실패");
+	});
+}
 
 	$("#custRegSimple").on("click",function (event) {
 		if($("#custRegSimple_div").is(':visible') == false){

@@ -89,7 +89,7 @@ public class ProductServiceImpl implements ProductService {
 		Map<String, Object> param = new HashMap<>();
 		Integer returnValue = null;
 		ProductDTO checkDetailProudct = productDao.checkDetailProudct(newDto);
-		if(checkDetailProudct != null){
+		if(checkDetailProudct != null && newDto.getProductNo() != checkDetailProudct.getProductNo()){
 			param.put("code",20001);
 			param.put("msg","상품번호("+checkDetailProudct.getProductNo()+"번)와 일치하는 데이터 입니다.");
 			return param;

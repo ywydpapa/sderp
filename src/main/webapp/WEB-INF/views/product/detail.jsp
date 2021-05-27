@@ -498,7 +498,6 @@ function necessaryCheck(){
 		defaultPrice = defaultPrice.replaceAll(',','');
 		var regex = /[0-9]/g;							// 숫자가 아닌 문자열을 선택하는 정규식
 		defaultPrice = defaultPrice.replace(regex, "");	// 원래 문자열에서 숫자가 아닌 모든 문자열을 빈 문자로 변경
-		console.log(defaultPrice);
 		if(defaultPrice != ''){
 			rtn = true;
 		}
@@ -546,7 +545,7 @@ function fn_productInsert(){
 	}
 
 	if(necessaryCheck()){
-		alert("기본정보 탭에 있는 필수값을 입력해주십시오. 가격은 양의 숫자만 가능합니다.(콤마가능)");
+		alert("기본정보 탭에 있는 필수값을 입력해주십시오. \n가격은 양의 숫자만 가능합니다.(콤마가능)");
 		return false;
 	}
 

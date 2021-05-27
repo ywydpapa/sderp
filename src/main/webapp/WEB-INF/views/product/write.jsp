@@ -30,7 +30,7 @@
 						</colgroup>				
 						<tbody>
 							<tr>
-								<th scope="row">공급사</th>
+								<th scope="row" class="requiredTextCss">공급사</th>
 								<td>
 									<div class="input-group input-group-sm mb-0">
 										<input type="text" class="form-control" name="product" id="custName" value="" readonly/>
@@ -85,7 +85,7 @@
 								</td>
 							</tr>
 							<tr>
-								<th scope="row">제품그룹</th>
+								<th scope="row" class="requiredTextCss">제품그룹</th>
 								<td>
 									<div class="input-group input-group-sm mb-0">
 										<input type="text" class="form-control" name="product" id="productCategoryName" value="" />
@@ -118,13 +118,13 @@
 								</td>
 							</tr>
 							<tr>
-								<th scope="row">상품명</th>
+								<th scope="row" class="requiredTextCss">상품명</th>
 								<td>
 									<input type="text" name="product" id ="productName" class="form-control form-control-sm" >
 								</td>
 							</tr>
 							<tr>
-								<th scope="row">상품 기본가격</th>
+								<th scope="row" class="requiredTextCss">상품 기본가격</th>
 								<td>
 									<input type="text" name="product" id ="productDefaultPrice" class="form-control form-control-sm" value="0" style="text-align: right;">
 								</td>
@@ -178,56 +178,85 @@ function fnSetCustData(a, b) {
 	$(".modal-backdrop").remove();
 	$("#custModal").modal("hide");
 }
-		
-function fn_productInsert() {
-	var productData = {};
-	var productCategoryNo = $("#productCategoryNo").val();		// 상품 카테고리 번호
-	if(productCategoryNo != ""){
-		productData.productCategoryNo	= productCategoryNo;
-	}	
-	productData.productCategoryName	= $("#productCategoryName").val();		// 상품 카테고리 명
-	productData.productName 		= $("#productName").val();				// 상품 명
-	var productDefaultPrice = $("#productDefaultPrice").val();
-	if(productDefaultPrice.indexOf(',') != -1){
-		productDefaultPrice = productDefaultPrice.replaceAll(',','');
-	}
-	productData.productDefaultPrice = Number(productDefaultPrice);		// 상품 기본 가격
-	productData.productDesc	 		= $("#productDesc").val();				// 상품 설명
-	productData.custNo				= $("#custNo").val();					// 공급사(외래키)
 
-	if(!productData.custNo){
-		var b = confirm("미등록된 거래처 또는 거래처가 입력되지 않았습니다. \n 간편등록을 진행하시겠습니까?");
-		if(b){
-			$("#custSimpleModal").modal('show');
-			return false;
-		} else {
-			return false;
+function necessaryCheck(){
+	var rtn = false;
+	if($("#custNo").val() == ""){
+		rtn = true;
+	} else if($("#productCategoryName").val() == ""){
+		rtn = true;
+	} else if($("#productName").val() == ""){
+		rtn = true;
+	}
+	var defaultPrice = $("#productDefaultPrice").val();
+	if(defaultPrice == ""){
+		rtn = true;
+	} else {
+		defaultPrice = defaultPrice.replaceAll(',','');
+		var regex = /[0-9]/g;							// 숫자가 아닌 문자열을 선택하는 정규식
+		defaultPrice = defaultPrice.replace(regex, "");	// 원래 문자열에서 숫자가 아닌 모든 문자열을 빈 문자로 변경
+		if(defaultPrice != ''){
+			rtn = true;
 		}
 	}
 
-	$.ajax({
-		url: "${path}/product/insert.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
-		data: JSON.stringify(productData) , // HTTP 요청과 함께 서버로 보낼 데이터
-		method: "POST", // HTTP 요청 메소드(GET, POST 등)
-		contentType:"application/json",
-		dataType: "json" // 서버에서 보내줄 데이터의 타입
-	}) // HTTP 요청이 성공하면 요청한 데이터가 done() 메소드로 전달됨..
-	.done(function(data) {
-		if(data.code == 10001){
-			alert("저장 성공");
-			fnSetPage('${path}/product/list.do');
-		}else{
-			if(data.msg != ''){
-				alert("저장 실패 \n 사유 : "+data.msg);
+	return rtn;
+}
+		
+	function fn_productInsert() {
+		if(necessaryCheck()){
+			alert("기본정보 탭에 있는 필수값을 입력해주십시오. \n가격은 양의 숫자만 가능합니다.(콤마가능)");
+			return false;
+		}
+
+		var productData = {};
+		var productCategoryNo = $("#productCategoryNo").val();		// 상품 카테고리 번호
+		if(productCategoryNo != ""){
+			productData.productCategoryNo	= productCategoryNo;
+		}
+		productData.productCategoryName	= $("#productCategoryName").val();		// 상품 카테고리 명
+		productData.productName 		= $("#productName").val();				// 상품 명
+		var productDefaultPrice = $("#productDefaultPrice").val();
+		if(productDefaultPrice.indexOf(',') != -1){
+			productDefaultPrice = productDefaultPrice.replaceAll(',','');
+		}
+		productData.productDefaultPrice = Number(productDefaultPrice);		// 상품 기본 가격
+		productData.productDesc	 		= $("#productDesc").val();				// 상품 설명
+		productData.custNo				= $("#custNo").val();					// 공급사(외래키)
+
+		if(!productData.custNo){
+			var b = confirm("미등록된 거래처 또는 거래처가 입력되지 않았습니다. \n 간편등록을 진행하시겠습니까?");
+			if(b){
+				$("#custSimpleModal").modal('show');
+				return false;
 			} else {
-				alert("저장 실패");
+				return false;
 			}
 		}
-	}) // HTTP 요청이 실패하면 오류와 상태에 관한 정보가 fail() 메소드로 전달됨.
-	.fail(function(xhr, status, errorThrown) {
-		alert("통신 실패");
-	});
-}
+
+		$.ajax({
+			url: "${path}/product/insert.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
+			data: JSON.stringify(productData) , // HTTP 요청과 함께 서버로 보낼 데이터
+			method: "POST", // HTTP 요청 메소드(GET, POST 등)
+			contentType:"application/json",
+			dataType: "json" // 서버에서 보내줄 데이터의 타입
+		}) // HTTP 요청이 성공하면 요청한 데이터가 done() 메소드로 전달됨..
+		.done(function(data) {
+			if(data.code == 10001){
+				alert("저장 성공");
+				fnSetPage('${path}/product/list.do');
+			}else{
+				if(data.msg != ''){
+					alert("저장 실패 \n 사유 : "+data.msg);
+				} else {
+					alert("저장 실패");
+				}
+			}
+		}) // HTTP 요청이 실패하면 오류와 상태에 관한 정보가 fail() 메소드로 전달됨.
+		.fail(function(xhr, status, errorThrown) {
+			alert("통신 실패");
+		});
+	}
 
 	$("#custRegSimple").on("click",function (event) {
 		if($("#custRegSimple_div").is(':visible') == false){

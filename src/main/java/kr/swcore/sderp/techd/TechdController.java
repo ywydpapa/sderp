@@ -59,7 +59,22 @@ public class TechdController {
 	}
 
 	@RequestMapping("/detail/{techdNo}")
-	public ModelAndView detail(@PathVariable("techdNo") int techdNo, ModelAndView mav, HttpSession session) {
+	public ModelAndView detail(@PathVariable("techdNo") int techdNo,
+							   ModelAndView mav,
+							   HttpSession session,
+							   @RequestParam(value = "userNo", required = false) Integer userNo,
+							   @RequestParam(value = "userName", required = false) String userName,
+							   @RequestParam(value = "custNo", required = false) Integer custNo,
+							   @RequestParam(value = "custName", required = false) String custName,
+							   @RequestParam(value = "custmemberNo", required = false) Integer custmemberNo,
+							   @RequestParam(value = "custmemberName", required = false) String custmemberName,
+							   @RequestParam(value = "targetDatefrom", required = false) String targetDatefrom,
+							   @RequestParam(value = "targetDateto", required = false) String targetDateto,
+							   @RequestParam(value = "regSDate", required = false) String regSDate,
+							   @RequestParam(value = "regEDate", required = false) String regEDate,
+							   @RequestParam(value = "techdDesc", required = false) String techdDesc,
+							   @RequestParam(value = "search", required = false) String search
+							   ) {
 		mav.setViewName("techd/detail");
 		mav.addObject("dto", techdService.detailTechd(techdNo));
 		mav.addObject("sprttype", codeService.listSprttype(session));

@@ -508,7 +508,35 @@
 
 	function fnSetPageEx(data){
 		var url = "${path}/techd/detail/"+data;
-		fnSetPage(url);
+		var obj = {};
+		obj.userNo = $("#userNo").val();
+		obj.userName = $("#userName").val();
+		obj.custNo = $("#custNo").val();
+		obj.custName = $("#custName").val();
+		obj.custmemberNo = $("#custmemberNo").val();
+		obj.custmemberName = $("#custmemberName").val();
+		obj.targetDatefrom = $("#targetDatefrom").val();
+		obj.targetDateto = $("#targetDateto").val();
+		obj.regSDate = $("#regSDate").val();
+		obj.regEDate = $("#regEDate").val();
+		obj.techdDesc = $("#techdDesc").val();
+		obj.search = $("#techdTable_filter").find("input[type=search]").val();
+		var parm = '?';
+		var first = true;
+		for(var key in obj){
+			if(first){
+				parm = parm + key + "=" + obj[key];
+				first = false;
+			} else {
+				parm = parm + "&" + key + "=" + obj[key];
+			}
+		}
+		console.log(parm);
+		//url = url + parm;
+		var temp = url + parm;
+		console.log(temp);
+		history.pushState('', '', temp);
+		fnSetPage(temp);
 	}
 
 	// 기술지원요청내용 엔터키 누를경우 원치않는 행동발생하여 이벤트 방지 코드 추가

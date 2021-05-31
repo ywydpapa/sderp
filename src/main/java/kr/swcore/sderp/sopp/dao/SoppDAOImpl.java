@@ -1,5 +1,6 @@
 package kr.swcore.sderp.sopp.dao;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -94,7 +95,15 @@ public class SoppDAOImpl implements SoppDAO {
 		// TODO Auto-generated method stub
 		return sqlSession.update("sopp.update2Sopp", dto);
 	}
-	
+
+	@Override
+	public List<SoppDTO> listWithSoppNoArray(List<SoppDTO> list) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("compNo", list.get(0).getCompNo());
+		map.put("dtoList", list);
+		return sqlSession.selectList("sopp.listWithSoppNoArray", map);
+	}
+
 	@Override
 	public int uploadFile(SoppFileDataDTO dto) {
 		return sqlSession.insert("sopp.uploadFile", dto);

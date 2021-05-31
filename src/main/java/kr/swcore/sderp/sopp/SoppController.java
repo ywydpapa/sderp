@@ -1,21 +1,15 @@
 package kr.swcore.sderp.sopp;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
-
-import javax.inject.Inject;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import kr.swcore.sderp.common.dto.PageDTO;
+import kr.swcore.sderp.code.service.CodeService;
+import kr.swcore.sderp.sales.service.SalesService;
+import kr.swcore.sderp.sopp.dto.SoppDTO;
+import kr.swcore.sderp.sopp.dto.SoppFileDataDTO;
+import kr.swcore.sderp.sopp.dto.SoppdataDTO;
+import kr.swcore.sderp.sopp.service.SoppService;
+import kr.swcore.sderp.sopp.service.SoppdataService;
+import kr.swcore.sderp.techd.service.TechdService;
 import kr.swcore.sderp.user.dto.UserDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,18 +19,16 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
-import kr.swcore.sderp.code.service.CodeService;
-import kr.swcore.sderp.sales.service.SalesService;
-import kr.swcore.sderp.sopp.dto.SoppDTO;
-import kr.swcore.sderp.sopp.dto.SoppFileDataDTO;
-import kr.swcore.sderp.sopp.dto.SoppdataDTO;
-import kr.swcore.sderp.sopp.service.SoppService;
-import kr.swcore.sderp.sopp.service.SoppdataService;
-import kr.swcore.sderp.techd.service.TechdService;
+import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 @Controller
 
@@ -212,9 +204,9 @@ public class SoppController {
 	}
 
 	@RequestMapping("update2Sopp.do")
-	public ResponseEntity<?> insert2(@ModelAttribute SoppDTO dto) {
+	public ResponseEntity<?> update2Sopp(HttpSession session, @ModelAttribute SoppDTO dto) {
 		Map<String, Object> param = new HashMap<>();
-		int soppInsert = soppService.update2Sopp(dto);
+		int soppInsert = soppService.update2Sopp(session, dto);
 		if (soppInsert >0) {
 			param.put("code","10001"); 
 		}
@@ -222,9 +214,16 @@ public class SoppController {
 		}
 		return ResponseEntity.ok(param);
 	}
+
+	@RequestMapping(value ="Aprv.do", method= RequestMethod.POST)
+	public ResponseEntity<?> Aprv(HttpSession session, @RequestBody SoppDTO dto) {
+		Map<String, Object> param = new HashMap<>();
+		param = soppService.updateAprvOrReject(session, dto);
+		return ResponseEntity.ok(param);
+	}
 	
 	@RequestMapping("insertdata01.do")
-	public ResponseEntity<?> insert(HttpSession session, @ModelAttribute SoppdataDTO dto) {
+	public ResponseEntity<?> insertdata01(HttpSession session, @ModelAttribute SoppdataDTO dto) {
 		Map<String, Object> param = new HashMap<>();
 		int soppdataInsert = soppdataService.insertSoppdata01(session, dto);
 		if (soppdataInsert >0) {
@@ -237,7 +236,7 @@ public class SoppController {
 
 	
 	@RequestMapping("insertdata02.do")
-	public ResponseEntity<?> insert02(HttpSession session,@ModelAttribute SoppdataDTO dto) {
+	public ResponseEntity<?> insertdata02(HttpSession session,@ModelAttribute SoppdataDTO dto) {
 		Map<String, Object> param = new HashMap<>();
 		int soppdataInsert = soppdataService.insertSoppdata01(session, dto);
 		if (soppdataInsert >0) {
@@ -278,12 +277,11 @@ public class SoppController {
 	
 	
 	@RequestMapping("update.do")
-	public ResponseEntity<?> update(@ModelAttribute SoppDTO dto) {
+	public ResponseEntity<?> update(HttpSession session, @ModelAttribute SoppDTO dto) {
 		logger.info("sopp logger : " + dto.toString());
 		
 		Map<String, Object> param = new HashMap<>();
-		int soppUpdate = soppService.updateSopp(dto);
-		//int soppUpdate = 1;
+		int soppUpdate = soppService.updateSopp(session, dto);
 		if (soppUpdate >0) {
 			param.put("code","10001"); 
 		}

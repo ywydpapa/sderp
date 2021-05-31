@@ -1,26 +1,25 @@
 package kr.swcore.sderp.sopp.service;
 
-import java.io.IOException;
-import java.util.Date;
-import java.util.List;
-import java.util.UUID;
+import kr.swcore.sderp.common.dto.PageDTO;
+import kr.swcore.sderp.common.dto.WrapperDTO;
+import kr.swcore.sderp.sopp.dao.SoppDAO;
+import kr.swcore.sderp.sopp.dto.SoppDTO;
+import kr.swcore.sderp.sopp.dto.SoppFileDataDTO;
+import kr.swcore.sderp.util.SessionInfoGet;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.interceptor.TransactionAspectSupport;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
-import kr.swcore.sderp.common.dto.PageDTO;
-import kr.swcore.sderp.common.dto.WrapperDTO;
-import kr.swcore.sderp.techd.dto.TechdDTO;
-import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
-
-import kr.swcore.sderp.sopp.dao.SoppDAO;
-import kr.swcore.sderp.sopp.dto.SoppDTO;
-import kr.swcore.sderp.sopp.dto.SoppFileDataDTO;
-import kr.swcore.sderp.util.SessionInfoGet;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 
 @Service
 public class SoppServiceImpl implements SoppService {
@@ -178,16 +177,16 @@ public class SoppServiceImpl implements SoppService {
 
 		String column = "";
 		switch (orderColumn){
-			case "0" : column = "modDatetime"; break;	// 수정일
-			case "1" : column = "soppTypeN"; break;		// 판매방식
-			case "2" : column = "cntrctMthN"; break;	// 계약구분
-			case "3" : column = "soppTitle"; break;		// 영업기회명
-			case "4" : column = "custName"; break;		// 거래처
-			case "5" : column = "buyrName"; break;		// 거래처
-			case "6" : column = "userName"; break;		// 담당자
-			case "7" : column = "soppTargetAmt"; break;	// 예상매출액
-			case "8" : column = "soppStatusN"; break;	// 진행단계
-			case "9" : column = "soppTargetDate"; break;// 매출예정일
+			case "1" : column = "modDatetime"; break;	// 수정일
+			case "2" : column = "soppTypeN"; break;		// 판매방식
+			case "3" : column = "cntrctMthN"; break;	// 계약구분
+			case "4" : column = "soppTitle"; break;		// 영업기회명
+			case "5" : column = "custName"; break;		// 거래처
+			case "6" : column = "buyrName"; break;		// 거래처
+			case "7" : column = "userName"; break;		// 담당자
+			case "8" : column = "soppTargetAmt"; break;	// 예상매출액
+			case "9" : column = "soppStatusN"; break;	// 진행단계
+			case "10" : column = "soppTargetDate"; break;// 매출예정일
 			default : column = "modDatetime"; break;	// 수정일
 		}
 
@@ -253,8 +252,9 @@ public class SoppServiceImpl implements SoppService {
 	}
 
 	@Override
-	public int updateSopp(SoppDTO dto) {
-		// TODO Auto-generated method stub
+	public int updateSopp(HttpSession session, SoppDTO dto) {
+		Integer compNo = Integer.valueOf((String) session.getAttribute("compNo"));
+		dto.setCompNo(compNo);
 		return soppDao.updateSopp(dto);
 	}
 
@@ -285,9 +285,50 @@ public class SoppServiceImpl implements SoppService {
 	}
 
 	@Override
-	public int update2Sopp(SoppDTO dto) {
-		// TODO Auto-generated method stub
+	public int update2Sopp(HttpSession session, SoppDTO dto) {
+		Integer compNo = SessionInfoGet.getCompNo(session);
+		dto.setCompNo(compNo);
 		return soppDao.update2Sopp(dto);
+	}
+
+	@Override
+	public Map<String, Object> updateAprvOrReject(HttpSession session, SoppDTO dto) {
+		Integer compNo = SessionInfoGet.getCompNo(session);
+		dto.setCompNo(compNo);
+		String soppStatus = dto.getSoppStatus();
+		Map<String, Object> param = new HashMap<>();
+
+		List<SoppDTO> newDTOList = dto.getSoppDTOList();
+		if(newDTOList == null){
+			param.put("code", 10001);
+			param.put("msg", "승인/거절할 데이터가 존재하지 않습니다.");
+			return param;
+		}
+
+		for(int i=0; i<newDTOList.size(); i++){
+			newDTOList.get(i).setCompNo(compNo);
+			newDTOList.get(i).setSoppStatus(soppStatus);
+		}
+
+		List<SoppDTO> oldDTOList = soppDao.listWithSoppNoArray(newDTOList);
+		Boolean result = false;
+		try {
+			for(int i=0; i<newDTOList.size(); i++){
+				soppDao.update2Sopp(newDTOList.get(i));
+			}
+			result = true;
+		} catch (Exception e){
+			e.printStackTrace();
+			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly(); // 쿼리 에러시 롤백
+		}
+		
+		if(result){
+			param.put("code", 10001);
+		} else {
+			param.put("code", 20001);
+			param.put("msg", "실패");
+		}
+		return param;
 	}
 
 	@Override

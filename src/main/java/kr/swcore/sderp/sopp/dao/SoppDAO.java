@@ -1,10 +1,9 @@
 package kr.swcore.sderp.sopp.dao;
 
-import java.util.List;
-
 import kr.swcore.sderp.sopp.dto.SoppDTO;
 import kr.swcore.sderp.sopp.dto.SoppFileDataDTO;
-import kr.swcore.sderp.techd.dto.TechdDTO;
+
+import java.util.List;
 
 public interface SoppDAO {
 	List<SoppDTO> listSopp();
@@ -21,6 +20,7 @@ public interface SoppDAO {
 	int deleteSopp(int soppNo);
 	int insertSopp(SoppDTO dto);
 	int update2Sopp(SoppDTO dto);
+	List<SoppDTO> listWithSoppNoArray(List<SoppDTO> list);
 	int uploadFile(SoppFileDataDTO dto);
 	SoppFileDataDTO downloadFile(SoppFileDataDTO dto);
 	

@@ -531,12 +531,9 @@
 				parm = parm + "&" + key + "=" + obj[key];
 			}
 		}
-		console.log(parm);
-		//url = url + parm;
 		var temp = url + parm;
-		console.log(temp);
-		history.pushState('', '', temp);
-		fnSetPage(temp);
+//		history.pushState('', '', temp);
+		fnSetPage(url);
 	}
 
 	// 기술지원요청내용 엔터키 누를경우 원치않는 행동발생하여 이벤트 방지 코드 추가

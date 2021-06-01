@@ -8,6 +8,7 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
@@ -43,6 +44,7 @@ public class CalendarController {
 	public String list(ModelAndView mav, HttpSession session, CalendarDTO dto) {
 //		mav.addObject("list", calendarService.listEvent(session, dto));
 //		mav.setViewName("calendar/listEvent");
+		JsonArray jsonArray = organizService.listDeptForCalendar(session);
 		return new Gson().toJson(calendarService.listEvent(session, dto));
 	}
 	

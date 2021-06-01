@@ -17,7 +17,6 @@ public class OrganizDAOImpl implements OrganizDAO {
 	
 	@Override
 	public List<OrganizDTO> listDept(int compNo) {
-		// TODO Auto-generated method stub
 		return sqlSession.selectList("organiz.listDept", compNo);
 	}
 

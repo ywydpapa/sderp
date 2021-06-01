@@ -42,8 +42,6 @@ public class CalendarController {
 	@ResponseBody
 	@RequestMapping(value = "listEvent.do", method = RequestMethod.POST, produces="application/json;charset=UTF-8")
 	public String list(ModelAndView mav, HttpSession session, CalendarDTO dto) {
-		mav.addObject("list", calendarService.listEvent(session, dto));
-		JsonArray jsonArray = organizService.listDeptForCalendar(session);
 		return new Gson().toJson(calendarService.listEvent(session, dto));
 	}
 	
@@ -54,6 +52,7 @@ public class CalendarController {
 		map.put("organizationList", organizService.listDept(session));
 		map.put("companyList", codeService.listComp());
 		return map;
+		//return organizService.listDeptForCalendar(session);
 	}
 	
 	/*

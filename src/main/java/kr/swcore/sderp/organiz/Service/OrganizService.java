@@ -10,6 +10,6 @@ import kr.swcore.sderp.organiz.dto.OrganizDTO;
 public interface OrganizService {
 	
 	List<OrganizDTO> listDept(HttpSession session);
-	JsonArray listDeptForCalendar(HttpSession session);
+	String listDeptForCalendar(HttpSession session);
 	List<OrganizDTO> listDeptChainExtend(HttpSession session, OrganizDTO organizDTO);
 }

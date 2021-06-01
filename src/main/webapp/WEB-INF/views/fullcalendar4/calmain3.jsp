@@ -10,7 +10,7 @@
     <link href='${path}/fullcalendar4/daygrid/main.css' rel='stylesheet' />
     <link href='${path}/fullcalendar4/bootstrap/main.css' rel='stylesheet' />
     <link href='${path}/assets/css/font-awesome.min.css' rel="stylesheet" type="text/css">
-	<link href="${path}/fancytree-2.38.0/skin-win8/ui.fancytree.css" rel="stylesheet">
+	<link href="${path}/assets/fancytree/skin-win8/ui.fancytree.css" rel="stylesheet">
 
     <script src='${path}/fullcalendar4/core/main.js'></script>
     <script src='${path}/fullcalendar4/daygrid/main.js'></script>
@@ -18,8 +18,8 @@
     <script src='${path}/fullcalendar4/list/main.js'></script>
     <script src='${path}/fullcalendar4/timegrid/main.js'></script>
     <%-- <script src='${path}/fullcalendar4/moment/main.js'></script> --%>
-	<script src='${path}/fancytree-2.38.0/jquery-ui-dependencies/jquery.fancytree.ui-deps.js'/>
-	<script src="${path}/fancytree-2.38.0/jquery.fancytree.js"></script>
+	<script src='${path}/assets/fancytree/jquery.fancytree-all-deps.js'></script>
+	<script src='${path}/assets/fancytree/jquery.fancytree-all.js'></script>
 
 	<style>
 		#organizationChartView {
@@ -206,8 +206,12 @@
 				extraParams: {
 					organizationList : organizationList
 				},
-				failure: function() {
-					alert('there was an error while fetching events!');
+				success : function(rawData, response) {
+					console.dir(rawData);
+					return rawData;
+				},
+				failure: function(error) {
+					alert('캘린더 데이터 요청 실패');
 				},
 				color: 'yellow',    // an option!
 				textColor: 'black',  // an option!

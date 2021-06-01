@@ -17,6 +17,8 @@
     <script src='${path}/fullcalendar4/timegrid/main.js'></script>
     <%-- <script src='${path}/fullcalendar4/moment/main.js'></script> --%>
 
+
+
 	<style>
 		#organizationChartView {
 			min-width: 200px;
@@ -197,13 +199,16 @@
 	    	},
 	    	
 	     	eventSources: [{
-	          url: '${path}/calendar/listEvent.do',
-	          //color: 'yellow',    // an option!
-	          textColor: 'black',  // an option!
-	          method: 'POST',
-	          extraParams: {
-	        	  organizationList : organizationList
-	          }
+				url: '${path}/calendar/listEvent.do',
+				method: 'POST',
+				extraParams: {
+					organizationList : organizationList
+				},
+				failure: function() {
+					alert('there was an error while fetching events!');
+				},
+				color: 'yellow',    // an option!
+				textColor: 'black',  // an option!
 	        }],   
 	     	                            
 	        eventClick: function(info) {

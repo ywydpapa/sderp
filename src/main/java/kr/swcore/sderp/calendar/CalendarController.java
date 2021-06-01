@@ -7,15 +7,14 @@ import java.util.Map;
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
@@ -41,11 +40,11 @@ public class CalendarController {
 	CodeService codeService;
 	
 	@ResponseBody
-	@RequestMapping("listEvent.do")
-	public ModelAndView list(ModelAndView mav, HttpSession session, CalendarDTO dto) {
+	@RequestMapping(value = "listEvent.do", method = RequestMethod.POST, produces="application/json;charset=UTF-8")
+	public String list(ModelAndView mav, HttpSession session, CalendarDTO dto) {
 		mav.addObject("list", calendarService.listEvent(session, dto));
-		mav.setViewName("calendar/listEvent");
-		return mav;
+		JsonArray jsonArray = organizService.listDeptForCalendar(session);
+		return new Gson().toJson(calendarService.listEvent(session, dto));
 	}
 	
 	@RequestMapping("organization.do")

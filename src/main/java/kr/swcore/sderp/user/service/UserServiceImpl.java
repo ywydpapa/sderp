@@ -98,10 +98,6 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public List<UserDTO> userListWithOrgId(UserDTO dto) {
-		return userDao.userListWithOrgId(dto);
+		return userDao.userListWithOrgId(dto.getOrg_id());
 	}
-
-
-	
-
 }

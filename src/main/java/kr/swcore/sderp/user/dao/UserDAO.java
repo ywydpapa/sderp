@@ -1,11 +1,10 @@
 package kr.swcore.sderp.user.dao;
 
-import java.util.List;
-
-import javax.servlet.http.HttpSession;
-
 import kr.swcore.sderp.sopp.dto.SoppDTO;
 import kr.swcore.sderp.user.dto.UserDTO;
+
+import javax.servlet.http.HttpSession;
+import java.util.List;
 
 public interface UserDAO {
 	
@@ -18,6 +17,6 @@ public interface UserDAO {
 	public int insertUser(UserDTO dto);
 	public int insertUserdata(UserDTO dto);
 	public int userCheck(UserDTO dto);
-	public List<UserDTO> userListWithOrgId(UserDTO userDTO);
+	public List<UserDTO> userListWithOrgId(int orgId);
 	public UserDTO userSessionCheck(UserDTO dto);
 }

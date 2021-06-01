@@ -10,12 +10,16 @@
     <link href='${path}/fullcalendar4/daygrid/main.css' rel='stylesheet' />
     <link href='${path}/fullcalendar4/bootstrap/main.css' rel='stylesheet' />
     <link href='${path}/assets/css/font-awesome.min.css' rel="stylesheet" type="text/css">
+	<link href="${path}/fancytree-2.38.0/skin-win8/ui.fancytree.css" rel="stylesheet">
+
     <script src='${path}/fullcalendar4/core/main.js'></script>
     <script src='${path}/fullcalendar4/daygrid/main.js'></script>
     <script src='${path}/fullcalendar4/interaction/main.js'></script>
     <script src='${path}/fullcalendar4/list/main.js'></script>
     <script src='${path}/fullcalendar4/timegrid/main.js'></script>
     <%-- <script src='${path}/fullcalendar4/moment/main.js'></script> --%>
+	<script src='${path}/fancytree-2.38.0/jquery-ui-dependencies/jquery.fancytree.ui-deps.js'/>
+	<script src="${path}/fancytree-2.38.0/jquery.fancytree.js"></script>
 
 	<style>
 		#organizationChartView {
@@ -195,18 +199,21 @@
 	      		$('.eventModalRadioGroup').show();
 	      		$('#eventModal').modal('show');
 	    	},
-	    	
-	     	eventSources: [{
-	          url: '${path}/calendar/listEvent.do',
-	          //color: 'yellow',    // an option!
-	          textColor: 'black',  // an option!
-	          method: 'POST',
-	          extraParams: {
-	        	  organizationList : organizationList
-	          }
-	        }],   
-	     	                            
-	        eventClick: function(info) {
+
+			eventSources: [{
+				url: '${path}/calendar/listEvent.do',
+				method: 'POST',
+				extraParams: {
+					organizationList : organizationList
+				},
+				failure: function() {
+					alert('there was an error while fetching events!');
+				},
+				color: 'yellow',    // an option!
+				textColor: 'black',  // an option!
+			}],
+
+			eventClick: function(info) {
 	        	$('#detail-content').empty();
 				$('.eventModalRadioGroup').hide();
 				$('#eventModal').modal('show');

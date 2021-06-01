@@ -1,15 +1,13 @@
 package kr.swcore.sderp.user.dao;
 
-import java.util.List;
-
-import javax.inject.Inject;
-import javax.servlet.http.HttpSession;
-
+import kr.swcore.sderp.sopp.dto.SoppDTO;
+import kr.swcore.sderp.user.dto.UserDTO;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
-import kr.swcore.sderp.sopp.dto.SoppDTO;
-import kr.swcore.sderp.user.dto.UserDTO;
+import javax.inject.Inject;
+import javax.servlet.http.HttpSession;
+import java.util.List;
 
 @Repository
 public class UserDAOImpl implements UserDAO {
@@ -73,8 +71,8 @@ public class UserDAOImpl implements UserDAO {
 	}
 
 	@Override
-	public List<UserDTO> userListWithOrgId(UserDTO userDTO) {
-		return sqlSession.selectList("user.userListWithOrgId", userDTO);
+	public List<UserDTO> userListWithOrgId(int orgId) {
+		return sqlSession.selectList("user.userListWithOrgId", orgId);
 	}
 
 	@Override

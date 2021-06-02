@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -29,9 +31,8 @@ public class OrganizServiceImpl implements OrganizService {
 	}
 
 	@Override
-	public String listDeptForCalendar(HttpSession session) {
+	public String listDeptForCalendarJson(HttpSession session) {
 		String result = "";
-		//Gson gson = new GsonBuilder().setPrettyPrinting().create();
 		Integer compNo = Integer.valueOf((String) session.getAttribute("compNo"));
 		JSONArray returnArray = new JSONArray();
 		List<OrganizDTO> rtn = organizDao.listDept(compNo);
@@ -44,7 +45,7 @@ public class OrganizServiceImpl implements OrganizService {
 			for(OrganizDTO dto : rtn){
 				JSONObject jsonObject = new JSONObject();
 				jsonObject.put("title", dto.getOrg_title());
-				jsonObject.put("expanded", true);
+				jsonObject.put("expanded", false);
 				jsonObject.put("folder", true);
 
 				List<UserDTO> userList = userDAO.userListWithOrgId(dto.getOrg_id());
@@ -63,10 +64,48 @@ public class OrganizServiceImpl implements OrganizService {
 			first.put("children", arr);
 			returnArray.add(first);
 		}
-		return returnArray.toJSONString();
+		result = returnArray.toString();
+		return result;
 	}
 
-    @Override
+	@Override
+	public ArrayList<HashMap<String, Object>> listDeptForCalendarArrList(HttpSession session) {
+		Integer compNo = Integer.valueOf((String) session.getAttribute("compNo"));
+		ArrayList<HashMap<String, Object>> returnArray = new JSONArray();
+		List<OrganizDTO> rtn = organizDao.listDept(compNo);
+		if(rtn != null) {
+			HashMap<String, Object> first = new JSONObject();
+			first.put("title", rtn.get(0).getParentTitle());
+			first.put("depth", 0);
+			first.put("expanded", true);
+			first.put("folder", true);
+			ArrayList<HashMap<String, Object>> arr = new JSONArray();
+			for(OrganizDTO dto : rtn){
+				HashMap<String, Object> objDto = new HashMap<>();
+				objDto.put("title", dto.getOrg_title());
+				objDto.put("depth", 1);
+				objDto.put("expanded", false);
+				objDto.put("folder", true);
+
+				List<UserDTO> userList = userDAO.userListWithOrgId(dto.getOrg_id());
+				ArrayList<HashMap<String, Object>> array = new ArrayList<>();
+				for(UserDTO userDTO : userList){
+					HashMap<String, Object> obj = new HashMap<String, Object>();
+					obj.put("title", userDTO.getUserName());
+					obj.put("userNo", userDTO.getUserNo());
+					obj.put("depth", 2);
+					array.add(obj);
+				}
+				objDto.put("children", array);
+				arr.add(objDto);
+			}
+			first.put("children", arr);
+			returnArray.add(first);
+		}
+		return returnArray;
+	}
+
+	@Override
     public List<OrganizDTO> listDeptChainExtend(HttpSession session, OrganizDTO organizDTO) {
         Integer compNo = Integer.valueOf((String) session.getAttribute("compNo"));
         if(organizDTO == null) organizDTO = new OrganizDTO();

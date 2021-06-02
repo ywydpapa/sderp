@@ -1,28 +1,23 @@
 package kr.swcore.sderp.calendar;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.inject.Inject;
-import javax.servlet.http.HttpSession;
-
 import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
-
 import kr.swcore.sderp.calendar.dto.CalendarDTO;
 import kr.swcore.sderp.calendar.service.CalendarService;
 import kr.swcore.sderp.code.service.CodeService;
 import kr.swcore.sderp.organiz.Service.OrganizService;
-import kr.swcore.sderp.organiz.dto.OrganizDTO;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
+
+import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import java.util.HashMap;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/calendar/*")
@@ -54,6 +49,14 @@ public class CalendarController {
 		return map;
 		//return organizService.listDeptForCalendar(session);
 	}
+
+	@RequestMapping(value ="organization2.do", method = RequestMethod.GET, produces="application/json;charset=UTF-8")
+	@ResponseBody
+	public String organizationTree(HttpSession session, HttpServletRequest request, HttpServletResponse response) {
+		String rtn = organizService.listDeptForCalendarJson(session);
+		response.setCharacterEncoding("UTF-8");
+		return rtn;
+	}
 	
 	/*
 	 * @RequestMapping("loadEvent.do") public ModelAndView listEvent(ModelAndView
@@ -68,8 +71,11 @@ public class CalendarController {
 	}
 	
 	@RequestMapping("calmain.do")
-	public String list() {
-		return "fullcalendar4/calmain3";
+	public ModelAndView list(HttpSession session, ModelAndView mav) {
+		mav.setViewName("fullcalendar4/calmain3");
+		mav.addObject("organizationJson",organizService.listDeptForCalendarJson(session));
+		mav.addObject("organizationArrList",organizService.listDeptForCalendarArrList(session));
+		return mav;
 	}
 	
 	@RequestMapping("delete.do")

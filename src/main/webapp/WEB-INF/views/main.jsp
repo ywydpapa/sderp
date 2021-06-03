@@ -392,12 +392,12 @@
 											<div class="modal-body">
 												<form id="userInfoForm">
 													<div class="form-group">
-												    	<label for="userId">아이디</label>
-												    	<input type="text" class="form-control" name="userId" id="" value="${sessionScope.userId}" readonly>
+												    	<label>아이디</label>
+												    	<input type="text" class="form-control" name="userId" value="${sessionScope.userId}" readonly>
 													</div>
 												 	<div class="form-group">
-												    	<label for="userName">이름</label>
-												    	<input type="text" class="form-control" name="userName" id="" value="${sessionScope.userName}" readonly>
+												    	<label>이름</label>
+												    	<input type="text" class="form-control" name="userName" value="${sessionScope.userName}" readonly>
 												  	</div>
 												  	<div class="form-group">
 												    	<label for="userPasswd">현재 비밀번호</label>

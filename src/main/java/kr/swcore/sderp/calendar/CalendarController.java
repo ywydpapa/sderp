@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -37,7 +38,9 @@ public class CalendarController {
 	@ResponseBody
 	@RequestMapping(value = "listEvent.do", method = RequestMethod.POST, produces="application/json;charset=UTF-8")
 	public String list(ModelAndView mav, HttpSession session, CalendarDTO dto) {
-		return new Gson().toJson(calendarService.listEvent(session, dto));
+		List<CalendarDTO> list = calendarService.listEvent(session, dto);
+		if (list == null) return "{}";
+		else return new Gson().toJson(list);
 	}
 	
 	@RequestMapping("organization.do")
@@ -47,7 +50,6 @@ public class CalendarController {
 		map.put("organizationList", organizService.listDept(session));
 		map.put("companyList", codeService.listComp());
 		return map;
-		//return organizService.listDeptForCalendar(session);
 	}
 
 	@RequestMapping(value ="organization2.do", method = RequestMethod.GET, produces="application/json;charset=UTF-8")

@@ -47,12 +47,12 @@
 			outline: none;
 		}
 
-		#selectedPerson > button.close {
+		#selectedPerson > div > button {
 			margin-top: 2px;
 			margin-right: 4px;
 		}
 
-		#selectedPerson > button > span {
+		#selectedPerson > div > button > span {
 			font-size: 22px;
 			color: #f00;
 		}
@@ -244,6 +244,7 @@
 					return rawData;
 				},
 				failure: function(error) {
+					console.dir(error);
 					alert('캘린더 데이터 요청 실패');
 				},
 				color: 'yellow',    // an option!
@@ -264,7 +265,6 @@
         calendar.render();
 
         if(event == 'search'){
-			calendar.changeView('timeGridDay', '2017-06-01');
 		}
 	}
 	

@@ -25,7 +25,7 @@ public class CalendarServiceImpl implements CalendarService {
 	}
 	
 	public List<CalendarDTO> listEvent(HttpSession session, CalendarDTO dto) {
-//		SoppDTO soppdto = SessionInfoGet.getCompNoDto(session);
+		if(dto.getUserNoList() == null || dto.getUserNoList().size() == 0) return null;
 		dto.setCompNo(SessionInfoGet.getCompNo(session));
 		return calendarDao.listEvent(dto);
 	};

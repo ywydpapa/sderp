@@ -236,7 +236,17 @@
 		}
 	}
 
-</script> 
+</script>
+	<style>
+		.navbar-logo > .mobile-menu {
+			width: 35px;
+		}
+		@media only screen and (max-width: 992px) {
+			.header-navbar .navbar-wrapper .navbar-logo a img {
+				margin-top: 0px;
+			}
+		}
+	</style>
 </head>
 <body style="overflow-y: scroll;">
 

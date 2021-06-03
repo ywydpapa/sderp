@@ -81,7 +81,7 @@ public class schedController {
 	public ModelAndView write(HttpSession session, ModelAndView mav) {
 		mav.addObject("schedtype", codeService.listSchedtype(session));
 //		mav.addObject("acttype", codeService.listActtype(session));
-		mav.addObject("acttype", codeService.listSchedDetailType(session));
+		mav.addObject("acttype", codeService.listActtype(session));
 		mav.setViewName("sched/write");
 		return mav;
 	}

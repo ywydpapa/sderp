@@ -6,12 +6,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <select id="loginCheck" resultType="String">
  		select u.userName 
- 		from swc_user u left join swc_company c on u.compNo = c.compNo
- 		where u.userId=#{userId} and u.userPasswd=#{userPasswd} and c.compId=#{compId}
+ 		from swc_user u
+ 		    left join swc_company c on u.compNo = c.compNo
+ 		where u.userId=#{userId} and u.userPasswd=#{userPasswd} and c.compId=#{compId} and u.attrib not like 'XXX%'
 </select>
 
 <select id="userSessionCheck" resultType="userDto">
-		select * from swc_user where userNo = #{userNo}
+		select * from swc_user where userNo = #{userNo} and attrib not like 'XXX%'
 </select>
 
 <select id="viewUser"
@@ -31,11 +32,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  
  <select id="userList"
  		resultType="userDto">
- 		select * from swc_user where compNo = #{compNo} order by userNo
+ 		select * from swc_user where compNo = #{compNo} and attrib not like 'XXX%' order by userNo
  </select>
  
  <select id="userListWithOrgId" resultType="userDto">
- 		select userNo, CompNo, userId, userName, userRole, userName title from swc_user where org_id = #{orgId};
+ 		select userNo, CompNo, userId, userName, userRole, userName title from swc_user where org_id = #{orgId} and attrib not like 'XXX%'
  </select>
  
  <update id="updateUser">

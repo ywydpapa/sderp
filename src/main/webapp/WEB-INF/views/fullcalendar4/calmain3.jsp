@@ -407,7 +407,6 @@
 			var moment = ($('#calendar')[0].firstChild.outerText.split('\n')[0]).replaceAll('년','').replaceAll('월','').split(' ');
 			calYear = moment[0];
 			calDate = moment[1];
-			debugger;
 		});
 		$(document).on("click",'fc-today-button',function () {
 			var moment = ($('#calendar')[0].firstChild.outerText.split('\n')[0]).replaceAll('년','').replaceAll('월','').split(' ');

@@ -1001,7 +1001,6 @@
 			return this._superApply(arguments);
 		},
 		treeStructureChanged: function(ctx, type) {
-			// debugger;
 			if (type !== "addNode" || ctx.tree.visibleNodeList) {
 				// this.debug("treeStructureChanged(" + type + ")");
 				this._renumberReset(); // Invalidate visible row cache

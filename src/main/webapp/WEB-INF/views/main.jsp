@@ -334,23 +334,23 @@
 						</li>
 						<%}else{%>
 						<li class="user-profile header-notification">
-                                <a href="#!">
-                                    <img src="${path}/assets/images/avatar-4.jpg" class="img-radius" alt="User-Profile-Image">
-                                    <span><%=userName %></span>
-                                    <i class="ti-angle-down"></i>
-                                </a>
-                                <ul class="show-notification profile-notification">
-                                    <li>
-                                    	<i class="ti-user"></i>
-                                    	<a href="#userInfoChangeModal" data-toggle="modal">개인정보수정</a>
-                                    </li>
-                                    <li>
-                                        <a href="${path}/user/logout.do">
-                                            <i class="ti-layout-sidebar-left"></i> Logout
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
+							<a href="#!">
+								<img src="${path}/assets/images/avatar-4.jpg" class="img-radius" alt="User-Profile-Image">
+								<span><%=userName %></span>
+								<i class="ti-angle-down"></i>
+							</a>
+							<ul class="show-notification profile-notification">
+								<li>
+									<i class="ti-user"></i>
+									<a href="#userInfoChangeModal" data-toggle="modal">개인정보수정</a>
+								</li>
+								<li>
+									<a href="${path}/user/logout.do">
+										<i class="ti-layout-sidebar-left"></i> Logout
+									</a>
+								</li>
+							</ul>
+						</li>
 						<%}%>
 					</ul>
 				</div>
@@ -456,7 +456,13 @@
 <script type="text/javascript">
 $( document ).ready(function() {
 	fnSetPage('${path}/myboard.do');
+});
 
+$(".header-notification")
+.mouseout(function () {
+	$(".show-notification").css("display","none");
+}).mouseover(function() {
+	$(".show-notification").css("display","block");
 });
 </script>
 </body>

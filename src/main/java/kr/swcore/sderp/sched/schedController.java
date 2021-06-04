@@ -62,7 +62,6 @@ public class schedController {
 	@RequestMapping("listcon.do")
 	public ModelAndView listcon(HttpSession session, ModelAndView mav, @ModelAttribute SchedDTO dto) {
 		mav.addObject("list", schedService.listconSched(session, dto));
-		mav.addObject("preserveSearchCondition", "Y");
 		mav.setViewName("sched/list");
 		return mav;
 	}

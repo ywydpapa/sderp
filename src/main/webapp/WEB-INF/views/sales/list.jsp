@@ -252,190 +252,117 @@
 		white-space: nowrap;
 	}
 </style>
-
-	<c:if test="${preserveSearchCondition != 'Y'}">
-		<!-- Page-header start 페이지 타이틀-->
-		<div class="page-header2">
-			<div class="row align-items-end">
-				<div class="col-lg-12">
-					<div class="page-header-title">
-						<div class="d-inline">
-							영업활동 조회
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!--Page-header end 페이지 타이틀 -->
-		<!--영업활동조회-->
-		<div class="cnt_wr">
-			<div class="row">
-				<form id="searchForm" method="post" onsubmit="return false;" class="col-sm-12">
-					<div class="col-sm-12">
-						<div class="card_box sch_it">
-							<div class="btn_wr text-right">
-								<button class="btn btn-sm btn-inverse" onClick="javascript:fnClearall()"><i class="icofont icofont-spinner-alt-3"></i>초기화</button>
-								<button class="btn btn-sm btn-primary" onClick="javascript:fnListcon()"><i class="icofont icofont-search"></i>검색</button>	
-		      					<button class="btn btn-sm btn-outline"onClick="javascript:fnSetPage('${path}/sales/write.do')"><i class="icofont icofont-pencil-alt-2"></i>등록</button>
-							</div>
-							<div class="form-group row">
-							<div class="col-sm-12 col-xl-3">
-							<label class="col-form-label" for="userName">담당사원</label>
-								<jsp:include page="/WEB-INF/views/module/input/inputActiveUser.jsp"/>
-							</div>
-							<div class="col-sm-12 col-xl-3">
-									<label class="col-form-label" for="soppTitle">영업기회</label>
-									<div class="input-group input-group-sm mb-0">
-																	<input type="text" class="form-control" name="soppTitle"
-																		id="soppTitle" value="" readonly /> <input
-																		type="hidden" name="soppNo" id="soppNo"
-																		value="" /> <span class="input-group-btn">
-																		<button class="btn btn-primary sch-company"
-																			data-remote="${path}/modal/popup.do?popId=sopp"
-																			type="button" data-toggle="modal"
-																			data-target="#soppModal">
-																			<i class="icofont icofont-search"></i>
-																		</button>
-																	</span>
-																	<div class="modal fade " id="soppModal" tabindex="-1"
-																		role="dialog">
-																		<div class="modal-dialog modal-80size" role="document">
-																			<div class="modal-content modal-80size">
-																				<div class="modal-header">
-																					<h4 class="modal-title">영업기회 검색</h4>
-																					<button type="button" class="close"
-																						data-dismiss="modal" aria-label="Close">
-																						<span aria-hidden="true">&times;</span>
-																					</button>
-																				</div>
-																				<div class="modal-body">
-																					<h5>영업기회 목록</h5>
-																					<p>Loading!!!</p>
-																				</div>
-																				<div class="modal-footer">
-																					<button type="button"
-																						class="btn btn-default waves-effect "
-																						data-dismiss="modal">Close</button>
-																				</div>
-																			</div>
-																		</div>
-																	</div>
-																</div>
-								</div>
-								<div class="col-sm-12 col-xl-3">
-									<label class="col-form-label" for="custName">매출처</label>
-									<jsp:include page="/WEB-INF/views/module/input/inputCust.jsp"/>
-								</div>
-								<div class="col-sm-12 col-xl-3">
-									<label class="col-form-label" for="co_name">활동형태</label>
-									<select name="select" class="form-control form-control-sm" id="salesType">
-										<option value>선택</option>
-										<c:forEach var = "acttype" items="${acttype}">
-											<option value="${acttype.codeNo}">${acttype.desc03}</option>
-										</c:forEach>
-									</select>
-								</div>
-								
-							</div>
-							<div class="form-group row">
-								<div class="col-sm-12 col-xl-3">
-									<label class="col-form-label">활동일</label>
-									<p class="input_inline"><input class="form-control form-control-sm col-xl-6" type="date" id="salesFrdatetime" onChange="javascript:inputDate($('#salesFrdatetime').val(), $('#salesTodatetime').val())"> ~ <input class="form-control form-control-sm col-xl-6" type="date" id="salesTodatetime" onChange="javascript:inputDate($('#salesFrdatetime').val(), $('#salesTodatetime').val())">
-									</p>
-								</div>
-								<div class="col-sm-12 col-xl-3">
-									<label class="col-form-label">등록일</label>
-									<p class="input_inline"><input class="form-control form-control-sm col-xl-6" type="date" id="regSDate" onChange="javascript:inputDate($('#regSDate').val(), $('#regEDate').val())"> ~ <input class="form-control form-control-sm col-xl-6" type="date" id="regEDate" onChange="javascript:inputDate($('#regSDate').val(), $('#regEDate').val())">
-									</p>
-								</div>
-							</div>
-
-						</div>	
-					</div>
-				
-				</form>
-			</div>
-		</div>
-		<!--//영업활동조회-->
-	
-	</c:if>
-
-	 <!--리스트 table-->
-	<div class="cnt_wr" id="list-container">
-		<div class="row">
-			<div class="col-sm-12">
-			<div class="card-block table-border-style">
-				<div class="table-responsive">
-					<table id="salesTable" class="table table-striped table-bordered nowrap ">
-							<colgroup>
-								<col width="4%"/>
-								<col width="20%"/>
-								<col width="4%"/>
-								<col width="4%"/>
-								<col width="20%"/>
-								<col width="2%"/>
-								<col width="15%"/>
-								<col width="15%"/>
-								<col width="12%"/>
-							</colgroup>
-							<thead>
-								<tr>
-									<%--<th><input class="border-checkbox" type="checkbox" id="checkbox0"></th>--%>
-									<th>등록일</th>
-									<th>영업활동명</th>
-									<th>영업활동(시작)</th>
-									<th>영업활동(끝)</th>
-									<th>영업기회명</th>
-									<th>담당사원</th>
-									<th>매출처</th>
-									<th>엔드유저</th>
-									<th>일정설명</th>
-									<%--<th>일정설명</th>--%>
-								</tr>
-							</thead>
-							<%--<tbody>
-							<c:forEach var="row" items="${list}">
-								<tr>
-									<th scope="row"><input class="border-checkbox" type="checkbox" ></th>
-									<td><a href="javascript:fnSetPage('${path}/sales/detail/${row.salesNo}')">${row.salesTitle}</a></td>
-									<td>${row.salesFrdatetime}</td>
-									<td>${row.soppTitle}</td>
-									<td>${row.custName}</td>
-									<td>${row.userName}</td>
-									<td>${row.ptncName}</td>
-									<td>${row.salesTypeN}</td>
-									<td>${row.salesDesc}</td>
-								</tr>
-							</c:forEach>								
-							</tbody>--%>
-						</table>
-					</div>
+<!-- Page-header start 페이지 타이틀-->
+<div class="page-header2">
+	<div class="row align-items-end">
+		<div class="col-lg-12">
+			<div class="page-header-title">
+				<div class="d-inline">
+					영업활동 조회
 				</div>
 			</div>
 		</div>
 	</div>
-	<!--//리스트 table-->
+</div>
+<!--Page-header end 페이지 타이틀 -->
+<!--영업활동조회-->
+<div class="cnt_wr">
+	<div class="row">
+		<form id="searchForm" method="post" onsubmit="return false;" class="col-sm-12">
+			<div class="col-sm-12">
+				<div class="card_box sch_it">
+					<div class="btn_wr text-right">
+						<button class="btn btn-sm btn-inverse" onClick="javascript:fnClearall()"><i class="icofont icofont-spinner-alt-3"></i>초기화</button>
+						<button class="btn btn-sm btn-primary" onClick="javascript:fnListcon()"><i class="icofont icofont-search"></i>검색</button>
+						<button class="btn btn-sm btn-outline"onClick="javascript:fnSetPage('${path}/sales/write.do')"><i class="icofont icofont-pencil-alt-2"></i>등록</button>
+					</div>
+					<div class="form-group row">
+					<div class="col-sm-12 col-xl-3">
+					<label class="col-form-label">담당사원</label>
+						<jsp:include page="/WEB-INF/views/module/input/inputActiveUser.jsp"/>
+					</div>
+					<div class="col-sm-12 col-xl-3">
+							<label class="col-form-label">영업기회</label>
+							<jsp:include page="/WEB-INF/views/module/input/inputSopp.jsp"/>
+						</div>
+						<div class="col-sm-12 col-xl-3">
+							<label class="col-form-label">매출처</label>
+							<jsp:include page="/WEB-INF/views/module/input/inputCust.jsp"/>
+						</div>
+						<div class="col-sm-12 col-xl-3">
+							<label class="col-form-label">활동형태</label>
+							<select name="select" class="form-control form-control-sm" id="salesType">
+								<option value>선택</option>
+								<c:forEach var = "acttype" items="${acttype}">
+									<option value="${acttype.codeNo}">${acttype.desc03}</option>
+								</c:forEach>
+							</select>
+						</div>
 
-	<script>
-		$('#soppModal').on('show.bs.modal', function(e) {
-			var button = $(e.relatedTarget);
-			var modal = $(this);
-			modal.find('.modal-body').load(button.data("remote"));
-		});
+					</div>
+					<div class="form-group row">
+						<div class="col-sm-12 col-xl-3">
+							<label class="col-form-label">활동일</label>
+							<p class="input_inline"><input class="form-control form-control-sm col-xl-6" type="date" id="salesFrdatetime" onChange="javascript:inputDate($('#salesFrdatetime').val(), $('#salesTodatetime').val())"> ~ <input class="form-control form-control-sm col-xl-6" type="date" id="salesTodatetime" onChange="javascript:inputDate($('#salesFrdatetime').val(), $('#salesTodatetime').val())">
+							</p>
+						</div>
+						<div class="col-sm-12 col-xl-3">
+							<label class="col-form-label">등록일</label>
+							<p class="input_inline"><input class="form-control form-control-sm col-xl-6" type="date" id="regSDate" onChange="javascript:inputDate($('#regSDate').val(), $('#regEDate').val())"> ~ <input class="form-control form-control-sm col-xl-6" type="date" id="regEDate" onChange="javascript:inputDate($('#regSDate').val(), $('#regEDate').val())">
+							</p>
+						</div>
+					</div>
 
+				</div>
+			</div>
 
-    	function fnSetSoppData(a, b) {
-			$("#soppNo").val(b);
-			$("#soppTitle").val(a);
-			$(".modal-backdrop").remove();
-			$("#soppModal").modal("hide");
-		}
+		</form>
+	</div>
+</div>
+<!--//영업활동조회-->
+<!--리스트 table-->
+<div class="cnt_wr" id="list-container">
+	<div class="row">
+		<div class="col-sm-12">
+		<div class="card-block table-border-style">
+			<div class="table-responsive">
+				<table id="salesTable" class="table table-striped table-bordered nowrap ">
+						<colgroup>
+							<col width="4%"/>
+							<col width="20%"/>
+							<col width="4%"/>
+							<col width="4%"/>
+							<col width="20%"/>
+							<col width="2%"/>
+							<col width="15%"/>
+							<col width="15%"/>
+							<col width="12%"/>
+						</colgroup>
+						<thead>
+							<tr>
+								<th>등록일</th>
+								<th>영업활동명</th>
+								<th>영업활동(시작)</th>
+								<th>영업활동(끝)</th>
+								<th>영업기회명</th>
+								<th>담당사원</th>
+								<th>매출처</th>
+								<th>엔드유저</th>
+								<th>일정설명</th>
+							</tr>
+						</thead>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!--//리스트 table-->
 
-		function fnSetPageEx(data){
-			var url = "${path}/sales/detail/"+data;
-			fnSetPage(url);
-		}
-
-
+<script>
+	function fnSetPageEx(data){
+		var url = "${path}/sales/detail/"+data;
+		fnSetPage(url);
+	}
 </script>
 	

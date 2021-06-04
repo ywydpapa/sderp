@@ -83,7 +83,6 @@ public class SoppController {
 	public ModelAndView listcon(HttpSession session, ModelAndView mav, SoppDTO dto) {
 		mav.setViewName("sopp/list");
 		mav.addObject("list", soppService.listconSopp(session, dto));
-		mav.addObject("preserveSearchCondition", "Y");
 		return mav;
 	}
 
@@ -107,7 +106,6 @@ public class SoppController {
 	@RequestMapping("list2con.do")
 	public ModelAndView list2con(HttpSession session, ModelAndView mav, SoppDTO dto) {
 		mav.setViewName("sopp/list2");
-		mav.addObject("preserveSearchCondition", "Y");
 		mav.addObject("list", soppService.listconSopp2(session, dto));
 		return mav;
 	}

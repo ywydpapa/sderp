@@ -216,129 +216,94 @@
 	}
 </style>
 
-	<c:if test="${preserveSearchCondition != 'Y'}">
-		<div class="page-header2">
-			<div class="row align-items-end">
-				<div class="col-lg-12">
-					<div class="page-header-title">
-						<div class="d-inline">
-							일정조회
-						</div>
-					</div>
+<div class="page-header2">
+	<div class="row align-items-end">
+		<div class="col-lg-12">
+			<div class="page-header-title">
+				<div class="d-inline">
+					일정조회
 				</div>
 			</div>
 		</div>
-		<!--Page-header end 페이지 타이틀 -->
-		<!--일정조회-->
-	<div class="cnt_wr">
-		<div class="row">
-			<form id="searchForm" method="post" onsubmit="return false;" class="col-sm-12">
-				<div class="card_box sch_it">
-					<div class="btn_wr text-right">
-						<button class="btn btn-sm btn-inverse" onClick="javascript:fnClearall()">
-							<i class="icofont icofont-spinner-alt-3"></i>초기화
-						</button>
-						<button class="btn btn-sm btn-primary" onClick="javascript:fnListcon()">
-							<i class="icofont icofont-search"></i>검색
-						</button>
-						<button class="btn btn-sm btn-outline"
-							onClick="javascript:fnSetPage('${path}/sales/write.do')">
-							<i class="icofont icofont-pencil-alt-2"></i>등록
-						</button>
+	</div>
+</div>
+<!--Page-header end 페이지 타이틀 -->
+<!--일정조회-->
+<div class="cnt_wr">
+	<div class="row">
+		<form id="searchForm" method="post" onsubmit="return false;" class="col-sm-12">
+			<div class="card_box sch_it">
+				<div class="btn_wr text-right">
+					<button class="btn btn-sm btn-inverse" onClick="javascript:fnClearall()">
+						<i class="icofont icofont-spinner-alt-3"></i>초기화
+					</button>
+					<button class="btn btn-sm btn-primary" onClick="javascript:fnListcon()">
+						<i class="icofont icofont-search"></i>검색
+					</button>
+					<button class="btn btn-sm btn-outline"
+						onClick="javascript:fnSetPage('${path}/sales/write.do')">
+						<i class="icofont icofont-pencil-alt-2"></i>등록
+					</button>
+				</div>
+				<div class="form-group row">
+					<div class="col-sm-12 col-xl-3">
+						<label class="col-form-label">담당사원</label>
+						<jsp:include page="/WEB-INF/views/module/input/inputActiveUser.jsp"/>
 					</div>
-					<div class="form-group row">
-						<div class="col-sm-12 col-xl-3">
-							<label class="col-form-label">담당사원</label>
-							<jsp:include page="/WEB-INF/views/module/input/inputActiveUser.jsp"/>
-						</div>
-						<div class="col-sm-12 col-xl-3">
-							<label class="col-form-label" for="soppTitle">영업기회</label>
-							<div class="input-group input-group-sm mb-0">
-								<input type="text" class="form-control" name="soppTitle"
-									id="soppTitle" value="" readonly /> <input type="hidden"
-									name="soppNo" id="soppNo" value="" /> <span
-									class="input-group-btn">
-									<button class="btn btn-primary sch-company"
-										data-remote="${path}/modal/popup.do?popId=sopp" type="button"
-										data-toggle="modal" data-target="#soppModal">
-										<i class="icofont icofont-search"></i>
-									</button>
-								</span>
-								<div class="modal fade " id="soppModal" tabindex="-1"
-									role="dialog">
-									<div class="modal-dialog modal-80size" role="document">
-										<div class="modal-content modal-80size">
-											<div class="modal-header">
-												<h4 class="modal-title">영업기회 검색</h4>
-												<button type="button" class="close" data-dismiss="modal"
-													aria-label="Close">
-													<span aria-hidden="true">&times;</span>
-												</button>
-											</div>
-											<div class="modal-body">
-												<h5>영업기회 목록</h5>
-												<p>Loading!!!</p>
-											</div>
-											<div class="modal-footer">
-												<button type="button" class="btn btn-default waves-effect "
-													data-dismiss="modal">Close</button>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="col-sm-12 col-xl-3">
-							<label class="col-form-label">매출처</label>
-							<jsp:include page="/WEB-INF/views/module/input/inputCust.jsp"/>
-						</div>
-						<div class="col-sm-12 col-xl-3">
-							<label class="col-form-label">엔드유저</label>
-							<jsp:include page="/WEB-INF/views/module/input/inputBuyr.jsp"/>
-						</div>
-						<div class="col-sm-12 col-xl-3">
-							<label class="col-form-label">계약</label>
-							<jsp:include page="/WEB-INF/views/module/input/inputCont.jsp"/>
-						</div>
-						<div class="col-sm-1">
-							<label class="col-form-label">일정구분</label>
-							<select name="select" class="form-control form-control-sm" id="schedType">
-								<option value>선택</option>
-								<c:forEach var ="listschedcat" items="${listSchdType}">
-									<option value = "${listschedcat.codeNo}">${listschedcat.desc03}</option>
-								</c:forEach>
-							</select>
-						</div>
-						<div class="col-sm-1">
-							<label class="col-form-label">활동형태</label>
-							<select	name="select" class="form-control form-control-sm" id="schedCat">
-								<option value>선택</option>
-								<c:forEach var ="listschedcat" items="${listschedcat}">
-									<option value = "${listschedcat.codeNo}">${listschedcat.desc03}</option>
-								</c:forEach>
-							</select>
-						</div>
-						<div class="col-sm-12 col-xl-3">
-							<label class="col-form-label">일정시작일</label>
-							<p class="input_inline">
-								<input class="form-control form-control-sm col-xl-6" type="date" id="schedFrom" onChange="javascript:inputDate($('#schedFrom').val(), $('#schedTo').val())">
-								~ <input class="form-control form-control-sm col-xl-6"
-									type="date" id="schedTo" onChange="javascript:inputDate($('#schedFrom').val(), $('#schedTo').val())">
-							</p>
-						</div>
-						<div class="col-sm-12 col-xl-3">
-							<label class="col-form-label">등록일</label>
-							<p class="input_inline"><input class="form-control form-control-sm col-xl-6" type="date" id="regSDate" onChange="javascript:inputDate($('#regSDate').val(), $('#regEDate').val())"> ~ <input class="form-control form-control-sm col-xl-6" type="date" id="regEDate" onChange="javascript:inputDate($('#regSDate').val(), $('#regEDate').val())">
-							</p>
-						</div>
+					<div class="col-sm-12 col-xl-3">
+						<label class="col-form-label">영업기회</label>
+						<jsp:include page="/WEB-INF/views/module/input/inputSopp.jsp"/>
+					</div>
+					<div class="col-sm-12 col-xl-3">
+						<label class="col-form-label">매출처</label>
+						<jsp:include page="/WEB-INF/views/module/input/inputCust.jsp"/>
+					</div>
+					<div class="col-sm-12 col-xl-3">
+						<label class="col-form-label">엔드유저</label>
+						<jsp:include page="/WEB-INF/views/module/input/inputBuyr.jsp"/>
+					</div>
+					<div class="col-sm-12 col-xl-3">
+						<label class="col-form-label">계약</label>
+						<jsp:include page="/WEB-INF/views/module/input/inputCont.jsp"/>
+					</div>
+					<div class="col-sm-1">
+						<label class="col-form-label">일정구분</label>
+						<select name="select" class="form-control form-control-sm" id="schedType">
+							<option value>선택</option>
+							<c:forEach var ="listschedcat" items="${listSchdType}">
+								<option value = "${listschedcat.codeNo}">${listschedcat.desc03}</option>
+							</c:forEach>
+						</select>
+					</div>
+					<div class="col-sm-1">
+						<label class="col-form-label">활동형태</label>
+						<select	name="select" class="form-control form-control-sm" id="schedCat">
+							<option value>선택</option>
+							<c:forEach var ="listschedcat" items="${listschedcat}">
+								<option value = "${listschedcat.codeNo}">${listschedcat.desc03}</option>
+							</c:forEach>
+						</select>
+					</div>
+					<div class="col-sm-12 col-xl-3">
+						<label class="col-form-label">일정시작일</label>
+						<p class="input_inline">
+							<input class="form-control form-control-sm col-xl-6" type="date" id="schedFrom" onChange="javascript:inputDate($('#schedFrom').val(), $('#schedTo').val())">
+							~ <input class="form-control form-control-sm col-xl-6"
+								type="date" id="schedTo" onChange="javascript:inputDate($('#schedFrom').val(), $('#schedTo').val())">
+						</p>
+					</div>
+					<div class="col-sm-12 col-xl-3">
+						<label class="col-form-label">등록일</label>
+						<p class="input_inline"><input class="form-control form-control-sm col-xl-6" type="date" id="regSDate" onChange="javascript:inputDate($('#regSDate').val(), $('#regEDate').val())"> ~ <input class="form-control form-control-sm col-xl-6" type="date" id="regEDate" onChange="javascript:inputDate($('#regSDate').val(), $('#regEDate').val())">
+						</p>
 					</div>
 				</div>
-			</form>
-			<div class="col-sm-12">
-		</div>
+			</div>
+		</form>
+		<div class="col-sm-12">
 	</div>
-	</c:if>
-	<!-- Page-header start 페이지 타이틀-->
+</div>
+<!-- Page-header start 페이지 타이틀-->
 <!--일정조회-->
 <!--회원리스트 table-->
 <div class="cnt_wr" id="list-container">

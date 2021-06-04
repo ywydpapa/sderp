@@ -273,101 +273,99 @@
 		white-space: nowrap;
 	}
 </style>
-<c:if test="${preserveSearchCondition != 'Y'}">
-	<!-- Page-header start 페이지 타이틀-->
-	<div class="page-header2">
-		<div class="row align-items-end">
-			<div class="col-lg-12">
-				<div class="page-header-title">
-					<div class="d-inline">
-						계약 현황 조회
-					</div>
-				</div>
+<!-- Page-header start 페이지 타이틀-->
+<div class="page-header2">
+<div class="row align-items-end">
+	<div class="col-lg-12">
+		<div class="page-header-title">
+			<div class="d-inline">
+				계약 현황 조회
 			</div>
 		</div>
 	</div>
-	<!--Page-header end 페이지 타이틀 -->
+</div>
+</div>
+<!--Page-header end 페이지 타이틀 -->
 
-		<!--계약조회-->
-		<div class="cnt_wr">
-			<div class="row">
-				<form id="searchForm" method="post" onsubmit="return false;" class="col-sm-12">
-					<div class="col-sm-12">
-						<div class="card_box sch_it">
-							<div class="btn_wr text-right">
-								<button class="btn btn-sm btn-inverse" onClick="javascript:fnClearall()"><i class="icofont icofont-spinner-alt-3"></i>초기화</button>
-								<button class="btn btn-sm btn-primary" onClick="javascript:fnListcon()"><i class="icofont icofont-search"></i>검색</button>
-								<button class="btn btn-sm btn-outline" onClick="javascript:fnSetPage('${path}/cont/write.do')"><i class="icofont icofont-pencil-alt-2"></i>등록</button>
-							</div>
-							<div class="form-group row">
-								<div class="col-sm-12 col-xl-3">
-									<label class="col-form-label">담당사원</label>
-									<jsp:include page="/WEB-INF/views/module/input/inputActiveUser.jsp"/>
-								</div>
-								<div class="col-sm-12 col-xl-3">
-									<label class="col-form-label">계약명</label>
-									<jsp:include page="/WEB-INF/views/module/input/inputCont.jsp"/>
-								</div>
-								<div class="col-sm-12 col-xl-3">
-									<label class="col-form-label">매출처</label>
-									<jsp:include page="/WEB-INF/views/module/input/inputCust.jsp"/>
-								</div>
-								<div class="col-sm-12 col-xl-3">
-									<label class="col-form-label">엔드유저</label>
-									<jsp:include page="/WEB-INF/views/module/input/inputBuyr.jsp"/>
-								</div>
-							</div>
-							<div class="form-group row">
-								<div class="col-sm-12 col-xl-3">
-									<label class="col-form-label">엔드유저 담당자</label>
-									<jsp:include page="/WEB-INF/views/module/input/inputBuyrMember.jsp"/>
-								</div>
-								<div class="col-sm-12 col-xl-3">
-									<label class="col-form-label">계약명</label>
-									<input type="text" class="form-control form-control-sm" id="contTitle" name="" placeholder="">
-								</div>
-								<div class="col-sm-12 col-xl-3">
-									<label class="col-form-label">계약방식</label>
-									<jsp:include page="/WEB-INF/views/module/input/inputContractType.jsp"/>
-								</div>
-								<div class="col-sm-12 col-xl-3">
-									<label class="col-form-label">판매방식</label>
-									<jsp:include page="/WEB-INF/views/module/input/inputContType.jsp"/>
-								</div>
-							</div>
-							<div class="form-group row">
-								<div class="col-sm-12 col-xl-3">
-									<label class="col-form-label">판매일자</label>
-									<p class="input_inline">
-										<input class="form-control form-control-sm col-xl-6" type="date" id="targetDatefrom" onChange="javascript:inputDate($('#targetDatefrom').val(), $('#targetDateto').val())">
-										~
-										<input class="form-control form-control-sm col-xl-6" type="date" id="targetDateto" onChange="javascript:inputDate($('#targetDatefrom').val(), $('#targetDateto').val())">
-									</p>
-								</div>
-								<div class="col-sm-12 col-xl-3">
-									<label class="col-form-label">유지보수기간</label>
-									<span class="pull-right">기간포함(<input type="checkbox" value="" id="maintIncludeCheck" checked>)</span>
-									<p class="input_inline">
-										<input class="form-control form-control-sm col-xl-6" type="date" id="freemaintSdate" onChange="javascript:inputDate($('#freemaintSdate').val(), $('#freemaintEdate').val())">
-										~
-										<input class="form-control form-control-sm col-xl-6" type="date" id="freemaintEdate" onChange="javascript:inputDate($('#freemaintSdate').val(), $('#freemaintEdate').val())">
-									</p>
-								</div>
-								<div class="col-sm-12 col-xl-3">
-									<label class="col-form-label">등록일</label>
-									<p class="input_inline">
-										<input class="form-control form-control-sm col-xl-6" type="date" id="regSDate" onChange="javascript:inputDate($('#regSDate').val(), $('#regEDate').val())">
-										~
-										<input class="form-control form-control-sm col-xl-6" type="date" id="regEDate" onChange="javascript:inputDate($('#regSDate').val(), $('#regEDate').val())">
-									</p>
-								</div>
-							</div>
+<!--계약조회-->
+<div class="cnt_wr">
+	<div class="row">
+		<form id="searchForm" method="post" onsubmit="return false;" class="col-sm-12">
+			<div class="col-sm-12">
+				<div class="card_box sch_it">
+					<div class="btn_wr text-right">
+						<button class="btn btn-sm btn-inverse" onClick="javascript:fnClearall()"><i class="icofont icofont-spinner-alt-3"></i>초기화</button>
+						<button class="btn btn-sm btn-primary" onClick="javascript:fnListcon()"><i class="icofont icofont-search"></i>검색</button>
+						<button class="btn btn-sm btn-outline" onClick="javascript:fnSetPage('${path}/cont/write.do')"><i class="icofont icofont-pencil-alt-2"></i>등록</button>
+					</div>
+					<div class="form-group row">
+						<div class="col-sm-12 col-xl-3">
+							<label class="col-form-label">담당사원</label>
+							<jsp:include page="/WEB-INF/views/module/input/inputActiveUser.jsp"/>
+						</div>
+						<div class="col-sm-12 col-xl-3">
+							<label class="col-form-label">계약명</label>
+							<jsp:include page="/WEB-INF/views/module/input/inputCont.jsp"/>
+						</div>
+						<div class="col-sm-12 col-xl-3">
+							<label class="col-form-label">매출처</label>
+							<jsp:include page="/WEB-INF/views/module/input/inputCust.jsp"/>
+						</div>
+						<div class="col-sm-12 col-xl-3">
+							<label class="col-form-label">엔드유저</label>
+							<jsp:include page="/WEB-INF/views/module/input/inputBuyr.jsp"/>
 						</div>
 					</div>
-				</form>
+					<div class="form-group row">
+						<div class="col-sm-12 col-xl-3">
+							<label class="col-form-label">엔드유저 담당자</label>
+							<jsp:include page="/WEB-INF/views/module/input/inputBuyrMember.jsp"/>
+						</div>
+						<div class="col-sm-12 col-xl-3">
+							<label class="col-form-label">계약명</label>
+							<input type="text" class="form-control form-control-sm" id="contTitle" name="" placeholder="">
+						</div>
+						<div class="col-sm-12 col-xl-3">
+							<label class="col-form-label">계약방식</label>
+							<jsp:include page="/WEB-INF/views/module/input/inputContractType.jsp"/>
+						</div>
+						<div class="col-sm-12 col-xl-3">
+							<label class="col-form-label">판매방식</label>
+							<jsp:include page="/WEB-INF/views/module/input/inputContType.jsp"/>
+						</div>
+					</div>
+					<div class="form-group row">
+						<div class="col-sm-12 col-xl-3">
+							<label class="col-form-label">판매일자</label>
+							<p class="input_inline">
+								<input class="form-control form-control-sm col-xl-6" type="date" id="targetDatefrom" onChange="javascript:inputDate($('#targetDatefrom').val(), $('#targetDateto').val())">
+								~
+								<input class="form-control form-control-sm col-xl-6" type="date" id="targetDateto" onChange="javascript:inputDate($('#targetDatefrom').val(), $('#targetDateto').val())">
+							</p>
+						</div>
+						<div class="col-sm-12 col-xl-3">
+							<label class="col-form-label">유지보수기간</label>
+							<span class="pull-right">기간포함(<input type="checkbox" value="" id="maintIncludeCheck" checked>)</span>
+							<p class="input_inline">
+								<input class="form-control form-control-sm col-xl-6" type="date" id="freemaintSdate" onChange="javascript:inputDate($('#freemaintSdate').val(), $('#freemaintEdate').val())">
+								~
+								<input class="form-control form-control-sm col-xl-6" type="date" id="freemaintEdate" onChange="javascript:inputDate($('#freemaintSdate').val(), $('#freemaintEdate').val())">
+							</p>
+						</div>
+						<div class="col-sm-12 col-xl-3">
+							<label class="col-form-label">등록일</label>
+							<p class="input_inline">
+								<input class="form-control form-control-sm col-xl-6" type="date" id="regSDate" onChange="javascript:inputDate($('#regSDate').val(), $('#regEDate').val())">
+								~
+								<input class="form-control form-control-sm col-xl-6" type="date" id="regEDate" onChange="javascript:inputDate($('#regSDate').val(), $('#regEDate').val())">
+							</p>
+						</div>
+					</div>
+				</div>
 			</div>
-		</div>
-</c:if>
+		</form>
+	</div>
+</div>
 <!--//계약조회-->
 	 <!--리스트 table-->
 <div class="cnt_wr" id="list-container">

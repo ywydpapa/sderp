@@ -233,118 +233,114 @@
 		white-space: nowrap;
 	}
 </style>
-	<c:if test="${preserveSearchCondition != 'Y'}">
-		<!-- Page-header start 페이지 타이틀-->
-		<div class="page-header2">
-			<div class="row align-items-end">
-				<div class="col-lg-12">
-					<div class="page-header-title">
-						<div class="d-inline">
-							기술지원 조회
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!--Page-header end 페이지 타이틀 -->
-	
-		<!--기술지원 대상조회-->
-		<div class="cnt_wr">
-			<div class="row">
-				<form id="searchForm" method="post" onsubmit="return false;" class="col-sm-12">
-					<div class="col-sm-12">
-						<div class="card_box sch_it">
-							<div class="btn_wr text-right">
-								<button class="btn btn-sm btn-inverse" onClick="javascript:fnClearall()"><i class="icofont icofont-spinner-alt-3"></i>초기화</button>
-								<button class="btn btn-sm btn-primary" onClick="javascript:fnListcon()"><i class="icofont icofont-search"></i>검색</button>
-		      					<button class="btn btn-sm btn-outline"onClick="javascript:fnSetPage('${path}/techd/write.do')"><i class="icofont icofont-pencil-alt-2"></i>등록</button>
-							</div>
-							<div class="form-group row">
-								<div class="col-sm-12 col-xl-3">
-									<label class="col-form-label">담당사원</label>
-									<jsp:include page="/WEB-INF/views/module/input/inputActiveUser.jsp"/>
-								</div>
-								<div class="col-sm-12 col-xl-3">
-									<label class="col-form-label">엔드유저</label>
-									<jsp:include page="/WEB-INF/views/module/input/inputBuyr.jsp"/>
-								</div>
-								<div class="col-sm-12 col-xl-3">
-									<label class="col-form-label">엔드유저 담당자</label>
-									<jsp:include page="/WEB-INF/views/module/input/inputBuyrMember.jsp"/>
-								</div>
-								<div class="col-sm-1.5">
-									<label class="col-form-label">진행단계</label>
-									<select name="select" class="form-control form-control-sm" id="techdSteps">
-										<option value>선택</option>
-										<c:forEach var ="techdSteps" items="${techdSteps}">
-											<option value = "${techdSteps.codeNo}">${techdSteps.desc03}</option>
-										</c:forEach>
-									</select>
-								</div>
-								<div class="col-sm-1.5" style="margin-left: 20px;">
-									<label class="col-form-label">등록구분</label>
-									<jsp:include page="/WEB-INF/views/module/input/inputContractType.jsp"/>
-								</div>
-							</div>
-							<div class="form-group row">
-								<div class="col-sm-12 col-xl-3">
-									<label class="col-form-label">계약</label>
-									<jsp:include page="/WEB-INF/views/module/input/inputCont.jsp"/>
-								</div>
-								<div class="col-sm-12 col-xl-3">
-									<label class="col-form-label">일정시작일</label>
-									<p class="input_inline">
-										<input class="form-control form-control-sm col-xl-6" type="date" id="targetDatefrom" onChange="javascript:inputDate($('#targetDatefrom').val(), $('#targetDateto').val())"> ~ <input class="form-control form-control-sm col-xl-6" type="date" id="targetDateto" onChange="javascript:inputDate($('#targetDatefrom').val(), $('#targetDateto').val())">
-									</p>
-								</div>
-								<div class="col-sm-12 col-xl-3">
-									<label class="col-form-label">등록일</label>
-									<p class="input_inline">
-										<input class="form-control form-control-sm col-xl-6" type="date" id="regSDate" onChange="javascript:inputDate($('#regSDate').val(), $('#regEDate').val())"> ~ <input class="form-control form-control-sm col-xl-6" type="date" id="regEDate" onChange="javascript:inputDate($('#regSDate').val(), $('#regEDate').val())">
-									</p>
-								</div>
-								<div class="col-sm-12 col-xl-3" style="margin-left: -15px;">
-									<label class="col-form-label">기술지원요청내용</label>
-									<input type="text" class="form-control form-control-sm" id="techdDesc" name="" placeholder="" onsubmit="return false">
-								</div>
-							</div>
-						</div>	
-					</div>
-				</form>
-			</div>
-		</div>
-		<!--//기술지원 대상조회-->
-	</c:if>
-
-	 <!--리스트 table-->
-	<div class="cnt_wr" id="list-container">
-		<div class="row">
-			<div class="col-sm-12">
-				<div class="card-block table-border-style">
-					<div class="table-responsive">
-						<table id="techdTable" class="table table-striped table-bordered nowrap">
-							<thead>
-								<tr>
-									<th>등록일</th>
-									<th>등록구분</th>
-									<th>요청명</th>
-									<th>기술지원요청내용</th>
-									<th>엔드유저</th>
-									<th>진행단계</th>
-									<th>담당사원</th>
-									<th>기술지원(시작)</th>
-									<th>기술지원(끝)</th>
-								</tr>
-							</thead>
-						</table>
-					</div>
+<!-- Page-header start 페이지 타이틀-->
+<div class="page-header2">
+	<div class="row align-items-end">
+		<div class="col-lg-12">
+			<div class="page-header-title">
+				<div class="d-inline">
+					기술지원 조회
 				</div>
 			</div>
 		</div>
 	</div>
-	<!--//리스트 table-->
+</div>
+<!--Page-header end 페이지 타이틀 -->
 
-	
+<!--기술지원 대상조회-->
+<div class="cnt_wr">
+	<div class="row">
+		<form id="searchForm" method="post" onsubmit="return false;" class="col-sm-12">
+			<div class="col-sm-12">
+				<div class="card_box sch_it">
+					<div class="btn_wr text-right">
+						<button class="btn btn-sm btn-inverse" onClick="javascript:fnClearall()"><i class="icofont icofont-spinner-alt-3"></i>초기화</button>
+						<button class="btn btn-sm btn-primary" onClick="javascript:fnListcon()"><i class="icofont icofont-search"></i>검색</button>
+						<button class="btn btn-sm btn-outline"onClick="javascript:fnSetPage('${path}/techd/write.do')"><i class="icofont icofont-pencil-alt-2"></i>등록</button>
+					</div>
+					<div class="form-group row">
+						<div class="col-sm-12 col-xl-3">
+							<label class="col-form-label">담당사원</label>
+							<jsp:include page="/WEB-INF/views/module/input/inputActiveUser.jsp"/>
+						</div>
+						<div class="col-sm-12 col-xl-3">
+							<label class="col-form-label">엔드유저</label>
+							<jsp:include page="/WEB-INF/views/module/input/inputBuyr.jsp"/>
+						</div>
+						<div class="col-sm-12 col-xl-3">
+							<label class="col-form-label">엔드유저 담당자</label>
+							<jsp:include page="/WEB-INF/views/module/input/inputBuyrMember.jsp"/>
+						</div>
+						<div class="col-sm-1.5">
+							<label class="col-form-label">진행단계</label>
+							<select name="select" class="form-control form-control-sm" id="techdSteps">
+								<option value>선택</option>
+								<c:forEach var ="techdSteps" items="${techdSteps}">
+									<option value = "${techdSteps.codeNo}">${techdSteps.desc03}</option>
+								</c:forEach>
+							</select>
+						</div>
+						<div class="col-sm-1.5" style="margin-left: 20px;">
+							<label class="col-form-label">등록구분</label>
+							<jsp:include page="/WEB-INF/views/module/input/inputContractType.jsp"/>
+						</div>
+					</div>
+					<div class="form-group row">
+						<div class="col-sm-12 col-xl-3">
+							<label class="col-form-label">계약</label>
+							<jsp:include page="/WEB-INF/views/module/input/inputCont.jsp"/>
+						</div>
+						<div class="col-sm-12 col-xl-3">
+							<label class="col-form-label">일정시작일</label>
+							<p class="input_inline">
+								<input class="form-control form-control-sm col-xl-6" type="date" id="targetDatefrom" onChange="javascript:inputDate($('#targetDatefrom').val(), $('#targetDateto').val())"> ~ <input class="form-control form-control-sm col-xl-6" type="date" id="targetDateto" onChange="javascript:inputDate($('#targetDatefrom').val(), $('#targetDateto').val())">
+							</p>
+						</div>
+						<div class="col-sm-12 col-xl-3">
+							<label class="col-form-label">등록일</label>
+							<p class="input_inline">
+								<input class="form-control form-control-sm col-xl-6" type="date" id="regSDate" onChange="javascript:inputDate($('#regSDate').val(), $('#regEDate').val())"> ~ <input class="form-control form-control-sm col-xl-6" type="date" id="regEDate" onChange="javascript:inputDate($('#regSDate').val(), $('#regEDate').val())">
+							</p>
+						</div>
+						<div class="col-sm-12 col-xl-3" style="margin-left: -15px;">
+							<label class="col-form-label">기술지원요청내용</label>
+							<input type="text" class="form-control form-control-sm" id="techdDesc" name="" placeholder="" onsubmit="return false">
+						</div>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
+<!--//기술지원 대상조회-->
+
+<!--리스트 table-->
+<div class="cnt_wr" id="list-container">
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="card-block table-border-style">
+				<div class="table-responsive">
+					<table id="techdTable" class="table table-striped table-bordered nowrap">
+						<thead>
+							<tr>
+								<th>등록일</th>
+								<th>등록구분</th>
+								<th>요청명</th>
+								<th>기술지원요청내용</th>
+								<th>엔드유저</th>
+								<th>진행단계</th>
+								<th>담당사원</th>
+								<th>기술지원(시작)</th>
+								<th>기술지원(끝)</th>
+							</tr>
+						</thead>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!--//리스트 table-->
 <script>
 	function fnSetPageEx(data){
 		var url = "${path}/techd/detail/"+data;

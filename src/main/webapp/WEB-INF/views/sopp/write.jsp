@@ -62,38 +62,7 @@
 												<tr>
 													<th scope="row">매출처 담당자</th>
 													<td>
-														<div class="input-group input-group-sm mb-0">
-															<input type="text" class="form-control" name="custmemberName"  id="custmemberName" value="" />
-															<input type="hidden" name="custmemberNo" id="custmemberNo" value="" />
-															<span class="input-group-btn">
-																<button class="btn btn-primary sch-partner"
-																		data-remote="${path}/modal/popup.do?popId=custmem&compNo="
-																		type="button" data-toggle="modal" data-target="#custmemberModal"
-																		id="custmemberModalbtn">
-																	<i class="icofont icofont-search"></i>
-																</button>
-															</span>
-															<div class="modal fade " id="custmemberModal" tabindex="-1"
-																 role="dialog">
-																<div class="modal-dialog modal-80size" role="document">
-																	<div class="modal-content modal-80size">
-																		<div class="modal-header">
-																			<h4 class="modal-title">매출처 담당자 검색</h4>
-																			<button type="button" class="close"	data-dismiss="modal" aria-label="Close">
-																				<span aria-hidden="true">&times;</span>
-																			</button>
-																		</div>
-																		<div class="modal-body">
-																			<h5>매출처 담당자 목록</h5>
-																			<p>매출처를 먼저 입력해주셔야 목록이 보입니다.</p>
-																		</div>
-																		<div class="modal-footer">
-																			<button type="button" class="close"	data-dismiss="modal" aria-label="Close"/>
-																		</div>
-																	</div>
-																</div>
-															</div>
-														</div>
+														<jsp:include page="/WEB-INF/views/module/input/inputCustMember.jsp"/>
 													</td>
 													<th scope="row">엔드유저</th>
 													<td>

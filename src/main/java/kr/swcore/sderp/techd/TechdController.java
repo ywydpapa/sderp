@@ -48,16 +48,6 @@ public class TechdController {
 		Gson ojb = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
 		return ojb.toJson(techdService.listTechd(session, param, request, response));
 	}
-	
-	/*
-	@RequestMapping("listcon.do")
-	public ModelAndView listcon(HttpSession session, ModelAndView mav, TechdDTO dto) {
-		mav.setViewName("techd/list");
-		mav.addObject("preserveSearchCondition", "Y");
-		mav.addObject("list", techdService.listconTechd(session, dto));
-		return mav;
-	}
-	*/
 
 	@RequestMapping("/detail/{techdNo}")
 	public ModelAndView detail(@PathVariable("techdNo") int techdNo, ModelAndView mav, HttpSession session) {

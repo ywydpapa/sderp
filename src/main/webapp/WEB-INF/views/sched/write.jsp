@@ -49,41 +49,7 @@
 							<tr>
 								<th scope="row">영업기회</th>
 								<td>
-									<div class="input-group input-group-sm mb-0">
-										<input type="text" class="form-control" name="soppTitle"
-											id="soppTitle" value="" readonly /> <input type="hidden"
-											name="soppNo" id="soppNo" value="" /> <span
-											class="input-group-btn">
-											<button class="btn btn-primary sch-opportunity2"
-												data-remote="${path}/modal/popup.do?popId=sopp"
-												type="button" data-toggle="modal" data-target="#soppModal">
-												<i class="icofont icofont-search"></i>
-											</button>
-										</span>
-										<div class="modal fade " id="soppModal" tabindex="-1"
-											role="dialog">
-											<div class="modal-dialog modal-80size" role="document">
-												<div class="modal-content modal-80size">
-													<div class="modal-header">
-														<h4 class="modal-title"></h4>
-														<button type="button" class="close" onclick="$('#soppModal').modal('hide');"
-															aria-label="Close">
-															<span aria-hidden="true">&times;</span>
-														</button>
-													</div>
-													<div class="modal-body">
-														<h5>영업기회목록</h5>
-														<p>Loading!!!</p>
-													</div>
-													<div class="modal-footer">
-														<button type="button"
-															class="btn btn-default waves-effect "
-															onclick="$('#soppModal').modal('hide');">Close</button>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
+									<jsp:include page="/WEB-INF/views/module/input/inputSopp.jsp"/>
 								</td>
 								<th scope="row" class="requiredTextCss">담당사원</th>
 								<td>
@@ -143,70 +109,46 @@
 <!--//일정등록-->
 
 <script>
-		$('#soppModal').on('show.bs.modal', function(e) {
-			var button = $(e.relatedTarget);
-			var modal = $(this);
-			modal.find('.modal-body').load(button.data("remote"));
-		});
-		$('#ptncModal').on('show.bs.modal', function(e) {
-			var button = $(e.relatedTarget);
-			var modal = $(this);
-			modal.find('.modal-body').load(button.data("remote"));
-		});
-		function fnSetSoppData(a, b) {
-			$("#soppNo").val(b);
-			$("#soppTitle").val(a);
-			$(".modal-backdrop").remove();
-			$("#soppModal").modal("hide");
-		}
-		function fnSetPtncData(a, b) {
-			$("#ptncNo").val(b);
-			$("#ptncName").val(a);
-			$(".modal-backdrop").remove();
-			$("#ptncModal").modal("hide");
-		}
+	function fn_SaveSched() {
+		var schedData = {};
+		schedData.schedFrom 									= setDateHourMinute($("#schedFrom").val(), $("#startTime").val());
+		schedData.schedTo 										= setDateHourMinute($("#schedTo").val(), $("#endTime").val());
+		schedData.schedTitle 									= $("#schedTitle").val();
+		schedData.schedPlace									= $("#schedPlace").val();
+		schedData.userNo 										= $("#userNo").val();
+		if($("#custName").val() != "") schedData.custNo 		= Number($("#custNo").val());
+		if($("#soppName").val() != "") schedData.soppNo 		= Number($("#soppNo").val());
+		schedData.schedDesc 									= $("#schedDesc").val();
+		schedData.schedCat 										= $("#schedCat").val();
+		if($("#contName").val() != "") schedData.contNo			= Number($("#contNo").val());
+		if($("#buyrName").val() != "") schedData.buyrNo			= Number($("#buyrNo").val());
+		console.dir(schedData);
 
-		function fn_SaveSched() {
-			var schedData = {};
-			schedData.schedFrom 									= setDateHourMinute($("#schedFrom").val(), $("#startTime").val());
-			schedData.schedTo 										= setDateHourMinute($("#schedTo").val(), $("#endTime").val());
-			schedData.schedTitle 									= $("#schedTitle").val();
-			schedData.schedPlace									= $("#schedPlace").val();
-			schedData.userNo 										= $("#userNo").val();
-			if($("#custName").val() != "") schedData.custNo 		= Number($("#custNo").val());
-			if($("#soppName").val() != "") schedData.soppNo 		= Number($("#soppNo").val());
-			schedData.schedDesc 									= $("#schedDesc").val();
-			schedData.schedCat 										= $("#schedCat").val();
-			if($("#contName").val() != "") schedData.contNo			= Number($("#contNo").val());
-			if($("#buyrName").val() != "") schedData.buyrNo			= Number($("#buyrNo").val());
-			console.dir(schedData);
-			
-			$.ajax({
-				url: "${path}/sched/insert.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
-				data: schedData , // HTTP 요청과 함께 서버로 보낼 데이터
-				method: "POST", // HTTP 요청 메소드(GET, POST 등)
-				dataType: "json" // 서버에서 보내줄 데이터의 타입
-			}) // HTTP 요청이 성공하면 요청한 데이터가 done() 메소드로 전달됨. .
-			.done(function(data) {
-				if(data.code == 10001){
-					alert("저장 성공");
-					var eventModal = $('#eventModal');
-					if(eventModal[0]) {
-						$(".modal-backdrop").remove();
-						fnSetPage('${path}/calendar/calmain.do');
+		$.ajax({
+			url: "${path}/sched/insert.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
+			data: schedData , // HTTP 요청과 함께 서버로 보낼 데이터
+			method: "POST", // HTTP 요청 메소드(GET, POST 등)
+			dataType: "json" // 서버에서 보내줄 데이터의 타입
+		}) // HTTP 요청이 성공하면 요청한 데이터가 done() 메소드로 전달됨. .
+		.done(function(data) {
+			if(data.code == 10001){
+				alert("저장 성공");
+				var eventModal = $('#eventModal');
+				if(eventModal[0]) {
+					$(".modal-backdrop").remove();
+					fnSetPage('${path}/calendar/calmain.do');
 
-					}else {
-						fnSetPage('${path}/sched/list.do');
-					}
-				}else{
-					alert("저장 실패");
+				}else {
+					fnSetPage('${path}/sched/list.do');
 				}
-			}) // HTTP 요청이 실패하면 오류와 상태에 관한 정보가 fail() 메소드로 전달됨.
-			.fail(function(xhr, status, errorThrown) {
-				alert("통신 실패");
-			});
-		}
-		
-		setTimeComboBox(['#startTime', '#endTime']);
+			}else{
+				alert("저장 실패");
+			}
+		}) // HTTP 요청이 실패하면 오류와 상태에 관한 정보가 fail() 메소드로 전달됨.
+		.fail(function(xhr, status, errorThrown) {
+			alert("통신 실패");
+		});
+	}
 
-	</script>
+	setTimeComboBox(['#startTime', '#endTime']);
+</script>

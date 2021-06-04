@@ -61,7 +61,6 @@ public class SalesController {
 	public ModelAndView listcon(HttpSession session, ModelAndView mav, @ModelAttribute SalesDTO dto) {
 		mav.setViewName("sales/list");
 		mav.addObject("list", salesService.listconSales(session, dto));
-		mav.addObject("preserveSearchCondition", "Y");
 		return mav;
 	}
 	

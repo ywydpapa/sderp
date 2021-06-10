@@ -155,14 +155,12 @@ public class SoppController {
 	@RequestMapping("/uploadfile/{soppNo}")
 	public ResponseEntity<?> uploadFile(HttpSession session, @PathVariable("soppNo") int soppNo, @ModelAttribute SoppDTO dto, MultipartHttpServletRequest fileList) throws IOException {
 		int uploadFile = soppService.uploadFile(session, soppNo, fileList);
-		
 		Map<String, Object> param = new HashMap<>();
 		if(uploadFile > 0) {
 			param.put("code", "10001");
 		}else {
 			param.put("code", "20001");
 		}
-		
 		return ResponseEntity.ok(param);
 	}
 	

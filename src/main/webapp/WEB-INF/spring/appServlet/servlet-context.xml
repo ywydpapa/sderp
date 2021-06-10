@@ -13,7 +13,7 @@
 	<annotation-driven />
 
 <!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
-	<resources mapping="/resources/**" location="/resources/" />
+	<resources location="/" mapping="/resources/**"  />
 	<resources location="/WEB-INF/views/include/" mapping="/include/**"/>
 	<resources location="/WEB-INF/views/images/" mapping="/images/**"/>
 	<resources location="/WEB-INF/views/css/" mapping="/css/**"/>
@@ -22,8 +22,8 @@
 <!-- 	<resources location="/WEB-INF/views/fullcalendar/" 	mapping="/fullcalendar/**"/> -->
 	<resources location="/WEB-INF/views/fullcalendar3/" 	mapping="/fullcalendar3/**"/>
 	<resources location="/WEB-INF/views/fullcalendar4/" 	mapping="/fullcalendar4/**"/>
-	<resources location="/WEB-INF/views/fullcalendar5/" 	mapping="/fullcalendar5/**"/>	
 	<resources location="/WEB-INF/views/calendar/" 	mapping="/calendar/**"/>
+	<resources location="/WEB-INF/views/fancytree/" 	mapping="/fancytree/**"/>
 
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
 	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">

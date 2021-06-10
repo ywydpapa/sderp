@@ -279,4 +279,16 @@
 			</ul>
 		</li>
 	</ul>
+	<ul class="pcoded-item pcoded-left-item">
+		<li class="">
+			<a href="${path}/user/logout.do">
+				<span class="pcoded-micon" style="background-color: #000 !important;">
+					<i class="ti-back-left"></i>
+					<b>D</b>
+				</span>
+				<span class="pcoded-mtext" data-i18n="nav.dash.main">로그아웃</span>
+				<span class="pcoded-mcaret"></span>
+			</a>
+		</li>
+	</ul>
 </nav>

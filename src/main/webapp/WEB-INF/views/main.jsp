@@ -236,7 +236,17 @@
 		}
 	}
 
-</script> 
+</script>
+	<style>
+		.navbar-logo > .mobile-menu {
+			width: 35px;
+		}
+		@media only screen and (max-width: 992px) {
+			.header-navbar .navbar-wrapper .navbar-logo a img {
+				margin-top: 0px;
+			}
+		}
+	</style>
 </head>
 <body style="overflow-y: scroll;">
 
@@ -334,23 +344,23 @@
 						</li>
 						<%}else{%>
 						<li class="user-profile header-notification">
-                                <a href="#!">
-                                    <img src="${path}/assets/images/avatar-4.jpg" class="img-radius" alt="User-Profile-Image">
-                                    <span><%=userName %></span>
-                                    <i class="ti-angle-down"></i>
-                                </a>
-                                <ul class="show-notification profile-notification">
-                                    <li>
-                                    	<i class="ti-user"></i>
-                                    	<a href="#userInfoChangeModal" data-toggle="modal">개인정보수정</a>
-                                    </li>
-                                    <li>
-                                        <a href="${path}/user/logout.do">
-                                            <i class="ti-layout-sidebar-left"></i> Logout
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
+							<a href="#!">
+								<img src="${path}/assets/images/avatar-4.jpg" class="img-radius" alt="User-Profile-Image">
+								<span><%=userName %></span>
+								<i class="ti-angle-down"></i>
+							</a>
+							<ul class="show-notification profile-notification">
+								<li>
+									<i class="ti-user"></i>
+									<a href="#userInfoChangeModal" data-toggle="modal">개인정보수정</a>
+								</li>
+								<li>
+									<a href="${path}/user/logout.do">
+										<i class="ti-layout-sidebar-left"></i> Logout
+									</a>
+								</li>
+							</ul>
+						</li>
 						<%}%>
 					</ul>
 				</div>
@@ -392,12 +402,12 @@
 											<div class="modal-body">
 												<form id="userInfoForm">
 													<div class="form-group">
-												    	<label for="userId">아이디</label>
-												    	<input type="text" class="form-control" name="userId" id="" value="${sessionScope.userId}" readonly>
+												    	<label>아이디</label>
+												    	<input type="text" class="form-control" name="userId" value="${sessionScope.userId}" readonly>
 													</div>
 												 	<div class="form-group">
-												    	<label for="userName">이름</label>
-												    	<input type="text" class="form-control" name="userName" id="" value="${sessionScope.userName}" readonly>
+												    	<label>이름</label>
+												    	<input type="text" class="form-control" name="userName" value="${sessionScope.userName}" readonly>
 												  	</div>
 												  	<div class="form-group">
 												    	<label for="userPasswd">현재 비밀번호</label>
@@ -456,7 +466,13 @@
 <script type="text/javascript">
 $( document ).ready(function() {
 	fnSetPage('${path}/myboard.do');
+});
 
+$(".header-notification")
+.mouseout(function () {
+	$(".show-notification").css("display","none");
+}).mouseover(function() {
+	$(".show-notification").css("display","block");
 });
 </script>
 </body>

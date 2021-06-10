@@ -508,6 +508,31 @@
 
 	function fnSetPageEx(data){
 		var url = "${path}/techd/detail/"+data;
+		var obj = {};
+		obj.userNo = $("#userNo").val();
+		obj.userName = $("#userName").val();
+		obj.custNo = $("#custNo").val();
+		obj.custName = $("#custName").val();
+		obj.custmemberNo = $("#custmemberNo").val();
+		obj.custmemberName = $("#custmemberName").val();
+		obj.targetDatefrom = $("#targetDatefrom").val();
+		obj.targetDateto = $("#targetDateto").val();
+		obj.regSDate = $("#regSDate").val();
+		obj.regEDate = $("#regEDate").val();
+		obj.techdDesc = $("#techdDesc").val();
+		obj.search = $("#techdTable_filter").find("input[type=search]").val();
+		var parm = '?';
+		var first = true;
+		for(var key in obj){
+			if(first){
+				parm = parm + key + "=" + obj[key];
+				first = false;
+			} else {
+				parm = parm + "&" + key + "=" + obj[key];
+			}
+		}
+		var temp = url + parm;
+//		history.pushState('', '', temp);
 		fnSetPage(url);
 	}
 

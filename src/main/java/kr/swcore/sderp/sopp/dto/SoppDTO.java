@@ -7,6 +7,7 @@ import lombok.ToString;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.util.List;
 
 @Getter
 @Setter
@@ -40,6 +41,7 @@ public class SoppDTO extends PageDTO {
 	private Integer custmemberNo;
 	
 	// 확장
+	private List<SoppDTO> soppDTOList;
 	private String userName;
 	private String custName;
 	private String buyrName;

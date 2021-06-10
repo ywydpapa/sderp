@@ -37,4 +37,9 @@ public class ProductdataDAOImpl implements ProductdataDAO{
     public int deleteProductdata(ProductdataDTO productdataDTO) {
         return sqlSession.delete("productdata.deleteProductdata", productdataDTO);
     }
+
+    @Override
+    public int deleteProductdataWithProductNo(ProductdataDTO productdataDTO) {
+        return sqlSession.delete("productdata.deleteProductdataWithProductNo", productdataDTO);
+    }
 }

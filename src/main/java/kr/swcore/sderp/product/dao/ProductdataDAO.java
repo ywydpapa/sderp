@@ -13,5 +13,6 @@ public interface ProductdataDAO {
     //int insertProductdataList(List<ProductdataDTO> productdataDTOList);
     int deleteProductdata(ProductdataDTO productdataDTO);
     //int deleteProductdataList(List<ProductdataDTO> productdataDTOList);
+    int deleteProductdataWithProductNo(ProductdataDTO productdataDTO);
 
 }

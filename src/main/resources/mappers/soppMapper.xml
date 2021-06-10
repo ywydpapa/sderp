@@ -479,6 +479,13 @@ from
 		order by soppTargetDate desc
  </select>
 
+<select id="listWithSoppNoArray" resultType="soppDto">
+	select * from swc_sopp where compNo = #{compNo} and soppNo IN
+	<foreach collection="dtoList" item="item" open="(" close=")" separator=",">
+		#{item.soppNo}
+	</foreach>
+</select>
+
 
 <select id="detailSopp"
  		resultType="soppDto">
@@ -517,15 +524,15 @@ from
 	where soppNo=#{soppNo}
  </update>
 
- <update id="update2Sopp">
+<update id="update2Sopp">
 	update swc_sopp 
 	set 
 	 sopp2Desc=#{sopp2Desc}
 	,soppStatus=#{soppStatus}
 	,sopp2regDatetime=now()
-	where soppNo=#{soppNo}
- </update>
-
+	where compNo = #{compNo}
+		and soppNo = #{soppNo}
+</update>
  
  <delete id="deleteSopp">
 	update swc_sopp 

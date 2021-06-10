@@ -78,18 +78,17 @@ public class ProductController {
 		return "product/write";
 	}
 
-	@RequestMapping("insert.do")
-	public ResponseEntity<?> insert(HttpSession session, @ModelAttribute ProductDTO dto) {
+	@RequestMapping(value ="insert.do", method= RequestMethod.POST)
+	public ResponseEntity<?> insert(HttpSession session, @RequestBody ProductDTO dto) {
 		Map<String, Object> param = new HashMap<>();
-		param.put("code", productService.insertProduct(session, dto));
+		param = productService.insertProduct(session, dto);
 		return ResponseEntity.ok(param);
 	}
 	
 	@RequestMapping(value = "update.do", method= RequestMethod.POST)
 	public ResponseEntity<?> update(HttpSession session, @RequestBody ProductDTO productData) {
 		Map<String, Object> param = new HashMap<>();
-		int result = productService.updateProduct(session, productData);
-		param.put("code", (String.valueOf(result)));
+		param = productService.updateProduct(session, productData);
 		return ResponseEntity.ok(param);
 	}
 	

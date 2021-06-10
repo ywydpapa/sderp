@@ -25,13 +25,5 @@ public class OrganizController {
 	@Inject
 	OrganizService organizService;
 
-	/*
-	// SalesController 의 settarget 메소드로 이용
-	@RequestMapping("listDept.do")
-	public ModelAndView list(ModelAndView mav, int compNo) {
-		mav.setViewName("organiz/view");
-		mav.addObject("list", organizService.listDept(compNo));
-		return mav;
-	}
-	*/
+
 }

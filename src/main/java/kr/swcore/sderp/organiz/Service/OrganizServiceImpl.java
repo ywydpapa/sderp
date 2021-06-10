@@ -1,20 +1,28 @@
 package kr.swcore.sderp.organiz.Service;
 
-import java.util.List;
+import kr.swcore.sderp.organiz.dao.OrganizDAO;
+import kr.swcore.sderp.organiz.dto.OrganizDTO;
+import kr.swcore.sderp.user.dao.UserDAO;
+import kr.swcore.sderp.user.dto.UserDTO;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
-
-import org.springframework.stereotype.Service;
-
-import kr.swcore.sderp.organiz.dao.OrganizDAO;
-import kr.swcore.sderp.organiz.dto.OrganizDTO;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
 
 @Service
 public class OrganizServiceImpl implements OrganizService {
 
 	@Inject
 	OrganizDAO organizDao;
+
+	@Inject
+	UserDAO userDAO;
 	
 	@Override
 	public List<OrganizDTO> listDept(HttpSession session) {
@@ -23,12 +31,87 @@ public class OrganizServiceImpl implements OrganizService {
 	}
 
 	@Override
-	public List<OrganizDTO> listDeptChainExtend(HttpSession session, OrganizDTO organizDTO) {
+	public String listDeptForCalendarJson(HttpSession session) {
+		String result = "";
 		Integer compNo = Integer.valueOf((String) session.getAttribute("compNo"));
-		if(organizDTO == null) organizDTO = new OrganizDTO();
-		organizDTO.setCompNo(compNo);
-		
-		return organizDao.listDeptChainExtend(organizDTO);
+		JSONArray returnArray = new JSONArray();
+		List<OrganizDTO> rtn = organizDao.listDept(compNo);
+		if(rtn != null) {
+			JSONObject first = new JSONObject();
+			first.put("title", rtn.get(0).getParentTitle());
+			first.put("expanded", true);
+			first.put("folder", true);
+			JSONArray arr = new JSONArray();
+			for(OrganizDTO dto : rtn){
+				JSONObject jsonObject = new JSONObject();
+				jsonObject.put("title", dto.getOrg_title());
+				jsonObject.put("expanded", false);
+				jsonObject.put("folder", true);
+
+				List<UserDTO> userList = userDAO.userListWithOrgId(dto.getOrg_id());
+				JSONArray array = new JSONArray();
+				for(UserDTO userDTO : userList){
+					HashMap<String, Object> obj = new HashMap<String, Object>();
+					obj.put("title", userDTO.getUserName());
+					obj.put("userNo", userDTO.getUserNo());
+
+					JSONObject object = new JSONObject(obj);
+					array.add(object);
+				}
+				jsonObject.put("children", array);
+				arr.add(jsonObject);
+			}
+			first.put("children", arr);
+			returnArray.add(first);
+		}
+		result = returnArray.toString();
+		return result;
 	}
+
+	@Override
+	public ArrayList<HashMap<String, Object>> listDeptForCalendarArrList(HttpSession session) {
+		Integer compNo = Integer.valueOf((String) session.getAttribute("compNo"));
+		ArrayList<HashMap<String, Object>> returnArray = new JSONArray();
+		List<OrganizDTO> rtn = organizDao.listDept(compNo);
+		if(rtn != null) {
+			HashMap<String, Object> first = new JSONObject();
+			first.put("title", rtn.get(0).getParentTitle());
+			first.put("depth", 0);
+			first.put("expanded", true);
+			first.put("folder", true);
+			ArrayList<HashMap<String, Object>> arr = new JSONArray();
+			for(OrganizDTO dto : rtn){
+				HashMap<String, Object> objDto = new HashMap<>();
+				objDto.put("title", dto.getOrg_title());
+				objDto.put("depth", 1);
+				objDto.put("expanded", false);
+				objDto.put("folder", true);
+
+				List<UserDTO> userList = userDAO.userListWithOrgId(dto.getOrg_id());
+				ArrayList<HashMap<String, Object>> array = new ArrayList<>();
+				for(UserDTO userDTO : userList){
+					HashMap<String, Object> obj = new HashMap<String, Object>();
+					obj.put("title", userDTO.getUserName());
+					obj.put("userNo", userDTO.getUserNo());
+					obj.put("depth", 2);
+					array.add(obj);
+				}
+				objDto.put("children", array);
+				arr.add(objDto);
+			}
+			first.put("children", arr);
+			returnArray.add(first);
+		}
+		return returnArray;
+	}
+
+	@Override
+    public List<OrganizDTO> listDeptChainExtend(HttpSession session, OrganizDTO organizDTO) {
+        Integer compNo = Integer.valueOf((String) session.getAttribute("compNo"));
+        if(organizDTO == null) organizDTO = new OrganizDTO();
+        organizDTO.setCompNo(compNo);
+
+        return organizDao.listDeptChainExtend(organizDTO);
+    }
 
 }

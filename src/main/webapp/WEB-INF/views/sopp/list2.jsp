@@ -22,7 +22,7 @@
 	$(function(){
 		var obj = new Object();
 		soppTable = $('#soppTable').DataTable({
-			order: [[ 0, "desc" ]],
+			order: [[ 1, "desc" ]],
 			paging : true, // 페이지 처리 여부
 			ordering : true, // 컬럼 클릭 시 오더링을 적용 여부
 			// info : true, // 페이지 상태에 대한 정보 여부
@@ -85,11 +85,21 @@
 					targets : "_all"
 				},
 				{
-					targets : 8,
+					targets : 0,
+					orderable: false
+				},
+				{
+					targets : 9,
 					orderable: false
 				}
 			],	// ajax로 데이터가 날아오면서 list를 뿌려주는데 각 컬럼에서 만약 값이 없으면 오류대처
 			columns : [
+				{
+					column : '기능',
+					render : function ( data, type, row ) {
+						return '<input type="checkbox" id="'+row.soppNo+'" value=""/>';
+					},
+				},
 				{
 					data: "modDatetime",
 					column : '등록/수정일',
@@ -264,11 +274,8 @@
 	.numberComa {
 		float: right;
 	}
-	#soppTable > tbody > tr > td:nth-child(4) {
-		overflow: hidden;
-		text-overflow: ellipsis;
-		max-width: 230px;
-		white-space: nowrap;
+	#soppTable > tbody > tr > td:nth-child(1) {
+		text-align: center;
 	}
 	#soppTable > tbody > tr > td:nth-child(5) {
 		overflow: hidden;
@@ -277,6 +284,12 @@
 		white-space: nowrap;
 	}
 	#soppTable > tbody > tr > td:nth-child(6) {
+		overflow: hidden;
+		text-overflow: ellipsis;
+		max-width: 230px;
+		white-space: nowrap;
+	}
+	#soppTable > tbody > tr > td:nth-child(7) {
 		overflow: hidden;
 		text-overflow: ellipsis;
 		max-width: 230px;
@@ -496,6 +509,7 @@
 						<colgroup>
 							<col width="2.5%">
 							<col width="2.5%">
+							<col width="2.5%">
 							<col width="5%">
 							<col width="30%">
 							<col width="7.5%">
@@ -507,6 +521,7 @@
 						</colgroup>
 						<thead>
 						<tr>
+							<th>기능</th>
 							<th>등록/수정일</th>
 							<th>판매방식</th>
 							<th>계약구분</th>
@@ -523,6 +538,9 @@
 						</tbody>
 					</table>
 				</div>
+				<button class="btn btn-md btn-primary" onclick="fn_sopp2_PartAprv()">승인</button>
+				<button class="btn btn-md btn-danger" onclick="fn_sopp2_PartReject()">반려</button>
+				<button class="btn btn-md btn-dark" onclick="fn_sopp2_PartHolding()">보류</button>
 			</div>
 		</div>
 	</div>
@@ -566,6 +584,135 @@
 		$("#custmemberName").val(b);
 		$(".modal-backdrop").remove();
 		$("#custmemberModal").modal("hide");
+	}
+
+	function fn_sopp2_PartAprv(){
+		var role = '${sessionScope.userRole}';
+		if(role != 'ADMIN'){
+			alert("관리자만 접근이 가능합니다.");
+			return false;
+		}
+
+		var soppData = {};
+		var checkboxes = $("#soppTable").find("input[type=checkbox]:checked");
+		var soppDataDTOList = new Array();
+		for(var i=0; i<checkboxes.length; i++){
+			var obj = new Object();
+			obj.soppNo = $(checkboxes[i]).attr("id");
+			obj.sopp2Desc = "";
+			soppDataDTOList.push(obj);
+		}
+		soppData.soppDTOList 	= soppDataDTOList;
+		soppData.soppStatus 	= '${sstatuslist[5].codeNo}'; //수주단계로 변경
+
+		$.ajax({
+			url: "${path}/sopp/Aprv.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
+			data: JSON.stringify(soppData) , // HTTP 요청과 함께 서버로 보낼 데이터
+			method: "POST", // HTTP 요청 메소드(GET, POST 등)
+			contentType:"application/json",
+			dataType: "json" // 서버에서 보내줄 데이터의 타입
+		}) // HTTP 요청이 성공하면 요청한 데이터가 done() 메소드로 전달됨. .
+		.done(function(data) {
+			if(data.code == 10001){
+				if(data.msg != undefined){
+					alert(data.msg);
+				} else {
+					alert("승인처리되었습니다.");
+					fnSetPage("/sopp/list2.do");
+				}
+			}else{
+				alert("승인 실패");
+			}
+		}) // HTTP 요청이 실패하면 오류와 상태에 관한 정보가 fail() 메소드로 전달됨.
+		.fail(function(xhr, status, errorThrown) {
+			alert("통신 실패");
+		});
+	}
+
+	function fn_sopp2_PartReject(){
+		var role = '${sessionScope.userRole}';
+		if(role != 'ADMIN'){
+			alert("관리자만 접근이 가능합니다.");
+			return false;
+		}
+
+		var soppData = {};
+		var checkboxes = $("#soppTable").find("input[type=checkbox]:checked");
+		var soppDataDTOList = new Array();
+		for(var i=0; i<checkboxes.length; i++){
+			var obj = new Object();
+			obj.soppNo = $(checkboxes[i]).attr("id");
+			obj.sopp2Desc = "";
+			soppDataDTOList.push(obj);
+		}
+		soppData.soppDTOList 	= soppDataDTOList;
+		soppData.soppStatus 	= '${sstatuslist[7].codeNo}'; 		//수주단계로 변경
+
+		$.ajax({
+			url: "${path}/sopp/Aprv.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
+			data: JSON.stringify(soppData) , // HTTP 요청과 함께 서버로 보낼 데이터
+			method: "POST", // HTTP 요청 메소드(GET, POST 등)
+			contentType:"application/json",
+			dataType: "json" // 서버에서 보내줄 데이터의 타입
+		}) // HTTP 요청이 성공하면 요청한 데이터가 done() 메소드로 전달됨. .
+		.done(function(data) {
+			if(data.code == 10001){
+				if(data.msg != undefined){
+					alert(data.msg);
+				} else {
+					alert("반려처리되었습니다.");
+					fnSetPage("/sopp/list2.do");
+				}
+			}else{
+				alert("반려 실패");
+			}
+		}) // HTTP 요청이 실패하면 오류와 상태에 관한 정보가 fail() 메소드로 전달됨.
+		.fail(function(xhr, status, errorThrown) {
+			alert("통신 실패");
+		});
+	}
+
+	function fn_sopp2_PartHolding(){
+		var role = '${sessionScope.userRole}';
+		if(role != 'ADMIN'){
+			alert("관리자만 접근이 가능합니다.");
+			return false;
+		}
+
+		var soppData = {};
+		var checkboxes = $("#soppTable").find("input[type=checkbox]:checked");
+		var soppDataDTOList = new Array();
+		for(var i=0; i<checkboxes.length; i++){
+			var obj = new Object();
+			obj.soppNo = $(checkboxes[i]).attr("id");
+			obj.sopp2Desc = "";
+			soppDataDTOList.push(obj);
+		}
+		soppData.soppDTOList 	= soppDataDTOList;
+		soppData.soppStatus 	= '${sstatuslist[8].codeNo}'; 		//수주단계로 변경
+
+		$.ajax({
+			url: "${path}/sopp/Aprv.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
+			data: JSON.stringify(soppData) , // HTTP 요청과 함께 서버로 보낼 데이터
+			method: "POST", // HTTP 요청 메소드(GET, POST 등)
+			contentType:"application/json",
+			dataType: "json" // 서버에서 보내줄 데이터의 타입
+		}) // HTTP 요청이 성공하면 요청한 데이터가 done() 메소드로 전달됨. .
+		.done(function(data) {
+			if(data.code == 10001){
+				if(data.msg != undefined){
+					alert(data.msg);
+				} else {
+					alert("보류처리되었습니다.");
+					fnSetPage("/sopp/list2.do");
+				}
+			}else{
+				alert("보류 실패");
+			}
+		}) // HTTP 요청이 실패하면 오류와 상태에 관한 정보가 fail() 메소드로 전달됨.
+		.fail(function(xhr, status, errorThrown) {
+			alert("통신 실패");
+		});
 	}
 
 	function fnSetPageEx(data){

@@ -19,6 +19,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	select * from swc_product where productNo = #{productNo} and compNo = #{compNo}
 </select>
 
+<select id="checkDetailProudct" resultType="productDto">
+	select * from swc_product where compNo = #{compNo} and productCategoryName = #{productCategoryName} and custNo = #{custNo} and productName = #{productName}
+</select>
+
+<select id="oneDetailProudct" resultType="productDto">
+	select * from swc_product where compNo = #{compNo} and productCategoryNo = #{productCategoryNo} and custNo = #{custNo} and productName = #{productName}
+</select>
+
 <select id="listProduct" resultType="productDto">
  	select sp.*, sc.custName
  	from swc_product sp
@@ -50,19 +58,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				case count(sp1.productNo)
 				when 0 then 1
 				else (
-						select 
-							case count(sp2.productNo)
-							when 0 then (
-										select max(sp3.productCategoryNo)+1 as A 
-										from swc_product sp3 
-										where sp3.compNo = #{compNo}
-										)
-							when count(sp2.productNo) <![CDATA[>=]]> 1 then sp2.productCategoryNo
-							end
+						select
+						if(count(sp2.productNo) = 0, (select max(sp3.productCategoryNo)+1 as A from swc_product sp3 where sp3.compNo = 100002 ), sp2.productCategoryNo) productNo
 						from swc_product sp2
-						where sp2.compNo = #{compNo}
-						and sp2.productCategoryName = #{productCategoryName}
-					)
+						where compNo = #{compNo}
+						and productCategoryName = #{productCategoryName}
+					 )
 				end
 				as productNo
 			from swc_product sp1 where compNo = #{compNo}
@@ -97,8 +98,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  	and compNo = #{compNo}
 </update>
  
- <delete id="deleteProduct">
- update swc_product set attrib = 'XXXXX'  where productNo=#{productNo}
- </delete>
+<delete id="deleteProduct">
+	update swc_product set attrib = 'XXXXX' where compNo=#{compNo} and productNo=#{productNo}
+</delete>
  		
 </mapper>

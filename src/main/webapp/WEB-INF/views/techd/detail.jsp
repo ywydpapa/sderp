@@ -54,11 +54,10 @@ $('input[name=contractType]').on('click', function() {
 									<div class="form-radio">
 										<form>
 											<div class="radio radio-inline">
-												<label> <input type="radio" name="contractType" value="NEW" <c:if test="${dto.soppNo != 0}">checked</c:if>> <i class="helper"></i>신규 영업지원
-												</label>
+												<label> <input type="radio" name="contractType" value="NEW" <c:if test="${dto.cntrctMthN == '판매계약'}">checked</c:if>> <i class="helper"></i>신규 영업지원</label>
 											</div>
 											<div class="radio radio-inline">
-												<label> <input type="radio" name="contractType" value="ING"  <c:if test="${dto.contNo != 0}">checked</c:if>> <i class="helper"></i>유지보수 </label>
+												<label> <input type="radio" name="contractType" value="ING" <c:if test="${dto.cntrctMthN == '유지보수'}">checked</c:if>> <i class="helper"></i>유지보수 </label>
 											</div>
 										</form>
 									</div>
@@ -390,18 +389,18 @@ function fn_sprtUpdate() {
 	var sprtData = {};
 	var contractType					= $("input[name='contractType']:checked").val();	// 신규 영업지원 or 기존계약
 	if(contractType == 'NEW'){
-		sprtData.soppNo					= $("#soppNo").val();			// 영업기회
-		sprtData.exContNo				= 0;							// 기존계약
-		sprtData.cntrctMth				= ${contractType[0].codeNo};
+		sprtData.soppNo					= Number($("#soppNo").val());			// 영업기회
+		sprtData.contNo					= 0;							// 기존계약
+		sprtData.cntrctMth				= Number(${contractType[0].codeNo});
 	} else if (contractType == 'ING'){
 		sprtData.soppNo					= 0;							// 영업기회
-		sprtData.exContNo				= $("#contNo").val();			// 기존계약
-		sprtData.cntrctMth				= ${contractType[1].codeNo};
+		sprtData.contNo					= Number($("#contNo").val());			// 기존계약
+		sprtData.cntrctMth				= Number(${contractType[1].codeNo});
 	}
 	sprtData.techdTitle			= $("#techdTitle").val();					// 기술지원 요청명
-	sprtData.userNo				= $("#userNo").val() ? $("#userNo").val() : 0;						// 담당사원
-	sprtData.custNo				= $("#custNo").val() ? $("#custNo").val() : 0;						// 거래처
-	sprtData.custmemberNo		= $("#custmemberNo").val() ? $("#custmemberNo").val() : 0;					// 고객
+	sprtData.userNo				= $("#userNo").val() ? Number($("#userNo").val()) : 0;						// 담당사원
+	sprtData.custNo				= $("#custNo").val() ? Number($("#custNo").val()) : 0;						// 거래처
+	sprtData.custmemberNo		= $("#custmemberNo").val() ? Number($("#custmemberNo").val()) : 0;					// 고객
 	sprtData.techdItemmodel		= $("#techdItemmodel").val();				// 모델
 	sprtData.techdItemversion	= $("#techdItemversion").val();				// 버전
 	sprtData.techdPlace			= $("#techdPlace").val();					// 장소
@@ -410,13 +409,30 @@ function fn_sprtUpdate() {
 	sprtData.techdType			= $("#techdType").val();					// 지원형태
 	sprtData.techdSteps			= $("#techdSteps").val();					// 진행단계
 	sprtData.techdDesc			= $("#techdDesc").val();					// 설명
-	sprtData.techdNo			= $("#techdNo").val();
+	sprtData.techdNo			= Number($("#techdNo").val());
 
 	if(!sprtData.techdTitle){
 		alert("기술지원 요청명을 입력하십시오.!!");
 		return;
+	} else if(!contractType) {
+		alert("영업기회(신규 영업지원) 및 계약을 입력하십시오.");
+		return;
+	} else if(contractType != undefined) {
+		if(contractType == 'NEW'){
+			if ($("#soppTitle").val() == "" || $("#soppTitle").val() == "0"){
+				alert("영업기회을 입력하십시오.");
+				return;
+			}
+		} else if (contractType == 'ING'){
+			if ($("#contTitle").val() == "" || $("#contTitle").val() == "0"){
+				alert("계약을 입력하십시오.");
+				return;
+			}
+		}
 	}
+
 	console.dir(sprtData);
+
 	
 	$.ajax({
 		url: "${path}/techd/update.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소

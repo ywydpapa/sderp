@@ -43,6 +43,7 @@ public class TechdDTO extends PageDTO {
 	// 확장
 	private String regSDate;	// 등록일 시작
 	private String regEDate;	// 등록일 끝
+	private String cntrctMthN;	// 계약방법
 	
 	public TechdDTO() {
 		super();

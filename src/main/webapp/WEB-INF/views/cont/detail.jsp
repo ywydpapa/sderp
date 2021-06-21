@@ -666,18 +666,18 @@
 
 	function fn_SaveCont() {
 		var contData = {};
-		contData.contNo 					= $("#contNo").val();
+		contData.contNo 					= Number($("#contNo").val());
 		var contractType					= $("input[name='contractType']:checked").val();	// 신규 영업지원 or 기존계약
 		if(contractType == 'NEW'){
-			contData.soppNo					= $("#soppNo").val();			// 영업기회
+			contData.soppNo					= Number($("#soppNo").val());			// 영업기회
 			contData.exContNo				= 0;							// 기존계약
-			contData.cntrctMth				= ${contractType[0].codeNo};
-		} else {
+			contData.cntrctMth				= Number(${contractType[0].codeNo});
+		} else if(contractType == 'OLD'){
 			contData.soppNo					= 0;							// 영업기회
-			contData.exContNo				= $("#oldContNo").val();		// 기존계약
-			contData.cntrctMth				= ${contractType[1].codeNo};
+			contData.exContNo				= Number($("#oldContNo").val());		// 기존계약
+			contData.cntrctMth				= Number(${contractType[1].codeNo});
 		}
-		contData.contTitle 				= $("#contTitle").val(); 		// 계약명
+		contData.contTitle 					= $("#contTitle").val(); 		// 계약명
 		if($("#userName").val() != "")			contData.userNo		 	= Number($("#userNo").val());			// 담당사원
 		var net_profit = Number($("#net_profit").val().replace(/[\D\s\._\-]+/g, "")); // 매출이익
 		if (net_profit >= 0){
@@ -689,31 +689,43 @@
 		if($("#custmemberName").val() != "")	contData.custmemberNo	= Number($("#custmemberNo").val());		// 거래처 담당자
 		if($("#endCustName").val() != "") 		contData.buyrNo			= Number($("#endCustNo").val());		// 엔드유저
 		if($("#endCustmemberName").val() != "") contData.buyrMemberNo	= Number($("#endCustmemberNo").val());	// 엔드유저 담당자
-		if($("#contOrddate").val() != "")		contData.contOrddate 			= $("#contOrddate").val();		// 발주일자
-		if($("#supplyDate").val() != "") 		contData.supplyDate = $("#supplyDate").val();		// 공급일자
-		if($("#delivDate").val() != "")  		contData.delivDate	 = $("#delivDate").val();		// 검수일자
+		if($("#contOrddate").val() != "")		contData.contOrddate 	= $("#contOrddate").val();				// 발주일자
+		if($("#supplyDate").val() != "") 		contData.supplyDate 	= $("#supplyDate").val();				// 공급일자
+		if($("#delivDate").val() != "")  		contData.delivDate	 	= $("#delivDate").val();				// 검수일자
 
-		var contAmt = Number($("#contAmt").val().replace(/[\D\s\._\-]+/g, ""));			// 계약금액
+		var contAmt = Number($("#contAmt").val().replace(/[\D\s\._\-]+/g, ""));									// 계약금액
 		if (contAmt >= 0){
 			contData.contAmt = contAmt;
 		} else {
 			contData.contAmt = 0;
 		}
-		if($("#freemaintSdate").val() != "") contData.freemaintSdate = $("#freemaintSdate").val();	// 무상유지보수 시작일자
-		if($("#freemaintEdate").val() != "") contData.freemaintEdate = $("#freemaintEdate").val();	// 무상유지보수 마감일자
-		if($("#paymaintSdate").val() != "") contData.paymaintSdate = $("#paymaintSdate").val();		// 유상유지보수 시작일자
-		if($("#paymaintEdate").val() != "") contData.paymaintEdate = $("#paymaintEdate").val();		// 유상유지보수 마감일자
-		if($("#vatYn").val() != "")		contData.vatYn					= $("#vatYn").val();			// VAT 포함여부 (기본값 : Y)
-		if($("#contArea").val() != "") 		contData.contArea 				= $("#contArea").val();			// 지역
-		if($("#contType").val() != "")		contData.contType 				= $("#contType").val();			// 판매방식
-		if($("#contDesc").val() != "")		contData.contDesc			 	= $("#contDesc").val();			// 계약내용
+		if($("#freemaintSdate").val() != "") contData.freemaintSdate 	= $("#freemaintSdate").val();		// 무상유지보수 시작일자
+		if($("#freemaintEdate").val() != "") contData.freemaintEdate 	= $("#freemaintEdate").val();		// 무상유지보수 마감일자
+		if($("#paymaintSdate").val() != "") contData.paymaintSdate 		= $("#paymaintSdate").val();		// 유상유지보수 시작일자
+		if($("#paymaintEdate").val() != "") contData.paymaintEdate 		= $("#paymaintEdate").val();		// 유상유지보수 마감일자
+		if($("#vatYn").val() != "")			contData.vatYn				= $("#vatYn").val();				// VAT 포함여부 (기본값 : Y)
+		if($("#contArea").val() != "") 		contData.contArea 			= $("#contArea").val();				// 지역
+		if($("#contType").val() != "")		contData.contType 			= $("#contType").val();				// 판매방식
+		if($("#contDesc").val() != "")		contData.contDesc			= $("#contDesc").val();				// 계약내용
 
 		if (!contData.contTitle) {
 			alert("계약명 제목을 입력하십시오.");
 			return;
-		} else if (!contData.custNo){
-			alert("매출처를 입력하십시오.");
+		} else if (!contData.cntrctMth){
+			alert("영업기회(신규 영업지원) 및 계약을 입력하십시오.");
 			return;
+		} else if(contractType != undefined) {
+			if(contractType == 'NEW'){
+				if ($("#soppTitle").val() == "" || $("#soppTitle").val() == "0"){
+					alert("영업기회을 입력하십시오.");
+					return;
+				}
+			} else if (contractType == 'OLD'){
+				if ($("#oldContTitle").val() == "" || $("#oldContTitle").val() == "0"){
+					alert("계약을 입력하십시오.");
+					return;
+				}
+			}
 		}
 
 		$.ajax({

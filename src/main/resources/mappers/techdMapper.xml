@@ -203,7 +203,7 @@ from
 
 <select id="detailTechd"
  		resultType="techdDto">
- 		select a.*, b.userName , c.custName, d.soppTitle, e.contTitle, f.custMname custmemberName,
+ 		select a.*, b.userName , c.custName, d.soppTitle, e.contTitle, f.custMname custmemberName, g.desc03 cntrctMthN,
  		       CONCAT(left(a.techdFrom,10),'T',substring(a.techdFrom,12,9)) targetDatefrom,
  		       CONCAT(left(a.techdTo,10),'T',substring(a.techdTo,12,9)) targetDateto
  		from swc_techd a  
@@ -211,6 +211,7 @@ from
 		left join swc_cust c on a.custNo = c.custNo
 		left join swc_sopp d on a.soppNo = d.soppNo
 		left join swc_cont e on a.contNo = e.contNo
+		left join swc_code g on a.cntrctMth = g.codeNo
 		left join swc_custData03 f on a.custmemberNo = f.custData03No 
 		where a.attrib not like 'XXX%' and techdNo=#{techdNo} order by techdNo
  </select>
@@ -281,6 +282,7 @@ from
 	techdTo = #{techdTo},
 	techdType = #{techdType},
 	techdSteps = #{techdSteps},
+	userNo = #{userNo},
 	modDatetime	= NOW()
 	where techdNo=#{techdNo}
  </update>

@@ -118,11 +118,11 @@ public class HomeController {
 		if(deptToPlanTblDTOList == null || deptToPlanTblDTOList.size() <=0) {
 			mav.addObject("saleslist", salesService.listSales(session, pageDTO));
 		}
-
 		mav.addObject("graph1",salesTargetService.listSalesTargetYearTotalSalesIndividual(session, null));
 //		mav.addObject("graph2",salesTargetService.listSalesTargetMonthIndividual(session, null));
 //		mav.addObject("graph3",salesTargetService.listSalesTargetYearIndividual(session, null));
 //		mav.addObject("graph4",contService.listSalesTargetMonthIndividual(session, null));
+
 		mav.setViewName("board/myboard");
 		long afterTime = System.currentTimeMillis();
 		long millisDiffTime = afterTime - beforeTime;

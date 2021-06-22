@@ -12,50 +12,50 @@
 <meta http-equiv="Cache-Control" 	content="no-cache; no-store; no-save">
 
 <!-- Meta -->
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="description" content="CodedThemes">
-  <meta name="keywords" content=" Admin , Responsive, Landing, Bootstrap, App, Template, Mobile, iOS, Android, apple, creative app">
-  <meta name="author" content="djkim in SWCORE">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="description" content="CodedThemes">
+<meta name="keywords" content=" Admin , Responsive, Landing, Bootstrap, App, Template, Mobile, iOS, Android, apple, creative app">
+<meta name="author" content="djkim in SWCORE">
 <!-- Favicon icon -->
-  <link rel="icon" href="${path}/assets/images/favicon.ico" type="image/x-icon">
- <!-- Google font-->
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,800" rel="stylesheet">
+<link rel="icon" href="${path}/assets/images/favicon.ico" type="image/x-icon">
+<!-- Google font-->
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,800" rel="stylesheet">
 <!-- themify-icons line icon -->
-  <link rel="stylesheet" type="text/css" href="${path}/assets/icon/themify-icons/themify-icons.css">
+<link rel="stylesheet" type="text/css" href="${path}/assets/icon/themify-icons/themify-icons.css">
 <!-- ico font -->
-  <link rel="stylesheet" type="text/css" href="${path}/assets/icon/icofont/css/icofont.css">
-  <!-- simple-line-icons-->
-  <link rel="stylesheet" type="text/css" href="${path}/assets/icon/simple-line-icons/css/simple-line-icons.css">
+<link rel="stylesheet" type="text/css" href="${path}/assets/icon/icofont/css/icofont.css">
+<!-- simple-line-icons-->
+<link rel="stylesheet" type="text/css" href="${path}/assets/icon/simple-line-icons/css/simple-line-icons.css">
 <!-- font-awesome-->
-  <link rel="stylesheet" type="text/css" href="${path}/assets/icon/font-awesome/css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="${path}/assets/icon/font-awesome/css/font-awesome.min.css">
 <!-- Style.css -->
-  <link rel="stylesheet" type="text/css" href="${path}/assets/css/bootstrap/css/bootstrap.min.css"> 
+<link rel="stylesheet" type="text/css" href="${path}/assets/css/bootstrap/css/bootstrap.min.css">
 <!-- CSS only -->
-  <link rel="stylesheet" type="text/css" href="${path}/assets/css/jquery.mCustomScrollbar.css">
-  <link type="text/css" href='${path}/assets/jstree/css/style.css' rel='stylesheet' />
-  <link rel="stylesheet" type="text/css" href="${path}/assets/css/style.css">
-  <link rel="stylesheet" type="text/css" href="${path}/assets/css/_pcmenu.css">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,500,600">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<link rel="stylesheet" type="text/css" href="${path}/assets/css/jquery.mCustomScrollbar.css">
+<link type="text/css" href='${path}/assets/jstree/css/style.css' rel='stylesheet' />
+<link rel="stylesheet" type="text/css" href="${path}/assets/css/style.css">
+<link rel="stylesheet" type="text/css" href="${path}/assets/css/_pcmenu.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,500,600">
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 <!-- data tables css -->
-  <link rel="stylesheet" href="${path}/assets/css/plugins/dataTables.bootstrap4.min.css">
-	<!-- -->
-  <style>
-	  .requiredTextCss{
-		  color: red !important;
+<link rel="stylesheet" href="${path}/assets/css/plugins/dataTables.bootstrap4.min.css">
+<!-- -->
+<style>
+  .requiredTextCss{
+	  color: red !important;
+  }
+  @media only screen and (min-width: 993px) and (max-width: 1672px) {
+	  body{
+		  overflow-x: scroll;
 	  }
-	  @media only screen and (min-width: 993px) and (max-width: 1672px) {
-		  body{
-			  overflow-x: scroll;
-		  }
-	  }
-  </style>
+  }
+</style>
 
     
 <!-- CUSTOM CSS -->
-  <link rel="stylesheet" type="text/css" href="${path}/assets/css/style2.css"><!-- style2.css를 제일 마지막에 놓아주세요. -->
+<link rel="stylesheet" type="text/css" href="${path}/assets/css/style2.css"><!-- style2.css를 제일 마지막에 놓아주세요. -->
 
 <!-- Required Jquery -->
 <script type="text/javascript" src="${path}/js/jquery.min.js"></script>
@@ -128,22 +128,11 @@
 	}
 	
 	function fnClearall(){
-		/*
-		var hiddenElements = $("input[type='hidden']");
-		
-		for(var i = 0; i < hiddenElements.length; i++) {
-			hiddenElements[i].value = null;
-		}
-		$("#searchForm")[0].reset();
-		*/
 		var parrentElement = $(this).closest("#searchForm");
-		console.dir(parrentElement);
-
 		var elements = $("#searchForm").find("input");
 		for(var i = 0; i < elements.length; i++) {
 			elements[i].value = null;
 		}
-
 	}
 	
 	function fnSetList(url, data){
@@ -352,7 +341,7 @@
 							<ul class="show-notification profile-notification">
 								<li>
 									<i class="ti-user"></i>
-									<a href="#userInfoChangeModal" data-toggle="modal">개인정보수정</a>
+									<a href="#userInfoChangeModal" data-toggle="modal">개인정보수정1</a>
 								</li>
 								<li>
 									<a href="${path}/user/logout.do">
@@ -381,20 +370,19 @@
 					<!--  사이드 메뉴 종료 -->
 			    </div>
 			</nav>
-			 <div class="pcoded-content">
+			<div class="pcoded-content">
 				<div class="pcoded-inner-content">
 					<!-- Main-body start -->
 					<div class="main-body">
 						<!--page-wrapper-->
 						<div class="page-wrapper <%--card--%>">
-  
-							<!-- Page-body start -->
+  							<!-- Page-body start -->
 							<div class="page-body">
 								<div class="modal fade" id="userInfoChangeModal" tabindex="-1" role="dialog">
 									<div class="modal-dialog modal-80size" role="document">
 										<div class="modal-content modal-80size">
 											<div class="modal-header">
-												<h4 class="modal-title">개인정보수정</h4>
+												<h4 class="modal-title">개인정보수정2</h4>
 												<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 													<span aria-hidden="true">&times;</span>
 												</button>
@@ -430,9 +418,8 @@
 										</div>
 									</div>
 								</div>
-							<!-- main_contents Start -->
+								<!-- main_contents Start -->
 								<div id="main_content">
-									
 
 								</div>
 							<!-- main_contents end -->

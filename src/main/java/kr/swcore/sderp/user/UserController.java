@@ -1,12 +1,9 @@
 package kr.swcore.sderp.user;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.inject.Inject;
-import javax.servlet.http.HttpSession;
-
+import kr.swcore.sderp.code.dto.CodeDTO;
+import kr.swcore.sderp.code.service.CodeService;
+import kr.swcore.sderp.user.dto.UserDTO;
+import kr.swcore.sderp.user.service.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,10 +13,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import kr.swcore.sderp.code.dto.CodeDTO;
-import kr.swcore.sderp.code.service.CodeService;
-import kr.swcore.sderp.user.dto.UserDTO;
-import kr.swcore.sderp.user.service.UserService;
+import javax.inject.Inject;
+import javax.servlet.http.HttpSession;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/user/*")
@@ -100,17 +98,16 @@ public class UserController {
         return ResponseEntity.ok(param);
 	} 
 
-	
-	
 	@RequestMapping(value="/login_check.do")
 	public ModelAndView loginCheck(@ModelAttribute UserDTO dto, HttpSession session) {
 		boolean result = userService.loginCheck(dto, session);
 		ModelAndView mav = new ModelAndView();
 		if (result == true) {
 			UserDTO userInfo = userService.viewUser(dto);
-			mav.setViewName("main");
-			mav.addObject("msg", "Success");
-			mav.addObject("userName", userInfo.getUserName());
+			mav.setViewName("redirect:/myboard.do");
+			mav.addObject("newLoad", "Y");
+			//mav.addObject("msg", "Success");
+			//mav.addObject("userName", userInfo.getUserName());
 			session.setAttribute("userId", userInfo.getUserId());
 			session.setAttribute("userName", userInfo.getUserName());
 			session.setAttribute("userRole", userInfo.getUserRole()); // �����ڵ�
@@ -136,7 +133,7 @@ public class UserController {
 	public ModelAndView logout(HttpSession session) {
 		userService.logout(session);
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("user/login");
+		mav.setViewName("/");
 		return mav;
 	}
 

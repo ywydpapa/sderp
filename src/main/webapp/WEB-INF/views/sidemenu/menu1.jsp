@@ -12,7 +12,7 @@
 <nav>
 	<ul class="pcoded-item pcoded-left-item">
 		<li class="">
-			<a href="javascript:fnSetPage('${path}/myboard.do')">
+			<a href="${path}/myboard.do">
 				<span class="pcoded-micon">
 					<i class="ti-home"></i>
 					<b>D</b>

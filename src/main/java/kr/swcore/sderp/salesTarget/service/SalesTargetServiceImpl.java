@@ -1,27 +1,27 @@
 package kr.swcore.sderp.salesTarget.service;
 
-import java.math.BigDecimal;
-import java.util.*;
-
-import javax.inject.Inject;
-import javax.servlet.http.HttpSession;
-
-import kr.swcore.sderp.sales.dto.SalesDTO;
-import org.springframework.stereotype.Service;
-
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
+import kr.swcore.sderp.HomeController;
 import kr.swcore.sderp.organiz.Service.OrganizService;
 import kr.swcore.sderp.organiz.dto.OrganizDTO;
 import kr.swcore.sderp.salesTarget.dao.SalesTargetDAO;
 import kr.swcore.sderp.salesTarget.dto.SalesTargetDTO;
 import kr.swcore.sderp.user.dto.UserDTO;
 import kr.swcore.sderp.user.service.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
+
+import javax.annotation.PostConstruct;
+import javax.inject.Inject;
+import javax.servlet.http.HttpSession;
+import java.math.BigDecimal;
+import java.util.*;
 
 @Service
 public class SalesTargetServiceImpl implements SalesTargetService {
-	
+
 	@Inject
 	SalesTargetDAO salesTargetDAO;
 	
@@ -31,8 +31,17 @@ public class SalesTargetServiceImpl implements SalesTargetService {
 	@Inject
 	UserService userService;
 
+
+	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
+	private static HashMap<Integer, Object> graph1Cache = null;
+
 	private Integer n1 = 10000000;	// 천만원
-	
+
+	@PostConstruct
+	public void init(){
+	//	SalesTargetDTO_Static.Update();
+	}
+
 	private static SalesTargetDTO defaultSetCompNoAnduserNo(HttpSession session, SalesTargetDTO salesTargetDTO) {
 		if(salesTargetDTO == null) salesTargetDTO = new SalesTargetDTO();
 		
@@ -67,118 +76,6 @@ public class SalesTargetServiceImpl implements SalesTargetService {
 		salesTargetDTO.setTargetMonth(targetMonth);
 		return salesTargetDTO;
 	}
-	
-	/*private Map<String, Object> searchingAfterDataReturnWithSalesTarget(Map<String, Object> map, String methodName, SalesTargetDTO salesTargetDTO){
-		SalesTargetDTO returnDto = new SalesTargetDTO();
-		try {
-			switch (methodName) {
-			case "listSalesTargetMonthIndividual":
-//				returnDto = salesTargetDAO.listSalesTargetMonthIndividual(salesTargetDTO);
-				break;
-			case "listSalesTargetYearIndividual":
-//				returnDto = salesTargetDAO.listSalesTargetYearIndividual(salesTargetDTO);
-				break;			
-			default:
-				throw new Exception("SalesTargetDAO 메소드명 찾을수 없음");
-			}			
-		} catch (Exception e) {
-			e.printStackTrace();
-			map.put("code", 20001);
-			map.put("data", null);
-		}
-		
-		if (returnDto == null) {
-			// 쿼리는 이상없지만 0/0 또는 0/1 또는 1/0 같은경우
-			map.put("code", 20001);
-			BigDecimal temp = new BigDecimal(0.0);
-			returnDto = new SalesTargetDTO();
-			returnDto.setPercent(temp);
-			map.put("data", returnDto);
-		} else {
-			map.put("code", 10001);
-			map.put("data", returnDto);
-		}
-		return map;
-	}
-	
-	// salesDto, profitDto, overDto 순서로 입출력 구성할것.
-	private List<SalesTargetDTO> overCurrencyCal(List<SalesTargetDTO> dtoList) {
-		List<SalesTargetDTO> newDtoList = new ArrayList<SalesTargetDTO>();
-		SalesTargetDTO salesDto = dtoList.get(0);
-		SalesTargetDTO profitDto = dtoList.get(1);
-		SalesTargetDTO overDto = dtoList.get(2);
-		if(salesDto.getMm01() > profitDto.getMm01()) {
-			overDto.setMm01(salesDto.getMm01()-profitDto.getMm01());
-			salesDto.setMm01(profitDto.getMm01());
-		}
-		if(salesDto.getMm02() > profitDto.getMm02()) {
-			overDto.setMm02(salesDto.getMm02()-profitDto.getMm02());
-			salesDto.setMm02(profitDto.getMm02());
-		}
-		if(salesDto.getMm03() > profitDto.getMm03()) {
-			overDto.setMm03(salesDto.getMm03()-profitDto.getMm03());
-			salesDto.setMm03(profitDto.getMm03());
-		}
-		if(salesDto.getMm04() > profitDto.getMm04()) {
-			overDto.setMm04(salesDto.getMm04()-profitDto.getMm04());
-			salesDto.setMm04(profitDto.getMm04());
-		}
-		if(salesDto.getMm05() > profitDto.getMm05()) {
-			overDto.setMm05(salesDto.getMm05()-profitDto.getMm05());
-			salesDto.setMm05(profitDto.getMm05());
-		}
-		if(salesDto.getMm06() > profitDto.getMm06()) {
-			overDto.setMm06(salesDto.getMm06()-profitDto.getMm06());
-			salesDto.setMm06(profitDto.getMm06());
-		}
-		if(salesDto.getMm07() > profitDto.getMm07()) {
-			overDto.setMm07(salesDto.getMm07()-profitDto.getMm07());
-			salesDto.setMm07(profitDto.getMm07());
-		}
-		if(salesDto.getMm08() > profitDto.getMm08()) {
-			overDto.setMm08(salesDto.getMm08()-profitDto.getMm08());
-			salesDto.setMm08(profitDto.getMm08());
-		}
-		if(salesDto.getMm09() > profitDto.getMm09()) {
-			overDto.setMm09(salesDto.getMm09()-profitDto.getMm09());
-			salesDto.setMm09(profitDto.getMm09());
-		}
-		if(salesDto.getMm10() > profitDto.getMm10()) {
-			overDto.setMm10(salesDto.getMm10()-profitDto.getMm10());
-			salesDto.setMm10(profitDto.getMm10());
-		}
-		if(salesDto.getMm11() > profitDto.getMm11()) {
-			overDto.setMm11(salesDto.getMm11()-profitDto.getMm11());
-			salesDto.setMm11(profitDto.getMm11());
-		}
-		if(salesDto.getMm12() > profitDto.getMm12()) {
-			overDto.setMm12(salesDto.getMm12()-profitDto.getMm12());
-			salesDto.setMm12(profitDto.getMm12());
-		}
-		
-		newDtoList.add(salesDto);
-		newDtoList.add(profitDto);
-		newDtoList.add(overDto);
-		return newDtoList;
-	}
-	
-	private SalesTargetDTO currencyAppreciation(SalesTargetDTO salesTargetDTO) {
-		Integer n1 = 10000000;	// 천만원
-		salesTargetDTO.setMm01(salesTargetDTO.getMm01()/n1);
-		salesTargetDTO.setMm02(salesTargetDTO.getMm02()/n1);
-		salesTargetDTO.setMm03(salesTargetDTO.getMm03()/n1);
-		salesTargetDTO.setMm04(salesTargetDTO.getMm04()/n1);
-		salesTargetDTO.setMm05(salesTargetDTO.getMm05()/n1);
-		salesTargetDTO.setMm06(salesTargetDTO.getMm06()/n1);
-		salesTargetDTO.setMm07(salesTargetDTO.getMm07()/n1);
-		salesTargetDTO.setMm08(salesTargetDTO.getMm08()/n1);
-		salesTargetDTO.setMm09(salesTargetDTO.getMm09()/n1);
-		salesTargetDTO.setMm10(salesTargetDTO.getMm10()/n1);
-		salesTargetDTO.setMm11(salesTargetDTO.getMm11()/n1);
-		salesTargetDTO.setMm12(salesTargetDTO.getMm12()/n1);
-		return salesTargetDTO;
-	}
-	*/
 
 	@Override
 	public List<SalesTargetDTO> listSalesTarget() {
@@ -256,7 +153,7 @@ public class SalesTargetServiceImpl implements SalesTargetService {
 		} catch (JsonProcessingException e) {
 			e.printStackTrace();
 		}
-		System.out.println(json);
+		logger.info(json);
 		
 		return returnData;
 	}
@@ -331,6 +228,7 @@ public class SalesTargetServiceImpl implements SalesTargetService {
 	@Override
 	public Map<String, Object> listSalesTargetYearTotalSalesIndividual(HttpSession session, SalesTargetDTO salesTargetDTO) {
 		Map<String, Object> returnMap = new HashMap<>();
+		Integer compNo = Integer.valueOf((String) session.getAttribute("compNo"));
 		salesTargetDTO = defaultSetCompNoAnduserNo(session, salesTargetDTO);
 		salesTargetDTO = defaultSetCalendarInfoYearAndMonth(salesTargetDTO);
 		returnMap.put("targetYear", salesTargetDTO.getTargetYear());
@@ -340,7 +238,8 @@ public class SalesTargetServiceImpl implements SalesTargetService {
 		
 		Boolean result = false;
 		try {
-			resultDto = salesTargetDAO.listViewGraphData01CompnayMonth(salesTargetDTO);
+			resultDto = (SalesTargetDTO) SalesTargetDTO_Static.GetWithCompNo(compNo);
+			//resultDto = salesTargetDAO.listViewGraphData01CompnayMonth(salesTargetDTO);
 			if(resultDto != null){
 				String[] monthArr = resultDto.getMonthDate_Group().split(",");
 				String[] salesArr = resultDto.getSalesTarget_Group().split(",");
@@ -441,25 +340,6 @@ public class SalesTargetServiceImpl implements SalesTargetService {
 		salesTargetDTO = defaultSetCalendarInfoYearAndMonth(salesTargetDTO);
 		returnMap.put("targetYear", salesTargetDTO.getTargetYear());
 		returnMap.put("targetMonth", salesTargetDTO.getTargetMonth());
-		//returnMap = searchingAfterDataReturnWithSalesTarget(returnMap, "listSalesTargetMonthIndividual", salesTargetDTO);
-
-//		SalesTargetDTO temp = (SalesTargetDTO) returnMap.get("data");
-//		int compareResult = temp.getSalesTarget().compareTo(temp.getProfitTarget());
-		/*
-		a : salesTarget
-		b : profitTarget
-		compareResult < 0 : a가 b보다 작다.
-		compareResult == 0 : a와 b가 같다.
-		compareResult > 0 : a가 b보다 크다.
-		 */
-//		if(compareResult >= 0){
-//			BigDecimal overVal = temp.getSalesTarget().subtract(temp.getProfitTarget());
-//			temp.setOverTarget(overVal);
-//		} else if(compareResult < 0){
-//			BigDecimal overVal = temp.getSalesTarget().subtract(temp.getProfitTarget());
-//			temp.setOverTarget(overVal);
-//		}
-//		returnMap.put("data", temp);
 
 		return returnMap;
 	}
@@ -472,27 +352,7 @@ public class SalesTargetServiceImpl implements SalesTargetService {
 		salesTargetDTO = defaultSetCalendarInfoYearAndMonth(salesTargetDTO);
 		returnMap.put("targetYear", salesTargetDTO.getTargetYear());
 		returnMap.put("targetMonth", salesTargetDTO.getTargetMonth());		
-//		returnMap = searchingAfterDataReturnWithSalesTarget(returnMap, "listSalesTargetYearIndividual", salesTargetDTO);
 
-//		SalesTargetDTO temp = (SalesTargetDTO) returnMap.get("data");
-//		int compareResult = temp.getSalesTarget().compareTo(temp.getProfitTarget());
-		/*
-		a : salesTarget
-		b : profitTarget
-		compareResult < 0 : a가 b보다 작다.
-		compareResult == 0 : a와 b가 같다.
-		compareResult > 0 : a가 b보다 크다.
-		 */
-		/*
-		if(compareResult >= 0){
-			BigDecimal overVal = temp.getSalesTarget().subtract(temp.getProfitTarget());
-			temp.setOverTarget(overVal);
-		} else {
-			BigDecimal overVal = temp.getSalesTarget().subtract(temp.getProfitTarget());
-			temp.setOverTarget(overVal);
-		}
-		returnMap.put("data", temp);
-		*/
 		return returnMap;
 	}
 

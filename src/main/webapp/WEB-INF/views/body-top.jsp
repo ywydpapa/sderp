@@ -38,7 +38,7 @@
 					<a class="mobile-search morphsearch-search" href="#">
 						<i class="ti-search"></i>
 					</a>
-					<a href="${path}/">
+					<a href="${path}/myboard.do">
 						<img class="img-fluid" src="${path}/assets/images/auth/logo_008.png" alt="Theme-Logo" style="width: 110px; height: 28px;"/>
 					</a>
 					<a class="mobile-options">

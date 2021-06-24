@@ -145,7 +145,6 @@ public class ContServiceImpl implements ContService {
 				// 반환시 필요한 코드명 셋팅
 				ContDTO insertDto = (ContDTO) contDTO.clone();
 				insertDto.setContTypeN(codeDAOList.get(i).getDesc03());
-				System.out.println(codeDAOList.get(i).getCodeNo() + "<-/->" + codeDAOList.get(i).getDesc03());
 				// 검색할 코드값 셋팅
 				insertDto.setContType(String.valueOf( codeDAOList.get(i).getCodeNo() ));
 				// 쿼리 조건 : 회사구분코드, contType int 값, 날짜 ex) 2021-04
@@ -158,10 +157,6 @@ public class ContServiceImpl implements ContService {
 			e.printStackTrace();
 			returnMap.put("code", 20001);
 			returnMap.put("data", null);
-		}
-
-		for(ContDTO t : contDTOList){
-			System.out.println(t.getContTypeN() + " / " + t.getContTypeCount());
 		}
 
 		returnMap.put("code", 10001);

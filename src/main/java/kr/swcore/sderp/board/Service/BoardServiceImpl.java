@@ -1,10 +1,15 @@
 package kr.swcore.sderp.board.Service;
 
+import java.util.HashMap;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
+import kr.swcore.sderp.HomeController;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import kr.swcore.sderp.board.dao.BoardDAO;
@@ -15,9 +20,15 @@ import kr.swcore.sderp.util.SessionInfoGet;
 @Service
 public class BoardServiceImpl implements BoardService {
 
+	private static final Logger logger = LoggerFactory.getLogger(BoardServiceImpl.class);
 
 	@Inject
 	BoardDAO boardDao;
+
+	@PostConstruct
+	public void init(){
+		logger.info("BoardServiceImpl Init");
+	}
 	
 	@Override
 	public List<BoardDTO> listboard() {

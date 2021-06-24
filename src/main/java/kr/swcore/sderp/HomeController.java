@@ -119,14 +119,11 @@ public class HomeController {
 			mav.addObject("saleslist", salesService.listSales(session, pageDTO));
 		}
 		mav.addObject("graph1",salesTargetService.listSalesTargetYearTotalSalesIndividual(session, null));
-//		mav.addObject("graph2",salesTargetService.listSalesTargetMonthIndividual(session, null));
-//		mav.addObject("graph3",salesTargetService.listSalesTargetYearIndividual(session, null));
-//		mav.addObject("graph4",contService.listSalesTargetMonthIndividual(session, null));
 
 		mav.setViewName("board/myboard");
 		long afterTime = System.currentTimeMillis();
 		long millisDiffTime = afterTime - beforeTime;
-		System.out.println("/myboard.do 소요시간(millis) : "+millisDiffTime);
+		logger.info("/myboard.do 소요시간(millis) : " + millisDiffTime);
 		return mav;
 	}
 	

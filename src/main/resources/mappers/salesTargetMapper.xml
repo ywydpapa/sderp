@@ -38,8 +38,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		group_concat(cnt06) cnt06_Group,
 		group_concat(cnt06_SUM) cnt06_SUM_Group
 	from grpah_data01_sum_company_month
-	where YearDate = #{targetYear}
-	  and compNo = #{compNo}
+	<where>
+		<if test="targetYear != null and targetYear != ''">
+			YearDate = #{targetYear}
+		</if>
+		<if test="compNo != null and compNo != 0">
+			and compNo = #{compNo}
+		</if>
+	</where>
 </select>
 
 <insert id="insertSalesTarget">

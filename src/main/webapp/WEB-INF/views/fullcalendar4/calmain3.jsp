@@ -171,19 +171,19 @@
 			var path;
 
 			if(value == '770010') {
-				path = '${path}/sales/write.do';
+				path = '${path}/sales/write.do?simple=Y';
 			}else if(value == '770100'){
-				path = '${path}/techd/write.do';
+				path = '${path}/techd/write.do?simple=Y';
 			}else if(value == '770800'){
-				path = '${path}/sched/write.do';
+				path = '${path}/sched/write.do?simple=Y';
 			}else if(value == 'modify'){
 				var schedType = info.event.extendedProps.schedType;
 				if(schedType == '영업일정') {
-					path = '${path}/sales/detail/'+info.event.id;
+					path = '${path}/sales/detail/'+info.event.id+'?simple=Y';
 				}else if(schedType == '기술지원'){
-					path = '${path}/techd/detail/'+info.event.id;
+					path = '${path}/techd/detail/'+info.event.id+'?simple=Y';
 				}else if(schedType == '기타일정'){
-					path = '${path}/sched/detail/'+info.event.id;
+					path = '${path}/sched/detail/'+info.event.id+'?simple=Y';
 				}
 			}
 

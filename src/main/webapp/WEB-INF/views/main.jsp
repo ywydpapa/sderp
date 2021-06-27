@@ -341,7 +341,7 @@
 							<ul class="show-notification profile-notification">
 								<li>
 									<i class="ti-user"></i>
-									<a href="#userInfoChangeModal" data-toggle="modal">개인정보수정1</a>
+									<a href="#userInfoChangeModal" data-toggle="modal">개인정보수정</a>
 								</li>
 								<li>
 									<a href="${path}/user/logout.do">

@@ -76,16 +76,22 @@ public class SalesController {
 	}
 	
 	@RequestMapping("/detail/{salesNo}")
-	public ModelAndView detail(@DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss") @PathVariable("salesNo") int salesNo, ModelAndView mav, HttpSession session) {
+	public ModelAndView detail(@DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss") @PathVariable("salesNo") int salesNo, @RequestParam(value = "simple", required = false) String simple, ModelAndView mav, HttpSession session) {
 		mav.setViewName("sales/detail");
 		mav.addObject("dto", salesService.detailSales(salesNo));
 		mav.addObject("acttype", codeService.listActtype(session));
+		if(simple != null){
+			mav.addObject("simple","Y");
+		}
 		return mav;
 	}
 	
 	@RequestMapping("write.do")
-	public ModelAndView write(HttpSession session, ModelAndView mav) {
+	public ModelAndView write(@RequestParam(value = "simple", required = false) String simple, HttpSession session, ModelAndView mav) {
 		mav.addObject("salesType", codeService.listActtype(session));
+		if(simple != null){
+			mav.addObject("simple","Y");
+		}
 		mav.setViewName("sales/write");
 		return mav;
 	}

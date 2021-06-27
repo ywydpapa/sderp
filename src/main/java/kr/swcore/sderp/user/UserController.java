@@ -132,7 +132,7 @@ public class UserController {
 	public ModelAndView logout(HttpSession session) {
 		userService.logout(session);
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("/");
+		mav.setViewName("user/login");
 		return mav;
 	}
 

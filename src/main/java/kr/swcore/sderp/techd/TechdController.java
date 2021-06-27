@@ -62,6 +62,7 @@ public class TechdController {
 	public ModelAndView detail(@PathVariable("techdNo") int techdNo,
 							   ModelAndView mav,
 							   HttpSession session,
+							   @RequestParam(value = "simple", required = false) String simple,
 							   @RequestParam(value = "userNo", required = false) Integer userNo,
 							   @RequestParam(value = "userName", required = false) String userName,
 							   @RequestParam(value = "custNo", required = false) Integer custNo,
@@ -80,14 +81,20 @@ public class TechdController {
 		mav.addObject("sprttype", codeService.listSprttype(session));
 		mav.addObject("sprtstat", codeService.listSprtstat(session));
 		mav.addObject("contractType", codeService.listContractType(session));
+		if(simple != null){
+			mav.addObject("simple","Y");
+		}
 		return mav;
 	}
 
 	@RequestMapping("write.do")
-	public ModelAndView write(HttpSession session, ModelAndView mav) {
+	public ModelAndView write(@RequestParam(value = "simple", required = false) String simple, HttpSession session, ModelAndView mav) {
 		mav.addObject("sprttype", codeService.listSprttype(session));
 		mav.addObject("sprtstat", codeService.listSprtstat(session));
 		mav.addObject("contractType", codeService.listContractType(session));
+		if(simple != null){
+			mav.addObject("simple","Y");
+		}
 		mav.setViewName("techd/write");
 		return mav;
 	}

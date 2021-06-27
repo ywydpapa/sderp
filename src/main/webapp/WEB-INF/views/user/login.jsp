@@ -3,6 +3,7 @@
 	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <c:set var="path" value ="${pageContext.request.contextPath}"/>
+<c:set var="path2" value="${requestScope['javax.servlet.forward.servlet_path']}" />
 <!DOCTYPE html>
 <html lang="en">
 
@@ -29,6 +30,11 @@
 	<link rel="stylesheet" type="text/css" href="${path}/assets/css/style2.css">
     
 <script>
+<c:if test="${path2 eq '/user/logout.do'}">
+    var url = "${path}/";
+    history.pushState(null, null, url);
+</c:if>
+
 $(document).ready(function(){
 	var resultMsg = "${msg}";
 	if(resultMsg == "Fail") {

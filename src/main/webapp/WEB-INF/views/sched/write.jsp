@@ -3,12 +3,14 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <c:set var="path" value="${pageContext.request.contextPath}" />
+<c:if test="${empty simple}">
 <!DOCTYPE html>
 <html>
 <jsp:include page="../head.jsp"/>
 <jsp:include page="../body-top.jsp"/>
 
 <div id="main_content">
+</c:if>
 	<!-- Page-header start 페이지 타이틀-->
 	<div class="page-header2">
 		<div class="row align-items-end">
@@ -392,5 +394,7 @@
 		setTimeComboBox(['#startTime', '#endTime']);
 
 	</script>
+<c:if test="${empty simple}">
 </div>
 <jsp:include page="../body-bottom.jsp"/>
+</c:if>

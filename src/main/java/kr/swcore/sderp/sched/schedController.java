@@ -69,19 +69,25 @@ public class schedController {
 	}
 
 	@RequestMapping("/detail/{schedNo}")
-	public ModelAndView detail(@PathVariable("schedNo") int schedNo, ModelAndView mav, HttpSession session) {
+	public ModelAndView detail(@PathVariable("schedNo") int schedNo, @RequestParam(value = "simple", required = false) String simple, ModelAndView mav, HttpSession session) {
 		mav.addObject("dto", schedService.detailSched(schedNo));
 		mav.addObject("schedtype", codeService.listSchedtype(session));
 		mav.addObject("acttype", codeService.listActtype(session));
+		if(simple != null){
+			mav.addObject("simple","Y");
+		}
 		mav.setViewName("sched/detail");
 		return mav;
 	}
 	
 	@RequestMapping("write.do")
-	public ModelAndView write(HttpSession session, ModelAndView mav) {
+	public ModelAndView write(@RequestParam(value = "simple", required = false) String simple, HttpSession session, ModelAndView mav) {
 		mav.addObject("schedtype", codeService.listSchedtype(session));
 //		mav.addObject("acttype", codeService.listActtype(session));
 		mav.addObject("acttype", codeService.listActtype(session));
+		if(simple != null){
+			mav.addObject("simple","Y");
+		}
 		mav.setViewName("sched/write");
 		return mav;
 	}

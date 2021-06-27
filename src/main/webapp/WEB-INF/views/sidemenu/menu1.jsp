@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <c:set var="path" value="${pageContext.request.contextPath}" />
 <c:set var="path2" value="${requestScope['javax.servlet.forward.servlet_path']}" />
 <script src="${path}/assets/js/pcoded.min.js"></script>
@@ -22,7 +23,7 @@
 				<span class="pcoded-mcaret"></span>
 			</a>
 		</li>
-		<li class="pcoded-hasmenu pcoded <c:if test="${path2 eq '/calendar/calmain.do' || path2 eq '/sched/list.do' || path2 eq '/sched/write.do'}">pcoded-trigger</c:if>">
+		<li class="pcoded-hasmenu pcoded <c:if test="${path2 eq '/calendar/calmain.do' || path2 eq '/sched/list.do' || path2 eq '/sched/write.do' || fn:startsWith(path2, '/sched')}">pcoded-trigger</c:if>">
 			<a href="javascript:void(0)">
 				<span class="pcoded-micon">
 					<i class="ti-calendar"></i>
@@ -60,7 +61,7 @@
 				</li>
 			</ul>
 		</li>
-		<li class="pcoded-hasmenu pcoded <c:if test="${path2 eq '/sales/list.do' || path2 eq '/sales/list.do' || path2 eq '/sales/write.do'}">pcoded-trigger</c:if>">
+		<li class="pcoded-hasmenu pcoded <c:if test="${path2 eq '/sales/list.do' || path2 eq '/sales/list.do' || path2 eq '/sales/write.do' || fn:startsWith(path2, '/sales/detail')}">pcoded-trigger</c:if>">
 			<a href="javascript:void(0)">
 				<span class="pcoded-micon">
 					<i class="ti-briefcase"></i>
@@ -89,7 +90,7 @@
 				</li>
 			</ul>
 		</li>
-		<li class="pcoded-hasmenu pcoded <c:if test="${path2 eq '/sopp/list.do' || path2 eq '/sopp/list.do' || path2 eq '/sopp/write.do'}">pcoded-trigger</c:if>">
+		<li class="pcoded-hasmenu pcoded <c:if test="${path2 eq '/sopp/list.do' || path2 eq '/sopp/list.do' || path2 eq '/sopp/write.do' || fn:startsWith(path2, '/sopp/detail')}">pcoded-trigger</c:if>">
 			<a href="javascript:void(0)">
 				<span class="pcoded-micon">
 					<i class="ti-agenda"></i>
@@ -118,7 +119,7 @@
 				</li>
 			</ul>
 		</li>
-		<li class="pcoded-hasmenu pcoded <c:if test="${path2 eq '/sopp/list2.do' || path2 eq '/sopp/list2.do'}">pcoded-trigger</c:if>">
+		<li class="pcoded-hasmenu pcoded <c:if test="${path2 eq '/sopp/list2.do' || path2 eq '/sopp/list2.do' || fn:startsWith(path2, '/sopp/detail')}">pcoded-trigger</c:if>">
 			<a href="javascript:void(0)">
 				<span class="pcoded-micon">
 					<i class="ti-package"></i>
@@ -138,7 +139,7 @@
 				</li>
 			</ul>
 		</li>
-		<li class="pcoded-hasmenu pcoded <c:if test="${path2 eq '/cont/list.do' || path2 eq '/cont/list.do' || path2 eq '/cont/write.do'}">pcoded-trigger</c:if>">
+		<li class="pcoded-hasmenu pcoded <c:if test="${path2 eq '/cont/list.do' || path2 eq '/cont/list.do' || path2 eq '/cont/write.do' || fn:startsWith(path2, '/cont/detail')}">pcoded-trigger</c:if>">
 			<a href="javascript:void(0)">
 				<span class="pcoded-micon">
 					<i class="ti-pencil-alt"></i>
@@ -166,7 +167,7 @@
 				</li>
 			</ul>
 		</li>
-		<li class="pcoded-hasmenu pcoded <c:if test="${path2 eq '/techd/list.do' || path2 eq '/techd/list.do' || path2 eq '/techd/write.do'}">pcoded-trigger</c:if>">
+		<li class="pcoded-hasmenu pcoded <c:if test="${path2 eq '/techd/list.do' || path2 eq '/techd/list.do' || path2 eq '/techd/write.do' || fn:startsWith(path2, '/techd/detail')}">pcoded-trigger</c:if>">
 			<a href="javascript:void(0)">
 				<span class="pcoded-micon">
 					<i class="ti-agenda"></i></span>

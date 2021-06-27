@@ -69,7 +69,7 @@
 								</table>
 							</form>
 							<div class="btn_wr text-right mt-3">
-								<button class="btn btn-md btn-success f-left" onClick="javascript:fnSetPage('${path}/code/list.do')">목록</button>
+								<button class="btn btn-md btn-success f-left" onClick="javascript:location='${path}/code/list.do'">목록</button>
 								<button class="btn btn-md btn-primary" value="수정" id="btnUpdate" onClick= "fn_codeInsert01()">등록</button>
 							</div>
 							<table id="codeTable" class="table table-striped table-bordered nowrap ">
@@ -99,7 +99,7 @@
 							<c:forEach var="row" items="${list1}">
 								<tr>
 									<th scope="row"><input class="border-checkbox" type="checkbox" id="checkbox0"></th>
-									<td><a href="javascript:fnSetPage('${path}/code/detail01/${row.codeNo}')">${row.codeNo}</a></td>							
+									<td><a href="javascript:location.herf='${path}/code/detail01/${row.codeNo}'">${row.codeNo}</a></td>
 									<td>${row.code01}</td> 
 									<td>${row.desc01}</td>
 									<td>${row.value01}</td>
@@ -153,7 +153,7 @@
 								</table>
 							</form>
 							<div class="btn_wr text-right mt-3">
-								<button class="btn btn-md btn-success f-left" onClick="javascript:fnSetPage('${path}/code/list.do')">목록</button>
+								<button class="btn btn-md btn-success f-left" onClick="javascript:location='${path}/code/list.do'">목록</button>
 								<button class="btn btn-md btn-primary" value="수정" id="btnUpdate" onClick= "fn_codeInsert02()" >등록</button>
 							</div>
 							<table id="codeTable02" class="table table-striped table-bordered nowrap ">
@@ -183,7 +183,7 @@
 							<c:forEach var="row" items="${list2}">
 								<tr>
 									<th scope="row"><input class="border-checkbox" type="checkbox" id="checkbox0"></th>
-									<td><a href="javascript:fnSetPage('${path}/code/detail02/${row.codeNo}')">${row.codeNo}</a></td>							
+									<td><a href="javascript:location.herf='${path}/code/detail02/${row.codeNo}'">${row.codeNo}</a></td>
 									<td>${row.code02}</td> 
 									<td>${row.desc02}</td>
 									<td>${row.value02}</td>
@@ -238,7 +238,7 @@
 								</table>
 							</form>
 							<div class="btn_wr text-right mt-3">
-								<button class="btn btn-md btn-success f-left" onClick="javascript:fnSetPage('${path}/code/list.do')">목록</button>
+								<button class="btn btn-md btn-success f-left" onClick="javascript:location='${path}/code/list.do'">목록</button>
 								<button class="btn btn-md btn-primary" value="수정" id="btnUpdate" onClick= "fn_codeInsert03()" >등록</button>
 							</div>
 							<table id="codeTable03" class="table table-striped table-bordered nowrap ">
@@ -268,7 +268,7 @@
 							<c:forEach var="row" items="${list3}">
 								<tr>
 									<th scope="row"><input class="border-checkbox" type="checkbox" id="checkbox0"></th>
-									<td><a href="javascript:fnSetPage('${path}/code/detail03/${row.codeNo}')">${row.codeNo}</a></td>							
+									<td><a href="javascript:location.herf='${path}/code/detail03/${row.codeNo}'">${row.codeNo}</a></td>
 									<td>${row.code03}</td> 
 									<td>${row.desc03}</td>
 									<td>${row.value03}</td>
@@ -313,7 +313,8 @@ function fn_codeInsert01() {
 			.done(function(data) {
 				if(data.code == 10001){
 					alert("저장 성공");
-					fnSetPage('${path}/code/write.do');
+					var url ='${path}/code/write.do';
+					location.herf = url;
 				}else{
 					alert("저장 실패");
 				}

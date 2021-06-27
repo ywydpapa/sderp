@@ -158,7 +158,21 @@ public class SoppController {
 		Map<String, Object> param = new HashMap<>();
 		if(uploadFile > 0) {
 			param.put("code", "10001");
-		}else {
+			param.put("data",soppService.listFile(soppNo));
+		} else {
+			param.put("code", "20001");
+		}
+		return ResponseEntity.ok(param);
+	}
+
+	@RequestMapping("/deleteFile")
+	public ResponseEntity<?> removeFile(HttpSession session, @ModelAttribute SoppFileDataDTO dto){
+		int uploadFile = soppService.deleteFile(session, dto);
+		Map<String, Object> param = new HashMap<>();
+		if(uploadFile > 0) {
+			param.put("code", "10001");
+			param.put("data", soppService.listFile(dto.getSoppNo()));
+		} else {
 			param.put("code", "20001");
 		}
 		return ResponseEntity.ok(param);
@@ -287,8 +301,7 @@ public class SoppController {
 		}
 		return ResponseEntity.ok(param);
 	}
-	
-	
+
 	@RequestMapping("delete.do")
 			public ResponseEntity<?> delete(@ModelAttribute SoppDTO dto) {
 			Map<String, Object> param = new HashMap<>();

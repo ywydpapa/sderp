@@ -452,7 +452,8 @@
 <script type="text/javascript" src="${path}/assets/js/script.js"></script>
 <script type="text/javascript">
 $( document ).ready(function() {
-	fnSetPage('${path}/myboard.do');
+	var url ='${path}/myboard.do';
+	location.herf = url;
 });
 
 $(".header-notification")

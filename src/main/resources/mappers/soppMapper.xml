@@ -534,11 +534,11 @@ from
 		and soppNo = #{soppNo}
 </update>
  
- <delete id="deleteSopp">
+<delete id="deleteSopp">
 	update swc_sopp 
 	set attrib = 'XXXXX'
 	where soppNo=#{soppNo}
- </delete>
+</delete>
  
 <select id="detailSopp2222"
  		resultType="soppDto">
@@ -653,7 +653,9 @@ now()
 		uploadDate,
 		fileContent,
 		soppNo,
-		userNo
+		userNo,
+		regDatetime,
+		attrib
 	)
  	values 
  	(
@@ -663,22 +665,32 @@ now()
  		now(),
  		#{fileContent},
  		#{soppNo},
- 		#{userNo}
+ 		#{userNo},
+ 	 	now(),
+		10000
  	)
  </insert>
  
- <select id="downloadFile" resultType="soppFileDataDTO">
+<select id="downloadFile" resultType="soppFileDataDTO">
 	select *
 	from swc_soppFileData  
 	where fileId = #{fileId} and soppNo=#{soppNo}
- </select>
+</select>
+
+<delete id="deleteFile">
+	update swc_soppFileData
+	set attrib = 'XXXXX',
+		modDatetime = now()
+	where fileId = #{fileId} and soppNo=#{soppNo}
+</delete>
  
- <select id="listFile" resultType="soppFileDataDTO">
+<select id="listFile" resultType="soppFileDataDTO">
  	select *
  	from swc_soppFileData
  	where soppNo=#{soppNo}
- 	order by uploadDate desc
- </select>
+ 	and attrib not like 'XXX%'
+	order by uploadDate desc
+</select>
  
  		
 </mapper>

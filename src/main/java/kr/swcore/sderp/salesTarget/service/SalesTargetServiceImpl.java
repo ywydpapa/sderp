@@ -238,7 +238,7 @@ public class SalesTargetServiceImpl implements SalesTargetService {
 		
 		Boolean result = false;
 		try {
-			resultDto = (SalesTargetDTO) SalesTargetDTO_Static.GetWithCompNo(compNo);
+			resultDto = (SalesTargetDTO) SalesTargetGraph_Static.GetWithCompNo(compNo);
 			//resultDto = salesTargetDAO.listViewGraphData01CompnayMonth(salesTargetDTO);
 			if(resultDto != null){
 				String[] monthArr = resultDto.getMonthDate_Group().split(",");

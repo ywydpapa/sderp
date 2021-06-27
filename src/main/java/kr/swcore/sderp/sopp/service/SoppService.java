@@ -31,5 +31,6 @@ public interface SoppService {
 		int update2Sopp(HttpSession session, SoppDTO dto);
 		Map<String, Object> updateAprvOrReject(HttpSession session, SoppDTO dto);
 		int uploadFile(HttpSession session, int soppNo, MultipartHttpServletRequest fileList) throws IOException;
+		Integer deleteFile(HttpSession session, SoppFileDataDTO dto);
 		SoppFileDataDTO downloadFile(SoppFileDataDTO dto);
 }

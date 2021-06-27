@@ -446,7 +446,7 @@
 							</table>
 							<div class="btn_wr text-right mt-3">
 								<button class="btn btn-md btn-success f-left"
-									onClick="javascript:fnSetPage('${path}/sopp/list.do')">목록</button>
+									onClick="javascript:location='${path}/sopp/list.do'">목록</button>
 							</div>
 						</div>
 					</div>
@@ -480,7 +480,7 @@
 							</form>
 							<div class="btn_wr text-right mt-3">
 								<button class="btn btn-md btn-success f-left"
-									onClick="javascript:fnSetPage('${path}/sopp/list.do')">목록</button>
+									onClick="javascript:location='${path}/sopp/list.do'">목록</button>
 							</div>
 						</div>
 					</div>
@@ -518,7 +518,7 @@
 							</form>
 							<div class="btn_wr text-right mt-3">
 								<button class="btn btn-md btn-success f-left"
-									onClick="javascript:fnSetPage('${path}/sopp/list.do')">목록</button>
+									onClick="javascript:location='${path}/sopp/list.do'">목록</button>
 							</div>
 						</div>
 					</div>
@@ -561,7 +561,7 @@
 							</form>
 							<div class="btn_wr text-right mt-3">
 								<button class="btn btn-md btn-success f-left"
-									onClick="javascript:fnSetPage('${path}/sopp/list.do')">목록</button>
+									onClick="javascript:location='${path}/sopp/list.do'">목록</button>
 							</div>
 						</div>
 					</div>
@@ -616,7 +616,7 @@
 				.done(function(data) {
 					if(data.code == 10001){
 						alert("승인되었습니다.");
-					    fnSetPage("/sopp/list2.do");					
+						location.herf="/sopp/list2.do";
 					}else{
 						alert("승인 실패");
 					}
@@ -640,7 +640,7 @@
 				.done(function(data) {
 					if(data.code == 10001){
 						alert("반려처리 되었습니다.");
-					    fnSetPage("/sopp/list2.do");					
+						location.herf="/sopp/list2.do";
 					}else{
 						alert("승인 실패");
 					}

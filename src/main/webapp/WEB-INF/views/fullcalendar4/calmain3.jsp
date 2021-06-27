@@ -3,10 +3,12 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <c:set var="path" value ="${pageContext.request.contextPath}"/>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
+<!DOCTYPE html>
+<html>
+<jsp:include page="../head.jsp"/>
+<jsp:include page="../body-top.jsp"/>
+
+<div id="main_content">
     <link href='${path}/fullcalendar4/core/main.css' rel='stylesheet' />
     <link href='${path}/fullcalendar4/daygrid/main.css' rel='stylesheet' />
     <link href='${path}/fullcalendar4/bootstrap/main.css' rel='stylesheet' />
@@ -60,359 +62,361 @@
 	</style>
     
   <!-- Modal body Start -->
-<div class="modal fade" tabindex="-1" role="dialog" id="eventModal" data-backdrop="static">
-	<div class="modal-dialog" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal"
-					aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-				<h4 class="modal-title">일정추가</h4>
-			</div>
-			<div class="modal-body">
-				<div class="eventModalRadioGroup">
-					<div class="form-radio">
-						<form>
-							<div class="radio radio-inline">
-								<label><input type="radio" name="schedCat" value="770010" onclick="fnSetDetail(this.value)"/><i class="helper"></i>영업일정</label>
-							</div>
-							<div class="radio radio-inline">
-								<label><input type="radio" name="schedCat" value="770100" onclick="fnSetDetail(this.value)"/><i class="helper"></i>기술지원</label>
-							</div>
-							<div class="radio radio-inline">
-								<label><input type="radio" name="schedCat" value="770800" onclick="fnSetDetail(this.value)"/><i class="helper"></i>기타일정</label>
-							</div>
-						</form>
+	<div class="modal fade" tabindex="-1" role="dialog" id="eventModal" data-backdrop="static">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title">일정추가</h4>
+				</div>
+				<div class="modal-body">
+					<div class="eventModalRadioGroup">
+						<div class="form-radio">
+							<form>
+								<div class="radio radio-inline">
+									<label><input type="radio" name="schedCat" value="770010" onclick="fnSetDetail(this.value)"/><i class="helper"></i>영업일정</label>
+								</div>
+								<div class="radio radio-inline">
+									<label><input type="radio" name="schedCat" value="770100" onclick="fnSetDetail(this.value)"/><i class="helper"></i>기술지원</label>
+								</div>
+								<div class="radio radio-inline">
+									<label><input type="radio" name="schedCat" value="770800" onclick="fnSetDetail(this.value)"/><i class="helper"></i>기타일정</label>
+								</div>
+							</form>
+						</div>
+					</div>
+					<div id="detail-content">
+
 					</div>
 				</div>
-				<div id="detail-content">
-					
+			</div>
+		</div>
+	</div>
+	<div>
+		<div style="float:left; margin:0px 5px">
+			<input type="text" id="organizationChartOpen" class="form-control" value="조직도" style="width:200px; cursor:pointer" readonly/>
+			<div id="organizationChartView">
+				<div id="tree" style="display: inline-block;">
+					<ul>
+						<li class="folder expanded topElement" data-json='{"icon": "${path}/images/tree-icon1.png"}'>${organizationArrList[0].title}
+							<ul>
+								<c:forEach var="i" begin="0" end="${fn:length(organizationArrList[0].children)-1}" varStatus="status" step="1">
+									<c:set var="item" value="${organizationArrList[0].children[i]}"/>
+									<li class="folder">${status.current}.${item.title}
+										<ul>
+											<c:forEach var="user" items="${item.children}">
+												<li data-json='{"icon": "${path}/images/personIcon1.png"}' id="li_${user.userNo}">${user.title}</li>
+											</c:forEach>
+										</ul>
+									</li>
+								</c:forEach>
+							</ul>
+						</li>
+					</ul>
 				</div>
+				<div style="text-align:center; margin-top:5px;"><button class="btn btn-sm btn-inverse" onClick="javascript:$('#organizationChartView').hide();">닫기</button></div>
 			</div>
 		</div>
+		<input type="button" onclick="fnSearchCalendar()" value="검색">
 	</div>
-</div>
-<div>
-	<div style="float:left; margin:0px 5px">
-		<input type="text" id="organizationChartOpen" class="form-control" value="조직도" style="width:200px; cursor:pointer" readonly/>
-		<div id="organizationChartView">
-			<div id="tree" style="display: inline-block;">
-				<ul>
-					<li class="folder expanded topElement" data-json='{"icon": "${path}/images/tree-icon1.png"}'>${organizationArrList[0].title}
-						<ul>
-							<c:forEach var="i" begin="0" end="${fn:length(organizationArrList[0].children)-1}" varStatus="status" step="1">
-								<c:set var="item" value="${organizationArrList[0].children[i]}"/>
-								<li class="folder">${status.current}.${item.title}
-									<ul>
-										<c:forEach var="user" items="${item.children}">
-											<li data-json='{"icon": "${path}/images/personIcon1.png"}' id="li_${user.userNo}">${user.title}</li>
-										</c:forEach>
-									</ul>
-								</li>
-							</c:forEach>
-						</ul>
-					</li>
-				</ul>
-			</div>
-			<div style="text-align:center; margin-top:5px;"><button class="btn btn-sm btn-inverse" onClick="javascript:$('#organizationChartView').hide();">닫기</button></div>
-		</div>
+	<div id='calendar'></div>
+	<div style="margin-top: 10px;">선택한 사람 : <br/>
+		<div id="selectedPerson"></div>
 	</div>
-	<input type="button" onclick="fnSearchCalendar()" value="검색">
-</div>
-<div id='calendar'></div>
-<div style="margin-top: 10px;">선택한 사람 : <br/>
-	<div id="selectedPerson"></div>
-</div>
-<script>
-	var userNoSelected = {
-		<c:forEach var="i" begin="0" end="${fn:length(organizationArrList[0].children)-1}" varStatus="status" step="1">
-			<c:set var="item" value="${organizationArrList[0].children[i]}"/>
-				<c:forEach var="user" items="${item.children}">
-					${user.userNo} : false,
-				</c:forEach>
-		</c:forEach>
-	}
-	var userNoMatchName = {
-		<c:forEach var="i" begin="0" end="${fn:length(organizationArrList[0].children)-1}" varStatus="status" step="1">
-			<c:set var="item" value="${organizationArrList[0].children[i]}"/>
-			<c:forEach var="user" items="${item.children}">
-				${user.userNo} : '${user.title}',
+	<script>
+		var userNoSelected = {
+			<c:forEach var="i" begin="0" end="${fn:length(organizationArrList[0].children)-1}" varStatus="status" step="1">
+				<c:set var="item" value="${organizationArrList[0].children[i]}"/>
+					<c:forEach var="user" items="${item.children}">
+						${user.userNo} : false,
+					</c:forEach>
 			</c:forEach>
-		</c:forEach>
-	}
-
-	$('#soppModal').on('show.bs.modal', function(e) {
-		var button = $(e.relatedTarget);
-		var modal = $(this);
-		modal.find('.modal-body').load(button.data("remote"));
-	});
-	$('#contModal').on('show.bs.modal', function(e) {
-		var button = $(e.relatedTarget);
-		var modal = $(this);
-		modal.find('.modal-body').load(button.data("remote"));
-	});
-	function fnSetSoppData(a, b, c, d) {
-		$("#soppNo").val(b);
-		$("#soppTitle").val(a);
-		$("#userNo").val(c);
-		$("#custNo").val(d);
-		$("#soppModal").modal("hide");
-	}
-	function fnSetContData(a, b) {
-		$("#contNo").val(b);
-		$("#contTitle").val(a);
-		$("#contModal").modal("hide");
-	}
-
-	function fnSetDetail(value, info) {
-		var path;
-		
-		if(value == '770010') {
-			path = '${path}/sales/write.do';
-		}else if(value == '770100'){
-			path = '${path}/techd/write.do';
-		}else if(value == '770800'){
-			path = '${path}/sched/write.do';
-		}else if(value == 'modify'){
-			var schedType = info.event.extendedProps.schedType;
-			if(schedType == '영업일정') {
-				path = '${path}/sales/detail/'+info.event.id;	
-			}else if(schedType == '기술지원'){
-				path = '${path}/techd/detail/'+info.event.id;
-			}else if(schedType == '기타일정'){
-				path = '${path}/sched/detail/'+info.event.id;
-			}
 		}
-		
-		if(path) {
-			$('#detail-content').load(path, function() {
-				$('.modal-list-btn').hide();
-				$('.modal-cancel-btn').hide();
-				$('#detail-content').find('.modal-dialog').draggable({ 
-					handle: ".modal-header" 
+		var userNoMatchName = {
+			<c:forEach var="i" begin="0" end="${fn:length(organizationArrList[0].children)-1}" varStatus="status" step="1">
+				<c:set var="item" value="${organizationArrList[0].children[i]}"/>
+				<c:forEach var="user" items="${item.children}">
+					${user.userNo} : '${user.title}',
+				</c:forEach>
+			</c:forEach>
+		}
+
+		$('#soppModal').on('show.bs.modal', function(e) {
+			var button = $(e.relatedTarget);
+			var modal = $(this);
+			modal.find('.modal-body').load(button.data("remote"));
+		});
+		$('#contModal').on('show.bs.modal', function(e) {
+			var button = $(e.relatedTarget);
+			var modal = $(this);
+			modal.find('.modal-body').load(button.data("remote"));
+		});
+		function fnSetSoppData(a, b, c, d) {
+			$("#soppNo").val(b);
+			$("#soppTitle").val(a);
+			$("#userNo").val(c);
+			$("#custNo").val(d);
+			$("#soppModal").modal("hide");
+		}
+		function fnSetContData(a, b) {
+			$("#contNo").val(b);
+			$("#contTitle").val(a);
+			$("#contModal").modal("hide");
+		}
+
+		function fnSetDetail(value, info) {
+			var path;
+
+			if(value == '770010') {
+				path = '${path}/sales/write.do';
+			}else if(value == '770100'){
+				path = '${path}/techd/write.do';
+			}else if(value == '770800'){
+				path = '${path}/sched/write.do';
+			}else if(value == 'modify'){
+				var schedType = info.event.extendedProps.schedType;
+				if(schedType == '영업일정') {
+					path = '${path}/sales/detail/'+info.event.id;
+				}else if(schedType == '기술지원'){
+					path = '${path}/techd/detail/'+info.event.id;
+				}else if(schedType == '기타일정'){
+					path = '${path}/sched/detail/'+info.event.id;
+				}
+			}
+
+			if(path) {
+				$('#detail-content').load(path, function() {
+					$('.modal-list-btn').hide();
+					$('.modal-cancel-btn').hide();
+					$('#detail-content').find('.modal-dialog').draggable({
+						handle: ".modal-header"
+					});
+
+					fnSetCurrentDate();
 				});
-				
-				fnSetCurrentDate();
-			});			
+			}
 		}
-	}
-	var calendar;
-	function setCalendar(event, userNoList) {
-		var userNoList = userNoList;
-		if(event != 'search') {
-			userNoList = ["${sessionScope.userNo}"];
-		}
-		
-		var calendarEl = document.getElementById('calendar');
-		calendar = new FullCalendar.Calendar(calendarEl, {
-		  	header : {
-	 			left:   '',
-	  			center: 'title',
-	  			right:  'prevYear prev today next nextYear'
-	      	},
-	       	plugins: [ 'dayGrid','interaction','timeGrid','list' ],
-	       	locale                    : 'ko',    
-	       	timezone                  : "local", 
-	       	firstDay                  : 0, 
-	       	weekNumbers               : false,
-	       	selectable                : true,
-	       	weekNumberCalculation     : "ISO",
-	       	nextDayThreshold          : "09:00:00",
-	       	allDaySlot                : true,
-	       	displayEventTime          : false,
-	       	displayEventEnd           : true,
-	       	eventLimit                : true,
-	       	views                     : { 
-	       	                                month : { eventLimit : 3 }
-	       	                            },
-	      	dateClick:function (info) {
-	      		$('#detail-content').empty();
-	      		$('#detail-content')[0].selectedDate = info.dateStr;
-	      		fnInitializeRadio();
-	      		$('.eventModalRadioGroup').show();
-	      		$('#eventModal').modal('show');
-	    	},
+		var calendar;
+		function setCalendar(event, userNoList) {
+			var userNoList = userNoList;
+			if(event != 'search') {
+				userNoList = ["${sessionScope.userNo}"];
+			}
 
-			eventSources: [{
-				url: '${path}/calendar/listEvent.do',
-				method: 'POST',
-				extraParams: {
-					userNoList : userNoList
+			var calendarEl = document.getElementById('calendar');
+			calendar = new FullCalendar.Calendar(calendarEl, {
+				header : {
+					left:   '',
+					center: 'title',
+					right:  'prevYear prev today next nextYear'
 				},
-				success : function(rawData, response) {
-					return rawData;
+				plugins: [ 'dayGrid','interaction','timeGrid','list' ],
+				locale                    : 'ko',
+				timezone                  : "local",
+				firstDay                  : 0,
+				weekNumbers               : false,
+				selectable                : true,
+				weekNumberCalculation     : "ISO",
+				nextDayThreshold          : "09:00:00",
+				allDaySlot                : true,
+				displayEventTime          : false,
+				displayEventEnd           : true,
+				eventLimit                : true,
+				views                     : {
+												month : { eventLimit : 3 }
+											},
+				dateClick:function (info) {
+					$('#detail-content').empty();
+					$('#detail-content')[0].selectedDate = info.dateStr;
+					fnInitializeRadio();
+					$('.eventModalRadioGroup').show();
+					$('#eventModal').modal('show');
 				},
-				failure: function(error) {
-					console.dir(error);
-					alert('캘린더 데이터 요청 실패');
+
+				eventSources: [{
+					url: '${path}/calendar/listEvent.do',
+					method: 'POST',
+					extraParams: {
+						userNoList : userNoList
+					},
+					success : function(rawData, response) {
+						return rawData;
+					},
+					failure: function(error) {
+						console.dir(error);
+						alert('캘린더 데이터 요청 실패');
+					},
+					color: 'yellow',    // an option!
+					textColor: 'black',  // an option!
+				}],
+
+				eventClick: function(info) {
+					$('#detail-content').empty();
+					$('.eventModalRadioGroup').hide();
+					$('#eventModal').modal('show');
+					fnSetDetail('modify', info);
 				},
-				color: 'yellow',    // an option!
-				textColor: 'black',  // an option!
-			}],
+				eventRender : function(info) {
+					info.el.style.backgroundColor = info.event.extendedProps.color;
+					info.el.style.borderColor = info.event.extendedProps.color;
+				}
+			});
+			calendar.render();
 
-			eventClick: function(info) {
-	        	$('#detail-content').empty();
-				$('.eventModalRadioGroup').hide();
-				$('#eventModal').modal('show');
-				fnSetDetail('modify', info);
-	        },
-	        eventRender : function(info) {
-	        	info.el.style.backgroundColor = info.event.extendedProps.color;
-	        	info.el.style.borderColor = info.event.extendedProps.color;
-	        }
-        });
-        calendar.render();
-
-        if(event == 'search'){
-		}
-	}
-	
-	function fnSearchCalendar() {
-		var userNoList = [];
-		for (const key in userNoSelected){
-			var userNo = key;
-			var bool = userNoSelected[key];
-			if(bool){
-				userNoList.push(userNo);
+			if(event == 'search'){
 			}
 		}
 
-		$('#calendar').empty();
-		setCalendar('search', userNoList);
-	}
-	
-	function fnOrganizationCheck(companyCheckbox) {
-		var organizations = $('.organization-checkbox');
-		$('.organization-checkbox').each(function(index, item){
-			item.checked = companyCheckbox.checked;
-		});
-	}
-
-	function fnCaretClick () {
-		if($('.organizationList-ul').is(":visible")) {
-			$('.organizationList-ul').hide();
-			$('#caret1')[0].className = 'fa-li fa fa-caret-right'
-			
-		}else {
-			$('.organizationList-ul').show();
-			$('#caret1')[0].className = 'fa-li fa fa-caret-down'
-		}
-	}
-	
-	function fnSetCurrentDate() {
-		var startDate = $('#detail-content').find('input[type=date]')[0];
-		var startTime = $('#startTime');
-		var endDate = $('#detail-content').find('input[type=date]')[1];
-		var endTime = $('#endTime');
-		
-		startDate.value = $('#detail-content')[0].selectedDate;
-		startTime.val("09:00");
-		endDate.value = $('#detail-content')[0].selectedDate;
-		endTime.val("23:30");
-	}
-	
-	function fnInitializeRadio() {
-		var radioButtons = $('.eventModalRadioGroup').find('input[type=radio]');
-		
-		for(var i = 0; i < radioButtons.length; i++) {
-			radioButtons[i].checked = false;
-		}
-	}
-
-	function userNoSelected_Delete(userNo){
-		$("#tree").fancytree("getTree").visit(function(node) {
-			if(node.key == ("li_"+userNo)){
-				node.setSelected(false);
+		function fnSearchCalendar() {
+			var userNoList = [];
+			for (const key in userNoSelected){
+				var userNo = key;
+				var bool = userNoSelected[key];
+				if(bool){
+					userNoList.push(userNo);
+				}
 			}
-		});
-	}
 
-	function userNoSelected_ElementCreate(){
-		var html = "";
-		for (const key in userNoSelected){
-			var userNo = key;
-			var usrName = userNoMatchName[key];
-			var bool = userNoSelected[key];
-			if(bool){
-				html = html + '<div style="display: inline-block;border: solid 0.5px #ffb64d; margin-right:5px;">' +
-						'<button type="button" class="close" data-dismiss="alert" aria-label="Close" style="" onclick="userNoSelected_Delete('+userNo+');">' +
-						'<span aria-hidden="true" style="">×</span>' +
-						'</button>' +
-						'<strong style=" padding: 5px; font-size: 1.2em;">' + usrName + '</strong>' +
-						'</div>';
+			$('#calendar').empty();
+			setCalendar('search', userNoList);
+		}
+
+		function fnOrganizationCheck(companyCheckbox) {
+			var organizations = $('.organization-checkbox');
+			$('.organization-checkbox').each(function(index, item){
+				item.checked = companyCheckbox.checked;
+			});
+		}
+
+		function fnCaretClick () {
+			if($('.organizationList-ul').is(":visible")) {
+				$('.organizationList-ul').hide();
+				$('#caret1')[0].className = 'fa-li fa fa-caret-right'
+
+			}else {
+				$('.organizationList-ul').show();
+				$('#caret1')[0].className = 'fa-li fa fa-caret-down'
 			}
 		}
-		$("#selectedPerson").empty();
-		$("#selectedPerson").append(html);
-	}
-	var calYear = "";
-	var calDate = "";
-	$(document).ready(function() {
-		setCalendar();
-		// setOrganizationList();
-		//setOrganizationTree();
-	    $('#organizationChartOpen').on('click', function() {
-			if ($('#organizationChartView').is(":visible")) {
-			    $('#organizationChartView').hide();
-			} else {
-			    $('#organizationChartView').show();
+
+		function fnSetCurrentDate() {
+			var startDate = $('#detail-content').find('input[type=date]')[0];
+			var startTime = $('#startTime');
+			var endDate = $('#detail-content').find('input[type=date]')[1];
+			var endTime = $('#endTime');
+
+			startDate.value = $('#detail-content')[0].selectedDate;
+			startTime.val("09:00");
+			endDate.value = $('#detail-content')[0].selectedDate;
+			endTime.val("23:30");
+		}
+
+		function fnInitializeRadio() {
+			var radioButtons = $('.eventModalRadioGroup').find('input[type=radio]');
+
+			for(var i = 0; i < radioButtons.length; i++) {
+				radioButtons[i].checked = false;
 			}
-	    });
-		$("#tree").fancytree({
-			checkbox: true,
-			selectMode: 3,
-			select: function(event, data) {
-				console.dir(data.node);
-				var html = "";
-				if(data.node.children == null) {
-					var userNo = data.node.key.split("_")[1];
-					if(data.node.isSelected()) userNoSelected[userNo] = true;
-					else userNoSelected[userNo] = false;
+		}
+
+		function userNoSelected_Delete(userNo){
+			$("#tree").fancytree("getTree").visit(function(node) {
+				if(node.key == ("li_"+userNo)){
+					node.setSelected(false);
+				}
+			});
+		}
+
+		function userNoSelected_ElementCreate(){
+			var html = "";
+			for (const key in userNoSelected){
+				var userNo = key;
+				var usrName = userNoMatchName[key];
+				var bool = userNoSelected[key];
+				if(bool){
+					html = html + '<div style="display: inline-block;border: solid 0.5px #ffb64d; margin-right:5px;">' +
+							'<button type="button" class="close" data-dismiss="alert" aria-label="Close" style="" onclick="userNoSelected_Delete('+userNo+');">' +
+							'<span aria-hidden="true" style="">×</span>' +
+							'</button>' +
+							'<strong style=" padding: 5px; font-size: 1.2em;">' + usrName + '</strong>' +
+							'</div>';
+				}
+			}
+			$("#selectedPerson").empty();
+			$("#selectedPerson").append(html);
+		}
+		var calYear = "";
+		var calDate = "";
+		$(document).ready(function() {
+			setCalendar();
+			// setOrganizationList();
+			//setOrganizationTree();
+			$('#organizationChartOpen').on('click', function() {
+				if ($('#organizationChartView').is(":visible")) {
+					$('#organizationChartView').hide();
 				} else {
-					if(data.node.extraClasses == "topElement"){
-						data = data.node.children;
-						for(var i=0; i<data.length; i++){
-							var data2 = data[i];
-							for(var j=0; j<data2.children.length; j++) {
-								var t = data2.children[j];
+					$('#organizationChartView').show();
+				}
+			});
+			$("#tree").fancytree({
+				checkbox: true,
+				selectMode: 3,
+				select: function(event, data) {
+					console.dir(data.node);
+					var html = "";
+					if(data.node.children == null) {
+						var userNo = data.node.key.split("_")[1];
+						if(data.node.isSelected()) userNoSelected[userNo] = true;
+						else userNoSelected[userNo] = false;
+					} else {
+						if(data.node.extraClasses == "topElement"){
+							data = data.node.children;
+							for(var i=0; i<data.length; i++){
+								var data2 = data[i];
+								for(var j=0; j<data2.children.length; j++) {
+									var t = data2.children[j];
+									var userNo = t.key.split("_")[1];
+									if (t.isSelected()) userNoSelected[userNo] = true;
+									else userNoSelected[userNo] = false;
+								}
+							}
+						} else {
+							for(var i=0; i<data.node.children.length; i++){
+								var t = data.node.children[i];
 								var userNo = t.key.split("_")[1];
-								if (t.isSelected()) userNoSelected[userNo] = true;
+								if(t.isSelected()) userNoSelected[userNo] = true;
 								else userNoSelected[userNo] = false;
 							}
 						}
-					} else {
-						for(var i=0; i<data.node.children.length; i++){
-							var t = data.node.children[i];
-							var userNo = t.key.split("_")[1];
-							if(t.isSelected()) userNoSelected[userNo] = true;
-							else userNoSelected[userNo] = false;
-						}
 					}
+					console.dir(userNoSelected);
+					userNoSelected_ElementCreate();
 				}
-				console.dir(userNoSelected);
-				userNoSelected_ElementCreate();
-			}
-		});
+			});
 
-		$("#tree").fancytree("getTree").visit(function(node) {
-			// node.setExpanded(true);
-			// node.setSelected(true);
-			if(node.key == ("li_"+${sessionScope.userNo})){
-				node.setSelected(true);
-			}
-		});
+			$("#tree").fancytree("getTree").visit(function(node) {
+				// node.setExpanded(true);
+				// node.setSelected(true);
+				if(node.key == ("li_"+${sessionScope.userNo})){
+					node.setSelected(true);
+				}
+			});
 
-		$(document).on("click",'.fc-prevYear-button, .fc-icon-chevron-left, .fc-next-button, .fc-nextYear-button',function () {
-			var moment = ($('#calendar')[0].firstChild.outerText.split('\n')[0]).replaceAll('년','').replaceAll('월','').split(' ');
-			calYear = moment[0];
-			calDate = moment[1];
+			$(document).on("click",'.fc-prevYear-button, .fc-icon-chevron-left, .fc-next-button, .fc-nextYear-button',function () {
+				var moment = ($('#calendar')[0].firstChild.outerText.split('\n')[0]).replaceAll('년','').replaceAll('월','').split(' ');
+				calYear = moment[0];
+				calDate = moment[1];
+			});
+			$(document).on("click",'fc-today-button',function () {
+				var moment = ($('#calendar')[0].firstChild.outerText.split('\n')[0]).replaceAll('년','').replaceAll('월','').split(' ');
+				calYear = "";
+				calDate = "";
+			});
 		});
-		$(document).on("click",'fc-today-button',function () {
-			var moment = ($('#calendar')[0].firstChild.outerText.split('\n')[0]).replaceAll('년','').replaceAll('월','').split(' ');
-			calYear = "";
-			calDate = "";
-		});
-	});
-</script>
+	</script>
+</div>
+<jsp:include page="../body-bottom.jsp"/>
     

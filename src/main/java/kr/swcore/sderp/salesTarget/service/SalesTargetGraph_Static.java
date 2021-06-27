@@ -1,6 +1,5 @@
 package kr.swcore.sderp.salesTarget.service;
 
-import kr.swcore.sderp.HomeController;
 import kr.swcore.sderp.code.dto.CodeDTO;
 import kr.swcore.sderp.code.service.CodeService;
 import kr.swcore.sderp.salesTarget.dao.SalesTargetDAO;
@@ -15,7 +14,7 @@ import java.util.HashMap;
 import java.util.List;
 
 @Service
-public class SalesTargetDTO_Static {
+public class SalesTargetGraph_Static {
 
     @Inject
     SalesTargetDAO salesTargetDAO;
@@ -25,10 +24,10 @@ public class SalesTargetDTO_Static {
     CodeService codeService;
     static CodeService codeServiceStatic;
 
-    private static final Logger logger = LoggerFactory.getLogger(SalesTargetDTO_Static.class);
+    private static final Logger logger = LoggerFactory.getLogger(SalesTargetGraph_Static.class);
     private static HashMap<Integer, Object> graph1Cache = null;
 
-    private SalesTargetDTO_Static() { }
+    private SalesTargetGraph_Static() { }
 
     @PostConstruct
     private void initialize() {
@@ -39,7 +38,7 @@ public class SalesTargetDTO_Static {
     public static HashMap<Integer, Object> Get(){
         logger.info("SalesTargetDTO_Static Get");
         if(graph1Cache == null){
-            SalesTargetDTO_Static.Update();
+            SalesTargetGraph_Static.Update();
         }
         return graph1Cache;
     }
@@ -47,7 +46,7 @@ public class SalesTargetDTO_Static {
     public static Object GetWithCompNo(Integer compNo){
         logger.info("SalesTargetDTO_Static GetWithCompNo");
         if (graph1Cache == null){
-            SalesTargetDTO_Static.Update();
+            SalesTargetGraph_Static.Update();
         }
         return graph1Cache.get(compNo);
     }

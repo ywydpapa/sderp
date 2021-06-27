@@ -108,7 +108,12 @@ public class SoppDAOImpl implements SoppDAO {
 	public int uploadFile(SoppFileDataDTO dto) {
 		return sqlSession.insert("sopp.uploadFile", dto);
 	}
-	
+
+	@Override
+	public Integer deleteFile(SoppFileDataDTO dto) {
+		return sqlSession.delete("sopp.deleteFile", dto);
+	}
+
 	@Override
 	public SoppFileDataDTO downloadFile(SoppFileDataDTO dto) {
 		return sqlSession.selectOne("sopp.downloadFile", dto);

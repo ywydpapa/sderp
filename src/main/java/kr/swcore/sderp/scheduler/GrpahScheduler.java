@@ -1,6 +1,6 @@
 package kr.swcore.sderp.scheduler;
 
-import kr.swcore.sderp.salesTarget.service.SalesTargetDTO_Static;
+import kr.swcore.sderp.salesTarget.service.SalesTargetGraph_Static;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -21,6 +21,6 @@ public class GrpahScheduler {
     public void graphCacheUpdate(){
         long nano = System.currentTimeMillis();
         logger.info("GrpahScheduler graph1CacheUpdate : " + new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").format(nano));
-        SalesTargetDTO_Static.Update();
+        SalesTargetGraph_Static.Update();
     }
 }

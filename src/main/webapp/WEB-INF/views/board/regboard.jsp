@@ -262,7 +262,7 @@ function boardReg() {
             .done(function(data) {
                 if(data.code == 10001){
                     alert("저장 성공");
-                    fnSetPage('${path}/board/regboard.do');
+                    location.href ='${path}/board/regboard.do';
                 }else{
                     alert("저장 실패");
                 }

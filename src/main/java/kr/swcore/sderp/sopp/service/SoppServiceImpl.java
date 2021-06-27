@@ -346,6 +346,11 @@ public class SoppServiceImpl implements SoppService {
 	}
 
 	@Override
+	public Integer deleteFile(HttpSession session, SoppFileDataDTO dto) {
+		return soppDao.deleteFile(dto);
+	}
+
+	@Override
 	public SoppFileDataDTO downloadFile(SoppFileDataDTO dto) {
 		return soppDao.downloadFile(dto);
 	}

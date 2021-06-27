@@ -13,7 +13,7 @@ public class SoppFileDataDTO {
 	private String fileDesc;
 	private String uploadDate;
 	private byte[] fileContent;
-	private int soppNo;
-	private int userNo;
+	private Integer soppNo;
+	private Integer userNo;
 	
 }

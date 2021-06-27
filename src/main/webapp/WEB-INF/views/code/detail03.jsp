@@ -76,7 +76,7 @@
 								</table>
 							</form>
 							<div class="btn_wr text-right mt-3">
-								<button class="btn btn-md btn-success f-left" onClick="javascript:fnSetPage('${path}/code/list.do')">목록</button>
+								<button class="btn btn-md btn-success f-left" onClick="javascript:location='${path}/code/list.do'">목록</button>
 								<button class="btn btn-md btn-primary" value="수정" id="btnUpdate" onClick= "fn_codeInsert03()" >등록</button>
 							</div>
 						</div>	
@@ -105,7 +105,8 @@ function fn_codeInsert03() {
 			.done(function(data) {
 				if(data.code == 10001){
 					alert("저장 성공");
-					fnSetPage('${path}/code/write.do');
+					var url ='${path}/code/write.do';
+					location.herf = url;
 				}else{
 					alert("저장 실패");
 				}

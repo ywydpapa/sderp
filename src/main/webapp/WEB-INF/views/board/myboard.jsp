@@ -1,6 +1,5 @@
 <%@ page import="java.util.Calendar" %>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-		 pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <c:set var="path" value="${pageContext.request.contextPath}" />
@@ -216,7 +215,7 @@
 										<fmt:formatDate value="${modDatetime}" pattern="yyyy-MM-dd"/>
 									</td>
 									<td>${row.soppTypeN}</td>
-									<td><a href="javascript:fnSetPage('${path}/sopp/detail/${row.soppNo}')" title="${row.soppTitle}">${row.soppTitle}</a></td>
+									<td><a href="javascript:location.herf='${path}/sopp/detail/${row.soppNo}'" title="${row.soppTitle}">${row.soppTitle}</a></td>
 									<td><span title="${row.custName}">${row.custName}</span></td>
 									<td style="text-align: right"><fmt:formatNumber value="${row.soppTargetAmt}" pattern="#,###"/></td>
 									<td>${row.userName}</td>
@@ -266,7 +265,7 @@
 											<fmt:parseDate value="${row.salesFrdatetime}" var="salesFrdatetime" pattern="yyyy-MM-dd HH:mm:ss"/>
 											<fmt:formatDate value="${salesFrdatetime}" pattern="yyyy-MM-dd"/>
 										</td>
-										<td><a href="javascript:fnSetPage('${path}/sales/detail/${row.salesNo}')" title="${row.salesTitle}">${row.salesTitle}</a></td>
+										<td><a href="javascript:location.herf='${path}/sales/detail/${row.salesNo}'" title="${row.salesTitle}">${row.salesTitle}</a></td>
 										<td><span title="${row.custName}">${row.custName}</span></td>
 										<td>${row.userName}</td>
 										<td><span title="${row.salesPlace}">${row.salesPlace}</span></td>
@@ -317,7 +316,7 @@
 										<fmt:parseDate value="${row.techdFrom}" var="techdfromdatetime" pattern="yyyy-MM-dd HH:mm:ss"/>
 										<fmt:formatDate value="${techdfromdatetime}" pattern="yyyy-MM-dd"/>
 									</td>
-									<td><a href="javascript:fnSetPage('${path}/techd/detail/${row.techdNo}')" title="${row.techdTitle}">${row.techdTitle}</a></td>
+									<td><a href="javascript:location.herf='${path}/techd/detail/${row.techdNo}'" title="${row.techdTitle}">${row.techdTitle}</a></td>
 									<td><span title="${row.custName}">${row.custName}</span></td>
 									<td>${row.userName}</td>
 									<td><span title="${row.techdPlace}">${row.techdPlace}</span></td>
@@ -358,7 +357,7 @@
 										<fmt:formatDate value="${regDatetime}" pattern="yyyy-MM-dd"/>
 									</td>
 									<td>${row.contOrddate}</td>
-									<td><a href="javascript:fnSetPage('${path}/cont/detail/${row.contNo}')" title="${row.contTitle}">${row.contTitle}</a></td>
+									<td><a href="javascript:location.herf='${path}/cont/detail/${row.contNo}'" title="${row.contTitle}">${row.contTitle}</a></td>
 									<td><span title="${row.custName}">${row.custName}</span></td>
 									<td style="text-align: right"><fmt:formatNumber value="${row.contAmt}" pattern="#,###"/></td>
 									<td>${row.userName}</td>

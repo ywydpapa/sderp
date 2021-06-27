@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <c:set var="path" value="${pageContext.request.contextPath}" />
+<c:set var="path2" value="${requestScope['javax.servlet.forward.servlet_path']}" />
 <script src="${path}/assets/js/pcoded.min.js"></script>
 <script src="${path}/js/script.js"></script>
 <script src="${path}/assets/js/demo-12.js"></script>
@@ -21,8 +22,8 @@
 				<span class="pcoded-mcaret"></span>
 			</a>
 		</li>
-		<li class="pcoded-hasmenu pcoded">
-			<a href="javascript:fnSetPage('${path}/calendar/calmain.do')">
+		<li class="pcoded-hasmenu pcoded <c:if test="${path2 eq '/calendar/calmain.do' || path2 eq '/sched/list.do' || path2 eq '/sched/write.do'}">pcoded-trigger</c:if>">
+			<a href="javascript:void(0)">
 				<span class="pcoded-micon">
 					<i class="ti-calendar"></i>
 				</span>
@@ -31,27 +32,36 @@
 			</a>
 			<ul class="pcoded-submenu">
 				<li class="pcoded-hasmenu">
-					<a href="javascript:fnSetPage('${path}/sched/list.do')">
+					<a href="${path}/calendar/calmain.do">
 						<span class="pcoded-micon">
 							<i class="ti-direction-alt"></i>
 						</span>
-						<span class="pcoded-mtext" data-i18n="nav.menu-levels.menu-level-21">일정조회</span>
+						<span class="pcoded-mtext" data-i18n="nav.menu-levels.menu-level-21">캘린더</span>
 						<span class="pcoded-mcaret"></span>
 					</a>
 				</li>
 				<li class="pcoded-hasmenu">
-					<a href="javascript:fnSetPage('${path}/sched/write.do')">
+					<a href="${path}/sched/list.do">
+						<span class="pcoded-micon">
+							<i class="ti-direction-alt"></i>
+						</span>
+						<span class="pcoded-mtext" data-i18n="nav.menu-levels.menu-level-22">일정조회</span>
+						<span class="pcoded-mcaret"></span>
+					</a>
+				</li>
+				<li class="pcoded-hasmenu">
+					<a href="${path}/sched/write.do">
 						<span class="pcoded-micon">
 							<i class="ti-angle-right"></i>
 						</span>
-						<span class="pcoded-mtext" data-i18n="nav.menu-levels.menu-level-22">일정등록</span>
+						<span class="pcoded-mtext" data-i18n="nav.menu-levels.menu-level-23">일정등록</span>
 						<span class="pcoded-mcaret"></span>
 					</a>
 				</li>
 			</ul>
 		</li>
-		<li class="pcoded-hasmenu pcoded">
-			<a href="javascript:fnSetPage('${path}/sales/list.do')">
+		<li class="pcoded-hasmenu pcoded <c:if test="${path2 eq '/sales/list.do' || path2 eq '/sales/list.do' || path2 eq '/sales/write.do'}">pcoded-trigger</c:if>">
+			<a href="javascript:void(0)">
 				<span class="pcoded-micon">
 					<i class="ti-briefcase"></i>
 				</span>
@@ -60,7 +70,7 @@
 			</a>
 			<ul class="pcoded-submenu">
 				<li class="pcoded-hasmenu ">
-					<a href="javascript:fnSetPage('${path}/sales/list.do')">
+					<a href="${path}/sales/list.do">
 						<span class="pcoded-micon">
 							<i class="ti-direction-alt"></i>
 						</span>
@@ -69,7 +79,7 @@
 					</a>
 				</li>
 				<li class="pcoded-hasmenu">
-					<a href="javascript:fnSetPage('${path}/sales/write.do')">
+					<a href="${path}/sales/write.do">
 						<span class="pcoded-micon">
 							<i class="ti-angle-right"></i>
 						</span>
@@ -79,8 +89,8 @@
 				</li>
 			</ul>
 		</li>
-		<li class="pcoded-hasmenu pcoded">
-			<a href="javascript:fnSetPage('${path}/sopp/list.do')">
+		<li class="pcoded-hasmenu pcoded <c:if test="${path2 eq '/sopp/list.do' || path2 eq '/sopp/list.do' || path2 eq '/sopp/write.do'}">pcoded-trigger</c:if>">
+			<a href="javascript:void(0)">
 				<span class="pcoded-micon">
 					<i class="ti-agenda"></i>
 				</span>
@@ -89,7 +99,7 @@
 			</a>
 			<ul class="pcoded-submenu">
 				<li class="pcoded-hasmenu ">
-					<a href="javascript:fnSetPage('${path}/sopp/list.do')">
+					<a href="${path}/sopp/list.do">
 						<span class="pcoded-micon">
 							<i class="ti-direction-alt"></i>
 						</span>
@@ -98,7 +108,7 @@
 					</a>
 				</li>
 				<li class="pcoded-hasmenu">
-					<a href="javascript:fnSetPage('${path}/sopp/write.do')">
+					<a href="${path}/sopp/write.do">
 						<span class="pcoded-micon">
 							<i class="ti-angle-right"></i>
 						</span>
@@ -108,8 +118,8 @@
 				</li>
 			</ul>
 		</li>
-		<li class="pcoded-hasmenu pcoded">
-			<a href="javascript:fnSetPage('${path}/sopp/list2.do')">
+		<li class="pcoded-hasmenu pcoded <c:if test="${path2 eq '/sopp/list2.do' || path2 eq '/sopp/list2.do'}">pcoded-trigger</c:if>">
+			<a href="javascript:void(0)">
 				<span class="pcoded-micon">
 					<i class="ti-package"></i>
 				</span>
@@ -118,7 +128,7 @@
 			</a>
 			<ul class="pcoded-submenu">
 				<li class="pcoded-hasmenu ">
-					<a href="javascript:fnSetPage('${path}/sopp/list2.do')">
+					<a href="${path}/sopp/list2.do">
 						<span class="pcoded-micon">
 							<i class="ti-direction-alt"></i>
 						</span>
@@ -128,8 +138,8 @@
 				</li>
 			</ul>
 		</li>
-		<li class="pcoded-hasmenu  pcoded">
-			<a href="javascript:fnSetPage('${path}/cont/list.do')">
+		<li class="pcoded-hasmenu pcoded <c:if test="${path2 eq '/cont/list.do' || path2 eq '/cont/list.do' || path2 eq '/cont/write.do'}">pcoded-trigger</c:if>">
+			<a href="javascript:void(0)">
 				<span class="pcoded-micon">
 					<i class="ti-pencil-alt"></i>
 				</span>
@@ -138,7 +148,7 @@
 			</a>
 			<ul class="pcoded-submenu">
 				<li class="pcoded-hasmenu ">
-					<a href="javascript:fnSetPage('${path}/cont/list.do')">
+					<a href="${path}/cont/list.do">
 						<span class="pcoded-micon">
 							<i class="ti-direction-alt"></i>
 						</span>
@@ -147,7 +157,7 @@
 					</a>
 				</li>
 				<li class="pcoded-hasmenu">
-					<a href="javascript:fnSetPage('${path}/cont/write.do')">
+					<a href="${path}/cont/write.do">
 						<span class="pcoded-micon">
 							<i class="ti-angle-right"></i></span>
 						<span class="pcoded-mtext" data-i18n="nav.menu-levels.menu-level-22">계약등록</span>
@@ -156,8 +166,8 @@
 				</li>
 			</ul>
 		</li>
-		<li class="pcoded-hasmenu pcoded">
-			<a href="javascript:fnSetPage('${path}/techd/list.do')">
+		<li class="pcoded-hasmenu pcoded <c:if test="${path2 eq '/techd/list.do' || path2 eq '/techd/list.do' || path2 eq '/techd/write.do'}">pcoded-trigger</c:if>">
+			<a href="javascript:void(0)">
 				<span class="pcoded-micon">
 					<i class="ti-agenda"></i></span>
 				<span class="pcoded-mtext" data-i18n="nav.basic-components.main">기술지원업무</span>
@@ -165,7 +175,7 @@
 			</a>
 			<ul class="pcoded-submenu">
 				<li class="pcoded-hasmenu ">
-					<a href="javascript:fnSetPage('${path}/techd/list.do')">
+					<a href="${path}/techd/list.do">
 						<span class="pcoded-micon">
 							<i class="ti-direction-alt"></i>
 						</span>
@@ -174,7 +184,7 @@
 					</a>
 				</li>
 				<li class="pcoded-hasmenu">
-					<a href="javascript:fnSetPage('${path}/techd/write.do')">
+					<a href="${path}/techd/write.do">
 						<span class="pcoded-micon">
 							<i class="ti-angle-right"></i>
 						</span>
@@ -188,7 +198,7 @@
 
 	<div class="pcoded-navigatio-lavel" data-i18n="nav.category.other">설정</div>
 	<ul class="pcoded-item pcoded-left-item">
-		<li class="pcoded-hasmenu">
+		<li class="pcoded-hasmenu <c:if test="${path2 eq '/cust/list.do' || path2 eq '/product/list.do' || path2 eq '/sales/setTarget.do' || path2 eq '/user/list.do'}">pcoded-trigger</c:if>">
 			<a href="javascript:void(0)">
 				<span class="pcoded-micon">
 					<i class="ti-settings"></i>
@@ -199,14 +209,14 @@
 			</a>
 			<ul class="pcoded-submenu">
 				<li class="pcoded-hasmenu">
-					<a href="javascript:fnSetPage('${path}/cust/list.do')">
+					<a href="${path}/cust/list.do">
 						<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
 						<span class="pcoded-mtext" data-i18n="nav.menu-levels.menu-level-21">고객/거래처 설정</span>
 						<span class="pcoded-mcaret"></span>
 					</a>
 				</li>
 				<li class="pcoded-hasmenu">
-					<a href="javascript:fnSetPage('${path}/product/list.do')">
+					<a href="${path}/product/list.do">
 						<span class="pcoded-micon">
 							<i class="ti-direction-alt"></i>
 						</span>
@@ -248,7 +258,7 @@
 				</li>
 				--%>
 				<li class="pcoded-hasmenu">
-					<a href="javascript:fnSetPage('${path}/sales/setTarget.do')">
+					<a href="/sales/setTarget.do">
 						<span class="pcoded-micon">
 							<i class="ti-angle-right"></i>
 						</span>
@@ -257,7 +267,7 @@
 					</a>
 				</li>
 				<li class="pcoded-hasmenu">
-					<a href="javascript:fnSetPage('${path}/user/list.do')">
+					<a href="${path}/user/list.do">
 						<span class="pcoded-micon">
 							<i class="ti-angle-right"></i>
 						</span>

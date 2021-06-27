@@ -36,7 +36,7 @@ $(function(){
 					<div class="btn_wr text-right">
 						<button class="btn btn-sm btn-inverse" onClick="javascript:fnClearall()"><i class="icofont icofont-spinner-alt-3"></i>초기화</button>
 						<button class="btn btn-sm btn-primary" onClick="javascript:fnListcon()"><i class="icofont icofont-search"></i>검색</button>
-						<button class="btn btn-sm btn-outline" onClick="javascript:fnSetPage('${path}/sopp/write.do')"><i class="icofont icofont-pencil-alt-2"></i>등록</button>
+						<button class="btn btn-sm btn-outline" onClick="javascript:location='${path}/sopp/write.do'"><i class="icofont icofont-pencil-alt-2"></i>등록</button>
 					</div>
 					<!--row-->
 					<div class="form-group row">
@@ -212,7 +212,7 @@ $(function(){
 							<c:forEach var="row" items="${list}">
 							<tr>
 								<th scope="row"><input class="border-checkbox" type="checkbox" id="checkbox0"></th>
-								<td><a href="javascript:fnSetPage('${path}/sopp/detail/${row.soppNo}')">${row.soppTitle}<span class="sales_n"></span></td>
+								<td><a href="javascript:location.herf='${path}/sopp/detail/${row.soppNo}'">${row.soppTitle}<span class="sales_n"></span></td>
 								<td>${row.custName}</td>
 								<td>${row.userName}</td>
 								<td class="text-right"><fmt:formatNumber type="number" maxFractionDigits="3" value="${row.soppTargetAmt}" /></td>
@@ -276,7 +276,7 @@ $(function(){
    		    soppData.soppType 		= $("#soppType").val();
  */    		console.log(soppData);
  
- 			fnSetPage('${path}/sopp/listcon.do', soppData);
+ 			fnSetPage('${path}/sopp/listcon.do', soppData);	// TODO : fnSetPage
     		/*
     		$.ajax({ url: "${path}/sopp/listcon.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소 
     					data: soppData , // HTTP 요청과 함께 서버로 보낼 데이터 

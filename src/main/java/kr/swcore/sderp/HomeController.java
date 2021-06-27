@@ -82,12 +82,11 @@ public class HomeController {
 	public String home(HttpSession session) {
 		
 		String userId = (String)session.getAttribute("userId");
-		String rtn = "user/login";
-		
 		if(userId != null){
-			rtn = "main";
+			return "redirect:/myboard.do";
+		} else {
+			return "user/login";
 		}
-		return rtn;
 	}
 	
 	
@@ -123,7 +122,7 @@ public class HomeController {
 		mav.setViewName("board/myboard");
 		long afterTime = System.currentTimeMillis();
 		long millisDiffTime = afterTime - beforeTime;
-		logger.info("/myboard.do 소요시간(millis) : " + millisDiffTime);
+		logger.info("/myboard.do (millis) : " + millisDiffTime);
 		return mav;
 	}
 	

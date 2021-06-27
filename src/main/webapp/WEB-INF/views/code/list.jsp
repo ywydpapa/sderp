@@ -36,7 +36,7 @@ String userRole = "";
 			<div class="col-sm-12">
 				<div class="btn_wr text-right">
 				<c:if test="${userRole == 'ADMIN'}">
-					<button class="btn btn-sm btn-primary f-right" onClick="javascript:fnSetPage('${path}/code/write.do')"><i class="icofont icofont-pencil-alt-2"></i>등록</button>
+					<button class="btn btn-sm btn-primary f-right" onClick="javascript:location='${path}/code/write.do'"><i class="icofont icofont-pencil-alt-2"></i>등록</button>
 				</c:if>	
 				</div>
 				<div class="card-block table-border-style">
@@ -74,7 +74,7 @@ String userRole = "";
 							<c:forEach var="row" items="${list}">
 								<tr>
 									<th scope="row"><input class="border-checkbox" type="checkbox" id="checkbox0"></th>
-									<td><a href="javascript:fnSetPage('${path}/code/detail/${row.codeNo}')">${row.codeNo}</a></td>							
+									<td><a href="javascript:location.herf='${path}/code/detail/${row.codeNo}'">${row.codeNo}</a></td>
 									<td>${row.code01}</td>
 									<td>${row.desc01}</td>
 									<td>${row.value01}</td>

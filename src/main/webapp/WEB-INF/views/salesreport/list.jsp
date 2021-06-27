@@ -34,7 +34,7 @@ $(function(){
 					<div class="btn_wr text-right">
 						<button class="btn btn-sm btn-inverse"><i class="icofont icofont-spinner-alt-3"></i>초기화</button>
 						<button class="btn btn-sm btn-primary"><i class="icofont icofont-search"></i>검색</button>
-						<button class="btn btn-sm btn-outline" onClick="javascript:fnSetPage('${path}/sreport/write.do')"><i class="icofont icofont-pencil-alt-2"></i>등록</button>
+						<button class="btn btn-sm btn-outline" onClick="javascript:location='${path}/sreport/write.do'"><i class="icofont icofont-pencil-alt-2"></i>등록</button>
 					</div>
 					<div class="form-group row">
 						<div class="col-sm-12 col-xl-3">
@@ -283,7 +283,7 @@ $(function(){
 							<c:forEach var="row" items="${list}">
 								<tr>
 									<th scope="row"><input class="border-checkbox" type="checkbox" id="checkbox0"></th>
-									<td><a href="javascript:fnSetPage('${path}/sreport/detail/${row.sreportNo}')">${row.sreportTitle}</a></td>							
+									<td><a href="javascript:location.herf='${path}/sreport/detail/${row.sreportNo}'">${row.sreportTitle}</a></td>
 									<td>${row.custName}</td>
 									<td>${row.sreportType}</td>
 									<td class="text-right"><fmt:formatNumber type="number" maxFractionDigits="3" value="${row.sreportAmt}" /></td>
@@ -292,7 +292,7 @@ $(function(){
 									<td>${row.freemaintEdate}</td>
 									<td>-</td>
 									<td>${row.delivDate}</td>
-									<td><a href="javascript:fnSetPage('${path}/sreport/detail/${row.sreportNo}')">상세정보</a></td>
+									<td><a href="javascript:location.herf='${path}/sreport/detail/${row.sreportNo}'">상세정보</a></td>
 								</tr>
 							</c:forEach>								
 							</tbody>

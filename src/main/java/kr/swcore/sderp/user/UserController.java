@@ -105,7 +105,6 @@ public class UserController {
 		if (result == true) {
 			UserDTO userInfo = userService.viewUser(dto);
 			mav.setViewName("redirect:/myboard.do");
-			mav.addObject("newLoad", "Y");
 			//mav.addObject("msg", "Success");
 			//mav.addObject("userName", userInfo.getUserName());
 			session.setAttribute("userId", userInfo.getUserId());

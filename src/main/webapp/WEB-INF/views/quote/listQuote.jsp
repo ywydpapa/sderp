@@ -42,7 +42,7 @@ $(function(){
 							<div class="btn_wr text-right">
 								<button class="btn btn-sm btn-inverse" onClick="javascript:fnClearall()"><i class="icofont icofont-spinner-alt-3"></i>초기화</button>
 								<button class="btn btn-sm btn-primary" onClick="javascript:fnListcon()"><i class="icofont icofont-search"></i>검색</button>
-								<button class="btn btn-sm btn-outline" onClick="javascript:fnSetPage('${path}/sopp/write.do')"><i class="icofont icofont-pencil-alt-2"></i>등록</button>
+								<button class="btn btn-sm btn-outline" onClick="javascript:location='${path}/sopp/write.do'"><i class="icofont icofont-pencil-alt-2"></i>등록</button>
 							</div>
 							<!--row-->
 							<div class="form-group row">
@@ -197,7 +197,7 @@ $(function(){
 								<tr>
 									<th scope="row"><input class="border-checkbox" type="checkbox" id="checkbox0"></th>
 									<td>${row.soppTypeN}</td>
-									<td><a href="javascript:fnSetPage('${path}/sopp/detail2/${row.soppNo}')">${row.soppTitle}<span class="sales_n"></span></td>
+									<td><a href="javascript:location.herf='${path}/sopp/detail2/${row.soppNo}'">${row.soppTitle}<span class="sales_n"></span></td>
 									<td>${row.custName}</td>
 									<td>${row.userName}</td>
 									<td class="text-right"><fmt:formatNumber type="number" maxFractionDigits="3" value="${row.soppTargetAmt}" /></td>

@@ -344,9 +344,9 @@
 	</div>
 </div>
 			<div class="btn_wr text-right mt-3">
-				<button class="btn btn-md btn-success f-left" onClick="fnSetPage('${path}/sreport/list.do')">목록</button>
+				<button class="btn btn-md btn-success f-left" onClick="javascript:location='${path}/sreport/list.do'">목록</button>
 				<button class="btn btn-md btn-primary" onClick="fn_SaveCont()">계약등록</button>
-				<button class="btn btn-md btn-inverse" onClick="fnSetPage('${path}/sreport/list.do')">취소</button>
+				<button class="btn btn-md btn-inverse" onClick="javascript:location='${path}/sreport/list.do'">취소</button>
 			</div>
 <!--//계약등록-->
 
@@ -434,7 +434,8 @@
 					.done(function(data) {
 						if(data.code == 10001){
 							alert("저장 성공");
-							fnSetPage('${path}/cont/list.do');
+							var url ='${path}/cont/list.do';
+							location.herf = url;
 						}else{
 							alert("저장 실패");
 						}

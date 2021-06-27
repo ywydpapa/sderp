@@ -29,7 +29,7 @@
 							<c:forEach var="row" items="${dto02}">
 								<tr>
 									<th scope="row"><input class="border-checkbox" type="checkbox" id="checkbox0"></th>
-									<td><a href="javascript:fnSetPage('${path}/code/detail02/${row.codeNo}')">${row.codeNo}</a></td>							
+									<td><a href="javascript:location.herf='${path}/code/detail02/${row.codeNo}'">${row.codeNo}</a></td>
 									<td>${row.code02}</td> 
 									<td>${row.desc02}</td>
 									<td>${row.value02}</td>

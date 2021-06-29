@@ -81,15 +81,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  		<if test="targetDateto != null and targetDateto != ''">
  			and date_format(a.contOrddate, '%Y-%m-%d') <![CDATA[<=]]> #{targetDateto}
  		</if>
-		 <if test="regSDate != null and regSDate != ''">
+		<if test="regSDate != null and regSDate != ''">
 			 and date_format(a.regDatetime, '%Y-%m-%d') <![CDATA[>=]]> #{regSDate}
-		 </if>
-		 <if test="regEDate != null and regEDate != ''">
+		</if>
+		<if test="regEDate != null and regEDate != ''">
 			 and date_format(a.regDatetime, '%Y-%m-%d') <![CDATA[<=]]> #{regEDate}
-		 </if>
+		</if>
  		<if test="userName != null and userName != ''">
  		 	and b.userName like CONCAT('%', #{userName}, '%')
  		</if>
+		<if test="userNo != null and userNo != ''">
+			 and b.userNo = #{userNo}
+		</if>
  		<if test="businessType != null and businessType != ''">
  		 	and a.businessType = #{businessType}
  		</if>

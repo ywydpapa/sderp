@@ -857,7 +857,6 @@
 		}
 
 		$(document).ready(function() {
-			console.log("실행")
 			var contractType					= $("input[name='contractType']:checked").val();	// 신규 영업지원 or 기존계약
 			if(contractType == 'NEW'){
 				$(".contDetailCont").hide();

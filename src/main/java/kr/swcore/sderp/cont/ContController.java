@@ -5,6 +5,7 @@ import java.util.Map;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
+import javax.xml.stream.events.DTD;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -51,11 +52,45 @@ public class ContController {
 	TechdService techdService;
 	
 	@RequestMapping("list.do")
-	public ModelAndView list(HttpSession session, ModelAndView mav) {
+	public ModelAndView list(HttpSession session, ModelAndView mav,
+							 @RequestParam(value = "custNo", required = false) Integer custNo,
+							 @RequestParam(value = "ptncNo", required = false) Integer ptncNo,
+							 @RequestParam(value = "supplyNo", required = false) Integer supplyNo,
+							 @RequestParam(value = "buyrNo", required = false) Integer buyrNo,
+							 @RequestParam(value = "contTitle", required = false) String contTitle,
+							 @RequestParam(value = "contType", required = false) String contType,
+							 @RequestParam(value = "targetDatefrom", required = false) String targetDatefrom,
+							 @RequestParam(value = "targetDateto", required = false) String targetDateto,
+							 @RequestParam(value = "userName", required = false) String userName,
+							 @RequestParam(value = "freemaintSdate", required = false) String freemaintSdate,
+							 @RequestParam(value = "freemaintEdate", required = false) String freemaintEdate,
+							 @RequestParam(value = "regSDate", required = false) String regSDate,
+							 @RequestParam(value = "regEDate", required = false) String regEDate) {
+		if(custNo != null || ptncNo != null || supplyNo != null || buyrNo != null || contTitle != null || contType != null || targetDatefrom != null || targetDateto != null
+				|| userName != null || freemaintSdate != null || freemaintEdate != null || regSDate != null || regEDate != null){
+			ContDTO dto = new ContDTO();
+			if(custNo != null) dto.setCustNo(custNo);
+			if(ptncNo != null) dto.setPtncNo(ptncNo);
+			if(supplyNo != null) dto.setSupplyNo(supplyNo);
+			if(buyrNo != null) dto.setBuyrNo(buyrNo);
+			if(contTitle != null) dto.setContTitle(contTitle);
+			if(contType != null) dto.setContType(contType);
+			if(targetDatefrom != null) dto.setTargetDatefrom(targetDatefrom);
+			if(targetDateto != null) dto.setTargetDateto(targetDateto);
+			if(userName != null) dto.setUserName(userName);
+			if(freemaintSdate != null) dto.setFreemaintSdate(freemaintSdate);
+			if(freemaintEdate != null) dto.setFreemaintEdate(freemaintEdate);
+			if(regSDate != null) dto.setRegSDate(regSDate);
+			if(regEDate != null) dto.setRegEDate(regEDate);
+			mav.addObject("list", contService.listconCont(session, dto));
+		} else {
+			ContDTO dto = new ContDTO();
+			mav.addObject("list", contService.listCont(session, null, dto));
+		}
+
 		mav.setViewName("cont/list");
 		mav.addObject("contractType", codeService.listContractType(session));
 		mav.addObject("contType", codeService.listContType(session));
-		mav.addObject("list", contService.listCont(session, null));
 		return mav;
 	}
 	

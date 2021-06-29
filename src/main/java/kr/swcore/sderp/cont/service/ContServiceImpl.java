@@ -33,7 +33,7 @@ public class ContServiceImpl implements ContService {
 	}
 	
 	@Override
-	public List<ContDTO> listCont(HttpSession session, PageDTO pageDTO) {
+	public List<ContDTO> listCont(HttpSession session, PageDTO pageDTO, ContDTO dto) {
 		SoppDTO soppdto = SessionInfoGet.getCompNoDto(session);
 
 		if(pageDTO != null) {

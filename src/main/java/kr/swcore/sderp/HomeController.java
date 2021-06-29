@@ -102,7 +102,7 @@ public class HomeController {
 		pageDTO.setLimit(40);
 		pageDTO.setOffset(0);
 		mav.addObject("sopplist", soppService.listSopp(session, pageDTO));
-		mav.addObject("contlist", contService.listCont(session, pageDTO));
+		mav.addObject("contlist", contService.listCont(session, pageDTO, null));
 
 		Integer orgId = (Integer)session.getAttribute("orgId");
 		List<DeptToPlanTblDTO> deptToPlanTblDTOList = deptToPlanTblService.listWithOrgId(orgId);
@@ -228,7 +228,7 @@ public class HomeController {
 		}
 		
 		else if("cont".equals(popId)) {
-			List<ContDTO> list=contService.listCont(session, null);
+			List<ContDTO> list=contService.listCont(session, null, null);
 			model.addAttribute("list",list);
 			rtn = "modal/contList";
 		}

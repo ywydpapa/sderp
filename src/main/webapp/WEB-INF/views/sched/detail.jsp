@@ -41,11 +41,11 @@
 									<th scope="row" class="requiredTextCss">일정일자</th>
 									<td colspan="3">
 										<div class="input-group input-group-sm mb-0 mr-1">
-										<input class="form-control" type="date" id="schedFrom" value="${dto.schedFrom}" onChange="javascript:inputDate(setDateHourMinute($('#schedFrom').val(), $('#startTime').val()), setDateHourMinute($('#schedTo').val(), $('#endTime').val()))">
-										<select id="startTime" style="width:100px" onChange="javascript:inputDate(setDateHourMinute($('#schedFrom').val(), $('#startTime').val()), setDateHourMinute($('#schedTo').val(), $('#endTime').val()))"></select>
+										<input class="form-control" type="date" id="schedFrom" value="${dto.schedFrom}" onChange="javascript:inputDate(setDateHourMinute($('#schedFrom').val(), $('#startTime').val()), setDateHourMinute($('#schedTo').val(), $('#endTime').val()),this)">
+										<select id="startTime" style="width:100px" onChange="javascript:inputDate(setDateHourMinute($('#schedFrom').val(), $('#startTime').val()), setDateHourMinute($('#schedTo').val(), $('#endTime').val()),this)"></select>
 										<span> ~ </span>
-										<input class="form-control " type="date" id="schedTo" value="${dto.schedTo}" onChange="javascript:inputDate(setDateHourMinute($('#schedFrom').val(), $('#startTime').val()), setDateHourMinute($('#schedTo').val(), $('#endTime').val()))">
-										<select id="endTime" style="width:100px" onChange="javascript:inputDate(setDateHourMinute($('#schedFrom').val(), $('#startTime').val()), setDateHourMinute($('#schedTo').val(), $('#endTime').val()))"></select>
+										<input class="form-control " type="date" id="schedTo" value="${dto.schedTo}" onChange="javascript:inputDate(setDateHourMinute($('#schedFrom').val(), $('#startTime').val()), setDateHourMinute($('#schedTo').val(), $('#endTime').val()),this)">
+										<select id="endTime" style="width:100px" onChange="javascript:inputDate(setDateHourMinute($('#schedFrom').val(), $('#startTime').val()), setDateHourMinute($('#schedTo').val(), $('#endTime').val()),this)"></select>
 										</div>
 									</td>
 								</tr>
@@ -425,14 +425,19 @@
 		$(document).ready(function(){
 			setTimeComboBox(['#startTime', '#endTime']);
 			var startDate = '${dto.schedFrom}'.split(" ")[0];
-			var startTime = '${dto.schedFrom}'.split(" ")[1].substring(0, 5);
+			var startTimelocal = '${dto.schedFrom}'.split(" ")[1].substring(0, 5);
 			var endDate = '${dto.schedTo}'.split(" ")[0];
-			var endTime = '${dto.schedTo}'.split(" ")[1].substring(0, 5);
+			var endTimelocal = '${dto.schedTo}'.split(" ")[1].substring(0, 5);
 			
 			$('#schedFrom').val(startDate);
-			$('#startTime').val(startTime);
+			$('#startTime').val(startTimelocal);
 			$('#schedTo').val(endDate);
-			$('#endTime').val(endTime);
+			$('#endTime').val(endTimelocal);
+
+			Sdate = startDate;
+			startTime = startTimelocal;
+			EDate = endDate;
+			endTime = endTimelocal;
 		});
 	</script>
 <c:if test="${empty simple}">

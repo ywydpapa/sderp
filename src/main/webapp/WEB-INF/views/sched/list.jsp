@@ -453,14 +453,12 @@
 							<div class="col-sm-12 col-xl-3">
 								<label class="col-form-label" for="co_name">일정시작일</label>
 								<p class="input_inline">
-									<input class="form-control form-control-sm col-xl-6" type="date" id="schedFrom" onChange="javascript:inputDate($('#schedFrom').val(), $('#schedTo').val())">
-									~ <input class="form-control form-control-sm col-xl-6"
-										type="date" id="schedTo" onChange="javascript:inputDate($('#schedFrom').val(), $('#schedTo').val())">
+									<input class="form-control form-control-sm col-xl-6" type="date" id="schedFrom" onChange="javascript:inputDate($('#schedFrom').val(), $('#schedTo').val(),this)"> ~ <input class="form-control form-control-sm col-xl-6" type="date" id="schedTo" onChange="javascript:inputDate($('#schedFrom').val(), $('#schedTo').val(),this)">
 								</p>
 							</div>
 							<div class="col-sm-12 col-xl-3">
 								<label class="col-form-label">등록일</label>
-								<p class="input_inline"><input class="form-control form-control-sm col-xl-6" type="date" id="regSDate" onChange="javascript:inputDate($('#regSDate').val(), $('#regEDate').val())"> ~ <input class="form-control form-control-sm col-xl-6" type="date" id="regEDate" onChange="javascript:inputDate($('#regSDate').val(), $('#regEDate').val())">
+								<p class="input_inline"><input class="form-control form-control-sm col-xl-6" type="date" id="regSDate" onChange="javascript:inputDate($('#regSDate').val(), $('#regEDate').val(),this)"> ~ <input class="form-control form-control-sm col-xl-6" type="date" id="regEDate" onChange="javascript:inputDate($('#regSDate').val(), $('#regEDate').val(),this)">
 								</p>
 							</div>
 						</div>
@@ -592,7 +590,7 @@
 
     	// 클리어 버튼 누를시 이 페이지 특화 스크립트
     	function fnClearallExt(){
-	 		console.log("click")
+	 		// console.log("click")
 			schedSCB = false;
 		}
 	</script>

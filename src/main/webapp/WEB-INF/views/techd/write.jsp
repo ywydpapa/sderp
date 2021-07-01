@@ -264,11 +264,11 @@
 									<td colspan="3">
 										<!-- <div class="col-sm-9 f-left m-b-0 p-l-0"> -->
 											<div class="input-group input-group-sm mb-0 mr-1">
-												<input class="form-control form-control-sm col-md-4 m-r-10" type="date" id="techdFrom" name="techdFrom" onChange="javascript:inputDate(setDateHourMinute($('#techdFrom').val(), $('#startTime').val()), setDateHourMinute($('#techdTo').val(), $('#endTime').val()))">
-												<select id="startTime" style="width:100px" onChange="javascript:inputDate(setDateHourMinute($('#techdFrom').val(), $('#startTime').val()), setDateHourMinute($('#techdTo').val(), $('#endTime').val()))"></select>
+												<input class="form-control form-control-sm col-md-4 m-r-10" type="date" id="techdFrom" name="techdFrom" onChange="javascript:inputDate(setDateHourMinute($('#techdFrom').val(), $('#startTime').val()), setDateHourMinute($('#techdTo').val(), $('#endTime').val()),this)">
+												<select id="startTime" style="width:100px" onChange="javascript:inputDate(setDateHourMinute($('#techdFrom').val(), $('#startTime').val()), setDateHourMinute($('#techdTo').val(), $('#endTime').val()),this)"></select>
 												<span> ~ </span>
-												<input class="form-control form-control-sm col-md-4 m-r-10" type="date" id="techdTo" name="techdTo" onChange="javascript:inputDate(setDateHourMinute($('#techdFrom').val(), $('#startTime').val()), setDateHourMinute($('#techdTo').val(), $('#endTime').val()))">
-												<select id="endTime" style="width:100px" onChange="javascript:inputDate(setDateHourMinute($('#techdFrom').val(), $('#startTime').val()), setDateHourMinute($('#techdTo').val(), $('#endTime').val()))"></select>
+												<input class="form-control form-control-sm col-md-4 m-r-10" type="date" id="techdTo" name="techdTo" onChange="javascript:inputDate(setDateHourMinute($('#techdFrom').val(), $('#startTime').val()), setDateHourMinute($('#techdTo').val(), $('#endTime').val()),this)">
+												<select id="endTime" style="width:100px" onChange="javascript:inputDate(setDateHourMinute($('#techdFrom').val(), $('#startTime').val()), setDateHourMinute($('#techdTo').val(), $('#endTime').val()),this)"></select>
 											</div>
 										<!-- </div> -->
 									</td>

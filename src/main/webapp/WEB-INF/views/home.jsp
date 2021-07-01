@@ -372,7 +372,7 @@ margin-left:10px;
   calendar.render();
   
   calendar.on('dateClick', function(info) {
-  console.log('clicked on ' + info.dateStr);
+  // console.log('clicked on ' + info.dateStr);
 	});
 
 });

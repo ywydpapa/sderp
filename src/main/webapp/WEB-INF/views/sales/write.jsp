@@ -42,11 +42,11 @@
 									<th scope="row" class="requiredTextCss">활동일</th>
 									<td colspan="3">
 										<div class="input-group input-group-sm mb-0 mr-1">
-											<input id="salesFrdatetime" class="form-control form-control-sm col-md-4 m-r-10" type="date" onChange="javascript:inputDate(setDateHourMinute($('#salesFrdatetime').val(), $('#startTime').val()), setDateHourMinute($('#salesTodatetime').val(), $('#endTime').val()))">
-											<select id="startTime" style="width:100px" onChange="javascript:inputDate(setDateHourMinute($('#salesFrdatetime').val(), $('#startTime').val()), setDateHourMinute($('#salesTodatetime').val(), $('#endTime').val()))"></select>
+											<input id="salesFrdatetime" class="form-control form-control-sm col-md-4 m-r-10" type="date" onChange="javascript:inputDate(setDateHourMinute($('#salesFrdatetime').val(), $('#startTime').val()), setDateHourMinute($('#salesTodatetime').val(), $('#endTime').val()),this)">
+											<select id="startTime" style="width:100px" onChange="javascript:inputDate(setDateHourMinute($('#salesFrdatetime').val(), $('#startTime').val()), setDateHourMinute($('#salesTodatetime').val(), $('#endTime').val()),this)"></select>
 											~
-											<input id="salesTodatetime" class="form-control form-control-sm col-md-4 m-r-10" type="date" onChange="javascript:inputDate(setDateHourMinute($('#salesFrdatetime').val(), $('#startTime').val()), setDateHourMinute($('#salesTodatetime').val(), $('#endTime').val()))">
-											<select id="endTime" style="width:100px" onChange="javascript:inputDate(setDateHourMinute($('#salesFrdatetime').val(), $('#startTime').val()), setDateHourMinute($('#salesTodatetime').val(), $('#endTime').val()))"></select>
+											<input id="salesTodatetime" class="form-control form-control-sm col-md-4 m-r-10" type="date" onChange="javascript:inputDate(setDateHourMinute($('#salesFrdatetime').val(), $('#startTime').val()), setDateHourMinute($('#salesTodatetime').val(), $('#endTime').val()),this)">
+											<select id="endTime" style="width:100px" onChange="javascript:inputDate(setDateHourMinute($('#salesFrdatetime').val(), $('#startTime').val()), setDateHourMinute($('#salesTodatetime').val(), $('#endTime').val()),this)"></select>
 										</div>
 									</td>
 								</tr>
@@ -287,9 +287,9 @@
 				dataType: "json" // 서버에서 보내줄 데이터의 타입
 			}) // HTTP 요청이 성공하면 요청한 데이터가 done() 메소드로 전달됨. .
 			.done(function(data) {
-				console.dir(data);
+				// console.dir(data);
 				if(data.code == 10001){
-					console.log("응답 성공");
+					// console.log("응답 성공");
 					var html= "";
 					if(data.result1.length > 0){
 						var tempArr = data.result1;
@@ -315,9 +315,9 @@
 					var result = confirm(html);
 
 					if(result){
-						console.log("등록진행");
+						// console.log("등록진행");
 					} else {
-						console.log("등록거부");
+						// console.log("등록거부");
 					}
 				}else{
 					alert("응답 실패");
@@ -343,7 +343,7 @@
 				dataType: "json" // 서버에서 보내줄 데이터의 타입
 			}) // HTTP 요청이 성공하면 요청한 데이터가 done() 메소드로 전달됨. .
 			.done(function(result) {
-				console.dir(result);
+				// console.dir(result);
 				if(result.code == 10001){
 					alert("저장 성공");
 					$('#custModal').modal('hide');

@@ -246,7 +246,7 @@
 						return rawData;
 					},
 					failure: function(error) {
-						console.dir(error);
+						// console.dir(error);
 						alert('캘린더 데이터 요청 실패');
 					},
 					color: 'yellow',    // an option!
@@ -365,7 +365,7 @@
 				checkbox: true,
 				selectMode: 3,
 				select: function(event, data) {
-					console.dir(data.node);
+					// console.dir(data.node);
 					var html = "";
 					if(data.node.children == null) {
 						var userNo = data.node.key.split("_")[1];
@@ -392,7 +392,7 @@
 							}
 						}
 					}
-					console.dir(userNoSelected);
+					// console.dir(userNoSelected);
 					userNoSelected_ElementCreate();
 				}
 			});

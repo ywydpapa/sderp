@@ -41,11 +41,11 @@
 									<th scope="row" class="requiredTextCss">일정일자</th>
 									<td colspan="3">
 										<div class="input-group input-group-sm mb-0 mr-1">
-											<input class="form-control form-control-sm col-md-4 m-r-10" type="date" id="schedSdate" value="" onChange="javascript:inputDate(setDateHourMinute($('#schedSdate').val(), $('#startTime').val()), setDateHourMinute($('#schedEdate').val(), $('#endTime').val()))">
-											<select id="startTime" style="width:100px" onChange="javascript:inputDate(setDateHourMinute($('#schedSdate').val(), $('#startTime').val()), setDateHourMinute($('#schedEdate').val(), $('#endTime').val()))"></select>
+											<input class="form-control form-control-sm col-md-4 m-r-10" type="date" id="schedSdate" value="" onChange="javascript:inputDate(setDateHourMinute($('#schedSdate').val(), $('#startTime').val()), setDateHourMinute($('#schedEdate').val(), $('#endTime').val()), this)">
+											<select id="startTime" style="width:100px" onChange="javascript:inputDate(setDateHourMinute($('#schedSdate').val(), $('#startTime').val()), setDateHourMinute($('#schedEdate').val(), $('#endTime').val()), this)"></select>
 											<span> ~ </span>
-											<input class="form-control form-control-sm col-md-4 m-r-10" type="date" id="schedEdate" value="" onChange="javascript:inputDate(setDateHourMinute($('#schedSdate').val(), $('#startTime').val()), setDateHourMinute($('#schedEdate').val(), $('#endTime').val()))">
-											<select id="endTime" style="width:100px" onChange="javascript:inputDate(setDateHourMinute($('#schedSdate').val(), $('#startTime').val()), setDateHourMinute($('#schedEdate').val(), $('#endTime').val()))"></select>
+											<input class="form-control form-control-sm col-md-4 m-r-10" type="date" id="schedEdate" value="" onChange="javascript:inputDate(setDateHourMinute($('#schedSdate').val(), $('#startTime').val()), setDateHourMinute($('#schedEdate').val(), $('#endTime').val()), this)">
+											<select id="endTime" style="width:100px" onChange="javascript:inputDate(setDateHourMinute($('#schedSdate').val(), $('#startTime').val()), setDateHourMinute($('#schedEdate').val(), $('#endTime').val()), this)"></select>
 										</div>
 									</td>
 								</tr>

@@ -30,6 +30,7 @@ public class SoppdataDTO {
 	private String linkNo;
 	private String attrib;
 	private String regDatetime;
+	private Boolean distMargin;
 
 	// 확장
 	private String salesCustNoN;

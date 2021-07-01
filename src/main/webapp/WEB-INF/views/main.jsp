@@ -145,14 +145,14 @@
 		});
 	}
 	
-	function inputDate(fromDate, toDate){
-		if(fromDate != null && fromDate != '' && toDate != null && toDate != ''){
-			if(fromDate > toDate) {
-				alert('시작날짜는 종료날짜보다 초과할수 없습니다.');
-    			$("#"+event.target.id).val(null);	
-			}
-		}
-	}
+	// function inputDate(fromDate, toDate){
+	// 	if(fromDate != null && fromDate != '' && toDate != null && toDate != ''){
+	// 		if(fromDate > toDate) {
+	// 			alert('시작날짜는 종료날짜보다 초과할수 없습니다.');
+    // 			$("#"+event.target.id).val(null);
+	// 		}
+	// 	}
+	// }
 	
 	function fnChangeInfo() {
 		var userId = $("#userInfoForm").find("input[name=userId]").val();

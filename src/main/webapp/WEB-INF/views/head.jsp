@@ -1,3 +1,7 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<c:set var="path" value ="${pageContext.request.contextPath}"/>
 <head>
 <title>SDERP</title>
 <meta name="format-detection" 		content="telephone=no" />
@@ -120,17 +124,56 @@
 			elements[i].value = null;
 		}
 	}
+
+    var Sdate = "", EDate = "", startTime = "00:00", endTime = "00:00";
 	
-	function inputDate(fromDate, toDate){
-		if(fromDate != null && fromDate != '' && toDate != null && toDate != ''){
+	function inputDate(fromDate, toDate, e){
+	    console.log($(e));
+        console.log(fromDate);
+        console.log(toDate);
+        if(fromDate != null && fromDate != '' && toDate != null && toDate != ''){
 			if(fromDate > toDate) {
-				alert('시작날짜는 종료날짜보다 초과할수 없습니다.');
-    			$("#"+event.target.id).val(null);	
-			}
+				alert('시작날짜(시간포함)는 종료날짜(시간포함)보다 초과할수 없습니다.');
+    			// $("#"+event.target.id).val(null);
+                var id = $(e).attr("id");
+                // console.log(id);
+                if(id == 'schedSdate') $(e).val(Sdate);
+                if(id == 'schedFrom') $(e).val(Sdate);
+                if(id == 'salesFrdatetime') $(e).val(Sdate);
+                if(id == 'techdFrom') $(e).val(Sdate);
+                if(id == 'startTime') $(e).val(startTime);
+                if(id == 'schedEdate') $(e).val(EDate);
+                if(id == 'schedTo') $(e).val(EDate);
+                if(id == 'salesTodatetime') $(e).val(EDate);
+                if(id == 'techdTo') $(e).val(EDate);
+                if(id == 'endTime') $(e).val(endTime);
+    			return false;
+			} else {
+			    var from = fromDate.split("T");
+                Sdate = from[0];
+                startTime = from[1];
+
+                var toDate = toDate.split("T");
+                EDate = toDate[0];
+                endTime = toDate[1];
+
+                // console.log(Sdate + " " + startTime);
+                // console.log(EDate + " " + endTime);
+			    return true;
+            }
 		}
 	}
-	
-	function fnChangeInfo() {
+
+	function inputDateFormat(Date, Time){
+	    if(Date != ''){
+	        if(Time === undefined) return Date+"T00:00"
+	        else return Date+"T"+Time;
+        } else {
+	        return "";
+        }
+    }
+
+    function fnChangeInfo() {
 		var userId = $("#userInfoForm").find("input[name=userId]").val();
 		var currentPassword = $("#userPasswd").val();
 		var changePassword = $("#userChangePasswd").val();

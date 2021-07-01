@@ -119,10 +119,33 @@
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-default waves-effect " data-dismiss="modal">Close</button>
+<%--                                    <button type="button" class="btn btn-success waves-effect" id="productReg">상품추가</button>--%>
+<%--                                    <button type="button" class="btn btn-success waves-effect" id="productRegSimple1">직접기입</button>--%>
                                 </div>
                             </div>
                         </div>
-                    </div> <!--//모달 팝업-->
+                    </div>
+                    <!--//모달 팝업-->
+                    <!--모달 팝업-->
+<%--                    <div class="modal fade" id="productRegModal1" tabindex="-1" role="dialog">--%>
+<%--                        <div class="modal-dialog modal-80size" role="document">--%>
+<%--                            <div class="modal-content modal-80size">--%>
+<%--                                <div class="modal-header">--%>
+<%--                                    <h4 class="modal-title">상품등록</h4>--%>
+<%--                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">--%>
+<%--                                        <span aria-hidden="true">&times;</span>--%>
+<%--                                    </button>--%>
+<%--                                </div>--%>
+<%--                                <div class="modal-body">--%>
+
+<%--                                </div>--%>
+<%--                                <div class="modal-footer">--%>
+<%--                                    <button type="button" class="btn btn-default waves-effect " data-dismiss="modal">Close</button>--%>
+<%--                                </div>--%>
+<%--                            </div>--%>
+<%--                        </div>--%>
+<%--                    </div>--%>
+                    <!--//모달 팝업-->
                 </td>
                 <td><input type="text" id="data01Netprice" required class="form-control form-control-sm" style="min-width: 80px;" /></td>
                 <td><input type="text" id="data01Quanty" required class="form-control form-control-sm" style="min-width: 80px;" /></td>

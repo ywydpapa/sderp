@@ -28,11 +28,11 @@
 		text-align: center;
 	}
 	td.details-control {
-		background: url('../assets/images/details_open.png') no-repeat center center;
+		background: url('/assets/images/details_open.png') no-repeat center center;
 		cursor: pointer;
 	}
 	tr.shown td.details-control {
-		background: url('../assets/images/details_close.png') no-repeat center center;
+		background: url('/assets/images/details_close.png') no-repeat center center;
 	}
 	#productdataTable > tbody > tr > td > a {
 		text-decoration: underline;

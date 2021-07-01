@@ -28,7 +28,7 @@
 						<td>${row2.uploadDate}</td>
 						<td><a href="javascript:downloadFile('${row2.fileId}');">${row2.fileName}</a></td>
 						<td>${row2.fileDesc}</td>
-						<td><button class="btn btn-sm btn-inverse" onclick="javascript:deleteFile('${row2.fileId}');">삭제</button></td>
+						<td style="text-align: center;"><button class="btn btn-sm btn-inverse" onclick="javascript:deleteFile('${row2.fileId}');">삭제</button></td>
 					</tr>
 				</c:forEach>
 			</tbody>
@@ -47,7 +47,7 @@
 								'<td>'+data[i].uploadDate+'</td>' +
 								'<td><a href="javascript:downloadFile(\''+data[i].fileId+'\');">'+data[i].fileName+'</a></td>' +
 								'<td>'+data[i].fileDesc+'</td>' +
-								'<td><button class="btn btn-sm btn-inverse" onclick="javascript:deleteFile(\''+data[i].fileId+'\');">삭제</button></td>' +
+								'<td style="text-align: center;"><button class="btn btn-sm btn-inverse" onclick="javascript:deleteFile(\''+data[i].fileId+'\');">삭제</button></td>' +
 							  '</tr>';
 			}
 		}

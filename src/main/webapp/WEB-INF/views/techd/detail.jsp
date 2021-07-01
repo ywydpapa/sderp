@@ -246,11 +246,11 @@
 									<td colspan="3">
 										<!-- <div class="col-sm-9 f-left m-b-0 p-l-0"> -->
 											<div class="input-group input-group-sm mb-0 mr-1">
-												<input class="form-control form-control-sm col-md-4 m-r-10" type="date" id="techdFrom" name="techdFrom" value="${dto.targetDatefrom}" onChange="javascript:inputDate(setDateHourMinute($('#techdFrom').val(), $('#startTime').val()), setDateHourMinute($('#techdTo').val(), $('#endTime').val()))">
-												<select id="startTime" style="width:100px" onChange="javascript:inputDate(setDateHourMinute($('#techdFrom').val(), $('#startTime').val()), setDateHourMinute($('#techdTo').val(), $('#endTime').val()))"></select>
+												<input class="form-control form-control-sm col-md-4 m-r-10" type="date" id="techdFrom" name="techdFrom" value="${dto.targetDatefrom}" onChange="javascript:inputDate(setDateHourMinute($('#techdFrom').val(), $('#startTime').val()), setDateHourMinute($('#techdTo').val(), $('#endTime').val()),this)">
+												<select id="startTime" style="width:100px" onChange="javascript:inputDate(setDateHourMinute($('#techdFrom').val(), $('#startTime').val()), setDateHourMinute($('#techdTo').val(), $('#endTime').val()),this)"></select>
 												<span> ~ </span>
-												<input class="form-control form-control-sm col-md-4 m-r-10" type="date" id="techdTo" name="techdTo" value="${dto.targetDateto}" onChange="javascript:inputDate(setDateHourMinute($('#techdFrom').val(), $('#startTime').val()), setDateHourMinute($('#techdTo').val(), $('#endTime').val()))">
-												<select id="endTime" style="width:100px" onChange="javascript:inputDate(setDateHourMinute($('#techdFrom').val(), $('#startTime').val()), setDateHourMinute($('#techdTo').val(), $('#endTime').val()))"></select>
+												<input class="form-control form-control-sm col-md-4 m-r-10" type="date" id="techdTo" name="techdTo" value="${dto.targetDateto}" onChange="javascript:inputDate(setDateHourMinute($('#techdFrom').val(), $('#startTime').val()), setDateHourMinute($('#techdTo').val(), $('#endTime').val()),this)">
+												<select id="endTime" style="width:100px" onChange="javascript:inputDate(setDateHourMinute($('#techdFrom').val(), $('#startTime').val()), setDateHourMinute($('#techdTo').val(), $('#endTime').val()),this)"></select>
 											</div>
 										<!-- </div> -->
 									</td>
@@ -419,7 +419,7 @@
 			}
 		}
 
-		console.dir(sprtData);
+		// console.dir(sprtData);
 
 
 		$.ajax({
@@ -501,14 +501,19 @@
 
 		setTimeComboBox(['#startTime', '#endTime']);
 		var startDate = '${dto.targetDatefrom}'.split("T")[0];
-		var startTime = '${dto.targetDatefrom}'.split("T")[1].substring(0, 5);
+		var startTimelocal = '${dto.targetDatefrom}'.split("T")[1].substring(0, 5);
 		var endDate = '${dto.targetDateto}'.split("T")[0];
-		var endTime = '${dto.targetDateto}'.split("T")[1].substring(0, 5);
+		var endTimelocal = '${dto.targetDateto}'.split("T")[1].substring(0, 5);
 
 		$('#techdFrom').val(startDate);
-		$('#startTime').val(startTime);
+		$('#startTime').val(startTimelocal);
 		$('#techdTo').val(endDate);
-		$('#endTime').val(endTime);
+		$('#endTime').val(endTimelocal);
+
+		Sdate = startDate;
+		startTime = startTimelocal;
+		Edate = endDate;
+		endTime = endTimelocal;
 	});
 
 	</script>

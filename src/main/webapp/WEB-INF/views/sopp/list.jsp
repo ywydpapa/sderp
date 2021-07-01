@@ -446,8 +446,8 @@
 								<div class="col-sm-12 col-xl-6">
 									<label class="col-form-label">매출예정일</label>
 									<p class="input_inline mb-0">
-										<input class="form-control form-control-sm col-xl-6" type="date" id="targetDatefrom" onChange="javascript:inputDate($('#targetDatefrom').val(), $('#targetDateto').val())"> ~
-										<input class="form-control form-control-sm col-xl-6" type="date" id="targetDateto" onChange="javascript:inputDate($('#targetDatefrom').val(), $('#targetDateto').val())">
+										<input class="form-control form-control-sm col-xl-6" type="date" id="targetDatefrom" onChange="javascript:inputDate($('#targetDatefrom').val(), $('#targetDateto').val(),this)"> ~
+										<input class="form-control form-control-sm col-xl-6" type="date" id="targetDateto" onChange="javascript:inputDate($('#targetDatefrom').val(), $('#targetDateto').val(),this)">
 									</p>
 								</div>
 								<!--//매출예정일-->
@@ -485,8 +485,8 @@
 								<div class="col-sm-12 col-xl-6">
 									<label class="col-form-label">등록/수정일</label>
 									<p class="input_inline mb-0">
-										<input class="form-control form-control-sm col-xl-6" type="date" id="targetDatefrom2" onChange="javascript:inputDate($('#targetDatefrom2').val(), $('#targetDateto2').val())"> ~
-										<input class="form-control form-control-sm col-xl-6" type="date" id="targetDateto2" onChange="javascript:inputDate($('#targetDatefrom2').val(), $('#targetDateto2').val())">
+										<input class="form-control form-control-sm col-xl-6" type="date" id="targetDatefrom2" onChange="javascript:inputDate($('#targetDatefrom2').val(), $('#targetDateto2').val(),this)"> ~
+										<input class="form-control form-control-sm col-xl-6" type="date" id="targetDateto2" onChange="javascript:inputDate($('#targetDatefrom2').val(), $('#targetDateto2').val(),this)">
 									</p>
 								</div>
 								<!--//등록/수정일-->

@@ -43,11 +43,11 @@
 									<th scope="row" class="requiredTextCss">활동일</th>
 									<td colspan="3">
 										<div class="input-group input-group-sm mb-0 mr-1">
-											<input id="salesFrdatetime" class="form-control form-control form-control-sm col-md-4 m-r-10" type="date" value ="${dto.salesStime}" onChange="javascript:inputDate(setDateHourMinute($('#salesFrdatetime').val(), $('#startTime').val()), setDateHourMinute($('#salesTodatetime').val(), $('#endTime').val()))">
-											<select id="startTime" style="width:100px" onChange="javascript:inputDate(setDateHourMinute($('#salesFrdatetime').val(), $('#startTime').val()), setDateHourMinute($('#salesTodatetime').val(), $('#endTime').val()))"></select>
+											<input id="salesFrdatetime" class="form-control form-control form-control-sm col-md-4 m-r-10" type="date" value ="" onChange="javascript:inputDate(setDateHourMinute($('#salesFrdatetime').val(), $('#startTime').val()), setDateHourMinute($('#salesTodatetime').val(), $('#endTime').val()), this)">
+											<select id="startTime" style="width:100px" onChange="javascript:inputDate(setDateHourMinute($('#salesFrdatetime').val(), $('#startTime').val()), setDateHourMinute($('#salesTodatetime').val(), $('#endTime').val()), this)"></select>
 											<span> ~ </span>
-											<input id="salesTodatetime" class="form-control form-control form-control-sm col-md-4 m-r-10" type="date" value ="${dto.salesEtime}" onChange="javascript:inputDate(setDateHourMinute($('#salesFrdatetime').val(), $('#startTime').val()), setDateHourMinute($('#salesTodatetime').val(), $('#endTime').val()))">
-											<select id="endTime" style="width:100px" onChange="javascript:inputDate(setDateHourMinute($('#salesFrdatetime').val(), $('#startTime').val()), setDateHourMinute($('#salesTodatetime').val(), $('#endTime').val()))"></select>
+											<input id="salesTodatetime" class="form-control form-control form-control-sm col-md-4 m-r-10" type="date" value ="" onChange="javascript:inputDate(setDateHourMinute($('#salesFrdatetime').val(), $('#startTime').val()), setDateHourMinute($('#salesTodatetime').val(), $('#endTime').val()), this)">
+											<select id="endTime" style="width:100px" onChange="javascript:inputDate(setDateHourMinute($('#salesFrdatetime').val(), $('#startTime').val()), setDateHourMinute($('#salesTodatetime').val(), $('#endTime').val()), this)"></select>
 										</div>
 									</td>
 								</tr>
@@ -368,14 +368,19 @@
 		$(document).ready(function(){
 			setTimeComboBox(['#startTime', '#endTime']);
 			var startDate = '${dto.salesStime}'.split("T")[0];
-			var startTime = '${dto.salesStime}'.split("T")[1].substring(0, 5);
+			var startTimelocal = '${dto.salesStime}'.split("T")[1].substring(0, 5);
 			var endDate = '${dto.salesEtime}'.split("T")[0];
-			var endTime = '${dto.salesEtime}'.split("T")[1].substring(0, 5);
+			var endTimelocal = '${dto.salesEtime}'.split("T")[1].substring(0, 5);
 			
 			$('#salesFrdatetime').val(startDate);
-			$('#startTime').val(startTime);
+			$('#startTime').val(startTimelocal);
 			$('#salesTodatetime').val(endDate);
-			$('#endTime').val(endTime);
+			$('#endTime').val(endTimelocal);
+
+			Sdate = startDate;
+			startTime = startTimelocal;
+			EDate = endDate;
+			endTime = endTimelocal;
 		});
 
 	</script>

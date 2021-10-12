@@ -12,14 +12,12 @@
 	<script type="text/javascript">
 	<c:if test="${userInfo.userId == sessionScope.userNo || sessionScope.userRole eq 'ADMIN'}">
 		function fn_userUpdate() {
-
 			var userData = {};
-
 			userData.userId 		= $("#userId").val();
 			userData.userPasswd 	= $("#userPasswd").val();
 			userData.userName 		= $("#userName").val();
 			userData.userRole 		= $("#userRole").val();
-
+			userData.org_id 		= $("#userDept").val();
 			$.ajax({ url: "${path}/user/update.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
 						data: userData , // HTTP 요청과 함께 서버로 보낼 데이터
 						method: "POST", // HTTP 요청 메소드(GET, POST 등)
@@ -93,6 +91,14 @@
 										<option value="ADMIN"<c:if test="${userInfo.userRole eq 'ADMIN'}">selected</c:if>>시스템관리자</option>
 										</select>
 									</td>
+								</tr>
+								<tr>
+									<td>부서</td>
+									<td><select class="form-control" name="userDept" id="userDept">
+										<c:forEach var="listDept" items="${listDept}">
+										<option value="${listDept.org_id}">${listDept.org_title}</option>
+										</c:forEach>
+										</select></td>
 								</tr>
 							</tbody>
 						</table>

@@ -72,6 +72,12 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
+	public int updateUserPass(UserDTO dto) {
+		// TODO Auto-generated method stub
+		return userDao.updateUserPass(dto);
+	}
+	
+	@Override
 	public int updateUser(UserDTO dto) {
 		// TODO Auto-generated method stub
 		return userDao.updateUser(dto);

@@ -276,9 +276,8 @@
 						<span class="pcoded-mcaret"></span>
 					</a>
 				</li>
-				<%--
 				<li class="pcoded-hasmenu">
-					<a href="javascript:fnSetPage('${path}/user/write.do')">
+					<a href="${path}/user/write.do">
 						<span class="pcoded-micon">
 							<i class="ti-angle-right"></i>
 						</span>
@@ -286,7 +285,6 @@
 						<span class="pcoded-mcaret"></span>
 					</a>
 				</li>
-				--%>
 			</ul>
 		</li>
 	</ul>

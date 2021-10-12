@@ -22,11 +22,4 @@ public class UserDTO {
 	private int org_id;
 	private String userChangePasswd;
 
-	public UserDTO() {
-		
-		// TODO Auto-generated constructor stub
-	}
-
-	
-
 }

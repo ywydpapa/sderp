@@ -2,6 +2,8 @@ package kr.swcore.sderp.user;
 
 import kr.swcore.sderp.code.dto.CodeDTO;
 import kr.swcore.sderp.code.service.CodeService;
+import kr.swcore.sderp.organiz.Service.OrganizService;
+import kr.swcore.sderp.organiz.dto.OrganizDTO;
 import kr.swcore.sderp.user.dto.UserDTO;
 import kr.swcore.sderp.user.service.UserService;
 import org.springframework.http.ResponseEntity;
@@ -29,25 +31,27 @@ public class UserController {
 	@Inject
 	CodeService codeService;
 	
+	@Inject
+	OrganizService organizService;
+	
 	@RequestMapping("login.do")
 	public String login() {
 		return "user/login";
 	}
 	
 	@RequestMapping("write.do")
-	public ModelAndView write(@ModelAttribute CodeDTO dto) {
+	public ModelAndView write(@ModelAttribute CodeDTO dto, HttpSession session) {
 		ModelAndView mav = new ModelAndView();
 		List<CodeDTO> listcomp = codeService.listComp();
-		List<CodeDTO> listdept = codeService.listDept();
 		List<CodeDTO> listrank = codeService.listRank();
-		mav.addObject("listComp",listcomp);
+		List<OrganizDTO> listdept = organizService.listDept(session);
 		mav.addObject("listDept",listdept);
+		mav.addObject("listComp",listcomp);
 		mav.addObject("listRank",listrank);
 		mav.setViewName("user/write");
 		return mav;
 	}
 
-	// 권한체크
 	@RequestMapping("UserDetailPrepare")
 	public String UserDetailPrepare(@ModelAttribute UserDTO dto, HttpSession session){
 		Map<String, Object> param = new HashMap<>();
@@ -59,6 +63,8 @@ public class UserController {
 	public ModelAndView userView(@ModelAttribute UserDTO dto, HttpSession session) {
 		ModelAndView mav = new ModelAndView();
 		UserDTO userInfo = userService.viewUser(dto);
+		List<OrganizDTO> listdept = organizService.listDept(session);
+		mav.addObject("listDept",listdept);
 		mav.addObject("userInfo", userInfo);
 		mav.setViewName("user/view");
 		return mav;
@@ -71,10 +77,10 @@ public class UserController {
 		return "user/list";
 	}
 	
-	@RequestMapping("update.do")
-	public ResponseEntity<?> userUpdate(@ModelAttribute UserDTO dto) {
+	@RequestMapping("updatePass.do")
+	public ResponseEntity<?> userpassUpdate(@ModelAttribute UserDTO dto) {
 		Map<String, Object> param = new HashMap<>();
-		int userUpdate =userService.updateUser(dto);
+		int userUpdate = userService.updateUserPass(dto);
 		if(userUpdate > 0) {
        	param.put("code","10001");
       }
@@ -83,6 +89,20 @@ public class UserController {
         }
         return ResponseEntity.ok(param);
 	}
+	
+	@RequestMapping("update.do")
+	public ResponseEntity<?> userUpdate(@ModelAttribute UserDTO dto) {
+		Map<String, Object> param = new HashMap<>();
+		int userUpdate = userService.updateUser(dto);
+		if(userUpdate > 0) {
+       	param.put("code","10001");
+      }
+       else {
+        	param.put("code","20001");
+        }
+        return ResponseEntity.ok(param);
+	}
+
 
 	@RequestMapping("insert.do")
 	public ResponseEntity<?> userInsert(@ModelAttribute UserDTO dto) {

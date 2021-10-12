@@ -399,10 +399,10 @@
 
 			$("#tree").fancytree("getTree").visit(function(node) {
 				// node.setExpanded(true);
-				// node.setSelected(true);
-				if(node.key == ("li_"+${sessionScope.userNo})){
+				node.setSelected(true);
+				/* if(node.key == ("li_"+${sessionScope.userNo})){
 					node.setSelected(true);
-				}
+				} */
 			});
 
 			$(document).on("click",'.fc-prevYear-button, .fc-icon-chevron-left, .fc-next-button, .fc-nextYear-button',function () {

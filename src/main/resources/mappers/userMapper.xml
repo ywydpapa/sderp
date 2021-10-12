@@ -39,7 +39,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  		select userNo, CompNo, userId, userName, userRole, userName title from swc_user where org_id = #{orgId} and attrib not like 'XXX%'
  </select>
  
- <update id="updateUser">
+ <update id="updateUserpass">
  		update swc_user set 
  		<!-- userName=#{userName}, --> 
  		userPasswd=#{userChangePasswd}
@@ -47,12 +47,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  		where userId=#{userId}
  		and userPasswd=#{userPasswd}
  </update>
+ 
+  <update id="updateUser">
+ 		update swc_user set 
+ 		userName = #{userName}, 
+ 		userRole = #{userRole},
+ 		org_id = #{org_id}
+ 		where userId=#{userId}
+  </update>
+ 
   
  <insert id="insertUser">
  	insert into swc_user 
- 	(compNo,userId,userName,userPasswd,userRole,attrib) 
+ 	(compNo,userId,userName,userPasswd,userRole,org_id,attrib) 
  	values 
- 	(#{compId},#{userId},#{userName},#{userPasswd},#{userRole},'10000');
+ 	(#{compId},#{userId},#{userName},#{userPasswd},#{userRole},#{org_id},'10000');
  </insert>
  
  <insert id="insertUserdata">

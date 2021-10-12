@@ -24,12 +24,12 @@
 				<tr>
 					<td>비밀번호</td>
 					<td><input class="form-control" type="password"
-						name="userPasswd" id="userPasswd" value="" required></td>
+						name="userPasswd" id="userPasswd" value="" required placeholder="기본 비밀번호 입력" autocomplete="new-password"></td>
 				</tr>
 				<tr>
 					<td>이름</td>
 					<td><input class="form-control" name="userName" id="userName"
-						value="" required></td>
+						value="" required placeholder="사용자 실명 입력" autocomplete="off"></td>
 				</tr>
 				<tr>
 					<td>사용자 권한</td>
@@ -43,7 +43,9 @@
 					<td>회사코드</td>
 					<td><select class="form-control" name="compId" id="compId">
 							<c:forEach var="listComp" items="${listComp}">
+								<c:if test="${listComp.compNo eq compNo}">
 								<option value="${listComp.compNo}">${listComp.compName}</option>
+								</c:if>
 							</c:forEach>
 					</select></td>
 				</tr>
@@ -59,7 +61,7 @@
 					<td>부서</td>
 					<td><select class="form-control" name="userDept" id="userDept">
 							<c:forEach var="listDept" items="${listDept}">
-								<option value="${listDept.code03}">${listDept.desc03}</option>
+								<option value="${listDept.org_id}">${listDept.org_title}</option>
 							</c:forEach>
 					</select></td>
 				</tr>
@@ -110,7 +112,7 @@
 		userData.compId		 	= $("#compId").val();
 		userData.userRole		= $("#userRole").val();
 		userData.userRank		= $("#userRank").val();
-		userData.userDept		= $("#userDept").val();
+		userData.org_id 		= $("#userDept").val();
 		$.ajax({ url: "${path}/user/insert.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
 					data: userData , // HTTP 요청과 함께 서버로 보낼 데이터
 					method: "POST", // HTTP 요청 메소드(GET, POST 등)

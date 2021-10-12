@@ -19,4 +19,5 @@ public interface UserDAO {
 	public int userCheck(UserDTO dto);
 	public List<UserDTO> userListWithOrgId(int orgId);
 	public UserDTO userSessionCheck(UserDTO dto);
+	public int updateUserPass(UserDTO dto);
 }

@@ -22,8 +22,6 @@ public interface UserService {
     	
     	public List<UserDTO> userList(HttpSession session);
     	
-    	public int updateUser(UserDTO dto);
-    	
     	public int insertUser(UserDTO dto);
     	
     	public int insertUserdata(UserDTO dto);
@@ -31,4 +29,8 @@ public interface UserService {
     	public int userCheck(UserDTO dto);
     	
     	public List<UserDTO> userListWithOrgId(UserDTO dto);
+
+		public int updateUserPass(UserDTO dto);
+		
+		public int updateUser(UserDTO dto);
 }

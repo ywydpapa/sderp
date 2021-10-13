@@ -51,6 +51,12 @@ public class schedController {
 		return mav;
 	}
 
+	@RequestMapping("schedreport.do")
+	public ModelAndView schedrep(HttpSession session, ModelAndView mav) {
+		mav.setViewName("sched/sreport");
+		return mav;
+	}
+
 	@RequestMapping(value = "list/data", produces = "application/json;charset=UTF-8", method = RequestMethod.POST)
 	public @ResponseBody String listData(HttpSession session, @RequestBody String param, HttpServletRequest request, HttpServletResponse response){
 		Map<String, Object> rtn = new HashMap<String, Object>();

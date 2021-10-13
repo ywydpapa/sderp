@@ -59,6 +59,15 @@
 						<span class="pcoded-mcaret"></span>
 					</a>
 				</li>
+				<li class="pcoded-hasmenu">
+					<a href="${path}/sched/schedreport.do">
+						<span class="pcoded-micon">
+							<i class="ti-angle-right"></i>
+						</span>
+						<span class="pcoded-mtext" data-i18n="nav.menu-levels.menu-level-24">업무일지 작성</span>
+						<span class="pcoded-mcaret"></span>
+					</a>
+				</li>
 			</ul>
 		</li>
 		<li class="pcoded-hasmenu pcoded <c:if test="${path2 eq '/sales/list.do' || path2 eq '/sales/list.do' || path2 eq '/sales/write.do' || fn:startsWith(path2, '/sales/detail')}">pcoded-trigger</c:if>">

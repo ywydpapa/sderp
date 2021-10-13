@@ -107,7 +107,7 @@ $(document).ready(function(){
     </div>
 </div>
     <!-- Pre-loader end -->
-    <section class="login p-fixed d-flex text-center bg-primary common-img-bg">
+    <section class="login p-fixed d-flex text-center bg-primary">
         <!-- Container-fluid starts -->
         <div class="container-fluid">
             <div class="row" align="center">

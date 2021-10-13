@@ -21,5 +21,6 @@ public class UserDTO {
 	private String userDept;
 	private int org_id;
 	private String userChangePasswd;
+	private String attrib;
 
 }

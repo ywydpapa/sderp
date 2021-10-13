@@ -27,7 +27,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				<when test="userId != null and userId != ''">a.userId = #{userId}</when>
 				<when test="userNo > 0">a.userNo = #{userNo}</when>
 			</choose>
-			and d.compId=#{compId}
  </select>
  
  <select id="userList"
@@ -52,8 +51,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  		update swc_user set 
  		userName = #{userName}, 
  		userRole = #{userRole},
- 		org_id = #{org_id}
- 		where userId=#{userId}
+ 		org_id = #{org_id},
+ 		userKey = #{userKey},
+		<choose>
+			<when test="userPass = 'init'"> userPasswd = '1234', </when>
+		</choose> 		
+ 		attrib = #{attrib}
+ 		where userNo=#{userNo}
   </update>
  
   

@@ -268,7 +268,7 @@
 				</li>
 				--%>
 				<li class="pcoded-hasmenu">
-					<a href="/sales/setTarget.do">
+					<a href="${path}/sales/setTarget.do">
 						<span class="pcoded-micon">
 							<i class="ti-angle-right"></i>
 						</span>

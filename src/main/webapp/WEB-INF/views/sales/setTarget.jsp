@@ -6,30 +6,6 @@
 <!DOCTYPE html>
 <html>
 <jsp:include page="../head.jsp"/>
-	<style>
-	tr, th, td{
-		text-align: center;
-		vertical-align: middle;
-	}
-	td > input {
-		text-align: right;
-	}
-	td:last-child > input {
-		width: 100%;
-		text-align: right;
-	}
-	input[type=text] {
-		width : 100%;
-	}
-	.inputRead {
-		border: 0;
-	}
-	.dept > td{
-		text-align: left;
-		padding-left: 15px !important;
-		background-color: #e6e6e6;
-	}
-	</style>
 <jsp:include page="../body-top.jsp"/>
 
 <div id="main_content">
@@ -147,7 +123,30 @@
 			</div>
 		</form>
 	</div>
-
+	<style>
+	tr, th, td{
+		text-align: center;
+		vertical-align: middle;
+	}
+	td > input {
+		text-align: right;
+	}
+	td:last-child > input {
+		width: 100%;
+		text-align: right;
+	}
+	input[type=text] {
+		width : 100%;
+	}
+	.inputRead {
+		border: 0;
+	}
+	.dept > td{
+		text-align: left;
+		padding-left: 15px !important;
+		background-color: #e6e6e6;
+	}
+	</style>
 	<script>
 	function fn_update(){
 		var $beforeData = $(".dataList");

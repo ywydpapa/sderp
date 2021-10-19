@@ -224,7 +224,7 @@
 		salesTargetDTO.targetYear = targetYear;
 		salesTargetDTO.targetType = planType;
 
-		fn_Reload01(url, salesTargetDTO);
+		//fn_Reload01(url, salesTargetDTO);
 	}
 
 	$("#targetDepartment").on("change",function(){
@@ -257,7 +257,7 @@
 		var $form = $("#plan_list");
 		var $input = $form.find("input");
 
-		// 이벤트 시작 ==========================================================================
+		// 이벤트 시작 ====================================================
 		// 이벤트시 동작
 		$input.on("keyup", function(event) {
 			// 긁어와서 이벤트 체크
@@ -350,7 +350,7 @@
 
 
 		});
-		// 이벤트 끝 ==========================================================================
+		// 이벤트 끝 ============================================================
 
 		// 1월~12월 연간합산
 		var $year = $form.find("input[type=text].yearSum");

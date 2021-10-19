@@ -48,12 +48,17 @@ public class SchedDTO extends PageDTO {
 	private String eTime;
 	private String userId;
 	private String cntrctMth;
-
-
-	// 확장
+	private String weektype;
+	private String weekdays;
+	private Integer weekno;
+	private String title;
+	private String start;
+	private String end;
+	
 	private int endCustNo;
-	private String regSDate;	// 등록일 시작
-	private String regEDate;	// 등록일 끝
+	private String regSDate;
+	private String regEDate;
+	
 
 	public SchedDTO() {
 		super();

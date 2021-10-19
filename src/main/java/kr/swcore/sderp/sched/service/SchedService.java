@@ -12,6 +12,7 @@ public interface SchedService {
 	
 	List<SchedDTO> listSched();
 	Object listSched(HttpSession session, String param, HttpServletRequest request, HttpServletResponse response);
+	Object listSreport(HttpSession session, HttpSession session2, Object object, Object object2);
 	List<SchedDTO> listconSched(HttpSession session, SchedDTO dto);
 	SchedDTO detailSched(int schedNo);
 	int insertSched(SchedDTO dto);

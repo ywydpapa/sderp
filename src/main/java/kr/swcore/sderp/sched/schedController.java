@@ -52,7 +52,8 @@ public class schedController {
 	}
 
 	@RequestMapping("schedreport.do")
-	public ModelAndView schedrep(HttpSession session, ModelAndView mav) {
+	public ModelAndView schedrep(HttpSession session,HttpSession session2, ModelAndView mav) {
+		mav.addObject("rlist",schedService.listSreport(session, session2, null, null));
 		mav.setViewName("sched/sreport");
 		return mav;
 	}

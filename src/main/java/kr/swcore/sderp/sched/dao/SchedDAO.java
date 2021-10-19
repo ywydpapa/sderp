@@ -9,6 +9,7 @@ public interface SchedDAO {
 	
 	List<SchedDTO> listSched();
 	List<SchedDTO> listSched(SchedDTO dto);
+	List<SchedDTO> listSreport(SchedDTO dto);
 	int listSchedCnt(SchedDTO dto);
 	List<SchedDTO> listconSched(SchedDTO dto);
 	SchedDTO detailSched(int schedNo);

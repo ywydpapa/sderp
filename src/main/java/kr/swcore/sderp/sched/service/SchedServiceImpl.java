@@ -35,25 +35,24 @@ public class SchedServiceImpl implements SchedService {
 	@Override
 	public Object listSched(HttpSession session, String param, HttpServletRequest request, HttpServletResponse response) {
 		SoppDTO soppdto = SessionInfoGet.getCompNoDto(session);
-
 		SchedDTO dto = new SchedDTO();
-		Integer compNo = SessionInfoGet.getCompNo(session);						// 로그인 회사 구분 코드
+		Integer compNo = SessionInfoGet.getCompNo(session);						// 濡쒓렇�씤 �쉶�궗 援щ텇 肄붾뱶
 		String userNostr = request.getParameter("userNo");
-		Integer userNo = userNostr.equals("") == true ? null : Integer.valueOf(userNostr);	// 담당사원
+		Integer userNo = userNostr.equals("") == true ? null : Integer.valueOf(userNostr);	// �떞�떦�궗�썝
 		String soppNostr = request.getParameter("soppNo");
-		Integer soppNo = soppNostr.equals("") == true ? null : Integer.valueOf(soppNostr);	// 영업기회
+		Integer soppNo = soppNostr.equals("") == true ? null : Integer.valueOf(soppNostr);	// �쁺�뾽湲고쉶
 		String contNostr = request.getParameter("contNo");
-		Integer contNo = contNostr.equals("") == true ? null : Integer.valueOf(contNostr);	// 계약
+		Integer contNo = contNostr.equals("") == true ? null : Integer.valueOf(contNostr);	// 怨꾩빟
 		String custNostr = request.getParameter("custNo");
-		Integer custNo = custNostr.equals("") == true ? null : Integer.valueOf(custNostr);	// 거래처
+		Integer custNo = custNostr.equals("") == true ? null : Integer.valueOf(custNostr);	// 嫄곕옒泥�
 		String endCustNostr =  request.getParameter("endCustNo");
-		Integer endCustNo = endCustNostr.equals("") == true ? null : Integer.valueOf(endCustNostr);	// 엔드유저
-		String schedType = request.getParameter("schedType") != null ? (String) request.getParameter("schedType") : "";			// 활동형태
-		String schedCat = request.getParameter("schedCat") != null ? (String) request.getParameter("schedCat") : "";			// 활동형태
-		String schedFrom = request.getParameter("schedFrom") != null ? (String) request.getParameter("schedFrom") : "";			// 시작일
-		String schedTo = request.getParameter("schedTo") != null ? (String) request.getParameter("schedTo") : "";				// 마감일
-		String regSDate = request.getParameter("regSDate") != null ? (String) request.getParameter("regSDate") : "";					// 등록 시작일
-		String regEDate = request.getParameter("regEDate") != null ? (String) request.getParameter("regEDate") : "";					// 등록 마감일
+		Integer endCustNo = endCustNostr.equals("") == true ? null : Integer.valueOf(endCustNostr);	// �뿏�뱶�쑀��
+		String schedType = request.getParameter("schedType") != null ? (String) request.getParameter("schedType") : "";			// �솢�룞�삎�깭
+		String schedCat = request.getParameter("schedCat") != null ? (String) request.getParameter("schedCat") : "";			// �솢�룞�삎�깭
+		String schedFrom = request.getParameter("schedFrom") != null ? (String) request.getParameter("schedFrom") : "";			// �떆�옉�씪
+		String schedTo = request.getParameter("schedTo") != null ? (String) request.getParameter("schedTo") : "";				// 留덇컧�씪
+		String regSDate = request.getParameter("regSDate") != null ? (String) request.getParameter("regSDate") : "";					// �벑濡� �떆�옉�씪
+		String regEDate = request.getParameter("regEDate") != null ? (String) request.getParameter("regEDate") : "";					// �벑濡� 留덇컧�씪
 
 		dto.setCompNo(compNo);
 		if(userNo != null) dto.setUserNo(userNo);
@@ -70,7 +69,7 @@ public class SchedServiceImpl implements SchedService {
 
 		String sEcho = request.getParameter("sEcho");
 		String limitstr = request.getParameter("iDisplayLength");
-		Integer limit = limitstr.equals("") == true ? 20 : Integer.valueOf(limitstr);	// 기본값 20 세팅
+		Integer limit = limitstr.equals("") == true ? 20 : Integer.valueOf(limitstr);	// 湲곕낯媛� 20 �꽭�똿
 		String offsetstr = request.getParameter("iDisplayStart");
 		Integer offset = offsetstr.equals("") == true ? 0 : Integer.valueOf(offsetstr);
 		String sSearch = (String) request.getParameter("sSearch");
@@ -81,7 +80,7 @@ public class SchedServiceImpl implements SchedService {
 		String column = "";
 		switch (orderColumn){
 			case "0" : column = "regDatetime"; break;
-			case "1" : column = "schedTypeN"; break; // 비활성화 조치
+			case "1" : column = "schedTypeN"; break; // 鍮꾪솢�꽦�솕 議곗튂
 			case "2" : column = "schedTitle"; break;
 			case "3" : column = "schedFrom"; break;
 			case "4" : column = "custName"; break;
@@ -174,6 +173,17 @@ public class SchedServiceImpl implements SchedService {
 	public int updateSched(SchedDTO dto) {
 		// TODO Auto-generated method stub
 		return schedDao.updateSched(dto);
+	}
+
+	@Override
+	public Object listSreport(HttpSession session, HttpSession session2, Object object, Object object2) {
+		// TODO Auto-generated method stub
+		int compNo = SessionInfoGet.getCompNo(session);
+		Integer userNo = SessionInfoGet.getUserNo(session2);
+		SchedDTO dto = new SchedDTO();
+		dto.setCompNo(compNo);
+		dto.setUserNo(userNo);
+		return schedDao.listSreport(dto);
 	}
 
 	

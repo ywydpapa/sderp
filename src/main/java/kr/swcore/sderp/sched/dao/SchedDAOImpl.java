@@ -8,7 +8,6 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import kr.swcore.sderp.sched.dto.SchedDTO;
-import kr.swcore.sderp.sopp.dto.SoppDTO;
 
 @Repository
 public class SchedDAOImpl implements SchedDAO {
@@ -60,6 +59,12 @@ public class SchedDAOImpl implements SchedDAO {
 	public int updateSched(SchedDTO dto) {
 		// TODO Auto-generated method stub
 		return sqlSession.update("sched.updateSched", dto);
+	}
+
+	@Override
+	public List<SchedDTO> listSreport(SchedDTO dto) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("sched.listSreport", dto);
 	}
 
 	

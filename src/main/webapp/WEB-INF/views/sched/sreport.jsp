@@ -464,7 +464,7 @@ function fn_Print() {
 		document.body.innerHTML = document.getElementById("printdiv").innerHTML;
 	}
 	window.onafterprint = function(){
-		document.body.innerHTML = initBody;
+		location.replace("${path}/sched/schedreport.do");		
 	}
 	window.print();
 }

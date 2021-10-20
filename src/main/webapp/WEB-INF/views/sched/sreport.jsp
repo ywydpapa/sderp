@@ -8,16 +8,36 @@
 <html>
 <jsp:include page="../head.jsp"/>
 <jsp:include page="../body-top.jsp"/>
-
+<style>
+    th{
+        text-align:center;
+    }
+    .firstr1,.secondr1,.firstr2,.secondr2,.firstr3,.secondr3{
+      text-align:center;
+      vertical-align:middle; 
+    }
+    .chktd{
+      text-align:center;
+      vertical-align:middle;
+    }
+</style>
+<style type="text/css" media="print">
+  @page { size: landscape; }
+</style>
 <div id="main_content">
 			<div class="page-header2">
 				<div class="row align-items-end">
 					<div class="col-lg-12">
-						<div class="page-header-title">
-							<div class="d-inline">
-								업무 일지 작성
-							</div>
-						</div>
+						<table class="table table-sm bst02">
+							<tbody>
+								<tr>
+									<td><h4>개인업무 일지</h4></td>
+									<td align="right">
+									<button class="btn btn-md btn-primary" onClick="fn_Print()">업무일지 출력</button>
+									</td>
+								</tr>
+							</tbody>
+						</table>
 					</div>
 				</div>
 			</div>
@@ -26,12 +46,63 @@
 			<div class="col-sm-12">
 				<div class="card-block table-border-style">
 					<div class="table-responsive">
-						<table id="schedTable" class="table table-striped table-bordered nowrap">
+						<div class="page-header-title">
+							<div class="d-inline alert alert-success">
+								지난주 업무 목록
+							</div>
+						</div>
+						<table id="schedTable" class="table table-bordered nowrap">
 							<colgroup>
-								<col width="2%">
-								<col width="2%">
+								<col width="5%">
+								<col width="5%">
+								<col width="35%">
 								<col width="15%">
 								<col width="15%">
+								<col width="15%">
+								<col width="10%">
+							</colgroup>
+							<thead>
+								<tr style="vertical-align:middle;text-align: center;">
+									<th>주차</th>
+									<th>요일</th>
+									<th>일정제목</th>
+									<th>일정시작</th>
+									<th>일정종료</th>
+									<th>일정내용</th>
+									<th>업무일지반영(<a onclick="chkallr1();">V</a>/<a onclick="chkunr1();">X</a>)</th>
+								</tr>
+							</thead>
+							<tbody>
+							<c:forEach var="ritem" items="${rlist}" varStatus="stvar">
+							<c:if test="${ritem.weektype eq 'p'}">
+							<tr>
+								<td class="firstr1">${ritem.weekno}</td>
+								<td class="secondr1"><c:if test="${ritem.weekdays eq 2}">월</c:if><c:if test="${ritem.weekdays eq 3}">화</c:if><c:if test="${ritem.weekdays eq 4}">수</c:if><c:if test="${ritem.weekdays eq 5}">목</c:if><c:if test="${ritem.weekdays eq 6}">금</c:if><c:if test="${ritem.weekdays eq 7}">토</c:if></td>
+								<td>${ritem.title}</td>
+								<td>${ritem.start}</td>
+								<td>${ritem.end}</td>
+								<td>${ritem.schedType}</td>
+								<td class="chktd"><input type="checkbox" class="r1chk form-control-sm" checked></td>
+							</tr>
+							</c:if>
+							</c:forEach>
+							</tbody>
+						</table>
+						<hr>
+						<div class="page-header-title">
+							<div class="d-inline alert alert-success">
+								이번주 업무 목록
+							</div>
+						</div>
+						<table id="schedTable" class="table table-bordered nowrap">
+							<colgroup>
+								<col width="5%">
+								<col width="5%">
+								<col width="35%">
+								<col width="15%">
+								<col width="15%">
+								<col width="15%">
+								<col width="10%">
 							</colgroup>
 							<thead>
 								<tr>
@@ -41,21 +112,121 @@
 									<th>일정시작</th>
 									<th>일정종료</th>
 									<th>일정내용</th>
+									<th>업무일지반영(<a onclick="chkallr2();">V</a>/<a onclick="chkunr2();">X</a>)</th>
 								</tr>
 							</thead>
 							<tbody>
 							<c:forEach var="ritem" items="${rlist}">
+							<c:if test="${ritem.weektype eq 't'}">
 							<tr>
-								<td><c:if test="${ritem.weektype eq 'p'}">지난주</c:if><c:if test="${ritem.weektype eq 't'}">이번주</c:if><c:if test="${ritem.weektype eq 'n'}">다음주</c:if></td>
-								<td><c:if test="${ritem.weekdays eq 1}">일</c:if><c:if test="${ritem.weekdays eq 2}">월</c:if><c:if test="${ritem.weekdays eq 3}">화</c:if><c:if test="${ritem.weekdays eq 4}">수</c:if><c:if test="${ritem.weekdays eq 5}">목</c:if><c:if test="${ritem.weekdays eq 6}">금</c:if><c:if test="${ritem.weekdays eq 7}">토</c:if></td>
+								<td class="firstr2">${ritem.weekno}</td>
+								<td class="secondr2"><c:if test="${ritem.weekdays eq 1}">일</c:if><c:if test="${ritem.weekdays eq 2}">월</c:if><c:if test="${ritem.weekdays eq 3}">화</c:if><c:if test="${ritem.weekdays eq 4}">수</c:if><c:if test="${ritem.weekdays eq 5}">목</c:if><c:if test="${ritem.weekdays eq 6}">금</c:if><c:if test="${ritem.weekdays eq 7}">토</c:if></td>
 								<td>${ritem.title}</td>
 								<td>${ritem.start}</td>
 								<td>${ritem.end}</td>
 								<td>${ritem.schedType}</td>
+								<td class="chktd"><input type="checkbox" class="r2chk form-control-sm" checked></td>
 							</tr>
+							</c:if>
 							</c:forEach>
 							</tbody>
 						</table>
+						<hr>
+						<div class="page-header-title">
+							<div class="d-inline alert alert-success">
+								다음주 업무 목록
+							</div>
+						</div>
+						<table id="schedTable" class="table table-bordered nowrap">
+							<colgroup>
+								<col width="5%">
+								<col width="5%">
+								<col width="35%">
+								<col width="15%">
+								<col width="15%">
+								<col width="15%">
+								<col width="10%">
+							</colgroup>
+							<thead>
+								<tr>
+									<th>주차</th>
+									<th>요일</th>
+									<th>일정제목</th>
+									<th>일정시작</th>
+									<th>일정종료</th>
+									<th>일정내용</th>
+									<th>업무일지반영(<a onclick="chkallr3();">V</a>/<a onclick="chkunr3();">X</a>)</th>
+								</tr>
+							</thead>
+							<tbody>
+							<c:forEach var="ritem" items="${rlist}">
+							<c:if test="${ritem.weektype eq 'n'}">
+							<tr>
+								<td class="firstr3">${ritem.weekno}</td>
+								<td class="secondr3"><c:if test="${ritem.weekdays eq 1}">일</c:if><c:if test="${ritem.weekdays eq 2}">월</c:if><c:if test="${ritem.weekdays eq 3}">화</c:if><c:if test="${ritem.weekdays eq 4}">수</c:if><c:if test="${ritem.weekdays eq 5}">목</c:if><c:if test="${ritem.weekdays eq 6}">금</c:if><c:if test="${ritem.weekdays eq 7}">토</c:if></td>
+								<td>${ritem.title}</td>
+								<td>${ritem.start}</td>
+								<td>${ritem.end}</td>
+								<td>${ritem.schedType}</td>
+								<td class="chktd"><input type="checkbox" class="r3chk form-control-sm"></td>
+							</tr>
+							</c:if>
+							</c:forEach>
+							</tbody>
+						</table>
+						<div class="table-responsive">
+						<div style="display:none" id = "printdiv">
+						<table class="table table-bordered nowrap" style="margin: auto">
+						<colgroup>
+								<col width="25%">
+								<col width="25%">
+								<col width="25%">
+								<col width="25%">
+							</colgroup>
+						<tr>
+						<th colspan="4" style="text-align:center;">주간 업무 보고</th>
+						</tr>
+						<tr>
+						<th colspan="3"  style="text-align:center;"><div id="thisWeek"></div></th>
+						<th  style="text-align:center;"><div id="uName"></div></th>
+						</tr>
+						<tr>
+						<td colspan="2"  style="text-align:center;">지난주 진행사항</td>
+						<td colspan="2"  style="text-align:center;">이번주 예정사항</td>
+						</tr>
+						<tr>
+						<td colspan="2">
+							<table class="table table-bordered nowrap" style="margin: auto">
+							<c:forEach var="ritem" items="${rlist}" varStatus="stvar">
+							<c:if test="${ritem.weektype eq 'p'}">
+							<tr>
+								<td class="secondr1"><c:if test="${ritem.weekdays eq 2}">월</c:if><c:if test="${ritem.weekdays eq 3}">화</c:if><c:if test="${ritem.weekdays eq 4}">수</c:if><c:if test="${ritem.weekdays eq 5}">목</c:if><c:if test="${ritem.weekdays eq 6}">금</c:if><c:if test="${ritem.weekdays eq 7}">토</c:if></td>
+								<td>${ritem.title}</td>
+								<td>${ritem.schedType}</td>
+								<td class="chktd"><input type="checkbox" style="display:none" class="r1chk form-control-sm" checked></td>
+							</tr>
+							</c:if>
+							</c:forEach>
+							</table>
+						</td>
+						<td colspan="2">
+							<table class="table table-bordered nowrap" style="margin: auto">
+							<c:forEach var="ritem" items="${rlist}" varStatus="stvar">
+							<c:if test="${ritem.weektype eq 't'}">
+							<tr>
+								<td class="secondr2"><c:if test="${ritem.weekdays eq 2}">월</c:if><c:if test="${ritem.weekdays eq 3}">화</c:if><c:if test="${ritem.weekdays eq 4}">수</c:if><c:if test="${ritem.weekdays eq 5}">목</c:if><c:if test="${ritem.weekdays eq 6}">금</c:if><c:if test="${ritem.weekdays eq 7}">토</c:if></td>
+								<td>${ritem.title}</td>
+								<td>${ritem.schedType}</td>
+								<td class="chktd"><input type="checkbox" style="display:none" class="r2chk form-control-sm" checked></td>
+							</tr>
+							</c:if>
+							</c:forEach>
+							</table>
+						</td>
+						</tr>
+						</table>
+						</div>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -64,3 +235,247 @@
 	<!--//table-->
 </div>
 <jsp:include page="../body-bottom.jsp"/>
+<script>
+function setFirstr1(){
+	var i = 1;
+	var str = undefined;
+	var element = $(".firstr1");
+	var firstElement = undefined;
+	element.each(function() {
+		console.dir(i + $(this).text());
+		if (str == undefined && firstElement == undefined) {
+			str = $(".firstr1")[0].innerText;
+			firstElement = $(".firstr1")[0];
+			return;
+		}
+		if (str == $(this).text()) {
+			i++;
+			console.dir('--> ' + i + $(this).text());
+			$(this).remove();
+		} else {
+			$(firstElement).attr('rowspan', i);
+			i = 1;
+			str = $(this).text();
+			firstElement = $(this);
+		}
+	});
+	// 마지막꺼까지 반영
+	$(firstElement).attr('rowspan', i);
+}
+function setFirstr2(){
+	var i = 1;
+	var str = undefined;
+	var element = $(".firstr2");
+	var firstElement = undefined;
+	element.each(function() {
+		console.dir(i + $(this).text());
+		if (str == undefined && firstElement == undefined) {
+			str = $(".firstr2")[0].innerText;
+			firstElement = $(".firstr2")[0];
+			return;
+		}
+		if (str == $(this).text()) {
+			i++;
+			console.dir('--> ' + i + $(this).text());
+			$(this).remove();
+		} else {
+			$(firstElement).attr('rowspan', i);
+			i = 1;
+			str = $(this).text();
+			firstElement = $(this);
+		}
+	});
+	// 마지막꺼까지 반영
+	$(firstElement).attr('rowspan', i);
+}
+function setFirstr3(){
+	var i = 1;
+	var str = undefined;
+	var element = $(".firstr3");
+	var firstElement = undefined;
+	element.each(function() {
+		console.dir(i + $(this).text());
+		if (str == undefined && firstElement == undefined) {
+			str = $(".firstr3")[0].innerText;
+			firstElement = $(".firstr3")[0];
+			return;
+		}
+		if (str == $(this).text()) {
+			i++;
+			console.dir('--> ' + i + $(this).text());
+			$(this).remove();
+		} else {
+			$(firstElement).attr('rowspan', i);
+			i = 1;
+			str = $(this).text();
+			firstElement = $(this);
+		}
+	});
+	// 마지막꺼까지 반영
+	$(firstElement).attr('rowspan', i);
+}
+
+function setSecondr1(){
+	var i = 1;
+	var str = undefined;
+	var element = $(".secondr1");
+	var firstElement = undefined;
+	element.each(function() {
+		console.dir(i + $(this).text());
+		if (str == undefined && firstElement == undefined) {
+			str = $(".secondr1")[0].innerText;
+			firstElement = $(".secondr1")[0];
+			return;
+		}
+		if (str == $(this).text()) {
+			i++;
+			console.dir('--> ' + i + $(this).text());
+			$(this).remove();
+		} else {
+			$(firstElement).attr('rowspan', i);
+			i = 1;
+			str = $(this).text();
+			firstElement = $(this);
+		}
+	});
+	// 마지막꺼까지 반영
+	$(firstElement).attr('rowspan', i);
+}
+function setSecondr2(){
+	var i = 1;
+	var str = undefined;
+	var element = $(".secondr2");
+	var firstElement = undefined;
+	element.each(function() {
+		console.dir(i + $(this).text());
+		if (str == undefined && firstElement == undefined) {
+			str = $(".secondr2")[0].innerText;
+			firstElement = $(".secondr2")[0];
+			return;
+		}
+		if (str == $(this).text()) {
+			i++;
+			console.dir('--> ' + i + $(this).text());
+			$(this).remove();
+		} else {
+			$(firstElement).attr('rowspan', i);
+			i = 1;
+			str = $(this).text();
+			firstElement = $(this);
+		}
+	});
+	// 마지막꺼까지 반영
+	$(firstElement).attr('rowspan', i);
+}
+function setSecondr3(){
+	var i = 1;
+	var str = undefined;
+	var element = $(".secondr3");
+	var firstElement = undefined;
+	element.each(function() {
+		console.dir(i + $(this).text());
+		if (str == undefined && firstElement == undefined) {
+			str = $(".secondr3")[0].innerText;
+			firstElement = $(".secondr3")[0];
+			return;
+		}
+		if (str == $(this).text()) {
+			i++;
+			console.dir('--> ' + i + $(this).text());
+			$(this).remove();
+		} else {
+			$(firstElement).attr('rowspan', i);
+			i = 1;
+			str = $(this).text();
+			firstElement = $(this);
+		}
+	});
+	// 마지막꺼까지 반영
+	$(firstElement).attr('rowspan', i);
+}
+
+function chkallr1() {
+	var $Marr = $(".r1chk");
+	for (var i = 0; i < $Marr.length; i++) {
+		$($Marr[i]).prop("checked",true);			
+	}
+}
+
+function chkunr1() {
+	var $Marr = $(".r1chk");
+	for (var i = 0; i < $Marr.length; i++) {
+		$($Marr[i]).prop("checked",false);
+	}
+}
+function chkallr2() {
+	var $Marr = $(".r2chk");
+	for (var i = 0; i < $Marr.length; i++) {
+		$($Marr[i]).prop("checked",true);			
+	}
+}
+
+function chkunr2() {
+	var $Marr = $(".r2chk");
+	for (var i = 0; i < $Marr.length; i++) {
+		$($Marr[i]).prop("checked",false);
+	}
+}
+function chkallr3() {
+	var $Marr = $(".r3chk");
+	for (var i = 0; i < $Marr.length; i++) {
+		$($Marr[i]).prop("checked",true);			
+	}
+}
+
+function chkunr3() {
+	var $Marr = $(".r3chk");
+	for (var i = 0; i < $Marr.length; i++) {
+		$($Marr[i]).prop("checked",false);
+	}
+}
+
+function formatDate(date) {
+    var mymonth = date.getMonth()+1;
+    var myweekday = date.getDate();
+    return (mymonth + "/" + myweekday);
+}
+
+function printWeek() {
+    var now = new Date();
+    var nowDayOfWeek = now.getDay();
+    var nowDay = now.getDate();
+    var nowMonth = now.getMonth();
+    var nowYear = now.getYear();
+    nowYear += (nowYear < 2000) ? 1900 : 0;
+    var weekStartDate = new Date(nowYear, nowMonth, nowDay - nowDayOfWeek + 1);
+    var weekEndDate = new Date(nowYear, nowMonth, nowDay + (6 - nowDayOfWeek - 1));
+    var thisweek = formatDate(weekStartDate) + " ~ " + formatDate(weekEndDate);
+    console.log(thisweek);
+    $("#thisWeek").html("<h6> 일자 :" + thisweek + "</h6>");
+    var unam = "${userName}";
+    console.log(unam);
+    $("#uName").html("<h6>담당:" + unam + "</h6>");
+}
+
+function fn_Print() {
+	//lineCopy();
+	var initBody = document.body.innerHTML;
+	window.onbeforeprint = function(){
+		document.body.innerHTML = document.getElementById("printdiv").innerHTML;
+	}
+	window.onafterprint = function(){
+		document.body.innerHTML = initBody;
+	}
+	window.print();
+}
+
+$(document).ready(function() {
+	setFirstr1();
+	setFirstr2();
+	setFirstr3();
+	setSecondr1();	
+	setSecondr2();
+	setSecondr3();
+	printWeek();
+});
+</script>

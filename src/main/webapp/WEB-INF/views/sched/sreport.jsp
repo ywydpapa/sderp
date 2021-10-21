@@ -86,6 +86,11 @@
 							</tr>
 							</c:if>
 							</c:forEach>
+							<tr>
+							<td colspan="2" style="text-align:center;">추가기재</td>
+							<td colspan=4><textarea id="praddtext" class="form-control" cols="50" rows="5"></textarea></td>
+							<td style="text-align:center;"><input type="checkbox" class="praddchk form-control-sm"></td>
+							</tr>
 							</tbody>
 						</table>
 						<hr>
@@ -129,6 +134,11 @@
 							</tr>
 							</c:if>
 							</c:forEach>
+							<tr>
+							<td colspan="2" style="text-align:center;">추가기재</td>
+							<td colspan=4><textarea id="thaddtext" class="form-control" cols="50" rows="5"></textarea></td>
+							<td style="text-align:center;"><input type="checkbox" class="thaddchk form-control-sm"></td>
+							</tr>
 							</tbody>
 						</table>
 						<hr>
@@ -175,7 +185,7 @@
 							</tbody>
 						</table>
 						<div class="table-responsive">
-						<div style="display:none" id = "printdiv">
+						<div style="display:" id = "printdiv">
 						<table class="table table-bordered nowrap" style="margin: auto">
 						<colgroup>
 								<col width="25%">
@@ -200,24 +210,38 @@
 							<c:forEach var="ritem" items="${rlist}" varStatus="stvar">
 							<c:if test="${ritem.weektype eq 'p'}">
 							<tr>
-								<td class="secondr1"><c:if test="${ritem.weekdays eq 2}">월</c:if><c:if test="${ritem.weekdays eq 3}">화</c:if><c:if test="${ritem.weekdays eq 4}">수</c:if><c:if test="${ritem.weekdays eq 5}">목</c:if><c:if test="${ritem.weekdays eq 6}">금</c:if><c:if test="${ritem.weekdays eq 7}">토</c:if></td>
+								<td class="secondsr1"><c:if test="${ritem.weekdays eq 2}">월</c:if><c:if test="${ritem.weekdays eq 3}">화</c:if><c:if test="${ritem.weekdays eq 4}">수</c:if><c:if test="${ritem.weekdays eq 5}">목</c:if><c:if test="${ritem.weekdays eq 6}">금</c:if><c:if test="${ritem.weekdays eq 7}">토</c:if></td>
 								<td>${ritem.title}</td>
 								<td>${ritem.schedType}</td>
-								<td class="chktd"><input type="checkbox" style="display:none" class="r1chk form-control-sm" checked></td>
+								<td class="chktd"><input type="checkbox" style="display:none" class="sr1chk form-control-sm" checked></td>
 							</tr>
 							</c:if>
 							</c:forEach>
 							</table>
+							<textarea style="border: 0" id="prprntext" class="form-control" cols="50" rows="5"></textarea>
 						</td>
 						<td colspan="2">
 							<table class="table table-bordered nowrap" style="margin: auto">
 							<c:forEach var="ritem" items="${rlist}" varStatus="stvar">
 							<c:if test="${ritem.weektype eq 't'}">
 							<tr>
-								<td class="secondr2"><c:if test="${ritem.weekdays eq 2}">월</c:if><c:if test="${ritem.weekdays eq 3}">화</c:if><c:if test="${ritem.weekdays eq 4}">수</c:if><c:if test="${ritem.weekdays eq 5}">목</c:if><c:if test="${ritem.weekdays eq 6}">금</c:if><c:if test="${ritem.weekdays eq 7}">토</c:if></td>
+								<td class="secondsr2"><c:if test="${ritem.weekdays eq 2}">월</c:if><c:if test="${ritem.weekdays eq 3}">화</c:if><c:if test="${ritem.weekdays eq 4}">수</c:if><c:if test="${ritem.weekdays eq 5}">목</c:if><c:if test="${ritem.weekdays eq 6}">금</c:if><c:if test="${ritem.weekdays eq 7}">토</c:if></td>
 								<td>${ritem.title}</td>
 								<td>${ritem.schedType}</td>
-								<td class="chktd"><input type="checkbox" style="display:none" class="r2chk form-control-sm" checked></td>
+								<td class="chktd"><input type="checkbox" style="display:none" class="sr2chk form-control-sm" checked></td>
+							</tr>
+							</c:if>
+							</c:forEach>
+							</table>
+							<textarea style="border: 0" id="thprntext" class="form-control" cols="50" rows="5"></textarea>
+							<table class="table table-bordered nowrap" style="margin: auto">
+							<c:forEach var="ritem" items="${rlist}" varStatus="stvar">
+							<c:if test="${ritem.weektype eq 'n'}">
+							<tr>
+								<td class="secondsr2"><c:if test="${ritem.weekdays eq 2}">월</c:if><c:if test="${ritem.weekdays eq 3}">화</c:if><c:if test="${ritem.weekdays eq 4}">수</c:if><c:if test="${ritem.weekdays eq 5}">목</c:if><c:if test="${ritem.weekdays eq 6}">금</c:if><c:if test="${ritem.weekdays eq 7}">토</c:if></td>
+								<td>${ritem.title}</td>
+								<td>${ritem.schedType}</td>
+								<td class="chktd"><input type="checkbox" style="display:none" class="sr3chk form-control-sm" checked></td>
 							</tr>
 							</c:if>
 							</c:forEach>
@@ -225,6 +249,7 @@
 						</td>
 						</tr>
 						</table>
+						<button onclick="tblTest()"></button>
 						</div>
 						</div>
 					</div>
@@ -394,11 +419,65 @@ function setSecondr3(){
 	$(firstElement).attr('rowspan', i);
 }
 
+function setSecondsr1(){
+	var i = 1;
+	var str = undefined;
+	var element = $(".secondsr1");
+	var firstElement = undefined;
+	element.each(function() {
+		console.dir(i + $(this).text());
+		if (str == undefined && firstElement == undefined) {
+			str = $(".secondsr1")[0].innerText;
+			firstElement = $(".secondsr1")[0];
+			return;
+		}
+		if (str == $(this).text()) {
+			i++;
+			console.dir('--> ' + i + $(this).text());
+			$(this).remove();
+		} else {
+			$(firstElement).attr('rowspan', i);
+			i = 1;
+			str = $(this).text();
+			firstElement = $(this);
+		}
+	});
+	// 마지막꺼까지 반영
+	$(firstElement).attr('rowspan', i);
+}
+function setSecondsr2(){
+	var i2 = 1;
+	var str2 = undefined;
+	var element2 = $(".secondsr2");
+	var firstElement2 = undefined;
+	element2.each(function() {
+		console.dir(i2 + $(this).text());
+		if (str2 == undefined && firstElement2 == undefined) {
+			str2 = $(".secondsr2")[0].innerText;
+			firstElement2 = $(".secondsr2")[0];
+			return;
+		}
+		if (str2 == $(this).text()) {
+			i2++;
+			console.dir('--> ' + i2 + $(this).text());
+			$(this).remove();
+		} else {
+			$(firstElement2).attr('rowspan', i2);
+			i2 = 1;
+			str2 = $(this).text();
+			firstElement2 = $(this);
+		}
+	});
+	// 마지막꺼까지 반영
+	$(firstElement2).attr('rowspan', i2);
+}
+
 function chkallr1() {
 	var $Marr = $(".r1chk");
 	for (var i = 0; i < $Marr.length; i++) {
 		$($Marr[i]).prop("checked",true);			
 	}
+	chkPrchange();
 }
 
 function chkunr1() {
@@ -406,12 +485,14 @@ function chkunr1() {
 	for (var i = 0; i < $Marr.length; i++) {
 		$($Marr[i]).prop("checked",false);
 	}
+	chkPrchange();
 }
 function chkallr2() {
 	var $Marr = $(".r2chk");
 	for (var i = 0; i < $Marr.length; i++) {
 		$($Marr[i]).prop("checked",true);			
 	}
+	chkThchange();
 }
 
 function chkunr2() {
@@ -419,12 +500,14 @@ function chkunr2() {
 	for (var i = 0; i < $Marr.length; i++) {
 		$($Marr[i]).prop("checked",false);
 	}
+	chkThchange();
 }
 function chkallr3() {
 	var $Marr = $(".r3chk");
 	for (var i = 0; i < $Marr.length; i++) {
 		$($Marr[i]).prop("checked",true);			
 	}
+	chkNxchange();
 }
 
 function chkunr3() {
@@ -432,6 +515,7 @@ function chkunr3() {
 	for (var i = 0; i < $Marr.length; i++) {
 		$($Marr[i]).prop("checked",false);
 	}
+	chkNxchange();
 }
 
 function formatDate(date) {
@@ -458,15 +542,70 @@ function printWeek() {
 }
 
 function fn_Print() {
-	//lineCopy();
 	var initBody = document.body.innerHTML;
 	window.onbeforeprint = function(){
+		//setSecondsr1();
 		document.body.innerHTML = document.getElementById("printdiv").innerHTML;
 	}
 	window.onafterprint = function(){
 		location.replace("${path}/sched/schedreport.do");		
 	}
 	window.print();
+}
+
+$(".r1chk,.r2chk,.r3chk").change(function(){
+	chkPrchange();
+	chkThchange();
+	chkNxchange();
+});
+
+function chkPrchange(){
+	var $infoarr = $(".r1chk");
+	var $sinfoarr = $(".sr1chk");
+	for (var i = 0; i < $infoarr.length; i++) {
+		if($($infoarr[i]).is(":checked")==true){
+		$($sinfoarr[i]).attr("checked",true);
+		$($sinfoarr[i]).parent().parent().show();
+		}
+		else{
+			$($sinfoarr[i]).attr("checked",false);
+			$($sinfoarr[i]).parent().parent().hide();
+		}
+	}
+}
+
+function chkThchange(){
+	var $infoarr = $(".r2chk");
+	var $sinfoarr = $(".sr2chk");
+	for (var i = 0; i < $infoarr.length; i++) {
+		if($($infoarr[i]).is(":checked")==true){
+		$($sinfoarr[i]).attr("checked",true);
+		$($sinfoarr[i]).parent().parent().show();
+		}
+		else{
+			$($sinfoarr[i]).attr("checked",false);
+			$($sinfoarr[i]).parent().parent().hide();
+		}
+	}
+}
+
+function chkNxchange(){
+	var $infoarr = $(".r3chk");
+	var $sinfoarr = $(".sr3chk");
+	for (var i = 0; i < $infoarr.length; i++) {
+		if($($infoarr[i]).is(":checked")==true){
+		$($sinfoarr[i]).attr("checked",true);
+		$($sinfoarr[i]).parent().parent().show();
+		}
+		else{
+			$($sinfoarr[i]).attr("checked",false);
+			$($sinfoarr[i]).parent().parent().hide();
+		}
+	}
+}
+
+function tblTest(){
+	setSecondsr1();
 }
 
 $(document).ready(function() {
@@ -476,6 +615,7 @@ $(document).ready(function() {
 	setSecondr1();	
 	setSecondr2();
 	setSecondr3();
+	chkNxchange();
 	printWeek();
 });
 </script>

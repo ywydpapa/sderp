@@ -185,7 +185,7 @@
 							</tbody>
 						</table>
 						<div class="table-responsive">
-						<div style="display:" id = "printdiv">
+						<div style="display:none" id = "printdiv">
 						<table class="table table-bordered nowrap" style="margin: auto">
 						<colgroup>
 								<col width="25%">

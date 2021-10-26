@@ -55,10 +55,10 @@
 							<colgroup>
 								<col width="5%">
 								<col width="5%">
+								<col width="25%">
 								<col width="35%">
-								<col width="15%">
-								<col width="15%">
-								<col width="15%">
+								<col width="10%">
+								<col width="10%">
 								<col width="10%">
 							</colgroup>
 							<thead>
@@ -66,9 +66,9 @@
 									<th>주차</th>
 									<th>요일</th>
 									<th>일정제목</th>
+									<th>일정내용</th>
 									<th>일정시작</th>
 									<th>일정종료</th>
-									<th>일정내용</th>
 									<th>업무일지반영(<a onclick="chkallr1();">V</a>/<a onclick="chkunr1();">X</a>)</th>
 								</tr>
 							</thead>
@@ -79,9 +79,9 @@
 								<td class="firstr1">${ritem.weekno}</td>
 								<td class="secondr1"><c:if test="${ritem.weekdays eq 2}">월</c:if><c:if test="${ritem.weekdays eq 3}">화</c:if><c:if test="${ritem.weekdays eq 4}">수</c:if><c:if test="${ritem.weekdays eq 5}">목</c:if><c:if test="${ritem.weekdays eq 6}">금</c:if><c:if test="${ritem.weekdays eq 7}">토</c:if></td>
 								<td>${ritem.title}</td>
+								<td>${ritem.schedDesc}</td>
 								<td>${ritem.start}</td>
 								<td>${ritem.end}</td>
-								<td>${ritem.schedType}</td>
 								<td class="chktd"><input type="checkbox" class="r1chk form-control-sm" checked></td>
 							</tr>
 							</c:if>
@@ -89,7 +89,7 @@
 							<tr>
 							<td colspan="2" style="text-align:center;">추가기재</td>
 							<td colspan=4><textarea id="praddtext" class="form-control" cols="50" rows="5"></textarea></td>
-							<td style="text-align:center;"><input type="checkbox" class="praddchk form-control-sm"></td>
+							<td style="text-align:center;"><input type="checkbox" style="display:none" class="praddchk form-control-sm"></td>
 							</tr>
 							</tbody>
 						</table>
@@ -103,10 +103,10 @@
 							<colgroup>
 								<col width="5%">
 								<col width="5%">
+								<col width="25%">
 								<col width="35%">
-								<col width="15%">
-								<col width="15%">
-								<col width="15%">
+								<col width="10%">
+								<col width="10%">
 								<col width="10%">
 							</colgroup>
 							<thead>
@@ -114,9 +114,9 @@
 									<th>주차</th>
 									<th>요일</th>
 									<th>일정제목</th>
+									<th>일정내용</th>
 									<th>일정시작</th>
 									<th>일정종료</th>
-									<th>일정내용</th>
 									<th>업무일지반영(<a onclick="chkallr2();">V</a>/<a onclick="chkunr2();">X</a>)</th>
 								</tr>
 							</thead>
@@ -127,9 +127,9 @@
 								<td class="firstr2">${ritem.weekno}</td>
 								<td class="secondr2"><c:if test="${ritem.weekdays eq 1}">일</c:if><c:if test="${ritem.weekdays eq 2}">월</c:if><c:if test="${ritem.weekdays eq 3}">화</c:if><c:if test="${ritem.weekdays eq 4}">수</c:if><c:if test="${ritem.weekdays eq 5}">목</c:if><c:if test="${ritem.weekdays eq 6}">금</c:if><c:if test="${ritem.weekdays eq 7}">토</c:if></td>
 								<td>${ritem.title}</td>
+								<td>${ritem.schedDesc}</td>
 								<td>${ritem.start}</td>
 								<td>${ritem.end}</td>
-								<td>${ritem.schedType}</td>
 								<td class="chktd"><input type="checkbox" class="r2chk form-control-sm" checked></td>
 							</tr>
 							</c:if>
@@ -137,7 +137,7 @@
 							<tr>
 							<td colspan="2" style="text-align:center;">추가기재</td>
 							<td colspan=4><textarea id="thaddtext" class="form-control" cols="50" rows="5"></textarea></td>
-							<td style="text-align:center;"><input type="checkbox" class="thaddchk form-control-sm"></td>
+							<td style="text-align:center;"><input type="checkbox" style="display:none" class="thaddchk form-control-sm"></td>
 							</tr>
 							</tbody>
 						</table>
@@ -151,10 +151,10 @@
 							<colgroup>
 								<col width="5%">
 								<col width="5%">
+								<col width="25%">
 								<col width="35%">
-								<col width="15%">
-								<col width="15%">
-								<col width="15%">
+								<col width="10%">
+								<col width="10%">
 								<col width="10%">
 							</colgroup>
 							<thead>
@@ -162,9 +162,9 @@
 									<th>주차</th>
 									<th>요일</th>
 									<th>일정제목</th>
+									<th>일정내용</th>
 									<th>일정시작</th>
 									<th>일정종료</th>
-									<th>일정내용</th>
 									<th>업무일지반영(<a onclick="chkallr3();">V</a>/<a onclick="chkunr3();">X</a>)</th>
 								</tr>
 							</thead>
@@ -175,9 +175,9 @@
 								<td class="firstr3">${ritem.weekno}</td>
 								<td class="secondr3"><c:if test="${ritem.weekdays eq 1}">일</c:if><c:if test="${ritem.weekdays eq 2}">월</c:if><c:if test="${ritem.weekdays eq 3}">화</c:if><c:if test="${ritem.weekdays eq 4}">수</c:if><c:if test="${ritem.weekdays eq 5}">목</c:if><c:if test="${ritem.weekdays eq 6}">금</c:if><c:if test="${ritem.weekdays eq 7}">토</c:if></td>
 								<td>${ritem.title}</td>
+								<td>${ritem.schedDesc}</td>
 								<td>${ritem.start}</td>
 								<td>${ritem.end}</td>
-								<td>${ritem.schedType}</td>
 								<td class="chktd"><input type="checkbox" class="r3chk form-control-sm"></td>
 							</tr>
 							</c:if>
@@ -194,46 +194,65 @@
 								<col width="25%">
 							</colgroup>
 						<tr>
-						<th colspan="4" style="text-align:center;">주간 업무 보고</th>
+						<th colspan="4" style="text-align:center;"><h3>주간 업무 보고</h3></th>
 						</tr>
 						<tr>
 						<th colspan="3"  style="text-align:center;"><div id="thisWeek"></div></th>
 						<th  style="text-align:center;"><div id="uName"></div></th>
 						</tr>
 						<tr>
-						<td colspan="2"  style="text-align:center;">지난주 진행사항</td>
-						<td colspan="2"  style="text-align:center;">이번주 예정사항</td>
+						<td colspan="2" style="text-align:center;background-color:yellow;">지난주 진행사항</td>
+						<td colspan="2" style="text-align:center;background-color:yellow;">이번주 예정사항</td>
 						</tr>
 						<tr>
 						<td colspan="2">
 							<table class="table table-bordered nowrap" style="margin: auto">
+							<colgroup>
+								<col width="8%">
+								<col width="35%">
+								<col width="55%">
+								<col width="2%">
+							</colgroup>
 							<c:forEach var="ritem" items="${rlist}" varStatus="stvar">
 							<c:if test="${ritem.weektype eq 'p'}">
 							<tr>
 								<td class="secondsr1"><c:if test="${ritem.weekdays eq 2}">월</c:if><c:if test="${ritem.weekdays eq 3}">화</c:if><c:if test="${ritem.weekdays eq 4}">수</c:if><c:if test="${ritem.weekdays eq 5}">목</c:if><c:if test="${ritem.weekdays eq 6}">금</c:if><c:if test="${ritem.weekdays eq 7}">토</c:if></td>
 								<td>${ritem.title}</td>
-								<td>${ritem.schedType}</td>
+								<td>${ritem.schedDesc}</td>
 								<td class="chktd"><input type="checkbox" style="display:none" class="sr1chk form-control-sm" checked></td>
 							</tr>
 							</c:if>
 							</c:forEach>
 							</table>
+							<hr>
+							<h6>추가 기재 사항</h6>
+							<hr>
 							<textarea style="border: 0" id="prprntext" class="form-control" cols="50" rows="5"></textarea>
 						</td>
 						<td colspan="2">
 							<table class="table table-bordered nowrap" style="margin: auto">
+							<colgroup>
+								<col width="8%">
+								<col width="35%">
+								<col width="55%">
+								<col width="2%">
+							</colgroup>
 							<c:forEach var="ritem" items="${rlist}" varStatus="stvar">
 							<c:if test="${ritem.weektype eq 't'}">
 							<tr>
 								<td class="secondsr2"><c:if test="${ritem.weekdays eq 2}">월</c:if><c:if test="${ritem.weekdays eq 3}">화</c:if><c:if test="${ritem.weekdays eq 4}">수</c:if><c:if test="${ritem.weekdays eq 5}">목</c:if><c:if test="${ritem.weekdays eq 6}">금</c:if><c:if test="${ritem.weekdays eq 7}">토</c:if></td>
 								<td>${ritem.title}</td>
-								<td>${ritem.schedType}</td>
+								<td>${ritem.schedDesc}</td>
 								<td class="chktd"><input type="checkbox" style="display:none" class="sr2chk form-control-sm" checked></td>
 							</tr>
 							</c:if>
 							</c:forEach>
 							</table>
+							<hr>
+							<h6>추가 기재 사항</h6>
+							<hr>
 							<textarea style="border: 0" id="thprntext" class="form-control" cols="50" rows="5"></textarea>
+							<hr>
 							<table class="table table-bordered nowrap" style="margin: auto">
 							<c:forEach var="ritem" items="${rlist}" varStatus="stvar">
 							<c:if test="${ritem.weektype eq 'n'}">
@@ -542,6 +561,11 @@ function printWeek() {
 }
 
 function fn_Print() {
+	PrSet();
+	ThSet();
+	NxSet();
+	setSecondsr1();
+	setSecondsr2();
 	var initBody = document.body.innerHTML;
 	window.onbeforeprint = function(){
 		//setSecondsr1();
@@ -604,9 +628,65 @@ function chkNxchange(){
 	}
 }
 
+function PrSet(){
+	var $infoarr = $(".r1chk");
+	var $sinfoarr = $(".sr1chk");
+	for (var i = 0; i < $infoarr.length; i++) {
+		if($($infoarr[i]).is(":checked")==true){
+		$($sinfoarr[i]).attr("checked",true);
+		$($sinfoarr[i]).parent().parent().show();
+		}
+		else{
+			$($sinfoarr[i]).attr("checked",false);
+			$($sinfoarr[i]).parent().parent().remove();
+		}
+	}
+}
+
+function ThSet(){
+	var $infoarr = $(".r2chk");
+	var $sinfoarr = $(".sr2chk");
+	for (var i = 0; i < $infoarr.length; i++) {
+		if($($infoarr[i]).is(":checked")==true){
+		$($sinfoarr[i]).attr("checked",true);
+		$($sinfoarr[i]).parent().parent().show();
+		}
+		else{
+			$($sinfoarr[i]).attr("checked",false);
+			$($sinfoarr[i]).parent().parent().remove();
+		}
+	}
+}
+
+function NxSet(){
+	var $infoarr = $(".r3chk");
+	var $sinfoarr = $(".sr3chk");
+	for (var i = 0; i < $infoarr.length; i++) {
+		if($($infoarr[i]).is(":checked")==true){
+		$($sinfoarr[i]).attr("checked",true);
+		$($sinfoarr[i]).parent().parent().show();
+		}
+		else{
+			$($sinfoarr[i]).attr("checked",false);
+			$($sinfoarr[i]).parent().parent().remove();
+		}
+	}
+}
+
 function tblTest(){
 	setSecondsr1();
 }
+
+function linecopy(){
+	var aa = $("#praddtext").val(); 
+	$("#prprntext").html(aa);
+	var bb = $("#thaddtext").val();
+	$("#thprntext").html(bb);
+}
+
+$("#praddtext,#thaddtext").change(function(){
+linecopy();
+});
 
 $(document).ready(function() {
 	setFirstr1();

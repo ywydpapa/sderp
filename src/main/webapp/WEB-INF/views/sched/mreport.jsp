@@ -88,9 +88,7 @@
 							</c:forEach>
 							<tr>
 							<td colspan="2" style="text-align:center;">추가기재</td>
-							<td colspan=4><textarea id="praddtext" class="form-control" cols="50" rows="5">
-							${addtxt.prComment}
-							</textarea></td>
+							<td colspan=4><textarea id="praddtext" class="form-control" cols="50" rows="5">${addtxt.prComment}</textarea></td>
 							<td style="text-align:center;"><input type="checkbox" style="display:none" class="praddchk form-control-sm"></td>
 							</tr>
 							</tbody>
@@ -138,9 +136,7 @@
 							</c:forEach>
 							<tr>
 							<td colspan="2" style="text-align:center;">추가기재</td>
-							<td colspan=4><textarea id="thaddtext" class="form-control" cols="50" rows="5">
-							${addtxt.thComment}
-							</textarea></td>
+							<td colspan=4><textarea id="thaddtext" class="form-control" cols="50" rows="5">${addtxt.thComment}</textarea></td>
 							<td style="text-align:center;"><input type="checkbox" style="display:none" class="thaddchk form-control-sm"></td>
 							</tr>
 							</tbody>

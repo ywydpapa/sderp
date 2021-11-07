@@ -89,9 +89,7 @@
 							</c:forEach>
 							<tr>
 							<td colspan="2" style="text-align:center;">추가기재</td>
-							<td colspan=4><textarea id="praddtext" class="form-control" cols="50" rows="5">
-							${myadd.prComment}
-							</textarea></td>
+							<td colspan=4><textarea id="praddtext" class="form-control" cols="50" rows="5">${myadd.prComment}</textarea></td>
 							<td style="text-align:center;"><input type="checkbox" style="display:none" class="praddchk form-control-sm"></td>
 							</tr>
 							</tbody>

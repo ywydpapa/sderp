@@ -16,5 +16,9 @@ public interface SchedDAO {
 	int insertSched(SchedDTO dto);
 	int deleteSched(int schedNo);
 	int updateSched(SchedDTO dto);
-
+	int insertSreport(SchedDTO dto);
+	List<SchedDTO> listMreport(SchedDTO dto);
+	SchedDTO detailAddtext(int sreportNo);
+	SchedDTO myAddtext(SchedDTO dto);
+	List<SchedDTO> detailSreport(SchedDTO dto);
 }

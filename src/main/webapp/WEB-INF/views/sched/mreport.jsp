@@ -33,7 +33,6 @@
 								<tr>
 									<td><h4>개인업무 일지</h4></td>
 									<td align="right">
-									<button class="btn btn-md btn-primary" onClick="fn_Create()">업무일지 생성</button>
 									<button class="btn btn-md btn-primary" onClick="fn_Print()">업무일지 출력</button>
 									</td>
 								</tr>
@@ -90,7 +89,7 @@
 							<tr>
 							<td colspan="2" style="text-align:center;">추가기재</td>
 							<td colspan=4><textarea id="praddtext" class="form-control" cols="50" rows="5">
-							${myadd.prComment}
+							${addtxt.prComment}
 							</textarea></td>
 							<td style="text-align:center;"><input type="checkbox" style="display:none" class="praddchk form-control-sm"></td>
 							</tr>
@@ -139,7 +138,9 @@
 							</c:forEach>
 							<tr>
 							<td colspan="2" style="text-align:center;">추가기재</td>
-							<td colspan=4><textarea id="thaddtext" class="form-control" cols="50" rows="5">${myadd.thComment}</textarea></td>
+							<td colspan=4><textarea id="thaddtext" class="form-control" cols="50" rows="5">
+							${addtxt.thComment}
+							</textarea></td>
 							<td style="text-align:center;"><input type="checkbox" style="display:none" class="thaddchk form-control-sm"></td>
 							</tr>
 							</tbody>
@@ -562,32 +563,6 @@ function printWeek() {
     console.log(unam);
     $("#uName").html("<h6>담당:" + unam + "</h6>");
 }
-
-function fn_Create(){
-	var sreportData = {};
-	sreportData.userNo 		= Number("${userNo}");
-	sreportData.compNo 		= Number("${compNo}");
-	sreportData.prComment	= $("#praddtext").val();
-	sreportData.thComment	= $("#thaddtext").val();
-	console.log(sreportData);
-	$.ajax({
-		url: "${path}/sched/insSreport.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
-		data: sreportData , // HTTP 요청과 함께 서버로 보낼 데이터
-		method: "POST", // HTTP 요청 메소드(GET, POST 등)
-		dataType: "json" // 서버에서 보내줄 데이터의 타입
-	}) // HTTP 요청이 성공하면 요청한 데이터가 done() 메소드로 전달됨..
-	.done(function(data) {
-		if(data.code == 10001){
-			alert("저장 성공");
-		}else{
-			alert("저장 실패");
-		}
-	}) // HTTP 요청이 실패하면 오류와 상태에 관한 정보가 fail() 메소드로 전달됨.
-	.fail(function(xhr, status, errorThrown) {
-		alert("통신 실패");
-	});
-}
-
 
 
 function fn_Print() {

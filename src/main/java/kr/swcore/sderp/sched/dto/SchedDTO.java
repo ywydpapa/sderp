@@ -54,11 +54,17 @@ public class SchedDTO extends PageDTO {
 	private String title;
 	private String start;
 	private String end;
-	
+	private String prComment;
+	private String thComment;
+	private String nxComment;
+	private String srepMemo;
+	private String sreportNo;
 	private int endCustNo;
 	private String regSDate;
 	private String regEDate;
-	
+	private Integer ord_id;
+	private Integer weekNum;
+	private String org_title;
 
 	public SchedDTO() {
 		super();

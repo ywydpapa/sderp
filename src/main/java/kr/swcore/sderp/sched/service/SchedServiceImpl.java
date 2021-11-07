@@ -1,6 +1,5 @@
 package kr.swcore.sderp.sched.service;
 
-import java.sql.Wrapper;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -8,11 +7,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import kr.swcore.sderp.common.dto.WrapperDTO;
 import org.springframework.stereotype.Service;
 
 import kr.swcore.sderp.code.dao.CodeDAO;
 import kr.swcore.sderp.code.dto.CodeDTO;
+import kr.swcore.sderp.common.dto.WrapperDTO;
 import kr.swcore.sderp.sched.dao.SchedDAO;
 import kr.swcore.sderp.sched.dto.SchedDTO;
 import kr.swcore.sderp.sopp.dto.SoppDTO;
@@ -186,8 +185,44 @@ public class SchedServiceImpl implements SchedService {
 		return schedDao.listSreport(dto);
 	}
 
-	
+	@Override
+	public int insertSreport(SchedDTO dto) {
+		// TODO Auto-generated method stub
+		return schedDao.insertSreport(dto);
+	}
 
-	
+	@Override
+	public List<SchedDTO> listMreport(HttpSession session) {
+		// TODO Auto-generated method stub
+		int compNo = SessionInfoGet.getCompNo(session);
+		SchedDTO dto = new SchedDTO();
+		dto.setCompNo(compNo);
+		return schedDao.listMreport(dto);
+	}
+
+	@Override
+	public SchedDTO detailAddtext(int sreportNo) {
+		// TODO Auto-generated method stub
+		return schedDao.detailAddtext(sreportNo);
+	}
+
+	@Override
+	public Object detailSreport(HttpSession session,SchedDTO dto){
+		// TODO Auto-generated method stub
+		int compNo = SessionInfoGet.getCompNo(session);
+		int userNo = dto.getUserNo();
+		dto.setCompNo(compNo);
+		dto.setUserNo(userNo);
+		return schedDao.detailSreport(dto);
+	}
+
+	@Override
+	public SchedDTO myAddtext(HttpSession session3,SchedDTO dto) {
+		// TODO Auto-generated method stub
+		int userNo = SessionInfoGet.getUserNo(session3);
+		dto.setUserNo(userNo);
+		return schedDao.myAddtext(dto);
+	}
+
 
 }

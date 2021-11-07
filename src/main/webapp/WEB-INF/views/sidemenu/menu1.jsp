@@ -64,7 +64,16 @@
 						<span class="pcoded-micon">
 							<i class="ti-angle-right"></i>
 						</span>
-						<span class="pcoded-mtext" data-i18n="nav.menu-levels.menu-level-24">업무일지 작성</span>
+						<span class="pcoded-mtext" data-i18n="nav.menu-levels.menu-level-24">개인 업무일지 작성</span>
+						<span class="pcoded-mcaret"></span>
+					</a>
+				</li>
+				<li class="pcoded-hasmenu">
+					<a href="${path}/sched/listMreport.do">
+						<span class="pcoded-micon">
+							<i class="ti-angle-right"></i>
+						</span>
+						<span class="pcoded-mtext" data-i18n="nav.menu-levels.menu-level-24">업무일지 검토</span>
 						<span class="pcoded-mcaret"></span>
 					</a>
 				</li>

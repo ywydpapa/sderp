@@ -52,9 +52,25 @@ public class schedController {
 	}
 
 	@RequestMapping("schedreport.do")
-	public ModelAndView schedrep(HttpSession session,HttpSession session2, ModelAndView mav) {
+	public ModelAndView schedrep(HttpSession session,HttpSession session2,HttpSession session3, ModelAndView mav, @ModelAttribute SchedDTO dto) {
 		mav.addObject("rlist",schedService.listSreport(session, session2, null, null));
+		mav.addObject("myadd",schedService.myAddtext(session3, dto));
 		mav.setViewName("sched/sreport");
+		return mav;
+	}
+	
+	@RequestMapping("listMreport.do")
+	public ModelAndView listschedrep(HttpSession session, ModelAndView mav) {
+		mav.addObject("mlist",schedService.listMreport(session));
+		mav.setViewName("sched/listMreport");
+		return mav;
+	}
+	
+	@RequestMapping("detailMreport/{sreportNo}")
+	public ModelAndView detailMreport(@PathVariable("sreportNo") int sreportNo,HttpSession session, ModelAndView mav, @ModelAttribute SchedDTO dto) {
+		mav.addObject("rlist",schedService.detailSreport(session, dto));
+		mav.addObject("addtxt",schedService.detailAddtext(sreportNo));
+		mav.setViewName("sched/mreport");
 		return mav;
 	}
 
@@ -104,6 +120,18 @@ public class schedController {
 		Map<String, Object> param = new HashMap<>();
 		int schedInsertResult = schedService.insertSched(session, dto);
 		param.put("code", (String.valueOf(schedInsertResult))); 
+		return ResponseEntity.ok(param);
+	}
+	
+	@RequestMapping("insSreport.do")
+	public ResponseEntity<?> insSreport(HttpSession session, @ModelAttribute SchedDTO dto) {
+		Map<String, Object> param = new HashMap<>();
+		int srIResult = schedService.insertSreport(dto);
+		if (srIResult >0) {
+			param.put("code","10001"); 
+		}
+		else {param.put("code","20001");
+		}
 		return ResponseEntity.ok(param);
 	}
 	

@@ -92,6 +92,7 @@
         	                            
             eventClick: function(info) {
    	                                var url="${path}/sched/detail/"+info.event.id;
+   	                                console.log(url);
    	                                fnSetPage(url);
         	                              },
         });

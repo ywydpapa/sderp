@@ -79,7 +79,14 @@
 							<tr>
 								<td class="firstr1">${ritem.weekno}</td>
 								<td class="secondr1"><c:if test="${ritem.weekdays eq 2}">월</c:if><c:if test="${ritem.weekdays eq 3}">화</c:if><c:if test="${ritem.weekdays eq 4}">수</c:if><c:if test="${ritem.weekdays eq 5}">목</c:if><c:if test="${ritem.weekdays eq 6}">금</c:if><c:if test="${ritem.weekdays eq 7}">토</c:if></td>
-								<td>${ritem.title}</td>
+								<td>
+								<c:choose>
+								<c:when test="${ritem.stype eq 'S'}"><a href="javascript:eventclk1(${ritem.id})">${ritem.title}</a></c:when>
+								<c:when test="${ritem.stype eq 'T'}"><a href="javascript:eventclk2(${ritem.id})">${ritem.title}</a></c:when>
+								<c:when test="${ritem.stype eq 'E'}"><a href="javascript:eventclk3(${ritem.id})">${ritem.title}</a></c:when>
+								<c:otherwise>${ritem.title}</c:otherwise>
+								</c:choose>
+								</td>
 								<td>${ritem.schedDesc}</td>
 								<td>${ritem.start}</td>
 								<td>${ritem.end}</td>
@@ -127,7 +134,14 @@
 							<tr>
 								<td class="firstr2">${ritem.weekno}</td>
 								<td class="secondr2"><c:if test="${ritem.weekdays eq 1}">일</c:if><c:if test="${ritem.weekdays eq 2}">월</c:if><c:if test="${ritem.weekdays eq 3}">화</c:if><c:if test="${ritem.weekdays eq 4}">수</c:if><c:if test="${ritem.weekdays eq 5}">목</c:if><c:if test="${ritem.weekdays eq 6}">금</c:if><c:if test="${ritem.weekdays eq 7}">토</c:if></td>
-								<td>${ritem.title}</td>
+								<td>
+								<c:choose>
+								<c:when test="${ritem.stype eq 'S'}"><a href="javascript:eventclk1(${ritem.id})">${ritem.title}</a></c:when>
+								<c:when test="${ritem.stype eq 'T'}"><a href="javascript:eventclk2(${ritem.id})">${ritem.title}</a></c:when>
+								<c:when test="${ritem.stype eq 'E'}"><a href="javascript:eventclk3(${ritem.id})">${ritem.title}</a></c:when>
+								<c:otherwise>${ritem.title}</c:otherwise>
+								</c:choose>
+								</td>
 								<td>${ritem.schedDesc}</td>
 								<td>${ritem.start}</td>
 								<td>${ritem.end}</td>
@@ -175,7 +189,14 @@
 							<tr>
 								<td class="firstr3">${ritem.weekno}</td>
 								<td class="secondr3"><c:if test="${ritem.weekdays eq 1}">일</c:if><c:if test="${ritem.weekdays eq 2}">월</c:if><c:if test="${ritem.weekdays eq 3}">화</c:if><c:if test="${ritem.weekdays eq 4}">수</c:if><c:if test="${ritem.weekdays eq 5}">목</c:if><c:if test="${ritem.weekdays eq 6}">금</c:if><c:if test="${ritem.weekdays eq 7}">토</c:if></td>
-								<td>${ritem.title}</td>
+								<td>
+								<c:choose>
+								<c:when test="${ritem.stype eq 'S'}"><a href="javascript:eventclk1(${ritem.id})">${ritem.title}</a></c:when>
+								<c:when test="${ritem.stype eq 'T'}"><a href="javascript:eventclk2(${ritem.id})">${ritem.title}</a></c:when>
+								<c:when test="${ritem.stype eq 'E'}"><a href="javascript:eventclk3(${ritem.id})">${ritem.title}</a></c:when>
+								<c:otherwise>${ritem.title}</c:otherwise>
+								</c:choose>
+								</td>
 								<td>${ritem.schedDesc}</td>
 								<td>${ritem.start}</td>
 								<td>${ritem.end}</td>
@@ -727,4 +748,23 @@ $(document).ready(function() {
 	chkNxchange();
 	printWeek();
 });
+	
+function eventclk3(id) {
+     var url="${path}/sched/detail2/"+id;
+         console.log(url);
+         history.pushState(null, null, url);
+     	 location.replace(url);
+}
+function eventclk1(id) {
+    var url="${path}/sales/detail2/"+id;
+        console.log(url);
+        history.pushState(null, null, url);
+    	 location.replace(url);
+}
+function eventclk2(id) {
+    var url="${path}/techd/detail2/"+id;
+        console.log(url);
+        history.pushState(null, null, url);
+    	 location.replace(url);
+}
 </script>

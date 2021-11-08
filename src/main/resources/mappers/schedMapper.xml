@@ -529,7 +529,7 @@ from
 <!-- 업무 일지 작성을 위해 전주,차주 일정 리스트업 -->  
  <select id="listSreport" resultType="schedDto">
 select 'p' weektype,dayofweek(a.schedFrom) weekdays,concat(" # ", a.schedTitle) title, concat(left(a.schedFrom,10)," ",substring(a.schedFrom,12,9)) 
-start, concat(left(a.schedTo,10)," ",substring(a.schedTo,12,9)) end, a.schedNo id, a.schedDesc, yearweek(a.schedFrom) weekno  
+start, concat(left(a.schedTo,10)," ",substring(a.schedTo,12,9)) end, a.schedNo id, a.schedDesc, yearweek(a.schedFrom) weekno, 'E' stype  
 from swc_sched a left join swc_cust b on a.custNo=b.custNo left join swc_sopp 
 c on a.soppNo=c.soppNo left join swc_user d on a.userNo=d.userNo left join swc_organiz e on 
 d.org_id = e.org_id where a.attrib not like 'XXX%' and a.compNo = #{compNo} and a.userNo in ( 
@@ -537,19 +537,19 @@ d.org_id = e.org_id where a.attrib not like 'XXX%' and a.compNo = #{compNo} and 
 union
 select 'p' weektype,dayofweek(a.salesTodatetime) weekdays,concat(" $ ", a.salesTitle) title, concat(left(a.salesFrdatetime,10)," ",substring(a.salesFrdatetime 
 ,12,9)) start, concat(left(a.salesTodatetime,10)," ",substring(a.salesTodatetime ,12,9)) end, 
-a.salesNo id, a.salesDesc schedDesc, yearweek(a.salesTodatetime) weekno from swc_sales a left join swc_cust b on 
+a.salesNo id, a.salesDesc schedDesc, yearweek(a.salesTodatetime) weekno, 'S' stype from swc_sales a left join swc_cust b on 
 a.custNo=b.custNo left join swc_user d on a.userNo=d.userNo left join swc_organiz e on d.org_id 
 = e.org_id where a.attrib not like 'XXX%' and a.compNo = #{compNo} and a.userNo in (#{userNo}) 
 and yearweek(a.salesTodatetime) = yearweek(now())-1
 union
 select 'p' weektype,dayofweek(a.techdFrom) weekdays, concat(" @ ", a.techdTitle) title, concat(left(a.techdFrom,10)," ",substring(a.techdFrom,12,9)) 
-start, concat(left(a.techdTo,10)," ",substring(a.techdTo,12,9)) end, a.techdNo id, a.techdDesc schedDesc, yearweek(a.techdFrom) weekno  
+start, concat(left(a.techdTo,10)," ",substring(a.techdTo,12,9)) end, a.techdNo id, a.techdDesc schedDesc, yearweek(a.techdFrom) weekno, 'T' stype  
 from swc_techd a left join swc_user d on a.userNo=d.userNo left join swc_organiz 
 e on d.org_id = e.org_id where a.attrib not like 'XXX%' and a.compNo = #{compNo} and a.userNo 
 in ( #{userNo} ) and yearweek(a.techdFrom) = yearweek(now())-1
 union
 select 't' weektype,dayofweek(a.schedFrom) weekdays,concat(" # ", a.schedTitle) title, concat(left(a.schedFrom,10)," ",substring(a.schedFrom,12,9)) 
-start, concat(left(a.schedTo,10)," ",substring(a.schedTo,12,9)) end, a.schedNo id, a.schedDesc , yearweek(a.schedFrom) weekno
+start, concat(left(a.schedTo,10)," ",substring(a.schedTo,12,9)) end, a.schedNo id, a.schedDesc , yearweek(a.schedFrom) weekno, 'E' stype
 from swc_sched a left join swc_cust b on a.custNo=b.custNo left join swc_sopp 
 c on a.soppNo=c.soppNo left join swc_user d on a.userNo=d.userNo left join swc_organiz e on 
 d.org_id = e.org_id where a.attrib not like 'XXX%' and a.compNo = #{compNo} and a.userNo in ( 
@@ -557,19 +557,19 @@ d.org_id = e.org_id where a.attrib not like 'XXX%' and a.compNo = #{compNo} and 
 union
 select 't' weektype,dayofweek(a.salesTodatetime) weekdays,concat(" $ ", a.salesTitle) title, concat(left(a.salesFrdatetime,10)," ",substring(a.salesFrdatetime 
 ,12,9)) start, concat(left(a.salesTodatetime,10)," ",substring(a.salesTodatetime ,12,9)) end, 
-a.salesNo id, a.salesDesc schedDesc, yearweek(a.salesTodatetime) weekno from swc_sales a left join swc_cust b on 
+a.salesNo id, a.salesDesc schedDesc, yearweek(a.salesTodatetime) weekno, 'S' stype from swc_sales a left join swc_cust b on 
 a.custNo=b.custNo left join swc_user d on a.userNo=d.userNo left join swc_organiz e on d.org_id 
 = e.org_id where a.attrib not like 'XXX%' and a.compNo = #{compNo} and a.userNo in ( #{userNo} ) 
 and yearweek(a.salesTodatetime) = yearweek(now())
 union
-select 'n' weektype,dayofweek(a.techdFrom) weekdays, concat(" @ ", a.techdTitle) title, concat(left(a.techdFrom,10)," ",substring(a.techdFrom,12,9)) 
-start, concat(left(a.techdTo,10)," ",substring(a.techdTo,12,9)) end, a.techdNo id, a.techdDesc schedDesc, yearweek(a.techdFrom) weekno 
+select 't' weektype,dayofweek(a.techdFrom) weekdays, concat(" @ ", a.techdTitle) title, concat(left(a.techdFrom,10)," ",substring(a.techdFrom,12,9)) 
+start, concat(left(a.techdTo,10)," ",substring(a.techdTo,12,9)) end, a.techdNo id, a.techdDesc schedDesc, yearweek(a.techdFrom) weekno, 'T' stype 
 from swc_techd a left join swc_user d on a.userNo=d.userNo left join swc_organiz 
 e on d.org_id = e.org_id where a.attrib not like 'XXX%' and a.compNo = #{compNo} and a.userNo 
 in ( #{userNo} ) and yearweek(a.techdFrom) = yearweek(now()) 
 union
 select 'n' weektype,dayofweek(a.schedFrom) weekdays,concat(" # ", a.schedTitle) title, concat(left(a.schedFrom,10)," ",substring(a.schedFrom,12,9)) 
-start, concat(left(a.schedTo,10)," ",substring(a.schedTo,12,9)) end, a.schedNo id, a.schedDesc , yearweek(a.schedFrom) weekno
+start, concat(left(a.schedTo,10)," ",substring(a.schedTo,12,9)) end, a.schedNo id, a.schedDesc , yearweek(a.schedFrom) weekno, 'E' stype
 from swc_sched a left join swc_cust b on a.custNo=b.custNo left join swc_sopp 
 c on a.soppNo=c.soppNo left join swc_user d on a.userNo=d.userNo left join swc_organiz e on 
 d.org_id = e.org_id where a.attrib not like 'XXX%' and a.compNo = #{compNo} and a.userNo in ( 
@@ -577,13 +577,13 @@ d.org_id = e.org_id where a.attrib not like 'XXX%' and a.compNo = #{compNo} and 
 union
 select 'n' weektype,dayofweek(a.salesTodatetime) weekdays,concat(" $ ", a.salesTitle) title, concat(left(a.salesFrdatetime,10)," ",substring(a.salesFrdatetime 
 ,12,9)) start, concat(left(a.salesTodatetime,10)," ",substring(a.salesTodatetime ,12,9)) end, 
-a.salesNo id, a.salesDesc schedDesc, yearweek(a.salesTodatetime) weekno from swc_sales a left join swc_cust b on 
+a.salesNo id, a.salesDesc schedDesc, yearweek(a.salesTodatetime) weekno, 'S' stype from swc_sales a left join swc_cust b on 
 a.custNo=b.custNo left join swc_user d on a.userNo=d.userNo left join swc_organiz e on d.org_id 
 = e.org_id where a.attrib not like 'XXX%' and a.compNo = #{compNo} and a.userNo in ( #{userNo} ) 
 and yearweek(a.salesTodatetime) = yearweek(now())+1
 union
 select 'n' weektype,dayofweek(a.techdFrom) weekdays, concat(" @ ", a.techdTitle) title, concat(left(a.techdFrom,10)," ",substring(a.techdFrom,12,9)) 
-start, concat(left(a.techdTo,10)," ",substring(a.techdTo,12,9)) end, a.techdNo id, a.techdDesc schedDesc, yearweek(a.techdFrom) weekno 
+start, concat(left(a.techdTo,10)," ",substring(a.techdTo,12,9)) end, a.techdNo id, a.techdDesc schedDesc, yearweek(a.techdFrom) weekno, 'T' stype 
 from swc_techd a left join swc_user d on a.userNo=d.userNo left join swc_organiz 
 e on d.org_id = e.org_id where a.attrib not like 'XXX%' and a.compNo = #{compNo} and a.userNo 
 in ( #{userNo} ) and yearweek(a.techdFrom) = yearweek(now())+1 

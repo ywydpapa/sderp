@@ -20,6 +20,9 @@
       text-align:center;
       vertical-align:middle;
     }
+    td{
+    white-space:normal;
+    }
 </style>
 <style type="text/css" media="print">
   @page { size: landscape; }
@@ -52,7 +55,7 @@
 								지난주 업무 목록
 							</div>
 						</div>
-						<table id="schedTable" class="table table-bordered nowrap" style="table-layout:fixed;word-break:break-word">
+						<table id="schedTable" class="table table-bordered" style="table-layout:fixed;word-break:break-word">
 							<colgroup>
 								<col width="5%">
 								<col width="5%">
@@ -107,7 +110,7 @@
 								이번주 업무 목록
 							</div>
 						</div>
-						<table id="schedTable" class="table table-bordered nowrap" style="table-layout:fixed;word-break:break-word">
+						<table id="schedTable" class="table table-bordered " style="table-layout:fixed;word-break:break-word">
 							<colgroup>
 								<col width="5%">
 								<col width="5%">
@@ -162,7 +165,7 @@
 								다음주 업무 목록
 							</div>
 						</div>
-						<table id="schedTable" class="table table-bordered nowrap" style="table-layout:fixed;word-break:break-word">
+						<table id="schedTable" class="table table-bordered " style="table-layout:fixed;word-break:break-word">
 							<colgroup>
 								<col width="5%">
 								<col width="5%">
@@ -208,7 +211,7 @@
 						</table>
 						<div class="table-responsive">
 						<div style="display:" id = "printdiv">
-						<table class="table table-bordered nowrap" style="table-layout:fixed;word-break:break-word">
+						<table class="table table-bordered " style="white-space:normal;table-layout:fixed;word-break:break-word">
 						<colgroup>
 								<col width="25%">
 								<col width="25%">
@@ -228,7 +231,7 @@
 						</tr>
 						<tr>
 						<td colspan="2">
-							<table class="table table-bordered nowrap" style="table-layout:fixed;word-break:break-all">
+							<table class="table table-bordered " style="white-space:normal;table-layout:fixed;word-break:break-all">
 							<colgroup>
 								<col width="20%">
 								<col width="80%">
@@ -252,7 +255,7 @@
 							</div>
 						</td>
 						<td colspan="2">
-							<table class="table table-bordered nowrap" style="table-layout:fixed;word-break:break-word">
+							<table class="table table-bordered " style="table-layout:fixed;word-break:break-word">
 							<colgroup>
 								<col width="20%">
 								<col width="80%">
@@ -261,7 +264,7 @@
 							<c:if test="${ritem.weektype eq 't'}">
 							<tr>
 								<td class="secondsr2 text-center"><c:if test="${ritem.weekdays eq 2}">월</c:if><c:if test="${ritem.weekdays eq 3}">화</c:if><c:if test="${ritem.weekdays eq 4}">수</c:if><c:if test="${ritem.weekdays eq 5}">목</c:if><c:if test="${ritem.weekdays eq 6}">금</c:if><c:if test="${ritem.weekdays eq 7}">토</c:if></td>
-								<td class="chktd text-left" style="word-break:break-all"><b>${ritem.title}</b><br/>
+								<td class="chktd text-left" style="white-space:normal;word-break:break-all"><b>${ritem.title}</b><br/>
 								${ritem.schedDesc}<br/>
 								<input type="checkbox" style="display:none" class="sr2chk form-control-sm" checked></td>
 							</tr>
@@ -275,7 +278,7 @@
 							<textarea style="border: 0" id="thprntext" class="form-control" cols="50" rows="5"></textarea>
 							<hr>
 							</div>
-							<table class="table table-bordered nowrap" style="table-layout:fixed;word-break:break-word">
+							<table class="table table-bordered " style="table-layout:fixed;word-break:break-word">
 							<colgroup>
 								<col width="20%">
 								<col width="80%">
@@ -284,7 +287,7 @@
 							<c:if test="${ritem.weektype eq 'n'}">
 							<tr>
 								<td class="secondsr2 text-center"><c:if test="${ritem.weekdays eq 2}">월</c:if><c:if test="${ritem.weekdays eq 3}">화</c:if><c:if test="${ritem.weekdays eq 4}">수</c:if><c:if test="${ritem.weekdays eq 5}">목</c:if><c:if test="${ritem.weekdays eq 6}">금</c:if><c:if test="${ritem.weekdays eq 7}">토</c:if></td>
-								<td class="chktd text-left" style="word-break:break-all"><b>${ritem.title}</b><br/>
+								<td class="chktd text-left" style="white-space:normal;word-break:break-all"><b>${ritem.title}</b><br/>
 								${ritem.schedType}<br/>
 								<input type="checkbox" style="display:none" class="sr3chk form-control-sm" checked></td>
 							</tr>

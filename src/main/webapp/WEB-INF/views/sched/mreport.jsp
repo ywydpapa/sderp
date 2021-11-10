@@ -20,6 +20,9 @@
       text-align:center;
       vertical-align:middle;
     }
+    td{
+    white-space:normal;
+    }
 </style>
 <style type="text/css" media="print">
   @page { size: landscape; }
@@ -51,7 +54,7 @@
 								지난주 업무 목록
 							</div>
 						</div>
-						<table id="schedTable" class="table table-bordered nowrap" style="table-layout:fixed;word-break:break-word">
+						<table id="schedTable" class="table table-bordered " style="table-layout:fixed;word-break:break-word">
 							<colgroup>
 								<col width="5%">
 								<col width="5%">
@@ -99,7 +102,7 @@
 								이번주 업무 목록
 							</div>
 						</div>
-						<table id="schedTable" class="table table-bordered nowrap" style="table-layout:fixed;word-break:break-word">
+						<table id="schedTable" class="table table-bordered " style="table-layout:fixed;word-break:break-word">
 							<colgroup>
 								<col width="5%">
 								<col width="5%">
@@ -147,7 +150,7 @@
 								다음주 업무 목록
 							</div>
 						</div>
-						<table id="schedTable" class="table table-bordered nowrap" style="table-layout:fixed;word-break:break-word">
+						<table id="schedTable" class="table table-bordered " style="table-layout:fixed;word-break:break-word">
 							<colgroup>
 								<col width="5%">
 								<col width="5%">
@@ -186,7 +189,7 @@
 						</table>
 						<div class="table-responsive">
 						<div style="display:" id = "printdiv">
-						<table class="table table-bordered nowrap" style="table-layout:fixed;word-break:break-word;margin:auto;">
+						<table class="table table-bordered " style="table-layout:fixed;word-break:break-word;margin:auto;">
 						<colgroup>
 								<col width="25%">
 								<col width="25%">
@@ -206,7 +209,7 @@
 						</tr>
 						<tr>
 						<td colspan="2">
-							<table class="table table-bordered nowrap" style="table-layout:fixed;word-break:break-word;margin:auto;">
+							<table class="table table-bordered " style="table-layout:fixed;word-break:break-word;margin:auto;">
 							<colgroup>
 								<col width="20%">
 								<col width="80%">
@@ -230,7 +233,7 @@
 							</div>
 						</td>
 						<td colspan="2">
-							<table class="table table-bordered nowrap" style="table-layout:fixed;word-break:break-all;">
+							<table class="table table-bordered " style="table-layout:fixed;word-break:break-all;">
 							<colgroup>
 								<col width="20%">
 								<col width="80%">
@@ -253,7 +256,7 @@
 							<textarea style="border: 0" id="thprntext" class="form-control" cols="50" rows="5"></textarea>
 							<hr>
 							</div>							
-							<table class="table table-bordered nowrap" style="table-layout:fixed;word-break:break-word;margin:auto;">
+							<table class="table table-bordered " style="table-layout:fixed;word-break:break-word;margin:auto;">
 							<colgroup>
 								<col width="20%">
 								<col width="80%">

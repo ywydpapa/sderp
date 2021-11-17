@@ -115,7 +115,7 @@
 											<div class="modal-dialog modal-80size" role="document">
 												<div class="modal-content modal-80size">
 													<div class="modal-header">
-														<h4 class="modal-title"></h4>
+														<h4 class="modal-title">앤드유저검색</h4>
 														<button type="button" class="close" onclick="$('#endCustModal').modal('hide');" aria-label="Close">
 															<span aria-hidden="true">&times;</span>
 														</button>
@@ -140,10 +140,10 @@
 								</div>
 								<div class="col-sm-12 col-xl-3">
 									<label class="col-form-label">계약방식</label>
-									<select name="select" class="form-control form-control-sm" id="contractType">
+									<select name="select" class="form-control form-control-sm" id="cntrctMth">
 										<option value="">선택</option>
-										<c:forEach var ="contractType" items="${contractType}">
-											<option value = "${contractType.codeNo}" <c:if test="${param.contractType == contractType.codeNo}">selected</c:if>>${contractType.desc03}</option>
+										<c:forEach var ="cntrctMth" items="${contractType}">
+											<option value = "${cntrctMth.codeNo}" <c:if test="${param.cntrctMth == cntrctMth.codeNo}">selected</c:if>>${cntrctMth.desc03}</option>
 										</c:forEach>
 									</select>
 								</div>
@@ -289,14 +289,14 @@
 
 	function fnListcon() {
 		var contData = {};
-		if($("#contractType").val() == "10126"){													// 계약방식
+		if($("#cntrctMth").val() == "10126"){													// 계약방식
 			contData.soppNo = 1;
 			contData.exContNo = 0;
-		} else if($("#contractType").val() == "10127"){
+		} else if($("#cntrctMth").val() == "10127"){
 			contData.soppNo = 0;
 			contData.exContNo = 1;
 		}
-		contData.contractType = $("#contractType").val() ? Number($("#contractType").val()) : 0;
+		contData.cntrctMth = $("#cntrctMth").val() ? Number($("#cntrctMth").val()) : 0;
 		contData.custNo = $("#custNo").val() ? Number($("#custNo").val()) : 0;
 		contData.custName = $("#custName").val() ? $("#custName").val() : 0;
 		contData.buyrNo = $("#endCustNo").val() ? Number($("#endCustNo").val()) : 0;

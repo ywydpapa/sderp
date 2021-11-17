@@ -55,6 +55,7 @@ public class ContController {
 	public ModelAndView list(HttpSession session, ModelAndView mav,
 							 @RequestParam(value = "custNo", required = false) Integer custNo,
 							 @RequestParam(value = "ptncNo", required = false) Integer ptncNo,
+							 @RequestParam(value = "cntrctMth", required = false) String cntrctMth,
 							 @RequestParam(value = "supplyNo", required = false) Integer supplyNo,
 							 @RequestParam(value = "buyrNo", required = false) Integer buyrNo,
 							 @RequestParam(value = "contTitle", required = false) String contTitle,
@@ -67,10 +68,11 @@ public class ContController {
 							 @RequestParam(value = "regSDate", required = false) String regSDate,
 							 @RequestParam(value = "regEDate", required = false) String regEDate) {
 		if(custNo != null || ptncNo != null || supplyNo != null || buyrNo != null || contTitle != null || contType != null || targetDatefrom != null || targetDateto != null
-				|| userName != null || freemaintSdate != null || freemaintEdate != null || regSDate != null || regEDate != null){
+				|| cntrctMth != null || userName != null || freemaintSdate != null || freemaintEdate != null || regSDate != null || regEDate != null){
 			ContDTO dto = new ContDTO();
 			if(custNo != null) dto.setCustNo(custNo);
 			if(ptncNo != null) dto.setPtncNo(ptncNo);
+			if(cntrctMth != null) dto.setCntrctMth(cntrctMth);
 			if(supplyNo != null) dto.setSupplyNo(supplyNo);
 			if(buyrNo != null) dto.setBuyrNo(buyrNo);
 			if(contTitle != null) dto.setContTitle(contTitle);

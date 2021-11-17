@@ -23,6 +23,16 @@
 				<span class="pcoded-mcaret"></span>
 			</a>
 		</li>
+		<li class="">
+			<a href="${path}/notice/list.do">
+				<span class="pcoded-micon">
+					<i class="ti-home"></i>
+					<b>D</b>
+				</span>
+				<span class="pcoded-mtext" data-i18n="nav.dash.main">공지사항</span>
+				<span class="pcoded-mcaret"></span>
+			</a>
+		</li>
 		<li class="pcoded-hasmenu pcoded <c:if test="${path2 eq '/calendar/calmain.do' || path2 eq '/sched/list.do' || path2 eq '/sched/write.do' || fn:startsWith(path2, '/sched')}">pcoded-trigger</c:if>">
 			<a href="javascript:void(0)">
 				<span class="pcoded-micon">

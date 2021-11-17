@@ -210,8 +210,8 @@
 							</tbody>
 						</table>
 						<div class="table-responsive">
-						<div style="display:" id = "printdiv">
-						<table class="table table-bordered " style="white-space:normal;table-layout:fixed;word-break:break-word">
+						<div id = "printdiv">
+						<table class="table table-bordered printdivTable" style="white-space:normal;table-layout:fixed;word-break:break-word;">
 						<colgroup>
 								<col width="25%">
 								<col width="25%">
@@ -219,15 +219,15 @@
 								<col width="25%">
 							</colgroup>
 						<tr>
-						<th colspan="4" style="text-align:center;"><h3>주간 업무 보고</h3></th>
+						<h3 style="text-align:center;">주간 업무 보고</h3>
 						</tr>
 						<tr>
-						<th colspan="3"  style="text-align:center;"><div id="thisWeek"></div></th>
-						<th  style="text-align:center;"><div id="uName"></div></th>
+						<th class="thWeek" colspan="3"  style="text-align:center;"></th>
+						<th class="thUname" style="text-align:center;"></th>
 						</tr>
 						<tr>
-						<td colspan="2" style="text-align:center;background-color:yellow;width:50%">지난주 진행사항</td>
-						<td colspan="2" style="text-align:center;background-color:yellow;width:50%">이번주 예정사항</td>
+						<td class="colorTd" colspan="2" style="text-align:center;background-color:yellow;width:50%">지난주 진행사항</td>
+						<td class="colorTd" colspan="2" style="text-align:center;background-color:yellow;width:50%">이번주 예정사항</td>
 						</tr>
 						<tr>
 						<td colspan="2">
@@ -249,9 +249,10 @@
 							</table>
 							<div class="praddtxt1">
 							<hr>
-							<h6>추가 기재 사항</h6>
+							<h4>추가 기재 사항</h4>
 							<hr>
-							<textarea style="border: 0" id="prprntext" class="form-control" cols="50" rows="5"></textarea>
+							<%-- <textarea style="border: 0;" id="prprntext" class="form-control txt" cols="50" rows="5">${myadd.prComment}</textarea> --%>
+							<div>${myadd.prComment}</div>
 							</div>
 						</td>
 						<td colspan="2">
@@ -273,10 +274,10 @@
 							</table>
 							<div class="thaddtxt1">
 							<hr>
-							<h6>추가 기재 사항</h6>
+							<h4>추가 기재 사항</h4>
 							<hr>
-							<textarea style="border: 0" id="thprntext" class="form-control" cols="50" rows="5"></textarea>
-							<hr>
+							<%-- <textarea style="border: 0" id="thprntext" class="form-control txt" cols="50" rows="5">${myadd.thComment}</textarea> --%>
+							<div>${myadd.thComment}</div>
 							</div>
 							<table class="table table-bordered " style="table-layout:fixed;word-break:break-word">
 							<colgroup>
@@ -308,6 +309,15 @@
 </div>
 <jsp:include page="../body-bottom.jsp"/>
 <script>
+function fn_Print() {
+	printJS({
+	    printable: 'printdiv',
+	    type: 'html',
+	    css: ['/sderp/css/print.media.css'],
+	    scanStyles: false,
+	});
+}
+
 function setFirstr1(){
 	var i = 1;
 	var str = undefined;
@@ -582,10 +592,10 @@ function printWeek() {
     var weekEndDate = new Date(nowYear, nowMonth, nowDay + (6 - nowDayOfWeek - 1));
     var thisweek = formatDate(weekStartDate) + " ~ " + formatDate(weekEndDate);
     console.log(thisweek);
-    $("#thisWeek").html("<h6> 일자 :" + thisweek + "</h6>");
+    $(".thWeek").html("일자 :" + thisweek);
     var unam = "${userName}";
     console.log(unam);
-    $("#uName").html("<h6>담당:" + unam + "</h6>");
+    $(".thUname").html("담당:" + unam);
 }
 
 function fn_Create(){
@@ -615,7 +625,7 @@ function fn_Create(){
 
 
 
-function fn_Print() {
+/* function fn_Print() {
 	PrSet();
 	ThSet();
 	NxSet();
@@ -631,7 +641,7 @@ function fn_Print() {
 		location.replace("${path}/sched/schedreport.do");		
 	}
 	window.print();
-}
+} */
 
 $(".r1chk,.r2chk,.r3chk").change(function(){
 	chkPrchange();

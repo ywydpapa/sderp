@@ -4,6 +4,122 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="notice">
 <select id="listNotice" resultType="noticeDto">
-	select * from notice order by notiNo desc
+	select subquery1.*
+	from
+		(
+		select a.*, b.userName
+		from swc_notice a
+		left join swc_user b on a.userNo = b.userNo
+		<if test="userNo != null and userNo != ''">
+			and a.userNo = #{userNo}
+		</if>
+		<if test="notiTitle != null and notiTitle != ''">
+			and a.notiTitle like concat('%',#{notiTitle},'%')
+		</if>
+		<if test="notiContents != null and notiContents != ''">
+			and a.notiContents like concat('%',#{notiContents},'%')
+		</if>
+		<if test="regSDate != null and regSDate != ''">
+			and date_format(a.regDatetime, '%Y-%m-%d') <![CDATA[>=]]> #{regSDate}
+		</if>
+		<if test="regEDate != null and regEDate != ''">
+			and date_format(a.regDatetime, '%Y-%m-%d') <![CDATA[<=]]> #{regEDate}
+		</if>
+		) subquery1 where userName IS NOT NULL
+	<if test="sSearch != null and sSearch != ''">
+	where
+		date_format(subquery1.regDatetime, '%Y-%m-%d') like concat('%',#{sSearch},'%')
+		or subquery1.notiTitle like concat('%',#{sSearch},'%')
+		or subquery1.notiContents like concat('%',#{sSearch},'%')
+	</if>
+
+	<if test="'desc' == orderOption">
+		order by ${orderColumn} desc
+	</if>
+	<if test="'asc' == orderOption">
+		order by ${orderColumn} asc
+	</if>
+	<if test="limit > 0">
+	limit #{limit} offset #{offset}
+	</if>
 </select>
+
+<select id="listNoticeCnt"
+		resultType="_integer">
+select count(*)
+from
+(
+	select subquery1.*
+	from
+		(
+		select a.*, b.userName
+		from swc_notice a
+		left join swc_user b on a.userNo = b.userNo
+		<if test="userNo != null and userNo != ''">
+			and a.userNo = #{userNo}
+		</if>
+		<if test="notiTitle != null and notiTitle != ''">
+			and a.notiTitle like concat('%',#{notiTitle},'%')
+		</if>
+		<if test="notiContents != null and notiContents != ''">
+			and a.notiContents like concat('%',#{notiContents},'%')
+		</if>
+		<if test="regSDate != null and regSDate != ''">
+			and date_format(a.regDatetime, '%Y-%m-%d') <![CDATA[>=]]> #{regSDate}
+		</if>
+		<if test="regEDate != null and regEDate != ''">
+			and date_format(a.regDatetime, '%Y-%m-%d') <![CDATA[<=]]> #{regEDate}
+		</if>
+		) subquery1 where userName IS NOT NULL
+	<if test="sSearch != null and sSearch != ''">
+	where
+		date_format(subquery1.regDatetime, '%Y-%m-%d') like concat('%',#{sSearch},'%')
+		or subquery1.notiTitle like concat('%',#{sSearch},'%')
+		or subquery1.notiContents like concat('%',#{sSearch},'%')
+	</if>
+
+	<if test="'desc' == orderOption">
+		order by ${orderColumn} desc
+	</if>
+	<if test="'asc' == orderOption">
+		order by ${orderColumn} asc
+	</if>
+) t
+</select>
+
+<insert id="insertNotice">
+ insert into swc_notice 
+ (
+ notiTitle, 
+ notiContents, 
+ userNo 
+ )
+ values 
+ (
+ #{notiTitle}, 
+ #{notiContents}, 
+ #{userNo}
+ )
+ </insert>
+ 
+ <select id="detailNotice"
+ 		resultType="noticeDto">
+select a.*, b.userName 
+from swc_notice a
+		left join swc_user b on a.userNo = b.userNo
+		where notiNo=#{notiNo} order by notiNo
+ </select>
+ 
+ <update id="updateNotice">
+	update swc_notice 
+	set 
+	 notiTitle=#{notiTitle}
+	,notiContents=#{notiContents}
+	where notiNo=#{notiNo}
+ </update>
+ 
+ <delete id="deleteNotice">
+	delete from swc_notice 
+	where notiNo=#{notiNo}
+ </delete>
 </mapper>

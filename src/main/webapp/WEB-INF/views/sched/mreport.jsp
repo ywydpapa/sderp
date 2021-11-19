@@ -62,7 +62,7 @@
 								<col width="35%">
 								<col width="10%">
 								<col width="10%">
-								<col width="10%">
+								<%-- <col width="10%"> --%>
 							</colgroup>
 							<thead>
 								<tr style="vertical-align:middle;text-align: center;">
@@ -72,7 +72,7 @@
 									<th>일정내용</th>
 									<th>일정시작</th>
 									<th>일정종료</th>
-									<th>업무일지반영(<a onclick="chkallr1();">V</a>/<a onclick="chkunr1();">X</a>)</th>
+									<!-- <th>업무일지반영(<a onclick="chkallr1();">V</a>/<a onclick="chkunr1();">X</a>)</th> -->
 								</tr>
 							</thead>
 							<tbody>
@@ -85,14 +85,14 @@
 								<td style='width:300;overflow:hidden;text-overflow;ellipsis;word-break:break-word'>${ritem.schedDesc}</td>
 								<td>${ritem.start}</td>
 								<td>${ritem.end}</td>
-								<td class="chktd"><input type="checkbox" class="r1chk form-control-sm" checked></td>
+								<!-- <td class="chktd"><input type="checkbox" class="r1chk form-control-sm" checked></td> -->
 							</tr>
 							</c:if>
 							</c:forEach>
 							<tr>
 							<td colspan="2" style="text-align:center;">추가기재</td>
 							<td colspan=4><textarea id="praddtext" class="form-control" cols="50" rows="5">${addtxt.prComment}</textarea></td>
-							<td style="text-align:center;"><input type="checkbox" class="praddchk r1chk form-control-sm" checked></td>
+							<!-- <td style="text-align:center;"><input type="checkbox" class="praddchk r1chk form-control-sm" checked></td> -->
 							</tr>
 							</tbody>
 						</table>
@@ -110,7 +110,7 @@
 								<col width="35%">
 								<col width="10%">
 								<col width="10%">
-								<col width="10%">
+								<%-- <col width="10%"> --%>
 							</colgroup>
 							<thead>
 								<tr>
@@ -120,7 +120,7 @@
 									<th>일정내용</th>
 									<th>일정시작</th>
 									<th>일정종료</th>
-									<th>업무일지반영(<a onclick="chkallr2();">V</a>/<a onclick="chkunr2();">X</a>)</th>
+									<!-- <th>업무일지반영(<a onclick="chkallr2();">V</a>/<a onclick="chkunr2();">X</a>)</th> -->
 								</tr>
 							</thead>
 							<tbody>
@@ -133,14 +133,14 @@
 								<td style='width:300;overflow:hidden;text-overflow;ellipsis;word-break:break-word'>${ritem.schedDesc}</td>
 								<td>${ritem.start}</td>
 								<td>${ritem.end}</td>
-								<td class="chktd"><input type="checkbox" class="r2chk form-control-sm" checked></td>
+								<!-- <td class="chktd"><input type="checkbox" class="r2chk form-control-sm" checked></td> -->
 							</tr>
 							</c:if>
 							</c:forEach>
 							<tr>
 							<td colspan="2" style="text-align:center;">추가기재</td>
 							<td colspan=4><textarea id="thaddtext" class="form-control" cols="50" rows="5">${addtxt.thComment}</textarea></td>
-							<td style="text-align:center;"><input type="checkbox" class="thaddchk r2chk form-control-sm" checked></td>
+							<!-- <td style="text-align:center;"><input type="checkbox" class="thaddchk r2chk form-control-sm" checked></td> -->
 							</tr>
 							</tbody>
 						</table>
@@ -158,7 +158,7 @@
 								<col width="35%">
 								<col width="10%">
 								<col width="10%">
-								<col width="10%">
+								<%-- <col width="10%"> --%>
 							</colgroup>
 							<thead>
 								<tr>
@@ -168,7 +168,7 @@
 									<th>일정내용</th>
 									<th>일정시작</th>
 									<th>일정종료</th>
-									<th>업무일지반영(<a onclick="chkallr3();">V</a>/<a onclick="chkunr3();">X</a>)</th>
+									<!-- <th>업무일지반영(<a onclick="chkallr3();">V</a>/<a onclick="chkunr3();">X</a>)</th> -->
 								</tr>
 							</thead>
 							<tbody>
@@ -181,7 +181,7 @@
 								<td style='width:300;overflow:hidden;text-overflow;ellipsis;word-break:break-word'>${ritem.schedDesc}</td>
 								<td>${ritem.start}</td>
 								<td>${ritem.end}</td>
-								<td class="chktd"><input type="checkbox" class="r3chk form-control-sm"></td>
+								<!-- <td class="chktd"><input type="checkbox" class="r3chk form-control-sm"></td> -->
 							</tr>
 							</c:if>
 							</c:forEach>
@@ -189,7 +189,7 @@
 						</table>
 						<div class="table-responsive">
 						<div style="display:" id = "printdiv">
-						<table class="table table-bordered " style="table-layout:fixed;word-break:break-word;margin:auto;">
+						<table class="table table-bordered printdivTable" style="table-layout:fixed;word-break:break-word;margin:auto;">
 						<colgroup>
 								<col width="25%">
 								<col width="25%">
@@ -197,15 +197,15 @@
 								<col width="25%">
 							</colgroup>
 						<tr>
-						<th colspan="4" style="text-align:center;"><h3>주간 업무 보고</h3></th>
+						<h3 style="text-align:center;">주간 업무 보고</h3>
 						</tr>
 						<tr>
-						<th colspan="3"  style="text-align:center;"><div id="thisWeek"></div></th>
-						<th  style="text-align:center;"><div id="uName"></div></th>
+						<th class="thWeek" colspan="3"  style="text-align:center;"></th>
+						<th class="thUname" style="text-align:center;"></th>
 						</tr>
 						<tr>
-						<td colspan="2" style="text-align:center;background-color:yellow;width:50%">지난주 진행사항</td>
-						<td colspan="2" style="text-align:center;background-color:yellow;width:50%">이번주 예정사항</td>
+						<td class="colorTd" colspan="2" style="text-align:center;background-color:yellow;width:50%">지난주 진행사항</td>
+						<td class="colorTd" colspan="2" style="text-align:center;background-color:yellow;width:50%">이번주 예정사항</td>
 						</tr>
 						<tr>
 						<td colspan="2">
@@ -229,7 +229,7 @@
 							<hr>
 							<h6>추가 기재 사항</h6>
 							<hr>
-							<textarea style="border: 0" id="prprntext" class="form-control" cols="50" rows="5"></textarea>
+							<div>${addtxt.prComment}</div>
 							</div>
 						</td>
 						<td colspan="2">
@@ -253,8 +253,7 @@
 							<hr>
 							<h6>추가 기재 사항</h6>
 							<hr>
-							<textarea style="border: 0" id="thprntext" class="form-control" cols="50" rows="5"></textarea>
-							<hr>
+							<div>${addtxt.thComment}</div>
 							</div>							
 							<table class="table table-bordered " style="table-layout:fixed;word-break:break-word;margin:auto;">
 							<colgroup>
@@ -286,6 +285,15 @@
 </div>
 <jsp:include page="../body-bottom.jsp"/>
 <script>
+function fn_Print() {
+	printJS({
+	    printable: 'printdiv',
+	    type: 'html',
+	    css: ['/sderp/css/print.media.css'],
+	    scanStyles: false,
+	});
+}
+
 function setFirstr1(){
 	var i = 1;
 	var str = undefined;
@@ -560,14 +568,14 @@ function printWeek() {
     var weekEndDate = new Date(nowYear, nowMonth, nowDay + (6 - nowDayOfWeek - 1));
     var thisweek = formatDate(weekStartDate) + " ~ " + formatDate(weekEndDate);
     console.log(thisweek);
-    $("#thisWeek").html("<h6> 일자 :" + thisweek + "</h6>");
+    $(".thWeek").html("일자 :" + thisweek);
     var unam = "${userName}";
     console.log(unam);
-    $("#uName").html("<h6>담당:" + unam + "</h6>");
+    $(".thUname").html("담당:" + unam);
 }
 
 
-function fn_Print() {
+/* function fn_Print() {
 	PrSet();
 	ThSet();
 	NxSet();
@@ -583,7 +591,7 @@ function fn_Print() {
 		location.replace("${path}/sched/schedreport.do");		
 	}
 	window.print();
-}
+} */
 
 $(".r1chk,.r2chk,.r3chk").change(function(){
 	chkPrchange();

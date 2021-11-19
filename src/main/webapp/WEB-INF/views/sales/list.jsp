@@ -34,6 +34,7 @@
 				sAjaxSource : "${path}/sales/list/data",
 				sServerMethod : "POST",
 				fnServerParams : function (data){
+					console.log(data);
 					if(salesSearhing || salesSCB) {
 						data.push({"name": "userNo", "value": $("#userNo").val()});							// 담당자
 					} else {

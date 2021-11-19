@@ -131,6 +131,7 @@ public class UserController {
 			session.setAttribute("userName", userInfo.getUserName());
 			session.setAttribute("userRole", userInfo.getUserRole()); // �����ڵ�
 			session.setAttribute("userOtp", userInfo.getUserOtp()); // OTP - 1ȸ��
+			session.setAttribute("userKey", userInfo.getUserKey());
 			session.setAttribute("compNo", userInfo.getCompNo()); // ȸ���ڵ�
 			session.setAttribute("userNo", Integer.toString(userInfo.getUserNo())); // ���� �Ϸù�ȣ
 			session.setAttribute("orgId", userInfo.getOrg_id()); // �μ� ��ȣ

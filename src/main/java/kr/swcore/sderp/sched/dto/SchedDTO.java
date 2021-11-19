@@ -22,6 +22,7 @@ public class SchedDTO extends PageDTO {
 	private String schedTo;
 	private String schedTitle;
 	private String schedDesc;
+	private int schedCheck;
 	private String subschedNo;
 	private String schedActive;
 	private String schedAllday;

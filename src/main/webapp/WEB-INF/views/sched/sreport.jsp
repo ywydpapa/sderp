@@ -80,7 +80,7 @@
 							<c:forEach var="ritem" items="${rlist}" varStatus="stvar">
 							<c:if test="${ritem.weektype eq 'p'}">
 							<tr>
-								<td class="firstr1">${ritem}</td>
+								<td class="firstr1">${ritem.weekno}</td>
 								<td class="secondr1"><c:if test="${ritem.weekdays eq 2}">월</c:if><c:if test="${ritem.weekdays eq 3}">화</c:if><c:if test="${ritem.weekdays eq 4}">수</c:if><c:if test="${ritem.weekdays eq 5}">목</c:if><c:if test="${ritem.weekdays eq 6}">금</c:if><c:if test="${ritem.weekdays eq 7}">토</c:if></td>
 								<td>
 								<c:choose>
@@ -310,12 +310,14 @@
 <jsp:include page="../body-bottom.jsp"/>
 <script>
 function fn_Print() {
+	$("#printdiv").attr("style", "display:block");
 	printJS({
 	    printable: 'printdiv',
 	    type: 'html',
 	    css: ['/sderp/css/print.media.css'],
 	    scanStyles: false,
 	});
+	$("#printdiv").attr("style", "display:none");
 }
 
 function setFirstr1(){
@@ -596,6 +598,7 @@ function printWeek() {
     var unam = "${userName}";
     console.log(unam);
     $(".thUname").html("담당:" + unam);
+    $("#printdiv").attr("style", "display:none");
 }
 
 function fn_Create(){

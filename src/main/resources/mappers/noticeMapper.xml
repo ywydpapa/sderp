@@ -7,9 +7,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	select subquery1.*
 	from
 		(
-		select a.*, b.userName
+		select a.*, b.userName, b.compNo
 		from swc_notice a
 		left join swc_user b on a.userNo = b.userNo
+		where b.compNo = #{compNo}
 		<if test="userNo != null and userNo != ''">
 			and a.userNo = #{userNo}
 		</if>
@@ -52,9 +53,10 @@ from
 	select subquery1.*
 	from
 		(
-		select a.*, b.userName
+		select a.*, b.userName, b.compNo
 		from swc_notice a
 		left join swc_user b on a.userNo = b.userNo
+		where b.compNo = #{compNo}
 		<if test="userNo != null and userNo != ''">
 			and a.userNo = #{userNo}
 		</if>
@@ -104,7 +106,7 @@ from
  
  <select id="detailNotice"
  		resultType="noticeDto">
-select a.*, b.userName 
+select a.*, b.userName, b.compNo 
 from swc_notice a
 		left join swc_user b on a.userNo = b.userNo
 		where notiNo=#{notiNo} order by notiNo

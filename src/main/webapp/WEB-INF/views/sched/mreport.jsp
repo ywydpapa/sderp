@@ -188,7 +188,7 @@
 							</tbody>
 						</table>
 						<div class="table-responsive">
-						<div style="display:" id = "printdiv">
+						<div id = "printdiv">
 						<table class="table table-bordered printdivTable" style="table-layout:fixed;word-break:break-word;margin:auto;">
 						<colgroup>
 								<col width="25%">
@@ -286,12 +286,14 @@
 <jsp:include page="../body-bottom.jsp"/>
 <script>
 function fn_Print() {
+	$("#printdiv").attr("style", "display:block");
 	printJS({
 	    printable: 'printdiv',
 	    type: 'html',
 	    css: ['/sderp/css/print.media.css'],
 	    scanStyles: false,
 	});
+	$("#printdiv").attr("style", "display:none");
 }
 
 function setFirstr1(){
@@ -572,6 +574,7 @@ function printWeek() {
     var unam = "${userName}";
     console.log(unam);
     $(".thUname").html("담당:" + unam);
+    $("#printdiv").attr("style", "display:none");
 }
 
 

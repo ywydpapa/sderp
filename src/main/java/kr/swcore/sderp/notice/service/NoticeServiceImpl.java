@@ -13,6 +13,7 @@ import kr.swcore.sderp.common.dto.PageDTO;
 import kr.swcore.sderp.common.dto.WrapperDTO;
 import kr.swcore.sderp.notice.dao.NoticeDAO;
 import kr.swcore.sderp.notice.dto.NoticeDTO;
+import kr.swcore.sderp.util.SessionInfoGet;
 
 @Repository
 public class NoticeServiceImpl implements NoticeService{
@@ -45,6 +46,7 @@ public class NoticeServiceImpl implements NoticeService{
 	public Object listNotice(HttpSession session, String param, HttpServletRequest request,
 			HttpServletResponse response) {
 		NoticeDTO dto = new NoticeDTO();
+		Integer compNo = SessionInfoGet.getCompNo(session);	
 		String userNostr = request.getParameter("userNo");
 		Integer userNo = userNostr.equals("") == true ? 0 : Integer.valueOf(userNostr);	// 담당사원
 		String notiTitle = request.getParameter("notiTitle") != null ? (String) request.getParameter("notiTitle") : "";
@@ -52,6 +54,7 @@ public class NoticeServiceImpl implements NoticeService{
 		String regSDate = request.getParameter("regSDate") != null ? (String) request.getParameter("regSDate") : "";					// 등록 시작일
 		String regEDate = request.getParameter("regEDate") != null ? (String) request.getParameter("regEDate") : "";					// 등록 마감일
 		
+		dto.setCompNo(compNo);
 		dto.setUserNo(userNo);
 		dto.setNotiTitle(notiTitle);
 		dto.setNotiContents(notiContents);

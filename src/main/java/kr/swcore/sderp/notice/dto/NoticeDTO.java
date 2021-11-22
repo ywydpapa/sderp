@@ -16,7 +16,8 @@ public class NoticeDTO extends PageDTO {
 	private String regDatetime;
 	private String regSDate;	// 등록일 시작
 	private String regEDate;	// 등록일 끝
+	
 	private String userName;
 	private int compNo;
-
+	private int row_num;
 }

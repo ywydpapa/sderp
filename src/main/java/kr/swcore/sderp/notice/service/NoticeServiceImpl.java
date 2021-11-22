@@ -27,8 +27,10 @@ public class NoticeServiceImpl implements NoticeService{
 
 	@Override
 	public List<NoticeDTO> listNotice(HttpSession session, PageDTO pageDTO) {
+		Integer compNo = SessionInfoGet.getCompNo(session);
 		NoticeDTO dto = new NoticeDTO();
-
+		dto.setCompNo(compNo);
+		
 		if(pageDTO != null) {
 			Integer limit = pageDTO.getLimit();
 			dto.setLimit(limit);
@@ -36,7 +38,7 @@ public class NoticeServiceImpl implements NoticeService{
 			dto.setOffset(offset);
 		}
 
-		dto.setOrderColumn("regDatetime");
+		dto.setOrderColumn("notiNo");
 		dto.setOrderOption("desc");
 
 		return noticeDao.listNotice(dto);
@@ -72,7 +74,7 @@ public class NoticeServiceImpl implements NoticeService{
 
 		String column = "";
 		switch (orderColumn){
-			case "0" : column = "notiNo"; break;		
+			case "0" : column = "row_num"; break;		
 			case "1" : column = "notiTitle"; break;		
 			case "2" : column = "userName"; break;	
 			case "3" : column = "regDatetime"; break;	

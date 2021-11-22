@@ -27,6 +27,7 @@ import kr.swcore.sderp.cont.dto.ContDTO;
 import kr.swcore.sderp.cont.service.ContService;
 import kr.swcore.sderp.cust.dto.CustDTO;
 import kr.swcore.sderp.cust.service.CustService;
+import kr.swcore.sderp.notice.service.NoticeService;
 import kr.swcore.sderp.product.dto.ProductDTO;
 import kr.swcore.sderp.product.service.ProductService;
 import kr.swcore.sderp.sales.dto.SalesDTO;
@@ -44,6 +45,9 @@ import kr.swcore.sderp.user.service.UserService;
 public class HomeController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
+	
+	@Inject
+	NoticeService noticeService;
 	
 	@Inject
 	CustService custService;
@@ -117,6 +121,8 @@ public class HomeController {
 		if(deptToPlanTblDTOList == null || deptToPlanTblDTOList.size() <=0) {
 			mav.addObject("saleslist", salesService.listSales(session, pageDTO));
 		}
+		
+		mav.addObject("noticelist", noticeService.listNotice(session, pageDTO));
 		mav.addObject("graph1",salesTargetService.listSalesTargetYearTotalSalesIndividual(session, null));
 
 		mav.setViewName("board/myboard");

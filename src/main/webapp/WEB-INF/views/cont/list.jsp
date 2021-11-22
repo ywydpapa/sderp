@@ -354,10 +354,10 @@
 				var userName = '${param.userName}';
 				$("#userName").val(userName);
 			}
-		} else {
+		} /* else {
 			var userName = '${sessionScope.userName}';
 			$("#userName").val(userName);
-		}
+		} */
 	});
 	</script>
 </div>

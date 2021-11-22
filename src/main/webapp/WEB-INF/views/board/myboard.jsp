@@ -378,7 +378,26 @@
 					</div>
 				</div>
 				<div class="card-block">
-					<canvas id="barChart" width="400" height="400"></canvas>
+					<table id="contTable" class="table table-striped table-bordered nowrap">
+						<thead>
+							<tr>
+								<th style="text-align: center">번호</th>
+								<th style="text-align: center">제목</th>
+								<th style="text-align: center">작성자</th>
+								<th style="text-align: center">등록일</th>
+							</tr>
+						</thead>
+						<tbody>
+							<c:forEach var="row" items="${noticelist}">
+								<tr align="center">
+									<td>${row.row_num}</td>
+									<td><a href="${path }/notice/detail/${row.notiNo }">${row.notiTitle}</a></td>
+									<td>${row.userName}</td>
+									<td>${row.regDatetime}</td>
+								</tr>
+							</c:forEach>
+						</tbody>
+					</table>
 				</div>
 			</div>
 		</div>

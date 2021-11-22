@@ -93,14 +93,14 @@
 								<td style='width:300;overflow:hidden;text-overflow;ellipsis;word-break:break-word'>${ritem.schedDesc}</td>
 								<td>${ritem.start}</td>
 								<td>${ritem.end}</td>
-								<td class="chktd"><input type="checkbox" class="r1chk form-control-sm" checked></td>
+								<td class="chktd"><input type="checkbox" data-id="${ritem.id }" data-check="1" class="r1chk form-control-sm" checked></td>
 							</tr>
 							</c:if>
 							</c:forEach>
 							<tr>
 							<td colspan="2" style="text-align:center;">추가기재</td>
 							<td colspan=4><textarea id="praddtext" class="form-control" cols="50" rows="5">${myadd.prComment}</textarea></td>
-							<td style="text-align:center;"><input type="checkbox" class="praddchk form-control-sm" checked></td>
+							<td style="text-align:center;"><!-- <input type="checkbox" class="praddchk form-control-sm" checked> --></td>
 							</tr>
 							</tbody>
 						</table>
@@ -148,14 +148,14 @@
 								<td style='width:300;overflow:hidden;text-overflow;ellipsis;word-break:break-word'>${ritem.schedDesc}</td>
 								<td>${ritem.start}</td>
 								<td>${ritem.end}</td>
-								<td class="chktd"><input type="checkbox" class="r2chk form-control-sm" checked></td>
+								<td class="chktd"><input type="checkbox" data-id="${ritem.id }" data-check="1" class="r2chk form-control-sm" checked></td>
 							</tr>
 							</c:if>
 							</c:forEach>
 							<tr>
 							<td colspan="2" style="text-align:center;">추가기재</td>
 							<td colspan=4><textarea id="thaddtext" class="form-control" cols="50" rows="5">${myadd.thComment}</textarea></td>
-							<td style="text-align:center;"><input type="checkbox" class="thaddchk form-control-sm" checked></td>
+							<td style="text-align:center;"><!-- <input type="checkbox" class="thaddchk form-control-sm" checked> --></td>
 							</tr>
 							</tbody>
 						</table>
@@ -203,7 +203,7 @@
 								<td style='width:300;overflow:hidden;text-overflow;ellipsis;word-break:break-word'>${ritem.schedDesc}</td>
 								<td>${ritem.start}</td>
 								<td>${ritem.end}</td>
-								<td class="chktd"><input type="checkbox" class="r3chk form-control-sm"></td>
+								<td class="chktd"><!-- <input type="checkbox" class="r3chk form-control-sm"> --></td>
 							</tr>
 							</c:if>
 							</c:forEach>
@@ -211,7 +211,7 @@
 						</table>
 						<div class="table-responsive">
 						<div id = "printdiv">
-						<table class="table table-bordered printdivTable" style="white-space:normal;table-layout:fixed;word-break:break-word;">
+						<table class="table table-bordered printdivTable" style="white-space:normal;table-layout:fixed;word-break:break-word;width:99.8% !important;">
 						<colgroup>
 								<col width="25%">
 								<col width="25%">
@@ -231,7 +231,7 @@
 						</tr>
 						<tr>
 						<td colspan="2">
-							<table class="table table-bordered " style="white-space:normal;table-layout:fixed;word-break:break-all">
+							<table class="table table-bordered " style="table-layout:fixed;word-break:break-word;margin:auto;">
 							<colgroup>
 								<col width="20%">
 								<col width="80%">
@@ -256,7 +256,7 @@
 							</div>
 						</td>
 						<td colspan="2">
-							<table class="table table-bordered " style="table-layout:fixed;word-break:break-word">
+							<table class="table table-bordered " style="table-layout:fixed;word-break:break-word;">
 							<colgroup>
 								<col width="20%">
 								<col width="80%">
@@ -279,22 +279,6 @@
 							<%-- <textarea style="border: 0" id="thprntext" class="form-control txt" cols="50" rows="5">${myadd.thComment}</textarea> --%>
 							<div>${myadd.thComment}</div>
 							</div>
-							<table class="table table-bordered " style="table-layout:fixed;word-break:break-word">
-							<colgroup>
-								<col width="20%">
-								<col width="80%">
-							</colgroup>
-							<c:forEach var="ritem" items="${rlist}" varStatus="stvar">
-							<c:if test="${ritem.weektype eq 'n'}">
-							<tr>
-								<td class="secondsr2 text-center"><c:if test="${ritem.weekdays eq 2}">월</c:if><c:if test="${ritem.weekdays eq 3}">화</c:if><c:if test="${ritem.weekdays eq 4}">수</c:if><c:if test="${ritem.weekdays eq 5}">목</c:if><c:if test="${ritem.weekdays eq 6}">금</c:if><c:if test="${ritem.weekdays eq 7}">토</c:if></td>
-								<td class="chktd text-left" style="white-space:normal;word-break:break-all"><b>${ritem.title}</b><br/>
-								${ritem.schedType}<br/>
-								<input type="checkbox" style="display:none" class="sr3chk form-control-sm" checked></td>
-							</tr>
-							</c:if>
-							</c:forEach>
-							</table>
 						</td>
 						</tr>
 						</table>
@@ -309,17 +293,17 @@
 </div>
 <jsp:include page="../body-bottom.jsp"/>
 <script>
-function fn_Print() {
+/* function fn_Print() {
 	$("#printdiv").attr("style", "display:block");
 	printJS({
 	    printable: 'printdiv',
 	    type: 'html',
-	    css: ['/sderp/css/print.media.css'],
+	    css: ['${path}/css/print.media.css'],
 	    scanStyles: false,
 	});
 	$("#printdiv").attr("style", "display:none");
 }
-
+ */
 function setFirstr1(){
 	var i = 1;
 	var str = undefined;
@@ -601,14 +585,24 @@ function printWeek() {
     $("#printdiv").attr("style", "display:none");
 }
 
+$(document).on("click", $(this), function(){
+	$(this).attr("data-check", 0);
+})
+
 function fn_Create(){
 	var sreportData = {};
+	var checkData = {};
 	sreportData.userNo 		= Number("${userNo}");
 	sreportData.compNo 		= Number("${compNo}");
 	sreportData.prComment	= $("#praddtext").val();
 	sreportData.thComment	= $("#thaddtext").val();
-	console.log(sreportData);
-	$.ajax({
+	
+	$("input[type='checkbox']:checked").each(function(){
+		console.log($(this).attr("data-id"));
+		console.log(boolCheck);
+	});
+	
+	/* $.ajax({
 		url: "${path}/sched/insSreport.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
 		data: sreportData , // HTTP 요청과 함께 서버로 보낼 데이터
 		method: "POST", // HTTP 요청 메소드(GET, POST 등)
@@ -623,12 +617,12 @@ function fn_Create(){
 	}) // HTTP 요청이 실패하면 오류와 상태에 관한 정보가 fail() 메소드로 전달됨.
 	.fail(function(xhr, status, errorThrown) {
 		alert("통신 실패");
-	});
+	}); */
 }
 
 
 
-/* function fn_Print() {
+function fn_Print() {
 	PrSet();
 	ThSet();
 	NxSet();
@@ -644,7 +638,7 @@ function fn_Create(){
 		location.replace("${path}/sched/schedreport.do");		
 	}
 	window.print();
-} */
+}
 
 $(".r1chk,.r2chk,.r3chk").change(function(){
 	chkPrchange();

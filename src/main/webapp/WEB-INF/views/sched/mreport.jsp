@@ -189,7 +189,7 @@
 						</table>
 						<div class="table-responsive">
 						<div id = "printdiv">
-						<table class="table table-bordered printdivTable" style="table-layout:fixed;word-break:break-word;margin:auto;">
+						<table class="table table-bordered printdivTable" style="white-space:normal;table-layout:fixed;word-break:break-word;width:99.8% !important;">
 						<colgroup>
 								<col width="25%">
 								<col width="25%">
@@ -218,7 +218,7 @@
 							<c:if test="${ritem.weektype eq 'p'}">
 							<tr>
 								<td class="secondsr1 text-center"><c:if test="${ritem.weekdays eq 2}">월</c:if><c:if test="${ritem.weekdays eq 3}">화</c:if><c:if test="${ritem.weekdays eq 4}">수</c:if><c:if test="${ritem.weekdays eq 5}">목</c:if><c:if test="${ritem.weekdays eq 6}">금</c:if><c:if test="${ritem.weekdays eq 7}">토</c:if></td>
-								<td class="chktd text-left" width="80%" style="word-break:break-all"><b>${ritem.title}</b><br/>
+								<td class="chktd text-left" style="word-break:break-all"><b>${ritem.title}</b><br/>
 								${ritem.schedDesc}
 								<input type="checkbox" style="display:none" class="sr1chk form-control-sm" checked></td>
 							</tr>
@@ -241,8 +241,8 @@
 							<c:forEach var="ritem" items="${rlist}" varStatus="stvar">
 							<c:if test="${ritem.weektype eq 't'}">
 							<tr>
-								<td class="secondsr2" style="text-align:center;"><c:if test="${ritem.weekdays eq 2}">월</c:if><c:if test="${ritem.weekdays eq 3}">화</c:if><c:if test="${ritem.weekdays eq 4}">수</c:if><c:if test="${ritem.weekdays eq 5}">목</c:if><c:if test="${ritem.weekdays eq 6}">금</c:if><c:if test="${ritem.weekdays eq 7}">토</c:if></td>
-								<td class="chktd text-left" width="200" style="word-break:break-all"><b>${ritem.title}</b><br/>
+								<td class="secondsr2 text-center"><c:if test="${ritem.weekdays eq 2}">월</c:if><c:if test="${ritem.weekdays eq 3}">화</c:if><c:if test="${ritem.weekdays eq 4}">수</c:if><c:if test="${ritem.weekdays eq 5}">목</c:if><c:if test="${ritem.weekdays eq 6}">금</c:if><c:if test="${ritem.weekdays eq 7}">토</c:if></td>
+								<td class="chktd text-left" style="white-space:normal;word-break:break-all"><b>${ritem.title}</b><br/>
 								${ritem.schedDesc}
 								<input type="checkbox" style="display:none" class="sr2chk form-control-sm" checked></td>
 							</tr>
@@ -255,22 +255,6 @@
 							<hr>
 							<div>${addtxt.thComment}</div>
 							</div>							
-							<table class="table table-bordered " style="table-layout:fixed;word-break:break-word;margin:auto;">
-							<colgroup>
-								<col width="20%">
-								<col width="80%">
-							</colgroup>
-							<c:forEach var="ritem" items="${rlist}" varStatus="stvar">
-							<c:if test="${ritem.weektype eq 'n'}">
-							<tr>
-								<td class="secondsr2"><c:if test="${ritem.weekdays eq 2}">월</c:if><c:if test="${ritem.weekdays eq 3}">화</c:if><c:if test="${ritem.weekdays eq 4}">수</c:if><c:if test="${ritem.weekdays eq 5}">목</c:if><c:if test="${ritem.weekdays eq 6}">금</c:if><c:if test="${ritem.weekdays eq 7}">토</c:if></td>
-								<td class="chktd" style="word-break:break-all"><b>${ritem.title}</b><br/>
-								${ritem.schedType}
-								<input type="checkbox" style="display:none" class="sr3chk form-control-sm" checked></td>
-							</tr>
-							</c:if>
-							</c:forEach>
-							</table>
 						</td>
 						</tr>
 						</table>
@@ -285,7 +269,7 @@
 </div>
 <jsp:include page="../body-bottom.jsp"/>
 <script>
-function fn_Print() {
+/* function fn_Print() {
 	$("#printdiv").attr("style", "display:block");
 	printJS({
 	    printable: 'printdiv',
@@ -294,7 +278,7 @@ function fn_Print() {
 	    scanStyles: false,
 	});
 	$("#printdiv").attr("style", "display:none");
-}
+} */
 
 function setFirstr1(){
 	var i = 1;
@@ -578,7 +562,7 @@ function printWeek() {
 }
 
 
-/* function fn_Print() {
+function fn_Print() {
 	PrSet();
 	ThSet();
 	NxSet();
@@ -594,7 +578,7 @@ function printWeek() {
 		location.replace("${path}/sched/schedreport.do");		
 	}
 	window.print();
-} */
+}
 
 $(".r1chk,.r2chk,.r3chk").change(function(){
 	chkPrchange();

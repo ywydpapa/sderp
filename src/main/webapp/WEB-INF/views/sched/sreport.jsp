@@ -80,7 +80,7 @@
 							<c:forEach var="ritem" items="${rlist}" varStatus="stvar">
 							<c:if test="${ritem.weektype eq 'p'}">
 							<tr>
-								<td class="firstr1">${ritem.weekno}</td>
+								<td class="firstr1">${ritem}</td>
 								<td class="secondr1"><c:if test="${ritem.weekdays eq 2}">월</c:if><c:if test="${ritem.weekdays eq 3}">화</c:if><c:if test="${ritem.weekdays eq 4}">수</c:if><c:if test="${ritem.weekdays eq 5}">목</c:if><c:if test="${ritem.weekdays eq 6}">금</c:if><c:if test="${ritem.weekdays eq 7}">토</c:if></td>
 								<td>
 								<c:choose>
@@ -210,7 +210,7 @@
 							</tbody>
 						</table>
 						<div class="table-responsive">
-						<div style="display:" id = "printdiv">
+						<div id = "printdiv">
 						<table class="table table-bordered printdivTable" style="white-space:normal;table-layout:fixed;word-break:break-word;">
 						<colgroup>
 								<col width="25%">

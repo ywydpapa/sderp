@@ -8,9 +8,9 @@
 	<!-- DB -->
     <bean id="dataSource" class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
         <property name="driverClass" value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy"></property>
-        <!-- <property name="url" value="jdbc:log4jdbc:mysql://vtek.swcore.kr:15157/swcore?allowPublicKeyRetrieval=true&amp;useSSL=false&amp;allowMultiQueries=true&amp;serverTimezone=UTC"> -->
-        <!-- <property name="url" value="jdbc:log4jdbc:mysql://ep.vtek.co.kr:3345/swcore?allowPublicKeyRetrieval=true&amp;useSSL=false&amp;allowMultiQueries=true&amp;serverTimezone=Asia/Seoul"></property> -->
-        <property name="url" value="jdbc:log4jdbc:mysql://192.168.1.177:3306/swcore?allowPublicKeyRetrieval=true&amp;useSSL=false&amp;allowMultiQueries=true&amp;serverTimezone=Asia/Seoul"></property>
+        <!-- <property name="url" value="jdbc:log4jdbc:mysql://vtek.swcore.kr:15157/swcore?allowPublicKeyRetrieval=true&amp;useSSL=false&amp;allowMultiQueries=true&amp;serverTimezone=UTC"></property> -->
+        <property name="url" value="jdbc:log4jdbc:mysql://ep.vtek.co.kr:3345/swcore?allowPublicKeyRetrieval=true&amp;useSSL=false&amp;allowMultiQueries=true&amp;serverTimezone=Asia/Seoul"></property>
+        <!-- <property name="url" value="jdbc:log4jdbc:mysql://192.168.1.177:3306/swcore?allowPublicKeyRetrieval=true&amp;useSSL=false&amp;allowMultiQueries=true&amp;serverTimezone=Asia/Seoul"></property> -->
         <property name="username" value="swcore"></property>
         <property name="password" value="core2020"></property>
 <!--        <property name="username" value="root"></property>-->

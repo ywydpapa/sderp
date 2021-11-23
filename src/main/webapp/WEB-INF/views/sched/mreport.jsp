@@ -2,6 +2,10 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%
+	pageContext.setAttribute("replaceChar", "\n");
+%>
 <c:set var="path" value ="${pageContext.request.contextPath}"/>
 
 <!DOCTYPE html>
@@ -82,7 +86,7 @@
 								<td class="firstr1">${ritem.weekno}</td>
 								<td class="secondr1"><c:if test="${ritem.weekdays eq 2}">월</c:if><c:if test="${ritem.weekdays eq 3}">화</c:if><c:if test="${ritem.weekdays eq 4}">수</c:if><c:if test="${ritem.weekdays eq 5}">목</c:if><c:if test="${ritem.weekdays eq 6}">금</c:if><c:if test="${ritem.weekdays eq 7}">토</c:if></td>
 								<td>${ritem.title}</td>
-								<td style='width:300;overflow:hidden;text-overflow;ellipsis;word-break:break-word'>${ritem.schedDesc}</td>
+								<td style='width:300;overflow:hidden;text-overflow;ellipsis;word-break:break-word'>${fn:replace(ritem.schedDesc, replaceChar, "<br/>") }</td>
 								<td>${ritem.start}</td>
 								<td>${ritem.end}</td>
 								<!-- <td class="chktd"><input type="checkbox" class="r1chk form-control-sm" checked></td> -->
@@ -132,7 +136,7 @@
 								<td class="firstr2">${ritem.weekno}</td>
 								<td class="secondr2"><c:if test="${ritem.weekdays eq 1}">일</c:if><c:if test="${ritem.weekdays eq 2}">월</c:if><c:if test="${ritem.weekdays eq 3}">화</c:if><c:if test="${ritem.weekdays eq 4}">수</c:if><c:if test="${ritem.weekdays eq 5}">목</c:if><c:if test="${ritem.weekdays eq 6}">금</c:if><c:if test="${ritem.weekdays eq 7}">토</c:if></td>
 								<td>${ritem.title}</td>
-								<td style='width:300;overflow:hidden;text-overflow;ellipsis;word-break:break-word'>${ritem.schedDesc}</td>
+								<td style='width:300;overflow:hidden;text-overflow;ellipsis;word-break:break-word'>${fn:replace(ritem.schedDesc, replaceChar, "<br/>") }</td>
 								<td>${ritem.start}</td>
 								<td>${ritem.end}</td>
 								<!-- <td class="chktd"><input type="checkbox" class="r2chk form-control-sm" checked></td> -->
@@ -182,7 +186,7 @@
 								<td class="firstr3">${ritem.weekno}</td>
 								<td class="secondr3"><c:if test="${ritem.weekdays eq 1}">일</c:if><c:if test="${ritem.weekdays eq 2}">월</c:if><c:if test="${ritem.weekdays eq 3}">화</c:if><c:if test="${ritem.weekdays eq 4}">수</c:if><c:if test="${ritem.weekdays eq 5}">목</c:if><c:if test="${ritem.weekdays eq 6}">금</c:if><c:if test="${ritem.weekdays eq 7}">토</c:if></td>
 								<td>${ritem.title}</td>
-								<td style='width:300;overflow:hidden;text-overflow;ellipsis;word-break:break-word'>${ritem.schedDesc}</td>
+								<td style='width:300;overflow:hidden;text-overflow;ellipsis;word-break:break-word'>${fn:replace(ritem.schedDesc, replaceChar, "<br/>") }</td>
 								<td>${ritem.start}</td>
 								<td>${ritem.end}</td>
 								<!-- <td class="chktd"><input type="checkbox" class="r3chk form-control-sm"></td> -->
@@ -223,7 +227,7 @@
 							<tr>
 								<td class="secondsr1 text-center"><c:if test="${ritem.weekdays eq 2}">월</c:if><c:if test="${ritem.weekdays eq 3}">화</c:if><c:if test="${ritem.weekdays eq 4}">수</c:if><c:if test="${ritem.weekdays eq 5}">목</c:if><c:if test="${ritem.weekdays eq 6}">금</c:if><c:if test="${ritem.weekdays eq 7}">토</c:if></td>
 								<td class="chktd text-left" style="word-break:break-all"><b>${ritem.title}</b><br/>
-								${ritem.schedDesc}
+								${fn:replace(ritem.schedDesc, replaceChar, "<br/>") }
 								<input type="checkbox" style="display:none" class="sr1chk form-control-sm" checked></td>
 							</tr>
 							</c:if>
@@ -249,7 +253,7 @@
 							<tr>
 								<td class="secondsr2 text-center"><c:if test="${ritem.weekdays eq 2}">월</c:if><c:if test="${ritem.weekdays eq 3}">화</c:if><c:if test="${ritem.weekdays eq 4}">수</c:if><c:if test="${ritem.weekdays eq 5}">목</c:if><c:if test="${ritem.weekdays eq 6}">금</c:if><c:if test="${ritem.weekdays eq 7}">토</c:if></td>
 								<td class="chktd text-left" style="white-space:normal;word-break:break-all"><b>${ritem.title}</b><br/>
-								${ritem.schedDesc}
+								${fn:replace(ritem.schedDesc, replaceChar, "<br/>") }
 								<input type="checkbox" style="display:none" class="sr2chk form-control-sm" checked></td>
 							</tr>
 							</c:if>

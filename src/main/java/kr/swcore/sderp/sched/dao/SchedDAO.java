@@ -3,7 +3,6 @@ package kr.swcore.sderp.sched.dao;
 import java.util.List;
 
 import kr.swcore.sderp.sched.dto.SchedDTO;
-import kr.swcore.sderp.sopp.dto.SoppDTO;
 
 public interface SchedDAO {
 	
@@ -21,4 +20,5 @@ public interface SchedDAO {
 	SchedDTO detailAddtext(int sreportNo);
 	SchedDTO myAddtext(SchedDTO dto);
 	List<SchedDTO> detailSreport(SchedDTO dto);
+	int updateSreport(SchedDTO dto);
 }

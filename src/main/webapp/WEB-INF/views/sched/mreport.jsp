@@ -77,7 +77,7 @@
 							</thead>
 							<tbody>
 							<c:forEach var="ritem" items="${rlist}" varStatus="stvar">
-							<c:if test="${ritem.weektype eq 'p'}">
+							<c:if test="${ritem.weektype eq 'p' && ritem.schedCheck eq '1'}">
 							<tr>
 								<td class="firstr1">${ritem.weekno}</td>
 								<td class="secondr1"><c:if test="${ritem.weekdays eq 2}">월</c:if><c:if test="${ritem.weekdays eq 3}">화</c:if><c:if test="${ritem.weekdays eq 4}">수</c:if><c:if test="${ritem.weekdays eq 5}">목</c:if><c:if test="${ritem.weekdays eq 6}">금</c:if><c:if test="${ritem.weekdays eq 7}">토</c:if></td>
@@ -89,11 +89,13 @@
 							</tr>
 							</c:if>
 							</c:forEach>
-							<tr>
-							<td colspan="2" style="text-align:center;">추가기재</td>
-							<td colspan=4><textarea id="praddtext" class="form-control" cols="50" rows="5">${addtxt.prComment}</textarea></td>
-							<!-- <td style="text-align:center;"><input type="checkbox" class="praddchk r1chk form-control-sm" checked></td> -->
-							</tr>
+							<c:if test="${addtxt.prCheck eq '1' }">
+								<tr>
+									<td colspan="2" style="text-align:center;">추가기재</td>
+									<td colspan=4><textarea id="praddtext" class="form-control" cols="50" rows="5">${addtxt.prComment}</textarea></td>
+								<!-- <td style="text-align:center;"><input type="checkbox" class="praddchk r1chk form-control-sm" checked></td> -->
+								</tr>
+							</c:if>
 							</tbody>
 						</table>
 						<hr>
@@ -125,7 +127,7 @@
 							</thead>
 							<tbody>
 							<c:forEach var="ritem" items="${rlist}">
-							<c:if test="${ritem.weektype eq 't'}">
+							<c:if test="${ritem.weektype eq 't' && ritem.schedCheck eq '1'}">
 							<tr>
 								<td class="firstr2">${ritem.weekno}</td>
 								<td class="secondr2"><c:if test="${ritem.weekdays eq 1}">일</c:if><c:if test="${ritem.weekdays eq 2}">월</c:if><c:if test="${ritem.weekdays eq 3}">화</c:if><c:if test="${ritem.weekdays eq 4}">수</c:if><c:if test="${ritem.weekdays eq 5}">목</c:if><c:if test="${ritem.weekdays eq 6}">금</c:if><c:if test="${ritem.weekdays eq 7}">토</c:if></td>
@@ -137,11 +139,13 @@
 							</tr>
 							</c:if>
 							</c:forEach>
-							<tr>
-							<td colspan="2" style="text-align:center;">추가기재</td>
-							<td colspan=4><textarea id="thaddtext" class="form-control" cols="50" rows="5">${addtxt.thComment}</textarea></td>
-							<!-- <td style="text-align:center;"><input type="checkbox" class="thaddchk r2chk form-control-sm" checked></td> -->
-							</tr>
+							<c:if test="${addtxt.thCheck eq '1' }">
+								<tr>
+								<td colspan="2" style="text-align:center;">추가기재</td>
+									<td colspan=4><textarea id="thaddtext" class="form-control" cols="50" rows="5">${addtxt.thComment}</textarea></td>
+								<!-- <td style="text-align:center;"><input type="checkbox" class="thaddchk r2chk form-control-sm" checked></td> -->
+								</tr>
+							</c:if>
 							</tbody>
 						</table>
 						<hr>
@@ -173,7 +177,7 @@
 							</thead>
 							<tbody>
 							<c:forEach var="ritem" items="${rlist}">
-							<c:if test="${ritem.weektype eq 'n'}">
+							<c:if test="${ritem.weektype eq 'n' && ritem.schedCheck eq '1'}">
 							<tr>
 								<td class="firstr3">${ritem.weekno}</td>
 								<td class="secondr3"><c:if test="${ritem.weekdays eq 1}">일</c:if><c:if test="${ritem.weekdays eq 2}">월</c:if><c:if test="${ritem.weekdays eq 3}">화</c:if><c:if test="${ritem.weekdays eq 4}">수</c:if><c:if test="${ritem.weekdays eq 5}">목</c:if><c:if test="${ritem.weekdays eq 6}">금</c:if><c:if test="${ritem.weekdays eq 7}">토</c:if></td>
@@ -215,7 +219,7 @@
 								<col width="80%">
 							</colgroup>
 							<c:forEach var="ritem" items="${rlist}" varStatus="stvar">
-							<c:if test="${ritem.weektype eq 'p'}">
+							<c:if test="${ritem.weektype eq 'p' && ritem.schedCheck eq '1'}">
 							<tr>
 								<td class="secondsr1 text-center"><c:if test="${ritem.weekdays eq 2}">월</c:if><c:if test="${ritem.weekdays eq 3}">화</c:if><c:if test="${ritem.weekdays eq 4}">수</c:if><c:if test="${ritem.weekdays eq 5}">목</c:if><c:if test="${ritem.weekdays eq 6}">금</c:if><c:if test="${ritem.weekdays eq 7}">토</c:if></td>
 								<td class="chktd text-left" style="word-break:break-all"><b>${ritem.title}</b><br/>
@@ -225,12 +229,14 @@
 							</c:if>
 							</c:forEach>
 							</table>
-							<div class="praddtxt1">
-							<hr>
-							<h6>추가 기재 사항</h6>
-							<hr>
-							<div>${addtxt.prComment}</div>
-							</div>
+							<c:if test="${addtxt.prCheck eq '1' }">
+								<div class="praddtxt1">
+								<hr>
+								<h6>추가 기재 사항</h6>
+								<hr>
+								<div>${addtxt.prComment}</div>
+								</div>
+							</c:if>
 						</td>
 						<td colspan="2">
 							<table class="table table-bordered " style="table-layout:fixed;word-break:break-all;">
@@ -239,7 +245,7 @@
 								<col width="80%">
 							</colgroup>
 							<c:forEach var="ritem" items="${rlist}" varStatus="stvar">
-							<c:if test="${ritem.weektype eq 't'}">
+							<c:if test="${ritem.weektype eq 't' && ritem.schedCheck eq '1'}">
 							<tr>
 								<td class="secondsr2 text-center"><c:if test="${ritem.weekdays eq 2}">월</c:if><c:if test="${ritem.weekdays eq 3}">화</c:if><c:if test="${ritem.weekdays eq 4}">수</c:if><c:if test="${ritem.weekdays eq 5}">목</c:if><c:if test="${ritem.weekdays eq 6}">금</c:if><c:if test="${ritem.weekdays eq 7}">토</c:if></td>
 								<td class="chktd text-left" style="white-space:normal;word-break:break-all"><b>${ritem.title}</b><br/>
@@ -249,12 +255,14 @@
 							</c:if>
 							</c:forEach>
 							</table>
-							<div class="thaddtxt1">
-							<hr>
-							<h6>추가 기재 사항</h6>
-							<hr>
-							<div>${addtxt.thComment}</div>
-							</div>							
+							<c:if test="${addtxt.thCheck eq '1' }">
+								<div class="thaddtxt1">
+								<hr>
+								<h6>추가 기재 사항</h6>
+								<hr>
+								<div>${addtxt.thComment}</div>
+								</div>							
+							</c:if>
 						</td>
 						</tr>
 						</table>

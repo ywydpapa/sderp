@@ -97,6 +97,12 @@ public class SchedDAOImpl implements SchedDAO {
 		return sqlSession.selectOne("sched.myAddtext", dto);
 	}
 
+	@Override
+	public int updateSreport(SchedDTO dto) {
+		// TODO Auto-generated method stub
+		return sqlSession.update("sched.updateSreport", dto);
+	}
+
 	
 
 }

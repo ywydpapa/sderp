@@ -224,5 +224,11 @@ public class SchedServiceImpl implements SchedService {
 		return schedDao.myAddtext(dto);
 	}
 
+	@Override
+	public int updateSreport(SchedDTO dto) {
+		// TODO Auto-generated method stub
+		return schedDao.updateSreport(dto);
+	}
+
 
 }

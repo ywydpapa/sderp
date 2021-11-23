@@ -56,7 +56,9 @@ public class SchedDTO extends PageDTO {
 	private String start;
 	private String end;
 	private String prComment;
+	private int prCheck;
 	private String thComment;
+	private int thCheck;
 	private String nxComment;
 	private String srepMemo;
 	private String sreportNo;

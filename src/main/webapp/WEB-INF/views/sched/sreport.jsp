@@ -93,14 +93,30 @@
 								<td style='width:300;overflow:hidden;text-overflow;ellipsis;word-break:break-word'>${ritem.schedDesc}</td>
 								<td>${ritem.start}</td>
 								<td>${ritem.end}</td>
-								<td class="chktd"><input type="checkbox" data-id="${ritem.id }" data-check="1" class="r1chk form-control-sm" checked></td>
+								<c:choose>
+									<c:when test="${ritem.schedCheck eq '1' }">
+										<td class="chktd"><input type="checkbox" id="chk" data-id="${ritem.id }" data-check="1" data-name="checks" class="r1chk form-control-sm" checked></td>
+									</c:when>
+									<c:otherwise>
+										<td class="chktd"><input type="checkbox" id="chk" data-id="${ritem.id }" data-check="0" data-name="checks" class="r1chk form-control-sm"></td>
+									</c:otherwise>
+								</c:choose>
 							</tr>
 							</c:if>
 							</c:forEach>
 							<tr>
 							<td colspan="2" style="text-align:center;">추가기재</td>
-							<td colspan=4><textarea id="praddtext" class="form-control" cols="50" rows="5">${myadd.prComment}</textarea></td>
-							<td style="text-align:center;"><!-- <input type="checkbox" class="praddchk form-control-sm" checked> --></td>
+							<td colspan=4>
+								<textarea id="praddtext" class="form-control" cols="50" rows="5">${myadd.prComment}</textarea>
+							</td>
+							<c:choose>
+								<c:when test="${myadd.prCheck eq '1' }">
+									<td style="text-align:center;"><input type="checkbox" data-id="${myadd.sreportNo }" data-check="1" data-name="add" class="praddchk form-control-sm" checked></td>
+								</c:when>
+								<c:otherwise>
+									<td style="text-align:center;"><input type="checkbox" data-id="${myadd.sreportNo }" data-check="0" data-name="add" class="praddchk form-control-sm"></td>
+								</c:otherwise>
+							</c:choose>
 							</tr>
 							</tbody>
 						</table>
@@ -148,14 +164,28 @@
 								<td style='width:300;overflow:hidden;text-overflow;ellipsis;word-break:break-word'>${ritem.schedDesc}</td>
 								<td>${ritem.start}</td>
 								<td>${ritem.end}</td>
-								<td class="chktd"><input type="checkbox" data-id="${ritem.id }" data-check="1" class="r2chk form-control-sm" checked></td>
+								<c:choose>
+									<c:when test="${ritem.schedCheck eq '1' }">
+										<td class="chktd"><input type="checkbox" id="chk" data-id="${ritem.id }" data-check="1" data-name="checks" class="r2chk form-control-sm" checked></td>
+									</c:when>
+									<c:otherwise>
+										<td class="chktd"><input type="checkbox" id="chk" data-id="${ritem.id }" data-check="0" data-name="checks" class="r2chk form-control-sm"></td>
+									</c:otherwise>
+								</c:choose>
 							</tr>
 							</c:if>
 							</c:forEach>
 							<tr>
 							<td colspan="2" style="text-align:center;">추가기재</td>
 							<td colspan=4><textarea id="thaddtext" class="form-control" cols="50" rows="5">${myadd.thComment}</textarea></td>
-							<td style="text-align:center;"><!-- <input type="checkbox" class="thaddchk form-control-sm" checked> --></td>
+							<c:choose>
+								<c:when test="${myadd.thCheck eq '1' }">
+									<td style="text-align:center;"><input type="checkbox" data-id="${myadd.sreportNo }" data-check="1" data-name="add" class="thaddchk form-control-sm" checked></td>
+								</c:when>
+								<c:otherwise>
+									<td style="text-align:center;"><input type="checkbox" data-id="${myadd.sreportNo }" data-check="0" data-name="add" class="thaddchk form-control-sm"></td>
+								</c:otherwise>
+							</c:choose>
 							</tr>
 							</tbody>
 						</table>
@@ -203,7 +233,7 @@
 								<td style='width:300;overflow:hidden;text-overflow;ellipsis;word-break:break-word'>${ritem.schedDesc}</td>
 								<td>${ritem.start}</td>
 								<td>${ritem.end}</td>
-								<td class="chktd"><!-- <input type="checkbox" class="r3chk form-control-sm"> --></td>
+								<td class="chktd"><input type="checkbox" class="r3chk form-control-sm"></td>
 							</tr>
 							</c:if>
 							</c:forEach>
@@ -583,28 +613,62 @@ function printWeek() {
     console.log(unam);
     $(".thUname").html("담당:" + unam);
     $("#printdiv").attr("style", "display:none");
+    $("#praddtext").val().replace("\t", "");
+    
+    if($(".praddchk").attr("data-check") == 1){
+		$(".praddtxt1").show();
+	} else{
+		$(".praddtxt1").hide();
+	}
+    
+    if($(".thaddchk").attr("data-check") == 1){
+		$(".thaddtxt1").show();
+	} else{
+		$(".thaddtxt1").hide();
+	}
 }
 
-$(document).on("click", $(this), function(){
-	$(this).attr("data-check", 0);
-})
+$(document).on("click", "[type='checkbox']", function(){
+	if($(this).is(":checked") == true){
+		$(this).attr("data-check", 1);
+	}else{
+		$(this).attr("data-check", 0);
+	}
+});
 
 function fn_Create(){
 	var sreportData = {};
-	var checkData = {};
+	var checkData = [];
 	sreportData.userNo 		= Number("${userNo}");
 	sreportData.compNo 		= Number("${compNo}");
 	sreportData.prComment	= $("#praddtext").val();
+	sreportData.prCheck 	= $(".praddchk").attr("data-check");
 	sreportData.thComment	= $("#thaddtext").val();
+	sreportData.thCheck 	= $(".thaddchk").attr("data-check");
 	
-	$("input[type='checkbox']:checked").each(function(){
-		console.log($(this).attr("data-id"));
-		console.log(boolCheck);
+	
+	$("input[type='checkbox']").each(function(){
+		if(typeof $(this).attr("data-id") != "undefined" && typeof $(this).attr("data-check") != "undefined" && $(this).attr("data-name") == "checks"){
+			var tempArray = [];
+			tempArray = {
+				schedNo: $(this).attr("data-id"),
+				schedCheck: $(this).attr("data-check")
+			}
+			checkData.push(tempArray);
+		}
 	});
 	
-	/* $.ajax({
+	sreportData.checks = checkData;
+	
+	console.log(sreportData);
+	
+	$.ajax({
 		url: "${path}/sched/insSreport.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
-		data: sreportData , // HTTP 요청과 함께 서버로 보낼 데이터
+		data: JSON.stringify({
+			sreportData: sreportData, // HTTP 요청과 함께 서버로 보낼 데이터
+			checkData: checkData
+		}),
+		contentType: 'application/json',
 		method: "POST", // HTTP 요청 메소드(GET, POST 등)
 		dataType: "json" // 서버에서 보내줄 데이터의 타입
 	}) // HTTP 요청이 성공하면 요청한 데이터가 done() 메소드로 전달됨..
@@ -617,7 +681,7 @@ function fn_Create(){
 	}) // HTTP 요청이 실패하면 오류와 상태에 관한 정보가 fail() 메소드로 전달됨.
 	.fail(function(xhr, status, errorThrown) {
 		alert("통신 실패");
-	}); */
+	});
 }
 
 
@@ -647,7 +711,7 @@ $(".r1chk,.r2chk,.r3chk").change(function(){
 });
 
 $(".praddchk").change(function(){
-	if($(".praddchk").is(":checked")==true){
+	if($(".praddchk").attr(":checked")==true){
 		$(".praddtxt1").show();
 	} else{
 		$(".praddtxt1").hide();
@@ -764,7 +828,7 @@ function linecopy(){
 }
 
 $("#praddtext,#thaddtext").change(function(){
-linecopy();
+	linecopy();
 });
 
 $(document).ready(function() {

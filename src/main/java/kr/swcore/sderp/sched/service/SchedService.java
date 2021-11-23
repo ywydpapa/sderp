@@ -24,4 +24,5 @@ public interface SchedService {
 	SchedDTO detailAddtext(int sreportNo);
 	Object detailSreport(HttpSession session,SchedDTO dto);
 	SchedDTO myAddtext(HttpSession session,SchedDTO dto);
+	int updateSreport(SchedDTO dto);
 }

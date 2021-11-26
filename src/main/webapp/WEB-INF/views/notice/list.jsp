@@ -213,77 +213,75 @@
 		</div>
 		<div class="cnt_wr">
 			<div class="row">
-				<form id="searchForm" method="post" onsubmit="return false;" class="col-sm-12">
-					<div class="col-sm-12">
-						<div class="card_box sch_it">
-							<div class="btn_wr text-right">
-								<button class="btn btn-sm btn-inverse" onClick="javascript:fnClearall()"><i class="icofont icofont-spinner-alt-3"></i>초기화</button>
-								<button class="btn btn-sm btn-primary" onClick="javascript:fnListcon()"><i class="icofont icofont-search"></i>검색</button>	
-								<c:if test="${fn:contains(userKey, '5') || fn:contains(userKey, '7') }">
-			      					<button class="btn btn-sm btn-outline"onClick="javascript:location='${path}/notice/write.do'"><i class="icofont icofont-pencil-alt-2"></i>등록</button>
-								</c:if>
-							</div>
-							<div class="form-group row">
-								<%-- <div class="col-sm-12 col-xl-3">
-								<label class="col-form-label" for="userName">작성자</label>
-									<div class="input-group input-group-sm mb-0">
-										<input type="text" class="form-control" name="userName"
-											id="userName" value="${sessionScope.userName}" readonly /> <input type="hidden"
-											name="userNo" id="userNo" value="${sessionScope.userNo}" /> <span
-											class="input-group-btn">
-											<button class="btn btn-primary sch-company"
-												data-remote="${path}/modal/popup.do?popId=user" type="button"
-												data-toggle="modal" data-target="#userModal">
-												<i class="icofont icofont-search"></i>
-											</button>
-										</span>
-										<div class="modal fade " id="userModal" tabindex="-1"
-											role="dialog">
-											<div class="modal-dialog modal-80size" role="document">
-												<div class="modal-content modal-80size">
-													<div class="modal-header">
-														<h4 class="modal-title"></h4>
-														<button type="button" class="close" data-dismiss="modal"
-															aria-label="Close">
-															<span aria-hidden="true">&times;</span>
-														</button>
-													</div>
-													<div class="modal-body">
-														<h5>사용자목록</h5>
-														<p>Loading!!!</p>
-													</div>
-													<div class="modal-footer">
-														<button type="button" class="btn btn-default waves-effect "
-															data-dismiss="modal">Close</button>
-													</div>
+				<div class="col-sm-12">
+					<div class="card_box sch_it">
+						<div class="btn_wr text-right">
+							<button class="btn btn-sm btn-inverse" onClick="javascript:fnClearall()"><i class="icofont icofont-spinner-alt-3"></i>초기화</button>
+							<button class="btn btn-sm btn-primary" onClick="javascript:fnListcon()" id="search"><i class="icofont icofont-search"></i>검색</button>	
+							<c:if test="${fn:contains(userKey, '5') || fn:contains(userKey, '7') }">
+		      					<button class="btn btn-sm btn-outline"onClick="javascript:location='${path}/notice/write.do'"><i class="icofont icofont-pencil-alt-2"></i>등록</button>
+							</c:if>
+						</div>
+						<div class="form-group row">
+							<%-- <div class="col-sm-12 col-xl-3">
+							<label class="col-form-label" for="userName">작성자</label>
+								<div class="input-group input-group-sm mb-0">
+									<input type="text" class="form-control" name="userName"
+										id="userName" value="${sessionScope.userName}" readonly /> <input type="hidden"
+										name="userNo" id="userNo" value="${sessionScope.userNo}" /> <span
+										class="input-group-btn">
+										<button class="btn btn-primary sch-company"
+											data-remote="${path}/modal/popup.do?popId=user" type="button"
+											data-toggle="modal" data-target="#userModal">
+											<i class="icofont icofont-search"></i>
+										</button>
+									</span>
+									<div class="modal fade " id="userModal" tabindex="-1"
+										role="dialog">
+										<div class="modal-dialog modal-80size" role="document">
+											<div class="modal-content modal-80size">
+												<div class="modal-header">
+													<h4 class="modal-title"></h4>
+													<button type="button" class="close" data-dismiss="modal"
+														aria-label="Close">
+														<span aria-hidden="true">&times;</span>
+													</button>
+												</div>
+												<div class="modal-body">
+													<h5>사용자목록</h5>
+													<p>Loading!!!</p>
+												</div>
+												<div class="modal-footer">
+													<button type="button" class="btn btn-default waves-effect "
+														data-dismiss="modal">Close</button>
 												</div>
 											</div>
 										</div>
 									</div>
-								</div> --%>
-								<div class="col-sm-12 col-xl-3">
-									<label class="col-form-label" for="userName">작성자</label>
-									<input type="text" class="form-control form-control-sm" name="userName"
-											id="userName" value="${sessionScope.userName}" /> <input type="hidden"
-											name="userNo" id="userNo" value="${sessionScope.userNo}" />
 								</div>
-								<div class="col-sm-12 col-xl-3">
-									<label class="col-form-label">제목</label>
-									<input type="text" class="form-control form-control-sm" name="notiTitle" id="notiTitle" name="" placeholder="" value="${param.notiTitle}">
-								</div>
-								<div class="col-sm-12 col-xl-3">
-									<label class="col-form-label">내용</label>
-									<input type="text" class="form-control form-control-sm" id="notiContents" name="notiContents" placeholder="" value="${param.notiContents}">
-								</div>
-								<div class="col-sm-12 col-xl-3">
-									<label class="col-form-label">등록일</label>
-									<p class="input_inline"><input class="form-control form-control-sm col-xl-6" type="date" id="regSDate" onChange="javascript:inputDate($('#regSDate').val(), $('#regEDate').val(), this)"> ~ <input class="form-control form-control-sm col-xl-6" type="date" id="regEDate" onChange="javascript:inputDate($('#regSDate').val(), $('#regEDate').val(),this)">
-									</p>
-								</div>
-							</div>	
-						</div>
+							</div> --%>
+							<div class="col-sm-12 col-xl-3">
+								<label class="col-form-label" for="userName">작성자</label>
+								<input type="text" class="form-control form-control-sm" name="userName"
+										id="userName" value="${sessionScope.userName}" /> <input type="hidden"
+										name="userNo" id="userNo" value="${sessionScope.userNo}" />
+							</div>
+							<div class="col-sm-12 col-xl-3">
+								<label class="col-form-label">제목</label>
+								<input type="text" class="form-control form-control-sm" name="notiTitle" id="notiTitle" name="" placeholder="" value="${param.notiTitle}">
+							</div>
+							<div class="col-sm-12 col-xl-3">
+								<label class="col-form-label">내용</label>
+								<input type="text" class="form-control form-control-sm" id="notiContents" name="notiContents" placeholder="" value="${param.notiContents}">
+							</div>
+							<div class="col-sm-12 col-xl-3">
+								<label class="col-form-label">등록일</label>
+								<p class="input_inline"><input class="form-control form-control-sm col-xl-6" type="date" id="regSDate" onChange="javascript:inputDate($('#regSDate').val(), $('#regEDate').val(), this)"> ~ <input class="form-control form-control-sm col-xl-6" type="date" id="regEDate" onChange="javascript:inputDate($('#regSDate').val(), $('#regEDate').val(),this)">
+								</p>
+							</div>
+						</div>	
 					</div>
-				</form>
+				</div>
 			</div>
 		</div>
 		<!--//영업활동조회-->
@@ -322,6 +320,12 @@
 	<!--//리스트 table-->
 
 	<script>
+		$("input[type='text']").keyup(function(e){
+			if(e.keyCode == 13){
+				$("#search").click();
+			}
+		});
+
 		$('#userModal').on('show.bs.modal', function(e) {
 			var button = $(e.relatedTarget);
 			var modal = $(this);

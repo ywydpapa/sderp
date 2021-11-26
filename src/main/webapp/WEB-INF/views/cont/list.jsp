@@ -56,12 +56,11 @@
 		<!--계약조회-->
 		<div class="cnt_wr">
 			<div class="row">
-				<form id="searchForm" method="post" onsubmit="return false;" class="col-sm-12">
 					<div class="col-sm-12">
 						<div class="card_box sch_it">
 							<div class="btn_wr text-right">
 								<button class="btn btn-sm btn-inverse" onClick="javascript:fnClearall()"><i class="icofont icofont-spinner-alt-3"></i>초기화</button>
-								<button class="btn btn-sm btn-primary" onClick="javascript:fnListcon()"><i class="icofont icofont-search"></i>검색</button>
+								<button class="btn btn-sm btn-primary" onClick="javascript:fnListcon()"><i class="icofont icofont-search" id="search"></i>검색</button>
 								<button class="btn btn-sm btn-outline" onClick="javascript:location='${path}/cont/write.do'"><i class="icofont icofont-pencil-alt-2"></i>등록</button>
 							</div>
 							<div class="form-group row">
@@ -150,12 +149,12 @@
 								<div class="col-sm-12 col-xl-3">
 									<label class="col-form-label">판매일자</label>
 									<div class="ms-selectable sales_date">
-									<p class="input_inline"><input class="form-control form-control-sm col-xl-6" type="date" id="targetDatefrom" onChange="javascript:inputDate($('#targetDatefrom').val(), $('#targetDateto').val(), this)"> ~ <input class="form-control form-control-sm col-xl-6" type="date" id="targetDateto" onChange="javascript:inputDate($('#targetDatefrom').val(), $('#targetDateto').val(), this)">
+									<p class="input_inline"><input class="form-control form-control-sm col-xl-6" type="date" id="targetDatefrom" > ~ <input class="form-control form-control-sm col-xl-6" type="date" id="targetDateto" >
 									</div>
 								</div>
 								<div class="col-sm-12 col-xl-3">
 									<label class="col-form-label">유지보수기간</label>
-									<p class="input_inline"><input class="form-control form-control-sm col-xl-6" type="date" id="freemaintSdate" onChange="javascript:inputDate($('#freemaintSdate').val(), $('#freemaintEdate').val(), this)"> ~ <input class="form-control form-control-sm col-xl-6" type="date" id="freemaintEdate" onChange="javascript:inputDate($('#freemaintSdate').val(), $('#freemaintEdate').val(), this)">
+									<p class="input_inline"><input class="form-control form-control-sm col-xl-6" type="date" id="freemaintSdate"> ~ <input class="form-control form-control-sm col-xl-6" type="date" id="freemaintEdate">
 									</p>
 								</div>
 							</div>
@@ -175,13 +174,12 @@
 								</div>
 								<div class="col-sm-12 col-xl-3">
 									<label class="col-form-label">등록일</label>
-									<p class="input_inline"><input class="form-control form-control-sm col-xl-6" type="date" id="regSDate" onChange="javascript:inputDate($('#regSDate').val(), $('#regEDate').val())"> ~ <input class="form-control form-control-sm col-xl-6" type="date" id="regEDate" onChange="javascript:inputDate($('#regSDate').val(), $('#regEDate').val())">
+									<p class="input_inline"><input class="form-control form-control-sm col-xl-6" type="date" id="regSDate"> ~ <input class="form-control form-control-sm col-xl-6" type="date" id="regEDate">
 									</p>
 								</div>
 							</div>
 						</div>
 					</div>
-				</form>
 			</div>
 		</div>
 	</c:if>
@@ -263,6 +261,175 @@
 	</div>
 	<!--//리스트 table-->
 	<script>
+	
+	$("#targetDatefrom").change(function(){
+		var dateValue = $(this).val();
+		var dateValueArr = dateValue.split("-");
+		var dateValueCom = new Date(dateValueArr[0], dateValueArr[1], dateValueArr[2]);
+		var EdateValue = $("#targetDateto").val();
+		var EdateDateArr = EdateValue.split("-");
+		var EdateDateCom = new Date(EdateDateArr[0], EdateDateArr[1], EdateDateArr[2]);
+		
+		if(EdateValue == ""){
+			dateValueCom.setDate(dateValueCom.getDate()+1);
+		}else if(dateValueCom.getTime() > EdateDateCom.getTime()){
+			alert("시작일이 종료일보다 클 수 없습니다.");
+			dateValueCom.setDate(dateValueCom.getDate()+1);
+		}else{
+			return null;
+		}
+		
+		var year = dateValueCom.getFullYear();
+		var month = dateValueCom.getMonth();
+		var day = dateValueCom.getDate();
+		
+		if(day < 10){
+			day = "0" + day;
+		}
+		
+		$("#targetDateto").val(year + "-" + month + "-" + day);
+	});
+	
+	$("#targetDateto").change(function(){
+		var SdateValue = $("#targetDatefrom").val();
+		var SdateValueArr = SdateValue.split("-");
+		var SdateValueCom = new Date(SdateValueArr[0], SdateValueArr[1], SdateValueArr[2]);
+		var thisDateValue = $(this).val();
+		var thisDateArr = thisDateValue.split("-");
+		var thisDateCom = new Date(thisDateArr[0], thisDateArr[1], thisDateArr[2]);
+		
+		if(SdateValue == ""){
+			thisDateCom.setDate(thisDateCom.getDate()-1);
+		}else if(SdateValueCom.getTime() > thisDateCom.getTime()){
+			alert("종료일이 시작일보다 작을 수 없습니다.");
+			thisDateCom.setDate(thisDateCom.getDate()-1);
+		}else{
+			return null;
+		}
+		
+		var year = thisDateCom.getFullYear();
+		var month = thisDateCom.getMonth();
+		var day = thisDateCom.getDate();
+		
+		if(day < 10){
+			day = "0" + day;
+		}
+		
+		$("#targetDatefrom").val(year + "-" + month + "-" + day);
+	});
+	
+	$("#freemaintSdate").change(function(){
+		var dateValue = $(this).val();
+		var dateValueArr = dateValue.split("-");
+		var dateValueCom = new Date(dateValueArr[0], dateValueArr[1], dateValueArr[2]);
+		var EdateValue = $("#freemaintEdate").val();
+		var EdateDateArr = EdateValue.split("-");
+		var EdateDateCom = new Date(EdateDateArr[0], EdateDateArr[1], EdateDateArr[2]);
+		
+		if(EdateValue == ""){
+			dateValueCom.setDate(dateValueCom.getDate()+1);
+		}else if(dateValueCom.getTime() > EdateDateCom.getTime()){
+			alert("시작일이 종료일보다 클 수 없습니다.");
+			dateValueCom.setDate(dateValueCom.getDate()+1);
+		}else{
+			return null;
+		}
+		
+		var year = dateValueCom.getFullYear();
+		var month = dateValueCom.getMonth();
+		var day = dateValueCom.getDate();
+		
+		if(day < 10){
+			day = "0" + day;
+		}
+		
+		$("#freemaintEdate").val(year + "-" + month + "-" + day);
+	});
+	
+	$("#freemaintEdate").change(function(){
+		var SdateValue = $("#freemaintSdate").val();
+		var SdateValueArr = SdateValue.split("-");
+		var SdateValueCom = new Date(SdateValueArr[0], SdateValueArr[1], SdateValueArr[2]);
+		var thisDateValue = $(this).val();
+		var thisDateArr = thisDateValue.split("-");
+		var thisDateCom = new Date(thisDateArr[0], thisDateArr[1], thisDateArr[2]);
+		
+		if(SdateValue == ""){
+			thisDateCom.setDate(thisDateCom.getDate()-1);
+		}else if(SdateValueCom.getTime() > thisDateCom.getTime()){
+			alert("종료일이 시작일보다 작을 수 없습니다.");
+			thisDateCom.setDate(thisDateCom.getDate()-1);
+		}else{
+			return null;
+		}
+		
+		var year = thisDateCom.getFullYear();
+		var month = thisDateCom.getMonth();
+		var day = thisDateCom.getDate();
+		
+		if(day < 10){
+			day = "0" + day;
+		}
+		
+		$("#freemaintSdate").val(year + "-" + month + "-" + day);
+	});
+	
+	$("#regSDate").change(function(){
+		var dateValue = $(this).val();
+		var dateValueArr = dateValue.split("-");
+		var dateValueCom = new Date(dateValueArr[0], dateValueArr[1], dateValueArr[2]);
+		var EdateValue = $("#regEDate").val();
+		var EdateDateArr = EdateValue.split("-");
+		var EdateDateCom = new Date(EdateDateArr[0], EdateDateArr[1], EdateDateArr[2]);
+		
+		if(EdateValue == ""){
+			dateValueCom.setDate(dateValueCom.getDate()+1);
+		}else if(dateValueCom.getTime() > EdateDateCom.getTime()){
+			alert("시작일이 종료일보다 클 수 없습니다.");
+			dateValueCom.setDate(dateValueCom.getDate()+1);
+		}else{
+			return null;
+		}
+		
+		var year = dateValueCom.getFullYear();
+		var month = dateValueCom.getMonth();
+		var day = dateValueCom.getDate();
+		
+		if(day < 10){
+			day = "0" + day;
+		}
+		
+		$("#regEDate").val(year + "-" + month + "-" + day);
+	});
+	
+	$("#regEDate").change(function(){
+		var SdateValue = $("#regSDate").val();
+		var SdateValueArr = SdateValue.split("-");
+		var SdateValueCom = new Date(SdateValueArr[0], SdateValueArr[1], SdateValueArr[2]);
+		var thisDateValue = $(this).val();
+		var thisDateArr = thisDateValue.split("-");
+		var thisDateCom = new Date(thisDateArr[0], thisDateArr[1], thisDateArr[2]);
+		
+		if(SdateValue == ""){
+			thisDateCom.setDate(thisDateCom.getDate()-1);
+		}else if(SdateValueCom.getTime() > thisDateCom.getTime()){
+			alert("종료일이 시작일보다 작을 수 없습니다.");
+			thisDateCom.setDate(thisDateCom.getDate()-1);
+		}else{
+			return null;
+		}
+		
+		var year = thisDateCom.getFullYear();
+		var month = thisDateCom.getMonth();
+		var day = thisDateCom.getDate();
+		
+		if(day < 10){
+			day = "0" + day;
+		}
+		
+		$("#regSDate").val(year + "-" + month + "-" + day);
+	});
+	
 	$('#custModal').on('show.bs.modal', function(e) {
 		var button = $(e.relatedTarget);
 		var modal = $(this);
@@ -332,6 +499,13 @@
 		var url = '${path}/cont/list.do'+param;
 		location.href = url;
 	}
+	
+	$("input[type='text']").keyup(function(e){
+		if(e.keyCode == 13){
+			$("#search").click();
+		}
+	});
+
 	$(document).ready(function() {
 		var targetDatefrom = '${param.targetDatefrom}';
 		var targetDateto = '${param.targetDateto}';

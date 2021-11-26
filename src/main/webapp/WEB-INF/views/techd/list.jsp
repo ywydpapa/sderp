@@ -269,7 +269,7 @@
 							<div class="card_box sch_it">
 								<div class="btn_wr text-right">
 									<button class="btn btn-sm btn-inverse" onClick="javascript:fnClearall()"><i class="icofont icofont-spinner-alt-3"></i>초기화</button>
-									<button class="btn btn-sm btn-primary" onClick="javascript:fnListcon()"><i class="icofont icofont-search"></i>검색</button>
+									<button class="btn btn-sm btn-primary" onClick="javascript:fnListcon()" id="search"><i class="icofont icofont-search"></i>검색</button>
 									<button class="btn btn-sm btn-outline"onClick="javascript:location='${path}/techd/write.do'"><i class="icofont icofont-pencil-alt-2"></i>등록</button>
 
 								</div>
@@ -473,6 +473,12 @@
 
 
 	<script>
+		$("input[type='text']").keyup(function(e){
+			if(e.keyCode == 13){
+				$("#search").click();
+			}
+		});
+		
 		$('#userModal').on('show.bs.modal', function(e) {
 			var button = $(e.relatedTarget);
 			var modal = $(this);

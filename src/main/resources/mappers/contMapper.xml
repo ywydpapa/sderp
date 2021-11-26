@@ -30,14 +30,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 					 from swc_cont
 					 where (
 					 date_format(freemaintEdate, '%Y-%m-%d') <![CDATA[>=]]> #{freemaintSdate} and
-					 date_format(freemaintSdate, '%Y-%m-%d') <![CDATA[<=]]> #{freemaintEdate}
+					 date_format(freemaintSdate, '%Y-%m-%d') <![CDATA[<=]]> #{freemaintEdate} or
+					 date_format(paymaintEdate, '%Y-%m-%d') <![CDATA[>=]]> #{freemaintSdate} and
+					 date_format(paymaintSdate, '%Y-%m-%d') <![CDATA[<=]]> #{freemaintEdate}
 					 )
 					 UNION
 					 select *
 					 from swc_cont
 					 where (
 					 date_format(freemaintEdate, '%Y-%m-%d') <![CDATA[>=]]> #{freemaintSdate} and
-					 date_format(freemaintSdate, '%Y-%m-%d') <![CDATA[<=]]> #{freemaintEdate}
+					 date_format(freemaintSdate, '%Y-%m-%d') <![CDATA[<=]]> #{freemaintEdate} or
+					 date_format(paymaintEdate, '%Y-%m-%d') <![CDATA[>=]]> #{freemaintSdate} and
+					 date_format(paymaintSdate, '%Y-%m-%d') <![CDATA[<=]]> #{freemaintEdate}
 					 )
 					 ) a
 				 </when>

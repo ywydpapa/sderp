@@ -11,8 +11,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		from swc_notice a
 		left join swc_user b on a.userNo = b.userNo
 		where b.compNo = #{compNo}
-		<if test="userNo != null and userNo != ''">
-			and a.userNo = #{userNo}
+		<if test="userName != null and userName != ''">
+			and b.userName like concat('%',#{userName},'%')
 		</if>
 		<if test="notiTitle != null and notiTitle != ''">
 			and a.notiTitle like concat('%',#{notiTitle},'%')
@@ -57,8 +57,8 @@ from
 		from swc_notice a
 		left join swc_user b on a.userNo = b.userNo
 		where b.compNo = #{compNo}
-		<if test="userNo != null and userNo != ''">
-			and a.userNo = #{userNo}
+		<if test="userName != null and userName != ''">
+			and b.userName like concat('%',#{userName},'%')
 		</if>
 		<if test="notiTitle != null and notiTitle != ''">
 			and a.notiTitle like concat('%',#{notiTitle},'%')

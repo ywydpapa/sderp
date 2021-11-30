@@ -515,33 +515,33 @@
 		'11' : ${graph1.sales[11]}
 	}
 	var salesOrginJson = {
-		'0' : ${graph1.salesOrgin[0]},
-		'1' : ${graph1.salesOrgin[1]},
-		'2' : ${graph1.salesOrgin[2]},
-		'3' : ${graph1.salesOrgin[3]},
-		'4' : ${graph1.salesOrgin[4]},
-		'5' : ${graph1.salesOrgin[5]},
-		'6' : ${graph1.salesOrgin[6]},
-		'7' : ${graph1.salesOrgin[7]},
-		'8' : ${graph1.salesOrgin[8]},
-		'9' : ${graph1.salesOrgin[9]},
-		'10' : ${graph1.salesOrgin[10]},
-		'11' : ${graph1.salesOrgin[11]}
+		'0' : Math.floor(${graph1.salesOrgin[0]}),
+		'1' : Math.floor(${graph1.salesOrgin[1]}),
+		'2' : Math.floor(${graph1.salesOrgin[2]}),
+		'3' : Math.floor(${graph1.salesOrgin[3]}),
+		'4' : Math.floor(${graph1.salesOrgin[4]}),
+		'5' : Math.floor(${graph1.salesOrgin[5]}),
+		'6' : Math.floor(${graph1.salesOrgin[6]}),
+		'7' : Math.floor(${graph1.salesOrgin[7]}),
+		'8' : Math.floor(${graph1.salesOrgin[8]}),
+		'9' : Math.floor(${graph1.salesOrgin[9]}),
+		'10' : Math.floor(${graph1.salesOrgin[10]}),
+		'11' : Math.floor(${graph1.salesOrgin[11]}),
 	}
 
 	var salesOrginStackJson = {
-		'0' : salesOrginJson[0],
-		'1' : salesOrginJson[0] + salesOrginJson[1],
-		'2' : salesOrginJson[0] + salesOrginJson[1] + salesOrginJson[2],
-		'3' : salesOrginJson[0] + salesOrginJson[1] + salesOrginJson[2] + salesOrginJson[3],
-		'4' : salesOrginJson[0] + salesOrginJson[1] + salesOrginJson[2] + salesOrginJson[3] + salesOrginJson[4],
-		'5' : salesOrginJson[0] + salesOrginJson[1] + salesOrginJson[2] + salesOrginJson[3] + salesOrginJson[4] + salesOrginJson[5],
-		'6' : salesOrginJson[0] + salesOrginJson[1] + salesOrginJson[2] + salesOrginJson[3] + salesOrginJson[4] + salesOrginJson[5] + salesOrginJson[6],
-		'7' : salesOrginJson[0] + salesOrginJson[1] + salesOrginJson[2] + salesOrginJson[3] + salesOrginJson[4] + salesOrginJson[5] + salesOrginJson[6] + salesOrginJson[7],
-		'8' : salesOrginJson[0] + salesOrginJson[1] + salesOrginJson[2] + salesOrginJson[3] + salesOrginJson[4] + salesOrginJson[5] + salesOrginJson[6] + salesOrginJson[7] + salesOrginJson[8],
-		'9' : salesOrginJson[0] + salesOrginJson[1] + salesOrginJson[2] + salesOrginJson[3] + salesOrginJson[4] + salesOrginJson[5] + salesOrginJson[6] + salesOrginJson[7] + salesOrginJson[8] + salesOrginJson[9],
-		'10' : salesOrginJson[0] + salesOrginJson[1] + salesOrginJson[2] + salesOrginJson[3] + salesOrginJson[4] + salesOrginJson[5] + salesOrginJson[6] + salesOrginJson[7] + salesOrginJson[8] + salesOrginJson[9] + salesOrginJson[10],
-		'11' : salesOrginJson[0] + salesOrginJson[1] + salesOrginJson[2] + salesOrginJson[3] + salesOrginJson[4] + salesOrginJson[5] + salesOrginJson[6] + salesOrginJson[7] + salesOrginJson[8] + salesOrginJson[9] + salesOrginJson[10] + salesOrginJson[11]
+		'0' : Math.floor(salesOrginJson[0]),
+		'1' : Math.floor(salesOrginJson[0] + salesOrginJson[1]),
+		'2' : Math.floor(salesOrginJson[0] + salesOrginJson[1] + salesOrginJson[2]),
+		'3' : Math.floor(salesOrginJson[0] + salesOrginJson[1] + salesOrginJson[2] + salesOrginJson[3]),
+		'4' : Math.floor(salesOrginJson[0] + salesOrginJson[1] + salesOrginJson[2] + salesOrginJson[3] + salesOrginJson[4]),
+		'5' : Math.floor(salesOrginJson[0] + salesOrginJson[1] + salesOrginJson[2] + salesOrginJson[3] + salesOrginJson[4] + salesOrginJson[5]),
+		'6' : Math.floor(salesOrginJson[0] + salesOrginJson[1] + salesOrginJson[2] + salesOrginJson[3] + salesOrginJson[4] + salesOrginJson[5] + salesOrginJson[6]),
+		'7' : Math.floor(salesOrginJson[0] + salesOrginJson[1] + salesOrginJson[2] + salesOrginJson[3] + salesOrginJson[4] + salesOrginJson[5] + salesOrginJson[6] + salesOrginJson[7]),
+		'8' : Math.floor(salesOrginJson[0] + salesOrginJson[1] + salesOrginJson[2] + salesOrginJson[3] + salesOrginJson[4] + salesOrginJson[5] + salesOrginJson[6] + salesOrginJson[7] + salesOrginJson[8]),
+		'9' : Math.floor(salesOrginJson[0] + salesOrginJson[1] + salesOrginJson[2] + salesOrginJson[3] + salesOrginJson[4] + salesOrginJson[5] + salesOrginJson[6] + salesOrginJson[7] + salesOrginJson[8] + salesOrginJson[9]),
+		'10' : Math.floor(salesOrginJson[0] + salesOrginJson[1] + salesOrginJson[2] + salesOrginJson[3] + salesOrginJson[4] + salesOrginJson[5] + salesOrginJson[6] + salesOrginJson[7] + salesOrginJson[8] + salesOrginJson[9] + salesOrginJson[10]),
+		'11' : Math.floor(salesOrginJson[0] + salesOrginJson[1] + salesOrginJson[2] + salesOrginJson[3] + salesOrginJson[4] + salesOrginJson[5] + salesOrginJson[6] + salesOrginJson[7] + salesOrginJson[8] + salesOrginJson[9] + salesOrginJson[10] + salesOrginJson[11])
 	}
 
 	var salesOrginYearJson = {

@@ -245,7 +245,7 @@
 						</table>
 						<div class="table-responsive">
 						<div id = "printdiv">
-						<table class="table table-bordered printdivTable" style="white-space:normal;table-layout:fixed;word-break:break-word;width:99.8% !important;">
+						<table class="table table-bordered printdivTable" style="white-space:normal;table-layout:fixed;word-break:break-word;width:99.8% !important; font-size:0.5em !important;">
 						<colgroup>
 								<col width="25%">
 								<col width="25%">
@@ -253,7 +253,7 @@
 								<col width="25%">
 							</colgroup>
 						<tr>
-						<h3 style="text-align:center;">주간 업무 보고</h3>
+							<h3 style="text-align:center; font-size:16px;">주간 업무 보고</h3>
 						</tr>
 						<tr>
 						<th class="thWeek" colspan="3"  style="text-align:center;"></th>

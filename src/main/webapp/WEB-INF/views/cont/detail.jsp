@@ -278,7 +278,7 @@
 																<div class="modal-dialog modal-80size" role="document">
 																	<div class="modal-content modal-80size">
 																		<div class="modal-header">
-																			<h4 class="modal-title"></h4>
+																			<h4 class="modal-title">엔드유저검색</h4>
 																			<button type="button" class="close" onclick="$('#endCustModal').modal('hide');" aria-label="Close">
 																				<span aria-hidden="true">&times;</span>
 																			</button>
@@ -521,6 +521,12 @@
 			$("#tab01_bottom").hide();
 			$("#tab_common_bottom").show();
 		});
+		
+		$('#endCustModal').on('show.bs.modal', function(e) {
+			var button = $(e.relatedTarget);
+			var modal = $(this);
+			modal.find('.modal-body').load(button.data("remote"));
+		});
 
 		$('#custModal').on('show.bs.modal', function(e) {
 			var button = $(e.relatedTarget);
@@ -553,7 +559,13 @@
 			modal.find('.modal-body').load(button.data("remote"));
 		});
 
-
+		function fnSetEndCustData(a, b) {
+			$("#endCustNo").val(b);
+			$("#endCustName").val(a);
+			$(".modal-backdrop").remove();
+			$("#endCustModal").modal("hide");
+		}
+		
 		function fnSetCustData(a, b) {
 			$("#custName").val(a);
 			$("#custNo").val(b);
@@ -595,6 +607,23 @@
 			$(".modal-backdrop").remove();
 			$("#contModal").modal("hide");
 		}
+		
+		function fnSetCustmereData(a, b) {
+			$("#endCustmemberNo").val(a);
+			$("#endCustmemberName").val(b);
+			$(".modal-backdrop").remove();
+			$("#endCustmemberModal").modal("hide");
+		}
+		
+		$('#endCustmemberModal').on('show.bs.modal', function(e) {
+			var custNo = $("#endCustNo").val();
+			var url = '${path}/modal/popup.do?popId=custmem&compNo=' + custNo;
+			$("#endCustmemberModalbtn").data("remote",url);
+
+			var button = $(e.relatedTarget);
+			var modal = $(this);
+			modal.find('.modal-body').load(button.data("remote"));
+		});
 
 		function fn_SaveCont() {
 			var contData = {};

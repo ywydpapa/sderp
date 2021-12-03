@@ -312,7 +312,7 @@
 											<input type="text" class="form-control" name="custName" id="custName" value="" readonly />
 											<input type="hidden" name="custNo" id="custNo" value="" />
 											<span class="input-group-btn">
-												<button class="btn btn-primary sch-company" data-remote="${path}/modal/popup.do?popId=cust" type="button" data-toggle="modal" data-target="#custModal">
+												<button class="btn btn-primary sch-company" data-remote="${path}/modal/popup.do?popId=endCust" type="button" data-toggle="modal" data-target="#custModal">
 													<i class="icofont icofont-search"></i>
 												</button>
 											</span>
@@ -321,7 +321,7 @@
 												<div class="modal-dialog modal-80size" role="document">
 													<div class="modal-content modal-80size">
 														<div class="modal-header">
-															<h4 class="modal-title"></h4>
+															<h4 class="modal-title">엔드유저검색</h4>
 															<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 																<span aria-hidden="true">&times;</span>
 															</button>
@@ -504,7 +504,7 @@
 			$(".modal-backdrop").remove();
 			$("#userModal").modal("hide");
 		}
-		function fnSetCustData(a, b) {
+		function fnSetEndCustData(a, b) {
 			$("#custNo").val(b);
 			$("#custName").val(a);
 			$(".modal-backdrop").remove();

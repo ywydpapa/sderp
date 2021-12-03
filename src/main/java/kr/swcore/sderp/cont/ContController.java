@@ -104,8 +104,8 @@ public class ContController {
 		return mav;
 	}
 
-	@RequestMapping("/detail/{contNo}")
-	public ModelAndView detail(HttpSession session, @PathVariable("contNo") int contNo, ModelAndView mav) {
+	@RequestMapping("/detail/{contNo}/{userNo}")
+	public ModelAndView detail(HttpSession session, @PathVariable("contNo") int contNo, @PathVariable("userNo") int userNo, ModelAndView mav) {
 		mav.setViewName("cont/detail");
 		ContDTO contDTO = new ContDTO();
 		contDTO = contService.detailCont(contNo);
@@ -116,13 +116,15 @@ public class ContController {
 		mav.addObject("dtodata02", soppdataService.listSoppdata02(soppNo));
 		mav.addObject("saleslist", codeService.listSalestype(session));
 		mav.addObject("sstatuslist", codeService.listSstatus(session));
-		mav.addObject("salesinsopp",salesService.listSalesinsopp(session, soppNo));
-		mav.addObject("techdinsopp",techdService.listTechdinsopp(session, soppNo));
-		mav.addObject("soppFiles",soppService.listFile(soppNo));
-		mav.addObject("contractType", codeService.listContractType(session));
-		mav.addObject("contType", codeService.listContType(session));
-		mav.addObject("areaType", codeService.listAreaType(session));
+		mav.addObject("salesinsopp",salesService.listSalesinsopp(session, soppNo, userNo));
+		mav.addObject("techdinsopp",techdService.listTechdinsopp(session, soppNo, userNo));
 		return mav;
+		/*
+		 * mav.addObject("soppFiles",soppService.listFile(soppNo));
+		 * mav.addObject("contractType", codeService.listContractType(session));
+		 * mav.addObject("contType", codeService.listContType(session));
+		 * mav.addObject("areaType", codeService.listAreaType(session)); return mav;
+		 */
 	}
 
 	@RequestMapping("write.do")

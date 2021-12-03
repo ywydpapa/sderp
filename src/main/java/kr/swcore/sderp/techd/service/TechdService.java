@@ -17,7 +17,7 @@ public interface TechdService {
 	List<TechdDTO> listTechd(HttpSession session, PageDTO pageDTO);
 	Object listTechd(HttpSession session, String param, HttpServletRequest request, HttpServletResponse response);
 	List<TechdDTO> listconTechd(HttpSession session, TechdDTO dto);
-	List<SalesDTO> listTechdinsopp(HttpSession session, int soppNo);
+	List<SalesDTO> listTechdinsopp(HttpSession session, int soppNo, int userNo);
 	TechdDTO detailTechd(int techdNo);
 	int updateTechd(TechdDTO dto);
 	int deleteTechd(int techdNo);

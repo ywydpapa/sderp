@@ -179,7 +179,7 @@
 																	<div class="modal-dialog modal-80size" role="document">
 																		<div class="modal-content modal-80size">
 																			<div class="modal-header">
-																				<h4 class="modal-title"></h4>
+																				<h4 class="modal-title">엔드유저검색</h4>
 																				<button type="button" class="close" onclick="$('#endCustModal').modal('hide');" aria-label="Close">
 																					<span aria-hidden="true">&times;</span>
 																				</button>

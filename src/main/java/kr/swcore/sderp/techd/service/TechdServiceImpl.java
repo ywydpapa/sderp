@@ -140,9 +140,10 @@ public class TechdServiceImpl implements TechdService {
 	}
 	
 	@Override
-	public List<SalesDTO> listTechdinsopp(HttpSession session, int soppNo) {
+	public List<SalesDTO> listTechdinsopp(HttpSession session, int soppNo, int userNo) {
 		SoppDTO soppdto = SessionInfoGet.getCompNoDto(session);
 		soppdto.setSoppNo(soppNo);
+		soppdto.setUserNo(userNo);
 		
 		return techdDao.listTechdinsopp(soppdto);
 	}

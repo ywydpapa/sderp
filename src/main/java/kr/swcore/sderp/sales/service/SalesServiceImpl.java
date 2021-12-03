@@ -110,9 +110,10 @@ public class SalesServiceImpl implements SalesService {
 	}
 
 	@Override
-	public List<SalesDTO> listSalesinsopp(HttpSession session, int soppNo) {
+	public List<SalesDTO> listSalesinsopp(HttpSession session, int soppNo, int userNo) {
 		SoppDTO soppdto = SessionInfoGet.getCompNoDto(session);
 		soppdto.setSoppNo(soppNo);
+		soppdto.setUserNo(userNo);
 		
 		return salesDao.listSalesinsopp(soppdto);
 	}

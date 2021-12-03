@@ -197,7 +197,7 @@ from
 		left join swc_sopp d on a.soppNo = d.soppNo
 		left join swc_cont e on a.contNo = e.contNo
 		left join swc_code f on a.techdType = f.codeNo 
-		where a.attrib not like 'XXX%' and a.compNo = #{compNo} and a.soppNo = #{soppNo} 
+		where a.attrib not like 'XXX%' and a.compNo = #{compNo} and a.soppNo = #{soppNo} and a.userNo = #{userNo}
 		order by techdNo 
  </select>
 

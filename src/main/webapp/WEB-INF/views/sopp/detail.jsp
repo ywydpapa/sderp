@@ -204,9 +204,11 @@
 													</tr>
 													<tr>
 														<th scope="row" class="requiredTextCss">진행단계</th>
-														<td><select name="soppStatus" id="soppStatus" class="form-control form-control-sm" onchange="javascript:changeProbability()">
+														<td><select name="soppStatus" id="soppStatus" class="form-control form-control-sm">
 																<c:forEach var="sstatuslist" items="${sstatuslist}">
+																	<c:if test="${sstatuslist.codeNo ne 10183 && sstatuslist.codeNo ne 10184}">
 																	<option value="${sstatuslist.codeNo}">${sstatuslist.desc03}</option>
+																	</c:if>
 																</c:forEach>
 														</select></td>
 														<th scope="row">가능성</th>

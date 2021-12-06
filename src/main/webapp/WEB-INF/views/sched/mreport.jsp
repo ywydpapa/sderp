@@ -205,7 +205,7 @@
 								<col width="25%">
 							</colgroup>
 						<tr>
-						<h3 style="text-align:center; font-size:16px;">주간 업무 보고</h3>
+							<h3 style="text-align:center; font-size:16px;">주간 업무 보고</h3>
 						</tr>
 						<tr>
 						<th class="thWeek" colspan="3"  style="text-align:center;"></th>
@@ -223,14 +223,14 @@
 								<col width="80%">
 							</colgroup>
 							<c:forEach var="ritem" items="${rlist}" varStatus="stvar">
-							<c:if test="${ritem.weektype eq 'p' && ritem.schedCheck eq '1'}">
-							<tr>
-								<td class="secondsr1 text-center"><c:if test="${ritem.weekdays eq 2}">월</c:if><c:if test="${ritem.weekdays eq 3}">화</c:if><c:if test="${ritem.weekdays eq 4}">수</c:if><c:if test="${ritem.weekdays eq 5}">목</c:if><c:if test="${ritem.weekdays eq 6}">금</c:if><c:if test="${ritem.weekdays eq 7}">토</c:if></td>
-								<td class="chktd text-left" style="word-break:break-all"><b>${ritem.title}</b><br/>
-								${fn:replace(ritem.schedDesc, replaceChar, "<br/>") }
-								<input type="checkbox" style="display:none" class="sr1chk form-control-sm" checked></td>
-							</tr>
-							</c:if>
+								<c:if test="${ritem.weektype eq 'p' && ritem.schedCheck eq '1'}">
+									<tr>
+										<td class="secondsr1 text-center"><c:if test="${ritem.weekdays eq 2}">월</c:if><c:if test="${ritem.weekdays eq 3}">화</c:if><c:if test="${ritem.weekdays eq 4}">수</c:if><c:if test="${ritem.weekdays eq 5}">목</c:if><c:if test="${ritem.weekdays eq 6}">금</c:if><c:if test="${ritem.weekdays eq 7}">토</c:if></td>
+										<td class="chktd text-left" style="word-break:break-all"><b>${ritem.title}</b><br/>
+										${fn:replace(ritem.schedDesc, replaceChar, "<br/>") }
+										<input type="checkbox" style="display:none" class="sr1chk form-control-sm" checked></td>
+									</tr>
+								</c:if>
 							</c:forEach>
 							</table>
 							<c:if test="${addtxt.prCheck eq '1' }">
@@ -569,7 +569,7 @@ function printWeek() {
     $(".thWeek").html("일자 :" + thisweek);
     var unam = "${userName}";
     console.log(unam);
-    $(".thUname").html("담당:" + unam);
+    /* $(".thUname").html("담당:" + unam); */
     $("#printdiv").attr("style", "display:none");
 }
 

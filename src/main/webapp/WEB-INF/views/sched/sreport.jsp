@@ -115,10 +115,10 @@
 							</td>
 							<c:choose>
 								<c:when test="${myadd.prCheck eq '1' }">
-									<td style="text-align:center;"><input type="checkbox" data-id="${myadd.sreportNo }" data-check="1" data-name="add" class="praddchk form-control-sm" checked></td>
+									<td style="text-align:center;"><input type="checkbox" data-id="${myadd.sreportNo}" data-check="1" data-name="add" class="praddchk form-control-sm" checked></td>
 								</c:when>
 								<c:otherwise>
-									<td style="text-align:center;"><input type="checkbox" data-id="${myadd.sreportNo }" data-check="0" data-name="add" class="praddchk form-control-sm"></td>
+									<td style="text-align:center;"><input type="checkbox" data-id="${myadd.sreportNo}" data-check="0" data-name="add" class="praddchk form-control-sm"></td>
 								</c:otherwise>
 							</c:choose>
 							</tr>

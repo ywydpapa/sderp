@@ -119,8 +119,8 @@ public class SoppController {
 		mav.addObject("dtodata02", soppdataService.listSoppdata02(soppNo));
 		mav.addObject("saleslist", codeService.listSalestype(session));
 		mav.addObject("sstatuslist", codeService.listSstatus(session));
-		mav.addObject("salesinsopp",salesService.listSalesinsopp(session, soppNo));
-		mav.addObject("techdinsopp",techdService.listTechdinsopp(session, soppNo));
+		mav.addObject("salesinsopp",salesService.listSalesinsopp(session, soppNo, 0));
+		mav.addObject("techdinsopp",techdService.listTechdinsopp(session, soppNo, 0));
 		mav.addObject("soppFiles",soppService.listFile(soppNo));
 		mav.setViewName("sopp/detail");
 		return mav;
@@ -133,7 +133,7 @@ public class SoppController {
 		mav.addObject("dtodata02", soppdataService.listSoppdata02(soppNo));
 		mav.addObject("saleslist", codeService.listSalestype(session));
 		mav.addObject("sstatuslist", codeService.listSstatus(session));
-		mav.addObject("salesinsopp",salesService.listSalesinsopp(session, soppNo));
+		mav.addObject("salesinsopp",salesService.listSalesinsopp(session, soppNo, 0));
 		mav.setViewName("sopp/detail2");
 		return mav;
 	}

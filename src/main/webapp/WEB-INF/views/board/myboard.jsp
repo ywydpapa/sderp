@@ -22,163 +22,165 @@
 		}
 	%>
 
-	<div class="row" style="min-width: 1673px; min-height: 2379px; max-width: 1673px; max-height: 2379px;">
-		<div class="col-md-12 col-lg-5" style="min-width: 697.08px; min-height: 545px;">
-			<div class="card">
-				<div class="card-header">
-					<div style="display: inline-block;">
-						<h5>연간 계획대비 실적</h5>
-						<span style="vertical-align: bottom;">2021년</span>
+	<div class="row" >
+		<c:if test="${userRole ne 'CUSER'}">
+			<div class="col-md-12 col-lg-5" style="min-width: 697.08px; min-height: 545px;">
+				<div class="card">
+					<div class="card-header">
+						<div style="display: inline-block;">
+							<h5>연간 계획대비 실적</h5>
+							<span style="vertical-align: bottom;">2021년</span>
+						</div>
+						<!-- <div class="card-header-right">
+							<i class="icofont icofont-spinner-alt-5"></i>
+						</div> -->
+						<select class="custom-select mr-sm-2" name="graph1TargetYear" id="graph1TargetYear" style="float:right;">
+							<option value = "2021" <c:if test="${graph1.targetYear == 2021}">selected</c:if> >2021</option>
+						</select>
+						<select class="custom-select mr-sm-2" name="graph1TargetDepartment" id="graph1TargetDepartment" style="float:right;">
+							<option value = "all" selected>전체</option>
+							<%--
+							<option value = "dept" disabled>부서</option>
+							<option value = "individual" disabled>개인</option>
+							--%>
+						</select>
 					</div>
-					<!-- <div class="card-header-right">
-						<i class="icofont icofont-spinner-alt-5"></i>
-					</div> -->
-					<select class="custom-select mr-sm-2" name="graph1TargetYear" id="graph1TargetYear" style="float:right;">
-						<option value = "2021" <c:if test="${graph1.targetYear == 2021}">selected</c:if> >2021</option>
-					</select>
-					<select class="custom-select mr-sm-2" name="graph1TargetDepartment" id="graph1TargetDepartment" style="float:right;">
-						<option value = "all" selected>전체</option>
-						<%--
-						<option value = "dept" disabled>부서</option>
-						<option value = "individual" disabled>개인</option>
-						--%>
-					</select>
-				</div>
-				<div class="card-block">
-					<div id="myChart01" style="width:650px; height:400px;"></div>
+					<div class="card-block">
+						<div id="myChart01" style="width:650px; height:400px;"></div>
+					</div>
 				</div>
 			</div>
-		</div>
-		<div class="col-md-12 col-lg-2" style="min-width: 278.83px; min-height: 545px;">
-			<div class="card">
-				<div class="card-header" style="padding:25px 12px;">
-					<select class="custom-select mr-sm-1" name="graph2TargetMonth" id="graph2TargetMonth" style="float:right;">
-						<option value = "01" <c:if test="${graph2.targetMonth == 01}">selected</c:if> >01</option>
-						<option value = "02" <c:if test="${graph2.targetMonth == 02}">selected</c:if> >02</option>
-						<option value = "03" <c:if test="${graph2.targetMonth == 03}">selected</c:if> >03</option>
-						<option value = "04" <c:if test="${graph2.targetMonth == 04}">selected</c:if> >04</option>
-						<option value = "05" <c:if test="${graph2.targetMonth == 05}">selected</c:if> >05</option>
-						<option value = "06" <c:if test="${graph2.targetMonth == 06}">selected</c:if> >06</option>
-						<option value = "07" <c:if test="${graph2.targetMonth == 07}">selected</c:if> >07</option>
-						<option value = "08" <c:if test="${graph2.targetMonth == 08}">selected</c:if> >08</option>
-						<option value = "09" <c:if test="${graph2.targetMonth == 09}">selected</c:if> >09</option>
-						<option value = "10" <c:if test="${graph2.targetMonth == 10}">selected</c:if> >10</option>
-						<option value = "11" <c:if test="${graph2.targetMonth == 11}">selected</c:if> >11</option>
-						<option value = "12" <c:if test="${graph2.targetMonth == 12}">selected</c:if> >12</option>
-					</select>
-					<select class="custom-select mr-sm-1" name="graph2TargetYear" id="graph2TargetYear" style="float:right;">
-						<option value = "2021" <c:if test="${graph2.targetYear == 2021}">selected</c:if> >2021</option>
-					</select>
-					<select class="custom-select mr-sm-1" name="graph2TargetDepartment" id="graph2TargetDepartment" style="float:right;">
-						<option value = "all" selected>전체</option>
-						<%--
-						<option value = "dept" disabled>부서</option>
-						<option value = "individual" disabled>개인</option>
-						--%>
-					</select>
-					<div style="display: inline-block;">
-						<h5>월 계획대비 실적</h5>
-						<span style="vertical-align: bottom;" id="graph2TargetMiniTitle">2021년 <%=monthStr%>월</span>
+			<div class="col-md-12 col-lg-2" style="min-width: 278.83px; min-height: 545px;">
+				<div class="card">
+					<div class="card-header" style="padding:25px 12px;">
+						<select class="custom-select mr-sm-1" name="graph2TargetMonth" id="graph2TargetMonth" style="float:right;">
+							<option value = "01" <c:if test="${graph2.targetMonth == 01}">selected</c:if> >01</option>
+							<option value = "02" <c:if test="${graph2.targetMonth == 02}">selected</c:if> >02</option>
+							<option value = "03" <c:if test="${graph2.targetMonth == 03}">selected</c:if> >03</option>
+							<option value = "04" <c:if test="${graph2.targetMonth == 04}">selected</c:if> >04</option>
+							<option value = "05" <c:if test="${graph2.targetMonth == 05}">selected</c:if> >05</option>
+							<option value = "06" <c:if test="${graph2.targetMonth == 06}">selected</c:if> >06</option>
+							<option value = "07" <c:if test="${graph2.targetMonth == 07}">selected</c:if> >07</option>
+							<option value = "08" <c:if test="${graph2.targetMonth == 08}">selected</c:if> >08</option>
+							<option value = "09" <c:if test="${graph2.targetMonth == 09}">selected</c:if> >09</option>
+							<option value = "10" <c:if test="${graph2.targetMonth == 10}">selected</c:if> >10</option>
+							<option value = "11" <c:if test="${graph2.targetMonth == 11}">selected</c:if> >11</option>
+							<option value = "12" <c:if test="${graph2.targetMonth == 12}">selected</c:if> >12</option>
+						</select>
+						<select class="custom-select mr-sm-1" name="graph2TargetYear" id="graph2TargetYear" style="float:right;">
+							<option value = "2021" <c:if test="${graph2.targetYear == 2021}">selected</c:if> >2021</option>
+						</select>
+						<select class="custom-select mr-sm-1" name="graph2TargetDepartment" id="graph2TargetDepartment" style="float:right;">
+							<option value = "all" selected>전체</option>
+							<%--
+							<option value = "dept" disabled>부서</option>
+							<option value = "individual" disabled>개인</option>
+							--%>
+						</select>
+						<div style="display: inline-block;">
+							<h5>월 계획대비 실적</h5>
+							<span style="vertical-align: bottom;" id="graph2TargetMiniTitle">2021년 <%=monthStr%>월</span>
+						</div>
+						<!-- <div class="card-header-right">
+							<i class="icofont icofont-spinner-alt-5"></i>
+						</div> -->
 					</div>
-					<!-- <div class="card-header-right">
-						<i class="icofont icofont-spinner-alt-5"></i>
-					</div> -->
-				</div>
-				<div class="card-block">
-					<div id="myChart02" style="width:270px; height:350px;"></div>
-				</div>
-				<div class="chart2">
-					<div class="mbo-title ky-box ky-box-default">
-						<%--<div class="col-sm-2"><div class="icon"><i class="fa fa-tags fa-5x" aria-hidden="true"></i></div></div>--%>
-						<div class="col-sm-12">
-							<div class="ky-box-content text-right">
-								<small>목표</small>
-								<span id="chart2_month_profitTarget">₩0</span>
+					<div class="card-block">
+						<div id="myChart02" style="width:270px; height:350px;"></div>
+					</div>
+					<div class="chart2">
+						<div class="mbo-title ky-box ky-box-default">
+							<%--<div class="col-sm-2"><div class="icon"><i class="fa fa-tags fa-5x" aria-hidden="true"></i></div></div>--%>
+							<div class="col-sm-12">
+								<div class="ky-box-content text-right">
+									<small>목표</small>
+									<span id="chart2_month_profitTarget">₩0</span>
+								</div>
+								<div class="ky-box-content text-right">
+									<small>매출</small>
+									<span id="chart2_month_salesTarget">₩0</span>
+								</div>
+								<div class="ky-box-content text-right">
+									<small>달성률</small>
+									<span class="text-danger" id="chart2_month_percent">0%</span>
+								</div>
+								<div class="ky-box-content text-right" style="border-top:1px solid #8C8C8C" id="0_month_text"><span class="" id="chart2_month_overTarget">+₩0</span></div>
 							</div>
-							<div class="ky-box-content text-right">
-								<small>매출</small>
-								<span id="chart2_month_salesTarget">₩0</span>
-							</div>
-							<div class="ky-box-content text-right">
-								<small>달성률</small>
-								<span class="text-danger" id="chart2_month_percent">0%</span>
-							</div>
-							<div class="ky-box-content text-right" style="border-top:1px solid #8C8C8C" id="0_month_text"><span class="" id="chart2_month_overTarget">+₩0</span></div>
 						</div>
 					</div>
 				</div>
 			</div>
-		</div>
-		<div class="col-md-12 col-lg-2" style="min-width: 278.83px; min-height: 545px;">
-			<div class="card">
-				<div class="card-header">
-					<select class="custom-select mr-sm-1" name="graph3TargetYear" id="graph3TargetYear" style="float:right;">
-						<option value = "2021" <c:if test="${graph3.targetYear == 2021}">selected</c:if> >2021</option>
-					</select>
-					<select class="custom-select mr-sm-1" name="graph3TargetDepartment" id="graph3TargetDepartment" style="float:right;">
-						<option value = "all" selected>전체</option>
-						<%--
-						<option value = "dept" disabled>부서</option>
-						<option value = "individual" disabled>개인</option>
-						--%>
-					</select>
-					<div style="display: inline-block;">
-						<h5>누적 계획대비 실적</h5>
-						<span style="vertical-align: bottom;" id="graph3TargetMiniTitle">2021년</span>
+			<div class="col-md-12 col-lg-2" style="min-width: 278.83px; min-height: 545px;">
+				<div class="card">
+					<div class="card-header">
+						<select class="custom-select mr-sm-1" name="graph3TargetYear" id="graph3TargetYear" style="float:right;">
+							<option value = "2021" <c:if test="${graph3.targetYear == 2021}">selected</c:if> >2021</option>
+						</select>
+						<select class="custom-select mr-sm-1" name="graph3TargetDepartment" id="graph3TargetDepartment" style="float:right;">
+							<option value = "all" selected>전체</option>
+							<%--
+							<option value = "dept" disabled>부서</option>
+							<option value = "individual" disabled>개인</option>
+							--%>
+						</select>
+						<div style="display: inline-block;">
+							<h5>누적 계획대비 실적</h5>
+							<span style="vertical-align: bottom;" id="graph3TargetMiniTitle">2021년</span>
+						</div>
+						<!-- <div class="card-header-right">
+							<i class="icofont icofont-spinner-alt-5"></i>
+						</div> -->
 					</div>
-					<!-- <div class="card-header-right">
-						<i class="icofont icofont-spinner-alt-5"></i>
-					</div> -->
-				</div>
-				<div class="card-block">
-					<div id="myChart03" style="width:270px; height:350px;"></div>
-				</div>
-				<div class="chart3">
-					<div class="mbo-title ky-box ky-box-default">
-						<%--<div class="col-sm-2"><div class="icon"><i class="fa fa-tags fa-5x" aria-hidden="true"></i></div></div>--%>
-						<div class="col-sm-12">
-							<div class="ky-box-content text-right">
-								<small>목표</small>
-								<span id="chart3_month_profitTarget">₩0</span>
+					<div class="card-block">
+						<div id="myChart03" style="width:270px; height:350px;"></div>
+					</div>
+					<div class="chart3">
+						<div class="mbo-title ky-box ky-box-default">
+							<%--<div class="col-sm-2"><div class="icon"><i class="fa fa-tags fa-5x" aria-hidden="true"></i></div></div>--%>
+							<div class="col-sm-12">
+								<div class="ky-box-content text-right">
+									<small>목표</small>
+									<span id="chart3_month_profitTarget">₩0</span>
+								</div>
+								<div class="ky-box-content text-right">
+									<small>매출</small>
+									<span id="chart3_month_salesTarget">₩0</span>
+								</div>
+								<div class="ky-box-content text-right">
+									<small>달성률</small>
+									<span class="text-danger" id="chart3_month_percent">0%</span>
+								</div>
+								<div class="ky-box-content text-right" style="border-top:1px solid #8C8C8C" id="0_year_text"><span class="" id="chart3_month_overTarget">+₩0</span></div>
 							</div>
-							<div class="ky-box-content text-right">
-								<small>매출</small>
-								<span id="chart3_month_salesTarget">₩0</span>
-							</div>
-							<div class="ky-box-content text-right">
-								<small>달성률</small>
-								<span class="text-danger" id="chart3_month_percent">0%</span>
-							</div>
-							<div class="ky-box-content text-right" style="border-top:1px solid #8C8C8C" id="0_year_text"><span class="" id="chart3_month_overTarget">+₩0</span></div>
 						</div>
 					</div>
 				</div>
 			</div>
-		</div>
-		<div class="col-md-12 col-lg-3" style="min-width: 418.25px; min-height: 545px;">
-			<div class="card">
-				<div class="card-header">
-					<select class="custom-select mr-sm-1" name="graph4TargetYear" id="graph4TargetYear" style="float:right;">
-						<option value = "2021" <c:if test="${graph4.targetYear == 2021}">selected</c:if> >2021</option>
-					</select>
-					<select class="custom-select mr-sm-1" name="graph4TargetDepartment" id="graph4TargetDepartment" style="float:right;">
-						<option value = "all" selected>전체</option>
-						<%--
-						<option value = "dept" disabled>부서</option>
-						<option value = "individual" disabled>개인</option>
-						--%>
-					</select>
-					<div style="display: inline-block;">
-						<h5>누적 판매방식별 실적</h5>
-						<span style="vertical-align: bottom;" id="graph4TargetMiniTitle">2021년</span>
+			<div class="col-md-12 col-lg-3" style="min-width: 418.25px; min-height: 545px;">
+				<div class="card">
+					<div class="card-header">
+						<select class="custom-select mr-sm-1" name="graph4TargetYear" id="graph4TargetYear" style="float:right;">
+							<option value = "2021" <c:if test="${graph4.targetYear == 2021}">selected</c:if> >2021</option>
+						</select>
+						<select class="custom-select mr-sm-1" name="graph4TargetDepartment" id="graph4TargetDepartment" style="float:right;">
+							<option value = "all" selected>전체</option>
+							<%--
+							<option value = "dept" disabled>부서</option>
+							<option value = "individual" disabled>개인</option>
+							--%>
+						</select>
+						<div style="display: inline-block;">
+							<h5>누적 판매방식별 실적</h5>
+							<span style="vertical-align: bottom;" id="graph4TargetMiniTitle">2021년</span>
+						</div>
+					</div>
+					<div class="card-block">
+						<div id="myChart04" style="width:350px; height:400px;"></div>
 					</div>
 				</div>
-				<div class="card-block">
-					<div id="myChart04" style="width:350px; height:400px;"></div>
-				</div>
 			</div>
-		</div>
-		<div class="col-md-12 col-lg-6" style="min-width: 836.5px; min-height: 917px;">
+		</c:if>
+		<div class="col-md-12 col-lg-6">
 			<div class="card">
 				<div class="card-header">
 					<h5>영업기회현황</h5>
@@ -227,7 +229,7 @@
 			</div>
 		</div>
 		<c:if test="${saleslist != null}">
-			<div class="col-md-12 col-lg-6" style="min-width: 836.5px; min-height: 917px;">
+			<div class="col-md-12 col-lg-6">
 				<div class="card">
 					<div class="card-header">
 						<div style="display: inline-block;">
@@ -278,7 +280,7 @@
 			</div>
 		</c:if>
 		<c:if test="${techdlist != null}">
-			<div class="col-md-12 col-lg-6" style="min-width: 836.5px; min-height: 917px;">
+			<div class="col-md-12 col-lg-6">
 				<div class="card">
 					<div class="card-header">
 						<div style="display: inline-block;">
@@ -328,7 +330,7 @@
 				</div>
 			</div>
 		</c:if>
-		<div class="col-md-12 col-lg-6" style="min-width: 836.5px; min-height: 917px;">
+		<div class="col-md-12 col-lg-6">
 			<div class="card">
 				<div class="card-header">
 					<h5>계약현황</h5>
@@ -368,7 +370,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="col-md-12 col-lg-6" style="min-width: 836.5px; min-height: 917px;">
+		<div class="col-md-12 col-lg-6">
 			<div class="card">
 				<div class="card-header">
 					<h5>공지사항</h5>

@@ -263,3 +263,8 @@
 	</div>
 </div>
 <jsp:include page="../body-bottom.jsp"/>
+<script>
+	$("[id^='userRole']").each(function(index, item){
+		$(this).val($(this).find("option:eq(1)").val());
+	})
+</script>

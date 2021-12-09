@@ -51,7 +51,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  		update swc_user set 
  		userName = #{userName}, 
  		userRole = #{userRole},
- 		userOtp=#{userOtp},
  		org_id = #{org_id},
  		userKey = #{userKey},
 		<choose>

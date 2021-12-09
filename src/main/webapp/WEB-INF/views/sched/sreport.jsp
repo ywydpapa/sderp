@@ -56,7 +56,7 @@
 					<div class="table-responsive">
 						<div class="page-header-title">
 							<div class="d-inline alert alert-success">
-								이번주 업무 목록
+								지난주 업무 목록
 							</div>
 						</div>
 						<table id="schedTable" class="table table-bordered" style="table-layout:fixed;word-break:break-word">
@@ -82,7 +82,7 @@
 							</thead>
 							<tbody>
 							<c:forEach var="ritem" items="${rlist}" varStatus="stvar">
-							<c:if test="${ritem.weektype eq 't'}">
+							<c:if test="${ritem.weektype eq 'p'}">
 							<tr>
 								<td class="firstr1">${ritem.weekno}</td>
 								<td class="secondr1"><c:if test="${ritem.weekdays eq 2}">월</c:if><c:if test="${ritem.weekdays eq 3}">화</c:if><c:if test="${ritem.weekdays eq 4}">수</c:if><c:if test="${ritem.weekdays eq 5}">목</c:if><c:if test="${ritem.weekdays eq 6}">금</c:if><c:if test="${ritem.weekdays eq 7}">토</c:if></td>
@@ -127,7 +127,7 @@
 						<hr>
 						<div class="page-header-title">
 							<div class="d-inline alert alert-success">
-								다음주 업무 목록
+								이번주 업무 목록
 							</div>
 						</div>
 						<table id="schedTable" class="table table-bordered " style="table-layout:fixed;word-break:break-word">
@@ -153,7 +153,7 @@
 							</thead>
 							<tbody>
 							<c:forEach var="ritem" items="${rlist}">
-							<c:if test="${ritem.weektype eq 'n'}">
+							<c:if test="${ritem.weektype eq 't'}">
 							<tr>
 								<td class="firstr2">${ritem.weekno}</td>
 								<td class="secondr2"><c:if test="${ritem.weekdays eq 1}">일</c:if><c:if test="${ritem.weekdays eq 2}">월</c:if><c:if test="${ritem.weekdays eq 3}">화</c:if><c:if test="${ritem.weekdays eq 4}">수</c:if><c:if test="${ritem.weekdays eq 5}">목</c:if><c:if test="${ritem.weekdays eq 6}">금</c:if><c:if test="${ritem.weekdays eq 7}">토</c:if></td>
@@ -194,7 +194,7 @@
 							</tbody>
 						</table>
 						<hr>
-						<%-- <div class="page-header-title">
+						<div class="page-header-title">
 							<div class="d-inline alert alert-success">
 								다음주 업무 목록
 							</div>
@@ -242,7 +242,7 @@
 							</c:if>
 							</c:forEach>
 							</tbody>
-						</table> --%>
+						</table>
 						<div class="table-responsive">
 						<div id = "printdiv">
 						<table class="table table-bordered printdivTable" style="white-space:normal;table-layout:fixed;word-break:break-word;width:99.8% !important; font-size:0.5em !important;">
@@ -260,8 +260,8 @@
 						<th class="thUname" style="text-align:center;"></th>
 						</tr>
 						<tr>
-						<td class="colorTd" colspan="2" style="text-align:center;background-color:yellow;width:50%">이번주 진행사항</td>
-						<td class="colorTd" colspan="2" style="text-align:center;background-color:yellow;width:50%">다음주 예정사항</td>
+						<td class="colorTd" colspan="2" style="text-align:center;background-color:yellow;width:50%">지난주 진행사항</td>
+						<td class="colorTd" colspan="2" style="text-align:center;background-color:yellow;width:50%">이번주 예정사항</td>
 						</tr>
 						<tr>
 						<td colspan="2">
@@ -271,7 +271,7 @@
 								<col width="80%">
 							</colgroup>
 							<c:forEach var="ritem" items="${rlist}" varStatus="stvar">
-							<c:if test="${ritem.weektype eq 't'}">
+							<c:if test="${ritem.weektype eq 'p'}">
 							<tr>
 								<td class="secondsr1 text-center"><c:if test="${ritem.weekdays eq 2}">월</c:if><c:if test="${ritem.weekdays eq 3}">화</c:if><c:if test="${ritem.weekdays eq 4}">수</c:if><c:if test="${ritem.weekdays eq 5}">목</c:if><c:if test="${ritem.weekdays eq 6}">금</c:if><c:if test="${ritem.weekdays eq 7}">토</c:if></td>
 								<td class="chktd text-left" style="word-break:break-all"><b>${ritem.title}</b><br/>
@@ -296,7 +296,7 @@
 								<col width="80%">
 							</colgroup>
 							<c:forEach var="ritem" items="${rlist}" varStatus="stvar">
-							<c:if test="${ritem.weektype eq 'n'}">
+							<c:if test="${ritem.weektype eq 't'}">
 							<tr>
 								<td class="secondsr2 text-center"><c:if test="${ritem.weekdays eq 2}">월</c:if><c:if test="${ritem.weekdays eq 3}">화</c:if><c:if test="${ritem.weekdays eq 4}">수</c:if><c:if test="${ritem.weekdays eq 5}">목</c:if><c:if test="${ritem.weekdays eq 6}">금</c:if><c:if test="${ritem.weekdays eq 7}">토</c:if></td>
 								<td class="chktd text-left" style="white-space:normal;word-break:break-all"><b>${ritem.title}</b><br/>

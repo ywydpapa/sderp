@@ -10,84 +10,28 @@
 
 <!DOCTYPE html>
 <html>
-
-<table class="table table-bordered printdivTable" style="page-break-after: always;margin:0 auto;white-space:normal;table-layout:fixed;word-break:break-word;width:90% !important; font-size:0.8em !important;">
-	<colgroup>
-			<col width="25%">
-			<col width="25%">
-			<col width="25%">
-			<col width="25%">
-		</colgroup>
-	<tr>
-	<h3 style="text-align:center; font-size:16px;">주간 업무 보고</h3>
-	</tr>
-	<c:forEach var="ritem" items="${rlist}" varStatus="stvar">
-		<c:set var="itemUser" value="${ritem.userName}" />
-	</c:forEach>
-	<tr>
-	<th class="thWeek" colspan="3"  style="text-align:center;"></th>
-	<th class="thUname" style="text-align:center;">담당 : ${itemUser}</th>
-	</tr>
-	<tr>
-	<td class="colorTd" colspan="2" style="text-align:center;background-color:yellow;width:50%">이번주 진행사항</td>
-	<td class="colorTd" colspan="2" style="text-align:center;background-color:yellow;width:50%">다음주 예정사항</td>
-	</tr>
-	<tr>
-	<td colspan="2">
-		<table class="table table-bordered " style="table-layout:fixed;word-break:break-word;margin:auto;">
-		<colgroup>
-			<col width="20%">
-			<col width="80%">
-		</colgroup>
-		<c:forEach var="ritem" items="${rlist}" varStatus="stvar">
-		<c:if test="${ritem.weektype eq 't' && ritem.schedCheck eq '1'}">
-		<tr>
-			<td class="secondsr1 text-center"><c:if test="${ritem.weekdays eq 2}">월</c:if><c:if test="${ritem.weekdays eq 3}">화</c:if><c:if test="${ritem.weekdays eq 4}">수</c:if><c:if test="${ritem.weekdays eq 5}">목</c:if><c:if test="${ritem.weekdays eq 6}">금</c:if><c:if test="${ritem.weekdays eq 7}">토</c:if></td>
-			<td class="chktd text-left" style="white-space:normal;word-break:break-all"><b>${ritem.title}</b><br/>
-			${fn:replace(ritem.schedDesc, replaceChar, "<br/>") }
-			<input type="checkbox" style="display:none" class="sr1chk form-control-sm" checked></td>
-		</tr>
-		</c:if>
-		</c:forEach>
-		</table>
-		<c:if test="${addtxt.prCheck eq '1' }">
-			<div class="praddtxt1">
-			<hr>
-			<h6>추가 기재 사항</h6>
-			<hr>
-			<div>${addtxt.prComment}</div>
-			</div>
-		</c:if>
-	</td>
-	<td colspan="2">
-		<table class="table table-bordered " style="table-layout:fixed;word-break:break-all;">
-		<colgroup>
-			<col width="20%">
-			<col width="80%">
-		</colgroup>
-		<c:forEach var="ritem" items="${rlist}" varStatus="stvar">
-		<c:if test="${ritem.weektype eq 'n' && ritem.schedCheck eq '1'}">
-		<tr>
-			<td class="secondsr2 text-center"><c:if test="${ritem.weekdays eq 2}">월</c:if><c:if test="${ritem.weekdays eq 3}">화</c:if><c:if test="${ritem.weekdays eq 4}">수</c:if><c:if test="${ritem.weekdays eq 5}">목</c:if><c:if test="${ritem.weekdays eq 6}">금</c:if><c:if test="${ritem.weekdays eq 7}">토</c:if></td>
-			<td class="chktd text-left" style="white-space:normal;word-break:break-all"><b>${ritem.title}</b><br/>
-			${fn:replace(ritem.schedDesc, replaceChar, "<br/>") }
-			<input type="checkbox" style="display:none" class="sr2chk form-control-sm" checked></td>
-		</tr>
-		</c:if>
-		</c:forEach>
-		</table>
-		<c:if test="${addtxt.thCheck eq '1' }">
-			<div class="thaddtxt1">
-			<hr>
-			<h6>추가 기재 사항</h6>
-			<hr>
-			<div>${addtxt.thComment}</div>
-			</div>							
-		</c:if>
-	</td>
-	</tr>
-	</table>
-<%-- <div id="main_content">
+<jsp:include page="../head.jsp"/>
+<jsp:include page="../body-top.jsp"/>
+<style>
+    th{
+        text-align:center;
+    }
+    .firstr1,.secondr1,.firstr2,.secondr2,.firstr3,.secondr3{
+      text-align:center;
+      vertical-align:middle; 
+    }
+    .chktd{
+      text-align:center;
+      vertical-align:middle;
+    }
+    td{
+    white-space:normal;
+    }
+</style>
+<style type="text/css" media="print">
+  @page { size: landscape; }
+</style>
+<div id="main_content">
 			<div class="page-header2">
 				<div class="row align-items-end">
 					<div class="col-lg-12">
@@ -122,7 +66,7 @@
 								<col width="35%">
 								<col width="10%">
 								<col width="10%">
-								<col width="10%">
+								<%-- <col width="10%"> --%>
 							</colgroup>
 							<thead>
 								<tr style="vertical-align:middle;text-align: center;">
@@ -172,7 +116,7 @@
 								<col width="35%">
 								<col width="10%">
 								<col width="10%">
-								<col width="10%">
+								<%-- <col width="10%"> --%>
 							</colgroup>
 							<thead>
 								<tr>
@@ -222,7 +166,7 @@
 								<col width="35%">
 								<col width="10%">
 								<col width="10%">
-								<col width="10%">
+								<%-- <col width="10%"> --%>
 							</colgroup>
 							<thead>
 								<tr>
@@ -261,7 +205,7 @@
 								<col width="25%">
 							</colgroup>
 						<tr>
-						<h3 style="text-align:center; font-size:16px;">주간 업무 보고</h3>
+							<h3 style="text-align:center; font-size:16px;">주간 업무 보고</h3>
 						</tr>
 						<tr>
 						<th class="thWeek" colspan="3"  style="text-align:center;"></th>
@@ -279,14 +223,14 @@
 								<col width="80%">
 							</colgroup>
 							<c:forEach var="ritem" items="${rlist}" varStatus="stvar">
-							<c:if test="${ritem.weektype eq 'p' && ritem.schedCheck eq '1'}">
-							<tr>
-								<td class="secondsr1 text-center"><c:if test="${ritem.weekdays eq 2}">월</c:if><c:if test="${ritem.weekdays eq 3}">화</c:if><c:if test="${ritem.weekdays eq 4}">수</c:if><c:if test="${ritem.weekdays eq 5}">목</c:if><c:if test="${ritem.weekdays eq 6}">금</c:if><c:if test="${ritem.weekdays eq 7}">토</c:if></td>
-								<td class="chktd text-left" style="word-break:break-all"><b>${ritem.title}</b><br/>
-								${fn:replace(ritem.schedDesc, replaceChar, "<br/>") }
-								<input type="checkbox" style="display:none" class="sr1chk form-control-sm" checked></td>
-							</tr>
-							</c:if>
+								<c:if test="${ritem.weektype eq 'p' && ritem.schedCheck eq '1'}">
+									<tr>
+										<td class="secondsr1 text-center"><c:if test="${ritem.weekdays eq 2}">월</c:if><c:if test="${ritem.weekdays eq 3}">화</c:if><c:if test="${ritem.weekdays eq 4}">수</c:if><c:if test="${ritem.weekdays eq 5}">목</c:if><c:if test="${ritem.weekdays eq 6}">금</c:if><c:if test="${ritem.weekdays eq 7}">토</c:if></td>
+										<td class="chktd text-left" style="word-break:break-all"><b>${ritem.title}</b><br/>
+										${fn:replace(ritem.schedDesc, replaceChar, "<br/>") }
+										<input type="checkbox" style="display:none" class="sr1chk form-control-sm" checked></td>
+									</tr>
+								</c:if>
 							</c:forEach>
 							</table>
 							<c:if test="${addtxt.prCheck eq '1' }">
@@ -335,7 +279,7 @@
 	</div>
 	<!--//table-->
 </div>
-<jsp:include page="../body-bottom.jsp"/> --%>
+<jsp:include page="../body-bottom.jsp"/>
 <script>
 /* function fn_Print() {
 	$("#printdiv").attr("style", "display:block");
@@ -625,7 +569,7 @@ function printWeek() {
     $(".thWeek").html("일자 :" + thisweek);
     var unam = "${userName}";
     console.log(unam);
-   /*  $(".thUname").html("담당:" + unam); */
+    /* $(".thUname").html("담당:" + unam); */
     $("#printdiv").attr("style", "display:none");
 }
 

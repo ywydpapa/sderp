@@ -3,7 +3,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <c:set var="path" value ="${pageContext.request.contextPath}"/>
 <head>
-<title>BizCore</title>
+<title>SDERP</title>
 <meta name="format-detection" 		content="telephone=no" />
 <meta http-equiv="X-UA-Compatible" 	content="IE=edge" />
 <meta http-equiv="Content-Type" 	content="text/html; charset=utf-8"/>
@@ -79,7 +79,6 @@
 <script src="${path}/js/dataTables.bootstrap4.min.js"></script>
 <script src="${path}/js/dataTables.responsive.min.js"></script>
 <script src="${path}/js/responsive.bootstrap4.min.js"></script>
-<script src="${path}/js/html2pdf.bundle.min.js"></script>
 
 <!-- i18next.min.js -->
 <script type="text/javascript" src="${path}/js/i18next.min.js"></script>

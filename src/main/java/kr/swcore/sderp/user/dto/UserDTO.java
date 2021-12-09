@@ -15,7 +15,7 @@ public class UserDTO {
 	private String userPasswd;
 	private String userRole;
 	private String userKey;
-	private String userOtp;
+	private int userOtp;
 	private String compNo;
 	private String userRank;
 	private String userDept;

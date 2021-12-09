@@ -85,7 +85,6 @@ public class schedController {
 		return ojb.toJson(schedService.listSched(session, param, request, response));
 	}
 	
-	//�˻� ��ư Ŭ�� ��
 	@RequestMapping("listcon.do")
 	public ModelAndView listcon(HttpSession session, ModelAndView mav, @ModelAttribute SchedDTO dto) {
 		mav.addObject("list", schedService.listconSched(session, dto));

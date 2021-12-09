@@ -166,7 +166,7 @@ margin-left:10px;
 	
 	}
 </script>
-<title>SDERP</title>
+<title>BizCore</title>
  
 <script type="text/javaScript" language="javascript">
 

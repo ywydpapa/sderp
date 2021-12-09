@@ -6,11 +6,6 @@
 <c:set var="path" value ="${pageContext.request.contextPath}"/>
 <!DOCTYPE html>
 <html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
 <jsp:include page="../head.jsp"/>
 <jsp:include page="../body-top.jsp"/>
 <div id="main_content">

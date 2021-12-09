@@ -62,7 +62,7 @@
 							</tbody>
 						</table>
 						</div>
-						<div id="priviewTable" style="float:right;width:95%;">
+						<div id="priviewTable" style="float:right;width:94.5%;">
 							<table id="soppTable" class="table table-bordered">
 								<thead>
 								<tr>

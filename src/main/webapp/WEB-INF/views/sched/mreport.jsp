@@ -29,8 +29,8 @@
 	<th class="thUname" style="text-align:center;">담당 : ${itemUser}</th>
 	</tr>
 	<tr>
-	<td class="colorTd" colspan="2" style="text-align:center;background-color:yellow;width:50%">이번주 진행사항</td>
-	<td class="colorTd" colspan="2" style="text-align:center;background-color:yellow;width:50%">다음주 예정사항</td>
+	<td class="colorTd" colspan="2" style="text-align:center;background-color:yellow;width:50%">지난주 진행사항</td>
+	<td class="colorTd" colspan="2" style="text-align:center;background-color:yellow;width:50%">이번주 예정사항</td>
 	</tr>
 	<tr>
 	<td colspan="2">

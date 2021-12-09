@@ -199,14 +199,12 @@
 													</tr>
 													<tr>
 														<th scope="row" class="requiredTextCss">진행단계</th>
-														<td><select name="soppStatus" id="soppStatus" class="form-control form-control-sm" onchange="javascript:changeProbability()">
+														<td><select name="soppStatus" id="soppStatus" class="form-control form-control-sm">
 																<option value="10178">영업정보파악</option>
 																<option value="10179">초기접촉</option>
 																<option value="10180">제안서제출 및 PT</option>
 																<option value="10181">견적서제출</option>
 																<option value="10182">계약요청</option>
-																<option value="10183">수주</option>
-																<option value="10184">매출</option>
 																<option value="">수금완료</option>
 																<option value="">은행입금</option>
 																<option value="10187">계약실패</option>

@@ -16,7 +16,7 @@
 		<div class="row align-items-end">
 			<div class="col-lg-12">
 				<div class="page-header-title">
-					<div class="d-inline">영업기회조회</div>
+					<div class="d-inline">수주판매보고승인</div>
 				</div>
 			</div>
 		</div>
@@ -625,12 +625,45 @@
 			.done(function(data) {
 				if(data.code == 10001){
 					alert("승인되었습니다.");
-					location.herf="/sopp/list2.do";
+					var msg = "자동 계약서 생성을 진행할까요?";
+					if (confirm(msg)){
+						autocontCr();
+						alert("자동으로 계약이 생성되었습니다. ");
+					}else{
+						alert("계약등록을 별도로 진행해야 합니다. ");
+					}
+						location.href="${path}/sopp/list2.do";
 				}else{
 					alert("승인 실패");
 				}
 			}) // HTTP 요청이 실패하면 오류와 상태에 관한 정보가 fail() 메소드로 전달됨.
 			.fail(function(xhr, status, errorThrown) {
+				alert("통신 실패");
+			});
+		}
+		
+		function autocontCr(){
+			var contData = {};
+			contData.contTitle = $("#soppTitle").val()+"(자동생성)";
+			contData.soppNo = $("#soppNo").val();
+			contData.userNo = $("#userNo").val();
+			contData.custNo = $("#custNo").val();
+			contData.compNo = ${compNo};
+			contData.cntrctMth = $("#cntrctMth").val();
+			contData.contAmt = $("#soppTargetAmt").val().replace(/[\D\s\._\-]+/g, "");
+			console.log(contData);			
+			$.ajax({ url: "${path}/cont/insert.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소 
+				data: contData , // HTTP 요청과 함께 서버로 보낼 데이터 
+				method: "POST", // HTTP 요청 메소드(GET, POST 등) 
+				dataType: "json" // 서버에서 보내줄 데이터의 타입 
+			}) // HTTP 요청이 성공하면 요청한 데이터가 done() 메소드로 전달됨. .
+			.done(function(data) {
+				if(data.code == 10001){
+				}else{
+					alert("계약 저장 실패");
+				}
+			}) 
+			.fail(function(xhr, status, errorThrown) { 
 				alert("통신 실패");
 			});
 		}

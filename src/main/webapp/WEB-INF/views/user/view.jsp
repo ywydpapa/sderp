@@ -20,6 +20,7 @@
 			userData.userRole 		= $("#userRole").val();
 			userData.org_id 		= $("#userDept").val();
 			userData.attrib			= $("#userAttrib").val();
+			userData.userOtp		= $("#userOtp").val();
 			userData.userKey 		= $("#userRoleAA").val()+$("#userRoleBB").val()+$("#userRoleCC").val()+$("#userRoleDD").val()+$("#userRoleEE").val()+$("#userRoleFF").val()+$("#userRoleGG").val()+$("#userRoleHH").val()+$("#userRoleII").val()+$("#userRoleJJ").val()+$("#userRoleKK").val()+$("#userRoleLL").val()+$("#userRoleMM").val()+$("#userRoleNN").val();
 			$.ajax({ url: "${path}/user/update.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
 						data: userData , // HTTP 요청과 함께 서버로 보낼 데이터
@@ -113,6 +114,12 @@
 										<option value="10000">로그인 가능</option>
 										<option value="XXXXX">로그인 금지</option>
 										</select></td>
+								</tr>
+								<tr>
+									<td>표시 순서</td>
+									<td>
+										<input type="text" name="userOtp" id="userOtp" value="${userInfo.userOtp}">  
+									</td>
 								</tr>
 								<tr align="center">
 									<td rowspan="10">화면권한 설정</td>

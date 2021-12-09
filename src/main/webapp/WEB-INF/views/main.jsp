@@ -5,7 +5,7 @@
 <!DOCTYPE html> 
 <html>
 <head>
-<title>SDERP</title>
+<title>BizCore</title>
 <meta name="format-detection" 		content="telephone=no" />
 <meta http-equiv="X-UA-Compatible" 	content="IE=edge" />
 <meta http-equiv="Content-Type" 	content="text/html; charset=utf-8"/>

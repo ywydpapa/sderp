@@ -56,7 +56,7 @@
 					<div class="table-responsive">
 						<div class="page-header-title">
 							<div class="d-inline alert alert-success">
-								이번주 업무 목록
+								지난주 업무 목록
 							</div>
 						</div>
 						<table id="schedTable" class="table table-bordered" style="table-layout:fixed;word-break:break-word">
@@ -85,7 +85,7 @@
 							<c:if test="${ritem.weektype eq 't'}">
 							<tr>
 								<td class="firstr1">${ritem.weekno}</td>
-								<td class="secondr1"><c:if test="${ritem.weekdays eq 2}">월</c:if><c:if test="${ritem.weekdays eq 3}">화</c:if><c:if test="${ritem.weekdays eq 4}">수</c:if><c:if test="${ritem.weekdays eq 5}">목</c:if><c:if test="${ritem.weekdays eq 6}">금</c:if><c:if test="${ritem.weekdays eq 7}">토</c:if></td>
+								<td class="secondr1" style="vertical-align:middle;"><c:if test="${ritem.weekdays eq 2}">월</c:if><c:if test="${ritem.weekdays eq 3}">화</c:if><c:if test="${ritem.weekdays eq 4}">수</c:if><c:if test="${ritem.weekdays eq 5}">목</c:if><c:if test="${ritem.weekdays eq 6}">금</c:if><c:if test="${ritem.weekdays eq 7}">토</c:if></td>
 								<td>
 								<c:choose>
 								<c:when test="${ritem.stype eq 'S'}"><a href="javascript:eventclk1(${ritem.id})">${ritem.title}</a></c:when>
@@ -127,7 +127,7 @@
 						<hr>
 						<div class="page-header-title">
 							<div class="d-inline alert alert-success">
-								다음주 업무 목록
+								이번주 업무 목록
 							</div>
 						</div>
 						<table id="schedTable" class="table table-bordered " style="table-layout:fixed;word-break:break-word">
@@ -156,7 +156,7 @@
 							<c:if test="${ritem.weektype eq 'n'}">
 							<tr>
 								<td class="firstr2">${ritem.weekno}</td>
-								<td class="secondr2"><c:if test="${ritem.weekdays eq 1}">일</c:if><c:if test="${ritem.weekdays eq 2}">월</c:if><c:if test="${ritem.weekdays eq 3}">화</c:if><c:if test="${ritem.weekdays eq 4}">수</c:if><c:if test="${ritem.weekdays eq 5}">목</c:if><c:if test="${ritem.weekdays eq 6}">금</c:if><c:if test="${ritem.weekdays eq 7}">토</c:if></td>
+								<td class="secondr2" style="vertical-align:middle;"><c:if test="${ritem.weekdays eq 1}">일</c:if><c:if test="${ritem.weekdays eq 2}">월</c:if><c:if test="${ritem.weekdays eq 3}">화</c:if><c:if test="${ritem.weekdays eq 4}">수</c:if><c:if test="${ritem.weekdays eq 5}">목</c:if><c:if test="${ritem.weekdays eq 6}">금</c:if><c:if test="${ritem.weekdays eq 7}">토</c:if></td>
 								<td>
 								<c:choose>
 								<c:when test="${ritem.stype eq 'S'}"><a href="javascript:eventclk1(${ritem.id})">${ritem.title}</a></c:when>
@@ -273,8 +273,8 @@
 							<c:forEach var="ritem" items="${rlist}" varStatus="stvar">
 							<c:if test="${ritem.weektype eq 't'}">
 							<tr>
-								<td class="secondsr1 text-center"><c:if test="${ritem.weekdays eq 2}">월</c:if><c:if test="${ritem.weekdays eq 3}">화</c:if><c:if test="${ritem.weekdays eq 4}">수</c:if><c:if test="${ritem.weekdays eq 5}">목</c:if><c:if test="${ritem.weekdays eq 6}">금</c:if><c:if test="${ritem.weekdays eq 7}">토</c:if></td>
-								<td class="chktd text-left" style="word-break:break-all"><b>${ritem.title}</b><br/>
+								<td class="secondsr1 text-center" style="vertical-align:middle;"><c:if test="${ritem.weekdays eq 2}">월</c:if><c:if test="${ritem.weekdays eq 3}">화</c:if><c:if test="${ritem.weekdays eq 4}">수</c:if><c:if test="${ritem.weekdays eq 5}">목</c:if><c:if test="${ritem.weekdays eq 6}">금</c:if><c:if test="${ritem.weekdays eq 7}">토</c:if></td>
+								<td class="chktd text-left" style="word-break:break-all;border:0;white-space:normal;"><b>${ritem.title}</b><br/>
 								${fn:replace(ritem.schedDesc, replaceChar, "<br/>") }<br/>
 								<input type="checkbox" style="display:none" class="sr1chk form-control-sm" checked></td>
 							</tr>
@@ -298,8 +298,8 @@
 							<c:forEach var="ritem" items="${rlist}" varStatus="stvar">
 							<c:if test="${ritem.weektype eq 'n'}">
 							<tr>
-								<td class="secondsr2 text-center"><c:if test="${ritem.weekdays eq 2}">월</c:if><c:if test="${ritem.weekdays eq 3}">화</c:if><c:if test="${ritem.weekdays eq 4}">수</c:if><c:if test="${ritem.weekdays eq 5}">목</c:if><c:if test="${ritem.weekdays eq 6}">금</c:if><c:if test="${ritem.weekdays eq 7}">토</c:if></td>
-								<td class="chktd text-left" style="white-space:normal;word-break:break-all"><b>${ritem.title}</b><br/>
+								<td class="secondsr2 text-center" style="vertical-align:middle;"><c:if test="${ritem.weekdays eq 2}">월</c:if><c:if test="${ritem.weekdays eq 3}">화</c:if><c:if test="${ritem.weekdays eq 4}">수</c:if><c:if test="${ritem.weekdays eq 5}">목</c:if><c:if test="${ritem.weekdays eq 6}">금</c:if><c:if test="${ritem.weekdays eq 7}">토</c:if></td>
+								<td class="chktd text-left" style="white-space:normal;border:0;word-break:break-all"><b>${ritem.title}</b><br/>
 								${fn:replace(ritem.schedDesc, replaceChar, "<br/>") }<br/>
 								<input type="checkbox" style="display:none" class="sr2chk form-control-sm" checked></td>
 							</tr>

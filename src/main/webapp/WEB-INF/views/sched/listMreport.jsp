@@ -51,7 +51,6 @@
 													
 													$("#loadHtml_"+sreportNo).load('${path}/sched/detailMreport/'+sreportNo+'?userNo='+userNo);
 												}
-												
 												printTable(${row.sreportNo}, ${row.userNo});
 											</script>
 											<a href="javascript:titleClick(${row.sreportNo})" id="title_btn" data-id="0">${row.userName}</a>
@@ -62,7 +61,7 @@
 							</tbody>
 						</table>
 						</div>
-						<div id="priviewTable" style="float:right;width:94.5%;">
+						<div id="priviewTable" style="float:right;width:94%;">
 							<table id="soppTable" class="table table-bordered">
 								<thead>
 								<tr>
@@ -86,6 +85,26 @@
 $("#loadHtml").hide();
 
 function titleClick(id){
+	$("#loadHtml_"+id).find(".table1 .first1").each(function() {
+	  	var rows = $("#loadHtml_"+id).find(".table1 .first1:contains('" + $(this).text() + "')");
+	  	
+	  	if (rows.length > 1) {
+	    	rows.eq(0).attr("rowspan", rows.length);
+	    	rows.not(":eq(0)").remove();
+	  	}
+    	rows.eq(0).attr("style", "border-right:1px solid #e9ecef; border-bottom:1px solid #e9ecef;vertical-align:middle;");
+	  	
+	});
+	
+	$("#loadHtml_"+id).find(".table2 .first2").each(function() {
+	  	var rows = $("#loadHtml_"+id).find(".table2 .first2:contains('" + $(this).text() + "')");
+	  	if (rows.length > 1) {
+	    	rows.eq(0).attr("rowspan", rows.length);
+	    	rows.not(":eq(0)").remove();
+	  	}
+	  	rows.eq(0).attr("style", "border-right:1px solid #e9ecef; border-bottom:1px solid #e9ecef;vertical-align:middle;");
+	});
+	
 	$("#preview").html($("#loadHtml_"+id).html());
 	$("#title_btn").data("id", 1);
 	$("#print_btn").data("id", id);
@@ -96,7 +115,17 @@ function titleClick(id){
 	$("#solPdf_btn").attr("class", "btn btn-primary");
 	$("#print_btn").attr("disabled", false);
 	$("#solPdf_btn").attr("disabled", false);
+	
 }
+
+$(document).ready(function(){
+	$($("[id^=loadHtml_]").get().reverse()).each(function(index, item){
+		var replaceNum = item.id.replace("loadHtml_", "");
+		setTimeout(() => {
+			titleClick(replaceNum);
+		}, 300);
+	});	
+});
 
 $("#solPdf_btn").on("click", function(){
 	solPdf($(this).data("id"));
@@ -119,7 +148,7 @@ function solPdf(id){
 	
 	var nowDate = year + "-" + month + "-" + date;
 	var element = document.getElementById("loadHtml_"+id);
-	var name = element.childNodes[2].childNodes[3].childNodes[2].childNodes[3].childNodes[0].data.replace("담당 : ", "");
+	var name = $("#loadHtml_"+id).find("table .thUname").html().replace("담당 : ", "");
 	
 	$("#loadHtml_"+id).show();
 	

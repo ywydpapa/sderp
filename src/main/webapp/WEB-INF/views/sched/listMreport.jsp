@@ -156,7 +156,7 @@ function solPdf(id){
 	  margin: 0,
       filename: name + '(' + nowDate + ')' + '.pdf',
       html2canvas: { scale: 1 },
-      jsPDF: {orientation: 'portrait', unit: 'mm', format: 'a4', compressPDF: true}
+      jsPDF: {orientation: 'landscape', unit: 'mm', format: 'a4', compressPDF: true}
 	}).save();
 	
 	setTimeout(() => {
@@ -188,7 +188,7 @@ function print_pdf(){
 	  margin: 0,
       filename: '주간업무일지.pdf',
       html2canvas: { scale: 1 },
-      jsPDF: {orientation: 'portrait', unit: 'mm', format: 'a4', compressPDF: true}
+      jsPDF: {orientation: 'landscape', unit: 'mm', format: 'a4', compressPDF: true}
 	}).save();
 	
 	setTimeout(() => {

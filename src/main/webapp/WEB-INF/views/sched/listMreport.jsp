@@ -12,7 +12,6 @@
 
 <div id="main_content">
 	<div id="loadHtml"></div>
-	<div id="selloadHtml"></div>
 		<div style="width:100%;">
 			<div style="float:left; margin-top:15px;">
 				<h6 style="font-weight:600;">업무일지 조회</h6>
@@ -54,13 +53,7 @@
 													
 													$("#loadHtml_"+sreportNo).load('${path}/sched/detailMreport/'+sreportNo+'?userNo='+userNo);
 												}
-												function selprintTable(sreportNo, userNo){
-													var obj = $("#selloadHtml").append("<div id='selloadHtml_"+sreportNo+"' style='margin-top:10px;'></div>");
-													
-													$("#selloadHtml_"+sreportNo).load('${path}/sched/detailMreport/'+sreportNo+'?userNo='+userNo);
-												}
 												printTable(${row.sreportNo}, ${row.userNo});
-												selprintTable(${row.sreportNo}, ${row.userNo});
 											</script>
 											<a href="javascript:titleClick(${row.sreportNo})" id="title_btn" data-id="0">${row.userName}</a>
 										</td>
@@ -95,7 +88,6 @@
 </div>
 <script>
 $("#loadHtml").hide();
-$("#selloadHtml").hide();
 function titleClick(id){
 	$("#loadHtml_"+id).find(".table1 .first1").each(function() {
 	  	var rows = $("#loadHtml_"+id).find(".table1 .first1:contains('" + $(this).text() + "')");
@@ -128,9 +120,9 @@ function titleClick(id){
 
 function checkClick(id){
 	if ($("#pdfchecked_"+id).is(":checked") == true){
-		$("#selloadHtml_"+id).show();
+		$("#loadHtml_"+id).show();
 	} else {
-		$("#selloadHtml_"+id).hide();
+		$("#loadHtml_"+id).hide();
 	}
 }
 
@@ -196,9 +188,9 @@ function solPrint(id){
 }
 
 function print_pdf(){
-	$("#selloadHtml").show();
+	$("#loadHtml").show();
 	
-	var element = document.getElementById("selloadHtml");
+	var element = document.getElementById("loadHtml");
 	
 	html2pdf().from(element).set({
 	  margin: 10,
@@ -208,7 +200,7 @@ function print_pdf(){
 	}).save();
 	
 	setTimeout(() => {
-		$("#selloadHtml").hide();
+		$("#loadHtml").hide();
 	}, 100);
 }
 

@@ -611,7 +611,6 @@ function printWeek() {
     var weekStartDate = new Date(nowYear, nowMonth, nowDay - nowDayOfWeek + 1);
     var weekEndDate = new Date(nowYear, nowMonth, nowDay + (6 - nowDayOfWeek - 1));
     var thisweek = formatDate(weekStartDate) + " ~ " + formatDate(weekEndDate);
-    console.log(thisweek);
     $(".thWeek").html("일자 :" + thisweek);
     var unam = "${userName}";
     console.log(unam);

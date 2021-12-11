@@ -29,15 +29,17 @@
 			<div class="col-sm-12">
 				<div class="card-block table-border-style">
 					<div class="table-responsive" width="100%;">
-						<div style="float:left; width:5%;">
+						<div style="float:left; width:10%;">
 						<c:set var="length" value="${fn:length(mlist)}" />
 						<table id="soppTable" class="table table-striped table-bordered nowrap">
 							<colgroup>
+								<col width="5%">
 								<col width="5%">
 							</colgroup>
 							<thead>
 							<tr>
 								<th class="text-center">성명</th>
+								<th class="text-center">선택</th>
 							</tr>
 							</thead>
 							<tbody>
@@ -55,13 +57,16 @@
 											</script>
 											<a href="javascript:titleClick(${row.sreportNo})" id="title_btn" data-id="0">${row.userName}</a>
 										</td>
+										<td class="text-center">
+										<input type="checkbox" class="pdfcheck" checked>
+										</td>
 									</tr>
 								</c:if>
 							</c:forEach>
 							</tbody>
 						</table>
 						</div>
-						<div id="priviewTable" style="float:right;width:94%;">
+						<div id="priviewTable" style="float:right;width:89%;">
 							<table id="soppTable" class="table table-bordered">
 								<thead>
 								<tr>
@@ -153,7 +158,7 @@ function solPdf(id){
 	$("#loadHtml_"+id).show();
 	
 	html2pdf().from(element).set({
-	  margin: 0,
+	  margin: 5,
       filename: name + '(' + nowDate + ')' + '.pdf',
       html2canvas: { scale: 1 },
       jsPDF: {orientation: 'landscape', unit: 'mm', format: 'a4', compressPDF: true}
@@ -185,7 +190,7 @@ function print_pdf(){
 	var element = document.getElementById("loadHtml");
 	
 	html2pdf().from(element).set({
-	  margin: 0,
+	  margin: 10,
       filename: '주간업무일지.pdf',
       html2canvas: { scale: 1 },
       jsPDF: {orientation: 'landscape', unit: 'mm', format: 'a4', compressPDF: true}

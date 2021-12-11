@@ -12,6 +12,7 @@
 
 <div id="main_content">
 	<div id="loadHtml"></div>
+	<div id="selloadHtml"></div>
 		<div style="width:100%;">
 			<div style="float:left; margin-top:15px;">
 				<h6 style="font-weight:600;">업무일지 조회</h6>
@@ -53,12 +54,18 @@
 													
 													$("#loadHtml_"+sreportNo).load('${path}/sched/detailMreport/'+sreportNo+'?userNo='+userNo);
 												}
+												function selprintTable(sreportNo, userNo){
+													var obj = $("#selloadHtml").append("<div id='selloadHtml_"+sreportNo+"' style='margin-top:10px;'></div>");
+													
+													$("#selloadHtml_"+sreportNo).load('${path}/sched/detailMreport/'+sreportNo+'?userNo='+userNo);
+												}
 												printTable(${row.sreportNo}, ${row.userNo});
+												selprintTable(${row.sreportNo}, ${row.userNo});
 											</script>
 											<a href="javascript:titleClick(${row.sreportNo})" id="title_btn" data-id="0">${row.userName}</a>
 										</td>
 										<td class="text-center">
-										<input type="checkbox" class="pdfcheck" checked>
+										<input type="checkbox" class="pdfcheck" onClick="checkClick(${row.sreportNo})" id="pdfchecked_${row.sreportNo}" checked>
 										</td>
 									</tr>
 								</c:if>
@@ -88,7 +95,7 @@
 </div>
 <script>
 $("#loadHtml").hide();
-
+$("#selloadHtml").hide();
 function titleClick(id){
 	$("#loadHtml_"+id).find(".table1 .first1").each(function() {
 	  	var rows = $("#loadHtml_"+id).find(".table1 .first1:contains('" + $(this).text() + "')");
@@ -98,9 +105,7 @@ function titleClick(id){
 	    	rows.not(":eq(0)").remove();
 	  	}
     	rows.eq(0).attr("style", "border-right:1px solid #e9ecef; border-bottom:1px solid #e9ecef;vertical-align:middle;");
-	  	
 	});
-	
 	$("#loadHtml_"+id).find(".table2 .first2").each(function() {
 	  	var rows = $("#loadHtml_"+id).find(".table2 .first2:contains('" + $(this).text() + "')");
 	  	if (rows.length > 1) {
@@ -109,7 +114,6 @@ function titleClick(id){
 	  	}
 	  	rows.eq(0).attr("style", "border-right:1px solid #e9ecef; border-bottom:1px solid #e9ecef;vertical-align:middle;");
 	});
-	
 	$("#preview").html($("#loadHtml_"+id).html());
 	$("#title_btn").data("id", 1);
 	$("#print_btn").data("id", id);
@@ -120,7 +124,14 @@ function titleClick(id){
 	$("#solPdf_btn").attr("class", "btn btn-primary");
 	$("#print_btn").attr("disabled", false);
 	$("#solPdf_btn").attr("disabled", false);
-	
+}
+
+function checkClick(id){
+	if ($("#pdfchecked_"+id).is(":checked") == true){
+		$("#selloadHtml_"+id).show();
+	} else {
+		$("#selloadHtml_"+id).hide();
+	}
 }
 
 $(document).ready(function(){
@@ -185,9 +196,9 @@ function solPrint(id){
 }
 
 function print_pdf(){
-	$("#loadHtml").show();
+	$("#selloadHtml").show();
 	
-	var element = document.getElementById("loadHtml");
+	var element = document.getElementById("selloadHtml");
 	
 	html2pdf().from(element).set({
 	  margin: 10,
@@ -197,7 +208,7 @@ function print_pdf(){
 	}).save();
 	
 	setTimeout(() => {
-		$("#loadHtml").hide();
+		$("#selloadHtml").hide();
 	}, 100);
 }
 

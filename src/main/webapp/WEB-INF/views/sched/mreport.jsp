@@ -11,6 +11,9 @@
 <!DOCTYPE html>
 <html>
 <style>
+.table {
+
+}
 .table1 td{
 	border:0;
 }
@@ -56,7 +59,7 @@
 			<col width="80%">
 		</colgroup>
 		<c:forEach var="ritem" items="${rlist}" varStatus="stvar">
-		<c:if test="${ritem.weektype eq 't' && ritem.schedCheck eq '1'}">
+		<c:if test="${ritem.weektype eq 'p' && ritem.schedCheck eq '1'}">
 		<tr>
 			<td class="first1 text-center" style="vertical-align:middle;"><c:if test="${ritem.weekdays eq 2}">월</c:if><c:if test="${ritem.weekdays eq 3}">화</c:if><c:if test="${ritem.weekdays eq 4}">수</c:if><c:if test="${ritem.weekdays eq 5}">목</c:if><c:if test="${ritem.weekdays eq 6}">금</c:if><c:if test="${ritem.weekdays eq 7}">토</c:if></td>
 			<td class="chktd1 text-left" style="white-space:normal;word-break:break-all;"><b>${ritem.title}</b><br/>
@@ -82,7 +85,7 @@
 			<col width="80%">
 		</colgroup>
 		<c:forEach var="ritem" items="${rlist}" varStatus="stvar">
-		<c:if test="${ritem.weektype eq 'n' && ritem.schedCheck eq '1'}">
+		<c:if test="${ritem.weektype eq 't' && ritem.schedCheck eq '1'}">
 		<tr>
 			<td class="first2 text-center" style="vertical-align:middle;"><c:if test="${ritem.weekdays eq 2}">월</c:if><c:if test="${ritem.weekdays eq 3}">화</c:if><c:if test="${ritem.weekdays eq 4}">수</c:if><c:if test="${ritem.weekdays eq 5}">목</c:if><c:if test="${ritem.weekdays eq 6}">금</c:if><c:if test="${ritem.weekdays eq 7}">토</c:if></td>
 			<td class="chktd2 text-left" style="white-space:normal;word-break:break-all"><b>${ritem.title}</b><br/>

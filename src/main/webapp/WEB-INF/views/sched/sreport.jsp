@@ -40,7 +40,8 @@
 								<tr>
 									<td><h4>개인업무 일지</h4></td>
 									<td align="right">
-									<button class="btn btn-md btn-primary" onClick="fn_Create()">업무일지 생성</button>
+									<button class="btn btn-md btn-primary" onClick="fn_Create()">업무일지 생성(금주)</button>
+									<button class="btn btn-md btn-primary" onClick="fn_Create2()">업무일지 생성(치주)</button>
 									<button class="btn btn-md btn-primary" onClick="fn_Print()">업무일지 출력</button>
 									</td>
 								</tr>
@@ -82,7 +83,7 @@
 							</thead>
 							<tbody>
 							<c:forEach var="ritem" items="${rlist}" varStatus="stvar">
-							<c:if test="${ritem.weektype eq 't'}">
+							<c:if test="${ritem.weektype eq 'p'}">
 							<tr>
 								<td class="firstr1">${ritem.weekno}</td>
 								<td class="secondr1" style="vertical-align:middle;"><c:if test="${ritem.weekdays eq 2}">월</c:if><c:if test="${ritem.weekdays eq 3}">화</c:if><c:if test="${ritem.weekdays eq 4}">수</c:if><c:if test="${ritem.weekdays eq 5}">목</c:if><c:if test="${ritem.weekdays eq 6}">금</c:if><c:if test="${ritem.weekdays eq 7}">토</c:if></td>
@@ -153,7 +154,7 @@
 							</thead>
 							<tbody>
 							<c:forEach var="ritem" items="${rlist}">
-							<c:if test="${ritem.weektype eq 'n'}">
+							<c:if test="${ritem.weektype eq 't'}">
 							<tr>
 								<td class="firstr2">${ritem.weekno}</td>
 								<td class="secondr2" style="vertical-align:middle;"><c:if test="${ritem.weekdays eq 1}">일</c:if><c:if test="${ritem.weekdays eq 2}">월</c:if><c:if test="${ritem.weekdays eq 3}">화</c:if><c:if test="${ritem.weekdays eq 4}">수</c:if><c:if test="${ritem.weekdays eq 5}">목</c:if><c:if test="${ritem.weekdays eq 6}">금</c:if><c:if test="${ritem.weekdays eq 7}">토</c:if></td>
@@ -194,7 +195,7 @@
 							</tbody>
 						</table>
 						<hr>
-						<%-- <div class="page-header-title">
+						<div class="page-header-title">
 							<div class="d-inline alert alert-success">
 								다음주 업무 목록
 							</div>
@@ -241,8 +242,22 @@
 							</tr>
 							</c:if>
 							</c:forEach>
+							<tr>
+							<td colspan="2" style="text-align:center;">추가기재</td>
+							<td colspan=4>
+								<textarea id="nxaddtext" class="form-control" cols="50" rows="5">${myadd.nxComment}</textarea>
+							</td>
+							<c:choose>
+								<c:when test="${myadd.nxCheck eq '1' }">
+									<td style="text-align:center;"><input type="checkbox" data-id="${myadd.sreportNo}" data-check="1" data-name="add" class="nxaddchk form-control-sm" checked></td>
+								</c:when>
+								<c:otherwise>
+									<td style="text-align:center;"><input type="checkbox" data-id="${myadd.sreportNo}" data-check="0" data-name="add" class="nxaddchk form-control-sm"></td>
+								</c:otherwise>
+							</c:choose>
+							</tr>
 							</tbody>
-						</table> --%>
+						</table>
 						<div class="table-responsive">
 						<div id = "printdiv">
 						<table class="table table-bordered printdivTable" style="white-space:normal;table-layout:fixed;word-break:break-word;width:99.8% !important; font-size:0.5em !important;">
@@ -687,7 +702,48 @@ function fn_Create(){
 	});
 }
 
-
+function fn_Create2(){
+	var sreportData = {};
+	var checkData = [];
+	sreportData.userNo 		= Number("${userNo}");
+	sreportData.compNo 		= Number("${compNo}");
+	sreportData.prComment	= $("#thaddtext").val();
+	sreportData.prCheck 	= $(".thaddchk").attr("data-check");
+	sreportData.thComment	= $("#nxaddtext").val();
+	sreportData.thCheck 	= $(".nxaddchk").attr("data-check");
+	$("input[type='checkbox']").each(function(){
+		if(typeof $(this).attr("data-id") != "undefined" && typeof $(this).attr("data-check") != "undefined" && $(this).attr("data-name") == "checks"){
+			var tempArray = [];
+			tempArray = {
+				schedNo: $(this).attr("data-id"),
+				schedCheck: $(this).attr("data-check")
+			}
+			checkData.push(tempArray);
+		}
+	});
+	sreportData.checks = checkData;
+	console.log(sreportData);
+	$.ajax({
+		url: "${path}/sched/insSreport2.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
+		data: JSON.stringify({
+			sreportData: sreportData, // HTTP 요청과 함께 서버로 보낼 데이터
+			checkData: checkData
+		}),
+		contentType: 'application/json',
+		method: "POST", // HTTP 요청 메소드(GET, POST 등)
+		dataType: "json" // 서버에서 보내줄 데이터의 타입
+	}) // HTTP 요청이 성공하면 요청한 데이터가 done() 메소드로 전달됨..
+	.done(function(data) {
+		if(data.code == 10001){
+			alert("저장 성공");
+		}else{
+			alert("저장 실패");
+		}
+	}) // HTTP 요청이 실패하면 오류와 상태에 관한 정보가 fail() 메소드로 전달됨.
+	.fail(function(xhr, status, errorThrown) {
+		alert("통신 실패");
+	});
+}
 
 function fn_Print() {
 	PrSet();

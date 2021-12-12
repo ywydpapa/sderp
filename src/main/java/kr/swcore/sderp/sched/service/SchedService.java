@@ -20,6 +20,7 @@ public interface SchedService {
 	int deleteSched(int schedNo);
 	int updateSched(SchedDTO dto);
 	int insertSreport(SchedDTO dto);
+	int insertSreport2(SchedDTO dto);
 	List<SchedDTO> listMreport(HttpSession session);
 	SchedDTO detailAddtext(int sreportNo);
 	Object detailSreport(HttpSession session,SchedDTO dto);

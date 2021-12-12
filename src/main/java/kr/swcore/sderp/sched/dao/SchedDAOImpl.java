@@ -103,6 +103,12 @@ public class SchedDAOImpl implements SchedDAO {
 		return sqlSession.update("sched.updateSreport", dto);
 	}
 
+	@Override
+	public int insertSreport2(SchedDTO dto) {
+		// TODO Auto-generated method stub
+		return sqlSession.insert("sched.insertSreport2", dto);
+	}
+
 	
 
 }

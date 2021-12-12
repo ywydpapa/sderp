@@ -179,6 +179,48 @@ public class schedController {
 		return ResponseEntity.ok(param);
 	}
 	
+	@RequestMapping("insSreport2.do")
+	public ResponseEntity<?> insSreport2(@RequestBody Map<String, Object> payload, HttpSession session, @ModelAttribute SchedDTO dto) {
+		Map<String, Object> param = new HashMap<>();
+		Gson gson = new Gson();
+		String jsonStr = gson.toJson(payload.get("checkData"));
+		JsonParser jsonParser = new JsonParser();
+		JsonArray jsonArray = (JsonArray) jsonParser.parse(jsonStr);
+		
+		String sreStr = gson.toJson(payload.get("sreportData"));
+		System.out.println(sreStr);
+		JsonObject jsonObject = (JsonObject) jsonParser.parse(sreStr);
+		System.out.println(jsonObject.get("userNo"));
+		
+		dto.setUserNo(jsonObject.get("userNo").getAsInt());
+		dto.setCompNo(jsonObject.get("compNo").getAsInt());
+		dto.setPrComment(jsonObject.get("thComment").getAsString());
+		dto.setPrCheck(jsonObject.get("thCheck").getAsInt());
+		dto.setThComment(jsonObject.get("nxComment").getAsString());
+		dto.setThCheck(jsonObject.get("nxCheck").getAsInt());
+		
+		int srIResult = schedService.insertSreport(dto);
+		
+		for(int i =0; i < jsonArray.size(); i++) {
+			SchedDTO schedDto = new SchedDTO();
+			JsonObject object = (JsonObject) jsonArray.get(i);
+			int schedNo = object.get("schedNo").getAsInt();
+			int schedCheck = object.get("schedCheck").getAsInt();
+			
+			schedDto.setSchedNo(schedNo);
+			schedDto.setSchedCheck(schedCheck);
+			
+			schedService.updateSreport(schedDto);
+		}
+		
+		if (srIResult >0) {
+			param.put("code","10001"); 
+		}
+		else {param.put("code","20001");
+		}
+		return ResponseEntity.ok(param);
+	}
+	
 	@RequestMapping("update.do")
 	public ResponseEntity<?> update(@ModelAttribute SchedDTO dto) {
 		Map<String, Object> param = new HashMap<>();

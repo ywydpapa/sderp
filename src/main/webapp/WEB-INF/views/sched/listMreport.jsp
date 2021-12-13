@@ -88,6 +88,7 @@
 </div>
 <script>
 $("#loadHtml").hide();
+
 function titleClick(id){
 	$("#loadHtml_"+id).find(".table1 .first1").each(function() {
 	  	var rows = $("#loadHtml_"+id).find(".table1 .first1:contains('" + $(this).text() + "')");
@@ -98,14 +99,18 @@ function titleClick(id){
 	  	}
     	rows.eq(0).attr("style", "border-right:1px solid #e9ecef; border-bottom:1px solid #e9ecef;vertical-align:middle;");
 	});
+	
 	$("#loadHtml_"+id).find(".table2 .first2").each(function() {
 	  	var rows = $("#loadHtml_"+id).find(".table2 .first2:contains('" + $(this).text() + "')");
+	  	
 	  	if (rows.length > 1) {
 	    	rows.eq(0).attr("rowspan", rows.length);
 	    	rows.not(":eq(0)").remove();
 	  	}
+	  	
 	  	rows.eq(0).attr("style", "border-right:1px solid #e9ecef; border-bottom:1px solid #e9ecef;vertical-align:middle;");
 	});
+	
 	$("#preview").html($("#loadHtml_"+id).html());
 	$("#title_btn").data("id", 1);
 	$("#print_btn").data("id", id);
@@ -131,7 +136,7 @@ $(document).ready(function(){
 		var replaceNum = item.id.replace("loadHtml_", "");
 		setTimeout(() => {
 			titleClick(replaceNum);
-		}, 300);
+		}, 1000);
 	});	
 });
 

@@ -223,6 +223,14 @@ public class SchedServiceImpl implements SchedService {
 		dto.setUserNo(userNo);
 		return schedDao.myAddtext(dto);
 	}
+	
+	@Override
+	public SchedDTO myAddtext2(HttpSession session3,SchedDTO dto) {
+		// TODO Auto-generated method stub
+		int userNo = SessionInfoGet.getUserNo(session3);
+		dto.setUserNo(userNo);
+		return schedDao.myAddtext2(dto);
+	}
 
 	@Override
 	public int updateSreport(SchedDTO dto) {

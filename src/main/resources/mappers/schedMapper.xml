@@ -709,7 +709,11 @@ select * from swc_sreport where sreportNo=#{sreportNo}
 </select>
 
 <select id="myAddtext" resultType="schedDto">
-select * from swc_sreport where userNo=#{userNo} order by sreportNo desc limit 1
+select * from swc_sreport where userNo=#{userNo} and weekNum = yearweek(curdate()) order by sreportNo desc limit 1
+</select>
+
+<select id="myAddtextNx" resultType="schedDto">
+select * from swc_sreport where userNo=#{userNo} and weekNum = yearweek(curdate())+1 order by sreportNo desc limit 1
 </select>
   
  <delete id="deleteSched">

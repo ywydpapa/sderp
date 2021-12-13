@@ -58,6 +58,7 @@ public class schedController {
 	public ModelAndView schedrep(HttpSession session,HttpSession session2,HttpSession session3, ModelAndView mav, @ModelAttribute SchedDTO dto) {
 		mav.addObject("rlist",schedService.listSreport(session, session2, null, null));
 		mav.addObject("myadd",schedService.myAddtext(session3, dto));
+		mav.addObject("myadd2",schedService.myAddtext2(session3, dto));
 		mav.setViewName("sched/sreport");
 		return mav;
 	}

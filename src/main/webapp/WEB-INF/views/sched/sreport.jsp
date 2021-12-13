@@ -255,13 +255,8 @@
 								<textarea id="nxaddtext" class="form-control" cols="50" rows="5">${myadd2.thComment}</textarea>
 							</td>
 							<c:choose>
-<<<<<<< Updated upstream
 								<c:when test="${myadd2.thCheck eq '1' }">
 									<td style="text-align:center;"><input type="checkbox" data-id="${myadd2.sreportNo}" data-check="1" data-name="add" class="nxaddchk form-control-sm" checked></td>
-=======
-								<c:when test="${myadd.nxCheck eq '1'}">
-									<td style="text-align:center;"><input type="checkbox" data-id="${myadd.sreportNo}" data-check="1" data-name="add" class="nxaddchk form-control-sm" checked></td>
->>>>>>> Stashed changes
 								</c:when>
 								<c:otherwise>
 									<td style="text-align:center;"><input type="checkbox" data-id="${myadd2.sreportNo}" data-check="0" data-name="add" class="nxaddchk form-control-sm"></td>

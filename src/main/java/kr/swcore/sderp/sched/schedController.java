@@ -194,22 +194,20 @@ public class schedController {
 		
 		dto.setUserNo(jsonObject.get("userNo").getAsInt());
 		dto.setCompNo(jsonObject.get("compNo").getAsInt());
-		dto.setPrComment(jsonObject.get("thComment").getAsString());
-		dto.setPrCheck(jsonObject.get("thCheck").getAsInt());
-		dto.setThComment(jsonObject.get("nxComment").getAsString());
-		dto.setThCheck(jsonObject.get("nxCheck").getAsInt());
+		dto.setPrComment(jsonObject.get("prComment").getAsString());
+		dto.setPrCheck(jsonObject.get("prCheck").getAsInt());
+		dto.setThComment(jsonObject.get("thComment").getAsString());
+		dto.setThCheck(jsonObject.get("thCheck").getAsInt());
 		
-		int srIResult = schedService.insertSreport(dto);
+		int srIResult = schedService.insertSreport2(dto);
 		
 		for(int i =0; i < jsonArray.size(); i++) {
 			SchedDTO schedDto = new SchedDTO();
 			JsonObject object = (JsonObject) jsonArray.get(i);
 			int schedNo = object.get("schedNo").getAsInt();
 			int schedCheck = object.get("schedCheck").getAsInt();
-			
 			schedDto.setSchedNo(schedNo);
 			schedDto.setSchedCheck(schedCheck);
-			
 			schedService.updateSreport(schedDto);
 		}
 		

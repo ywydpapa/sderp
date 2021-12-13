@@ -41,7 +41,7 @@
 									<td><h4>개인업무 일지</h4></td>
 									<td align="right">
 									<button class="btn btn-md btn-primary" onClick="fn_Create()">업무일지 생성(금주)</button>
-									<button class="btn btn-md btn-primary" onClick="fn_Create2()">업무일지 생성(치주)</button>
+									<button class="btn btn-md btn-primary" onClick="fn_Create2()">업무일지 생성(차주)</button>
 									<button class="btn btn-md btn-primary" onClick="fn_Print()">업무일지 출력</button>
 									</td>
 								</tr>
@@ -238,7 +238,14 @@
 								<td style='width:300;overflow:hidden;text-overflow;ellipsis;word-break:break-word'>${ritem.schedDesc}</td>
 								<td>${ritem.start}</td>
 								<td>${ritem.end}</td>
-								<td class="chktd"><input type="checkbox" class="r3chk form-control-sm"></td>
+								<c:choose>
+									<c:when test="${ritem.schedCheck eq '1' }">
+										<td class="chktd"><input type="checkbox" id="chk" data-id="${ritem.id }" data-check="1" data-name="checks" class="r3chk form-control-sm" checked></td>
+									</c:when>
+									<c:otherwise>
+										<td class="chktd"><input type="checkbox" id="chk" data-id="${ritem.id }" data-check="0" data-name="checks" class="r3chk form-control-sm"></td>
+									</c:otherwise>
+								</c:choose>
 							</tr>
 							</c:if>
 							</c:forEach>

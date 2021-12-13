@@ -74,7 +74,7 @@
 			<hr>
 			<h6>추가 기재 사항</h6>
 			<hr>
-			<div style="white-space:normal;word-break:break-all">${addtxt.prComment}</div>
+			<div style="white-space:normal;word-break:break-all">${fn:replace(addtxt.prComment, replaceChar, "<br/>") }</div>
 			</div>
 		</c:if>
 	</td>
@@ -100,7 +100,7 @@
 			<hr>
 			<h6>추가 기재 사항</h6>
 			<hr>
-			<div style="white-space:normal;word-break:break-all">${addtxt.thComment}</div>
+			<div style="white-space:normal;word-break:break-all">${fn:replace(addtxt.thComment, replaceChar, "<br/>") }</div>
 			</div>							
 		</c:if>
 	</td>
@@ -131,7 +131,7 @@ function printWeek() {
 }
 
 $(".praddchk").change(function(){
-	if($(".praddchk").attr(":checked")==true){
+	if($(".praddchk").is(":checked")==true){
 		$(".praddtxt1").show();
 	} else{
 		$(".praddtxt1").hide();

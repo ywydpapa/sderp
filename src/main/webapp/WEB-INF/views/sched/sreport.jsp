@@ -239,7 +239,7 @@
 								<td>${ritem.start}</td>
 								<td>${ritem.end}</td>
 								<c:choose>
-									<c:when test="${ritem.schedCheck eq '1' }">
+									<c:when test="${ritem.schedCheck eq '1'}">
 										<td class="chktd"><input type="checkbox" id="chk" data-id="${ritem.id }" data-check="1" data-name="checks" class="r3chk form-control-sm" checked></td>
 									</c:when>
 									<c:otherwise>
@@ -255,8 +255,13 @@
 								<textarea id="nxaddtext" class="form-control" cols="50" rows="5">${myadd2.thComment}</textarea>
 							</td>
 							<c:choose>
+<<<<<<< Updated upstream
 								<c:when test="${myadd2.thCheck eq '1' }">
 									<td style="text-align:center;"><input type="checkbox" data-id="${myadd2.sreportNo}" data-check="1" data-name="add" class="nxaddchk form-control-sm" checked></td>
+=======
+								<c:when test="${myadd.nxCheck eq '1'}">
+									<td style="text-align:center;"><input type="checkbox" data-id="${myadd.sreportNo}" data-check="1" data-name="add" class="nxaddchk form-control-sm" checked></td>
+>>>>>>> Stashed changes
 								</c:when>
 								<c:otherwise>
 									<td style="text-align:center;"><input type="checkbox" data-id="${myadd2.sreportNo}" data-check="0" data-name="add" class="nxaddchk form-control-sm"></td>
@@ -308,7 +313,7 @@
 							<h4>추가 기재 사항</h4>
 							<hr>
 							<%-- <textarea style="border: 0;" id="prprntext" class="form-control txt" cols="50" rows="5">${myadd.prComment}</textarea> --%>
-							<div>${myadd.prComment}</div>
+							<div>${fn:replace(myadd.prComment, replaceChar, "<br/>") }</div>
 							</div>
 						</td>
 						<td colspan="2">
@@ -333,7 +338,7 @@
 							<h4>추가 기재 사항</h4>
 							<hr>
 							<%-- <textarea style="border: 0" id="thprntext" class="form-control txt" cols="50" rows="5">${myadd.thComment}</textarea> --%>
-							<div>${myadd.thComment}</div>
+							<div>${fn:replace(myadd.thComment, replaceChar, "<br/>") }</div>
 							</div>
 						</td>
 						</tr>
@@ -777,7 +782,8 @@ $(".r1chk,.r2chk,.r3chk").change(function(){
 });
 
 $(".praddchk").change(function(){
-	if($(".praddchk").attr(":checked")==true){
+	if($(".praddchk").is(":checked")==true){
+		console.log("실행");
 		$(".praddtxt1").show();
 	} else{
 		$(".praddtxt1").hide();

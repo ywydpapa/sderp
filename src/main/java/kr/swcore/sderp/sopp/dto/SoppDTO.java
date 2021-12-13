@@ -18,6 +18,7 @@ public class SoppDTO extends PageDTO {
 	private int compNo;
 	private int userNo;
 	private int custNo;
+	private int contNo;
 	private int custMemberNo;
 	private int ptncNo;
 	private int ptncMemberNo;

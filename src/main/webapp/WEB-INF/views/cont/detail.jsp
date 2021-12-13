@@ -62,7 +62,7 @@
 									<div class="table-responsive">
 										<table class="table table-sm bst02">
 											<colgroup>
-												<col width="15%" />
+												<col width="15%"/>
 												<col width="35%"/>
 												<col width="15%"/>
 												<col width="35%"/>

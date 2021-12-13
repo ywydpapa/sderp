@@ -231,7 +231,7 @@
 									</td>
 									<td>${row.contTypeN}</td>
 									<td>${row.cntrctMthN}</td>
-									<td><a href="${path}/cont/detail/${row.contNo}/${row.userNo}">${row.contTitle}</a></td>
+									<td><a href="${path}/cont/detail/${row.contNo}/${row.soppNo}">${row.contTitle}</a></td>
 									<td>${row.custName}</td>
 									<td class="text-right"><fmt:formatNumber type="number" maxFractionDigits="3" value="${row.contAmt}" /></td>
 									<td class="text-right"><fmt:formatNumber type="number" maxFractionDigits="3" value="${row.net_profit}" /></td>

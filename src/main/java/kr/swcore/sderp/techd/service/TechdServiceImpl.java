@@ -1,7 +1,6 @@
 package kr.swcore.sderp.techd.service;
 
 import java.util.List;
-
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -9,7 +8,6 @@ import javax.servlet.http.HttpSession;
 
 import kr.swcore.sderp.common.dto.PageDTO;
 import kr.swcore.sderp.common.dto.WrapperDTO;
-import kr.swcore.sderp.sched.dto.SchedDTO;
 import org.springframework.stereotype.Service;
 
 import kr.swcore.sderp.code.dao.CodeDAO;
@@ -140,10 +138,10 @@ public class TechdServiceImpl implements TechdService {
 	}
 	
 	@Override
-	public List<SalesDTO> listTechdinsopp(HttpSession session, int soppNo, int userNo) {
+	public List<SalesDTO> listTechdinsopp(HttpSession session, int soppNo, int contNo) {
 		SoppDTO soppdto = SessionInfoGet.getCompNoDto(session);
 		soppdto.setSoppNo(soppNo);
-		soppdto.setUserNo(userNo);
+		soppdto.setContNo(contNo);
 		
 		return techdDao.listTechdinsopp(soppdto);
 	}

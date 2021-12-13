@@ -13,7 +13,7 @@ public interface SalesService {
 	List<SalesDTO> listSales();
 	List<SalesDTO> listSales(HttpSession session, PageDTO pageDTO);
 	List<SalesDTO> listconSales(HttpSession session, SalesDTO dto);
-	List<SalesDTO> listSalesinsopp(HttpSession session, int soppNo, int userNo);
+	List<SalesDTO> listSalesinsopp(HttpSession session, int soppNo, int contNo);
 	Object listSales(HttpSession session, String param, HttpServletRequest request, HttpServletResponse response);
 	SalesDTO detailSales(int salesNo);
 	int updateSales(SalesDTO dto);

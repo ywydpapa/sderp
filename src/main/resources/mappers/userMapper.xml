@@ -54,9 +54,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  		userOtp=#{userOtp},
  		org_id = #{org_id},
  		userKey = #{userKey},
-		<choose>
-			<when test="userPass = 'init'"> userPasswd = '1234', </when>
-		</choose> 		
+		<if test="userPasswd > 0"> 
+			userPasswd = '1234', 
+		</if>
  		attrib = #{attrib}
  		where userNo=#{userNo}
   </update>

@@ -15,7 +15,13 @@
 			var userData = {};
 			userData.userNo 		= $("#userNo").val();
 			userData.userId 		= $("#userId").val();
-			userData.userPasswd 	= $("#userPasswd").val();
+			
+			if($("[name='userPasswd']").attr("data-number") == 1){
+				userData.userPasswd 	= 1;
+			}else{
+				userData.userPasswd		= 0;
+			}
+			
 			userData.userName 		= $("#userName").val();
 			userData.userRole 		= $("#userRole").val();
 			userData.org_id 		= $("#userDept").val();
@@ -81,7 +87,7 @@
 								<tr>
 									<th scope="row">비밀번호</th>
 									<td>
-										<label><input type="checkbox" name="userPasswd" id="userPasswd" value = "init" class="form-control">암호 초기화</label>
+										<label><input type="checkbox" name="userPasswd" id="userPasswd" data-number="0" class="form-control">암호 초기화</label>
 									</td>
 								</tr>
 								<tr>
@@ -264,7 +270,19 @@
 </div>
 <jsp:include page="../body-bottom.jsp"/>
 <script>
-	$("[id^='userRole']").each(function(index, item){
-		$(this).val($(this).find("option:eq(1)").val());
+	$("[name='userPasswd']").change(function(){
+		if($(this).attr("data-number") == 0){
+			$(this).attr("data-number", 1);
+		}else{
+			$(this).attr("data-number", 0);
+		}
+	});
+
+	$("[id^='userRole']").find("option").each(function(index, item){
+		var userKey = "${userInfo.userKey}";
+		
+		if(userKey.indexOf(item.value) != -1){
+			$(this).attr("selected", true);
+		}
 	})
 </script>

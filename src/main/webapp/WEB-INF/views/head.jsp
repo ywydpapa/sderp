@@ -196,13 +196,14 @@
 		userData.userChangePasswd = changePassword;
 		
 		$.ajax({
-			url : "${path}/user/update.do",
+			url : "${path}/user/updatePass.do",
 			data : userData,
 			method : "POST",
 			dataType : "json"
 		}).done(function(data){
 			if(data.code == 10001){
-				alert("개인정보가 수정되었습니다.")
+				alert("개인정보가 수정되었습니다.");
+				location.reload();
 			}else{
 				alert("유저 정보를 찾을 수 없습니다.");
 			}

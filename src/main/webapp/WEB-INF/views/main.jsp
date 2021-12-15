@@ -154,7 +154,7 @@
 	// 	}
 	// }
 	
-	function fnChangeInfo() {
+	/* function fnChangeInfo() {
 		var userId = $("#userInfoForm").find("input[name=userId]").val();
 		var currentPassword = $("#userPasswd").val();
 		var changePassword = $("#userChangePasswd").val();
@@ -189,7 +189,7 @@
 			alert("통신 실패");
 		});
 		
-	}
+	} */
 	
 	function fnIsNullOrEmpty(value) {
 		if(value == null || value == undefined || value == '') {

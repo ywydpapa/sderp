@@ -109,22 +109,16 @@ public class ContController {
 		mav.setViewName("cont/detail");
 		ContDTO contDTO = new ContDTO();
 		contDTO = contService.detailCont(contNo);
-//		int soppNo = contDTO.getSoppNo();
 		mav.addObject("contDto", contDTO);
 		mav.addObject("dto", soppService.detailSopp(soppNo));
 		mav.addObject("dtodata01", soppdataService.listSoppdata01(soppNo));
 		mav.addObject("dtodata02", soppdataService.listSoppdata02(soppNo));
+		mav.addObject("contType", codeService.listContType(session));
 		mav.addObject("saleslist", codeService.listSalestype(session));
 		mav.addObject("sstatuslist", codeService.listSstatus(session));
 		mav.addObject("salesinsopp",salesService.listSalesinsopp(session, soppNo, contNo));
 		mav.addObject("techdinsopp",techdService.listTechdinsopp(session, soppNo, contNo));
 		return mav;
-		/*
-		 * mav.addObject("soppFiles",soppService.listFile(soppNo));
-		 * mav.addObject("contractType", codeService.listContractType(session));
-		 * mav.addObject("contType", codeService.listContType(session));
-		 * mav.addObject("areaType", codeService.listAreaType(session)); return mav;
-		 */
 	}
 
 	@RequestMapping("write.do")

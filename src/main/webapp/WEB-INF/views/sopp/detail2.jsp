@@ -649,8 +649,11 @@
 			contData.userNo = $("#userNo").val();
 			contData.custNo = $("#custNo").val();
 			contData.compNo = ${compNo};
+			contData.contType = $("#soppType").val();
 			contData.cntrctMth = $("#cntrctMth").val();
 			contData.contAmt = $("#soppTargetAmt").val().replace(/[\D\s\._\-]+/g, "");
+			contData.net_profit = $("#product01DiffSum").html().replace(/[\D\s\._\-]+/g, "");
+			contData.vatYn = "N";
 			console.log(contData);			
 			$.ajax({ url: "${path}/cont/insert.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소 
 				data: contData , // HTTP 요청과 함께 서버로 보낼 데이터 

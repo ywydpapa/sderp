@@ -626,17 +626,18 @@
 		});
 
 		function fn_SaveCont() {
+			
 			var contData = {};
 			contData.contNo 					= Number($("#contNo").val());
 			var contractType					= $("input[name='contractType']:checked").val();	// 신규 영업지원 or 기존계약
 			if(contractType == 'NEW'){
 				contData.soppNo					= Number($("#soppNo").val());			// 영업기회
 				contData.exContNo				= 0;							// 기존계약
-				contData.cntrctMth				= Number(${contractType[0].codeNo});
+				contData.cntrctMth				= Number(10247);
 			} else if(contractType == 'OLD'){
 				contData.soppNo					= 0;							// 영업기회
 				contData.exContNo				= Number($("#oldContNo").val());		// 기존계약
-				contData.cntrctMth				= Number(${contractType[1].codeNo});
+				contData.cntrctMth				= Number(10248);
 			}
 			contData.contTitle 					= $("#contTitle").val(); 		// 계약명
 			if($("#userName").val() != "")			contData.userNo		 	= Number($("#userNo").val());			// 담당사원

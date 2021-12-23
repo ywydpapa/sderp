@@ -154,6 +154,10 @@
 											</div>
 										</div>
 									</td>
+									<th class="text-center">첨부파일</th>
+									<td>
+										<input class="form-control" type="file" id="addFile">
+									</td>
 								</tr>
 								<tr>
 									<th class="requiredTextCss text-center">거래업체</th>

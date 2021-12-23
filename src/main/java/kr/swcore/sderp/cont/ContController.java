@@ -143,6 +143,20 @@ public class ContController {
 		mav.addObject("contractType", codeService.listContractType(session));
 		return mav;
 	}
+	
+	@RequestMapping("slipwrite.do")
+	public ModelAndView slipwrite(HttpSession session, ModelAndView mav) {
+		mav.setViewName("slip/slipwrite");
+		mav.addObject("contractType", codeService.listContractType(session));
+		return mav;
+	}
+	
+	@RequestMapping("sliplist.do")
+	public ModelAndView sliplist(HttpSession session, ModelAndView mav) {
+		mav.setViewName("slip/sliplist");
+		mav.addObject("contractType", codeService.listContractType(session));
+		return mav;
+	}
 
 	@RequestMapping("insert.do")
 	public ResponseEntity<?> insert(HttpSession session, @ModelAttribute ContDTO dto) {

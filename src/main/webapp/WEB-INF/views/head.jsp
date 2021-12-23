@@ -119,6 +119,16 @@
 		});
 	}
 	
+	function fnSetSideMenu(url, data){
+		<!-- $.LoadingOverlay("show", true); -->
+		$("#sideMenu").empty();
+		$("#sideMenu").load(url, data, function(){
+		setTimeout(function(){
+			    <!--$.LoadingOverlay("hide", true);-->
+			}, 50);
+		});
+	}
+	
 	function fnClearall(){
 		var parrentElement = $(this).closest("#searchForm");
 		var elements = $("#searchForm").find("input");

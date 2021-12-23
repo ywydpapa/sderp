@@ -129,6 +129,20 @@ public class ContController {
 		mav.addObject("areaType", codeService.listAreaType(session));
 		return mav;
 	}
+	
+	@RequestMapping("iowrite.do")
+	public ModelAndView iowrite(HttpSession session, ModelAndView mav) {
+		mav.setViewName("cont/iowrite");
+		mav.addObject("contractType", codeService.listContractType(session));
+		return mav;
+	}
+	
+	@RequestMapping("iolist.do")
+	public ModelAndView iolist(HttpSession session, ModelAndView mav) {
+		mav.setViewName("cont/iolist");
+		mav.addObject("contractType", codeService.listContractType(session));
+		return mav;
+	}
 
 	@RequestMapping("insert.do")
 	public ResponseEntity<?> insert(HttpSession session, @ModelAttribute ContDTO dto) {

@@ -193,6 +193,14 @@
 						<span class="pcoded-mcaret"></span>
 					</a>
 				</li>
+				<li class="pcoded-hasmenu">
+					<a href="${path}/cont/iowrite.do">
+						<span class="pcoded-micon">
+							<i class="ti-angle-right"></i></span>
+						<span class="pcoded-mtext" data-i18n="nav.menu-levels.menu-level-23">매입/매출 자료등록</span>
+						<span class="pcoded-mcaret"></span>
+					</a>
+				</li>
 			</ul>
 		</li>
 		<li class="pcoded-hasmenu pcoded <c:if test="${path2 eq '/techd/list.do' || path2 eq '/techd/list.do' || path2 eq '/techd/write.do' || fn:startsWith(path2, '/techd/detail')}">pcoded-trigger</c:if>">

@@ -381,25 +381,13 @@
 
 	function fnListcon() {
 		var contData = {};
-		if($("#cntrctMth").val() == "10126"){													// 계약방식
-			contData.soppNo = 1;
-			contData.exContNo = 0;
-		} else if($("#cntrctMth").val() == "10127"){
-			contData.soppNo = 0;
-			contData.exContNo = 1;
-		}
-		contData.cntrctMth = $("#cntrctMth").val() ? Number($("#cntrctMth").val()) : 0;
 		contData.custNo = $("#custNo").val() ? Number($("#custNo").val()) : 0;
 		contData.custName = $("#custName").val() ? $("#custName").val() : 0;
-		contData.buyrNo = $("#endCustNo").val() ? Number($("#endCustNo").val()) : 0;
-		contData.buyrName = $("#endCustName").val() ? $("#endCustName").val() : 0;
 		contData.contTitle = $("#contTitle").val() ? $("#contTitle").val() : null;
 		contData.contType = $("#contType").val() ? $("#contType").val() : null;						// 판매방식
 		contData.targetDatefrom = $("#targetDatefrom").val() ? $("#targetDatefrom").val() : null;
 		contData.targetDateto = $("#targetDateto").val() ? $("#targetDateto").val() : null;
 		contData.userName = $("#userName").val() ? $("#userName").val() : null;
-		contData.freemaintSdate = $("#freemaintSdate").val() ? $("#freemaintSdate").val() : null;
-		contData.freemaintEdate = $("#freemaintEdate").val() ? $("#freemaintEdate").val() : null;
 		contData.regSDate = $("#regSDate").val() ? $("#regSDate").val() : null;
 		contData.regEDate = $("#regEDate").val() ? $("#regEDate").val() : null;
 
@@ -421,7 +409,7 @@
 			param = "";
 		}
 
-		var url = '${path}/cont/list.do'+param;
+		var url = '${path}/cont/iolistall.do'+param;
 		location.href = url;
 	}
 	

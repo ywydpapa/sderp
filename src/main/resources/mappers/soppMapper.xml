@@ -644,7 +644,19 @@ select a.soppNo, dataType ,b.soppTitle, c.custName as custName, sum(a.dataTotal)
  		from swc_soppData01 a
 		left join swc_sopp b on a.soppNo = b.soppNo
  		left join swc_cust c on a.salesCustNo = c.custNo
-		where a.attrib not like 'XXX%' 
+		where a.attrib not like 'XXX%'
+		<if test="userNo != null and userNo != ''">
+ 		 	and a.userNo = #{userNo}
+ 		</if>
+ 		<if test="custNo != null and custNo != ''">
+ 		 	and a.custNo = #{custNo}
+ 		</if>
+ 		<if test="vatDatefrom != null and vatDatefrom != ''">
+ 		 	and date_format(a.vatDate, '%Y-%m-%d') <![CDATA[>=]]> #{vatDatefrom}
+ 		</if>
+ 		<if test="vatDateto != null and vatDateto != ''">
+ 			and date_format(a.vatDate, '%Y-%m-%d') <![CDATA[<=]]> #{vatDateto}
+ 		</if>
 		and a.catNo=100001
 		group by a.soppNo, a.dataType 
 		order by a.soppNo 
@@ -655,7 +667,19 @@ select a.soppNo, dataType ,b.soppTitle, c.custName as custName, sum(a.dataTotal)
  		from swc_soppData01 a
 		left join swc_sopp b on a.soppNo = b.soppNo
  		left join swc_cust c on a.salesCustNo = c.custNo
-		where a.attrib not like 'XXX%' 
+		where a.attrib not like 'XXX%'
+		<if test="userNo != null and userNo != ''">
+ 		 	and a.userNo = #{userNo}
+ 		</if>
+ 		<if test="custNo != null and custNo != ''">
+ 		 	and a.custNo = #{custNo}
+ 		</if>
+ 		<if test="vatDatefrom != null and vatDatefrom != ''">
+ 		 	and date_format(a.vatDate, '%Y-%m-%d') <![CDATA[>=]]> #{vatDatefrom}
+ 		</if>
+ 		<if test="vatDateto != null and vatDateto != ''">
+ 			and date_format(a.vatDate, '%Y-%m-%d') <![CDATA[<=]]> #{vatDateto}
+ 		</if>
 		and a.catNo=100001
 		order by a.soppNo
  </select>

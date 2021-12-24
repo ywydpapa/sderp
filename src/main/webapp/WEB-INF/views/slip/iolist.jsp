@@ -117,7 +117,7 @@
 								</div>
 								<div class="col-sm-12 col-xl-3">
 									<label class="col-form-label">계산서 발행일자</label>
-									<p class="input_inline"><input class="form-control form-control-sm col-xl-6" type="date" id="freemaintSdate"> ~ <input class="form-control form-control-sm col-xl-6" type="date" id="freemaintEdate">
+									<p class="input_inline"><input class="form-control form-control-sm col-xl-6" type="date" id="vatSdate"> ~ <input class="form-control form-control-sm col-xl-6" type="date" id="vatEdate">
 									</p>
 								</div>
 							</div>
@@ -187,11 +187,12 @@
 	<!--//리스트 table-->
 	<script>
 	
-	$("#targetDatefrom").change(function(){
+	
+	$("#vatSdate").change(function(){
 		var dateValue = $(this).val();
 		var dateValueArr = dateValue.split("-");
 		var dateValueCom = new Date(dateValueArr[0], dateValueArr[1], dateValueArr[2]);
-		var EdateValue = $("#targetDateto").val();
+		var EdateValue = $("#vatEdate").val();
 		var EdateDateArr = EdateValue.split("-");
 		var EdateDateCom = new Date(EdateDateArr[0], EdateDateArr[1], EdateDateArr[2]);
 		
@@ -212,11 +213,11 @@
 			day = "0" + day;
 		}
 		
-		$("#targetDateto").val(year + "-" + month + "-" + day);
+		$("#vatEdate").val(year + "-" + month + "-" + day);
 	});
 	
-	$("#targetDateto").change(function(){
-		var SdateValue = $("#targetDatefrom").val();
+	$("#vatEdate").change(function(){
+		var SdateValue = $("#vatSdate").val();
 		var SdateValueArr = SdateValue.split("-");
 		var SdateValueCom = new Date(SdateValueArr[0], SdateValueArr[1], SdateValueArr[2]);
 		var thisDateValue = $(this).val();
@@ -240,120 +241,9 @@
 			day = "0" + day;
 		}
 		
-		$("#targetDatefrom").val(year + "-" + month + "-" + day);
+		$("#vatSdate").val(year + "-" + month + "-" + day);
 	});
 	
-	$("#freemaintSdate").change(function(){
-		var dateValue = $(this).val();
-		var dateValueArr = dateValue.split("-");
-		var dateValueCom = new Date(dateValueArr[0], dateValueArr[1], dateValueArr[2]);
-		var EdateValue = $("#freemaintEdate").val();
-		var EdateDateArr = EdateValue.split("-");
-		var EdateDateCom = new Date(EdateDateArr[0], EdateDateArr[1], EdateDateArr[2]);
-		
-		if(EdateValue == ""){
-			dateValueCom.setDate(dateValueCom.getDate()+1);
-		}else if(dateValueCom.getTime() > EdateDateCom.getTime()){
-			alert("시작일이 종료일보다 클 수 없습니다.");
-			dateValueCom.setDate(dateValueCom.getDate()+1);
-		}else{
-			return null;
-		}
-		
-		var year = dateValueCom.getFullYear();
-		var month = dateValueCom.getMonth();
-		var day = dateValueCom.getDate();
-		
-		if(day < 10){
-			day = "0" + day;
-		}
-		
-		$("#freemaintEdate").val(year + "-" + month + "-" + day);
-	});
-	
-	$("#freemaintEdate").change(function(){
-		var SdateValue = $("#freemaintSdate").val();
-		var SdateValueArr = SdateValue.split("-");
-		var SdateValueCom = new Date(SdateValueArr[0], SdateValueArr[1], SdateValueArr[2]);
-		var thisDateValue = $(this).val();
-		var thisDateArr = thisDateValue.split("-");
-		var thisDateCom = new Date(thisDateArr[0], thisDateArr[1], thisDateArr[2]);
-		
-		if(SdateValue == ""){
-			thisDateCom.setDate(thisDateCom.getDate()-1);
-		}else if(SdateValueCom.getTime() > thisDateCom.getTime()){
-			alert("종료일이 시작일보다 작을 수 없습니다.");
-			thisDateCom.setDate(thisDateCom.getDate()-1);
-		}else{
-			return null;
-		}
-		
-		var year = thisDateCom.getFullYear();
-		var month = thisDateCom.getMonth();
-		var day = thisDateCom.getDate();
-		
-		if(day < 10){
-			day = "0" + day;
-		}
-		
-		$("#freemaintSdate").val(year + "-" + month + "-" + day);
-	});
-	
-	$("#regSDate").change(function(){
-		var dateValue = $(this).val();
-		var dateValueArr = dateValue.split("-");
-		var dateValueCom = new Date(dateValueArr[0], dateValueArr[1], dateValueArr[2]);
-		var EdateValue = $("#regEDate").val();
-		var EdateDateArr = EdateValue.split("-");
-		var EdateDateCom = new Date(EdateDateArr[0], EdateDateArr[1], EdateDateArr[2]);
-		
-		if(EdateValue == ""){
-			dateValueCom.setDate(dateValueCom.getDate()+1);
-		}else if(dateValueCom.getTime() > EdateDateCom.getTime()){
-			alert("시작일이 종료일보다 클 수 없습니다.");
-			dateValueCom.setDate(dateValueCom.getDate()+1);
-		}else{
-			return null;
-		}
-		
-		var year = dateValueCom.getFullYear();
-		var month = dateValueCom.getMonth();
-		var day = dateValueCom.getDate();
-		
-		if(day < 10){
-			day = "0" + day;
-		}
-		
-		$("#regEDate").val(year + "-" + month + "-" + day);
-	});
-	
-	$("#regEDate").change(function(){
-		var SdateValue = $("#regSDate").val();
-		var SdateValueArr = SdateValue.split("-");
-		var SdateValueCom = new Date(SdateValueArr[0], SdateValueArr[1], SdateValueArr[2]);
-		var thisDateValue = $(this).val();
-		var thisDateArr = thisDateValue.split("-");
-		var thisDateCom = new Date(thisDateArr[0], thisDateArr[1], thisDateArr[2]);
-		
-		if(SdateValue == ""){
-			thisDateCom.setDate(thisDateCom.getDate()-1);
-		}else if(SdateValueCom.getTime() > thisDateCom.getTime()){
-			alert("종료일이 시작일보다 작을 수 없습니다.");
-			thisDateCom.setDate(thisDateCom.getDate()-1);
-		}else{
-			return null;
-		}
-		
-		var year = thisDateCom.getFullYear();
-		var month = thisDateCom.getMonth();
-		var day = thisDateCom.getDate();
-		
-		if(day < 10){
-			day = "0" + day;
-		}
-		
-		$("#regSDate").val(year + "-" + month + "-" + day);
-	});
 	
 	$('#custModal').on('show.bs.modal', function(e) {
 		var button = $(e.relatedTarget);
@@ -381,25 +271,12 @@
 
 	function fnListcon() {
 		var contData = {};
-		if($("#cntrctMth").val() == "10126"){													// 계약방식
-			contData.soppNo = 1;
-			contData.exContNo = 0;
-		} else if($("#cntrctMth").val() == "10127"){
-			contData.soppNo = 0;
-			contData.exContNo = 1;
-		}
-		contData.cntrctMth = $("#cntrctMth").val() ? Number($("#cntrctMth").val()) : 0;
 		contData.custNo = $("#custNo").val() ? Number($("#custNo").val()) : 0;
 		contData.custName = $("#custName").val() ? $("#custName").val() : 0;
-		contData.buyrNo = $("#endCustNo").val() ? Number($("#endCustNo").val()) : 0;
-		contData.buyrName = $("#endCustName").val() ? $("#endCustName").val() : 0;
 		contData.contTitle = $("#contTitle").val() ? $("#contTitle").val() : null;
-		contData.contType = $("#contType").val() ? $("#contType").val() : null;						// 판매방식
-		contData.targetDatefrom = $("#targetDatefrom").val() ? $("#targetDatefrom").val() : null;
-		contData.targetDateto = $("#targetDateto").val() ? $("#targetDateto").val() : null;
+		contData.vatDatefrom = $("#vatSdate").val() ? $("#vatSdate").val() : null;
+		contData.vatDateto = $("#vatEdate").val() ? $("#vatEdate").val() : null;
 		contData.userName = $("#userName").val() ? $("#userName").val() : null;
-		contData.freemaintSdate = $("#freemaintSdate").val() ? $("#freemaintSdate").val() : null;
-		contData.freemaintEdate = $("#freemaintEdate").val() ? $("#freemaintEdate").val() : null;
 		contData.regSDate = $("#regSDate").val() ? $("#regSDate").val() : null;
 		contData.regEDate = $("#regEDate").val() ? $("#regEDate").val() : null;
 
@@ -421,7 +298,7 @@
 			param = "";
 		}
 
-		var url = '${path}/cont/list.do'+param;
+		var url = '${path}/cont/iolist.do'+param;
 		location.href = url;
 	}
 	

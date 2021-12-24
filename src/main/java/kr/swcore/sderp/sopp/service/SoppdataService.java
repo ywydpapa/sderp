@@ -12,6 +12,7 @@ public interface SoppdataService {
 	List<SoppdataDTO> listSoppdata01(int soppNo);
 	List<SoppdataDTO> listSoppdata02(int soppNo);
 	List<SoppdataDTO> listIOsum();
+	List<SoppdataDTO> listIO();
 	int deleteSoppdata01(int soppdataNo);
 	int insertSoppdata01(HttpSession session, SoppdataDTO dto);
 	int updateSoppdata01(HttpSession session, SoppdataDTO dto, HttpServletRequest servletRequest);

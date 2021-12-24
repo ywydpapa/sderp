@@ -137,11 +137,29 @@ public class ContController {
 		return mav;
 	}
 	
+	@RequestMapping("iodetail/{soppNo}")
+	public ModelAndView iodetail(HttpSession session,@PathVariable("soppNo") int soppNo, ModelAndView mav) {
+		mav.setViewName("slip/iodetail");
+		mav.addObject("contractType", codeService.listContractType(session));
+		mav.addObject("sopp", soppService.detailSopp(soppNo));
+		mav.addObject("soppdata01", soppdataService.listSoppdata01(soppNo));
+		return mav;
+	}
+
+	
 	@RequestMapping("iolist.do")
 	public ModelAndView iolist(HttpSession session, ModelAndView mav) {
 		mav.setViewName("slip/iolist");
 		mav.addObject("contractType", codeService.listContractType(session));
 		mav.addObject("listsum",soppdataService.listIOsum());
+		return mav;
+	}
+	
+	@RequestMapping("iolistall.do")
+	public ModelAndView iolistall(HttpSession session, ModelAndView mav) {
+		mav.setViewName("slip/iolistall");
+		mav.addObject("contractType", codeService.listContractType(session));
+		mav.addObject("listall",soppdataService.listIO());
 		return mav;
 	}
 	

@@ -56,4 +56,10 @@ public class SoppdataServiceImpl implements SoppdataService {
 		return soppdataDao.listIOsum();
 	}
 
+	@Override
+	public List<SoppdataDTO> listIO() {
+		// TODO Auto-generated method stub
+		return soppdataDao.listIO();
+	}
+
 }

@@ -59,10 +59,10 @@
 					<div class="col-sm-12">
 						<div class="card_box sch_it">
 							<div>
-								<div class="btn_wr" style="float:left;">
-									<button class="btn btn-sm btn-outline" onClick="javascript:location='${path}/cont/iolistall.do'"><i class="icofont icofont-pencil-alt-2"></i>개별목록 확인</button>
+								<div class="btn_wr" style="float:left">
+									<button class="btn btn-sm btn-outline" onClick="javascript:location='${path}/cont/iolist.do'"><i class="icofont icofont-pencil-alt-2"></i>합계목록 확인</button>
 								</div>
-								<div class="btn_wr" style="float:right;" >
+								<div class="btn_wr" style="float:right" >
 									<button class="btn btn-sm btn-inverse" onClick="javascript:fnClearall()"><i class="icofont icofont-spinner-alt-3"></i>초기화</button>
 									<button class="btn btn-sm btn-primary" onClick="javascript:fnListcon()"><i class="icofont icofont-search" id="search"></i>검색</button>
 									<button class="btn btn-sm btn-outline" onClick="javascript:location='${path}/cont/iowrite.do'"><i class="icofont icofont-pencil-alt-2"></i>자료등록</button>
@@ -161,7 +161,7 @@
 								</tr>
 							</thead>
 							<tbody>
-							<c:forEach var="row" items="${listsum}">
+							<c:forEach var="row" items="${listall}">
 								<tr>
 									<td class="text-center">
 									<c:if test="${row.dataType eq '1101'}">매입</c:if>

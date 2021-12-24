@@ -111,6 +111,7 @@
 										<div class="input-group input-group-sm mb-0">
 											<input type="text" class="form-control" name="oldContTitle" id="oldContTitle" readonly />
 											<input type="hidden" name="oldContNo" id="oldContNo" value="" />
+											<input type="hidden" name="oldSoppNo" id="oldSoppNo" value="" />
 											<span class="input-group-btn">
 												<button class="btn btn-primary sch-opportunity2" data-remote="${path}/modal/popup.do?popId=cont"
 														type="button" data-toggle="modal" data-target="#contModal">
@@ -160,9 +161,9 @@
 							</tbody>
 						</table>
 						<div class="table-responsive" style="overflow-x: hidden;">
-								<jsp:include page="/WEB-INF/views/module/inputSet/inputSetProductSalesInOut2.jsp"/>
-								<jsp:include page="/WEB-INF/views/sopp/inoutlist2.jsp"/>
-							</div>
+							<jsp:include page="/WEB-INF/views/module/inputSet/inputSetProductSalesInOut2.jsp"/>
+							<jsp:include page="/WEB-INF/views/sopp/inoutlist2.jsp"/>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -176,6 +177,39 @@
 	<!--//계약등록-->
 
 	<script>
+		var soppParam = "${soppParam}";
+		
+		document.onkeydown = function(e){
+		    if(e.keyCode == 116 || e.ctrlKey == true && (e.keyCode == 82)){
+		    	location.href = "${path}/cont/iowrite.do/0";
+		        return false;
+		    }
+		}
+
+		if(soppParam > 0){
+			$("#soppNo").val(localStorage.getItem("soppNo"));
+			
+			if(localStorage.getItem("reloadSet") === "1t"){
+				$("#soppTitle").val(localStorage.getItem("soppTitle"));
+				setTimeout(() => {
+					$("[name='contractType'][value='NEW']").trigger("click");
+				}, 300);
+			}else if(localStorage.getItem("reloadSet") === "2t"){
+				$("#oldContNo").val(localStorage.getItem("oldContNo"));
+				$("#oldContTitle").val(localStorage.getItem("oldContTitle"));
+				setTimeout(() => {
+					$("[name='contractType'][value='OLD']").trigger("click");
+				}, 300);
+			}else{
+				setTimeout(() => {
+					$("[name='contractType'][value='NEW']").trigger("click");
+				}, 300);
+			}
+			
+			localStorage.clear();
+		}
+		
+		
 		$('#soppModal').on('show.bs.modal', function(e) {
 			var button = $(e.relatedTarget);
 			var modal = $(this);
@@ -187,12 +221,37 @@
 			var modal = $(this);
 			modal.find('.modal-body').load(button.data("remote"));
 		});
+		
+		function fnSetproductdata(a,b){
+			$("#productNo1").val(a);
+			$("#data01Title").val(b);
+			//$(".modal-backdrop").remove();
+			//$("#productdataModal").modal("hide");
+			// 모달이 정상적으로 제거되지않아 close 버튼 트리거로 구성함
+			$("#productdataModal1").find(".modal-footer button").trigger('click');
+		}
+		
+		function fnSetSoppData(a, b) {
+			localStorage.setItem("soppNo", b);
+			localStorage.setItem("soppTitle", a);
+			localStorage.setItem("reloadSet", "1t");
+			$("#soppNo").val(b);
+			$("#soppTitle").val(a);
+			$("#soppModal").modal("hide");
+			location.href = "${path}/cont/iowrite.do/" + b;
+		}
 
-		function fnSetContData(a,b,c,d){
+		function fnSetContData(a,b,c,d,e){
+			localStorage.setItem("oldContNo", b);
+			localStorage.setItem("oldContTitle", a);
+			localStorage.setItem("reloadSet", "2t");
+			localStorage.setItem("soppNo", e);
 			$("#oldContTitle").val(a);
 			$("#oldContNo").val(b);
+			$("#soppNo").val(e);
 			$(".modal-backdrop").remove();
 			$("#contModal").modal("hide");
+			location.href = "${path}/cont/iowrite.do/" + e;
 		}
 
 		function fn_SaveContIO() {

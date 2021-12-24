@@ -19,7 +19,7 @@
 				<tr align="center">
 					<td>${row.contNo}</td>
 					<td><a
-						href="javascript:fnSetContData('${row.contTitle}','${row.contNo}','${row.userNo}','${row.custNo}');">${row.contTitle}</a></td>
+						href="javascript:fnSetContData('${row.contTitle}','${row.contNo}','${row.userNo}','${row.custNo}','${row.soppNo}');">${row.contTitle}</a></td>
 					<td>${row.custName}</td>
 					<td>${row.userName}</td>
 				</tr>

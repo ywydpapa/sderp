@@ -276,7 +276,27 @@
             });
     });
 
+    function fn_Reloaddata01(url, data){
+		$("#inoutlist").empty();
+		$("#inoutlistSum").remove();
+		$("#inoutlist").load(url, data, function(){
+			setTimeout(function(){
+			}, 500);
+		});
+	}
+    
     function fn_data01Insert() {
+    	localStorage.setItem("soppNo", $("#soppNo").val());
+    	
+    	if($("[name='contractType']:checked").val() === "NEW"){
+			localStorage.setItem("soppTitle", $("#soppTitle").val());
+			localStorage.setItem("reloadSet", "1t");
+    	}else{
+    		localStorage.setItem("oldContNo", $("#oldContNo").val());
+			localStorage.setItem("oldContTitle", $("#oldContTitle").val());
+			localStorage.setItem("reloadSet", "2t");
+    	}
+    	
         var data01Data = {};
         data01Data.soppNo 		= $("#soppNo").val();
         data01Data.catNo	 	= '100001';
@@ -289,6 +309,8 @@
         data01Data.dataNetprice	= $("#data01Netprice").val().replace(/[\D\s\._\-]+/g, "");
         data01Data.dataQuanty	= $("#data01Quanty").val().replace(/[\D\s\._\-]+/g, "");
         data01Data.dataAmt 		= $("#data01Amt").val().replace(/[\D\s\._\-]+/g, "");
+        data01Data.dataVat 		= $("#data01Vat").val().replace(/[\D\s\._\-]+/g, "");
+        data01Data.dataTotal 		= $("#data01Total").val().replace(/[\D\s\._\-]+/g, "");
         data01Data.dataRemark 	= $("#data01Remark").val();
 
         if(!data01Data.dataQuanty){
@@ -323,8 +345,7 @@
                 $("#data01Amt").val("");
                 $("#data01Remark").val("");
 
-                var url="${path}/sopp/inoutlist/"+$("#soppNo").val();
-                fn_Reloaddata01(url);
+                location.href = "${path}/cont/iowrite.do/"+$("#soppNo").val();
             }else{
                 alert("저장 실패");
             }
@@ -335,6 +356,17 @@
     }
 
     function fn_data01Update() {
+    	localStorage.setItem("soppNo", $("#soppNo").val());
+    	
+    	if($("[name='contractType']:checked").val() === "NEW"){
+			localStorage.setItem("soppTitle", $("#soppTitle").val());
+			localStorage.setItem("reloadSet", "1t");
+    	}else{
+    		localStorage.setItem("oldContNo", $("#oldContNo").val());
+			localStorage.setItem("oldContTitle", $("#oldContTitle").val());
+			localStorage.setItem("reloadSet", "2t");
+    	}
+    	
         var data01Data = {};
         data01Data.soppNo 		= $("#soppNo").val();
         data01Data.catNo	 	= '100001';
@@ -348,6 +380,8 @@
         data01Data.dataNetprice	= $("#data01Netprice").val().replace(/[\D\s\._\-]+/g, "");
         data01Data.dataQuanty	= $("#data01Quanty").val().replace(/[\D\s\._\-]+/g, "");
         data01Data.dataAmt 		= $("#data01Amt").val().replace(/[\D\s\._\-]+/g, "");
+        data01Data.dataVat 		= $("#data01Vat").val().replace(/[\D\s\._\-]+/g, "");
+        data01Data.dataTotal 	= $("#data01Total").val().replace(/[\D\s\._\-]+/g, "");
         data01Data.dataRemark 	= $("#data01Remark").val();
 
         if(!data01Data.dataQuanty){
@@ -383,8 +417,7 @@
                 $("#data01Addbtn").show();
                 $("#data01Modbtn").hide();
 
-                var url="${path}/sopp/inoutlist/"+$("#soppNo").val();
-                fn_Reloaddata01(url);
+                location.href = "${path}/cont/iowrite.do/"+$("#soppNo").val();
             }else{
                 alert("저장 실패");
             }
@@ -399,7 +432,39 @@
         });
     }
 
-
+    function fn_data01delete(soppdataNo) {
+		var msg = "선택한 건을 삭제하시겠습니까?";
+		
+		localStorage.setItem("soppNo", $("#soppNo").val());
+		
+		if($("[name='contractType']:checked").val() === "NEW"){
+			localStorage.setItem("soppTitle", $("#soppTitle").val());
+			localStorage.setItem("reloadSet", "1t");
+    	}else{
+    		localStorage.setItem("oldContNo", $("#oldContNo").val());
+			localStorage.setItem("oldContTitle", $("#oldContTitle").val());
+			localStorage.setItem("reloadSet", "2t");
+    	}
+		
+		if( confirm(msg) ){
+			$.ajax({
+				url: "${path}/sopp/deletedata01.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
+				data: {soppdataNo : soppdataNo}, // HTTP 요청과 함께 서버로 보낼 데이터
+				method: "POST", // HTTP 요청 메소드(GET, POST 등)
+			}) // HTTP 요청이 성공하면 요청한 데이터가 done() 메소드로 전달됨. .
+			.done(function(data) {
+				if(data.code == 10001){
+					alert("삭제 성공");
+					location.href = "${path}/cont/iowrite.do/"+$("#soppNo").val();
+				}else{
+					alert("삭제 실패");
+				}
+			}) // HTTP 요청이 실패하면 오류와 상태에 관한 정보가 fail() 메소드로 전달됨.
+			.fail(function(xhr, status, errorThrown) {
+				alert("통신 실패");
+			});
+		}
+	}
 
     $(document).ready(function(){
         $('#data01Netprice,#data01Quanty').on('keyup',function(){

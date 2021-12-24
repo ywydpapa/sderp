@@ -43,7 +43,7 @@
                                         </li>
                                     </ul>
                                     </li>
-                                    <li class="pcoded-hasmenu  pcoded">
+                                    <li class="pcoded-hasmenu pcoded <c:if test="${path2 eq '/cont/iolist.do' || path2 eq '/cont/iowrite.do' || fn:startsWith(path2, '/cont')}">pcoded-trigger</c:if>">
                                     <a href="javascript:void(0)">
                                         <span class="pcoded-micon"><i class="icon-calculator"></i></span>
                                         <span class="pcoded-mtext"  data-i18n="nav.form-select.main">매입/매출관리</span>
@@ -58,7 +58,7 @@
                                             </a>
                                         </li>
                                         <li class="pcoded-hasmenu">
-                                            <a href="${path}/cont/iowrite.do">
+                                            <a href="${path}/cont/iowrite.do/0">
                                                 <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
                                                 <span class="pcoded-mtext" data-i18n="nav.menu-levels.menu-level-22">매입매출등록</span>
                                                 <span class="pcoded-mcaret"></span>

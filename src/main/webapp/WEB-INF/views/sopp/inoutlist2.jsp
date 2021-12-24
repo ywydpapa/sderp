@@ -47,8 +47,8 @@
 				<td>${row.dataTitle}<input hidden value="${row.productNo}"></td>
 				<td style="text-align: right">₩<fmt:formatNumber value="${row.dataNetprice}" pattern="#,###" /></td>
 				<td style="text-align: right"><fmt:formatNumber value="${row.dataQuanty}" pattern="#,###" /></td>
-				<td style="text-align: right">₩<fmt:formatNumber value="${row.dataAmt}" pattern="#,###" /></td>
 				<td style="text-align: right">₩<fmt:formatNumber value="${row.dataVat}" pattern="#,###" /></td>
+				<td style="text-align: right">₩<fmt:formatNumber value="${row.dataAmt}" pattern="#,###" /></td>
 				<td style="text-align: right">₩<fmt:formatNumber value="${row.dataTotal}" pattern="#,###" /></td>
 				<td>${row.dataRemark}</td>
 				<td><button class="btn btn-sm btn-dark" onClick="javascript:fn_data01modify(this)">수정</button></td>
@@ -74,8 +74,8 @@
 				<td>${row.dataTitle}<input hidden value="${row.productNo}"></td>
 				<td style="text-align: right">₩<fmt:formatNumber value="${row.dataNetprice}" pattern="#,###" /></td>
 				<td style="text-align: right"><fmt:formatNumber value="${row.dataQuanty}" pattern="#,###" /></td>
-				<td style="text-align: right">₩<fmt:formatNumber value="${row.dataAmt}" pattern="#,###" /></td>
 				<td style="text-align: right">₩<fmt:formatNumber value="${row.dataVat}" pattern="#,###" /></td>
+				<td style="text-align: right">₩<fmt:formatNumber value="${row.dataAmt}" pattern="#,###" /></td>
 				<td style="text-align: right">₩<fmt:formatNumber value="${row.dataTotal}" pattern="#,###" /></td>
 				<td>${row.dataRemark}</td>
 				<td><button class="btn btn-sm btn-dark" onClick="javascript:fn_data01modify(this)">수정</button></td>
@@ -119,8 +119,8 @@
 	var product01In = [
 		<c:forEach var="row" items="${dtodata01}" varStatus="i">
 			<c:if test="${row.dataType eq '1101'}">
-				<c:if test="${!i.last}">${row.dataNetprice},</c:if>
-				<c:if test="${i.last}">${row.dataNetprice}</c:if>
+				<c:if test="${!i.last}">${row.dataTotal},</c:if>
+				<c:if test="${i.last}">${row.dataTotal}</c:if>
 			</c:if>
 		</c:forEach>
 	];
@@ -136,8 +136,8 @@
 	var product01Out = [
 		<c:forEach var="row" items="${dtodata01}" varStatus="i">
 		<c:if test="${row.dataType eq '1102'}">
-			<c:if test="${!i.last}">${row.dataNetprice},</c:if>
-			<c:if test="${i.last}">${row.dataNetprice}</c:if>
+			<c:if test="${!i.last}">${row.dataTotal},</c:if>
+			<c:if test="${i.last}">${row.dataTotal}</c:if>
 		</c:if>
 		</c:forEach>
 	];
@@ -219,28 +219,6 @@
 
 			$("#data01Addbtn").show();
 			$("#data01Modbtn").hide();
-		}
-	}
-	function fn_data01delete(soppdataNo) {
-		var msg = "선택한 건을 삭제하시겠습니까?";
-		if( confirm(msg) ){
-			$.ajax({
-				url: "${path}/sopp/deletedata01.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
-				data: {soppdataNo : soppdataNo}, // HTTP 요청과 함께 서버로 보낼 데이터
-				method: "POST", // HTTP 요청 메소드(GET, POST 등)
-			}) // HTTP 요청이 성공하면 요청한 데이터가 done() 메소드로 전달됨. .
-			.done(function(data) {
-				if(data.code == 10001){
-					alert("삭제 성공");
-					var url="${path}/sopp/inoutlist/"+$("#soppNo").val();
-					fn_Reloaddata01(url);
-				}else{
-					alert("삭제 실패");
-				}
-			}) // HTTP 요청이 실패하면 오류와 상태에 관한 정보가 fail() 메소드로 전달됨.
-			.fail(function(xhr, status, errorThrown) {
-				alert("통신 실패");
-			});
 		}
 	}
 

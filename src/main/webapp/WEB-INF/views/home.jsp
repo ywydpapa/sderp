@@ -377,22 +377,22 @@ margin-left:10px;
 
 });
 </script>
-                            <div class="main-body">
-                                <div class="page-wrapper full-calender">
-                                    <!-- Page-header start -->
-                                    <!-- Page-header end -->
-                                    <div class="page-body">
-                                        <div class="card">
-                                            <div class="card-header">
-                                                <h5>업무 달력</h5>
-                                                <div class="card-header-right">    <ul class="list-unstyled card-option">        <li><i class="icofont icofont-simple-left "></i></li>        <li><i class="icofont icofont-maximize full-card"></i></li>        <li><i class="icofont icofont-minus minimize-card"></i></li>        <li><i class="icofont icofont-refresh reload-card"></i></li>        <li><i class="icofont icofont-error close-card"></i></li>    </ul></div>
-                                                <div id='calendar'></div>
-                                            </div>
-                                           <button class = "add-button" type="button" onclick="click_add();">일정추가 </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+<div class="main-body">
+    <div class="page-wrapper full-calender">
+        <!-- Page-header start -->
+        <!-- Page-header end -->
+        <div class="page-body">
+            <div class="card">
+                <div class="card-header">
+                    <h5>업무 달력</h5>
+                    <div class="card-header-right">    <ul class="list-unstyled card-option">        <li><i class="icofont icofont-simple-left "></i></li>        <li><i class="icofont icofont-maximize full-card"></i></li>        <li><i class="icofont icofont-minus minimize-card"></i></li>        <li><i class="icofont icofont-refresh reload-card"></i></li>        <li><i class="icofont icofont-error close-card"></i></li>    </ul></div>
+                    <div id='calendar'></div>
+                </div>
+               <button class = "add-button" type="button" onclick="click_add();">일정추가 </button>
+            </div>
+        </div>
+    </div>
+</div>
 <!-- 최초 나오는 달력 종료 -->
 	</div>
 <!-- 메인컨텐츠 종료 -->

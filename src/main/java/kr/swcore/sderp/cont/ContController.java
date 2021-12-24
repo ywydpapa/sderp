@@ -131,10 +131,12 @@ public class ContController {
 		return mav;
 	}
 	
-	@RequestMapping("iowrite.do")
-	public ModelAndView iowrite(HttpSession session, ModelAndView mav) {
+	@RequestMapping("iowrite.do/{soppNo}")
+	public ModelAndView iowrite(@PathVariable("soppNo") int soppNo, HttpSession session, ModelAndView mav) {
 		mav.setViewName("slip/iowrite");
 		mav.addObject("contractType", codeService.listContractType(session));
+		mav.addObject("dtodata01", soppdataService.listSoppdata01(soppNo));
+		mav.addObject("soppParam", soppNo);
 		return mav;
 	}
 	

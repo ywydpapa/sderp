@@ -12,6 +12,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import kr.swcore.sderp.sales.service.SalesService;
 import kr.swcore.sderp.salesTarget.dto.SalesTargetDTO;
+import kr.swcore.sderp.sopp.dto.SoppdataDTO;
 import kr.swcore.sderp.sopp.service.SoppService;
 import kr.swcore.sderp.sopp.service.SoppdataService;
 import kr.swcore.sderp.techd.service.TechdService;
@@ -148,18 +149,28 @@ public class ContController {
 
 	
 	@RequestMapping("iolist.do")
-	public ModelAndView iolist(HttpSession session, ModelAndView mav) {
+	public ModelAndView iolist(HttpSession session, ModelAndView mav, @ModelAttribute SoppdataDTO dto,
+			@RequestParam(value = "userNo", required = false) String userNo,
+			@RequestParam(value = "custNo", required = false) String custNo,
+			@RequestParam(value = "dataType", required = false) String dataType,
+			@RequestParam(value = "vatDatefrom", required = false) String vatDatefrom,
+			@RequestParam(value = "vatDateto", required = false) String vatDateto) {
 		mav.setViewName("slip/iolist");
 		mav.addObject("contractType", codeService.listContractType(session));
-		mav.addObject("listsum",soppdataService.listIOsum());
+		mav.addObject("listsum",soppdataService.listIOsum(dto));
 		return mav;
 	}
 	
 	@RequestMapping("iolistall.do")
-	public ModelAndView iolistall(HttpSession session, ModelAndView mav) {
+	public ModelAndView iolistall(HttpSession session, ModelAndView mav, @ModelAttribute SoppdataDTO dto,
+			@RequestParam(value = "userNo", required = false) String userNo,
+			@RequestParam(value = "custNo", required = false) String custNo,
+			@RequestParam(value = "dataType", required = false) String dataType,
+			@RequestParam(value = "vatDatefrom", required = false) String vatDatefrom,
+			@RequestParam(value = "vatDateto", required = false) String vatDateto) {
 		mav.setViewName("slip/iolistall");
 		mav.addObject("contractType", codeService.listContractType(session));
-		mav.addObject("listall",soppdataService.listIO());
+		mav.addObject("listall",soppdataService.listIO(dto));
 		return mav;
 	}
 	

@@ -14,6 +14,7 @@ public class SoppdataDTO {
 	private int soppdataNo;
 	private int soppNo;
 	private int userNo;
+	private int custNo;
 	private String soppTitle;
 	private int catNo;
 	private int productNo;
@@ -34,6 +35,8 @@ public class SoppdataDTO {
 	private String regDatetime;
 	private String issueDate;
 	private String vatDate;
+	private String vatDatefrom;
+	private String vatDateto;
 	private Boolean distMargin;
 
 

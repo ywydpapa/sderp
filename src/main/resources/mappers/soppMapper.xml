@@ -645,6 +645,9 @@ select a.soppNo, dataType ,b.soppTitle, c.custName as custName, sum(a.dataTotal)
 		left join swc_sopp b on a.soppNo = b.soppNo
  		left join swc_cust c on a.salesCustNo = c.custNo
 		where a.attrib not like 'XXX%'
+		<if test="dataType != null and dataType != ''">
+ 		 	and a.dataType = #{dataType}
+ 		</if>
 		<if test="userNo != null and userNo != ''">
  		 	and a.userNo = #{userNo}
  		</if>
@@ -668,6 +671,9 @@ select a.soppNo, dataType ,b.soppTitle, c.custName as custName, sum(a.dataTotal)
 		left join swc_sopp b on a.soppNo = b.soppNo
  		left join swc_cust c on a.salesCustNo = c.custNo
 		where a.attrib not like 'XXX%'
+		<if test="dataType != null and dataType != ''">
+ 		 	and a.dataType = #{dataType}
+ 		</if>
 		<if test="userNo != null and userNo != ''">
  		 	and a.userNo = #{userNo}
  		</if>

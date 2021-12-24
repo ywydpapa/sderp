@@ -109,7 +109,7 @@
 							<div class="form-group row">
 								<div class="col-sm-12 col-xl-3">
 									<label class="col-form-label">매입/매출 구분</label>
-									<select name="select" class="form-control form-control-sm" id="cntrctMth">
+									<select name="select" class="form-control form-control-sm" id="ioType">
 										<option value="">선택</option>
 										<option value="1101">매입</option>
 										<option value="1102">매출</option>
@@ -279,7 +279,7 @@
 		contData.userName = $("#userName").val() ? $("#userName").val() : null;
 		contData.regSDate = $("#regSDate").val() ? $("#regSDate").val() : null;
 		contData.regEDate = $("#regEDate").val() ? $("#regEDate").val() : null;
-
+		contData.dataType = $("#ioType").val() ? $("#ioType").val() : null;
 		var param = "?";
 		var paramFirst = true;
 		for (variable in contData) {

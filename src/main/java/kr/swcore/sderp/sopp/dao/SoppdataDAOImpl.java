@@ -40,15 +40,15 @@ public class SoppdataDAOImpl implements SoppdataDAO {
 	}
 
 	@Override
-	public List<SoppdataDTO> listIOsum() {
+	public List<SoppdataDTO> listIOsum(SoppdataDTO dto) {
 		// TODO Auto-generated method stub
-		return sqlSession.selectList("sopp.listIOsum");
+		return sqlSession.selectList("sopp.listIOsum",dto);
 	}
 
 	@Override
-	public List<SoppdataDTO> listIO() {
+	public List<SoppdataDTO> listIO(SoppdataDTO dto) {
 		// TODO Auto-generated method stub
-		return sqlSession.selectList("sopp.listIO");
+		return sqlSession.selectList("sopp.listIO",dto);
 	}
 
 }

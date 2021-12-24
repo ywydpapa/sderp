@@ -594,9 +594,12 @@ dataType,
 dataQuanty,
 dataAmt,
 dataNetprice,
+dataVat,
+dataTotal,
 dataRemark,
 linkType,
 linkNo,
+issueDate,
 regDatetime)
  values (#{soppNo},
 #{userNo},
@@ -609,9 +612,12 @@ regDatetime)
 #{dataQuanty},
 #{dataAmt},
 #{dataNetprice},
+#{dataVat},
+#{dataTotal},
 #{dataRemark},
 #{linkType},
 #{linkNo},
+#{issueDate},
 now()
 )
 </insert>

@@ -25,14 +25,18 @@ public class SoppdataDTO {
 	private int dataQuanty;
 	private BigDecimal dataAmt;
 	private BigDecimal dataNetprice;
+	private BigDecimal dataVat;
+	private BigDecimal dataTotal;
 	private String dataRemark;
 	private String linkType;
 	private String linkNo;
 	private String attrib;
 	private String regDatetime;
+	private String issueDate;
+	private String vatDate;
 	private Boolean distMargin;
 
-	// 확장
+
 	private String salesCustNoN;
 	private Integer productDataNo;
 

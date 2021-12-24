@@ -179,18 +179,11 @@
 	<script>
 		var soppParam = "${soppParam}";
 		
-		document.onkeydown = function(e){
-		    if(e.keyCode == 116 || e.ctrlKey == true && (e.keyCode == 82)){
-		    	location.href = "${path}/cont/iowrite.do/0";
-		        return false;
-		    }
-		}
-
 		if(soppParam > 0){
-			$("#soppNo").val(localStorage.getItem("soppNo"));
+			$("#soppNo").val(soppParam);
+			$("#soppTitle").val($("#hideSoppTitle").val());
 			
 			if(localStorage.getItem("reloadSet") === "1t"){
-				$("#soppTitle").val(localStorage.getItem("soppTitle"));
 				setTimeout(() => {
 					$("[name='contractType'][value='NEW']").trigger("click");
 				}, 300);
@@ -232,8 +225,6 @@
 		}
 		
 		function fnSetSoppData(a, b) {
-			localStorage.setItem("soppNo", b);
-			localStorage.setItem("soppTitle", a);
 			localStorage.setItem("reloadSet", "1t");
 			$("#soppNo").val(b);
 			$("#soppTitle").val(a);

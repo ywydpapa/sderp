@@ -555,10 +555,10 @@
 		$("#targetDatefrom").change(function(){
 			var dateValue = $(this).val();
 			var dateValueArr = dateValue.split("-");
-			var dateValueCom = new Date(dateValueArr[0], dateValueArr[1], dateValueArr[2]);
+			var dateValueCom = new Date(dateValueArr[0], parseInt(dateValueArr[1])-1, dateValueArr[2]);
 			var EdateValue = $("#targetDateto").val();
 			var EdateDateArr = EdateValue.split("-");
-			var EdateDateCom = new Date(EdateDateArr[0], EdateDateArr[1], EdateDateArr[2]);
+			var EdateDateCom = new Date(EdateDateArr[0], parseInt(EdateDateArr[1])-1, EdateDateArr[2]);
 			
 			if(EdateValue == ""){
 				dateValueCom.setDate(dateValueCom.getDate()+1);
@@ -570,7 +570,7 @@
 			}
 			
 			var year = dateValueCom.getFullYear();
-			var month = dateValueCom.getMonth();
+			var month = dateValueCom.getMonth()+1;
 			var day = dateValueCom.getDate();
 			
 			if(day < 10){
@@ -583,10 +583,10 @@
 		$("#targetDateto").change(function(){
 			var SdateValue = $("#targetDatefrom").val();
 			var SdateValueArr = SdateValue.split("-");
-			var SdateValueCom = new Date(SdateValueArr[0], SdateValueArr[1], SdateValueArr[2]);
+			var SdateValueCom = new Date(SdateValueArr[0], parseInt(SdateValueArr[1])-1, SdateValueArr[2]);
 			var thisDateValue = $(this).val();
 			var thisDateArr = thisDateValue.split("-");
-			var thisDateCom = new Date(thisDateArr[0], thisDateArr[1], thisDateArr[2]);
+			var thisDateCom = new Date(thisDateArr[0], parseInt(thisDateArr[1])-1, thisDateArr[2]);
 			
 			if(SdateValue == ""){
 				thisDateCom.setDate(thisDateCom.getDate()-1);
@@ -598,7 +598,7 @@
 			}
 			
 			var year = thisDateCom.getFullYear();
-			var month = thisDateCom.getMonth();
+			var month = thisDateCom.getMonth()+1;
 			var day = thisDateCom.getDate();
 			
 			if(day < 10){
@@ -611,10 +611,10 @@
 		$("#targetDatefrom2").change(function(){
 			var dateValue = $(this).val();
 			var dateValueArr = dateValue.split("-");
-			var dateValueCom = new Date(dateValueArr[0], dateValueArr[1], dateValueArr[2]);
+			var dateValueCom = new Date(dateValueArr[0], parseInt(dateValueArr[1])-1, dateValueArr[2]);
 			var EdateValue = $("#targetDateto2").val();
 			var EdateDateArr = EdateValue.split("-");
-			var EdateDateCom = new Date(EdateDateArr[0], EdateDateArr[1], EdateDateArr[2]);
+			var EdateDateCom = new Date(EdateDateArr[0], parseInt(EdateDateArr[1])-1, EdateDateArr[2]);
 			
 			if(EdateValue == ""){
 				dateValueCom.setDate(dateValueCom.getDate()+1);
@@ -626,7 +626,7 @@
 			}
 			
 			var year = dateValueCom.getFullYear();
-			var month = dateValueCom.getMonth();
+			var month = dateValueCom.getMonth()+1;
 			var day = dateValueCom.getDate();
 			
 			if(day < 10){
@@ -639,10 +639,10 @@
 		$("#targetDateto2").change(function(){
 			var SdateValue = $("#targetDatefrom2").val();
 			var SdateValueArr = SdateValue.split("-");
-			var SdateValueCom = new Date(SdateValueArr[0], SdateValueArr[1], SdateValueArr[2]);
+			var SdateValueCom = new Date(SdateValueArr[0], parseInt(SdateValueArr[1])-1, SdateValueArr[2]);
 			var thisDateValue = $(this).val();
 			var thisDateArr = thisDateValue.split("-");
-			var thisDateCom = new Date(thisDateArr[0], thisDateArr[1], thisDateArr[2]);
+			var thisDateCom = new Date(thisDateArr[0], parseInt(thisDateArr[1])-1, thisDateArr[2]);
 			
 			if(SdateValue == ""){
 				thisDateCom.setDate(thisDateCom.getDate()-1);
@@ -654,7 +654,7 @@
 			}
 			
 			var year = thisDateCom.getFullYear();
-			var month = thisDateCom.getMonth();
+			var month = thisDateCom.getMonth()+1;
 			var day = thisDateCom.getDate();
 			
 			if(day < 10){

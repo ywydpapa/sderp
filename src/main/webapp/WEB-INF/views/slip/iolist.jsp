@@ -105,6 +105,43 @@
 										</div>
 									</div>
 								</div>
+								<div class="col-sm-12 col-xl-3">
+								<label class="col-form-label" for="userName">담당사원</label>
+								<div class="input-group input-group-sm mb-0">
+									<input type="text" class="form-control" name="userName"
+										id="userName" value="${sessionScope.userName}" readonly /> <input type="hidden"
+										name="userNo" id="userNo" value="${sessionScope.userNo}" /> <span
+										class="input-group-btn">
+										<button class="btn btn-primary sch-company"
+											data-remote="${path}/modal/popup.do?popId=user" type="button"
+											data-toggle="modal" data-target="#userModal">
+											<i class="icofont icofont-search"></i>
+										</button>
+									</span>
+									<div class="modal fade " id="userModal" tabindex="-1"
+										role="dialog">
+										<div class="modal-dialog modal-80size" role="document">
+											<div class="modal-content modal-80size">
+												<div class="modal-header">
+													<h4 class="modal-title"></h4>
+													<button type="button" class="close" data-dismiss="modal"
+														aria-label="Close">
+														<span aria-hidden="true">&times;</span>
+													</button>
+												</div>
+												<div class="modal-body">
+													<h5>사용자목록</h5>
+													<p>Loading!!!</p>
+												</div>
+												<div class="modal-footer">
+													<button type="button" class="btn btn-default waves-effect "
+														data-dismiss="modal">Close</button>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
 							</div>
 							<div class="form-group row">
 								<div class="col-sm-12 col-xl-3">
@@ -119,12 +156,6 @@
 									<label class="col-form-label">계산서 발행일자</label>
 									<p class="input_inline"><input class="form-control form-control-sm col-xl-6" type="date" id="vatSdate"> ~ <input class="form-control form-control-sm col-xl-6" type="date" id="vatEdate">
 									</p>
-								</div>
-							</div>
-							<div class="form-group row">
-								<div class="col-sm-12 col-xl-3">
-									<label class="col-form-label">담당자</label>
-									<input type="text" class="form-control form-control-sm" id="userName" name="" placeholder="">
 								</div>
 							</div>
 						</div>
@@ -191,10 +222,10 @@
 	$("#vatSdate").change(function(){
 		var dateValue = $(this).val();
 		var dateValueArr = dateValue.split("-");
-		var dateValueCom = new Date(dateValueArr[0], dateValueArr[1], dateValueArr[2]);
+		var dateValueCom = new Date(dateValueArr[0], parseInt(dateValueArr[1])-1, dateValueArr[2]);
 		var EdateValue = $("#vatEdate").val();
 		var EdateDateArr = EdateValue.split("-");
-		var EdateDateCom = new Date(EdateDateArr[0], EdateDateArr[1], EdateDateArr[2]);
+		var EdateDateCom = new Date(EdateDateArr[0], parseInt(EdateDateArr[1])-1, EdateDateArr[2]);
 		
 		if(EdateValue == ""){
 			dateValueCom.setDate(dateValueCom.getDate()+1);
@@ -206,7 +237,7 @@
 		}
 		
 		var year = dateValueCom.getFullYear();
-		var month = dateValueCom.getMonth();
+		var month = dateValueCom.getMonth()+1;
 		var day = dateValueCom.getDate();
 		
 		if(day < 10){
@@ -219,10 +250,10 @@
 	$("#vatEdate").change(function(){
 		var SdateValue = $("#vatSdate").val();
 		var SdateValueArr = SdateValue.split("-");
-		var SdateValueCom = new Date(SdateValueArr[0], SdateValueArr[1], SdateValueArr[2]);
+		var SdateValueCom = new Date(SdateValueArr[0], parseInt(SdateValueArr[1])-1, SdateValueArr[2]);
 		var thisDateValue = $(this).val();
 		var thisDateArr = thisDateValue.split("-");
-		var thisDateCom = new Date(thisDateArr[0], thisDateArr[1], thisDateArr[2]);
+		var thisDateCom = new Date(thisDateArr[0], parseInt(thisDateArr[1])-1, thisDateArr[2]);
 		
 		if(SdateValue == ""){
 			thisDateCom.setDate(thisDateCom.getDate()-1);
@@ -234,7 +265,7 @@
 		}
 		
 		var year = thisDateCom.getFullYear();
-		var month = thisDateCom.getMonth();
+		var month = thisDateCom.getMonth()+1;
 		var day = thisDateCom.getDate();
 		
 		if(day < 10){
@@ -244,6 +275,12 @@
 		$("#vatSdate").val(year + "-" + month + "-" + day);
 	});
 	
+	
+	$('#userModal').on('show.bs.modal', function(e) {
+		var button = $(e.relatedTarget);
+		var modal = $(this);
+		modal.find('.modal-body').load(button.data("remote"));
+	});
 	
 	$('#custModal').on('show.bs.modal', function(e) {
 		var button = $(e.relatedTarget);
@@ -256,6 +293,15 @@
 		modal.find('.modal-body').load(button.data("remote"));
 	});
 
+	function fnSetUserData(a, b) {
+		console.log(a);
+		console.log(b);
+		$("#userName").val(b);
+		$("#userNo").val(a);
+		$(".modal-backdrop").remove();
+		$("#userModal").modal("hide");
+	}
+	
 	function fnSetCustData(a, b) {
 		$("#custNo").val(b);
 		$("#custName").val(a);
@@ -319,14 +365,14 @@
 		if(regSDate != '') $("#regSDate").val(regSDate);
 		if(regEDate != '') $("#regEDate").val(regEDate);
 
-		if(window.location.search.toString().startsWith('?')){
+		/* if(window.location.search.toString().startsWith('?')){
 			if('${param.userName}' == ''){
 				$("#userName").val("");
 			} else {
 				var userName = '${param.userName}';
 				$("#userName").val(userName);
 			}
-		} /* else {
+		} */ /* else {
 			var userName = '${sessionScope.userName}';
 			$("#userName").val(userName);
 		} */

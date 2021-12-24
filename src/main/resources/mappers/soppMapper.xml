@@ -654,6 +654,9 @@ select a.soppNo, dataType ,b.soppTitle, c.custName as custName, sum(a.dataTotal)
  		<if test="salesCustNo != null and salesCustNo != ''">
  		 	and a.salesCustNo = #{salesCustNo}
  		</if>
+ 		<if test="userNo != null and userNo != ''">
+ 		 	and a.userNo = #{userNo}
+ 		</if>
  		<if test="vatDatefrom != null and vatDatefrom != ''">
  		 	and date_format(a.vatDate, '%Y-%m-%d') <![CDATA[>=]]> #{vatDatefrom}
  		</if>

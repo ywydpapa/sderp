@@ -479,6 +479,118 @@
 			}
 		});
 		
+		$("#targetDatefrom").change(function(){
+			var dateValue = $(this).val();
+			var dateValueArr = dateValue.split("-");
+			var dateValueCom = new Date(dateValueArr[0], parseInt(dateValueArr[1])-1, dateValueArr[2]);
+			var EdateValue = $("#targetDateto").val();
+			var EdateDateArr = EdateValue.split("-");
+			var EdateDateCom = new Date(EdateDateArr[0], parseInt(EdateDateArr[1])-1, EdateDateArr[2]);
+			
+			if(EdateValue == ""){
+				dateValueCom.setDate(dateValueCom.getDate()+1);
+			}else if(dateValueCom.getTime() > EdateDateCom.getTime()){
+				alert("시작일이 종료일보다 클 수 없습니다.");
+				dateValueCom.setDate(dateValueCom.getDate()+1);
+			}else{
+				return null;
+			}
+			
+			var year = dateValueCom.getFullYear();
+			var month = dateValueCom.getMonth()+1;
+			var day = dateValueCom.getDate();
+			
+			if(day < 10){
+				day = "0" + day;
+			}
+			
+			$("#targetDateto").val(year + "-" + month + "-" + day);
+		});
+		
+		$("#targetDateto").change(function(){
+			var SdateValue = $("#targetDatefrom").val();
+			var SdateValueArr = SdateValue.split("-");
+			var SdateValueCom = new Date(SdateValueArr[0], parseInt(SdateValueArr[1])-1, SdateValueArr[2]);
+			var thisDateValue = $(this).val();
+			var thisDateArr = thisDateValue.split("-");
+			var thisDateCom = new Date(thisDateArr[0], parseInt(thisDateArr[1])-1, thisDateArr[2]);
+			
+			if(SdateValue == ""){
+				thisDateCom.setDate(thisDateCom.getDate()-1);
+			}else if(SdateValueCom.getTime() > thisDateCom.getTime()){
+				alert("종료일이 시작일보다 작을 수 없습니다.");
+				thisDateCom.setDate(thisDateCom.getDate()-1);
+			}else{
+				return null;
+			}
+			
+			var year = thisDateCom.getFullYear();
+			var month = thisDateCom.getMonth()+1;
+			var day = thisDateCom.getDate();
+			
+			if(day < 10){
+				day = "0" + day;
+			}
+			
+			$("#targetDatefrom").val(year + "-" + month + "-" + day);
+		});
+		
+		$("#regSDate").change(function(){
+			var dateValue = $(this).val();
+			var dateValueArr = dateValue.split("-");
+			var dateValueCom = new Date(dateValueArr[0], parseInt(dateValueArr[1])-1, dateValueArr[2]);
+			var EdateValue = $("#regEDate").val();
+			var EdateDateArr = EdateValue.split("-");
+			var EdateDateCom = new Date(EdateDateArr[0], parseInt(EdateDateArr[1])-1, EdateDateArr[2]);
+			
+			if(EdateValue == ""){
+				dateValueCom.setDate(dateValueCom.getDate()+1);
+			}else if(dateValueCom.getTime() > EdateDateCom.getTime()){
+				alert("시작일이 종료일보다 클 수 없습니다.");
+				dateValueCom.setDate(dateValueCom.getDate()+1);
+			}else{
+				return null;
+			}
+			
+			var year = dateValueCom.getFullYear();
+			var month = dateValueCom.getMonth()+1;
+			var day = dateValueCom.getDate();
+			
+			if(day < 10){
+				day = "0" + day;
+			}
+			
+			$("#regEDate").val(year + "-" + month + "-" + day);
+		});
+		
+		$("#regEDate").change(function(){
+			var SdateValue = $("#regSDate").val();
+			var SdateValueArr = SdateValue.split("-");
+			var SdateValueCom = new Date(SdateValueArr[0], parseInt(SdateValueArr[1])-1, SdateValueArr[2]);
+			var thisDateValue = $(this).val();
+			var thisDateArr = thisDateValue.split("-");
+			var thisDateCom = new Date(thisDateArr[0], parseInt(thisDateArr[1])-1, thisDateArr[2]);
+			
+			if(SdateValue == ""){
+				thisDateCom.setDate(thisDateCom.getDate()-1);
+			}else if(SdateValueCom.getTime() > thisDateCom.getTime()){
+				alert("종료일이 시작일보다 작을 수 없습니다.");
+				thisDateCom.setDate(thisDateCom.getDate()-1);
+			}else{
+				return null;
+			}
+			
+			var year = thisDateCom.getFullYear();
+			var month = thisDateCom.getMonth()+1;
+			var day = thisDateCom.getDate();
+			
+			if(day < 10){
+				day = "0" + day;
+			}
+			
+			$("#regSDate").val(year + "-" + month + "-" + day);
+		});
+		
 		$('#userModal').on('show.bs.modal', function(e) {
 			var button = $(e.relatedTarget);
 			var modal = $(this);

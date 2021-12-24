@@ -286,10 +286,7 @@
 	}
     
     function fn_data01Insert() {
-    	localStorage.setItem("soppNo", $("#soppNo").val());
-    	
     	if($("[name='contractType']:checked").val() === "NEW"){
-			localStorage.setItem("soppTitle", $("#soppTitle").val());
 			localStorage.setItem("reloadSet", "1t");
     	}else{
     		localStorage.setItem("oldContNo", $("#oldContNo").val());
@@ -356,10 +353,7 @@
     }
 
     function fn_data01Update() {
-    	localStorage.setItem("soppNo", $("#soppNo").val());
-    	
     	if($("[name='contractType']:checked").val() === "NEW"){
-			localStorage.setItem("soppTitle", $("#soppTitle").val());
 			localStorage.setItem("reloadSet", "1t");
     	}else{
     		localStorage.setItem("oldContNo", $("#oldContNo").val());
@@ -435,10 +429,7 @@
     function fn_data01delete(soppdataNo) {
 		var msg = "선택한 건을 삭제하시겠습니까?";
 		
-		localStorage.setItem("soppNo", $("#soppNo").val());
-		
 		if($("[name='contractType']:checked").val() === "NEW"){
-			localStorage.setItem("soppTitle", $("#soppTitle").val());
 			localStorage.setItem("reloadSet", "1t");
     	}else{
     		localStorage.setItem("oldContNo", $("#oldContNo").val());

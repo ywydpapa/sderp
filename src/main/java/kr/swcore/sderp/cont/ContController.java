@@ -144,8 +144,8 @@ public class ContController {
 	public ModelAndView iodetail(HttpSession session,@PathVariable("soppNo") int soppNo, ModelAndView mav) {
 		mav.setViewName("slip/iodetail");
 		mav.addObject("contractType", codeService.listContractType(session));
-		mav.addObject("sopp", soppService.detailSopp(soppNo));
-		mav.addObject("soppdata01", soppdataService.listSoppdata01(soppNo));
+		mav.addObject("dtodata01", soppdataService.listSoppdata01(soppNo));
+		mav.addObject("soppParam", soppNo);
 		return mav;
 	}
 

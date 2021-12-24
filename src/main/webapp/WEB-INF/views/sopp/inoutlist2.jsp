@@ -34,6 +34,7 @@
 	</thead>
 	<tbody>
 	<c:forEach var="row" items="${dtodata01}">
+		<input type="hidden" id="hideSoppTitle" value="${row.soppTitle}" />
 		<c:if test="${row.dataType eq '1101'}">
 			<tr class="item1" id="${row.soppdataNo}">
 				<td data-type="${row.dataType}">

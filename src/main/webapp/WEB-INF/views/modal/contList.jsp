@@ -18,7 +18,7 @@
 			<c:forEach var="row" items="${list}">
 				<tr align="center">
 					<td>${row.contNo}</td>
-					<td><a
+					<td id="modalContSoppNo" data-sopp="${row.soppNo}"><a
 						href="javascript:fnSetContData('${row.contTitle}','${row.contNo}','${row.userNo}','${row.custNo}','${row.soppNo}');">${row.contTitle}</a></td>
 					<td>${row.custName}</td>
 					<td>${row.userName}</td>

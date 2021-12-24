@@ -271,14 +271,10 @@
 
 	function fnListcon() {
 		var contData = {};
-		contData.custNo = $("#custNo").val() ? Number($("#custNo").val()) : 0;
-		contData.custName = $("#custName").val() ? $("#custName").val() : 0;
-		contData.contTitle = $("#contTitle").val() ? $("#contTitle").val() : null;
+		contData.userNo = $("#userNo").val() ? Number($("#userNo").val()) : 0;
+		contData.salesCustNo = $("#custNo").val() ? Number($("#custNo").val()) : 0;
 		contData.vatDatefrom = $("#vatSdate").val() ? $("#vatSdate").val() : null;
 		contData.vatDateto = $("#vatEdate").val() ? $("#vatEdate").val() : null;
-		contData.userName = $("#userName").val() ? $("#userName").val() : null;
-		contData.regSDate = $("#regSDate").val() ? $("#regSDate").val() : null;
-		contData.regEDate = $("#regEDate").val() ? $("#regEDate").val() : null;
 		contData.dataType = $("#ioType").val() ? $("#ioType").val() : null;
 		var param = "?";
 		var paramFirst = true;

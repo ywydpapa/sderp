@@ -403,16 +403,21 @@
 
     $(document).ready(function(){
         $('#data01Netprice,#data01Quanty').on('keyup',function(){
-
             var sum1 = parseInt($("#data01Netprice").val().replace(/[\D\s\._\-]+/g, "") || 0 );
             var sum2 = parseInt($("#data01Quanty").val().replace(/[\D\s\._\-]+/g, "") || 0 );
-
+            var sum3 = parseInt($("#data01Vat").val().replace(/[\D\s\._\-]+/g, "") || 0 );
             var sum = sum1 * sum2;
+            var sumv = sum * 0.1;
+            var sumt = sum + sumv;
             $("#data01Netprice").val(sum1.toLocaleString("en-US"));
             $("#data01Quanty").val(sum2.toLocaleString("en-US"));
             $("#data01Amt").val(sum.toLocaleString("en-US"));
+            $("#data01Vat").val(sumv.toLocaleString("en-US"));
+            $("#data01Total").val(sumt.toLocaleString("en-US"));
         });
 
         $("#data01Modbtn").hide();
+        var nowDate = new Date();      
+        $("#ioDate").val(nowDate.getFullYear() + "-" + parseInt(nowDate.getMonth()+1) + "-" + nowDate.getDate());
     });
 </script>

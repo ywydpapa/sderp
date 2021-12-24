@@ -8,6 +8,7 @@ public interface SoppdataDAO {
 
 	List<SoppdataDTO> listSoppdata01(int soppNo);
 	List<SoppdataDTO> listSoppdata02(int soppNo);
+	List<SoppdataDTO> listIOsum();
 	int deleteSoppdata01(int soppdataNo);
 	int insertSoppdata01(SoppdataDTO dto);
 

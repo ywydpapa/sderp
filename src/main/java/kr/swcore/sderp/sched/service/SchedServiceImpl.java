@@ -244,5 +244,13 @@ public class SchedServiceImpl implements SchedService {
 		return schedDao.insertSreport2(dto);
 	}
 
+	@Override
+	public List<SchedDTO> listMreport2(HttpSession session) {
+		// TODO Auto-generated method stub
+		int compNo = SessionInfoGet.getCompNo(session);
+		SchedDTO dto = new SchedDTO();
+		dto.setCompNo(compNo);
+		return schedDao.listMreport2(dto);
+	}
 
 }

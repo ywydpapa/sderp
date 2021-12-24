@@ -22,6 +22,7 @@ public interface SchedService {
 	int insertSreport(SchedDTO dto);
 	int insertSreport2(SchedDTO dto);
 	List<SchedDTO> listMreport(HttpSession session);
+	List<SchedDTO> listMreport2(HttpSession session);
 	SchedDTO detailAddtext(int sreportNo);
 	Object detailSreport(HttpSession session,SchedDTO dto);
 	SchedDTO myAddtext(HttpSession session,SchedDTO dto);

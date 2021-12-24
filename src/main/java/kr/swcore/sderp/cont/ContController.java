@@ -141,6 +141,7 @@ public class ContController {
 	public ModelAndView iolist(HttpSession session, ModelAndView mav) {
 		mav.setViewName("slip/iolist");
 		mav.addObject("contractType", codeService.listContractType(session));
+		mav.addObject("listsum",soppdataService.listIOsum());
 		return mav;
 	}
 	

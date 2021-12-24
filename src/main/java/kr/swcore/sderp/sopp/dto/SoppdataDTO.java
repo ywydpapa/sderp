@@ -38,6 +38,7 @@ public class SoppdataDTO {
 
 
 	private String salesCustNoN;
+	private String custName;
 	private Integer productDataNo;
 
 	public SoppdataDTO() {

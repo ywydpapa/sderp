@@ -106,15 +106,9 @@
 									<label class="col-form-label">매입/매출 구분</label>
 									<select name="select" class="form-control form-control-sm" id="cntrctMth">
 										<option value="">선택</option>
-										<option value="BUY">매입</option>
-										<option value="SEL">매출</option>
+										<option value="1101">매입</option>
+										<option value="1102">매출</option>
 									</select>
-								</div>
-								<div class="col-sm-12 col-xl-3">
-									<label class="col-form-label">작성일자</label>
-									<div class="ms-selectable sales_date">
-									<p class="input_inline"><input class="form-control form-control-sm col-xl-6" type="date" id="targetDatefrom" > ~ <input class="form-control form-control-sm col-xl-6" type="date" id="targetDateto" >
-									</div>
 								</div>
 								<div class="col-sm-12 col-xl-3">
 									<label class="col-form-label">계산서 발행일자</label>
@@ -126,14 +120,6 @@
 								<div class="col-sm-12 col-xl-3">
 									<label class="col-form-label">담당자</label>
 									<input type="text" class="form-control form-control-sm" id="userName" name="" placeholder="">
-								</div>
-								<div class="col-sm-12 col-xl-3">
-									<label class="col-form-label">과세/면서</label>
-									<select name="select" class="form-control form-control-sm" id="contType">
-										<option value="">선택</option>
-										<option value="vatY">과세</option>
-										<option value="vatN">면세</option>
-									</select>
 								</div>
 							</div>
 						</div>
@@ -153,39 +139,37 @@
 								<col width="10%"/>
 								<col width="10%"/>
 								<col width="10%"/>
+								<col width="15%"/>
+								<col width="15%"/>
 								<col width="20%"/>
-								<col width="10%"/>
-								<col width="10%"/>
 								<col width="20%"/>
-								<col width="10%"/>
 							</colgroup>							
 							<thead>
 								<tr>
 									<th class="text-center">구분</th>
-									<th class="text-center">등록일</th>
-									<th class="text-center">계산서 발행일</th>
-									<th class="text-center">영업기회/계약</th>
+									<th class="text-center">영업기회명</th>
 									<th class="text-center">거래처</th>
-									<th class="text-center">금액</th>
+									<th class="text-center">공급금액</th>
+									<th class="text-center">부가세액</th>
+									<th class="text-center">합계금액</th>
 									<th class="text-center">적요</th>
-									<th class="text-center">상태</th>
 								</tr>
 							</thead>
 							<tbody>
-							<c:forEach var="row" items="${list}">
+							<c:forEach var="row" items="${listsum}">
 								<tr>
-									<td></td>
-									<td>
-										<fmt:formatDate value="${regDatetime}" pattern="yyyy-MM-dd"/>
+									<td class="text-center">
+									<c:if test="${row.dataType eq '1101'}">매입</c:if>
+									<c:if test="${row.dataType eq '1102'}">매출</c:if>
 									</td>
 									<td>
-										<fmt:formatDate value="${vatDatetime}" pattern="yyyy-MM-dd"/>
+										${row.soppTitle}
 									</td>
-									<td>${row.cntrctMthN}</td>
 									<td>${row.custName}</td>
-									<td class="text-right"><fmt:formatNumber type="number" maxFractionDigits="3" value="${row.contAmt}" /></td>
-									<td>${row.userName}</td>
-									<td>${row.contOrddate}</td>
+									<td class="text-right"><fmt:formatNumber type="number" maxFractionDigits="3" value="${row.dataAmt}" /></td>
+									<td class="text-right"><fmt:formatNumber type="number" maxFractionDigits="3" value="${row.dataVat}" /></td>
+									<td class="text-right"><fmt:formatNumber type="number" maxFractionDigits="3" value="${row.dataTotal}" /></td>
+									<td></td>
 								</tr>
 							</c:forEach>								
 							</tbody>

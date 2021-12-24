@@ -70,11 +70,26 @@ public class schedController {
 		return mav;
 	}
 	
+	@RequestMapping("listMreport2.do")
+	public ModelAndView listschedrep2(HttpSession session, ModelAndView mav) {
+		mav.addObject("mlist",schedService.listMreport2(session));
+		mav.setViewName("sched/listMreport2");
+		return mav;
+	}
+	
 	@RequestMapping("detailMreport/{sreportNo}")
 	public ModelAndView detailMreport(@PathVariable("sreportNo") int sreportNo,HttpSession session, ModelAndView mav, @ModelAttribute SchedDTO dto) {
 		mav.addObject("rlist",schedService.detailSreport(session, dto));
 		mav.addObject("addtxt",schedService.detailAddtext(sreportNo));
 		mav.setViewName("sched/mreport");
+		return mav;
+	}
+	
+	@RequestMapping("detailMreport2/{sreportNo}")
+	public ModelAndView detailMreport2(@PathVariable("sreportNo") int sreportNo,HttpSession session, ModelAndView mav, @ModelAttribute SchedDTO dto) {
+		mav.addObject("rlist",schedService.detailSreport(session, dto));
+		mav.addObject("addtxt",schedService.detailAddtext(sreportNo));
+		mav.setViewName("sched/mreport2");
 		return mav;
 	}
 

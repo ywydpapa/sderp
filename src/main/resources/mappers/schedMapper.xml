@@ -704,6 +704,14 @@ left join swc_organiz so on su.org_id = so.org_id
 where su.compNo = #{compNo} and su.attrib not like 'XXX%' group by userNo order by su.userOtp asc
  </select>
  
+  <select id="listMreport2" resultType="schedDto">
+select so.org_title, su.userNo, su.userName, su.org_id ,max(ss.sreportNo) sreportNo, ss.weekNum from swc_user su 
+left join swc_sreport ss on su.userNo = ss.userNo and ss.weekNum = yearweek(curdate())+1 
+left join swc_organiz so on su.org_id = so.org_id 
+where su.compNo = #{compNo} and su.attrib not like 'XXX%' group by userNo order by su.userOtp asc
+ </select>
+ 
+ 
 <select id="detailAddtext" resultType="schedDto">
 select * from swc_sreport where sreportNo=#{sreportNo}
 </select>

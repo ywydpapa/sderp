@@ -5,8 +5,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="gw">
 
 <select id="listdoc" resultType="gwDto">
-    select * from swc_businessdoc where attrib not like 'XXX%';
+    select * from swc_businessdoc where attrib not like 'XXX%' and compNo = #{compNo};
  </select>
+
+    <select id="detaildoc" resultType="gwDto">
+        select * from swc_businessdoc where attrib not like 'XXX%' and compNo = #{compNo} and docNo=#{docNo};
+    </select>
 
  <insert id="insertdoc">
     insert into swc_businessdoc(
@@ -21,6 +25,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         docType = #{docType},docTitle=#{docTitle},docStatus=#{docStatus},linkSoppNo=#{linkSoppNo},linkMasterdocNo=#{linkMasterdocNo},docDesc=#{docDesc},docFormNo=#{docFormNo},modDate = now()
     where docNo = #{docNo}
  </update>
+
+    <update id="deletedoc">
+        update swc_businessdoc set
+        modDate = now(), attrib='XXX00'
+        where docNo = #{docNo}
+    </update>
  
 
 </mapper>

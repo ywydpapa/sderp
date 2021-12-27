@@ -457,19 +457,32 @@
 		}
 	}
 
+    $('#vatYn, #data01Vat').change(function(){
+       recall();
+    });
+
+    function recall(){
+        var sum1 = parseInt($("#data01Netprice").val().replace(/[\D\s\._\-]+/g, "") || 0 );
+        var sum2 = parseInt($("#data01Quanty").val().replace(/[\D\s\._\-]+/g, "") || 0 );
+        var sum3 = parseInt($("#data01Vat").val().replace(/[\D\s\._\-]+/g, "") || 0 );
+        var sum = sum1 * sum2;
+        var vat = $('#vatYn').val();
+        if (vat == 'Y'){
+            var sumv = sum * 0.1;
+        } else {
+            var sumv = sum * 0.0;
+        }
+        var sumt = sum + sumv;
+        $("#data01Netprice").val(sum1.toLocaleString("en-US"));
+        $("#data01Quanty").val(sum2.toLocaleString("en-US"));
+        $("#data01Amt").val(sum.toLocaleString("en-US"));
+        $("#data01Vat").val(sumv.toLocaleString("en-US"));
+        $("#data01Total").val(sumt.toLocaleString("en-US"));
+    }
+
     $(document).ready(function(){
         $('#data01Netprice,#data01Quanty').on('keyup',function(){
-            var sum1 = parseInt($("#data01Netprice").val().replace(/[\D\s\._\-]+/g, "") || 0 );
-            var sum2 = parseInt($("#data01Quanty").val().replace(/[\D\s\._\-]+/g, "") || 0 );
-            var sum3 = parseInt($("#data01Vat").val().replace(/[\D\s\._\-]+/g, "") || 0 );
-            var sum = sum1 * sum2;
-            var sumv = sum * 0.1;
-            var sumt = sum + sumv;
-            $("#data01Netprice").val(sum1.toLocaleString("en-US"));
-            $("#data01Quanty").val(sum2.toLocaleString("en-US"));
-            $("#data01Amt").val(sum.toLocaleString("en-US"));
-            $("#data01Vat").val(sumv.toLocaleString("en-US"));
-            $("#data01Total").val(sumt.toLocaleString("en-US"));
+            recall();
         });
 
         $("#data01Modbtn").hide();

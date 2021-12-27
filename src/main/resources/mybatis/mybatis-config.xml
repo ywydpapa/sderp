@@ -28,6 +28,7 @@
     <typeAlias alias="soppFileDataDTO" type="kr.swcore.sderp.sopp.dto.SoppFileDataDTO"/>
     <typeAlias alias="deptToPlanTblDTO" type="kr.swcore.sderp.common.dto.DeptToPlanTblDTO"/>
     <typeAlias alias="noticeDto" type="kr.swcore.sderp.notice.dto.NoticeDTO"/>
+    <typeAlias alias="gwDto" type="kr.swcore.sderp.gw.dto.GwDTO"/>
     </typeAliases>
  
 </configuration>

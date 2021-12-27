@@ -623,7 +623,7 @@ now()
 </insert>
 
 <delete id="deleteSoppdata01">
-	update swc_soppData01 
+	update swc_soppdata01 
 	set attrib = 'XXXXX'
 	where soppdataNo=#{soppdataNo}
  </delete>

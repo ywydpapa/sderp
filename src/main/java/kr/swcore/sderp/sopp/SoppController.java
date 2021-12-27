@@ -260,9 +260,9 @@ public class SoppController {
 	}
 
 	@RequestMapping("updatedata01.do")
-	public ResponseEntity<?> updatedata01(HttpSession session, @ModelAttribute SoppdataDTO dto, HttpServletRequest servletRequest) {
+	public ResponseEntity<?> updatedata01(HttpSession session, @ModelAttribute SoppdataDTO dto) {
 		Map<String, Object> param = new HashMap<>();
-		int soppdataInsert = soppdataService.updateSoppdata01(session, dto, servletRequest);
+		int soppdataInsert = soppdataService.updateSoppdata01(session, dto);
 		if (soppdataInsert >0) {
 			param.put("code","10001");
 		}

@@ -271,7 +271,7 @@ margin-left:10px;
                                         <span class="pcoded-mtext"  data-i18n="nav.basic-components.main">계약관리</span>
                                         <span class="pcoded-mcaret"></span>
                                     </a>
-                                                                        <ul class="pcoded-submenu">
+                                    <ul class="pcoded-submenu">
                                         <li class="pcoded-hasmenu ">
                                             <a href="${path}/cont/list.do">
                                                 <span class="pcoded-micon"><i class="ti-direction-alt"></i></span>

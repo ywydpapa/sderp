@@ -109,8 +109,8 @@
 								<label class="col-form-label" for="userName">담당사원</label>
 								<div class="input-group input-group-sm mb-0">
 									<input type="text" class="form-control" name="userName"
-										id="userName" value="${sessionScope.userName}" readonly /> <input type="hidden"
-										name="userNo" id="userNo" value="${sessionScope.userNo}" /> <span
+										id="userName" readonly /> <input type="hidden"
+										name="userNo" id="userNo" /> <span
 										class="input-group-btn">
 										<button class="btn btn-primary sch-company"
 											data-remote="${path}/modal/popup.do?popId=user" type="button"
@@ -123,7 +123,7 @@
 										<div class="modal-dialog modal-80size" role="document">
 											<div class="modal-content modal-80size">
 												<div class="modal-header">
-													<h4 class="modal-title"></h4>
+													<h4 class="modal-title">담당사원</h4>
 													<button type="button" class="close" data-dismiss="modal"
 														aria-label="Close">
 														<span aria-hidden="true">&times;</span>
@@ -294,8 +294,7 @@
 	});
 
 	function fnSetUserData(a, b) {
-		console.log(a);
-		console.log(b);
+		localStorage.setItem("userName", b);
 		$("#userName").val(b);
 		$("#userNo").val(a);
 		$(".modal-backdrop").remove();
@@ -365,14 +364,14 @@
 		if(regSDate != '') $("#regSDate").val(regSDate);
 		if(regEDate != '') $("#regEDate").val(regEDate);
 
-		/* if(window.location.search.toString().startsWith('?')){
-			if('${param.userName}' == ''){
+		if(window.location.search.toString().startsWith('?')){
+			if('${param.userNo}' == ''){
 				$("#userName").val("");
 			} else {
-				var userName = '${param.userName}';
-				$("#userName").val(userName);
+				$("#userName").val(localStorage.getItem("userName"));
+				localStorage.clear();
 			}
-		} */ /* else {
+		} /* else {
 			var userName = '${sessionScope.userName}';
 			$("#userName").val(userName);
 		} */

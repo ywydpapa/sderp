@@ -15,6 +15,6 @@ public interface SoppdataService {
 	List<SoppdataDTO> listIO(SoppdataDTO dto);
 	int deleteSoppdata01(int soppdataNo);
 	int insertSoppdata01(HttpSession session, SoppdataDTO dto);
-	int updateSoppdata01(HttpSession session, SoppdataDTO dto, HttpServletRequest servletRequest);
+	int updateSoppdata01(HttpSession session, SoppdataDTO dto);
 
 }

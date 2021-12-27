@@ -190,10 +190,16 @@
 			// var data01QuantyNum = Number(data01Quanty.replace(',',''));
 			$("#data01Quanty").val(data01Quanty);
 
-			var data01Amt = $(tr).children().eq(5)[0].innerText.replace('₩','');
+			var data01Vat = $(tr).children().eq(5)[0].innerText.replace('₩','');
+			$("#data01Vat").val(data01Vat);
+			
+			var data01Amt = $(tr).children().eq(6)[0].innerText.replace('₩','');
 			$("#data01Amt").val(data01Amt);
+			
+			var data01Total = $(tr).children().eq(7)[0].innerText.replace('₩','');
+			$("#data01Total").val(data01Total);
 
-			var data01Remark = $(tr).children().eq(6)[0].innerText;
+			var data01Remark = $(tr).children().eq(8)[0].innerText;
 			$("#data01Remark").val(data01Remark);
 
 			$(e).removeClass("btn-dark");

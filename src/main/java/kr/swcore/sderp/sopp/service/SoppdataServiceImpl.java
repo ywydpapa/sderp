@@ -37,8 +37,9 @@ public class SoppdataServiceImpl implements SoppdataService {
 	}
 
 	@Override
-	public int updateSoppdata01(HttpSession session, SoppdataDTO dto, HttpServletRequest servletRequest) {
+	public int updateSoppdata01(HttpSession session, SoppdataDTO dto) {
 		dto.setUserNo(SessionInfoGet.getUserNo(session));
+		System.out.println(dto.getSoppdataNo());
 		soppdataDao.deleteSoppdata01(dto.getSoppdataNo());
 		return soppdataDao.insertSoppdata01(dto);
 	}

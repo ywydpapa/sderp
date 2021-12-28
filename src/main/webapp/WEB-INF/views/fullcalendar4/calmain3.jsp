@@ -123,9 +123,9 @@
 		<input type="button" onclick="fnSearchCalendar()" value="검색">
 	</div>
 	<div id='calendar'></div>
-	<div style="margin-top: 10px;">선택한 사람 : <br/>
+	<!-- <div style="margin-top: 10px;">선택한 사람 : <br/>
 		<div id="selectedPerson"></div>
-	</div>
+	</div> -->
 	<script>
 		var userNoSelected = {
 			<c:forEach var="i" begin="0" end="${fn:length(organizationArrList[0].children)-1}" varStatus="status" step="1">

@@ -250,10 +250,15 @@
 			<div class="page-header2">
 				<div class="row align-items-end">
 					<div class="col-lg-12">
-						<div class="page-header-title">
-							<div class="d-inline">
-								기술지원 조회
+						<div class="page-header-title" style="float:left;">
+							<div style="margin-top:15px;">
+								<h6 style="font-weight:600;">기술지원 조회</h6>
 							</div>
+						</div>
+						<div class="btn_wr text-right" style="right;">
+							<button class="btn btn-sm btn-inverse" onClick="javascript:fnClearall()"><i class="icofont icofont-spinner-alt-3"></i>초기화</button>
+							<button class="btn btn-sm btn-primary" onClick="javascript:fnListcon()" id="search"><i class="icofont icofont-search"></i>검색</button>
+							<button class="btn btn-sm btn-outline"onClick="javascript:location='${path}/techd/write.do'"><i class="icofont icofont-pencil-alt-2"></i>등록</button>
 						</div>
 					</div>
 				</div>
@@ -267,12 +272,6 @@
 					<form id="searchForm" method="post" onsubmit="return false;" class="col-sm-12">
 						<div class="col-sm-12">
 							<div class="card_box sch_it">
-								<div class="btn_wr text-right">
-									<button class="btn btn-sm btn-inverse" onClick="javascript:fnClearall()"><i class="icofont icofont-spinner-alt-3"></i>초기화</button>
-									<button class="btn btn-sm btn-primary" onClick="javascript:fnListcon()" id="search"><i class="icofont icofont-search"></i>검색</button>
-									<button class="btn btn-sm btn-outline"onClick="javascript:location='${path}/techd/write.do'"><i class="icofont icofont-pencil-alt-2"></i>등록</button>
-
-								</div>
 								<div class="form-group row">
 									<div class="col-sm-12 col-xl-3">
 										<label class="col-form-label" for="userName">담당사원</label>

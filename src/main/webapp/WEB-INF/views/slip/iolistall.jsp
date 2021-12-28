@@ -105,8 +105,6 @@
 										</div>
 									</div>
 								</div>
-							</div>
-							<div class="form-group row">
 								<div class="col-sm-12 col-xl-3">
 									<label class="col-form-label">매입/매출 구분</label>
 									<select name="select" class="form-control form-control-sm" id="cntrctMth">
@@ -120,8 +118,6 @@
 									<p class="input_inline"><input class="form-control form-control-sm col-xl-6" type="date" id="freemaintSdate"> ~ <input class="form-control form-control-sm col-xl-6" type="date" id="freemaintEdate">
 									</p>
 								</div>
-							</div>
-							<div class="form-group row">
 								<div class="col-sm-12 col-xl-3">
 									<label class="col-form-label">담당자</label>
 									<input type="text" class="form-control form-control-sm" id="userName" name="" placeholder="">

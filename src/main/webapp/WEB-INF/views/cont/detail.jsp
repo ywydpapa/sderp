@@ -414,8 +414,8 @@
 					<div class="tab-pane " id="tab02" role="tabpanel">
 						<div class="card-block table-border-style">
 							<div class="table-responsive" style="overflow-x: hidden;">
-								<jsp:include page="/WEB-INF/views/module/inputSet/inputSetProductSalesInOut.jsp"/>
-								<jsp:include page="/WEB-INF/views/sopp/inoutlist.jsp"/>
+								<jsp:include page="/WEB-INF/views/module/inputSet/inputSetProductSalesInOut2.jsp"/>
+								<jsp:include page="/WEB-INF/views/sopp/inoutlist2.jsp"/>
 							</div>
 						</div>
 					</div>
@@ -558,6 +558,15 @@
 			var modal = $(this);
 			modal.find('.modal-body').load(button.data("remote"));
 		});
+		
+		function fnSetproductdata(a,b){
+			$("#productNo1").val(a);
+			$("#data01Title").val(b);
+			//$(".modal-backdrop").remove();
+			//$("#productdataModal").modal("hide");
+			// 모달이 정상적으로 제거되지않아 close 버튼 트리거로 구성함
+			$("#productdataModal1").find(".modal-footer button").trigger('click');
+		}
 
 		function fnSetEndCustData(a, b) {
 			$("#endCustNo").val(b);
@@ -750,7 +759,7 @@
 			});
 		}
 
-		function fn_data01Insert() {
+		/* function fn_data01Insert() {
 			var data01Data = {};
 			data01Data.soppNo 		= $("#soppNo").val();
 			data01Data.catNo	 	= '100001';
@@ -883,7 +892,7 @@
 							alert("통신 실패");
 						});
 			}
-		}
+		} */
 
 		$(document).ready(function() {
 			var contractType					= $("input[name='contractType']:checked").val();	// 신규 영업지원 or 기존계약

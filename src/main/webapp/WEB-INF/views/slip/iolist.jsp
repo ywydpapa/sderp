@@ -106,63 +106,52 @@
 									</div>
 								</div>
 								<div class="col-sm-12 col-xl-3">
-								<label class="col-form-label" for="userName">담당사원</label>
-								<div class="input-group input-group-sm mb-0">
-									<input type="text" class="form-control" name="userName"
-										id="userName" readonly /> <input type="hidden"
-										name="userNo" id="userNo" /> <span
-										class="input-group-btn">
-										<button class="btn btn-primary sch-company"
-											data-remote="${path}/modal/popup.do?popId=user" type="button"
-											data-toggle="modal" data-target="#userModal">
-											<i class="icofont icofont-search"></i>
-										</button>
-									</span>
-									<div class="modal fade " id="userModal" tabindex="-1"
-										role="dialog">
-										<div class="modal-dialog modal-80size" role="document">
-											<div class="modal-content modal-80size">
-												<div class="modal-header">
-													<h4 class="modal-title">담당사원</h4>
-													<button type="button" class="close" data-dismiss="modal"
-														aria-label="Close">
-														<span aria-hidden="true">&times;</span>
-													</button>
-												</div>
-												<div class="modal-body">
-													<h5>사용자목록</h5>
-													<p>Loading!!!</p>
-												</div>
-												<div class="modal-footer">
-													<button type="button" class="btn btn-default waves-effect "
-														data-dismiss="modal">Close</button>
+									<label class="col-form-label" for="userName">담당사원</label>
+									<div class="input-group input-group-sm mb-0">
+										<input type="text" class="form-control" name="userName"
+											id="userName" readonly /> <input type="hidden"
+											name="userNo" id="userNo" /> <span
+											class="input-group-btn">
+											<button class="btn btn-primary sch-company"
+												data-remote="${path}/modal/popup.do?popId=user" type="button"
+												data-toggle="modal" data-target="#userModal">
+												<i class="icofont icofont-search"></i>
+											</button>
+										</span>
+										<div class="modal fade " id="userModal" tabindex="-1"
+											role="dialog">
+											<div class="modal-dialog modal-80size" role="document">
+												<div class="modal-content modal-80size">
+													<div class="modal-header">
+														<h4 class="modal-title">담당사원</h4>
+														<button type="button" class="close" data-dismiss="modal"
+															aria-label="Close">
+															<span aria-hidden="true">&times;</span>
+														</button>
+													</div>
+													<div class="modal-body">
+														<h5>사용자목록</h5>
+														<p>Loading!!!</p>
+													</div>
+													<div class="modal-footer">
+														<button type="button" class="btn btn-default waves-effect "
+															data-dismiss="modal">Close</button>
+													</div>
 												</div>
 											</div>
 										</div>
 									</div>
 								</div>
-							</div>
-							</div>
-							<div class="form-group row">
-								<div class="col-sm-12 col-xl-3">
-									<label class="col-form-label">매입/매출 구분</label>
-									<select name="select" class="form-control form-control-sm" id="ioType">
-										<option value="">선택</option>
-										<option value="1101">매입</option>
-										<option value="1102">매출</option>
-									</select>
-								</div>
 								<div class="col-sm-12 col-xl-3">
 									<label class="col-form-label">계산서 발행일자</label>
-									<p class="input_inline"><input class="form-control form-control-sm col-xl-6" type="date" id="vatSdate"> ~ <input class="form-control form-control-sm col-xl-6" type="date" id="vatEdate">
-									</p>
+									<p class="input_inline"><input class="form-control form-control-sm col-xl-6" type="date" id="vatSdate"> ~ <input class="form-control form-control-sm col-xl-6" type="date" id="vatEdate"></p>
 								</div>
 							</div>
 						</div>
 					</div>
+				</div>
 			</div>
-		</div>
-	</c:if>
+		</c:if>
 	<!--//계약조회-->
 	 	 <!--리스트 table-->
 	<div class="cnt_wr" id="list-container">
@@ -172,8 +161,7 @@
 					<div class="table-responsive">
 						<table id="contTable" class="table table-striped table-bordered nowrap ">
 							<colgroup>
-								<col width="10%"/>
-								<col width="10%"/>
+								<col width="20%"/>
 								<col width="10%"/>
 								<col width="15%"/>
 								<col width="15%"/>
@@ -182,29 +170,24 @@
 							</colgroup>							
 							<thead>
 								<tr>
-									<th class="text-center">구분</th>
 									<th class="text-center">영업기회명</th>
 									<th class="text-center">거래처</th>
-									<th class="text-center">공급금액</th>
-									<th class="text-center">부가세액</th>
-									<th class="text-center">합계금액</th>
+									<th class="text-center">매입합계</th>
+									<th class="text-center">매출합계</th>
+									<th class="text-center">차액</th>
 									<th class="text-center">적요</th>
 								</tr>
 							</thead>
 							<tbody>
 							<c:forEach var="row" items="${listsum}">
 								<tr>
-									<td class="text-center">
-									<c:if test="${row.dataType eq '1101'}">매입</c:if>
-									<c:if test="${row.dataType eq '1102'}">매출</c:if>
-									</td>
 									<td>
 										<a href="${path}/cont/iodetail/${row.soppNo}">${row.soppTitle}</a>
 									</td>
 									<td>${row.custName}</td>
-									<td class="text-right"><fmt:formatNumber type="number" maxFractionDigits="3" value="${row.dataAmt}" /></td>
-									<td class="text-right"><fmt:formatNumber type="number" maxFractionDigits="3" value="${row.dataVat}" /></td>
-									<td class="text-right"><fmt:formatNumber type="number" maxFractionDigits="3" value="${row.dataTotal}" /></td>
+									<td class="text-right"><fmt:formatNumber type="number" maxFractionDigits="3" value="${row.amount}" /></td>
+									<td class="text-right"><fmt:formatNumber type="number" maxFractionDigits="3" value="${row.take}" /></td>
+									<td class="text-right" id="absSum"><fmt:formatNumber type="number" maxFractionDigits="3" value="${row.take-row.amount}" /></td>
 									<td></td>
 								</tr>
 							</c:forEach>								
@@ -217,7 +200,18 @@
 	</div>
 	<!--//리스트 table-->
 	<script>
-	
+	$("#contTable tbody tr").find("#absSum").each(function(index, item){
+		var absValue = $(item).html().replace(/[\D\s\._\-]+/g, "");
+		var absSum = 0;
+		
+		if(absValue < 0){
+			absSum = absValue * -1;
+		}else{
+			absSum = absValue;
+		}
+		
+		$(item).html(Number(absSum).toLocaleString("en-US"));
+	});
 	
 	$("#vatSdate").change(function(){
 		var dateValue = $(this).val();

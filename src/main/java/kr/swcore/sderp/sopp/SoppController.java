@@ -122,6 +122,7 @@ public class SoppController {
 		mav.addObject("salesinsopp",salesService.listSalesinsopp(session, soppNo, 0));
 		mav.addObject("techdinsopp",techdService.listTechdinsopp(session, soppNo, 0));
 		mav.addObject("soppFiles",soppService.listFile(soppNo));
+		mav.addObject("dtodata01", soppdataService.listSoppdata01(soppNo));
 		mav.setViewName("sopp/detail");
 		return mav;
 	}

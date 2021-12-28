@@ -286,6 +286,8 @@
 	}
     
     function fn_data01Insert() {
+    	var path = $(location).attr("pathname");
+    	
     	if($("[name='contractType']:checked").val() === "NEW"){
 			localStorage.setItem("reloadSet", "1t");
     	}else{
@@ -342,7 +344,7 @@
                 $("#data01Amt").val("");
                 $("#data01Remark").val("");
 
-                location.href = "${path}/cont/iowrite.do/"+$("#soppNo").val();
+                location.href = "${path}/"+path.replace("sderp/", "");
             }else{
                 alert("저장 실패");
             }
@@ -353,6 +355,8 @@
     }
 
     function fn_data01Update() {
+   	 	var path = $(location).attr("pathname");	
+   	 	
     	if($("[name='contractType']:checked").val() === "NEW"){
 			localStorage.setItem("reloadSet", "1t");
     	}else{
@@ -411,7 +415,7 @@
                 $("#data01Addbtn").show();
                 $("#data01Modbtn").hide();
 
-                location.href = "${path}/cont/iowrite.do/"+$("#soppNo").val();
+                location.href = "${path}/"+path.replace("sderp/", "");
             }else{
                 alert("저장 실패");
             }
@@ -427,6 +431,7 @@
     }
 
     function fn_data01delete(soppdataNo) {
+    	var path = $(location).attr("pathname");
 		var msg = "선택한 건을 삭제하시겠습니까?";
 		
 		if($("[name='contractType']:checked").val() === "NEW"){
@@ -446,7 +451,7 @@
 			.done(function(data) {
 				if(data.code == 10001){
 					alert("삭제 성공");
-					location.href = "${path}/cont/iowrite.do/"+$("#soppNo").val();
+					location.href = "${path}/"+path.replace("sderp/", "");
 				}else{
 					alert("삭제 실패");
 				}

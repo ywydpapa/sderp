@@ -293,7 +293,7 @@
 					<div class="tab-pane " id="tab03" role="tabpanel">
 						<div class="card-block table-border-style">
 							<div class="table-responsive" style="overflow-x: hidden;">
-								<jsp:include page="/WEB-INF/views/module/inputSet/inputSetProductSalesEstimate.jsp"/>
+								<jsp:include page="/WEB-INF/views/module/inputSet/inputSetProductSalesEstimate2.jsp"/>
 								<jsp:include page="/WEB-INF/views/sopp/qutylist.jsp"/>
 							</div>
 						</div>

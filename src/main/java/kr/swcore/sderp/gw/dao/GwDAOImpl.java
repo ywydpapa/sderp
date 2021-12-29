@@ -42,4 +42,14 @@ public class GwDAOImpl implements GwDAO{
 
         return sqlSession.update("gw.deletedoc",docNo);
     }
+
+    @Override
+    public int insertEst(GwDTO dto) {
+        return sqlSession.insert("gw.insertest",dto);
+    }
+
+    @Override
+    public int insertEstitems(GwDTO dto) {
+        return sqlSession.insert("gw.insertestitems",dto);
+    }
 }

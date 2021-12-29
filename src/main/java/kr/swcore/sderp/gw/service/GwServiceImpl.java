@@ -38,4 +38,14 @@ public class GwServiceImpl implements GwService{
     public int deleteDoc(int docNo) {
         return gwDao.deleteDoc(docNo);
     }
+
+    @Override
+    public int insertEst(GwDTO dto) {
+        return gwDao.insertEst(dto);
+    }
+
+    @Override
+    public int insertEstitems(GwDTO dto) {
+        return gwDao.insertEstitems(dto);
+    }
 }

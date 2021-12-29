@@ -11,4 +11,6 @@ public interface GwService {
     int insertDoc(GwDTO dto);
     int updateDoc(GwDTO dto);
     int deleteDoc(int docNo);
+    int insertEst(GwDTO dto);
+    int insertEstitems(GwDTO dto);
 }

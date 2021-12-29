@@ -31,6 +31,77 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         modDate = now(), attrib='XXX00'
         where docNo = #{docNo}
     </update>
- 
+
+    <insert id="insertest">
+    insert into swc_est(
+        estId,
+        estVer,
+        estType,
+        estTitle,
+        estDesc,
+        custNo,
+        soppNo,
+        compNo,
+        userNo,
+        estAmount,
+        estVat,
+        estDiscount,
+        estTotal,
+        estDate,
+        regDate,
+        attrib
+    ) values (
+        #{estId},
+        #{estVer},
+        #{estType},
+        #{estTitle},
+        #{estDesc},
+        #{custNo},
+        #{soppNo},
+        #{compNo},
+        #{userNo},
+        #{estAmount},
+        #{estVat},
+        #{estDiscount},
+        #{estTotal},
+        #{estDate},
+        now(),
+        '10000')
+    </insert>
+
+    <insert id="insertestitems">
+    insert into swc_estitems (
+        estId,
+        estVer,
+        custNo,
+        compNo,
+        productNo,
+        productName,
+        productSpec,
+        productQty,
+        productNetprice,
+        productVat,
+        productAmount,
+        productRemark,
+        regDate,
+        attrib
+    ) values (
+        #{estId},
+        #{estVer},
+        #{custNo},
+        #{compNo},
+        #{productNo},
+        #{productName},
+        #{productSpec},
+        #{productQty},
+        #{productNetprice},
+        #{productVat},
+        #{productAmount},
+        #{productRemark},
+        now(),
+        '10000'
+                 )
+
+    </insert>
 
 </mapper>

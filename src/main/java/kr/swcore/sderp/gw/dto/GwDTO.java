@@ -22,6 +22,13 @@ public class GwDTO {
     private String docDesc;
     private Integer docFormNo;
     private Integer estNo;
+    private String estType;
+    private String estTitle;
+    private String estDesc;
+    private BigDecimal estAmt;
+    private BigDecimal estVat;
+    private BigDecimal estTotal;
+    private float estDiscount;
     private Integer custNo;
     private Integer soppNo;
     private Integer productNo;

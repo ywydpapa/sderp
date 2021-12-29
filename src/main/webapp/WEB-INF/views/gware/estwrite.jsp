@@ -109,45 +109,61 @@
 											</div>
 										</div>
 									</td>
-									<th class="contDetailCont requiredTextCss text-center">계약</th>
-									<td class="contDetailCont">
-										<div class="input-group input-group-sm mb-0">
-											<input type="text" class="form-control" name="oldContTitle" id="oldContTitle" readonly />
-											<input type="hidden" name="oldContNo" id="oldContNo" value="" />
-											<input type="hidden" name="oldSoppNo" id="oldSoppNo" value="" />
-											<span class="input-group-btn">
-												<button class="btn btn-primary sch-opportunity2" data-remote="${path}/modal/popup.do?popId=cont"
-														type="button" data-toggle="modal" data-target="#contModal">
-													<i class="icofont icofont-search"></i>
-												</button>
-											</span>
-											<div class="modal fade " id="contModal" tabindex="-1"
-												 role="dialog">
-												<div class="modal-dialog modal-80size" role="document">
-													<div class="modal-content modal-80size">
-														<div class="modal-header">
-															<h4 class="modal-title"></h4>
-															<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-																<span aria-hidden="true">&times;</span>
-															</button>
-														</div>
-														<div class="modal-body">
-															<h5>계약 목록</h5>
-															<p>Loading!!!</p>
-														</div>
-														<div class="modal-footer">
-															<button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-									</td>
 								</tr>
 								<tr>
 									<th class="text-center">견적 고객</th>
 									<td>
-
+										<div class="input-group input-group-sm mb-0">
+					                        <input type="text" class="form-control" name="product" id="productSalesEstimateCustName" value="" />
+					                        <input type="hidden" id="productSalesEstimateCustNo" value="" />
+					                        <input type="hidden" id="soppdataNoEstimate" value="">
+					                        <span class="input-group-btn">
+					                            <button class="btn btn-primary sch-company" data-remote="${path}/modal/popup.do?popId=productdataListSalesEstimateCust" type="button" data-toggle="modal" data-target="#productCustModal3">
+					                                <i class="icofont icofont-search"></i>
+					                            </button>
+					                        </span>
+					                        <!--modal-->
+					                        <div class="modal fade " id="productCustModal3" tabindex="-1" role="dialog">
+					                            <div class="modal-dialog modal-80size" role="document">
+					                                <div class="modal-content modal-80size">
+					                                    <div class="modal-header">
+					                                        <h4 class="modal-title">견적고객</h4>
+					                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					                                            <span aria-hidden="true">&times;</span>
+					                                        </button>
+					                                    </div>
+					                                    <div class="modal-body">
+					                                    </div>
+					                                    <div class="modal-footer">
+					                                        <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
+					                                        <button type="button" class="btn btn-success waves-effect" id="custRegSimple2">간편추가</button>
+					                                    </div>
+					                                    <div style="display: none; border: solid; width: 80%; margin: auto; margin-bottom: 5px;" id="custRegSimple_div2">
+					                                        <table>
+					                                            <colgroup>
+					                                                <col width="10%">
+					                                                <col width="75%">
+					                                                <col width="15%">
+					                                            </colgroup>
+					                                            <tbody>
+					                                            <tr>
+					                                                <th>매출처명*</th>
+					                                                <td><input type="text" value="" id="custRegSimple_custName2" style="width: 100%;"> </td>
+					                                                <td><button type="button" class="btn-sm btn-dark" id="custRegSimple_custName_check2">중복확인</button></td>
+					                                            </tr>
+					                                            <tr>
+					                                                <th>담당자</th>
+					                                                <td><input type="text" value="" id="custRegSimple_custMemerName2" style="width: 100%;" placeholder="미입력시 미정으로 세팅됩니다."></td>
+					                                                <td><button type="button" class="btn-sm btn-success" id="custRegSimple_custName_register2">등록</button></td>
+					                                            </tr>
+					                                            </tbody>
+					                                        </table>
+					                                    </div>
+					                                </div>
+					                            </div>
+					                        </div>
+					                        <!--//modal-->
+					                    </div>
 									</td>
 									<th class="text-center">첨부파일</th>
 									<td>
@@ -258,9 +274,10 @@
 			var contData = {};
 			var contractType					= $("input[name='contractType']:checked").val();	// 신규 영업지원 or 기존계약
 			if(contractType == 'NEW'){
+				var cntrctMth = "${contractType[0].codeNo}";
 				contData.soppNo					= $("#soppNo").val();			// 영업기회
 				contData.exContNo				= 0;							// 기존계약
-				contData.cntrctMth				= ${contractType[0].codeNo};
+				contData.cntrctMth				= cntrctMth;
 				if($("#freemaintSdate").val() != "") contData.freemaintSdate = $("#freemaintSdate").val();	// 무상유지보수 시작일자
 				if($("#freemaintEdate").val() != "") contData.freemaintEdate = $("#freemaintEdate").val();	// 무상유지보수 마감일자
 				if(!contData.soppNo){
@@ -268,9 +285,10 @@
 					return;
 				}
 			} else {
+				var cntrctMth = "${contractType[1].codeNo}";
 				contData.soppNo					= 0;							// 영업기회
 				contData.exContNo				= $("#oldContNo").val();		// 기존계약
-				contData.cntrctMth				= ${contractType[1].codeNo};
+				contData.cntrctMth				= cntrctMth;
 				if($("#paymaintSdate").val() != "") contData.paymaintSdate = $("#paymaintSdate").val();		// 유상유지보수 시작일자
 				if($("#paymaintEdate").val() != "") contData.paymaintEdate = $("#paymaintEdate").val();		// 유상유지보수 마감일자
 				if(!contData.exContNo){

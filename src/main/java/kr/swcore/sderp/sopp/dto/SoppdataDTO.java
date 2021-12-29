@@ -28,6 +28,7 @@ public class SoppdataDTO {
 	private BigDecimal dataNetprice;
 	private BigDecimal dataVat;
 	private BigDecimal dataTotal;
+	private float dataDiscount;
 	private String dataRemark;
 	private String linkType;
 	private String linkNo;

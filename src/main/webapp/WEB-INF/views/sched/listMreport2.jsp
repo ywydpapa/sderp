@@ -17,6 +17,7 @@
 				<h6 style="font-weight:600;">차주 업무일지 조회</h6>
 			</div>
 			<div style="float:right;">
+				<a href="${path}/sched/listMreport.do" class="btn btn-primary" style="margin-right:5px;">업무일지(금주)</a>
 				<button class="btn btn-primary" onclick="print_pdf()" style="margin-right:5px;">일괄다운로드(PDF)</button>
 				<button type="button" class="btn btn-secondary" id="solPdf_btn" data-id="0" style="margin-right:5px;" disabled="disabled">pdf로 받기</button>
 				<button type="button" class="btn btn-secondary" id="print_btn" data-id="0" disabled="disabled">출력</button>

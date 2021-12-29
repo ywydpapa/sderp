@@ -640,7 +640,7 @@ now()
  </select>
  
  <select id="listIOsum" resultType="soppdataDto">
-select a.soppNo, dataType ,b.soppTitle, c.custName as custName, sum(a.dataTotal) as dataTotal ,sum(a.dataVat) as dataVat, sum(a.dataAmt) as dataAmt, b.soppDesc   
+select a.soppNo, dataType ,b.soppTitle, c.custName as custName, sum(case when a.dataType='1101' then a.dataTotal end) AS amount, sum(case when a.dataType='1102' then a.dataTotal end) AS take, b.soppDesc   
  		from swc_soppData01 a
 		left join swc_sopp b on a.soppNo = b.soppNo
  		left join swc_cust c on a.salesCustNo = c.custNo
@@ -664,8 +664,8 @@ select a.soppNo, dataType ,b.soppTitle, c.custName as custName, sum(a.dataTotal)
  			and date_format(a.vatDate, '%Y-%m-%d') <![CDATA[<=]]> #{vatDateto}
  		</if>
 		and a.catNo=100001
-		group by a.soppNo, a.dataType 
-		order by a.soppNo 
+		group by a.soppNo
+		order by a.soppNo asc
  </select>
  
  <select id="listIO" resultType="soppdataDto">

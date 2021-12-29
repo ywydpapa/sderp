@@ -43,6 +43,8 @@ public class SoppdataDTO {
 	private String salesCustNoN;
 	private String custName;
 	private Integer productDataNo;
+	private int amount;
+	private int take;
 
 	public SoppdataDTO() {
 		super();

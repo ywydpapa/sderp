@@ -43,10 +43,15 @@
 		<div class="page-header2">
 			<div class="row align-items-end">
 				<div class="col-lg-12">
-					<div class="page-header-title">
-						<div class="d-inline">
-							계약 현황 조회
+					<div class="page-header-title" style="float:left;">
+						<div style="margin-top:15px;">
+							<h6 style="font-weight:600;">계약 현황 조회</h6>
 						</div>
+					</div>
+					<div class="btn_wr" style="float:right;">
+						<button class="btn btn-sm btn-inverse" onClick="javascript:fnClearall()"><i class="icofont icofont-spinner-alt-3"></i>초기화</button>
+						<button class="btn btn-sm btn-primary" onClick="javascript:fnListcon()"><i class="icofont icofont-search" id="search"></i>검색</button>
+						<button class="btn btn-sm btn-outline" onClick="javascript:location='${path}/cont/write.do'"><i class="icofont icofont-pencil-alt-2"></i>등록</button>
 					</div>
 				</div>
 			</div>
@@ -58,11 +63,6 @@
 			<div class="row">
 					<div class="col-sm-12">
 						<div class="card_box sch_it">
-							<div class="btn_wr text-right">
-								<button class="btn btn-sm btn-inverse" onClick="javascript:fnClearall()"><i class="icofont icofont-spinner-alt-3"></i>초기화</button>
-								<button class="btn btn-sm btn-primary" onClick="javascript:fnListcon()"><i class="icofont icofont-search" id="search"></i>검색</button>
-								<button class="btn btn-sm btn-outline" onClick="javascript:location='${path}/cont/write.do'"><i class="icofont icofont-pencil-alt-2"></i>등록</button>
-							</div>
 							<div class="form-group row">
 								<div class="col-sm-12 col-xl-3">
 									<label class="col-form-label">매출처</label>
@@ -131,8 +131,6 @@
 										</div>
 									</div>
 								</div>
-							</div>
-							<div class="form-group row">
 								<div class="col-sm-12 col-xl-3">
 									<label class="col-form-label">계약명</label>
 									<input type="text" class="form-control form-control-sm" id="contTitle" name="" placeholder="" value="${param.contTitle}">
@@ -146,6 +144,8 @@
 										</c:forEach>
 									</select>
 								</div>
+							</div>
+							<div class="form-group row">
 								<div class="col-sm-12 col-xl-3">
 									<label class="col-form-label">판매일자</label>
 									<div class="ms-selectable sales_date">
@@ -157,8 +157,6 @@
 									<p class="input_inline"><input class="form-control form-control-sm col-xl-6" type="date" id="freemaintSdate"> ~ <input class="form-control form-control-sm col-xl-6" type="date" id="freemaintEdate">
 									</p>
 								</div>
-							</div>
-							<div class="form-group row">
 								<div class="col-sm-12 col-xl-3">
 									<label class="col-form-label">담당자</label>
 									<input type="text" class="form-control form-control-sm" id="userName" name="" placeholder="">

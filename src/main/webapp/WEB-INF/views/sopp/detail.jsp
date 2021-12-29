@@ -285,8 +285,8 @@
 					<div class="tab-pane " id="tab02" role="tabpanel">
 						<div class="card-block table-border-style">
 							<div class="table-responsive" style="overflow-x: hidden;">
-								<jsp:include page="/WEB-INF/views/module/inputSet/inputSetProductSalesInOut.jsp"/>
-								<jsp:include page="/WEB-INF/views/sopp/inoutlist.jsp"/>
+								<jsp:include page="/WEB-INF/views/module/inputSet/inputSetProductSalesInOut2.jsp"/>
+								<jsp:include page="/WEB-INF/views/sopp/inoutlist2.jsp"/>
 							</div>
 						</div>
 					</div>

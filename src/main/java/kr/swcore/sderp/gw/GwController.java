@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.inject.Inject;
@@ -27,6 +28,21 @@ public class GwController {
         List<GwDTO> list=gwService.listDoc2(session);
         model.addAttribute("list",list);
         return "gware/list";
+    }
+
+    @RequestMapping("estlist.do")
+    public String estList(HttpSession session, Model model) {
+        return "gware/estlist";
+    }
+
+    @RequestMapping("estwrite.do")
+    public String estwrite(HttpSession session, Model model) {
+        return "gware/estwrite";
+    }
+
+    @RequestMapping("estdetail/{estNo}")
+    public String estwrite(@PathVariable int estNo, HttpSession session, Model model) {
+        return "gware/estdetail";
     }
 
     @RequestMapping("insert.do")

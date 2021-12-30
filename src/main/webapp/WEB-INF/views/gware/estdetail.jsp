@@ -7,7 +7,7 @@
 <!DOCTYPE html>
 <html>
 <jsp:include page="../head.jsp"/>
-<jsp:include page="../body-top3.jsp"/>
+<jsp:include page="../body-top.jsp"/>
 
 <div id="main_content">
 	<script type="text/javascript">
@@ -178,11 +178,11 @@
 
 	<script>
 		var soppParam = "${soppParam}";
-		
+
 		if(soppParam > 0){
 			$("#soppNo").val(soppParam);
 			$("#soppTitle").val($("#hideSoppTitle").val());
-			
+
 			if(localStorage.getItem("reloadSet") === "1t"){
 				setTimeout(() => {
 					$("[name='contractType'][value='NEW']").trigger("click");
@@ -198,11 +198,11 @@
 					$("[name='contractType'][value='NEW']").trigger("click");
 				}, 300);
 			}
-			
+
 			localStorage.clear();
 		}
-		
-		
+
+
 		$('#soppModal').on('show.bs.modal', function(e) {
 			var button = $(e.relatedTarget);
 			var modal = $(this);
@@ -214,7 +214,7 @@
 			var modal = $(this);
 			modal.find('.modal-body').load(button.data("remote"));
 		});
-		
+
 		function fnSetproductdata(a,b){
 			$("#productNo1").val(a);
 			$("#data01Title").val(b);
@@ -223,7 +223,7 @@
 			// 모달이 정상적으로 제거되지않아 close 버튼 트리거로 구성함
 			$("#productdataModal1").find(".modal-footer button").trigger('click');
 		}
-		
+
 		function fnSetSoppData(a, b) {
 			localStorage.setItem("reloadSet", "1t");
 			$("#soppNo").val(b);
@@ -297,7 +297,7 @@
 			if($("#contDesc").val() != "")		contData.contDesc			 	= $("#contDesc").val();			// 계약내용
 
 			if (!contData.contTitle) {
-				alert("계약명 제목을 입력하십시오.");		
+				alert("계약명 제목을 입력하십시오.");
 				return;
 			} else if(!contData.userNo){
 				alert("담당자를 입력하십시오.");
@@ -307,10 +307,10 @@
 				return;
 			}
 
-			$.ajax({ url: "${path}/cont/ioinsert.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소 
-						data: contData , // HTTP 요청과 함께 서버로 보낼 데이터 
-						method: "POST", // HTTP 요청 메소드(GET, POST 등) 
-						dataType: "json" // 서버에서 보내줄 데이터의 타입 
+			$.ajax({ url: "${path}/cont/ioinsert.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
+						data: contData , // HTTP 요청과 함께 서버로 보낼 데이터
+						method: "POST", // HTTP 요청 메소드(GET, POST 등)
+						dataType: "json" // 서버에서 보내줄 데이터의 타입
 					}) // HTTP 요청이 성공하면 요청한 데이터가 done() 메소드로 전달됨. .
 					.done(function(data) {
 						if(data.code == 10001){
@@ -320,8 +320,8 @@
 						}else{
 							alert("저장 실패");
 						}
-					}) // HTTP 요청이 실패하면 오류와 상태에 관한 정보가 fail() 메소드로 전달됨. 
-					.fail(function(xhr, status, errorThrown) { 
+					}) // HTTP 요청이 실패하면 오류와 상태에 관한 정보가 fail() 메소드로 전달됨.
+					.fail(function(xhr, status, errorThrown) {
 						alert("통신 실패");
 					});
 		}

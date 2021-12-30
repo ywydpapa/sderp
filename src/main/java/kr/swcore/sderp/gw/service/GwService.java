@@ -9,7 +9,7 @@ public interface GwService {
     List<GwDTO> listDoc2(HttpSession compNo);
     List<GwDTO> listEst(HttpSession compNo);
     List<GwDTO> listEstitems(GwDTO dto);
-    GwDTO detailEst(int estNo);
+    GwDTO detailEst(String estId);
     GwDTO detailDoc(int docNo);
     int insertDoc(GwDTO dto);
     int updateDoc(GwDTO dto);

@@ -59,13 +59,10 @@
 					<div class="col-sm-12">
 						<div class="card_box sch_it">
 							<div>
-								<div class="btn_wr" style="float:left;">
-									<button class="btn btn-sm btn-outline" onClick="javascript:location='${path}/cont/iolistall.do'"><i class="icofont icofont-pencil-alt-2"></i>개별목록 확인</button>
-								</div>
 								<div class="btn_wr" style="float:right;" >
 									<button class="btn btn-sm btn-inverse" onClick="javascript:fnClearall()"><i class="icofont icofont-spinner-alt-3"></i>초기화</button>
 									<button class="btn btn-sm btn-primary" onClick="javascript:fnListcon()"><i class="icofont icofont-search" id="search"></i>검색</button>
-									<button class="btn btn-sm btn-outline" onClick="javascript:location='${path}/cont/iowrite.do'"><i class="icofont icofont-pencil-alt-2"></i>자료등록</button>
+									<button class="btn btn-sm btn-outline" onClick="javascript:location='${path}/gw/estwrite.do'"><i class="icofont icofont-pencil-alt-2"></i>견적등록</button>
 								</div>
 							</div>
 							<div class="form-group row" style="clear:both;">
@@ -161,16 +158,18 @@
 					<div class="table-responsive">
 						<table id="contTable" class="table table-striped table-bordered nowrap ">
 							<colgroup>
+								<col width="10%"/>
 								<col width="20%"/>
 								<col width="10%"/>
-								<col width="15%"/>
-								<col width="15%"/>
-								<col width="20%"/>
-								<col width="20%"/>
+								<col width="10%"/>
+								<col width="10%"/>
+								<col width="10%"/>
+								<col width="30%"/>
 							</colgroup>							
 							<thead>
 								<tr>
-									<th class="text-center">영업기회명</th>
+									<th class="text-center">견적일자</th>
+									<th class="text-center">견적명</th>
 									<th class="text-center">거래처</th>
 									<th class="text-center">공급가합계</th>
 									<th class="text-center">부가세합계</th>
@@ -181,14 +180,15 @@
 							<tbody>
 							<c:forEach var="row" items="${list}">
 								<tr>
+									<td>${row.estDate}</td>
 									<td>
-										<a href="${path}/gw/estdetail/${row.estId}">${row.estId}</a>
+										<a href="${path}/gw/estdetail/${row.estId}/${row.estVer}">${row.estId}</a>
 									</td>
-									<td>${row.custNo}</td>
-									<td class="text-right"><fmt:formatNumber type="number" maxFractionDigits="3" value="${row.estAmt}" /></td>
+									<td>${row.custName}</td>
+									<td class="text-right"><fmt:formatNumber type="number" maxFractionDigits="3" value="${row.estAmount}" /></td>
 									<td class="text-right"><fmt:formatNumber type="number" maxFractionDigits="3" value="${row.estVat}" /></td>
 									<td class="text-right"><fmt:formatNumber type="number" maxFractionDigits="3" value="${row.estTotal}" /></td>
-									<td><${row.estDesc}/td>
+									<td>${row.estDesc}</td>
 								</tr>
 							</c:forEach>								
 							</tbody>

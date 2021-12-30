@@ -125,7 +125,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 
 	<select id="detailest" resultType="gwDto">
-		select * from swc_est where estNo=#{estId};
+		select * from swc_est where estId=#{estId} limit 1;
 	</select>
 
 	<select id="listestitems" resultType="gwDto">

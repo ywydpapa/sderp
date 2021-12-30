@@ -30,8 +30,8 @@ public class GwDAOImpl implements GwDAO{
     }
 
     @Override
-    public GwDTO detailEst(int estNo) {
-        return sqlSession.selectOne("gw.detailest", estNo);
+    public GwDTO detailEst(String estId) {
+        return sqlSession.selectOne("gw.detailest", estId);
     }
 
     @Override

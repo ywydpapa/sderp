@@ -42,8 +42,8 @@ public class GwController {
         return "gware/estwrite";
     }
 
-    @RequestMapping("estdetail/{estId}")
-    public ModelAndView estwrite(@PathVariable int estId, HttpSession session, ModelAndView mav, GwDTO dto) {
+    @RequestMapping("estdetail/{estId}/{estVer}")
+    public ModelAndView estwrite(@PathVariable String estId,@PathVariable int estVer, HttpSession session, ModelAndView mav, GwDTO dto) {
         mav.setViewName("gware/estdetail");
         mav.addObject("detail",gwService.detailEst(estId));
         mav.addObject("list",gwService.listEstitems(dto));

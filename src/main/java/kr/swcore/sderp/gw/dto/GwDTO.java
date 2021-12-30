@@ -17,10 +17,12 @@ public class GwDTO {
 	private String estTitle;
 	private String estDesc;
 	private Integer custNo;
+    private String custName;
 	private Integer soppNo;
 	private Integer compNo;
     private Integer userNo;
     private BigDecimal estAmt;
+    private BigDecimal estAmount;
     private BigDecimal estVat;
     private float estDiscount;
     private BigDecimal estTotal;

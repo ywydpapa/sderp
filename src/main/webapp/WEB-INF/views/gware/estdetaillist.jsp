@@ -12,22 +12,20 @@
 <c:set var="path" value ="${pageContext.request.contextPath}"/>
 <table class="table table-sm bst02" id="qutylist">
     <colgroup>
-        <col width="5%" />
         <col width="10%" />
-        <col width="15%" />
-        <col width="10%" />
-        <col width="5%" />
-        <col width="10%" />
+        <col width="17.5%" />
+        <col width="17.5%" />
         <col width="10%" />
         <col width="10%" />
         <col width="5%" />
         <col width="15%" />
+        <col width="5%" />
         <col width="5%" />
     </colgroup>
     <thead>
     <tr>
-        <th class="text-center">구분</th>
-        <th class="text-center">거래처</th>
+        <th class="text-center">구분(등록/수정일)</th>
+        <th class="text-center">거래처(매입/매출처)</th>
         <th class="text-center">항목</th>
         <th class="text-center">단가</th>
         <th class="text-center">수량</th>
@@ -35,12 +33,13 @@
         <th class="text-center">부가세액</th>
         <th class="text-center">금액</th>
         <th class="text-center">적용율</th>
-        <th class="text-center">적요</th>
+        <th class="text-center">비고</th>
+        <th class="text-center">수정</th>
         <th class="text-center">삭제</th>
     </tr>
     </thead>
     <tbody>
-    <%-- <c:forEach var="row" items="${dtodata02}">
+    <%--<c:forEach var="row" items="${dtodata02}">
         <c:if test="${row.dataType eq '2201'}">
             <tr class="item2" id="${row.soppdataNo}">
                 <td data-type="${row.dataType}">
@@ -52,31 +51,112 @@
                 </td>
                 <td>${row.salesCustNoN}<input hidden value="${row.salesCustNo}"></td>
                 <td>${row.dataTitle}<input hidden value="${row.productNo}"></td>
-                <td style="text-align: right" id="dataNetprice">₩<fmt:formatNumber value="${row.dataNetprice}" pattern="#,###" /></td>
-                <td style="text-align: right" id="dataQuanty"><fmt:formatNumber value="${row.dataQuanty}" pattern="#,###" /></td>
-                <td style="text-align: right" id="dataAmt">₩<fmt:formatNumber value="${row.dataAmt}" pattern="#,###" /></td>
-                <td style="text-align: right" id="dataVat">₩<fmt:formatNumber value="${row.dataVat}" pattern="#,###" /></td>
-                <td style="text-align: right" id="dataTotal">₩<fmt:formatNumber value="${row.dataTotal}" pattern="#,###" /></td>
-                <td style="text-align: right" id="dataDiscount"><fmt:formatNumber value="${row.dataDiscount}" type="percent" /></td>
-                <td id="dataRemark">${row.dataRemark}</td>
+                <td style="text-align: right">₩<fmt:formatNumber value="${row.dataNetprice}" pattern="#,###" /></td>
+                <td style="text-align: right"><fmt:formatNumber value="${row.dataQuanty}" pattern="#,###" /></td>
+                <td style="text-align: right">₩<fmt:formatNumber value="${row.dataAmt}" pattern="#,###" /></td>
+                <td style="text-align: right">₩<fmt:formatNumber value="${row.dataVat}" pattern="#,###" /></td>
+                <td style="text-align: right">₩<fmt:formatNumber value="${row.dataTotal}" pattern="#,###" /></td>
+                <td style="text-align: right"><fmt:formatNumber value="${row.dataDiscount}" type="percent" /></td>
+                <td>${row.dataRemark}</td>
                 <td><button class="btn btn-sm btn-dark" onClick="javascript:fn_data02modify(this)">수정</button></td>
                 <td><button class="btn btn-sm btn-danger" onClick="javascript:fn_data02delete(${row.soppdataNo})">삭제</button></td>
             </tr>
         </c:if>
-    </c:forEach> --%>
-    <!-- <tr class="item2">
-        <td colspan="1" style="text-align: center; background: #80808030;">합계</td>
-        <td colspan="11" style="text-align: right; background: #80808030;" id="product02InSum_table">-</td>
-    </tr> -->
-    </tbody>
-</table>
-<table class="table table-sm">
-	<tr class="item2">
-        <td colspan="1" style="text-align: center; background: #80808030;">합계</td>
+    </c:forEach>
+    <tr class="item2">
+        <td colspan="1" style="text-align: center; background: #80808030;">매입합계</td>
         <td colspan="11" style="text-align: right; background: #80808030;" id="product02InSum_table">-</td>
     </tr>
+    <c:forEach var="row" items="${dtodata02}">
+        <c:if test="${row.dataType eq '2202'}">
+            <tr class="item2" id="${row.soppdataNo}">
+                <td data-type="${row.dataType}">
+                    매출
+                    (
+                    <fmt:parseDate value="${row.regDatetime}" var="regDatetime" pattern="yyyy-MM-dd HH:mm:ss"/>
+                    <fmt:formatDate value="${regDatetime}" pattern="yyyy-MM-dd"/>
+                    )
+                </td>
+                <td>${row.salesCustNoN}<input hidden value="${row.salesCustNo}"></td>
+                <td>${row.dataTitle}<input hidden value="${row.productNo}"></td>
+                <td style="text-align: right">₩<fmt:formatNumber value="${row.dataNetprice}" pattern="#,###" /></td>
+                <td style="text-align: right"><fmt:formatNumber value="${row.dataQuanty}" pattern="#,###" /></td>
+                <td style="text-align: right">₩<fmt:formatNumber value="${row.dataAmt}" pattern="#,###" /></td>
+                <td style="text-align: right">₩<fmt:formatNumber value="${row.dataVat}" pattern="#,###" /></td>
+                <td style="text-align: right">₩<fmt:formatNumber value="${row.dataTotal}" pattern="#,###" /></td>
+                <td style="text-align: right"><fmt:formatNumber value="${row.dataDiscount}" type="percent" /></td>
+                <td>${row.dataRemark}</td>
+                <td><button class="btn btn-sm btn-dark" onClick="javascript:fn_data02modify(this)">수정</button></td>
+                <td><button class="btn btn-sm btn-danger" onClick="javascript:fn_data02delete(${row.soppdataNo})">삭제</button></td>
+            </tr>
+        </c:if>
+    </c:forEach>
+    <tr class="item2" style="text-align: right">
+        <td colspan="1" style="text-align: center; background: #80808030;">매출합계</td>
+        <td colspan="11" style="text-align: right; background: #80808030;" id="product02OutSum_table">-</td>
+    </tr>--%>
+    </tbody>
 </table>
+<br/>
+<table class="table table-sm bst02" id="qutylistSum">
+    <tbody>
+    <colgroup>
+        <col width="5%" />
+        <col width="20%" />
+        <col width="5%" />
+        <col width="20%" />
+        <col width="5%" />
+        <col width="20%" />
+        <col width="5%" />
+        <col width="20%" />
+    </colgroup>
+    <tr>
+        <td style="text-align: center; background: #80808030;">매입 합계</td>
+        <td id="product02InSum" style="text-align: right">-</td>
+        <td style="text-align: center; background: #80808030;">매출 합계</td>
+        <td id="product02OutSum" style="text-align: right">-</td>
+        <td style="text-align: center; background: #80808030;">이익 합계</td>
+        <td id="product02DiffSum" style="text-align: right">-</td>
+        <td style="text-align: center; background: #80808030;">이익률</td>
+        <td id="product02Percent" style="text-align: right">-</td>
+    </tr>
+    </tbody>
+</table>
+
 <script>
+    var product02In = [
+        <c:forEach var="row" items="${dtodata02}" varStatus="i">
+        <c:if test="${row.dataType eq '2201'}">
+        <c:if test="${!i.last}">${row.dataNetprice},</c:if>
+        <c:if test="${i.last}">${row.dataNetprice}</c:if>
+        </c:if>
+        </c:forEach>
+    ];
+    var product02InQuanty = [
+        <c:forEach var="row" items="${dtodata02}" varStatus="i">
+        <c:if test="${row.dataType eq '2201'}">
+        <c:if test="${!i.last}">${row.dataQuanty},</c:if>
+        <c:if test="${i.last}">${row.dataQuanty}</c:if>
+        </c:if>
+        </c:forEach>
+    ];
+    var product02InSum = 0;
+    var product02Out = [
+        <c:forEach var="row" items="${dtodata02}" varStatus="i">
+        <c:if test="${row.dataType eq '2202'}">
+        <c:if test="${!i.last}">${row.dataNetprice},</c:if>
+        <c:if test="${i.last}">${row.dataNetprice}</c:if>
+        </c:if>
+        </c:forEach>
+    ];
+    var product02OutQuanty = [
+        <c:forEach var="row" items="${dtodata02}" varStatus="i">
+        <c:if test="${row.dataType eq '2202'}">
+        <c:if test="${!i.last}">${row.dataQuanty},</c:if>
+        <c:if test="${i.last}">${row.dataQuanty}</c:if>
+        </c:if>
+        </c:forEach>
+    ];
     var product02OutSum = 0;
     var product02DiffSum = 0;
     var product02Percent = 0;
@@ -171,4 +251,35 @@
                 });
         }
     }
+
+    $(document).ready(function(){
+        for (var i = 0; i < product02In.length; i++) {
+            product02InSum += (product02In[i] * product02InQuanty[i]);
+        }
+        for (var i = 0; i < product02Out.length; i++) {
+            product02OutSum += (product02Out[i] * product02OutQuanty[i]);
+        }
+        product02DiffSum = product02OutSum - product02InSum;
+        $("#product02InSum").html('₩'+product02InSum.toLocaleString("en-US"));
+        $("#product02InSum_table").html('₩'+product02InSum.toLocaleString("en-US"));
+        $("#product02OutSum").html('₩'+product02OutSum.toLocaleString("en-US"));
+        $("#product02OutSum_table").html('₩'+product02OutSum.toLocaleString("en-US"));
+        $("#product02DiffSum").html('₩'+product02DiffSum.toLocaleString("en-US"));
+
+        product02Percent = Math.floor(product02DiffSum / product02OutSum * 100).toFixed(2);
+        if(product02Percent == 'NaN'){
+            $("#product02Percent").html('0'+'%');
+        } else if (product02Percent == '-Infinity'){
+            $("#product02Percent").html('0'+'%');
+        } else if (product02Percent == 'Infinity'){
+            $("#product02Percent").html('0'+'%');
+        } else if(product02Percent >= 0){
+            $("#product02Percent").html('+'+product02Percent+'%');
+        } else if(product02Percent < 0){
+            $("#product02Percent").html(product02Percent+'%');
+        }
+
+        var prduct02Cnt = product02In.length + product02Out.length;
+        $("#dataType01_tab03").html("견적 내역("+prduct02Cnt+")");
+    });
 </script>

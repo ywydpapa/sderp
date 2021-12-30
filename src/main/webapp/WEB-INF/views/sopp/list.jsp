@@ -442,8 +442,14 @@
 										</div>
 									</div>
 								</div>
+								<div class="col-sm-12 col-xl-3">
+									<label class="col-form-label">영업기회명</label>
+									<p class="input_inline mb-0">
+										<input class="form-control form-control-sm col-xl-12" type="text" id="soppTitle">
+									</p>
+								</div>
 								<!--매출예정일-->
-								<div class="col-sm-12 col-xl-6">
+								<div class="col-sm-12 col-xl-3">
 									<label class="col-form-label">매출예정일</label>
 									<p class="input_inline mb-0">
 										<input class="form-control form-control-sm col-xl-6" type="date" id="targetDatefrom"> ~
@@ -482,7 +488,7 @@
 									</select>
 								</div>
 								<!--등록/수정일-->
-								<div class="col-sm-12 col-xl-6">
+								<div class="col-sm-12 col-xl-3">
 									<label class="col-form-label">등록/수정일</label>
 									<p class="input_inline mb-0">
 										<input class="form-control form-control-sm col-xl-6" type="date" id="targetDatefrom2" > ~

@@ -13,12 +13,14 @@
     <table class="table table-sm bst02" id="addinout">
         <colgroup>
             <col width="5%" />
-            <col width="7.5%" />
+            <col width="5%" />
             <col width="10%" />
-            <col width="17.5%" />
+            <col width="15%" />
+            <col width="10%" />
+            <col width="5%" />
             <col width="10%" />
             <col width="10%" />
-            <col width="20%" />
+            <col width="10%" />
             <col width="15%" />
             <col width="5%" />
         </colgroup>

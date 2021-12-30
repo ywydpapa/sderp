@@ -12,15 +12,18 @@
 <c:set var="path" value ="${pageContext.request.contextPath}"/>
 <table class="table table-sm bst02" id="qutylist">
     <colgroup>
+        <col width="5%" />
         <col width="10%" />
-        <col width="17.5%" />
-        <col width="17.5%" />
+        <col width="15%" />
+        <col width="10%" />
+        <col width="5%" />
+        <col width="10%" />
         <col width="10%" />
         <col width="10%" />
         <col width="5%" />
         <col width="15%" />
-        <col width="5%" />
-        <col width="5%" />
+        <col width="2.5%" />
+        <col width="2.5%" />
     </colgroup>
     <thead>
     <tr>
@@ -33,7 +36,7 @@
         <th class="text-center">부가세액</th>
         <th class="text-center">금액</th>
         <th class="text-center">적용율</th>
-        <th class="text-center">비고</th>
+        <th class="text-center">적요</th>
         <th class="text-center">수정</th>
         <th class="text-center">삭제</th>
     </tr>

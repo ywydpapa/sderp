@@ -346,7 +346,7 @@
                 $("#data01Amt").val("");
                 $("#data01Remark").val("");
 
-                location.href = "${path}/"+path.replace("sderp/", "");
+                location.href = "${path}/"+path.replace("${path}/", "");
             }else{
                 alert("저장 실패");
             }
@@ -417,7 +417,7 @@
                 $("#data01Addbtn").show();
                 $("#data01Modbtn").hide();
 
-                location.href = "${path}/"+path.replace("sderp/", "");
+                location.href = "${path}/"+path.replace("${path}", "");
             }else{
                 alert("저장 실패");
             }
@@ -453,7 +453,7 @@
 			.done(function(data) {
 				if(data.code == 10001){
 					alert("삭제 성공");
-					location.href = "${path}/"+path.replace("sderp/", "");
+					location.href = "${path}/"+path.replace("${path}", "");
 				}else{
 					alert("삭제 실패");
 				}

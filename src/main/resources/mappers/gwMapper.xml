@@ -98,4 +98,34 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	    );
     </insert>
 
+	<select id="listest" resultType="gwDto">
+		select
+			estNo
+			 ,estId
+			 ,max(estVer) estVer
+			 ,estType
+			 ,estTitle
+			 ,estDesc
+			 ,custNo
+			 ,soppNo
+			 ,compNo
+			 ,userNo
+			 ,estAmount
+			 ,estVat
+			 ,estDiscount
+			 ,estTotal
+			 ,estDate
+			 ,regDate
+			 ,modDate
+			 ,attrib
+		from swc_est where attrib not like 'XXX%' group by estId;
+	</select>
+
+	<select id="detailest" resultType="gwDto">
+		select * from swc_est where estNo=#{estNo};
+	</select>
+
+	<select id="listestitems" resultType="gwDto">
+		select * from swc_estitems where estId=#{estId} and estVer = #{estVer} and attrib not like 'XXX%';
+	</select>
 </mapper>

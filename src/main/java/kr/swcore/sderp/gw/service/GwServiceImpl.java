@@ -20,6 +20,21 @@ public class GwServiceImpl implements GwService{
     }
 
     @Override
+    public List<GwDTO> listEst(HttpSession compNo) {
+        return gwDao.listEst(compNo);
+    }
+
+    @Override
+    public List<GwDTO> listEstitems(GwDTO dto) {
+        return gwDao.listEstitems(dto);
+    }
+
+    @Override
+    public GwDTO detailEst(int estNo) {
+        return gwDao.detailEst(estNo);
+    }
+
+    @Override
     public GwDTO detailDoc(int docNo) {
         return gwDao.detailDoc(docNo);
     }

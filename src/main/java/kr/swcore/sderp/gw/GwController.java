@@ -31,8 +31,10 @@ public class GwController {
     }
 
     @RequestMapping("estlist.do")
-    public String estList(HttpSession session, Model model) {
-        return "gware/estlist";
+    public String estList(HttpSession compNo, Model model) {
+        mav.setViewName("gware/estlist");
+        mav.addObject("list", gwService.listEst(compNo));
+        return mav;
     }
 
     @RequestMapping("estwrite.do")
@@ -42,7 +44,10 @@ public class GwController {
 
     @RequestMapping("estdetail/{estNo}")
     public String estwrite(@PathVariable int estNo, HttpSession session, Model model) {
-        return "gware/estdetail";
+        mav.setViewName("gware/estdetail");
+        mav.addObject("detail",gwService.detailEst(estNo));
+        mav.addObject("list",gwService.listEstitems(dto));
+        return mav;
     }
 
     @RequestMapping("insert.do")

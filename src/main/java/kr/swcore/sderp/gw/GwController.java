@@ -1,6 +1,5 @@
 package kr.swcore.sderp.gw;
 
-import kr.swcore.sderp.cust.dto.CustDTO;
 import kr.swcore.sderp.gw.dto.GwDTO;
 import kr.swcore.sderp.gw.service.GwService;
 import org.springframework.http.ResponseEntity;
@@ -9,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
@@ -24,14 +24,14 @@ public class GwController {
     GwService gwService;
 
     @RequestMapping("list.do")
-    public String docList(HttpSession session, Model model) {
+    public ModelAndView docList(HttpSession session, ModelAndView mav) {
         List<GwDTO> list=gwService.listDoc2(session);
-        model.addAttribute("list",list);
-        return "gware/list";
+        mav.setViewName("gware/list");
+        return mav;
     }
 
     @RequestMapping("estlist.do")
-    public String estList(HttpSession compNo, Model model) {
+    public ModelAndView estList(HttpSession compNo, ModelAndView mav) {
         mav.setViewName("gware/estlist");
         mav.addObject("list", gwService.listEst(compNo));
         return mav;
@@ -43,7 +43,7 @@ public class GwController {
     }
 
     @RequestMapping("estdetail/{estNo}")
-    public String estwrite(@PathVariable int estNo, HttpSession session, Model model) {
+    public ModelAndView estwrite(@PathVariable int estNo, HttpSession session, ModelAndView mav, GwDTO dto) {
         mav.setViewName("gware/estdetail");
         mav.addObject("detail",gwService.detailEst(estNo));
         mav.addObject("list",gwService.listEstitems(dto));

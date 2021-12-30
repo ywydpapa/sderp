@@ -10,40 +10,37 @@ import java.math.BigDecimal;
 @Setter
 @ToString
 public class GwDTO {
+	private Integer estNo;
+	private String estId;
+	private Integer estVer;
+	private String estType;
+	private String estTitle;
+	private String estDesc;
+	private Integer custNo;
+	private Integer soppNo;
+	private Integer compNo;
     private Integer userNo;
-    private Integer docNo;
-    private Integer compNo;
-    private String docTitle;
-    private Integer estItemNo;
-    private Integer docCrUserNo;
-    private Integer docType;
-    private Integer docStatus;
-    private Integer linkMasterdocNo;
-    private String docDesc;
-    private Integer docFormNo;
-    private Integer estNo;
-    private String estType;
-    private String estTitle;
-    private String estDesc;
     private BigDecimal estAmt;
     private BigDecimal estVat;
-    private BigDecimal estTotal;
     private float estDiscount;
-    private Integer custNo;
-    private Integer soppNo;
+    private BigDecimal estTotal;
+    private String estDate;
+    private Integer estItemNo;
     private Integer productNo;
     private String productName;
     private String productSpec;
     private Integer productQty;
-    private BigDecimal productNetprice;
-    private BigDecimal productVat;
-    private BigDecimal productAmount;
+    private Integer productNetprice;
+    private Integer productVat;
+    private Integer productAmount;
+    private float productDis;
+    private Integer productTotal;
     private String productRemark;
     private String regDate;
     private String modDate;
     private String attrib;
 
-    public GwDTO(Integer userNo) {
+    public GwDTO() {
         super();
     }
 }

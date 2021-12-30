@@ -56,7 +56,7 @@ public class GwController {
         }
         return ResponseEntity.ok(param);
     }
-
+    
    @RequestMapping("update.do")
    public  ResponseEntity<?> update(@ModelAttribute GwDTO dto) {
         Map<String, Object> param = new HashMap<>();

@@ -33,75 +33,69 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </update>
 
     <insert id="insertest">
-    insert into swc_est(
-        estId,
-        estVer,
-        estType,
-        estTitle,
-        estDesc,
-        custNo,
-        soppNo,
-        compNo,
-        userNo,
-        estAmount,
-        estVat,
-        estDiscount,
-        estTotal,
-        estDate,
-        regDate,
-        attrib
-    ) values (
-        #{estId},
-        #{estVer},
-        #{estType},
-        #{estTitle},
-        #{estDesc},
-        #{custNo},
-        #{soppNo},
-        #{compNo},
-        #{userNo},
-        #{estAmount},
-        #{estVat},
-        #{estDiscount},
-        #{estTotal},
-        #{estDate},
-        now(),
-        '10000')
+	    <selectKey resultType="int" keyProperty="estVer" order="BEFORE">
+				select IFNULL(MAX(estVer), 0)+1 from swc_est where estId = #{estId} and compNo = #{compNo}
+	 	</selectKey>
+	    insert into swc_est(
+	    	estId,
+	    	estVer,
+	    	estTitle,
+	    	custNo,
+	    	soppNo,
+	    	compNo,
+	    	userNo,
+	    	estDate,
+	    	attrib
+	    ) values (
+	    	#{estId},
+	    	#{estVer},
+	    	#{estTitle},
+	    	#{custNo},
+	    	#{soppNo},
+	    	#{compNo},
+	    	#{userNo},
+	    	#{estDate},
+	        '10000'
+	    );
     </insert>
 
     <insert id="insertestitems">
-    insert into swc_estitems (
-        estId,
-        estVer,
-        custNo,
-        compNo,
-        productNo,
-        productName,
-        productSpec,
-        productQty,
-        productNetprice,
-        productVat,
-        productAmount,
-        productRemark,
-        regDate,
-        attrib
-    ) values (
-        #{estId},
-        #{estVer},
-        #{custNo},
-        #{compNo},
-        #{productNo},
-        #{productName},
-        #{productSpec},
-        #{productQty},
-        #{productNetprice},
-        #{productVat},
-        #{productAmount},
-        #{productRemark},
-        now(),
-        '10000'
-                 )
-
+    	<selectKey resultType="int" keyProperty="estVer" order="BEFORE">
+				select IFNULL(MAX(estVer), 0)+1 from swc_estitems where estId = #{estId} and compNo = #{compNo}
+	 	</selectKey>
+	    insert into swc_estitems(
+	    	estId,
+	    	estVer,
+	    	custNo,
+	    	compNo,
+	    	productNo,
+	    	productName,
+	    	productSpec,
+	    	productQty,
+	    	productNetprice,
+	    	productVat,
+	    	productAmount,
+	    	productDis,
+	    	productTotal,
+	    	productRemark,
+	    	attrib
+	    ) values (
+	    	#{estId},
+	    	#{estVer},
+	    	#{custNo},
+	    	#{compNo},
+	    	#{productNo},
+	    	#{productName},
+	    	#{productSpec},
+	    	#{productQty},
+	    	#{productNetprice},
+	    	#{productVat},
+	    	#{productAmount},
+	    	#{productDis},
+	    	#{productTotal},
+	    	#{productRemark},
+	        '10000'
+	    );
     </insert>
 
 </mapper>

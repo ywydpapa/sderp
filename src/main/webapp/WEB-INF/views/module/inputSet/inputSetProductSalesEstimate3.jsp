@@ -12,18 +12,18 @@
     </table>
     <table class="table table-sm bst02" id="addquty">
         <colgroup>
-            <col width="5%" />
-            <col width="17.5%" />
-            <col width="17.5%" />
+            <col width="15%" />
+            <col width="15%" />
+            <col width="15%" />
             <col width="10%" />
             <col width="10%" />
-            <col width="20%" />
+            <col width="15%" />
             <col width="15%" />
             <col width="5%" />
         </colgroup>
         <thead>
         <tr>
-            <th class="text-center">거래처<br/>(매입/매출처)</th>
+            <th class="text-center">거래처</th>
             <th class="text-center">항목</th>
             <th class="text-center">단가</th>
             <th class="text-center">수량</th>
@@ -31,7 +31,6 @@
             <th class="text-center">부가세액</th>
             <th class="text-center">금액</th>
             <th class="text-center">적용율</th>
-            <th class="text-center">비고</th>
             <th class="text-center">삭제</th>
         </tr>
         </thead>
@@ -128,11 +127,18 @@
                 <td><input type="text" class="form-control form-control-sm" id="data02Vat" style="min-width: 80px;" /></td>
                 <td><input type="text" class="form-control form-control-sm" id="data02Total" style="min-width: 80px;" readonly /></td>
                 <td><input type="text" class="form-control form-control-sm" id="data02Discount" style="min-width: 80px;" value="<fmt:formatNumber value="1.0" type="percent" />" /></td>
-                <td><input type="text" id="data02Remark" class="form-control form-control-sm" /></td>
-                <td>
-                    <button id="data02Addbtn" class="btn btn-success btn-sm" onClick="javascript:fn_data02Insert()">추가</button>
+                <td rowspan="2">
+                    <button id="data02Addbtn" class="btn btn-success btn-sm" onClick="dataSave();">추가</button>
                     <button id="data02Modbtn" class="btn btn-instagram btn-sm" onClick="javascript:fn_data02Update()">수정</button>
                 </td>
+            </tr>
+            <tr>
+            	<td colspan="4">
+	            	<textarea rows="5" id="data02Spec" class="form-control form-control-sm" placeholder="spec을 입력해주세요."></textarea>
+            	</td>
+            	<td colspan="4">
+	            	<textarea rows="5" id="data02Remark" class="form-control form-control-sm" placeholder="비고를 입력해주세요."></textarea>
+            	</td>
             </tr>
             <tr>
                 <td colspan="8">
@@ -147,6 +153,8 @@
 </form>
 
 <script>
+	var dataArray = [];
+	
     $('#productCustModal3').on('show.bs.modal', function(e) {
         var button = $(e.relatedTarget);
         var modal = $(this);
@@ -172,7 +180,7 @@
             data: obj , // HTTP 요청과 함께 서버로 보낼 데이터
             method: "POST", // HTTP 요청 메소드(GET, POST 등)
             dataType: "json" // 서버에서 보내줄 데이터의 타입
-        }) // HTTP 요청이 성공하면 요청한 데이터가 done() 메소드로 전달됨. .
+        }) // HTTP 요청이 성공하면 요청한 데이터가 done() 메소드로 전달됨..
         .done(function(data) {
             console.dir(data);
             if(data.code == 10001){
@@ -244,9 +252,101 @@
                 alert("통신 실패");
             });
     });
+    
+    function dataSave(){
+    	var temp = {};
+    	var productSalesEstimateCustName = $('#productSalesEstimateCustName').val();
+    	var productNo = $("#productSalesEstimateCustNo").val();
+    	var productName = $("#data02Title").val();
+    	var productNetprice = $("#data02Netprice").val().replace(/[\D\s\._\-]+/g, "");
+    	var productQty = $("#data02Quanty").val();
+    	var productAmount = $("#data02Amt").val().replace(/[\D\s\._\-]+/g, "");
+    	var productVat = $("#data02Vat").val().replace(/[\D\s\._\-]+/g, "");
+    	var productTotal = $("#data02Total").val().replace(/[\D\s\._\-]+/g, "");
+    	var productDis = $("#data02Discount").val().replace("%", "");
+    	var productRemark = $("#data02Remark").val();
+    	var productSpec = $("#data02Spec").val();
+    	var qutylist = $("#qutylist tbody");
+		
+    	temp.estId = $("#estId").val();
+		temp.custNo = $("#custNo").val();
+		temp.compNo = $("#compNo").val();
+    	temp.productNo = productNo;
+    	temp.productName = productName;
+    	temp.productNetprice = productNetprice;
+    	temp.productQty = productQty;
+    	temp.productAmount = productAmount;
+    	temp.productVat = productVat;
+    	temp.productTotal = productTotal;
+    	temp.productDis = productDis;
+    	temp.productRemark = productRemark;
+    	temp.productSpec = productSpec;
+    	dataArray.push(temp);
+    	
+    	$("#data02Type option:eq(0)").attr("selected","selected");
+        $("#soppdataNoEstimate").val("");
+        $("#productSalesEstimateCustName").val("");
+        $("#productSalesEstimateCustNo").val("");
+        $("#productNo2").val("");
+        $("#data02Title").val("");
+        $("#data02Netprice").val("");
+        $("#data02Quanty").val("");
+        $("#data02Amt").val("");
+        $("#data02Vat").val("");
+        $("#data02Total").val("");
+        $("#data02Discount").val("100%");
+        $("#data02Remark").val("");
+    	
+    	qutylist.append("<tr><td style='text-align:center;'>견적</td><td id='salesCustNoN' style='text-align:center;'>"+productSalesEstimateCustName+"</td><td id='dataTitle' style='text-align:center;'>"+productName+"</td><td id='dataNetprice' style='text-align: right'>"+"￦"+parseInt(productNetprice).toLocaleString("en-US")+"</td><td id='dataQuanty' style='text-align: right'>"+productQty+"</td><td id='dataAmt' style='text-align: right'>"+"￦"+parseInt(productAmount).toLocaleString("en-US")+"</td><td id='dataVat' style='text-align: right'>"+"￦"+parseInt(productVat).toLocaleString("en-US")+"</td><td id='dataTotal' style='text-align: right'>"+"￦"+parseInt(productTotal).toLocaleString("en-US")+"</td><td id='dataDiscount' style='text-align: right'>"+ productDis + "%" + "</td><td id='dataRemark'>"+productRemark+"</td><td><button class='btn btn-sm btn-danger' onClick='javascript:fn_data02delete(${row.soppdataNo})'>삭제</button></td></tr>");
+    	
+    	console.log(dataArray);
+    }
 
     function fn_data02Insert() {
-        var data02Data = {};
+    	var data02Data = {};
+    	
+    	if($("#estId").val() === ""){
+    		alert("견적번호를 작성해주세요.");
+    		$("#estId").focus();
+    	}else if($("#estTitle").val() === ""){
+    		alert("견적제목을 입력해주세요.");
+    		$("#estTitle").focus();
+    	}else if($("#estDate").val() === ""){
+    		alert("견적서 작성일자를 선택해주세요.");
+    		$("#estDate").focus();
+    	}else{
+    		data02Data.estId = $("#estId").val();
+    		data02Data.estTitle = $("#estTitle").val();
+    		data02Data.custNo = $("#custNo").val();
+    		data02Data.soppNo = $("#soppNo").val();
+    		data02Data.compNo = $("#compNo").val();
+    		data02Data.userNo = $("#userNo").val();
+    		data02Data.estDate = $("#estDate").val();
+    		
+    		$.ajax({
+    			url: "${path}/gw/insertEst.do",
+    			method: "post",
+    			data: data02Data,
+    			dataType: "json",
+    			success: function(){
+					for(var i = 0; i < dataArray.length; i++){
+						var JsonArray = JSON.stringify(dataArray[i]);
+						console.log(JSON.parse(JsonArray));
+		  				$.ajax({
+		  					url: "${path}/gw/insertEstitems.do",
+		  					method: "post",
+		  					data: JSON.parse(JsonArray),
+		  					dataType: "json"
+		  				});
+		 			}
+		 			alert("등록되었습니다.");
+		 			location.href = "${path}/gw/estwrite.do";
+    			}
+    		});
+    		
+    	}
+    	
+       /*  var data02Data = {};
         data02Data.soppNo 		= $("#soppNo").val();
         data02Data.catNo	 	= '100004';
         if($("#productSalesEstimateCustName").val() != "") data02Data.salesCustNo = Number($("#productSalesEstimateCustNo").val());
@@ -306,7 +406,7 @@
         }) // HTTP 요청이 실패하면 오류와 상태에 관한 정보가 fail() 메소드로 전달됨.
         .fail(function(xhr, status, errorThrown) {
             alert("통신 실패");
-        });
+        }); */
     }
 
     function fn_data02Update() {
@@ -358,7 +458,7 @@
                     $("#data02Amt").val("");
                     $("#data02Vat").val("");
                     $("#data02Total").val("");
-                    $("#data02Discount").val("100.0");
+                    $("#data02Discount").val("100%");
                     $("#data02Remark").val("");
 
                     $("#data02Addbtn").show();
@@ -383,8 +483,8 @@
     function recall02(){
         var sum12 = parseInt($("#data02Netprice").val().replace(/[\D\s\._\-]+/g, "") || 0 );
         var sum22 = parseInt($("#data02Quanty").val().replace(/[\D\s\._\-]+/g, "") || 0);
-        var disc2 = parseFloat($("#data02Discount").val().replace(/[\D\s\._\-]+/g, "") || 0);
-        var sum32 = sum12 * sum22 * (disc2/100) ;
+        var disc2 = parseFloat($("#data02Discount").val() || 0);
+        var sum32 = sum12 * sum22 * (disc2 / 100);
         var vat2 = sum32 * 0.1;
         var Total2 = sum32 + vat2;
         $("#data02Netprice").val(sum12.toLocaleString("en-US"));

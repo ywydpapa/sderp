@@ -10,20 +10,6 @@
 <jsp:include page="../body-top.jsp"/>
 
 <div id="main_content">
-	<script type="text/javascript">
-		$(function () {
-			$('.contDetailCont').hide();
-		});
-		$('input[name=contractType]').on('click', function() {
-			if ($(this).val() == 'NEW') {
-				$('.contDetailSopp').show();
-				$('.contDetailCont').hide();
-			} else {
-				$('.contDetailSopp').hide();
-				$('.contDetailCont').show();
-			}
-		});
-	</script>
 	<!-- Page-header start 페이지 타이틀-->
 	<div class="page-header2">
 		<div class="row align-items-end">
@@ -45,6 +31,8 @@
 			<div class="col-sm-12">
 				<div class="card-block table-border-style">
 					<div class="table-responsive">
+						<input type="hidden" id="compNo" value="${sessionScope.compNo}" />
+						<input type="hidden" id="userNo" value="${sessionScope.userNo}" />
 						<table class="table table-sm bst02">
 							<colgroup>
 								<col width="15%" />
@@ -61,18 +49,21 @@
 												<div class="radio radio-inline">
 													<label> <input type="radio" name="contractType" value="SOPP" checked="checked"> <i class="helper"></i>영업기회</label>
 												</div>
-												<div class="radio radio-inline">
+												<!-- <div class="radio radio-inline">
 													<label> <input type="radio" name="contractType" value="CONT"> <i class="helper"></i>계약</label>
-												</div>
+												</div> -->
 												<div class="radio radio-inline">
 													<label> <input type="radio" name="contractType" value="NFORM"> <i class="helper"></i>표준견적 작성</label>
+												</div>
+												<div class="radioLabel radio-inline">
+													<label style="color:red;">※ 표준견적 작성은 영업기회가 필요없습니다.</label>
 												</div>
 											</form>
 										</div>
 									</td>
 								</tr>
 								<tr>
-									<th class="contDetailSopp requiredTextCss text-center">영업기회</th>
+									<th class="contDetailSopp text-center">영업기회</th>
 									<td class="contDetailSopp">
 										<div class="input-group input-group-sm mb-0">
 											<input type="text" class="form-control" name="soppDTO" id="soppTitle" value="" readonly/>
@@ -109,71 +100,68 @@
 											</div>
 										</div>
 									</td>
-								</tr>
-								<tr>
-									<th class="text-center">견적 고객</th>
+									<th class="text-center">견적고객</th>
 									<td>
 										<div class="input-group input-group-sm mb-0">
-					                        <input type="text" class="form-control" name="product" id="productSalesEstimateCustName" value="" />
-					                        <input type="hidden" id="productSalesEstimateCustNo" value="" />
-					                        <input type="hidden" id="soppdataNoEstimate" value="">
-					                        <span class="input-group-btn">
-					                            <button class="btn btn-primary sch-company" data-remote="${path}/modal/popup.do?popId=productdataListSalesEstimateCust" type="button" data-toggle="modal" data-target="#productCustModal3">
-					                                <i class="icofont icofont-search"></i>
-					                            </button>
-					                        </span>
-					                        <!--modal-->
-					                        <div class="modal fade " id="productCustModal3" tabindex="-1" role="dialog">
-					                            <div class="modal-dialog modal-80size" role="document">
-					                                <div class="modal-content modal-80size">
-					                                    <div class="modal-header">
-					                                        <h4 class="modal-title">견적고객</h4>
-					                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					                                            <span aria-hidden="true">&times;</span>
-					                                        </button>
-					                                    </div>
-					                                    <div class="modal-body">
-					                                    </div>
-					                                    <div class="modal-footer">
-					                                        <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
-					                                        <button type="button" class="btn btn-success waves-effect" id="custRegSimple2">간편추가</button>
-					                                    </div>
-					                                    <div style="display: none; border: solid; width: 80%; margin: auto; margin-bottom: 5px;" id="custRegSimple_div2">
-					                                        <table>
-					                                            <colgroup>
-					                                                <col width="10%">
-					                                                <col width="75%">
-					                                                <col width="15%">
-					                                            </colgroup>
-					                                            <tbody>
-					                                            <tr>
-					                                                <th>매출처명*</th>
-					                                                <td><input type="text" value="" id="custRegSimple_custName2" style="width: 100%;"> </td>
-					                                                <td><button type="button" class="btn-sm btn-dark" id="custRegSimple_custName_check2">중복확인</button></td>
-					                                            </tr>
-					                                            <tr>
-					                                                <th>담당자</th>
-					                                                <td><input type="text" value="" id="custRegSimple_custMemerName2" style="width: 100%;" placeholder="미입력시 미정으로 세팅됩니다."></td>
-					                                                <td><button type="button" class="btn-sm btn-success" id="custRegSimple_custName_register2">등록</button></td>
-					                                            </tr>
-					                                            </tbody>
-					                                        </table>
-					                                    </div>
-					                                </div>
-					                            </div>
-					                        </div>
-					                        <!--//modal-->
-					                    </div>
+											<input type="text" class="form-control" name="custName"
+												id="custName" value="${dto.custName}" /> <input
+												type="hidden" name="custNo" id="custNo"
+												value="${dto.custNo}" /> <span class="input-group-btn">
+												<button class="btn btn-primary sch-company"
+													data-remote="${path}/modal/popup.do?popId=cust"
+													type="button" data-toggle="modal"
+													data-target="#custModal">
+													<i class="icofont icofont-search"></i>
+												</button>
+											</span>
+											<div class="modal fade " id="custModal" tabindex="-1"
+												role="dialog">
+												<div class="modal-dialog modal-80size" role="document">
+													<div class="modal-content modal-80size">
+														<div class="modal-header">
+															<h4 class="modal-title">거래처검색</h4>
+															<button type="button" class="close"
+																data-dismiss="modal" aria-label="Close">
+																<span aria-hidden="true">&times;</span>
+															</button>
+														</div>
+														<div class="modal-body">
+															<h5>매출처목록</h5>
+															<p>Loading!!!</p>
+														</div>
+														<div class="modal-footer">
+															<button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
 									</td>
+								</tr>
+								<tr>
+									<th class="text-center">견적번호(*)</th>
+									<td>
+										<input type="text" class="form-control" id="estId">
+									</td>
+									<th class="text-center">견적제목(*)</th>
+									<td>
+										<input type="text" class="form-control" id="estTitle">
+									</td>
+								</tr>
+								<tr>
+									<th class="text-center">견적버전</th>
+									<td>
+										<input type="text" class="form-control" id="estVer" placeholder="등록될 때 자동 등록" readonly>
+									</td>
+									<th class="text-center">견적서 작성일자(*)</th>
+									<td>
+										<input type="date" id="estDate" name="estDate" class="form-control" style="text-align: right;" value="">
+									</td>
+								</tr>
+								<tr>
 									<th class="text-center">첨부파일</th>
 									<td>
 										<input class="form-control" type="file" id="addFile">
-									</td>
-								</tr>
-								<tr>
-									<th class="text-center">견적서 작성일자</th>
-									<td>
-										<input type="date" id="estDate" name="estDate" class="form-control" style="text-align: right;" value="">
 									</td>
 									<th class="text-center">과세/비과세</th>
 									<td>
@@ -196,37 +184,33 @@
 	</div>
 	<div class="btn_wr text-right mt-3">
 		<button class="btn btn-md btn-success f-left" onClick="javascript:location='${path}/gw/estlist.do'">견적목록</button>
-		<button class="btn btn-md btn-primary" onClick="fn_SaveEST()">견적등록</button>
+		<button class="btn btn-md btn-primary" onClick="fn_data02Insert()">견적등록</button>
 		<button class="btn btn-md btn-inverse" onClick="javascript:location='${path}/gw/estlist.do'">취소</button>
 	</div>
 	<!--//계약등록-->
 
 	<script>
-		var soppParam = "${soppParam}";
-		
-		if(soppParam > 0){
-			$("#soppNo").val(soppParam);
-			$("#soppTitle").val($("#hideSoppTitle").val());
-			
-			if(localStorage.getItem("reloadSet") === "1t"){
-				setTimeout(() => {
-					$("[name='contractType'][value='NEW']").trigger("click");
-				}, 300);
-			}else if(localStorage.getItem("reloadSet") === "2t"){
-				$("#oldContNo").val(localStorage.getItem("oldContNo"));
-				$("#oldContTitle").val(localStorage.getItem("oldContTitle"));
-				setTimeout(() => {
-					$("[name='contractType'][value='OLD']").trigger("click");
-				}, 300);
+		$("#data02Discount").change(function(){
+			$(this).val($(this).val() + "%");
+		});
+	
+		$('#custModal').on('show.bs.modal', function(e) {
+			var button = $(e.relatedTarget);
+			var modal = $(this);
+			modal.find('.modal-body').load(button.data("remote"));
+		});
+	
+		$(".radioLabel").hide();
+	
+		$("[name='contractType']").change(function(){
+			if($(this).val() === "NFORM"){
+				$(".contDetailSopp").hide();
+				$(".radioLabel").show();
 			}else{
-				setTimeout(() => {
-					$("[name='contractType'][value='NEW']").trigger("click");
-				}, 300);
+				$(".radioLabel").hide();
+				$(".contDetailSopp").show();
 			}
-			
-			localStorage.clear();
-		}
-		
+		});
 		
 		$('#soppModal').on('show.bs.modal', function(e) {
 			var button = $(e.relatedTarget);
@@ -240,6 +224,13 @@
 			modal.find('.modal-body').load(button.data("remote"));
 		});
 		
+		function fnSetCustData(a, b) {
+			$("#custNo").val(b);
+			$("#custName").val(a);
+			$(".modal-backdrop").remove();
+			$("#custModal").modal("hide");
+		}
+		
 		function fnSetproductdata(a,b){
 			$("#productNo1").val(a);
 			$("#data01Title").val(b);
@@ -250,24 +241,15 @@
 		}
 		
 		function fnSetSoppData(a, b) {
-			localStorage.setItem("reloadSet", "1t");
 			$("#soppNo").val(b);
 			$("#soppTitle").val(a);
 			$("#soppModal").modal("hide");
-			location.href = "${path}/cont/iowrite.do/" + b;
 		}
-
-		function fnSetContData(a,b,c,d,e){
-			localStorage.setItem("oldContNo", b);
-			localStorage.setItem("oldContTitle", a);
-			localStorage.setItem("reloadSet", "2t");
-			localStorage.setItem("soppNo", e);
-			$("#oldContTitle").val(a);
-			$("#oldContNo").val(b);
-			$("#soppNo").val(e);
-			$(".modal-backdrop").remove();
-			$("#contModal").modal("hide");
-			location.href = "${path}/cont/iowrite.do/" + e;
+		
+		function fnSetproductdata2(a,b){
+			$("#productNo2").val(a);
+			$("#data02Title").val(b);
+			$("#productdataModal2").find(".modal-footer button").trigger('click');
 		}
 
 		function fn_SaveContIO() {
@@ -354,17 +336,10 @@
 		}
 
 		$(document).ready(function() {
-			$('input[name=contractType]').on('change', function() {
-				var contractType					= $("input[name='contractType']:checked").val();	// 신규 영업지원 or 기존계약
-				if(contractType == 'NEW'){
-					$(".contDetailSopp").show();
-					$(".contDetailCont").hide();
-				} else if(contractType == 'OLD'){
-					$(".contDetailSopp").hide();
-					$(".contDetailCont").show();
-				}
-			});
-
+			var nowDate = new Date();     
+			
+	        $("#estDate").val(nowDate.getFullYear() + "-" + parseInt(nowDate.getMonth()+1) + "-" + nowDate.getDate());
+			
 			var $input = $("#contAmt,#netprofit");
 			// 이벤트 시작 ==========================================================================
 			// 이벤트시 동작

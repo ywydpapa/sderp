@@ -328,7 +328,7 @@
 
 		$(document).ready(function() {
 			$('input[name=contractType]').on('change', function() {
-				var contractType					= $("input[name='contractType']:checked").val();	// 신규 영업지원 or 기존계약
+				var contractType = $("input[name='contractType']:checked").val();	// 신규 영업지원 or 기존계약
 				if(contractType == 'NEW'){
 					$(".contDetailSopp").show();
 					$(".contDetailCont").hide();

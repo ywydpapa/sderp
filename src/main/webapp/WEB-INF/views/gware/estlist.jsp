@@ -172,23 +172,23 @@
 								<tr>
 									<th class="text-center">영업기회명</th>
 									<th class="text-center">거래처</th>
-									<th class="text-center">매입합계</th>
-									<th class="text-center">매출합계</th>
-									<th class="text-center">차액</th>
+									<th class="text-center">공급가합계</th>
+									<th class="text-center">부가세합계</th>
+									<th class="text-center">금액</th>
 									<th class="text-center">적요</th>
 								</tr>
 							</thead>
 							<tbody>
-							<c:forEach var="row" items="${listsum}">
+							<c:forEach var="row" items="${list}">
 								<tr>
 									<td>
-										<a href="${path}/cont/iodetail/${row.soppNo}">${row.soppTitle}</a>
+										<a href="${path}/gw/estdetail/${row.estId}">${row.estId}</a>
 									</td>
-									<td>${row.custName}</td>
-									<td class="text-right"><fmt:formatNumber type="number" maxFractionDigits="3" value="${row.amount}" /></td>
-									<td class="text-right"><fmt:formatNumber type="number" maxFractionDigits="3" value="${row.take}" /></td>
-									<td class="text-right" id="absSum"><fmt:formatNumber type="number" maxFractionDigits="3" value="${row.take-row.amount}" /></td>
-									<td></td>
+									<td>${row.custNo}</td>
+									<td class="text-right"><fmt:formatNumber type="number" maxFractionDigits="3" value="${row.estAmt}" /></td>
+									<td class="text-right"><fmt:formatNumber type="number" maxFractionDigits="3" value="${row.estVat}" /></td>
+									<td class="text-right"><fmt:formatNumber type="number" maxFractionDigits="3" value="${row.estTotal}" /></td>
+									<td><${row.estDesc}/td>
 								</tr>
 							</c:forEach>								
 							</tbody>

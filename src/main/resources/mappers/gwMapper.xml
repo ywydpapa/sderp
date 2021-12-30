@@ -100,29 +100,32 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<select id="listest" resultType="gwDto">
 		select
-			estNo
-			 ,estId
-			 ,max(estVer) estVer
-			 ,estType
-			 ,estTitle
-			 ,estDesc
-			 ,custNo
-			 ,soppNo
-			 ,compNo
-			 ,userNo
-			 ,estAmount
-			 ,estVat
-			 ,estDiscount
-			 ,estTotal
-			 ,estDate
-			 ,regDate
-			 ,modDate
-			 ,attrib
-		from swc_est where attrib not like 'XXX%' group by estId;
+			a.estNo
+			 ,a.estId
+			 ,max(a.estVer) estVer
+			 ,a.estType
+			 ,a.estTitle
+			 ,a.estDesc
+			 ,a.custNo
+			 ,b.custName
+			 ,a.soppNo
+			 ,a.compNo
+			 ,a.userNo
+			 ,a.estAmount
+			 ,a.estVat
+			 ,a.estDiscount
+			 ,a.estTotal
+			 ,a.estDate
+			 ,a.regDate
+			 ,a.modDate
+			 ,a.attrib
+		from swc_est a
+				 left join swc_cust b on a.custNo = b.custNo
+		where a.attrib not like 'XXX%' group by a.estId;
 	</select>
 
 	<select id="detailest" resultType="gwDto">
-		select * from swc_est where estNo=#{estNo};
+		select * from swc_est where estNo=#{estId};
 	</select>
 
 	<select id="listestitems" resultType="gwDto">

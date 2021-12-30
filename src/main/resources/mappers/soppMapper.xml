@@ -261,12 +261,15 @@ from
 	<if test="soppStatus != null and soppStatus > 0">
 		and a.soppStatus = #{soppStatus}
 	</if>
+	<if test="soppStatus == null">
+		and a.soppStatus = '10182'
+	</if>
 	<if test="soppSrate != null and soppSrate > 0">
 		and a.soppSrate = #{soppSrate}
 	</if>
 	) subquery1
 	where
-		subquery1.soppStatusN IN('계약요청', '수주', '매출', '계약실패', '계약진행보류')
+	subquery1.soppStatusN IN('계약요청', '수주', '매출', '계약실패', '계약진행보류')
 	<if test="sSearch != null and sSearch != ''">
 		and (
 		    subquery1.modDatetime like concat('%',#{sSearch},'%')
@@ -367,7 +370,7 @@ from
 	</if>
 	) subquery1
 	where
-		subquery1.soppStatusN IN('계약요청', '수주', '매출', '계약실패', '계약진행보류')
+	    subquery1.soppStatusN IN('계약요청', '수주', '매출', '계약실패', '계약진행보류')
 	<if test="sSearch != null and sSearch != ''">
 		and (
 			subquery1.modDatetime like concat('%',#{sSearch},'%')
@@ -457,7 +460,7 @@ from
 		left join swc_cust c on a.custNo = c.custNo
 		left join swc_code d on a.soppType = d.codeNo 
 		left join swc_code e on a.soppStatus = e.codeNo
-		where a.attrib not like 'XXX%' and a.soppStatus='10057' and b.compNo = #{compNo}
+		where a.attrib not like 'XXX%' and b.compNo = #{compNo}
 		<if test="userNo != null and userNo != ''">
  		 	and a.userNo = #{userNo}
  		</if>
@@ -473,6 +476,9 @@ from
  		<if test="soppType != null and soppType != ''">
  		 	and a.soppType = #{soppType}
  		</if>
+	 	<if test="soppStatus != null and soppStatus != ''">
+			 and a.soppStatus = #{soppStatus}
+	 	</if>
  		<if test="businessType != null and businessType != ''">
  		 	and a.businessType = #{businessType}
  		</if>

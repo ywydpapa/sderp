@@ -311,7 +311,7 @@
 				<div class="col-lg-12">
 					<div class="page-header-title" style="float:left;">
 						<div style="margin-top:15px;">
-							<h6 style="font-weight:600;">영업기회조회</h6>
+							<h6 style="font-weight:600;">수주판매보고</h6>
 						</div>
 					</div>
 					<div class="btn_wr" style="float:right;">
@@ -482,7 +482,7 @@
 									<select class="form-control form-control-sm" name="soppStatus" id="soppStatus" title="선택">
 										<option value>선택</option>
 										<c:forEach var = "sstatuslist" items="${sstatuslist}">
-											<option value="${sstatuslist.codeNo}">${sstatuslist.desc03}</option>
+											<option value="${sstatuslist.codeNo}" <c:if test="${sstatuslist.codeNo eq '10182'}">selected</c:if> >${sstatuslist.desc03}</option>
 										</c:forEach>
 									</select>
 								</div>

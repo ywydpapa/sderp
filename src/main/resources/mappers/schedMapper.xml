@@ -587,7 +587,7 @@ start, concat(left(a.techdTo,10)," ",substring(a.techdTo,12,9)) end, a.techdNo i
 from swc_techd a left join swc_user d on a.userNo=d.userNo left join swc_organiz 
 e on d.org_id = e.org_id where a.attrib not like 'XXX%' and a.compNo = #{compNo} and a.userNo 
 in ( #{userNo} ) and yearweek(a.techdFrom) = yearweek(now())+1 
-order by weekno,weekdays 
+order by weekno,weekdays,start
  </select>
  
  <insert id="insertSched">

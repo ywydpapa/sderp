@@ -396,6 +396,13 @@
 			$("#tab_common_bottom").show();
 		});
 
+		function fnSetCustmereData(a, b) {
+			$("#custmemberNo").val(a);
+			$("#custmemberName").val(b);
+			$(".modal-backdrop").remove();
+			$("#custmemberModal").modal("hide");
+		}
+		
 		function fn_Reloaddata01(url, data){
 			$("#inoutlist").empty();
 			$("#inoutlistSum").remove();

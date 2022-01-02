@@ -533,20 +533,20 @@ start, concat(left(a.schedTo,10)," ",substring(a.schedTo,12,9)) end, a.schedNo i
 from swc_sched a left join swc_cust b on a.custNo=b.custNo left join swc_sopp 
 c on a.soppNo=c.soppNo left join swc_user d on a.userNo=d.userNo left join swc_organiz e on 
 d.org_id = e.org_id where a.attrib not like 'XXX%' and a.compNo = #{compNo} and a.userNo in ( 
-#{userNo}) and yearweek(a.schedFrom) = yearweek(now())-1 
+#{userNo}) and yearweek(a.schedFrom) = yearweek(date_sub(now(), interval 7 day))
 union
 select 'p' weektype,dayofweek(a.salesTodatetime) weekdays,concat(" $ ", a.salesTitle) title, concat(left(a.salesFrdatetime,10)," ",substring(a.salesFrdatetime 
 ,12,9)) start, concat(left(a.salesTodatetime,10)," ",substring(a.salesTodatetime ,12,9)) end, 
 a.salesNo id, a.salesDesc schedDesc, a.salesCheck schedCheck, d.userName, yearweek(a.salesTodatetime) weekno, 'S' stype from swc_sales a left join swc_cust b on 
 a.custNo=b.custNo left join swc_user d on a.userNo=d.userNo left join swc_organiz e on d.org_id 
 = e.org_id where a.attrib not like 'XXX%' and a.compNo = #{compNo} and a.userNo in (#{userNo}) 
-and yearweek(a.salesTodatetime) = yearweek(now())-1
+and yearweek(a.salesTodatetime) = yearweek(date_sub(now(), interval 7 day))
 union
 select 'p' weektype,dayofweek(a.techdFrom) weekdays, concat(" @ ", a.techdTitle) title, concat(left(a.techdFrom,10)," ",substring(a.techdFrom,12,9)) 
 start, concat(left(a.techdTo,10)," ",substring(a.techdTo,12,9)) end, a.techdNo id, a.techdDesc schedDesc, a.techdCheck schedCheck, d.userName, yearweek(a.techdFrom) weekno, 'T' stype  
 from swc_techd a left join swc_user d on a.userNo=d.userNo left join swc_organiz 
 e on d.org_id = e.org_id where a.attrib not like 'XXX%' and a.compNo = #{compNo} and a.userNo 
-in ( #{userNo} ) and yearweek(a.techdFrom) = yearweek(now())-1
+in ( #{userNo} ) and yearweek(a.techdFrom) = yearweek(date_sub(now(), interval 7 day))
 union
 select 't' weektype,dayofweek(a.schedFrom) weekdays,concat(" # ", a.schedTitle) title, concat(left(a.schedFrom,10)," ",substring(a.schedFrom,12,9)) 
 start, concat(left(a.schedTo,10)," ",substring(a.schedTo,12,9)) end, a.schedNo id, a.schedDesc, a.schedCheck, d.userName, yearweek(a.schedFrom) weekno, 'E' stype
@@ -573,20 +573,20 @@ start, concat(left(a.schedTo,10)," ",substring(a.schedTo,12,9)) end, a.schedNo i
 from swc_sched a left join swc_cust b on a.custNo=b.custNo left join swc_sopp 
 c on a.soppNo=c.soppNo left join swc_user d on a.userNo=d.userNo left join swc_organiz e on 
 d.org_id = e.org_id where a.attrib not like 'XXX%' and a.compNo = #{compNo} and a.userNo in ( 
-#{userNo}) and yearweek(a.schedFrom) = yearweek(now())+1 
+#{userNo}) and yearweek(a.schedFrom) = yearweek(date_add(now(), interval 7 day))
 union
 select 'n' weektype,dayofweek(a.salesTodatetime) weekdays,concat(" $ ", a.salesTitle) title, concat(left(a.salesFrdatetime,10)," ",substring(a.salesFrdatetime 
 ,12,9)) start, concat(left(a.salesTodatetime,10)," ",substring(a.salesTodatetime ,12,9)) end, 
 a.salesNo id, a.salesDesc schedDesc, a.salesCheck schedCheck, d.userName, yearweek(a.salesTodatetime) weekno, 'S' stype from swc_sales a left join swc_cust b on 
 a.custNo=b.custNo left join swc_user d on a.userNo=d.userNo left join swc_organiz e on d.org_id 
 = e.org_id where a.attrib not like 'XXX%' and a.compNo = #{compNo} and a.userNo in ( #{userNo} ) 
-and yearweek(a.salesTodatetime) = yearweek(now())+1
+and yearweek(a.salesTodatetime) = yearweek(date_add(now(), interval 7 day))
 union
 select 'n' weektype,dayofweek(a.techdFrom) weekdays, concat(" @ ", a.techdTitle) title, concat(left(a.techdFrom,10)," ",substring(a.techdFrom,12,9)) 
 start, concat(left(a.techdTo,10)," ",substring(a.techdTo,12,9)) end, a.techdNo id, a.techdDesc schedDesc, a.techdCheck schedCheck, d.userName, yearweek(a.techdFrom) weekno, 'T' stype 
 from swc_techd a left join swc_user d on a.userNo=d.userNo left join swc_organiz 
 e on d.org_id = e.org_id where a.attrib not like 'XXX%' and a.compNo = #{compNo} and a.userNo 
-in ( #{userNo} ) and yearweek(a.techdFrom) = yearweek(now())+1 
+in ( #{userNo} ) and yearweek(a.techdFrom) = yearweek(date_add(now(), interval 7 day))
 order by weekno,weekdays,start
  </select>
  

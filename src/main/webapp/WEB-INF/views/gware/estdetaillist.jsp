@@ -34,91 +34,32 @@
         <th class="text-center">금액</th>
         <th class="text-center">적용율</th>
         <th class="text-center">비고</th>
-        <th class="text-center">수정</th>
         <th class="text-center">삭제</th>
     </tr>
     </thead>
     <tbody>
-    <%--<c:forEach var="row" items="${dtodata02}">
-        <c:if test="${row.dataType eq '2201'}">
-            <tr class="item2" id="${row.soppdataNo}">
-                <td data-type="${row.dataType}">
-                    매입
-                    (
-                    <fmt:parseDate value="${row.regDatetime}" var="regDatetime" pattern="yyyy-MM-dd HH:mm:ss"/>
-                    <fmt:formatDate value="${regDatetime}" pattern="yyyy-MM-dd"/>
-                    )
-                </td>
-                <td>${row.salesCustNoN}<input hidden value="${row.salesCustNo}"></td>
-                <td>${row.dataTitle}<input hidden value="${row.productNo}"></td>
-                <td style="text-align: right">₩<fmt:formatNumber value="${row.dataNetprice}" pattern="#,###" /></td>
-                <td style="text-align: right"><fmt:formatNumber value="${row.dataQuanty}" pattern="#,###" /></td>
-                <td style="text-align: right">₩<fmt:formatNumber value="${row.dataAmt}" pattern="#,###" /></td>
-                <td style="text-align: right">₩<fmt:formatNumber value="${row.dataVat}" pattern="#,###" /></td>
-                <td style="text-align: right">₩<fmt:formatNumber value="${row.dataTotal}" pattern="#,###" /></td>
-                <td style="text-align: right"><fmt:formatNumber value="${row.dataDiscount}" type="percent" /></td>
-                <td>${row.dataRemark}</td>
-                <td><button class="btn btn-sm btn-dark" onClick="javascript:fn_data02modify(this)">수정</button></td>
-                <td><button class="btn btn-sm btn-danger" onClick="javascript:fn_data02delete(${row.soppdataNo})">삭제</button></td>
-            </tr>
-        </c:if>
+    <c:forEach var="row" items="${list}">
+    	<tr>
+    		<td style='text-align:center;'>견적</td>
+    		<td id='salesCustNoN' style='text-align:center;'>${row.custName}</td>
+    		<td id='dataTitle' style='text-align:center;'>${row.productName}</td>
+    		<td id='dataNetprice' style='text-align: right'>₩<fmt:formatNumber value="${row.productNetprice}" pattern="#,###" /></td>
+    		<td id='dataQuanty' style='text-align: right'>${row.productQty}</td>
+    		<td id='dataAmt' style='text-align: right'>₩<fmt:formatNumber value="${row.productAmount}" pattern="#,###" /></td>
+    		<td id='dataVat' style='text-align: right'>₩<fmt:formatNumber value="${row.productVat}" pattern="#,###" /></td>
+    		<td id='dataTotal' style='text-align: right'>₩<fmt:formatNumber value="${row.productTotal}" pattern="#,###" /></td>
+    		<td id='dataDiscount' style='text-align: right'>${row.productDis}%</td>
+    		<td id='dataRemark'>${row.productRemark}</td>
+    		<td><button class='btn btn-sm btn-danger'>삭제</button></td>
+    	</tr>
     </c:forEach>
-    <tr class="item2">
-        <td colspan="1" style="text-align: center; background: #80808030;">매입합계</td>
-        <td colspan="11" style="text-align: right; background: #80808030;" id="product02InSum_table">-</td>
-    </tr>
-    <c:forEach var="row" items="${dtodata02}">
-        <c:if test="${row.dataType eq '2202'}">
-            <tr class="item2" id="${row.soppdataNo}">
-                <td data-type="${row.dataType}">
-                    매출
-                    (
-                    <fmt:parseDate value="${row.regDatetime}" var="regDatetime" pattern="yyyy-MM-dd HH:mm:ss"/>
-                    <fmt:formatDate value="${regDatetime}" pattern="yyyy-MM-dd"/>
-                    )
-                </td>
-                <td>${row.salesCustNoN}<input hidden value="${row.salesCustNo}"></td>
-                <td>${row.dataTitle}<input hidden value="${row.productNo}"></td>
-                <td style="text-align: right">₩<fmt:formatNumber value="${row.dataNetprice}" pattern="#,###" /></td>
-                <td style="text-align: right"><fmt:formatNumber value="${row.dataQuanty}" pattern="#,###" /></td>
-                <td style="text-align: right">₩<fmt:formatNumber value="${row.dataAmt}" pattern="#,###" /></td>
-                <td style="text-align: right">₩<fmt:formatNumber value="${row.dataVat}" pattern="#,###" /></td>
-                <td style="text-align: right">₩<fmt:formatNumber value="${row.dataTotal}" pattern="#,###" /></td>
-                <td style="text-align: right"><fmt:formatNumber value="${row.dataDiscount}" type="percent" /></td>
-                <td>${row.dataRemark}</td>
-                <td><button class="btn btn-sm btn-dark" onClick="javascript:fn_data02modify(this)">수정</button></td>
-                <td><button class="btn btn-sm btn-danger" onClick="javascript:fn_data02delete(${row.soppdataNo})">삭제</button></td>
-            </tr>
-        </c:if>
-    </c:forEach>
-    <tr class="item2" style="text-align: right">
-        <td colspan="1" style="text-align: center; background: #80808030;">매출합계</td>
-        <td colspan="11" style="text-align: right; background: #80808030;" id="product02OutSum_table">-</td>
-    </tr>--%>
     </tbody>
 </table>
 <br/>
-<table class="table table-sm bst02" id="qutylistSum">
-    <tbody>
-    <colgroup>
-        <col width="5%" />
-        <col width="20%" />
-        <col width="5%" />
-        <col width="20%" />
-        <col width="5%" />
-        <col width="20%" />
-        <col width="5%" />
-        <col width="20%" />
-    </colgroup>
-    <tr>
-        <td style="text-align: center; background: #80808030;">매입 합계</td>
-        <td id="product02InSum" style="text-align: right">-</td>
-        <td style="text-align: center; background: #80808030;">매출 합계</td>
-        <td id="product02OutSum" style="text-align: right">-</td>
-        <td style="text-align: center; background: #80808030;">이익 합계</td>
-        <td id="product02DiffSum" style="text-align: right">-</td>
-        <td style="text-align: center; background: #80808030;">이익률</td>
-        <td id="product02Percent" style="text-align: right">-</td>
+<table class="table table-sm">
+    <tr class="item2">
+        <td colspan="1" style="text-align: center; background: #80808030;">합계</td>
+        <td colspan="11" style="text-align: right; background: #80808030;" id="product02InSum_table">0</td>
     </tr>
     </tbody>
 </table>

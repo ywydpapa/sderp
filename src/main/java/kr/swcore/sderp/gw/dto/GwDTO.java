@@ -19,6 +19,7 @@ public class GwDTO {
 	private Integer custNo;
     private String custName;
 	private Integer soppNo;
+	private String soppTitle;
 	private Integer compNo;
     private Integer userNo;
     private BigDecimal estAmt;

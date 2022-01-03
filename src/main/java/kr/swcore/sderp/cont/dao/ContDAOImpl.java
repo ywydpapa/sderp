@@ -21,7 +21,12 @@ public class ContDAOImpl implements ContDAO {
 		// TODO Auto-generated method stub
 		return sqlSession.selectList("cont.listCont");
 	}
-	
+
+	@Override
+	public List<ContDTO> listContbycust(int custNo) {
+		return sqlSession.selectList("cont.listContbycust",custNo);
+	}
+
 	@Override
 	public List<ContDTO> listCont(SoppDTO soppDto) {
 		return sqlSession.selectList("cont.listCont", soppDto);

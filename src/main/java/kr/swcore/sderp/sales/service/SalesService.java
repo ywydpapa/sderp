@@ -11,6 +11,7 @@ import kr.swcore.sderp.sales.dto.SalesDTO;
 
 public interface SalesService {
 	List<SalesDTO> listSales();
+	List<SalesDTO> listSalesbycust(int custNo);
 	List<SalesDTO> listSales(HttpSession session, PageDTO pageDTO);
 	List<SalesDTO> listconSales(HttpSession session, SalesDTO dto);
 	List<SalesDTO> listSalesinsopp(HttpSession session, int soppNo, int contNo);

@@ -129,8 +129,7 @@ from
 ) t
 </select>
 
-<!--
-<select id="listSales"
+<select id="listSalesbycust"
 		resultType="salesDto">
 	select a.*, b.userName , c.custName, d.soppTitle, e.custName ptncName, f.desc03 salesTypeN from swc_sales a
 	left join swc_user b on a.userNo = b.userNo
@@ -138,14 +137,10 @@ from
 	left join swc_sopp d on a.soppNo = d.soppNo
 	left join swc_cust e on a.ptncNo = e.custNo
 	left join swc_code f on a.salesType = f.codeNo
-	where a.attrib not like 'XXX%' and a.compNo = #{compNo}
+	where a.attrib not like 'XXX%' and a.custNo = #{custNo}
 	order by salesFrdatetime desc
-	<if test="limit > 0">
-		limit  #{limit} offset #{offset}
-	</if>
 </select>
--->
- 
+
  <select id="listconSales"
  		resultType="salesDto">
  		select a.*, b.userName , c.custName, d.soppTitle, e.custName ptncName, f.desc03 salesTypeN from swc_sales a  

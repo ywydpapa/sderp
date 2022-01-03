@@ -12,6 +12,7 @@ import kr.swcore.sderp.cont.dto.ContDTO;
 public interface ContService {
 	
 	List<ContDTO> listCont();
+	List<ContDTO> listContbycust(int custNo);
 	List<ContDTO> listCont(HttpSession session, PageDTO pageDTO, ContDTO dto);
 	List<ContDTO> listconCont(HttpSession session, ContDTO dto);
 	ContDTO detailCont(int contNo);

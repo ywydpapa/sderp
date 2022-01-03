@@ -26,13 +26,18 @@ public class SalesServiceImpl implements SalesService {
 	
 	@Inject
 	CodeDAO codeDao;
-	
+
 	@Override
 	public List<SalesDTO> listSales() {
 		// TODO Auto-generated method stub
 		return salesDao.listSales();
 	}
-	
+
+	@Override
+	public List<SalesDTO> listSalesbycust(int custNo) {
+		return salesDao.listSalesbycust(custNo);
+	}
+
 	@Override
 	public List<SalesDTO> listSales(HttpSession session, PageDTO pageDTO) {
 		Integer compNo = SessionInfoGet.getCompNo(session);

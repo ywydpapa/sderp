@@ -31,7 +31,12 @@ public class ContServiceImpl implements ContService {
 		// TODO Auto-generated method stub
 		return contDao.listCont();
 	}
-	
+
+	@Override
+	public List<ContDTO> listContbycust(int custNo) {
+		return contDao.listContbycust(custNo);
+	}
+
 	@Override
 	public List<ContDTO> listCont(HttpSession session, PageDTO pageDTO, ContDTO dto) {
 		SoppDTO soppdto = SessionInfoGet.getCompNoDto(session);

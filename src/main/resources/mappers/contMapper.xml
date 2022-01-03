@@ -18,6 +18,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			limit  #{limit} offset #{offset}
 		</if>
  </select>
+
+	<select id="listContbycust"
+			resultType="contDto">
+		select a.*, b.userName , c.custName, d.desc03 contTypeN, g.desc03 cntrctMthN
+		from swc_cont a
+		left join swc_user b on a.userNo = b.userNo
+		left join swc_cust c on a.custNo = c.custNo
+		left join swc_code d on a.contType = d.codeNo
+		left join swc_code g on a.cntrctMth = g.codeNo
+		where a.attrib not like 'XXX%' and a.custNo = #{custNo}
+		order by regDatetime desc
+	</select>
  
  <select id="listconCont"
  		resultType="contDto">

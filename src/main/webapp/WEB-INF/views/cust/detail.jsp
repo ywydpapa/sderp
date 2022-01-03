@@ -35,8 +35,9 @@
 					<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#tab03" role="tab">담당자 정보</a></li>
 					<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#tab04" role="tab">세무/거래관련 정보</a></li>
 					<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#tab05" role="tab">업체 업종 정보</a></li>
-					<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#tab06" role="tab">업체 영업 정보</a></li>
+					<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#tab06" role="tab">영업 정보</a></li>
 					<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#tab07" role="tab">업체 계약 정보</a></li>
+					<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#tab08" role="tab">기술지원 정보</a></li>
 				</ul>
 				<!-- Tab panes -->
 				<div class="tab-content tabs m-t-20">
@@ -371,7 +372,30 @@
 						<div class="card-block table-border-style">
 							<div class="table-responsive">
 								<form name="form6" method="post" onsubmit="return false;">
-
+									<table class="table table-sm bst02">
+										<colgroup>
+											<col width="25%" />
+											<col width="25%" />
+											<col width="25%" />
+											<col width="25%" />
+										</colgroup>
+										<tbody>
+										<tr>
+											<th class="text-center">영업일자</th>
+											<th class="text-center">영업명</th>
+											<th class="text-center">담당자</th>
+											<th class="text-center">계약상세</th>
+										</tr>
+										<c:forEach var="slist" items="${saleslist}">
+											<tr>
+												<td>${slist.salesSdate}</td>
+												<td>${slist.salesTitle}</td>
+												<td class="text-center">${slist.userName}</td>
+												<td>${slist.salesDesc}</td>
+											</tr>
+										</c:forEach>
+										</tbody>
+									</table>
 								</form>
 								<div class="btn_wr text-right mt-3">
 									<button class="btn btn-md btn-success f-left" onClick="javascript:location='${path}/cust/list.do'">목록</button>
@@ -383,7 +407,66 @@
 						<div class="card-block table-border-style">
 							<div class="table-responsive">
 								<form name="form7" method="post" onsubmit="return false;">
+									<table class="table table-sm bst02">
+										<colgroup>
+											<col width="25%" />
+											<col width="25%" />
+											<col width="25%" />
+											<col width="25%" />
+										</colgroup>
+										<tbody>
+										<tr>
+											<th class="text-center">계약일자</th>
+											<th class="text-center">계약명</th>
+											<th class="text-center">계약금액</th>
+											<th class="text-center">계약상세</th>
+										</tr>
+                                  <c:forEach var="clist" items="${contlist}">
+										<tr>
+											<td>${clist.paymaintSdate}~${clist.paymaintEdate}</td>
+											<td>${clist.contTitle}</td>
+											<td class="text-right"><fmt:formatNumber value="${clist.contAmt}" pattern="#,###"/></td>
+											<td>${clist.contDesc}</td>
+										</tr>
+								  </c:forEach>
+										</tbody>
+									</table>
 
+								</form>
+								<div class="btn_wr text-right mt-3">
+									<button class="btn btn-md btn-success f-left" onClick="javascript:location='${path}/cust/list.do'">목록</button>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="tab-pane " id="tab08" role="tabpanel">
+						<div class="card-block table-border-style">
+							<div class="table-responsive">
+								<form name="form8" method="post" onsubmit="return false;">
+									<table class="table table-sm bst02">
+										<colgroup>
+											<col width="10%" />
+											<col width="25%" />
+											<col width="40%" />
+											<col width="25%" />
+										</colgroup>
+										<tbody>
+										<tr>
+											<th class="text-center">지원일자</th>
+											<th class="text-center">기술지원명</th>
+											<th class="text-center">요청내용</th>
+											<th class="text-center">기술지원 상세</th>
+										</tr>
+										<c:forEach var="tlist" items="${techdlist}">
+											<tr>
+												<td>${tlist.techdFrom}</td>
+												<td>${tlist.techdTitle}</td>
+												<td>${tlist.techdDesc}</td>
+												<td>${tlist.techdTypeN}</td>
+											</tr>
+										</c:forEach>
+										</tbody>
+									</table>
 
 								</form>
 								<div class="btn_wr text-right mt-3">

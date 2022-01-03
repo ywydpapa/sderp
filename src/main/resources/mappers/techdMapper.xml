@@ -139,7 +139,7 @@ from
 ) t
 </select>
 
-<!--<select id="listTechd"
+<select id="listTechdbycust"
  		resultType="TechdDto">
  		select a.*, b.userName , c.custName, f.desc03 techdStepsN 
  		from swc_techd a  
@@ -148,12 +148,9 @@ from
 		left join swc_sopp d on a.soppNo = d.soppNo
 		left join swc_cont e on a.contNo = e.contNo
 		left join swc_code f on a.techdSteps = f.codeNo 
-		where a.attrib not like 'XXX%' and a.compNo = #{compNo}
+		where a.attrib not like 'XXX%' and a.custNo = #{custNo}
  		order by techdFrom desc
-		<if test="limit > 0">
-			limit  #{limit} offset #{offset}
-		</if>
- </select>-->
+ </select>
  
  <select id="listconTechd"
  		resultType="TechdDto">

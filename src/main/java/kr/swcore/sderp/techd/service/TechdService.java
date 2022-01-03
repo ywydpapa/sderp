@@ -13,6 +13,7 @@ import kr.swcore.sderp.techd.dto.TechdDTO;
 public interface TechdService {
 
 	List<TechdDTO> listTechd();
+	List<TechdDTO> listTechdbycust(int custNo);
 	List<TechdDTO> listTechd(HttpSession session, PageDTO pageDTO);
 	Object listTechd(HttpSession session, String param, HttpServletRequest request, HttpServletResponse response);
 	List<TechdDTO> listconTechd(HttpSession session, TechdDTO dto);

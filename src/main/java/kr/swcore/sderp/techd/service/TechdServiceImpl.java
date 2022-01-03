@@ -32,7 +32,12 @@ public class TechdServiceImpl implements TechdService {
 		// TODO Auto-generated method stub
 		return techdDao.listTechd();
 	}
-	
+
+	@Override
+	public List<TechdDTO> listTechdbycust(int custNo) {
+		return techdDao.listTechdbycust(custNo);
+	}
+
 	@Override
 	public List<TechdDTO> listTechd(HttpSession session, PageDTO pageDTO) {
 		Integer compNo = SessionInfoGet.getCompNo(session);

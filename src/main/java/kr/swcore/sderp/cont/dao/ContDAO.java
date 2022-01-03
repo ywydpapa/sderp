@@ -7,7 +7,8 @@ import kr.swcore.sderp.sopp.dto.SoppDTO;
 
 public interface ContDAO {
 
-	List<ContDTO> listCont();	
+	List<ContDTO> listCont();
+	List<ContDTO> listContbycust(int custNo);
 	List<ContDTO> listCont(SoppDTO soppDto);
 	List<ContDTO> listconCont(ContDTO contDto);
 	ContDTO detailCont(int contNo);

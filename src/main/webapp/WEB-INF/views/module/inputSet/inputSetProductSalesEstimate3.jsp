@@ -278,8 +278,8 @@
     	var productVat = $("#data02Vat").val().replace(/[\D\s\._\-]+/g, "");
     	var productTotal = $("#data02Total").val().replace(/[\D\s\._\-]+/g, "");
     	var productDis = $("#data02Discount").val().replace("%", "");
-    	var productRemark = $("#data02Remark").val();
-    	var productSpec = $("#data02Spec").val();
+    	var productRemark = tinyMCE.get("data02Remark").getContent();
+    	var productSpec = tinyMCE.get("data02Spec").getContent();
     	var qutylist = $("#qutylist tbody");
 		
     	temp.estId = $("#estId").val();
@@ -393,7 +393,7 @@
         data02Data.dataVat 		= $("#data02Vat").val().replace(/[\D\s\._\-]+/g, "");
         data02Data.dataTotal 	= $("#data02Total").val().replace(/[\D\s\._\-]+/g, "");
         data02Data.dataDiscount	= $("#data02Discount").val().replace(/[\D\s\._\-]+/g, "")/100;
-        data02Data.dataRemark 	= $("#data02Remark").val();
+        data02Data.dataRemark 	= tinyMCE.get("data02Remark").getContent();
 
         if(!data02Data.dataQuanty){
             alert("단가를 입력해주십시오.");

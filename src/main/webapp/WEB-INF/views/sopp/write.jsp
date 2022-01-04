@@ -372,7 +372,7 @@
 		if($("#soppStatus").val() != "") soppData.soppStatus 	= $("#soppStatus").val();
 		if($("#soppTargetDate").val() != "") soppData.soppTargetDate	= $("#soppTargetDate").val();
 		if($("#soppTargetAmt").val() != "") soppData.soppTargetAmt 	= $("#soppTargetAmt").val().replace(/[\D\s\._\-]+/g, "");
-		if($("#soppDesc").val() != "") soppData.soppDesc 		= $("#soppDesc").val();
+		if(tinyMCE.get("soppDesc").getContent() != "") soppData.soppDesc 		= tinyMCE.get("soppDesc").getContent();
 
 		console.dir(soppData);
 		// 필수값 체크

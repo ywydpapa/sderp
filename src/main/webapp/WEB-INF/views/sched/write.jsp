@@ -360,7 +360,7 @@
 			schedData.userNo 		= $("#userNo").val();
 			schedData.custNo 		= $("#custNo").val() ? Number($("#custNo").val()) : 0;
 			schedData.soppNo 		= $("#soppNo").val() ? Number($("#soppNo").val()) : 0;
-			schedData.schedDesc 		= $("#schedDesc").val();
+			schedData.schedDesc 		= tinyMCE.get("schedDesc").getContent();
 			schedData.schedType 		= $("#schedType").val();
 			schedData.schedCat 		= $("#schedCat").val();
 			schedData.contNo		= $("#contNo").val() ? Number($("#contNo").val()) : 0;

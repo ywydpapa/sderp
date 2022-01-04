@@ -442,7 +442,7 @@
 		sprtData.techdTo			= setDateHourMinute($("#techdTo").val(), $("#endTime").val());						// 지원일자 종료
 		sprtData.techdType			= $("#techdType").val();					// 지원형태
 		sprtData.techdSteps			= $("#techdSteps").val();					// 진행단계
-		sprtData.techdDesc			= $("#techdDesc").val();					// 설명
+		sprtData.techdDesc			= tinyMCE.get("techdDesc").getContent();;					// 설명
 		sprtData.soppNo				= $("#soppNo").val() ? $("#soppNo").val() : 0; // 영업기회번호
 		sprtData.contNo				= $("#contNo").val() ? $("#contNo").val() : 0; // 계약번호
 

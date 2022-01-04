@@ -98,7 +98,7 @@
 		function fn_UpdateNotice() {
 			var noticeData = {};
 			noticeData.notiTitle 		= $("#notiTitle").val();
-			noticeData.notiContents		= $("#notiContents").val();
+			noticeData.notiContents		= tinyMCE.get("notiContents").getContent();
 			noticeData.userNo 		= $("#userNo").val();
 			noticeData.notiNo		= $("#notiNo").val();
 			

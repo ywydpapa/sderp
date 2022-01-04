@@ -386,10 +386,6 @@
 	</div>
 	<!--영업기회등록-->
 	<script>
-		$('a[data-toggle="tab"]').on('shown.bs.tab', function() {
-		  	localStorage.setItem('lastTab', $(this).attr('href'));
-		});
-		
 		var lastTab = localStorage.getItem('lastTab');
 		
 		if (lastTab) {
@@ -547,7 +543,7 @@
 			if($("#soppSource").val() != "") soppData.soppSource 	= $("#soppSource").val();
 			if($("#soppTargetDate").val() != "") soppData.soppTargetDate	= $("#soppTargetDate").val();
 			if($("#soppTargetAmt").val() != "") soppData.soppTargetAmt 	= $("#soppTargetAmt").val().replace(/[\D\s\._\-]+/g, "");
-			if($("#soppDesc").val() != "") soppData.soppDesc 		= $("#soppDesc").val();
+			if(tinyMCE.get("soppDesc").getContent() != "") soppData.soppDesc 		= tinyMCE.get("soppDesc").getContent();
 
 			$.ajax({ url: "${path}/sopp/update.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
 				data: soppData , // HTTP 요청과 함께 서버로 보낼 데이터

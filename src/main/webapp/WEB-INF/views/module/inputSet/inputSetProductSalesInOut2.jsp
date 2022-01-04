@@ -289,7 +289,7 @@
     
     function fn_data01Insert() {
     	var path = $(location).attr("pathname");
-    	/* 
+    	
     	if($("[name='contractType']:checked").val() === "NEW"){
 			localStorage.setItem("reloadSet", "1t");
     	}else{
@@ -345,7 +345,11 @@
                 $("#data01Quanty").val("");
                 $("#data01Amt").val("");
                 $("#data01Remark").val("");
-
+				
+                $('a[data-toggle="tab"]').on('shown.bs.tab', function() {
+        		  	localStorage.setItem('lastTab', $(this).attr('href'));
+        		});
+        		
                 location.href = "${path}/"+path.replace("${path}/", "");
             }else{
                 alert("저장 실패");
@@ -417,6 +421,10 @@
                 $("#data01Addbtn").show();
                 $("#data01Modbtn").hide();
 
+                $('a[data-toggle="tab"]').on('shown.bs.tab', function() {
+        		  	localStorage.setItem('lastTab', $(this).attr('href'));
+        		});
+                
                 location.href = "${path}/"+path.replace("${path}/", "");
             }else{
                 alert("저장 실패");
@@ -429,8 +437,7 @@
             $("#data01Addbtn").show();
             $("#data01Modbtn").hide();
             alert("통신 실패");
-        }); */
-        location.href = "${path}/"+path.replace("${path}/", "");
+        });
     }
 
     function fn_data01delete(soppdataNo) {
@@ -454,6 +461,11 @@
 			.done(function(data) {
 				if(data.code == 10001){
 					alert("삭제 성공");
+					
+					$('a[data-toggle="tab"]').on('shown.bs.tab', function() {
+	        		  	localStorage.setItem('lastTab', $(this).attr('href'));
+	        		});
+					
 					location.href = "${path}/"+path.replace("${path}/", "");
 				}else{
 					alert("삭제 실패");

@@ -666,9 +666,9 @@ function fn_Create(){
 	var checkData = [];
 	sreportData.userNo 		= Number("${userNo}");
 	sreportData.compNo 		= Number("${compNo}");
-	sreportData.prComment	= $("#praddtext").val();
+	sreportData.prComment	= tinyMCE.get("praddtext").getContent();
 	sreportData.prCheck 	= $(".praddchk").attr("data-check");
-	sreportData.thComment	= $("#thaddtext").val();
+	sreportData.thComment	= tinyMCE.get("thaddtext").getContent();
 	sreportData.thCheck 	= $(".thaddchk").attr("data-check");
 	
 	
@@ -714,9 +714,9 @@ function fn_Create2(){
 	var checkData = [];
 	sreportData.userNo 		= Number("${userNo}");
 	sreportData.compNo 		= Number("${compNo}");
-	sreportData.prComment	= $("#thaddtext").val();
+	sreportData.prComment	= tinyMCE.get("thaddtext").getContent();
 	sreportData.prCheck 	= $(".thaddchk").attr("data-check");
-	sreportData.thComment	= $("#nxaddtext").val();
+	sreportData.thComment	= tinyMCE.get("nxaddtext").getContent();
 	sreportData.thCheck 	= $(".nxaddchk").attr("data-check");
 	$("input[type='checkbox']").each(function(){
 		if(typeof $(this).attr("data-id") != "undefined" && typeof $(this).attr("data-check") != "undefined" && $(this).attr("data-name") == "checks"){
@@ -888,9 +888,9 @@ function tblTest(){
 }
 
 function linecopy(){
-	var aa = $("#praddtext").val(); 
+	var aa = tinyMCE.get("praddtext").getContent();
 	$("#prprntext").html(aa);
-	var bb = $("#thaddtext").val();
+	var bb = tinyMCE.get("thaddtext").getContent();
 	$("#thprntext").html(bb);
 }
 

@@ -16,7 +16,7 @@
             <div class="col-lg-12">
                 <div class="page-header-title">
                     <div class="d-inline">
-                        결제서류 작성
+                        휴가신청서 작성
                     </div>
                 </div>
             </div>
@@ -26,7 +26,7 @@
 
     <!--계약등록-->
     <div class="cnt_wr">
-        <h5 class="cont_title"><i class="icofont icofont-square-right"></i>결제정보</h5>
+        <h5 class="cont_title"><i class="icofont icofont-square-right"></i>휴가정보</h5>
         <div class="row">
             <div class="col-sm-12">
                 <div class="card-block table-border-style">
@@ -41,103 +41,6 @@
                                 <col width="35%"/>
                             </colgroup>
                             <tbody>
-                            <tr>
-                                <th scope="row" class="text-center">연결 영업기회/계약</th>
-                                <td colspan="3">
-                                    <div class="form-radio">
-                                        <form>
-                                            <div class="radio radio-inline">
-                                                <label> <input type="radio" name="contractType" value="SOPP" checked="checked"> <i class="helper"></i>영업기회</label>
-                                            </div>
-                                            <!-- <div class="radio radio-inline">
-                                                <label> <input type="radio" name="contractType" value="CONT"> <i class="helper"></i>계약</label>
-                                            </div> -->
-                                            <div class="radio radio-inline">
-                                                <label> <input type="radio" name="contractType" value="NFORM"> <i class="helper"></i>표준견적 작성</label>
-                                            </div>
-                                            <div class="radioLabel radio-inline">
-                                                <label style="color:red;">※ 표준견적 작성은 영업기회가 필요없습니다.</label>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th class="contDetailSopp text-center">영업기회</th>
-                                <td class="contDetailSopp">
-                                    <div class="input-group input-group-sm mb-0">
-                                        <input type="text" class="form-control" name="soppDTO" id="soppTitle" value="" readonly/>
-                                        <input type="hidden" class="form-control" name="soppDTO" id="soppNo" value="" />
-                                        <span class="input-group-btn">
-												<button class="btn btn-primary sch-opportunity2"
-                                                        data-remote="${path}/modal/popup.do?popId=sopp"
-                                                        type="button" data-toggle="modal" data-target="#soppModal">
-													<i class="icofont icofont-search"></i>
-												</button>
-											</span>
-                                        <div class="modal fade " id="soppModal" tabindex="-1"
-                                             role="dialog">
-                                            <div class="modal-dialog modal-80size" role="document">
-                                                <div class="modal-content modal-80size">
-                                                    <div class="modal-header">
-                                                        <h4 class="modal-title"></h4>
-                                                        <button type="button" class="close" data-dismiss="modal"
-                                                                aria-label="Close">
-                                                            <span aria-hidden="true">&times;</span>
-                                                        </button>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        <h5>영업기회목록</h5>
-                                                        <p>Loading!!!</p>
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button"
-                                                                class="btn btn-default waves-effect "
-                                                                data-dismiss="modal">Close</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </td>
-                                <th class="text-center">견적고객</th>
-                                <td>
-                                    <div class="input-group input-group-sm mb-0">
-                                        <input type="text" class="form-control" name="custName"
-                                               id="custName" value="${dto.custName}" /> <input
-                                            type="hidden" name="custNo" id="custNo"
-                                            value="${dto.custNo}" /> <span class="input-group-btn">
-												<button class="btn btn-primary sch-company"
-                                                        data-remote="${path}/modal/popup.do?popId=cust"
-                                                        type="button" data-toggle="modal"
-                                                        data-target="#custModal">
-													<i class="icofont icofont-search"></i>
-												</button>
-											</span>
-                                        <div class="modal fade " id="custModal" tabindex="-1"
-                                             role="dialog">
-                                            <div class="modal-dialog modal-80size" role="document">
-                                                <div class="modal-content modal-80size">
-                                                    <div class="modal-header">
-                                                        <h4 class="modal-title">거래처검색</h4>
-                                                        <button type="button" class="close"
-                                                                data-dismiss="modal" aria-label="Close">
-                                                            <span aria-hidden="true">&times;</span>
-                                                        </button>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        <h5>매출처목록</h5>
-                                                        <p>Loading!!!</p>
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
                             <tr>
                                 <th class="text-center">견적번호(*)</th>
                                 <td>
@@ -174,8 +77,8 @@
                             </tbody>
                         </table>
                         <div class="table-responsive" style="overflow-x: hidden;">
-                            <jsp:include page="/WEB-INF/views/module/inputSet/inputSetProductSalesEstimate3.jsp"/>
-                            <jsp:include page="/WEB-INF/views/gware/estdetaillist.jsp"/>
+                            <jsp:include page="/WEB-INF/views/module/inputSet/inputSetHR.jsp"/>
+                            <jsp:include page="/WEB-INF/views/gware/hrdetaillist.jsp"/>
                         </div>
                     </div>
                 </div>

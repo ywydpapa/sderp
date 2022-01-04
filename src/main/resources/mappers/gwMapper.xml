@@ -118,16 +118,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select a.*, b.custName from swc_estitems a LEFT JOIN swc_cust b ON a.custNo = b.custNo where a.estId=#{estId} and a.estVer = #{estVer} and a.attrib not like 'XXX%';
 	</select>
 
-	<select id="listDoc" resultType="gwDto">
-		select * from swc_businessdoc where attrib not like 'XXX%';
-	</select>
-
 	<select id="listMyDoc" resultType="gwDto">
 		select * from swc_businessdoc where attrib not like 'XXX%' and docCrUserNo = #{docCrUserNo};
-	</select>
-
-	<select id="detailDoc" resultType="gwDto">
-		select * from swc_businessdoc where docNo = #{docNo};
 	</select>
 
 	<insert id="insertDoc">

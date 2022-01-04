@@ -89,7 +89,7 @@
 				</li>
 			</ul>
 		</li>
-		<li class="pcoded-hasmenu pcoded <c:if test="${path2 eq '/sales/list.do' || path2 eq '/sales/list.do' || path2 eq '/sales/write.do' || path2 eq '/gw/estlist.do' || path2 eq '/gw/estwrite.do' || fn:startsWith(path2, '/sales/detail')}">pcoded-trigger</c:if>">
+		<li class="pcoded-hasmenu pcoded <c:if test="${path2 eq '/sales/list.do' || path2 eq '/sales/list.do' || path2 eq '/sales/write.do' || fn:startsWith(path2, '/sales/detail')}">pcoded-trigger</c:if>">
 			<a href="javascript:void(0)">
 				<span class="pcoded-micon">
 					<i class="ti-briefcase"></i>
@@ -118,7 +118,7 @@
 				</li>
 			</ul>
 		</li>
-		<li class="pcoded-hasmenu pcoded <c:if test="${path2 eq '/sopp/list.do' || path2 eq '/sopp/list.do' || path2 eq '/sopp/write.do' || fn:startsWith(path2, '/sopp/detail')}">pcoded-trigger</c:if>">
+		<li class="pcoded-hasmenu pcoded <c:if test="${path2 eq '/sopp/list.do' || path2 eq '/sopp/list.do' || path2 eq '/sopp/write.do' || path2 eq '/gw/estlist.do' || path2 eq '/gw/estwrite.do' || fn:startsWith(path2, '/gw/estdetail') || fn:startsWith(path2, '/sopp/detail')}">pcoded-trigger</c:if>">
 			<a href="javascript:void(0)">
 				<span class="pcoded-micon">
 					<i class="ti-agenda"></i>

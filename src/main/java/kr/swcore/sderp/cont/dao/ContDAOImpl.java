@@ -8,6 +8,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import kr.swcore.sderp.cont.dto.ContDTO;
+import kr.swcore.sderp.cont.dto.ContFileDataDTO;
 import kr.swcore.sderp.sopp.dto.SoppDTO;
 
 @Repository
@@ -64,5 +65,29 @@ public class ContDAOImpl implements ContDAO {
 	@Override
 	public ContDTO listSalesTargetMonthIndividual(ContDTO contDTO) {
 		return sqlSession.selectOne("cont.listSalesTargetMonthIndividual", contDTO);
+	}
+
+	@Override
+	public List<ContDTO> listFile(int contNo) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("cont.listFile", contNo);
+	}
+
+	@Override
+	public int uploadFile(ContFileDataDTO dto) {
+		// TODO Auto-generated method stub
+		return sqlSession.insert("cont.uploadFile", dto);
+	}
+
+	@Override
+	public Integer deleteFile(ContFileDataDTO dto) {
+		// TODO Auto-generated method stub
+		return sqlSession.delete("cont.deleteFile", dto);
+	}
+
+	@Override
+	public ContFileDataDTO downloadFile(ContFileDataDTO dto) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("cont.downloadFile", dto);
 	}
 }

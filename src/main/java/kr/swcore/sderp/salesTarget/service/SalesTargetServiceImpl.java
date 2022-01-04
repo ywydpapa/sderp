@@ -249,7 +249,7 @@ public class SalesTargetServiceImpl implements SalesTargetService {
 				String[] profitArr = resultDto.getProfitTarget_Group().split(",");
 				BigDecimal[] profit = StringToBigDecimalDivCurreny(profitArr);
 				BigDecimal[] profitOrgin = StringToBigDecimal(profitArr);
-
+				
 				String[] overArr = resultDto.getOverTarget_Group().split(",");
 				BigDecimal[] over = StringToBigDecimalDivCurreny(overArr);
 				BigDecimal[] overOrgin = StringToBigDecimal(overArr);
@@ -322,7 +322,7 @@ public class SalesTargetServiceImpl implements SalesTargetService {
 			returnMap.put("code", 20001);
 			returnMap.put("data", null);
 		}
-
+		
 		return returnMap;
 	}
 

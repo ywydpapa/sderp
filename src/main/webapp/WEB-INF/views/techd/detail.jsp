@@ -402,9 +402,6 @@
 		if(!sprtData.techdTitle){
 			alert("기술지원 요청명을 입력하십시오.!!");
 			return;
-		} else if(!contractType) {
-			alert("영업기회(신규 영업지원) 및 계약을 입력하십시오.");
-			return;
 		} else if(contractType != undefined) {
 			if(contractType == 'NEW'){
 				if ($("#soppTitle").val() == "" || $("#soppTitle").val() == "0"){

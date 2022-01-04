@@ -366,6 +366,14 @@
 			schedData.contNo		= $("#contNo").val() ? Number($("#contNo").val()) : 0;
 			schedData.schedCheck = 1;
 			
+			if(!schedData.schedFrom || !schedData.schedTo){
+				alert("일정일자를 선택하십시오.");
+				return
+			}else if(!schedData.schedTitle){
+				alert("제목을 입력하십시오.");
+				return;
+			}
+			
 			$.ajax({ url: "${path}/sched/insert.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소 
 						data: schedData , // HTTP 요청과 함께 서버로 보낼 데이터 
 						method: "POST", // HTTP 요청 메소드(GET, POST 등) 

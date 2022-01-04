@@ -1,13 +1,18 @@
 package kr.swcore.sderp.cont.service;
 
+import java.io.IOException;
+
 import java.util.List;
 
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+
 import kr.swcore.sderp.common.dto.PageDTO;
 import kr.swcore.sderp.cont.dto.ContDTO;
+import kr.swcore.sderp.cont.dto.ContFileDataDTO;
 
 public interface ContService {
 	
@@ -22,4 +27,9 @@ public interface ContService {
 	int insertCont(HttpSession session, ContDTO dto);
 
 	Map<String, Object> listSalesTargetMonthIndividual(HttpSession session, ContDTO contDTO);
+	
+	List<ContDTO> listFile(int contNo);
+	int uploadFile(HttpSession session, int contNo, MultipartHttpServletRequest fileList) throws IOException;
+	Integer deleteFile(HttpSession session, ContFileDataDTO dto);
+	ContFileDataDTO downloadFile(ContFileDataDTO dto);
 }

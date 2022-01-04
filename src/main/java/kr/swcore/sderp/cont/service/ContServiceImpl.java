@@ -1,5 +1,7 @@
 package kr.swcore.sderp.cont.service;
 
+import java.io.IOException;
+
 import java.util.*;
 
 import javax.inject.Inject;
@@ -8,14 +10,15 @@ import javax.servlet.http.HttpSession;
 import kr.swcore.sderp.code.dao.CodeDAO;
 import kr.swcore.sderp.code.dto.CodeDTO;
 import kr.swcore.sderp.common.dto.PageDTO;
-import kr.swcore.sderp.salesTarget.dto.SalesTargetDTO;
 import org.springframework.stereotype.Service;
 
 import kr.swcore.sderp.cont.dao.ContDAO;
 import kr.swcore.sderp.cont.dto.ContDTO;
+import kr.swcore.sderp.cont.dto.ContFileDataDTO;
 import kr.swcore.sderp.sopp.dto.SoppDTO;
 import kr.swcore.sderp.util.SessionInfoGet;
-import org.springframework.transaction.interceptor.TransactionAspectSupport;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 @Service
 public class ContServiceImpl implements ContService {
@@ -168,5 +171,37 @@ public class ContServiceImpl implements ContService {
 		returnMap.put("data", contDTOList);
 
 		return returnMap;
+	}
+
+	@Override
+	public List<ContDTO> listFile(int contNo) {
+		// TODO Auto-generated method stub
+		return contDao.listFile(contNo);
+	}
+
+	@Override
+	public int uploadFile(HttpSession session, int contNo, MultipartHttpServletRequest fileList) throws IOException {
+		MultipartFile file = fileList.getFile("file");
+		ContFileDataDTO contFile = new ContFileDataDTO();
+		contFile.setFileId(UUID.randomUUID().toString());
+		contFile.setFileName(file.getOriginalFilename());
+		contFile.setFileContent(file.getBytes());
+		contFile.setFileDesc(fileList.getParameter("fileDesc"));
+		contFile.setContNo(contNo);
+		contFile.setUserNo(Integer.valueOf((String)session.getAttribute("userNo")));
+		
+		return contDao.uploadFile(contFile);
+	}
+
+	@Override
+	public Integer deleteFile(HttpSession session, ContFileDataDTO dto) {
+		// TODO Auto-generated method stub
+		return contDao.deleteFile(dto);
+	}
+
+	@Override
+	public ContFileDataDTO downloadFile(ContFileDataDTO dto) {
+		// TODO Auto-generated method stub
+		return contDao.downloadFile(dto);
 	}
 }

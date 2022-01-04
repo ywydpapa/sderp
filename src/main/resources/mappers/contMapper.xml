@@ -195,5 +195,53 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	set attrib = 'XXXXX'
 	where contNo=#{contNo}
  </delete>
+ 
+ <select id="listFile" resultType="contFileDataDTO">
+ 	select *
+ 	from swc_contfiledata
+ 	where contNo=#{contNo}
+ 	and attrib not like 'XXX%'
+	order by uploadDate desc
+</select>
+
+<insert id="uploadFile">
+	insert into swc_contFileData
+	(
+		fileId,
+		fileName,
+		fileDesc,
+		uploadDate,
+		fileContent,
+		contNo,
+		userNo,
+		regDatetime,
+		attrib
+	)
+ 	values 
+ 	(
+ 		#{fileId},
+ 		#{fileName},
+ 		#{fileDesc},
+ 		now(),
+ 		#{fileContent},
+ 		#{contNo},
+ 		#{userNo},
+ 	 	now(),
+		10000
+ 	)
+ </insert>
  		
+<select id="downloadFile" resultType="contFileDataDTO">
+	select *
+	from swc_contFileData  
+	where fileId = #{fileId} and contNo=#{contNo}
+</select>
+
+<delete id="deleteFile">
+	update swc_contFileData
+	set attrib = 'XXXXX',
+		modDatetime = now()
+	where fileId = #{fileId} and contNo=#{contNo}
+</delete>		
+ 
 </mapper>

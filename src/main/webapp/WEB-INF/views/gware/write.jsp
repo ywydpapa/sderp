@@ -170,15 +170,11 @@
                                     </select>
                                 </td>
                             </tr>
+                            <tr>
+                                <th class="text-center">상세 내용</th>
+                                <td colspan="3"><textarea class="form-control"></textarea></td>
+                            </tr>
                             </tbody>
-                        </table>
-                        <table>
-                            <tr>
-                                <th>상세 내용</th>
-                            </tr>
-                            <tr>
-                                <td><textarea></textarea></td>
-                            </tr>
                         </table>
                         <div class="table-responsive" style="overflow-x: hidden;">
                             <jsp:include page="/WEB-INF/views/module/inputSet/inputSetDoc.jsp"/>

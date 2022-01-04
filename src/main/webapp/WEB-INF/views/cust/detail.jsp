@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <c:set var="path" value ="${pageContext.request.contextPath}"/>
 <!DOCTYPE html>
@@ -35,9 +36,9 @@
 					<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#tab03" role="tab">담당자 정보</a></li>
 					<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#tab04" role="tab">세무/거래관련 정보</a></li>
 					<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#tab05" role="tab">업체 업종 정보</a></li>
-					<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#tab06" role="tab">영업 정보</a></li>
-					<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#tab07" role="tab">업체 계약 정보</a></li>
-					<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#tab08" role="tab">기술지원 정보</a></li>
+					<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#tab06" role="tab">영업 정보(${fn:length(saleslist)})</a></li>
+					<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#tab07" role="tab">업체 계약 정보(${fn:length(contlist)})</a></li>
+					<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#tab08" role="tab">기술지원 정보(${fn:length(techdlist)})</a></li>
 				</ul>
 				<!-- Tab panes -->
 				<div class="tab-content tabs m-t-20">
@@ -388,7 +389,7 @@
 										</tr>
 										<c:forEach var="slist" items="${saleslist}">
 											<tr>
-												<td>${slist.salesSdate}</td>
+												<td class="text-center">${fn:substring(slist.regDatetime, 0, 10)}</td>
 												<td>${slist.salesTitle}</td>
 												<td class="text-center">${slist.userName}</td>
 												<td>${slist.salesDesc}</td>
@@ -423,7 +424,7 @@
 										</tr>
                                   <c:forEach var="clist" items="${contlist}">
 										<tr>
-											<td>${clist.paymaintSdate}~${clist.paymaintEdate}</td>
+											<td class="text-center">${clist.paymaintSdate}~${clist.paymaintEdate}</td>
 											<td>${clist.contTitle}</td>
 											<td class="text-right"><fmt:formatNumber value="${clist.contAmt}" pattern="#,###"/></td>
 											<td>${clist.contDesc}</td>

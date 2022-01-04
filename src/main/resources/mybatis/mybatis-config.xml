@@ -19,6 +19,7 @@
     <typeAlias alias="salesDto" type="kr.swcore.sderp.sales.dto.SalesDTO"/>
     <typeAlias alias="salesTargetDTO" type="kr.swcore.sderp.salesTarget.dto.SalesTargetDTO"/>
     <typeAlias alias="contDto" type="kr.swcore.sderp.cont.dto.ContDTO"/>
+    <typeAlias alias="contFileDataDTO" type="kr.swcore.sderp.cont.dto.ContFileDataDTO"/>
     <typeAlias alias="codeDto" type="kr.swcore.sderp.code.dto.CodeDTO"/>
     <typeAlias alias="bcodeDto" type="kr.swcore.sderp.bcode.dto.BcodeDTO"/>
     <typeAlias alias="techdDto" type="kr.swcore.sderp.techd.dto.TechdDTO"/>

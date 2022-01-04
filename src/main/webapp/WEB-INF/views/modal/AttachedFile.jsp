@@ -5,7 +5,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <c:set var="path" value="${pageContext.request.contextPath}" />
 
-<button class="btn btn-md btn-primary" data-toggle="modal" data-target="#fileUploadModal" onClick="openFileUploadModal()" style="float: right; padding: 5px 12px; margin-bottom: 9px;">등록</button>
+<button class="btn btn-md btn-primary" data-toggle="modal" data-target="#fileUploadModal" style="float: right; padding: 5px 12px; margin-bottom: 9px;">등록</button>
 
 <div class="modal fade " id="fileUploadModal" tabindex="-1" role="dialog">
 	<div class="modal-dialog modal-80size" role="document">

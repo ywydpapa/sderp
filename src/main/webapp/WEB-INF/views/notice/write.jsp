@@ -63,7 +63,7 @@
 		</div>
 	</div>
 	<script>
-
+	
 		function fn_SaveSales() {
 			var noticeData = {};
 			noticeData.notiTitle 		= $("#notiTitle").val();

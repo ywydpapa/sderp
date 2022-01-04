@@ -363,6 +363,11 @@
 			/* schedData.schedType 		= $("#schedType").val(); */
 			schedData.schedCat 		= $("#schedCat").val();
 			if($("#custName").val() != "") schedData.contNo		= Number($("#contNo").val());
+			
+			if(!schedData.schedTitle){
+				alert("제목을 입력하십시오.");
+				return;
+			}
 
 			$.ajax({
 				url: "${path}/sched/update.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소

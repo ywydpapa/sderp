@@ -400,7 +400,7 @@
 			salesData.ptncNo 		= $("#endCustName").val() != "" ? Number($("#endCustNo").val()) : 0;
 			salesData.salesType 		= $("#salesType").val();
 			salesData.salesDesc 		= $("#salesDesc").val();
-
+			
 			if (!salesData.salesFrdatetime){
 				alert("영업활동의 시작일을 선택해 주십시오.");
 				return;

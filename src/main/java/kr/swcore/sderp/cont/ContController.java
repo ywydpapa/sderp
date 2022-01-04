@@ -1,9 +1,11 @@
 package kr.swcore.sderp.cont;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.xml.stream.events.DTD;
 
@@ -12,19 +14,26 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import kr.swcore.sderp.sales.service.SalesService;
 import kr.swcore.sderp.salesTarget.dto.SalesTargetDTO;
+import kr.swcore.sderp.sopp.dto.SoppDTO;
+import kr.swcore.sderp.sopp.dto.SoppFileDataDTO;
 import kr.swcore.sderp.sopp.dto.SoppdataDTO;
 import kr.swcore.sderp.sopp.service.SoppService;
 import kr.swcore.sderp.sopp.service.SoppdataService;
 import kr.swcore.sderp.techd.service.TechdService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import kr.swcore.sderp.code.service.CodeService;
 import kr.swcore.sderp.cont.dto.ContDTO;
+import kr.swcore.sderp.cont.dto.ContFileDataDTO;
 import kr.swcore.sderp.cont.service.ContService;
 
 @Controller
@@ -120,6 +129,7 @@ public class ContController {
 		mav.addObject("sstatuslist", codeService.listSstatus(session));
 		mav.addObject("salesinsopp",salesService.listSalesinsopp(session, soppNo, contNo));
 		mav.addObject("techdinsopp",techdService.listTechdinsopp(session, soppNo, contNo));
+		mav.addObject("contFiles", contService.listFile(contNo));
 		mav.addObject("dtodata01", soppdataService.listSoppdata01(soppNo));
 		return mav;
 	}
@@ -233,5 +243,43 @@ public class ContController {
 		ContDTO contDTO = mapper.readValue(param, ContDTO.class);
 		rtn = contService.listSalesTargetMonthIndividual(session, contDTO);
 		return new Gson().toJson(rtn);
+	}
+	
+	@RequestMapping("/uploadfile/{contNo}")
+	public ResponseEntity<?> uploadFile(HttpSession session, @PathVariable("contNo") int contNo, @ModelAttribute ContDTO dto, MultipartHttpServletRequest fileList) throws IOException {
+		int uploadFile = contService.uploadFile(session, contNo, fileList);
+		Map<String, Object> param = new HashMap<>();
+		if(uploadFile > 0) {
+			param.put("code", "10001");
+			param.put("data",contService.listFile(contNo));
+		} else {
+			param.put("code", "20001");
+		}
+		return ResponseEntity.ok(param);
+	}
+	
+	@RequestMapping("/deleteFile")
+	public ResponseEntity<?> removeFile(HttpSession session, @ModelAttribute ContFileDataDTO dto){
+		int uploadFile = contService.deleteFile(session, dto);
+		Map<String, Object> param = new HashMap<>();
+		if(uploadFile > 0) {
+			param.put("code", "10001");
+			param.put("data", contService.listFile(dto.getContNo()));
+		} else {
+			param.put("code", "20001");
+		}
+		return ResponseEntity.ok(param);
+	}
+	
+	@RequestMapping("/downloadfile")
+	public ResponseEntity<?> downloadFile(HttpSession session, HttpServletResponse response, @ModelAttribute ContFileDataDTO dto) throws IOException {
+		ContFileDataDTO contFile = contService.downloadFile(dto);
+		String fileName = contFile.getFileName();
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+		headers.add("Content-Disposition", new String(fileName.getBytes("utf-8"), "ISO-8859-1"));
+		ResponseEntity<byte[]> entity = new ResponseEntity<byte[]>(contFile.getFileContent(), headers, HttpStatus.OK);
+		
+		return entity;
 	}
 }

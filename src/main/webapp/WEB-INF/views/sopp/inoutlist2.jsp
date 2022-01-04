@@ -120,8 +120,8 @@
 	var product01In = [
 		<c:forEach var="row" items="${dtodata01}" varStatus="i">
 			<c:if test="${row.dataType eq '1101'}">
-				<c:if test="${!i.last}">${row.dataTotal},</c:if>
-				<c:if test="${i.last}">${row.dataTotal}</c:if>
+				<c:if test="${!i.last}">${row.dataNetprice},</c:if>
+				<c:if test="${i.last}">${row.dataNetprice}</c:if>
 			</c:if>
 		</c:forEach>
 	];

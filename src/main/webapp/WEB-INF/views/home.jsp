@@ -9,7 +9,7 @@
 <meta http-equiv="X-UA-Compatible" 	content="IE=edge" />
 <meta http-equiv="Content-Type" 	content="text/html; charset=utf-8"/>
 <meta http-equiv="Cache-Control" 	content="no-cache; no-store; no-save">
-  
+
 <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/gasparesganga-jquery-loading-overlay@2.1.7/dist/loadingoverlay.min.js"></script>
 <link rel="stylesheet" type="text/css" href="${path}/assets/css/bootstrap/css/bootstrap.min.css">  

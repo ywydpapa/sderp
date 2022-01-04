@@ -446,7 +446,32 @@
 		sprtData.soppNo				= $("#soppNo").val() ? $("#soppNo").val() : 0; // 영업기회번호
 		sprtData.contNo				= $("#contNo").val() ? $("#contNo").val() : 0; // 계약번호
 
-
+		if(!sprtData.techdTitle){
+			alert("기술지원 요청명을 입력하십시오.");
+			return;
+		} else if(!contractType) {
+			alert("영업기회(신규 영업지원) 및 계약을 입력하십시오.");
+			return;
+		} else if(contractType != undefined) {
+			if(contractType == 'NEW'){
+				if ($("#soppTitle").val() == "" || $("#soppTitle").val() == "0"){
+					alert("영업기회을 입력하십시오.");
+					return;
+				}
+			} else if (contractType == 'ING'){
+				if ($("#contTitle").val() == "" || $("#contTitle").val() == "0"){
+					alert("계약을 입력하십시오.");
+					return;
+				}
+			}
+		}else if(!sprtData.custNo){
+			alert("엔드유저를 선택하십시오.");
+			return;
+		}else if(!sprtData.userNo){
+			alert("유저를 선택하십시오.");
+			return;
+		}
+		
 		$.ajax({ url: "${path}/techd/insert.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
 					data: sprtData , // HTTP 요청과 함께 서버로 보낼 데이터
 					method: "POST", // HTTP 요청 메소드(GET, POST 등)

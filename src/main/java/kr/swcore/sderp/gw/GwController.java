@@ -24,7 +24,15 @@ public class GwController {
     GwService gwService;
 
     @RequestMapping("list.do")
-    public ModelAndView docList(HttpSession session, ModelAndView mav) {
+    public ModelAndView docList(HttpSession compNo, ModelAndView mav) {
+        mav.addObject("docList", gwService.listDoc2(compNo));
+        mav.setViewName("gware/list");
+        return mav;
+    }
+
+    @RequestMapping("mylist.do")
+    public ModelAndView docmyList(HttpSession userNo, ModelAndView mav) {
+        mav.addObject("docList", gwService.listMyDoc(userNo));
         mav.setViewName("gware/list");
         return mav;
     }
@@ -35,15 +43,21 @@ public class GwController {
         return mav;
     }
 
-    @RequestMapping("hrlist.do")
+    @RequestMapping("attendlist.do")
     public ModelAndView hrdocList(HttpSession session, ModelAndView mav) {
-        mav.setViewName("gware/hrlist");
+        mav.setViewName("hr/attlist");
         return mav;
     }
 
-    @RequestMapping("hrwrite.do")
+    @RequestMapping("attenddetail.do")
+    public ModelAndView hrdocDetail(HttpSession session, ModelAndView mav) {
+        mav.setViewName("hr/attdetail");
+        return mav;
+    }
+
+    @RequestMapping("attendwrite.do")
     public ModelAndView hrdocWrite(HttpSession session, ModelAndView mav) {
-        mav.setViewName("gware/hrwrite");
+        mav.setViewName("hr/attwrite");
         return mav;
     }
 
@@ -90,6 +104,18 @@ public class GwController {
         }
         return ResponseEntity.ok(param);
    }
+
+    @RequestMapping("updateApp.do")
+    public  ResponseEntity<?> updateApp(@ModelAttribute GwDTO dto) {
+        Map<String, Object> param = new HashMap<>();
+        int docUpdate = gwService.updateDocAppLvl(dto);
+        if (docUpdate >0) {
+            param.put("code","10001");
+        } else {
+            param.put("code","20001");
+        }
+        return ResponseEntity.ok(param);
+    }
 
     @RequestMapping("delete.do")
     public  ResponseEntity<?> delete(@ModelAttribute int docNo) {

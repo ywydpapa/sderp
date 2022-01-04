@@ -42,6 +42,22 @@ public class GwDTO {
     private String regDate;
     private String modDate;
     private String attrib;
+    private Integer docNo;
+    private Integer docCrUserNo;
+    private String docAppLvl;
+    private Integer docType;
+    private String docTitle;
+    private String docStatus;
+    private Integer linkSoppNo;
+    private Integer linkMasterdocNo;
+    private String docDesc;
+    private Integer docFormNo;
+    private Integer attendId;
+    private Integer attType;
+    private String attStart;
+    private String attEnd;
+    private String attTitle;
+    private String attDesc;
 
     public GwDTO() {
         super();

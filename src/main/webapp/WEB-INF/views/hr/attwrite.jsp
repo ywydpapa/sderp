@@ -78,7 +78,7 @@
                         </table>
                         <div class="table-responsive" style="overflow-x: hidden;">
                             <jsp:include page="/WEB-INF/views/module/inputSet/inputSetHR.jsp"/>
-                            <jsp:include page="/WEB-INF/views/gware/hrdetaillist.jsp"/>
+                            <jsp:include page="/WEB-INF/views/hr/attdetail.jsp"/>
                         </div>
                     </div>
                 </div>

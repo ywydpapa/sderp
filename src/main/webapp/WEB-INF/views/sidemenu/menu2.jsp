@@ -29,7 +29,7 @@
                                     </a>
                                     <ul class="pcoded-submenu">
                                         <li class="pcoded-hasmenu ">
-                                            <a href="${path}/gw/list.do">
+                                            <a href="${path}/gw/mylist.do">
                                                 <span class="pcoded-micon"><i class="ti-direction-alt"></i></span>
                                                 <span class="pcoded-mtext" data-i18n="nav.menu-levels.menu-level-21">결재조회</span>
                                                 <span class="pcoded-mcaret"></span>
@@ -93,21 +93,21 @@
                                     <li class="pcoded-hasmenu  pcoded">
                                     <a href="javascript:void(0)">
                                         <span class="pcoded-micon"><i class="ti-id-badge"></i></span>
-                                        <span class="pcoded-mtext"  data-i18n="nav.basic-components.main">인사업무</span>
+                                        <span class="pcoded-mtext"  data-i18n="nav.basic-components.main">인사업무(근태)</span>
                                         <span class="pcoded-mcaret"></span>
                                     </a>
                                                                         <ul class="pcoded-submenu">
                                         <li class="pcoded-hasmenu ">
-                                            <a href="${path}/gw/hrlist.do">
+                                            <a href="${path}/gw/attlist.do">
                                                 <span class="pcoded-micon"><i class="ti-direction-alt"></i></span>
-                                                <span class="pcoded-mtext" data-i18n="nav.menu-levels.menu-level-21">인사업무조회</span>
+                                                <span class="pcoded-mtext" data-i18n="nav.menu-levels.menu-level-21">근태조회</span>
                                                 <span class="pcoded-mcaret"></span>
                                             </a>
                                         </li>
                                         <li class="pcoded-hasmenu">
-                                            <a href="${path}/gw/hrwrite.do">
+                                            <a href="${path}/gw/attwrite.do">
                                                 <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                                <span class="pcoded-mtext" data-i18n="nav.menu-levels.menu-level-22">인사업무등록/처리</span>
+                                                <span class="pcoded-mtext" data-i18n="nav.menu-levels.menu-level-22">근태등록</span>
                                                 <span class="pcoded-mcaret"></span>
                                             </a>
                                         </li>

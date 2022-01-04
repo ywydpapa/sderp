@@ -2,6 +2,8 @@ package kr.swcore.sderp.gw.service;
 
 import kr.swcore.sderp.gw.dao.GwDAO;
 import kr.swcore.sderp.gw.dto.GwDTO;
+import kr.swcore.sderp.util.SessionInfoGet;
+
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
@@ -35,8 +37,8 @@ public class GwServiceImpl implements GwService{
     }
 
     @Override
-    public List<GwDTO> listEst(HttpSession compNo) {
-
+    public List<GwDTO> listEst(HttpSession session) {
+    	Integer compNo = SessionInfoGet.getCompNo(session);
         return gwDao.listEst(compNo);
     }
 

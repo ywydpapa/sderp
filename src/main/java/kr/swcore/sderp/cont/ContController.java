@@ -277,7 +277,7 @@ public class ContController {
 		String fileName = contFile.getFileName();
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
-		headers.add("Content-Disposition", new String(fileName.getBytes("utf-8"), "ISO-8859-1"));
+		headers.add("Content-Disposition", new String(fileName.getBytes("UTF-8"), "ISO-8859-1"));
 		ResponseEntity<byte[]> entity = new ResponseEntity<byte[]>(contFile.getFileContent(), headers, HttpStatus.OK);
 		
 		return entity;

@@ -10,7 +10,7 @@ public interface GwService {
     List<GwDTO> listUserAtt(HttpSession compNo);
     List<GwDTO> listUserAttbyuser(int userNo);
     List<GwDTO> listMyDoc(HttpSession userNo);
-    List<GwDTO> listEst(HttpSession compNo);
+    List<GwDTO> listEst(HttpSession session);
     List<GwDTO> listEstitems(GwDTO dto);
     GwDTO detailEst(String estId);
     GwDTO detailDoc(int docNo);

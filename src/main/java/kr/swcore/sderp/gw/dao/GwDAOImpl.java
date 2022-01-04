@@ -35,8 +35,8 @@ public class GwDAOImpl implements GwDAO{
     }
 
     @Override
-    public List<GwDTO> listEst(HttpSession compNo) {
-        return sqlSession.selectList("gw.listest",compNo);
+    public List<GwDTO> listEst(Integer compNo) {
+        return sqlSession.selectList("gw.listest", compNo);
     }
 
     @Override

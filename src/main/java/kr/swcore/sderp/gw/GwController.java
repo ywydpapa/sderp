@@ -62,9 +62,9 @@ public class GwController {
     }
 
     @RequestMapping("estlist.do")
-    public ModelAndView estList(HttpSession compNo, ModelAndView mav) {
+    public ModelAndView estList(HttpSession session, ModelAndView mav) {
         mav.setViewName("gware/estlist");
-        mav.addObject("list", gwService.listEst(compNo));
+        mav.addObject("list", gwService.listEst(session));
         return mav;
     }
 

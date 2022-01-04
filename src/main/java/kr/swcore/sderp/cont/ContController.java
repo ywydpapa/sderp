@@ -115,6 +115,7 @@ public class ContController {
 		mav.addObject("dtodata01", soppdataService.listSoppdata01(soppNo));
 		mav.addObject("dtodata02", soppdataService.listSoppdata02(soppNo));
 		mav.addObject("contType", codeService.listContType(session));
+		mav.addObject("contractType", codeService.listContractType(session));
 		mav.addObject("saleslist", codeService.listSalestype(session));
 		mav.addObject("sstatuslist", codeService.listSstatus(session));
 		mav.addObject("salesinsopp",salesService.listSalesinsopp(session, soppNo, contNo));

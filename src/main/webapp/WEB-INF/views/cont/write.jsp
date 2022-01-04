@@ -597,7 +597,7 @@
 			if($("#contArea").val() != "") 		contData.contArea 				= $("#contArea").val();			// 지역
 			if($("#contType").val() != "")		contData.contType 				= $("#contType").val();			// 판매방식
 			if($("#contDesc").val() != "")		contData.contDesc			 	= $("#contDesc").val();			// 계약내용
-
+			
 			if (!contData.contTitle) {
 				alert("계약명 제목을 입력하십시오.");		
 				return;

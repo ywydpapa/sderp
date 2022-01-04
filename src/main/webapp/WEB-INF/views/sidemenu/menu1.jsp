@@ -116,24 +116,6 @@
 						<span class="pcoded-mcaret"></span>
 					</a>
 				</li>
-				<li class="pcoded-hasmenu">
-					<a href="${path}/gw/estlist.do">
-						<span class="pcoded-micon">
-							<i class="ti-angle-right"></i>
-						</span>
-						<span class="pcoded-mtext" data-i18n="nav.menu-levels.menu-level-22">견적관리</span>
-						<span class="pcoded-mcaret"></span>
-					</a>
-				</li>
-				<li class="pcoded-hasmenu">
-					<a href="${path}/gw/estwrite.do">
-						<span class="pcoded-micon">
-							<i class="ti-angle-right"></i>
-						</span>
-						<span class="pcoded-mtext" data-i18n="nav.menu-levels.menu-level-22">견적작성</span>
-						<span class="pcoded-mcaret"></span>
-					</a>
-				</li>
 			</ul>
 		</li>
 		<li class="pcoded-hasmenu pcoded <c:if test="${path2 eq '/sopp/list.do' || path2 eq '/sopp/list.do' || path2 eq '/sopp/write.do' || fn:startsWith(path2, '/sopp/detail')}">pcoded-trigger</c:if>">
@@ -160,6 +142,24 @@
 							<i class="ti-angle-right"></i>
 						</span>
 						<span class="pcoded-mtext" data-i18n="nav.menu-levels.menu-level-22">영업기회등록</span>
+						<span class="pcoded-mcaret"></span>
+					</a>
+				</li>
+				<li class="pcoded-hasmenu">
+					<a href="${path}/gw/estlist.do">
+						<span class="pcoded-micon">
+							<i class="ti-angle-right"></i>
+						</span>
+						<span class="pcoded-mtext" data-i18n="nav.menu-levels.menu-level-22">견적관리</span>
+						<span class="pcoded-mcaret"></span>
+					</a>
+				</li>
+				<li class="pcoded-hasmenu">
+					<a href="${path}/gw/estwrite.do">
+						<span class="pcoded-micon">
+							<i class="ti-angle-right"></i>
+						</span>
+						<span class="pcoded-mtext" data-i18n="nav.menu-levels.menu-level-22">견적작성</span>
 						<span class="pcoded-mcaret"></span>
 					</a>
 				</li>
@@ -208,6 +208,14 @@
 						<span class="pcoded-micon">
 							<i class="ti-angle-right"></i></span>
 						<span class="pcoded-mtext" data-i18n="nav.menu-levels.menu-level-22">계약등록</span>
+						<span class="pcoded-mcaret"></span>
+					</a>
+				</li>
+				<li class="pcoded-hasmenu">
+					<a href="${path}/cust/list.do">
+						<span class="pcoded-micon">
+							<i class="ti-angle-right"></i></span>
+						<span class="pcoded-mtext" data-i18n="nav.menu-levels.menu-level-23">업체정보 조회</span>
 						<span class="pcoded-mcaret"></span>
 					</a>
 				</li>

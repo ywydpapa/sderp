@@ -25,8 +25,25 @@ public class GwController {
 
     @RequestMapping("list.do")
     public ModelAndView docList(HttpSession session, ModelAndView mav) {
-        List<GwDTO> list=gwService.listDoc2(session);
         mav.setViewName("gware/list");
+        return mav;
+    }
+
+    @RequestMapping("write.do")
+    public ModelAndView docWrite(HttpSession session, ModelAndView mav) {
+        mav.setViewName("gware/write");
+        return mav;
+    }
+
+    @RequestMapping("hrlist.do")
+    public ModelAndView hrdocList(HttpSession session, ModelAndView mav) {
+        mav.setViewName("gware/hrlist");
+        return mav;
+    }
+
+    @RequestMapping("hrwrite.do")
+    public ModelAndView hrdocWrite(HttpSession session, ModelAndView mav) {
+        mav.setViewName("gware/hrwrite");
         return mav;
     }
 

@@ -7,7 +7,7 @@
 <!DOCTYPE html>
 <html>
 <jsp:include page="../head.jsp"/>
-<jsp:include page="../body-top2.jsp"/>
+<jsp:include page="../body-top.jsp"/>
 
 <div id="main_content">
     <!-- Page-header start 페이지 타이틀-->
@@ -42,25 +42,28 @@
                             </colgroup>
                             <tbody>
                             <tr>
-                                <th scope="row" class="text-center">결제 문서 종류</th>
+                                <th scope="row" class="text-center">연결 영업기회/계약</th>
                                 <td colspan="3">
                                     <div class="form-radio">
                                         <form>
                                             <div class="radio radio-inline">
-                                                <label> <input type="radio" name="contractType" value="BREQ" checked="checked"> <i class="helper"></i>지출품의서</label>
+                                                <label> <input type="radio" name="contractType" value="SOPP" checked="checked"> <i class="helper"></i>영업기회</label>
                                             </div>
+                                            <!-- <div class="radio radio-inline">
+                                                <label> <input type="radio" name="contractType" value="CONT"> <i class="helper"></i>계약</label>
+                                            </div> -->
                                             <div class="radio radio-inline">
-                                                <label> <input type="radio" name="contractType" value="TREQ"> <i class="helper"></i>지출결의서</label>
+                                                <label> <input type="radio" name="contractType" value="NFORM"> <i class="helper"></i>표준견적 작성</label>
                                             </div>
                                             <div class="radioLabel radio-inline">
-                                                <label style="color:red;"></label>
+                                                <label style="color:red;">※ 표준견적 작성은 영업기회가 필요없습니다.</label>
                                             </div>
                                         </form>
                                     </div>
                                 </td>
                             </tr>
                             <tr>
-                                <th class="contDetailSopp text-center">연결프로젝트(영업기회)</th>
+                                <th class="contDetailSopp text-center">영업기회</th>
                                 <td class="contDetailSopp">
                                     <div class="input-group input-group-sm mb-0">
                                         <input type="text" class="form-control" name="soppDTO" id="soppTitle" value="" readonly/>
@@ -97,7 +100,7 @@
                                         </div>
                                     </div>
                                 </td>
-                                <th class="text-center">거래처</th>
+                                <th class="text-center">견적고객</th>
                                 <td>
                                     <div class="input-group input-group-sm mb-0">
                                         <input type="text" class="form-control" name="custName"
@@ -136,27 +139,23 @@
                                 </td>
                             </tr>
                             <tr>
-                                <th class="text-center">문서번호(자동 생성)</th>
+                                <th class="text-center">견적번호(*)</th>
                                 <td>
                                     <input type="text" class="form-control" id="estId">
                                 </td>
-                                <th class="text-center">문서제목(*)</th>
+                                <th class="text-center">견적제목(*)</th>
                                 <td>
                                     <input type="text" class="form-control" id="estTitle">
                                 </td>
                             </tr>
                             <tr>
-                                <th class="text-center">문서종류(*)</th>
+                                <th class="text-center">견적버전</th>
                                 <td>
-                                    <select class="form-control" id="docType" >
-                                        <option value="">선택</option>
-                                        <option value="BUY">물품 구매요청서</option>
-                                        <option value="TRS">지출품의서</option>
-                                    </select>
+                                    <input type="text" class="form-control" id="estVer" placeholder="등록될 때 자동 등록" readonly>
                                 </td>
-                                <th class="text-center">작성일자(*)</th>
+                                <th class="text-center">견적서 작성일자(*)</th>
                                 <td>
-                                    <input type="date" id="estDate" name="docDate" class="form-control" style="text-align: right;" value="">
+                                    <input type="date" id="estDate" name="estDate" class="form-control" style="text-align: right;" value="">
                                 </td>
                             </tr>
                             <tr>
@@ -164,25 +163,19 @@
                                 <td>
                                     <input class="form-control" type="file" id="addFile">
                                 </td>
-                                <th class="text-center">결제자</th>
+                                <th class="text-center">과세/비과세</th>
                                 <td>
-                                    <select id="AppUser" class="form-control form-control-sm">
+                                    <select name="vatYn" id="vatYn" class="form-control form-control-sm">
+                                        <option value="Y" selected>과세</option>
+                                        <option value="N" >비과세</option>
                                     </select>
                                 </td>
                             </tr>
                             </tbody>
                         </table>
-                        <table>
-                            <tr>
-                                <th>상세 내용</th>
-                            </tr>
-                            <tr>
-                                <td><textarea></textarea></td>
-                            </tr>
-                        </table>
                         <div class="table-responsive" style="overflow-x: hidden;">
-                            <jsp:include page="/WEB-INF/views/module/inputSet/inputSetDoc.jsp"/>
-                            <jsp:include page="/WEB-INF/views/gware/docdtaillist.jsp"/>
+                            <jsp:include page="/WEB-INF/views/module/inputSet/inputSetProductSalesEstimate3.jsp"/>
+                            <jsp:include page="/WEB-INF/views/gware/estdetaillist.jsp"/>
                         </div>
                     </div>
                 </div>

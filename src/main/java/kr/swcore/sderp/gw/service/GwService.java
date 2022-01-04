@@ -7,13 +7,21 @@ import java.util.List;
 
 public interface GwService {
     List<GwDTO> listDoc2(HttpSession compNo);
+    List<GwDTO> listUserAtt(HttpSession compNo);
+    List<GwDTO> listUserAttbyuser(int userNo);
+    List<GwDTO> listMyDoc(HttpSession userNo);
     List<GwDTO> listEst(HttpSession compNo);
     List<GwDTO> listEstitems(GwDTO dto);
     GwDTO detailEst(String estId);
     GwDTO detailDoc(int docNo);
+    GwDTO detailUserAttend(int attendId);
     int insertDoc(GwDTO dto);
+    int insertUserAtt(GwDTO dto);
     int updateDoc(GwDTO dto);
+    int updateUserAtt(GwDTO dto);
+    int updateDocAppLvl(GwDTO dto);
     int deleteDoc(int docNo);
+    int deleteUserAtt(int attendId);
     int insertEst(GwDTO dto);
     int insertEstitems(GwDTO dto);
 }

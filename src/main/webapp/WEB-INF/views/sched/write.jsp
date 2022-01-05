@@ -360,7 +360,13 @@
 			schedData.userNo 		= $("#userNo").val();
 			schedData.custNo 		= $("#custNo").val() ? Number($("#custNo").val()) : 0;
 			schedData.soppNo 		= $("#soppNo").val() ? Number($("#soppNo").val()) : 0;
-			schedData.schedDesc 		= tinyMCE.get("schedDesc").getContent();
+			
+			if($("textarea").attr("style") === "visibility: hidden;"){
+				schedData.schedDesc 		= tinyMCE.get("schedDesc").getContent();
+			}else{
+				schedData.schedDesc 		= $("#schedDesc").val();
+			}
+			
 			schedData.schedType 		= $("#schedType").val();
 			schedData.schedCat 		= $("#schedCat").val();
 			schedData.contNo		= $("#contNo").val() ? Number($("#contNo").val()) : 0;

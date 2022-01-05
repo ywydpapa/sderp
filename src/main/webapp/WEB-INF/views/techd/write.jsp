@@ -442,12 +442,26 @@
 		sprtData.techdTo			= setDateHourMinute($("#techdTo").val(), $("#endTime").val());						// 지원일자 종료
 		sprtData.techdType			= $("#techdType").val();					// 지원형태
 		sprtData.techdSteps			= $("#techdSteps").val();					// 진행단계
-		sprtData.techdDesc			= tinyMCE.get("techdDesc").getContent();;					// 설명
+		
+		if($("textarea").attr("style") === "visibility: hidden;"){
+			sprtData.techdDesc			= tinyMCE.get("techdDesc").getContent();
+		}else{
+			sprtData.techdDesc 		= $("#techdDesc").val();
+		}
+		
 		sprtData.soppNo				= $("#soppNo").val() ? $("#soppNo").val() : 0; // 영업기회번호
 		sprtData.contNo				= $("#contNo").val() ? $("#contNo").val() : 0; // 계약번호
-
+		
+		console.log(sprtData.techdFrom);
+		
 		if(!sprtData.techdTitle){
 			alert("기술지원 요청명을 입력하십시오.");
+			return;
+		} else if(sprtData.techdFrom === null || sprtData.techdTo === null){
+			alert("지원일자를 선택하십시오.");
+			return;
+		} else if($("#endCustName").val() === ""){
+			alert("엔드유저를 선택하십시오.");
 			return;
 		} else if(!contractType) {
 			alert("영업기회(신규 영업지원) 및 계약을 입력하십시오.");
@@ -464,10 +478,7 @@
 					return;
 				}
 			}
-		}else if(!sprtData.custNo){
-			alert("엔드유저를 선택하십시오.");
-			return;
-		}else if(!sprtData.userNo){
+		} else if(!sprtData.userNo){
 			alert("유저를 선택하십시오.");
 			return;
 		}

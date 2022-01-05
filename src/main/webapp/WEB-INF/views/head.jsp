@@ -257,29 +257,36 @@
 		}
 	}
 	
-	var plugins = [
-	    "advlist", "autolink", "lists", "link", "image", "charmap", "print", "preview", "anchor",
-	    "searchreplace", "visualblocks", "code", "fullscreen", "insertdatetime", "media", "table",
-	    "paste", "code", "help", "wordcount", "save"
-	];
+	function setTiny(){
+		var plugins = [
+		    "advlist", "autolink", "lists", "link", "image", "charmap", "print", "preview", "anchor",
+		    "searchreplace", "visualblocks", "code", "fullscreen", "insertdatetime", "media", "table",
+		    "paste", "code", "help", "wordcount", "save"
+		];
+		
+		var edit_toolbar = 'formatselect fontselect fontsizeselect |'
+		       + ' forecolor backcolor |'
+		       + ' bold italic underline strikethrough |'
+		       + ' alignjustify alignleft aligncenter alignright |'
+		       + ' bullist numlist |'
+		       + ' table tabledelete |'
+		       + ' link image';
+		
+		tinymce.init({
+			language: "ko_KR",
+		    height: 500,
+		    menubar: false,
+		    plugins: plugins,
+		    toolbar: edit_toolbar,
+		  	selector: 'textarea',
+		  	height : "200",
+		});
+	}
 	
-	var edit_toolbar = 'formatselect fontselect fontsizeselect |'
-	       + ' forecolor backcolor |'
-	       + ' bold italic underline strikethrough |'
-	       + ' alignjustify alignleft aligncenter alignright |'
-	       + ' bullist numlist |'
-	       + ' table tabledelete |'
-	       + ' link image';
-	
-	tinymce.init({
-		language: "ko_KR",
-	    height: 500,
-	    menubar: false,
-	    plugins: plugins,
-	    toolbar: edit_toolbar,
-	  	selector: 'textarea',
-	  	height : "200",
+	$(document).ready(function(){
+		setTiny();
 	});
+	
 </script>
 <style>
 	.navbar-logo > .mobile-menu {

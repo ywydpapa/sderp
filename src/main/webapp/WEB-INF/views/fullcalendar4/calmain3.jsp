@@ -198,6 +198,7 @@
 					fnSetCurrentDate();
 				});
 			}
+			
 		}
 		var calendar;
 		function setCalendar(event, userNoList) {

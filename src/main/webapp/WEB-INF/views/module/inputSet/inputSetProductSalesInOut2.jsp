@@ -52,7 +52,7 @@
                 </td>
                 <td>
                     <div class="input-group input-group-sm mb-0">
-                        <input type="text" class="form-control" name="product" id="productSalesInOutCustName" value="" />
+                        <input type="text" class="form-control" name="product" id="productSalesInOutCustName" value="" readonly>
                         <input type="hidden" id="productSalesInOutCustNo" value="" />
                         <input type="hidden" id="soppdataNo" value="">
                         <span class="input-group-btn">
@@ -106,7 +106,7 @@
                 <td>
                     <div class="input-group input-group-sm mb-0">
                         <input type="hidden" id="productNo1" value="" />
-                        <input type="text" class="form-control" name="product" id="data01Title" value="" />
+                        <input type="text" class="form-control" name="product" id="data01Title" value="" readonly>
                         <span class="input-group-btn">
                             <button class="btn btn-primary sch-company" onclick="fn_productdataTableReload()" type="button" data-toggle="modal" data-target="#productdataModal1">
                                 <i class="icofont icofont-search"></i>

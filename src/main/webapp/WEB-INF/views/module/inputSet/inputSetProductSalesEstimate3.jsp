@@ -38,7 +38,7 @@
             <tr class="item1">
                 <td>
                     <div class="input-group input-group-sm mb-0">
-                        <input type="text" class="form-control" name="product" id="productSalesEstimateCustName" value="" />
+                        <input type="text" class="form-control" name="product" id="productSalesEstimateCustName" value="" readonly>
                         <input type="hidden" id="productSalesEstimateCustNo" value="" />
                         <input type="hidden" id="soppdataNoEstimate" value="">
                         <span class="input-group-btn">
@@ -92,7 +92,7 @@
                 <td>
                     <div class="input-group input-group-sm mb-0">
                         <input type="hidden" id="productNo2" value="" />
-                        <input type="text" class="form-control" name="product" id="data02Title" value="" />
+                        <input type="text" class="form-control" name="product" id="data02Title" value="" readonly>
                         <span class="input-group-btn">
                             <button class="btn btn-primary sch-company" onclick="fn_productdataTableReload2()" type="button" data-toggle="modal" data-target="#productdataModal2">
                                 <i class="icofont icofont-search"></i>

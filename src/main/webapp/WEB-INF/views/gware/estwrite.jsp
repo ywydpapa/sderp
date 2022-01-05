@@ -104,7 +104,7 @@
 									<td>
 										<div class="input-group input-group-sm mb-0">
 											<input type="text" class="form-control" name="custName"
-												id="custName" value="${dto.custName}" /> <input
+												id="custName" value="${dto.custName}" readonly> <input
 												type="hidden" name="custNo" id="custNo"
 												value="${dto.custNo}" /> <span class="input-group-btn">
 												<button class="btn btn-primary sch-company"

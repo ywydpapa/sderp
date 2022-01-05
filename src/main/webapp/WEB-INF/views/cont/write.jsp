@@ -82,7 +82,7 @@
 									<th class="contDetailSopp requiredTextCss">영업기회</th>
 									<td class="contDetailSopp">
 										<div class="input-group input-group-sm mb-0">
-											<input type="text" class="form-control" name="soppDTO" id="soppTitle" value="" />
+											<input type="text" class="form-control" name="soppDTO" id="soppTitle" value="" readonly>
 											<input type="hidden" class="form-control" name="soppDTO" id="soppNo" value="" />
 											<span class="input-group-btn">
 												<button class="btn btn-primary sch-opportunity2"
@@ -119,7 +119,7 @@
 									<th class="contDetailCont requiredTextCss">계약</th>
 									<td class="contDetailCont">
 										<div class="input-group input-group-sm mb-0">
-											<input type="text" class="form-control" name="oldContTitle" id="oldContTitle" readonly />
+											<input type="text" class="form-control" name="oldContTitle" id="oldContTitle" readonly>
 											<input type="hidden" name="oldContNo" id="oldContNo" value="" />
 											<span class="input-group-btn">
 												<button class="btn btn-primary sch-opportunity2" data-remote="${path}/modal/popup.do?popId=cont"
@@ -154,7 +154,7 @@
 									<th scope="row" class="requiredTextCss">담당사원</th>
 									<td>
 										<div class="input-group input-group-sm mb-0">
-											<input type="text" class="form-control" name="userName" id="userName" value="${sessionScope.userName}" />
+											<input type="text" class="form-control" name="userName" id="userName" value="${sessionScope.userName}" readonly>
 											<input type="hidden" class="form-control" name="userNo" id="userNo" value="${sessionScope.userNo}" />
 											 <span class="input-group-btn">
 												<button class="btn btn-primary sch-company"
@@ -204,7 +204,7 @@
 									<th class="requiredTextCss">매출처</th>
 									<td>
 										<div class="input-group input-group-sm mb-0">
-											<input type="text" class="form-control" name="custName" id="custName" value="" />
+											<input type="text" class="form-control" name="custName" id="custName" value="" readonly>
 											<input type="hidden" name="custNo" id="custNo" value="" /> <span class="input-group-btn">
 												<button class="btn btn-primary sch-company"
 														data-remote="${path}/modal/popup.do?popId=cust"
@@ -241,7 +241,7 @@
 									<th>매출처 담당자</th>
 									<td>
 										<div class="input-group input-group-sm mb-0">
-											<input type="text" id="custmemberName" name="custmemberName" class="form-control ">
+											<input type="text" id="custmemberName" name="custmemberName" class="form-control" readonly>
 											<input type="hidden" id="custmemberNo" name="custmemberNo" class="form-control ">
 											<span class="input-group-btn">
 												<button class="btn btn-primary sch-company btn-sm"  data-remote="${path}/modal/popup.do?popId=custmem&compNo=" type="button" data-toggle="modal" data-target="#custmemberModal" id="custmemberModalbtn" data-whatever="">
@@ -278,7 +278,7 @@
 									<th scope="row">엔드유저</th>
 									<td>
 										<div class="input-group input-group-sm mb-0">
-											<input type="text" class="form-control" id="endCustName" value="" />
+											<input type="text" class="form-control" id="endCustName" value="" readonly>
 											<input type="hidden" id="endCustNo" value="" />
 											<span class="input-group-btn">
 												<button class="btn btn-primary sch-partner" data-remote="${path}/modal/popup.do?popId=endCust" type="button" data-toggle="modal" data-target="#endCustModal">
@@ -309,8 +309,8 @@
 									<th>엔드유저 담당자</th>
 									<td>
 										<div class="input-group input-group-sm mb-0">
-											<input type="text" id="endCustmemberName" name="endCustmemberName" class="form-control ">
-											<input type="hidden" id="endCustmemberNo" name="endCustmemberNo" class="form-control ">
+											<input type="text" id="endCustmemberName" name="endCustmemberName" class="form-control" readonly>
+											<input type="hidden" id="endCustmemberNo" name="endCustmemberNo" class="form-control">
 											<span class="input-group-btn">
 												<button class="btn btn-primary sch-company btn-sm"  data-remote="${path}/modal/popup.do?popId=endCustmem&compNo=" type="button" data-toggle="modal" data-target="#endCustmemberModal" id="endCustmemberModalbtn" data-whatever="">
 													<i class="icofont icofont-search"></i>

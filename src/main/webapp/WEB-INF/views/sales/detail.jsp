@@ -65,7 +65,7 @@
 									<th class="requiredTextCss">담당사원</th>
 									<td>
 										<div class="input-group input-group-sm mb-0">
-											<input type="text" class="form-control" name="userName" id="userName" value="${dto.userName}" />
+											<input type="text" class="form-control" name="userName" id="userName" value="${dto.userName}" readonly>
 											<input type="hidden" class="form-control" name="userNo" id="userNo" value="${dto.userNo}" />
 											 <span class="input-group-btn">
 												<button class="btn btn-primary sch-company"
@@ -102,7 +102,7 @@
 									<th scope="row">영업기회</th>
 									<td>
 										<div class="input-group input-group-sm mb-0">
-											<input type="text" class="form-control" name="soppTitle" id="soppTitle" value="${dto.soppTitle}" />
+											<input type="text" class="form-control" name="soppTitle" id="soppTitle" value="${dto.soppTitle}" readonly>
 											<input type="hidden" class="form-control" name="soppNo" id="soppNo" value="${dto.soppNo }" />
 											<span class="input-group-btn">
 												<button class="btn btn-primary sch-opportunity2"
@@ -137,7 +137,7 @@
 									<th scope="row">매출처</th>
 									<td>
 										<div class="input-group input-group-sm mb-0">
-											<input type="text" class="form-control" name="custName" id="custName" value="${dto.custName}" />
+											<input type="text" class="form-control" name="custName" id="custName" value="${dto.custName}" readonly>
 											 <input type="hidden" name="custNo" id="custNo" value="${dto.custNo}" /> <span class="input-group-btn">
 												<button class="btn btn-primary sch-company"
 													data-remote="${path}/modal/popup.do?popId=cust"
@@ -170,7 +170,7 @@
 									<th scope="row">엔드유저</th>
 									<td>
 										<div class="input-group input-group-sm mb-0">
-											<input type="text" class="form-control" id="endCustName" value="${dto.ptncName}" />
+											<input type="text" class="form-control" id="endCustName" value="${dto.ptncName}" readonly>
 											<input type="hidden" id="endCustNo" value="${dto.ptncNo}" />
 											<span class="input-group-btn">
 												<button class="btn btn-primary sch-partner" data-remote="${path}/modal/popup.do?popId=endCust" type="button" data-toggle="modal" data-target="#endCustModal">

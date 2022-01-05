@@ -195,7 +195,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 
 	<insert id="insertUserAtt">
-
 		insert into swc_userattend (
 			compNo,
 		    userNo,
@@ -243,6 +242,44 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	</update>
 
+	<select id="listdocApp" resultType="gwDto">
+		select * from swc_businessdocapp where attrib not like 'XXX%' and docNo = #{docNo};
+	</select>
 
+	<select id="listmyAppdoc" resultType="gwDto">
+		select * from swc_businessdocapp where attrib not like 'XXX%' and userNoAPP = ${userNo} and appDate is null ;
+	</select>
+
+	<insert id="insAppline">
+		insert into swc_businessdocapp
+( compNo,
+docNo,
+appLine,
+userNoCR,
+userNoIS,
+userNoAPP,
+appStatus,
+issueDate,
+regDate,
+attrib ) values ( #{compNo},
+					#{docNo},
+					#{appLine},
+					#{userNoCR},
+					#{userNoIS},
+					#{userNoAPP},
+					#{appStatus},
+					#{issueDate},
+					now(),
+					'100001'  );
+	</insert>
+
+	<update id="updApp">
+		update swc_businessdocapp set
+			appDate = now(),
+		    appComment = #{appComment},
+		    appStatus = #{appStatus},
+		    modDate = now()
+		where appId = #{appId};
+	</update>
 
 </mapper>

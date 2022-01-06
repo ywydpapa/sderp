@@ -448,22 +448,22 @@
 										<colgroup>
 											<col width="10%" />
 											<col width="25%" />
-											<col width="40%" />
-											<col width="25%" />
+											<col width="50%" />
+											<col width="15%" />
 										</colgroup>
 										<tbody>
 										<tr>
 											<th class="text-center">지원일자</th>
 											<th class="text-center">기술지원명</th>
 											<th class="text-center">요청내용</th>
-											<th class="text-center">기술지원 상세</th>
+											<th class="text-center">담당자</th>
 										</tr>
 										<c:forEach var="tlist" items="${techdlist}">
 											<tr>
 												<td>${tlist.techdFrom}</td>
 												<td>${tlist.techdTitle}</td>
 												<td>${tlist.techdDesc}</td>
-												<td>${tlist.techdTypeN}</td>
+												<td class="text-center">${tlist.userName}</td>
 											</tr>
 										</c:forEach>
 										</tbody>

@@ -437,10 +437,10 @@
 									<table class="table table-sm bst02">
 										<colgroup>
 											<col width="10%" />
-											<col width="20%" />
-											<col width="40%" />
-											<col width="20%" />
 											<col width="10%" />
+											<col width="10%" />
+											<col width="10%" />
+											<col width="60%" />
 										</colgroup>
 										<thead>
 										<th class="text-center">일자</th>

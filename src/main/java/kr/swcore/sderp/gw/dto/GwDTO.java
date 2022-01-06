@@ -42,7 +42,6 @@ public class GwDTO {
     private String regDate;
     private String modDate;
     private String attrib;
-    
     private Integer docNo;
     private Integer docCrUserNo;
     private String docAppLvl;
@@ -54,7 +53,6 @@ public class GwDTO {
     private String docDesc;
     private String docFormNo;
     private Integer docAmount;
-    
     private Integer appLine;
     private Integer userNoCR;
     private Integer userNoIS;
@@ -63,7 +61,6 @@ public class GwDTO {
     private String issueDate;
     private String appDate;
     private String appComment;
-    
     private Integer attendId;
     private Integer attType;
     private String attStart;
@@ -71,7 +68,6 @@ public class GwDTO {
     private String attTitle;
     private String attDesc;
     private Integer appId;
-
     private Integer getId;
     
     public GwDTO() {

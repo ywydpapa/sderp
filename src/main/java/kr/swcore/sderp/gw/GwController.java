@@ -32,8 +32,8 @@ public class GwController {
 
     @RequestMapping("mylist.do")
     public ModelAndView docmyList(HttpSession userNo, ModelAndView mav) {
-        mav.addObject("docList", gwService.listMyDoc(userNo));
-        mav.setViewName("gware/list");
+        mav.addObject("mylist", gwService.listMyDoc(userNo));
+        mav.setViewName("gware/mylist");
         return mav;
     }
 

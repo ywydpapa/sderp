@@ -29,6 +29,13 @@
            </a>
            <ul class="pcoded-submenu">
                <li class="pcoded-hasmenu ">
+                   <a href="${path}/gw/mylist.do">
+                       <span class="pcoded-micon"><i class="ti-direction-alt"></i></span>
+                       <span class="pcoded-mtext" data-i18n="nav.menu-levels.menu-level-21">나의문서함</span>
+                       <span class="pcoded-mcaret"></span>
+                   </a>
+               </li>
+               <li class="pcoded-hasmenu ">
                    <a href="${path}/gw/list.do">
                        <span class="pcoded-micon"><i class="ti-direction-alt"></i></span>
                        <span class="pcoded-mtext" data-i18n="nav.menu-levels.menu-level-21">결재조회</span>

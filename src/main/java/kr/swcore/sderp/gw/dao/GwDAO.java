@@ -6,10 +6,10 @@ import javax.servlet.http.HttpSession;
 import java.util.List;
 
 public interface GwDAO {
-    List<GwDTO> listDoc2(HttpSession compNo);
-    List<GwDTO> listUserAtt(HttpSession compNo);
+    List<GwDTO> listDoc2(int compNo);
+    List<GwDTO> listUserAtt(int compNo);
     List<GwDTO> listUserAttbyuser(int userNo);
-    List<GwDTO> listMyDoc(HttpSession userNo);
+    List<GwDTO> listMyDoc(int docCrUserNo);
     List<GwDTO> listEst(Integer compNo);
     List<GwDTO> listEstitems(GwDTO dto);
     GwDTO detailEst(String estId);

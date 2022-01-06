@@ -12,27 +12,17 @@
 <c:set var="path" value ="${pageContext.request.contextPath}"/>
 <table class="table table-sm bst02" id="qutylist">
     <colgroup>
-        <col width="10%" />
-        <col width="17.5%" />
-        <col width="17.5%" />
-        <col width="10%" />
-        <col width="10%" />
-        <col width="5%" />
-        <col width="15%" />
-        <col width="5%" />
-        <col width="5%" />
+        <col width="20%" />
+        <col width="20%" />
+        <col width="20%" />
+        <col width="20%" />
+        <col width="20%" />
     </colgroup>
     <thead>
     <tr>
-        <th class="text-center">구분(등록/수정일)</th>
-        <th class="text-center">거래처(매입/매출처)</th>
-        <th class="text-center">항목</th>
-        <th class="text-center">단가</th>
-        <th class="text-center">수량</th>
-        <th class="text-center">공급가액</th>
-        <th class="text-center">부가세액</th>
-        <th class="text-center">금액</th>
-        <th class="text-center">적용율</th>
+        <th class="text-center">구분</th>
+        <th class="text-center">시작일자</th>
+        <th class="text-center">종료일자</th>
         <th class="text-center">비고</th>
         <th class="text-center">삭제</th>
     </tr>
@@ -40,16 +30,10 @@
     <tbody>
     <c:forEach var="row" items="${list}">
     	<tr>
-    		<td style='text-align:center;'>견적</td>
-    		<td id='salesCustNoN' style='text-align:center;'>${row.custName}</td>
-    		<td id='dataTitle' style='text-align:center;'>${row.productName}</td>
-    		<td id='dataNetprice' style='text-align: right'>₩<fmt:formatNumber value="${row.productNetprice}" pattern="#,###" /></td>
-    		<td id='dataQuanty' style='text-align: right'>${row.productQty}</td>
-    		<td id='dataAmt' style='text-align: right'>₩<fmt:formatNumber value="${row.productAmount}" pattern="#,###" /></td>
-    		<td id='dataVat' style='text-align: right'>₩<fmt:formatNumber value="${row.productVat}" pattern="#,###" /></td>
-    		<td id='dataTotal' style='text-align: right'>₩<fmt:formatNumber value="${row.productTotal}" pattern="#,###" /></td>
-    		<td id='dataDiscount' style='text-align: right'>${row.productDis}%</td>
-    		<td id='dataRemark'>${row.productRemark}</td>
+            <td id='hrType'>${row.attType}</td>
+            <td id='hrStart'>${row.attStart}</td>
+            <td id='hrEnd'>${row.attEnd}</td>
+            <td id='hrDesc'>${row.attDesc}</td>
     		<td><button class='btn btn-sm btn-danger'>삭제</button></td>
     	</tr>
     </c:forEach>
@@ -65,43 +49,6 @@
 </table>
 
 <script>
-    var product02In = [
-        <c:forEach var="row" items="${dtodata02}" varStatus="i">
-        <c:if test="${row.dataType eq '2201'}">
-        <c:if test="${!i.last}">${row.dataNetprice},</c:if>
-        <c:if test="${i.last}">${row.dataNetprice}</c:if>
-        </c:if>
-        </c:forEach>
-    ];
-    var product02InQuanty = [
-        <c:forEach var="row" items="${dtodata02}" varStatus="i">
-        <c:if test="${row.dataType eq '2201'}">
-        <c:if test="${!i.last}">${row.dataQuanty},</c:if>
-        <c:if test="${i.last}">${row.dataQuanty}</c:if>
-        </c:if>
-        </c:forEach>
-    ];
-    var product02InSum = 0;
-    var product02Out = [
-        <c:forEach var="row" items="${dtodata02}" varStatus="i">
-        <c:if test="${row.dataType eq '2202'}">
-        <c:if test="${!i.last}">${row.dataNetprice},</c:if>
-        <c:if test="${i.last}">${row.dataNetprice}</c:if>
-        </c:if>
-        </c:forEach>
-    ];
-    var product02OutQuanty = [
-        <c:forEach var="row" items="${dtodata02}" varStatus="i">
-        <c:if test="${row.dataType eq '2202'}">
-        <c:if test="${!i.last}">${row.dataQuanty},</c:if>
-        <c:if test="${i.last}">${row.dataQuanty}</c:if>
-        </c:if>
-        </c:forEach>
-    ];
-    var product02OutSum = 0;
-    var product02DiffSum = 0;
-    var product02Percent = 0;
-
     function fn_data02modify(e) {
         if($(e).html() == "수정"){
             if($("#data02Modbtn").is(':visible') == true){
@@ -194,33 +141,5 @@
     }
 
     $(document).ready(function(){
-        for (var i = 0; i < product02In.length; i++) {
-            product02InSum += (product02In[i] * product02InQuanty[i]);
-        }
-        for (var i = 0; i < product02Out.length; i++) {
-            product02OutSum += (product02Out[i] * product02OutQuanty[i]);
-        }
-        product02DiffSum = product02OutSum - product02InSum;
-        $("#product02InSum").html('₩'+product02InSum.toLocaleString("en-US"));
-        $("#product02InSum_table").html('₩'+product02InSum.toLocaleString("en-US"));
-        $("#product02OutSum").html('₩'+product02OutSum.toLocaleString("en-US"));
-        $("#product02OutSum_table").html('₩'+product02OutSum.toLocaleString("en-US"));
-        $("#product02DiffSum").html('₩'+product02DiffSum.toLocaleString("en-US"));
-
-        product02Percent = Math.floor(product02DiffSum / product02OutSum * 100).toFixed(2);
-        if(product02Percent == 'NaN'){
-            $("#product02Percent").html('0'+'%');
-        } else if (product02Percent == '-Infinity'){
-            $("#product02Percent").html('0'+'%');
-        } else if (product02Percent == 'Infinity'){
-            $("#product02Percent").html('0'+'%');
-        } else if(product02Percent >= 0){
-            $("#product02Percent").html('+'+product02Percent+'%');
-        } else if(product02Percent < 0){
-            $("#product02Percent").html(product02Percent+'%');
-        }
-
-        var prduct02Cnt = product02In.length + product02Out.length;
-        $("#dataType01_tab03").html("견적 내역("+prduct02Cnt+")");
     });
 </script>

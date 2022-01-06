@@ -50,19 +50,19 @@ public class GwController {
         return mav;
     }
 
-    @RequestMapping("attendlist.do")
+    @RequestMapping("attlist.do")
     public ModelAndView hrdocList(HttpSession session, ModelAndView mav) {
         mav.setViewName("hr/attlist");
         return mav;
     }
 
-    @RequestMapping("attenddetail.do")
+    @RequestMapping("attdetail.do")
     public ModelAndView hrdocDetail(HttpSession session, ModelAndView mav) {
         mav.setViewName("hr/attdetail");
         return mav;
     }
 
-    @RequestMapping("attendwrite.do")
+    @RequestMapping("attwrite.do")
     public ModelAndView hrdocWrite(HttpSession session, ModelAndView mav) {
         mav.setViewName("hr/attwrite");
         return mav;
@@ -100,6 +100,19 @@ public class GwController {
         }
         return ResponseEntity.ok(param);
     }
+
+    @RequestMapping("attinsert.do")
+    public ResponseEntity<?> attinsert(@ModelAttribute GwDTO dto) {
+        Map<String, Object> param = new HashMap<>();
+        int docInsert = gwService.insertUserAtt(dto);
+        if (docInsert >0) {
+            param.put("code","10001");
+        }
+        else {param.put("code","20001");
+        }
+        return ResponseEntity.ok(param);
+    }
+
     
     @RequestMapping("insertApp.do")
     public ResponseEntity<?> insertApp(@ModelAttribute GwDTO dto) {

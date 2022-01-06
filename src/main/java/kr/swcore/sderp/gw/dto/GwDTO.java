@@ -69,6 +69,7 @@ public class GwDTO {
     private String attEnd;
     private String attTitle;
     private String attDesc;
+    private Integer attStatus;
     private Integer appId;
     private Integer getId;
     private String userIsName;

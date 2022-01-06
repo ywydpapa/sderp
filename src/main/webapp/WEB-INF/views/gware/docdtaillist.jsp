@@ -35,17 +35,17 @@
     </tr>
     </thead>
     <tbody>
-    <c:forEach var="row" items="${list}">
+    <c:forEach var="row" items="${detailListData}">
     	<tr>
     		<td id='salesCustNoN' style='text-align:center;'>${row.custName}</td>
     		<td id='dataTitle' style='text-align:center;'>${row.productName}</td>
-    		<td id='dataNetprice' style='text-align: right'>₩<fmt:formatNumber value="${row.productNetprice}" pattern="#,###" /></td>
-    		<td id='dataQuanty' style='text-align: right'>${row.productQty}</td>
-    		<td id='dataAmt' style='text-align: right'>₩<fmt:formatNumber value="${row.productAmount}" pattern="#,###" /></td>
-    		<td id='dataVat' style='text-align: right'>₩<fmt:formatNumber value="${row.productVat}" pattern="#,###" /></td>
-    		<td id='dataTotal' style='text-align: right'>₩<fmt:formatNumber value="${row.productTotal}" pattern="#,###" /></td>
+    		<td id='dataNetprice' style='text-align: right;'>₩<fmt:formatNumber value="${row.productNetprice}" pattern="#,###" /></td>
+    		<td id='dataQuanty' style='text-align: right;'>${row.productQty}</td>
+    		<td id='dataAmt' style='text-align: right;'>₩<fmt:formatNumber value="${row.productAmount}" pattern="#,###" /></td>
+    		<td id='dataVat' style='text-align: right;'>₩<fmt:formatNumber value="${row.productVat}" pattern="#,###" /></td>
+    		<td id='dataTotal' style='text-align: right;'>₩<fmt:formatNumber value="${row.productTotal}" pattern="#,###" /></td>
     		<td id='dataRemark'>${row.productRemark}</td>
-    		<td><button class='btn btn-sm btn-danger'>삭제</button></td>
+    		<td style="text-align:center;"><button class='btn btn-sm btn-danger'>삭제</button></td>
     	</tr>
     </c:forEach>
     </tbody>

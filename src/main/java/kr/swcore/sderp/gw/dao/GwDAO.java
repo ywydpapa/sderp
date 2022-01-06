@@ -16,6 +16,8 @@ public interface GwDAO {
     GwDTO detailEst(String estId);
     GwDTO detailUserAtt(int attendId);
     GwDTO detailDoc(int docNo);
+    GwDTO detailDocApp(int docNo);
+    List<GwDTO> detailDocData(int docNo);
     int insertDoc(GwDTO dto);
     int insertDocApp(GwDTO dto);
     int insertDocData(GwDTO dto);

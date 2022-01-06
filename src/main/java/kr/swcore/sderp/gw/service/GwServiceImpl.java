@@ -64,8 +64,17 @@ public class GwServiceImpl implements GwService{
 
     @Override
     public GwDTO detailDoc(int docNo) {
-
         return gwDao.detailDoc(docNo);
+    }
+    
+    @Override
+    public GwDTO detailDocApp(int docNo) {
+        return gwDao.detailDocApp(docNo);
+    }
+    
+    @Override
+    public List<GwDTO> detailDocData(int docNo) {
+        return gwDao.detailDocData(docNo);
     }
 
     @Override

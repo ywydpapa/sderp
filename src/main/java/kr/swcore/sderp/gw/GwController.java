@@ -49,6 +49,15 @@ public class GwController {
         mav.setViewName("gware/write");
         return mav;
     }
+    
+    @RequestMapping("detail/{docNo}")
+    public ModelAndView docDetail(@PathVariable("docNo") int docNo, ModelAndView mav) {
+    	mav.addObject("detailList", gwService.detailDoc(docNo));
+    	mav.addObject("detailListApp", gwService.detailDocApp(docNo));
+    	mav.addObject("detailListData", gwService.detailDocData(docNo));
+        mav.setViewName("gware/detail");
+        return mav;
+    }
 
     @RequestMapping("attlist.do")
     public ModelAndView hrdocList(HttpSession session, ModelAndView mav) {

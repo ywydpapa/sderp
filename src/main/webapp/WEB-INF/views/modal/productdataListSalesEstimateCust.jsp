@@ -15,13 +15,6 @@
         </tr>
         </thead>
         <tbody>
-        <tr align="center">
-			<td>000000</td>
-			<td><a
-				href="javascript:fnSetSalesEstimateCustData('무등록거래처','0');">무등록거래처</a></td>
-			<td></td>
-			<td></td>
-		</tr>
         <c:forEach var="row" items="${list}">
             <tr align="center">
                 <td>${row.custNo}</td>

@@ -179,7 +179,9 @@
                             <c:forEach var="row" items="${docList}">
                                 <tr>
                                 	<td class="text-center">${row.regDate}</td>
-                                	<td class="text-center">VTEK_${row.docNo}</td>
+                                	<td class="text-center">
+                                		<a href="${path}/gw/detail/${row.docNo}">VTEK_2022${row.docNo}</a>
+                                	</td>
                                     <td class="text-center">
                                     	<c:if test="${row.docType eq 'BUY'}">물품 구매요청서</c:if>
                                     	<c:if test="${row.docType eq 'TRS'}">지출품의서</c:if>

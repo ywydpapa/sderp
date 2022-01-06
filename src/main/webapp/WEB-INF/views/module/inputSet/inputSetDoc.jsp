@@ -365,6 +365,7 @@
     		data02Data.docType = $("#docType").val();
     		data02Data.docTitle = $("#docTitle").val();
     		data02Data.linkSoppNo = $("#soppNo").val();
+    		data02Data.linkCustNo = $("#custNo").val();
     		data02Data.docDesc = tinyMCE.get("docDesc").getContent();
     		data02Data.docDate = $("#docDate").val();
     		data02Data.docAmount = parseInt($("#product02InSum_table").html().replace(/[\D\s\._\-]+/g, ""));

@@ -61,8 +61,17 @@ public class GwDAOImpl implements GwDAO{
 
     @Override
     public GwDTO detailDoc(int docNo) {
-
         return sqlSession.selectOne("gw.detailDoc", docNo);
+    }
+    
+    @Override
+    public GwDTO detailDocApp(int docNo) {
+        return sqlSession.selectOne("gw.detailDocApp", docNo);
+    }
+    
+    @Override
+    public List<GwDTO> detailDocData(int docNo) {
+        return sqlSession.selectList("gw.detailDocData", docNo);
     }
 
     @Override

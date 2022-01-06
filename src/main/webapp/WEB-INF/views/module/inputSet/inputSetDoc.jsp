@@ -12,14 +12,14 @@
     </table>
     <table class="table table-sm bst02" id="addquty">
         <colgroup>
-            <col width="15%" />
-            <col width="15%" />
-            <col width="15%" />
-            <col width="10%" />
-            <col width="10%" />
-            <col width="15%" />
-            <col width="15%" />
-            <col width="5%" />
+            <col width="13%" />
+            <col width="25%" />
+            <col width="8%" />
+            <col width="8%" />
+            <col width="8%" />
+            <col width="8%" />
+            <col width="8%" />
+            <col width="25%" />
         </colgroup>
         <thead>
         <tr>
@@ -30,15 +30,15 @@
             <th class="text-center">공급가액</th>
             <th class="text-center">부가세액</th>
             <th class="text-center">금액</th>
-            <th class="text-center">적용율</th>
-            <th class="text-center">삭제</th>
+            <th class="text-center">적요</th>
+            <th class="text-center">추가</th>
         </tr>
         </thead>
         <tbody>
             <tr class="item1">
                 <td>
                     <div class="input-group input-group-sm mb-0">
-                        <input type="text" class="form-control" name="product" id="productSalesEstimateCustName" value="" />
+                        <input type="text" class="form-control" name="product" id="productSalesEstimateCustName" value="" readonly>
                         <input type="hidden" id="productSalesEstimateCustNo" value="" />
                         <input type="hidden" id="soppdataNoEstimate" value="">
                         <span class="input-group-btn">
@@ -90,55 +90,62 @@
                     </div>
                 </td>
                 <td>
-                    <div class="input-group input-group-sm mb-0">
-                        <input type="hidden" id="productNo2" value="" />
-                        <input type="text" class="form-control" name="product" id="data02Title" value="" />
-                        <span class="input-group-btn">
-                            <button class="btn btn-primary sch-company" onclick="fn_productdataTableReload2()" type="button" data-toggle="modal" data-target="#productdataModal2">
-                                <i class="icofont icofont-search"></i>
-                            </button>
-                        </span>
-                    </div>
-                    <!--모달 팝업-->
-                    <div class="modal fade" id="productdataModal2" tabindex="-1" role="dialog">
-                        <div class="modal-dialog modal-80size" role="document">
-                            <div class="modal-content modal-80size">
-                                <div class="modal-header">
-                                    <h4 class="modal-title">상품목록</h4>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-                                    <%--<%@ include file="/WEB-INF/views/modal/productdataList.jsp" %>--%>
-                                    <jsp:include page="/WEB-INF/views/modal/productdataListSalesEstimate.jsp" />
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!--//모달 팝업-->
+                	<div class="input-group" style="margin:0;">
+					  	<div class="input-group-prepend">
+					    	<select class="form-control" id="productSelect" style="width:130px;">
+                				<option value="selectOn">항목 선택</option>
+                				<option value="selectOff">직접 입력</option>
+                			</select>
+					  	</div>
+					  	<div id="select1" style="width:100%;">
+		                    <div class="input-group input-group-sm mb-0">
+		                        <input type="hidden" id="productNo2" value="" />
+		                        <input type="text" class="form-control" name="product" id="data02Title" data-flag="true" value="" readonly>
+		                        <span class="input-group-btn">
+		                            <button class="btn btn-primary sch-company" onclick="fn_productdataTableReload2()" type="button" data-toggle="modal" data-target="#productdataModal2">
+		                                <i class="icofont icofont-search"></i>
+		                            </button>
+		                        </span>
+		                    </div>
+		                    <!--모달 팝업-->
+	                    	<div class="modal fade" id="productdataModal2" tabindex="-1" role="dialog">
+	                        	<div class="modal-dialog modal-80size" role="document">
+	                            	<div class="modal-content modal-80size">
+	                                	<div class="modal-header">
+	                                    	<h4 class="modal-title">결재항목</h4>
+	                                    	<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	                                        	<span aria-hidden="true">&times;</span>
+	                                    	</button>
+	                                	</div>
+	                                	<div class="modal-body">
+	                                    	<%--<%@ include file="/WEB-INF/views/modal/productdataList.jsp" %>--%>
+	                                    	<jsp:include page="/WEB-INF/views/modal/productdataListSalesEstimate.jsp" />
+	                                	</div>
+	                                	<div class="modal-footer">
+	                                    	<button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
+	                                	</div>
+	                            	</div>
+	                        	</div>
+	                    	</div>
+	                    <!--//모달 팝업-->
+                		</div>
+                		<div id="select2" style="width:100%;">
+                			<div class="input-group input-group-sm mb-0">
+	                			<input type="text" class="form-control" name="product" id="data02Title" data-flag="false">
+                			</div>
+                		</div>
+					</div>
                 </td>
                 <td><input type="text" class="form-control form-control-sm" id="data02Netprice" style="min-width: 80px;" /></td>
                 <td><input type="text" class="form-control form-control-sm" id="data02Quanty" style="min-width: 80px;" /></td>
                 <td><input type="text" class="form-control form-control-sm" id="data02Amt" style="min-width: 80px;" readonly /></td>
                 <td><input type="text" class="form-control form-control-sm" id="data02Vat" style="min-width: 80px;" /></td>
                 <td><input type="text" class="form-control form-control-sm" id="data02Total" style="min-width: 80px;" readonly /></td>
-                <td><input type="text" class="form-control form-control-sm" id="data02Discount" style="min-width: 80px;" value="<fmt:formatNumber value="1.0" type="percent" />" /></td>
-                <td rowspan="2">
+                <td><input type="text" class="form-control form-control-sm" id="data02Remark" style="min-width: 80px;"></td>
+                <td>
                     <button id="data02Addbtn" class="btn btn-success btn-sm" onClick="dataSave();">추가</button>
                     <button id="data02Modbtn" class="btn btn-instagram btn-sm" onClick="javascript:fn_data02Update()">수정</button>
                 </td>
-            </tr>
-            <tr>
-            	<td colspan="4">
-	            	<textarea rows="5" id="data02Spec" class="form-control form-control-sm" placeholder="spec을 입력해주세요."></textarea>
-            	</td>
-            	<td colspan="4">
-	            	<textarea rows="5" id="data02Remark" class="form-control form-control-sm" placeholder="비고를 입력해주세요."></textarea>
-            	</td>
             </tr>
             <tr>
                 <td colspan="8">
@@ -157,6 +164,24 @@
 <script>
 	var dataArray = [];
     var dataIndex = 0;
+    
+    $("#select2").hide();
+    
+    $("#productSelect").change(function(){
+    	if($(this).val() === "selectOn"){
+    		$("#select1").show();
+    		$("#select1").find("#data02Title").attr("data-flag", true);
+    		$("#select2").hide();
+    		$("#select2").find("#data02Title").attr("data-flag", false);
+    		$("#select2").find("#data02Title").val("");
+    	}else{
+    		$("#select1").hide();
+    		$("#select1").find("#data02Title").attr("data-flag", false);
+    		$("#select1").find("#data02Title").val("");
+    		$("#select2").show();
+    		$("#select2").find("#data02Title").attr("data-flag", true);
+    	}
+    });
     
     $('#productCustModal3').on('show.bs.modal', function(e) {
         var button = $(e.relatedTarget);
@@ -271,30 +296,24 @@
     	var temp = {};
     	var productSalesEstimateCustName = $('#productSalesEstimateCustName').val();
     	var productNo = $("#productSalesEstimateCustNo").val();
-    	var productName = $("#data02Title").val();
+    	var productName = $("#data02Title[data-flag='true']").val();
     	var productNetprice = $("#data02Netprice").val().replace(/[\D\s\._\-]+/g, "");
     	var productQty = $("#data02Quanty").val();
     	var productAmount = $("#data02Amt").val().replace(/[\D\s\._\-]+/g, "");
     	var productVat = $("#data02Vat").val().replace(/[\D\s\._\-]+/g, "");
     	var productTotal = $("#data02Total").val().replace(/[\D\s\._\-]+/g, "");
-    	var productDis = $("#data02Discount").val().replace("%", "");
     	var productRemark = $("#data02Remark").val();
-    	var productSpec = $("#data02Spec").val();
     	var qutylist = $("#qutylist tbody");
 		
-    	temp.estId = $("#estId").val();
-		temp.custNo = $("#custNo").val();
-		temp.compNo = $("#compNo").val();
-    	temp.productNo = productNo;
+    	temp.docNo = 0;
+    	temp.custName = productSalesEstimateCustName;
     	temp.productName = productName;
     	temp.productNetprice = productNetprice;
     	temp.productQty = productQty;
     	temp.productAmount = productAmount;
     	temp.productVat = productVat;
     	temp.productTotal = productTotal;
-    	temp.productDis = productDis;
     	temp.productRemark = productRemark;
-    	temp.productSpec = productSpec;
     	
         var productSum = parseInt($("#product02InSum_table").html().replace(/[\D\s\._\-]+/g, "")) + parseInt($("#data02Total").val().replace(/[\D\s\._\-]+/g, ""));
         var amountSum = parseInt(productAmount) + parseInt($("#amountSum").val());
@@ -311,68 +330,82 @@
         $("#productSalesEstimateCustName").val("");
         $("#productSalesEstimateCustNo").val("");
         $("#productNo2").val("");
-        $("#data02Title").val("");
+        $("#data02Title[data-flag='true']").val("");
         $("#data02Netprice").val("");
         $("#data02Quanty").val("");
         $("#data02Amt").val("");
         $("#data02Vat").val("");
         $("#data02Total").val("");
-        $("#data02Discount").val("100%");
         $("#data02Remark").val("");
-        $("#data02Spec").val("");
     	
-        qutylist.append("<tr><td style='text-align:center;'>견적</td><td id='salesCustNoN' style='text-align:center;'>"+productSalesEstimateCustName+"</td><td id='dataTitle' style='text-align:center;'>"+productName+"</td><td id='dataNetprice' style='text-align: right'>"+"￦"+parseInt(productNetprice).toLocaleString("en-US")+"</td><td id='dataQuanty' style='text-align: right'>"+productQty+"</td><td id='dataAmt' style='text-align: right'>"+"￦"+parseInt(productAmount).toLocaleString("en-US")+"</td><td id='dataVat' style='text-align: right'>"+"￦"+parseInt(productVat).toLocaleString("en-US")+"</td><td id='dataTotal' style='text-align: right'>"+"￦"+parseInt(productTotal).toLocaleString("en-US")+"</td><td id='dataDiscount' style='text-align: right'>"+ productDis + "%" + "</td><td id='dataRemark'>"+productRemark+"</td><td><button class='btn btn-sm btn-danger' data-index="+dataIndex+" id='dataDelBtn'>삭제</button></td></tr>");    	
+        qutylist.append("<tr><td id='salesCustNoN' style='text-align:center;'>"+productSalesEstimateCustName+"</td><td id='dataTitle' style='text-align:center;'>"+productName+"</td><td id='dataNetprice' style='text-align: right'>"+"￦"+parseInt(productNetprice).toLocaleString("en-US")+"</td><td id='dataQuanty' style='text-align: right'>"+productQty+"</td><td id='dataAmt' style='text-align: right'>"+"￦"+parseInt(productAmount).toLocaleString("en-US")+"</td><td id='dataVat' style='text-align: right'>"+"￦"+parseInt(productVat).toLocaleString("en-US")+"</td><td id='dataTotal' style='text-align: right'>"+"￦"+parseInt(productTotal).toLocaleString("en-US")+"</td><td id='dataRemark'>"+productRemark+"</td><td style='text-align:center;'><button class='btn btn-sm btn-danger text-center' data-index="+dataIndex+" id='dataDelBtn'>삭제</button></td></tr>");    	
         
-    	console.log(dataArray);
-    	
         dataIndex++;
     }
 
     function fn_data02Insert() {
     	var data02Data = {};
+    	var data02App = {};
     	
-    	if($("#estId").val() === ""){
-    		alert("견적번호를 작성해주세요.");
-    		$("#estId").focus();
-    	}else if($("#estTitle").val() === ""){
-    		alert("견적제목을 입력해주세요.");
-    		$("#estTitle").focus();
-    	}else if($("#estDate").val() === ""){
-    		alert("견적서 작성일자를 선택해주세요.");
-    		$("#estDate").focus();
+    	if($("#docTitle").val() === ""){
+    		alert("문서 제목을 작성하십시오.");
+    		$("#docTitle").focus();
+    		return false;
+    	}else if($("#docType").val() === ""){
+    		alert("문서 종류를 선택해주십시오.");
+    		return false;
+    	}else if($("#docDate").val() === ""){
+    		alert("작성일자를 선택해주십시오.");
+    		return false;
+    	}else if($("#userName").val() === ""){
+    		alert("결재자를 선택해주십시오.");
+    		return false;
     	}else{
-    		data02Data.estId = $("#estId").val();
-    		data02Data.estTitle = $("#estTitle").val();
-    		data02Data.custNo = $("#custNo").val();
-    		data02Data.soppNo = $("#soppNo").val();
-    		data02Data.compNo = $("#compNo").val();
-    		data02Data.userNo = $("#userNo").val();
-            data02Data.estAmount = $("#amountSum").val();
-            data02Data.estVat = $("#vatSum").val();
-            data02Data.estTotal = $("#product02InSum_table").html().replace(/[\D\s\._\-]+/g, "");
-    		data02Data.estDate = $("#estDate").val();
-    		
+    		data02Data.docCrUserNo = $("#docUserNo").val();
+    		data02Data.docType = $("#docType").val();
+    		data02Data.docTitle = $("#docTitle").val();
+    		data02Data.linkSoppNo = $("#soppNo").val();
+    		data02Data.docDesc = tinyMCE.get("docDesc").getContent();
+    		data02Data.docDate = $("#docDate").val();
+    		data02Data.docAmount = parseInt($("#product02InSum_table").html().replace(/[\D\s\._\-]+/g, ""));
+    		data02Data.linkMasterdocNo = 0;
+    		data02Data.docStatus = 1;
+    		data02Data.docFormNo = $("[name='contractType']:checked").val();
+    	
     		$.ajax({
-    			url: "${path}/gw/insertEst.do",
+    			url: "${path}/gw/insert.do",
     			method: "post",
     			data: data02Data,
     			dataType: "json",
-    			success: function(){
+    			success: function(data){
+    				data02App.compNo = $("#compNo").val();
+    				data02App.docNo = data.getId;
+    				data02App.userNoCR = $("#docUserNo").val();
+    				data02App.userNoIS = $("#userNo").val();
+    				data02App.userNoAPP = $("#userNo").val();
+    				data02App.appStatus = 2;
+    				
+    				$.ajax({
+    					url: "${path}/gw/insertApp.do",
+    					method: "post",
+    					data: data02App,
+    					dataType: "json",
+    				});
+    				
 					for(var i = 0; i < dataArray.length; i++){
+						dataArray[i].docNo = data.getId;
 						var JsonArray = JSON.stringify(dataArray[i]);
-						console.log(JSON.parse(JsonArray));
 		  				$.ajax({
-		  					url: "${path}/gw/insertEstitems.do",
+		  					url: "${path}/gw/insertData.do",
 		  					method: "post",
 		  					data: JSON.parse(JsonArray),
 		  					dataType: "json"
 		  				});
 		 			}
 		 			alert("등록되었습니다.");
-		 			location.href = "${path}/gw/estwrite.do";
+		 			location.href = "${path}/gw/write.do";
     			}
     		});
-    		
     	}
     }
 
@@ -392,7 +425,6 @@
         data02Data.dataAmt 		= $("#data02Amt").val().replace(/[\D\s\._\-]+/g, "");
         data02Data.dataVat 		= $("#data02Vat").val().replace(/[\D\s\._\-]+/g, "");
         data02Data.dataTotal 	= $("#data02Total").val().replace(/[\D\s\._\-]+/g, "");
-        data02Data.dataDiscount	= $("#data02Discount").val().replace(/[\D\s\._\-]+/g, "")/100;
         data02Data.dataRemark 	= $("#data02Remark").val();
 
         if(!data02Data.dataQuanty){
@@ -425,7 +457,6 @@
                     $("#data02Amt").val("");
                     $("#data02Vat").val("");
                     $("#data02Total").val("");
-                    $("#data02Discount").val("100%");
                     $("#data02Remark").val("");
 
                     $("#data02Addbtn").show();
@@ -450,8 +481,7 @@
     function recall02(){
         var sum12 = parseInt($("#data02Netprice").val().replace(/[\D\s\._\-]+/g, "") || 0 );
         var sum22 = parseInt($("#data02Quanty").val().replace(/[\D\s\._\-]+/g, "") || 0);
-        var disc2 = parseFloat($("#data02Discount").val() || 0);
-        var sum32 = sum12 * sum22 * (disc2 / 100);
+        var sum32 = sum12 * sum22;
         var vat2 = sum32 * 0.1;
         var Total2 = sum32 + vat2;
         $("#data02Netprice").val(sum12.toLocaleString("en-US"));
@@ -462,7 +492,7 @@
     }
 
     $(document).ready(function(){
-        $('#data02Netprice,#data02Quanty,#data02Discount').on('keyup',function(){
+        $('#data02Netprice,#data02Quanty').on('keyup',function(){
             recall02();
         });
         $("#data02Modbtn").hide();

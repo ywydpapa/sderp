@@ -12,27 +12,24 @@
 <c:set var="path" value ="${pageContext.request.contextPath}"/>
 <table class="table table-sm bst02" id="qutylist">
     <colgroup>
-        <col width="10%" />
-        <col width="17.5%" />
-        <col width="17.5%" />
-        <col width="10%" />
-        <col width="10%" />
-        <col width="5%" />
+        <col width="13%" />
         <col width="15%" />
-        <col width="5%" />
-        <col width="5%" />
+        <col width="8%" />
+        <col width="8%" />
+        <col width="8%" />
+        <col width="8%" />
+        <col width="8%" />
+        <col width="25%" />
     </colgroup>
     <thead>
     <tr>
-        <th class="text-center">구분(등록/수정일)</th>
-        <th class="text-center">거래처(매입/매출처)</th>
+        <th class="text-center">거래처</th>
         <th class="text-center">항목</th>
         <th class="text-center">단가</th>
         <th class="text-center">수량</th>
         <th class="text-center">공급가액</th>
         <th class="text-center">부가세액</th>
         <th class="text-center">금액</th>
-        <th class="text-center">적용율</th>
         <th class="text-center">비고</th>
         <th class="text-center">삭제</th>
     </tr>
@@ -40,7 +37,6 @@
     <tbody>
     <c:forEach var="row" items="${list}">
     	<tr>
-    		<td style='text-align:center;'>견적</td>
     		<td id='salesCustNoN' style='text-align:center;'>${row.custName}</td>
     		<td id='dataTitle' style='text-align:center;'>${row.productName}</td>
     		<td id='dataNetprice' style='text-align: right'>₩<fmt:formatNumber value="${row.productNetprice}" pattern="#,###" /></td>
@@ -48,7 +44,6 @@
     		<td id='dataAmt' style='text-align: right'>₩<fmt:formatNumber value="${row.productAmount}" pattern="#,###" /></td>
     		<td id='dataVat' style='text-align: right'>₩<fmt:formatNumber value="${row.productVat}" pattern="#,###" /></td>
     		<td id='dataTotal' style='text-align: right'>₩<fmt:formatNumber value="${row.productTotal}" pattern="#,###" /></td>
-    		<td id='dataDiscount' style='text-align: right'>${row.productDis}%</td>
     		<td id='dataRemark'>${row.productRemark}</td>
     		<td><button class='btn btn-sm btn-danger'>삭제</button></td>
     	</tr>
@@ -98,6 +93,20 @@
         </c:if>
         </c:forEach>
     ];
+    
+    $('#userModal').on('show.bs.modal', function(e) {
+		var button = $(e.relatedTarget);
+		var modal = $(this);
+		modal.find('.modal-body').load(button.data("remote"));
+	});
+    
+    function fnSetUserData(a, b) {
+		$("#userName").val(b);
+		$("#userNo").val(a);
+		$(".modal-backdrop").remove();
+		$("#userModal").modal("hide");
+	}
+    
     var product02OutSum = 0;
     var product02DiffSum = 0;
     var product02Percent = 0;

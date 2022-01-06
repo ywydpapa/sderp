@@ -65,6 +65,18 @@ public class GwDAOImpl implements GwDAO{
 
         return sqlSession.insert("gw.insertDoc",dto);
     }
+    
+    @Override
+    public int insertDocApp(GwDTO dto) {
+
+        return sqlSession.insert("gw.insertDocApp",dto);
+    }
+    
+    @Override
+    public int insertDocData(GwDTO dto) {
+
+        return sqlSession.insert("gw.insertDocData",dto);
+    }
 
     @Override
     public int insertUserAtt(GwDTO dto) {

@@ -32,7 +32,7 @@
                 <div class="card-block table-border-style">
                     <div class="table-responsive">
                         <input type="hidden" id="compNo" value="${sessionScope.compNo}" />
-                        <input type="hidden" id="userNo" value="${sessionScope.userNo}" />
+                        <input type="hidden" id="docUserNo" value="${sessionScope.userNo}" />
                         <table class="table table-sm bst02">
                             <colgroup>
                                 <col width="15%" />
@@ -101,7 +101,7 @@
                                 <td>
                                     <div class="input-group input-group-sm mb-0">
                                         <input type="text" class="form-control" name="custName"
-                                               id="custName" value="${dto.custName}" /> <input
+                                               id="custName" value="${dto.custName}" readonly> <input
                                             type="hidden" name="custNo" id="custNo"
                                             value="${dto.custNo}" /> <span class="input-group-btn">
 												<button class="btn btn-primary sch-company"
@@ -138,15 +138,15 @@
                             <tr>
                                 <th class="text-center">문서번호(자동 생성)</th>
                                 <td>
-                                    <input type="text" class="form-control" id="estId">
+                                    <input type="text" class="form-control" id="estId" placeholder="자동생성 됩니다..." readonly>
                                 </td>
-                                <th class="text-center">문서제목(*)</th>
+                                <th class="text-center requiredTextCss">문서제목(*)</th>
                                 <td>
-                                    <input type="text" class="form-control" id="estTitle">
+                                    <input type="text" class="form-control" id="docTitle">
                                 </td>
                             </tr>
                             <tr>
-                                <th class="text-center">문서종류(*)</th>
+                                <th class="text-center requiredTextCss">문서종류(*)</th>
                                 <td>
                                     <select class="form-control" id="docType" >
                                         <option value="">선택</option>
@@ -154,9 +154,9 @@
                                         <option value="TRS">지출품의서</option>
                                     </select>
                                 </td>
-                                <th class="text-center">작성일자(*)</th>
+                                <th class="text-center requiredTextCss">작성일자(*)</th>
                                 <td>
-                                    <input type="date" id="estDate" name="docDate" class="form-control" style="text-align: right;" value="">
+                                    <input type="date" id="docDate" name="docDate" class="form-control" style="text-align: right;" value="">
                                 </td>
                             </tr>
                             <tr>
@@ -164,15 +164,47 @@
                                 <td>
                                     <input class="form-control" type="file" id="addFile">
                                 </td>
-                                <th class="text-center">결제자</th>
+                                <th class="text-center requiredTextCss">결제자(*)</th>
                                 <td>
-                                    <select id="AppUser" class="form-control form-control-sm">
-                                    </select>
+									<div class="input-group input-group-sm mb-0">
+										<input type="text" class="form-control" name="userName"
+											id="userName" readonly> <input type="hidden"
+											name="userNo" id="userNo"> <span
+											class="input-group-btn">
+											<button class="btn btn-primary sch-company"
+												data-remote="${path}/modal/popup.do?popId=user" type="button"
+												data-toggle="modal" data-target="#userModal">
+												<i class="icofont icofont-search"></i>
+											</button>
+										</span>
+										<div class="modal fade " id="userModal" tabindex="-1"
+											role="dialog">
+											<div class="modal-dialog modal-80size" role="document">
+												<div class="modal-content modal-80size">
+													<div class="modal-header">
+														<h4 class="modal-title"></h4>
+														<button type="button" class="close" data-dismiss="modal"
+															aria-label="Close">
+															<span aria-hidden="true">&times;</span>
+														</button>
+													</div>
+													<div class="modal-body">
+														<h5>사용자목록</h5>
+														<p>Loading!!!</p>
+													</div>
+													<div class="modal-footer">
+														<button type="button" class="btn btn-default waves-effect "
+															data-dismiss="modal">Close</button>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
                                 </td>
                             </tr>
                             <tr>
                                 <th class="text-center">상세 내용</th>
-                                <td colspan="3"><textarea class="form-control"></textarea></td>
+                                <td colspan="3"><textarea class="form-control" id="docDesc"></textarea></td>
                             </tr>
                             </tbody>
                         </table>
@@ -193,7 +225,6 @@
     <!--//계약등록-->
 
     <script>
-
         $('#custModal').on('show.bs.modal', function(e) {
             var button = $(e.relatedTarget);
             var modal = $(this);

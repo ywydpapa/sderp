@@ -70,6 +70,18 @@ public class GwServiceImpl implements GwService{
 
         return gwDao.insertDoc(dto);
     }
+    
+    @Override
+    public int insertDocApp(GwDTO dto) {
+
+        return gwDao.insertDocApp(dto);
+    }
+    
+    @Override
+    public int insertDocData(GwDTO dto) {
+
+        return gwDao.insertDocData(dto);
+    }
 
     @Override
     public int insertUserAtt(GwDTO dto) {

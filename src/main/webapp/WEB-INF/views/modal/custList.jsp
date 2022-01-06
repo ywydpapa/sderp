@@ -15,6 +15,13 @@
 			</tr>
 		</thead>
 		<tbody>
+			<tr align="center">
+				<td>000000</td>
+				<td><a
+					href="javascript:fnSetCustData('없음','0');">없음</a></td>
+				<td></td>
+				<td></td>
+			</tr>
 			<c:forEach var="row" items="${list}">
 				<tr align="center">
 					<td>${row.custNo}</td>

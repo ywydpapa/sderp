@@ -218,8 +218,8 @@
         </div>
     </div>
     <div class="btn_wr text-right mt-3">
-        <button class="btn btn-md btn-success f-left" onClick="javascript:location='${path}/gw/estlist.do'">견적목록</button>
-        <button class="btn btn-md btn-primary" onClick="fn_data02Insert()">견적등록</button>
+        <button class="btn btn-md btn-success f-left" onClick="javascript:location='${path}/gw/estlist.do'">결재목록</button>
+        <button class="btn btn-md btn-primary" onClick="fn_data02Insert()">결재등록</button>
         <button class="btn btn-md btn-inverse" onClick="javascript:location='${path}/gw/estlist.do'">취소</button>
     </div>
     <!--//계약등록-->

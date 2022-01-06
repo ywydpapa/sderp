@@ -22,6 +22,7 @@ public class GwDTO {
 	private String soppTitle;
 	private Integer compNo;
     private Integer userNo;
+    private String userName;
     private BigDecimal estAmt;
     private BigDecimal estAmount;
     private BigDecimal estVat;
@@ -51,6 +52,7 @@ public class GwDTO {
     private Integer linkSoppNo;
     private Integer linkMasterdocNo;
     private String docDesc;
+    private String docDate;
     private String docFormNo;
     private Integer docAmount;
     private Integer appLine;
@@ -69,6 +71,7 @@ public class GwDTO {
     private String attDesc;
     private Integer appId;
     private Integer getId;
+    private String userIsName;
     
     public GwDTO() {
         super();

@@ -136,11 +136,11 @@
                 		</div>
 					</div>
                 </td>
-                <td><input type="text" class="form-control form-control-sm" id="data02Netprice" style="min-width: 80px;" /></td>
-                <td><input type="text" class="form-control form-control-sm" id="data02Quanty" style="min-width: 80px;" /></td>
+                <td><input type="text" class="form-control form-control-sm" id="data02Netprice" style="min-width: 80px;" readonly/></td>
+                <td><input type="text" class="form-control form-control-sm" id="data02Quanty" style="min-width: 80px;" value="1" readonly/></td>
                 <td><input type="text" class="form-control form-control-sm" id="data02Amt" style="min-width: 80px;" readonly /></td>
-                <td><input type="text" class="form-control form-control-sm" id="data02Vat" style="min-width: 80px;" /></td>
-                <td><input type="text" class="form-control form-control-sm" id="data02Total" style="min-width: 80px;" readonly /></td>
+                <td><input type="text" class="form-control form-control-sm" id="data02Vat" style="min-width: 80px;" readonly/></td>
+                <td><input type="text" class="form-control form-control-sm" id="data02Total" style="min-width: 80px;" /></td>
                 <td><input type="text" class="form-control form-control-sm" id="data02Remark" style="min-width: 80px;"></td>
                 <td>
                     <button id="data02Addbtn" class="btn btn-success btn-sm" onClick="dataSave();">추가</button>
@@ -369,8 +369,9 @@
     		data02Data.docDate = $("#docDate").val();
     		data02Data.docAmount = parseInt($("#product02InSum_table").html().replace(/[\D\s\._\-]+/g, ""));
     		data02Data.linkMasterdocNo = 0;
-    		data02Data.docStatus = 1;
+    		data02Data.docStatus = 2;
     		data02Data.docFormNo = $("[name='contractType']:checked").val();
+    		data02Data.docDate = $("#docDate").val();
     	
     		$.ajax({
     			url: "${path}/gw/insert.do",
@@ -381,7 +382,7 @@
     				data02App.compNo = $("#compNo").val();
     				data02App.docNo = data.getId;
     				data02App.userNoCR = $("#docUserNo").val();
-    				data02App.userNoIS = $("#userNo").val();
+    				data02App.userNoIS = $("#docUserNo").val();
     				data02App.userNoAPP = $("#userNo").val();
     				data02App.appStatus = 2;
     				
@@ -477,22 +478,28 @@
                 alert("통신 실패");
             });
     }
-
+	
     function recall02(){
-        var sum12 = parseInt($("#data02Netprice").val().replace(/[\D\s\._\-]+/g, "") || 0 );
-        var sum22 = parseInt($("#data02Quanty").val().replace(/[\D\s\._\-]+/g, "") || 0);
-        var sum32 = sum12 * sum22;
+        var sum22 = parseInt($("#data02Quanty").val());
+        var sum12 = parseInt($("#data02Total").val().replace(/[\D\s\._\-]+/g, "") || 0);
+        var qua = Math.round(sum12 / 11);
+        var amt = sum12 - qua;
+        var net = Math.round(amt / sum22);
+        /* var sum32 = sum12 * sum22;
         var vat2 = sum32 * 0.1;
         var Total2 = sum32 + vat2;
         $("#data02Netprice").val(sum12.toLocaleString("en-US"));
-        $("#data02Quanty").val(sum22.toLocaleString("en-US"));
+        $("#data02Quanty").val(qua.toLocaleString("en-US"));
         $("#data02Amt").val(sum32.toLocaleString("en-US"));
         $("#data02Vat").val(vat2.toLocaleString("en-US"));
-        $("#data02Total").val(Total2.toLocaleString("en-US"));
+        $("#data02Total").val(Total2.toLocaleString("en-US")); */
+        $("#data02Netprice").val(sum12.toLocaleString("en-US"));
+        $("#data02Amt").val(amt.toLocaleString("en-US"));
+        $("#data02Vat").val(qua.toLocaleString("en-US"));
     }
 
     $(document).ready(function(){
-        $('#data02Netprice,#data02Quanty').on('keyup',function(){
+        $('#data02Total,#data02Quanty').on('keyup',function(){
             recall02();
         });
         $("#data02Modbtn").hide();

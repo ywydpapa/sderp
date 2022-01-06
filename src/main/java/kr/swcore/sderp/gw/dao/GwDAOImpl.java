@@ -15,12 +15,12 @@ public class GwDAOImpl implements GwDAO{
     SqlSession sqlSession;
 
     @Override
-    public List<GwDTO> listDoc2(int compNo) {
+    public List<GwDTO> listDoc(int compNo) {
         return sqlSession.selectList("gw.listDoc", compNo);
     }
 
     @Override
-    public List<GwDTO> listUserAtt(int compNo) {
+    public List<GwDTO> listUserAtt(HttpSession compNo) {
         return sqlSession.selectList("gw.listUserAtt", compNo);
     }
 
@@ -30,8 +30,13 @@ public class GwDAOImpl implements GwDAO{
     }
 
     @Override
-    public List<GwDTO> listMyDoc(int docCrUserNo) {
-        return sqlSession.selectList("gw.listMyDoc", docCrUserNo);
+    public List<GwDTO> myList(int docCrUserNo) {
+        return sqlSession.selectList("gw.myList", docCrUserNo);
+    }
+    
+    @Override
+    public List<GwDTO> myDocList(int docCrUserNo) {
+        return sqlSession.selectList("gw.myDocList", docCrUserNo);
     }
 
     @Override

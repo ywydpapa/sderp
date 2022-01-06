@@ -4,9 +4,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="gw">
 
-<select id="listDoc" resultType="gwDto">
-    select * from swc_businessdoc where attrib not like 'XXX%' and compNo = #{compNo};
- </select>
+	<select id="listDoc" resultType="gwDto">
+	    select a.*, b.userName from swc_businessdoc a left join swc_user b on a.docCrUserNo = b.userNo left join swc_businessdocapp c on a.docNo = c.docNo where a.attrib not like 'XXX%' and c.compNo = #{compNo} and a.docStatus != 1;
+	</select>
 
     <select id="detailDoc" resultType="gwDto">
         select * from swc_businessdoc where attrib not like 'XXX%' and compNo = #{compNo} and docNo=#{docNo};
@@ -118,8 +118,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select a.*, b.custName from swc_estitems a LEFT JOIN swc_cust b ON a.custNo = b.custNo where a.estId=#{estId} and a.estVer = #{estVer} and a.attrib not like 'XXX%';
 	</select>
 
-	<select id="listMyDoc" resultType="gwDto">
-		select * from swc_businessdoc where attrib not like 'XXX%' and docCrUserNo = #{docCrUserNo};
+	<select id="myList" resultType="gwDto">
+		select a.*, b.appStatus from swc_businessdoc a left join swc_businessdocapp b on a.docNo = b.docNo where a.attrib not like 'XXX%' and a.docCrUserNo = #{docCrUserNo};
+	</select>
+	
+	<select id="myDocList" resultType="gwDto">
+		select a.*, c.userName as userIsName, b.appStatus from swc_businessdoc a left join swc_businessdocapp b on a.docNo = b.docNo left join swc_user c on c.userNo = b.userNoIS where b.userNoAPP = #{userNo} and a.docStatus = 2 and b.appStatus = 2 or b.appStatus = 4;
 	</select>
 
 	<insert id="insertDoc" useGeneratedKeys="true" keyProperty="getId">
@@ -127,6 +131,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	        SELECT max(docNo) from swc_businessdoc
 	    </selectKey>
 		insert into swc_businessdoc (
+			compNo,
 			docCrUserNo,
 			docAppLvl,
 			docType,
@@ -137,9 +142,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			docDesc,
 			docFormNo,
 			docAmount,
+			docDate
 			regDate,
 			attrib
 		) values (
+			#{compNo},
 		 	#{docCrUserNo},
 		 	#{docAppLvl},
 		 	#{docType},
@@ -150,6 +157,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		 	#{docDesc},
 		 	#{docFormNo},
 		 	#{docAmount},
+		 	#{docDate},
 		 	now(),
 		 	'10000'
 	 	);
@@ -188,7 +196,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			productVat,
 			productTotal,
 			productRemark,
-			regDate
+			regDate,
+			attrib
 		) values (
 		 	#{docNo},
 		 	#{custName},
@@ -199,7 +208,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		 	#{productVat},
 		 	#{productTotal},
 		 	#{productRemark},
-		 	now()
+		 	now(),
+		 	'10000'
 	 	);
 	</insert>
 

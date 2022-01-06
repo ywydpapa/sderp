@@ -45,14 +45,14 @@
                 <div class="col-lg-12">
                     <div class="page-header-title">
                         <div class="d-inline">
-                            전자결제 목록
+                            나의 전자결재 목록
                         </div>
                     </div>
                 </div>
             </div>
         </div>
         <!--Page-header end 페이지 타이틀 -->
-		
+
         <!--계약조회-->
         <div class="cnt_wr">
             <div class="row">
@@ -140,7 +140,7 @@
                                 </div>
                             </div>
                             <div class="col-sm-12 col-xl-3">
-                                <label class="col-form-label">계산서 발행일자</label>
+                                <label class="col-form-label">작성일자</label>
                                 <p class="input_inline"><input class="form-control form-control-sm col-xl-6" type="date" id="vatSdate"> ~ <input class="form-control form-control-sm col-xl-6" type="date" id="vatEdate"></p>
                             </div>
                         </div>
@@ -161,9 +161,10 @@
                                 <col width="10%"/>
                                 <col width="15%"/>
                                 <col width="15%"/>
-                                <col width="25%"/>
-                                <col width="15%"/>
-                                <col width="20%"/>
+                                <col width="30%"/>
+                                <col width="10%"/>
+                                <col width="10%"/>
+                                <col width="10%"/>
                             </colgroup>
                             <thead>
                             <tr>
@@ -171,26 +172,26 @@
                                 <th class="text-center">문서번호</th>
                                 <th class="text-center">문서종류</th>
                                 <th class="text-center">문서명</th>
-                                <th class="text-center">기안자</th>
-                                <th class="text-center">상태</th>
+                                <th class="text-center">금액</th>
+                                <th class="text-center">요청자</th>
+                                <th class="text-center">진행상태</th>
                             </tr>
                             </thead>
                             <tbody>
-                            <c:forEach var="row" items="${docList}">
+                            <c:forEach var="row" items="${mydoclist}">
                                 <tr>
-                                	<td class="text-center">${row.regDate}</td>
-                                	<td class="text-center">VTEK_${row.docNo}</td>
+                                    <td class="text-center">${row.regDate}</td>
+                                    <td class="text-center">VTEK_${row.docNo}</td>
                                     <td class="text-center">
                                     	<c:if test="${row.docType eq 'BUY'}">물품 구매요청서</c:if>
                                     	<c:if test="${row.docType eq 'TRS'}">지출품의서</c:if>
-									</td>
-                                    <td>
-                                        ${row.docTitle}
                                     </td>
-                                    <td class="text-center">${row.userName}</td>
+                                    <td>${row.docTitle}</td>
+                                    <td class="text-right">￦<fmt:formatNumber type="number" maxFractionDigits="3" value="${row.docAmount}" /></td>
+                                    <td class="text-center">${row.userIsName}</td>
                                     <td class="text-center">
-                                    	<c:if test="${row.docStatus == 2}">진행중</c:if>
-                                   		<c:if test="${row.docStatus == 3}">완료</c:if>
+                                    	<c:if test="${row.appStatus == 2}">요청</c:if>
+                                    	<c:if test="${row.appStatus == 4}">승인</c:if>
                                     </td>
                                 </tr>
                             </c:forEach>

@@ -161,9 +161,10 @@
                                 <col width="10%"/>
                                 <col width="15%"/>
                                 <col width="15%"/>
-                                <col width="50%"/>
-                                <col width="20%"/>
-                                <col width="20%"/>
+                                <col width="30%"/>
+                                <col width="10%"/>
+                                <col width="10%"/>
+                                <col width="10%"/>
                             </colgroup>
                             <thead>
                             <tr>
@@ -172,21 +173,35 @@
                                 <th class="text-center">문서종류</th>
                                 <th class="text-center">문서명</th>
                                 <th class="text-center">금액</th>
+                                <th class="text-center">문서상태</th>
                                 <th class="text-center">진행상태</th>
                             </tr>
                             </thead>
                             <tbody>
-                            <%--<c:forEach var="row" items="${mylist}">
+                            <c:forEach var="row" items="${mylist}">
                                 <tr>
-                                    <td>${row.docDate}</td>
-                                    <td>
+                                    <td class="text-center">${row.regDate}</td>
+                                    <td class="text-center">VTEK_${row.docNo}</td>
+                                    <td class="text-center">
+                                    	<c:if test="${row.docType eq 'BUY'}">물품 구매요청서</c:if>
+                                    	<c:if test="${row.docType eq 'TRS'}">지출품의서</c:if>
                                     </td>
-                                    <td>${row.docType}</td>
                                     <td>${row.docTitle}</td>
-                                    <td class="text-right"><fmt:formatNumber type="number" maxFractionDigits="3" value="${row.docAmount}" /></td>
-                                    <td>${row.docAppLvl}</td>
+                                    <td class="text-right">￦<fmt:formatNumber type="number" maxFractionDigits="3" value="${row.docAmount}" /></td>
+                                    <td class="text-center">
+                                    	<c:if test="${row.docStatus == 1}">작성중</c:if>
+                                    	<c:if test="${row.docStatus == 2}">진행중</c:if>
+                                    	<c:if test="${row.docStatus == 3}">완료</c:if>
+                                    </td>
+                                    <td class="text-center">
+                                    	<c:if test="${row.appStatus == 1}">임시저장</c:if>
+                                    	<c:if test="${row.appStatus == 2}">요청</c:if>
+                                    	<c:if test="${row.appStatus == 3}">반려</c:if>
+                                    	<c:if test="${row.appStatus == 4}">승인</c:if>
+                                    	<c:if test="${row.appStatus == 5}">완료</c:if>
+                                    </td>
                                 </tr>
-                            </c:forEach>--%>
+                            </c:forEach>
                             </tbody>
                         </table>
                     </div>

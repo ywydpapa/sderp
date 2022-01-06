@@ -24,16 +24,23 @@ public class GwController {
     GwService gwService;
 
     @RequestMapping("list.do")
-    public ModelAndView docList(HttpSession compNo, ModelAndView mav) {
-        mav.addObject("docList", gwService.listDoc2(compNo));
+    public ModelAndView docList(HttpSession session, ModelAndView mav) {
+        mav.addObject("docList", gwService.listDoc(session));
         mav.setViewName("gware/list");
         return mav;
     }
 
     @RequestMapping("mylist.do")
-    public ModelAndView docmyList(HttpSession userNo, ModelAndView mav) {
-        mav.addObject("mylist", gwService.listMyDoc(userNo));
+    public ModelAndView myList(HttpSession session, ModelAndView mav) {
+        mav.addObject("mylist", gwService.myList(session));
         mav.setViewName("gware/mylist");
+        return mav;
+    }
+    
+    @RequestMapping("mydoclist.do")
+    public ModelAndView myDocList(HttpSession session, ModelAndView mav) {
+        mav.addObject("mydoclist", gwService.myDocList(session));
+        mav.setViewName("gware/mydoclist");
         return mav;
     }
 

@@ -17,14 +17,13 @@ public class GwServiceImpl implements GwService{
     GwDAO gwDao;
 
     @Override
-    public List<GwDTO> listDoc2(HttpSession session) {
-        Integer compNo = SessionInfoGet.getCompNo(session);
-        return gwDao.listDoc2(compNo);
+    public List<GwDTO> listDoc(HttpSession session) {
+    	int compNo = SessionInfoGet.getCompNo(session);
+        return gwDao.listDoc(compNo);
     }
 
     @Override
-    public List<GwDTO> listUserAtt(HttpSession session) {
-        Integer compNo = SessionInfoGet.getCompNo(session);
+    public List<GwDTO> listUserAtt(HttpSession compNo) {
         return gwDao.listUserAtt(compNo);
     }
 
@@ -34,9 +33,15 @@ public class GwServiceImpl implements GwService{
     }
 
     @Override
-    public List<GwDTO> listMyDoc(HttpSession session) {
-        int docCrUserNo  = SessionInfoGet.getUserNo(session);
-        return gwDao.listMyDoc(docCrUserNo);
+    public List<GwDTO> myList(HttpSession session) {
+        int docCrUserNo = SessionInfoGet.getUserNo(session);
+        return gwDao.myList(docCrUserNo);
+    }
+    
+    @Override
+    public List<GwDTO> myDocList(HttpSession session) {
+        int docCrUserNo = SessionInfoGet.getUserNo(session);
+        return gwDao.myDocList(docCrUserNo);
     }
 
     @Override

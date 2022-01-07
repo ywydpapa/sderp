@@ -213,6 +213,7 @@
                             <jsp:include page="/WEB-INF/views/module/inputSet/inputSetDoc.jsp"/>
                             <jsp:include page="/WEB-INF/views/gware/docdtaillist.jsp"/>
                         </div>
+                        <c:if test="${detailList.docStatus ne 1 }">
                         <c:if test="${sessionScope.userNo eq detailListApp.userNoAPP || sessionScope.userNo eq detailListApp.userNoCR}">
                         	<c:set var="now" value="<%=new java.util.Date()%>" />
                         	<c:set var="sysDate"><fmt:formatDate value="${now}" pattern="yyyy-MM-dd HH:mm:ss" /></c:set>
@@ -235,6 +236,7 @@
 	                        	</table>
 	                        </div>
                         </c:if>
+                        </c:if>
                     </div>
                 </div>
             </div>
@@ -249,6 +251,11 @@
         <c:if test="${sessionScope.userNo eq detailListApp.userNoCR && detailList.docStatus == 2}">
 	        <button class="btn btn-md btn-primary" onClick="fn_data02Update()">수정</button>
         	<button class="btn btn-md btn-danger" onClick="fn_data02delete()">삭제</button>
+        </c:if>
+        <c:if test="${sessionScope.userNo eq detailListApp.userNoCR && detailList.docStatus == 1}">
+            <button class="btn btn-md btn-primary" onClick="fn_tempUpdate()">임시저장</button>
+            <button class="btn btn-md btn-primary" onClick="fn_data02Update()">수정</button>
+            <button class="btn btn-md btn-danger" onClick="fn_data02delete()">삭제</button>
         </c:if>
         <button class="btn btn-md btn-inverse" onClick="javascript:location='${path}/gw/list.do'">취소</button>
     </div>

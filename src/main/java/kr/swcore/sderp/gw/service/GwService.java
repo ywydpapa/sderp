@@ -17,7 +17,7 @@ public interface GwService {
     GwDTO detailDoc(int docNo);
     GwDTO detailDocApp(int docNo);
     List<GwDTO> detailDocData(int docNo);
-    GwDTO detailUserAttend(int attendId);
+    GwDTO detailUserAtt(int attendId);
     int insertDoc(GwDTO dto);
     int insertDocApp(GwDTO dto);
     int insertDocData(GwDTO dto);

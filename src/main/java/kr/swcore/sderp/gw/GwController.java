@@ -61,12 +61,14 @@ public class GwController {
 
     @RequestMapping("attlist.do")
     public ModelAndView hrdocList(HttpSession session, ModelAndView mav) {
+        mav.addObject("list",gwService.listUserAtt(session));
         mav.setViewName("hr/attlist");
         return mav;
     }
 
-    @RequestMapping("attdetail.do")
-    public ModelAndView hrdocDetail(HttpSession session, ModelAndView mav) {
+    @RequestMapping("attdetail/{attendId}")
+    public ModelAndView hrdocDetail(@PathVariable("attendId") int attendId, ModelAndView mav) {
+        mav.addObject("list", gwService.detailUserAtt(attendId));
         mav.setViewName("hr/attdetail");
         return mav;
     }

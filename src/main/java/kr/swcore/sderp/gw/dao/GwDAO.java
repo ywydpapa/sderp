@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface GwDAO {
     List<GwDTO> listDoc(int compNo);
-    List<GwDTO> listUserAtt(HttpSession compNo);
+    List<GwDTO> listUserAtt(int compNo);
     List<GwDTO> listUserAttbyuser(int userNo);
     List<GwDTO> myList(int docCrUserNo);
     List<GwDTO> myDocList(int docCrUserNo);

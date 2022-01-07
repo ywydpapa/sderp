@@ -20,7 +20,7 @@ public class GwDAOImpl implements GwDAO{
     }
 
     @Override
-    public List<GwDTO> listUserAtt(HttpSession compNo) {
+    public List<GwDTO> listUserAtt(int compNo) {
         return sqlSession.selectList("gw.listUserAtt", compNo);
     }
 

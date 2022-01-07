@@ -23,7 +23,8 @@ public class GwServiceImpl implements GwService{
     }
 
     @Override
-    public List<GwDTO> listUserAtt(HttpSession compNo) {
+    public List<GwDTO> listUserAtt(HttpSession session) {
+        int compNo = SessionInfoGet.getCompNo(session);
         return gwDao.listUserAtt(compNo);
     }
 
@@ -78,7 +79,7 @@ public class GwServiceImpl implements GwService{
     }
 
     @Override
-    public GwDTO detailUserAttend(int attendId) {
+    public GwDTO detailUserAtt(int attendId) {
         return gwDao.detailUserAtt(attendId);
     }
 

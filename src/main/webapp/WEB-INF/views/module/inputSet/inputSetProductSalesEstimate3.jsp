@@ -122,10 +122,10 @@
                     <!--//모달 팝업-->
                 </td>
                 <td><input type="text" class="form-control form-control-sm" id="data02Netprice" style="min-width: 80px;" /></td>
-                <td><input type="text" class="form-control form-control-sm" id="data02Quanty" style="min-width: 80px;" /></td>
+                <td><input type="text" class="form-control form-control-sm" id="data02Quanty" style="min-width: 80px;"  value="1" min="1" /></td>
                 <td><input type="text" class="form-control form-control-sm" id="data02Amt" style="min-width: 80px;" readonly /></td>
                 <td><input type="text" class="form-control form-control-sm" id="data02Vat" style="min-width: 80px;" /></td>
-                <td><input type="text" class="form-control form-control-sm" id="data02Total" style="min-width: 80px;" readonly /></td>
+                <td><input type="text" class="form-control form-control-sm" id="data02Total" style="min-width: 80px;" /></td>
                 <td><input type="text" class="form-control form-control-sm" id="data02Discount" style="min-width: 80px;" value="<fmt:formatNumber value="1.0" type="percent" />" /></td>
                 <td rowspan="2">
                     <button id="data02Addbtn" class="btn btn-success btn-sm" onClick="dataSave();">추가</button>
@@ -461,9 +461,27 @@
         $("#data02Total").val(Total2.toLocaleString("en-US"));
     }
 
+    function recall03(){
+        var Total = parseInt($("#data02Total").val().replace(/[\D\s\._\-]+/g, "") || 0 );
+        var sum22 = parseInt($("#data02Quanty").val().replace(/[\D\s\._\-]+/g, "") || 0);
+        var disc2 = parseFloat($("#data02Discount").val() || 0);
+        var sum32 = Math.round(Total/11*10);
+        var vat2 = Math.round(Total / 11);
+        var sum12 = Math.round((Total - vat2)/sum22);
+        $("#data02Netprice").val(sum12.toLocaleString("en-US"));
+        $("#data02Quanty").val(sum22.toLocaleString("en-US"));
+        $("#data02Amt").val(sum32.toLocaleString("en-US"));
+        $("#data02Vat").val(vat2.toLocaleString("en-US"));
+        $("#data02Total").val(Total.toLocaleString("en-US"));
+    }
+
+
     $(document).ready(function(){
         $('#data02Netprice,#data02Quanty,#data02Discount').on('keyup',function(){
             recall02();
+        });
+        $('#data02Total').on('keyup',function(){
+            recall03();
         });
         $("#data02Modbtn").hide();
     });

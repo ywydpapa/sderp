@@ -31,6 +31,12 @@ public class OrganizServiceImpl implements OrganizService {
 	}
 
 	@Override
+	public List<OrganizDTO> listDept2(HttpSession session) {
+		Integer compNo = Integer.valueOf((String) session.getAttribute("compNo"));
+		return organizDao.listDept2(compNo);
+	}
+
+	@Override
 	public String listDeptForCalendarJson(HttpSession session) {
 		String result = "";
 		Integer compNo = Integer.valueOf((String) session.getAttribute("compNo"));

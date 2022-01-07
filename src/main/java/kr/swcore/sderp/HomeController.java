@@ -107,7 +107,6 @@ public class HomeController {
 		pageDTO.setOffset(0);
 		mav.addObject("sopplist", soppService.listSopp(session, pageDTO));
 		mav.addObject("contlist", contService.listCont(session, pageDTO, null));
-
 		Integer orgId = (Integer)session.getAttribute("orgId");
 		List<DeptToPlanTblDTO> deptToPlanTblDTOList = deptToPlanTblService.listWithOrgId(orgId);
 		for(int i=0; i<deptToPlanTblDTOList.size(); i++){

@@ -68,7 +68,7 @@ public class SalesController {
 	
 	@RequestMapping("setTarget.do")
 	public ModelAndView settarget(HttpSession session, ModelAndView mav, @ModelAttribute OrganizDTO organizDto, @ModelAttribute SalesTargetDTO salesTargetDTO) {
-		mav.addObject("listDept", organizService.listDept(session));
+		mav.addObject("listDept", organizService.listDept2(session));
 		mav.addObject("list", salesService.listSales(session, null));
 		mav.addObject("tableData", salesTargetService.listSalesTarget(session, organizDto, salesTargetDTO));
 		mav.setViewName("sales/setTarget");

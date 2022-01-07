@@ -136,10 +136,10 @@
                 		</div>
 					</div>
                 </td>
-                <td><input type="text" class="form-control form-control-sm" id="data02Netprice" style="min-width: 80px;" readonly/></td>
-                <td><input type="text" class="form-control form-control-sm" id="data02Quanty" style="min-width: 80px;" value="1" readonly/></td>
+                <td><input type="text" class="form-control form-control-sm" id="data02Netprice" style="min-width: 80px;"/></td>
+                <td><input type="text" class="form-control form-control-sm" id="data02Quanty" style="min-width: 80px;" value="1"  /></td>
                 <td><input type="text" class="form-control form-control-sm" id="data02Amt" style="min-width: 80px;" readonly /></td>
-                <td><input type="text" class="form-control form-control-sm" id="data02Vat" style="min-width: 80px;" readonly/></td>
+                <td><input type="text" class="form-control form-control-sm" id="data02Vat" style="min-width: 80px;" /></td>
                 <td><input type="text" class="form-control form-control-sm" id="data02Total" style="min-width: 80px;" /></td>
                 <td><input type="text" class="form-control form-control-sm" id="data02Remark" style="min-width: 80px;"></td>
                 <td>
@@ -683,19 +683,24 @@
         var sum22 = parseInt($("#data02Quanty").val());
         var sum12 = parseInt($("#data02Total").val().replace(/[\D\s\._\-]+/g, "") || 0);
         var qua = Math.round(sum12 / 11);
-        var amt = sum12 - qua;
+        var amt = Math.round(sum12 / 11 * 10);
         var net = Math.round(amt / sum22);
-        /* var sum32 = sum12 * sum22;
-        var vat2 = sum32 * 0.1;
-        var Total2 = sum32 + vat2;
-        $("#data02Netprice").val(sum12.toLocaleString("en-US"));
-        $("#data02Quanty").val(qua.toLocaleString("en-US"));
-        $("#data02Amt").val(sum32.toLocaleString("en-US"));
-        $("#data02Vat").val(vat2.toLocaleString("en-US"));
-        $("#data02Total").val(Total2.toLocaleString("en-US")); */
-        $("#data02Netprice").val(sum12.toLocaleString("en-US"));
+        $("#data02Netprice").val(net.toLocaleString("en-US"));
         $("#data02Amt").val(amt.toLocaleString("en-US"));
         $("#data02Vat").val(qua.toLocaleString("en-US"));
+        $("#data02Total").val(sum12.toLocaleString("en-US"));
+    }
+
+    function recall03(){
+        var sum12 = parseInt($("#data02Netprice").val());
+        var sum22 = parseInt($("#data02Quanty").val());
+        var amt = (sum12 * sum22);
+        var vat = amt*0.1;
+        var Total = amt+vat;
+        $("#data02Netprice").val(sum12.toLocaleString("en-US"));
+        $("#data02Amt").val(amt.toLocaleString("en-US"));
+        $("#data02Vat").val(vat.toLocaleString("en-US"));
+        $("#data02Total").val(Total.toLocaleString("en-US"));
     }
 
     $(document).ready(function(){
@@ -735,8 +740,12 @@
 	    	$("#product02InSum_table").html("￦"+parseInt(productSum).toLocaleString("en-US"));
 		}, 100);
     	
-        $('#data02Total,#data02Quanty').on('keyup',function(){
+        $('#data02Total').on('keyup',function(){
             recall02();
+        });
+
+        $('#data02Netprice,#data02Quanty').on('keyup',function(){
+            recall03();
         });
         $("#data02Modbtn").hide();
     });

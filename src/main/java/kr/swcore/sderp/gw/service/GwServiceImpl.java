@@ -1,14 +1,21 @@
 package kr.swcore.sderp.gw.service;
 
+import kr.swcore.sderp.cont.dto.ContFileDataDTO;
 import kr.swcore.sderp.gw.dao.GwDAO;
 import kr.swcore.sderp.gw.dto.GwDTO;
+import kr.swcore.sderp.gw.dto.GwFileDataDTO;
 import kr.swcore.sderp.util.SessionInfoGet;
 
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
+
+import java.io.IOException;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class GwServiceImpl implements GwService{
@@ -154,4 +161,29 @@ public class GwServiceImpl implements GwService{
 
         return gwDao.insertEstitems(dto);
     }
+    
+    @Override
+	public int uploadFile(HttpSession session, int docNo, MultipartHttpServletRequest fileList) throws IOException {
+		MultipartFile file = fileList.getFile("file");
+		GwFileDataDTO gwFile = new GwFileDataDTO();
+		gwFile.setFileId(UUID.randomUUID().toString());
+		gwFile.setFileName(file.getOriginalFilename());
+		gwFile.setFileContent(file.getBytes());
+		gwFile.setFileDesc(fileList.getParameter("fileDesc"));
+		gwFile.setDocNo(docNo);
+		gwFile.setUserNo(Integer.valueOf((String)session.getAttribute("userNo")));
+		
+		return gwDao.uploadFile(gwFile);
+	}
+
+	@Override
+	public GwFileDataDTO listFile(int docNo) {
+		return gwDao.listFile(docNo);
+	}
+	
+	@Override
+	public GwFileDataDTO downloadFile(GwFileDataDTO dto) {
+		// TODO Auto-generated method stub
+		return gwDao.downloadFile(dto);
+	}
 }

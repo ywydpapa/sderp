@@ -1,6 +1,9 @@
 package kr.swcore.sderp.gw.dao;
 
+import kr.swcore.sderp.cont.dto.ContFileDataDTO;
 import kr.swcore.sderp.gw.dto.GwDTO;
+import kr.swcore.sderp.gw.dto.GwFileDataDTO;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
@@ -138,4 +141,22 @@ public class GwDAOImpl implements GwDAO{
     public int insertEstitems(GwDTO dto) {
         return sqlSession.insert("gw.insertestitems",dto);
     }
+    
+    @Override
+	public int uploadFile(GwFileDataDTO dto) {
+		// TODO Auto-generated method stub
+		return sqlSession.insert("gw.uploadFile", dto);
+	}
+
+    @Override
+	public GwFileDataDTO listFile(int docNo) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("gw.listFile", docNo);
+	}
+    
+    @Override
+	public GwFileDataDTO downloadFile(GwFileDataDTO dto) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("gw.downloadFile", dto);
+	}
 }

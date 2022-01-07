@@ -1,8 +1,13 @@
 package kr.swcore.sderp.gw.service;
 
 import kr.swcore.sderp.gw.dto.GwDTO;
+import kr.swcore.sderp.gw.dto.GwFileDataDTO;
 
 import javax.servlet.http.HttpSession;
+
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+
+import java.io.IOException;
 import java.util.List;
 
 public interface GwService {
@@ -31,4 +36,7 @@ public interface GwService {
     int deleteUserAtt(int attendId);
     int insertEst(GwDTO dto);
     int insertEstitems(GwDTO dto);
+    int uploadFile(HttpSession session, int docNo, MultipartHttpServletRequest fileList) throws IOException;
+    GwFileDataDTO listFile(int docNo);
+    GwFileDataDTO downloadFile(GwFileDataDTO dto);
 }

@@ -165,7 +165,13 @@
                                 <td>
                                     <input class="form-control" type="file" id="addFile">
                                 </td>
-                                <th class="text-center requiredTextCss">결제자(*)</th>
+                                <th class="text-center">파일다운로드</th>
+                                <td>
+                                    <a href="javascript:downloadFile('${detailFile.fileId}');">${detailFile.fileName}</a>
+                                </td>
+                            </tr>
+                            <tr>
+                            	<th class="text-center requiredTextCss">결제자(*)</th>
                                 <td>
 									<div class="input-group input-group-sm mb-0">
 										<input type="text" class="form-control" name="userName"

@@ -237,7 +237,6 @@
 											</div>
 										</div>
 									</td>
-
 									<th>매출처 담당자</th>
 									<td>
 										<div class="input-group input-group-sm mb-0">

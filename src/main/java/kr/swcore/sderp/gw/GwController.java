@@ -1,17 +1,28 @@
 package kr.swcore.sderp.gw;
 
+import kr.swcore.sderp.cont.dto.ContDTO;
+import kr.swcore.sderp.cont.dto.ContFileDataDTO;
 import kr.swcore.sderp.gw.dto.GwDTO;
+import kr.swcore.sderp.gw.dto.GwFileDataDTO;
 import kr.swcore.sderp.gw.service.GwService;
+
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -55,6 +66,7 @@ public class GwController {
     	mav.addObject("detailList", gwService.detailDoc(docNo));
     	mav.addObject("detailListApp", gwService.detailDocApp(docNo));
     	mav.addObject("detailListData", gwService.detailDocData(docNo));
+    	mav.addObject("detailFile", gwService.listFile(docNo));
         mav.setViewName("gware/detail");
         return mav;
     }
@@ -221,5 +233,28 @@ public class GwController {
         }
         return ResponseEntity.ok(param);
     }
-
+    
+    @RequestMapping("/uploadfile/{docNo}")
+	public ResponseEntity<?> uploadFile(HttpSession session, @PathVariable("docNo") int docNo, @ModelAttribute ContDTO dto, MultipartHttpServletRequest fileList) throws IOException {
+		int uploadFile = gwService.uploadFile(session, docNo, fileList);
+		Map<String, Object> param = new HashMap<>();
+		if(uploadFile > 0) {
+			param.put("code", "10001");
+		} else {
+			param.put("code", "20001");
+		}
+		return ResponseEntity.ok(param);
+	}
+    
+    @RequestMapping("/downloadfile")
+	public ResponseEntity<?> downloadFile(HttpSession session, HttpServletResponse response, @ModelAttribute GwFileDataDTO dto) throws IOException {
+    	GwFileDataDTO gwFile = gwService.downloadFile(dto);
+		String fileName = gwFile.getFileName();
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+		headers.add("Content-Disposition", new String(fileName.getBytes("UTF-8"), "ISO-8859-1"));
+		ResponseEntity<byte[]> entity = new ResponseEntity<byte[]>(gwFile.getFileContent(), headers, HttpStatus.OK);
+		
+		return entity;
+	}
 }

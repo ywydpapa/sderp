@@ -291,7 +291,30 @@
 		});
 	});
 
-    
+	function downloadFile(fileId) {
+		var downloadData = {};
+		downloadData.docNo = $("#docNo").val();
+		downloadData.fileId = fileId;
+
+		$.ajax({
+			url : "${path}/gw/downloadfile",
+			data : downloadData,
+			method : "POST",
+			xhrFields: {
+				responseType: 'blob'
+			},
+		}).done(function(data, status, xhr){
+			var fileName = xhr.getResponseHeader('content-disposition');
+			var link = document.createElement('a');
+			link.href = window.URL.createObjectURL(data);
+			link.download = fileName;
+			link.click();
+
+		}).fail(function(xhr, status, errorThrown) {
+			alert("통신 실패");
+		});
+	}
+	
     function dataSave(){
     	var temp = {};
     	var productSalesEstimateCustName = $('#productSalesEstimateCustName').val();
@@ -344,6 +367,8 @@
     }
 
     function fn_data02Insert() {
+    	var uploadForm = $('#uploadForm')[0];
+		var uploadData = new FormData(uploadForm);
     	var data02Data = {};
     	var data02App = {};
     	
@@ -362,6 +387,9 @@
     		return false;
     	}else if($("#docUserNo").val() == $("#userNo").val()){
     		alert("자신에게 요청할 수 없습니다.");	
+    		return false;
+    	}else if(!uploadData.get('file').name){
+    		alert('파일을 선택해주세요');
     		return false;
     	}else{
     		data02Data.docCrUserNo = $("#docUserNo").val();
@@ -389,6 +417,14 @@
     				data02App.userNoAPP = $("#userNo").val();
     				data02App.appStatus = 2;
     				data02App.issueDate = $("#issueDate").val();
+    				
+    				$.ajax({
+    					url : "${path}/gw/uploadfile/"+data.getId,
+    					method : "POST",
+    					data : uploadData,
+    					contentType : false,
+    					processData : false,
+    				});
     				
     				$.ajax({
     					url: "${path}/gw/insertApp.do",
@@ -817,26 +853,28 @@
     }
 	
     function recall02(){
-        var sum22 = parseInt($("#data02Quanty").val());
-        var sum12 = parseInt($("#data02Total").val().replace(/[\D\s\._\-]+/g, "") || 0);
-        var qua = Math.round(sum12 / 11);
-        var amt = Math.round(sum12 / 11 * 10);
-        var net = Math.round(amt / sum22);
-        $("#data02Netprice").val(net.toLocaleString("en-US"));
-        $("#data02Amt").val(amt.toLocaleString("en-US"));
-        $("#data02Vat").val(qua.toLocaleString("en-US"));
-        $("#data02Total").val(sum12.toLocaleString("en-US"));
+    	var sum12 = parseInt($("#data02Netprice").val().replace(/[\D\s\._\-]+/g, "") || 0 );
+        var sum22 = parseInt($("#data02Quanty").val().replace(/[\D\s\._\-]+/g, "") || 0);
+        var sum32 = sum12 * sum22;
+        var vat2 = sum32 * 0.1;
+        var Total2 = sum32 + vat2;
+        $("#data02Netprice").val(sum12.toLocaleString("en-US"));
+        $("#data02Quanty").val(sum22.toLocaleString("en-US"));
+        $("#data02Amt").val(sum32.toLocaleString("en-US"));
+        $("#data02Vat").val(vat2.toLocaleString("en-US"));
+        $("#data02Total").val(Total2.toLocaleString("en-US"));
     }
 
     function recall03(){
-        var sum12 = parseInt($("#data02Netprice").val());
-        var sum22 = parseInt($("#data02Quanty").val());
-        var amt = (sum12 * sum22);
-        var vat = amt*0.1;
-        var Total = amt+vat;
+    	var Total = parseInt($("#data02Total").val().replace(/[\D\s\._\-]+/g, "") || 0 );
+        var sum22 = parseInt($("#data02Quanty").val().replace(/[\D\s\._\-]+/g, "") || 0);
+        var sum32 = Math.round(Total/11*10);
+        var vat2 = Math.round(Total / 11);
+        var sum12 = Math.round((Total - vat2)/sum22);
         $("#data02Netprice").val(sum12.toLocaleString("en-US"));
-        $("#data02Amt").val(amt.toLocaleString("en-US"));
-        $("#data02Vat").val(vat.toLocaleString("en-US"));
+        $("#data02Quanty").val(sum22.toLocaleString("en-US"));
+        $("#data02Amt").val(sum32.toLocaleString("en-US"));
+        $("#data02Vat").val(vat2.toLocaleString("en-US"));
         $("#data02Total").val(Total.toLocaleString("en-US"));
     }
 
@@ -877,11 +915,10 @@
 	    	$("#product02InSum_table").html("￦"+parseInt(productSum).toLocaleString("en-US"));
 		}, 100);
     	
-        $('#data02Total').on('keyup',function(){
+    	$('#data02Netprice,#data02Quanty').on('keyup',function(){
             recall02();
         });
-
-        $('#data02Netprice,#data02Quanty').on('keyup',function(){
+        $('#data02Total').on('keyup',function(){
             recall03();
         });
         $("#data02Modbtn").hide();

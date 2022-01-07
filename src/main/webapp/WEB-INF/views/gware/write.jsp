@@ -162,7 +162,9 @@
                             <tr>
                                 <th class="text-center">첨부파일</th>
                                 <td>
-                                    <input class="form-control" type="file" id="addFile">
+                                	<form id="uploadForm">
+										<input type="file" name="file" id="addFile" />
+									</form>
                                 </td>
                                 <th class="text-center requiredTextCss">결제자(*)</th>
                                 <td>

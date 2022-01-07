@@ -28,15 +28,15 @@
     </tr>
     </thead>
     <tbody>
-    <c:forEach var="row" items="${list}">
-    	<tr>
-            <td id='hrType'>${row.attType}</td>
-            <td id='hrStart'>${row.attStart}</td>
-            <td id='hrEnd'>${row.attEnd}</td>
-            <td id='hrDesc'>${row.attDesc}</td>
-    		<td><button class='btn btn-sm btn-danger'>삭제</button></td>
-    	</tr>
-    </c:forEach>
+	    <c:forEach var="row" items="${list}">
+	    	<tr>
+	            <td id='hrType'>${row.attType}</td>
+	            <td id='hrStart'>${row.attStart}</td>
+	            <td id='hrEnd'>${row.attEnd}</td>
+	            <td id='hrDesc'>${row.attDesc}</td>
+	    		<td><button class='btn btn-sm btn-danger'>삭제</button></td>
+	    	</tr>
+	    </c:forEach>
     </tbody>
 </table>
 <br/>
@@ -45,7 +45,6 @@
         <td colspan="1" style="text-align: center; background: #80808030;">합계</td>
         <td colspan="11" style="text-align: right; background: #80808030;" id="product02InSum_table">0</td>
     </tr>
-    </tbody>
 </table>
 
 <script>

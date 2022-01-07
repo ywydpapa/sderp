@@ -226,7 +226,46 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		 	'10000'
 	 	);
 	</insert>
-
+	
+	<insert id="uploadFile">
+		insert into swc_businessfiledata
+		(
+			fileId,
+			fileName,
+			fileDesc,
+			uploadDate,
+			fileContent,
+			docNo,
+			userNo,
+			regDatetime,
+			attrib
+		)
+	 	values 
+	 	(
+	 		#{fileId},
+	 		#{fileName},
+	 		#{fileDesc},
+	 		now(),
+	 		#{fileContent},
+	 		#{docNo},
+	 		#{userNo},
+	 	 	now(),
+			10000
+	 	)
+	</insert>
+	
+	<select id="listFile" resultType="gwFileDataDTO">
+	 	select * from swc_businessfiledata
+	 	where docNo=#{docNo}
+	 	and attrib not like 'XXX%'
+		order by uploadDate desc
+	</select>
+	
+	<select id="downloadFile" resultType="gwFileDataDTO">
+		select * from swc_businessfiledata  
+		where fileId = #{fileId} and docNo=#{docNo}
+	</select>
+	
 	<update id="updateDoc">
 		update swc_businessdoc set
 			docType = #{docType},

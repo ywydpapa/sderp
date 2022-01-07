@@ -395,8 +395,14 @@
 		sprtData.techdFrom			= setDateHourMinute($("#techdFrom").val(), $("#startTime").val());					// 지원일자 시작
 		sprtData.techdTo			= setDateHourMinute($("#techdTo").val(), $("#endTime").val());						// 지원일자 종료
 		sprtData.techdType			= $("#techdType").val();					// 지원형태
-		sprtData.techdSteps			= $("#techdSteps").val();					// 진행단계
-		sprtData.techdDesc			= tinyMCE.get("techdDesc").getContent();					// 설명
+		sprtData.techdSteps			= $("#techdSteps").val();	 // 진행단계
+		
+		if($("textarea").attr("style") === "visibility: hidden;"){
+			sprtData.techdDesc			= tinyMCE.get("techdDesc").getContent();
+		}else{
+			sprtData.techdDesc 		= $("#techdDesc").val();
+		}
+		
 		sprtData.techdNo			= Number($("#techdNo").val());
 
 		if(!sprtData.techdTitle){

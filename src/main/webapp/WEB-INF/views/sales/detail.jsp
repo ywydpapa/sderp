@@ -304,7 +304,12 @@
 			salesData.soppNo 		= $("#soppName").val() != "" ? Number($("#soppNo").val()) : 0;
 			salesData.ptncNo 		= $("#endCustName").val() != "" ? Number($("#endCustNo").val()) : 0;
 			salesData.salesType 		= $("#salesType").val();
-			salesData.salesDesc 		= tinyMCE.get("salesDesc").getContent();
+			
+			if($("textarea").attr("style") === "visibility: hidden;"){
+				salesData.salesDesc			= tinyMCE.get("salesDesc").getContent();
+			}else{
+				salesData.salesDesc 		= $("#salesDesc").val();
+			}
 			
 			$.ajax({
 				url: "${path}/sales/update.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소

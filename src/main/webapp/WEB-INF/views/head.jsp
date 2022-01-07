@@ -63,7 +63,7 @@
 
 <!-- jquery slimscroll js -->
 <script type="text/javascript" src="${path}/js/jquery.slimscroll.js"></script>
-
+    <script type="text/javascript" src="${path}/assets/js/common-pages.js"></script>
 <!-- modernizr js -->
 <script type="text/javascript" src="${path}/js/modernizr.js"></script>
 <script type="text/javascript" src="${path}/js/css-scrollbars.js"></script>
@@ -98,7 +98,22 @@
 <script type="text/javascript" src="${path}/assets/js/script.js"></script>
 <%-- <script type="text/javascript" src="${path}/js/print.min.js"></script> --%>
 <script src="https://cdn.tiny.cloud/1/kh4eirod6bgv8u2sxlaeikxy5hxfogh0edhzloljxh6zf046/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
-
+    <div class="theme-loader">
+        <div class="ball-scale">
+            <div class='contain'>
+                <div class="ring"><div class="frame"></div></div>
+                <div class="ring"><div class="frame"></div></div>
+                <div class="ring"><div class="frame"></div></div>
+                <div class="ring"><div class="frame"></div></div>
+                <div class="ring"><div class="frame"></div></div>
+                <div class="ring"><div class="frame"></div></div>
+                <div class="ring"><div class="frame"></div></div>
+                <div class="ring"><div class="frame"></div></div>
+                <div class="ring"><div class="frame"></div></div>
+                <div class="ring"><div class="frame"></div></div>
+            </div>
+        </div>
+    </div>
 <script>
 	$(function(){
 		$("#topMenu a").click(function(evt){
@@ -282,11 +297,13 @@
 		  	height : "200",
 		});
 	}
+
+
 	
 	$(document).ready(function(){
 		setTiny();
 	});
-	
+
 </script>
 <style>
 	.navbar-logo > .mobile-menu {
@@ -298,4 +315,5 @@
 		}
 	}
 </style>
+
 </head>

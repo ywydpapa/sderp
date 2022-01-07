@@ -49,6 +49,7 @@ public class GwDTO {
     private String docType;
     private String docTitle;
     private Integer docStatus;
+    private Integer linkCustNo;
     private Integer linkSoppNo;
     private Integer linkMasterdocNo;
     private String docDesc;

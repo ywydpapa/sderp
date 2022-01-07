@@ -45,7 +45,7 @@
     		<td id='dataVat' style='text-align: right;'>₩<fmt:formatNumber value="${row.productVat}" pattern="#,###" /></td>
     		<td id='dataTotal' style='text-align: right;'>₩<fmt:formatNumber value="${row.productTotal}" pattern="#,###" /></td>
     		<td id='dataRemark'>${row.productRemark}</td>
-    		<td style="text-align:center;"><button class='btn btn-sm btn-danger'>삭제</button></td>
+    		<td style="text-align:center;"><button class='btn btn-sm btn-danger' id="dataDelBtn">삭제</button></td>
     	</tr>
     </c:forEach>
     </tbody>
@@ -179,7 +179,7 @@
             $("#data02Modbtn").hide();
         }
     }
-    function fn_data02delete(soppdataNo) {
+    /* function fn_data02delete(soppdataNo) {
         var msg = "선택한 건을 삭제하시겠습니까?";
         if( confirm(msg) ){
             $.ajax({
@@ -200,7 +200,7 @@
                     alert("통신 실패");
                 });
         }
-    }
+    } */
 
     $(document).ready(function(){
         for (var i = 0; i < product02In.length; i++) {

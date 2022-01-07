@@ -158,21 +158,34 @@ public class GwController {
         }
         return ResponseEntity.ok(param);
    }
-
-    @RequestMapping("updateApp.do")
-    public  ResponseEntity<?> updateApp(@ModelAttribute GwDTO dto) {
+   
+   @RequestMapping("updateApp.do")
+   public  ResponseEntity<?> updateDocApp(@ModelAttribute GwDTO dto) {
         Map<String, Object> param = new HashMap<>();
-        int docUpdate = gwService.updateDocAppLvl(dto);
+        int docUpdate = gwService.updateDocApp(dto);
         if (docUpdate >0) {
             param.put("code","10001");
         } else {
             param.put("code","20001");
         }
         return ResponseEntity.ok(param);
-    }
+   }
+   
+   @RequestMapping("updateData.do")
+   public ResponseEntity<?> updateDocData(@ModelAttribute GwDTO dto) {
+        Map<String, Object> param = new HashMap<>();
+        int docUpdate = gwService.updateDocData(dto);
+        if (docUpdate >0) {
+            param.put("code","10001");
+        } else {
+            param.put("code","20001");
+        }
+        return ResponseEntity.ok(param);
+   }
 
-    @RequestMapping("delete.do")
-    public  ResponseEntity<?> delete(@ModelAttribute int docNo) {
+
+    @RequestMapping("delete/{docNo}")
+    public  ResponseEntity<?> delete(@PathVariable("docNo") int docNo) {
         Map<String, Object> param = new HashMap<>();
         int docDelete = gwService.deleteDoc(docNo);
         if (docDelete >0) {

@@ -33,6 +33,8 @@
                     <div class="table-responsive">
                         <input type="hidden" id="compNo" value="${sessionScope.compNo}" />
                         <input type="hidden" id="docUserNo" value="${sessionScope.userNo}" />
+                        <input type="hidden" id="docNo" value="${detailList.docNo}" />
+                        <input type="hidden" id="userNoCR" value="${detailListApp.userNoCR}" />
                         <table class="table table-sm bst02">
                             <colgroup>
                                 <col width="15%" />
@@ -102,8 +104,7 @@
                                     <div class="input-group input-group-sm mb-0">
                                         <input type="text" class="form-control" name="custName"
                                                id="custName" value="${detailList.custName}" readonly> <input
-                                            type="hidden" name="custNo" id="custNo"
-                                            value="${detailList.custNo}" /> <span class="input-group-btn">
+                                            type="hidden" name="custNo" id="custNo" value="${detailList.linkCustNo}" /> <span class="input-group-btn">
 												<button class="btn btn-primary sch-company"
                                                         data-remote="${path}/modal/popup.do?popId=cust"
                                                         type="button" data-toggle="modal"
@@ -212,15 +213,44 @@
                             <jsp:include page="/WEB-INF/views/module/inputSet/inputSetDoc.jsp"/>
                             <jsp:include page="/WEB-INF/views/gware/docdtaillist.jsp"/>
                         </div>
+                        <c:if test="${sessionScope.userNo eq detailListApp.userNoAPP || sessionScope.userNo eq detailListApp.userNoCR}">
+                        	<c:set var="now" value="<%=new java.util.Date()%>" />
+                        	<c:set var="sysDate"><fmt:formatDate value="${now}" pattern="yyyy-MM-dd HH:mm:ss" /></c:set>
+                        	<input type="hidden" id="appDate" value="${sysDate}" />
+	                        <div>
+	                        	<table class="table table-sm">
+		                        	<tr>
+										<th scope="row">승인/반려 의견<br />
+											<c:choose>
+												<c:when test="${detailListApp.appDate != null && detailListApp.appDate != ''}">
+													(시간 : ${detailListApp.appDate})
+												</c:when>
+												<c:otherwise>
+													(시간 : 없음)
+												</c:otherwise>
+											</c:choose>
+										</th>
+										<td colspan="3"><textarea name="appComment" id="appComment" rows="8" class="form-control">${detailListApp.appComment}</textarea></td>
+									</tr>
+	                        	</table>
+	                        </div>
+                        </c:if>
                     </div>
                 </div>
             </div>
         </div>
     </div>
     <div class="btn_wr text-right mt-3">
-        <button class="btn btn-md btn-success f-left" onClick="javascript:location='${path}/gw/estlist.do'">결재목록</button>
-        <button class="btn btn-md btn-primary" onClick="fn_data02Insert()">결재등록</button>
-        <button class="btn btn-md btn-inverse" onClick="javascript:location='${path}/gw/estlist.do'">취소</button>
+        <button class="btn btn-md btn-success f-left" onClick="javascript:location='${path}/gw/list.do'">결재목록</button>
+        <c:if test="${sessionScope.userNo eq detailListApp.userNoAPP && detailList.docStatus == 2}">
+	        <button class="btn btn-md btn-success" onClick="fn_data02App()">승인</button>
+	        <button class="btn btn-md btn-danger" onClick="fn_data02Com()">반려</button>
+        </c:if>
+        <c:if test="${sessionScope.userNo eq detailListApp.userNoCR && detailList.docStatus == 2}">
+	        <button class="btn btn-md btn-primary" onClick="fn_data02Update()">수정</button>
+        	<button class="btn btn-md btn-danger" onClick="fn_data02delete()">삭제</button>
+        </c:if>
+        <button class="btn btn-md btn-inverse" onClick="javascript:location='${path}/gw/list.do'">취소</button>
     </div>
     <!--//계약등록-->
 

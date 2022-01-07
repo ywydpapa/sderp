@@ -23,6 +23,8 @@ public interface GwService {
     int insertDocData(GwDTO dto);
     int insertUserAtt(GwDTO dto);
     int updateDoc(GwDTO dto);
+    int updateDocApp(GwDTO dto);
+    int updateDocData(GwDTO dto);
     int updateUserAtt(GwDTO dto);
     int updateDocAppLvl(GwDTO dto);
     int deleteDoc(int docNo);

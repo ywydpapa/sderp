@@ -107,8 +107,17 @@ public class GwServiceImpl implements GwService{
 
     @Override
     public int updateDoc(GwDTO dto) {
-
         return gwDao.updateDoc(dto);
+    }
+    
+    @Override
+    public int updateDocApp(GwDTO dto) {
+        return gwDao.updateDocApp(dto);
+    }
+    
+    @Override
+    public int updateDocData(GwDTO dto) {
+        return gwDao.updateDocData(dto);
     }
 
     @Override

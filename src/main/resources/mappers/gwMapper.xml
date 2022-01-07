@@ -131,7 +131,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<select id="myDocList" resultType="gwDto">
-		select a.*, c.userName as userIsName, b.appStatus from swc_businessdoc a left join swc_businessdocapp b on a.docNo = b.docNo left join swc_user c on c.userNo = b.userNoIS where b.userNoAPP = #{userNo} and a.docStatus = 2 and b.appStatus = 2 or b.appStatus = 4;
+		select a.*, c.userName as userIsName, b.appStatus from swc_businessdoc a left join swc_businessdocapp b on a.docNo = b.docNo left join swc_user c on c.userNo = b.userNoIS where a.attrib not like 'XXX%' and b.userNoAPP = #{userNo} and a.docStatus = 2 and b.appStatus BETWEEN 1 and 5;
 	</select>
 
 	<insert id="insertDoc" useGeneratedKeys="true" keyProperty="getId">
@@ -139,7 +139,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	        SELECT max(docNo) from swc_businessdoc
 	    </selectKey>
 		insert into swc_businessdoc (
-			compNo,
 			docCrUserNo,
 			docAppLvl,
 			docType,
@@ -150,11 +149,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			docDesc,
 			docFormNo,
 			docAmount,
-			docDate
+			docDate,
 			regDate,
 			attrib
 		) values (
-			#{compNo},
 		 	#{docCrUserNo},
 		 	#{docAppLvl},
 		 	#{docType},
@@ -179,6 +177,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			userNoIS,
 			userNoAPP,
 			appStatus,
+			<if test="appDate != '' and appDate != null">
+				appDate,
+				appComment,
+			</if>
 			regDate,
 			attrib
 		) values (
@@ -188,6 +190,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		 	#{userNoIS},
 		 	#{userNoAPP},
 		 	#{appStatus},
+		 	<if test="appDate != '' and appDate != null">
+				#{appDate},
+				#{appComment},
+			</if>
 		 	now(),
 		 	'10000'
 	 	);
@@ -225,24 +231,43 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		update swc_businessdoc set
 			docType = #{docType},
 			docTitle = #{docTitle},
-			docStatus = #{docStatus},
-			linkSoppNo = #{linkSoppNo} ,
-			linkMasterdocNo = #{linkMasterdocNo},
+			linkSoppNo = #{linkSoppNo},
+			linkCustNo = #{linkCustNo},
 			docDesc = #{docDesc},
+			docAmount = #{docAmount},
 			docFormNo = #{docFormNo},
+			docDate = #{docDate},
 			ModDate = now()
 		where docNo = #{docNo};
 	</update>
-
-	<update id="updateDocAppLvl">
-		update swc_businessdoc set
-			docAppLvl  = #{docAppLvl}
+	
+	<update id="updateDocApp">
+		update swc_businessdocapp set
+			userNoAPP = #{userNoAPP},
+			ModDate = now()
+		where docNo = #{docNo};
+	</update>
+	
+	<update id="updateDocData">
+		update swc_businessdocdata set
+			ModDate = now(),
+			attrib = 'XXXXX'
 		where docNo = #{docNo};
 	</update>
 
 	<update id="deleteDoc">
 		update swc_businessdoc set
-			attrib = "XXXUP",
+			attrib = "XXXXX",
+		    ModDate = now()
+		where docNo = #{docNo};
+		
+		update swc_businessdocapp set
+			attrib = "XXXXX",
+		    ModDate = now()
+		where docNo = #{docNo};
+		
+		update swc_businessdocData set
+			attrib = "XXXXX",
 		    ModDate = now()
 		where docNo = #{docNo};
 	</update>

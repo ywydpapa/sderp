@@ -193,6 +193,7 @@
                                     <td class="text-center">${row.userIsName}</td>
                                     <td class="text-center">
                                     	<c:if test="${row.appStatus == 2}">요청</c:if>
+                                    	<c:if test="${row.appStatus == 3}">반려</c:if>
                                     	<c:if test="${row.appStatus == 4}">승인</c:if>
                                     </td>
                                 </tr>

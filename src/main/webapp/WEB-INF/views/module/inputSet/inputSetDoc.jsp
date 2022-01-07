@@ -286,7 +286,7 @@
 		$("#qutylist tbody tr").eq($(this).attr("data-index")).remove();
 	
 		$("#qutylist tbody tr").find("#dataDelBtn").each(function(index, item){
-		$(this).attr("data-index", index);
+			$(this).attr("data-index", index);
 			dataIndex = index+1;
 		});
 	});
@@ -332,7 +332,7 @@
         $("#productNo2").val("");
         $("#data02Title[data-flag='true']").val("");
         $("#data02Netprice").val("");
-        $("#data02Quanty").val("");
+        $("#data02Quanty").val(1);
         $("#data02Amt").val("");
         $("#data02Vat").val("");
         $("#data02Total").val("");
@@ -360,6 +360,9 @@
     	}else if($("#userName").val() === ""){
     		alert("결재자를 선택해주십시오.");
     		return false;
+    	}else if($("#docUserNo").val() == $("#userNo").val()){
+    		alert("자신에게 요청할 수 없습니다.");	
+    		return false;
     	}else{
     		data02Data.docCrUserNo = $("#docUserNo").val();
     		data02Data.docType = $("#docType").val();
@@ -367,7 +370,6 @@
     		data02Data.linkSoppNo = $("#soppNo").val();
     		data02Data.linkCustNo = $("#custNo").val();
     		data02Data.docDesc = tinyMCE.get("docDesc").getContent();
-    		data02Data.docDate = $("#docDate").val();
     		data02Data.docAmount = parseInt($("#product02InSum_table").html().replace(/[\D\s\._\-]+/g, ""));
     		data02Data.linkMasterdocNo = 0;
     		data02Data.docStatus = 2;
@@ -386,6 +388,7 @@
     				data02App.userNoIS = $("#docUserNo").val();
     				data02App.userNoAPP = $("#userNo").val();
     				data02App.appStatus = 2;
+    				data02App.issueDate = $("#issueDate").val();
     				
     				$.ajax({
     					url: "${path}/gw/insertApp.do",
@@ -412,72 +415,268 @@
     }
 
     function fn_data02Update() {
-        var data02Data = {};
-        data02Data.soppNo 		= $("#soppNo").val();
-        data02Data.catNo	 	= '100004';
-        data02Data.soppdataNo   = $("#soppdataNoEstimate").val();
-        if($("#productSalesEstimateCustName").val() != "") data02Data.salesCustNo = Number($("#productSalesEstimateCustNo").val());
-        if($("#data02Title").val() != "") {
-            if($("#productNo2").val() != "") data02Data.productNo	= $("#productNo2").val();
-            data02Data.dataTitle 	= $("#data02Title").val();
-        }
-        data02Data.dataType		= $("#data02Type").val();
-        data02Data.dataNetprice	= $("#data02Netprice").val().replace(/[\D\s\._\-]+/g, "");
-        data02Data.dataQuanty	= $("#data02Quanty").val().replace(/[\D\s\._\-]+/g, "");
-        data02Data.dataAmt 		= $("#data02Amt").val().replace(/[\D\s\._\-]+/g, "");
-        data02Data.dataVat 		= $("#data02Vat").val().replace(/[\D\s\._\-]+/g, "");
-        data02Data.dataTotal 	= $("#data02Total").val().replace(/[\D\s\._\-]+/g, "");
-        data02Data.dataRemark 	= $("#data02Remark").val();
+    	var data02Data = {};
+    	var data02App = {};
+    	var dataTemp = {};
+    	var docNo = $("#docNo").val();
+    	
+    	dataTemp.docNo = docNo;
+    	
+    	if($("#docTitle").val() === ""){
+    		alert("문서 제목을 작성하십시오.");
+    		$("#docTitle").focus();
+    		return false;
+    	}else if($("#docType").val() === ""){
+    		alert("문서 종류를 선택해주십시오.");
+    		return false;
+    	}else if($("#docDate").val() === ""){
+    		alert("작성일자를 선택해주십시오.");
+    		return false;
+    	}else if($("#userName").val() === ""){
+    		alert("결재자를 선택해주십시오.");
+    		return false;
+    	}else if($("#docUserNo").val() == $("#userNo").val()){
+    		alert("자신에게 요청할 수 없습니다.");	
+    		return false;
+    	}else{
+    		data02Data.docNo = docNo;
+    		data02Data.docType = $("#docType").val();
+    		data02Data.docTitle = $("#docTitle").val();
+    		data02Data.linkSoppNo = $("#soppNo").val();
+    		data02Data.linkCustNo = $("#custNo").val();
+    		data02Data.docDesc = tinyMCE.get("docDesc").getContent();
+    		data02Data.docAmount = parseInt($("#product02InSum_table").html().replace(/[\D\s\._\-]+/g, ""));
+    		data02Data.docFormNo = $("[name='contractType']:checked").val();
+    		data02Data.docDate = $("#docDate").val();
+    	
+    		$.ajax({
+    			url: "${path}/gw/update.do",
+    			method: "post",
+    			data: data02Data,
+    			dataType: "json",
+    			success: function(data){
+    				data02App.docNo = docNo;
+    				data02App.userNoAPP = $("#userNo").val();
+    				data02App.issueDate = $("#issueDate").val();
+    				
+    				$.ajax({
+    					url: "${path}/gw/updateApp.do",
+    					method: "post",
+    					data: data02App,
+    					dataType: "json",
+    				});
+    				
+    				$.ajax({
+    					url: "${path}/gw/updateData.do",
+    					method: "post",
+    					data: dataTemp,
+    					dataType: "json",
+    				});
+    				
+    				setTimeout(() => {
+						for(var i = 0; i < dataArray.length; i++){
+							dataArray[i].docNo = docNo;
+							var JsonArray = JSON.stringify(dataArray[i]);
+			  				$.ajax({
+			  					url: "${path}/gw/insertData.do",
+			  					method: "post",
+			  					data: JSON.parse(JsonArray),
+			  					dataType: "json"
+			  				});
+			 			}
+			 			alert("수정되었습니다.");
+			 			location.href = "${path}/gw/detail/"+docNo;
+					}, 300);
+    			}
+    		});
+    	}
+    }
+    
+    function fn_data02delete() {
+    	var docNo = $("#docNo").val();
+    	
+    	if(confirm("정말 삭제하시겠습니까??")){
+			$.ajax({
+				url: "${path}/gw/delete/" + docNo,
+				method: "post",
+				success: function(){
+					alert("삭제되었습니다.");
+		 			location.href = "${path}/gw/detail/"+docNo;
+				}
+			});
+    	}else{
+    		return false;
+    	}
+    }
+    
+    function fn_data02App(){
+    	var docUserNo = $("#docUserNo").val();
+    	var userNo = $("#userNo").val();
+    	var userNoCR = $("#userNoCR").val();
+    	var docNo = $("#docNo").val();
+    	var docStatus = 0;
+    	var appStatus = 0;
+    	var data02Data = {};
+    	var data02App = {};
+    	
+    	if($("#docTitle").val() === ""){
+    		alert("문서 제목을 작성하십시오.");
+    		$("#docTitle").focus();
+    		return false;
+    	}else if($("#docType").val() === ""){
+    		alert("문서 종류를 선택해주십시오.");
+    		return false;
+    	}else if($("#docDate").val() === ""){
+    		alert("작성일자를 선택해주십시오.");
+    		return false;
+    	}else if($("#userName").val() === ""){
+    		alert("결재자를 선택해주십시오.");
+    		return false;
+    	}else{
+	    	if(docUserNo == userNo){
+	    		docStatus = 3;
+	    		appStatus = 5;
+	    	}else{
+	    		docStatus = 2;
+	    		appStatus = 4;
+	    	}
+	    	
+    		data02Data.docCrUserNo = userNoCR;
+    		data02Data.docType = $("#docType").val();
+    		data02Data.docTitle = $("#docTitle").val();
+    		data02Data.linkSoppNo = $("#soppNo").val();
+    		data02Data.linkCustNo = $("#custNo").val();
+    		data02Data.docDesc = tinyMCE.get("docDesc").getContent();
+    		data02Data.docAmount = parseInt($("#product02InSum_table").html().replace(/[\D\s\._\-]+/g, ""));
+    		data02Data.linkMasterdocNo = docNo;
+    		data02Data.docStatus = docStatus;
+    		data02Data.docFormNo = $("[name='contractType']:checked").val();
+    		data02Data.docDate = $("#docDate").val();
+    		
+    		$.ajax({
+				url: "${path}/gw/delete/" + docNo,
+				method: "post",
+				success: function(){
+					$.ajax({
+		    			url: "${path}/gw/insert.do",
+		    			method: "post",
+		    			data: data02Data,
+		    			dataType: "json",
+		    			success: function(data){
+		    				data02App.compNo = $("#compNo").val();
+		    				data02App.docNo = data.getId;
+		    				data02App.userNoCR = userNoCR;
+		    				data02App.userNoIS = docUserNo;
+		    				data02App.userNoAPP = userNo;
+		    				data02App.appStatus = appStatus;
+		    				data02App.issueDate = $("#issueDate").val();
+		    				data02App.appDate = $("#appDate").val();
+		    				data02App.appComment = tinyMCE.get("appComment").getContent();
+		    				
+		    				$.ajax({
+		    					url: "${path}/gw/insertApp.do",
+		    					method: "post",
+		    					data: data02App,
+		    					dataType: "json",
+		    				});
+		    				
+							for(var i = 0; i < dataArray.length; i++){
+								dataArray[i].docNo = data.getId;
+								var JsonArray = JSON.stringify(dataArray[i]);
+				  				$.ajax({
+				  					url: "${path}/gw/insertData.do",
+				  					method: "post",
+				  					data: JSON.parse(JsonArray),
+				  					dataType: "json"
+				  				});
+				 			}
+				 			alert("승인되었습니다.");
+				 			location.href = "${path}/gw/list.do";
+		    			}
+		    		});
+				}
+			});
+    	}
+    }
 
-        if(!data02Data.dataQuanty){
-            alert("단가를 입력해주십시오.");
-            return;
-        } else if(!data02Data.dataAmt){
-            alert("수량을 입력해주십시오.");
-            return;
-        } else if (!data02Data.dataTitle){
-            alert("상품명을 입력해주십시오.");
-            return;
-        }
-
-        $.ajax({ url: "${path}/sopp/updatedata01.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
-            data: data02Data , // HTTP 요청과 함께 서버로 보낼 데이터
-            method: "POST", // HTTP 요청 메소드(GET, POST 등)
-            dataType: "json" // 서버에서 보내줄 데이터의 타입
-        }) // HTTP 요청이 성공하면 요청한 데이터가 done() 메소드로 전달됨. .
-            .done(function(data) {
-                if(data.code == 10001){
-                    alert("저장 성공");
-                    $("#data02Type option:eq(0)").attr("selected","selected");
-                    $("#soppdataNoEstimate").val("");
-                    $("#productSalesEstimateCustName").val("");
-                    $("#productSalesEstimateCustNo").val("");
-                    $("#productNo2").val("");
-                    $("#data02Title").val("");
-                    $("#data02Netprice").val("");
-                    $("#data02Quanty").val("");
-                    $("#data02Amt").val("");
-                    $("#data02Vat").val("");
-                    $("#data02Total").val("");
-                    $("#data02Remark").val("");
-
-                    $("#data02Addbtn").show();
-                    $("#data02Modbtn").hide();
-
-                    var url="${path}/sopp/qutylist/"+$("#soppNo").val();
-                    fn_Reloaddata02(url);
-                }else{
-                    alert("저장 실패");
-                }
-            }) // HTTP 요청이 실패하면 오류와 상태에 관한 정보가 fail() 메소드로 전달됨.
-            .fail(function(xhr, status, errorThrown) {
-                $(e).addClass("btn-dark");
-                $(e).removeClass("btn-warning");
-                $(e).html('수정');
-                $("#data02Addbtn").show();
-                $("#data02Modbtn").hide();
-                alert("통신 실패");
-            });
+    function fn_data02Com(){
+    	var docUserNo = $("#docUserNo").val();
+    	var userNoCR = $("#userNoCR").val();
+    	var userNo = $("#userNo").val();
+    	var docNo = $("#docNo").val();
+    	var data02Data = {};
+    	var data02App = {};
+    	
+    	if($("#docTitle").val() === ""){
+    		alert("문서 제목을 작성하십시오.");
+    		$("#docTitle").focus();
+    		return false;
+    	}else if($("#docType").val() === ""){
+    		alert("문서 종류를 선택해주십시오.");
+    		return false;
+    	}else if($("#docDate").val() === ""){
+    		alert("작성일자를 선택해주십시오.");
+    		return false;
+    	}else if($("#userName").val() === ""){
+    		alert("결재자를 선택해주십시오.");
+    		return false;
+    	}else{
+    		data02Data.docCrUserNo = userNoCR;
+    		data02Data.docType = $("#docType").val();
+    		data02Data.docTitle = $("#docTitle").val();
+    		data02Data.linkSoppNo = $("#soppNo").val();
+    		data02Data.linkCustNo = $("#custNo").val();
+    		data02Data.docDesc = tinyMCE.get("docDesc").getContent();
+    		data02Data.docAmount = parseInt($("#product02InSum_table").html().replace(/[\D\s\._\-]+/g, ""));
+    		data02Data.linkMasterdocNo = docNo;
+    		data02Data.docStatus = 2;
+    		data02Data.docFormNo = $("[name='contractType']:checked").val();
+    		data02Data.docDate = $("#docDate").val();
+    		
+    		$.ajax({
+				url: "${path}/gw/delete/" + docNo,
+				method: "post",
+				success:function(){
+					$.ajax({
+		    			url: "${path}/gw/insert.do",
+		    			method: "post",
+		    			data: data02Data,
+		    			dataType: "json",
+		    			success: function(data){
+		    				data02App.compNo = $("#compNo").val();
+		    				data02App.docNo = data.getId;
+		    				data02App.userNoCR = userNoCR;
+		    				data02App.userNoIS = docUserNo;
+		    				data02App.userNoAPP = userNoCR;
+		   					data02App.appStatus = 3;
+		   					data02App.issueDate = $("#issueDate").val();
+		   					data02App.appDate = $("#appDate").val();
+		    				data02App.appComment = tinyMCE.get("appComment").getContent();
+		    				
+		    				$.ajax({
+		    					url: "${path}/gw/insertApp.do",
+		    					method: "post",
+		    					data: data02App,
+		    					dataType: "json",
+		    				});
+		    				
+							for(var i = 0; i < dataArray.length; i++){
+								dataArray[i].docNo = data.getId;
+								var JsonArray = JSON.stringify(dataArray[i]);
+				  				$.ajax({
+				  					url: "${path}/gw/insertData.do",
+				  					method: "post",
+				  					data: JSON.parse(JsonArray),
+				  					dataType: "json"
+				  				});
+				 			}
+				 			alert("반려되었습니다.");
+				 			location.href = "${path}/gw/list.do";
+		    			}
+		    		});
+				}
+			});
+    	}
     }
 	
     function recall02(){
@@ -500,6 +699,42 @@
     }
 
     $(document).ready(function(){
+    	var qutylist = $("#qutylist tbody tr");
+    	var productSum = parseInt($("#product02InSum_table").html().replace(/[\D\s\._\-]+/g, ""));
+    	
+    	qutylist.each(function(index, item){
+	    	var temp = {};
+    		var productSalesEstimateCustName = $(item).find('#salesCustNoN').html();
+        	var productNo = $(item).find("#productSalesEstimateCustNo").html();
+        	var productName = $(item).find("#dataTitle").html();
+        	var productNetprice = $(item).find("#dataNetprice").html().replace(/[\D\s\._\-]+/g, "");
+        	var productQty = $(item).find("#dataQuanty").html();
+        	var productAmount = $(item).find("#dataAmt").html().replace(/[\D\s\._\-]+/g, "");
+        	var productVat = $(item).find("#dataVat").html().replace(/[\D\s\._\-]+/g, "");
+        	var productTotal = $(item).find("#dataTotal").html().replace(/[\D\s\._\-]+/g, "");
+        	var productRemark = $(item).find("#dataRemark").html();
+        	
+        	productSum = productSum + parseInt(productTotal);
+        	
+        	$(item).find("#dataDelBtn").attr("data-index", index);
+        	
+        	temp.docNo = 0;
+        	temp.custName = productSalesEstimateCustName;
+        	temp.productName = productName;
+        	temp.productNetprice = productNetprice;
+        	temp.productQty = productQty;
+        	temp.productAmount = productAmount;
+        	temp.productVat = productVat;
+        	temp.productTotal = productTotal;
+        	temp.productRemark = productRemark;
+        	
+        	dataArray.push(temp);
+    	});
+    	
+    	setTimeout(() => {
+	    	$("#product02InSum_table").html("￦"+parseInt(productSum).toLocaleString("en-US"));
+		}, 100);
+    	
         $('#data02Total,#data02Quanty').on('keyup',function(){
             recall02();
         });

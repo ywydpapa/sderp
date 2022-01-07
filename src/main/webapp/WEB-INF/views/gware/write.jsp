@@ -208,6 +208,9 @@
                             </tr>
                             </tbody>
                         </table>
+                        <c:set var="now" value="<%=new java.util.Date()%>" />
+                       	<c:set var="sysDate"><fmt:formatDate value="${now}" pattern="yyyy-MM-dd HH:mm:ss" /></c:set>
+                       	<input type="hidden" id="issueDate" value="${sysDate}" />
                         <div class="table-responsive" style="overflow-x: hidden;">
                             <jsp:include page="/WEB-INF/views/module/inputSet/inputSetDoc.jsp"/>
                             <jsp:include page="/WEB-INF/views/gware/docdtaillist.jsp"/>
@@ -218,9 +221,9 @@
         </div>
     </div>
     <div class="btn_wr text-right mt-3">
-        <button class="btn btn-md btn-success f-left" onClick="javascript:location='${path}/gw/estlist.do'">결재목록</button>
+        <button class="btn btn-md btn-success f-left" onClick="javascript:location='${path}/gw/list.do'">결재목록</button>
         <button class="btn btn-md btn-primary" onClick="fn_data02Insert()">결재등록</button>
-        <button class="btn btn-md btn-inverse" onClick="javascript:location='${path}/gw/estlist.do'">취소</button>
+        <button class="btn btn-md btn-inverse" onClick="javascript:location='${path}/gw/list.do'">취소</button>
     </div>
     <!--//계약등록-->
 

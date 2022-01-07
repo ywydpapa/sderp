@@ -76,19 +76,16 @@ public class GwDAOImpl implements GwDAO{
 
     @Override
     public int insertDoc(GwDTO dto) {
-
         return sqlSession.insert("gw.insertDoc",dto);
     }
     
     @Override
     public int insertDocApp(GwDTO dto) {
-
         return sqlSession.insert("gw.insertDocApp",dto);
     }
     
     @Override
     public int insertDocData(GwDTO dto) {
-
         return sqlSession.insert("gw.insertDocData",dto);
     }
 
@@ -99,10 +96,19 @@ public class GwDAOImpl implements GwDAO{
 
     @Override
     public int updateDoc(GwDTO dto) {
-
         return sqlSession.update("gw.updateDoc",dto);
     }
 
+    @Override
+    public int updateDocApp(GwDTO dto) {
+        return sqlSession.update("gw.updateDocApp",dto);
+    }
+    
+    @Override
+    public int updateDocData(GwDTO dto) {
+        return sqlSession.update("gw.updateDocData",dto);
+    }
+    
     @Override
     public int updateUserAtt(GwDTO dto) {
         return sqlSession.update("gw.updateUserAtt", dto);
@@ -115,7 +121,6 @@ public class GwDAOImpl implements GwDAO{
 
     @Override
     public int deleteDoc(int docNo) {
-
         return sqlSession.update("gw.deleteDoc",docNo);
     }
 

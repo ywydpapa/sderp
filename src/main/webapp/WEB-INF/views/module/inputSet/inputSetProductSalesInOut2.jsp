@@ -157,10 +157,10 @@
                     <!--//모달 팝업-->
                 </td>
                 <td><input type="text" id="data01Netprice" required class="form-control form-control-sm" style="min-width: 80px;" /></td>
-                <td><input type="text" id="data01Quanty" required class="form-control form-control-sm" style="min-width: 80px;" /></td>
+                <td><input type="text" id="data01Quanty" required class="form-control form-control-sm" style="min-width: 80px;" value="1" min="1" /></td>
                 <td><input type="text" id="data01Amt" class="form-control form-control-sm" readonly placeholder="자동계산됩니다." style="min-width: 80px;" /></td>
 				<td><input type="text" id="data01Vat" required class="form-control form-control-sm" style="min-width: 80px;" /></td>
-				<td><input type="text" id="data01Total" class="form-control form-control-sm" readonly placeholder="자동계산됩니다." style="min-width: 80px;" /></td>
+				<td><input type="text" id="data01Total" class="form-control form-control-sm" placeholder="부가세 포함 금액 자동계산." style="min-width: 80px;" /></td>
                 <td><input type="text" id="data01Remark" class="form-control form-control-sm" /></td>
                 <td>
                     <button id="data01Addbtn" class="btn btn-success btn-sm" onClick="javascript:fn_data01Insert()">추가</button>
@@ -486,12 +486,7 @@
         var sum2 = parseInt($("#data01Quanty").val().replace(/[\D\s\._\-]+/g, "") || 0 );
         var sum3 = parseInt($("#data01Vat").val().replace(/[\D\s\._\-]+/g, "") || 0 );
         var sum = sum1 * sum2;
-        var vat = $('#vatYn').val();
-        if (vat == 'Y'){
-            var sumv = sum * 0.1;
-        } else {
-            var sumv = sum * 0.0;
-        }
+        var sumv = sum * 0.1;
         var sumt = sum + sumv;
         $("#data01Netprice").val(sum1.toLocaleString("en-US"));
         $("#data01Quanty").val(sum2.toLocaleString("en-US"));
@@ -500,13 +495,60 @@
         $("#data01Total").val(sumt.toLocaleString("en-US"));
     }
 
+    function recall2(){
+        var sum1 = parseInt($("#data01Netprice").val().replace(/[\D\s\._\-]+/g, "") || 0 );
+        var sum2 = parseInt($("#data01Quanty").val().replace(/[\D\s\._\-]+/g, "") || 0 );
+        var sum3 = parseInt($("#data01Vat").val().replace(/[\D\s\._\-]+/g, "") || 0 );
+        var Total = parseInt($("#data01Total").val().replace(/[\D\s\._\-]+/g, "") || 0 );
+        var sumv = Math.round(Total / 11);
+        var suma = Math.round(Total / 11 * 10);
+        var sumn = Math.round(Total/11*10/sum2);
+        $("#data01Netprice").val(sumn.toLocaleString("en-US"));
+        $("#data01Quanty").val(sum2.toLocaleString("en-US"));
+        $("#data01Amt").val(suma.toLocaleString("en-US"));
+        $("#data01Vat").val(sumv.toLocaleString("en-US"));
+        $("#data01Total").val(Total.toLocaleString("en-US"));
+    }
+
+    function recall3(){
+        var sum1 = parseInt($("#data01Netprice").val().replace(/[\D\s\._\-]+/g, "") || 0 );
+        var sum2 = parseInt($("#data01Quanty").val().replace(/[\D\s\._\-]+/g, "") || 0 );
+        var sum3 = parseInt($("#data01Vat").val().replace(/[\D\s\._\-]+/g, "") || 0 );
+        if (sum3 == 0){
+            var sumt = sum1 * sum2;
+            $("#data01Netprice").val(sum1.toLocaleString("en-US"));
+            $("#data01Quanty").val(sum2.toLocaleString("en-US"));
+            $("#data01Amt").val(sumt.toLocaleString("en-US"));
+            $("#data01Vat").val(sum3.toLocaleString("en-US"));
+            $("#data01Total").val(sumt.toLocaleString("en-US"));
+        }else{
+            var sumt = (sum1 * sum2) + sum3;
+            var suma = (sum1 * sum2);
+            $("#data01Netprice").val(sum1.toLocaleString("en-US"));
+            $("#data01Quanty").val(sum2.toLocaleString("en-US"));
+            $("#data01Amt").val(suma.toLocaleString("en-US"));
+            $("#data01Vat").val(sum3.toLocaleString("en-US"));
+            $("#data01Total").val(sumt.toLocaleString("en-US"));
+        }
+    }
+
     $(document).ready(function(){
         $('#data01Netprice,#data01Quanty').on('keyup',function(){
             recall();
         });
+
+        $('#data01Total').on('keyup',function(){
+            recall2();
+        });
+
+        $('#data01Vat').on('keyup',function(){
+            recall3();
+        });
+
 
         $("#data01Modbtn").hide();
         var nowDate = new Date();      
         $("#ioDate").val(nowDate.getFullYear() + "-" + parseInt(nowDate.getMonth()+1) + "-" + nowDate.getDate());
     });
 </script>
+

@@ -87,6 +87,7 @@ public class GwServiceImpl implements GwService{
 
     @Override
     public GwDTO detailUserAtt(int attendId) {
+
         return gwDao.detailUserAtt(attendId);
     }
 

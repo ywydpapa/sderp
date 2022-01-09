@@ -34,7 +34,7 @@
                         <input type="hidden" id="compNo" value="${sessionScope.compNo}" />
                         <input type="hidden" id="userNo" value="${sessionScope.userNo}" />
                         <div class="table-responsive" style="overflow-x: hidden;">
-                            <jsp:include page="/WEB-INF/views/hr/attdetaillist.jsp"/>
+                            <jsp:include page="/WEB-INF/views/hr/attdetaillist2.jsp"/>
                         </div>
                     </div>
                 </div>

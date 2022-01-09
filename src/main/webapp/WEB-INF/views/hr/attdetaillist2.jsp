@@ -21,30 +21,23 @@
     <thead>
     <tr>
         <th class="text-center">구분</th>
+        <th class="text-center">신청자</th>
         <th class="text-center">시작일자</th>
         <th class="text-center">종료일자</th>
         <th class="text-center">비고</th>
-        <th class="text-center">삭제</th>
     </tr>
     </thead>
     <tbody>
 	    	<tr>
-	            <td id='hrType'>${list.attType}</td>
-	            <td id='hrStart'>${list.attStart}</td>
+	            <td id='hrType'><c:if test="${list.attType eq 1}">월차</c:if><c:if test="${list.attType eq 2}">연차</c:if><c:if test="${list.attType eq 3}">경조휴가</c:if><c:if test="${list.attType eq 4}">휴직</c:if></td>
+                <td id='hrUser'>${list.userNo}</td>
+                <td id='hrStart'>${list.attStart}</td>
 	            <td id='hrEnd'>${list.attEnd}</td>
 	            <td id='hrDesc'>${list.attDesc}</td>
-	    		<td><button class='btn btn-sm btn-danger'>삭제</button></td>
 	    	</tr>
     </tbody>
 </table>
 <br/>
-<table class="table table-sm">
-    <tr class="item2">
-        <td colspan="1" style="text-align: center; background: #80808030;">합계</td>
-        <td colspan="11" style="text-align: right; background: #80808030;" id="product02InSum_table">0</td>
-    </tr>
-</table>
-
 <script>
     function fn_data02modify(e) {
         if($(e).html() == "수정"){

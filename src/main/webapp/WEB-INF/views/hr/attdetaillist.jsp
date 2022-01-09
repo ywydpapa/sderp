@@ -28,23 +28,9 @@
     </tr>
     </thead>
     <tbody>
-	    	<tr>
-	            <td id='hrType'>${list.attType}</td>
-	            <td id='hrStart'>${list.attStart}</td>
-	            <td id='hrEnd'>${list.attEnd}</td>
-	            <td id='hrDesc'>${list.attDesc}</td>
-	    		<td><button class='btn btn-sm btn-danger'>삭제</button></td>
-	    	</tr>
     </tbody>
 </table>
 <br/>
-<table class="table table-sm">
-    <tr class="item2">
-        <td colspan="1" style="text-align: center; background: #80808030;">합계</td>
-        <td colspan="11" style="text-align: right; background: #80808030;" id="product02InSum_table">0</td>
-    </tr>
-</table>
-
 <script>
     function fn_data02modify(e) {
         if($(e).html() == "수정"){

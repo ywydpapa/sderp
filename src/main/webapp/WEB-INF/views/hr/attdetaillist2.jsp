@@ -72,8 +72,7 @@
             var rej = prompt("반려사유를 입력해 주십시오.");
             var attData={};
             attData.attendId = $("#attendId").val();
-            var pdesc = $("#hrDesc").innerText ;
-            var addDesc = pdesc + "<span style='color:red'>"+ rej+ "</span>";
+            var addDesc ="${list.attDesc}" + " : "+ "<span style='color:red'>"+rej+"</span>";
             attData.attDesc = addDesc;
             console.log(attData);
             $.ajax({

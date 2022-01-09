@@ -68,18 +68,18 @@
                             <tbody>
                             <c:forEach var="row" items="${list}">
                                 <tr>
-                                    <td>${row.regDate}</td>
-                                    <td>
+                                    <td class="text-center">${row.regDate}</td>
+                                    <td class="text-center">
                                         <a href="${path}/gw/attdetail/${row.attendId}"><c:if test="${row.attType eq 1}">월차</c:if>
                                             <c:if test="${row.attType eq 2}">연차</c:if>
                                             <c:if test="${row.attType eq 3}">경조휴가</c:if>
                                             <c:if test="${row.attType eq 4}">휴직</c:if></a>
                                     </td>
-                                    <td>${row.userNo}</td>
-                                    <td><a href="${path}/gw/attdetail/${row.attendId}">${row.attDesc}</a></td>
-                                    <td>${row.attStart}</td>
-                                    <td>${row.attEnd}</td>
-                                    <td><c:if test="${row.attStatus eq 1}">신청중</c:if>
+                                    <td class="text-center">${row.userName}</td>
+                                    <td class="text-left"><a href="${path}/gw/attdetail/${row.attendId}">${row.attDesc}</a></td>
+                                    <td class="text-center">${row.attStart}</td>
+                                    <td class="text-center">${row.attEnd}</td>
+                                    <td class="text-center"><c:if test="${row.attStatus eq 1}">신청중</c:if>
                                         <c:if test="${row.attStatus eq 3}">반려/보류</c:if>
                                         <c:if test="${row.attStatus eq 5}">승인완료</c:if></td>
                                 </tr>

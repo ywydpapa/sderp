@@ -222,6 +222,30 @@ public class GwController {
         return ResponseEntity.ok(param);
     }
 
+    @RequestMapping("attallow.do")
+    public ResponseEntity<?> attallow(@ModelAttribute GwDTO dto) {
+        Map<String, Object> param = new HashMap<>();
+        int allow = gwService.Attallow(dto);
+        if (allow >0) {
+            param.put("code","10001");
+        }
+        else {param.put("code","20001");
+        }
+        return ResponseEntity.ok(param);
+    }
+
+    @RequestMapping("attreject.do")
+    public ResponseEntity<?> attreject(@ModelAttribute GwDTO dto) {
+        Map<String, Object> param = new HashMap<>();
+        int allow = gwService.Attreject(dto);
+        if (allow >0) {
+            param.put("code","10001");
+        }
+        else {param.put("code","20001");
+        }
+        return ResponseEntity.ok(param);
+    }
+
     @RequestMapping("insertEstitems.do")
     public ResponseEntity<?> insertEstitems(@ModelAttribute GwDTO dto) {
         Map<String, Object> param = new HashMap<>();

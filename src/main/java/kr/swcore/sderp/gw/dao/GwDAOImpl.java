@@ -123,6 +123,16 @@ public class GwDAOImpl implements GwDAO{
     }
 
     @Override
+    public int Attallow(GwDTO dto) {
+        return sqlSession.update("gw.Attallow", dto);
+    }
+
+    @Override
+    public int Attreject(GwDTO dto) {
+        return  sqlSession.update("gw.Attreject", dto);
+    }
+
+    @Override
     public int deleteDoc(int docNo) {
         return sqlSession.update("gw.deleteDoc",docNo);
     }

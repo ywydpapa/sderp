@@ -43,8 +43,10 @@
     </div>
     <div class="btn_wr text-right mt-3">
         <button class="btn btn-md btn-success f-left" onClick="javascript:location='${path}/gw/attlist.do'">휴가목록</button>
+<c:if test="${list.attStatus eq 1}">
         <button class="btn btn-md btn-primary" onClick="fn_AttRtn()">근태반려</button>
         <button class="btn btn-md btn-primary" onClick="fn_AttApp()">근태승인</button>
+</c:if>
         <button class="btn btn-md btn-inverse" onClick="javascript:location='${path}/gw/attlist.do'">취소</button>
     </div>
     <!--//계약등록-->
@@ -52,6 +54,8 @@
     <script>
         $(document).ready(function() {
         });
+
+
     </script>
 </div>
 <jsp:include page="../body-bottom.jsp"/>

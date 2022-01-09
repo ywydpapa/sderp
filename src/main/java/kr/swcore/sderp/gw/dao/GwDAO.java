@@ -29,6 +29,8 @@ public interface GwDAO {
     int updateDocData(GwDTO dto);
     int updateUserAtt(GwDTO dto);
     int updateDocAppLvl(GwDTO dto);
+    int Attallow(GwDTO dto);
+    int Attreject(GwDTO dto);
     int deleteDoc(int docNo);
     int deleteUserAtt(int attendId);
     int insertEst(GwDTO dto);

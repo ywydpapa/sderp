@@ -141,6 +141,16 @@ public class GwServiceImpl implements GwService{
     }
 
     @Override
+    public int Attallow(GwDTO dto) {
+        return gwDao.Attallow(dto);
+    }
+
+    @Override
+    public int Attreject(GwDTO dto) {
+        return gwDao.Attreject(dto);
+    }
+
+    @Override
     public int deleteDoc(int docNo) {
 
         return gwDao.deleteDoc(docNo);

@@ -26,7 +26,7 @@
 				<c:forEach var="row2" items="${soppFiles}">
 					<tr class="item1">
 						<td>${row2.uploadDate}</td>
-						<td><a href="javascript:downloadFile('${row2.fileId}');">${row2.fileName}</a></td>
+						<td><a href="javascript:downloadFile('${row2.fileId}','${row2.fileName}');">${row2.fileName}</a></td>
 						<td>${row2.fileDesc}</td>
 						<td style="text-align: center;"><button class="btn btn-sm btn-inverse" onclick="javascript:deleteFile('${row2.fileId}');">삭제</button></td>
 					</tr>
@@ -114,7 +114,7 @@
 	}
 
 
-	function downloadFile(fileId) {
+	function downloadFile(fileId,fileName) {
 		var downloadData = {};
 		downloadData.soppNo = $("#soppNo").val();
 		downloadData.fileId = fileId;
@@ -127,7 +127,7 @@
 				responseType: 'blob'
 			},
 		}).done(function(data, status, xhr){
-			var fileName = xhr.getResponseHeader('content-disposition');
+			/* var fileName = xhr.getResponseHeader('content-disposition'); */
 			var link = document.createElement('a');
 			link.href = window.URL.createObjectURL(data);
 			link.download = fileName;

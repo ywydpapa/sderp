@@ -323,6 +323,7 @@
 			var EdateDateArr = EdateValue.split("-");
 			var EdateDateCom = new Date(EdateDateArr[0], parseInt(EdateDateArr[1])-1, EdateDateArr[2]);
 			
+			
 			if(EdateValue == ""){
 				dateValueCom.setDate(dateValueCom.getDate()+1);
 			}else if(dateValueCom.getTime() > EdateDateCom.getTime()){
@@ -336,6 +337,11 @@
 			var month = dateValueCom.getMonth()+1;
 			var day = dateValueCom.getDate();
 			
+			if(month < 10){
+				month = "0" + month;
+			}
+			
+			console.log(month);
 			if(day < 10){
 				day = "0" + day;
 			}
@@ -363,6 +369,10 @@
 			var year = thisDateCom.getFullYear();
 			var month = thisDateCom.getMonth()+1;
 			var day = thisDateCom.getDate();
+			
+			if(month < 10){
+				month = "0" + month;
+			}
 			
 			if(day < 10){
 				day = "0" + day;

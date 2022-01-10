@@ -12,17 +12,17 @@
     </table>
     <table class="table table-sm bst02" id="addquty">
         <colgroup>
-            <col width="25%" />
-            <col width="25%" />
-            <col width="25%" />
-            <col width="25%" />
+            <col width="10%" />
+            <col width="45%" />
+            <col width="40%" />
+            <col width="5%" />
         </colgroup>
         <thead>
         <tr>
             <th class="text-center">근태종류</th>
             <th class="text-center">시작일</th>
             <th class="text-center">종료일</th>
-            <th class="text-center">삭제</th>
+            <th class="text-center">추가</th>
         </tr>
         </thead>
         <tbody>
@@ -35,9 +35,27 @@
                     <option value="4">휴일근무</option>
                     <option value="5">경조휴가</option>
                 </select></td>
-                <td><input type="date" class="form-control form-control-sm" id="hrFrom" style="min-width: 80px;" /><input type="time" class="form-control form-control-sm" id="hrFromTm" style="min-width: 80px;" /></td>
-                <td><input type="date" class="form-control form-control-sm" id="hrTo" style="min-width: 80px;" /><input type="time" class="form-control form-control-sm" id="hrToTm" style="min-width: 80px;" /></td>
-                <td>
+                <td class="text-center">
+                	<div style="width:100%">
+                		<div style="float:left; width:49%;" >
+		                	<input type="date" class="form-control form-control-sm" id="hrFrom"  />
+                		</div>
+                		<div style="float:left; width:49%;">
+		                	<input type="time" class="form-control form-control-sm" id="hrFromTm" />
+                		</div>
+                	</div>
+                </td>
+                <td class="text-center">
+                	<div style="width:100%">
+                		<div style="float:left; width:49%;" >
+		                	<input type="date" class="form-control form-control-sm" id="hrTo" />
+                		</div>
+                		<div style="float:left; width:49%;">
+		                	<input type="time" class="form-control form-control-sm" id="hrToTm"/>
+                		</div>
+                	</div>
+                </td>
+                <td class="text-center">
                     <button id="HRAddbtn" class="btn btn-success btn-sm" onClick="dataSave();">추가</button>
                 </td>
             </tr>

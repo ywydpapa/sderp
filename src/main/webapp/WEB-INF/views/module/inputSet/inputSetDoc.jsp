@@ -292,7 +292,7 @@
 		});
 	});
 
-	function downloadFile(fileId) {
+	function downloadFile(fileId, fileName) {
 		var downloadData = {};
 		downloadData.docNo = $("#docNo").val();
 		downloadData.fileId = fileId;
@@ -305,7 +305,7 @@
 				responseType: 'blob'
 			},
 		}).done(function(data, status, xhr){
-			var fileName = xhr.getResponseHeader('content-disposition');
+			/* var fileName = xhr.getResponseHeader('content-disposition'); */
 			var link = document.createElement('a');
 			link.href = window.URL.createObjectURL(data);
 			link.download = fileName;
@@ -780,7 +780,7 @@
 				  					dataType: "json"
 				  				});
 				 			}
-				 			alert("승인되었습니다.");
+				 			alert("완료되었습니다.");
 				 			location.href = "${path}/gw/list.do";
 		    			}
 		    		});

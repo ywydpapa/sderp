@@ -100,7 +100,7 @@
                                         </div>
                                     </div>
                                 </td>
-                                <th class="text-center">거래처</th>
+                                <th class="text-center">종류</th>
                                 <td>
                                     <div class="input-group input-group-sm mb-0">
                                         <input type="text" class="form-control" name="custName"
@@ -172,7 +172,7 @@
 		                                </td>
 		                                <th class="text-center">파일다운로드</th>
 		                                <td>
-		                                    <a href="javascript:downloadFile('${detailFile.fileId}');">${detailFile.fileName}</a>
+		                                    <a href="javascript:downloadFile('${detailFile.fileId}', '${detailFile.fileName}');">${detailFile.fileName}</a>
 		                                </td>
 		                            </tr>
 		                            <tr>

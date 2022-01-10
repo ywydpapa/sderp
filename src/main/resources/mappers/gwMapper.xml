@@ -13,7 +13,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </select>
     
     <select id="detailDocApp" resultType="gwDto">
-        select a.*, b.userName from swc_businessdocapp a left join swc_user b on a.userNoAPP = b.userNo where a.attrib not like 'XXX%' and a.docNo=#{docNo};
+        select a.*, b.userName from swc_businessdocapp a left join swc_user b on a.userNoIS = b.userNo where a.attrib not like 'XXX%' and a.docNo=#{docNo};
     </select>
     
     <select id="detailDocData" resultType="gwDto">
@@ -131,7 +131,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<select id="myDocList" resultType="gwDto">
-		select a.*, c.userName as userIsName, b.appStatus from swc_businessdoc a left join swc_businessdocapp b on a.docNo = b.docNo left join swc_user c on c.userNo = b.userNoIS where a.attrib not like 'XXX%' and b.userNoAPP = #{userNo} and a.docStatus = 2 and b.appStatus BETWEEN 1 and 5;
+		select a.*, c.userName as userIsName, b.appStatus from swc_businessdoc a left join swc_businessdocapp b on a.docNo = b.docNo left join swc_user c on c.userNo = b.userNoIS where a.attrib not like 'XXX%' and a.docStatus = 2 and b.appStatus BETWEEN 2 and 4 and b.appStatus != 3;
 	</select>
 
 	<insert id="insertDoc" useGeneratedKeys="true" keyProperty="getId">
@@ -254,6 +254,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	 	)
 	</insert>
 	
+	<update id="uploadFileUpdate">
+		update swc_businessfiledata set
+			fileId = #{fileId},
+			fileName = #{fileName},
+			fileDesc = #{fileDesc},
+			fileContent = #{fileContent},
+			userNo = #{userNo},
+			ModDatetime = now()
+		where docNo = #{docNo}
+	</update>
+	
 	<select id="listFile" resultType="gwFileDataDTO">
 	 	select * from swc_businessfiledata
 	 	where docNo=#{docNo}
@@ -283,6 +294,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<update id="updateDocApp">
 		update swc_businessdocapp set
 			userNoAPP = #{userNoAPP},
+			appStatus = #{appStatus},
+			appDate = #{appDate},
+			appComment = #{appComment},
 			ModDate = now()
 		where docNo = #{docNo};
 	</update>
@@ -308,6 +322,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		update swc_businessdocData set
 			attrib = "XXXXX",
 		    ModDate = now()
+		where docNo = #{docNo};
+		
+		update swc_businessfiledata set
+			attrib = "XXXXX",
+		    ModDatetime = now()
 		where docNo = #{docNo};
 	</update>
 

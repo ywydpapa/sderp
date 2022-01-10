@@ -1,9 +1,8 @@
 package kr.swcore.sderp.gw.dao;
 
 import kr.swcore.sderp.gw.dto.GwDTO;
-import kr.swcore.sderp.gw.dto.GwFileDataDTO;
 
-import javax.servlet.http.HttpSession;
+import kr.swcore.sderp.gw.dto.GwFileDataDTO;
 import java.util.List;
 
 public interface GwDAO {
@@ -36,5 +35,6 @@ public interface GwDAO {
     int insertEst(GwDTO dto);
     int insertEstitems(GwDTO dto);
     int uploadFile(GwFileDataDTO dto);
+    int uploadFileUpdate(GwFileDataDTO dto);
     GwFileDataDTO downloadFile(GwFileDataDTO dto);
 }

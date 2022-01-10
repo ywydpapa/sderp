@@ -236,6 +236,7 @@
 
                 html += "\n등록하시겠습니까?";
                 var result = confirm(html);
+                
 
                 if(result){
                     console.log("등록진행");
@@ -389,7 +390,7 @@
     		alert("자신에게 요청할 수 없습니다.");	
     		return false;
     	}else if(!uploadData.get('file').name){
-    		alert('파일을 선택해주세요');
+    		alert('영수증을 첨부해주십시오.');
     		return false;
     	}else{
     		data02Data.docCrUserNo = $("#docUserNo").val();
@@ -518,6 +519,8 @@
 
 
     function fn_data02Update() {
+    	var uploadForm = $('#uploadForm')[0];
+		var uploadData = new FormData(uploadForm);
     	var data02Data = {};
     	var data02App = {};
     	var dataTemp = {};
@@ -560,7 +563,9 @@
     			success: function(data){
     				data02App.docNo = docNo;
     				data02App.userNoAPP = $("#userNo").val();
-    				data02App.issueDate = $("#issueDate").val();
+    				data02App.appStatus = 2;
+    				data02App.appDate = $("#appDate").val();
+    				data02App.appComment = tinyMCE.get("appComment").getContent();
     				
     				$.ajax({
     					url: "${path}/gw/updateApp.do",
@@ -568,6 +573,17 @@
     					data: data02App,
     					dataType: "json",
     				});
+    				
+    				if(uploadData.get('file').name !== ""){
+	    				$.ajax({
+	    					url : "${path}/gw/uploadfileUpdate/"+docNo,
+	    					method : "POST",
+	    					data : uploadData,
+	    					contentType : false,
+	    					processData : false,
+	    				});
+    		    	}
+    				
     				
     				$.ajax({
     					url: "${path}/gw/updateData.do",
@@ -630,6 +646,7 @@
                     data02App.docNo = docNo;
                     data02App.userNoAPP = $("#userNo").val();
                     data02App.issueDate = $("#issueDate").val();
+                    data02App.appStatus = 2;
 
                     $.ajax({
                         url: "${path}/gw/updateApp.do",
@@ -706,7 +723,7 @@
     		alert("결재자를 선택해주십시오.");
     		return false;
     	}else{
-	    	if(docUserNo == userNo){
+	    	if($("#appStatus").val() == 4){
 	    		docStatus = 3;
 	    		appStatus = 5;
 	    	}else{
@@ -773,6 +790,7 @@
     }
 
     function fn_data02Com(){
+    	var uploadData = new FormData(uploadForm);
     	var docUserNo = $("#docUserNo").val();
     	var userNoCR = $("#userNoCR").val();
     	var userNo = $("#userNo").val();

@@ -1,6 +1,5 @@
 package kr.swcore.sderp.gw.service;
 
-import kr.swcore.sderp.cont.dto.ContFileDataDTO;
 import kr.swcore.sderp.gw.dao.GwDAO;
 import kr.swcore.sderp.gw.dto.GwDTO;
 import kr.swcore.sderp.gw.dto.GwFileDataDTO;
@@ -185,6 +184,20 @@ public class GwServiceImpl implements GwService{
 		gwFile.setUserNo(Integer.valueOf((String)session.getAttribute("userNo")));
 		
 		return gwDao.uploadFile(gwFile);
+	}
+    
+    @Override
+	public int uploadFileUpdate(HttpSession session, int docNo, MultipartHttpServletRequest fileList) throws IOException {
+		MultipartFile file = fileList.getFile("file");
+		GwFileDataDTO gwFile = new GwFileDataDTO();
+		gwFile.setFileId(UUID.randomUUID().toString());
+		gwFile.setFileName(file.getOriginalFilename());
+		gwFile.setFileContent(file.getBytes());
+		gwFile.setFileDesc(fileList.getParameter("fileDesc"));
+		gwFile.setDocNo(docNo);
+		gwFile.setUserNo(Integer.valueOf((String)session.getAttribute("userNo")));
+		
+		return gwDao.uploadFileUpdate(gwFile);
 	}
 
 	@Override

@@ -168,7 +168,7 @@
                                 </td>
                                 <th class="text-center requiredTextCss">결제자(*)</th>
                                 <td>
-									<div class="input-group input-group-sm mb-0">
+									<%-- <div class="input-group input-group-sm mb-0">
 										<input type="text" class="form-control" name="userName"
 											id="userName" readonly> <input type="hidden"
 											name="userNo" id="userNo"> <span
@@ -202,7 +202,9 @@
 											</div>
 										</div>
 									</div>
-                                </td>
+                                </td> --%>
+                                <input type="text" class="form-control" name="userName" id="userName" value="이승우" readonly> 
+                                <input type="hidden" name="userNo" id="userNo" value="10002">
                             </tr>
                             <tr>
                                 <th class="text-center">상세 내용</th>

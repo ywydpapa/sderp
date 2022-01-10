@@ -259,8 +259,20 @@ public class GwController {
     }
     
     @RequestMapping("/uploadfile/{docNo}")
-	public ResponseEntity<?> uploadFile(HttpSession session, @PathVariable("docNo") int docNo, @ModelAttribute ContDTO dto, MultipartHttpServletRequest fileList) throws IOException {
+	public ResponseEntity<?> uploadFile(HttpSession session, @PathVariable("docNo") int docNo,  MultipartHttpServletRequest fileList) throws IOException {
 		int uploadFile = gwService.uploadFile(session, docNo, fileList);
+		Map<String, Object> param = new HashMap<>();
+		if(uploadFile > 0) {
+			param.put("code", "10001");
+		} else {
+			param.put("code", "20001");
+		}
+		return ResponseEntity.ok(param);
+	}
+    
+    @RequestMapping("/uploadfileUpdate/{docNo}")
+	public ResponseEntity<?> uploadfileUpdate(HttpSession session, @PathVariable("docNo") int docNo, MultipartHttpServletRequest fileList) throws IOException {
+		int uploadFile = gwService.uploadFileUpdate(session, docNo, fileList);
 		Map<String, Object> param = new HashMap<>();
 		if(uploadFile > 0) {
 			param.put("code", "10001");

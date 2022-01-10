@@ -35,6 +35,7 @@
                         <input type="hidden" id="docUserNo" value="${sessionScope.userNo}" />
                         <input type="hidden" id="docNo" value="${detailList.docNo}" />
                         <input type="hidden" id="userNoCR" value="${detailListApp.userNoCR}" />
+                        <input type="hidden" id="appStatus" value="${detailListApp.appStatus}" />
                         <table class="table table-sm bst02">
                             <colgroup>
                                 <col width="15%" />
@@ -160,55 +161,76 @@
                                     <input type="date" id="docDate" name="docDate" class="form-control" style="text-align: right;" value="${detailList.docDate}">
                                 </td>
                             </tr>
-                            <tr>
-                                <th class="text-center">첨부파일</th>
-                                <td>
-                                    <input class="form-control" type="file" id="addFile">
-                                </td>
-                                <th class="text-center">파일다운로드</th>
-                                <td>
-                                    <a href="javascript:downloadFile('${detailFile.fileId}');">${detailFile.fileName}</a>
-                                </td>
-                            </tr>
-                            <tr>
-                            	<th class="text-center requiredTextCss">결제자(*)</th>
-                                <td>
-									<div class="input-group input-group-sm mb-0">
-										<input type="text" class="form-control" name="userName"
-											id="userName" value="${detailListApp.userName}" readonly> <input type="hidden"
-											name="userNo" id="userNo" value="${detailListApp.userNoAPP}"> <span
-											class="input-group-btn">
-											<button class="btn btn-primary sch-company"
-												data-remote="${path}/modal/popup.do?popId=user" type="button"
-												data-toggle="modal" data-target="#userModal">
-												<i class="icofont icofont-search"></i>
-											</button>
-										</span>
-										<div class="modal fade " id="userModal" tabindex="-1"
-											role="dialog">
-											<div class="modal-dialog modal-80size" role="document">
-												<div class="modal-content modal-80size">
-													<div class="modal-header">
-														<h4 class="modal-title"></h4>
-														<button type="button" class="close" data-dismiss="modal"
-															aria-label="Close">
-															<span aria-hidden="true">&times;</span>
-														</button>
-													</div>
-													<div class="modal-body">
-														<h5>사용자목록</h5>
-														<p>Loading!!!</p>
-													</div>
-													<div class="modal-footer">
-														<button type="button" class="btn btn-default waves-effect "
-															data-dismiss="modal">Close</button>
+                            <c:choose>
+	                           	<c:when test="${detailListApp.appStatus == 1 || detailListApp.appStatus == 3}">
+		                            <tr>
+		                                <th class="text-center">첨부파일</th>
+		                                <td>
+		                                	<form id="uploadForm">
+												<input type="file" name="file" id="addFile" />
+											</form>
+		                                </td>
+		                                <th class="text-center">파일다운로드</th>
+		                                <td>
+		                                    <a href="javascript:downloadFile('${detailFile.fileId}');">${detailFile.fileName}</a>
+		                                </td>
+		                            </tr>
+		                            <tr>
+		                            	<th class="text-center requiredTextCss">결제자(*)</th>
+		                                <td>
+											<%-- <div class="input-group input-group-sm mb-0">
+												<input type="text" class="form-control" name="userName"
+													id="userName" value="${detailListApp.userName}" readonly> <input type="hidden"
+													name="userNo" id="userNo" value="${detailListApp.userNoAPP}"> <span
+													class="input-group-btn">
+													<button class="btn btn-primary sch-company"
+														data-remote="${path}/modal/popup.do?popId=user" type="button"
+														data-toggle="modal" data-target="#userModal">
+														<i class="icofont icofont-search"></i>
+													</button>
+												</span>
+												<div class="modal fade " id="userModal" tabindex="-1"
+													role="dialog">
+													<div class="modal-dialog modal-80size" role="document">
+														<div class="modal-content modal-80size">
+															<div class="modal-header">
+																<h4 class="modal-title"></h4>
+																<button type="button" class="close" data-dismiss="modal"
+																	aria-label="Close">
+																	<span aria-hidden="true">&times;</span>
+																</button>
+															</div>
+															<div class="modal-body">
+																<h5>사용자목록</h5>
+																<p>Loading!!!</p>
+															</div>
+															<div class="modal-footer">
+																<button type="button" class="btn btn-default waves-effect "
+																	data-dismiss="modal">Close</button>
+															</div>
+														</div>
 													</div>
 												</div>
-											</div>
-										</div>
-									</div>
-                                </td>
-                            </tr>
+											</div> --%>
+											<input type="text" class="form-control" name="userName" id="userName" value="이승우" readonly> 
+		                               		<input type="hidden" name="userNo" id="userNo" value="10002">
+		                                </td>
+		                            </tr>
+	                           	</c:when>
+	                           	<c:otherwise>
+	                           		<tr>
+		                                <th class="text-center">파일다운로드</th>
+		                                <td>
+		                                    <a href="javascript:downloadFile('${detailFile.fileId}');">${detailFile.fileName}</a>
+		                                </td>
+		                                <th class="text-center requiredTextCss">결제자(*)</th>
+		                                <td>
+											<input type="text" class="form-control" name="userName" id="userName" value="이승우" readonly> 
+		                                	<input type="hidden" name="userNo" id="userNo" value="10002">
+		                                </td>
+		                            </tr>
+	                           	</c:otherwise>
+                            </c:choose>
                             <tr>
                                 <th class="text-center">상세 내용</th>
                                 <td colspan="3"><textarea class="form-control" id="docDesc">${detailList.docDesc}</textarea></td>
@@ -220,14 +242,14 @@
                             <jsp:include page="/WEB-INF/views/gware/docdtaillist.jsp"/>
                         </div>
                         <c:if test="${detailList.docStatus ne 1 }">
-                        <c:if test="${sessionScope.userNo eq detailListApp.userNoAPP || sessionScope.userNo eq detailListApp.userNoCR}">
+                        <c:if test="${sessionScope.docRole eq 'S' || sessionScope.docRole eq 'A' || sessionScope.userNo eq detailListApp.userNoCR}">
                         	<c:set var="now" value="<%=new java.util.Date()%>" />
                         	<c:set var="sysDate"><fmt:formatDate value="${now}" pattern="yyyy-MM-dd HH:mm:ss" /></c:set>
                         	<input type="hidden" id="appDate" value="${sysDate}" />
 	                        <div>
 	                        	<table class="table table-sm">
 		                        	<tr>
-										<th scope="row">승인/반려 의견<br />
+										<th scope="row">완료/반려 의견(${detailListApp.userName})<br />
 											<c:choose>
 												<c:when test="${detailListApp.appDate != null && detailListApp.appDate != ''}">
 													(시간 : ${detailListApp.appDate})
@@ -250,18 +272,18 @@
     </div>
     <div class="btn_wr text-right mt-3">
         <button class="btn btn-md btn-success f-left" onClick="javascript:location='${path}/gw/list.do'">결재목록</button>
-        <c:if test="${sessionScope.userNo eq detailListApp.userNoAPP && detailList.docStatus == 2}">
-	        <button class="btn btn-md btn-success" onClick="fn_data02App()">승인</button>
+        <c:if test="${sessionScope.docRole eq 'S' && detailListApp.appStatus == 4}">
+	        <button class="btn btn-md btn-success" onClick="fn_data02App()">완료</button>
 	        <button class="btn btn-md btn-danger" onClick="fn_data02Com()">반려</button>
         </c:if>
-        <c:if test="${sessionScope.userNo eq detailListApp.userNoCR && detailList.docStatus == 2}">
+        <c:if test="${sessionScope.docRole eq 'A' && detailListApp.appStatus == 2}">
+	        <button class="btn btn-md btn-success" onClick="fn_data02App()">검토완료</button>
+	        <button class="btn btn-md btn-danger" onClick="fn_data02Com()">반려</button>
+        </c:if>
+        <c:if test="${sessionScope.userNo eq detailListApp.userNoCR && detailListApp.appStatus == 1 || sessionScope.userNo eq detailListApp.userNoCR && detailListApp.appStatus == 3}">
+            <button class="btn btn-md btn-primary" onClick="fn_tempUpdate()">임시저장</button>
 	        <button class="btn btn-md btn-primary" onClick="fn_data02Update()">수정</button>
         	<button class="btn btn-md btn-danger" onClick="fn_data02delete()">삭제</button>
-        </c:if>
-        <c:if test="${sessionScope.userNo eq detailListApp.userNoCR && detailList.docStatus == 1}">
-            <button class="btn btn-md btn-primary" onClick="fn_tempUpdate()">임시저장</button>
-            <button class="btn btn-md btn-primary" onClick="fn_data02Update()">수정</button>
-            <button class="btn btn-md btn-danger" onClick="fn_data02delete()">삭제</button>
         </c:if>
         <button class="btn btn-md btn-inverse" onClick="javascript:location='${path}/gw/list.do'">취소</button>
     </div>

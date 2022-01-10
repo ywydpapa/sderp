@@ -39,6 +39,7 @@ public interface GwService {
     int insertEst(GwDTO dto);
     int insertEstitems(GwDTO dto);
     int uploadFile(HttpSession session, int docNo, MultipartHttpServletRequest fileList) throws IOException;
+    int uploadFileUpdate(HttpSession session, int docNo, MultipartHttpServletRequest fileList) throws IOException;
     GwFileDataDTO listFile(int docNo);
     GwFileDataDTO downloadFile(GwFileDataDTO dto);
 }

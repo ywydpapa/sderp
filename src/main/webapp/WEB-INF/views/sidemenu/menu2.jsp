@@ -35,21 +35,23 @@
                        <span class="pcoded-mcaret"></span>
                    </a>
                </li>
-               <li class="pcoded-hasmenu ">
-                   <a href="${path}/gw/mydoclist.do">
-                       <span class="pcoded-micon"><i class="ti-direction-alt"></i></span>
-                       <span class="pcoded-mtext" data-i18n="nav.menu-levels.menu-level-21">나의결재함</span>
-                       <span class="pcoded-mcaret"></span>
-                   </a>
-               </li>
-               <li class="pcoded-hasmenu ">
+               <c:if test="${sessionScope.docRole == 'S' || sessionScope.docRole == 'A'}">
+	               <li class="pcoded-hasmenu ">
+	                   <a href="${path}/gw/mydoclist.do">
+	                       <span class="pcoded-micon"><i class="ti-direction-alt"></i></span>
+	                       <span class="pcoded-mtext" data-i18n="nav.menu-levels.menu-level-21">나의결재함</span>
+	                       <span class="pcoded-mcaret"></span>
+	                   </a>
+	               </li>
+               </c:if>
+<%--                <li class="pcoded-hasmenu ">
                    <a href="${path}/gw/list.do">
                        <span class="pcoded-micon"><i class="ti-direction-alt"></i></span>
                        <span class="pcoded-mtext" data-i18n="nav.menu-levels.menu-level-21">결재조회</span>
                        <span class="pcoded-mcaret"></span>
                    </a>
                </li>
-               <li class="pcoded-hasmenu">
+ --%>               <li class="pcoded-hasmenu">
                    <a href="${path}/gw/write.do">
                        <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
                        <span class="pcoded-mtext" data-i18n="nav.menu-levels.menu-level-22">결재 등록/처리</span>

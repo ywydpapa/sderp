@@ -197,9 +197,9 @@
                                     </td>
                                     <td class="text-center">
                                     	<c:if test="${row.appStatus == 1}">임시저장</c:if>
-                                    	<c:if test="${row.appStatus == 2}">요청</c:if>
+                                    	<c:if test="${row.appStatus == 2}">검토요청</c:if>
                                     	<c:if test="${row.appStatus == 3}">반려</c:if>
-                                    	<c:if test="${row.appStatus == 4}">승인</c:if>
+                                    	<c:if test="${row.appStatus == 4}">검토완료</c:if>
                                     	<c:if test="${row.appStatus == 5}">완료</c:if>
                                     </td>
                                 </tr>

@@ -760,6 +760,15 @@ select a.soppNo, dataType ,b.soppTitle, c.custName as custName, sum(case when a.
  	and attrib not like 'XXX%'
 	order by uploadDate desc
 </select>
- 
+
+	<update id="soppStatusChange">
+		update swc_sopp set
+				soppStatus = #{soppStatus},
+		                    soppSrate = #{soppSrate},
+		                    modDatetime = now()
+		where soppNo = #{soppNo}
+	</update>
+
+
  		
 </mapper>

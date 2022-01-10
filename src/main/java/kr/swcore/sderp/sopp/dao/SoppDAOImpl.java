@@ -97,6 +97,11 @@ public class SoppDAOImpl implements SoppDAO {
 	}
 
 	@Override
+	public int updateSoppStatus(SoppDTO dto) {
+		return sqlSession.update("sopp.soppStatusChange", dto);
+	}
+
+	@Override
 	public List<SoppDTO> listWithSoppNoArray(List<SoppDTO> list) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("compNo", list.get(0).getCompNo());

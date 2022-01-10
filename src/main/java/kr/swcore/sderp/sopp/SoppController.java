@@ -314,6 +314,18 @@ public class SoppController {
 			}
 			return ResponseEntity.ok(param);
 		}
+
+	@RequestMapping("updateSoppStatus.do")
+	public ResponseEntity<?> updSStatus(@ModelAttribute SoppDTO dto) {
+		Map<String, Object> param = new HashMap<>();
+		int soppUpdate = soppService.updateSoppStatus(dto);
+		if (soppUpdate >0) {
+			param.put("code","10001");
+		}
+		else {param.put("code","20001");
+		}
+		return ResponseEntity.ok(param);
+	}
 			
 	@RequestMapping("deletedata01.do")
 	public ResponseEntity<?> delete(@ModelAttribute SoppdataDTO dto) {

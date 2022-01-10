@@ -292,6 +292,11 @@ public class SoppServiceImpl implements SoppService {
 	}
 
 	@Override
+	public int updateSoppStatus(SoppDTO dto) {
+		return soppDao.updateSoppStatus(dto);
+	}
+
+	@Override
 	public Map<String, Object> updateAprvOrReject(HttpSession session, SoppDTO dto) {
 		Integer compNo = SessionInfoGet.getCompNo(session);
 		dto.setCompNo(compNo);

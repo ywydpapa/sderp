@@ -204,13 +204,13 @@
 																<option value="10179">초기접촉</option>
 																<option value="10180">제안서제출 및 PT</option>
 																<option value="10181">견적서제출</option>
-																<option value="10182">계약요청</option>
+																<%--<option value="10182">계약요청</option>
 																<option value="">수금완료</option>
 																<option value="">은행입금</option>
 																<option value="10187">계약실패</option>
 																<option value="10193">계약진행보류</option>
 																<option value="">발주서입수</option>
-																<option value="">협력사요청</option>
+																<option value="">협력사요청</option>--%>
 														</select></td>
 														<th scope="row">가능성</th>
 														<td>

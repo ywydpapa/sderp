@@ -20,6 +20,7 @@ public interface SoppDAO {
 	int deleteSopp(int soppNo);
 	int insertSopp(SoppDTO dto);
 	int update2Sopp(SoppDTO dto);
+	int updateSoppStatus(SoppDTO dto);
 	List<SoppDTO> listWithSoppNoArray(List<SoppDTO> list);
 	int uploadFile(SoppFileDataDTO dto);
 	Integer deleteFile(SoppFileDataDTO dto);

@@ -35,8 +35,8 @@
                     <option value="4">휴일근무</option>
                     <option value="5">경조휴가</option>
                 </select></td>
-                <td><input type="datetime-local" class="form-control form-control-sm" id="hrFrom" style="min-width: 80px;" /></td>
-                <td><input type="datetime-local" class="form-control form-control-sm" id="hrTo" style="min-width: 80px;" /></td>
+                <td><input type="date" class="form-control form-control-sm" id="hrFrom" style="min-width: 80px;" /><input type="time" class="form-control form-control-sm" id="hrFromTm" style="min-width: 80px;" /></td>
+                <td><input type="date" class="form-control form-control-sm" id="hrTo" style="min-width: 80px;" /><input type="time" class="form-control form-control-sm" id="hrToTm" style="min-width: 80px;" /></td>
                 <td>
                     <button id="HRAddbtn" class="btn btn-success btn-sm" onClick="dataSave();">추가</button>
                 </td>
@@ -55,10 +55,10 @@
     var dataIndex = 0;
 
     function checkDate(){
-        var dateA = $("#hrFrom").val();
-        var dateB = $("#hrTo").val();
+        var dateA = new Date($("#hrFrom").val());
+        var dateB = new Date($("#hrTo").val());
         if (dateB < dateA){
-            $("#hrTo").val(dataA);
+            alert("종료일이 시작일 이전입니다.");
         }
     }
 
@@ -67,9 +67,14 @@
        var qutylist = $("#qutylist tbody");
     	var attType = $("#hrType").val();
        var attTypeN = $("#hrType option:selected").text();
-    	var attStart = $("#hrFrom").val();
-        var attEnd = $("#hrTo").val();
+    	var attStart = $("#hrFrom").val() +"T"+ $("#hrFromTm").val() ;
+        var attEnd = $("#hrTo").val() + "T"+$("#hrToTm").val();
     	var attDesc = tinyMCE.get("hrDesc").getContent();
+        if (attDesc ==-""){
+            alert("신청내용을 기입해 주십시오.");
+            $("#hrDesc").focus();
+            return;
+        }
 		temp.compNo = $("#compNo").val();
     	temp.userNo = $("#userNo").val();
     	temp.attType = attType;
@@ -110,9 +115,16 @@
     	}
     }
 
+    $("#hrFrom,#hrTo").change(function(){
+        checkDate();
+    });
+
     $(document).ready(function(){
-        $('#hrFrom,#hrTo').on('keyup',function(){
-            checkDate();
-        });
+        var d= new Date();
+        var today = new Date(d.getTime() - (d.getTimezoneOffset() * 60000)).toISOString();
+        $("#hrFrom").val(today.substr(0,10));
+        $("#hrTo").val(today.substr(0,10));
+        $("#hrFromTm").val("09:00");
+        $("#hrToTm").val("18:00");
     });
 </script>

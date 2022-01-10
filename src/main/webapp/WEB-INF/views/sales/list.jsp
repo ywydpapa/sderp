@@ -505,6 +505,10 @@
 			var month = dateValueCom.getMonth()+1;
 			var day = dateValueCom.getDate();
 			
+			if(month < 10){
+				month = "0" + month;
+			}
+			
 			if(day < 10){
 				day = "0" + day;
 			}
@@ -532,6 +536,10 @@
 			var year = thisDateCom.getFullYear();
 			var month = thisDateCom.getMonth()+1;
 			var day = thisDateCom.getDate();
+			
+			if(month < 10){
+				month = "0" + month;
+			}
 			
 			if(day < 10){
 				day = "0" + day;
@@ -561,6 +569,10 @@
 			var month = dateValueCom.getMonth()+1;
 			var day = dateValueCom.getDate();
 			
+			if(month < 10){
+				month = "0" + month;
+			}
+			
 			if(day < 10){
 				day = "0" + day;
 			}
@@ -588,6 +600,10 @@
 			var year = thisDateCom.getFullYear();
 			var month = thisDateCom.getMonth()+1;
 			var day = thisDateCom.getDate();
+			
+			if(month < 10){
+				month = "0" + month;
+			}
 			
 			if(day < 10){
 				day = "0" + day;

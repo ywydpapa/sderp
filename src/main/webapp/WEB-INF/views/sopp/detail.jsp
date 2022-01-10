@@ -204,12 +204,17 @@
 													</tr>
 													<tr>
 														<th scope="row" class="requiredTextCss">진행단계</th>
-														<td><select name="soppStatus" id="soppStatus" class="form-control form-control-sm">
-																<c:forEach var="sstatuslist" items="${sstatuslist}">
+														<td><select name="soppStatus" id="soppStatus" class="form-control form-control-sm" <c:if test="${dto.soppStatus > 10185}">readonly</c:if>>
+																<c:if test="${dto.soppStatus >= 10183}">
+																	<option value ="">계약중</option>
+																</c:if>
+																<c:if test="${dto.soppStatus < 10182}">
+															    <c:forEach var="sstatuslist" items="${sstatuslist}">
 																	<c:if test="${sstatuslist.codeNo ne 10183 && sstatuslist.codeNo ne 10184}">
 																	<option value="${sstatuslist.codeNo}">${sstatuslist.desc03}</option>
 																	</c:if>
 																</c:forEach>
+																</c:if>
 														</select></td>
 														<th scope="row">가능성</th>
 														<td><span class="input_inline"><input
@@ -470,7 +475,7 @@
 
 		var soppStatusSelected = '${dto.soppStatus}';
 		if (soppStatusSelected != '' && soppStatusSelected != '0') 	$('#soppStatus').val('${dto.soppStatus}').prop("selected",true);
-		else $('#soppStatus').val("").prop("selected",true);
+		else $('#soppStatus option:eq(0)').prop("selected",true);
 
 		var soppTypeSelected = '${dto.soppType}';
 		if (soppTypeSelected != '' && soppTypeSelected != '0') $('#soppType').val('${dto.soppType}').prop("selected",true);
@@ -571,6 +576,8 @@
 		}
 
 		function fn_Contreq() {
+			var msg = "계약요청을 진행하시겠습니까?";
+			if (confirm(msg)){
 			var soppData = {};
 			soppData.soppNo 		= $("#soppNo").val();
 			soppData.soppSrate 		= '100';
@@ -592,10 +599,11 @@
 					.fail(function(xhr, status, errorThrown) {
 						alert("통신 실패");
 					});
+			}
 		}
 
 		function fn_Contfail() {
-			var msg = "계약요청으로 진행하시겠습니까?";
+			var msg = "계약실패건으로 처리하시겠습니까?";
 			if (confirm(msg)){
 			var soppData = {};
 			soppData.soppNo 		= $("#soppNo").val();
@@ -622,8 +630,6 @@
 		}
 
 		function fn_soppDelete(){
-			var msg = "계약실패건으로 처리하시겠습니까?";
-			if (confirm(msg)){
 			var soppData = {};
 			soppData.soppNo 		= $("#soppNo").val();
 			$.ajax({ url: "${path}/sopp/delete.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
@@ -643,7 +649,6 @@
 			.fail(function(xhr, status, errorThrown) {
 				alert("통신 실패");
 			});
-			}
 		}
 
 		function fn_data02delete(soppdataNo) {

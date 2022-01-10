@@ -16,7 +16,7 @@
             <div class="col-lg-12">
                 <div class="page-header-title">
                     <div class="d-inline">
-                        휴가신청
+                        근태관리
                     </div>
                 </div>
             </div>
@@ -26,7 +26,7 @@
 
     <!--계약등록-->
     <div class="cnt_wr">
-        <h5 class="cont_title"><i class="icofont icofont-square-right"></i>휴가정보</h5>
+        <h5 class="cont_title"><i class="icofont icofont-square-right"></i>근태정보</h5>
         <div class="row">
             <div class="col-sm-12">
                 <div class="card-block table-border-style">
@@ -42,7 +42,7 @@
         </div>
     </div>
     <div class="btn_wr text-right mt-3">
-        <button class="btn btn-md btn-success f-left" onClick="javascript:location='${path}/gw/attlist.do'">휴가목록</button>
+        <button class="btn btn-md btn-success f-left" onClick="javascript:location='${path}/gw/attlist.do'">근태목록</button>
 <c:if test="${list.attStatus eq 1}">
         <button class="btn btn-md btn-primary" onClick="fn_AttRtn()">근태반려</button>
         <button class="btn btn-md btn-primary" onClick="fn_AttApp()">근태승인</button>

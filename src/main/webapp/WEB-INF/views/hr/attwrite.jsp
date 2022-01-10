@@ -16,7 +16,7 @@
             <div class="col-lg-12">
                 <div class="page-header-title">
                     <div class="d-inline">
-                        휴가신청
+                        근태등록
                     </div>
                 </div>
             </div>
@@ -26,7 +26,7 @@
 
     <!--계약등록-->
     <div class="cnt_wr">
-        <h5 class="cont_title"><i class="icofont icofont-square-right"></i>휴가정보</h5>
+        <h5 class="cont_title"><i class="icofont icofont-square-right"></i>근태정보</h5>
         <div class="row">
             <div class="col-sm-12">
                 <div class="card-block table-border-style">
@@ -43,8 +43,8 @@
         </div>
     </div>
     <div class="btn_wr text-right mt-3">
-        <button class="btn btn-md btn-success f-left" onClick="javascript:location='${path}/gw/attlist.do'">휴가목록</button>
-        <button class="btn btn-md btn-primary" onClick="fn_AttInsert()">휴가등록</button>
+        <button class="btn btn-md btn-success f-left" onClick="javascript:location='${path}/gw/attlist.do'">근태목록</button>
+        <button class="btn btn-md btn-primary" onClick="fn_AttInsert()">근태등록</button>
         <button class="btn btn-md btn-inverse" onClick="javascript:location='${path}/gw/attlist.do'">취소</button>
     </div>
     <!--//계약등록-->

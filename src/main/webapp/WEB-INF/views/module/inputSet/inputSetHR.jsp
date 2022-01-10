@@ -6,7 +6,7 @@
     <table class="table table-sm bst02">
         <tbody>
         <tr>
-            <th scope="row">휴가일정</th>
+            <th scope="row">근태일정</th>
         </tr>
         </tbody>
     </table>
@@ -31,11 +31,12 @@
                     <option value="">선택</option>
                     <option value="1">월차</option>
                     <option value="2">연차</option>
-                    <option value="3">경조휴가</option>
-                    <option value="4">휴직</option>
+                    <option value="3">연장근무</option>
+                    <option value="4">휴일근무</option>
+                    <option value="5">경조휴가</option>
                 </select></td>
-                <td><input type="date" class="form-control form-control-sm" id="hrFrom" style="min-width: 80px;" /></td>
-                <td><input type="date" class="form-control form-control-sm" id="hrTo" style="min-width: 80px;" /></td>
+                <td><input type="datetime-local" class="form-control form-control-sm" id="hrFrom" style="min-width: 80px;" /></td>
+                <td><input type="datetime-local" class="form-control form-control-sm" id="hrTo" style="min-width: 80px;" /></td>
                 <td>
                     <button id="HRAddbtn" class="btn btn-success btn-sm" onClick="dataSave();">추가</button>
                 </td>
@@ -52,7 +53,15 @@
 <script>
     var dataArray = [];
     var dataIndex = 0;
-    
+
+    function checkDate(){
+        var dateA = $("#hrFrom").val();
+        var dateB = $("#hrTo").val();
+        if (dateB < dateA){
+            $("#hrTo").val(dataA);
+        }
+    }
+
    function dataSave(){
     	var temp = {};
        var qutylist = $("#qutylist tbody");
@@ -67,16 +76,12 @@
     	temp.attStart = attStart;
     	temp.attEnd = attEnd;
     	temp.attDesc = attDesc;
-
     	dataArray.push(temp);
-    	
         $("#hrType").val("");
         $("#hrFrom").val("");
         $("#hrTo").val("");
         $("#hrDesc").val("");
-
         qutylist.append("<tr><td id='hrType1' style='text-align:center;'><input type='hidden' id='hrTypeN' value ='"+attType+"'/> "+attTypeN+"</td><td id='sttFromN' style='text-align:center;'>"+attStart+"</td><td id='attEndN' style='text-align: center'>"+attEnd+"</td><td id='attDescN' style='text-align: center'>"+attDesc+"</td><td><button class='btn btn-sm btn-danger' data-index="+dataIndex+" id='dataDelBtn'>삭제</button></td></tr>");
-        
     	console.log(dataArray);
         dataIndex++;
     }
@@ -106,5 +111,8 @@
     }
 
     $(document).ready(function(){
+        $('#hrFrom,#hrTo').on('keyup',function(){
+            checkDate();
+        });
     });
 </script>

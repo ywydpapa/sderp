@@ -315,7 +315,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 		select a.*, b.userName from swc_userattend a
 		left join swc_user b on a.userNo = b.userNo
-		where a.compNo = #{compNo} and a.attrib not like 'XXX%';
+		where a.compNo = #{compNo} and a.attrib not like 'XXX%' order by attStatus desc;
 
 	</select>
 

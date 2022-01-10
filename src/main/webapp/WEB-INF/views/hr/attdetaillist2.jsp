@@ -29,7 +29,7 @@
     </thead>
     <tbody>
 	    	<tr>
-	            <td class="text-center" id='hrType'><c:if test="${list.attType eq 1}">월차</c:if><c:if test="${list.attType eq 2}">연차</c:if><c:if test="${list.attType eq 3}">경조휴가</c:if><c:if test="${list.attType eq 4}">휴직</c:if></td>
+	            <td class="text-center" id='hrType'><c:if test="${list.attType eq 1}">월차</c:if><c:if test="${list.attType eq 2}">연차</c:if><c:if test="${list.attType eq 3}">연장근무</c:if><c:if test="${list.attType eq 4}">휴일근무</c:if><c:if test="${list.attType eq 5}">경조휴가</c:if></td>
                 <td class="text-center" id='hrUser'>${list.userName}</td>
                 <td class="text-center" id='hrStart'>${list.attStart}</td>
 	            <td class="text-center" id='hrEnd'>${list.attEnd}</td>

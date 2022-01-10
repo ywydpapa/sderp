@@ -97,7 +97,7 @@
                                         </div>
                                     </div>
                                 </td>
-                                <th class="text-center">종류</th>
+                                <th class="text-center">거래처</th>
                                 <td>
                                     <div class="input-group input-group-sm mb-0">
                                         <input type="text" class="form-control" name="custName"

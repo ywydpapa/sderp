@@ -595,6 +595,8 @@
 		}
 
 		function fn_Contfail() {
+			var msg = "계약요청으로 진행하시겠습니까?";
+			if (confirm(msg)){
 			var soppData = {};
 			soppData.soppNo 		= $("#soppNo").val();
 			soppData.soppSrate 		= '0';
@@ -616,9 +618,12 @@
 					.fail(function(xhr, status, errorThrown) {
 						alert("통신 실패");
 					});
+			}
 		}
 
 		function fn_soppDelete(){
+			var msg = "계약실패건으로 처리하시겠습니까?";
+			if (confirm(msg)){
 			var soppData = {};
 			soppData.soppNo 		= $("#soppNo").val();
 			$.ajax({ url: "${path}/sopp/delete.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
@@ -638,6 +643,7 @@
 			.fail(function(xhr, status, errorThrown) {
 				alert("통신 실패");
 			});
+			}
 		}
 
 		function fn_data02delete(soppdataNo) {

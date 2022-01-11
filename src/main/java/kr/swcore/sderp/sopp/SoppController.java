@@ -3,6 +3,7 @@ package kr.swcore.sderp.sopp;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import kr.swcore.sderp.code.service.CodeService;
+import kr.swcore.sderp.gw.service.GwService;
 import kr.swcore.sderp.sales.service.SalesService;
 import kr.swcore.sderp.sopp.dto.SoppDTO;
 import kr.swcore.sderp.sopp.dto.SoppFileDataDTO;
@@ -52,6 +53,9 @@ public class SoppController {
 	
 	@Inject
 	TechdService techdService;
+	
+	@Inject
+	GwService gwService;
 	
 	@RequestMapping("list.do")
 	public ModelAndView list(HttpSession session, ModelAndView mav) {
@@ -123,6 +127,7 @@ public class SoppController {
 		mav.addObject("techdinsopp",techdService.listTechdinsopp(session, soppNo, 0));
 		mav.addObject("soppFiles",soppService.listFile(soppNo));
 		mav.addObject("dtodata01", soppdataService.listSoppdata01(soppNo));
+		mav.addObject("estList", gwService.getEstSopp(session, soppNo));
 		mav.setViewName("sopp/detail");
 		return mav;
 	}

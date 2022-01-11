@@ -150,11 +150,25 @@
                             <tr>
                                 <th class="text-center requiredTextCss">문서종류(*)</th>
                                 <td>
-                                    <select class="form-control" id="docType" >
-                                        <option value="">선택</option>
-                                        <option value="BUY">물품 구매요청서</option>
-                                        <option value="TRS">지출품의서</option>
-                                    </select>
+                                    <div id="docSelect1">
+	                                    <select class="form-control" id="docType">
+	                                        <option value="">선택</option>
+	                                        <option value="BUY">구매요청서</option>
+	                                        <option value="TRS">지출품의서</option>
+	                                        <option value="ODS">수주서</option>
+	                                        <option value="CKD">검토요청서</option>
+	                                        <option value="FMF">공문서 확인 요청서</option>
+	                                    </select>
+                                	</div>
+                                	<div id="docSelect2">
+	                                    <select class="form-control" id="docType" >
+	                                        <option value="">선택</option>
+	                                        <option value="COST">비용청구</option>
+	                                        <option value="TAX">세금공과금</option>
+	                                        <option value="CREDIT">외상매입금</option>
+	                                        <option value="PAY">급여</option>
+	                                    </select>
+                                	</div>
                                 </td>
                                 <th class="text-center requiredTextCss">작성일자(*)</th>
                                 <td>
@@ -178,40 +192,6 @@
 		                            <tr>
 		                            	<th class="text-center requiredTextCss">결제자(*)</th>
 		                                <td>
-											<%-- <div class="input-group input-group-sm mb-0">
-												<input type="text" class="form-control" name="userName"
-													id="userName" value="${detailListApp.userName}" readonly> <input type="hidden"
-													name="userNo" id="userNo" value="${detailListApp.userNoAPP}"> <span
-													class="input-group-btn">
-													<button class="btn btn-primary sch-company"
-														data-remote="${path}/modal/popup.do?popId=user" type="button"
-														data-toggle="modal" data-target="#userModal">
-														<i class="icofont icofont-search"></i>
-													</button>
-												</span>
-												<div class="modal fade " id="userModal" tabindex="-1"
-													role="dialog">
-													<div class="modal-dialog modal-80size" role="document">
-														<div class="modal-content modal-80size">
-															<div class="modal-header">
-																<h4 class="modal-title"></h4>
-																<button type="button" class="close" data-dismiss="modal"
-																	aria-label="Close">
-																	<span aria-hidden="true">&times;</span>
-																</button>
-															</div>
-															<div class="modal-body">
-																<h5>사용자목록</h5>
-																<p>Loading!!!</p>
-															</div>
-															<div class="modal-footer">
-																<button type="button" class="btn btn-default waves-effect "
-																	data-dismiss="modal">Close</button>
-															</div>
-														</div>
-													</div>
-												</div>
-											</div> --%>
 											<input type="text" class="form-control" name="userName" id="userName" value="이승우" readonly> 
 		                               		<input type="hidden" name="userNo" id="userNo" value="10002">
 		                                </td>

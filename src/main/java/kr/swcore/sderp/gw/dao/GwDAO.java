@@ -37,4 +37,5 @@ public interface GwDAO {
     int uploadFile(GwFileDataDTO dto);
     int uploadFileUpdate(GwFileDataDTO dto);
     GwFileDataDTO downloadFile(GwFileDataDTO dto);
+    List<GwDTO> getEstSopp(GwDTO dto);
 }

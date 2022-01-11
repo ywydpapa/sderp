@@ -29,7 +29,7 @@
 				<ul class="nav nav-tabs  tabs" role="tablist" id="tablist">
 					<li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#tab01" role="tab">기본정보</a></li>
 					<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#tab02" role="tab" id="dataType01_tab02">매입매출 내역</a></li>
-					<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#tab03" role="tab" id="dataType01_tab03">견적 내역</a></li>
+					<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#tab03" role="tab" id="dataType01_tab03">견적 내역(${fn:length(estList)})</a></li>
 					<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#tab04" role="tab">파일첨부(${fn:length(soppFiles)})</a></li>
 					<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#tab05" role="tab">기술지원 내역(${fn:length(techdinsopp)})</a></li>
 					<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#tab06" role="tab">영업활동 내역(${fn:length(salesinsopp)})</a></li>
@@ -305,7 +305,7 @@
 						<div class="card-block table-border-style">
 							<div class="table-responsive" style="overflow-x: hidden;">
 								<jsp:include page="/WEB-INF/views/module/inputSet/inputSetProductSalesEstimate2.jsp"/>
-								<jsp:include page="/WEB-INF/views/sopp/qutylist.jsp"/>
+								<jsp:include page="/WEB-INF/views/sopp/qutylist2.jsp"/>
 							</div>
 						</div>
 					</div>

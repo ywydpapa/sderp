@@ -148,14 +148,25 @@
                             <tr>
                                 <th class="text-center requiredTextCss">문서종류(*)</th>
                                 <td>
-                                    <select class="form-control" id="docType" >
-                                        <option value="">선택</option>
-                                        <option value="BUY">구매요청서</option>
-                                        <option value="TRS">지출품의서</option>
-                                        <option value="ODS">수주서</option>
-                                        <option value="CKD">검토요청서</option>
-                                        <option value="FMF">공문서 확인 요청서</option>
-                                    </select>
+                                	<div id="docSelect1">
+	                                    <select class="form-control" id="docType">
+	                                        <option value="">선택</option>
+	                                        <option value="BUY">구매요청서</option>
+	                                        <option value="TRS">지출품의서</option>
+	                                        <option value="ODS">수주서</option>
+	                                        <option value="CKD">검토요청서</option>
+	                                        <option value="FMF">공문서 확인 요청서</option>
+	                                    </select>
+                                	</div>
+                                	<div id="docSelect2">
+	                                    <select class="form-control" id="docType" >
+	                                        <option value="">선택</option>
+	                                        <option value="COST">비용청구</option>
+	                                        <option value="TAX">세금공과금</option>
+	                                        <option value="CREDIT">외상매입금</option>
+	                                        <option value="PAY">급여</option>
+	                                    </select>
+                                	</div>
                                 </td>
                                 <th class="text-center requiredTextCss">작성일자(*)</th>
                                 <td>

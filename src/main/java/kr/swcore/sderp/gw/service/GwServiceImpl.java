@@ -1,6 +1,7 @@
 package kr.swcore.sderp.gw.service;
 
 import kr.swcore.sderp.gw.dao.GwDAO;
+
 import kr.swcore.sderp.gw.dto.GwDTO;
 import kr.swcore.sderp.gw.dto.GwFileDataDTO;
 import kr.swcore.sderp.util.SessionInfoGet;
@@ -209,5 +210,15 @@ public class GwServiceImpl implements GwService{
 	public GwFileDataDTO downloadFile(GwFileDataDTO dto) {
 		// TODO Auto-generated method stub
 		return gwDao.downloadFile(dto);
+	}
+
+	@Override
+	public List<GwDTO> getEstSopp(HttpSession session, int soppNo) {
+		// TODO Auto-generated method stub
+		GwDTO dto = new GwDTO();
+		int compNo = SessionInfoGet.getCompNo(session);
+		dto.setCompNo(compNo);
+		dto.setSoppNo(soppNo);
+		return gwDao.getEstSopp(dto);
 	}
 }

@@ -133,6 +133,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="myDocList" resultType="gwDto">
 		select a.*, c.userName as userIsName, b.appStatus from swc_businessdoc a left join swc_businessdocapp b on a.docNo = b.docNo left join swc_user c on c.userNo = b.userNoIS where a.attrib not like 'XXX%' and a.docStatus = 2 and b.appStatus BETWEEN 2 and 4 and b.appStatus != 3;
 	</select>
+	
+	<select id="getEstSopp" resultType="gwDto">
+		select a.*, b.custName from swc_est a left join swc_cust b on a.custNo = b.custNo where a.soppNo = #{soppNo} and a.compNo = #{compNo} order by a.estNo desc;
+	</select>
 
 	<insert id="insertDoc" useGeneratedKeys="true" keyProperty="getId">
 		<selectKey keyProperty="getId" resultType="int" order="AFTER">
@@ -400,9 +404,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<update id="Attreject">
 		update swc_userattend set
-								  modDate = now(),
-								  attStatus = '3',
-								  attDesc = #{attDesc}
+			  modDate = now(),
+			  attStatus = '3',
+			  attDesc = #{attDesc}
 		where attendId = #{attendId};
 	</update>
 

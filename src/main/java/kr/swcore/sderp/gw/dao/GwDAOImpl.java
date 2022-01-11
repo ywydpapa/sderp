@@ -173,4 +173,10 @@ public class GwDAOImpl implements GwDAO{
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne("gw.downloadFile", dto);
 	}
+
+	@Override
+	public List<GwDTO> getEstSopp(GwDTO dto) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("gw.getEstSopp", dto);
+	}
 }

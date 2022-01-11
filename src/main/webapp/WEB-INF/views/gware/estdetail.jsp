@@ -163,11 +163,11 @@
 									<td>
 										<input class="form-control" type="file" id="addFile">
 									</td>
-									<th class="text-center">과세/비과세</th>
+									<th class="text-center">부가세</th>
 									<td>
 										 <select name="vatYn" id="vatYn" class="form-control form-control-sm">
-											<option value="Y" selected>과세</option>
-											<option value="N" >비과세</option>
+											<option value="Y" selected>포함</option>
+											<option value="N" >비포함</option>
 										</select>
 									</td>
 								</tr>

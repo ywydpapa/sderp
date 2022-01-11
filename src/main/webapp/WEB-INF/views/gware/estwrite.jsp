@@ -139,11 +139,11 @@
 									</td>
 								</tr>
 								<tr>
-									<th class="text-center">견적번호(*)</th>
+									<th class="text-center requiredTextCss">견적번호(*)</th>
 									<td>
-										<input type="text" class="form-control" id="estId">
+										<input type="text" class="form-control" id="estId" placeholder="자동생성 됩니다..." readonly>
 									</td>
-									<th class="text-center">견적제목(*)</th>
+									<th class="text-center requiredTextCss">견적제목(*)</th>
 									<td>
 										<input type="text" class="form-control" id="estTitle">
 									</td>
@@ -153,7 +153,7 @@
 									<td>
 										<input type="text" class="form-control" id="estVer" placeholder="등록될 때 자동 등록" readonly>
 									</td>
-									<th class="text-center">견적서 작성일자(*)</th>
+									<th class="text-center requiredTextCss">견적서 작성일자(*)</th>
 									<td>
 										<input type="date" id="estDate" name="estDate" class="form-control" style="text-align: right;" value="">
 									</td>
@@ -163,11 +163,11 @@
 									<td>
 										<input class="form-control" type="file" id="addFile">
 									</td>
-									<th class="text-center">과세/비과세</th>
+									<th class="text-center">부가세</th>
 									<td>
 										 <select name="vatYn" id="vatYn" class="form-control form-control-sm">
-											<option value="Y" selected>과세</option>
-											<option value="N" >비과세</option>
+											<option value="Y" selected>포함</option>
+											<option value="N" >비포함</option>
 										</select>
 									</td>
 								</tr>

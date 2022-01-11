@@ -13,7 +13,8 @@
     <table class="table table-sm bst02" id="addquty">
         <colgroup>
             <col width="13%" />
-            <col width="25%" />
+            <col width="20%" />
+            <col width="5%" />
             <col width="8%" />
             <col width="8%" />
             <col width="8%" />
@@ -25,6 +26,7 @@
         <tr>
             <th class="text-center">거래처</th>
             <th class="text-center">결제 항목</th>
+            <th class="text-center">자동결제</th>
             <th class="text-center">단가</th>
             <th class="text-center">수량</th>
             <th class="text-center">공급가액</th>
@@ -136,6 +138,12 @@
                 		</div>
 					</div>
                 </td>
+                <td>
+                	<select class="form-control" id="selectCheck" style="width:130px;">
+           				<option value="On">자동계산</option>
+           				<option value="Off">직접입력</option>
+           			</select>
+                </td>
                 <td><input type="text" class="form-control form-control-sm" id="data02Netprice" style="min-width: 80px;"/></td>
                 <td><input type="text" class="form-control form-control-sm" id="data02Quanty" style="min-width: 80px;" value="1"  /></td>
                 <td><input type="text" class="form-control form-control-sm" id="data02Amt" style="min-width: 80px;" readonly /></td>
@@ -166,6 +174,7 @@
     var dataIndex = 0;
     
     $("#select2").hide();
+    $("#docSelect2").hide();
     
     $("#productSelect").change(function(){
     	if($(this).val() === "selectOn"){
@@ -378,9 +387,16 @@
     function fn_data02Insert() {
     	var uploadForm = $('#uploadForm')[0];
 		var uploadData = new FormData(uploadForm);
+		var showDocType = "";
     	var data02Data = {};
     	var data02App = {};
     	
+    	if($("#docSelect1").is(":visible") === true){
+    		showDocType = $("#docSelect1").find("#docType").val();	
+    	}else{
+    		showDocType = $("#docSelect2").find("#docType").val();
+    	}
+		
     	if($("#docTitle").val() === ""){
     		alert("문서 제목을 작성하십시오.");
     		$("#docTitle").focus();
@@ -402,7 +418,7 @@
     		return false;
     	}else{
     		data02Data.docCrUserNo = $("#docUserNo").val();
-    		data02Data.docType = $("#docType").val();
+    		data02Data.docType = showDocType;
     		data02Data.docTitle = $("#docTitle").val();
     		data02Data.linkSoppNo = $("#soppNo").val();
     		data02Data.linkCustNo = $("#custNo").val();
@@ -460,9 +476,16 @@
     }
 
     function fn_tempInsert() {
+    	var showDocType = "";
         var data02Data = {};
         var data02App = {};
 
+        if($("#docSelect1").is(":visible") === true){
+    		showDocType = $("#docSelect1").find("#docType").val();	
+    	}else{
+    		showDocType = $("#docSelect2").find("#docType").val();
+    	}
+        
         if($("#docTitle").val() === ""){
             alert("문서 제목을 입력하십시오.");
             $("#docTitle").focus();
@@ -477,7 +500,7 @@
                 $("#docDate").val(today);
             }
             data02Data.docCrUserNo = $("#docUserNo").val();
-            data02Data.docType = $("#docType").val();
+            data02Data.docType = showDocType;
             data02Data.docTitle = $("#docTitle").val();
             data02Data.linkSoppNo = $("#soppNo").val();
             data02Data.linkCustNo = $("#custNo").val();
@@ -533,8 +556,15 @@
     	var data02App = {};
     	var dataTemp = {};
     	var docNo = $("#docNo").val();
+    	var showDocType = "";
     	
     	dataTemp.docNo = docNo;
+    	
+    	if($("#docSelect1").is(":visible") === true){
+    		showDocType = $("#docSelect1").find("#docType").val();	
+    	}else{
+    		showDocType = $("#docSelect2").find("#docType").val();
+    	}
     	
     	if($("#docTitle").val() === ""){
     		alert("문서 제목을 작성하십시오.");
@@ -554,7 +584,7 @@
     		return false;
     	}else{
     		data02Data.docNo = docNo;
-    		data02Data.docType = $("#docType").val();
+    		data02Data.docType = showDocType;
     		data02Data.docTitle = $("#docTitle").val();
     		data02Data.linkSoppNo = $("#soppNo").val();
     		data02Data.linkCustNo = $("#custNo").val();
@@ -624,8 +654,15 @@
         var data02App = {};
         var dataTemp = {};
         var docNo = $("#docNo").val();
+        var showDocType = "";
 
         dataTemp.docNo = docNo;
+        
+        if($("#docSelect1").is(":visible") === true){
+    		showDocType = $("#docSelect1").find("#docType").val();	
+    	}else{
+    		showDocType = $("#docSelect2").find("#docType").val();
+    	}
 
         if($("#docTitle").val() === ""){
             alert("문서 제목을 작성하십시오.");
@@ -636,7 +673,7 @@
             return false;
         }else{
             data02Data.docNo = docNo;
-            data02Data.docType = $("#docType").val();
+            data02Data.docType = showDocType;
             data02Data.docTitle = $("#docTitle").val();
             data02Data.linkSoppNo = $("#soppNo").val();
             data02Data.linkCustNo = $("#custNo").val();
@@ -716,6 +753,13 @@
     	var appStatus = 0;
     	var data02Data = {};
     	var data02App = {};
+    	var showDocType = "";
+    	
+    	if($("#docSelect1").is(":visible") === true){
+    		showDocType = $("#docSelect1").find("#docType").val();	
+    	}else{
+    		showDocType = $("#docSelect2").find("#docType").val();
+    	}
     	
     	if($("#docTitle").val() === ""){
     		alert("문서 제목을 작성하십시오.");
@@ -740,7 +784,7 @@
 	    	}
 	    	
     		data02Data.docCrUserNo = userNoCR;
-    		data02Data.docType = $("#docType").val();
+    		data02Data.docType = showDocType;
     		data02Data.docTitle = $("#docTitle").val();
     		data02Data.linkSoppNo = $("#soppNo").val();
     		data02Data.linkCustNo = $("#custNo").val();
@@ -805,6 +849,13 @@
     	var docNo = $("#docNo").val();
     	var data02Data = {};
     	var data02App = {};
+		var showDocType = "";
+    	
+    	if($("#docSelect1").is(":visible") === true){
+    		showDocType = $("#docSelect1").find("#docType").val();	
+    	}else{
+    		showDocType = $("#docSelect2").find("#docType").val();
+    	}
     	
     	if($("#docTitle").val() === ""){
     		alert("문서 제목을 작성하십시오.");
@@ -821,7 +872,7 @@
     		return false;
     	}else{
     		data02Data.docCrUserNo = userNoCR;
-    		data02Data.docType = $("#docType").val();
+    		data02Data.docType = showDocType;
     		data02Data.docTitle = $("#docTitle").val();
     		data02Data.linkSoppNo = $("#soppNo").val();
     		data02Data.linkCustNo = $("#custNo").val();
@@ -903,6 +954,20 @@
         $("#data02Vat").val(vat2.toLocaleString("en-US"));
         $("#data02Total").val(Total.toLocaleString("en-US"));
     }
+    
+    function recall04(){
+    	var sum12 = parseInt($("#data02Netprice").val().replace(/[\D\s\._\-]+/g, "") || 0 );
+        var sum22 = parseInt($("#data02Quanty").val().replace(/[\D\s\._\-]+/g, "") || 0);
+        var sum32 = sum12 * sum22;
+        var vat2 = sum32 * 0.1;
+        $("#data02Netprice").val(sum12.toLocaleString("en-US"));
+        $("#data02Quanty").val(sum22.toLocaleString("en-US"));
+        $("#data02Amt").val(sum32.toLocaleString("en-US"));
+    }
+    
+    function addCommas(com){
+    	return com.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
 
     $(document).ready(function(){
     	var qutylist = $("#qutylist tbody tr");
@@ -941,12 +1006,45 @@
 	    	$("#product02InSum_table").html("￦"+parseInt(productSum).toLocaleString("en-US"));
 		}, 100);
     	
+    	$("[name='contractType']").change(function(){
+	    	if($("[name='contractType']:checked").val() === 'BREQ'){
+	    		$("#docSelect1").show();
+	    		$("#docSelect2").hide();
+	    	}else{
+	    		$("#docSelect1").hide();
+	    		$("#docSelect2").show();
+	    	}
+    	});
+    	
+    	$('#data02Vat').on('keyup',function(){
+        	var str = addCommas($(this).val().replace(/[^0-9]/g, ""));
+        	$(this).val(str);
+        });
+    	
+    	$("#selectCheck").change(function(){
+    		$("#data02Netprice").val("");
+            $("#data02Quanty").val(1);
+            $("#data02Amt").val("");
+            $("#data02Vat").val("");
+            $("#data02Total").val("");
+    	})
+    	
     	$('#data02Netprice,#data02Quanty').on('keyup',function(){
-            recall02();
+    		if($("#selectCheck").val() === "On"){
+	            recall02();
+    		}else{
+    			recall04();
+    		}
         });
         $('#data02Total').on('keyup',function(){
-            recall03();
+        	if($("#selectCheck").val() === "On"){
+	            recall03();
+    		}else{
+    			var str = addCommas($(this).val().replace(/[^0-9]/g, ""));
+            	$(this).val(str);
+    		}
         });
+        
         $("#data02Modbtn").hide();
     });
 </script>

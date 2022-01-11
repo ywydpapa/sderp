@@ -42,4 +42,5 @@ public interface GwService {
     int uploadFileUpdate(HttpSession session, int docNo, MultipartHttpServletRequest fileList) throws IOException;
     GwFileDataDTO listFile(int docNo);
     GwFileDataDTO downloadFile(GwFileDataDTO dto);
+    List<GwDTO> getEstSopp(HttpSession session, int soppNo);
 }

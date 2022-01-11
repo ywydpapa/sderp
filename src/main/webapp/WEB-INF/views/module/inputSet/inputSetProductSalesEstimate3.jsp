@@ -282,7 +282,7 @@
     	var productSpec = tinyMCE.get("data02Spec").getContent();
     	var qutylist = $("#qutylist tbody");
 		
-    	temp.estId = $("#estId").val();
+    	temp.estId = "";
 		temp.custNo = $("#custNo").val();
 		temp.compNo = $("#compNo").val();
     	temp.productNo = productNo;
@@ -341,7 +341,6 @@
     		alert("견적서 작성일자를 선택해주세요.");
     		$("#estDate").focus();
     	}else{
-    		data02Data.estId = $("#estId").val();
     		data02Data.estTitle = $("#estTitle").val();
     		data02Data.custNo = $("#custNo").val();
     		data02Data.soppNo = $("#soppNo").val();
@@ -477,6 +476,42 @@
 
 
     $(document).ready(function(){
+    	var qutylist = $("#qutylist tbody tr");
+    	var productSum = parseInt($("#product02InSum_table").html().replace(/[\D\s\._\-]+/g, ""));
+    	
+    	qutylist.each(function(index, item){
+	    	var temp = {};
+    		var productSalesEstimateCustName = $(item).find('#salesCustNoN').html();
+        	var productNo = $(item).find("#productSalesEstimateCustNo").html();
+        	var productName = $(item).find("#dataTitle").html();
+        	var productNetprice = $(item).find("#dataNetprice").html().replace(/[\D\s\._\-]+/g, "");
+        	var productQty = $(item).find("#dataQuanty").html();
+        	var productAmount = $(item).find("#dataAmt").html().replace(/[\D\s\._\-]+/g, "");
+        	var productVat = $(item).find("#dataVat").html().replace(/[\D\s\._\-]+/g, "");
+        	var productTotal = $(item).find("#dataTotal").html().replace(/[\D\s\._\-]+/g, "");
+        	var productRemark = $(item).find("#dataRemark").html();
+        	
+        	productSum = productSum + parseInt(productTotal);
+        	
+        	$(item).find("#dataDelBtn").attr("data-index", index);
+        	
+        	temp.docNo = 0;
+        	temp.custName = productSalesEstimateCustName;
+        	temp.productName = productName;
+        	temp.productNetprice = productNetprice;
+        	temp.productQty = productQty;
+        	temp.productAmount = productAmount;
+        	temp.productVat = productVat;
+        	temp.productTotal = productTotal;
+        	temp.productRemark = productRemark;
+        	
+        	dataArray.push(temp);
+    	});
+    	
+    	setTimeout(() => {
+	    	$("#product02InSum_table").html("￦"+parseInt(productSum).toLocaleString("en-US"));
+		}, 100);
+    	
         $('#data02Netprice,#data02Quanty,#data02Discount').on('keyup',function(){
             recall02();
         });

@@ -111,7 +111,7 @@
         $("#hrType").val("");
         $("#hrFrom").val("");
         $("#hrTo").val("");
-        $("#hrDesc").val("");
+        tinyMCE.get("hrDesc").setContent("");
         qutylist.append("<tr><td id='hrType1' style='text-align:center;'><input type='hidden' id='hrTypeN' value ='"+attType+"'/> "+attTypeN+"</td><td id='sttFromN' style='text-align:center;'>"+attStart+"</td><td id='attEndN' style='text-align: center'>"+attEnd+"</td><td id='attDescN' style='text-align: center; vertical-align: middle;'>"+attDesc+"</td><td style='text-align:center;'><button class='btn btn-sm btn-danger' data-index="+dataIndex+" id='dataDelBtn'>삭제</button></td></tr>");
     	console.log(dataArray);
         dataIndex++;

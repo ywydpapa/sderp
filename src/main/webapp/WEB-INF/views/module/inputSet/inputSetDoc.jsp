@@ -172,10 +172,8 @@
 <script>
 	var dataArray = [];
     var dataIndex = 0;
-    var detailDocType = "${detailList.docType}";
     
     $("#select2").hide();
-    $("#docSelect2").hide();
     
     $("#productSelect").change(function(){
     	if($(this).val() === "selectOn"){

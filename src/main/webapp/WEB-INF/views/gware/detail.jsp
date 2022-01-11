@@ -222,28 +222,28 @@
                             <jsp:include page="/WEB-INF/views/gware/docdtaillist.jsp"/>
                         </div>
                         <c:if test="${detailList.docStatus ne 1 }">
-                        <c:if test="${sessionScope.docRole eq 'S' || sessionScope.docRole eq 'A' || sessionScope.userNo eq detailListApp.userNoCR}">
-                        	<c:set var="now" value="<%=new java.util.Date()%>" />
-                        	<c:set var="sysDate"><fmt:formatDate value="${now}" pattern="yyyy-MM-dd HH:mm:ss" /></c:set>
-                        	<input type="hidden" id="appDate" value="${sysDate}" />
-	                        <div>
-	                        	<table class="table table-sm">
-		                        	<tr>
-										<th scope="row">완료/반려 의견(${detailListApp.userName})<br />
-											<c:choose>
-												<c:when test="${detailListApp.appDate != null && detailListApp.appDate != ''}">
-													(시간 : ${detailListApp.appDate})
-												</c:when>
-												<c:otherwise>
-													(시간 : 없음)
-												</c:otherwise>
-											</c:choose>
-										</th>
-										<td colspan="3"><textarea name="appComment" id="appComment" rows="8" class="form-control">${detailListApp.appComment}</textarea></td>
-									</tr>
-	                        	</table>
-	                        </div>
-                        </c:if>
+	                        <c:if test="${sessionScope.docRole eq 'S' || sessionScope.docRole eq 'A' || sessionScope.userNo eq detailListApp.userNoCR}">
+	                        	<c:set var="now" value="<%=new java.util.Date()%>" />
+	                        	<c:set var="sysDate"><fmt:formatDate value="${now}" pattern="yyyy-MM-dd HH:mm:ss" /></c:set>
+	                        	<input type="hidden" id="appDate" value="${sysDate}" />
+		                        <div>
+		                        	<table class="table table-sm">
+			                        	<tr>
+											<th scope="row">완료/반려 의견(${detailListApp.userName})<br />
+												<c:choose>
+													<c:when test="${detailListApp.appDate != null && detailListApp.appDate != ''}">
+														(시간 : ${detailListApp.appDate})
+													</c:when>
+													<c:otherwise>
+														(시간 : 없음)
+													</c:otherwise>
+												</c:choose>
+											</th>
+											<td colspan="3"><textarea name="appComment" id="appComment" rows="8" class="form-control">${detailListApp.appComment}</textarea></td>
+										</tr>
+		                        	</table>
+		                        </div>
+	                        </c:if>
                         </c:if>
                     </div>
                 </div>
@@ -333,7 +333,19 @@
         	var docType = "${detailList.docType}";
         	
         	$("[name='contractType'][value='"+contractType+"']").attr("checked", true);
-        	$("#docType").val(docType);
+        	
+
+        	setTimeout(() => {
+    	    	if($("[name='contractType']:checked").val() === 'BREQ'){
+    	    		$("#docSelect1").show();
+    	    		$("#docSelect2").hide();
+    	    		$("#docSelect1").find("#docType").val(docType);
+    	    	}else{
+    	    		$("#docSelect1").hide();
+    	    		$("#docSelect2").show();
+    	    		$("#docSelect2").find("#docType").val(docType);
+    	    	}
+    		}, 100);
         });
     </script>
 </div>

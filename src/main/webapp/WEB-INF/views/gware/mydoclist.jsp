@@ -185,8 +185,15 @@
                                 		<a href="${path}/gw/detail/${row.docNo}">VTEK_2022${row.docNo}</a>
                                 	</td>
                                     <td class="text-center">
-                                    	<c:if test="${row.docType eq 'BUY'}">물품 구매요청서</c:if>
+                                    	<c:if test="${row.docType eq 'BUY'}">구매요청서</c:if>
                                     	<c:if test="${row.docType eq 'TRS'}">지출품의서</c:if>
+                                    	<c:if test="${row.docType eq 'ODS'}">수주수</c:if>
+                                    	<c:if test="${row.docType eq 'CKD'}">검토요청서</c:if>
+                                    	<c:if test="${row.docType eq 'FMF'}">공문서 확인 요청서</c:if>
+                                    	<c:if test="${row.docType eq 'COST'}">비용청구</c:if>
+                                    	<c:if test="${row.docType eq 'TAX'}">세금공과금</c:if>
+                                    	<c:if test="${row.docType eq 'CREDIT'}">외상매입금</c:if>
+                                    	<c:if test="${row.docType eq 'PAY'}">급여</c:if>
                                     </td>
                                     <td>${row.docTitle}</td>
                                     <td class="text-right">￦<fmt:formatNumber type="number" maxFractionDigits="3" value="${row.docAmount}" /></td>

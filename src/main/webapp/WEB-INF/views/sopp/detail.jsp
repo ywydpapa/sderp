@@ -28,7 +28,9 @@
 				<!-- Nav tabs -->
 				<ul class="nav nav-tabs  tabs" role="tablist" id="tablist">
 					<li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#tab01" role="tab">기본정보</a></li>
-					<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#tab02" role="tab" id="dataType01_tab02">매입매출 내역</a></li>
+					<c:if test="${sessionScope.userNo eq  dto.userNo || sessionScope.userRole eq 'ADMIN'}">
+						<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#tab02" role="tab" id="dataType01_tab02">매입매출 내역</a></li>
+					</c:if>
 					<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#tab03" role="tab" id="dataType01_tab03">견적 내역(${fn:length(estList)})</a></li>
 					<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#tab04" role="tab">파일첨부(${fn:length(soppFiles)})</a></li>
 					<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#tab05" role="tab">기술지원 내역(${fn:length(techdinsopp)})</a></li>
@@ -98,7 +100,7 @@
 																</div>
 															</div>
 														</td>
-														<th scope="row">매출처</th>
+														<th class="requiredTextCss" scope="row">매출처</th>
 														<td>
 															<div class="input-group input-group-sm mb-0">
 																<input type="text" class="form-control" name="custName"
@@ -170,7 +172,7 @@
 																</div>
 															</div>
 														</td>
-														<th scope="row">엔드유저</th>
+														<th class="requiredTextCss" scope="row">엔드유저</th>
 														<td>
 															<div class="input-group input-group-sm mb-0">
 																<input type="text" class="form-control" id="endCustName" value="${dto.buyrName}" readonly>
@@ -223,7 +225,7 @@
 															%</td>
 													</tr>
 													<tr>
-														<th scope="row">계약구분</th>
+														<th class="requiredTextCss" scope="row">계약구분</th>
 														<td><select name="cntrctMth" id="cntrctMth"
 															class="form-control form-control-sm">
 																<option value="">선택</option>
@@ -238,7 +240,7 @@
 															value="${dto.soppTargetDate}"></td>
 													</tr>
 													<tr>
-														<th scope="row">판매방식</th>
+														<th class="requiredTextCss" scope="row">판매방식</th>
 														<td><select name="soppType" id="soppType"
 															class="form-control form-control-sm col-md-4">
 																<option value="">선택</option>
@@ -556,6 +558,23 @@
 			if($("#soppTargetAmt").val() != "") soppData.soppTargetAmt 	= $("#soppTargetAmt").val().replace(/[\D\s\._\-]+/g, "");
 			if(tinyMCE.get("soppDesc").getContent() != "") soppData.soppDesc 		= tinyMCE.get("soppDesc").getContent();
 
+			if (!soppData.soppTitle) {
+				alert("영업기회명을 입력하십시오.!!");
+				return;
+			} else if(!soppData.custNo){
+				alert("매출처를 선택해주십시오.");
+				return;
+			} else if(!soppData.buyrNo){
+				alert("엔드유저를 선택해주십시오.");
+				return;
+			} else if(!soppData.cntrctMth){
+				alert("계약구분을 선택해주십시오.");
+				return;
+			} else if(!soppData.soppType){
+				alert("판매방식을 선택해주십시오.");
+				return;
+			}
+			
 			$.ajax({ url: "${path}/sopp/update.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
 				data: soppData , // HTTP 요청과 함께 서버로 보낼 데이터
 				method: "POST", // HTTP 요청 메소드(GET, POST 등)

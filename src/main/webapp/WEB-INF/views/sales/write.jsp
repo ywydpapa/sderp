@@ -54,7 +54,7 @@
 									<th scope="row">장소</th>
 									<td><input type="text" class="form-control form-control-sm"
 										id="salesPlace" name="salesPlace" placeholder="장소를 입력하세요"></td>
-									<th>활동형태</th>
+									<th class="requiredTextCss">활동형태</th>
 									<td><select name="salesType" id="salesType" class="form-control form-control-sm">
 											<option value="">선택</option>
 											<c:forEach var = "salesType" items="${salesType}">
@@ -412,6 +412,10 @@
 			}
 			else if (!salesData.salesTodatetime){
 				alert("영업활동의 종료일을 선택해 주십시오.");
+				return;
+			}
+			else if (!salesData.salesType){
+				alert("활동형태를 선택해주십시오.");
 				return;
 			}
 			else if (!salesData.userNo){

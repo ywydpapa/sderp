@@ -24,10 +24,9 @@
 			</thead>
 			<tbody id="ItemFilelist">
 				<c:forEach var="row2" items="${contFiles}">
-					<c:set var='repName' value='${fn:replace(row2.fileName,"'","\\'")}' />
 					<tr class="item1">
 						<td class="text-center">${fn:substring(row2.uploadDate, 0, 10)}</td>
-						<td><a href="javascript:downloadFile('${row2.fileId}', '${repName}');">${row2.fileName}</a></td>
+						<td><a href="javascript:downloadFile('${row2.fileId}', '${row2.fileName}');">${row2.fileName}</a></td>
 						<td>${row2.fileDesc}</td>
 						<td style="text-align: center;"><button class="btn btn-sm btn-inverse" onclick="javascript:deleteFile('${row2.fileId}');">삭제</button></td>
 					</tr>

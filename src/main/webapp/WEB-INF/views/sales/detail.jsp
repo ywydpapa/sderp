@@ -54,7 +54,7 @@
 								<tr>
 									<th scope="row">장소</th>
 									<td><input type="text" class="form-control form-control-sm" id="salesPlace" name="salesPlace" value="${dto.salesPlace}"></td>
-									<th>활동형태</th>
+									<th class="requiredTextCss">활동형태</th>
 									<td><select name="salesType" id="salesType" class="form-control form-control-sm">
 										<c:forEach var="acttype" items="${acttype}">
 										<option value="${acttype.codeNo}" <c:if test="${acttype.codeNo == dto.salesType}">selected</c:if>>${acttype.desc03}</option>
@@ -309,6 +309,27 @@
 				salesData.salesDesc			= tinyMCE.get("salesDesc").getContent();
 			}else{
 				salesData.salesDesc 		= $("#salesDesc").val();
+			}
+			
+			if (!salesData.salesFrdatetime){
+				alert("영업활동의 시작일을 선택해 주십시오.");
+				return;
+			}
+			else if (!salesData.salesTodatetime){
+				alert("영업활동의 종료일을 선택해 주십시오.");
+				return;
+			}
+			else if (!salesData.salesType){
+				alert("활동형태를 선택해주십시오.");
+				return;
+			}
+			else if (!salesData.userNo){
+				alert("담당사원을 선택해 주십시오.");
+				return;
+			}
+			else if (!salesData.salesTitle) {
+				alert("영업활동 제목을 입력해 주십시오.");		
+				return;
 			}
 			
 			$.ajax({

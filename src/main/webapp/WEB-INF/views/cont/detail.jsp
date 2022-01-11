@@ -203,7 +203,7 @@
 															</div>
 														</div>
 													</td>
-													<th scope="row">판매방식</th>
+													<th class="requiredTextCss" scope="row">판매방식</th>
 													<td>
 														<select name="contType" class="form-control form-control-sm" id="contType">
 															<option value="">선택</option>
@@ -264,7 +264,7 @@
 													</td>
 												</tr>
 												<tr>
-													<th scope="row">엔드유저</th>
+													<th class="requiredTextCss" scope="row">엔드유저</th>
 													<td>
 														<div class="input-group input-group-sm mb-0">
 															<input type="text" class="form-control" id="endCustName" value="${contDto.buyrName}" readonly>
@@ -680,6 +680,18 @@
 
 			if (!contData.contTitle) {
 				alert("계약명 제목을 입력하십시오.");
+				return;
+			} else if(!contData.userNo){
+				alert("담당자를 입력하십시오.");
+				return;
+			} else if (!contData.custNo){
+				alert("매출처를 입력하십시오.");
+				return;
+			} else if(!contData.contType){
+				alert("판매방식을 선택해주십시오.");
+				return;
+			} else if(!contData.buyrNo){
+				alert("엔드유저를 선택해주십시오.");
 				return;
 			} else if (!contData.cntrctMth){
 				alert("영업기회(신규 영업지원) 및 계약을 입력하십시오.");

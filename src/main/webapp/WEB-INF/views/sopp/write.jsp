@@ -93,7 +93,7 @@
 																</div>
 															</div>
 														</td>
-														<th scope="row">매출처</th>
+														<th class="requiredTextCss" scope="row">매출처</th>
 														<td>
 															<div class="input-group input-group-sm mb-0">
 																<input type="text" class="form-control" name="custName" id="custName" value="" readonly>
@@ -165,7 +165,7 @@
 																</div>
 															</div>
 														</td>
-														<th scope="row">엔드유저</th>
+														<th class="requiredTextCss" scope="row">엔드유저</th>
 														<td>
 															<div class="input-group input-group-sm mb-0">
 																<input type="text" class="form-control" id="endCustName" value="" readonly>
@@ -221,7 +221,7 @@
 														</td>
 													</tr>
 													<tr>
-														<th scope="row">계약구분</th>
+														<th class="requiredTextCss" scope="row">계약구분</th>
 														<td><select name="cntrctMth" id="cntrctMth"
 															class="form-control form-control-sm">
 																<option value="">선택</option>
@@ -235,7 +235,7 @@
 														</td>
 													</tr>
 													<tr>
-														<th scope="row">판매방식</th>
+														<th class="requiredTextCss" scope="row">판매방식</th>
 														<td>
 														<!-- <select name="soppType" id="soppType"
 															class="form-control form-control-sm col-md-4">
@@ -378,6 +378,18 @@
 		// 필수값 체크
 		if (!soppData.soppTitle) {
 			alert("영업기회명을 입력하십시오.!!");
+			return;
+		} else if(!soppData.custNo){
+			alert("매출처를 선택해주십시오.");
+			return;
+		} else if(!soppData.buyrNo){
+			alert("엔드유저를 선택해주십시오.");
+			return;
+		} else if(!soppData.cntrctMth){
+			alert("계약구분을 선택해주십시오.");
+			return;
+		} else if(!soppData.soppType){
+			alert("판매방식을 선택해주십시오.");
 			return;
 		}
 

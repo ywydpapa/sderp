@@ -158,8 +158,9 @@
 					<div class="table-responsive">
 						<table id="contTable" class="table table-striped table-bordered nowrap ">
 							<colgroup>
+								<col width="5%"/>
 								<col width="10%"/>
-								<col width="20%"/>
+								<col width="15%"/>
 								<col width="10%"/>
 								<col width="10%"/>
 								<col width="10%"/>
@@ -169,6 +170,7 @@
 							<thead>
 								<tr>
 									<th class="text-center">견적일자</th>
+									<th class="text-center">작성자</th>
 									<th class="text-center">견적명</th>
 									<th class="text-center">거래처</th>
 									<th class="text-center">공급가합계</th>
@@ -180,11 +182,12 @@
 							<tbody>
 							<c:forEach var="row" items="${list}">
 								<tr>
-									<td>${row.estDate}</td>
+									<td class="text-center">${row.estDate}</td>
+									<td class="text-center">${row.userName}</td>
 									<td>
 										<a href="${path}/gw/estdetail/${row.estId}/${row.estVer}">${row.estId}</a>
 									</td>
-									<td>${row.custName}</td>
+									<td class="text-center">${row.custName}</td>
 									<td class="text-right"><fmt:formatNumber type="number" maxFractionDigits="3" value="${row.estAmount}" /></td>
 									<td class="text-right"><fmt:formatNumber type="number" maxFractionDigits="3" value="${row.estVat}" /></td>
 									<td class="text-right"><fmt:formatNumber type="number" maxFractionDigits="3" value="${row.estTotal}" /></td>

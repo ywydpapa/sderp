@@ -189,7 +189,7 @@
 										</div>
 									</td>
 
-									<th>판매방식</th>
+									<th class="requiredTextCss">판매방식</th>
 									<td>
 										<select name="select" class="form-control form-control-sm" id="contType">
 											<option value="">선택</option>
@@ -274,7 +274,7 @@
 									</td>
 								</tr>
 								<tr>
-									<th scope="row">엔드유저</th>
+									<th scope="row" class="requiredTextCss">엔드유저</th>
 									<td>
 										<div class="input-group input-group-sm mb-0">
 											<input type="text" class="form-control" id="endCustName" value="" readonly>
@@ -605,6 +605,12 @@
 				return;
 			} else if (!contData.custNo){
 				alert("매출처를 입력하십시오.");
+				return;
+			} else if(!contData.contType){
+				alert("판매방식을 선택해주십시오.");
+				return;
+			} else if(!contData.buyrNo){
+				alert("엔드유저를 선택해주십시오.");
 				return;
 			}
 

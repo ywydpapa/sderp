@@ -165,26 +165,28 @@
 				</li>
 			</ul>
 		</li>
-		<li class="pcoded-hasmenu pcoded <c:if test="${path2 eq '/sopp/list2.do' || path2 eq '/sopp/list2.do' || fn:startsWith(path2, '/sopp/detail2')}">pcoded-trigger</c:if>">
-			<a href="javascript:void(0)">
-				<span class="pcoded-micon">
-					<i class="ti-package"></i>
-				</span>
-				<span class="pcoded-mtext" data-i18n="nav.basic-components.main">수주 판매보고</span>
-				<span class="pcoded-mcaret"></span>
-			</a>
-			<ul class="pcoded-submenu">
-				<li class="pcoded-hasmenu ">
-					<a href="${path}/sopp/list2.do">
-						<span class="pcoded-micon">
-							<i class="ti-direction-alt"></i>
-						</span>
-						<span class="pcoded-mtext" data-i18n="nav.menu-levels.menu-level-21">수주 판매보고 조회</span>
-						<span class="pcoded-mcaret"></span>
-					</a>
-				</li>
-			</ul>
-		</li>
+		<c:if test="${sessionScope.userRole eq 'ADMIN'}">
+			<li class="pcoded-hasmenu pcoded <c:if test="${path2 eq '/sopp/list2.do' || path2 eq '/sopp/list2.do' || fn:startsWith(path2, '/sopp/detail2')}">pcoded-trigger</c:if>">
+				<a href="javascript:void(0)">
+					<span class="pcoded-micon">
+						<i class="ti-package"></i>
+					</span>
+					<span class="pcoded-mtext" data-i18n="nav.basic-components.main">수주 판매보고</span>
+					<span class="pcoded-mcaret"></span>
+				</a>
+				<ul class="pcoded-submenu">
+					<li class="pcoded-hasmenu ">
+						<a href="${path}/sopp/list2.do">
+							<span class="pcoded-micon">
+								<i class="ti-direction-alt"></i>
+							</span>
+							<span class="pcoded-mtext" data-i18n="nav.menu-levels.menu-level-21">수주 판매보고 조회</span>
+							<span class="pcoded-mcaret"></span>
+						</a>
+					</li>
+				</ul>
+			</li>
+		</c:if>
 		<li class="pcoded-hasmenu pcoded <c:if test="${path2 eq '/cont/list.do' || path2 eq '/cont/list.do' || path2 eq '/cont/write.do' || fn:startsWith(path2, '/cont/detail')}">pcoded-trigger</c:if>">
 			<a href="javascript:void(0)">
 				<span class="pcoded-micon">

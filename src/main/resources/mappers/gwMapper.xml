@@ -113,8 +113,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			 ,a.regDate
 			 ,a.modDate
 			 ,a.attrib
+			 ,c.userName
 		from swc_est a
 				 left join swc_cust b on a.custNo = b.custNo
+				 left join swc_user c on a.userNo = c.userNo
 		where a.compNo = #{compNo} and a.attrib not like 'XXX%' group by a.estId;
 	</select>
 

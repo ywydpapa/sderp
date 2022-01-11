@@ -88,11 +88,19 @@
     	var attStart = $("#hrFrom").val() +"T"+ $("#hrFromTm").val() ;
         var attEnd = $("#hrTo").val() + "T"+$("#hrToTm").val();
     	var attDesc = tinyMCE.get("hrDesc").getContent();
-        if (attDesc ==-""){
+        
+    	if (attDesc == ""){
             alert("신청내용을 기입해 주십시오.");
             $("#hrDesc").focus();
             return;
+        }else if($("#hrType").val() === ""){
+        	alert("근태종류를 선택해주십시오.");
+        	return false;
+        }else if($("#hrFrom").val() === "" || $("#hrTo").val() === ""){
+        	alert("시작일 및 종료일을 선택해주십시오.");
+        	return false;
         }
+    	
 		temp.compNo = $("#compNo").val();
     	temp.userNo = $("#userNo").val();
     	temp.attType = attType;
@@ -104,7 +112,7 @@
         $("#hrFrom").val("");
         $("#hrTo").val("");
         $("#hrDesc").val("");
-        qutylist.append("<tr><td id='hrType1' style='text-align:center;'><input type='hidden' id='hrTypeN' value ='"+attType+"'/> "+attTypeN+"</td><td id='sttFromN' style='text-align:center;'>"+attStart+"</td><td id='attEndN' style='text-align: center'>"+attEnd+"</td><td id='attDescN' style='text-align: center'>"+attDesc+"</td><td><button class='btn btn-sm btn-danger' data-index="+dataIndex+" id='dataDelBtn'>삭제</button></td></tr>");
+        qutylist.append("<tr><td id='hrType1' style='text-align:center;'><input type='hidden' id='hrTypeN' value ='"+attType+"'/> "+attTypeN+"</td><td id='sttFromN' style='text-align:center;'>"+attStart+"</td><td id='attEndN' style='text-align: center'>"+attEnd+"</td><td id='attDescN' style='text-align: center; vertical-align: middle;'>"+attDesc+"</td><td style='text-align:center;'><button class='btn btn-sm btn-danger' data-index="+dataIndex+" id='dataDelBtn'>삭제</button></td></tr>");
     	console.log(dataArray);
         dataIndex++;
     }
@@ -115,21 +123,24 @@
     	if($("#hrTypeN").val() === ""){
     		alert("신청 내용이 없습니다.");
     		$("#hrType").focus();
+    	}else if(dataArray.length == 0){
+    		alert("데이터를 추가해주십시오.");
+    		return false;
     	}else{
     		dataHr.compNo = $("#compNo").val();
     		dataHr.userNo = $("#userNo").val();
-					for(var i = 0; i < dataArray.length; i++){
-						var JsonArray = JSON.stringify(dataArray[i]);
-						console.log(JSON.parse(JsonArray));
-		  				$.ajax({
-		  					url: "${path}/gw/attinsert.do",
-		  					method: "post",
-		  					data: JSON.parse(JsonArray),
-		  					dataType: "json"
-		  				});
-		 			}
-		 			alert("등록되었습니다.");
-		 			location.href = "${path}/gw/attwrite.do";
+			for(var i = 0; i < dataArray.length; i++){
+				var JsonArray = JSON.stringify(dataArray[i]);
+				console.log(JSON.parse(JsonArray));
+  				$.ajax({
+  					url: "${path}/gw/attinsert.do",
+  					method: "post",
+  					data: JSON.parse(JsonArray),
+  					dataType: "json"
+  				});
+ 			}
+ 			alert("등록되었습니다.");
+ 			location.href = "${path}/gw/attwrite.do";
     	}
     }
 
@@ -137,6 +148,16 @@
         checkDate();
     });
 
+    $(document).on("click", "#dataDelBtn", function(){
+		dataArray.splice($(this).attr("data-index"), 1);
+		$("#qutylist tbody tr").eq($(this).attr("data-index")).remove();
+	
+		$("#qutylist tbody tr").find("#dataDelBtn").each(function(index, item){
+			$(this).attr("data-index", index);
+			dataIndex = index+1;
+		});
+	});
+    
     $(document).ready(function(){
         var d= new Date();
         var today = new Date(d.getTime() - (d.getTimezoneOffset() * 60000)).toISOString();

@@ -144,11 +144,11 @@
            				<option value="Off">직접입력</option>
            			</select>
                 </td>
-                <td><input type="text" class="form-control form-control-sm" id="data02Netprice" style="min-width: 80px;"/></td>
+                <td><input type="text" class="form-control form-control-sm" id="data02Netprice" style="min-width: 80px;" value="0" /></td>
                 <td><input type="text" class="form-control form-control-sm" id="data02Quanty" style="min-width: 80px;" value="1"  /></td>
                 <td><input type="text" class="form-control form-control-sm" id="data02Amt" style="min-width: 80px;" readonly /></td>
-                <td><input type="text" class="form-control form-control-sm" id="data02Vat" style="min-width: 80px;" /></td>
-                <td><input type="text" class="form-control form-control-sm" id="data02Total" style="min-width: 80px;" /></td>
+                <td><input type="text" class="form-control form-control-sm" id="data02Vat" style="min-width: 80px;" value="0" /></td>
+                <td><input type="text" class="form-control form-control-sm" id="data02Total" style="min-width: 80px;" value="0" /></td>
                 <td><input type="text" class="form-control form-control-sm" id="data02Remark" style="min-width: 80px;"></td>
                 <td>
                     <button id="data02Addbtn" class="btn btn-success btn-sm" onClick="dataSave();">추가</button>
@@ -172,6 +172,7 @@
 <script>
 	var dataArray = [];
     var dataIndex = 0;
+    var detailDocType = "${detailList.docType}";
     
     $("#select2").hide();
     $("#docSelect2").hide();
@@ -401,7 +402,7 @@
     		alert("문서 제목을 작성하십시오.");
     		$("#docTitle").focus();
     		return false;
-    	}else if($("#docType").val() === ""){
+    	}else if(showDocType === ""){
     		alert("문서 종류를 선택해주십시오.");
     		return false;
     	}else if($("#docDate").val() === ""){
@@ -570,7 +571,7 @@
     		alert("문서 제목을 작성하십시오.");
     		$("#docTitle").focus();
     		return false;
-    	}else if($("#docType").val() === ""){
+    	}else if(showDocType === ""){
     		alert("문서 종류를 선택해주십시오.");
     		return false;
     	}else if($("#docDate").val() === ""){
@@ -765,7 +766,7 @@
     		alert("문서 제목을 작성하십시오.");
     		$("#docTitle").focus();
     		return false;
-    	}else if($("#docType").val() === ""){
+    	}else if(showDocType === ""){
     		alert("문서 종류를 선택해주십시오.");
     		return false;
     	}else if($("#docDate").val() === ""){
@@ -861,7 +862,7 @@
     		alert("문서 제목을 작성하십시오.");
     		$("#docTitle").focus();
     		return false;
-    	}else if($("#docType").val() === ""){
+    	}else if(showDocType === ""){
     		alert("문서 종류를 선택해주십시오.");
     		return false;
     	}else if($("#docDate").val() === ""){

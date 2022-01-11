@@ -72,8 +72,9 @@
                                     <td class="text-center">
                                         <a href="${path}/gw/attdetail/${row.attendId}"><c:if test="${row.attType eq 1}">월차</c:if>
                                             <c:if test="${row.attType eq 2}">연차</c:if>
-                                            <c:if test="${row.attType eq 3}">경조휴가</c:if>
-                                            <c:if test="${row.attType eq 4}">휴직</c:if></a>
+                                            <c:if test="${row.attType eq 3}">연장근무</c:if>
+                                            <c:if test="${row.attType eq 4}">휴일근무</c:if>
+                                            <c:if test="${row.attType eq 5}">경조휴가</c:if></a>
                                     </td>
                                     <td class="text-center">${row.userName}</td>
                                     <td class="text-left"><a href="${path}/gw/attdetail/${row.attendId}">${row.attDesc}</a></td>

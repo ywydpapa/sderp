@@ -67,7 +67,7 @@
 									<td class="contDetailSopp">
 										<div class="input-group input-group-sm mb-0">
 											<input type="text" class="form-control" name="soppDTO" id="soppTitle" value="${detail.soppTitle}" readonly/>
-											<input type="hidden" class="form-control" name="soppDTO" id="soppNo" value="" />
+											<input type="hidden" class="form-control" name="soppDTO" id="soppNo" value="${detail.soppNo}" />
 											<span class="input-group-btn">
 												<button class="btn btn-primary sch-opportunity2"
 													data-remote="${path}/modal/popup.do?popId=sopp"
@@ -106,7 +106,7 @@
 											<input type="text" class="form-control" name="custName"
 												id="custName" value="${detail.custName}" readonly> <input
 												type="hidden" name="custNo" id="custNo"
-												value="${dto.custNo}" /> <span class="input-group-btn">
+												value="${detail.custNo}" /> <span class="input-group-btn">
 												<button class="btn btn-primary sch-company"
 													data-remote="${path}/modal/popup.do?popId=cust"
 													type="button" data-toggle="modal"
@@ -139,11 +139,11 @@
 									</td>
 								</tr>
 								<tr>
-									<th class="text-center">견적번호(*)</th>
+									<th class="text-center requiredTextCss">견적번호(*)</th>
 									<td>
-										<input type="text" class="form-control" id="estId" value="${detail.estId}">
+										<input type="text" class="form-control" id="estId" value="${detail.estId}" readonly>
 									</td>
-									<th class="text-center">견적제목(*)</th>
+									<th class="text-center requiredTextCss">견적제목(*)</th>
 									<td>
 										<input type="text" class="form-control" id="estTitle" value="${detail.estTitle}">
 									</td>
@@ -153,7 +153,7 @@
 									<td>
 										<input type="text" class="form-control" id="estVer" placeholder="등록될 때 자동 등록" readonly>
 									</td>
-									<th class="text-center">견적서 작성일자(*)</th>
+									<th class="text-center requiredTextCss">견적서 작성일자(*)</th>
 									<td>
 										<input type="date" id="estDate" name="estDate" class="form-control" style="text-align: right;" value="${detail.estDate}">
 									</td>
@@ -184,7 +184,10 @@
 	</div>
 	<div class="btn_wr text-right mt-3">
 		<button class="btn btn-md btn-success f-left" onClick="javascript:location='${path}/gw/estlist.do'">견적목록</button>
-		<button class="btn btn-md btn-primary" onClick="fn_data02Insert()">견적등록</button>
+		<c:if test="${sessionScope.userNo eq detail.userNo}">
+			<button class="btn btn-md btn-primary" onClick="fn_data02Update()">수정</button>
+			<button class="btn btn-md btn-danger" onClick="fn_data02Delete()">삭제</button>
+		</c:if>
 		<button class="btn btn-md btn-inverse" onClick="javascript:location='${path}/gw/estlist.do'">취소</button>
 	</div>
 	<!--//계약등록-->
@@ -336,10 +339,6 @@
 		}
 
 		$(document).ready(function() {
-			var nowDate = new Date();     
-			
-	        $("#estDate").val(nowDate.getFullYear() + "-" + parseInt(nowDate.getMonth()+1) + "-" + nowDate.getDate());
-			
 			var $input = $("#contAmt,#netprofit");
 			// 이벤트 시작 ==========================================================================
 			// 이벤트시 동작

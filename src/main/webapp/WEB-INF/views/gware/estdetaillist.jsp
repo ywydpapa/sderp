@@ -40,7 +40,11 @@
     <tbody>
     <c:forEach var="row" items="${list}">
     	<tr>
-    		<td style='text-align:center;'>견적</td>
+    		<td style='text-align:center;'>
+    			견적
+    			<input type="hidden" id="productCustNo" value="${row.custNo}" />
+    			<input type="hidden" id="productNo" value="${row.productNo}" />
+    		</td>
     		<td id='salesCustNoN' style='text-align:center;'>${row.custName}</td>
     		<td id='dataTitle' style='text-align:center;'>${row.productName}</td>
     		<td id='dataNetprice' style='text-align: right'>₩<fmt:formatNumber value="${row.productNetprice}" pattern="#,###" /></td>
@@ -50,7 +54,7 @@
     		<td id='dataTotal' style='text-align: right'>₩<fmt:formatNumber value="${row.productTotal}" pattern="#,###" /></td>
     		<td id='dataDiscount' style='text-align: right'>${row.productDis}%</td>
     		<td id='dataRemark'>${row.productRemark}</td>
-    		<td><button class='btn btn-sm btn-danger'>삭제</button></td>
+    		<td><button class='btn btn-sm btn-danger' id="dataDelBtn">삭제</button></td>
     	</tr>
     </c:forEach>
     </tbody>

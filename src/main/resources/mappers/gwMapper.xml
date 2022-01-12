@@ -52,6 +52,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	        '10000'
 	    );
     </insert>
+    
+    <!-- <update id="updateest">
+		update swc_est set
+			attrib = 'XXXXX',
+			modDate = now()
+		where estId = #{estId};
+		
+		update swc_estitems set
+			attrib = 'XXXXX',
+			modDate = now()
+		where estId = #{estId};
+	</update> -->
 
     <insert id="insertestitems">
     	<selectKey resultType="int" keyProperty="estVer" order="BEFORE">
@@ -72,6 +84,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	    	productDis,
 	    	productTotal,
 	    	productRemark,
+	    	regDate,
 	    	attrib
 	    ) values (
 	    	#{estId},
@@ -88,36 +101,25 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	    	#{productDis},
 	    	#{productTotal},
 	    	#{productRemark},
+	    	now(),
 	        '10000'
 	    );
     </insert>
 
+	<update id="deleteest">
+		update swc_est set
+			attrib = "XXXXX",
+		    ModDate = now()
+		where estId = #{estId};
+		
+		update swc_estitems set
+			attrib = "XXXXX",
+		    ModDate = now()
+		where estId = #{estId};
+	</update>
+
 	<select id="listest" resultType="gwDto">
-		select
-			a.estNo
-			 ,a.estId
-			 ,max(a.estVer) estVer
-			 ,a.estType
-			 ,a.estTitle
-			 ,a.estDesc
-			 ,a.custNo
-			 ,b.custName
-			 ,a.soppNo
-			 ,a.compNo
-			 ,a.userNo
-			 ,a.estAmount
-			 ,a.estVat
-			 ,a.estDiscount
-			 ,a.estTotal
-			 ,a.estDate
-			 ,a.regDate
-			 ,a.modDate
-			 ,a.attrib
-			 ,c.userName
-		from swc_est a
-				 left join swc_cust b on a.custNo = b.custNo
-				 left join swc_user c on a.userNo = c.userNo
-		where a.compNo = #{compNo} and a.attrib not like 'XXX%' group by a.estId;
+		SELECT a.*, b.custName, c.userName FROM swc_est a left join swc_cust b on a.custNo = b.custNo left join swc_user c on a.userNo = c.userNo WHERE(estId, estVer) IN (SELECT estId, MAX(estVer) FROM swc_est where compNo = #{compNo} and attrib not like 'XXX%' GROUP BY estId);
 	</select>
 
 	<select id="detailest" resultType="gwDto">

@@ -144,6 +144,16 @@ public class GwDAOImpl implements GwDAO{
     public int insertEst(GwDTO dto) {
         return sqlSession.insert("gw.insertest",dto);
     }
+    
+    @Override
+    public int updateEst(GwDTO dto) {
+        return sqlSession.update("gw.updateest",dto);
+    }
+    
+    @Override
+    public int deleteEst(String estId) {
+        return sqlSession.update("gw.deleteest", estId);
+    }
 
     @Override
     public int insertEstitems(GwDTO dto) {

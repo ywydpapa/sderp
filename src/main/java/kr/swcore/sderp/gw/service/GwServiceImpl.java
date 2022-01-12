@@ -166,6 +166,16 @@ public class GwServiceImpl implements GwService{
 
         return gwDao.insertEst(dto);
     }
+    
+    @Override
+    public int updateEst(GwDTO dto) {
+        return gwDao.updateEst(dto);
+    }
+    
+    @Override
+    public int deleteEst(String estId) {
+        return gwDao.deleteEst(estId);
+    }
 
     @Override
     public int insertEstitems(GwDTO dto) {

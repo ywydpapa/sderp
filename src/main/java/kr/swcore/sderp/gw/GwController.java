@@ -110,6 +110,18 @@ public class GwController {
         mav.addObject("list",gwService.listEstitems(dto));
         return mav;
     }
+    
+    @RequestMapping("update.do")
+    public  ResponseEntity<?> update(@ModelAttribute GwDTO dto) {
+         Map<String, Object> param = new HashMap<>();
+         int docUpdate = gwService.updateDoc(dto);
+         if (docUpdate >0) {
+             param.put("code","10001");
+         } else {
+             param.put("code","20001");
+         }
+         return ResponseEntity.ok(param);
+    }
 
     @RequestMapping("insert.do")
     public ResponseEntity<?> insert(@ModelAttribute GwDTO dto) {
@@ -161,18 +173,6 @@ public class GwController {
         return ResponseEntity.ok(param);
     }
     
-   @RequestMapping("update.do")
-   public  ResponseEntity<?> update(@ModelAttribute GwDTO dto) {
-        Map<String, Object> param = new HashMap<>();
-        int docUpdate = gwService.updateDoc(dto);
-        if (docUpdate >0) {
-            param.put("code","10001");
-        } else {
-            param.put("code","20001");
-        }
-        return ResponseEntity.ok(param);
-   }
-   
    @RequestMapping("updateApp.do")
    public  ResponseEntity<?> updateDocApp(@ModelAttribute GwDTO dto) {
         Map<String, Object> param = new HashMap<>();
@@ -218,6 +218,30 @@ public class GwController {
             param.put("code","10001");
         }
         else {param.put("code","20001");
+        }
+        return ResponseEntity.ok(param);
+    }
+    
+    @RequestMapping("updateEst.do")
+    public  ResponseEntity<?> updateEst(@ModelAttribute GwDTO dto) {
+         Map<String, Object> param = new HashMap<>();
+         int estUpdate = gwService.updateEst(dto);
+         if (estUpdate >0) {
+             param.put("code","10001");
+         } else {
+             param.put("code","20001");
+         }
+         return ResponseEntity.ok(param);
+    }
+    
+    @RequestMapping("deleteEst/{estId}")
+    public  ResponseEntity<?> deleteEst(@PathVariable("estId") String estId) {
+        Map<String, Object> param = new HashMap<>();
+        int docDelete = gwService.deleteEst(estId);
+        if (docDelete >0) {
+            param.put("code","10001");
+        } else {
+            param.put("code","20001");
         }
         return ResponseEntity.ok(param);
     }

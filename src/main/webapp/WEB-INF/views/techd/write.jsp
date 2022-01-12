@@ -616,6 +616,8 @@
 		});
 	});
 	
+	setTimeComboBox(['#startTime', '#endTime']);
+	
 	</script>
 <c:if test="${empty simple}">
 </div>

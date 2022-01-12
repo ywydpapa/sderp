@@ -37,6 +37,8 @@ public interface GwService {
     int deleteDoc(int docNo);
     int deleteUserAtt(int attendId);
     int insertEst(GwDTO dto);
+    int updateEst(GwDTO dto);
+    int deleteEst(String estId);
     int insertEstitems(GwDTO dto);
     int uploadFile(HttpSession session, int docNo, MultipartHttpServletRequest fileList) throws IOException;
     int uploadFileUpdate(HttpSession session, int docNo, MultipartHttpServletRequest fileList) throws IOException;

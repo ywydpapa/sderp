@@ -291,6 +291,9 @@
     });
     
 	$(document).on("click", "#dataDelBtn", function(){
+		var cal = parseInt($("#product02InSum_table").html().replace(/[\D\s\._\-]+/g, "")) - parseInt(dataArray[$(this).attr("data-index")].productTotal);
+		
+		$("#product02InSum_table").html("￦"+parseInt(cal).toLocaleString("en-US"));
 		dataArray.splice($(this).attr("data-index"), 1);
 		$("#qutylist tbody tr").eq($(this).attr("data-index")).remove();
 	

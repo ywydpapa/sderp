@@ -141,7 +141,7 @@
 								<tr>
 									<th class="text-center requiredTextCss">견적번호(*)</th>
 									<td>
-										<input type="text" class="form-control" id="estId" placeholder="자동생성 됩니다..." readonly>
+										<input type="text" class="form-control" id="estId">
 									</td>
 									<th class="text-center requiredTextCss">견적제목(*)</th>
 									<td>

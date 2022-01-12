@@ -33,6 +33,8 @@ public interface GwDAO {
     int deleteDoc(int docNo);
     int deleteUserAtt(int attendId);
     int insertEst(GwDTO dto);
+    int updateEst(GwDTO dto);
+    int deleteEst(String estId);
     int insertEstitems(GwDTO dto);
     int uploadFile(GwFileDataDTO dto);
     int uploadFileUpdate(GwFileDataDTO dto);

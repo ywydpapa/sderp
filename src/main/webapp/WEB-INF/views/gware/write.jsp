@@ -306,6 +306,7 @@
         }
 
         $(document).ready(function() {
+			$("#docSelect2").hide();
         });
     </script>
 </div>

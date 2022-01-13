@@ -24,4 +24,6 @@ public interface ContDAO {
 	int uploadFile(ContFileDataDTO dto);
 	Integer deleteFile(ContFileDataDTO dto);
 	ContFileDataDTO downloadFile(ContFileDataDTO dto);
+	
+	ContDTO listSumCont(int compNo);
 }

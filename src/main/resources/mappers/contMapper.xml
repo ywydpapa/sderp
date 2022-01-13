@@ -30,6 +30,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where a.attrib not like 'XXX%' and a.custNo = #{custNo}
 		order by regDatetime desc
 	</select>
+	
+	<select id="listSumCont" resultType="contDto">
+		select sum(contAmt) as sumAmt, sum(net_profit) as sumProfit FROM swc_cont where attrib not like 'XXX%' and compNo = #{compNo}
+	</select>
  
  <select id="listconCont"
  		resultType="contDto">

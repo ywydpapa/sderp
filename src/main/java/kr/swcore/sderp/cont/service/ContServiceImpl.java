@@ -204,4 +204,10 @@ public class ContServiceImpl implements ContService {
 		// TODO Auto-generated method stub
 		return contDao.downloadFile(dto);
 	}
+
+	@Override
+	public ContDTO listSumCont(HttpSession session) {
+		int compNo = SessionInfoGet.getCompNo(session);
+		return contDao.listSumCont(compNo);
+	}
 }

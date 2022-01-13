@@ -32,4 +32,5 @@ public interface ContService {
 	int uploadFile(HttpSession session, int contNo, MultipartHttpServletRequest fileList) throws IOException;
 	Integer deleteFile(HttpSession session, ContFileDataDTO dto);
 	ContFileDataDTO downloadFile(ContFileDataDTO dto);
+	ContDTO listSumCont(HttpSession session);
 }

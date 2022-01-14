@@ -10,8 +10,11 @@ public interface GwDAO {
     List<GwDTO> listUserAtt(int compNo);
     List<GwDTO> listUserAttbyuser(int userNo);
     List<GwDTO> myList(int docCrUserNo);
-    List<GwDTO> myDocList(int docCrUserNo);
+    List<GwDTO> myList(GwDTO dto);
+    List<GwDTO> myDocList(int compNo);
+    List<GwDTO> myDocList(GwDTO dto);
     List<GwDTO> listEst(Integer compNo);
+    List<GwDTO> listEst(GwDTO dto);
     List<GwDTO> listEstitems(GwDTO dto);
     GwFileDataDTO listFile(int docNo);
     GwDTO detailEst(String estId);

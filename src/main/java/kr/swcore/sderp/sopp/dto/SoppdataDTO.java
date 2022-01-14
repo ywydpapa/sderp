@@ -14,7 +14,9 @@ public class SoppdataDTO {
 	private int soppdataNo;
 	private int soppNo;
 	private int userNo;
+	private String userName;
 	private int custNo;
+	private int compNo;
 	private String soppTitle;
 	private int catNo;
 	private int productNo;

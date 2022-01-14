@@ -652,7 +652,7 @@ select a.soppNo, dataType ,b.soppTitle, c.custName as custName, sum(case when a.
  		from swc_soppData01 a
 		left join swc_sopp b on a.soppNo = b.soppNo
  		left join swc_cust c on a.salesCustNo = c.custNo
-		where a.attrib not like 'XXX%'
+		where a.attrib not like 'XXX%' and b.compNo = #{compNo}
 		<if test="dataType != null and dataType != ''">
  		 	and a.dataType = #{dataType}
  		</if>
@@ -675,6 +675,24 @@ select a.soppNo, dataType ,b.soppTitle, c.custName as custName, sum(case when a.
 		group by a.soppNo
 		order by a.soppNo asc
  </select>
+ 
+<select id="listSearchIO" resultType="soppdataDto">
+	select a.soppNo, dataType ,b.soppTitle, c.custName as custName, sum(case when a.dataType='1101' then a.dataTotal end) AS amount, sum(case when a.dataType='1102' then a.dataTotal end) AS take, b.soppDesc   
+	 		from swc_soppData01 a
+			left join swc_sopp b on a.soppNo = b.soppNo
+	 		left join swc_cust c on a.salesCustNo = c.custNo
+	 		left join swc_user d on b.userNo = d.userNo
+			where a.attrib not like 'XXX%' and b.compNo = #{compNo}
+			<if test="custNo != null and custNo != ''">
+	 		 	and b.custNo = #{custNo}
+	 		</if>
+			<if test="userName != null and userName != ''">
+	 		 	and d.userName like CONCAT('%', #{userName}, '%')
+	 		</if>
+			and a.catNo=100001
+			group by a.soppNo
+			order by a.soppNo asc
+</select>
  
  <select id="listIO" resultType="soppdataDto">
  		select a.soppNo, dataType ,b.soppTitle, c.custName as custName, a.dataTotal,a.dataVat,a.dataAmt, b.soppDesc 

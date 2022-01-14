@@ -121,6 +121,22 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="listest" resultType="gwDto">
 		SELECT a.*, b.custName, c.userName FROM swc_est a left join swc_cust b on a.custNo = b.custNo left join swc_user c on a.userNo = c.userNo WHERE(estId, estVer) IN (SELECT estId, MAX(estVer) FROM swc_est where compNo = #{compNo} and attrib not like 'XXX%' GROUP BY estId);
 	</select>
+	
+	<select id="listsearchest" resultType="gwDto">
+		SELECT a.*, b.custName, c.userName
+		from swc_est a
+		left join swc_cust b on a.custNo = b.custNo 
+		left join swc_user c on a.userNo = c.userNo
+		WHERE(estId, estVer) IN (SELECT estId, MAX(estVer) FROM swc_est 
+		where compNo = #{compNo} and attrib not like 'XXX%' 
+		<if test="custNo != null and custNo != ''">
+ 		 	and a.custNo = #{custNo}
+ 		</if>
+		<if test="userName != null and userName != ''">
+ 		 	and c.userName like CONCAT('%', #{userName}, '%')
+ 		</if>
+		GROUP BY estId)
+	</select>
 
 	<select id="detailest" resultType="gwDto">
 		select a.*, b.custName, c.soppTitle from swc_est a LEFT JOIN swc_cust b ON a.custNo = b.custNo LEFT JOIN swc_sopp c ON a.soppNo = c.soppNo where a.estId=#{estId} limit 1;
@@ -134,8 +150,45 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select a.*, b.appStatus from swc_businessdoc a left join swc_businessdocapp b on a.docNo = b.docNo where a.attrib not like 'XXX%' and a.docCrUserNo = #{docCrUserNo};
 	</select>
 	
+	<select id="mySearchList" resultType="gwDto">
+		select a.*, b.appStatus from swc_businessdoc a 
+		left join swc_businessdocapp b on a.docNo = b.docNo
+		left join swc_user c on a.docCrUserNo = c.userNo
+		where a.attrib not like 'XXX%' and a.docCrUserNo = #{docCrUserNo}
+		<if test="custNo != null and custNo != ''">
+ 		 	and a.linkCustNo = #{custNo}
+ 		</if>
+		<if test="userName != null and userName != ''">
+ 		 	and c.userName like CONCAT('%', #{userName}, '%')
+ 		</if>
+ 		<if test="vatSdate != null and vatSdate != ''">
+ 		 	and a.docDate BETWEEN #{vatSdate} and #{vatEdate}
+ 		</if>;
+	</select>
+	
 	<select id="myDocList" resultType="gwDto">
-		select a.*, c.userName as userIsName, b.appStatus from swc_businessdoc a left join swc_businessdocapp b on a.docNo = b.docNo left join swc_user c on c.userNo = b.userNoIS where a.attrib not like 'XXX%' and a.docStatus = 2 and b.appStatus BETWEEN 2 and 4 and b.appStatus != 3;
+		select a.*, c.userName as userIsName, b.appStatus from swc_businessdoc a 
+		left join swc_businessdocapp b on a.docNo = b.docNo 
+		left join swc_user c on c.userNo = b.userNoIS 
+		where a.attrib not like 'XXX%' and b.compNo = #{compNo} and a.docStatus = 2 and b.appStatus BETWEEN 2 and 4 and b.appStatus != 3;
+	</select>
+	
+	<select id="myDocSerchList" resultType="gwDto">
+		select a.*, c.userName as userIsName, b.appStatus from swc_businessdoc a 
+		left join swc_businessdocapp b on a.docNo = b.docNo 
+		left join swc_user c on c.userNo = b.userNoIS
+		left join swc_user d on a.docCrUserNo = d.userNo 
+		where a.attrib not like 'XXX%' and b.compNo = #{compNo} 
+		<if test="custNo != null and custNo != ''">
+ 		 	and a.linkCustNo = #{custNo}
+ 		</if>
+		<if test="userName != null and userName != ''">
+ 		 	and d.userName like CONCAT('%', #{userName}, '%')
+ 		</if>
+ 		<if test="vatSdate != null and vatSdate != ''">
+ 		 	and a.docDate BETWEEN #{vatSdate} and #{vatEdate}
+ 		</if>
+		and a.docStatus = 2 and b.appStatus BETWEEN 2 and 4 and b.appStatus != 3;
 	</select>
 	
 	<select id="getEstSopp" resultType="gwDto">

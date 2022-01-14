@@ -14,7 +14,7 @@
 <div id="main_content">
 	<script>
 	$(function(){
-		$('#contTable').DataTable({
+		$('#ioTable').DataTable({
 			info:false,
 			searching: true,
 			order: [[ 0, "desc" ]],
@@ -25,13 +25,13 @@
 		a {
 			text-decoration:underline;
 		}
-		#contTable > tbody > tr > td:nth-child(4){
+		#ioTable > tbody > tr > td:nth-child(4){
 			overflow: hidden;
 			text-overflow: ellipsis;
 			max-width: 220px;
 			white-space: nowrap;
 		}
-		#contTable > tbody > tr > td:nth-child(5){
+		#ioTable > tbody > tr > td:nth-child(5){
 			overflow: hidden;
 			text-overflow: ellipsis;
 			max-width: 220px;
@@ -43,10 +43,16 @@
 		<div class="page-header2">
 			<div class="row align-items-end">
 				<div class="col-lg-12">
-					<div class="page-header-title">
-						<div class="d-inline">
-							매입매출자료 목록
+					<div class="page-header-title" style="float:left;">
+						<div style="margin-top:15px;">
+							<h6 style="font-weight:600;">매입매출자료 목록</h6>
 						</div>
+					</div>
+					<div class="btn_wr" style="float:right;">
+						<button class="btn btn-sm btn-success" onClick="javascript:location='${path}/cont/iolistall.do'"><i class="icofont icofont-pencil-alt-2"></i>개별목록 확인</button>
+						<button class="btn btn-sm btn-inverse" onClick="javascript:fnClearall()"><i class="icofont icofont-spinner-alt-3"></i>초기화</button>
+						<button class="btn btn-sm btn-primary" onClick="javascript:fnListcon()"><i class="icofont icofont-search" id="search"></i>검색</button>
+						<button class="btn btn-sm btn-outline" onClick="javascript:location='${path}/cont/iowrite.do/0'"><i class="icofont icofont-pencil-alt-2"></i>자료등록</button>
 					</div>
 				</div>
 			</div>
@@ -56,18 +62,9 @@
 		<!--계약조회-->
 		<div class="cnt_wr">
 			<div class="row">
+				<form id="searchForm" method="post" onsubmit="return false;" class="col-sm-12">
 					<div class="col-sm-12">
 						<div class="card_box sch_it">
-							<div>
-								<div class="btn_wr" style="float:left;">
-									<button class="btn btn-sm btn-outline" onClick="javascript:location='${path}/cont/iolistall.do'"><i class="icofont icofont-pencil-alt-2"></i>개별목록 확인</button>
-								</div>
-								<div class="btn_wr" style="float:right;" >
-									<button class="btn btn-sm btn-inverse" onClick="javascript:fnClearall()"><i class="icofont icofont-spinner-alt-3"></i>초기화</button>
-									<button class="btn btn-sm btn-primary" onClick="javascript:fnListcon()"><i class="icofont icofont-search" id="search"></i>검색</button>
-									<button class="btn btn-sm btn-outline" onClick="javascript:location='${path}/cont/iowrite.do'"><i class="icofont icofont-pencil-alt-2"></i>자료등록</button>
-								</div>
-							</div>
 							<div class="form-group row" style="clear:both;">
 								<div class="col-sm-12 col-xl-3">
 									<label class="col-form-label">거래처</label>
@@ -142,13 +139,10 @@
 										</div>
 									</div>
 								</div>
-								<div class="col-sm-12 col-xl-3">
-									<label class="col-form-label">계산서 발행일자</label>
-									<p class="input_inline"><input class="form-control form-control-sm col-xl-6" type="date" id="vatSdate"> ~ <input class="form-control form-control-sm col-xl-6" type="date" id="vatEdate"></p>
-								</div>
 							</div>
 						</div>
 					</div>
+					</form>
 				</div>
 			</div>
 		</c:if>
@@ -159,7 +153,7 @@
 			<div class="col-sm-12">
 				<div class="card-block table-border-style">
 					<div class="table-responsive">
-						<table id="contTable" class="table table-striped table-bordered nowrap ">
+						<table id="ioTable" class="table table-striped table-bordered nowrap ">
 							<colgroup>
 								<col width="20%"/>
 								<col width="10%"/>
@@ -184,7 +178,7 @@
 									<td>
 										<a href="${path}/cont/iodetail/${row.soppNo}">${row.soppTitle}</a>
 									</td>
-									<td>${row.custName}</td>
+									<td class="text-center">${row.custName}</td>
 									<td class="text-right"><fmt:formatNumber type="number" maxFractionDigits="3" value="${row.amount}" /></td>
 									<td class="text-right"><fmt:formatNumber type="number" maxFractionDigits="3" value="${row.take}" /></td>
 									<td class="text-right" id="absSum"><fmt:formatNumber type="number" maxFractionDigits="3" value="${row.take-row.amount}" /></td>
@@ -200,7 +194,7 @@
 	</div>
 	<!--//리스트 table-->
 	<script>
-	$("#contTable tbody tr").find("#absSum").each(function(index, item){
+	$("#ioTable tbody tr").find("#absSum").each(function(index, item){
 		var absValue = $(item).html().replace(/[\D\s\._\-]+/g, "");
 		var absSum = 0;
 		
@@ -212,63 +206,6 @@
 		
 		$(item).html(Number(absSum).toLocaleString("en-US"));
 	});
-	
-	$("#vatSdate").change(function(){
-		var dateValue = $(this).val();
-		var dateValueArr = dateValue.split("-");
-		var dateValueCom = new Date(dateValueArr[0], parseInt(dateValueArr[1])-1, dateValueArr[2]);
-		var EdateValue = $("#vatEdate").val();
-		var EdateDateArr = EdateValue.split("-");
-		var EdateDateCom = new Date(EdateDateArr[0], parseInt(EdateDateArr[1])-1, EdateDateArr[2]);
-		
-		if(EdateValue == ""){
-			dateValueCom.setDate(dateValueCom.getDate()+1);
-		}else if(dateValueCom.getTime() > EdateDateCom.getTime()){
-			alert("시작일이 종료일보다 클 수 없습니다.");
-			dateValueCom.setDate(dateValueCom.getDate()+1);
-		}else{
-			return null;
-		}
-		
-		var year = dateValueCom.getFullYear();
-		var month = dateValueCom.getMonth()+1;
-		var day = dateValueCom.getDate();
-		
-		if(day < 10){
-			day = "0" + day;
-		}
-		
-		$("#vatEdate").val(year + "-" + month + "-" + day);
-	});
-	
-	$("#vatEdate").change(function(){
-		var SdateValue = $("#vatSdate").val();
-		var SdateValueArr = SdateValue.split("-");
-		var SdateValueCom = new Date(SdateValueArr[0], parseInt(SdateValueArr[1])-1, SdateValueArr[2]);
-		var thisDateValue = $(this).val();
-		var thisDateArr = thisDateValue.split("-");
-		var thisDateCom = new Date(thisDateArr[0], parseInt(thisDateArr[1])-1, thisDateArr[2]);
-		
-		if(SdateValue == ""){
-			thisDateCom.setDate(thisDateCom.getDate()-1);
-		}else if(SdateValueCom.getTime() > thisDateCom.getTime()){
-			alert("종료일이 시작일보다 작을 수 없습니다.");
-			thisDateCom.setDate(thisDateCom.getDate()-1);
-		}else{
-			return null;
-		}
-		
-		var year = thisDateCom.getFullYear();
-		var month = thisDateCom.getMonth()+1;
-		var day = thisDateCom.getDate();
-		
-		if(day < 10){
-			day = "0" + day;
-		}
-		
-		$("#vatSdate").val(year + "-" + month + "-" + day);
-	});
-	
 	
 	$('#userModal').on('show.bs.modal', function(e) {
 		var button = $(e.relatedTarget);
@@ -309,22 +246,19 @@
 	}
 
 	function fnListcon() {
-		var contData = {};
-		contData.userNo = $("#userNo").val() ? Number($("#userNo").val()) : 0;
-		contData.salesCustNo = $("#custNo").val() ? Number($("#custNo").val()) : 0;
-		contData.vatDatefrom = $("#vatSdate").val() ? $("#vatSdate").val() : null;
-		contData.vatDateto = $("#vatEdate").val() ? $("#vatEdate").val() : null;
-		contData.dataType = $("#ioType").val() ? $("#ioType").val() : null;
+		var ioData = {};
+		ioData.custNo = $("#custNo").val() ? Number($("#custNo").val()) : 0;
+		ioData.userName = $("#userName").val() ? $("#userName").val() : null;
 		var param = "?";
 		var paramFirst = true;
-		for (variable in contData) {
-			console.log("key: " + variable + ", value: " + contData[variable]);
-			if(contData[variable] != null && contData[variable] != 0) {
+		for (variable in ioData) {
+			console.log("key: " + variable + ", value: " + ioData[variable]);
+			if(ioData[variable] != null && ioData[variable] != 0) {
 				if(paramFirst){
-					param = param + variable + "=" + contData[variable];
+					param = param + variable + "=" + ioData[variable];
 					paramFirst = false;
 				} else {
-					param = param + "&" + variable + "=" + contData[variable];
+					param = param + "&" + variable + "=" + ioData[variable];
 				}
 			}
 		}
@@ -332,6 +266,10 @@
 		if(param == "?"){
 			param = "";
 		}
+		
+		localStorage.setItem("custNo", ioData.custNo);
+		localStorage.setItem("custName", $("#custName").val());
+		localStorage.setItem("userName", ioData.userName);
 
 		var url = '${path}/cont/iolist.do'+param;
 		location.href = url;
@@ -344,25 +282,20 @@
 	});
 
 	$(document).ready(function() {
-		var targetDatefrom = '${param.targetDatefrom}';
-		var targetDateto = '${param.targetDateto}';
-		var freemaintSdate = '${param.freemaintSdate}';
-		var freemaintEdate = '${param.freemaintEdate}';
-		var regSDate = '${param.regSDate}';
-		var regEDate = '${param.regEDate}';
-
-		if(targetDatefrom != '') $("#targetDatefrom").val(targetDatefrom);
-		if(targetDateto != '') $("#targetDateto").val(targetDateto);
-		if(freemaintSdate != '') $("#freemaintSdate").val(freemaintSdate);
-		if(freemaintEdate != '') $("#freemaintEdate").val(freemaintEdate);
-		if(regSDate != '') $("#regSDate").val(regSDate);
-		if(regEDate != '') $("#regEDate").val(regEDate);
-
 		if(window.location.search.toString().startsWith('?')){
-			if('${param.userNo}' == ''){
+			if('${param.userName}' == ''){
 				$("#userName").val("");
 			} else {
 				$("#userName").val(localStorage.getItem("userName"));
+				localStorage.clear();
+			}
+			
+			if('${param.custNo}' == ''){
+				$("#custNo").val("");
+				$("#custName").val("");
+			} else {
+				$("#custNo").val(localStorage.getItem("custNo"));
+				$("#custName").val(localStorage.getItem("custName"));
 				localStorage.clear();
 			}
 		} /* else {

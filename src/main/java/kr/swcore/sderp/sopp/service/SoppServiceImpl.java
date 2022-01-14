@@ -66,6 +66,7 @@ public class SoppServiceImpl implements SoppService {
 		Integer soppType = soppTypestr.equals("") == true ? 0 : Integer.valueOf(soppTypestr);		// 판매방식
 		String cntrctMthstr = request.getParameter("cntrctMth");
 		Integer cntrctMth = cntrctMthstr.equals("") == true ? 0 : Integer.valueOf(cntrctMthstr);	// 계약구분
+		String soppTitle = request.getParameter("soppTitle") != null ? (String) request.getParameter("soppTitle") : "";
 		String soppStatus = request.getParameter("soppStatus") != null ? (String) request.getParameter("soppStatus") : "";				// 진행단계	// TODO : varchar 에서 int 변경시 수정해야할 변경
 		String targetDatefrom = request.getParameter("targetDatefrom") != null ? (String) request.getParameter("targetDatefrom") : "";	// 매출예정 시작일
 		String targetDateto = request.getParameter("targetDateto") != null ? (String) request.getParameter("targetDateto") : "";		// 매출예정 마감일
@@ -77,6 +78,7 @@ public class SoppServiceImpl implements SoppService {
 		dto.setCustNo(custNo);
 		dto.setBuyrNo(buyrNo);
 		dto.setSoppType(soppType);
+		dto.setSoppTitle(soppTitle);
 		dto.setCntrctMth(cntrctMth);
 		dto.setSoppStatus(soppStatus);
 		dto.setTargetDatefrom(targetDatefrom);

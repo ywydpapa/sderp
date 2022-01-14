@@ -47,9 +47,23 @@ public class GwServiceImpl implements GwService{
     }
     
     @Override
-    public List<GwDTO> myDocList(HttpSession session) {
+    public List<GwDTO> myList(HttpSession session, GwDTO dto) {
         int docCrUserNo = SessionInfoGet.getUserNo(session);
-        return gwDao.myDocList(docCrUserNo);
+        dto.setDocCrUserNo(docCrUserNo);
+        return gwDao.myList(dto);
+    }
+    
+    @Override
+    public List<GwDTO> myDocList(HttpSession session) {
+    	int compNo = SessionInfoGet.getCompNo(session);
+        return gwDao.myDocList(compNo);
+    }
+    
+    @Override
+    public List<GwDTO> myDocList(HttpSession session, GwDTO dto) {
+    	int compNo = SessionInfoGet.getCompNo(session);
+    	dto.setCompNo(compNo);
+        return gwDao.myDocList(dto);
     }
 
     @Override
@@ -57,6 +71,13 @@ public class GwServiceImpl implements GwService{
     	Integer compNo = SessionInfoGet.getCompNo(session);
         return gwDao.listEst(compNo);
     }
+
+	@Override
+	public List<GwDTO> listEst(HttpSession session, GwDTO dto) {
+		Integer compNo = SessionInfoGet.getCompNo(session);
+		dto.setCompNo(compNo);
+		return gwDao.listEst(dto);
+	}
 
     @Override
     public List<GwDTO> listEstitems(GwDTO dto) {

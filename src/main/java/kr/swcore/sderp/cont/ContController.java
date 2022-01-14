@@ -35,6 +35,7 @@ import kr.swcore.sderp.code.service.CodeService;
 import kr.swcore.sderp.cont.dto.ContDTO;
 import kr.swcore.sderp.cont.dto.ContFileDataDTO;
 import kr.swcore.sderp.cont.service.ContService;
+import kr.swcore.sderp.gw.dto.GwDTO;
 
 @Controller
 @RequestMapping("/cont/*")
@@ -164,15 +165,23 @@ public class ContController {
 
 	
 	@RequestMapping("iolist.do")
-	public ModelAndView iolist(HttpSession session, ModelAndView mav, @ModelAttribute SoppdataDTO dto,
-			@RequestParam(value = "userNo", required = false) String userNo,
-			@RequestParam(value = "custNo", required = false) String custNo,
-			@RequestParam(value = "dataType", required = false) String dataType,
-			@RequestParam(value = "vatDatefrom", required = false) String vatDatefrom,
-			@RequestParam(value = "vatDateto", required = false) String vatDateto) {
-		mav.setViewName("slip/iolist");
+	public ModelAndView iolist(HttpSession session, ModelAndView mav,
+			@RequestParam(value = "custNo", required = false) Integer custNo,
+			@RequestParam(value = "userName", required = false) String userName) {
+		
+		if(custNo != null || userName != null){
+			SoppdataDTO dto = new SoppdataDTO();
+    		if(custNo != null) dto.setCustNo(custNo);
+    		if(userName != null) dto.setUserName(userName);
+    		mav.addObject("listsum", soppdataService.listSearchIO(session, dto));
+    	}else {
+    		SoppdataDTO dto = new SoppdataDTO();
+    		mav.addObject("listsum",soppdataService.listIOsum(session, dto));
+    	}
+		
 		mav.addObject("contractType", codeService.listContractType(session));
-		mav.addObject("listsum",soppdataService.listIOsum(dto));
+		mav.setViewName("slip/iolist");
+		
 		return mav;
 	}
 	

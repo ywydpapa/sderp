@@ -49,15 +49,15 @@ public class NoticeServiceImpl implements NoticeService{
 			HttpServletResponse response) {
 		NoticeDTO dto = new NoticeDTO();
 		Integer compNo = SessionInfoGet.getCompNo(session);	
-		String userNostr = request.getParameter("userNo");
-		Integer userNo = userNostr.equals("") == true ? 0 : Integer.valueOf(userNostr);	// 담당사원
+//		String userNostr = request.getParameter("userNo");
+//		Integer userNo = userNostr.equals("") == true ? 0 : Integer.valueOf(userNostr);	// 담당사원
 		String notiTitle = request.getParameter("notiTitle") != null ? (String) request.getParameter("notiTitle") : "";
 		String notiContents = request.getParameter("notiContents") != null ? (String) request.getParameter("notiContents") : "";
 		String regSDate = request.getParameter("regSDate") != null ? (String) request.getParameter("regSDate") : "";					// 등록 시작일
 		String regEDate = request.getParameter("regEDate") != null ? (String) request.getParameter("regEDate") : "";					// 등록 마감일
 		
 		dto.setCompNo(compNo);
-		dto.setUserNo(userNo);
+//		dto.setUserNo(userNo);
 		dto.setNotiTitle(notiTitle);
 		dto.setNotiContents(notiContents);
 		dto.setRegSDate(regSDate);

@@ -1,10 +1,9 @@
 package kr.swcore.sderp.gw;
 
-import kr.swcore.sderp.cont.dto.ContDTO;
-import kr.swcore.sderp.cont.dto.ContFileDataDTO;
 import kr.swcore.sderp.gw.dto.GwDTO;
 import kr.swcore.sderp.gw.dto.GwFileDataDTO;
 import kr.swcore.sderp.gw.service.GwService;
+import kr.swcore.sderp.sopp.dto.SoppdataDTO;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -15,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -24,7 +24,6 @@ import javax.servlet.http.HttpSession;
 
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -42,15 +41,45 @@ public class GwController {
     }
 
     @RequestMapping("mylist.do")
-    public ModelAndView myList(HttpSession session, ModelAndView mav) {
-        mav.addObject("mylist", gwService.myList(session));
+    public ModelAndView myList(HttpSession session, ModelAndView mav,
+    		@RequestParam(value = "custNo", required = false) Integer custNo,
+			@RequestParam(value = "userName", required = false) String userName,
+			@RequestParam(value = "vatSdate", required = false) String vatSdate,
+			@RequestParam(value = "vatEdate", required = false) String vatEdate) 
+    {
+    	if(custNo != null || userName != null || vatSdate != null || vatEdate != null){
+			GwDTO dto = new GwDTO();
+    		if(custNo != null) dto.setCustNo(custNo);
+    		if(userName != null) dto.setUserName(userName);
+    		if(vatSdate != null) dto.setVatSdate(vatSdate);
+    		if(vatEdate != null) dto.setVatEdate(vatEdate);
+    		mav.addObject("mylist", gwService.myList(session, dto));
+    	}else {
+    		mav.addObject("mylist", gwService.myList(session));
+    	}
+    	
         mav.setViewName("gware/mylist");
         return mav;
     }
     
     @RequestMapping("mydoclist.do")
-    public ModelAndView myDocList(HttpSession session, ModelAndView mav) {
-        mav.addObject("mydoclist", gwService.myDocList(session));
+    public ModelAndView myDocList(HttpSession session, ModelAndView mav,
+    		@RequestParam(value = "custNo", required = false) Integer custNo,
+			@RequestParam(value = "userName", required = false) String userName,
+			@RequestParam(value = "vatSdate", required = false) String vatSdate,
+			@RequestParam(value = "vatEdate", required = false) String vatEdate) 
+    {
+    	if(custNo != null || userName != null || vatSdate != null || vatEdate != null){
+			GwDTO dto = new GwDTO();
+    		if(custNo != null) dto.setCustNo(custNo);
+    		if(userName != null) dto.setUserName(userName);
+    		if(vatSdate != null) dto.setVatSdate(vatSdate);
+    		if(vatEdate != null) dto.setVatEdate(vatEdate);
+    		mav.addObject("mydoclist", gwService.myDocList(session, dto));
+    	}else {
+    		mav.addObject("mydoclist", gwService.myDocList(session));
+    	}
+        
         mav.setViewName("gware/mydoclist");
         return mav;
     }
@@ -92,9 +121,20 @@ public class GwController {
     }
 
     @RequestMapping("estlist.do")
-    public ModelAndView estList(HttpSession session, ModelAndView mav) {
+    public ModelAndView estList(HttpSession session, ModelAndView mav,
+    							@RequestParam(value = "custNo", required = false) Integer custNo,
+    							@RequestParam(value = "userName", required = false) String userName) 
+    {
+    	if(custNo != null || userName != null){
+    		GwDTO dto = new GwDTO();
+    		if(custNo != null) dto.setCustNo(custNo);
+    		if(userName != null) dto.setUserName(userName);
+    		mav.addObject("list", gwService.listEst(session, dto));
+    	}else {
+    		mav.addObject("list", gwService.listEst(session));
+    	}
+    	
         mav.setViewName("gware/estlist");
-        mav.addObject("list", gwService.listEst(session));
         return mav;
     }
 

@@ -14,7 +14,7 @@
 <div id="main_content">
     <script>
         $(function(){
-            $('#contTable').DataTable({
+            $('#myDocTable').DataTable({
                 info:false,
                 searching: true,
                 order: [[ 0, "desc" ]],
@@ -25,13 +25,13 @@
         a {
             text-decoration:underline;
         }
-        #contTable > tbody > tr > td:nth-child(4){
+        #myDocTable > tbody > tr > td:nth-child(4){
             overflow: hidden;
             text-overflow: ellipsis;
             max-width: 220px;
             white-space: nowrap;
         }
-        #contTable > tbody > tr > td:nth-child(5){
+        #myDocTable > tbody > tr > td:nth-child(5){
             overflow: hidden;
             text-overflow: ellipsis;
             max-width: 220px;
@@ -43,11 +43,16 @@
         <div class="page-header2">
             <div class="row align-items-end">
                 <div class="col-lg-12">
-                    <div class="page-header-title">
-                        <div class="d-inline">
-                            나의 전자결재 목록
-                        </div>
-                    </div>
+                	<div class="page-header-title" style="float:left;">
+						<div style="margin-top:15px;">
+							<h6 style="font-weight:600;">나의 전자결재 목록</h6>
+						</div>
+					</div>
+					<div class="btn_wr" style="float:right;">
+						<button class="btn btn-sm btn-inverse" onClick="javascript:fnClearall()"><i class="icofont icofont-spinner-alt-3"></i>초기화</button>
+                        <button class="btn btn-sm btn-primary" onClick="javascript:fnListcon()"><i class="icofont icofont-search" id="search"></i>검색</button>
+                        <button class="btn btn-sm btn-outline" onClick="javascript:location='${path}/gw/write.do'"><i class="icofont icofont-pencil-alt-2"></i>결재등록</button>
+					</div>
                 </div>
             </div>
         </div>
@@ -58,13 +63,6 @@
             <div class="row">
                 <div class="col-sm-12">
                     <div class="card_box sch_it">
-                        <div>
-                            <div class="btn_wr" style="float:right;" >
-                                <button class="btn btn-sm btn-inverse" onClick="javascript:fnClearall()"><i class="icofont icofont-spinner-alt-3"></i>초기화</button>
-                                <button class="btn btn-sm btn-primary" onClick="javascript:fnListcon()"><i class="icofont icofont-search" id="search"></i>검색</button>
-                                <button class="btn btn-sm btn-outline" onClick="javascript:location='${path}/gw/estwrite.do'"><i class="icofont icofont-pencil-alt-2"></i>견적등록</button>
-                            </div>
-                        </div>
                         <div class="form-group row" style="clear:both;">
                             <div class="col-sm-12 col-xl-3">
                                 <label class="col-form-label">거래처</label>
@@ -156,7 +154,7 @@
             <div class="col-sm-12">
                 <div class="card-block table-border-style">
                     <div class="table-responsive">
-                        <table id="contTable" class="table table-striped table-bordered nowrap ">
+                        <table id="myDocTable" class="table table-striped table-bordered nowrap ">
                             <colgroup>
                                 <col width="10%"/>
                                 <col width="15%"/>
@@ -214,7 +212,7 @@
     </div>
     <!--//리스트 table-->
     <script>
-        $("#contTable tbody tr").find("#absSum").each(function(index, item){
+        $("#myDocTable tbody tr").find("#absSum").each(function(index, item){
             var absValue = $(item).html().replace(/[\D\s\._\-]+/g, "");
             var absSum = 0;
 
@@ -248,6 +246,10 @@
             var month = dateValueCom.getMonth()+1;
             var day = dateValueCom.getDate();
 
+            if(month < 10){
+    			month = "0" + month;
+    		}
+            
             if(day < 10){
                 day = "0" + day;
             }
@@ -276,6 +278,10 @@
             var month = thisDateCom.getMonth()+1;
             var day = thisDateCom.getDate();
 
+            if(month < 10){
+    			month = "0" + month;
+    		}
+            
             if(day < 10){
                 day = "0" + day;
             }
@@ -323,32 +329,37 @@
         }
 
         function fnListcon() {
-            var contData = {};
-            contData.userNo = $("#userNo").val() ? Number($("#userNo").val()) : 0;
-            contData.salesCustNo = $("#custNo").val() ? Number($("#custNo").val()) : 0;
-            contData.vatDatefrom = $("#vatSdate").val() ? $("#vatSdate").val() : null;
-            contData.vatDateto = $("#vatEdate").val() ? $("#vatEdate").val() : null;
-            contData.dataType = $("#ioType").val() ? $("#ioType").val() : null;
-            var param = "?";
-            var paramFirst = true;
-            for (variable in contData) {
-                console.log("key: " + variable + ", value: " + contData[variable]);
-                if(contData[variable] != null && contData[variable] != 0) {
-                    if(paramFirst){
-                        param = param + variable + "=" + contData[variable];
-                        paramFirst = false;
-                    } else {
-                        param = param + "&" + variable + "=" + contData[variable];
-                    }
-                }
-            }
+        	var myDocData = {};
+    		myDocData.custNo = $("#custNo").val() ? Number($("#custNo").val()) : 0;
+    		myDocData.userName = $("#userName").val() ? $("#userName").val() : null;
+    		myDocData.vatSdate = $("#vatSdate").val() ? $("#vatSdate").val() : null;
+    		myDocData.vatEdate = $("#vatEdate").val() ? $("#vatEdate").val() : null;
+    		var param = "?";
+    		var paramFirst = true;
+    		for (variable in myDocData) {
+    			console.log("key: " + variable + ", value: " + myDocData[variable]);
+    			if(myDocData[variable] != null && myDocData[variable] != 0) {
+    				if(paramFirst){
+    					param = param + variable + "=" + myDocData[variable];
+    					paramFirst = false;
+    				} else {
+    					param = param + "&" + variable + "=" + myDocData[variable];
+    				}
+    			}
+    		}
 
-            if(param == "?"){
-                param = "";
-            }
+    		if(param == "?"){
+    			param = "";
+    		}
+    		
+    		localStorage.setItem("custNo", myDocData.custNo);
+    		localStorage.setItem("custName", $("#custName").val());
+    		localStorage.setItem("userName", myDocData.userName);
+    		localStorage.setItem("vatSdate", $("#vatSdate").val());
+    		localStorage.setItem("vatEdate", $("#vatEdate").val());
 
-            var url = '${path}/cont/iolist.do'+param;
-            location.href = url;
+    		var url = '${path}/gw/mydoclist.do'+param;
+    		location.href = url;
         }
 
         $("input[type='text']").keyup(function(e){
@@ -358,31 +369,28 @@
         });
 
         $(document).ready(function() {
-            var targetDatefrom = '${param.targetDatefrom}';
-            var targetDateto = '${param.targetDateto}';
-            var freemaintSdate = '${param.freemaintSdate}';
-            var freemaintEdate = '${param.freemaintEdate}';
-            var regSDate = '${param.regSDate}';
-            var regEDate = '${param.regEDate}';
-
-            if(targetDatefrom != '') $("#targetDatefrom").val(targetDatefrom);
-            if(targetDateto != '') $("#targetDateto").val(targetDateto);
-            if(freemaintSdate != '') $("#freemaintSdate").val(freemaintSdate);
-            if(freemaintEdate != '') $("#freemaintEdate").val(freemaintEdate);
-            if(regSDate != '') $("#regSDate").val(regSDate);
-            if(regEDate != '') $("#regEDate").val(regEDate);
-
+        	$("#vatSdate").val(localStorage.getItem("vatSdate"));
+        	$("#vatEdate").val(localStorage.getItem("vatEdate"));
+        	
             if(window.location.search.toString().startsWith('?')){
-                if('${param.userNo}' == ''){
-                    $("#userName").val("");
-                } else {
-                    $("#userName").val(localStorage.getItem("userName"));
-                    localStorage.clear();
-                }
+            	if('${param.userName}' == ''){
+    				$("#userName").val("");
+    			} else {
+    				$("#userName").val(localStorage.getItem("userName"));
+    			}
+    			
+    			if('${param.custNo}' == ''){
+    				$("#custNo").val("");
+    				$("#custName").val("");
+    			} else {
+    				$("#custNo").val(localStorage.getItem("custNo"));
+    				$("#custName").val(localStorage.getItem("custName"));
+    			}
             } /* else {
 			var userName = '${sessionScope.userName}';
 			$("#userName").val(userName);
 		} */
+			localStorage.clear();
         });
     </script>
 </div>

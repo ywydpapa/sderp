@@ -52,9 +52,19 @@ public class SoppdataServiceImpl implements SoppdataService {
 	}
 
 	@Override
-	public List<SoppdataDTO> listIOsum(SoppdataDTO dto) {
+	public List<SoppdataDTO> listIOsum(HttpSession session,SoppdataDTO dto) {
 		// TODO Auto-generated method stub
+		int compNo = SessionInfoGet.getCompNo(session);
+		dto.setCompNo(compNo);
 		return soppdataDao.listIOsum(dto);
+	}
+	
+	@Override
+	public List<SoppdataDTO> listSearchIO(HttpSession session,SoppdataDTO dto) {
+		// TODO Auto-generated method stub
+		int compNo = SessionInfoGet.getCompNo(session);
+		dto.setCompNo(compNo);
+		return soppdataDao.listSearchIO(dto);
 	}
 
 	@Override

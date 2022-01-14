@@ -11,7 +11,8 @@ public interface SoppdataService {
 
 	List<SoppdataDTO> listSoppdata01(int soppNo);
 	List<SoppdataDTO> listSoppdata02(int soppNo);
-	List<SoppdataDTO> listIOsum(SoppdataDTO dto);
+	List<SoppdataDTO> listIOsum(HttpSession session, SoppdataDTO dto);
+	List<SoppdataDTO> listSearchIO(HttpSession session, SoppdataDTO dto);
 	List<SoppdataDTO> listIO(SoppdataDTO dto);
 	int deleteSoppdata01(int soppdataNo);
 	int insertSoppdata01(HttpSession session, SoppdataDTO dto);

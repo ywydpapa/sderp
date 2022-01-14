@@ -14,7 +14,7 @@
 <div id="main_content">
 	<script>
 	$(function(){
-		$('#contTable').DataTable({
+		$('#estTable').DataTable({
 			info:false,
 			searching: true,
 			order: [[ 0, "desc" ]],
@@ -25,13 +25,13 @@
 		a {
 			text-decoration:underline;
 		}
-		#contTable > tbody > tr > td:nth-child(4){
+		#estTable > tbody > tr > td:nth-child(4){
 			overflow: hidden;
 			text-overflow: ellipsis;
 			max-width: 220px;
 			white-space: nowrap;
 		}
-		#contTable > tbody > tr > td:nth-child(5){
+		#estTable > tbody > tr > td:nth-child(5){
 			overflow: hidden;
 			text-overflow: ellipsis;
 			max-width: 220px;
@@ -43,10 +43,15 @@
 		<div class="page-header2">
 			<div class="row align-items-end">
 				<div class="col-lg-12">
-					<div class="page-header-title">
-						<div class="d-inline">
-							견적 작성 목록
+					<div class="page-header-title" style="float:left;">
+						<div style="margin-top:15px;">
+							<h6 style="font-weight:600;">견적 작성 목록</h6>
 						</div>
+					</div>
+					<div class="btn_wr" style="float:right;">
+						<button class="btn btn-sm btn-inverse" onClick="javascript:fnClearall()"><i class="icofont icofont-spinner-alt-3"></i>초기화</button>
+						<button class="btn btn-sm btn-primary" onClick="javascript:fnListcon()"><i class="icofont icofont-search" id="search"></i>검색</button>
+						<button class="btn btn-sm btn-outline" onClick="javascript:location='${path}/gw/estwrite.do'"><i class="icofont icofont-pencil-alt-2"></i>견적등록</button>
 					</div>
 				</div>
 			</div>
@@ -56,15 +61,9 @@
 		<!--계약조회-->
 		<div class="cnt_wr">
 			<div class="row">
+				<form id="searchForm" method="post" onsubmit="return false;" class="col-sm-12">
 					<div class="col-sm-12">
 						<div class="card_box sch_it">
-							<div>
-								<div class="btn_wr" style="float:right;" >
-									<button class="btn btn-sm btn-inverse" onClick="javascript:fnClearall()"><i class="icofont icofont-spinner-alt-3"></i>초기화</button>
-									<button class="btn btn-sm btn-primary" onClick="javascript:fnListcon()"><i class="icofont icofont-search" id="search"></i>검색</button>
-									<button class="btn btn-sm btn-outline" onClick="javascript:location='${path}/gw/estwrite.do'"><i class="icofont icofont-pencil-alt-2"></i>견적등록</button>
-								</div>
-							</div>
 							<div class="form-group row" style="clear:both;">
 								<div class="col-sm-12 col-xl-3">
 									<label class="col-form-label">거래처</label>
@@ -139,13 +138,10 @@
 										</div>
 									</div>
 								</div>
-								<div class="col-sm-12 col-xl-3">
-									<label class="col-form-label">계산서 발행일자</label>
-									<p class="input_inline"><input class="form-control form-control-sm col-xl-6" type="date" id="vatSdate"> ~ <input class="form-control form-control-sm col-xl-6" type="date" id="vatEdate"></p>
-								</div>
 							</div>
 						</div>
 					</div>
+					</form>
 				</div>
 			</div>
 		</c:if>
@@ -156,7 +152,7 @@
 			<div class="col-sm-12">
 				<div class="card-block table-border-style">
 					<div class="table-responsive">
-						<table id="contTable" class="table table-striped table-bordered nowrap ">
+						<table id="estTable" class="table table-striped table-bordered nowrap ">
 							<colgroup>
 								<col width="5%"/>
 								<col width="10%"/>
@@ -203,7 +199,7 @@
 	</div>
 	<!--//리스트 table-->
 	<script>
-	$("#contTable tbody tr").find("#absSum").each(function(index, item){
+	$("#estTable tbody tr").find("#absSum").each(function(index, item){
 		var absValue = $(item).html().replace(/[\D\s\._\-]+/g, "");
 		var absSum = 0;
 		
@@ -312,22 +308,19 @@
 	}
 
 	function fnListcon() {
-		var contData = {};
-		contData.userNo = $("#userNo").val() ? Number($("#userNo").val()) : 0;
-		contData.salesCustNo = $("#custNo").val() ? Number($("#custNo").val()) : 0;
-		contData.vatDatefrom = $("#vatSdate").val() ? $("#vatSdate").val() : null;
-		contData.vatDateto = $("#vatEdate").val() ? $("#vatEdate").val() : null;
-		contData.dataType = $("#ioType").val() ? $("#ioType").val() : null;
+		var estData = {};
+		estData.custNo = $("#custNo").val() ? Number($("#custNo").val()) : 0;
+		estData.userName = $("#userName").val() ? $("#userName").val() : null;
 		var param = "?";
 		var paramFirst = true;
-		for (variable in contData) {
-			console.log("key: " + variable + ", value: " + contData[variable]);
-			if(contData[variable] != null && contData[variable] != 0) {
+		for (variable in estData) {
+			console.log("key: " + variable + ", value: " + estData[variable]);
+			if(estData[variable] != null && estData[variable] != 0) {
 				if(paramFirst){
-					param = param + variable + "=" + contData[variable];
+					param = param + variable + "=" + estData[variable];
 					paramFirst = false;
 				} else {
-					param = param + "&" + variable + "=" + contData[variable];
+					param = param + "&" + variable + "=" + estData[variable];
 				}
 			}
 		}
@@ -335,8 +328,12 @@
 		if(param == "?"){
 			param = "";
 		}
+		
+		localStorage.setItem("custNo", estData.custNo);
+		localStorage.setItem("custName", $("#custName").val());
+		localStorage.setItem("userName", estData.userName);
 
-		var url = '${path}/cont/iolist.do'+param;
+		var url = '${path}/gw/estlist.do'+param;
 		location.href = url;
 	}
 	
@@ -362,12 +359,22 @@
 		if(regEDate != '') $("#regEDate").val(regEDate);
 
 		if(window.location.search.toString().startsWith('?')){
-			if('${param.userNo}' == ''){
+			if('${param.userName}' == ''){
 				$("#userName").val("");
 			} else {
 				$("#userName").val(localStorage.getItem("userName"));
 				localStorage.clear();
 			}
+			
+			if('${param.custNo}' == ''){
+				$("#custNo").val("");
+				$("#custName").val("");
+			} else {
+				$("#custNo").val(localStorage.getItem("custNo"));
+				$("#custName").val(localStorage.getItem("custName"));
+				localStorage.clear();
+			}
+			
 		} /* else {
 			var userName = '${sessionScope.userName}';
 			$("#userName").val(userName);

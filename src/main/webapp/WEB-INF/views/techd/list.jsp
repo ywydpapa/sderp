@@ -276,8 +276,8 @@
 									<div class="col-sm-12 col-xl-3">
 										<label class="col-form-label" for="userName">담당사원</label>
 										<div class="input-group input-group-sm mb-0">
-											<input type="text" class="form-control" name="userName" id="userName" value="${sessionScope.userName}" readonly />
-											<input type="hidden" name="userNo" id="userNo" value="${sessionScope.userNo}" />
+											<input type="text" class="form-control" name="userName" id="userName" value="" readonly />
+											<input type="hidden" name="userNo" id="userNo" value="" />
 											<span class="input-group-btn">
 												<button class="btn btn-primary sch-company" data-remote="${path}/modal/popup.do?popId=user" type="button" data-toggle="modal" data-target="#userModal">
 													<i class="icofont icofont-search"></i>
@@ -400,7 +400,7 @@
 									</div>
 									<div class="col-sm-12 col-xl-6">
 										<label class="col-form-label">기술지원요청내용</label>
-										<input type="text" class="form-control form-control-sm" id="techdDesc" name="" placeholder="" onsubmit="return false">
+										<input type="text" class="form-control form-control-sm" id="techdDesc" name="techdDesc" placeholder="" onsubmit="return false">
 									</div>
 								</div>
 							</div>

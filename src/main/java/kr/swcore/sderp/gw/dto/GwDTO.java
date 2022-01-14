@@ -75,6 +75,9 @@ public class GwDTO {
     private Integer getId;
     private String userIsName;
     
+    private String vatSdate;
+    private String vatEdate;
+    
     public GwDTO() {
         super();
     }

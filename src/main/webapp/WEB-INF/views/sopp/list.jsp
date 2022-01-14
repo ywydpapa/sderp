@@ -55,6 +55,7 @@
 					data.push({"name":"soppType", "value" : $("#soppType option:selected").val()});		// 판매방식
 					data.push({"name":"cntrctMth", "value" : $("#cntrctMth option:selected").val()});	// 계약구분
 					data.push({"name":"soppStatus", "value" : $("#soppStatus option:selected").val()});	// 진행단계
+					data.push({"name":"soppTitle", "value" : $("#soppTitle").val()});	//영업기회명
 					if($("#targetDatefrom").val() != ""){
 						data.push({"name":"targetDatefrom", "value" : $("#targetDatefrom").val()});
 						data.push({"name":"targetDateto", "value" : $("#targetDateto").val()});
@@ -331,8 +332,8 @@
 								<div class="col-sm-12 col-xl-2">
 									<label class="col-form-label" for="userName">담당자</label>
 									<div class="input-group input-group-sm mb-0">
-										<input type="text" class="form-control" name="userName" id="userName" value="${sessionScope.userName}"  readonly />
-										<input type="hidden" name="userNo" 	id="userNo" value="${sessionScope.userNo}" />
+										<input type="text" class="form-control" name="userName" id="userName" value=""  readonly />
+										<input type="hidden" name="userNo" 	id="userNo" value="" />
 										<span class="input-group-btn">
 												<button class="btn btn-primary sch-company"
 														data-remote="${path}/modal/popup.do?popId=user"
@@ -445,7 +446,7 @@
 								<div class="col-sm-12 col-xl-3">
 									<label class="col-form-label">영업기회명</label>
 									<p class="input_inline mb-0">
-										<input class="form-control form-control-sm col-xl-12" type="text" id="soppTitle">
+										<input class="form-control form-control-sm col-xl-12" type="text" id="soppTitle" name="soppTitle" style="width:100%;">
 									</p>
 								</div>
 								<!--매출예정일-->

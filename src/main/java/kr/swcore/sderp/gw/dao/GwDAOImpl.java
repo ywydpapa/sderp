@@ -36,13 +36,28 @@ public class GwDAOImpl implements GwDAO{
     }
     
     @Override
-    public List<GwDTO> myDocList(int docCrUserNo) {
-        return sqlSession.selectList("gw.myDocList", docCrUserNo);
+    public List<GwDTO> myList(GwDTO dto) {
+        return sqlSession.selectList("gw.mySearchList", dto);
+    }
+    
+    @Override
+    public List<GwDTO> myDocList(int compNo) {
+        return sqlSession.selectList("gw.myDocList", compNo);
+    }
+    
+    @Override
+    public List<GwDTO> myDocList(GwDTO dto) {
+        return sqlSession.selectList("gw.myDocSerchList", dto);
     }
 
     @Override
     public List<GwDTO> listEst(Integer compNo) {
         return sqlSession.selectList("gw.listest", compNo);
+    }
+    
+    @Override
+    public List<GwDTO> listEst(GwDTO dto) {
+        return sqlSession.selectList("gw.listsearchest", dto);
     }
 
     @Override

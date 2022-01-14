@@ -265,8 +265,8 @@
 								<label class="col-form-label" for="userName">담당사원</label>
 								<div class="input-group input-group-sm mb-0">
 									<input type="text" class="form-control" name="userName"
-										id="userName" value="${sessionScope.userName}" readonly /> <input type="hidden"
-										name="userNo" id="userNo" value="${sessionScope.userNo}" /> <span
+										id="userName" value="" readonly /> <input type="hidden"
+										name="userNo" id="userNo" value="" /> <span
 										class="input-group-btn">
 										<button class="btn btn-primary sch-company"
 											data-remote="${path}/modal/popup.do?popId=user" type="button"

@@ -55,8 +55,8 @@
                                             <div class="radio radio-inline">
                                                 <label> <input type="radio" name="contractType" value="TREQ"> <i class="helper"></i>지출결의서</label>
                                             </div>
-                                            <div class="radioLabel radio-inline">
-                                                <label style="color:red;"></label>
+                                            <div class="radio radio-inline">
+                                                <label> <input type="radio" name="contractType" value="OTHER"> <i class="helper"></i>외부문서</label>
                                             </div>
                                         </form>
                                     </div>
@@ -169,6 +169,13 @@
 	                                        <option value="PAY">급여</option>
 	                                    </select>
                                 	</div>
+                                	<div id="docSelect3">
+	                                    <select class="form-control" id="docType" >
+	                                        <option value="">선택</option>
+	                                        <option value="PUR">발주서</option>
+	                                        <option value="DIP">공문서</option>
+	                                    </select>
+                                	</div>
                                 </td>
                                 <th class="text-center requiredTextCss">작성일자(*)</th>
                                 <td>
@@ -201,7 +208,7 @@
 	                           		<tr>
 		                                <th class="text-center">파일다운로드</th>
 		                                <td>
-		                                    <a href="javascript:downloadFile('${detailFile.fileId}');">${detailFile.fileName}</a>
+		                                    <a href="javascript:downloadFile('${detailFile.fileId}', '${detailFile.fileName}');">${detailFile.fileName}</a>
 		                                </td>
 		                                <th class="text-center requiredTextCss">결제자(*)</th>
 		                                <td>
@@ -338,12 +345,19 @@
         	setTimeout(() => {
     	    	if($("[name='contractType']:checked").val() === 'BREQ'){
     	    		$("#docSelect1").show();
-    	    		$("#docSelect2").hide();
     	    		$("#docSelect1").find("#docType").val(docType);
-    	    	}else{
+    	    		$("#docSelect2").hide();
+    	    		$("#docSelect3").hide();
+    	    	}else if($("[name='contractType']:checked").val() === 'TREQ'){
     	    		$("#docSelect1").hide();
     	    		$("#docSelect2").show();
     	    		$("#docSelect2").find("#docType").val(docType);
+    	    		$("#docSelect3").hide();
+    	    	}else{
+    	    		$("#docSelect1").hide();
+    	    		$("#docSelect2").hide();
+    	    		$("#docSelect3").show();
+    	    		$("#docSelect3").find("#docType").val(docType);
     	    	}
     		}, 100);
         });

@@ -192,6 +192,8 @@
                                     	<c:if test="${row.docType eq 'TAX'}">세금공과금</c:if>
                                     	<c:if test="${row.docType eq 'CREDIT'}">외상매입금</c:if>
                                     	<c:if test="${row.docType eq 'PAY'}">급여</c:if>
+                                    	<c:if test="${row.docType eq 'PUR'}">발주서</c:if>
+                                    	<c:if test="${row.docType eq 'DIP'}">공문서</c:if>
                                     </td>
                                     <td>${row.docTitle}</td>
                                     <td class="text-right">￦<fmt:formatNumber type="number" maxFractionDigits="3" value="${row.docAmount}" /></td>

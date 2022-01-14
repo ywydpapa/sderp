@@ -36,7 +36,7 @@
 	<c:forEach var="row" items="${dtodata01}">
 		<input type="hidden" id="hideSoppTitle" value="${row.soppTitle}" />
 		<c:if test="${row.dataType eq '1101'}">
-			<c:set var="totalSum1" value="${totalSum + row.dataTotal}" />
+			<c:set var="totalSum1" value="${totalSum1 + row.dataTotal}" />
 			<tr class="item1" id="${row.soppdataNo}">
 				<td data-type="${row.dataType}">
 					매입
@@ -64,7 +64,7 @@
 	</tr>
 	<c:forEach var="row" items="${dtodata01}">
 		<c:if test="${row.dataType eq '1102'}">
-			<c:set var="totalSum2" value="${totalSum + row.dataTotal}" />
+			<c:set var="totalSum2" value="${totalSum2 + row.dataTotal}" />
 			<tr class="item1" id="${row.soppdataNo}">
 				<td data-type="${row.dataType}">
 					매출
@@ -107,11 +107,11 @@
 		</colgroup>
 		<tr>
 			<td style="text-align: center; background: #80808030;">매입 합계</td>
-			<td id="product01InSum" style="text-align: right">₩<fmt:formatNumber value="${totalSum1}" pattern="#,###" /></td>
+			<td id="product01InSum" style="text-align: right">₩<fmt:formatNumber value="${totalSum1 - (totalSum1/11)}" pattern="#,###" /></td>
 			<td style="text-align: center; background: #80808030;">매출 합계</td>
-			<td id="product01OutSum" style="text-align: right">₩<fmt:formatNumber value="${totalSum2}" pattern="#,###" /></td>
+			<td id="product01OutSum" style="text-align: right">₩<fmt:formatNumber value="${totalSum2 - (totalSum2/11)}" pattern="#,###" /></td>
 			<td style="text-align: center; background: #80808030;">이익 합계</td>
-			<td id="product01DiffSum" style="text-align: right">₩<fmt:formatNumber value="${totalSum1 - totalSum2}" pattern="#,###" /></td>
+			<td id="product01DiffSum" style="text-align: right">₩<fmt:formatNumber value="${totalSum1 - totalSum2 - ((totalSum1 - totalSum2)/11)}" pattern="#,###" /></td>
 			<td style="text-align: center; background: #80808030;">이익률</td>
 			<td id="product01Percent" style="text-align: right">-</td>
 		</tr>

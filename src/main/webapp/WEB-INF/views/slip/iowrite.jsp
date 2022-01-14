@@ -181,6 +181,12 @@
 		
 		if(soppParam > 0){
 			$("#soppNo").val(soppParam);
+			
+			if($("#hideSoppTitle").val() === undefined){
+				alert("매입매출 데이터가 없습니다.");
+				location.href = "${path}/cont/iowrite.do/0";
+			}
+			
 			$("#soppTitle").val($("#hideSoppTitle").val());
 			
 			if(localStorage.getItem("reloadSet") === "1t"){

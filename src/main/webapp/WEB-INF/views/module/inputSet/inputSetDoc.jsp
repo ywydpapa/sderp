@@ -395,8 +395,10 @@
     	
     	if($("#docSelect1").is(":visible") === true){
     		showDocType = $("#docSelect1").find("#docType").val();	
-    	}else{
+    	}else if($("#docSelect2").is(":visible") === true){
     		showDocType = $("#docSelect2").find("#docType").val();
+    	}else{
+    		showDocType = $("#docSelect3").find("#docType").val();
     	}
 		
     	if($("#docTitle").val() === ""){
@@ -484,8 +486,10 @@
 
         if($("#docSelect1").is(":visible") === true){
     		showDocType = $("#docSelect1").find("#docType").val();	
-    	}else{
+    	}else if($("#docSelect2").is(":visible") === true){
     		showDocType = $("#docSelect2").find("#docType").val();
+    	}else{
+    		showDocType = $("#docSelect3").find("#docType").val();
     	}
         
         if($("#docTitle").val() === ""){
@@ -564,8 +568,10 @@
     	
     	if($("#docSelect1").is(":visible") === true){
     		showDocType = $("#docSelect1").find("#docType").val();	
-    	}else{
+    	}else if($("#docSelect2").is(":visible") === true){
     		showDocType = $("#docSelect2").find("#docType").val();
+    	}else{
+    		showDocType = $("#docSelect3").find("#docType").val();
     	}
     	
     	if($("#docTitle").val() === ""){
@@ -662,8 +668,10 @@
         
         if($("#docSelect1").is(":visible") === true){
     		showDocType = $("#docSelect1").find("#docType").val();	
-    	}else{
+    	}else if($("#docSelect2").is(":visible") === true){
     		showDocType = $("#docSelect2").find("#docType").val();
+    	}else{
+    		showDocType = $("#docSelect3").find("#docType").val();
     	}
 
         if($("#docTitle").val() === ""){
@@ -759,8 +767,10 @@
     	
     	if($("#docSelect1").is(":visible") === true){
     		showDocType = $("#docSelect1").find("#docType").val();	
-    	}else{
+    	}else if($("#docSelect2").is(":visible") === true){
     		showDocType = $("#docSelect2").find("#docType").val();
+    	}else{
+    		showDocType = $("#docSelect3").find("#docType").val();
     	}
     	
     	if($("#docTitle").val() === ""){
@@ -853,10 +863,12 @@
     	var data02App = {};
 		var showDocType = "";
     	
-    	if($("#docSelect1").is(":visible") === true){
+		if($("#docSelect1").is(":visible") === true){
     		showDocType = $("#docSelect1").find("#docType").val();	
-    	}else{
+    	}else if($("#docSelect2").is(":visible") === true){
     		showDocType = $("#docSelect2").find("#docType").val();
+    	}else{
+    		showDocType = $("#docSelect3").find("#docType").val();
     	}
     	
     	if($("#docTitle").val() === ""){
@@ -1012,9 +1024,15 @@
 	    	if($("[name='contractType']:checked").val() === 'BREQ'){
 	    		$("#docSelect1").show();
 	    		$("#docSelect2").hide();
-	    	}else{
+	    		$("#docSelect3").hide();
+	    	}else if($("[name='contractType']:checked").val() === 'TREQ'){
 	    		$("#docSelect1").hide();
 	    		$("#docSelect2").show();
+	    		$("#docSelect3").hide();
+	    	}else{
+	    		$("#docSelect1").hide();
+	    		$("#docSelect2").hide();
+	    		$("#docSelect3").show();
 	    	}
     	});
     	

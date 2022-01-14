@@ -36,6 +36,7 @@
 	<c:forEach var="row" items="${dtodata01}">
 		<input type="hidden" id="hideSoppTitle" value="${row.soppTitle}" />
 		<c:if test="${row.dataType eq '1101'}">
+			<c:set var="totalSum1" value="${totalSum + row.dataTotal}" />
 			<tr class="item1" id="${row.soppdataNo}">
 				<td data-type="${row.dataType}">
 					매입
@@ -59,10 +60,11 @@
 	</c:forEach>
 	<tr class="item1">
 		<td colspan="1" style="text-align: center; background: #80808030;">매입합계</td>
-		<td colspan="10" style="text-align: right; background: #80808030;" id="product01InSum_table">-</td>
+		<td colspan="10" style="text-align: right; background: #80808030;" id="product01InSum_table">₩<fmt:formatNumber value="${totalSum1}" pattern="#,###" /></td>
 	</tr>
 	<c:forEach var="row" items="${dtodata01}">
 		<c:if test="${row.dataType eq '1102'}">
+			<c:set var="totalSum2" value="${totalSum + row.dataTotal}" />
 			<tr class="item1" id="${row.soppdataNo}">
 				<td data-type="${row.dataType}">
 					매출
@@ -86,7 +88,7 @@
 	</c:forEach>
 	<tr class="item1" style="text-align: right">
 		<td colspan="1" style="text-align: center; background: #80808030;">매출합계</td>
-		<td colspan="10" style="text-align: right; background: #80808030;" id="product01OutSum_table">-</td>
+		<td colspan="10" style="text-align: right; background: #80808030;" id="product01OutSum_table">₩<fmt:formatNumber value="${totalSum2}" pattern="#,###" /></td>
 	</tr>
 	</tbody>
 </table>
@@ -105,11 +107,11 @@
 		</colgroup>
 		<tr>
 			<td style="text-align: center; background: #80808030;">매입 합계</td>
-			<td id="product01InSum" style="text-align: right">-</td>
+			<td id="product01InSum" style="text-align: right">₩<fmt:formatNumber value="${totalSum1}" pattern="#,###" /></td>
 			<td style="text-align: center; background: #80808030;">매출 합계</td>
-			<td id="product01OutSum" style="text-align: right">-</td>
+			<td id="product01OutSum" style="text-align: right">₩<fmt:formatNumber value="${totalSum2}" pattern="#,###" /></td>
 			<td style="text-align: center; background: #80808030;">이익 합계</td>
-			<td id="product01DiffSum" style="text-align: right">-</td>
+			<td id="product01DiffSum" style="text-align: right">₩<fmt:formatNumber value="${totalSum1 - totalSum2}" pattern="#,###" /></td>
 			<td style="text-align: center; background: #80808030;">이익률</td>
 			<td id="product01Percent" style="text-align: right">-</td>
 		</tr>
@@ -117,7 +119,7 @@
 </table>
 
 <script>
-	var product01In = [
+	/* var product01In = [
 		<c:forEach var="row" items="${dtodata01}" varStatus="i">
 			<c:if test="${row.dataType eq '1101'}">
 				<c:if test="${!i.last}">${row.dataNetprice},</c:if>
@@ -258,5 +260,22 @@
 
 		var prduct01Cnt = product01In.length + product01Out.length;
 		$("#dataType01_tab02").html("매입매출 내역("+prduct01Cnt+")");
+	}); */
+	
+	$(document).ready(function(){
+		var product01DiffSum = $("#product01DiffSum").html().replace(/[\D\s\._\-]+/g, "");
+		var product01OutSum = $("#product01OutSum").html().replace(/[\D\s\._\-]+/g, "");
+		var product01Percent = Math.floor(product01DiffSum / product01OutSum * 100).toFixed(2);
+		if(product01Percent == 'NaN'){
+			$("#product01Percent").html('0'+'%');
+		} else if (product01Percent == '-Infinity'){
+			$("#product01Percent").html('0'+'%');
+		} else if (product01Percent == 'Infinity'){
+			$("#product01Percent").html('0'+'%');
+		} else if(product01Percent >= 0){
+			$("#product01Percent").html('+'+product01Percent+'%');
+		} else if(product01Percent < 0){
+			$("#product01Percent").html(product01Percent+'%');
+		}
 	});
 </script>

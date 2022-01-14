@@ -215,6 +215,7 @@
 		</div>
 		<div class="cnt_wr">
 			<div class="row">
+				<form id="searchForm" method="post" onsubmit="return false;" class="col-sm-12">
 				<div class="col-sm-12">
 					<div class="card_box sch_it">
 						<div class="form-group row">
@@ -263,11 +264,11 @@
 							</div> --%>
 							<div class="col-sm-12 col-xl-3">
 								<label class="col-form-label">제목</label>
-								<input type="text" class="form-control form-control-sm" name="notiTitle" id="notiTitle" name="" placeholder="" value="${param.notiTitle}">
+								<input type="text" class="form-control form-control-sm" id="notiTitle" name="" placeholder="" value="${param.notiTitle}">
 							</div>
 							<div class="col-sm-12 col-xl-3">
 								<label class="col-form-label">내용</label>
-								<input type="text" class="form-control form-control-sm" id="notiContents" name="notiContents" placeholder="" value="${param.notiContents}">
+								<input type="text" class="form-control form-control-sm" id="notiContents" name="" placeholder="" value="${param.notiContents}">
 							</div>
 							<div class="col-sm-12 col-xl-3">
 								<label class="col-form-label">등록일</label>
@@ -277,6 +278,7 @@
 						</div>	
 					</div>
 				</div>
+				</form>
 			</div>
 		</div>
 		<!--//영업활동조회-->
@@ -403,6 +405,9 @@
 			$("#userNo").val(a);
 			$("#userName").val(b);
 			$("#userModal").modal("hide");
+		}
+		function fnClearallExt(){
+			schedSCB = false;
 		}
 	</script>
 </div>

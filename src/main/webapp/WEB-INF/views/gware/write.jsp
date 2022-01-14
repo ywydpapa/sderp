@@ -52,8 +52,8 @@
                                             <div class="radio radio-inline">
                                                 <label> <input type="radio" name="contractType" value="TREQ"> <i class="helper"></i>지출결의서</label>
                                             </div>
-                                            <div class="radioLabel radio-inline">
-                                                <label style="color:red;"></label>
+                                            <div class="radio radio-inline">
+                                                <label> <input type="radio" name="contractType" value="OTHER"> <i class="helper"></i>외부문서</label>
                                             </div>
                                         </form>
                                     </div>
@@ -165,6 +165,13 @@
 	                                        <option value="TAX">세금공과금</option>
 	                                        <option value="CREDIT">외상매입금</option>
 	                                        <option value="PAY">급여</option>
+	                                    </select>
+                                	</div>
+                                	<div id="docSelect3">
+	                                    <select class="form-control" id="docType" >
+	                                        <option value="">선택</option>
+	                                        <option value="PUR">발주서</option>
+	                                        <option value="DIP">공문서</option>
 	                                    </select>
                                 	</div>
                                 </td>
@@ -307,6 +314,7 @@
 
         $(document).ready(function() {
 			$("#docSelect2").hide();
+			$("#docSelect3").hide();
         });
     </script>
 </div>

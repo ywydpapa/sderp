@@ -119,7 +119,6 @@ public class SoppController {
 	@RequestMapping("/detail/{soppNo}")
 	public ModelAndView detail(@PathVariable("soppNo") int soppNo, ModelAndView mav, HttpSession session) {
 		mav.addObject("dto", soppService.detailSopp(soppNo));
-		mav.addObject("dtodata01", soppdataService.listSoppdata01(soppNo));
 		mav.addObject("dtodata02", soppdataService.listSoppdata02(soppNo));
 		mav.addObject("saleslist", codeService.listSalestype(session));
 		mav.addObject("sstatuslist", codeService.listSstatus(session));

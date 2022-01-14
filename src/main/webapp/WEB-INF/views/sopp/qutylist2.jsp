@@ -36,29 +36,6 @@
 			<td>${row.estDesc}</td>
 		</tr>
 	</c:forEach>
-	<c:forEach var="row" items="${dtodata01}">
-		<c:if test="${row.dataType eq '1102'}">
-			<tr class="item1" id="${row.soppdataNo}">
-				<td data-type="${row.dataType}">
-					매출
-					(
-					<fmt:parseDate value="${row.regDatetime}" var="regDatetime" pattern="yyyy-MM-dd HH:mm:ss"/>
-					<fmt:formatDate value="${regDatetime}" pattern="yyyy-MM-dd"/>
-					)
-				</td>
-				<td>${row.salesCustNoN}<input hidden value="${row.salesCustNo}"></td>
-				<td>${row.dataTitle}<input hidden value="${row.productNo}"></td>
-				<td style="text-align: right">₩<fmt:formatNumber value="${row.dataNetprice}" pattern="#,###" /></td>
-				<td style="text-align: right"><fmt:formatNumber value="${row.dataQuanty}" pattern="#,###" /></td>
-				<td style="text-align: right">₩<fmt:formatNumber value="${row.dataVat}" pattern="#,###" /></td>
-				<td style="text-align: right">₩<fmt:formatNumber value="${row.dataAmt}" pattern="#,###" /></td>
-				<td style="text-align: right">₩<fmt:formatNumber value="${row.dataTotal}" pattern="#,###" /></td>
-				<td>${row.dataRemark}</td>
-				<td><button class="btn btn-sm btn-dark" onClick="javascript:fn_data01modify(this)">수정</button></td>
-				<td><button class="btn btn-sm btn-danger" onClick="javascript:fn_data01delete(${row.soppdataNo})">삭제</button></td>
-			</tr>
-		</c:if>
-	</c:forEach>
 	</tbody>
 </table>
 

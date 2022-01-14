@@ -29,7 +29,7 @@
 				<ul class="nav nav-tabs  tabs" role="tablist" id="tablist">
 					<li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#tab01" role="tab">기본정보</a></li>
 					<c:if test="${sessionScope.userNo eq  dto.userNo || sessionScope.userRole eq 'ADMIN'}">
-						<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#tab02" role="tab" id="dataType01_tab02">매입매출 내역</a></li>
+						<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#tab02" role="tab" id="dataType01_tab02">매입매출 내역(${fn:length(dtodata01)})</a></li>
 					</c:if>
 					<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#tab03" role="tab" id="dataType01_tab03">견적 내역(${fn:length(estList)})</a></li>
 					<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#tab04" role="tab">파일첨부(${fn:length(soppFiles)})</a></li>
@@ -211,11 +211,11 @@
 																	<option value ="">계약중</option>
 																</c:if>
 																<c:if test="${dto.soppStatus < 10182}">
-															    <c:forEach var="sstatuslist" items="${sstatuslist}">
-																	<c:if test="${sstatuslist.codeNo ne 10183 && sstatuslist.codeNo ne 10184}">
-																	<option value="${sstatuslist.codeNo}">${sstatuslist.desc03}</option>
-																	</c:if>
-																</c:forEach>
+																    <c:forEach var="sstatuslist" items="${sstatuslist}">
+																		<c:if test="${sstatuslist.codeNo ne 10183 && sstatuslist.codeNo ne 10184}">
+																			<option value="${sstatuslist.codeNo}">${sstatuslist.desc03}</option>
+																		</c:if>
+																	</c:forEach>
 																</c:if>
 														</select></td>
 														<th scope="row">가능성</th>

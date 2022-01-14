@@ -12,12 +12,12 @@
     </table>
     <table class="table table-sm bst02" id="addinout">
         <colgroup>
-            <col width="5%" />
-            <col width="5%" />
+            <col width="3%" />
+            <col width="4%" />
             <col width="10%" />
-            <col width="15%" />
+            <col width="20%" />
             <col width="10%" />
-            <col width="5%" />
+            <col width="3%" />
             <col width="10%" />
             <col width="10%" />
             <col width="10%" />
@@ -104,35 +104,50 @@
                     </div>
                 </td>
                 <td>
-                    <div class="input-group input-group-sm mb-0">
-                        <input type="hidden" id="productNo1" value="" />
-                        <input type="text" class="form-control" name="product" id="data01Title" value="" readonly>
-                        <span class="input-group-btn">
-                            <button class="btn btn-primary sch-company" onclick="fn_productdataTableReload()" type="button" data-toggle="modal" data-target="#productdataModal1">
-                                <i class="icofont icofont-search"></i>
-                            </button>
-                        </span>
-                    </div>
-                    <!--모달 팝업-->
-                    <div class="modal fade" id="productdataModal1" tabindex="-1" role="dialog">
-                        <div class="modal-dialog modal-80size" role="document">
-                            <div class="modal-content modal-80size">
-                                <div class="modal-header">
-                                    <h4 class="modal-title">상품목록</h4>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-                                    <jsp:include page="/WEB-INF/views/modal/productdataListSalesInOut.jsp" />
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-default waves-effect " data-dismiss="modal">Close</button>
-<%--                                    <button type="button" class="btn btn-success waves-effect" id="productReg">상품추가</button>--%>
-<%--                                    <button type="button" class="btn btn-success waves-effect" id="productRegSimple1">직접기입</button>--%>
-                                </div>
-                            </div>
-                        </div>
+                	<div class="input-group" style="margin:0;">
+                		<div class="input-group-prepend">
+					    	<select class="form-control" id="productSelect" style="width:130px;">
+                				<option value="selectOn">항목 선택</option>
+                				<option value="selectOff">직접 입력</option>
+                			</select>
+					  	</div>
+					  	<div id="select1" style="width:100%;">
+		                    <div class="input-group input-group-sm mb-0">
+		                        <input type="hidden" id="productNo1" value="" />
+		                        <input type="text" class="form-control" name="product" id="data01Title" data-flag="true" value="" readonly>
+		                        <span class="input-group-btn">
+		                            <button class="btn btn-primary sch-company" onclick="fn_productdataTableReload()" type="button" data-toggle="modal" data-target="#productdataModal1">
+		                                <i class="icofont icofont-search"></i>
+		                            </button>
+		                        </span>
+		                    </div>
+		                    <!--모달 팝업-->
+		                    <div class="modal fade" id="productdataModal1" tabindex="-1" role="dialog">
+		                        <div class="modal-dialog modal-80size" role="document">
+		                            <div class="modal-content modal-80size">
+		                                <div class="modal-header">
+		                                    <h4 class="modal-title">상품목록</h4>
+		                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		                                        <span aria-hidden="true">&times;</span>
+		                                    </button>
+		                                </div>
+		                                <div class="modal-body">
+		                                    <jsp:include page="/WEB-INF/views/modal/productdataListSalesInOut.jsp" />
+		                                </div>
+		                                <div class="modal-footer">
+		                                    <button type="button" class="btn btn-default waves-effect " data-dismiss="modal">Close</button>
+		<%--                                    <button type="button" class="btn btn-success waves-effect" id="productReg">상품추가</button>--%>
+		<%--                                    <button type="button" class="btn btn-success waves-effect" id="productRegSimple1">직접기입</button>--%>
+		                                </div>
+		                            </div>
+		                        </div>
+		                    </div>
+	                    </div>
+	                    <div id="select2" style="width:100%;">
+                			<div class="input-group input-group-sm mb-0">
+	                			<input type="text" class="form-control" name="product" id="data01Title" data-flag="false">
+                			</div>
+                		</div>
                     </div>
                     <!--//모달 팝업-->
                     <!--모달 팝업-->
@@ -180,6 +195,24 @@
 </form>
 
 <script>
+	$("#select2").hide();
+
+	$("#productSelect").change(function(){
+    	if($(this).val() === "selectOn"){
+    		$("#select1").show();
+    		$("#select1").find("#data01Title").attr("data-flag", true);
+    		$("#select2").hide();
+    		$("#select2").find("#data01Title").attr("data-flag", false);
+    		$("#select2").find("#data01Title").val("");
+    	}else{
+    		$("#select1").hide();
+    		$("#select1").find("#data01Title").attr("data-flag", false);
+    		$("#select1").find("#data01Title").val("");
+    		$("#select2").show();
+    		$("#select2").find("#data01Title").attr("data-flag", true);
+    	}
+    });
+	
     $('#productCustModal2').on('show.bs.modal', function(e) {
         var button = $(e.relatedTarget);
         var modal = $(this);
@@ -289,7 +322,7 @@
     
     function fn_data01Insert() {
     	var path = $(location).attr("pathname");
-    	
+    	 
     	if($("[name='contractType']:checked").val() === "NEW"){
 			localStorage.setItem("reloadSet", "1t");
     	}else{
@@ -302,9 +335,9 @@
         data01Data.soppNo 		= $("#soppNo").val();
         data01Data.catNo	 	= '100001';
         if($("#productSalesInOutCustName").val() != "") data01Data.salesCustNo = Number($("#productSalesInOutCustNo").val());
-        if($("#data01Title").val() != "") {
+        if($("#data01Title[data-flag='true']").val() != "") {
             if($("#productNo1").val() != "") data01Data.productNo	= $("#productNo1").val();
-            data01Data.dataTitle 	= $("#data01Title").val();
+            data01Data.dataTitle 	= $("#data01Title[data-flag='true']").val();
         }
         data01Data.dataType		= $("#data01Type").val();
         data01Data.dataNetprice	= $("#data01Netprice").val().replace(/[\D\s\._\-]+/g, "");
@@ -340,7 +373,7 @@
                 $("#productSalesInOutCustName").val("");
                 $("#productSalesInOutCustNo").val("");
                 $("#productNo1").val("");
-                $("#data01Title").val("");
+                $("#data01Title[data-flag='true']").val("");
                 $("#data01Netprice").val("");
                 $("#data01Quanty").val("");
                 $("#data01Amt").val("");
@@ -376,9 +409,9 @@
         data01Data.catNo	 	= '100001';
         data01Data.soppdataNo   = $("#soppdataNo").val();
         if($("#productSalesInOutCustName").val() != "") data01Data.salesCustNo = Number($("#productSalesInOutCustNo").val());
-        if($("#data01Title").val() != "") {
+        if($("#data01Title[data-flag='true']").val() != "") {
             if($("#productNo1").val() != "") data01Data.productNo	= $("#productNo1").val();
-            data01Data.dataTitle 	= $("#data01Title").val();
+            data01Data.dataTitle 	= $("#data01Title[data-flag='true']").val();
         }
         data01Data.dataType		= $("#data01Type").val();
         data01Data.dataNetprice	= $("#data01Netprice").val().replace(/[\D\s\._\-]+/g, "");
@@ -412,7 +445,7 @@
                 $("#productSalesInOutCustName").val("");
                 $("#productSalesInOutCustNo").val("");
                 $("#productNo1").val("");
-                $("#data01Title").val("");
+                $("#data01Title[data-flag='true']").val("");
                 $("#data01Netprice").val("");
                 $("#data01Quanty").val("");
                 $("#data01Amt").val("");

@@ -19,6 +19,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <select id="detailDocData" resultType="gwDto">
         select * from swc_businessdocdata where attrib not like 'XXX%' and docNo=#{docNo};
     </select>
+    
+    <select id="selectVersion" resultType="gwDto">
+        select IFNULL(MAX(estVer), 0)+1 as getVersion from swc_estitems where estId = #{estId} and compNo = #{compNo};
+    </select>
 
     <insert id="insertest">
 	    <selectKey resultType="int" keyProperty="estVer" order="BEFORE">
@@ -28,6 +32,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	    	estId,
 	    	estVer,
 	    	estTitle,
+	    	estType,
 	    	custNo,
 	    	soppNo,
 	    	compNo,
@@ -41,6 +46,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	    	#{estId},
 	    	#{estVer},
 	    	#{estTitle},
+	    	#{estType},
 	    	#{custNo},
 	    	#{soppNo},
 	    	#{compNo},
@@ -66,9 +72,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</update> -->
 
     <insert id="insertestitems">
-    	<selectKey resultType="int" keyProperty="estVer" order="BEFORE">
-				select IFNULL(MAX(estVer), 0)+1 from swc_estitems where estId = #{estId} and compNo = #{compNo}
-	 	</selectKey>
 	    insert into swc_estitems(
 	    	estId,
 	    	estVer,

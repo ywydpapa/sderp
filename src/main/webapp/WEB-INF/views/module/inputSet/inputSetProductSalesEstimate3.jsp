@@ -351,6 +351,7 @@
     	}else{
             data02Data.estId = $("#estId").val();
     		data02Data.estTitle = $("#estTitle").val();
+    		data02Data.estType = $("input[name='contractType']:checked").val();
     		data02Data.custNo = $("#custNo").val();
     		data02Data.soppNo = $("#soppNo").val();
     		data02Data.compNo = $("#compNo").val();
@@ -366,16 +367,27 @@
     			data: data02Data,
     			dataType: "json",
     			success: function(){
-					for(var i = 0; i < dataArray.length; i++){
-						var JsonArray = JSON.stringify(dataArray[i]);
-						console.log(JSON.parse(JsonArray));
-		  				$.ajax({
-		  					url: "${path}/gw/insertEstitems.do",
-		  					method: "post",
-		  					data: JSON.parse(JsonArray),
-		  					dataType: "json"
-		  				});
-		 			}
+    				$.ajax({
+    					url: "${path}/gw/selectVersion.do",
+    					method: "post",
+    					data: {
+    						estId: $("#estId").val(),
+    					},
+    					dataType: "json",
+    					success:function(data){
+							for(var i = 0; i < dataArray.length; i++){
+								dataArray[i].estVer = data.getVersion;
+								var JsonArray = JSON.stringify(dataArray[i]);
+				  				$.ajax({
+				  					url: "${path}/gw/insertEstitems.do",
+				  					method: "post",
+				  					data: JSON.parse(JsonArray),
+				  					dataType: "json",
+				  				});
+				 			}
+    					}
+    					
+    				})
 		 			alert("등록되었습니다.");
 		 			location.href = "${path}/gw/estwrite.do";
     			}
@@ -402,6 +414,7 @@
     	}else{
     		data02Data.estId = $("#estId").val();
     		data02Data.estTitle = $("#estTitle").val();
+    		data02Data.estType = $("input[name='contractType']:checked").val();
     		data02Data.custNo = $("#custNo").val();
     		data02Data.soppNo = $("#soppNo").val();
     		data02Data.compNo = $("#compNo").val();
@@ -424,19 +437,29 @@
     			data: data02Data,
     			dataType: "json",
     			success: function(){
-					for(var i = 0; i < dataArray.length; i++){
-						dataArray[i].estId = $("#estId").val();
-						var JsonArray = JSON.stringify(dataArray[i]);
-						console.log(JSON.parse(JsonArray));
-		  				$.ajax({
-		  					url: "${path}/gw/insertEstitems.do",
-		  					method: "post",
-		  					data: JSON.parse(JsonArray),
-		  					dataType: "json"
-		  				});
-		 			}
-		 			alert("수정되었습니다.");
-		 			location.href = "${path}/gw/estlist.do";
+    				$.ajax({
+    					url: "${path}/gw/selectVersion.do",
+    					method: "post",
+    					data: {
+    						estId: $("#estId").val(),
+    					},
+    					dataType: "json",
+    					success:function(data){
+							for(var i = 0; i < dataArray.length; i++){
+								dataArray[i].estId = $("#estId").val();
+								dataArray[i].estVer = data.getVersion;
+								var JsonArray = JSON.stringify(dataArray[i]);
+				  				$.ajax({
+				  					url: "${path}/gw/insertEstitems.do",
+				  					method: "post",
+				  					data: JSON.parse(JsonArray),
+				  					dataType: "json"
+				  				});
+				 			}
+				 			alert("수정되었습니다.");
+				 			location.href = "${path}/gw/estlist.do";
+    					}
+    				});
     			}
     		});
     		

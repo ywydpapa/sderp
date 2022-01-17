@@ -360,6 +360,10 @@
 					return (input === 0) ? "0" : input.toLocaleString("en-US");
 				});
 			});
+			
+			var type = "${detail.estType}";
+			
+			$("[name='contractType'][value='"+type+"']").trigger("click");
 		});
 	</script>
 </div>

@@ -77,6 +77,7 @@ public class GwDTO {
     
     private String vatSdate;
     private String vatEdate;
+    private int getVersion;
     
     public GwDTO() {
         super();

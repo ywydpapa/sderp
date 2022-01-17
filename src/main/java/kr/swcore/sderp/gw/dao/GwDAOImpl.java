@@ -204,4 +204,10 @@ public class GwDAOImpl implements GwDAO{
 		// TODO Auto-generated method stub
 		return sqlSession.selectList("gw.getEstSopp", dto);
 	}
+
+	@Override
+	public GwDTO selectVersion(GwDTO dto) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("gw.selectVersion", dto);
+	}
 }

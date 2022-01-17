@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -118,6 +119,15 @@ public class GwController {
     public ModelAndView hrdocWrite(HttpSession session, ModelAndView mav) {
         mav.setViewName("hr/attwrite");
         return mav;
+    }
+    
+    @ResponseBody
+    @RequestMapping("selectVersion.do")
+    public GwDTO selectVersion(HttpSession session, ModelAndView mav, @ModelAttribute GwDTO dto) 
+    {
+    	GwDTO getVersion = gwService.selectVersion(session, dto);
+    	
+    	return getVersion;
     }
 
     @RequestMapping("estlist.do")

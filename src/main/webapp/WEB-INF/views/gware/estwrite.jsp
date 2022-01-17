@@ -58,6 +58,9 @@
 												<div class="radioLabel radio-inline">
 													<label style="color:red;">※ 표준견적 작성은 영업기회가 필요없습니다.</label>
 												</div>
+												<div style="float:right;">
+													<button type="button" class="btn btn-default fc-button-primary">견적서 PDF 출력</button>
+												</div>
 											</form>
 										</div>
 									</td>
@@ -81,8 +84,7 @@
 													<div class="modal-content modal-80size">
 														<div class="modal-header">
 															<h4 class="modal-title"></h4>
-															<button type="button" class="close" data-dismiss="modal"
-																aria-label="Close">
+															<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 																<span aria-hidden="true">&times;</span>
 															</button>
 														</div>
@@ -91,9 +93,7 @@
 															<p>Loading!!!</p>
 														</div>
 														<div class="modal-footer">
-															<button type="button"
-																class="btn btn-default waves-effect "
-																data-dismiss="modal">Close</button>
+															<button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
 														</div>
 													</div>
 												</div>
@@ -103,14 +103,8 @@
 									<th class="text-center">견적고객</th>
 									<td>
 										<div class="input-group input-group-sm mb-0">
-											<input type="text" class="form-control" name="custName"
-												id="custName" value="${dto.custName}" readonly> <input
-												type="hidden" name="custNo" id="custNo"
-												value="${dto.custNo}" /> <span class="input-group-btn">
-												<button class="btn btn-primary sch-company"
-													data-remote="${path}/modal/popup.do?popId=cust"
-													type="button" data-toggle="modal"
-													data-target="#custModal">
+											<input type="text" class="form-control" name="custName" id="custName" value="${dto.custName}" readonly><input type="hidden" name="custNo" id="custNo" value="${dto.custNo}" />
+											<span class="input-group-btn"><button class="btn btn-primary sch-company" data-remote="${path}/modal/popup.do?popId=cust" type="button" data-toggle="modal" data-target="#custModal">
 													<i class="icofont icofont-search"></i>
 												</button>
 											</span>
@@ -187,13 +181,46 @@
 		<button class="btn btn-md btn-primary" onClick="fn_data02Insert()">견적등록</button>
 		<button class="btn btn-md btn-inverse" onClick="javascript:location='${path}/gw/estlist.do'">취소</button>
 	</div>
-	<!--//계약등록-->
 
+	<%--출력영역--%>
+	<div id="printdiv" style="display:">
+
+
+	</div>
+	<%--출력영역--%>
+	<!--//계약등록-->
 	<script>
+
+		function solPdf(id){
+			var now = new Date();
+			var year = now.getFullYear();
+			var month = parseInt(now.getMonth())+1;
+			if(now.getDate() < 10){
+				var date = "0" + now.getDate();
+			}else{
+				var date = now.getDate();
+			}
+
+			var nowDate = year + "-" + month + "-" + date;
+			var element = document.getElementById("loadHtml_"+id);
+			var name = $("#loadHtml_"+id).find("table .thUname").html().replace("담당 : ", "");
+
+			$("#loadHtml_"+id).show();
+			html2pdf().from(element).set({
+				margin: 5,
+				filename: name + '(' + nowDate + ')' + '.pdf',
+				html2canvas: { scale: 1 },
+				jsPDF: {orientation: 'landscape', unit: 'mm', format: 'a4', compressPDF: true}
+			}).save();
+			setTimeout(() => {
+				$("#loadHtml_"+id).hide()
+			}, 100);
+		}
+
 		$("#data02Discount").change(function(){
 			$(this).val($(this).val() + "%");
 		});
-	
+
 		$('#custModal').on('show.bs.modal', function(e) {
 			var button = $(e.relatedTarget);
 			var modal = $(this);

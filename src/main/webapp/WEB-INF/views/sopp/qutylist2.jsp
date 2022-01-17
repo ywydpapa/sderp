@@ -28,7 +28,7 @@
 	<c:forEach var="row" items="${estList}">
 		<tr>
 			<td style="text-align: center;">${row.estDate}</td>
-			<td style="text-align: center;">${row.estTitle}</td>
+			<td style="text-align: center;"><a href="${path}/gw/estdetail/${row.estId}/${row.estVer}">${row.estId}</a></td>
 			<td style="text-align: center;">${row.custName}</td>
 			<td style="text-align: right;">₩<fmt:formatNumber value="${row.estAmount}" pattern="#,###" /></td>
 			<td style="text-align: right;">₩<fmt:formatNumber value="${row.estVat}" pattern="#,###" /></td>

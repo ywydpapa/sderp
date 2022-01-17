@@ -174,7 +174,7 @@ function solPdf(id){
 	}).save();
 	
 	setTimeout(() => {
-		$("#loadHtml_"+id).hide()
+		$("#loadHtml_"+id).hide();
 	}, 100);
 }
 

@@ -399,12 +399,6 @@
 	</div>
 	<!--영업기회등록-->
 	<script>
-		var lastTab = localStorage.getItem('lastTab');
-		
-		if (lastTab) {
-		  	$('[href="' + lastTab + '"]').tab('show');
-		}
-	
 		$("#tablist > li:nth-child(1)").click(function (){
 			$("#tab01_bottom").show();
 			$("#tab_common_bottom").hide();
@@ -717,6 +711,16 @@
 				});
 			});
 			$("#tab_common_bottom").hide();
+			
+			var lastTab = localStorage.getItem('lastTab');
+			
+			$('a[data-toggle="tab"]').on('shown.bs.tab', function() {
+    		  	localStorage.setItem('lastTab', $(this).attr('href'));
+    		});
+			
+			if (lastTab) {
+			  	$('[href="' + lastTab + '"]').tab('show');
+			}
 		});
 	</script>
 </div>

@@ -121,7 +121,7 @@
 </table>
 
 <script>
-	/* var product01In = [
+	var product02In = [
 		<c:forEach var="row" items="${dtodata01}" varStatus="i">
 			<c:if test="${row.dataType eq '1101'}">
 				<c:if test="${!i.last}">${row.dataNetprice},</c:if>
@@ -129,7 +129,7 @@
 			</c:if>
 		</c:forEach>
 	];
-	var product01InQuanty = [
+	var product02InQuanty = [
 		<c:forEach var="row" items="${dtodata01}" varStatus="i">
 		<c:if test="${row.dataType eq '1101'}">
 			<c:if test="${!i.last}">${row.dataQuanty},</c:if>
@@ -137,8 +137,8 @@
 		</c:if>
 		</c:forEach>
 	];
-	var product01InSum = 0;
-	var product01Out = [
+	var product02InSum = 0;
+	var product02Out = [
 		<c:forEach var="row" items="${dtodata01}" varStatus="i">
 		<c:if test="${row.dataType eq '1102'}">
 			<c:if test="${!i.last}">${row.dataTotal},</c:if>
@@ -146,7 +146,7 @@
 		</c:if>
 		</c:forEach>
 	];
-	var product01OutQuanty = [
+	var product02OutQuanty = [
 		<c:forEach var="row" items="${dtodata01}" varStatus="i">
 		<c:if test="${row.dataType eq '1102'}">
 			<c:if test="${!i.last}">${row.dataQuanty},</c:if>
@@ -154,9 +154,9 @@
 		</c:if>
 		</c:forEach>
 	];
-	var product01OutSum = 0;
-	var product01DiffSum = 0;
-	var product01Percent = 0;
+	var product02OutSum = 0;
+	var product02DiffSum = 0;
+	var product02Percent = 0;
 
 	function fn_data01modify(e) {
 		if($(e).html() == "수정"){
@@ -232,37 +232,6 @@
 			$("#data01Modbtn").hide();
 		}
 	}
-
-	$(document).ready(function(){
-		for (var i = 0; i < product01In.length; i++) {
-			product01InSum += (product01In[i] * product01InQuanty[i]);
-		}
-		for (var i = 0; i < product01Out.length; i++) {
-			product01OutSum += (product01Out[i] * product01OutQuanty[i]);
-		}
-		product01DiffSum = product01OutSum - product01InSum;
-		$("#product01InSum").html('₩'+product01InSum.toLocaleString("en-US"));
-		$("#product01InSum_table").html('₩'+product01InSum.toLocaleString("en-US"));
-		$("#product01OutSum").html('₩'+product01OutSum.toLocaleString("en-US"));
-		$("#product01OutSum_table").html('₩'+product01OutSum.toLocaleString("en-US"));
-		$("#product01DiffSum").html('₩'+product01DiffSum.toLocaleString("en-US"));
-
-		product01Percent = Math.floor(product01DiffSum / product01OutSum * 100).toFixed(2);
-		if(product01Percent == 'NaN'){
-			$("#product01Percent").html('0'+'%');
-		} else if (product01Percent == '-Infinity'){
-			$("#product01Percent").html('0'+'%');
-		} else if (product01Percent == 'Infinity'){
-			$("#product01Percent").html('0'+'%');
-		} else if(product01Percent >= 0){
-			$("#product01Percent").html('+'+product01Percent+'%');
-		} else if(product01Percent < 0){
-			$("#product01Percent").html(product01Percent+'%');
-		}
-
-		var prduct01Cnt = product01In.length + product01Out.length;
-		$("#dataType01_tab02").html("매입매출 내역("+prduct01Cnt+")");
-	}); */
 	
 	$(document).ready(function(){
 		var product01DiffSum = $("#product01DiffSum").html().replace(/[\D\s\._\-]+/g, "");

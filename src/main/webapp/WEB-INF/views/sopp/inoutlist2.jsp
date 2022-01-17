@@ -107,10 +107,7 @@
 			<col width="20%" />
 		</colgroup>
 		<tr>
-			<c:set var="totalValue" value="${totalSum1 - totalSum2 - ((totalSum1 - totalSum2)/11)}" />
-			<c:if test="${totalValue < 0}">
-				<c:set var="totalValue" value="${fn:replace(totalValue, '-', '')}" />
-			</c:if>
+			<c:set var="totalValue" value="${totalSum2 - totalSum1 - ((totalSum2 - totalSum1)/11)}" />
 			<td style="text-align: center; background: #80808030;">매입 합계</td>
 			<td id="product01InSum" style="text-align: right">₩<fmt:formatNumber value="${totalSum1 - (totalSum1/11)}" pattern="#,###" /></td>
 			<td style="text-align: center; background: #80808030;">매출 합계</td>

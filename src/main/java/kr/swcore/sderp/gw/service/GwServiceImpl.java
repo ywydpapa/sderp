@@ -86,9 +86,9 @@ public class GwServiceImpl implements GwService{
     }
 
     @Override
-    public GwDTO detailEst(String estId) {
+    public GwDTO detailEst(GwDTO dto) {
 
-        return gwDao.detailEst(estId);
+        return gwDao.detailEst(dto);
     }
 
     @Override

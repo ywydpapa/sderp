@@ -21,7 +21,7 @@ public interface GwService {
     List<GwDTO> listEst(HttpSession session);
     List<GwDTO> listEst(HttpSession session, GwDTO dto);
     List<GwDTO> listEstitems(GwDTO dto);
-    GwDTO detailEst(String estId);
+    GwDTO detailEst(GwDTO dto);
     GwDTO detailDoc(int docNo);
     GwDTO detailDocApp(int docNo);
     List<GwDTO> detailDocData(int docNo);

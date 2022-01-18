@@ -59,7 +59,7 @@
 													<label style="color:red;">※ 표준견적 작성은 영업기회가 필요없습니다.</label>
 												</div>
 												<div style="float: right;">
-													<a href="${path}/gw/estPdf.do" class="btn btn-success" target="_blank">견적서 출력</a>
+													<a href="${path}/gw/estPdf/${detail.estId}/${detail.estVer}" class="btn btn-success" target="_blank">견적서 출력</a>
 												</div>
 											</form>
 										</div>

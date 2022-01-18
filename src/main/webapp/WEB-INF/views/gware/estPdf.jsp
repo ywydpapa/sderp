@@ -5,20 +5,67 @@
 <c:set var="path" value ="${pageContext.request.contextPath}"/>
 <!DOCTYPE html>
 <html>
-<head>
-<meta charset="UTF-8">
-<title>견적서 출력</title>
-</head>
+<script type="text/javascript" src="${path}/js/jquery.min.js"></script>
+<script src="${path}/js/html2pdf.bundle.min.js"></script>
+<style>
+#imgLogo #logoLeft{
+	width:28%;
+	height:auto;
+}
+
+#imgLogo #logoRight{
+	width:70%;
+	height:auto;
+	position:absolute; 
+	top:6px;
+	right: 0;
+}
+
+#pdfTitle #titlePdf{
+	font-size: 48px; 
+	font-weight:600; 
+	text-align:center;
+	margin-bottom: 20px;
+}
+
+#pdfRemarks{
+	font-size: 10px;
+}
+
+#pdfBottom img{
+	width:30%;
+	float:right;
+}
+
+table{
+	width:100%; 
+	margin:0 auto; 
+	text-align:center; 
+	border: 1px solid #000; 
+	font-size: 10px; 
+	margin-bottom: 20px;
+}
+
+table thead tr th{
+	color: #fff;
+	background-color: #B52223;
+}
+
+table tbody tr td{
+	border:1px solid #000;
+}
+
+</style>
 <body>
-	<div class="mainPdf">
+	<div class="mainPdf" id="mainPdf">
 		<div id="imgLogo">
-			<img src="${path}/images/pdf_logo_left.jpg" style="width:28.5%; height:90px;" />
-			<img src="${path}/images/pdf_logo_right.png" style="position:absolute; right:0; top:19px; width:68.5%; height:60px;" />
+			<img src="${path}/images/pdf_logo_left.jpg" id="logoLeft" />
+			<img src="${path}/images/pdf_logo_right.png" id="logoRight" />
 		</div>
 		<div id="pdfTitle">
-			<div style="font-size: 100px; font-weight:600; text-align:center;">QUOTATION</div>
+			<div id="titlePdf">QUOTATION</div>
 		</div>
-		<table style="width:100%; margin:0 auto; text-align:center; border-top: 1px solid #000; border-bottom: 1px solid #000; font-size: 22px; margin-bottom: 20px;">
+		<table>
 			<tr>
 				<th>견 	적 	일 	자: ${detail.estDate}</th>
 				<th>상		호: 주식회사 비전테크</th>
@@ -40,13 +87,13 @@
 				<th>팩		스: 051-955-3723</th>
 			</tr>
 		</table>
-		<table style="width:100%; margin:0 auto; text-align:center; border-top: 1px solid #000; border-bottom: 1px solid #000; font-size: 22px; margin-bottom: 20px;">
+		<table>
 			<tr>
 				<th>견	적	금	액: ￦<fmt:formatNumber value="${detail.estTotal}" pattern="#,###" /></th>
 				<th>유	효	기	간: 견적일로 부터 2주</th>
 			</tr>
 		</table>
-		<table style="width:100%; margin:0 auto; text-align:center; border-top: 1px solid #000; border-bottom: 1px solid #000; font-size: 22px;">
+		<table>
 			<thead>
 				<th>No.</th>
 				<th>구분</th>
@@ -60,14 +107,67 @@
 			<tbody>
 				<c:forEach var="row" items="${list}">
 					<c:set var="smallIndex" value="${smallIndex + 1}" />
+					<c:set var="dataTotal" value="${dataTotal + row.productTotal}" />
 					<tr>
 						<td>${smallIndex}</td>
 						<td>견적</td>
-						<td>
+						<td>${row.productName}</td>
+						<td>${row.productQty}</td>
+						<td></td>
+						<td>￦<fmt:formatNumber value="${row.productNetprice}" pattern="#,###" /></td>
+						<td>￦<fmt:formatNumber value="${row.productTotal}" pattern="#,###" /></td>
+						<td>${row.productRemark}</td>
 					</tr>
 				</c:forEach>
+				<tr>
+					<th colspan="6" style="border:1px solid #000">공급가합계</th>
+					<th colspan="2" style="border:1px solid #000">￦<fmt:formatNumber value="${dataTotal}" pattern="#,###" /></th>
+				</tr>
 			</tbody>
 		</table>
+		<div id="pdfRemarks">
+			<h3>Remarks</h3>
+			<h4>결제조건은 검수(납품) 당월 계산서 발행, 익월 결제 입니다.</h4>
+			<h4>납기기간은 발주 후 최대 4주 입니다.</h4>
+			<h4>설치비용 포함 견적이며 고객사 응용프로그램 사용에 따른 커스터마이징 비용은 미 포함이며 협의 후 포함합니다.</h4>
+		</div>
+		<div id="pdfBottom">
+			<img src="${path}/images/pdf_bottom.png" id="bottomImg" />
+		</div>
 	</div>
 </body>
+<script>
+function solPdf(){
+	var estId = "${detail.estId}";
+	var now = new Date();
+	var year = now.getFullYear();
+	var month = parseInt(now.getMonth())+1;
+	
+	if(month < 10){
+		month = "0" + month;
+	}else{
+		month = month;
+	}
+	
+	if(now.getDate() < 10){
+		var date = "0" + now.getDate();
+	}else{
+		var date = now.getDate();
+	}
+	
+	var nowDate = year + "-" + month + "-" + date;
+	var element = document.getElementById("mainPdf");
+	
+	html2pdf().from(element).set({
+	  margin: 5,
+      filename: estId + '(' + nowDate + ')' + '.pdf',
+      html2canvas: { scale: 1 },
+      jsPDF: {orientation: 'landscape', unit: 'mm', format: 'a4', compressPDF: true}
+	}).save();
+}
+
+$(document).ready(function(){
+	solPdf();
+});
+</script>
 </html>

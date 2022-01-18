@@ -532,9 +532,8 @@
 			$(".modal-backdrop").remove();
 			$("#endCustModal").modal("hide");
 		}
-
-
-		function fn_soppUpdate() {
+		
+		function fn_soppUpdate(){
 			var soppData = {};
 			var soppStatus = "${dto.soppStatus}";
 			
@@ -547,6 +546,7 @@
 			if($("#soppType").val() != "")	soppData.soppType 		= Number($("#soppType").val());
 			if($("#cntrctMth").val() != "")	soppData.cntrctMth 		= Number($("#cntrctMth").val());
 			if($("#custmemberName").val() != "") soppData.custMemberNo = Number($("#custmemberNo").val());
+			
 			if($("#soppStatus").val() != ""){
 				if($("#soppStatus").val() === "10292"){
 					soppData.soppStatus  = 	soppStatus;
@@ -554,6 +554,7 @@
 					soppData.soppStatus  =  $("#soppStatus").val();
 				}
 			}
+			
 			if($("#soppSource").val() != "") soppData.soppSource 	= $("#soppSource").val();
 			if($("#soppTargetDate").val() != "") soppData.soppTargetDate	= $("#soppTargetDate").val();
 			if($("#soppTargetAmt").val() != "") soppData.soppTargetAmt 	= $("#soppTargetAmt").val().replace(/[\D\s\._\-]+/g, "");

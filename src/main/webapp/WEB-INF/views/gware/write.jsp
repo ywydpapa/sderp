@@ -43,7 +43,7 @@
                             <tbody>
                             <tr>
                                 <th scope="row" class="text-center">결제 문서 종류</th>
-                                <td colspan="3">
+                                <td colspan="2">
                                     <div class="form-radio">
                                         <form>
                                             <div class="radio radio-inline">
@@ -56,6 +56,11 @@
                                                 <label> <input type="radio" name="contractType" value="OTHER"> <i class="helper"></i>외부문서</label>
                                             </div>
                                         </form>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div id="prnbutton" class="text-right">
+                                        <button id="prnbtn" class="btn btn-md btn-danger" onclick="fnPrintform()">출력물 출력</button>
                                     </div>
                                 </td>
                             </tr>
@@ -271,6 +276,10 @@
                 $(".contDetailSopp").show();
             }
         });
+
+        function fnPrintform(){
+            var win = window.open("${path}/form/ordform/1", "PopupWin", "width=600,height=800");
+        }
 
         $('#soppModal').on('show.bs.modal', function(e) {
             var button = $(e.relatedTarget);

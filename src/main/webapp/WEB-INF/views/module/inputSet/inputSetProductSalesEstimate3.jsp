@@ -487,9 +487,9 @@
         var sum12 = parseInt($("#data02Netprice").val().replace(/[\D\s\._\-]+/g, "") || 0 );
         var sum22 = parseInt($("#data02Quanty").val().replace(/[\D\s\._\-]+/g, "") || 0);
         var disc2 = parseFloat($("#data02Discount").val() || 0);
-        var sum32 = sum12 * sum22 * (disc2 / 100);
-        var vat2 = sum32 * 0.1;
-        var Total2 = sum32 + vat2;
+        var sum32 = Math.round(sum12 * sum22 * (disc2 / 100));
+        var vat2 = Math.round(sum32 * 0.1);
+        var Total2 = Math.round(sum32 + vat2);
         $("#data02Netprice").val(sum12.toLocaleString("en-US"));
         $("#data02Quanty").val(sum22.toLocaleString("en-US"));
         $("#data02Amt").val(sum32.toLocaleString("en-US"));

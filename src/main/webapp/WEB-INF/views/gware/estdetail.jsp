@@ -46,17 +46,20 @@
 									<td colspan="3">
 										<div class="form-radio">
 											<form>
-												<div class="radio radio-inline">
+												<div class="radio radio-inline" style="margin-top:10px;">
 													<label> <input type="radio" name="contractType" value="SOPP" checked="checked"> <i class="helper"></i>영업기회</label>
 												</div>
 												<!-- <div class="radio radio-inline">
 													<label> <input type="radio" name="contractType" value="CONT"> <i class="helper"></i>계약</label>
 												</div> -->
-												<div class="radio radio-inline">
+												<div class="radio radio-inline" style="margin-top:10px;">
 													<label> <input type="radio" name="contractType" value="NFORM"> <i class="helper"></i>표준견적 작성</label>
 												</div>
-												<div class="radioLabel radio-inline">
+												<div class="radioLabel radio-inline" style="margin-top:10px;">
 													<label style="color:red;">※ 표준견적 작성은 영업기회가 필요없습니다.</label>
+												</div>
+												<div style="float: right;">
+													<a href="${path}/gw/estPdf.do" class="btn btn-success" target="_blank">견적서 출력</a>
 												</div>
 											</form>
 										</div>

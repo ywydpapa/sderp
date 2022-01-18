@@ -58,9 +58,6 @@
 												<div class="radioLabel radio-inline">
 													<label style="color:red;">※ 표준견적 작성은 영업기회가 필요없습니다.</label>
 												</div>
-												<div style="float:right;">
-													<button type="button" class="btn btn-default fc-button-primary">견적서 PDF 출력</button>
-												</div>
 											</form>
 										</div>
 									</td>

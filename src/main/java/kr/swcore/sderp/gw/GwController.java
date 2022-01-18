@@ -161,6 +161,14 @@ public class GwController {
         return mav;
     }
     
+    @RequestMapping("estPdf/{estId}/{estVer}")
+    public ModelAndView estPdf(HttpSession session, ModelAndView mav, GwDTO dto) {
+    	mav.setViewName("gware/estPdf");
+    	mav.addObject("detail",gwService.detailEst(dto));
+        mav.addObject("list",gwService.listEstitems(dto));
+    	return mav;
+    }
+    
     @RequestMapping("update.do")
     public  ResponseEntity<?> update(@ModelAttribute GwDTO dto) {
          Map<String, Object> param = new HashMap<>();

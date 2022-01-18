@@ -506,9 +506,9 @@
         var sum1 = parseInt($("#data01Netprice").val().replace(/[\D\s\._\-]+/g, "") || 0 );
         var sum2 = parseInt($("#data01Quanty").val().replace(/[\D\s\._\-]+/g, "") || 0 );
         var sum3 = parseInt($("#data01Vat").val().replace(/[\D\s\._\-]+/g, "") || 0 );
-        var sum = sum1 * sum2;
-        var sumv = sum * 0.1;
-        var sumt = sum + sumv;
+        var sum = Math.round(sum1 * sum2);
+        var sumv = Math.round(sum * 0.1);
+        var sumt = Math.round(sum + sumv);
         $("#data01Netprice").val(sum1.toLocaleString("en-US"));
         $("#data01Quanty").val(sum2.toLocaleString("en-US"));
         $("#data01Amt").val(sum.toLocaleString("en-US"));

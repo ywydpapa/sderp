@@ -114,7 +114,7 @@
 	}
 
 
-	function downloadFile(fileId,fileName) {
+	function downloadFile(fileId, fileName) {
 		var downloadData = {};
 		downloadData.soppNo = $("#soppNo").val();
 		downloadData.fileId = fileId;

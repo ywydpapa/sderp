@@ -142,7 +142,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 
 	<select id="detailest" resultType="gwDto">
-		select a.*, b.custName, c.soppTitle from swc_est a LEFT JOIN swc_cust b ON a.custNo = b.custNo LEFT JOIN swc_sopp c ON a.soppNo = c.soppNo where a.estId=#{estId} and a.estVer = #{estVer} limit 1;
+		select a.*, b.custName, c.soppTitle, d.userName from swc_est a LEFT JOIN swc_cust b ON a.custNo = b.custNo LEFT JOIN swc_sopp c ON a.soppNo = c.soppNo left join swc_user d on a.userNo = d.userNo where a.estId=#{estId} and a.estVer = #{estVer} limit 1;
 	</select>
 
 	<select id="listestitems" resultType="gwDto">

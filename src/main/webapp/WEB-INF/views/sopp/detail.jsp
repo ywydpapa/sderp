@@ -208,7 +208,7 @@
 														<th scope="row" class="requiredTextCss">진행단계</th>
 														<td><select name="soppStatus" id="soppStatus" class="form-control form-control-sm" <c:if test="${dto.soppStatus > 10185}">readonly</c:if>>
 																<c:if test="${dto.soppStatus >= 10183}">
-																	<option value ="">계약중</option>
+																	<option value = "">계약중</option>
 																</c:if>
 																<c:if test="${dto.soppStatus < 10182}">
 																    <c:forEach var="sstatuslist" items="${sstatuslist}">

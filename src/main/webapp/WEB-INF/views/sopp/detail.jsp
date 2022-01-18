@@ -273,7 +273,6 @@
 													</c:if>
 												</tbody>
 											</table>
-
 										</div>
 									</div>
 									<div class="btn_wr text-right mt-3" id="tab01_bottom">
@@ -720,6 +719,7 @@
 			
 			if (lastTab) {
 			  	$('[href="' + lastTab + '"]').tab('show');
+			  	localStorage.clear();
 			}
 		});
 	</script>

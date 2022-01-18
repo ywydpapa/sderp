@@ -207,12 +207,12 @@
 													<tr>
 														<th scope="row" class="requiredTextCss">진행단계</th>
 														<td><select name="soppStatus" id="soppStatus" class="form-control form-control-sm" <c:if test="${dto.soppStatus > 10185}">readonly</c:if>>
-																<c:if test="${dto.soppStatus >= 10183}">
-																	<option value = "">계약중</option>
+																<c:if test="${dto.soppStatus >= 10182}">
+																	<option value="10292" selected>계약중</option>
 																</c:if>
 																<c:if test="${dto.soppStatus < 10182}">
 																    <c:forEach var="sstatuslist" items="${sstatuslist}">
-																		<c:if test="${sstatuslist.codeNo ne 10183 && sstatuslist.codeNo ne 10184}">
+																		<c:if test="${sstatuslist.codeNo < 10182}">
 																			<option value="${sstatuslist.codeNo}">${sstatuslist.desc03}</option>
 																		</c:if>
 																	</c:forEach>
@@ -468,9 +468,9 @@
 			modal.find('.modal-body').load(button.data("remote"));
 		});
 
-		var soppStatusSelected = '${dto.soppStatus}';
+		/* var soppStatusSelected = '${dto.soppStatus}';
 		if (soppStatusSelected != '' && soppStatusSelected != '0') 	$('#soppStatus').val('${dto.soppStatus}').prop("selected",true);
-		else $('#soppStatus option:eq(0)').prop("selected",true);
+		else $('#soppStatus option:eq(0)').prop("selected",true); */
 
 		var soppTypeSelected = '${dto.soppType}';
 		if (soppTypeSelected != '' && soppTypeSelected != '0') $('#soppType').val('${dto.soppType}').prop("selected",true);
@@ -536,6 +536,8 @@
 
 		function fn_soppUpdate() {
 			var soppData = {};
+			var soppStatus = "${dto.soppStatus}";
+			
 			soppData.soppNo 		= $("#soppNo").val();
 			soppData.soppTitle 		= $("#soppTitle").val();
 			if($("#userName").val() != "")  	soppData.userNo 	= Number($("#userNo").val());
@@ -545,7 +547,13 @@
 			if($("#soppType").val() != "")	soppData.soppType 		= Number($("#soppType").val());
 			if($("#cntrctMth").val() != "")	soppData.cntrctMth 		= Number($("#cntrctMth").val());
 			if($("#custmemberName").val() != "") soppData.custMemberNo = Number($("#custmemberNo").val());
-			if($("#soppStatus").val() != "") soppData.soppStatus 	= $("#soppStatus").val();
+			if($("#soppStatus").val() != ""){
+				if($("#soppStatus").val() === "10292"){
+					soppData.soppStatus  = 	soppStatus;
+				}else{
+					soppData.soppStatus  =  $("#soppStatus").val();
+				}
+			}
 			if($("#soppSource").val() != "") soppData.soppSource 	= $("#soppSource").val();
 			if($("#soppTargetDate").val() != "") soppData.soppTargetDate	= $("#soppTargetDate").val();
 			if($("#soppTargetAmt").val() != "") soppData.soppTargetAmt 	= $("#soppTargetAmt").val().replace(/[\D\s\._\-]+/g, "");

@@ -177,33 +177,72 @@
                             </thead>
                             <tbody>
                             <c:forEach var="row" items="${mydoclist}">
-                                <tr>
-                                    <td class="text-center">${row.regDate}</td>
-                                    <td class="text-center">
-                                		<a href="${path}/gw/detail/${row.docNo}">VTEK_2022${row.docNo}</a>
-                                	</td>
-                                    <td class="text-center">
-                                    	<c:if test="${row.docType eq 'BUY'}">구매요청서</c:if>
-                                    	<c:if test="${row.docType eq 'TRS'}">지출품의서</c:if>
-                                    	<c:if test="${row.docType eq 'ODS'}">수주수</c:if>
-                                    	<c:if test="${row.docType eq 'CKD'}">검토요청서</c:if>
-                                    	<c:if test="${row.docType eq 'FMF'}">공문서 확인 요청서</c:if>
-                                    	<c:if test="${row.docType eq 'COST'}">비용청구</c:if>
-                                    	<c:if test="${row.docType eq 'TAX'}">세금공과금</c:if>
-                                    	<c:if test="${row.docType eq 'CREDIT'}">외상매입금</c:if>
-                                    	<c:if test="${row.docType eq 'PAY'}">급여</c:if>
-                                    	<c:if test="${row.docType eq 'PUR'}">발주서</c:if>
-                                    	<c:if test="${row.docType eq 'DIP'}">공문서</c:if>
-                                    </td>
-                                    <td>${row.docTitle}</td>
-                                    <td class="text-right">￦<fmt:formatNumber type="number" maxFractionDigits="3" value="${row.docAmount}" /></td>
-                                    <td class="text-center">${row.userIsName}</td>
-                                    <td class="text-center">
-                                    	<c:if test="${row.appStatus == 2}">검토요청</c:if>
-                                    	<c:if test="${row.appStatus == 3}">반려</c:if>
-                                    	<c:if test="${row.appStatus == 4}">검토완료</c:if>
-                                    </td>
-                                </tr>
+                            	<c:choose>
+                            		<c:when test="${sessionScope.docRole eq 'A'}">
+                            			<c:if test="${row.appStatus == 2}">
+			                                <tr>
+			                                    <td class="text-center">${row.regDate}</td>
+			                                    <td class="text-center">
+			                                		<a href="${path}/gw/detail/${row.docNo}">VTEK_2022${row.docNo}</a>
+			                                	</td>
+			                                    <td class="text-center">
+			                                    	<c:if test="${row.docType eq 'BUY'}">구매요청서</c:if>
+			                                    	<c:if test="${row.docType eq 'TRS'}">지출품의서</c:if>
+			                                    	<c:if test="${row.docType eq 'ODS'}">수주수</c:if>
+			                                    	<c:if test="${row.docType eq 'CKD'}">검토요청서</c:if>
+			                                    	<c:if test="${row.docType eq 'FMF'}">공문서 확인 요청서</c:if>
+			                                    	<c:if test="${row.docType eq 'COST'}">비용청구</c:if>
+			                                    	<c:if test="${row.docType eq 'TAX'}">세금공과금</c:if>
+			                                    	<c:if test="${row.docType eq 'CREDIT'}">외상매입금</c:if>
+			                                    	<c:if test="${row.docType eq 'PAY'}">급여</c:if>
+			                                    	<c:if test="${row.docType eq 'PUR'}">발주서</c:if>
+			                                    	<c:if test="${row.docType eq 'DIP'}">공문서</c:if>
+			                                    </td>
+			                                    <td>${row.docTitle}</td>
+			                                    <td class="text-right">￦<fmt:formatNumber type="number" maxFractionDigits="3" value="${row.docAmount}" /></td>
+			                                    <td class="text-center">${row.userIsName}</td>
+			                                    <td class="text-center">검토요청</td>
+			                                    <%-- <td class="text-center">
+			                                    	<c:if test="${row.appStatus == 2}">검토요청</c:if>
+			                                    	<c:if test="${row.appStatus == 3}">반려</c:if>
+			                                    	<c:if test="${row.appStatus == 4}">승인요청</c:if>
+			                                    </td> --%>
+			                                </tr>
+                            			</c:if>
+                            		</c:when>
+                            		<c:otherwise>
+                            			<c:if test="${row.appStatus == 4}">
+                            				<tr>
+			                                    <td class="text-center">${row.regDate}</td>
+			                                    <td class="text-center">
+			                                		<a href="${path}/gw/detail/${row.docNo}">VTEK_2022${row.docNo}</a>
+			                                	</td>
+			                                    <td class="text-center">
+			                                    	<c:if test="${row.docType eq 'BUY'}">구매요청서</c:if>
+			                                    	<c:if test="${row.docType eq 'TRS'}">지출품의서</c:if>
+			                                    	<c:if test="${row.docType eq 'ODS'}">수주수</c:if>
+			                                    	<c:if test="${row.docType eq 'CKD'}">검토요청서</c:if>
+			                                    	<c:if test="${row.docType eq 'FMF'}">공문서 확인 요청서</c:if>
+			                                    	<c:if test="${row.docType eq 'COST'}">비용청구</c:if>
+			                                    	<c:if test="${row.docType eq 'TAX'}">세금공과금</c:if>
+			                                    	<c:if test="${row.docType eq 'CREDIT'}">외상매입금</c:if>
+			                                    	<c:if test="${row.docType eq 'PAY'}">급여</c:if>
+			                                    	<c:if test="${row.docType eq 'PUR'}">발주서</c:if>
+			                                    	<c:if test="${row.docType eq 'DIP'}">공문서</c:if>
+			                                    </td>
+			                                    <td>${row.docTitle}</td>
+			                                    <td class="text-right">￦<fmt:formatNumber type="number" maxFractionDigits="3" value="${row.docAmount}" /></td>
+			                                    <td class="text-center">${row.userIsName}</td>
+			                                    <td class="text-center">승인요청</td>
+			                                    <%-- <td class="text-center">
+			                                    	<c:if test="${row.appStatus == 2}">검토요청</c:if>
+			                                    	<c:if test="${row.appStatus == 3}">반려</c:if>
+			                                    	<c:if test="${row.appStatus == 4}">승인요청</c:if>
+			                                    </td> --%>
+			                                </tr>
+                            			</c:if>
+                            		</c:otherwise>
+                            	</c:choose>
                             </c:forEach>
                             </tbody>
                         </table>

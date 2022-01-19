@@ -444,7 +444,13 @@
     				data02App.userNoCR = $("#docUserNo").val();
     				data02App.userNoIS = $("#docUserNo").val();
     				data02App.userNoAPP = $("#userNo").val();
-    				data02App.appStatus = 2;
+    				
+    				if($("[name='contractType']:checked").val() === "TREQ"){
+    					data02App.appStatus = 2;
+    				}else{
+	    				data02App.appStatus = 4;
+    				}
+    				
     				data02App.issueDate = $("#issueDate").val();
     				
     				if(!uploadData.get('file').name){
@@ -611,7 +617,13 @@
     			success: function(data){
     				data02App.docNo = docNo;
     				data02App.userNoAPP = $("#userNo").val();
-    				data02App.appStatus = 2;
+    				
+    				if($("[name='contractType']:checked").val() === "TREQ"){
+    					data02App.appStatus = 2;
+    				}else{
+	    				data02App.appStatus = 4;
+    				}
+    				
     				data02App.appDate = $("#appDate").val();
     				data02App.appComment = tinyMCE.get("appComment").getContent();
     				
@@ -631,7 +643,6 @@
 	    					processData : false,
 	    				});
     		    	}
-    				
     				
     				$.ajax({
     					url: "${path}/gw/updateData.do",

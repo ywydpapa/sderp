@@ -264,7 +264,7 @@
 	        <button class="btn btn-md btn-danger" onClick="fn_data02Com()">반려</button>
         </c:if>
         <c:if test="${sessionScope.docRole eq 'A' && detailListApp.appStatus == 2}">
-	        <button class="btn btn-md btn-success" onClick="fn_data02App()">검토완료</button>
+	        <button class="btn btn-md btn-success" onClick="fn_data02App()">승인요청</button>
 	        <button class="btn btn-md btn-danger" onClick="fn_data02Com()">반려</button>
         </c:if>
         <c:if test="${sessionScope.userNo eq detailListApp.userNoCR && detailListApp.appStatus == 1 || sessionScope.userNo eq detailListApp.userNoCR && detailListApp.appStatus == 3}">

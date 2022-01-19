@@ -75,6 +75,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	    insert into swc_estitems(
 	    	estId,
 	    	estVer,
+	    	itemKinds,
+	    	itemTitle,
 	    	custNo,
 	    	compNo,
 	    	productNo,
@@ -92,6 +94,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	    ) values (
 	    	#{estId},
 	    	#{estVer},
+	    	#{itemKinds},
+	    	#{itemTitle},
 	    	#{custNo},
 	    	#{compNo},
 	    	#{productNo},
@@ -146,7 +150,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 
 	<select id="listestitems" resultType="gwDto">
-		select a.*, b.custName from swc_estitems a LEFT JOIN swc_cust b ON a.custNo = b.custNo where a.estId=#{estId} and a.estVer = #{estVer} and a.attrib not like 'XXX%';
+		select a.*, b.custName from swc_estitems a LEFT JOIN swc_cust b ON a.custNo = b.custNo where a.estId = #{estId} and a.estVer = #{estVer} and a.attrib not like 'XXX%' order by itemTitle desc;
+	</select>
+	
+	<select id="titleGroupBy" resultType="gwDto">
+		SELECT *, SUM(productTotal) AS titleTotal from swc_estitems where estId = #{estId} and estVer = #{estVer} and attrib not like 'XXX%' GROUP BY itemTitle ORDER BY itemTitle DESC;
 	</select>
 
 	<select id="myList" resultType="gwDto">

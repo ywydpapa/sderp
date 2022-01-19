@@ -84,6 +84,12 @@ public class GwServiceImpl implements GwService{
 
         return gwDao.listEstitems(dto);
     }
+    
+    @Override
+    public List<GwDTO> titleGroupBy(GwDTO dto) {
+
+        return gwDao.titleGroupBy(dto);
+    }
 
     @Override
     public GwDTO detailEst(GwDTO dto) {

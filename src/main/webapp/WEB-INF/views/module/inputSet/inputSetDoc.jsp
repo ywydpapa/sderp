@@ -417,7 +417,7 @@
     	}else if($("#docUserNo").val() == $("#userNo").val()){
     		alert("자신에게 요청할 수 없습니다.");	
     		return false;
-    	}else if(!uploadData.get('file').name){
+    	}else if(!uploadData.get('file').name && $("[name='contractType']:checked").val() !== "TREQ"){
     		alert('영수증을 첨부해주십시오.');
     		return false;
     	}else{
@@ -447,13 +447,15 @@
     				data02App.appStatus = 2;
     				data02App.issueDate = $("#issueDate").val();
     				
-    				$.ajax({
-    					url : "${path}/gw/uploadfile/"+data.getId,
-    					method : "POST",
-    					data : uploadData,
-    					contentType : false,
-    					processData : false,
-    				});
+    				if(!uploadData.get('file').name){
+	    				$.ajax({
+	    					url : "${path}/gw/uploadfile/"+data.getId,
+	    					method : "POST",
+	    					data : uploadData,
+	    					contentType : false,
+	    					processData : false,
+	    				});
+    				}
     				
     				$.ajax({
     					url: "${path}/gw/insertApp.do",

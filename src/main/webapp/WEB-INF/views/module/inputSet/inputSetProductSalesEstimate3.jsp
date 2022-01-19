@@ -12,17 +12,22 @@
     </table>
     <table class="table table-sm bst02" id="addquty">
         <colgroup>
-            <col width="15%" />
-            <col width="15%" />
-            <col width="15%" />
-            <col width="10%" />
-            <col width="10%" />
-            <col width="15%" />
-            <col width="15%" />
+        	<col width="8%" />
+        	<col width="18%" />
+        	<col width="11%" />
+            <col width="11%" />
+            <col width="9%" />
+            <col width="5%" />
+            <col width="9%" />
+            <col width="9%" />
+            <col width="9%" />
+            <col width="5%" />
             <col width="5%" />
         </colgroup>
         <thead>
         <tr>
+        	<th class="text-center">구분</th>
+        	<th class="text-center">제목</th>
             <th class="text-center">거래처</th>
             <th class="text-center">항목</th>
             <th class="text-center">단가</th>
@@ -36,6 +41,18 @@
         </thead>
         <tbody>
             <tr class="item1">
+            	<td><input class="form-control" type="text" id="itemKinds"></td>
+            	<td>
+            		<div class="input-group" style="margin:0;">
+					  	<div class="input-group-prepend">
+					    	<select class="form-control" id="selectTitle" style="width:110px;">
+                				<option value="titleOff">제목 없음</option>	            		
+								<option value="titleOn">직접 입력</option>
+                			</select>
+					  	</div>
+	            		<input class="form-control" type="text" id="itemTitle" readonly>
+					</div>
+            	</td>
                 <td>
                     <div class="input-group input-group-sm mb-0">
                         <input type="text" class="form-control" name="product" id="productSalesEstimateCustName" value="" readonly>
@@ -133,10 +150,10 @@
                 </td>
             </tr>
             <tr>
-            	<td colspan="4">
+            	<td colspan="5">
 	            	<textarea rows="5" id="data02Spec" class="form-control form-control-sm" placeholder="spec을 입력해주세요."></textarea>
             	</td>
-            	<td colspan="4">
+            	<td colspan="5">
 	            	<textarea rows="5" id="data02Remark" class="form-control form-control-sm" placeholder="비고를 입력해주세요."></textarea>
             	</td>
             </tr>
@@ -277,6 +294,8 @@
     
     function dataSave(){
     	var temp = {};
+    	var itemKinds = $("#itemKinds").val();
+    	var itemTitle = $("#itemTitle").val();
     	var productSalesEstimateCustName = $('#productSalesEstimateCustName').val();
     	var productNo = $("#productNo2").val();
     	var productName = $("#data02Title").val();
@@ -293,6 +312,8 @@
         temp.estId = $("#estId").val();
 		temp.custNo = $("#productSalesEstimateCustNo").val();
 		temp.compNo = $("#compNo").val();
+		temp.itemKinds = itemKinds;
+		temp.itemTitle = itemTitle;
     	temp.productNo = productNo;
     	temp.productName = productName;
     	temp.productNetprice = productNetprice;
@@ -315,6 +336,8 @@
     	dataArray.push(temp);
     	
     	$("#data02Type option:eq(0)").attr("selected","selected");
+    	$("#itemTitle").val("");
+    	$("#itemKinds").val("");
         $("#soppdataNoEstimate").val("");
         $("#productSalesEstimateCustName").val("");
         $("#productSalesEstimateCustNo").val("");
@@ -329,7 +352,7 @@
         tinyMCE.get("data02Remark").setContent("");
         tinyMCE.get("data02Spec").setContent("");
     	
-        qutylist.append("<tr><td style='text-align:center;'>견적</td><td id='salesCustNoN' style='text-align:center;'>"+productSalesEstimateCustName+"</td><td id='dataTitle' style='text-align:center;'>"+productName+"</td><td id='dataNetprice' style='text-align: right'>"+"￦"+parseInt(productNetprice).toLocaleString("en-US")+"</td><td id='dataQuanty' style='text-align: right'>"+productQty+"</td><td id='dataAmt' style='text-align: right'>"+"￦"+parseInt(productAmount).toLocaleString("en-US")+"</td><td id='dataVat' style='text-align: right'>"+"￦"+parseInt(productVat).toLocaleString("en-US")+"</td><td id='dataTotal' style='text-align: right'>"+"￦"+parseInt(productTotal).toLocaleString("en-US")+"</td><td id='dataDiscount' style='text-align: right'>"+ productDis + "%" + "</td><td id='dataRemark'>"+productRemark+"</td><td><button class='btn btn-sm btn-danger' data-index="+dataIndex+" id='dataDelBtn'>삭제</button></td></tr>");    	
+        qutylist.append("<tr><td id='dataItemKinds' style='text-align:center;'>"+itemKinds+"</td><td id='dataItemTitle' style='text-align:center;'>"+itemTitle+"</td><td id='salesCustNoN' style='text-align:center;'>"+productSalesEstimateCustName+"</td><td id='dataTitle' style='text-align:center;'>"+productName+"</td><td id='dataNetprice' style='text-align: right'>"+"￦"+parseInt(productNetprice).toLocaleString("en-US")+"</td><td id='dataQuanty' style='text-align: right'>"+productQty+"</td><td id='dataAmt' style='text-align: right'>"+"￦"+parseInt(productAmount).toLocaleString("en-US")+"</td><td id='dataVat' style='text-align: right'>"+"￦"+parseInt(productVat).toLocaleString("en-US")+"</td><td id='dataTotal' style='text-align: right'>"+"￦"+parseInt(productTotal).toLocaleString("en-US")+"</td><td id='dataDiscount' style='text-align: right'>"+ productDis + "%" + "</td><td id='dataRemark'>"+productRemark+"</td><td><button class='btn btn-sm btn-danger' data-index="+dataIndex+" id='dataDelBtn'>삭제</button></td></tr>");    	
         
     	console.log(dataArray);
     	
@@ -518,8 +541,20 @@
     	var amountSum = parseInt($("#amountSum").val());
     	var vatSum = parseInt($("#vatSum").val());
     	
+    	$("#selectTitle").change(function(){
+    		if($(this).val() === "titleOff"){
+    			$("#itemTitle").val("");
+    			$("#itemTitle").attr("readonly", true);
+    		}else{
+    			$("#itemTitle").val("");
+    			$("#itemTitle").attr("readonly", false);
+    		}	
+    	})
+    	
     	qutylist.each(function(index, item){
 	    	var temp = {};
+	    	var itemKinds = $(item).find("#dataItemKinds").html();
+	    	var itemTitle = $(item).find("#dataItemTitle").html();
     		var productSalesEstimateCustName = $(item).find('#salesCustNoN').html();
         	var productNo = $(item).find("#productNo").val();
         	var productName = $(item).find("#dataTitle").html();
@@ -538,6 +573,8 @@
         	
         	temp.custNo = $("#productCustNo").val();
     		temp.compNo = $("#compNo").val();
+    		temp.itemKinds = itemKinds;
+    		temp.itemTitle = itemTitle;
         	temp.productNo = productNo;
         	temp.custName = productSalesEstimateCustName;
         	temp.productName = productName;

@@ -30,6 +30,8 @@ public class GwDTO {
     private BigDecimal estTotal;
     private String estDate;
     private Integer estItemNo;
+    private String itemKinds;
+    private String itemTitle;
     private Integer productNo;
     private String productName;
     private String productSpec;
@@ -78,6 +80,7 @@ public class GwDTO {
     private String vatSdate;
     private String vatEdate;
     private int getVersion;
+    private int titleTotal;
     
     public GwDTO() {
         super();

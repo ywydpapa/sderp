@@ -163,9 +163,10 @@ public class GwController {
     
     @RequestMapping("estPdf/{estId}/{estVer}")
     public ModelAndView estPdf(HttpSession session, ModelAndView mav, GwDTO dto) {
-    	mav.setViewName("gware/estPdf");
+    	mav.setViewName("form/estPdf");
     	mav.addObject("detail",gwService.detailEst(dto));
         mav.addObject("list",gwService.listEstitems(dto));
+        mav.addObject("titleList", gwService.titleGroupBy(dto));
     	return mav;
     }
     

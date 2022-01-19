@@ -64,6 +64,11 @@ public class GwDAOImpl implements GwDAO{
     public List<GwDTO> listEstitems(GwDTO dto) {
         return sqlSession.selectList("gw.listestitems", dto);
     }
+    
+    @Override
+    public List<GwDTO> titleGroupBy(GwDTO dto) {
+        return sqlSession.selectList("gw.titleGroupBy", dto);
+    }
 
     @Override
     public GwDTO detailEst(GwDTO dto) {

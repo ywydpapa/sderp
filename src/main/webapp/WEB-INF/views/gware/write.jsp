@@ -58,11 +58,6 @@
                                         </form>
                                     </div>
                                 </td>
-                                <td>
-                                    <div id="prnbutton" class="text-right">
-                                        <button id="prnbtn" class="btn btn-md btn-danger" onclick="fnPrintform()">출력물 출력</button>
-                                    </div>
-                                </td>
                             </tr>
                             <tr>
                                 <th class="contDetailSopp text-center">연결프로젝트(영업기회)</th>

@@ -561,7 +561,7 @@
 			if(tinyMCE.get("soppDesc").getContent() != "") soppData.soppDesc 		= tinyMCE.get("soppDesc").getContent();
 
 			if (!soppData.soppTitle) {
-				alert("영업기회명을 입력하십시오.!!");
+				alert("영업기회명을 입력하십시오.");
 				return;
 			} else if(!soppData.custNo){
 				alert("매출처를 선택해주십시오.");
@@ -599,15 +599,31 @@
 		function fn_Contreq() {
 			var msg = "계약요청을 진행하시겠습니까?";
 			if (confirm(msg)){
-			var soppData = {};
-			soppData.soppNo 		= $("#soppNo").val();
-			soppData.soppSrate 		= '100';
-			soppData.soppStatus 	= '10182';
-			$.ajax({ url: "${path}/sopp/updateSoppStatus.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
-				data: soppData , // HTTP 요청과 함께 서버로 보낼 데이터
-				method: "POST", // HTTP 요청 메소드(GET, POST 등)
-				dataType: "json" // 서버에서 보내줄 데이터의 타입
-			}) // HTTP 요청이 성공하면 요청한 데이터가 done() 메소드로 전달됨. .
+				if ($("#soppTitle").val() === "") {
+					alert("영업기회명을 입력하십시오.");
+					return;
+				} else if($("#custName").val() === ""){
+					alert("매출처를 선택해주십시오.");
+					return;
+				} else if($("#endCustName").val() === ""){
+					alert("엔드유저를 선택해주십시오.");
+					return;
+				} else if($("#cntrctMth").val() === ""){
+					alert("계약구분을 선택해주십시오.");
+					return;
+				} else if($("#soppType").val() === ""){
+					alert("판매방식을 선택해주십시오.");
+					return;
+				}
+				var soppData = {};
+				soppData.soppNo 		= $("#soppNo").val();
+				soppData.soppSrate 		= '100';
+				soppData.soppStatus 	= '10182';
+				$.ajax({ url: "${path}/sopp/updateSoppStatus.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
+					data: soppData , // HTTP 요청과 함께 서버로 보낼 데이터
+					method: "POST", // HTTP 요청 메소드(GET, POST 등)
+					dataType: "json" // 서버에서 보내줄 데이터의 타입
+				}) // HTTP 요청이 성공하면 요청한 데이터가 done() 메소드로 전달됨. .
 					.done(function(data) {
 						if(data.code == 10001){
 							alert("계약요청 완료");
@@ -620,21 +636,37 @@
 					.fail(function(xhr, status, errorThrown) {
 						alert("통신 실패");
 					});
-			}
+				}
 		}
 
 		function fn_Contfail() {
 			var msg = "계약실패건으로 처리하시겠습니까?";
 			if (confirm(msg)){
-			var soppData = {};
-			soppData.soppNo 		= $("#soppNo").val();
-			soppData.soppSrate 		= '0';
-			soppData.soppStatus 	= '10185';
-			$.ajax({ url: "${path}/sopp/updateSoppStatus.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
-				data: soppData , // HTTP 요청과 함께 서버로 보낼 데이터
-				method: "POST", // HTTP 요청 메소드(GET, POST 등)
-				dataType: "json" // 서버에서 보내줄 데이터의 타입
-			}) // HTTP 요청이 성공하면 요청한 데이터가 done() 메소드로 전달됨. .
+				if ($("#soppTitle").val() === "") {
+					alert("영업기회명을 입력하십시오.");
+					return;
+				} else if($("#custName").val() === ""){
+					alert("매출처를 선택해주십시오.");
+					return;
+				} else if($("#endCustName").val() === ""){
+					alert("엔드유저를 선택해주십시오.");
+					return;
+				} else if($("#cntrctMth").val() === ""){
+					alert("계약구분을 선택해주십시오.");
+					return;
+				} else if($("#soppType").val() === ""){
+					alert("판매방식을 선택해주십시오.");
+					return;
+				}
+				var soppData = {};
+				soppData.soppNo 		= $("#soppNo").val();
+				soppData.soppSrate 		= '0';
+				soppData.soppStatus 	= '10185';
+				$.ajax({ url: "${path}/sopp/updateSoppStatus.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
+					data: soppData , // HTTP 요청과 함께 서버로 보낼 데이터
+					method: "POST", // HTTP 요청 메소드(GET, POST 등)
+					dataType: "json" // 서버에서 보내줄 데이터의 타입
+				}) // HTTP 요청이 성공하면 요청한 데이터가 done() 메소드로 전달됨. .
 					.done(function(data) {
 						if(data.code == 10001){
 							alert("계약실패 저장 완료");
@@ -647,7 +679,7 @@
 					.fail(function(xhr, status, errorThrown) {
 						alert("통신 실패");
 					});
-			}
+				}
 		}
 
 		function fn_soppDelete(){

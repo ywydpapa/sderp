@@ -16,6 +16,7 @@ public interface GwDAO {
     List<GwDTO> listEst(Integer compNo);
     List<GwDTO> listEst(GwDTO dto);
     List<GwDTO> listEstitems(GwDTO dto);
+    List<GwDTO> titleGroupBy(GwDTO dto);
     GwFileDataDTO listFile(int docNo);
     GwDTO detailEst(GwDTO dto);
     GwDTO detailUserAtt(int attendId);

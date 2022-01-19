@@ -12,19 +12,23 @@
 <c:set var="path" value ="${pageContext.request.contextPath}"/>
 <table class="table table-sm bst02" id="qutylist">
     <colgroup>
-        <col width="10%" />
-        <col width="17.5%" />
-        <col width="17.5%" />
-        <col width="10%" />
-        <col width="10%" />
-        <col width="5%" />
-        <col width="15%" />
-        <col width="5%" />
+    	<col width="8%" />
+    	<col width="8%" />
+    	<col width="8%" />
+        <col width="8%" />
+        <col width="8%" />
+        <col width="8%" />
+        <col width="8%" />
+        <col width="8%" />
+        <col width="8%" />
+        <col width="8%" />
+        <col width="11%" />
         <col width="5%" />
     </colgroup>
     <thead>
     <tr>
-        <th class="text-center">구분</th>
+    	<th class="text-center">구분</th>
+    	<th class="text-center">제목</th>
         <th class="text-center">거래처</th>
         <th class="text-center">항목</th>
         <th class="text-center">단가</th>
@@ -40,12 +44,13 @@
     <tbody>
     <c:forEach var="row" items="${list}">
     	<tr>
-    		<td style='text-align:center;'>
-    			견적
+    		<td id="dataItemKinds" style='text-align:center;'>${row.itemKinds}</td>
+    		<td id="dataItemTitle" style='text-align:center;'>${row.itemTitle}</td>
+    		<td id='salesCustNoN' style='text-align:center;'>
     			<input type="hidden" id="productCustNo" value="${row.custNo}" />
     			<input type="hidden" id="productNo" value="${row.productNo}" />
+    			${row.custName}
     		</td>
-    		<td id='salesCustNoN' style='text-align:center;'>${row.custName}</td>
     		<td id='dataTitle' style='text-align:center;'>${row.productName}</td>
     		<td id='dataNetprice' style='text-align: right'>₩<fmt:formatNumber value="${row.productNetprice}" pattern="#,###" /></td>
     		<td id='dataQuanty' style='text-align: right'>${row.productQty}</td>

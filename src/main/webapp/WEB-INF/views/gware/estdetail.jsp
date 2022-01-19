@@ -42,8 +42,8 @@
 							</colgroup>
 							<tbody>
 								<tr>
-									<th scope="row" class="text-center">연결 영업기회/계약</th>
-									<td colspan="3">
+									<th class="text-center">연결 영업기회/계약</th>
+									<td>
 										<div class="form-radio">
 											<form>
 												<div class="radio radio-inline" style="margin-top:10px;">
@@ -58,9 +58,20 @@
 												<div class="radioLabel radio-inline" style="margin-top:10px;">
 													<label style="color:red;">※ 표준견적 작성은 영업기회가 필요없습니다.</label>
 												</div>
-												<div style="float: right;">
-													<a href="${path}/gw/estPdf/${detail.estId}/${detail.estVer}" class="btn btn-success" target="_blank">견적서 출력</a>
+											</form>
+										</div>
+									</td>
+									<th class="text-center">견적서 출력</th>
+									<td>
+										<div class="form-radio">
+											<form>
+												<div class="radio radio-inline" style="margin-top:10px;">
+													<label> <input type="radio" name="titlePdf" value="radioOnTitle" checked="checked"> <i class="helper"></i>타이틀</label>
 												</div>
+												<div class="radio radio-inline" style="margin-top:10px;">
+													<label> <input type="radio" name="titlePdf" value="radioOffTitle" checked="checked"> <i class="helper"></i>타이틀 없음</label>
+												</div>
+												<a href="${path}/gw/estPdf/${detail.estId}/${detail.estVer}" class="btn btn-success" id="btnPdf" target="_blank" style="float:right;">견적서 출력</a>
 											</form>
 										</div>
 									</td>
@@ -343,6 +354,9 @@
 
 		$(document).ready(function() {
 			var $input = $("#contAmt,#netprofit");
+			var path = "${path}";
+			var estId = "${detail.estId}";
+			var estVer = "${detail.estVer}";
 			// 이벤트 시작 ==========================================================================
 			// 이벤트시 동작
 			$input.on("keyup", function (event) {
@@ -362,6 +376,14 @@
 				$this.val(function () {
 					return (input === 0) ? "0" : input.toLocaleString("en-US");
 				});
+			});
+			
+			$("[name='titlePdf']").change(function(){
+				if($(this).val() === "radioOnTitle"){
+					$("#btnPdf").attr("href", path + "/gw/estPdf/" + estId + "/" + estVer + "?title=1");	
+				}else{
+					$("#btnPdf").attr("href", path + "/gw/estPdf/" + estId + "/" + estVer);
+				}
 			});
 			
 			var type = "${detail.estType}";

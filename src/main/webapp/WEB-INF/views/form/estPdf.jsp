@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <c:set var="path" value ="${pageContext.request.contextPath}"/>
 <!DOCTYPE html>
 <html>
@@ -17,7 +18,7 @@
 	width:70%;
 	height:auto;
 	position:absolute; 
-	top:6px;
+	top:4px;
 	right: 0;
 }
 
@@ -49,6 +50,10 @@ table{
 table thead tr th{
 	color: #fff;
 	background-color: #B52223;
+}
+
+table tbody tr th{
+	border:1px solid #000;
 }
 
 table tbody tr td{
@@ -95,30 +100,65 @@ table tbody tr td{
 		</table>
 		<table>
 			<thead>
-				<th>No.</th>
-				<th>구분</th>
-				<th>품명/규격</th>
-				<th>수량</th>
-				<th>소비자가</th>
-				<th>공급 단가</th>
-				<th>합계</th>
-				<th>비고</th>
+				<tr>
+					<th>No.</th>
+					<th>구분</th>
+					<th>품명/규격</th>
+					<th>수량</th>
+					<th>소비자가</th>
+					<th>공급 단가</th>
+					<th>합계</th>
+					<th>비고</th>
+				</tr>
 			</thead>
 			<tbody>
-				<c:forEach var="row" items="${list}">
-					<c:set var="smallIndex" value="${smallIndex + 1}" />
-					<c:set var="dataTotal" value="${dataTotal + row.productTotal}" />
-					<tr>
-						<td>${smallIndex}</td>
-						<td>견적</td>
-						<td>${row.productName}</td>
-						<td>${row.productQty}</td>
-						<td></td>
-						<td>￦<fmt:formatNumber value="${row.productNetprice}" pattern="#,###" /></td>
-						<td>￦<fmt:formatNumber value="${row.productTotal}" pattern="#,###" /></td>
-						<td>${row.productRemark}</td>
-					</tr>
-				</c:forEach>
+				<c:choose>
+					<c:when test="${param.title == 1}">
+						<c:forEach var="titleList" items="${titleList}">
+							<c:set var="titleNum" value="${titleNum+1}" />
+							<c:set var="dataTotal" value="${dataTotal + titleList.titleTotal}" />
+							<tr style="background-color:yellow;">
+								<th>${titleNum}</th>
+								<th></th>
+								<th>${titleList.itemTitle}</th>
+								<th></th>
+								<th></th>
+								<th></th>
+								<th>￦<fmt:formatNumber value="${titleList.titleTotal}" pattern="#,###" /></th>
+								<th></th>
+							</tr>
+							<c:forEach var="row" items="${list}" varStatus="status">
+								<c:if test="${titleList.itemTitle == row.itemTitle}">
+									<tr>
+										<td>${status.index+1}</td>
+										<td>${row.itemKinds}</td>
+										<td>${row.productName}</td>
+										<td>${row.productQty}</td>
+										<td></td>
+										<td>￦<fmt:formatNumber value="${row.productNetprice}" pattern="#,###" /></td>
+										<td>￦<fmt:formatNumber value="${row.productTotal}" pattern="#,###" /></td>
+										<td>${row.productRemark}</td>
+									</tr>
+								</c:if>
+							</c:forEach>
+						</c:forEach>
+					</c:when>
+					<c:otherwise>
+						<c:forEach var="row" items="${list}" varStatus="status">
+							<c:set var="dataTotal" value="${dataTotal + row.productTotal}" />
+							<tr>
+								<td>${status.index+1}</td>
+								<td>${row.itemKinds}</td>
+								<td>${row.productName}</td>
+								<td>${row.productQty}</td>
+								<td></td>
+								<td>￦<fmt:formatNumber value="${row.productNetprice}" pattern="#,###" /></td>
+								<td>￦<fmt:formatNumber value="${row.productTotal}" pattern="#,###" /></td>
+								<td>${row.productRemark}</td>
+							</tr>
+						</c:forEach>
+					</c:otherwise>
+				</c:choose>
 				<tr>
 					<th colspan="6" style="border:1px solid #000">공급가합계</th>
 					<th colspan="2" style="border:1px solid #000">￦<fmt:formatNumber value="${dataTotal}" pattern="#,###" /></th>
@@ -162,7 +202,7 @@ function solPdf(){
 	  margin: 5,
       filename: estId + '(' + nowDate + ')' + '.pdf',
       html2canvas: { scale: 1 },
-      jsPDF: {orientation: 'landscape', unit: 'mm', format: 'a4', compressPDF: true}
+      jsPDF: {orientation: 'portrait', unit: 'mm', format: 'a4', compressPDF: true}
 	}).save();
 }
 

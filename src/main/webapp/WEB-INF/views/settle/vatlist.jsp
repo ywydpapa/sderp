@@ -200,42 +200,40 @@
                     <div class="table-responsive">
                         <table id="vatTable" class="table table-striped table-bordered nowrap ">
                             <colgroup>
-                                <col width="4%"/>
-                                <col width="20%"/>
-                                <col width="4%"/>
-                                <col width="4%"/>
-                                <col width="20%"/>
-                                <col width="2%"/>
+                                <col width="10%"/>
+                                <col width="5%"/>
+                                <col width="15%"/>
+                                <col width="10%"/>
+                                <col width="10%"/>
+                                <col width="10%"/>
+                                <col width="10%"/>
                                 <col width="15%"/>
                                 <col width="15%"/>
-                                <col width="12%"/>
                             </colgroup>
                             <thead>
                             <tr>
-                                <%--<th><input class="border-checkbox" type="checkbox" id="checkbox0"></th>--%>
-                                <th>등록일</th>
-                                <th>매입/매출</th>
-                                <th>거래처</th>
-                                <th>계산서 종류</th>
-                                <th>공급가</th>
-                                <th>세액</th>
-                                <th>합계금액</th>
-                                <th>연결문서</th>
-                                <th>메모</th>
-                                <%--<th>일정설명</th>--%>
+                                <th class="text-center">등록일</th>
+                                <th class="text-center">매입/매출</th>
+                                <th class="text-center">거래처</th>
+                                <th class="text-center">상태</th>
+                                <th class="text-center">공급가</th>
+                                <th class="text-center">세액</th>
+                                <th class="text-center">합계금액</th>
+                                <th class="text-center">연결문서</th>
+                                <th class="text-center">메모</th>
                             </tr>
                             </thead>
                             <c:forEach items="${vatList}" var="vlist">
                                 <tr>
-                                <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td>${vlist.vatBuyerCustNo}</td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
+                                <td class="text-center">${vlist.vatIssueDate}</td>
+                                    <td class="text-center">${vlist.vatType}</td>
+                                    <td class="text-center">${vlist.vatSellerCustNo}</td>
+                                    <td class="text-center">${vlist.vatStatus}</td>
+                                    <td class="text-right"><fmt:formatNumber type="number" maxFractionDigits="3" value="${vlist.vatAmount}" /></td>
+                                    <td class="text-right"><fmt:formatNumber type="number" maxFractionDigits="3" value="${vlist.vatTax}" /></td>
+                                    <td class="text-right"><fmt:formatNumber type="number" maxFractionDigits="3" value="${vlist.vatAmount + vlist.vatTax}" /></td>
+                                    <td>${vlist.linkedDocNo}</td>
+                                    <td>${vlist.vatRemark}</td>
                                 </tr>
                             </c:forEach>
                         </table>

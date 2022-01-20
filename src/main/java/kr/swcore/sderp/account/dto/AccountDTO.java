@@ -36,4 +36,8 @@ public class AccountDTO {
     private BigDecimal itemVat;
     private BigDecimal itemRemark;
     private Integer linkedDocNo;
+    private String vatTransDate;
+    private String vatSerial;
+    private String vatIssueType;
+    private String vatEmail;
 }

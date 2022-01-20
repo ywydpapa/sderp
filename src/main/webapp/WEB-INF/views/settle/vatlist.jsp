@@ -225,13 +225,12 @@
                                 <%--<th>일정설명</th>--%>
                             </tr>
                             </thead>
-<%--
-                            <c:forEach items="vatList" var="list">
+                            <c:forEach items="${vatList}" var="vlist">
                                 <tr>
                                 <td></td>
-                                    <td>${list.vatIssueDate}</td>
-                                    <td>${list.vatType}</td>
-                                    <td>${list.vatBuyerCustNo}</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>${vlist.vatBuyerCustNo}</td>
                                     <td></td>
                                     <td></td>
                                     <td></td>
@@ -239,7 +238,6 @@
                                     <td></td>
                                 </tr>
                             </c:forEach>
---%>
                         </table>
                     </div>
                 </div>

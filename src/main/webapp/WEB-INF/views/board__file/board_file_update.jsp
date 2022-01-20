@@ -14,11 +14,17 @@
 
 		<!-- Start Content-->
 		<div class="container-fluid">
-			<div>
-				<h4 class="header-title mt-0 mb-3 title_bar">
-					<span></span> 자료실 수정
-				</h4>
+			<div class="page-header2">
+		<div class="row align-items-end">
+			<div class="col-lg-12">
+				<div class="page-header-title">
+					<div class="d-inline">
+						자료실 수정
+					</div>
+				</div>
 			</div>
+		</div>
+	</div>
 			<div class="row">
 
 				<div class="col-xl-12">
@@ -26,26 +32,37 @@
 						<div class="middle_searchform">
 						
 							<form action="${pageContext.request.contextPath}/board__file/board_file_update_action" method="POST"> <!-- enctype="multipart/form-data">-->
-								<div class="form-group">
-									<label for="userName">Title</label>
-									<div class="form-group row" >
-										<input type="text"  name="bf_Title"
-											placeholder="제목을 입력해주세요." class="form-control"
-											id="board_file_Title"
-											value="${board_file_detail[0].bf_Title}">
+								
+								
+								<div class="card-block table-border-style">
+									<div class="table-responsive">
+
+										<table class="table table-sm bst02">
+											<colgroup>
+												<col width="15%" />
+												<col width="35%" />
+												<col width="15%" />
+												<col width="35%" />
+											</colgroup>
+
+											<tbody>
+												<tr>
+													<th scope="row">제목</th>
+													<td colspan="3"><input type="text"
+														class="form-control form-control-sm" id="userName"
+														name="bf_Title" value="${board_file_detail[0].bf_Title}" ></td>
+												</tr>
+												<tr>
+													<th scope="row">내용</th>
+													<td colspan="3"><textarea name="bf_Contents"
+															id="notiContents" rows="8" class="form-control" >${board_file_detail[0].bf_Contents}</textarea>
+													</td>
+												</tr>
+											</tbody>
+
+										</table>
 									</div>
 								</div>
-
-								<div class="form-group">
-									<blockquote>
-										<blockquote>
-											<label for="userName">Content</label>
-										</blockquote>
-									</blockquote>
-									<textarea id="textarea" class="form-control"
-										name="bf_Contents" maxlength="225" rows="8">${board_file_detail[0].bf_Contents}</textarea>
-								</div>
-								
 								<!-- file 1 -->
 								<!--<div class="form-group">
 									<label for="userName">1. 파일첨부</label>

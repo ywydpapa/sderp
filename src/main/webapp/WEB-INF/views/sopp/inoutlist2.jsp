@@ -39,13 +39,17 @@
 		<c:if test="${row.dataType eq '1101'}">
 			<c:set var="totalSum1" value="${totalSum1 + row.dataTotal}" />
 			<tr class="item1" id="${row.soppdataNo}">
-				<td data-type="${row.dataType}">
-					매입
-					(
-					<fmt:parseDate value="${row.regDatetime}" var="regDatetime" pattern="yyyy-MM-dd HH:mm:ss"/>
-					<fmt:formatDate value="${regDatetime}" pattern="yyyy-MM-dd"/>
-					)
-				</td>
+				<c:choose>
+					<c:when test="${empty row.vatDate}">
+						<td data-type="${row.dataType}">
+							매입(<fmt:parseDate value="${row.regDatetime}" var="regDatetime" pattern="yyyy-MM-dd HH:mm:ss"/>
+							<fmt:formatDate value="${regDatetime}" pattern="yyyy-MM-dd"/>)
+						</td>
+					</c:when>
+					<c:otherwise>
+						<td>매입(${row.vatDate})</td>
+					</c:otherwise>
+				</c:choose>
 				<td>${row.salesCustNoN}<input hidden value="${row.salesCustNo}"></td>
 				<td>${row.dataTitle}<input hidden value="${row.productNo}"></td>
 				<td style="text-align: right">₩<fmt:formatNumber value="${row.dataNetprice}" pattern="#,###" /></td>
@@ -67,13 +71,17 @@
 		<c:if test="${row.dataType eq '1102'}">
 			<c:set var="totalSum2" value="${totalSum2 + row.dataTotal}" />
 			<tr class="item1" id="${row.soppdataNo}">
-				<td data-type="${row.dataType}">
-					매출
-					(
-					<fmt:parseDate value="${row.regDatetime}" var="regDatetime" pattern="yyyy-MM-dd HH:mm:ss"/>
-					<fmt:formatDate value="${regDatetime}" pattern="yyyy-MM-dd"/>
-					)
-				</td>
+				<c:choose>
+					<c:when test="${empty row.vatDate}">
+						<td data-type="${row.dataType}">
+							매출(<fmt:parseDate value="${row.regDatetime}" var="regDatetime" pattern="yyyy-MM-dd HH:mm:ss"/>
+							<fmt:formatDate value="${regDatetime}" pattern="yyyy-MM-dd"/>)
+						</td>
+					</c:when>
+					<c:otherwise>
+						<td>매입(${row.vatDate})</td>
+					</c:otherwise>
+				</c:choose>
 				<td>${row.salesCustNoN}<input hidden value="${row.salesCustNo}"></td>
 				<td>${row.dataTitle}<input hidden value="${row.productNo}"></td>
 				<td style="text-align: right">₩<fmt:formatNumber value="${row.dataNetprice}" pattern="#,###" /></td>

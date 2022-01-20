@@ -607,8 +607,10 @@ dataRemark,
 linkType,
 linkNo,
 issueDate,
+vatDate,
 regDatetime)
- values (#{soppNo},
+ values (
+ #{soppNo},
 #{userNo},
 #{catNo},
 #{productNo},
@@ -626,6 +628,7 @@ regDatetime)
 #{linkType},
 #{linkNo},
 #{issueDate},
+#{vatDate},
 now()
 )
 </insert>

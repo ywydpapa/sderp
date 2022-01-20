@@ -71,7 +71,7 @@
 												<div class="radio radio-inline" style="margin-top:10px;">
 													<label> <input type="radio" name="titlePdf" value="radioOffTitle" checked="checked"> <i class="helper"></i>타이틀 없음</label>
 												</div>
-												<a href="${path}/gw/estPdf/${detail.estId}/${detail.estVer}" class="btn btn-success" id="btnPdf" target="_blank" style="float:right;">견적서 출력</a>
+												<a href="" class="btn btn-success" id="btnPdf" onClick="javascript:popupPdf(); return false;" style="float:right;">견적서 출력</a>
 											</form>
 										</div>
 									</td>
@@ -207,6 +207,35 @@
 	<!--//계약등록-->
 
 	<script>
+		function popupPdf(){
+			var nWidth = "800";
+			var nHeight = "1000";
+			  
+			// 듀얼 모니터 고려한 윈도우 띄우기
+			var curX = window.screenLeft;
+			var curY = window.screenTop;
+			var curWidth = document.body.clientWidth;
+			var curHeight = document.body.clientHeight;
+			  
+			var nLeft = curX + (curWidth / 2) - (nWidth / 2);
+			var nTop = curY + (curHeight / 2) - (nHeight / 2);
+
+			var strOption = "";
+			strOption += "left=" + nLeft + "px,";
+			strOption += "top=" + nTop + "px,";
+			strOption += "width=" + nWidth + "px,";
+			strOption += "height=" + nHeight + "px,";
+			strOption += "toolbar=no,menubar=no,location=no,";
+			strOption += "resizable=yes,status=yes";
+			  
+			var winObj = window.open($("#btnPdf").attr("href"), '', strOption);
+			
+			if (winObj == null) {
+			    alert("팝업 차단을 해제해주세요.");
+			    return false;
+			}
+		}
+		
 		$("#data02Discount").change(function(){
 			$(this).val($(this).val() + "%");
 		});
@@ -377,6 +406,12 @@
 					return (input === 0) ? "0" : input.toLocaleString("en-US");
 				});
 			});
+			
+			if($("[name='titlePdf']:checked").val() === "radioOnTitle"){
+				$("#btnPdf").attr("href", path + "/gw/estPdf/" + estId + "/" + estVer + "?title=1");	
+			}else{
+				$("#btnPdf").attr("href", path + "/gw/estPdf/" + estId + "/" + estVer);
+			}
 			
 			$("[name='titlePdf']").change(function(){
 				if($(this).val() === "radioOnTitle"){

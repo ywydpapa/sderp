@@ -346,6 +346,7 @@
         data01Data.dataVat 		= $("#data01Vat").val().replace(/[\D\s\._\-]+/g, "");
         data01Data.dataTotal 		= $("#data01Total").val().replace(/[\D\s\._\-]+/g, "");
         data01Data.dataRemark 	= $("#data01Remark").val();
+        data01Data.vatDate = $("#ioDate").val();
 
         if(!data01Data.dataQuanty){
             alert("단가를 입력해주십시오.");
@@ -416,6 +417,7 @@
         data01Data.dataVat 		= $("#data01Vat").val().replace(/[\D\s\._\-]+/g, "");
         data01Data.dataTotal 	= $("#data01Total").val().replace(/[\D\s\._\-]+/g, "");
         data01Data.dataRemark 	= $("#data01Remark").val();
+        data01Data.vatDate = $("#ioDate").val();
 
         if(!data01Data.dataQuanty){
             alert("단가를 입력해주십시오.");

@@ -670,23 +670,40 @@
 				alert("통신 실패");
 			});
 		}
+		
+		function fn_sopp2Reject(){
+			var role = '${sessionScope.userRole}';
+			if(role != 'ADMIN'){
+				alert("관리자만 접근이 가능합니다.");
+				return false;
+			}
 
-		function fn_sopp2Reject() {
 			var soppData = {};
-			soppData.soppNo 		= $("#soppNo").val();
-			soppData.sopp2Desc 		= $("#sopp2Desc").val();
-			soppData.soppStatus 	= '${sstatuslist[7].codeNo}'; 		//수주단계로 변경
-			$.ajax({ url: "${path}/sopp/insert2.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
-				data: soppData , // HTTP 요청과 함께 서버로 보낼 데이터
+			var soppDataDTOList = new Array();
+			var obj = new Object();
+			obj.soppNo = $("#soppNo").val();
+			obj.sopp2Desc = "";
+			soppDataDTOList.push(obj);
+			soppData.soppDTOList = soppDataDTOList;
+			soppData.soppStatus = '${sstatuslist[7].codeNo}'; 		//수주단계로 변경
+
+			$.ajax({
+				url: "${path}/sopp/Aprv.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
+				data: JSON.stringify(soppData) , // HTTP 요청과 함께 서버로 보낼 데이터
 				method: "POST", // HTTP 요청 메소드(GET, POST 등)
+				contentType:"application/json",
 				dataType: "json" // 서버에서 보내줄 데이터의 타입
 			}) // HTTP 요청이 성공하면 요청한 데이터가 done() 메소드로 전달됨. .
 			.done(function(data) {
 				if(data.code == 10001){
-					alert("반려처리 되었습니다.");
-					location.herf="/sopp/list2.do";
+					if(data.msg != undefined){
+						alert(data.msg);
+					} else {
+						alert("반려처리되었습니다.");
+						location.href = "${path}/sopp/list2.do";
+					}
 				}else{
-					alert("승인 실패");
+					alert("반려 실패");
 				}
 			}) // HTTP 요청이 실패하면 오류와 상태에 관한 정보가 fail() 메소드로 전달됨.
 			.fail(function(xhr, status, errorThrown) {

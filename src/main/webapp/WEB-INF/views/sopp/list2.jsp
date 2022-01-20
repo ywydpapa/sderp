@@ -794,7 +794,7 @@
 						alert(data.msg);
 					} else {
 						alert("반려처리되었습니다.");
-						location.herf="/sopp/list2.do";
+						location.reload();
 					}
 				}else{
 					alert("반려 실패");

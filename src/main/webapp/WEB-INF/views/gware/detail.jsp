@@ -260,7 +260,7 @@
     <div class="btn_wr text-right mt-3">
         <button class="btn btn-md btn-success f-left" onClick="javascript:location='${path}/gw/list.do'">결재목록</button>
         <c:if test="${sessionScope.docRole eq 'S' && detailListApp.appStatus == 4}">
-	        <button class="btn btn-md btn-success" onClick="fn_data02App()">완료</button>
+	        <button class="btn btn-md btn-success" onClick="fn_data02App()">승인완료</button>
 	        <button class="btn btn-md btn-danger" onClick="fn_data02Com()">반려</button>
         </c:if>
         <c:if test="${sessionScope.docRole eq 'A' && detailListApp.appStatus == 2}">

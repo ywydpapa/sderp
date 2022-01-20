@@ -207,10 +207,10 @@
 													<tr>
 														<th scope="row" class="requiredTextCss">진행단계</th>
 														<td><select name="soppStatus" id="soppStatus" class="form-control form-control-sm" <c:if test="${dto.soppStatus > 10185}">readonly</c:if>>
-																<c:if test="${dto.soppStatus >= 10182}">
+																<c:if test="${dto.soppStatus >= 10182 && dto.soppStatus < 10185}">
 																	<option value="10292" selected>계약중</option>
 																</c:if>
-																<c:if test="${dto.soppStatus < 10182}">
+																<c:if test="${dto.soppStatus < 10182 || dto.soppStatus >= 10185}">
 																    <c:forEach var="sstatuslist" items="${sstatuslist}">
 																		<c:if test="${sstatuslist.codeNo < 10182}">
 																			<option value="${sstatuslist.codeNo}">${sstatuslist.desc03}</option>

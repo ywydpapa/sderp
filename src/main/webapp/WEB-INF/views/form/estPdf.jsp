@@ -9,6 +9,11 @@
 <script type="text/javascript" src="${path}/js/jquery.min.js"></script>
 <script src="${path}/js/html2pdf.bundle.min.js"></script>
 <style>
+body{
+	-webkit-font-smoothing: antialiased;
+  	-moz-osx-font-smoothing: auto;
+  	font-weight:600;
+}
 #imgLogo #logoLeft{
 	width:28%;
 	height:auto;
@@ -24,7 +29,6 @@
 
 #pdfTitle #titlePdf{
 	font-size: 48px; 
-	font-weight:600; 
 	text-align:center;
 	margin-bottom: 20px;
 }
@@ -50,10 +54,6 @@ table{
 table thead tr th{
 	color: #fff;
 	background-color: #B52223;
-}
-
-table tbody tr th{
-	border:1px solid #000;
 }
 
 table tbody tr td{
@@ -118,14 +118,14 @@ table tbody tr td{
 							<c:set var="titleNum" value="${titleNum+1}" />
 							<c:set var="dataTotal" value="${dataTotal + titleList.titleTotal}" />
 							<tr style="background-color:yellow;">
-								<th>${titleNum}</th>
-								<th></th>
-								<th>${titleList.itemTitle}</th>
-								<th></th>
-								<th></th>
-								<th></th>
-								<th>￦<fmt:formatNumber value="${titleList.titleTotal}" pattern="#,###" /></th>
-								<th></th>
+								<th style="border: 1px solid #000;">${titleNum}</th>
+								<th style="border: 1px solid #000;"></th>
+								<th style="border: 1px solid #000;">${titleList.itemTitle}</th>
+								<th style="border: 1px solid #000;"></th>
+								<th style="border: 1px solid #000;"></th>
+								<th style="border: 1px solid #000;"></th>
+								<th style="border: 1px solid #000;">￦<fmt:formatNumber value="${titleList.titleTotal}" pattern="#,###" /></th>
+								<th style="border: 1px solid #000;"></th>
 							</tr>
 							<c:forEach var="row" items="${list}" varStatus="status">
 								<c:if test="${titleList.itemTitle == row.itemTitle}">
@@ -201,7 +201,7 @@ function solPdf(){
 	html2pdf().from(element).set({
 	  margin: 5,
       filename: estId + '(' + nowDate + ')' + '.pdf',
-      html2canvas: { scale: 1 },
+      html2canvas: { scale: 10 },
       jsPDF: {orientation: 'portrait', unit: 'mm', format: 'a4', compressPDF: true}
 	}).save();
 }

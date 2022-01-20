@@ -88,5 +88,8 @@ import kr.swcore.sderp.board_file.dto.Board_fileDataDTO;
 			// TODO Auto-generated method stub
 			return sqlSession.selectOne("board_file.downloadFile", dto);
 		}
+		
+		
+		
 	}
 

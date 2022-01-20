@@ -51,6 +51,13 @@ public class NoticeController {
 		return ojb.toJson(noticeService.listNotice(session, param, request, response));
 	}
 	
+	@RequestMapping(value = "list1/data", produces = "application/json;charset=UTF-8", method = RequestMethod.POST)
+	public @ResponseBody String listData1(HttpSession session, @RequestBody String param, HttpServletRequest request, HttpServletResponse response){
+		Gson ojb = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+		return ojb.toJson(noticeService.listNotice1(session, param, request, response));
+	}
+	
+	
 	@RequestMapping("write.do")
 	public ModelAndView write(@RequestParam(value = "simple", required = false) String simple, HttpSession session, ModelAndView mav) {
 		if(simple != null){

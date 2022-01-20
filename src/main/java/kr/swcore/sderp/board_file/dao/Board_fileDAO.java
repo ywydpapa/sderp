@@ -33,5 +33,6 @@ import kr.swcore.sderp.board_file.dto.Board_fileDataDTO;
 		Integer deleteFile(Board_fileDataDTO dto);
 		
 		Board_fileDataDTO downloadFile(Board_fileDataDTO dto);
+		
 	}
 

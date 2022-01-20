@@ -10,8 +10,8 @@ package kr.swcore.sderp.board_file;
 
 
 	import javax.inject.Inject;
-
-	import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 	import javax.servlet.http.HttpSession;
 
 
@@ -24,12 +24,16 @@ package kr.swcore.sderp.board_file;
 
 	import org.springframework.web.bind.annotation.ModelAttribute;
 	import org.springframework.web.bind.annotation.PathVariable;
-
-	import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 	import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.servlet.ModelAndView;
 
-	import org.springframework.web.multipart.MultipartHttpServletRequest;
-
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import kr.swcore.sderp.board_file.dto.Board_fileDTO;
 import kr.swcore.sderp.board_file.dto.Board_fileDataDTO;
@@ -79,8 +83,8 @@ import kr.swcore.sderp.board_file.service.Board_fileService;
 			}
 			
 			//게시판 상세
-				@RequestMapping("/board_file_detail/{bf_pk}/{userName}")
-				public String board_file_detail(@PathVariable("bf_pk") int bf_pk, @PathVariable("userName") String userName, Board_fileDTO dto, Model model, Board_fileDataDTO datadto) {
+				@RequestMapping("/board_file_detail/{bf_pk}")
+				public String board_file_detail(@PathVariable("bf_pk") int bf_pk, Board_fileDTO dto, Model model, Board_fileDataDTO datadto) {
 					
 					dto.setBf_pk(bf_pk);
 
@@ -172,6 +176,9 @@ import kr.swcore.sderp.board_file.service.Board_fileService;
 							return entity;
 						}
 						
-					
+						
+						
+						
+						
 		
 	}

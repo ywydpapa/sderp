@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="account">
+
+<select id="listVat" resultType="accountDto">
+		select * from swc_vat where compNo = #{compNo} and attrib not like 'XXX%';
+</select>
+
+	<select id="detailVat" resultType="accountDto">
+		select * from swc_vat where vatId = #{vatId};
+	</select>
+
+	<select id="listVatitems" resultType="accountDto">
+		select * from swc_vatdata where vatId = #{vatId};
+	</select>
+
+	<insert id="insertVat">
+		insert into swc_vat
+(compNo,
+vatBuyerCustNo,
+vatSellerCustNo,
+vatStatus,
+vatNo,
+vatIssueDate,
+vatTradeDate,
+vatType,
+vatTax,
+vatAmount,
+vatRemark,
+regDate,
+attrib) values (#{compNo},
+				#{vatBuyerCustNo},
+				#{vatSellerCustNo},
+				#{vatStatus},
+				#{vatNo},
+				#{vatIssueDate},
+				#{vatTradeDate},
+				#{vatType},
+				#{vatTax},
+				#{vatAmount},
+				#{vatRemark},
+				now(),
+				'100001');
+	</insert>
+
+	<insert id="insertVatItem">
+		insert into swc_vatdata
+(vatId,
+tradeDate,
+itemNo,
+itemTitle,
+itemUnit,
+itemNetprice,
+itemQuty,
+itemAmount,
+itemVat,
+itemRemark,
+linkedDocNo,
+regDate,
+attrib) values (#{vatId},
+				#{tradeDate},
+				#{itemNo},
+				#{itemTitle},
+				#{itemUnit},
+				#{itemNetprice},
+				#{itemQuty},
+				#{itemAmount},
+				#{itemVat},
+				#{itemRemark},
+				#{linkedDocNo},
+				now(),
+				'100001');
+	</insert>
+
+</mapper>

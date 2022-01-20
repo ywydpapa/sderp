@@ -7,6 +7,7 @@ import javax.inject.Inject;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
+import kr.swcore.sderp.board_file.dto.Board_fileDTO;
 import kr.swcore.sderp.notice.dto.NoticeDTO;
 
 @Repository
@@ -49,4 +50,14 @@ public class NoticeDAOImpl implements NoticeDAO{
 		return sqlSession.delete("notice.deleteNotice",notiNo);
 	}
 
+	@Override
+	public List<Board_fileDTO> listNotice1(Board_fileDTO dto) {
+		return sqlSession.selectList("notice.listNotice1", dto);
+	}
+
+	@Override
+	public int listNoticeCnt1(Board_fileDTO dto) {
+		return sqlSession.selectOne("notice.listNoticeCnt1", dto);
+	}
+	
 }

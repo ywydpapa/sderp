@@ -95,5 +95,4 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		modDatetime = now()
 	where fileId = #{fileId} and bf_pk=#{bf_pk}
 </delete>		
- 
 </mapper>

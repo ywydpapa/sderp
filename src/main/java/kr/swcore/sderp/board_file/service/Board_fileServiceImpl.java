@@ -6,7 +6,8 @@ import java.util.List;
 import java.util.UUID;
 
 import javax.inject.Inject;
-
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Repository;
@@ -16,6 +17,9 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import kr.swcore.sderp.board_file.dao.Board_fileDAO;
 import kr.swcore.sderp.board_file.dto.Board_fileDTO;
 import kr.swcore.sderp.board_file.dto.Board_fileDataDTO;
+import kr.swcore.sderp.common.dto.PageDTO;
+import kr.swcore.sderp.common.dto.WrapperDTO;
+import kr.swcore.sderp.util.SessionInfoGet;
 
 
 @Repository
@@ -102,5 +106,7 @@ public class Board_fileServiceImpl implements Board_fileService{
 		// TODO Auto-generated method stub
 		return board_fileDao.downloadFile(dto);
 	}
+	
+	
 
 }

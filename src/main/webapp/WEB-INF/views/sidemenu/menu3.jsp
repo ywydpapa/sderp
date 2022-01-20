@@ -74,21 +74,21 @@
                                     </a>
                                                                         <ul class="pcoded-submenu">
                                         <li class="pcoded-hasmenu ">
-                                            <a href="${path}/settl/list.do">
+                                            <a href="${path}/acc/list.do">
                                                 <span class="pcoded-micon"><i class="ti-direction-alt"></i></span>
                                                 <span class="pcoded-mtext" data-i18n="nav.menu-levels.menu-level-21">자금현황조회</span>
                                                 <span class="pcoded-mcaret"></span>
                                             </a>
                                         </li>
                                         <li class="pcoded-hasmenu">
-                                            <a href="${path}/settl/write.do">
+                                            <a href="${path}/acc/write.do">
                                                 <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
                                                 <span class="pcoded-mtext" data-i18n="nav.menu-levels.menu-level-22">자금변경등록</span>
                                                 <span class="pcoded-mcaret"></span>
                                             </a>
                                         </li>
                                         <li class="pcoded-hasmenu">
-                                            <a href="${path}/settl/write1.do">
+                                            <a href="${path}/acc/write1.do">
                                                 <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
                                                 <span class="pcoded-mtext" data-i18n="nav.menu-levels.menu-level-23">계좌/카드 조회</span>
                                                 <span class="pcoded-mcaret"></span>
@@ -104,16 +104,16 @@
                                     </a>
                                                                         <ul class="pcoded-submenu">
                                         <li class="pcoded-hasmenu ">
-                                            <a href="${path}/ps/list.do">
+                                            <a href="${path}/acc/vatlist.do">
                                                 <span class="pcoded-micon"><i class="ti-direction-alt"></i></span>
-                                                <span class="pcoded-mtext" data-i18n="nav.menu-levels.menu-level-21">채권채무조회</span>
+                                                <span class="pcoded-mtext" data-i18n="nav.menu-levels.menu-level-21">계산서 조회</span>
                                                 <span class="pcoded-mcaret"></span>
                                             </a>
                                         </li>
                                         <li class="pcoded-hasmenu">
-                                            <a href="${path}/ps/write.do">
+                                            <a href="${path}/acc/vatwrite.do">
                                                 <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                                <span class="pcoded-mtext" data-i18n="nav.menu-levels.menu-level-22">채권채무등록</span>
+                                                <span class="pcoded-mtext" data-i18n="nav.menu-levels.menu-level-22">계산서 등록</span>
                                                 <span class="pcoded-mcaret"></span>
                                             </a>
                                         </li>

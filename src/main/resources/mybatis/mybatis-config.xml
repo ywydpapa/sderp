@@ -33,6 +33,7 @@
     <typeAlias alias="gwFileDataDTO" type="kr.swcore.sderp.gw.dto.GwFileDataDTO"/>
     <typeAlias alias="board_fileDto" type="kr.swcore.sderp.board_file.dto.Board_fileDTO"/>
     <typeAlias alias="board_fileDataDTO" type="kr.swcore.sderp.board_file.dto.Board_fileDataDTO"/>
+        <typeAlias alias="accountDto" type="kr.swcore.sderp.account.dto.AccountDTO"/>
     </typeAliases>
  
 </configuration>

@@ -81,6 +81,8 @@ public class GwDTO {
     private String vatEdate;
     private int getVersion;
     private int titleTotal;
+    private int vatTotal;
+    private int amountTotal;
     
     public GwDTO() {
         super();

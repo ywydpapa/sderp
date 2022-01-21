@@ -169,6 +169,16 @@ th, td{
 			</tr>
 		</table>
 		<table id="mainTable">
+			<colgroup>
+		        <col width="5%">
+		        <col width="10%">
+		        <col width="40%">
+		        <col width="5%">
+		        <col width="10%">
+		        <col width="10%">
+		        <col width="10%">
+		        <col width="10%">
+		    </colgroup>
 			<thead>
 				<tr>
 					<th style="border-left:1px solid #000;">No.</th>
@@ -247,7 +257,7 @@ th, td{
 				</c:choose>
 				<tr style="border-top:1px solid #000;">
 					<th colspan="6" style="border-right:1px solid #000;">공&ensp;급&ensp;가&ensp;합&ensp;계</th>
-					<td style="text-align:right; "><fmt:formatNumber value="${amountTotal}" pattern="#,###" /></td>
+					<td style="text-align:right;"><fmt:formatNumber value="${amountTotal}" pattern="#,###" /></td>
 					<th></th>
 				</tr>
 				<tr>

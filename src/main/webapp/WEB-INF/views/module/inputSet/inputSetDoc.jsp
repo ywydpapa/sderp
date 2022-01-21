@@ -759,7 +759,7 @@
 				method: "post",
 				success: function(){
 					alert("삭제되었습니다.");
-		 			location.href = "${path}/gw/detail/"+docNo;
+		 			location.href = "${path}/gw/mylist.do";
 				}
 			});
     	}else{
@@ -858,7 +858,7 @@
 				  				});
 				 			}
 				 			alert("완료되었습니다.");
-				 			location.href = "${path}/gw/list.do";
+				 			location.href = "${path}/gw/mydoclist.do";
 		    			}
 		    		});
 				}
@@ -867,7 +867,6 @@
     }
 
     function fn_data02Com(){
-    	var uploadData = new FormData(uploadForm);
     	var docUserNo = $("#docUserNo").val();
     	var userNoCR = $("#userNoCR").val();
     	var userNo = $("#userNo").val();
@@ -948,7 +947,7 @@
 				  				});
 				 			}
 				 			alert("반려되었습니다.");
-				 			location.href = "${path}/gw/list.do";
+				 			location.href = "${path}/gw/mydoclist.do";
 		    			}
 		    		});
 				}
@@ -1026,7 +1025,9 @@
         	temp.productTotal = productTotal;
         	temp.productRemark = productRemark;
         	
+        	
         	dataArray.push(temp);
+        	console.log(dataArray);
     	});
     	
     	setTimeout(() => {

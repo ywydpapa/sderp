@@ -453,7 +453,7 @@
     				
     				data02App.issueDate = $("#issueDate").val();
     				
-    				if(!uploadData.get('file').name){
+    				if(uploadData.get('file').name){
 	    				$.ajax({
 	    					url : "${path}/gw/uploadfile/"+data.getId,
 	    					method : "POST",
@@ -634,7 +634,7 @@
     					dataType: "json",
     				});
     				
-    				if(uploadData.get('file').name !== ""){
+    				if(uploadData.get('file').name){
 	    				$.ajax({
 	    					url : "${path}/gw/uploadfileUpdate/"+docNo,
 	    					method : "POST",

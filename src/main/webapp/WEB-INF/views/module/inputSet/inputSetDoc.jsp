@@ -897,61 +897,65 @@
     		alert("결재자를 선택해주십시오.");
     		return false;
     	}else{
-    		data02Data.docCrUserNo = userNoCR;
-    		data02Data.docType = showDocType;
-    		data02Data.docTitle = $("#docTitle").val();
-    		data02Data.linkSoppNo = $("#soppNo").val();
-    		data02Data.linkCustNo = $("#custNo").val();
-    		data02Data.docDesc = tinyMCE.get("docDesc").getContent();
-    		data02Data.docAmount = parseInt($("#product02InSum_table").html().replace(/[\D\s\._\-]+/g, ""));
-    		data02Data.linkMasterdocNo = docNo;
-    		data02Data.docStatus = 2;
-    		data02Data.docFormNo = $("[name='contractType']:checked").val();
-    		data02Data.docDate = $("#docDate").val();
-    		
-    		$.ajax({
-				url: "${path}/gw/delete/" + docNo,
-				method: "post",
-				success:function(){
-					$.ajax({
-		    			url: "${path}/gw/insert.do",
-		    			method: "post",
-		    			data: data02Data,
-		    			dataType: "json",
-		    			success: function(data){
-		    				data02App.compNo = $("#compNo").val();
-		    				data02App.docNo = data.getId;
-		    				data02App.userNoCR = userNoCR;
-		    				data02App.userNoIS = docUserNo;
-		    				data02App.userNoAPP = userNoCR;
-		   					data02App.appStatus = 3;
-		   					data02App.issueDate = $("#issueDate").val();
-		   					data02App.appDate = $("#appDate").val();
-		    				data02App.appComment = tinyMCE.get("appComment").getContent();
-		    				
-		    				$.ajax({
-		    					url: "${path}/gw/insertApp.do",
-		    					method: "post",
-		    					data: data02App,
-		    					dataType: "json",
-		    				});
-		    				
-							for(var i = 0; i < dataArray.length; i++){
-								dataArray[i].docNo = data.getId;
-								var JsonArray = JSON.stringify(dataArray[i]);
-				  				$.ajax({
-				  					url: "${path}/gw/insertData.do",
-				  					method: "post",
-				  					data: JSON.parse(JsonArray),
-				  					dataType: "json"
-				  				});
-				 			}
-				 			alert("반려되었습니다.");
-				 			location.href = "${path}/gw/mydoclist.do";
-		    			}
-		    		});
-				}
-			});
+    		if(confirm("정말 반려하시겠습니까??")){
+	    		data02Data.docCrUserNo = userNoCR;
+	    		data02Data.docType = showDocType;
+	    		data02Data.docTitle = $("#docTitle").val();
+	    		data02Data.linkSoppNo = $("#soppNo").val();
+	    		data02Data.linkCustNo = $("#custNo").val();
+	    		data02Data.docDesc = tinyMCE.get("docDesc").getContent();
+	    		data02Data.docAmount = parseInt($("#product02InSum_table").html().replace(/[\D\s\._\-]+/g, ""));
+	    		data02Data.linkMasterdocNo = docNo;
+	    		data02Data.docStatus = 2;
+	    		data02Data.docFormNo = $("[name='contractType']:checked").val();
+	    		data02Data.docDate = $("#docDate").val();
+	    		
+	    		$.ajax({
+					url: "${path}/gw/delete/" + docNo,
+					method: "post",
+					success:function(){
+						$.ajax({
+			    			url: "${path}/gw/insert.do",
+			    			method: "post",
+			    			data: data02Data,
+			    			dataType: "json",
+			    			success: function(data){
+			    				data02App.compNo = $("#compNo").val();
+			    				data02App.docNo = data.getId;
+			    				data02App.userNoCR = userNoCR;
+			    				data02App.userNoIS = docUserNo;
+			    				data02App.userNoAPP = userNoCR;
+			   					data02App.appStatus = 3;
+			   					data02App.issueDate = $("#issueDate").val();
+			   					data02App.appDate = $("#appDate").val();
+			    				data02App.appComment = tinyMCE.get("appComment").getContent();
+			    				
+			    				$.ajax({
+			    					url: "${path}/gw/insertApp.do",
+			    					method: "post",
+			    					data: data02App,
+			    					dataType: "json",
+			    				});
+			    				
+								for(var i = 0; i < dataArray.length; i++){
+									dataArray[i].docNo = data.getId;
+									var JsonArray = JSON.stringify(dataArray[i]);
+					  				$.ajax({
+					  					url: "${path}/gw/insertData.do",
+					  					method: "post",
+					  					data: JSON.parse(JsonArray),
+					  					dataType: "json"
+					  				});
+					 			}
+					 			alert("반려되었습니다.");
+					 			location.href = "${path}/gw/mydoclist.do";
+			    			}
+			    		});
+					}
+				});
+    		}else{
+    			return false;
+    		}
     	}
     }
 	

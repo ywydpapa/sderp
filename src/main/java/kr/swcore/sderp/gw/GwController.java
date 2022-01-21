@@ -167,6 +167,7 @@ public class GwController {
     	mav.addObject("detail",gwService.detailEst(dto));
         mav.addObject("list",gwService.listEstitems(dto));
         mav.addObject("titleList", gwService.titleGroupBy(dto));
+        mav.addObject("comList", gwService.comList(session));
     	return mav;
     }
     

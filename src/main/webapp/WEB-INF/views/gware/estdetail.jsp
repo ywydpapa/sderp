@@ -211,7 +211,6 @@
 			var nWidth = "800";
 			var nHeight = "1000";
 			  
-			// 듀얼 모니터 고려한 윈도우 띄우기
 			var curX = window.screenLeft;
 			var curY = window.screenTop;
 			var curWidth = document.body.clientWidth;

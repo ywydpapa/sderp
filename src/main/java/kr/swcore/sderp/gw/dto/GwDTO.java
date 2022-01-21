@@ -17,6 +17,7 @@ public class GwDTO {
 	private String estTitle;
 	private String estDesc;
 	private Integer custNo;
+	private String custBossname;
     private String custName;
 	private Integer soppNo;
 	private String soppTitle;
@@ -83,6 +84,11 @@ public class GwDTO {
     private int titleTotal;
     private int vatTotal;
     private int amountTotal;
+    private String comName;
+    private String comAddress;
+    private String comPhone;
+    private String comFax;
+    private String comBoss;
     
     public GwDTO() {
         super();

@@ -50,4 +50,5 @@ public interface GwService {
     GwFileDataDTO downloadFile(GwFileDataDTO dto);
     List<GwDTO> getEstSopp(HttpSession session, int soppNo);
     GwDTO selectVersion(HttpSession session, GwDTO dto);
+    GwDTO comList(HttpSession session);
 }

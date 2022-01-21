@@ -146,7 +146,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 
 	<select id="detailest" resultType="gwDto">
-		select a.*, b.custName, c.soppTitle, d.userName from swc_est a LEFT JOIN swc_cust b ON a.custNo = b.custNo LEFT JOIN swc_sopp c ON a.soppNo = c.soppNo left join swc_user d on a.userNo = d.userNo where a.estId=#{estId} and a.estVer = #{estVer} limit 1;
+		select a.*, b.custName, b.custBossname, c.soppTitle, d.userName from swc_est a LEFT JOIN swc_cust b ON a.custNo = b.custNo LEFT JOIN swc_sopp c ON a.soppNo = c.soppNo left join swc_user d on a.userNo = d.userNo where a.estId=#{estId} and a.estVer = #{estVer} limit 1;
 	</select>
 
 	<select id="listestitems" resultType="gwDto">
@@ -159,6 +159,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<select id="myList" resultType="gwDto">
 		select a.*, b.appStatus from swc_businessdoc a left join swc_businessdocapp b on a.docNo = b.docNo where a.attrib not like 'XXX%' and a.docCrUserNo = #{docCrUserNo};
+	</select>
+	
+	<select id="comList" resultType="gwDto">
+		select * from swc_comInfo where compNo = #{compNo};
 	</select>
 	
 	<select id="mySearchList" resultType="gwDto">

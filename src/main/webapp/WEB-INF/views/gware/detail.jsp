@@ -272,7 +272,7 @@
 	        <button class="btn btn-md btn-primary" onClick="fn_data02Update()">수정</button>
         	<button class="btn btn-md btn-danger" onClick="fn_data02delete()">삭제</button>
         </c:if>
-        <button class="btn btn-md btn-inverse" onClick="javascript:location='${path}/gw/list.do'">취소</button>
+        <button class="btn btn-md btn-inverse" onClick="javascript:location='${path}/gw/signpad.do'">취소</button>
     </div>
     <!--//계약등록-->
 

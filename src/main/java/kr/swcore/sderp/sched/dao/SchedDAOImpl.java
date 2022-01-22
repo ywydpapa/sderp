@@ -50,6 +50,11 @@ public class SchedDAOImpl implements SchedDAO {
 	}
 
 	@Override
+	public int insertSchedauto(SchedDTO dto) {
+		return sqlSession.insert("sched.insertSchedauto",dto);
+	}
+
+	@Override
 	public int deleteSched(int schedNo) {
 		// TODO Auto-generated method stub
 		return sqlSession.delete("sched.deleteSched", schedNo);

@@ -100,12 +100,27 @@
         var schedData = {};
         schedData.schedFrom = "${list.attStart}";
         schedData.schedTo = "${list.attEnd}";
-        schedData.schedTitle 		= "근태신청 (휴가)자동처리";
+        var typ = ${list.attType};
+        if ( typ ==1){
+            schedData.schedTitle 		= "근태 (월차)자동등록";
+        }else if (typ == 2) {
+            schedData.schedTitle = "근태 (연차)자동등록";
+        }else if (typ == 3) {
+            schedData.schedTitle = "근태 (연장근무)자동등록";
+        }else if (typ == 4) {
+            schedData.schedTitle = "근태 (휴일근무)자동등록";
+        }else if (typ == 5) {
+            schedData.schedTitle = "근태 (경조휴가)자동등록";
+        }else {
+            schedData.schedTitle = "근태 자동등록";
+        }
         schedData.schedDesc 		= "${list.attDesc}";
         schedData.userNo 		= "${list.userNo}";
         schedData.schedType 		= '10262';
         schedData.schedCat 		= '11111';
-        $.ajax({ url: "${path}/sched/insert.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
+        schedData.compNo 		= ${sessionScope.compNo};
+        console.log(schedData);
+        $.ajax({ url: "${path}/sched/insertauto.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
             data: schedData , // HTTP 요청과 함께 서버로 보낼 데이터
             method: "POST", // HTTP 요청 메소드(GET, POST 등)
             dataType: "json" // 서버에서 보내줄 데이터의 타입

@@ -13,6 +13,7 @@ public interface SchedDAO {
 	List<SchedDTO> listconSched(SchedDTO dto);
 	SchedDTO detailSched(int schedNo);
 	int insertSched(SchedDTO dto);
+	int insertSchedauto(SchedDTO dto);
 	int deleteSched(int schedNo);
 	int updateSched(SchedDTO dto);
 	int insertSreport(SchedDTO dto);

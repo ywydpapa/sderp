@@ -648,6 +648,61 @@ order by weekno,weekdays,start
 	,'100000' )
  </insert>
 
+	<insert id="insertSchedauto">
+		insert into swc_sched (
+		userNo
+		,compNo
+		,soppNo
+		,custNo
+		,schedName
+		,schedFrom
+		,schedTo
+		,schedTitle
+		,schedDesc
+		,subschedNo
+		,schedActive
+		,schedAllday
+		,remindflag
+		,schedPlace
+		,schedType
+		,schedColor
+		,schedCat
+		,attrib )
+		values (
+		#{userNo}
+		,#{compNo}
+		<choose>
+			<when test="soppNo == 0">
+				,NULL
+			</when>
+			<otherwise>
+				,#{soppNo}
+			</otherwise>
+		</choose>
+		<choose>
+			<when test="custNo == 0">
+				,NULL
+			</when>
+			<otherwise>
+				,#{custNo}
+			</otherwise>
+		</choose>
+		,#{schedName}
+		,#{schedFrom}
+		,#{schedTo}
+		,#{schedTitle}
+		,#{schedDesc}
+		,#{subschedNo}
+		,#{schedActive}
+		,#{schedAllday}
+		,#{remindflag}
+		,#{schedPlace}
+		,#{schedType}
+		,#{schedColor}
+		,#{schedCat}
+		,'100000' )
+	</insert>
+
  <update id="updateSched">
  update swc_sched set
  	<choose>

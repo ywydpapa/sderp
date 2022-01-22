@@ -16,6 +16,7 @@ public interface SchedService {
 	List<SchedDTO> listconSched(HttpSession session, SchedDTO dto);
 	SchedDTO detailSched(int schedNo);
 	int insertSched(SchedDTO dto);
+	int insertSchedauto(SchedDTO dto);
 	int insertSched(HttpSession session, SchedDTO dto);
 	int deleteSched(int schedNo);
 	int updateSched(SchedDTO dto);

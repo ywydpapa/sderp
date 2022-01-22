@@ -134,7 +134,12 @@ public class SchedServiceImpl implements SchedService {
 		// TODO Auto-generated method stub
 		return schedDao.insertSched(dto);
 	}
-	
+
+	@Override
+	public int insertSchedauto(SchedDTO dto) {
+		return schedDao.insertSchedauto(dto);
+	}
+
 	@Override
 	public int insertSched(HttpSession session, SchedDTO dto) {
 		Integer compNo = Integer.valueOf((String) session.getAttribute("compNo"));

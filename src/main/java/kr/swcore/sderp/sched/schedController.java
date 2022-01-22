@@ -152,6 +152,18 @@ public class schedController {
 		param.put("code", (String.valueOf(schedInsertResult))); 
 		return ResponseEntity.ok(param);
 	}
+
+	@RequestMapping("insertauto.do")
+	public ResponseEntity<?> insertauto(@ModelAttribute SchedDTO dto) {
+		Map<String, Object> param = new HashMap<>();
+		int schedInsertResult = schedService.insertSchedauto(dto);
+		if (schedInsertResult >0) {
+			param.put("code","10001");
+		}
+		else {param.put("code","20001");
+		}
+		return ResponseEntity.ok(param);
+	}
 	
 	@RequestMapping("insSreport.do")
 	public ResponseEntity<?> insSreport(@RequestBody Map<String, Object> payload, HttpSession session, @ModelAttribute SchedDTO dto) {

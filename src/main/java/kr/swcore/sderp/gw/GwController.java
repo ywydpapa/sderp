@@ -41,6 +41,12 @@ public class GwController {
         return mav;
     }
 
+    @RequestMapping("signpad.do")
+    public ModelAndView signpad(HttpSession session, ModelAndView mav) {
+        mav.setViewName("gware/signPad");
+        return mav;
+    }
+
     @RequestMapping("mylist.do")
     public ModelAndView myList(HttpSession session, ModelAndView mav,
     		@RequestParam(value = "custNo", required = false) Integer custNo,

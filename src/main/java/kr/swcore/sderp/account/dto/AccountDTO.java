@@ -14,6 +14,8 @@ public class AccountDTO {
     private Integer compNo;
     private Integer vatBuyerCustNo;
     private Integer vatSellerCustNo;
+    private String vatBuyerName;
+    private String vatSellerName;
     private String vatStatus;
     private String vatNo;
     private String vatIssueDate;

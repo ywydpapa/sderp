@@ -5,7 +5,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="account">
 
 <select id="listVat" resultType="accountDto">
-		select * from swc_vat where compNo = #{compNo} and attrib not like 'XXX%';
+		select a.*, b.custName vatSellerName, c.custName vatBuyerName from swc_vat a
+		left join swc_cust b on a.vatSellerCustNo = b.custNo
+		left join swc_cust c on a.vatBuyerCustNo = c.custNo
+		where a.compNo = #{compNo} and a.attrib not like 'XXX%';
 </select>
 
 	<select id="detailVat" resultType="accountDto">

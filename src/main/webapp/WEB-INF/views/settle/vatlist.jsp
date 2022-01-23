@@ -9,7 +9,9 @@
          pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <c:set var="path" value ="${pageContext.request.contextPath}"/>
+
 
 <!DOCTYPE html>
 <html>
@@ -214,7 +216,7 @@
                             <tr>
                                 <th class="text-center">등록일</th>
                                 <th class="text-center">매입/매출</th>
-                                <th class="text-center">거래처</th>
+                                <th class="text-center">거래처 : 발행번호</th>
                                 <th class="text-center">상태</th>
                                 <th class="text-center">공급가</th>
                                 <th class="text-center">세액</th>
@@ -226,9 +228,10 @@
                             <c:forEach items="${vatList}" var="vlist">
                                 <tr>
                                 <td class="text-center">${vlist.vatIssueDate}</td>
-                                    <td class="text-center">${vlist.vatType}</td>
-                                    <td class="text-center">${vlist.vatSellerCustNo}</td>
-                                    <td class="text-center">${vlist.vatStatus}</td>
+                                    <td class="text-center"><c:if test = "${vlist.vatType eq 'B'}">매입</c:if><c:if test = "${vlist.vatType eq 'S'}">매출</c:if></td>
+                                    <td class="text-center"><c:if test = "${vlist.vatType eq 'S'}">${vlist.vatBuyerName}</c:if> <c:if test = "${vlist.vatType eq 'B'}">${vlist.vatSellerName}</c:if> <a href="#"> : ${vlist.vatSerial}</a></td>
+                                    <td class="text-center"><c:if test = "${vlist.vatStatus eq 'B1'}">매입발행</c:if><c:if test = "${vlist.vatStatus eq 'B3'}">지급처리중</c:if><c:if test = "${vlist.vatStatus eq 'B5'}">지급완료</c:if>
+                                        <c:if test = "${vlist.vatStatus eq 'S1'}">매출발행</c:if><c:if test = "${vlist.vatStatus eq 'S3'}">수금처리중</c:if><c:if test = "${vlist.vatStatus eq 'S5'}">수금완료</c:if></td>
                                     <td class="text-right"><fmt:formatNumber type="number" maxFractionDigits="3" value="${vlist.vatAmount}" /></td>
                                     <td class="text-right"><fmt:formatNumber type="number" maxFractionDigits="3" value="${vlist.vatTax}" /></td>
                                     <td class="text-right"><fmt:formatNumber type="number" maxFractionDigits="3" value="${vlist.vatAmount + vlist.vatTax}" /></td>

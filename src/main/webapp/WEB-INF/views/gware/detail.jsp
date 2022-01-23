@@ -46,7 +46,7 @@
                             <tbody>
                             <tr>
                                 <th scope="row" class="text-center">결제 문서 종류</th>
-                                <td colspan="3">
+                                <td colspan="2">
                                     <div class="form-radio">
                                         <form>
                                             <div class="radio radio-inline">
@@ -60,6 +60,22 @@
                                             </div>
                                         </form>
                                     </div>
+                                </td>
+                                <td class="text-right">
+                                    <c:if test="${detailListApp.appStatus eq '5'}">
+                                        <c:if test="${detailList.docType eq 'PUR'}">
+                                            <button class="btn btn-action" onclick="javascript:popupPdf();">발주서 출력</button>
+                                        </c:if>
+                                        <c:if test="${detailList.docType eq 'DIP'}">
+                                            <button class="btn btn-action" onclick="javascript:popupPdf();">공문서 출력</button>
+                                        </c:if>
+                                        <c:if test="${detailList.docType eq 'BUY'}">
+                                            <button class="btn btn-action" onclick="javascript:popupPdf();">구매요청서 출력</button>
+                                        </c:if>
+                                        <c:if test="${detailList.docType eq 'TRS'}">
+                                            <button class="btn btn-action" onclick="javascript:popupPdf();">지출품의서 출력</button>
+                                        </c:if>
+                                    </c:if>
                                 </td>
                             </tr>
                             <tr>
@@ -333,6 +349,34 @@
             $("#productNo2").val(a);
             $("#data02Title").val(b);
             $("#productdataModal2").find(".modal-footer button").trigger('click');
+        }
+
+        function popupPdf(){
+            var nWidth = "800";
+            var nHeight = "1000";
+
+            var curX = window.screenLeft;
+            var curY = window.screenTop;
+            var curWidth = document.body.clientWidth;
+            var curHeight = document.body.clientHeight;
+
+            var nLeft = curX + (curWidth / 2) - (nWidth / 2);
+            var nTop = curY + (curHeight / 2) - (nHeight / 2);
+
+            var strOption = "";
+            strOption += "left=" + nLeft + "px,";
+            strOption += "top=" + nTop + "px,";
+            strOption += "width=" + nWidth + "px,";
+            strOption += "height=" + nHeight + "px,";
+            strOption += "toolbar=no,menubar=no,location=no,";
+            strOption += "resizable=yes,status=yes";
+
+            var winObj = window.open($("#btnPdf").attr("href"), '', strOption);
+
+            if (winObj == null) {
+                alert("팝업 차단을 해제해주세요.");
+                return false;
+            }
         }
 
         $(document).ready(function() {

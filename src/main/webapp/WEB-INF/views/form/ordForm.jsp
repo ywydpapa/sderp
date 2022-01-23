@@ -2,13 +2,38 @@
          pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <c:set var="path" value ="${pageContext.request.contextPath}"/>
 <!DOCTYPE html>
 <html>
 <script type="text/javascript" src="${path}/js/jquery.min.js"></script>
 <script src="${path}/js/html2pdf.bundle.min.js"></script>
 <style>
+    /* body{
+        -webkit-font-smoothing: antialiased;
+          -moz-osx-font-smoothing: auto;
+          font-weight:600;
+    } */
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300&family=Outfit:wght@600&display=swap');
+    @font-face {font-family:MalgunGothic; src:url(${path}/form/fonts/malgun.ttf);}
+
+    body{
+        font-family:MalgunGothic, sans-serif;
+        font-weight:0;
+    }
+
+    table{
+        width:100%;
+        font-size: 10px;
+        margin-bottom: 10px;
+    }
+
+    th, td{
+        padding:1px 1px 4px 2px;
+    }
+
     #imgLogo #logoLeft{
+        margin-top: 60px;
         width:28%;
         height:auto;
     }
@@ -17,42 +42,82 @@
         width:70%;
         height:auto;
         position:absolute;
-        top:6px;
+        top:63px;
         right: 0;
     }
 
     #pdfTitle #titlePdf{
-        font-size: 24px;
-        font-weight:600;
+        font-family: 'Outfit', sans-serif;
+        font-size: 40px;
         text-align:center;
+        margin-top: 30px;
         margin-bottom: 20px;
+    }
+
+    #headList{
+        text-align:left;
+        border: 2px solid #000;
+    }
+
+    #headList tr th:first-child{
+        padding:2px 0 2px 30px;
+    }
+
+    #headList tr th:last-child{
+        padding:2px 0 2px 0;
+        position:absolute;
+        left:50%;
+    }
+
+    #totalInfo{
+        text-align: left;
+        border: 2px solid #000;
+        padding: 5px 0;
+    }
+
+    #totalInfo tr th:first-child{
+        padding: 4px 0 4px 30px;
+    }
+
+    #totalInfo tr th:last-child{
+        padding: 4px 0 4px 0;
+        position:absolute;
+        left:62%;
     }
 
     #pdfRemarks{
         font-size: 10px;
-    }
-
-    #pdfBottom img{
-        width:30%;
-        float:right;
-    }
-
-    table{
-        width:100%;
-        margin:0 auto;
-        text-align:center;
-        border: 1px solid #000;
-        font-size: 10px;
         margin-bottom: 20px;
     }
 
-    table thead tr th{
-        color: #fff;
-        background-color: #B52223;
+    #pdfRemarks h3 span{
+        font-size: 10px;
+        padding: 0 10px;
     }
 
-    table tbody tr td{
-        border:1px solid #000;
+    #pdfBottom img{
+        width:60%;
+        float:right;
+    }
+
+    #mainTable{
+        border: 2px solid #000;
+        border-collapse: collapse;
+    }
+
+    #mainTable thead tr th{
+        color: #fff;
+        background-color: #990B19;
+        border-right:1px solid #000;
+        border-bottom:1px solid #000;
+    }
+
+    #mainTable tbody td{
+        border-right:1px solid #000;
+    }
+
+    #mainTable #mainTr td{
+        border-bottom:1px solid #000;
     }
 
 </style>
@@ -60,63 +125,159 @@
 <div class="mainPdf" id="mainPdf">
     <div id="imgLogo">
         <img src="${path}/images/pdf_logo_left.jpg" id="logoLeft" />
+        <img src="${path}/images/pdf_logo_right.png" id="logoRight" />
     </div>
     <div id="pdfTitle">
         <div id="titlePdf">발 주 서</div>
     </div>
-    <table>
+    <table id="headList">
         <tr>
-            <th>발주 업체명  귀중</th>
-            <th>아래 내용과 같이 발주 합니다. </th>
+            <th>견&ensp;적&ensp;일&ensp;자 : ${detail.estDate}</th>
+            <th>상&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;호 : ${comList.comName}</th>
         </tr>
         <tr>
-            <th>발 주 일 자: ${detail.estDate}</th>
+            <th>견&ensp;적&ensp;번&ensp;호 : ${detail.estId}</th>
+            <th>대&ensp;표&ensp;이&ensp;사 : ${comList.comBoss} (직인생략)</th>
         </tr>
         <tr>
-            <th>상        호   주식회사 비전테크</th>
-            <th>대 표 이 사    이 승 우 (직인생략)</th>
+            <th>사&ensp;&nbsp;&nbsp;업&ensp;&nbsp;&nbsp;명 : ${detail.estTitle}</th>
+            <th>주&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;소 : ${comList.comAddress}</th>
         </tr>
         <tr>
-            <th>상 호 : </th>
-            <th>주		소: 부산시 해운대구 센텀중앙로 97 센텀스카이비즈 A동 2509호</th>
+            <th>
+                수&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;신 :
+                <c:choose>
+                    <c:when test="${empty detail.custBossname}">
+                        ${detail.custName}
+                    </c:when>
+                    <c:otherwise>
+                        ${detail.custName}/${detail.custBossname}
+                    </c:otherwise>
+                </c:choose>
+            </th>
+            <th>전&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;화 : ${comList.comPhone}</th>
         </tr>
         <tr>
-            <th>발주 금액 ￦<fmt:formatNumber value="${detail.estTotal}" pattern="#,###" /> VAT 별도</th>
-            <th>전		화: 051-892-3723</th>
+            <th>영&ensp;업&ensp;담&ensp;당 : ${detail.userName}</th>
+            <th>팩&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;스 : ${comList.comFax}</th>
         </tr>
     </table>
-    <table>
+    <table id="totalInfo">
+        <tr>
+            <th>견&ensp;적&ensp;금&ensp;액 : ￦&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;<fmt:formatNumber value="${detail.estTotal}" pattern="#,###" />&ensp;&ensp;(VAT 포함)</th>
+            <th>유&ensp;효&ensp;기&ensp;간 : 견적일로 부터 2주</th>
+        </tr>
+    </table>
+    <table id="mainTable">
+        <colgroup>
+            <col width="5%">
+            <col width="10%">
+            <col width="40%">
+            <col width="5%">
+            <col width="10%">
+            <col width="10%">
+            <col width="10%">
+            <col width="10%">
+        </colgroup>
         <thead>
-        <th>No.</th>
-        <th>품명/규격</th>
-        <th>내역</th>
-        <th>수량</th>
-        <th>공급가</th>
-        <th>비고</th>
+        <tr>
+            <th style="border-left:1px solid #000;">No.</th>
+            <th>구분</th>
+            <th>품 명 / 규 격</th>
+            <th>수량</th>
+            <th>소비자가</th>
+            <th>공급 단가</th>
+            <th>합계</th>
+            <th>비고</th>
+        </tr>
         </thead>
         <tbody>
-        <c:forEach var="row" items="${list}">
-            <c:set var="smallIndex" value="${smallIndex + 1}" />
-            <c:set var="dataTotal" value="${dataTotal + row.productTotal}" />
-            <tr>
-                <td>${smallIndex}</td>
-                <td>${row.productName}</td>
-                <td>${row.productQty}</td>
-                <td>￦<fmt:formatNumber value="${row.productNetprice}" pattern="#,###" /></td>
-                <td>${row.productRemark}</td>
-            </tr>
-        </c:forEach>
+        <c:choose>
+            <c:when test="${param.title == 1}">
+                <c:forEach var="titleList" items="${titleList}">
+                    <c:set var="titleNum" value="${titleNum+1}" />
+                    <c:set var="dataTotal" value="${dataTotal + titleList.titleTotal}" />
+                    <c:set var="vatTotal" value="${vatTotal + titleList.vatTotal}" />
+                    <c:set var="amountTotal" value="${amountTotal + titleList.amountTotal}" />
+                    <tr style="background-color:#FFFF75; border-bottom:1px solid #000; border-left:1px solid #000; border-right:1px solid #000;">
+                        <th id="titleNumber" data-number="${titleNum}" style="border-right:1px solid #000;"></th>
+                        <th></th>
+                        <th style="border-right:1px solid #000;">${titleList.itemTitle}</th>
+                        <th style="border-right:1px solid #000;"></th>
+                        <th style="border-right:1px solid #000;"></th>
+                        <th style="border-right:1px solid #000;"></th>
+                        <th style="text-align:right; border-right:1px solid #000;"><fmt:formatNumber value="${titleList.titleTotal}" pattern="#,###" /></th>
+                        <th></th>
+                    </tr>
+                    <c:forEach var="row" items="${list}" varStatus="status">
+                        <c:if test="${titleList.itemTitle == row.itemTitle}">
+                            <c:set var="noIndex" value="${noIndex+1}" />
+                            <c:set var="repSpec" value='${row.productSpec.replaceAll("\\\<.*?\\\>","")}' />
+                            <tr id="mainTr">
+                                <td style="text-align:center;">${noIndex}</td>
+                                <td style="text-align:center; font-weight:700;">${row.itemKinds}</td>
+                                <td>${row.productName}<br/>${repSpec.replaceAll("\\n", "<br>")}</td>
+                                <td style="text-align:center;">${row.productQty}</td>
+                                <td></td>
+                                <td style="text-align:right;"><fmt:formatNumber value="${row.productNetprice}" pattern="#,###" /></td>
+                                <td style="text-align:right;"><fmt:formatNumber value="${row.productTotal}" pattern="#,###" /></td>
+                                <td style="border-right:1px solid #000;">${row.productRemark}</td>
+                            </tr>
+                        </c:if>
+                        <c:if test="${titleList.itemTitle != row.itemTitle}">
+                            <c:set var="noIndex" value="0" />
+                        </c:if>
+                    </c:forEach>
+                </c:forEach>
+            </c:when>
+            <c:otherwise>
+                <c:set var="rowIndex" value="1" />
+                <c:set var="titleIndex" value="0" />
+                <c:forEach var="row" items="${list}" varStatus="status">
+                    <c:set var="repSpec" value='${row.productSpec.replaceAll("\\\<.*?\\\>","")}' />
+                    <c:if test="${titleList[titleIndex].itemTitle != row.itemTitle}">
+                        <c:set var="rowIndex" value="${rowIndex+1}" />
+                        <c:set var="titleIndex" value="${titleIndex+1}" />
+                    </c:if>
+                    <c:set var="dataTotal" value="${dataTotal + row.productTotal}" />
+                    <c:set var="vatTotal" value="${vatTotal + row.productVat}" />
+                    <c:set var="amountTotal" value="${amountTotal + row.productAmount}" />
+                    <tr id="mainTr">
+                        <td class="noTitleTd" style="text-align:center;">${rowIndex}</td>
+                        <td style="text-align:center; font-weight:700;">${row.itemKinds}</td>
+                        <td>${row.productName}<br/>${repSpec.replaceAll("\\n", "<br>")}</td>
+                        <td style="text-align:center;">${row.productQty}</td>
+                        <td></td>
+                        <td style="text-align:right;"><fmt:formatNumber value="${row.productNetprice}" pattern="#,###" /></td>
+                        <td style="text-align:right;"><fmt:formatNumber value="${row.productTotal}" pattern="#,###" /></td>
+                        <td style="border-right:1px solid #000;">${row.productRemark}</td>
+                    </tr>
+                </c:forEach>
+            </c:otherwise>
+        </c:choose>
+        <tr style="border-top:1px solid #000;">
+            <th colspan="6" style="border-right:1px solid #000;">공&ensp;급&ensp;가&ensp;합&ensp;계</th>
+            <td style="text-align:right;"><fmt:formatNumber value="${amountTotal}" pattern="#,###" /></td>
+            <th></th>
+        </tr>
         <tr>
-            <th colspan="6" style="border:1px solid #000">공급가합계 VAT 별도</th>
-            <th colspan="2" style="border:1px solid #000">￦<fmt:formatNumber value="${dataTotal}" pattern="#,###" /></th>
+            <th colspan="6" style="border-right:1px solid #000; border-top:1px solid #000; border-bottom:1px solid #000;">부&ensp;가&ensp;가&ensp;치&ensp;세</th>
+            <td style="text-align:right; border-top:1px solid #000; border-bottom:1px solid #000;"><fmt:formatNumber value="${vatTotal}" pattern="#,###" /></td>
+            <th style="border-top:1px solid #000; border-bottom:1px solid #000;"></th>
+        </tr>
+        <tr>
+            <th colspan="6" style="border-right:1px solid #000;">총&ensp;&ensp;&ensp;&ensp;금&ensp;&ensp;&ensp;&ensp;액</th>
+            <td style="text-align:right;"><fmt:formatNumber value="${dataTotal}" pattern="#,###" /></td>
+            <th></th>
         </tr>
         </tbody>
     </table>
     <div id="pdfRemarks">
-        <h3>추가 사항</h3>
-        <h4></h4>
-        <h4></h4>
-        <h4></h4>
+        <h3>Remarks<br>
+            <span>결제조건은 검수(납품) 당월 계산서 발행, 익월 결제 입니다.</span><br/>
+            <span>납기기간은 발주 후 최대 4주 입니다.</span><br/>
+            <span>설치비용 포함 견적이며 고객사 응용프로그램 사용에 따른 커스터마이징 비용은 미 포함이며 협의 후 포함합니다.</span>
+        </h3>
     </div>
     <div id="pdfBottom">
         <img src="${path}/images/pdf_bottom.png" id="bottomImg" />
@@ -148,12 +309,45 @@
         html2pdf().from(element).set({
             margin: 5,
             filename: estId + '(' + nowDate + ')' + '.pdf',
-            html2canvas: { scale: 1 },
-            jsPDF: {orientation: 'landscape', unit: 'mm', format: 'a4', compressPDF: true}
+            html2canvas: { scale: 10 },
+            jsPDF: {orientation: 'portrait', unit: 'mm', format: 'a4', compressPDF: true}
         }).save();
     }
 
+    function romanize(num) {
+        if (isNaN(num))
+            return NaN;
+        var digits = String(+num).split(""),
+            key = ["","C","CC","CCC","CD","D","DC","DCC","DCCC","CM",
+                "","X","XX","XXX","XL","L","LX","LXX","LXXX","XC",
+                "","I","II","III","IV","V","VI","VII","VIII","IX"],
+            roman = "",
+            i = 3;
+        while (i--)
+            roman = (key[+digits.pop() + (i * 10)] || "") + roman;
+        return Array(+digits.join("") + 1).join("M") + roman;
+    }
+
     $(document).ready(function(){
+        var temp = [];
+        var dataTemp = {};
+
+        if($("#mainTable tbody tr").find("#titleNumber")){
+            $("#mainTable tbody tr").find("#titleNumber").each(function(index, item){
+                $(this).html(romanize($(this).attr("data-number")));
+            });
+        }
+
+        if($("#mainTable tbody tr").find(".noTitleTd")){
+            $("#mainTable tbody tr").find(".noTitleTd").each(function(index, item){
+                var rows = $(".noTitleTd:contains('" + $(this).text() + "')");
+                if (rows.length > 1) {
+                    rows.eq(0).attr("rowspan", rows.length);
+                    rows.not(":eq(0)").remove();
+                }
+            });
+        }
+
         solPdf();
     });
 </script>

@@ -60,7 +60,7 @@
                </li>
            </ul>
            </li>
-           <li class="pcoded-hasmenu  pcoded">
+           <%--<li class="pcoded-hasmenu  pcoded">
            <a href="javascript:void(0)">
                <span class="pcoded-micon"><i class="ti-calendar"></i></span>
                <span class="pcoded-mtext"  data-i18n="nav.form-select.main">일정관리</span>
@@ -105,7 +105,7 @@
                    </a>
                </li>
            </ul>
-           </li>
+           </li>--%>
            <li class="pcoded-hasmenu  pcoded <c:if test="${path2 eq '/gw/attlist.do' || path2 eq '/gw/attwrite.do' || fn:startsWith(path2, '/gw/attdetail')}">pcoded-trigger</c:if>">
            <a href="javascript:void(0)">
                <span class="pcoded-micon"><i class="ti-id-badge"></i></span>

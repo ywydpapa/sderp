@@ -25,7 +25,7 @@ import kr.swcore.sderp.board_file.dto.Board_fileDataDTO;
 		int uploadFile(Board_fileDataDTO dto);
 		
 		//자료실 filedata 조회
-		public List<Board_fileDTO> board_filedata_detail(Board_fileDataDTO datadto);
+		public List<Board_fileDataDTO> board_filedata_detail(Board_fileDataDTO datadto);
 		//유저이름
 		public List<Board_fileDTO> board_file_name(Board_fileDTO dto);
 		

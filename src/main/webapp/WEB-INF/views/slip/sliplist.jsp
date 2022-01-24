@@ -43,10 +43,23 @@
 		<div class="page-header2">
 			<div class="row align-items-end">
 				<div class="col-lg-12">
-					<div class="page-header-title">
-						<div class="d-inline">
-							등록 전표 목록
+
+					<div class="page-header-title" style="float:left;">
+						<div style="margin-top:15px;">
+							<h6 style="font-weight:600;">등록 전표 목록</h6>
 						</div>
+					</div>
+					
+					<div class="btn_wr text-right">
+						<!-- hide and show -->
+						<button class="btn btn-sm btn-success" id="fold"
+							onclick="acordian_action()" style="z-index: 99">펼치기</button>
+						<button class="btn btn-sm btn-success" id="fold2"
+							onclick="acordian_action1()" style="z-index: 10; display: none;">접기</button>
+						<!-- hide and show -->
+						<button class="btn btn-sm btn-inverse" onClick="javascript:fnClearall()"><i class="icofont icofont-spinner-alt-3"></i>초기화</button>
+						<button class="btn btn-sm btn-primary" onClick="javascript:fnListcon()"><i class="icofont icofont-search" id="search"></i>검색</button>
+						<button class="btn btn-sm btn-outline" onClick="javascript:location='${path}/cont/slipwrite.do'"><i class="icofont icofont-pencil-alt-2"></i>전표등록</button>
 					</div>
 				</div>
 			</div>
@@ -54,17 +67,12 @@
 		<!--Page-header end 페이지 타이틀 -->
 		
 		<!--계약조회-->
-		<div class="cnt_wr">
+		<div class="cnt_wr" id="acordian" style="display:none;">
 			<div class="row">
 					<div class="col-sm-12">
 						<div class="card_box sch_it">
-							<div class="btn_wr text-right">
-								<button class="btn btn-sm btn-inverse" onClick="javascript:fnClearall()"><i class="icofont icofont-spinner-alt-3"></i>초기화</button>
-								<button class="btn btn-sm btn-primary" onClick="javascript:fnListcon()"><i class="icofont icofont-search" id="search"></i>검색</button>
-								<button class="btn btn-sm btn-outline" onClick="javascript:location='${path}/cont/slipwrite.do'"><i class="icofont icofont-pencil-alt-2"></i>전표등록</button>
-							</div>
 							<div class="form-group row">
-								<div class="col-sm-12 col-xl-3">
+								<div class="col-sm-12 col-xl-2">
 									<label class="col-form-label">거래처</label>
 									<div class="input-group input-group-sm mb-0">
 										<input type="text" class="form-control" name="custName" id="custName" value="${param.custName}" readonly />
@@ -102,7 +110,7 @@
 								</div>
 							</div>
 							<div class="form-group row">
-								<div class="col-sm-12 col-xl-3">
+								<div class="col-sm-12 col-xl-2">
 									<label class="col-form-label">계정과목</label>
 									<select name="select" class="form-control form-control-sm" id="cntrctMth">
 										<option value="">선택</option>
@@ -114,20 +122,21 @@
 									<p class="input_inline"><input class="form-control form-control-sm col-xl-6" type="date" id="targetDatefrom" > ~ <input class="form-control form-control-sm col-xl-6" type="date" id="targetDateto" >
 									</div>
 								</div>
-								<div class="col-sm-12 col-xl-3">
+								<div class="col-sm-12 col-xl-3 ex_reduce">
 									<label class="col-form-label">전표 승인일자</label>
 									<p class="input_inline"><input class="form-control form-control-sm col-xl-6" type="date" id="freemaintSdate"> ~ <input class="form-control form-control-sm col-xl-6" type="date" id="freemaintEdate">
 									</p>
 								</div>
+								
 							</div>
-							<div class="form-group row">
-								<div class="col-sm-12 col-xl-3">
+							<div class="form-group row" style="margin-top: -17px;">
+								<div class="col-sm-12 col-xl-2">
 									<label class="col-form-label">담당자</label>
-									<input type="text" class="form-control form-control-sm" id="searchuserName" name="" placeholder="">
+									<input type="text" class="form-control " id="searchuserName" name="" placeholder="">
 								</div>
-								<div class="col-sm-12 col-xl-3">
+								<div class="col-sm-12 col-xl-2">
 										<label class="col-form-label">적요</label>
-									<input type="text" class="form-control form-control-sm" id="searchslipRemark" name="" placeholder="">
+									<input type="text" class="form-control " id="searchslipRemark" name="" placeholder="">
 								</div>
 							</div>
 						</div>
@@ -190,6 +199,32 @@
 		</div>
 	</div>
 	<!--//리스트 table-->
+	
+	<script>
+	function acordian_action(){
+		if($("#acordian").css("display") == "none"){
+		    $("#acordian").show();
+		    $("#fold").hide();
+		    $("#fold2").show();
+
+		} else {
+		    $("#acordian").hide();
+		    $("#fold").show();
+		}
+	}
+	function acordian_action1(){
+		if($("#acordian").css("display") != "none"){
+		    $("#acordian").hide();
+		    $("#fold").show();
+		    $("#fold2").hide();
+
+		} else {
+		    $("#acordian").show();
+		    $("#fold").hide();
+		}
+	}
+</script>
+	
 	<script>
 	
 	$("#targetDatefrom").change(function(){

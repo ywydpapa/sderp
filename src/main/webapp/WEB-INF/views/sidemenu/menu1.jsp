@@ -262,8 +262,8 @@
 		
 		
 		<!-- 게시판 관련  -->
-		<li class="pcoded-hasmenu pcoded" onclick="location.href='${pageContext.request.contextPath}/board__file/board_file'">
-			<a href="javascript:void(0)">
+		<li class="">
+			<a href="${pageContext.request.contextPath}/board__file/board_file">
 				<span class="pcoded-micon">
 					<i class="ti-agenda"></i></span>
 				<span class="pcoded-mtext" >자료실</span>

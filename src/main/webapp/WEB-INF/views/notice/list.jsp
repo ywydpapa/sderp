@@ -204,6 +204,12 @@
 						</div>
 					</div>
 					<div class="btn_wr" style="float:right;">
+						<!-- hide and show -->
+						<button class="btn btn-sm btn-success" id="fold"
+							onclick="acordian_action()" style="z-index: 99">펼치기</button>
+						<button class="btn btn-sm btn-success" id="fold2"
+							onclick="acordian_action1()" style="z-index: 10; display: none;">접기</button>
+						<!-- hide and show -->
 						<button class="btn btn-sm btn-inverse" onClick="javascript:fnClearall()"><i class="icofont icofont-spinner-alt-3"></i>초기화</button>
 						<button class="btn btn-sm btn-primary" onClick="javascript:fnListcon()" id="search"><i class="icofont icofont-search"></i>검색</button>	
 						<c:if test="${fn:contains(userKey, '5') || fn:contains(userKey, '7') }">
@@ -213,7 +219,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="cnt_wr">
+		<div class="cnt_wr" id="acordian" style="display:none;">
 			<div class="row">
 				<form id="searchForm" method="post" onsubmit="return false;" class="col-sm-12">
 				<div class="col-sm-12">
@@ -262,11 +268,11 @@
 										id="userName"/> <input type="hidden"
 										name="userNo" id="userNo" value="${sessionScope.userNo}" />
 							</div> --%>
-							<div class="col-sm-12 col-xl-3">
+							<div class="col-sm-12 col-xl-2">
 								<label class="col-form-label">제목</label>
 								<input type="text" class="form-control form-control-sm" id="notiTitle" name="" placeholder="" value="${param.notiTitle}">
 							</div>
-							<div class="col-sm-12 col-xl-3">
+							<div class="col-sm-12 col-xl-2">
 								<label class="col-form-label">내용</label>
 								<input type="text" class="form-control form-control-sm" id="notiContents" name="" placeholder="" value="${param.notiContents}">
 							</div>
@@ -315,7 +321,30 @@
 		</div>
 	</div>
 	<!--//리스트 table-->
+	<script>
+	function acordian_action(){
+		if($("#acordian").css("display") == "none"){
+		    $("#acordian").show();
+		    $("#fold").hide();
+		    $("#fold2").show();
 
+		} else {
+		    $("#acordian").hide();
+		    $("#fold").show();
+		}
+	}
+	function acordian_action1(){
+		if($("#acordian").css("display") != "none"){
+		    $("#acordian").hide();
+		    $("#fold").show();
+		    $("#fold2").hide();
+
+		} else {
+		    $("#acordian").show();
+		    $("#fold").hide();
+		}
+	}
+</script>
 	<script>
 		$("#regSDate").change(function(){
 			var dateValue = $(this).val();
@@ -414,3 +443,9 @@
 <jsp:include page="../body-bottom.jsp"/>
 </body>
 </html>
+
+<style>
+	#noticeTable_filter {
+		display:none;
+	}
+</style>

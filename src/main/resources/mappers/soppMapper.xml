@@ -43,7 +43,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			and a.cntrctMth = #{cntrctMth}
 		</if>
 		<if test="soppTitle != null and soppTitle != ''">
-			and a.soppTitle = #{soppTitle}
+			and a.soppTitle like CONCAT('%', #{soppTitle}, '%')
 		</if>
 		<if test="soppDesc != null and soppDesc != ''">
 			and a.soppDesc = #{soppDesc}
@@ -141,7 +141,7 @@ from
 			and a.cntrctMth = #{cntrctMth}
 		</if>
 		<if test="soppTitle != null and soppTitle != ''">
-			and a.soppTitle = #{soppTitle}
+			and a.soppTitle like CONCAT('%', #{soppTitle}, '%')
 		</if>
 		<if test="soppDesc != null and soppDesc != ''">
 			and a.soppDesc = #{soppDesc}

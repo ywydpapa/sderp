@@ -93,7 +93,7 @@ import kr.swcore.sderp.board_file.service.Board_fileService;
 					model.addAttribute("board_file_detail", board_file_detail);
 
 					datadto.setBf_pk(bf_pk);
-					List<Board_fileDTO> board_filedata_detail = board_fileService.board_filedata_detail(datadto);
+					List<Board_fileDataDTO> board_filedata_detail = board_fileService.board_filedata_detail(datadto);
 					model.addAttribute("board_filedata_detail", board_filedata_detail);
 
 					return "board__file/board_file_detail";
@@ -137,6 +137,7 @@ import kr.swcore.sderp.board_file.service.Board_fileService;
 						
 						@RequestMapping("/uploadfile/{bf_pk}")
 						public ResponseEntity<?> uploadFile(HttpSession session, @PathVariable("bf_pk") int bf_pk, @ModelAttribute Board_fileDataDTO dto, MultipartHttpServletRequest fileList) throws IOException {
+							
 							int uploadFile = board_fileService.uploadFile(session, bf_pk, fileList);
 							System.out.println("파일 업로드 테스트");
 							Map<String, Object> param = new HashMap<>();

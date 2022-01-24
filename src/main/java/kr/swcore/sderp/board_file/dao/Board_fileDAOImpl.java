@@ -66,7 +66,7 @@ import kr.swcore.sderp.board_file.dto.Board_fileDataDTO;
 		
 		//자료싱 filedata 조회
 		@Override
-		public List<Board_fileDTO> board_filedata_detail(Board_fileDataDTO datadto) {
+		public List<Board_fileDataDTO> board_filedata_detail(Board_fileDataDTO datadto) {
 			// TODO Auto-generated method stub
 			return sqlSession.selectList("board_file.board_filedata_detail",datadto);
 		}

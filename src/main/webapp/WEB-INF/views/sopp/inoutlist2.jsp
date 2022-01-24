@@ -79,7 +79,7 @@
 						</td>
 					</c:when>
 					<c:otherwise>
-						<td>매입(${row.vatDate})</td>
+						<td>매출(${row.vatDate})</td>
 					</c:otherwise>
 				</c:choose>
 				<td>${row.salesCustNoN}<input hidden value="${row.salesCustNo}"></td>

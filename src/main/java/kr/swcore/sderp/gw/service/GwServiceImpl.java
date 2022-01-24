@@ -194,6 +194,14 @@ public class GwServiceImpl implements GwService{
         return gwDao.insertEst(dto);
     }
     
+
+	@Override
+	public int insertEstUpdate(HttpSession session, GwDTO dto) {
+		int compNo = SessionInfoGet.getCompNo(session);
+    	dto.setCompNo(compNo);
+		return gwDao.insertEstUpdate(dto);
+	}
+    
     @Override
     public int updateEst(GwDTO dto) {
         return gwDao.updateEst(dto);

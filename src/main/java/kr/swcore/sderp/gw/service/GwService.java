@@ -41,6 +41,7 @@ public interface GwService {
     int deleteDoc(int docNo);
     int deleteUserAtt(int attendId);
     int insertEst(GwDTO dto);
+    int insertEstUpdate(HttpSession session, GwDTO dto);
     int updateEst(GwDTO dto);
     int deleteEst(String estId);
     int insertEstitems(GwDTO dto);

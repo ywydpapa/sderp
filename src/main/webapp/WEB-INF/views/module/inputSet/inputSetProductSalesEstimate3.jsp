@@ -313,7 +313,7 @@
         	var productSpec = tinyMCE.get("data02Spec").getContent();
         	var qutylist = $("#qutylist tbody");
     		
-            temp.estId = $("#estId").val();
+            temp.estId = "";
     		temp.custNo = $("#productSalesEstimateCustNo").val();
     		temp.compNo = $("#compNo").val();
     		temp.itemKinds = itemKinds;
@@ -365,19 +365,27 @@
     }
 
     function fn_data02Insert() {
-    	var data02Data = {};
+    	var getDate = new Date();
     	
-    	if($("#estId").val() === ""){
-    		alert("견적번호를 작성해주세요.");
-    		$("#estId").focus();
-    	}else if($("#estTitle").val() === ""){
+    	var year = getDate.getFullYear();
+    	var month = getDate.getMonth()+1;
+    	
+    	if(month < 10){
+    		month = "0" + month;
+    	}
+    	
+    	var estFirstName = "VTEK" + year + month + "_";
+    	
+    	var data02Data = {};
+    	var updateData = {};
+    	
+    	if($("#estTitle").val() === ""){
     		alert("견적제목을 입력해주세요.");
     		$("#estTitle").focus();
     	}else if($("#estDate").val() === ""){
     		alert("견적서 작성일자를 선택해주세요.");
     		$("#estDate").focus();
     	}else{
-            data02Data.estId = $("#estId").val();
     		data02Data.estTitle = $("#estTitle").val();
     		data02Data.estType = $("input[name='contractType']:checked").val();
     		data02Data.custNo = $("#custNo").val();
@@ -394,33 +402,124 @@
     			method: "post",
     			data: data02Data,
     			dataType: "json",
-    			success: function(){
+    			success: function(result){
+    				updateData.estId = estFirstName + result.getId;
+    				updateData.estNo = result.getId;
     				$.ajax({
-    					url: "${path}/gw/selectVersion.do",
+    					url: "${path}/gw/inserEstUpdate.do",
     					method: "post",
-    					data: {
-    						estId: $("#estId").val(),
-    					},
+    					data: updateData,
     					dataType: "json",
-    					success:function(data){
-							for(var i = 0; i < dataArray.length; i++){
-								dataArray[i].estVer = data.getVersion;
-								var JsonArray = JSON.stringify(dataArray[i]);
-				  				$.ajax({
-				  					url: "${path}/gw/insertEstitems.do",
-				  					method: "post",
-				  					data: JSON.parse(JsonArray),
-				  					dataType: "json",
-				  				});
-				 			}
+    					success:function(){
+		    				$.ajax({
+		    					url: "${path}/gw/selectVersion.do",
+		    					method: "post",
+		    					data: {
+		    						estId: updateData.estId,
+		    					},
+		    					dataType: "json",
+		    					success:function(data){
+									for(var i = 0; i < dataArray.length; i++){
+										dataArray[i].estId = updateData.estId;
+										dataArray[i].estVer = data.getVersion;
+										var JsonArray = JSON.stringify(dataArray[i]);
+						  				$.ajax({
+						  					url: "${path}/gw/insertEstitems.do",
+						  					method: "post",
+						  					data: JSON.parse(JsonArray),
+						  					dataType: "json",
+						  				});
+						 			}
+		    					}
+		    					
+		    				});
+				 			alert("등록되었습니다.");
+				 			location.href = "${path}/gw/estwrite.do";
     					}
-    					
-    				})
-		 			alert("등록되었습니다.");
-		 			location.href = "${path}/gw/estwrite.do";
+    				});
     			}
     		});
     		
+    	}
+    }
+    
+    function fn_data02ReInsert() {
+    	if(confirm("견적번호는 새로 생성됩니다.")){
+	    	var getDate = new Date();
+	    	
+	    	var year = getDate.getFullYear();
+	    	var month = getDate.getMonth()+1;
+	    	
+	    	if(month < 10){
+	    		month = "0" + month;
+	    	}
+	    	
+	    	var estFirstName = "VTEK" + year + month + "_";
+	    	
+	    	var data02Data = {};
+	    	var updateData = {};
+	    	
+	    	if($("#estTitle").val() === ""){
+	    		alert("견적제목을 입력해주세요.");
+	    		$("#estTitle").focus();
+	    	}else if($("#estDate").val() === ""){
+	    		alert("견적서 작성일자를 선택해주세요.");
+	    		$("#estDate").focus();
+	    	}else{
+	    		data02Data.estTitle = $("#estTitle").val();
+	    		data02Data.estType = $("input[name='contractType']:checked").val();
+	    		data02Data.custNo = $("#custNo").val();
+	    		data02Data.soppNo = $("#soppNo").val();
+	    		data02Data.compNo = $("#compNo").val();
+	    		data02Data.userNo = $("#userNo").val();
+	            data02Data.estAmount = $("#amountSum").val();
+	            data02Data.estVat = $("#vatSum").val();
+	            data02Data.estTotal = $("#product02InSum_table").html().replace(/[\D\s\._\-]+/g, "");
+	    		data02Data.estDate = $("#estDate").val();
+	    		
+	    		$.ajax({
+	    			url: "${path}/gw/insertEst.do",
+	    			method: "post",
+	    			data: data02Data,
+	    			dataType: "json",
+	    			success: function(result){
+	    				updateData.estId = estFirstName + result.getId;
+	    				updateData.estNo = result.getId;
+	    				$.ajax({
+	    					url: "${path}/gw/inserEstUpdate.do",
+	    					method: "post",
+	    					data: updateData,
+	    					dataType: "json",
+	    					success:function(){
+			    				$.ajax({
+			    					url: "${path}/gw/selectVersion.do",
+			    					method: "post",
+			    					data: {
+			    						estId: updateData.estId,
+			    					},
+			    					dataType: "json",
+			    					success:function(data){
+										for(var i = 0; i < dataArray.length; i++){
+											dataArray[i].estId = updateData.estId;
+											dataArray[i].estVer = data.getVersion;
+											var JsonArray = JSON.stringify(dataArray[i]);
+							  				$.ajax({
+							  					url: "${path}/gw/insertEstitems.do",
+							  					method: "post",
+							  					data: JSON.parse(JsonArray),
+							  					dataType: "json",
+							  				});
+							 			}
+			    					}
+			    					
+			    				});
+					 			alert("등록되었습니다.");
+					 			location.href = "${path}/gw/estwrite.do";
+	    					}
+	    				});
+	    			}
+	    		});
+	    	}
     	}
     }
 
@@ -430,17 +529,14 @@
 		
 		updateData.estId = $("#estId").val();
     	
-    	if($("#estId").val() === ""){
-    		alert("견적번호를 작성해주세요.");
-    		$("#estId").focus();
-    	}else if($("#estTitle").val() === ""){
+    	if($("#estTitle").val() === ""){
     		alert("견적제목을 입력해주세요.");
     		$("#estTitle").focus();
     	}else if($("#estDate").val() === ""){
     		alert("견적서 작성일자를 선택해주세요.");
     		$("#estDate").focus();
     	}else{
-    		data02Data.estId = $("#estId").val();
+    		data02Data.estId = updateData.estId;
     		data02Data.estTitle = $("#estTitle").val();
     		data02Data.estType = $("input[name='contractType']:checked").val();
     		data02Data.custNo = $("#custNo").val();
@@ -452,45 +548,47 @@
             data02Data.estTotal = $("#product02InSum_table").html().replace(/[\D\s\._\-]+/g, "");
     		data02Data.estDate = $("#estDate").val();
     		
-    		/* $.ajax({
-    			url: "${path}/gw/updateEst.do",
-    			method: "post",
-    			data: updateData,
-    			dataType: "json"
-    		}); */
-    		
     		$.ajax({
     			url: "${path}/gw/insertEst.do",
     			method: "post",
     			data: data02Data,
     			dataType: "json",
-    			success: function(){
+    			success: function(result){
+    				updateData.estId = updateData.estId;
+    				updateData.estNo = $("#estNo").val();
     				$.ajax({
-    					url: "${path}/gw/selectVersion.do",
+    					url: "${path}/gw/inserEstUpdate.do",
     					method: "post",
-    					data: {
-    						estId: $("#estId").val(),
-    					},
+    					data: updateData,
     					dataType: "json",
-    					success:function(data){
-							for(var i = 0; i < dataArray.length; i++){
-								dataArray[i].estId = $("#estId").val();
-								dataArray[i].estVer = data.getVersion;
-								var JsonArray = JSON.stringify(dataArray[i]);
-				  				$.ajax({
-				  					url: "${path}/gw/insertEstitems.do",
-				  					method: "post",
-				  					data: JSON.parse(JsonArray),
-				  					dataType: "json"
-				  				});
-				 			}
-				 			alert("수정되었습니다.");
-				 			location.href = "${path}/gw/estlist.do";
+    					success:function(){
+		    				$.ajax({
+		    					url: "${path}/gw/selectVersion.do",
+		    					method: "post",
+		    					data: {
+		    						estId: updateData.estId,
+		    					},
+		    					dataType: "json",
+		    					success:function(data){
+									for(var i = 0; i < dataArray.length; i++){
+										dataArray[i].estId = updateData.estId;
+										dataArray[i].estVer = data.getVersion;
+										var JsonArray = JSON.stringify(dataArray[i]);
+						  				$.ajax({
+						  					url: "${path}/gw/insertEstitems.do",
+						  					method: "post",
+						  					data: JSON.parse(JsonArray),
+						  					dataType: "json",
+						  				});
+						 			}
+		    					}
+		    				});
     					}
     				});
+		 			alert("등록되었습니다.");
+		 			location.href = "${path}/gw/estwrite.do";
     			}
     		});
-    		
     	}
     }
     

@@ -29,12 +29,12 @@
 	<div class="cnt_wr">
 		
 		<div class="row" >
-			<div class="col-xl-6">
+			<div class="col-xl-6" style="margin-top:10px;">
 				<h5 class="cont_title">
 					<i class="icofont icofont-square-right"></i>견적서 출력 정보
 				</h5>
 			</div>
-			<div class="col-xl-6">
+			<div class="col-xl-6" style="margin-bottom:5px;">
 				<a href="" class="btn btn-success" id="btnPdf" onClick="javascript:popupPdf(); return false;" style="float:right;">견적서 출력</a>
 			</div>
 		</div>
@@ -45,6 +45,7 @@
 					<div class="table-responsive">
 						<input type="hidden" id="compNo" value="${sessionScope.compNo}" />
 						<input type="hidden" id="userNo" value="${sessionScope.userNo}" />
+						<input type="hidden" id="estNo" value="${detail.estNo}" />
 						<!--견적서 출력 input box -->
 						<table class="table table-sm bst02">
 						<colgroup>
@@ -79,43 +80,38 @@
 								<tr>
 									<th class="text-center">상 호</th>
 										<td>
-											<input type="text" class="form-control"  placeholder="" required/>
+											<input type="text" class="form-control" value="${comList.comName}"/>
 										</td>
 										
 									<th class="text-center">대표이사</th>
 										<td>
-											<input type="text" class="form-control"  placeholder="" required/>
+											<input type="text" class="form-control" value="${comList.comBoss}"/>
 										</td>
 										
 									<th class="text-center">주 소</th>
 										<td>
-											<input type="text" class="form-control"  placeholder="" required/>
+											<input type="text" class="form-control" value="${comList.comAddress}"/>
 										</td>
 										
 									<th class="text-center">전 화</th>
 										<td>
-											<input type="text" class="form-control"  placeholder="" required/>
+											<input type="text" class="form-control" value="${comList.comPhone}"/>
 										</td>
 								</tr>
 								<tr>
 									<th class="text-center">팩 스</th>
-										<td>
-											<input type="text" class="form-control"  placeholder="" required/>
-										</td>
+									<td>
+										<input type="text" class="form-control" value="${comList.comFax}"/>
+									</td>
 									<th class="text-center">유효기간</th>
-										<td class="validate_text">
-											견적일로 부터&nbsp;&nbsp;
-											<input type="text" class="col-xl-1 validate_box" />
-											&nbsp;주
-										</td>
-										<th class="text-center"></th>
-										<td>
-											
-										</td>
-										<th class="text-center"></th>
-										<td>
-											
-										</td>
+									<td class="text-right">
+										<div class="input-group" style="margin:0;">
+											<span class="input-group-text" style="margin-top:5px;">견적일로 부터</span>&nbsp;
+											<input type="text" class="form-control" style="text-align:right;"/>&nbsp;
+											<span class="input-group-text" style="margin-top:5px;">주</span>
+										</div>
+									</td>
+									<th class="text-center"></th>
 								</tr>
 								<!--견적서 출력 input box -->
 								<!-- 유효기간&Remarks -->
@@ -130,7 +126,7 @@
 							</tbody>
 						</table>
 
-						<div class="row" id="second_title">
+						<div class="row" id="second_title" style="margin-top:20px;">
 							<div class="col-xl-6">
 								<h5 class="cont_title">
 									<i class="icofont icofont-square-right"></i>견적정보
@@ -324,6 +320,7 @@
 	</div>
 	<div class="btn_wr text-right mt-3">
 		<button class="btn btn-md btn-success f-left" onClick="javascript:location='${path}/gw/estlist.do'">견적목록</button>
+		<button class="btn btn-danger" onClick="fn_data02ReInsert();">새로추가</button>
 		<c:if test="${sessionScope.userNo eq detail.userNo}">
 			<button class="btn btn-md btn-primary" onClick="fn_data02Update()">수정</button>
 			<button class="btn btn-md btn-danger" onClick="fn_data02Delete()">삭제</button>

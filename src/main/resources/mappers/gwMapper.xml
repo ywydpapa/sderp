@@ -9,7 +9,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 
     <select id="detailDoc" resultType="gwDto">
-        select a.*, b.soppTitle, c.custName from swc_businessdoc a left join swc_sopp b on a.linkSoppNo = b.soppNo left join swc_cust c on a.linkCustNo = c.custNo where a.attrib not like 'XXX%' and a.docNo=#{docNo};
+        select a.*, b.soppTitle, c.custName, c.custBossname from swc_businessdoc a left join swc_sopp b on a.linkSoppNo = b.soppNo left join swc_cust c on a.linkCustNo = c.custNo where a.attrib not like 'XXX%' and a.docNo=#{docNo};
     </select>
     
     <select id="detailDocApp" resultType="gwDto">
@@ -24,13 +24,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         select IFNULL(MAX(estVer), 0)+1 as getVersion from swc_estitems where estId = #{estId} and compNo = #{compNo};
     </select>
 
-    <insert id="insertest">
-	    <selectKey resultType="int" keyProperty="estVer" order="BEFORE">
-				select IFNULL(MAX(estVer), 0)+1 from swc_est where estId = #{estId} and compNo = #{compNo}
-	 	</selectKey>
+    <insert id="insertest" useGeneratedKeys="true" keyProperty="getId">
+    	<selectKey keyProperty="getId" resultType="int" order="AFTER">
+	        SELECT max(estNo) from swc_est
+	    </selectKey>
 	    insert into swc_est(
-	    	estId,
-	    	estVer,
 	    	estTitle,
 	    	estType,
 	    	custNo,
@@ -43,8 +41,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	    	estDate,
 	    	attrib
 	    ) values (
-	    	#{estId},
-	    	#{estVer},
 	    	#{estTitle},
 	    	#{estType},
 	    	#{custNo},
@@ -123,6 +119,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			attrib = "XXXXX",
 		    ModDate = now()
 		where estId = #{estId};
+	</update>
+	
+	<update id="insertEstUpdate">
+		<selectKey resultType="int" keyProperty="estVer" order="BEFORE">
+				select IFNULL(MAX(estVer), 0)+1 from swc_est where estId = #{estId} and compNo = #{compNo}
+	 	</selectKey>
+		update swc_est set
+		estId = #{estId},
+		estVer = #{estVer}
+		where estNo = #{estNo};
 	</update>
 
 	<select id="listest" resultType="gwDto">

@@ -1,9 +1,9 @@
 package kr.swcore.sderp.gw;
 
 import kr.swcore.sderp.gw.dto.GwDTO;
+
 import kr.swcore.sderp.gw.dto.GwFileDataDTO;
 import kr.swcore.sderp.gw.service.GwService;
-import kr.swcore.sderp.sopp.dto.SoppdataDTO;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -164,6 +164,7 @@ public class GwController {
         mav.setViewName("gware/estdetail");
         mav.addObject("detail",gwService.detailEst(dto));
         mav.addObject("list",gwService.listEstitems(dto));
+        mav.addObject("comList", gwService.comList(session));
         return mav;
     }
     
@@ -174,6 +175,16 @@ public class GwController {
         mav.addObject("list",gwService.listEstitems(dto));
         mav.addObject("titleList", gwService.titleGroupBy(dto));
         mav.addObject("comList", gwService.comList(session));
+    	return mav;
+    }
+    
+    @RequestMapping("ordForm/{docNo}")
+    public ModelAndView ordForm(@PathVariable("docNo") int docNo, HttpSession session, ModelAndView mav, GwDTO dto) {
+    	mav.addObject("detailList", gwService.detailDoc(docNo));
+    	mav.addObject("detailListApp", gwService.detailDocApp(docNo));
+    	mav.addObject("detailListData", gwService.detailDocData(docNo));
+    	mav.addObject("comList", gwService.comList(session));
+        mav.setViewName("form/ordForm");
     	return mav;
     }
     
@@ -280,12 +291,25 @@ public class GwController {
     public ResponseEntity<?> insertEst(@ModelAttribute GwDTO dto) {
         Map<String, Object> param = new HashMap<>();
         int estInsert = gwService.insertEst(dto);
+        param.put("getId", dto.getGetId());
         if (estInsert >0) {
             param.put("code","10001");
         }
         else {param.put("code","20001");
         }
         return ResponseEntity.ok(param);
+    }
+    
+    @RequestMapping("inserEstUpdate.do")
+    public  ResponseEntity<?> inserEstUpdate(HttpSession session, @ModelAttribute GwDTO dto) {
+         Map<String, Object> param = new HashMap<>();
+         int estInserUpdate = gwService.insertEstUpdate(session, dto);
+         if (estInserUpdate >0) {
+             param.put("code","10001");
+         } else {
+             param.put("code","20001");
+         }
+         return ResponseEntity.ok(param);
     }
     
     @RequestMapping("updateEst.do")

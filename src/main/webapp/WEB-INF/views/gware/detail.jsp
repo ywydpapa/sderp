@@ -64,16 +64,16 @@
                                 <td class="text-right">
                                     <c:if test="${detailListApp.appStatus eq '5'}">
                                         <c:if test="${detailList.docType eq 'PUR'}">
-                                            <button class="btn btn-action" onclick="javascript:popupPdf();">발주서 출력</button>
+                                        	<a href="${path}/gw/ordForm/${detailList.docNo}" class="btn btn-success" id="btnPdf" onClick="javascript:popupPdf(); return false;">발주서 출력</a>
                                         </c:if>
                                         <c:if test="${detailList.docType eq 'DIP'}">
-                                            <button class="btn btn-action" onclick="javascript:popupPdf();">공문서 출력</button>
+                                            <button class="btn btn-success" onclick="javascript:popupPdf();">공문서 출력</button>
                                         </c:if>
                                         <c:if test="${detailList.docType eq 'BUY'}">
-                                            <button class="btn btn-action" onclick="javascript:popupPdf();">구매요청서 출력</button>
+                                            <button class="btn btn-success" onclick="javascript:popupPdf();">구매요청서 출력</button>
                                         </c:if>
                                         <c:if test="${detailList.docType eq 'TRS'}">
-                                            <button class="btn btn-action" onclick="javascript:popupPdf();">지출품의서 출력</button>
+                                            <button class="btn btn-success" onclick="javascript:popupPdf();">지출품의서 출력</button>
                                         </c:if>
                                     </c:if>
                                 </td>

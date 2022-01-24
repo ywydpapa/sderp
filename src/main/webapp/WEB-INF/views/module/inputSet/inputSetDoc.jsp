@@ -244,7 +244,6 @@
 
                 html += "\n등록하시겠습니까?";
                 var result = confirm(html);
-                
 
                 if(result){
                     console.log("등록진행");

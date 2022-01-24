@@ -443,3 +443,9 @@
 <jsp:include page="../body-bottom.jsp"/>
 </body>
 </html>
+
+<style>
+	#noticeTable_filter {
+		display:none;
+	}
+</style>

@@ -472,3 +472,9 @@
 <jsp:include page="../body-bottom.jsp"/>
 </body>
 </html>
+
+<style>
+	#board_fileTable_filter {
+		display: none;
+	}
+</style>

@@ -43,15 +43,7 @@
             <tr class="item1">
             	<td><input class="form-control" type="text" id="itemKinds"></td>
             	<td>
-            		<div class="input-group" style="margin:0;">
-					  	<div class="input-group-prepend">
-					    	<select class="form-control" id="selectTitle" style="width:110px;">
-                				<option value="titleOff">제목 없음</option>	            		
-								<option value="titleOn">직접 입력</option>
-                			</select>
-					  	</div>
-	            		<input class="form-control" type="text" id="itemTitle" readonly>
-					</div>
+            		<input class="form-control" type="text" id="itemTitle">
             	</td>
                 <td>
                     <div class="input-group input-group-sm mb-0">
@@ -293,70 +285,83 @@
 
     
     function dataSave(){
-    	var temp = {};
-    	var itemKinds = $("#itemKinds").val();
-    	var itemTitle = $("#itemTitle").val();
-    	var productSalesEstimateCustName = $('#productSalesEstimateCustName').val();
-    	var productNo = $("#productNo2").val();
-    	var productName = $("#data02Title").val();
-    	var productNetprice = $("#data02Netprice").val().replace(/[\D\s\._\-]+/g, "");
-    	var productQty = $("#data02Quanty").val();
-    	var productAmount = $("#data02Amt").val().replace(/[\D\s\._\-]+/g, "");
-    	var productVat = $("#data02Vat").val().replace(/[\D\s\._\-]+/g, "");
-    	var productTotal = $("#data02Total").val().replace(/[\D\s\._\-]+/g, "");
-    	var productDis = $("#data02Discount").val().replace("%", "");
-    	var productRemark = tinyMCE.get("data02Remark").getContent();
-    	var productSpec = tinyMCE.get("data02Spec").getContent();
-    	var qutylist = $("#qutylist tbody");
-		
-        temp.estId = $("#estId").val();
-		temp.custNo = $("#productSalesEstimateCustNo").val();
-		temp.compNo = $("#compNo").val();
-		temp.itemKinds = itemKinds;
-		temp.itemTitle = itemTitle;
-    	temp.productNo = productNo;
-    	temp.productName = productName;
-    	temp.productNetprice = productNetprice;
-    	temp.productQty = productQty;
-    	temp.productAmount = productAmount;
-    	temp.productVat = productVat;
-    	temp.productTotal = productTotal;
-    	temp.productDis = productDis;
-    	temp.productRemark = productRemark;
-    	temp.productSpec = productSpec;
-    	
-        var productSum = parseInt($("#product02InSum_table").html().replace(/[\D\s\._\-]+/g, "")) + parseInt($("#data02Total").val().replace(/[\D\s\._\-]+/g, ""));
-        var amountSum = parseInt(productAmount) + parseInt($("#amountSum").val());
-        var vatSum = parseInt(productVat) + parseInt($("#vatSum").val());
-        
-        $("#product02InSum_table").html("￦"+parseInt(productSum).toLocaleString("en-US"));
-        $("#amountSum").val(amountSum);
-        $("#vatSum").val(vatSum);
-    	
-    	dataArray.push(temp);
-    	
-    	$("#data02Type option:eq(0)").attr("selected","selected");
-    	$("#itemTitle").val("");
-    	$("#itemKinds").val("");
-        $("#soppdataNoEstimate").val("");
-        $("#productSalesEstimateCustName").val("");
-        $("#productSalesEstimateCustNo").val("");
-        $("#productNo2").val("");
-        $("#data02Title").val("");
-        $("#data02Netprice").val("");
-        $("#data02Quanty").val("");
-        $("#data02Amt").val("");
-        $("#data02Vat").val("");
-        $("#data02Total").val("");
-        $("#data02Discount").val("100%");
-        tinyMCE.get("data02Remark").setContent("");
-        tinyMCE.get("data02Spec").setContent("");
-    	
-        qutylist.append("<tr><td id='dataItemKinds' style='text-align:center;'>"+itemKinds+"</td><td id='dataItemTitle' style='text-align:center;'>"+itemTitle+"</td><td id='salesCustNoN' style='text-align:center;'>"+productSalesEstimateCustName+"</td><td id='dataTitle' style='text-align:center;'>"+productName+"</td><td id='dataNetprice' style='text-align: right'>"+"￦"+parseInt(productNetprice).toLocaleString("en-US")+"</td><td id='dataQuanty' style='text-align: right'>"+productQty+"</td><td id='dataAmt' style='text-align: right'>"+"￦"+parseInt(productAmount).toLocaleString("en-US")+"</td><td id='dataVat' style='text-align: right'>"+"￦"+parseInt(productVat).toLocaleString("en-US")+"</td><td id='dataTotal' style='text-align: right'>"+"￦"+parseInt(productTotal).toLocaleString("en-US")+"</td><td id='dataDiscount' style='text-align: right'>"+ productDis + "%" + "</td><td id='dataRemark'>"+productRemark+"</td><td><button class='btn btn-sm btn-danger' data-index="+dataIndex+" id='dataDelBtn'>삭제</button></td></tr>");    	
-        
-    	console.log(dataArray);
-    	
-        dataIndex++;
+    	if($("#itemKinds").val() === ""){
+    		alert("구분을 입력해주십시오.");
+    		$("#itemKinds").focus();
+    		return false;
+    	}else if($("#itemTitle").val() === ""){
+    		alert("제목을 입력해주십시오.");
+    		$("#itemTitle").focus();
+    		return false;
+    	}else if($("#productSalesEstimateCustName").val() === ""){
+    		alert("거래처를 입력해주세요.");
+    		return false;
+    	}else{
+    		var temp = {};
+        	var itemKinds = $("#itemKinds").val();
+        	var itemTitle = $("#itemTitle").val();
+        	var productSalesEstimateCustName = $('#productSalesEstimateCustName').val();
+        	var productNo = $("#productNo2").val();
+        	var productName = $("#data02Title").val();
+        	var productNetprice = $("#data02Netprice").val().replace(/[\D\s\._\-]+/g, "");
+        	var productQty = $("#data02Quanty").val();
+        	var productAmount = $("#data02Amt").val().replace(/[\D\s\._\-]+/g, "");
+        	var productVat = $("#data02Vat").val().replace(/[\D\s\._\-]+/g, "");
+        	var productTotal = $("#data02Total").val().replace(/[\D\s\._\-]+/g, "");
+        	var productDis = $("#data02Discount").val().replace("%", "");
+        	var productRemark = tinyMCE.get("data02Remark").getContent();
+        	var productSpec = tinyMCE.get("data02Spec").getContent();
+        	var qutylist = $("#qutylist tbody");
+    		
+            temp.estId = $("#estId").val();
+    		temp.custNo = $("#productSalesEstimateCustNo").val();
+    		temp.compNo = $("#compNo").val();
+    		temp.itemKinds = itemKinds;
+    		temp.itemTitle = itemTitle;
+        	temp.productNo = productNo;
+        	temp.productName = productName;
+        	temp.productNetprice = productNetprice;
+        	temp.productQty = productQty;
+        	temp.productAmount = productAmount;
+        	temp.productVat = productVat;
+        	temp.productTotal = productTotal;
+        	temp.productDis = productDis;
+        	temp.productRemark = productRemark;
+        	temp.productSpec = productSpec;
+        	
+            var productSum = parseInt($("#product02InSum_table").html().replace(/[\D\s\._\-]+/g, "")) + parseInt($("#data02Total").val().replace(/[\D\s\._\-]+/g, ""));
+            var amountSum = parseInt(productAmount) + parseInt($("#amountSum").val());
+            var vatSum = parseInt(productVat) + parseInt($("#vatSum").val());
+            
+            $("#product02InSum_table").html("￦"+parseInt(productSum).toLocaleString("en-US"));
+            $("#amountSum").val(amountSum);
+            $("#vatSum").val(vatSum);
+        	
+        	dataArray.push(temp);
+        	
+        	$("#data02Type option:eq(0)").attr("selected","selected");
+        	$("#itemTitle").val("");
+        	$("#itemKinds").val("");
+            $("#soppdataNoEstimate").val("");
+            $("#productSalesEstimateCustName").val("");
+            $("#productSalesEstimateCustNo").val("");
+            $("#productNo2").val("");
+            $("#data02Title").val("");
+            $("#data02Netprice").val("");
+            $("#data02Quanty").val("");
+            $("#data02Amt").val("");
+            $("#data02Vat").val("");
+            $("#data02Total").val("");
+            $("#data02Discount").val("100%");
+            tinyMCE.get("data02Remark").setContent("");
+            tinyMCE.get("data02Spec").setContent("");
+        	
+            qutylist.append("<tr><td id='dataItemKinds' style='text-align:center;'>"+itemKinds+"</td><td id='dataItemTitle' style='text-align:center;'>"+itemTitle+"</td><td id='salesCustNoN' style='text-align:center;'>"+productSalesEstimateCustName+"</td><td id='dataTitle' style='text-align:center;'>"+productName+"</td><td id='dataNetprice' style='text-align: right'>"+"￦"+parseInt(productNetprice).toLocaleString("en-US")+"</td><td id='dataQuanty' style='text-align: right'>"+productQty+"</td><td id='dataAmt' style='text-align: right'>"+"￦"+parseInt(productAmount).toLocaleString("en-US")+"</td><td id='dataVat' style='text-align: right'>"+"￦"+parseInt(productVat).toLocaleString("en-US")+"</td><td id='dataTotal' style='text-align: right'>"+"￦"+parseInt(productTotal).toLocaleString("en-US")+"</td><td id='dataDiscount' style='text-align: right'>"+ productDis + "%" + "</td><td id='dataRemark'>"+productRemark+"</td><td><button class='btn btn-sm btn-danger' data-index="+dataIndex+" id='dataDelBtn'>삭제</button></td></tr>");    	
+            
+        	console.log(dataArray);
+        	
+            dataIndex++;
+    	}
     }
 
     function fn_data02Insert() {
@@ -540,16 +545,6 @@
     	var productSum = parseInt($("#product02InSum_table").html().replace(/[\D\s\._\-]+/g, ""));
     	var amountSum = parseInt($("#amountSum").val());
     	var vatSum = parseInt($("#vatSum").val());
-    	
-    	$("#selectTitle").change(function(){
-    		if($(this).val() === "titleOff"){
-    			$("#itemTitle").val("");
-    			$("#itemTitle").attr("readonly", true);
-    		}else{
-    			$("#itemTitle").val("");
-    			$("#itemTitle").attr("readonly", false);
-    		}	
-    	})
     	
     	qutylist.each(function(index, item){
 	    	var temp = {};

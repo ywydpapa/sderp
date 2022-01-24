@@ -126,7 +126,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</update>
 
 	<select id="listest" resultType="gwDto">
-		SELECT a.*, b.custName, c.userName FROM swc_est a left join swc_cust b on a.custNo = b.custNo left join swc_user c on a.userNo = c.userNo WHERE(estId, estVer) IN (SELECT estId, MAX(estVer) FROM swc_est where compNo = #{compNo} and attrib not like 'XXX%' GROUP BY estId);
+		SELECT a.*, b.custName, c.userName FROM swc_est a left join swc_cust b on a.custNo = b.custNo left join swc_user c on a.userNo = c.userNo WHERE(estId, estVer) IN (SELECT estId, MAX(estVer) FROM swc_est where compNo = #{compNo} and attrib not like 'XXX%' GROUP BY estId) order by a.estNo desc;
 	</select>
 	
 	<select id="listsearchest" resultType="gwDto">

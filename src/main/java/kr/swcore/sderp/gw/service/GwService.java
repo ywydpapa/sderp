@@ -23,6 +23,7 @@ public interface GwService {
     List<GwDTO> listEstitems(GwDTO dto);
     List<GwDTO> titleGroupBy(GwDTO dto);
     GwDTO detailEst(GwDTO dto);
+    GwDTO infoGetItem(GwDTO dto);
     GwDTO detailDoc(int docNo);
     GwDTO detailDocApp(int docNo);
     List<GwDTO> detailDocData(int docNo);
@@ -41,8 +42,10 @@ public interface GwService {
     int deleteDoc(int docNo);
     int deleteUserAtt(int attendId);
     int insertEst(GwDTO dto);
+    int estInfoInsert(GwDTO dto);
     int insertEstUpdate(HttpSession session, GwDTO dto);
     int updateEst(GwDTO dto);
+    int estInfoUpdate(GwDTO dto);
     int deleteEst(String estId);
     int insertEstitems(GwDTO dto);
     int uploadFile(HttpSession session, int docNo, MultipartHttpServletRequest fileList) throws IOException;

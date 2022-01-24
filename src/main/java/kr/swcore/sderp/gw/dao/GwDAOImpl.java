@@ -166,6 +166,11 @@ public class GwDAOImpl implements GwDAO{
     }
     
     @Override
+    public int estInfoInsert(GwDTO dto) {
+        return sqlSession.insert("gw.estInfoInsert",dto);
+    }
+    
+    @Override
     public int insertEstUpdate(GwDTO dto) {
         return sqlSession.update("gw.insertEstUpdate", dto);
     }
@@ -173,6 +178,11 @@ public class GwDAOImpl implements GwDAO{
     @Override
     public int updateEst(GwDTO dto) {
         return sqlSession.update("gw.updateest",dto);
+    }
+    
+    @Override
+    public int estInfoUpdate(GwDTO dto) {
+        return sqlSession.update("gw.estInfoUpdate",dto);
     }
     
     @Override
@@ -225,5 +235,11 @@ public class GwDAOImpl implements GwDAO{
 	public GwDTO comList(int compNo) {
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne("gw.comList", compNo);
+	}
+
+	@Override
+	public GwDTO infoGetItem(GwDTO dto) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("gw.infoGetItem", dto);
 	}
 }

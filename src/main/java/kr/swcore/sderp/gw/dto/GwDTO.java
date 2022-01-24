@@ -90,6 +90,14 @@ public class GwDTO {
     private String comFax;
     private String comBoss;
     
+    private String estComName;
+    private String estComBoss;
+    private String estComAdd;
+    private String estComPhone;
+    private String estComFax;
+    private int estComTerm;
+    private String estComSpec;
+    
     public GwDTO() {
         super();
     }

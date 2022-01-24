@@ -190,10 +190,13 @@ public class GwServiceImpl implements GwService{
 
     @Override
     public int insertEst(GwDTO dto) {
-
         return gwDao.insertEst(dto);
     }
     
+    @Override
+    public int estInfoInsert(GwDTO dto) {
+        return gwDao.estInfoInsert(dto);
+    }
 
 	@Override
 	public int insertEstUpdate(HttpSession session, GwDTO dto) {
@@ -205,6 +208,11 @@ public class GwServiceImpl implements GwService{
     @Override
     public int updateEst(GwDTO dto) {
         return gwDao.updateEst(dto);
+    }
+    
+    @Override
+    public int estInfoUpdate(GwDTO dto) {
+        return gwDao.estInfoUpdate(dto);
     }
     
     @Override
@@ -280,5 +288,11 @@ public class GwServiceImpl implements GwService{
 		// TODO Auto-generated method stub
 		int compNo = SessionInfoGet.getCompNo(session);
 		return gwDao.comList(compNo);
+	}
+	
+	@Override
+	public GwDTO infoGetItem(GwDTO dto) {
+		// TODO Auto-generated method stub
+		return gwDao.infoGetItem(dto);
 	}
 }

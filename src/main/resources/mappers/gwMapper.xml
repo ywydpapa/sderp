@@ -23,6 +23,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <select id="selectVersion" resultType="gwDto">
         select IFNULL(MAX(estVer), 0)+1 as getVersion from swc_estitems where estId = #{estId} and compNo = #{compNo};
     </select>
+    
+    <select id="infoGetItem" resultType="gwDto">
+    	select * from swc_estInfo where estId = #{estId} and estVer = #{estVer} order by estId desc limit 1;
+    </select>
 
     <insert id="insertest" useGeneratedKeys="true" keyProperty="getId">
     	<selectKey keyProperty="getId" resultType="int" order="AFTER">
@@ -109,6 +113,36 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	    );
     </insert>
 
+	<insert id="estInfoInsert">
+	    insert into swc_estInfo(
+	    	estId,
+	    	estVer,
+	    	userNo,
+	    	compNo,
+	    	estComName,
+	    	estComBoss,
+	    	estComAdd,
+	    	estComPhone,
+	    	estComFax,
+	    	estComTerm,
+	    	estComSpec,
+	    	regDate
+	    ) values (
+	    	#{estId},
+	    	#{estVer},
+	    	#{userNo},
+	    	#{compNo},
+	    	#{estComName},
+	    	#{estComBoss},
+	    	#{estComAdd},
+	    	#{estComPhone},
+	    	#{estComFax},
+	    	#{estComTerm},
+	    	#{estComSpec},
+	        now()
+	    );
+    </insert>
+
 	<update id="deleteest">
 		update swc_est set
 			attrib = "XXXXX",
@@ -129,6 +163,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		estId = #{estId},
 		estVer = #{estVer}
 		where estNo = #{estNo};
+	</update>
+	
+	<update id="estInfoUpdate">
+		update swc_estInfo set
+		userNo = #{userNo},
+		estComName = #{estComName},
+		estComBoss = #{estComBoss},
+		estComAdd = #{estComAdd},
+		estComPhone = #{estComPhone},
+		estComFax = #{estComFax},
+		estComTerm = #{estComTerm},
+		estComSpec = #{estComSpec}
+		where estId = #{estId} and estVer = #{estVer} and compNo = #{compNo};
 	</update>
 
 	<select id="listest" resultType="gwDto">

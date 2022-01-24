@@ -19,6 +19,7 @@ public interface GwDAO {
     List<GwDTO> titleGroupBy(GwDTO dto);
     GwFileDataDTO listFile(int docNo);
     GwDTO detailEst(GwDTO dto);
+    GwDTO infoGetItem(GwDTO dto);
     GwDTO detailUserAtt(int attendId);
     GwDTO detailDoc(int docNo);
     GwDTO detailDocApp(int docNo);
@@ -37,8 +38,10 @@ public interface GwDAO {
     int deleteDoc(int docNo);
     int deleteUserAtt(int attendId);
     int insertEst(GwDTO dto);
+    int estInfoInsert(GwDTO dto);
     int insertEstUpdate(GwDTO dto);
     int updateEst(GwDTO dto);
+    int estInfoUpdate(GwDTO dto);
     int deleteEst(String estId);
     int insertEstitems(GwDTO dto);
     int uploadFile(GwFileDataDTO dto);

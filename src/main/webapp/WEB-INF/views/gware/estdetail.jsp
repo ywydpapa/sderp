@@ -75,54 +75,108 @@
 											</form>
 										</div>
 									</td>
-							</tr>
-							<tr>
-								<tr>
-									<th class="text-center">상 호</th>
-										<td>
-											<input type="text" class="form-control" value="${comList.comName}"/>
-										</td>
-										
-									<th class="text-center">대표이사</th>
-										<td>
-											<input type="text" class="form-control" value="${comList.comBoss}"/>
-										</td>
-										
-									<th class="text-center">주 소</th>
-										<td>
-											<input type="text" class="form-control" value="${comList.comAddress}"/>
-										</td>
-										
-									<th class="text-center">전 화</th>
-										<td>
-											<input type="text" class="form-control" value="${comList.comPhone}"/>
-										</td>
-								</tr>
-								<tr>
-									<th class="text-center">팩 스</th>
-									<td>
-										<input type="text" class="form-control" value="${comList.comFax}"/>
-									</td>
-									<th class="text-center">유효기간</th>
-									<td class="text-right">
-										<div class="input-group" style="margin:0;">
-											<span class="input-group-text" style="margin-top:5px;">견적일로 부터</span>&nbsp;
-											<input type="text" class="form-control" style="text-align:right;"/>&nbsp;
-											<span class="input-group-text" style="margin-top:5px;">주</span>
+									<td class="text-right" colspan="6" style="border-left:1px solid #fff;">
+										<div>
+											<button class="btn btn-primary" onClick="infoSave();">정보저장</button>
 										</div>
 									</td>
-									<th class="text-center"></th>
-								</tr>
-								<!--견적서 출력 input box -->
-								<!-- 유효기간&Remarks -->
-								<tr>			
-									<td colspan="10">
-									<textarea rows="5" id=""
-											class="form-control form-control-sm"
-											placeholder="ex)결제조건은 검수(납품) 당월 계산서 발행, 익월 결제입니다." required></textarea>
-									</td>
-								</tr>
-								<!-- 유효기간&Remarks -->
+							</tr>
+							<c:choose>
+								<c:when test="${empty infoItem}">
+									<input type="hidden" id="infoItemFlag" value="0" />
+									<tr>
+										<th class="text-center">상 호</th>
+											<td>
+												<input type="text" class="form-control" id="estComName" value="${comList.comName}"/>
+											</td>
+											
+										<th class="text-center">대표이사</th>
+											<td>
+												<input type="text" class="form-control" id="estComBoss" value="${comList.comBoss}"/>
+											</td>
+											
+										<th class="text-center">주 소</th>
+											<td>
+												<input type="text" class="form-control" id="estComAdd" value="${comList.comAddress}"/>
+											</td>
+											
+										<th class="text-center">전 화</th>
+											<td>
+												<input type="text" class="form-control" id="estComPhone"value="${comList.comPhone}"/>
+											</td>
+									</tr>
+									<tr>
+										<th class="text-center">팩 스</th>
+										<td>
+											<input type="text" class="form-control" id="estComFax" value="${comList.comFax}"/>
+										</td>
+										<th class="text-center">유효기간</th>
+										<td class="text-right">
+											<div class="input-group" style="margin:0;">
+												<span class="input-group-text" style="margin-top:5px;">견적일로 부터</span>&nbsp;
+												<input type="text" class="form-control" id="estComTerm" style="text-align:right;"/>&nbsp;
+												<span class="input-group-text" style="margin-top:5px;">주</span>
+											</div>
+										</td>
+										<th class="text-center"></th>
+									</tr>
+									<!--견적서 출력 input box -->
+									<!-- 유효기간&Remarks -->
+									<tr>			
+										<td colspan="10">
+										<textarea rows="5" id="estComSpec" class="form-control form-control-sm" placeholder="ex)결제조건은 검수(납품) 당월 계산서 발행, 익월 결제입니다."></textarea>
+										</td>
+									</tr>
+									<!-- 유효기간&Remarks -->
+								</c:when>
+								<c:otherwise>
+									<input type="hidden" id="infoItemFlag" value="1" />
+									<tr>
+										<th class="text-center">상 호</th>
+											<td>
+												<input type="text" class="form-control" id="estComName" value="${infoItem.estComName}"/>
+											</td>
+											
+										<th class="text-center">대표이사</th>
+											<td>
+												<input type="text" class="form-control" id="estComBoss" value="${infoItem.estComBoss}"/>
+											</td>
+											
+										<th class="text-center">주 소</th>
+											<td>
+												<input type="text" class="form-control" id="estComAdd" value="${infoItem.estComAdd}"/>
+											</td>
+											
+										<th class="text-center">전 화</th>
+											<td>
+												<input type="text" class="form-control" id="estComPhone"value="${infoItem.estComPhone}"/>
+											</td>
+									</tr>
+									<tr>
+										<th class="text-center">팩 스</th>
+										<td>
+											<input type="text" class="form-control" id="estComFax" value="${infoItem.estComFax}"/>
+										</td>
+										<th class="text-center">유효기간</th>
+										<td class="text-right">
+											<div class="input-group" style="margin:0;">
+												<span class="input-group-text" style="margin-top:5px;">견적일로 부터</span>&nbsp;
+												<input type="text" class="form-control" id="estComTerm" style="text-align:right;" value="${infoItem.estComTerm}"/>&nbsp;
+												<span class="input-group-text" style="margin-top:5px;">주</span>
+											</div>
+										</td>
+										<th class="text-center"></th>
+									</tr>
+									<!--견적서 출력 input box -->
+									<!-- 유효기간&Remarks -->
+									<tr>			
+										<td colspan="10">
+										<textarea rows="5" id="estComSpec" class="form-control form-control-sm" placeholder="ex)결제조건은 검수(납품) 당월 계산서 발행, 익월 결제입니다.">${infoItem.estComSpec}</textarea>
+										</td>
+									</tr>
+									<!-- 유효기간&Remarks -->
+								</c:otherwise>
+							</c:choose>
 							</tbody>
 						</table>
 
@@ -418,6 +472,77 @@
 			$("#productNo2").val(a);
 			$("#data02Title").val(b);
 			$("#productdataModal2").find(".modal-footer button").trigger('click');
+		}
+		
+		function infoSave(){
+			var dataInfo = {};
+			var estVer = "${detail.estVer}";
+			
+			if($("#estComName").val() === ""){
+				alert("상호를 입력해주십시오.");
+				$("#estComName").focus();
+				return false;
+			}else if($("#estComBoss").val() === ""){
+				alert("대표이사명을 입력해주십시오.");
+				$("#estComBoss").focus();
+				return false;
+			}else if($("#estComAdd").val() === ""){
+				alert("주소를 입력해주십시오.");
+				$("#estComAdd").focus();
+				return false;
+			}else if($("#estComPhone").val() === ""){
+				alert("전화번호를 입력해주십시오.");
+				$("#estComPhone").focus();
+				return false;
+			}else if($("#estComFax").val() === ""){
+				alert("팩스번호를 입력해주십시오.");
+				$("#estComFax").focus();
+				return false;
+			}else if($("#estComTerm").val() === ""){
+				alert("견적서 유효기간을 입력해주십시오.");
+				$("#estComTerm").focus();
+				return false;
+			}else if(tinyMCE.get("estComSpec").getContent() === ""){
+				alert("Spec을 입력해주십시오.");
+				$("#estComSpec").focus();
+				return false;
+			}else{
+				dataInfo.estId = $("#estId").val();
+				dataInfo.estVer = estVer;
+				dataInfo.userNo = $("#userNo").val();
+				dataInfo.compNo = $("#compNo").val();
+				dataInfo.estComName = $("#estComName").val();
+				dataInfo.estComBoss = $("#estComBoss").val();
+				dataInfo.estComAdd = $("#estComAdd").val();
+				dataInfo.estComPhone = $("#estComPhone").val();
+				dataInfo.estComFax = $("#estComFax").val();
+				dataInfo.estComTerm = $("#estComTerm").val();
+				dataInfo.estComSpec = tinyMCE.get("estComSpec").getContent();
+				
+				if($("#infoItemFlag").val() < 1){
+					$.ajax({
+						url: "${path}/gw/estInfoInsert.do",
+						method: "post",
+						data: dataInfo,
+						dataType: "json",
+						success:function(){
+							alert("저장되었습니다.");
+							return false;
+						}
+					});
+				}else{
+					$.ajax({
+						url: "${path}/gw/estInfoUpdate.do",
+						method: "post",
+						data: dataInfo,
+						dataType: "json",
+						success:function(){
+							alert("저장되었습니다.");
+							return false;
+						}
+					});
+				}
+			}
 		}
 
 		function fn_SaveContIO() {

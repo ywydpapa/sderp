@@ -130,44 +130,89 @@ th, td{
 		<div id="pdfTitle">
 			<div id="titlePdf">QUOTATION</div>
 		</div>
-		<table id="headList">
-			<tr>
-				<th>견&ensp;적&ensp;일&ensp;자 : ${detail.estDate}</th>
-				<th>상&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;호 : ${comList.comName}</th>
-			</tr>
-			<tr>
-				<th>견&ensp;적&ensp;번&ensp;호 : ${detail.estId}</th>
-				<th>대&ensp;표&ensp;이&ensp;사 : ${comList.comBoss} (직인생략)</th>
-			</tr>
-			<tr>
-				<th>사&ensp;&nbsp;&nbsp;업&ensp;&nbsp;&nbsp;명 : ${detail.estTitle}</th>
-				<th>주&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;소 : ${comList.comAddress}</th>
-			</tr>
-			<tr>
-				<th>
-					수&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;신 :
-					<c:choose>
-						<c:when test="${empty detail.custBossname}">
-							${detail.custName}
-						</c:when>
-						<c:otherwise>
-							${detail.custName}/${detail.custBossname}
-						</c:otherwise>
-					</c:choose> 
-				</th>
-				<th>전&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;화 : ${comList.comPhone}</th>
-			</tr>
-			<tr>
-				<th>영&ensp;업&ensp;담&ensp;당 : ${detail.userName}</th>
-				<th>팩&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;스 : ${comList.comFax}</th>
-			</tr>
-		</table>
-		<table id="totalInfo">
-			<tr>
-				<th>견&ensp;적&ensp;금&ensp;액 : ￦&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;<fmt:formatNumber value="${detail.estTotal}" pattern="#,###" />&ensp;&ensp;(VAT 포함)</th>
-				<th>유&ensp;효&ensp;기&ensp;간 : 견적일로 부터 2주</th>
-			</tr>
-		</table>
+		<c:choose>
+			<c:when test="${empty infoItem}">
+				<table id="headList">
+					<tr>
+						<th>견&ensp;적&ensp;일&ensp;자 : ${detail.estDate}</th>
+						<th>상&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;호 : ${comList.comName}</th>
+					</tr>
+					<tr>
+						<th>견&ensp;적&ensp;번&ensp;호 : ${detail.estId}</th>
+						<th>대&ensp;표&ensp;이&ensp;사 : ${comList.comBoss} (직인생략)</th>
+					</tr>
+					<tr>
+						<th>사&ensp;&nbsp;&nbsp;업&ensp;&nbsp;&nbsp;명 : ${detail.estTitle}</th>
+						<th>주&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;소 : ${comList.comAddress}</th>
+					</tr>
+					<tr>
+						<th>
+							수&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;신 :
+							<c:choose>
+								<c:when test="${empty detail.custBossname}">
+									${detail.custName}
+								</c:when>
+								<c:otherwise>
+									${detail.custName}/${detail.custBossname}
+								</c:otherwise>
+							</c:choose> 
+						</th>
+						<th>전&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;화 : ${comList.comPhone}</th>
+					</tr>
+					<tr>
+						<th>영&ensp;업&ensp;담&ensp;당 : ${detail.userName}</th>
+						<th>팩&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;스 : ${comList.comFax}</th>
+					</tr>
+				</table>
+				<table id="totalInfo">
+					<tr>
+						<th>견&ensp;적&ensp;금&ensp;액 : ￦&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;<fmt:formatNumber value="${detail.estTotal}" pattern="#,###" />&ensp;&ensp;(VAT 포함)</th>
+						<th>유&ensp;효&ensp;기&ensp;간 : 견적일로 부터 2주</th>
+					</tr>
+				</table>
+			</c:when>
+			<c:otherwise>
+				<table id="headList">
+					<tr>
+						<th>견&ensp;적&ensp;일&ensp;자 : ${detail.estDate}</th>
+						<th>상&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;호 : ${infoItem.estComName}</th>
+					</tr>
+					<tr>
+						<th>견&ensp;적&ensp;번&ensp;호 : ${detail.estId}</th>
+						<th>대&ensp;표&ensp;이&ensp;사 : ${infoItem.estComBoss} (직인생략)</th>
+					</tr>
+					<tr>
+						<th>사&ensp;&nbsp;&nbsp;업&ensp;&nbsp;&nbsp;명 : ${detail.estTitle}</th>
+						<th>주&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;소 : ${infoItem.estComAdd}</th>
+					</tr>
+					<tr>
+						<th>
+							수&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;신 :
+							<c:choose>
+								<c:when test="${empty detail.custBossname}">
+									${detail.custName}
+								</c:when>
+								<c:otherwise>
+									${detail.custName}/${detail.custBossname}
+								</c:otherwise>
+							</c:choose> 
+						</th>
+						<th>전&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;화 : ${infoItem.estComPhone}</th>
+					</tr>
+					<tr>
+						<th>영&ensp;업&ensp;담&ensp;당 : ${detail.userName}</th>
+						<th>팩&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;스 : ${infoItem.estComFax}</th>
+					</tr>
+				</table>
+				<table id="totalInfo">
+					<tr>
+						<th>견&ensp;적&ensp;금&ensp;액 : ￦&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;<fmt:formatNumber value="${detail.estTotal}" pattern="#,###" />&ensp;&ensp;(VAT 포함)</th>
+						<th>유&ensp;효&ensp;기&ensp;간 : 견적일로 부터 ${infoItem.estComTerm}주</th>
+					</tr>
+				</table>
+			</c:otherwise>
+		</c:choose>
+		
 		<table id="mainTable">
 			<colgroup>
 		        <col width="5%">
@@ -272,13 +317,24 @@ th, td{
 				</tr>
 			</tbody>
 		</table>
-		<div id="pdfRemarks">
-			<h3>Remarks<br>
-				<span>결제조건은 검수(납품) 당월 계산서 발행, 익월 결제 입니다.</span><br/>
-				<span>납기기간은 발주 후 최대 4주 입니다.</span><br/>
-				<span>설치비용 포함 견적이며 고객사 응용프로그램 사용에 따른 커스터마이징 비용은 미 포함이며 협의 후 포함합니다.</span>
-			</h3>
-		</div>
+		<c:choose>
+			<c:when test="${empty infoItem}">
+				<div id="pdfRemarks">
+					<h3>Remarks<br>
+						<span>결제조건은 검수(납품) 당월 계산서 발행, 익월 결제 입니다.</span><br/>
+						<span>납기기간은 발주 후 최대 4주 입니다.</span><br/>
+						<span>설치비용 포함 견적이며 고객사 응용프로그램 사용에 따른 커스터마이징 비용은 미 포함이며 협의 후 포함합니다.</span>
+					</h3>
+				</div>
+			</c:when>
+			<c:otherwise>
+				<div id="pdfRemarks">
+					<h3>Remarks<br>
+						${infoItem.estComSpec}
+					</h3>
+				</div>
+			</c:otherwise>
+		</c:choose>
 		<div id="pdfBottom">
 			<img src="${path}/images/pdf_bottom.png" id="bottomImg" />
 		</div>

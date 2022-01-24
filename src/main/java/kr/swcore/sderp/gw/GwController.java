@@ -160,10 +160,11 @@ public class GwController {
     }
 
     @RequestMapping("estdetail/{estId}/{estVer}")
-    public ModelAndView estdetail(@PathVariable String estId,@PathVariable int estVer, HttpSession session, ModelAndView mav, GwDTO dto) {
+    public ModelAndView estdetail(@PathVariable String estId, @PathVariable int estVer, HttpSession session, ModelAndView mav, GwDTO dto) {
         mav.setViewName("gware/estdetail");
         mav.addObject("detail",gwService.detailEst(dto));
-        mav.addObject("list",gwService.listEstitems(dto));
+        mav.addObject("list", gwService.listEstitems(dto));
+        mav.addObject("infoItem", gwService.infoGetItem(dto));
         mav.addObject("comList", gwService.comList(session));
         return mav;
     }
@@ -175,6 +176,7 @@ public class GwController {
         mav.addObject("list",gwService.listEstitems(dto));
         mav.addObject("titleList", gwService.titleGroupBy(dto));
         mav.addObject("comList", gwService.comList(session));
+        mav.addObject("infoItem", gwService.infoGetItem(dto));
     	return mav;
     }
     
@@ -300,11 +302,35 @@ public class GwController {
         return ResponseEntity.ok(param);
     }
     
+    @RequestMapping("estInfoInsert.do")
+    public ResponseEntity<?> estInfoInsert(@ModelAttribute GwDTO dto) {
+        Map<String, Object> param = new HashMap<>();
+        int estInfoInsert = gwService.estInfoInsert(dto);
+        if (estInfoInsert >0) {
+            param.put("code","10001");
+        }
+        else {param.put("code","20001");
+        }
+        return ResponseEntity.ok(param);
+    }
+    
+    @RequestMapping("estInfoUpdate.do")
+    public ResponseEntity<?> estInfoUpdate(@ModelAttribute GwDTO dto) {
+        Map<String, Object> param = new HashMap<>();
+        int estInfoUpdate = gwService.estInfoUpdate(dto);
+        if (estInfoUpdate > 0) {
+            param.put("code","10001");
+        }
+        else {param.put("code","20001");
+        }
+        return ResponseEntity.ok(param);
+    }
+    
     @RequestMapping("inserEstUpdate.do")
     public  ResponseEntity<?> inserEstUpdate(HttpSession session, @ModelAttribute GwDTO dto) {
          Map<String, Object> param = new HashMap<>();
          int estInserUpdate = gwService.insertEstUpdate(session, dto);
-         if (estInserUpdate >0) {
+         if (estInserUpdate > 0) {
              param.put("code","10001");
          } else {
              param.put("code","20001");

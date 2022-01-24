@@ -25,20 +25,130 @@
 	<!--Page-header end 페이지 타이틀 -->
 
 	<!--계약등록-->
+	
 	<div class="cnt_wr">
-		<h5 class="cont_title"><i class="icofont icofont-square-right"></i>견적정보</h5>
+		
+		<div class="row" >
+			<div class="col-xl-6">
+				<h5 class="cont_title">
+					<i class="icofont icofont-square-right"></i>견적서 출력 정보
+				</h5>
+			</div>
+			<div class="col-xl-6">
+				<a href="" class="btn btn-success" id="btnPdf" onClick="javascript:popupPdf(); return false;" style="float:right;">견적서 출력</a>
+			</div>
+		</div>
+		
 		<div class="row">
 			<div class="col-sm-12">
 				<div class="card-block table-border-style">
 					<div class="table-responsive">
 						<input type="hidden" id="compNo" value="${sessionScope.compNo}" />
 						<input type="hidden" id="userNo" value="${sessionScope.userNo}" />
+						<!--견적서 출력 input box -->
+						<table class="table table-sm bst02">
+						<colgroup>
+								<col width="5%"/>
+								<col width="15%"/>
+								<col width="5%"/>
+								<col width="15%"/>
+								<col width="5%"/>
+								<col width="15%"/>
+								<col width="5%"/>
+								<col width="15%"/>
+							</colgroup>
+						<tbody>
+							<tr>
+								<th class="text-center">견적서 출력</th>
+									<td>
+										<div class="form-radio">
+											<form>
+												<div class="radio radio-inline" style="margin-top:10px;">
+													<label> <input type="radio" name="titlePdf" value="radioOnTitle" checked="checked"> <i class="helper"></i>타이틀</label>
+												</div>
+												<div class="radio radio-inline" style="margin-top:10px;">
+													<label> <input type="radio" name="titlePdf" value="radioOffTitle" checked="checked"> <i class="helper"></i>타이틀 없음</label>
+												</div>
+												
+												<!--<a href="" class="btn btn-success" id="btnPdf" onClick="javascript:popupPdf(); return false;" style="float:right;">견적서 출력</a>-->
+											</form>
+										</div>
+									</td>
+							</tr>
+							<tr>
+								<tr>
+									<th class="text-center">상 호</th>
+										<td>
+											<input type="text" class="form-control"  placeholder="" required/>
+										</td>
+										
+									<th class="text-center">대표이사</th>
+										<td>
+											<input type="text" class="form-control"  placeholder="" required/>
+										</td>
+										
+									<th class="text-center">주 소</th>
+										<td>
+											<input type="text" class="form-control"  placeholder="" required/>
+										</td>
+										
+									<th class="text-center">전 화</th>
+										<td>
+											<input type="text" class="form-control"  placeholder="" required/>
+										</td>
+								</tr>
+								<tr>
+									<th class="text-center">팩 스</th>
+										<td>
+											<input type="text" class="form-control"  placeholder="" required/>
+										</td>
+									<th class="text-center">유효기간</th>
+										<td class="validate_text">
+											견적일로 부터&nbsp;&nbsp;
+											<input type="text" class="col-xl-1 validate_box" />
+											&nbsp;주
+										</td>
+										<th class="text-center"></th>
+										<td>
+											
+										</td>
+										<th class="text-center"></th>
+										<td>
+											
+										</td>
+								</tr>
+								<!--견적서 출력 input box -->
+								<!-- 유효기간&Remarks -->
+								<tr>			
+									<td colspan="10">
+									<textarea rows="5" id=""
+											class="form-control form-control-sm"
+											placeholder="ex)결제조건은 검수(납품) 당월 계산서 발행, 익월 결제입니다." required></textarea>
+									</td>
+								</tr>
+								<!-- 유효기간&Remarks -->
+							</tbody>
+						</table>
+
+						<div class="row" id="second_title">
+							<div class="col-xl-6">
+								<h5 class="cont_title">
+									<i class="icofont icofont-square-right"></i>견적정보
+								</h5>
+							</div>
+						</div>
+
+
 						<table class="table table-sm bst02">
 							<colgroup>
-								<col width="15%" />
-								<col width="35%"/>
+								<col width="5%"/>
 								<col width="15%"/>
-								<col width="35%"/>
+								<col width="5%"/>
+								<col width="15%"/>
+								<col width="5%"/>
+								<col width="15%"/>
+								<col width="5%"/>
+								<col width="15%"/>
 							</colgroup>
 							<tbody>
 								<tr>
@@ -55,30 +165,24 @@
 												<div class="radio radio-inline" style="margin-top:10px;">
 													<label> <input type="radio" name="contractType" value="NFORM"> <i class="helper"></i>표준견적 작성</label>
 												</div>
-												<div class="radioLabel radio-inline" style="margin-top:10px;">
+												<!--<div class="radioLabel radio-inline" style="margin-top:10px;">
 													<label style="color:red;">※ 표준견적 작성은 영업기회가 필요없습니다.</label>
-												</div>
-											</form>
-										</div>
+												</div> 
+												<td class="radioLabel radio-inline" style="display:none;">
+										<label style="color:red;">※ 표준견적 작성은 영업기회가 필요없습니다.</label>
 									</td>
-									<th class="text-center">견적서 출력</th>
-									<td>
-										<div class="form-radio">
-											<form>
-												<div class="radio radio-inline" style="margin-top:10px;">
-													<label> <input type="radio" name="titlePdf" value="radioOnTitle" checked="checked"> <i class="helper"></i>타이틀</label>
-												</div>
-												<div class="radio radio-inline" style="margin-top:10px;">
-													<label> <input type="radio" name="titlePdf" value="radioOffTitle" checked="checked"> <i class="helper"></i>타이틀 없음</label>
-												</div>
-												<a href="" class="btn btn-success" id="btnPdf" onClick="javascript:popupPdf(); return false;" style="float:right;">견적서 출력</a>
+												-->
 											</form>
 										</div>
 									</td>
 								</tr>
-								<tr>
+								<tr>	
 									<th class="contDetailSopp text-center">영업기회</th>
-									<td class="contDetailSopp">
+									
+									<td class="radioLabel radio-inline" style="margin-left: -5px;margin-bottom: 2px;width: 80px; height: 30px; border: 1px solid white;">
+										<label style="color:red;">※ 표준견적 작성은 영업기회가 필요없습니다.</label>
+									</td>
+									<td class="contDetailSopp" id="contDetailSopp_hide_motion">
 										<div class="input-group input-group-sm mb-0">
 											<input type="text" class="form-control" name="soppDTO" id="soppTitle" value="${detail.soppTitle}" readonly/>
 											<input type="hidden" class="form-control" name="soppDTO" id="soppNo" value="${detail.soppNo}" />
@@ -151,8 +255,6 @@
 											</div>
 										</div>
 									</td>
-								</tr>
-								<tr>
 									<th class="text-center requiredTextCss">견적번호(*)</th>
 									<td>
 										<input type="text" class="form-control" id="estId" value="${detail.estId}" readonly>
@@ -162,6 +264,18 @@
 										<input type="text" class="form-control" id="estTitle" value="${detail.estTitle}">
 									</td>
 								</tr>
+								
+								<!--<tr>
+									<th class="text-center requiredTextCss">견적번호(*)</th>
+									<td>
+										<input type="text" class="form-control" id="estId" value="${detail.estId}" readonly>
+									</td>
+									<th class="text-center requiredTextCss">견적제목(*)</th>
+									<td>
+										<input type="text" class="form-control" id="estTitle" value="${detail.estTitle}">
+									</td>
+								</tr>-->
+								
 								<tr>
 									<th class="text-center">견적버전</th>
 									<td>
@@ -171,8 +285,6 @@
 									<td>
 										<input type="date" id="estDate" name="estDate" class="form-control" style="text-align: right;" value="${detail.estDate}">
 									</td>
-								</tr>
-								<tr>
 									<th class="text-center">첨부파일</th>
 									<td>
 										<input class="form-control" type="file" id="addFile">
@@ -185,6 +297,20 @@
 										</select>
 									</td>
 								</tr>
+								<!--<tr>
+									<th class="text-center">첨부파일</th>
+									<td>
+										<input class="form-control" type="file" id="addFile">
+									</td>
+									<th class="text-center">부가세</th>
+									<td>
+										 <select name="vatYn" id="vatYn" class="form-control form-control-sm">
+											<option value="Y" selected>포함</option>
+											<option value="N" >비포함</option>
+										</select>
+									</td>
+								</tr>-->
+								
 							</tbody>
 						</table>
 						<div class="table-responsive" style="overflow-x: hidden;">
@@ -249,11 +375,11 @@
 	
 		$("[name='contractType']").change(function(){
 			if($(this).val() === "NFORM"){
-				$(".contDetailSopp").hide();
+				$("#contDetailSopp_hide_motion").hide();
 				$(".radioLabel").show();
 			}else{
 				$(".radioLabel").hide();
-				$(".contDetailSopp").show();
+				$("#contDetailSopp_hide_motion").show();
 			}
 		});
 		
@@ -427,4 +553,12 @@
 	</script>
 </div>
 <jsp:include page="../body-bottom.jsp"/>
-
+<style>
+	.validate_text {
+		color: gray;
+		text-align:right;
+	}
+	.validate_box {
+		border: 1px solid #ccc;
+	}
+</style>

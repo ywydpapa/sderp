@@ -240,7 +240,13 @@
 							</div>
 						</div>
 						<div class="btn_wr text-right" style="float:right;">
-							<button class="btn btn-sm btn-inverse" onClick="javascript:fnClearall(this);">
+						<!-- hide and show -->
+						<button class="btn btn-sm btn-success" id="fold"
+							onclick="acordian_action()" style="z-index: 99">펼치기</button>
+						<button class="btn btn-sm btn-success" id="fold2"
+							onclick="acordian_action1()" style="z-index: 10; display: none;">접기</button>
+						<!-- hide and show -->
+						<button class="btn btn-sm btn-inverse" onClick="javascript:fnClearall(this);">
 								<i class="icofont icofont-spinner-alt-3"></i>초기화
 							</button>
 							<button class="btn btn-sm btn-primary" onClick="javascript:fnListcon()">
@@ -256,12 +262,12 @@
 			</div>
 			<!--Page-header end 페이지 타이틀 -->
 			<!--일정조회-->
-		<div class="cnt_wr">
+		<div class="cnt_wr"  id="acordian" style="display:none;">
 			<div class="row">
 				<form id="searchForm" method="post" onsubmit="return false;" class="col-sm-12">
 					<div class="card_box sch_it">
 						<div class="form-group row">
-							<div class="col-sm-12 col-xl-3">
+							<div class="col-sm-12 col-xl-2">
 								<label class="col-form-label" for="userName">담당사원</label>
 								<div class="input-group input-group-sm mb-0">
 									<input type="text" class="form-control" name="userName"
@@ -298,7 +304,7 @@
 									</div>
 								</div>
 							</div>
-							<div class="col-sm-12 col-xl-3">
+							<div class="col-sm-12 col-xl-2">
 								<label class="col-form-label" for="soppTitle">영업기회</label>
 								<div class="input-group input-group-sm mb-0">
 									<input type="text" class="form-control" name="soppTitle"
@@ -335,7 +341,7 @@
 									</div>
 								</div>
 							</div>
-							<div class="col-sm-12 col-xl-3">
+							<div class="col-sm-12 col-xl-2">
 								<label class="col-form-label" for="custName">매출처</label>
 								<div class="input-group input-group-sm mb-0">
 									<input type="text" class="form-control" name="custName" id="custName" value="" readonly />
@@ -367,7 +373,7 @@
 									</div>
 								</div>
 							</div>
-							<div class="col-sm-12 col-xl-3">
+							<div class="col-sm-12 col-xl-2">
 									<label class="col-form-label" for="endCustName">엔드유저</label>
 									<div class="input-group input-group-sm mb-0">
 										<input type="text" class="form-control" id="endCustName" value="" readonly />
@@ -399,7 +405,7 @@
 										</div>
 									</div>
 								</div>
-								<div class="col-sm-12 col-xl-3">
+								<div class="col-sm-12 col-xl-2">
 									<label class="col-form-label" for="custmemberName">계약</label>
 									<div class="input-group input-group-sm mb-0">
 										<input type="text" class="form-control" name="contTitle"
@@ -456,7 +462,7 @@
 									<input class="form-control form-control-sm col-xl-6" type="date" id="schedFrom"> ~ <input class="form-control form-control-sm col-xl-6" type="date" id="schedTo">
 								</p>
 							</div>
-							<div class="col-sm-12 col-xl-3">
+							<div class="col-sm-12 col-xl-3 ex_reduce">
 								<label class="col-form-label">등록일</label>
 								<p class="input_inline"><input class="form-control form-control-sm col-xl-6" type="date" id="regSDate"> ~ <input class="form-control form-control-sm col-xl-6" type="date" id="regEDate">
 								</p>
@@ -509,7 +515,30 @@
 		</div>
 	</div>
 	<!--//table-->
+	<script>
+	function acordian_action(){
+		if($("#acordian").css("display") == "none"){
+		    $("#acordian").show();
+		    $("#fold").hide();
+		    $("#fold2").show();
 
+		} else {
+		    $("#acordian").hide();
+		    $("#fold").show();
+		}
+	}
+	function acordian_action1(){
+		if($("#acordian").css("display") != "none"){
+		    $("#acordian").hide();
+		    $("#fold").show();
+		    $("#fold2").hide();
+
+		} else {
+		    $("#acordian").show();
+		    $("#fold").hide();
+		}
+	}
+</script>
 	<script>
 		$("#schedFrom").change(function(){
 			var dateValue = $(this).val();

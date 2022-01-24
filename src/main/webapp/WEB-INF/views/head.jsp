@@ -314,6 +314,12 @@
 			margin-top: 0px;
 		}
 	}
+	.ex_reduce {
+			margin-left: -10px;
+		}
+	.form-control-sm {
+		height: 44%;		
+	}
 </style>
 
 </head>

@@ -95,6 +95,19 @@
 							}
 						},
 					},
+					
+					{
+						data: "bf_Contents",
+						column : '내용',
+						render : function ( data, type, row ) {
+							if(data == null || data == undefined) {
+								return '';
+							} else {
+								return '<span title="'+data+'">'+data+'</span>';
+							}
+						},
+					},
+					
 					{
 						data: "userName",
 						column : '작성자',
@@ -206,13 +219,20 @@
 						</div>
 					</div>
 					<div class="btn_wr" style="float:right;">
+					
+						<!-- hide and show -->
+						<button class="btn btn-sm btn-success" id="fold" onclick="acordian_action()" style="z-index:99">펼치기</button>
+						<button class="btn btn-sm btn-success" id="fold2" onclick="acordian_action1()" style="z-index:10; display:none;">접기</button>
+						<!-- hide and show -->
+						
 						<button class="btn btn-sm btn-inverse" onClick="javascript:fnClearall()"><i class="icofont icofont-spinner-alt-3"></i>초기화</button>
 						<button class="btn btn-sm btn-primary" onClick="javascript:fnListcon()" id="search"><i class="icofont icofont-search"></i>검색</button>	
+						<button class="btn btn-sm btn-outline" onclick="location.href='${pageContext.request.contextPath}/board__file/board_file_insert'"><i class="icofont icofont-pencil-alt-2"></i>등록</button>
 					</div>
 				</div>
 			</div>
 		</div>
-		<div class="cnt_wr">
+		<div class="cnt_wr" id="acordian" style="display:none;">
 			<div class="row">
 				<form id="searchForm" method="post" onsubmit="return false;" class="col-sm-12">
 				<div class="col-sm-12">
@@ -261,11 +281,11 @@
 										id="userName"/> <input type="hidden"
 										name="userNo" id="userNo" value="${sessionScope.userNo}" />
 							</div> --%>
-							<div class="col-sm-12 col-xl-3">
+							<div class="col-sm-12 col-xl-2">
 								<label class="col-form-label">제목</label>
 								<input type="text" class="form-control form-control-sm" id="bf_Title" name="" placeholder="" value="${param.bf_Title}">
 							</div>
-							<div class="col-sm-12 col-xl-3">
+							<div class="col-sm-12 col-xl-2">
 								<label class="col-form-label">내용</label>
 								<input type="text" class="form-control form-control-sm" id="bf_Contents" name="" placeholder="" value="${param.bf_Contents}">
 							</div>
@@ -290,15 +310,17 @@
 				<div class="table-responsive">
 					<table id="board_fileTable" class="table table-striped table-bordered nowrap ">
 							<colgroup>
-								<col width="10%"/>
-								<col width="60%"/>
-								<col width="20%"/>
-								<col width="10%"/>
+								<col width="5%"/>
+								<col width="7%"/>
+								<col width="40%"/>
+								<col width="7%">
+								<col width="7%"/>
 							</colgroup>
 							<thead>
 								<tr>
 									<th>번호</th>
 									<th>제목</th>
+									<th>내용</th>
 									<th>작성자</th>
 									<th>등록일</th>
 								</tr>
@@ -321,12 +343,36 @@
 				</div>
 			</div>
 		</div>
-		
-		<div class="col-12" style="text-align:left;">
-			<input type="button" class="btn btn-primary"  value="등록" onclick="location.href='${pageContext.request.contextPath}/board__file/board_file_insert'">
-		</div>
 	</div>
 	<!--//리스트 table-->
+	
+	<!-- hide and show -->
+	<script>
+	function acordian_action(){
+		if($("#acordian").css("display") == "none"){
+		    $("#acordian").show();
+		    $("#fold").hide();
+		    $("#fold2").show();
+
+		} else {
+		    $("#acordian").hide();
+		    $("#fold").show();
+		}
+	}
+	function acordian_action1(){
+		if($("#acordian").css("display") != "none"){
+		    $("#acordian").hide();
+		    $("#fold").show();
+		    $("#fold2").hide();
+
+		} else {
+		    $("#acordian").show();
+		    $("#fold").hide();
+		}
+	}
+	</script>
+	<!-- hide and show -->
+	
 	<script>
 		$("#regSDate").change(function(){
 			var dateValue = $(this).val();

@@ -20,6 +20,7 @@
 				<th class="text-center">일자</th>
 				<th class="text-center">파일명</th>
 				<th class="text-center">파일설명</th>
+				<th class="text-center">작성자</th>
 				<th class="text-center">삭제</th>
 			</thead>
 			<tbody id="ItemFilelist">
@@ -28,6 +29,7 @@
 						<td class="text-center">${fn:substring(row2.uploadDate, 0, 10)}</td>
 						<td><a href="javascript:downloadFile('${row2.fileId}', '${row2.fileName}');">${row2.fileName}</a></td>
 						<td>${row2.fileDesc}</td>
+						<td>${row2.userName}</td>
 						<td style="text-align: center;"><button class="btn btn-sm btn-inverse" onclick="javascript:deleteFile('${row2.fileId}');">삭제</button></td>
 					</tr>
 					<c:remove var="repName" />
@@ -48,6 +50,7 @@
 								'<td>'+data[i].uploadDate+'</td>' +
 								'<td><a href="javascript:downloadFile(\''+data[i].fileId+'\');">'+data[i].fileName+'</a></td>' +
 								'<td>'+data[i].fileDesc+'</td>' +
+								'<td>'+data[i].userName+'</td>' +
 								'<td style="text-align: center;"><button class="btn btn-sm btn-inverse" onclick="javascript:deleteFile(\''+data[i].fileId+'\');">삭제</button></td>' +
 							  '</tr>';
 			}

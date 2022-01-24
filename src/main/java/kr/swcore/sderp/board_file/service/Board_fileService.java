@@ -33,7 +33,7 @@ import kr.swcore.sderp.common.dto.PageDTO;
 		int uploadFile(HttpSession session, int bf_pk, MultipartHttpServletRequest fileList) throws IOException;
 		
 		//게시물 상세 조회 file detail
-		List<Board_fileDTO> board_filedata_detail(Board_fileDataDTO datadto);
+		List<Board_fileDataDTO> board_filedata_detail(Board_fileDataDTO datadto);
 		//유저 이름
 		List<Board_fileDTO> board_file_name(Board_fileDTO dto);
 

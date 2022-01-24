@@ -37,6 +37,10 @@
 			max-width: 220px;
 			white-space: nowrap;
 		}
+		.reduce_width {
+			width: 70%;
+		}
+		
 	</style>
 	<c:if test="${preserveSearchCondition != 'Y'}">
 		<!-- Page-header start 페이지 타이틀-->
@@ -49,7 +53,13 @@
 						</div>
 					</div>
 					<div class="btn_wr" style="float:right;">
-						<button class="btn btn-sm btn-success" onClick="javascript:location='${path}/cont/iolistall.do'"><i class="icofont icofont-pencil-alt-2"></i>개별목록 확인</button>
+						<!-- hide and show -->
+						<button class="btn btn-sm btn-success" id="fold"
+							onclick="acordian_action()" style="z-index: 99">펼치기</button>
+						<button class="btn btn-sm btn-success" id="fold2"
+							onclick="acordian_action1()" style="z-index: 10; display: none;">접기</button>
+						<!-- hide and show -->
+						<button class="btn btn-sm btn-danger" onClick="javascript:location='${path}/cont/iolistall.do'"><i class="icofont icofont-pencil-alt-2"></i>개별목록 확인</button>
 						<button class="btn btn-sm btn-inverse" onClick="javascript:fnClearall()"><i class="icofont icofont-spinner-alt-3"></i>초기화</button>
 						<button class="btn btn-sm btn-primary" onClick="javascript:fnListcon()"><i class="icofont icofont-search" id="search"></i>검색</button>
 						<button class="btn btn-sm btn-outline" onClick="javascript:location='${path}/cont/iowrite.do/0'"><i class="icofont icofont-pencil-alt-2"></i>자료등록</button>
@@ -60,13 +70,13 @@
 		<!--Page-header end 페이지 타이틀 -->
 		
 		<!--계약조회-->
-		<div class="cnt_wr">
+		<div class="cnt_wr" id="acordian" style="display:none;">
 			<div class="row">
 				<form id="searchForm" method="post" onsubmit="return false;" class="col-sm-12">
 					<div class="col-sm-12">
 						<div class="card_box sch_it">
 							<div class="form-group row" style="clear:both;">
-								<div class="col-sm-12 col-xl-3">
+								<div class="col-sm-12 col-xl-2">
 									<label class="col-form-label">거래처</label>
 									<div class="input-group input-group-sm mb-0">
 										<input type="text" class="form-control" name="custName" id="custName" value="${param.custName}" readonly />
@@ -102,7 +112,7 @@
 										</div>
 									</div>
 								</div>
-								<div class="col-sm-12 col-xl-3">
+								<div class="col-sm-12 col-xl-2">
 									<label class="col-form-label" for="userName">담당사원</label>
 									<div class="input-group input-group-sm mb-0">
 										<input type="text" class="form-control" name="userName"
@@ -193,6 +203,32 @@
 		</div>
 	</div>
 	<!--//리스트 table-->
+	
+	<script>
+	function acordian_action(){
+		if($("#acordian").css("display") == "none"){
+		    $("#acordian").show();
+		    $("#fold").hide();
+		    $("#fold2").show();
+
+		} else {
+		    $("#acordian").hide();
+		    $("#fold").show();
+		}
+	}
+	function acordian_action1(){
+		if($("#acordian").css("display") != "none"){
+		    $("#acordian").hide();
+		    $("#fold").show();
+		    $("#fold2").hide();
+
+		} else {
+		    $("#acordian").show();
+		    $("#fold").hide();
+		}
+	}
+</script>
+	
 	<script>
 	$("#ioTable tbody tr").find("#absSum").each(function(index, item){
 		var absValue = $(item).html().replace(/[\D\s\._\-]+/g, "");

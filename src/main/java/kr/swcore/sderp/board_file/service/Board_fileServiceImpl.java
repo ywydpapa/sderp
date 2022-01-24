@@ -83,7 +83,7 @@ public class Board_fileServiceImpl implements Board_fileService{
 	}
 	//자료실 filedata 상세 조회
 	@Override
-	public List<Board_fileDTO> board_filedata_detail(Board_fileDataDTO datadto) {
+	public List<Board_fileDataDTO> board_filedata_detail(Board_fileDataDTO datadto) {
 		// TODO Auto-generated method stub
 		return board_fileDao.board_filedata_detail(datadto);
 	}

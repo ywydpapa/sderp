@@ -26,48 +26,156 @@
 
 	<!--계약등록-->
 	<div class="cnt_wr">
-		<h5 class="cont_title"><i class="icofont icofont-square-right"></i>견적정보</h5>
+		<div class="row" >
+			<div class="col-xl-6" style="margin-top:10px;">
+				<h5 class="cont_title">
+					<i class="icofont icofont-square-right"></i>견적서 출력 정보
+				</h5>
+			</div>
+			<div class="col-xl-6" style="margin-bottom:5px;">
+				<a href="" class="btn btn-primary" id="btnPdf" onClick="javascript:popupPdf(); return false;" style="float:right;">견적서 출력</a>
+				<!-- hide and show -->
+				<button class="btn btn-success" id="fold" onclick="acordian_action()" style="z-index: 99; float:right; margin-right:5px;">펼치기</button>
+				<button class="btn btn-success" id="fold2" onclick="acordian_action1()" style="z-index: 10; display: none; float:right; margin-right:5px;">접기</button>
+				<!-- hide and show -->
+			</div>
+		</div>
 		<div class="row">
 			<div class="col-sm-12">
 				<div class="card-block table-border-style">
 					<div class="table-responsive">
 						<input type="hidden" id="compNo" value="${sessionScope.compNo}" />
 						<input type="hidden" id="userNo" value="${sessionScope.userNo}" />
+						<table class="table table-sm bst02" id="acordian" style="display:none;">
+						<colgroup>
+							<col width="5%"/>
+							<col width="15%"/>
+							<col width="5%"/>
+							<col width="15%"/>
+							<col width="5%"/>
+							<col width="15%"/>
+							<col width="5%"/>
+							<col width="15%"/>
+						</colgroup>
+							<tbody>
+								<tr>
+								<th class="text-center">견적서 출력</th>
+								<td>
+									<div class="form-radio">
+										<form>
+											<div class="radio radio-inline" style="margin-top:10px;">
+												<label> <input type="radio" name="titlePdf" value="radioOnTitle" checked="checked"> <i class="helper"></i>타이틀</label>
+											</div>
+											<div class="radio radio-inline" style="margin-top:10px;">
+												<label> <input type="radio" name="titlePdf" value="radioOffTitle" checked="checked"> <i class="helper"></i>타이틀 없음</label>
+											</div>
+											
+											<!--<a href="" class="btn btn-success" id="btnPdf" onClick="javascript:popupPdf(); return false;" style="float:right;">견적서 출력</a>-->
+										</form>
+									</div>
+								</td>
+								<!-- <td class="text-right" colspan="6" style="border-left:1px solid #fff;">
+									<div>
+										<button class="btn btn-primary" onClick="infoSave();">정보저장</button>
+									</div>
+								</td> -->
+							</tr>
+							<tr>
+								<th class="text-center requiredTextCss">상 호</th>
+									<td>
+										<input type="text" class="form-control" id="estComName"/>
+									</td>
+									
+								<th class="text-center requiredTextCss">대표이사</th>
+									<td>
+										<input type="text" class="form-control" id="estComBoss"/>
+									</td>
+									
+								<th class="text-center requiredTextCss">주 소</th>
+									<td>
+										<input type="text" class="form-control" id="estComAdd"/>
+									</td>
+									
+								<th class="text-center requiredTextCss">전 화</th>
+									<td>
+										<input type="text" class="form-control" id="estComPhone"/>
+									</td>
+							</tr>
+							<tr>
+								<th class="text-center requiredTextCss">팩 스</th>
+								<td>
+									<input type="text" class="form-control" id="estComFax"/>
+								</td>
+								<th class="text-center requiredTextCss">유효기간</th>
+								<td class="text-right">
+									<div class="input-group" style="margin:0;">
+										<span class="input-group-text" style="margin-top:5px;">견적일로 부터</span>&nbsp;
+										<input type="text" class="form-control" id="estComTerm" style="text-align:right;"/>&nbsp;
+										<span class="input-group-text" style="margin-top:5px;">주</span>
+									</div>
+								</td>
+								<th class="text-center"></th>
+							</tr>
+							<!--견적서 출력 input box -->
+							<!-- 유효기간&Remarks -->
+							<tr>			
+								<td colspan="10">
+								<textarea rows="5" id="estComSpec" class="form-control form-control-sm" placeholder="ex)결제조건은 검수(납품) 당월 계산서 발행, 익월 결제입니다."></textarea>
+								</td>
+							</tr>
+							<!-- 유효기간&Remarks -->
+							</tbody>
+						</table>
+						<div class="row" id="second_title" style="margin-top:20px;">
+							<div class="col-xl-6">
+								<h5 class="cont_title">
+									<i class="icofont icofont-square-right"></i>견적정보
+								</h5>
+							</div>
+						</div>
 						<table class="table table-sm bst02">
 							<colgroup>
-								<col width="15%" />
-								<col width="35%"/>
+								<col width="5%"/>
 								<col width="15%"/>
-								<col width="35%"/>
+								<col width="5%"/>
+								<col width="15%"/>
+								<col width="5%"/>
+								<col width="15%"/>
+								<col width="5%"/>
+								<col width="15%"/>
 							</colgroup>
 							<tbody>
 								<tr>
-									<th scope="row" class="text-center">연결 영업기회/계약</th>
-									<td colspan="3">
+									<th class="text-center">연결 영업기회/계약</th>
+									<td>
 										<div class="form-radio">
 											<form>
-												<div class="radio radio-inline">
+												<div class="radio radio-inline" style="margin-top:10px;">
 													<label> <input type="radio" name="contractType" value="SOPP" checked="checked"> <i class="helper"></i>영업기회</label>
 												</div>
 												<!-- <div class="radio radio-inline">
 													<label> <input type="radio" name="contractType" value="CONT"> <i class="helper"></i>계약</label>
 												</div> -->
-												<div class="radio radio-inline">
+												<div class="radio radio-inline" style="margin-top:10px;">
 													<label> <input type="radio" name="contractType" value="NFORM"> <i class="helper"></i>표준견적 작성</label>
-												</div>
-												<div class="radioLabel radio-inline">
-													<label style="color:red;">※ 표준견적 작성은 영업기회가 필요없습니다.</label>
 												</div>
 											</form>
 										</div>
 									</td>
+									<td colspan="4" class="radioLabel radio-inline" style="border:1px solid white; margin-top: 12px; font-size:11px;">
+										<label style="color:red;">※ 표준견적 작성은 영업기회가 필요없습니다.</label>
+									</td>
 								</tr>
-								<tr>
+								<tr>	
 									<th class="contDetailSopp text-center">영업기회</th>
-									<td class="contDetailSopp">
+									
+									<!--<td class="radioLabel radio-inline" style="margin-left: -5px;margin-bottom: 2px;width: 80px; height: 30px; border: 1px solid white;">
+										<label style="color:red;">※ 표준견적 작성은 영업기회가 필요없습니다.</label>
+									</td>-->
+									<td class="contDetailSopp" id="contDetailSopp_hide_motion">
 										<div class="input-group input-group-sm mb-0">
-											<input type="text" class="form-control col-xl-7" name="soppDTO" id="soppTitle" value="" readonly/>
-											<input type="hidden" class="form-control" name="soppDTO" id="soppNo" value="" />
+											<input type="text" class="form-control" name="soppDTO" id="soppTitle" readonly/>
+											<input type="hidden" class="form-control" name="soppDTO" id="soppNo" />
 											<span class="input-group-btn">
 												<button class="btn btn-primary sch-opportunity2"
 													data-remote="${path}/modal/popup.do?popId=sopp"
@@ -81,7 +189,8 @@
 													<div class="modal-content modal-80size">
 														<div class="modal-header">
 															<h4 class="modal-title"></h4>
-															<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+															<button type="button" class="close" data-dismiss="modal"
+																aria-label="Close">
 																<span aria-hidden="true">&times;</span>
 															</button>
 														</div>
@@ -90,7 +199,9 @@
 															<p>Loading!!!</p>
 														</div>
 														<div class="modal-footer">
-															<button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
+															<button type="button"
+																class="btn btn-default waves-effect "
+																data-dismiss="modal">Close</button>
 														</div>
 													</div>
 												</div>
@@ -100,8 +211,14 @@
 									<th class="text-center">견적고객</th>
 									<td>
 										<div class="input-group input-group-sm mb-0">
-											<input type="text" class="form-control col-xl-7" name="custName" id="custName" value="${dto.custName}" readonly><input type="hidden" name="custNo" id="custNo" value="${dto.custNo}" />
-											<span class="input-group-btn"><button class="btn btn-primary sch-company" data-remote="${path}/modal/popup.do?popId=cust" type="button" data-toggle="modal" data-target="#custModal">
+											<input type="text" class="form-control" name="custName"
+												id="custName" value="" readonly> <input
+												type="hidden" name="custNo" id="custNo"
+												value="${detail.custNo}" /> <span class="input-group-btn">
+												<button class="btn btn-primary sch-company"
+													data-remote="${path}/modal/popup.do?popId=cust"
+													type="button" data-toggle="modal"
+													data-target="#custModal">
 													<i class="icofont icofont-search"></i>
 												</button>
 											</span>
@@ -111,8 +228,7 @@
 													<div class="modal-content modal-80size">
 														<div class="modal-header">
 															<h4 class="modal-title">거래처검색</h4>
-															<button type="button" class="close"
-																data-dismiss="modal" aria-label="Close">
+															<button type="button						data-dismiss="modal" aria-label="Close">
 																<span aria-hidden="true">&times;</span>
 															</button>
 														</div>
@@ -128,35 +244,31 @@
 											</div>
 										</div>
 									</td>
-								</tr>
-								<tr>
 									<th class="text-center requiredTextCss">견적번호(*)</th>
 									<td>
 										<input type="text" class="form-control" id="estId" placeholder="자동생성 됩니다..." readonly>
 									</td>
 									<th class="text-center requiredTextCss">견적제목(*)</th>
 									<td>
-										<input type="text" class="form-control col-xl-7" id="estTitle">
+										<input type="text" class="form-control" id="estTitle">
 									</td>
 								</tr>
 								<tr>
 									<th class="text-center">견적버전</th>
 									<td>
-										<input type="text" class="form-control col-xl-7" id="estVer" placeholder="등록될 때 자동 등록" readonly>
+										<input type="text" class="form-control" id="estVer" placeholder="등록될 때 자동 등록" readonly>
 									</td>
 									<th class="text-center requiredTextCss">견적서 작성일자(*)</th>
 									<td>
-										<input type="date" id="estDate" name="estDate" class="form-control col-xl-7" style="text-align: right;" value="">
+										<input type="date" id="estDate" name="estDate" class="form-control" style="text-align: right;">
 									</td>
-								</tr>
-								<tr>
 									<th class="text-center">첨부파일</th>
 									<td>
-										<input class="form-control col-xl-7" type="file" id="addFile">
+										<input class="form-control" type="file" id="addFile">
 									</td>
 									<th class="text-center">부가세</th>
 									<td>
-										 <select name="vatYn" id="vatYn" class="form-control form-control-sm col-xl-7">
+										 <select name="vatYn" id="vatYn" class="form-control form-control-sm">
 											<option value="Y" selected>포함</option>
 											<option value="N" >비포함</option>
 										</select>
@@ -187,7 +299,28 @@
 	<%--출력영역--%>
 	<!--//계약등록-->
 	<script>
-
+		function acordian_action(){
+			if($("#acordian").css("display") == "none"){
+			    $("#acordian").show();
+			    $("#fold").hide();
+			    $("#fold2").show();
+	
+			} else {
+			    $("#acordian").hide();
+			    $("#fold").show();
+			}
+		}
+		function acordian_action1(){
+			if($("#acordian").css("display") != "none"){
+			    $("#acordian").hide();
+			    $("#fold").show();
+			    $("#fold2").hide();
+	
+			} else {
+			    $("#acordian").show();
+			    $("#fold").hide();
+			}
+		}
 		function solPdf(id){
 			var now = new Date();
 			var year = now.getFullYear();

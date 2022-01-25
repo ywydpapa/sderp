@@ -95,6 +95,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	update swc_cust 
 	set custName=#{custName}
 	,custBossname=#{custBossname}
+	,custVatno=#{custVatno}
 	,custEmail=#{custEmail}
 	,custVatemail=#{custVatemail}
 	where custNo=#{custNo}
@@ -104,6 +105,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	update swc_cust 
 	set custName=#{custName}
 	,custBossname=#{custBossname}
+	,custVatno=#{custVatno}
 	,custEmail=#{custEmail}
 	,custVatemail=#{custVatemail}
 	where custNo=#{custNo}

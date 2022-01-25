@@ -375,17 +375,45 @@
     	}
     	
     	var estFirstName = "VTEK" + year + month + "_";
-    	
     	var data02Data = {};
     	var updateData = {};
-    	
+    	var dataInfo = {};
+		
     	if($("#estTitle").val() === ""){
     		alert("견적제목을 입력해주세요.");
     		$("#estTitle").focus();
     	}else if($("#estDate").val() === ""){
     		alert("견적서 작성일자를 선택해주세요.");
     		$("#estDate").focus();
-    	}else{
+    	}else if($("#estComName").val() === ""){
+			alert("상호를 입력해주십시오.");
+			$("#estComName").focus();
+			return false;
+		}else if($("#estComBoss").val() === ""){
+			alert("대표이사명을 입력해주십시오.");
+			$("#estComBoss").focus();
+			return false;
+		}else if($("#estComAdd").val() === ""){
+			alert("주소를 입력해주십시오.");
+			$("#estComAdd").focus();
+			return false;
+		}else if($("#estComPhone").val() === ""){
+			alert("전화번호를 입력해주십시오.");
+			$("#estComPhone").focus();
+			return false;
+		}else if($("#estComFax").val() === ""){
+			alert("팩스번호를 입력해주십시오.");
+			$("#estComFax").focus();
+			return false;
+		}else if($("#estComTerm").val() === ""){
+			alert("견적서 유효기간을 입력해주십시오.");
+			$("#estComTerm").focus();
+			return false;
+		}else if(tinyMCE.get("estComSpec").getContent() === ""){
+			alert("Spec을 입력해주십시오.");
+			$("#estComSpec").focus();
+			return false;
+		}else{
     		data02Data.estTitle = $("#estTitle").val();
     		data02Data.estType = $("input[name='contractType']:checked").val();
     		data02Data.custNo = $("#custNo").val();
@@ -405,6 +433,27 @@
     			success: function(result){
     				updateData.estId = estFirstName + result.getId;
     				updateData.estNo = result.getId;
+    				
+    				dataInfo.estId = updateData.estId;
+    				dataInfo.estVer = 1;
+    				dataInfo.userNo = $("#userNo").val();
+    				dataInfo.compNo = $("#compNo").val();
+    				dataInfo.estComName = $("#estComName").val();
+    				dataInfo.estComBoss = $("#estComBoss").val();
+    				dataInfo.estComAdd = $("#estComAdd").val();
+    				dataInfo.estComPhone = $("#estComPhone").val();
+    				dataInfo.estComFax = $("#estComFax").val();
+    				dataInfo.estComTerm = $("#estComTerm").val();
+    				dataInfo.estComSpec = tinyMCE.get("estComSpec").getContent();
+    				
+    				$.ajax({
+    					url: "${path}/gw/estInfoInsert.do",
+    					method: "post",
+    					data: dataInfo,
+    					dataType: "json"
+    				});
+    				
+    				
     				$.ajax({
     					url: "${path}/gw/inserEstUpdate.do",
     					method: "post",
@@ -458,14 +507,43 @@
 	    	
 	    	var data02Data = {};
 	    	var updateData = {};
-	    	
+	    	var dataInfo = {};
+			
 	    	if($("#estTitle").val() === ""){
 	    		alert("견적제목을 입력해주세요.");
 	    		$("#estTitle").focus();
 	    	}else if($("#estDate").val() === ""){
 	    		alert("견적서 작성일자를 선택해주세요.");
 	    		$("#estDate").focus();
-	    	}else{
+	    	}else if($("#estComName").val() === ""){
+				alert("상호를 입력해주십시오.");
+				$("#estComName").focus();
+				return false;
+			}else if($("#estComBoss").val() === ""){
+				alert("대표이사명을 입력해주십시오.");
+				$("#estComBoss").focus();
+				return false;
+			}else if($("#estComAdd").val() === ""){
+				alert("주소를 입력해주십시오.");
+				$("#estComAdd").focus();
+				return false;
+			}else if($("#estComPhone").val() === ""){
+				alert("전화번호를 입력해주십시오.");
+				$("#estComPhone").focus();
+				return false;
+			}else if($("#estComFax").val() === ""){
+				alert("팩스번호를 입력해주십시오.");
+				$("#estComFax").focus();
+				return false;
+			}else if($("#estComTerm").val() === ""){
+				alert("견적서 유효기간을 입력해주십시오.");
+				$("#estComTerm").focus();
+				return false;
+			}else if(tinyMCE.get("estComSpec").getContent() === ""){
+				alert("Spec을 입력해주십시오.");
+				$("#estComSpec").focus();
+				return false;
+			}else{
 	    		data02Data.estTitle = $("#estTitle").val();
 	    		data02Data.estType = $("input[name='contractType']:checked").val();
 	    		data02Data.custNo = $("#custNo").val();
@@ -485,6 +563,26 @@
 	    			success: function(result){
 	    				updateData.estId = estFirstName + result.getId;
 	    				updateData.estNo = result.getId;
+	    				
+	    				dataInfo.estId = updateData.estId;
+	    				dataInfo.estVer = 1;
+	    				dataInfo.userNo = $("#userNo").val();
+	    				dataInfo.compNo = $("#compNo").val();
+	    				dataInfo.estComName = $("#estComName").val();
+	    				dataInfo.estComBoss = $("#estComBoss").val();
+	    				dataInfo.estComAdd = $("#estComAdd").val();
+	    				dataInfo.estComPhone = $("#estComPhone").val();
+	    				dataInfo.estComFax = $("#estComFax").val();
+	    				dataInfo.estComTerm = $("#estComTerm").val();
+	    				dataInfo.estComSpec = tinyMCE.get("estComSpec").getContent();
+	    				
+	    				$.ajax({
+	    					url: "${path}/gw/estInfoInsert.do",
+	    					method: "post",
+	    					data: dataInfo,
+	    					dataType: "json"
+	    				});
+	    				
 	    				$.ajax({
 	    					url: "${path}/gw/inserEstUpdate.do",
 	    					method: "post",
@@ -524,10 +622,19 @@
     }
 
     function fn_data02Update() {
-		var data02Data = {};
-		var updateData = {};
-		
-		updateData.estId = $("#estId").val();
+    	var getDate = new Date();
+    	
+    	var year = getDate.getFullYear();
+    	var month = getDate.getMonth()+1;
+    	
+    	if(month < 10){
+    		month = "0" + month;
+    	}
+    	
+    	var data02Data = {};
+    	var updateData = {};
+    	var dataInfoUpdate = {};
+    	var dataInfoInsert = {};
     	
     	if($("#estTitle").val() === ""){
     		alert("견적제목을 입력해주세요.");
@@ -535,8 +642,35 @@
     	}else if($("#estDate").val() === ""){
     		alert("견적서 작성일자를 선택해주세요.");
     		$("#estDate").focus();
-    	}else{
-    		data02Data.estId = updateData.estId;
+    	}else if($("#estComName").val() === ""){
+			alert("상호를 입력해주십시오.");
+			$("#estComName").focus();
+			return false;
+		}else if($("#estComBoss").val() === ""){
+			alert("대표이사명을 입력해주십시오.");
+			$("#estComBoss").focus();
+			return false;
+		}else if($("#estComAdd").val() === ""){
+			alert("주소를 입력해주십시오.");
+			$("#estComAdd").focus();
+			return false;
+		}else if($("#estComPhone").val() === ""){
+			alert("전화번호를 입력해주십시오.");
+			$("#estComPhone").focus();
+			return false;
+		}else if($("#estComFax").val() === ""){
+			alert("팩스번호를 입력해주십시오.");
+			$("#estComFax").focus();
+			return false;
+		}else if($("#estComTerm").val() === ""){
+			alert("견적서 유효기간을 입력해주십시오.");
+			$("#estComTerm").focus();
+			return false;
+		}else if(tinyMCE.get("estComSpec").getContent() === ""){
+			alert("Spec을 입력해주십시오.");
+			$("#estComSpec").focus();
+			return false;
+		}else{
     		data02Data.estTitle = $("#estTitle").val();
     		data02Data.estType = $("input[name='contractType']:checked").val();
     		data02Data.custNo = $("#custNo").val();
@@ -554,39 +688,92 @@
     			data: data02Data,
     			dataType: "json",
     			success: function(result){
-    				updateData.estId = updateData.estId;
-    				updateData.estNo = $("#estNo").val();
+    				updateData.estId = $("#estId").val();
+    				updateData.estNo = result.getId;
+    				
     				$.ajax({
     					url: "${path}/gw/inserEstUpdate.do",
     					method: "post",
     					data: updateData,
     					dataType: "json",
     					success:function(){
-		    				$.ajax({
-		    					url: "${path}/gw/selectVersion.do",
-		    					method: "post",
-		    					data: {
-		    						estId: updateData.estId,
-		    					},
-		    					dataType: "json",
-		    					success:function(data){
-									for(var i = 0; i < dataArray.length; i++){
-										dataArray[i].estId = updateData.estId;
-										dataArray[i].estVer = data.getVersion;
-										var JsonArray = JSON.stringify(dataArray[i]);
-						  				$.ajax({
-						  					url: "${path}/gw/insertEstitems.do",
-						  					method: "post",
-						  					data: JSON.parse(JsonArray),
-						  					dataType: "json",
-						  				});
-						 			}
-		    					}
-		    				});
+   		    				$.ajax({
+   		    					url: "${path}/gw/selectVersion.do",
+   		    					method: "post",
+   		    					data: {
+   		    						estId: updateData.estId,
+   		    					},
+   		    					dataType: "json",
+   		    					success:function(data){
+   									for(var i = 0; i < dataArray.length; i++){
+   										dataArray[i].estId = updateData.estId;
+   										dataArray[i].estVer = data.getVersion;
+   										var JsonArray = JSON.stringify(dataArray[i]);
+   						  				$.ajax({
+   						  					url: "${path}/gw/insertEstitems.do",
+   						  					method: "post",
+   						  					data: JSON.parse(JsonArray),
+   						  					dataType: "json",
+   						  				});
+   						 			}
+   									
+   		    					}
+  		    				});
+   		    				
+   							$.ajax({
+       							url: "${path}/gw/selectVersionEst.do",
+       							method: "post",
+       							data: {
+       								estId: updateData.estId,
+       							},
+       							dataType: "json",
+       							success:function(data){
+       								dataInfoUpdate.estId = updateData.estId;
+       								dataInfoUpdate.estVer = $("#estVer").val();
+       								dataInfoUpdate.userNo = $("#userNo").val();
+       								dataInfoUpdate.compNo = $("#compNo").val();
+       								dataInfoUpdate.estComName = $("#estComName").val();
+       								dataInfoUpdate.estComBoss = $("#estComBoss").val();
+       								dataInfoUpdate.estComAdd = $("#estComAdd").val();
+       								dataInfoUpdate.estComPhone = $("#estComPhone").val();
+       								dataInfoUpdate.estComFax = $("#estComFax").val();
+       								dataInfoUpdate.estComTerm = $("#estComTerm").val();
+       								dataInfoUpdate.estComSpec = tinyMCE.get("estComSpec").getContent();
+   		    	    				
+   		    	    				$.ajax({
+   		    							url: "${path}/gw/estInfoUpdate.do",
+   		    							method: "post",
+   		    							data: dataInfoUpdate,
+   		    							dataType: "json",
+   		    							success:function(){
+   		    								dataInfoInsert.estId = updateData.estId;
+   		    								dataInfoInsert.estVer = data.getVersion;
+   		    								dataInfoInsert.userNo = $("#userNo").val();
+   		    								dataInfoInsert.compNo = $("#compNo").val();
+   		    								dataInfoInsert.estComName = $("#estComName").val();
+   		    								dataInfoInsert.estComBoss = $("#estComBoss").val();
+   		    								dataInfoInsert.estComAdd = $("#estComAdd").val();
+   		    								dataInfoInsert.estComPhone = $("#estComPhone").val();
+   		    								dataInfoInsert.estComFax = $("#estComFax").val();
+   		    								dataInfoInsert.estComTerm = $("#estComTerm").val();
+   		    								dataInfoInsert.estComSpec = tinyMCE.get("estComSpec").getContent();
+   		    								
+   		    								$.ajax({
+   				    	    					url: "${path}/gw/estInfoInsert.do",
+   				    	    					method: "post",
+   				    	    					data: dataInfoInsert,
+   				    	    					dataType: "json",
+   				    	    					success:function(){
+   				    	    						alert("수정되었습니다.");
+   				    						 		location.href = "${path}/gw/estwrite.do";
+   				    	    					}
+   				    	    				});
+   		    							}
+   		    						});
+       							}
+       						});
     					}
     				});
-		 			alert("등록되었습니다.");
-		 			location.href = "${path}/gw/estwrite.do";
     			}
     		});
     	}

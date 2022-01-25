@@ -157,8 +157,9 @@
                         <table id="myDocTable" class="table table-striped table-bordered nowrap ">
                             <colgroup>
                                 <col width="10%"/>
-                                <col width="15%"/>
-                                <col width="15%"/>
+                                <col width="10%"/>
+                                <col width="10%"/>
+                                <col width="10%"/>
                                 <col width="30%"/>
                                 <col width="10%"/>
                                 <col width="10%"/>
@@ -169,6 +170,7 @@
                                 <th class="text-center">작성일자</th>
                                 <th class="text-center">문서번호</th>
                                 <th class="text-center">문서종류</th>
+                                <th class="text-center">거래처</th>
                                 <th class="text-center">문서명</th>
                                 <th class="text-center">금액</th>
                                 <th class="text-center">요청자</th>
@@ -198,6 +200,7 @@
 			                                    	<c:if test="${row.docType eq 'PUR'}">발주서</c:if>
 			                                    	<c:if test="${row.docType eq 'DIP'}">공문서</c:if>
 			                                    </td>
+			                                    <td class="text-center">${row.custName}</td>
 			                                    <td>${row.docTitle}</td>
 			                                    <td class="text-right">￦<fmt:formatNumber type="number" maxFractionDigits="3" value="${row.docAmount}" /></td>
 			                                    <td class="text-center">${row.userIsName}</td>
@@ -230,6 +233,7 @@
 			                                    	<c:if test="${row.docType eq 'PUR'}">발주서</c:if>
 			                                    	<c:if test="${row.docType eq 'DIP'}">공문서</c:if>
 			                                    </td>
+			                                    <td class="text-center">${row.custName}</td>
 			                                    <td>${row.docTitle}</td>
 			                                    <td class="text-right">￦<fmt:formatNumber type="number" maxFractionDigits="3" value="${row.docAmount}" /></td>
 			                                    <td class="text-center">${row.userIsName}</td>

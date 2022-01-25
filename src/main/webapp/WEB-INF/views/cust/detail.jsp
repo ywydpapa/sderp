@@ -73,7 +73,7 @@
 											<tr>
 												<th scope="row">사업자번호</th>
 												<td><input name="custVatno" id="custVatno"
-													value="${dto.custVatno}" readonly
+													value="${dto.custVatno}"
 													class="form-control form-control-sm"></td>
 											</tr>
 											<tr>
@@ -530,6 +530,7 @@
 			custData.custNo 		= $("#custNo").val();
 			custData.custName 		= $("#custName").val();
 			custData.custBossname 	= $("#custBossname").val();
+			custData.custVatno 		= $("#custVatno").val();
 			custData.custEmail 		= $("#custEmail").val();
 			custData.custVatemail 	= $("#custVatemail").val();
 

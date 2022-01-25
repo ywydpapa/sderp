@@ -32,16 +32,17 @@
 			<div class="col-xl-6" style="margin-top:10px;">
 				<h5 class="cont_title">
 					<i class="icofont icofont-square-right"></i>견적서 출력 정보
-					<!-- hide and show -->
-						<button class="btn btn-sm btn-primary" id="fold"
-							onclick="acordian_action()" style="z-index: 99">↓</button>
-						<button class="btn btn-sm btn-primary" id="fold2"
-							onclick="acordian_action1()" style="z-index: 10; display: none;">↑</button>
-						<!-- hide and show -->
 				</h5>
 			</div>
 			<div class="col-xl-6" style="margin-bottom:5px;">
-				<a href="" class="btn btn-success" id="btnPdf" onClick="javascript:popupPdf(); return false;" style="float:right;">견적서 출력</a>
+				<a href="" class="btn btn-primary" id="btnPdf" onClick="javascript:popupPdf(); return false;" style="float:right;">견적서 출력</a>
+				<!-- hide and show -->
+						<button class="btn btn-success" id="fold"
+							onclick="acordian_action()" style="z-index: 99; float:right; margin-right:5px;">펼치기</button>
+						<button class="btn btn-success" id="fold2"
+							onclick="acordian_action1()" style="z-index: 10; display: none; float:right; margin-right:5px;">접기</button>
+						<!-- hide and show -->
+				
 			</div>
 		</div>
 		

@@ -32,6 +32,12 @@
 			<div class="col-xl-6" style="margin-top:10px;">
 				<h5 class="cont_title">
 					<i class="icofont icofont-square-right"></i>견적서 출력 정보
+					<!-- hide and show -->
+						<button class="btn btn-sm btn-primary" id="fold"
+							onclick="acordian_action()" style="z-index: 99">↓</button>
+						<button class="btn btn-sm btn-primary" id="fold2"
+							onclick="acordian_action1()" style="z-index: 10; display: none;">↑</button>
+						<!-- hide and show -->
 				</h5>
 			</div>
 			<div class="col-xl-6" style="margin-bottom:5px;">
@@ -47,7 +53,7 @@
 						<input type="hidden" id="userNo" value="${sessionScope.userNo}" />
 						<input type="hidden" id="estNo" value="${detail.estNo}" />
 						<!--견적서 출력 input box -->
-						<table class="table table-sm bst02">
+						<table class="table table-sm bst02" id="acordian" style="display:none;">
 						<colgroup>
 								<col width="5%"/>
 								<col width="15%"/>
@@ -215,23 +221,19 @@
 												<div class="radio radio-inline" style="margin-top:10px;">
 													<label> <input type="radio" name="contractType" value="NFORM"> <i class="helper"></i>표준견적 작성</label>
 												</div>
-												<!--<div class="radioLabel radio-inline" style="margin-top:10px;">
-													<label style="color:red;">※ 표준견적 작성은 영업기회가 필요없습니다.</label>
-												</div> 
-												<td class="radioLabel radio-inline" style="display:none;">
-										<label style="color:red;">※ 표준견적 작성은 영업기회가 필요없습니다.</label>
-									</td>
-												-->
 											</form>
 										</div>
+									</td>
+									<td colspan="4" class="radioLabel radio-inline" style="border:1px solid white; margin-top: 12px; font-size:11px;">
+										<label style="color:red;">※ 표준견적 작성은 영업기회가 필요없습니다.</label>
 									</td>
 								</tr>
 								<tr>	
 									<th class="contDetailSopp text-center">영업기회</th>
 									
-									<td class="radioLabel radio-inline" style="margin-left: -5px;margin-bottom: 2px;width: 80px; height: 30px; border: 1px solid white;">
+									<!--<td class="radioLabel radio-inline" style="margin-left: -5px;margin-bottom: 2px;width: 80px; height: 30px; border: 1px solid white;">
 										<label style="color:red;">※ 표준견적 작성은 영업기회가 필요없습니다.</label>
-									</td>
+									</td>-->
 									<td class="contDetailSopp" id="contDetailSopp_hide_motion">
 										<div class="input-group input-group-sm mb-0">
 											<input type="text" class="form-control" name="soppDTO" id="soppTitle" value="${detail.soppTitle}" readonly/>
@@ -382,6 +384,31 @@
 		<button class="btn btn-md btn-inverse" onClick="javascript:location='${path}/gw/estlist.do'">취소</button>
 	</div>
 	<!--//계약등록-->
+	
+	<script>
+	function acordian_action(){
+		if($("#acordian").css("display") == "none"){
+		    $("#acordian").show();
+		    $("#fold").hide();
+		    $("#fold2").show();
+
+		} else {
+		    $("#acordian").hide();
+		    $("#fold").show();
+		}
+	}
+	function acordian_action1(){
+		if($("#acordian").css("display") != "none"){
+		    $("#acordian").hide();
+		    $("#fold").show();
+		    $("#fold2").hide();
+
+		} else {
+		    $("#acordian").show();
+		    $("#fold").hide();
+		}
+	}
+</script>
 
 	<script>
 		function popupPdf(){
@@ -426,11 +453,11 @@
 	
 		$("[name='contractType']").change(function(){
 			if($(this).val() === "NFORM"){
-				$("#contDetailSopp_hide_motion").hide();
+				$(".contDetailSopp").hide();
 				$(".radioLabel").show();
 			}else{
 				$(".radioLabel").hide();
-				$("#contDetailSopp_hide_motion").show();
+				$(".contDetailSopp").show();
 			}
 		});
 		

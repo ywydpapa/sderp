@@ -49,5 +49,6 @@ public interface GwDAO {
     GwFileDataDTO downloadFile(GwFileDataDTO dto);
     List<GwDTO> getEstSopp(GwDTO dto);
     GwDTO selectVersion(GwDTO dto);
+    GwDTO selectVersionEst(GwDTO dto);
     GwDTO comList(int compNo);
 }

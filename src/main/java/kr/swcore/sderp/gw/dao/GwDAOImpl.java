@@ -230,6 +230,12 @@ public class GwDAOImpl implements GwDAO{
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne("gw.selectVersion", dto);
 	}
+	
+	@Override
+	public GwDTO selectVersionEst(GwDTO dto) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("gw.selectVersionEst", dto);
+	}
 
 	@Override
 	public GwDTO comList(int compNo) {

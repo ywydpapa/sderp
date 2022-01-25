@@ -237,7 +237,7 @@ function solPdf(){
 	
 	if(now.getDate() < 10){
 		var date = "0" + now.getDate();
-	}else{x
+	}else{
 		var date = now.getDate();
 	}
 	
@@ -252,40 +252,7 @@ function solPdf(){
 	}).save();
 }
 
-function romanize(num) {
-    if (isNaN(num))
-        return NaN;
-    var digits = String(+num).split(""),
-        key = ["","C","CC","CCC","CD","D","DC","DCC","DCCC","CM",
-               "","X","XX","XXX","XL","L","LX","LXX","LXXX","XC",
-               "","I","II","III","IV","V","VI","VII","VIII","IX"],
-        roman = "",
-        i = 3;
-    while (i--)
-        roman = (key[+digits.pop() + (i * 10)] || "") + roman;
-    return Array(+digits.join("") + 1).join("M") + roman;
-}
-
 $(document).ready(function(){
-	var temp = [];
-	var dataTemp = {};
-	
-	if($("#mainTable tbody tr").find("#titleNumber")){
-		$("#mainTable tbody tr").find("#titleNumber").each(function(index, item){
-			$(this).html(romanize($(this).attr("data-number")));
-		});
-	}
-	
-	if($("#mainTable tbody tr").find(".noTitleTd")){
-		$("#mainTable tbody tr").find(".noTitleTd").each(function(index, item){
-			var rows = $(".noTitleTd:contains('" + $(this).text() + "')");
-	        if (rows.length > 1) {
-	            rows.eq(0).attr("rowspan", rows.length);
-	            rows.not(":eq(0)").remove();
-	        }
-		});
-	}
-	
 	solPdf();
 });
 </script>

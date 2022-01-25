@@ -135,6 +135,15 @@ public class GwController {
     	
     	return getVersion;
     }
+    
+    @ResponseBody
+    @RequestMapping("selectVersionEst.do")
+    public GwDTO selectVersionEst(HttpSession session, ModelAndView mav, @ModelAttribute GwDTO dto) 
+    {
+    	GwDTO getVersion = gwService.selectVersionEst(session, dto);
+    	
+    	return getVersion;
+    }
 
     @RequestMapping("estlist.do")
     public ModelAndView estList(HttpSession session, ModelAndView mav,

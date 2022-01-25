@@ -24,8 +24,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         select IFNULL(MAX(estVer), 0)+1 as getVersion from swc_estitems where estId = #{estId} and compNo = #{compNo};
     </select>
     
+    <select id="selectVersionEst" resultType="gwDto">
+        select IFNULL(MAX(estVer), 0) as getVersion from swc_est where estId = #{estId} and compNo = #{compNo};
+    </select>
+    
     <select id="infoGetItem" resultType="gwDto">
-    	select * from swc_estInfo where estId = #{estId} and estVer = #{estVer} order by estId desc limit 1;
+    	select * from swc_estInfo where estId = #{estId} and estVer = #{estVer} and attrib not like 'XXX%' order by estId desc limit 1;
     </select>
 
     <insert id="insertest" useGeneratedKeys="true" keyProperty="getId">
@@ -126,7 +130,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	    	estComFax,
 	    	estComTerm,
 	    	estComSpec,
-	    	regDate
+	    	regDate,
+	    	attrib
 	    ) values (
 	    	#{estId},
 	    	#{estVer},
@@ -139,7 +144,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	    	#{estComFax},
 	    	#{estComTerm},
 	    	#{estComSpec},
-	        now()
+	        now(),
+	        '10000'
 	    );
     </insert>
 
@@ -152,6 +158,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		update swc_estitems set
 			attrib = "XXXXX",
 		    ModDate = now()
+		where estId = #{estId};
+		
+		update swc_estinfo set
+			attrib = "XXXXX"
 		where estId = #{estId};
 	</update>
 	
@@ -167,14 +177,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<update id="estInfoUpdate">
 		update swc_estInfo set
-		userNo = #{userNo},
-		estComName = #{estComName},
-		estComBoss = #{estComBoss},
-		estComAdd = #{estComAdd},
-		estComPhone = #{estComPhone},
-		estComFax = #{estComFax},
-		estComTerm = #{estComTerm},
-		estComSpec = #{estComSpec}
+		attrib = 'XXXXX'
 		where estId = #{estId} and estVer = #{estVer} and compNo = #{compNo};
 	</update>
 
@@ -211,7 +214,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 
 	<select id="myList" resultType="gwDto">
-		select a.*, b.appStatus from swc_businessdoc a left join swc_businessdocapp b on a.docNo = b.docNo where a.attrib not like 'XXX%' and a.docCrUserNo = #{docCrUserNo};
+		select a.*, b.appStatus, c.custName from swc_businessdoc a left join swc_businessdocapp b on a.docNo = b.docNo left join swc_cust c on a.linkCustNo = c.custNo where a.attrib not like 'XXX%' and a.docCrUserNo = #{docCrUserNo};
 	</select>
 	
 	<select id="comList" resultType="gwDto">
@@ -235,9 +238,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<select id="myDocList" resultType="gwDto">
-		select a.*, c.userName as userIsName, b.appStatus from swc_businessdoc a 
+		select a.*, c.userName as userIsName, b.appStatus, d.custName from swc_businessdoc a 
 		left join swc_businessdocapp b on a.docNo = b.docNo 
 		left join swc_user c on c.userNo = b.userNoIS 
+		left join swc_cust d on a.linkCustNo = d.custNo
 		where a.attrib not like 'XXX%' and b.compNo = #{compNo} and a.docStatus = 2 and b.appStatus BETWEEN 2 and 4 and b.appStatus != 3;
 	</select>
 	

@@ -27,7 +27,6 @@
 	<!--계약등록-->
 	
 	<div class="cnt_wr">
-		
 		<div class="row" >
 			<div class="col-xl-6" style="margin-top:10px;">
 				<h5 class="cont_title">
@@ -37,15 +36,11 @@
 			<div class="col-xl-6" style="margin-bottom:5px;">
 				<a href="" class="btn btn-primary" id="btnPdf" onClick="javascript:popupPdf(); return false;" style="float:right;">견적서 출력</a>
 				<!-- hide and show -->
-						<button class="btn btn-success" id="fold"
-							onclick="acordian_action()" style="z-index: 99; float:right; margin-right:5px;">펼치기</button>
-						<button class="btn btn-success" id="fold2"
-							onclick="acordian_action1()" style="z-index: 10; display: none; float:right; margin-right:5px;">접기</button>
-						<!-- hide and show -->
-				
+				<button class="btn btn-success" id="fold" onclick="acordian_action()" style="z-index: 99; float:right; margin-right:5px;">펼치기</button>
+				<button class="btn btn-success" id="fold2" onclick="acordian_action1()" style="z-index: 10; display: none; float:right; margin-right:5px;">접기</button>
+				<!-- hide and show -->
 			</div>
 		</div>
-		
 		<div class="row">
 			<div class="col-sm-12">
 				<div class="card-block table-border-style">
@@ -53,71 +48,72 @@
 						<input type="hidden" id="compNo" value="${sessionScope.compNo}" />
 						<input type="hidden" id="userNo" value="${sessionScope.userNo}" />
 						<input type="hidden" id="estNo" value="${detail.estNo}" />
+						<input type="hidden" id="estVer" value="${detail.estVer}" />
 						<!--견적서 출력 input box -->
 						<table class="table table-sm bst02" id="acordian" style="display:none;">
 						<colgroup>
-								<col width="5%"/>
-								<col width="15%"/>
-								<col width="5%"/>
-								<col width="15%"/>
-								<col width="5%"/>
-								<col width="15%"/>
-								<col width="5%"/>
-								<col width="15%"/>
-							</colgroup>
+							<col width="5%"/>
+							<col width="15%"/>
+							<col width="5%"/>
+							<col width="15%"/>
+							<col width="5%"/>
+							<col width="15%"/>
+							<col width="5%"/>
+							<col width="15%"/>
+						</colgroup>
 						<tbody>
 							<tr>
 								<th class="text-center">견적서 출력</th>
-									<td>
-										<div class="form-radio">
-											<form>
-												<div class="radio radio-inline" style="margin-top:10px;">
-													<label> <input type="radio" name="titlePdf" value="radioOnTitle" checked="checked"> <i class="helper"></i>타이틀</label>
-												</div>
-												<div class="radio radio-inline" style="margin-top:10px;">
-													<label> <input type="radio" name="titlePdf" value="radioOffTitle" checked="checked"> <i class="helper"></i>타이틀 없음</label>
-												</div>
-												
-												<!--<a href="" class="btn btn-success" id="btnPdf" onClick="javascript:popupPdf(); return false;" style="float:right;">견적서 출력</a>-->
-											</form>
-										</div>
-									</td>
-									<td class="text-right" colspan="6" style="border-left:1px solid #fff;">
-										<div>
-											<button class="btn btn-primary" onClick="infoSave();">정보저장</button>
-										</div>
-									</td>
+								<td>
+									<div class="form-radio">
+										<form>
+											<div class="radio radio-inline" style="margin-top:10px;">
+												<label> <input type="radio" name="titlePdf" value="radioOnTitle" checked="checked"> <i class="helper"></i>타이틀</label>
+											</div>
+											<div class="radio radio-inline" style="margin-top:10px;">
+												<label> <input type="radio" name="titlePdf" value="radioOffTitle" checked="checked"> <i class="helper"></i>타이틀 없음</label>
+											</div>
+											
+											<!--<a href="" class="btn btn-success" id="btnPdf" onClick="javascript:popupPdf(); return false;" style="float:right;">견적서 출력</a>-->
+										</form>
+									</div>
+								</td>
+								<!-- <td class="text-right" colspan="6" style="border-left:1px solid #fff;">
+									<div>
+										<button class="btn btn-primary" onClick="infoSave();">정보저장</button>
+									</div>
+								</td> -->
 							</tr>
 							<c:choose>
 								<c:when test="${empty infoItem}">
 									<input type="hidden" id="infoItemFlag" value="0" />
 									<tr>
-										<th class="text-center">상 호</th>
+										<th class="text-center requiredTextCss">상 호</th>
 											<td>
 												<input type="text" class="form-control" id="estComName" value="${comList.comName}"/>
 											</td>
 											
-										<th class="text-center">대표이사</th>
+										<th class="text-center requiredTextCss">대표이사</th>
 											<td>
 												<input type="text" class="form-control" id="estComBoss" value="${comList.comBoss}"/>
 											</td>
 											
-										<th class="text-center">주 소</th>
+										<th class="text-center requiredTextCss">주 소</th>
 											<td>
 												<input type="text" class="form-control" id="estComAdd" value="${comList.comAddress}"/>
 											</td>
 											
-										<th class="text-center">전 화</th>
+										<th class="text-center requiredTextCss">전 화</th>
 											<td>
 												<input type="text" class="form-control" id="estComPhone"value="${comList.comPhone}"/>
 											</td>
 									</tr>
 									<tr>
-										<th class="text-center">팩 스</th>
+										<th class="text-center requiredTextCss">팩 스</th>
 										<td>
 											<input type="text" class="form-control" id="estComFax" value="${comList.comFax}"/>
 										</td>
-										<th class="text-center">유효기간</th>
+										<th class="text-center requiredTextCss">유효기간</th>
 										<td class="text-right">
 											<div class="input-group" style="margin:0;">
 												<span class="input-group-text" style="margin-top:5px;">견적일로 부터</span>&nbsp;
@@ -139,32 +135,32 @@
 								<c:otherwise>
 									<input type="hidden" id="infoItemFlag" value="1" />
 									<tr>
-										<th class="text-center">상 호</th>
+										<th class="text-center requiredTextCss">상 호</th>
 											<td>
 												<input type="text" class="form-control" id="estComName" value="${infoItem.estComName}"/>
 											</td>
 											
-										<th class="text-center">대표이사</th>
+										<th class="text-center requiredTextCss">대표이사</th>
 											<td>
 												<input type="text" class="form-control" id="estComBoss" value="${infoItem.estComBoss}"/>
 											</td>
 											
-										<th class="text-center">주 소</th>
+										<th class="text-center requiredTextCss">주 소</th>
 											<td>
 												<input type="text" class="form-control" id="estComAdd" value="${infoItem.estComAdd}"/>
 											</td>
 											
-										<th class="text-center">전 화</th>
+										<th class="text-center requiredTextCss">전 화</th>
 											<td>
 												<input type="text" class="form-control" id="estComPhone"value="${infoItem.estComPhone}"/>
 											</td>
 									</tr>
 									<tr>
-										<th class="text-center">팩 스</th>
+										<th class="text-center requiredTextCss">팩 스</th>
 										<td>
 											<input type="text" class="form-control" id="estComFax" value="${infoItem.estComFax}"/>
 										</td>
-										<th class="text-center">유효기간</th>
+										<th class="text-center requiredTextCss">유효기간</th>
 										<td class="text-right">
 											<div class="input-group" style="margin:0;">
 												<span class="input-group-text" style="margin-top:5px;">견적일로 부터</span>&nbsp;
@@ -385,33 +381,29 @@
 		<button class="btn btn-md btn-inverse" onClick="javascript:location='${path}/gw/estlist.do'">취소</button>
 	</div>
 	<!--//계약등록-->
+	<script>
+		function acordian_action(){
+			if($("#acordian").css("display") == "none"){
+			    $("#acordian").show();
+			    $("#fold").hide();
+			    $("#fold2").show();
 	
-	<script>
-	function acordian_action(){
-		if($("#acordian").css("display") == "none"){
-		    $("#acordian").show();
-		    $("#fold").hide();
-		    $("#fold2").show();
-
-		} else {
-		    $("#acordian").hide();
-		    $("#fold").show();
+			} else {
+			    $("#acordian").hide();
+			    $("#fold").show();
+			}
 		}
-	}
-	function acordian_action1(){
-		if($("#acordian").css("display") != "none"){
-		    $("#acordian").hide();
-		    $("#fold").show();
-		    $("#fold2").hide();
-
-		} else {
-		    $("#acordian").show();
-		    $("#fold").hide();
+		function acordian_action1(){
+			if($("#acordian").css("display") != "none"){
+			    $("#acordian").hide();
+			    $("#fold").show();
+			    $("#fold2").hide();
+	
+			} else {
+			    $("#acordian").show();
+			    $("#fold").hide();
+			}
 		}
-	}
-</script>
-
-	<script>
 		function popupPdf(){
 			var nWidth = "800";
 			var nHeight = "1000";
@@ -502,7 +494,7 @@
 			$("#productdataModal2").find(".modal-footer button").trigger('click');
 		}
 		
-		function infoSave(){
+		/* function infoSave(){
 			var dataInfo = {};
 			var estVer = "${detail.estVer}";
 			
@@ -571,7 +563,7 @@
 					});
 				}
 			}
-		}
+		} */
 
 		function fn_SaveContIO() {
 			var contData = {};

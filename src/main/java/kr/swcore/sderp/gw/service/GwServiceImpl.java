@@ -282,6 +282,14 @@ public class GwServiceImpl implements GwService{
 		dto.setCompNo(compNo);
 		return gwDao.selectVersion(dto);
 	}
+	
+	@Override
+	public GwDTO selectVersionEst(HttpSession session, GwDTO dto) {
+		// TODO Auto-generated method stub
+		int compNo = SessionInfoGet.getCompNo(session);
+		dto.setCompNo(compNo);
+		return gwDao.selectVersionEst(dto);
+	}
 
 	@Override
 	public GwDTO comList(HttpSession session) {

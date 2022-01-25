@@ -487,8 +487,6 @@
     }
 
     function fn_tempInsert() {
-    	var uploadForm = $('#uploadForm')[0];
-		var uploadData = new FormData(uploadForm);
 		var showDocType = "";
     	var data02Data = {};
     	var data02App = {};
@@ -507,6 +505,9 @@
             return false;
         }else if($("#docUserNo").val() == $("#userNo").val()){
             alert("자신에게 요청할 수 없습니다.");
+            return false;
+        }else if($("#docDate").val() == ""){
+            alert("작성일자를 입력해주십시오.");
             return false;
         }else{
     		data02Data.docCrUserNo = $("#docUserNo").val();
@@ -534,16 +535,6 @@
     				data02App.userNoAPP = $("#userNo").val();
    					data02App.appStatus = 1;
     				data02App.issueDate = $("#issueDate").val();
-    				
-    				if(uploadData.get('file').name){
-	    				$.ajax({
-	    					url : "${path}/gw/uploadfile/"+data.getId,
-	    					method : "POST",
-	    					data : uploadData,
-	    					contentType : false,
-	    					processData : false,
-	    				});
-    				}
     				
     				$.ajax({
     					url: "${path}/gw/insertApp.do",
@@ -625,14 +616,26 @@
     				data02App.docNo = docNo;
     				data02App.userNoAPP = $("#userNo").val();
     				
-    				if($("[name='contractType']:checked").val() === "TREQ"){
-    					data02App.appStatus = 2;
+    				if($("#appStatus").val() == 1){
+    					data02App.appStatus = 1;
     				}else{
-	    				data02App.appStatus = 4;
+	    				if($("[name='contractType']:checked").val() === "TREQ"){
+	    					data02App.appStatus = 2;
+	    				}else{
+		    				data02App.appStatus = 4;
+	    				}
     				}
     				
     				data02App.appDate = $("#appDate").val();
-    				data02App.appComment = tinyMCE.get("appComment").getContent();
+    				
+    				console.log($("#appComment").val());
+    				
+     				if($("#appComment").val() === undefined){
+    					data02App.appComment = "";	    					
+    				}else{
+	    				data02App.appComment = tinyMCE.get("appComment").getContent();
+    				}
+    				
     				
     				$.ajax({
     					url: "${path}/gw/updateApp.do",
@@ -721,7 +724,6 @@
                     data02App.docNo = docNo;
                     data02App.userNoAPP = $("#userNo").val();
                     data02App.issueDate = $("#issueDate").val();
-                    data02App.appStatus = 2;
 
                     $.ajax({
                         url: "${path}/gw/updateApp.do",

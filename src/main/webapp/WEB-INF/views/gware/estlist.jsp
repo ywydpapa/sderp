@@ -162,17 +162,19 @@
 							<colgroup>
 								<col width="5%"/>
 								<col width="10%"/>
-								<col width="15%"/>
-								<col width="10%"/>
-								<col width="10%"/>
-								<col width="10%"/>
 								<col width="10%"/>
 								<col width="30%"/>
+								<col width="10%"/>
+								<col width="5%"/>
+								<col width="5%"/>
+								<col width="5%"/>
+								<col width="20%"/>
 							</colgroup>							
 							<thead>
 								<tr>
 									<th class="text-center">견적일자</th>
 									<th class="text-center">작성자</th>
+									<th class="text-center">견적번호</th>
 									<th class="text-center">견적명</th>
 									<th class="text-center">거래처</th>
 									<th class="text-center">공급가합계</th>
@@ -186,9 +188,10 @@
 								<tr>
 									<td class="text-center">${row.estDate}</td>
 									<td class="text-center">${row.userName}</td>
-									<td>
+									<td class="text-center">
 										<a href="${path}/gw/estdetail/${row.estId}/${row.estVer}">${row.estId}</a>
 									</td>
+									<td class="text-center">${row.estTitle}</td>
 									<td class="text-center">${row.custName}</td>
 									<td class="text-right"><fmt:formatNumber type="number" maxFractionDigits="3" value="${row.estAmount}" /></td>
 									<td class="text-right"><fmt:formatNumber type="number" maxFractionDigits="3" value="${row.estVat}" /></td>

@@ -128,7 +128,7 @@ th, td{
 			<img src="${path}/images/pdf_logo_right.png" id="logoRight" />
 		</div>
 		<div id="pdfTitle">
-			<div id="titlePdf">발&ensp;주&ensp;서</div>
+			<div id="titlePdf">purchase order</div>
 		</div>
 		<table id="headList">
 			<tr>
@@ -177,7 +177,7 @@ th, td{
 					<th style="border-left:1px solid #000;">No.</th>
 					<th>품 명 / 규 격</th>
 					<th>수량</th>
-					<th>소비자가</th>
+					<th>부가세</th>
 					<th>공급 단가</th>
 					<th>합계</th>
 					<th>비고</th>
@@ -189,7 +189,7 @@ th, td{
 			    		<td style="text-align: center;">${status.index+1}</td>
 			    		<td style='text-align: center;'>${row.productName}</td>
 			    		<td style='text-align: center;'>${row.productQty}</td>
-			    		<td></td>
+			    		<td style="text-align: right;"><fmt:formatNumber value="${row.productVat}" pattern="#,###" /></td>
 			    		<td style='text-align: right;'><fmt:formatNumber value="${row.productAmount}" pattern="#,###" /></td>
 			    		<td style='text-align: right;'><fmt:formatNumber value="${row.productTotal}" pattern="#,###" /></td>
 			    		<td></td>
@@ -213,7 +213,7 @@ th, td{
 			</tbody>
 		</table>
 		<div id="pdfRemarks">
-			<h3>상세내용<br>
+			<h3>Remarks<br>
 				<span>${detailList.docDesc}</span>
 			</h3>
 		</div>

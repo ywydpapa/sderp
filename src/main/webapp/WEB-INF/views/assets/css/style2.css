@@ -135,5 +135,6 @@ select.form-control:not([size]):not([multiple]) {height: calc(3rem + -14px);}
 		margin-left: 5px;
 		width: 84px!important;
 	}
-	
-	
+	.modal-content {
+		width: 120%;
+	}

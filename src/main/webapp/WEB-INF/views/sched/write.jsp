@@ -55,7 +55,7 @@
 								</tr>
 								<tr>
 									<th scope="row">장소</th>
-									<td><input type="text" class="form-control form-control-sm"
+									<td><input type="text" class="form-control"
 										id="schedPlace" name="schedPlace" placeholder="장소를 입력하세요">
 									</td>
 									<th scope="row">계약 관련</th>
@@ -254,7 +254,7 @@
 									</td>
 									<th scope="row">일정구분</th>
 									<td><select name="schedType" id="schedType"
-										class="form-control form-control-sm">
+										class="form-control">
 											<option value="">기타일정</option>
 											<%-- <c:forEach var="schedtype" items="${schedtype}">
 												<option value="${schedtype.codeNo}">${schedtype.desc03}</option>
@@ -262,7 +262,7 @@
 									</select></td>
 									<th scope="row">활동형태</th>
 									<td><select name="schedCat" id="schedCat"
-										class="form-control form-control-sm">
+										class="form-control">
 											<option value="">선택</option>
 											<c:forEach var="acttype" items="${acttype}">
 												<option value="${acttype.codeNo}">${acttype.desc03}</option>
@@ -272,7 +272,7 @@
 								<tr>
 									<th scope="row" class="requiredTextCss">제목</th>
 									<td><input type="text"
-										class="form-control form-control-sm" id="schedTitle"
+										class="form-control" id="schedTitle"
 										name="schedTitle" placeholder=""></td>
 									<th></th>
 									<td></td>
@@ -413,7 +413,7 @@
 		}
 		
 		setTimeComboBox(['#startTime', '#endTime']);
-
+		
 	</script>
 <c:if test="${empty simple}">
 </div>

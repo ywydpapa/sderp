@@ -55,6 +55,7 @@
                         <input type="text" class="form-control" name="product" id="productSalesInOutCustName" value="" readonly>
                         <input type="hidden" id="productSalesInOutCustNo" value="" />
                         <input type="hidden" id="soppdataNo" value="">
+                        <input type="hidden" id="soppNo"value="${dto.soppNo}">
                         <span class="input-group-btn">
                             <button class="btn btn-primary sch-company" data-remote="${path}/modal/popup.do?popId=productdataListSalesInOutCust" type="button" data-toggle="modal" data-target="#productCustModal2">
                                 <i class="icofont icofont-search"></i>
@@ -380,7 +381,9 @@
                 $("#data01Amt").val("");
                 $("#data01Remark").val("");
 				
-                location.href = "${path}/"+path.replace("${path}/", "");
+                var url="${path}/sopp/inoutlist/"+$("#soppNo").val() + "/#tab02";
+				fn_Reloaddata01(url);
+                
             }else{
                 alert("저장 실패");
             }

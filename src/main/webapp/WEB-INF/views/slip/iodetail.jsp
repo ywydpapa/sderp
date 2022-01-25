@@ -47,10 +47,14 @@
 					<div class="table-responsive">
 						<table class="table table-sm bst02">
 							<colgroup>
+								<col width="5%" />
 								<col width="15%" />
-								<col width="35%"/>
-								<col width="15%"/>
-								<col width="35%"/>
+								<col width="5%" />
+								<col width="15%" />
+								<col width="5%" />
+								<col width="15%" />
+								<col width="5%" />
+								<col width="15%" />
 							</colgroup>
 							<tbody>
 								<tr>
@@ -59,7 +63,7 @@
 										<div class="form-radio">
 											<form>
 												<div class="radio radio-inline">
-													<label> <input type="radio" name="contractType" value="NEW" checked="checked"> <i class="helper"></i>영업기회</label>
+													<label style="margin-top:10px;"> <input type="radio" name="contractType" value="NEW" checked="checked"> <i class="helper"></i>영업기회</label>
 												</div>
 												<div class="radio radio-inline">
 													<label> <input type="radio" name="contractType" value="OLD"> <i class="helper"></i>계약</label>
@@ -144,8 +148,6 @@
 									<td>
 										<input class="form-control" type="file" id="addFile">
 									</td>
-								</tr>
-								<tr>
 									<th class="text-center">과세/비과세</th>
 									<td>
 										 <select name="vatYn" id="vatYn" class="form-control form-control-sm">
@@ -363,4 +365,3 @@
 	</script>
 </div>
 <jsp:include page="../body-bottom.jsp"/>
-

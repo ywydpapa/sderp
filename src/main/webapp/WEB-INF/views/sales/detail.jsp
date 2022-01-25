@@ -33,20 +33,24 @@
 					<div class="table-responsive">
 						<table class="table table-sm bst02">
 							<colgroup>
-								<col width="15%" />
-								<col width="35%" />
-								<col width="15%" />
-								<col width="35%" />
+								<col width="5%"/>
+								<col width="15%"/>
+								<col width="5%"/>
+								<col width="15%"/>
+								<col width="5%"/>
+								<col width="15%"/>
+								<col width="5%"/>
+								<col width="15%"/>
 							</colgroup>
 							<tbody>
 								<tr>
 									<th scope="row" class="requiredTextCss">활동일</th>
 									<td colspan="3">
 										<div class="input-group input-group-sm mb-0 mr-1">
-											<input id="salesFrdatetime" class="form-control form-control form-control-sm col-md-4 m-r-10" type="date" value ="" onChange="javascript:inputDate(setDateHourMinute($('#salesFrdatetime').val(), $('#startTime').val()), setDateHourMinute($('#salesTodatetime').val(), $('#endTime').val()), this)">
+											<input id="salesFrdatetime" class="form-control col-xl-2" type="date" value ="" onChange="javascript:inputDate(setDateHourMinute($('#salesFrdatetime').val(), $('#startTime').val()), setDateHourMinute($('#salesTodatetime').val(), $('#endTime').val()), this)">
 											<select id="startTime" style="width:100px" onChange="javascript:inputDate(setDateHourMinute($('#salesFrdatetime').val(), $('#startTime').val()), setDateHourMinute($('#salesTodatetime').val(), $('#endTime').val()), this)"></select>
-											<span> ~ </span>
-											<input id="salesTodatetime" class="form-control form-control form-control-sm col-md-4 m-r-10" type="date" value ="" onChange="javascript:inputDate(setDateHourMinute($('#salesFrdatetime').val(), $('#startTime').val()), setDateHourMinute($('#salesTodatetime').val(), $('#endTime').val()), this)">
+											<span style="line-height:30px;">&nbsp;~&nbsp;</span>
+											<input id="salesTodatetime" class="form-control col-xl-2" type="date" value ="" onChange="javascript:inputDate(setDateHourMinute($('#salesFrdatetime').val(), $('#startTime').val()), setDateHourMinute($('#salesTodatetime').val(), $('#endTime').val()), this)">
 											<select id="endTime" style="width:100px" onChange="javascript:inputDate(setDateHourMinute($('#salesFrdatetime').val(), $('#startTime').val()), setDateHourMinute($('#salesTodatetime').val(), $('#endTime').val()), this)"></select>
 										</div>
 									</td>
@@ -60,8 +64,6 @@
 										<option value="${acttype.codeNo}" <c:if test="${acttype.codeNo == dto.salesType}">selected</c:if>>${acttype.desc03}</option>
 										</c:forEach>
 									</select></td>
-								</tr>
-								<tr>
 									<th class="requiredTextCss">담당사원</th>
 									<td>
 										<div class="input-group input-group-sm mb-0">
@@ -134,6 +136,9 @@
 									</td>
 								</tr>
 								<tr>
+									
+								</tr>
+								<tr>
 									<th scope="row">매출처</th>
 									<td>
 										<div class="input-group input-group-sm mb-0">
@@ -198,16 +203,16 @@
 											</div>
 										</div>
 									</td>
-								</tr>
-								<tr>
 									<th scope="row" class="requiredTextCss">제목</th>
-									<td colspan="3"><input type="text"
+									<td><input type="text"
 										class="form-control form-control-sm" id="salesTitle" name="salesTitle"
 										value="${dto.salesTitle}"></td>
+									<th></th>
+									<td></td>
 								</tr>
 								<tr>
 									<th scope="row">내용</th>
-									<td colspan="3"><textarea name="salesDesc" id="salesDesc" rows="8"
+									<td colspan="7"><textarea name="salesDesc" id="salesDesc" rows="8"
 											class="form-control">${dto.salesDesc}</textarea></td>
 								</tr>
 							</tbody>

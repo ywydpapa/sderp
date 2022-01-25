@@ -38,11 +38,15 @@
                         <input type="hidden" id="appStatus" value="${detailListApp.appStatus}" />
                         <table class="table table-sm bst02">
                             <colgroup>
-                                <col width="15%" />
-                                <col width="35%"/>
-                                <col width="15%"/>
-                                <col width="35%"/>
-                            </colgroup>
+								<col width="5%" />
+								<col width="15%" />
+								<col width="5%" />
+								<col width="15%" />
+								<col width="5%" />
+								<col width="15%" />
+								<col width="5%" />
+								<col width="15%" />
+							</colgroup>
                             <tbody>
                             <tr>
                                 <th scope="row" class="text-center">결제 문서 종류</th>
@@ -50,7 +54,7 @@
                                     <div class="form-radio">
                                         <form>
                                             <div class="radio radio-inline">
-                                                <label> <input type="radio" name="contractType" value="BREQ" checked="checked"> <i class="helper"></i>지출품의서</label>
+                                                <label style="margin-top: 10px;"> <input type="radio" name="contractType" value="BREQ" checked="checked"> <i class="helper"></i>지출품의서</label>
                                             </div>
                                             <div class="radio radio-inline">
                                                 <label> <input type="radio" name="contractType" value="TREQ"> <i class="helper"></i>지출결의서</label>
@@ -152,9 +156,7 @@
                                         </div>
                                     </div>
                                 </td>
-                            </tr>
-                            <tr>
-                                <th class="text-center">문서번호(자동 생성)</th>
+                                 <th class="text-center">문서번호(자동 생성)</th>
                                 <td>
                                     <input type="text" class="form-control" id="estId" value="VTEK_2022${detailList.docNo}" readonly>
                                 </td>
@@ -197,46 +199,52 @@
                                 <td>
                                     <input type="date" id="docDate" name="docDate" class="form-control" style="text-align: right;" value="${detailList.docDate}">
                                 </td>
-                            </tr>
-                            <c:choose>
-	                           	<c:when test="${detailListApp.appStatus == 1 || detailListApp.appStatus == 3}">
-		                            <tr>
-		                                <th class="text-center">첨부파일</th>
+                                <c:choose>
+	                           		<c:when test="${detailListApp.appStatus == 1 || detailListApp.appStatus == 3}">
+                                		<th class="text-center">첨부파일</th>
 		                                <td>
 		                                	<form id="uploadForm">
 												<input type="file" name="file" id="addFile" />
 											</form>
-		                                </td>
+		                               	</td>
 		                                <th class="text-center">파일다운로드</th>
 		                                <td>
 		                                    <a href="javascript:downloadFile('${detailFile.fileId}', '${detailFile.fileName}');">${detailFile.fileName}</a>
 		                                </td>
-		                            </tr>
-		                            <tr>
-		                            	<th class="text-center requiredTextCss">결제자(*)</th>
+		                        	</c:when>
+		                       	 	<c:otherwise>
+		                        		<th class="text-center">파일다운로드</th>
 		                                <td>
-											<input type="text" class="form-control" name="userName" id="userName" value="이승우" readonly> 
-		                               		<input type="hidden" name="userNo" id="userNo" value="10002">
-		                                </td>
-		                            </tr>
-	                           	</c:when>
-	                           	<c:otherwise>
-	                           		<tr>
-		                                <th class="text-center">파일다운로드</th>
-		                                <td>
-		                                    <a href="javascript:downloadFile('${detailFile.fileId}', '${detailFile.fileName}');">${detailFile.fileName}</a>
+		                                	<a href="javascript:downloadFile('${detailFile.fileId}', '${detailFile.fileName}');">${detailFile.fileName}</a>
 		                                </td>
 		                                <th class="text-center requiredTextCss">결제자(*)</th>
 		                                <td>
 											<input type="text" class="form-control" name="userName" id="userName" value="이승우" readonly> 
 		                                	<input type="hidden" name="userNo" id="userNo" value="10002">
 		                                </td>
-		                            </tr>
-	                           	</c:otherwise>
-                            </c:choose>
+		                    		</c:otherwise>
+                            	</c:choose>
+                            </tr>
+	                        <c:if test="${detailListApp.appStatus == 1 || detailListApp.appStatus == 3}">
+		                    	<tr>
+		                       		<th class="text-center requiredTextCss">결제자(*)</th>
+		                        	<td>
+										<input type="text" class="form-control" name="userName" id="userName" value="이승우" readonly> 
+		                            	<input type="hidden" name="userNo" id="userNo" value="10002">
+		                       		</td>
+		                       		<!-- 빈공간 -->
+		                       		<th></th>
+		                       		<td></td>
+		                       		<th></th>
+		                       		<td></td>
+		                       		<th></th>
+		                       		<td></td>
+		                       		<!-- 빈공간 -->
+		                        </tr>
+	                        </c:if>
                             <tr>
                                 <th class="text-center">상세 내용</th>
-                                <td colspan="3"><textarea class="form-control" id="docDesc">${detailList.docDesc}</textarea></td>
+                                <td colspan="7"><textarea class="form-control" id="docDesc">${detailList.docDesc}</textarea></td>
                             </tr>
                             </tbody>
                         </table>

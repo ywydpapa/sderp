@@ -35,10 +35,14 @@
                         <input type="hidden" id="docUserNo" value="${sessionScope.userNo}" />
                         <table class="table table-sm bst02">
                             <colgroup>
-                                <col width="15%" />
-                                <col width="35%"/>
-                                <col width="15%"/>
-                                <col width="35%"/>
+                                <col width="5%" />
+								<col width="15%" />
+								<col width="5%" />
+								<col width="15%" />
+								<col width="5%" />
+								<col width="15%" />
+								<col width="5%" />
+								<col width="15%" />
                             </colgroup>
                             <tbody>
                             <tr>
@@ -47,7 +51,7 @@
                                     <div class="form-radio">
                                         <form>
                                             <div class="radio radio-inline">
-                                                <label> <input type="radio" name="contractType" value="BREQ" checked="checked"> <i class="helper"></i>지출품의서</label>
+                                                <label style="margin-top: 10px;"> <input type="radio" name="contractType" value="BREQ" checked="checked"> <i class="helper"></i>지출품의서</label>
                                             </div>
                                             <div class="radio radio-inline">
                                                 <label> <input type="radio" name="contractType" value="TREQ"> <i class="helper"></i>지출결의서</label>
@@ -134,8 +138,6 @@
                                         </div>
                                     </div>
                                 </td>
-                            </tr>
-                            <tr>
                                 <th class="text-center">문서번호(자동 생성)</th>
                                 <td>
                                     <input type="text" class="form-control" id="estId" placeholder="자동생성 됩니다..." readonly>
@@ -179,8 +181,6 @@
                                 <td>
                                     <input type="date" id="docDate" name="docDate" class="form-control" style="text-align: right;" value="">
                                 </td>
-                            </tr>
-                            <tr>
                                 <th class="text-center">첨부파일</th>
                                 <td>
                                 	<form id="uploadForm">
@@ -229,7 +229,7 @@
                             </tr>
                             <tr>
                                 <th class="text-center">상세 내용</th>
-                                <td colspan="3"><textarea class="form-control" id="docDesc"></textarea></td>
+                                <td colspan="7"><textarea class="form-control" id="docDesc"></textarea></td>
                             </tr>
                             </tbody>
                         </table>

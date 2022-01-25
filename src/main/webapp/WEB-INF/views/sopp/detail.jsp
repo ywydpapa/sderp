@@ -46,22 +46,24 @@
 										<div class="table-responsive">
 											<table class="table table-sm bst02">
 												<colgroup>
-													<col width="15%" />
-													<col width="35%" />
-													<col width="15%" />
-													<col width="35%" />
+													<col width="5%"/>
+													<col width="15%"/>
+													<col width="5%"/>
+													<col width="15%"/>
+													<col width="5%"/>
+													<col width="15%"/>
+													<col width="5%"/>
+													<col width="15%"/>
 												</colgroup>
 												<tbody>
 													<tr>
 														<th scope="row" class="requiredTextCss">영업기회명</th>
-														<td colspan="3"><input type="text"
+														<td><input type="text"
 															class="form-control form-control-sm" id="soppTitle"
 															name="soppTitle" value="${dto.soppTitle}"> <input
 															type="hidden" id="soppNo" name="soppNo"
 															value="${dto.soppNo}"></td>
-													</tr>
-													<tr>
-														<th scope="row" class="requiredTextCss">담당사원</th>
+															<th scope="row" class="requiredTextCss">담당사원</th>
 														<td>
 															<div class="input-group input-group-sm mb-0">
 																<input type="text" class="form-control" name="userName"
@@ -137,8 +139,6 @@
 																</div>
 															</div>
 														</td>
-													</tr>
-													<tr>
 														<th scope="row">매출처 담당자</th>
 														<td>
 															<div class="input-group input-group-sm mb-0">
@@ -172,6 +172,9 @@
 																</div>
 															</div>
 														</td>
+													</tr>
+													
+													<tr>
 														<th class="requiredTextCss" scope="row">엔드유저</th>
 														<td>
 															<div class="input-group input-group-sm mb-0">
@@ -203,8 +206,6 @@
 																</div>
 															</div>
 														</td>
-													</tr>
-													<tr>
 														<th scope="row" class="requiredTextCss">진행단계</th>
 														<td><select name="soppStatus" id="soppStatus" class="form-control form-control-sm" <c:if test="${dto.soppStatus > 10185}">readonly</c:if>>
 																<c:if test="${dto.soppStatus >= 10182 && dto.soppStatus < 10185}">
@@ -219,13 +220,12 @@
 																</c:if>
 														</select></td>
 														<th scope="row">가능성</th>
-														<td><span class="input_inline"><input
-																type="text" class="form-control form-control-sm"
+														<td class="text-right">
+														<span class="input_inline">
+														<input type="text" class="form-control form-control-sm text-right"
 																id="soppSrate" name="soppSrate" value="${dto.soppSrate}"></span>
 															%</td>
-													</tr>
-													<tr>
-														<th class="requiredTextCss" scope="row">계약구분</th>
+															<th class="requiredTextCss" scope="row">계약구분</th>
 														<td><select name="cntrctMth" id="cntrctMth"
 															class="form-control form-control-sm">
 																<option value="">선택</option>
@@ -233,16 +233,17 @@
 																<option value="10248" <c:if test="${dto.cntrctMth eq 10248}">selected</c:if> >유지보수</option>
 																<option value="10254" <c:if test="${dto.cntrctMth eq 10254}">selected</c:if> >임대계약</option>
 														</select></td>
+													</tr>
+													
+													<tr>
 														<th scope="row">매출예정일</th>
 														<td><input
-															class="form-control form-control-sm col-md-8"
+															class="form-control form-control-sm"
 															name="soppTargetDate" id="soppTargetDate" type="date"
 															value="${dto.soppTargetDate}"></td>
-													</tr>
-													<tr>
-														<th class="requiredTextCss" scope="row">판매방식</th>
+															<th class="requiredTextCss" scope="row">판매방식</th>
 														<td><select name="soppType" id="soppType"
-															class="form-control form-control-sm col-md-4">
+															class="form-control form-control-sm">
 																<option value="">선택</option>
 																<c:forEach var="saleslist" items="${saleslist}">
 																	<option value="${saleslist.codeNo}"
@@ -250,15 +251,17 @@
 																</c:forEach>
 														</select></td>
 														<th scope="row">예상매출</th>
-														<td><span class="input_inline"><input
+														<td class="text-right"><span class="input_inline"><input
 																style="text-align: right" type="text"
 																class="form-control form-control-sm" id="soppTargetAmt"
 																name="soppTargetAmt"
 																value="<fmt:formatNumber value="${dto.soppTargetAmt}" pattern="#,###"/>"></span>원</td>
+																<th></th>
+																<td></td>
 													</tr>
 													<tr>
 														<th scope="row">설명</th>
-														<td colspan="3"><textarea name="soppDesc"
+														<td colspan="7"><textarea name="soppDesc"
 																id="soppDesc" rows="8" class="form-control">${dto.soppDesc}</textarea></td>
 													</tr>
 													<c:if test="${dto.sopp2regDatetime != null}">
@@ -268,7 +271,7 @@
 																<fmt:formatDate value="${sopp2regDatetime}" pattern="yyyy-MM-dd HH:mm:ss"/>
 																)
 															</th>
-															<td colspan="3"><textarea name="sopp2Desc" id="sopp2Desc" rows="8" class="form-control" readonly>${dto.sopp2Desc}</textarea></td>
+															<td colspan="7"><textarea name="sopp2Desc" id="sopp2Desc" rows="8" class="form-control" readonly>${dto.sopp2Desc}</textarea></td>
 														</tr>
 													</c:if>
 												</tbody>

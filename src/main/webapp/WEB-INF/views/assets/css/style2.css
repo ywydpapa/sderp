@@ -125,6 +125,15 @@ select.form-control:not([size]):not([multiple]) {height: calc(3rem + -14px);}
 	.b_total {width:100%;} 
 }
 
+
 #second_title {
 	margin-top: 20px; margin-bottom: 10px;width: 98%;
 }
+
+	#startTime, #endTime {
+		border:1px solid #ccc;
+		margin-left: 5px;
+		width: 84px!important;
+	}
+	
+	

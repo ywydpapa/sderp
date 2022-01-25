@@ -47,10 +47,14 @@
 					<div class="table-responsive">
 						<table class="table table-sm bst02">
 							<colgroup>
+								<col width="5%" />
 								<col width="15%" />
-								<col width="35%"/>
-								<col width="15%"/>
-								<col width="35%"/>
+								<col width="5%" />
+								<col width="15%" />
+								<col width="5%" />
+								<col width="15%" />
+								<col width="5%" />
+								<col width="15%" />
 							</colgroup>
 							<tbody>
 								<tr>
@@ -59,7 +63,7 @@
 										<div class="form-radio">
 											<form>
 												<div class="radio radio-inline">
-													<label> <input type="radio" name="slipType" value="IN" checked="checked"> <i class="helper"></i>입금전료</label>
+													<label style="margin-top: 10px;"> <input type="radio" name="slipType" value="IN" checked="checked"> <i class="helper"></i>입금전료</label>
 												</div>
 												<div class="radio radio-inline">
 													<label> <input type="radio" name="slipType" value="OUT"> <i class="helper"></i>출금전표</label>
@@ -113,8 +117,6 @@
 									<td>
 										<input class="form-control" type="text" id="slipremark">
 									</td>
-								</tr>
-								<tr>
 									<th class="requiredTextCss text-center">거래업체</th>
 									<td>
 										<div class="input-group input-group-sm mb-0">
@@ -164,8 +166,6 @@
 									<td>
 										<input type="text" id="contAmt" name="drAmt" class="form-control" style="text-align: right;" value="0">
 									</td>
-								</tr>
-								<tr>
 									<th class="text-center">금액차</th>
 									<td>
 										<input type="text" id="contAmt" name="ioAmt" class="form-control" style="text-align: right;" value="0">
@@ -194,6 +194,12 @@
 									<td>
 										<input type="date" id="vatDate" name="vatDate" class="form-control" style="text-align: right;" value="">
 									</td>
+									<!-- 빈박스 -->
+									<th></th>
+									<td></td>
+									<th></th>
+									<td></td>
+									<!-- 빈박스 -->
 								</tr>
 							</tbody>
 						</table>

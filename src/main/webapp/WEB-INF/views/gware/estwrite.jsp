@@ -35,33 +35,38 @@
 						<input type="hidden" id="userNo" value="${sessionScope.userNo}" />
 						<table class="table table-sm bst02">
 							<colgroup>
+								<col width="5%" />
 								<col width="15%" />
-								<col width="35%"/>
-								<col width="15%"/>
-								<col width="35%"/>
+								<col width="5%" />
+								<col width="15%" />
+								<col width="5%" />
+								<col width="15%" />
+								<col width="5%" />
+								<col width="15%" />
 							</colgroup>
 							<tbody>
 								<tr>
 									<th scope="row" class="text-center">연결 영업기회/계약</th>
 									<td colspan="3">
 										<div class="form-radio">
-											<form>
+											<form >
 												<div class="radio radio-inline">
-													<label> <input type="radio" name="contractType" value="SOPP" checked="checked"> <i class="helper"></i>영업기회</label>
+													<label style="margin-top: 10px;"> <input type="radio" name="contractType" value="SOPP" checked="checked"> <i class="helper"></i>영업기회</label>
 												</div>
 												<!-- <div class="radio radio-inline">
 													<label> <input type="radio" name="contractType" value="CONT"> <i class="helper"></i>계약</label>
 												</div> -->
 												<div class="radio radio-inline">
-													<label> <input type="radio" name="contractType" value="NFORM"> <i class="helper"></i>표준견적 작성</label>
+													<label style="margin-top: 10px;"> <input type="radio" name="contractType" value="NFORM"> <i class="helper"></i>표준견적 작성</label>
 												</div>
 												<div class="radioLabel radio-inline">
-													<label style="color:red;">※ 표준견적 작성은 영업기회가 필요없습니다.</label>
+													<label style="color:red; margin-top: 12px; font-size:11px;">※ 표준견적 작성은 영업기회가 필요없습니다.</label>
 												</div>
 											</form>
 										</div>
 									</td>
 								</tr>
+								
 								<tr>
 									<th class="contDetailSopp text-center">영업기회</th>
 									<td class="contDetailSopp">
@@ -128,17 +133,18 @@
 											</div>
 										</div>
 									</td>
-								</tr>
-								<tr>
 									<th class="text-center requiredTextCss">견적번호(*)</th>
 									<td>
+
 										<input type="text" class="form-control" id="estId" placeholder="자동생성 됩니다..." readonly>
+
 									</td>
 									<th class="text-center requiredTextCss">견적제목(*)</th>
 									<td>
 										<input type="text" class="form-control" id="estTitle">
 									</td>
 								</tr>
+								
 								<tr>
 									<th class="text-center">견적버전</th>
 									<td>
@@ -148,8 +154,6 @@
 									<td>
 										<input type="date" id="estDate" name="estDate" class="form-control" style="text-align: right;" value="">
 									</td>
-								</tr>
-								<tr>
 									<th class="text-center">첨부파일</th>
 									<td>
 										<input class="form-control" type="file" id="addFile">
@@ -161,6 +165,9 @@
 											<option value="N" >비포함</option>
 										</select>
 									</td>
+								</tr>
+								<tr>
+									
 								</tr>
 							</tbody>
 						</table>

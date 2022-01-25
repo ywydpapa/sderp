@@ -47,10 +47,14 @@
 					<div class="table-responsive">
 						<table class="table table-sm bst02">
 							<colgroup>
+								<col width="5%" />
 								<col width="15%" />
-								<col width="35%"/>
-								<col width="15%"/>
-								<col width="35%"/>
+								<col width="5%" />
+								<col width="15%" />
+								<col width="5%" />
+								<col width="15%" />
+								<col width="5%" />
+								<col width="15%" />
 							</colgroup>
 							<tbody>
 								<tr>
@@ -59,7 +63,7 @@
 										<div class="form-radio">
 											<form>
 												<div class="radio radio-inline">
-													<label> <input type="radio" name="contractType" value="NEW" checked="checked"> <i class="helper"></i>판매계약</label>
+													<label style="margin-top: 10px;"> <input type="radio" name="contractType" value="NEW" checked="checked"> <i class="helper"></i>판매계약</label>
 												</div>
 												<div class="radio radio-inline">
 													<label> <input type="radio" name="contractType" value="OLD"> <i class="helper"></i>유지보수</label>
@@ -70,14 +74,12 @@
 								</tr>
 								<tr>
 									<th scope="row" class="requiredTextCss">계약명</th>
-									<td colspan="3">
+									<td >
 										<input type="text" class="form-control form-control-sm" id="contTitle" name="contTitle" placeholder="계약명을 입력해 주세요.">
 									</td>
-								</tr>
-								<tr>
 									<th scope="row">계약번호</th>
 									<td>
-										<input type="text" id="contNo" name="contNo" class="form-control " readonly placeholder="자동생성 됩니다..">
+										<input type="text" id="contNo" name="contNo" class="form-control" readonly placeholder="자동생성 됩니다..">
 									</td>
 									<th class="contDetailSopp requiredTextCss">영업기회</th>
 									<td class="contDetailSopp">
@@ -149,8 +151,6 @@
 											</div>
 										</div>
 									</td>
-								</tr>
-								<tr>
 									<th scope="row" class="requiredTextCss">담당사원</th>
 									<td>
 										<div class="input-group input-group-sm mb-0">
@@ -188,7 +188,8 @@
 											</div>
 										</div>
 									</td>
-
+								</tr>
+								<tr>
 									<th class="requiredTextCss">판매방식</th>
 									<td>
 										<select name="select" class="form-control form-control-sm" id="contType">
@@ -198,9 +199,6 @@
 											</c:forEach>
 										</select>
 									</td>
-
-								</tr>
-								<tr>
 									<th class="requiredTextCss">매출처</th>
 									<td>
 										<div class="input-group input-group-sm mb-0">
@@ -272,12 +270,10 @@
 											</div>
 										</div>
 									</td>
-								</tr>
-								<tr>
 									<th scope="row" class="requiredTextCss">엔드유저</th>
 									<td>
 										<div class="input-group input-group-sm mb-0">
-											<input type="text" class="form-control" id="endCustName" value="" readonly>
+											<input type="text" class="form-control " id="endCustName" value="" readonly>
 											<input type="hidden" id="endCustNo" value="" />
 											<span class="input-group-btn">
 												<button class="btn btn-primary sch-partner" data-remote="${path}/modal/popup.do?popId=endCust" type="button" data-toggle="modal" data-target="#endCustModal">
@@ -305,6 +301,8 @@
 											</div>
 										</div>
 									</td>
+								</tr>
+								<tr>
 									<th>엔드유저 담당자</th>
 									<td>
 										<div class="input-group input-group-sm mb-0">
@@ -336,12 +334,10 @@
 											</div>
 										</div>
 									</td>
-								</tr>
-								<tr>
 									<th scope="row">발주일자</th>
 									<td>
 										<div class="input-group input-group-sm mb-0">
-											<input class="form-control form-control-sm col-sm-12" type="date" id="contOrddate" name="contOrddate">
+											<input class="form-control form-control-sm " type="date" id="contOrddate" name="contOrddate">
 										</div>
 									</td>
 									<th>공급일자</th>
@@ -350,14 +346,14 @@
 											<input class="form-control form-control-sm col-sm-12" type="date" id="supplyDate" name="supplyDate">
 										</div>
 									</td>
-								</tr>
-								<tr>
 									<th scope="row">검수일자</th>
 									<td>
 										<div class="input-group input-group-sm mb-0">
 											<input class="form-control form-control-sm col-sm-12" type="date" id="delivDate" name="delivDate">
 										</div>
 									</td>
+								</tr>
+								<tr>
 									<th scope="row" class="contDetailSopp">무상유지보수일자</th>
 									<td class="contDetailSopp">
 										<div class="input-group input-group-sm mb-0">
@@ -370,8 +366,6 @@
 											<input class="form-control form-control-sm col-sm-6 m-r-5" type="date" id="paymaintSdate"> ~ <input class="form-control form-control-sm col-sm-6 m-l-5" type="date" id="paymaintEdate">
 										</div>
 									</td>
-								</tr>
-								<tr>
 									<th >계약금액</th>
 									<td>
 										<input type="text" id="contAmt" name="contAmt" class="form-control" style="text-align: right;" value="0">
@@ -383,11 +377,11 @@
 											<option value="N" >No</option>
 										</select>
 									</td>
-								</tr>
-								<tr>
 									<th>매출이익</th>
 									<td><input style="text-align: right;" type="text" id="netprofit" name="netprofit" class="form-control" value="0">
 									</td>
+								</tr>
+								<tr>
 									<th scope="row">지역</th>
 									<td>
 										<select name="select" id="contArea" class="form-control form-control-sm" >
@@ -397,10 +391,18 @@
 											</c:forEach>
 										</select>
 									</td>
+									<!-- 빈박스 -->
+									<th></th>
+									<td></td>
+									<th></th>
+									<td></td>
+									<th></th>
+									<td></td>
+									<!-- 빈박스 -->
 								</tr>
 								<tr>
 									<th scope="row">내용</th>
-									<td colspan="3">
+									<td colspan="7">
 										<textarea name="contDesc" id="contDesc" rows="8" class="form-control"></textarea>
 									</td>
 								</tr>

@@ -106,12 +106,12 @@
                 <td>
                 	<div class="input-group" style="margin:0;">
                 		<div class="input-group-prepend">
-					    	<select class="form-control" id="productSelect" style="width:130px;">
+					    	<select class="form-control" id="productSelect" style="width:130px; height: 31px;">
                 				<option value="selectOn">항목 선택</option>
                 				<option value="selectOff">직접 입력</option>
                 			</select>
 					  	</div>
-					  	<div id="select1" style="width:100%;">
+					  	<div id="select1" >
 		                    <div class="input-group input-group-sm mb-0">
 		                        <input type="hidden" id="productNo1" value="" />
 		                        <input type="text" class="form-control" name="product" id="data01Title" data-flag="true" value="" readonly>
@@ -574,4 +574,12 @@
         $("#ioDate").val(nowDate.getFullYear() + "-" + parseInt(nowDate.getMonth()+1) + "-" + nowDate.getDate());
     });
 </script>
+<style>
 
+    #ioDate{
+    	border:1px solid #ccc;
+    }
+    #data01Type {
+    	border:1px solid #ccc;
+    }
+</style>

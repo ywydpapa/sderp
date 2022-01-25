@@ -42,20 +42,22 @@
 										<div class="table-responsive">
 											<table class="table table-sm bst02">
 												<colgroup>
-													<col width="15%" />
-													<col width="35%" />
-													<col width="15%" />
-													<col width="35%" />
+													<col width="5%"/>
+													<col width="15%"/>
+													<col width="5%"/>
+													<col width="15%"/>
+													<col width="5%"/>
+													<col width="15%"/>
+													<col width="5%"/>
+													<col width="15%"/>
 												</colgroup>
 												<tbody>
 													<tr>
 														<th scope="row" class="requiredTextCss">영업기회명</th>
-														<td colspan="3">
+														<td>
 															<input type="text" class="form-control form-control-sm" id="soppTitle" name="soppTitle" value="">
 															<input type="hidden" id="soppNo" name="soppNo" value="">
 														</td>
-													</tr>
-													<tr>
 														<th scope="row" class="requiredTextCss">담당사원</th>
 														<td>
 															<div class="input-group input-group-sm mb-0">
@@ -128,8 +130,6 @@
 																</div>
 															</div>
 														</td>
-													</tr>
-													<tr>
 														<th scope="row">매출처 담당자</th>
 														<td>
 															<div class="input-group input-group-sm mb-0">
@@ -165,6 +165,9 @@
 																</div>
 															</div>
 														</td>
+													</tr>
+													
+													<tr>
 														<th class="requiredTextCss" scope="row">엔드유저</th>
 														<td>
 															<div class="input-group input-group-sm mb-0">
@@ -196,8 +199,6 @@
 																</div>
 															</div>
 														</td>
-													</tr>
-													<tr>
 														<th scope="row" class="requiredTextCss">진행단계</th>
 														<td><select name="soppStatus" id="soppStatus" class="form-control form-control-sm">
 																<option value="10178">영업정보파악</option>
@@ -213,14 +214,12 @@
 																<option value="">협력사요청</option>--%>
 														</select></td>
 														<th scope="row">가능성</th>
-														<td>
+														<td class="text-right">
 															<span class="input_inline">
 																<input type="text" class="form-control form-control-sm" id="soppSrate" name="soppSrate" value="0">
 															</span>
 															%
 														</td>
-													</tr>
-													<tr>
 														<th class="requiredTextCss" scope="row">계약구분</th>
 														<td><select name="cntrctMth" id="cntrctMth"
 															class="form-control form-control-sm">
@@ -229,12 +228,13 @@
 																<option value="10248">유지보수</option>
 																<option value="10254">임대계약</option>
 														</select></td>
+													</tr>
+													
+													<tr>
 														<th scope="row">매출예정일</th>
 														<td>
-															<input class="form-control form-control-sm col-md-6" name="soppTargetDate" id="soppTargetDate" type="date"	value="0">
+															<input class="form-control form-control-sm" name="soppTargetDate" id="soppTargetDate" type="date"	value="0">
 														</td>
-													</tr>
-													<tr>
 														<th class="requiredTextCss" scope="row">판매방식</th>
 														<td>
 														<!-- <select name="soppType" id="soppType"
@@ -256,12 +256,15 @@
 															</select>
 														</td>
 														<th scope="row">예상매출</th>
-														<td><span class="input_inline">
+														<td class="text-right"><span class="input_inline">
 															<input type="text" class="form-control form-control-sm" id="soppTargetAmt" name="soppTargetAmt" value="0"></span>원</td>
+															<th></th>
+															<td></td>
 													</tr>
+
 													<tr>
 														<th scope="row">설명</th>
-														<td colspan="3"><textarea name="soppDesc"
+														<td colspan="7"><textarea name="soppDesc"
 																id="soppDesc" rows="8" class="form-control">${dto.soppDesc}</textarea></td>
 													</tr>
 												</tbody>

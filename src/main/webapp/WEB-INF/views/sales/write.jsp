@@ -32,27 +32,31 @@
 					<div class="table-responsive">
 						<table class="table table-sm bst02">
 							<colgroup>
-								<col width="15%" />
-								<col width="35%" />
-								<col width="15%" />
-								<col width="35%" />
+								<col width="5%"/>
+								<col width="15%"/>
+								<col width="5%"/>
+								<col width="15%"/>
+								<col width="5%"/>
+								<col width="15%"/>
+								<col width="5%"/>
+								<col width="15%"/>
 							</colgroup>
 							<tbody>
 								<tr>
 									<th scope="row" class="requiredTextCss">활동일</th>
 									<td colspan="3">
 										<div class="input-group input-group-sm mb-0 mr-1">
-											<input id="salesFrdatetime" class="form-control form-control-sm col-md-4 m-r-10" type="date" onChange="javascript:inputDate(setDateHourMinute($('#salesFrdatetime').val(), $('#startTime').val()), setDateHourMinute($('#salesTodatetime').val(), $('#endTime').val()),this)">
+											<input id="salesFrdatetime" class="form-control col-xl-2" type="date" onChange="javascript:inputDate(setDateHourMinute($('#salesFrdatetime').val(), $('#startTime').val()), setDateHourMinute($('#salesTodatetime').val(), $('#endTime').val()),this)">
 											<select id="startTime" style="width:100px" onChange="javascript:inputDate(setDateHourMinute($('#salesFrdatetime').val(), $('#startTime').val()), setDateHourMinute($('#salesTodatetime').val(), $('#endTime').val()),this)"></select>
-											~
-											<input id="salesTodatetime" class="form-control form-control-sm col-md-4 m-r-10" type="date" onChange="javascript:inputDate(setDateHourMinute($('#salesFrdatetime').val(), $('#startTime').val()), setDateHourMinute($('#salesTodatetime').val(), $('#endTime').val()),this)">
+											<span style="line-height:30px;">&nbsp;~&nbsp;</span>
+											<input id="salesTodatetime" class="form-control col-xl-2" type="date" onChange="javascript:inputDate(setDateHourMinute($('#salesFrdatetime').val(), $('#startTime').val()), setDateHourMinute($('#salesTodatetime').val(), $('#endTime').val()),this)">
 											<select id="endTime" style="width:100px" onChange="javascript:inputDate(setDateHourMinute($('#salesFrdatetime').val(), $('#startTime').val()), setDateHourMinute($('#salesTodatetime').val(), $('#endTime').val()),this)"></select>
 										</div>
 									</td>
 								</tr>
 								<tr>
 									<th scope="row">장소</th>
-									<td><input type="text" class="form-control form-control-sm"
+									<td><input type="text" class="form-control form-control-sm "
 										id="salesPlace" name="salesPlace" placeholder="장소를 입력하세요"></td>
 									<th class="requiredTextCss">활동형태</th>
 									<td><select name="salesType" id="salesType" class="form-control form-control-sm">
@@ -61,12 +65,10 @@
 												<option value="${salesType.codeNo}">${salesType.desc03}</option>
 											</c:forEach>
 									</select></td>
-								</tr>
-								<tr>
 									<th class="requiredTextCss">담당사원</th>
 									<td>
-										<div class="input-group input-group-sm mb-0">
-											<input type="text" class="form-control" name="userName" id="userName" value="${sessionScope.userName}" readonly>
+										<div class="input-group input-group-sm mb-0 ">
+											<input type="text" class="form-control " name="userName" id="userName" value="${sessionScope.userName}" readonly>
 											<input type="hidden" class="form-control" name="userNo" id="userNo" value="${sessionScope.userNo}" />
 											 <span class="input-group-btn">
 												<button class="btn btn-primary sch-company"
@@ -101,7 +103,7 @@
 									<th scope="row">영업기회</th>
 									<td>
 										<div class="input-group input-group-sm mb-0">
-											<input type="text" class="form-control" name="soppTitle" id="soppTitle" value="" readonly>
+											<input type="text" class="form-control " name="soppTitle" id="soppTitle" value="" readonly>
 											<input type="hidden" class="form-control" name="soppNo" id="soppNo" value="" />
 											<span class="input-group-btn">
 												<button class="btn btn-primary sch-opportunity2" data-remote="${path}/modal/popup.do?popId=sopp" type="button" data-toggle="modal" data-target="#soppModal">
@@ -131,6 +133,7 @@
 										</div>
 									</td>
 								</tr>
+								
 								<tr>
 									<th scope="row">매출처</th>
 									<td>
@@ -216,14 +219,15 @@
 											</div>
 										</div>
 									</td>
-								</tr>
-								<tr>
 									<th scope="row" class="requiredTextCss">제목</th>
-									<td colspan="3"><input type="text" class="form-control form-control-sm" id="salesTitle" name="salesTitle" placeholder=""></td>
+									<td><input type="text" class="form-control form-control-sm" id="salesTitle" name="salesTitle" placeholder=""></td>
+									<th></th>
+									<td></td>
 								</tr>
+								
 								<tr>
 									<th scope="row">내용</th>
-									<td colspan="3"><textarea name="salesDesc" id="salesDesc" rows="8" class="form-control"></textarea></td>
+									<td colspan="7"><textarea name="salesDesc" id="salesDesc" rows="8" class="form-control"></textarea></td>
 								</tr>
 							</tbody>
 						</table>

@@ -30,10 +30,14 @@
 					<div class="table-responsive">
 						<table class="table table-sm bst02">
 							<colgroup>
-								<col width="15%" />
-								<col width="35%" />
-								<col width="15%" />
-								<col width="35%" />
+								<col width="5%"/>
+								<col width="15%"/>
+								<col width="5%"/>
+								<col width="15%"/>
+								<col width="5%"/>
+								<col width="15%"/>
+								<col width="5%"/>
+								<col width="15%"/>
 							</colgroup>
 							<tbody>
 								<tr>
@@ -42,7 +46,7 @@
 										<div class="form-radio">
 											<form>
 												<div class="radio radio-inline">
-													<label> <input type="radio" name="contractType" value="NEW" checked="checked"> <i class="helper"></i>신규영업지원
+													<label style="margin-top: 10px;"> <input type="radio" name="contractType" value="NEW" checked="checked"> <i class="helper"></i>신규영업지원
 													</label>
 												</div>
 												<div class="radio radio-inline">
@@ -55,7 +59,6 @@
 								<tr>
 									<th scope="row" class="requiredTextCss">기술지원 요청명</th>
 									<td><input type="text" class="form-control form-control-sm" id="techdTitle" name="techdTitle" placeholder="기술지원 요청명을 입력하십시오" required></td>
-
 									<th scope="row" class="techdDetailSopp requiredTextCss">영업기회</th>
 									<td class="techdDetailSopp">
 										<div class="input-group input-group-sm mb-0">
@@ -131,8 +134,6 @@
 											</div>
 										</div>
 									</td>
-								</tr>
-								<tr>
 									<th scope="row" class="requiredTextCss">엔드유저</th>
 									<td>
 										<div class="input-group input-group-sm mb-0">
@@ -236,8 +237,6 @@
 									<th>버전</th>
 									<td><input type="text" class="form-control form-control-sm"
 										id="techdItemversion" name="techdItemversion" placeholder=""></td>
-								</tr>
-								<tr>
 									<th scope="row">장소</th>
 									<td><input type="text" class="form-control form-control-sm" id="techdPlace" name="techdPlace" placeholder=""></td>
 									<th scope="row" class="requiredTextCss">담당사원</th>
@@ -277,7 +276,6 @@
 											</div>
 										</div>
 									</td>
-
 								</tr>
 								<tr>
 									<th scope="row" class="requiredTextCss">지원일자</th>
@@ -286,14 +284,12 @@
 											<div class="input-group input-group-sm mb-0 mr-1">
 												<input class="form-control form-control-sm col-md-4 m-r-10" type="date" id="techdFrom" name="techdFrom" onChange="javascript:inputDate(setDateHourMinute($('#techdFrom').val(), $('#startTime').val()), setDateHourMinute($('#techdTo').val(), $('#endTime').val()),this)">
 												<select id="startTime" style="width:100px" onChange="javascript:inputDate(setDateHourMinute($('#techdFrom').val(), $('#startTime').val()), setDateHourMinute($('#techdTo').val(), $('#endTime').val()),this)"></select>
-												<span> ~ </span>
+												<span style="line-height:30px;">&nbsp;~&nbsp;</span>
 												<input class="form-control form-control-sm col-md-4 m-r-10" type="date" id="techdTo" name="techdTo" onChange="javascript:inputDate(setDateHourMinute($('#techdFrom').val(), $('#startTime').val()), setDateHourMinute($('#techdTo').val(), $('#endTime').val()),this)">
 												<select id="endTime" style="width:100px" onChange="javascript:inputDate(setDateHourMinute($('#techdFrom').val(), $('#startTime').val()), setDateHourMinute($('#techdTo').val(), $('#endTime').val()),this)"></select>
 											</div>
 										<!-- </div> -->
 									</td>
-								</tr>
-								<tr>
 									<th scope="row">지원형태</th>
 									<td><select name="techdType" id="techdType" class="form-control form-control-sm">
 									<option value="">선택</option>
@@ -313,7 +309,7 @@
 								</tr>
 								<tr>
 									<th scope="row">설명</th>
-									<td colspan="3"><textarea name="techdDesc" id="techdDesc" rows="8"
+									<td colspan="7"><textarea name="techdDesc" id="techdDesc" rows="8"
 											class="form-control"></textarea></td>
 								</tr>
 							</tbody>

@@ -31,20 +31,24 @@
 					<div class="table-responsive">
 						<table class="table table-sm bst02">
 							<colgroup>
-								<col width="15%" />
-								<col width="35%" />
-								<col width="15%" />
-								<col width="35%" />
+								<col width="5%"/>
+								<col width="15%"/>
+								<col width="5%"/>
+								<col width="15%"/>
+								<col width="5%"/>
+								<col width="15%"/>
+								<col width="5%"/>
+								<col width="15%"/>
 							</colgroup>
 							<tbody>
 								<tr>
 									<th scope="row" class="requiredTextCss">일정일자</th>
 									<td colspan="3">
 										<div class="input-group input-group-sm mb-0 mr-1">
-											<input class="form-control form-control-sm col-md-4 m-r-10" type="date" id="schedSdate" value="" onChange="javascript:inputDate(setDateHourMinute($('#schedSdate').val(), $('#startTime').val()), setDateHourMinute($('#schedEdate').val(), $('#endTime').val()), this)">
+											<input class="form-control col-xl-2" type="date" id="schedSdate" value="" onChange="javascript:inputDate(setDateHourMinute($('#schedSdate').val(), $('#startTime').val()), setDateHourMinute($('#schedEdate').val(), $('#endTime').val()), this)">
 											<select id="startTime" style="width:100px" onChange="javascript:inputDate(setDateHourMinute($('#schedSdate').val(), $('#startTime').val()), setDateHourMinute($('#schedEdate').val(), $('#endTime').val()), this)"></select>
-											<span> ~ </span>
-											<input class="form-control form-control-sm col-md-4 m-r-10" type="date" id="schedEdate" value="" onChange="javascript:inputDate(setDateHourMinute($('#schedSdate').val(), $('#startTime').val()), setDateHourMinute($('#schedEdate').val(), $('#endTime').val()), this)">
+											<span style="line-height:30px;">&nbsp;~&nbsp;</span>
+											<input class="form-control col-xl-2" type="date" id="schedEdate" value="" onChange="javascript:inputDate(setDateHourMinute($('#schedSdate').val(), $('#startTime').val()), setDateHourMinute($('#schedEdate').val(), $('#endTime').val()), this)">
 											<select id="endTime" style="width:100px" onChange="javascript:inputDate(setDateHourMinute($('#schedSdate').val(), $('#startTime').val()), setDateHourMinute($('#schedEdate').val(), $('#endTime').val()), this)"></select>
 										</div>
 									</td>
@@ -92,8 +96,6 @@
 											</div>
 										</div>
 									</td>
-								</tr>
-								<tr>
 									<th scope="row">영업기회</th>
 									<td>
 										<div class="input-group input-group-sm mb-0">
@@ -250,8 +252,6 @@
 											</div>
 										</div>
 									</td>
-								</tr>
-								<tr>
 									<th scope="row">일정구분</th>
 									<td><select name="schedType" id="schedType"
 										class="form-control form-control-sm">
@@ -271,13 +271,19 @@
 								</tr>
 								<tr>
 									<th scope="row" class="requiredTextCss">제목</th>
-									<td colspan="3"><input type="text"
+									<td><input type="text"
 										class="form-control form-control-sm" id="schedTitle"
 										name="schedTitle" placeholder=""></td>
+									<th></th>
+									<td></td>
+									<th></th>
+									<td></td>
+									<th></th>
+									<td></td>
 								</tr>
 								<tr>
 									<th scope="row">내용</th>
-									<td colspan="3"><textarea name="schedDesc" id="schedDesc"
+									<td colspan="7"><textarea name="schedDesc" id="schedDesc"
 											rows="8" class="form-control"></textarea></td>
 								</tr>
 							</tbody>

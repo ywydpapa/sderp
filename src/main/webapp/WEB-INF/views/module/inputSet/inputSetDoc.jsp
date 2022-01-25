@@ -1085,3 +1085,8 @@
         $("#data02Modbtn").hide();
     });
 </script>
+<style>
+	#productSelect {
+		height: 31px;
+	}
+</style>

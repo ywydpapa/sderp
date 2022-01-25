@@ -30,11 +30,16 @@
 					<div class="table-responsive">
 						<table class="table table-sm bst02">
 							<colgroup>
-								<col width="15%" />
-								<col width="35%" />
-								<col width="15%" />
-								<col width="35%" />
+								<col width="5%"/>
+								<col width="15%"/>
+								<col width="5%"/>
+								<col width="15%"/>
+								<col width="5%"/>
+								<col width="15%"/>
+								<col width="5%"/>
+								<col width="15%"/>
 							</colgroup>
+							
 							<tbody>
 								<tr>
 									<th scope="row" class="requiredTextCss">등록구분<input hidden value="${dto.techdNo}" id="techdNo"></th>
@@ -42,7 +47,7 @@
 										<div class="form-radio">
 											<form>
 												<div class="radio radio-inline">
-													<label> <input type="radio" name="contractType" value="NEW" <c:if test="${dto.cntrctMthN == '판매계약'}">checked</c:if>> <i class="helper"></i>신규 영업지원</label>
+													<label style="margin-top: 10px;"> <input type="radio" name="contractType" value="NEW" <c:if test="${dto.cntrctMthN == '판매계약'}">checked</c:if>> <i class="helper"></i>신규 영업지원</label>
 												</div>
 												<div class="radio radio-inline">
 													<label> <input type="radio" name="contractType" value="ING" <c:if test="${dto.cntrctMthN == '유지보수'}">checked</c:if>> <i class="helper"></i>유지보수 </label>
@@ -117,8 +122,7 @@
 											</div>
 										</div>
 									</td>
-								</tr>
-								<tr>
+									
 									<th scope="row" class="requiredTextCss">엔드유저</th>
 									<td>
 										<div class="input-group input-group-sm mb-0">
@@ -152,6 +156,7 @@
 											</div>
 										</div>
 									</td>
+									
 									<th scope="row">엔드유저 담당자</th>
 									<td>
 										<div class="input-group input-group-sm mb-0">
@@ -189,8 +194,9 @@
 												</div>
 											</div>
 										</div>
-									</td>
+									</td>	
 								</tr>
+								
 								<tr>
 									<th scope="row">모델</th>
 									<td>
@@ -200,8 +206,6 @@
 									<td>
 										<input type="text" class="form-control form-control-sm"	id="techdItemversion" name="techdItemversion" placeholder="" value="${dto.techdItemversion}">
 									</td>
-								</tr>
-								<tr>
 									<th scope="row">장소</th>
 									<td>
 										<input type="text" class="form-control form-control-sm" id="techdPlace" name="techdPlace" placeholder="" value="${dto.techdPlace}">
@@ -241,6 +245,7 @@
 										</div>
 									</td>
 								</tr>
+								
 								<tr>
 									<th scope="row" class="requiredTextCss">지원일자</th>
 									<td colspan="3">
@@ -248,14 +253,13 @@
 											<div class="input-group input-group-sm mb-0 mr-1">
 												<input class="form-control form-control-sm col-md-4 m-r-10" type="date" id="techdFrom" name="techdFrom" value="${dto.targetDatefrom}" onChange="javascript:inputDate(setDateHourMinute($('#techdFrom').val(), $('#startTime').val()), setDateHourMinute($('#techdTo').val(), $('#endTime').val()),this)">
 												<select id="startTime" style="width:100px" onChange="javascript:inputDate(setDateHourMinute($('#techdFrom').val(), $('#startTime').val()), setDateHourMinute($('#techdTo').val(), $('#endTime').val()),this)"></select>
-												<span> ~ </span>
+												<span style="line-height:30px;">&nbsp;~&nbsp;</span>
 												<input class="form-control form-control-sm col-md-4 m-r-10" type="date" id="techdTo" name="techdTo" value="${dto.targetDateto}" onChange="javascript:inputDate(setDateHourMinute($('#techdFrom').val(), $('#startTime').val()), setDateHourMinute($('#techdTo').val(), $('#endTime').val()),this)">
 												<select id="endTime" style="width:100px" onChange="javascript:inputDate(setDateHourMinute($('#techdFrom').val(), $('#startTime').val()), setDateHourMinute($('#techdTo').val(), $('#endTime').val()),this)"></select>
 											</div>
 										<!-- </div> -->
 									</td>
-								</tr>
-								<tr>
+									
 									<th scope="row">지원형태</th>
 									<td><select name="techdType" id="techdType" class="form-control form-control-sm">
 									<option value="">선택</option>
@@ -274,11 +278,15 @@
 									</c:forEach>
 									</select></td>
 								</tr>
+								
+								<!-- table new  -->
 								<tr>
 									<th scope="row">설명</th>
-									<td colspan="3"><textarea name="techdDesc" id="techdDesc" rows="8"
+									<td colspan="7"><textarea name="techdDesc" id="techdDesc" rows="8"
 											class="form-control">${dto.techdDesc}</textarea></td>
 								</tr>
+								<!-- table new  -->
+								
 							</tbody>
 						</table>
 					</div>

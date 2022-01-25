@@ -31,6 +31,10 @@
                         </div>
                     </div>
                     <div class="btn_wr" style="float:right;">
+                        <!-- hide and show -->
+						<button class="btn btn-sm btn-success" id="fold" onclick="acordian_action()" style="z-index:99">펼치기</button>
+						<button class="btn btn-sm btn-success" id="fold2" onclick="acordian_action1()" style="z-index:10; display:none;">접기</button>
+						<!-- hide and show -->
                         <button class="btn btn-sm btn-inverse" onClick="javascript:fnClearall()"><i class="icofont icofont-spinner-alt-3"></i>초기화</button>
                         <button class="btn btn-sm btn-primary" onClick="javascript:fnListcon()"><i class="icofont icofont-search"></i>검색</button>
                         <button class="btn btn-sm btn-outline"onClick="javascript:location='${path}/acc/vatWrite.do'"><i class="icofont icofont-pencil-alt-2"></i>계산서 등록</button>
@@ -40,7 +44,7 @@
         </div>
         <!--Page-header end 페이지 타이틀 -->
         <!--영업활동조회-->
-        <div class="cnt_wr">
+        <div class="cnt_wr" id="acordian" style="display:none;">
             <div class="row">
                 <form id="searchForm" method="post" onsubmit="return false;" class="col-sm-12">
                     <div class="col-sm-12">
@@ -246,6 +250,33 @@
         </div>
     </div>
     <!--//리스트 table-->
+
+	<!-- hide and show -->
+	<script>
+	function acordian_action(){
+		if($("#acordian").css("display") == "none"){
+		    $("#acordian").show();
+		    $("#fold").hide();
+		    $("#fold2").show();
+
+		} else {
+		    $("#acordian").hide();
+		    $("#fold").show();
+		}
+	}
+	function acordian_action1(){
+		if($("#acordian").css("display") != "none"){
+		    $("#acordian").hide();
+		    $("#fold").show();
+		    $("#fold2").hide();
+
+		} else {
+		    $("#acordian").show();
+		    $("#fold").hide();
+		}
+	}
+	</script>
+	<!-- hide and show -->
 
     <script>
         $('#custModal').on('show.bs.modal', function(e) {

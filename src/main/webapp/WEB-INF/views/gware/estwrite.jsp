@@ -33,7 +33,7 @@
 				</h5>
 			</div>
 			<div class="col-xl-6" style="margin-bottom:5px;">
-				<a href="" class="btn btn-primary" id="btnPdf" onClick="javascript:popupPdf(); return false;" style="float:right;">견적서 출력</a>
+				<!-- <a href="" class="btn btn-primary" id="btnPdf" onClick="javascript:popupPdf(); return false;" style="float:right;">견적서 출력</a> -->
 				<!-- hide and show -->
 				<button class="btn btn-success" id="fold" onclick="acordian_action()" style="z-index: 99; float:right; margin-right:5px;">펼치기</button>
 				<button class="btn btn-success" id="fold2" onclick="acordian_action1()" style="z-index: 10; display: none; float:right; margin-right:5px;">접기</button>
@@ -83,34 +83,37 @@
 							<tr>
 								<th class="text-center requiredTextCss">상 호</th>
 									<td>
-										<input type="text" class="form-control" id="estComName"/>
+										<select id="estComName" class="form-control">
+											<c:forEach var="row" items="${allComList}">
+												<option data-value="${row.comInfoNo}" value="${row.comName}">${row.comName}</option>
+											</c:forEach>
+										</select>
 									</td>
-									
 								<th class="text-center requiredTextCss">대표이사</th>
 									<td>
-										<input type="text" class="form-control" id="estComBoss"/>
+										<input type="text" class="form-control" id="estComBoss" value="${comList.comBoss}"/>
 									</td>
 									
 								<th class="text-center requiredTextCss">주 소</th>
 									<td>
-										<input type="text" class="form-control" id="estComAdd"/>
+										<input type="text" class="form-control" id="estComAdd" value="${comList.comAddress}"/>
 									</td>
 									
 								<th class="text-center requiredTextCss">전 화</th>
 									<td>
-										<input type="text" class="form-control" id="estComPhone"/>
+										<input type="text" class="form-control" id="estComPhone" value="${comList.comPhone}"/>
 									</td>
 							</tr>
 							<tr>
 								<th class="text-center requiredTextCss">팩 스</th>
 								<td>
-									<input type="text" class="form-control" id="estComFax"/>
+									<input type="text" class="form-control" id="estComFax" value="${comList.comFax}"/>
 								</td>
 								<th class="text-center requiredTextCss">유효기간</th>
 								<td class="text-right">
 									<div class="input-group" style="margin:0;">
 										<span class="input-group-text" style="margin-top:5px;">견적일로 부터</span>&nbsp;
-										<input type="text" class="form-control" id="estComTerm" style="text-align:right;"/>&nbsp;
+										<input type="text" class="form-control" id="estComTerm" value="2" style="text-align:right;"/>&nbsp;
 										<span class="input-group-text" style="margin-top:5px;">주</span>
 									</div>
 								</td>
@@ -120,7 +123,7 @@
 							<!-- 유효기간&Remarks -->
 							<tr>			
 								<td colspan="10">
-								<textarea rows="5" id="estComSpec" class="form-control form-control-sm" placeholder="ex)결제조건은 검수(납품) 당월 계산서 발행, 익월 결제입니다."></textarea>
+								<textarea rows="5" id="estComSpec" class="form-control form-control-sm">결제조건은 검수(납품) 당월 계산서 발행, 익월 결제 입니다.<br>납기기간은 발주 후 최대 4주 입니다.<br>설치비용 포함 견적이며 고객사 응용프로그램 사용에 따른 커스터 마이징 비용은 미 포함이며 협의 후 포함합니다.</textarea>
 								</td>
 							</tr>
 							<!-- 유효기간&Remarks -->
@@ -228,7 +231,7 @@
 													<div class="modal-content modal-80size">
 														<div class="modal-header">
 															<h4 class="modal-title">거래처검색</h4>
-															<button type="button						data-dismiss="modal" aria-label="Close">
+															<button type="button" data-dismiss="modal" aria-label="Close">
 																<span aria-hidden="true">&times;</span>
 															</button>
 														</div>
@@ -262,17 +265,21 @@
 									<td>
 										<input type="date" id="estDate" name="estDate" class="form-control" style="text-align: right;">
 									</td>
-									<th class="text-center">첨부파일</th>
+									<th></th>
+									<td></td>
+									<th></th>
+									<td></td>
+									<!-- <th class="text-center">첨부파일</th>
 									<td>
 										<input class="form-control" type="file" id="addFile">
-									</td>
-									<th class="text-center">부가세</th>
+									</td> -->
+									<!-- <th class="text-center">부가세</th>
 									<td>
 										 <select name="vatYn" id="vatYn" class="form-control form-control-sm">
 											<option value="Y" selected>포함</option>
 											<option value="N" >비포함</option>
 										</select>
-									</td>
+									</td> -->
 								</tr>
 							</tbody>
 						</table>
@@ -493,10 +500,6 @@
 		}
 
 		$(document).ready(function() {
-			var nowDate = new Date();     
-			
-	        $("#estDate").val(nowDate.getFullYear() + "-" + parseInt(nowDate.getMonth()+1) + "-" + nowDate.getDate());
-			
 			var $input = $("#contAmt,#netprofit");
 			// 이벤트 시작 ==========================================================================
 			// 이벤트시 동작

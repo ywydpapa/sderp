@@ -51,4 +51,6 @@ public interface GwDAO {
     GwDTO selectVersion(GwDTO dto);
     GwDTO selectVersionEst(GwDTO dto);
     GwDTO comList(int compNo);
+    List<GwDTO> allComList();
+    GwDTO allComList(int comInfoNo);
 }

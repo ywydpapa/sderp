@@ -56,4 +56,6 @@ public interface GwService {
     GwDTO selectVersion(HttpSession session, GwDTO dto);
     GwDTO selectVersionEst(HttpSession session, GwDTO dto);
     GwDTO comList(HttpSession session);
+    List<GwDTO> allComList(HttpSession session);
+    GwDTO allComList(int comInfoNo);
 }

@@ -15,13 +15,12 @@
         	<col width="8%" />
         	<col width="18%" />
         	<col width="11%" />
-            <col width="11%" />
+            <col width="16%" />
             <col width="9%" />
             <col width="5%" />
             <col width="9%" />
             <col width="9%" />
             <col width="9%" />
-            <col width="5%" />
             <col width="5%" />
         </colgroup>
         <thead>
@@ -35,8 +34,7 @@
             <th class="text-center">공급가액</th>
             <th class="text-center">부가세액</th>
             <th class="text-center">금액</th>
-            <th class="text-center">적용율</th>
-            <th class="text-center">삭제</th>
+            <th class="text-center">추가</th>
         </tr>
         </thead>
         <tbody>
@@ -99,50 +97,64 @@
                     </div>
                 </td>
                 <td>
-                    <div class="input-group input-group-sm mb-0">
-                        <input type="hidden" id="productNo2" value="" />
-                        <input type="text" class="form-control" name="product" id="data02Title" value="" readonly>
-                        <span class="input-group-btn">
-                            <button class="btn btn-primary sch-company" onclick="fn_productdataTableReload2()" type="button" data-toggle="modal" data-target="#productdataModal2">
-                                <i class="icofont icofont-search"></i>
-                            </button>
-                        </span>
-                    </div>
-                    <!--모달 팝업-->
-                    <div class="modal fade" id="productdataModal2" tabindex="-1" role="dialog">
-                        <div class="modal-dialog modal-80size" role="document">
-                            <div class="modal-content modal-80size">
-                                <div class="modal-header">
-                                    <h4 class="modal-title">상품목록</h4>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-                                    <%--<%@ include file="/WEB-INF/views/modal/productdataList.jsp" %>--%>
-                                    <jsp:include page="/WEB-INF/views/modal/productdataListSalesEstimate.jsp" />
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!--//모달 팝업-->
+                	<div class="input-group" style="margin:0;">
+					  	<div class="input-group-prepend">
+					    	<select class="form-control" id="productSelect" style="width:130px;">
+                				<option value="selectOn">항목 선택</option>
+                				<option value="selectOff">직접 입력</option>
+                			</select>
+					  	</div>
+					  	<div id="select1" style="width:100%;">
+		                    <div class="input-group input-group-sm mb-0">
+		                        <input type="hidden" id="productNo2" value="" />
+		                        <input type="text" class="form-control" name="product" id="data02Title" data-flag="true" value="" readonly>
+		                        <span class="input-group-btn">
+		                            <button class="btn btn-primary sch-company" onclick="fn_productdataTableReload2()" type="button" data-toggle="modal" data-target="#productdataModal2">
+		                                <i class="icofont icofont-search"></i>
+		                            </button>
+		                        </span>
+		                    </div>
+		                    <!--모달 팝업-->
+		                    <div class="modal fade" id="productdataModal2" tabindex="-1" role="dialog">
+		                        <div class="modal-dialog modal-80size" role="document">
+		                            <div class="modal-content modal-80size">
+		                                <div class="modal-header">
+		                                    <h4 class="modal-title">상품목록</h4>
+		                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		                                        <span aria-hidden="true">&times;</span>
+		                                    </button>
+		                                </div>
+		                                <div class="modal-body">
+		                                    <%--<%@ include file="/WEB-INF/views/modal/productdataList.jsp" %>--%>
+		                                    <jsp:include page="/WEB-INF/views/modal/productdataListSalesEstimate.jsp" />
+		                                </div>
+		                                <div class="modal-footer">
+		                                    <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
+		                                </div>
+		                            </div>
+		                        </div>
+		                    </div>
+		                    <!--//모달 팝업-->
+                		</div>
+                		<div id="select2" style="width:100%;">
+                			<div class="input-group input-group-sm mb-0">
+	                			<input type="text" class="form-control" name="product" id="data02Title" data-flag="false">
+                			</div>
+                		</div>
+					</div>
                 </td>
                 <td><input type="text" class="form-control form-control-sm" id="data02Netprice" style="min-width: 80px;" /></td>
                 <td><input type="text" class="form-control form-control-sm" id="data02Quanty" style="min-width: 80px;"  value="1" min="1" /></td>
                 <td><input type="text" class="form-control form-control-sm" id="data02Amt" style="min-width: 80px;" readonly /></td>
                 <td><input type="text" class="form-control form-control-sm" id="data02Vat" style="min-width: 80px;" /></td>
                 <td><input type="text" class="form-control form-control-sm" id="data02Total" style="min-width: 80px;" /></td>
-                <td><input type="text" class="form-control form-control-sm" id="data02Discount" style="min-width: 80px;" value="<fmt:formatNumber value="1.0" type="percent" />" /></td>
                 <td rowspan="2">
                     <button id="data02Addbtn" class="btn btn-success btn-sm" onClick="dataSave();">추가</button>
                     <button id="data02Modbtn" class="btn btn-instagram btn-sm" onClick="javascript:fn_data02Update()">수정</button>
                 </td>
             </tr>
             <tr>
-            	<td colspan="5">
+            	<td colspan="4">
 	            	<textarea rows="5" id="data02Spec" class="form-control form-control-sm" placeholder="spec을 입력해주세요."></textarea>
             	</td>
             	<td colspan="5">
@@ -302,13 +314,12 @@
         	var itemTitle = $("#itemTitle").val();
         	var productSalesEstimateCustName = $('#productSalesEstimateCustName').val();
         	var productNo = $("#productNo2").val();
-        	var productName = $("#data02Title").val();
+        	var productName = $("#data02Title[data-flag='true']").val();
         	var productNetprice = $("#data02Netprice").val().replace(/[\D\s\._\-]+/g, "");
         	var productQty = $("#data02Quanty").val();
         	var productAmount = $("#data02Amt").val().replace(/[\D\s\._\-]+/g, "");
         	var productVat = $("#data02Vat").val().replace(/[\D\s\._\-]+/g, "");
         	var productTotal = $("#data02Total").val().replace(/[\D\s\._\-]+/g, "");
-        	var productDis = $("#data02Discount").val().replace("%", "");
         	var productRemark = tinyMCE.get("data02Remark").getContent();
         	var productSpec = tinyMCE.get("data02Spec").getContent();
         	var qutylist = $("#qutylist tbody");
@@ -325,7 +336,6 @@
         	temp.productAmount = productAmount;
         	temp.productVat = productVat;
         	temp.productTotal = productTotal;
-        	temp.productDis = productDis;
         	temp.productRemark = productRemark;
         	temp.productSpec = productSpec;
         	
@@ -346,17 +356,16 @@
             $("#productSalesEstimateCustName").val("");
             $("#productSalesEstimateCustNo").val("");
             $("#productNo2").val("");
-            $("#data02Title").val("");
+            $("#data02Title[data-flag='true']").val("");
             $("#data02Netprice").val("");
             $("#data02Quanty").val("");
             $("#data02Amt").val("");
             $("#data02Vat").val("");
             $("#data02Total").val("");
-            $("#data02Discount").val("100%");
             tinyMCE.get("data02Remark").setContent("");
             tinyMCE.get("data02Spec").setContent("");
         	
-            qutylist.append("<tr><td id='dataItemKinds' style='text-align:center;'>"+itemKinds+"</td><td id='dataItemTitle' style='text-align:center;'>"+itemTitle+"</td><td id='salesCustNoN' style='text-align:center;'>"+productSalesEstimateCustName+"</td><td id='dataTitle' style='text-align:center;'>"+productName+"</td><td id='dataNetprice' style='text-align: right'>"+"￦"+parseInt(productNetprice).toLocaleString("en-US")+"</td><td id='dataQuanty' style='text-align: right'>"+productQty+"</td><td id='dataAmt' style='text-align: right'>"+"￦"+parseInt(productAmount).toLocaleString("en-US")+"</td><td id='dataVat' style='text-align: right'>"+"￦"+parseInt(productVat).toLocaleString("en-US")+"</td><td id='dataTotal' style='text-align: right'>"+"￦"+parseInt(productTotal).toLocaleString("en-US")+"</td><td id='dataDiscount' style='text-align: right'>"+ productDis + "%" + "</td><td id='dataRemark'>"+productRemark+"</td><td><button class='btn btn-sm btn-danger' data-index="+dataIndex+" id='dataDelBtn'>삭제</button></td></tr>");    	
+            qutylist.append("<tr><td id='dataItemKinds' style='text-align:center;'>"+itemKinds+"</td><td id='dataItemTitle' style='text-align:center;'>"+itemTitle+"</td><td id='salesCustNoN' style='text-align:center;'>"+productSalesEstimateCustName+"</td><td id='dataTitle' style='text-align:center;'>"+productName+"</td><td id='dataNetprice' style='text-align: right'>"+"￦"+parseInt(productNetprice).toLocaleString("en-US")+"</td><td id='dataQuanty' style='text-align: right'>"+productQty+"</td><td id='dataAmt' style='text-align: right'>"+"￦"+parseInt(productAmount).toLocaleString("en-US")+"</td><td id='dataVat' style='text-align: right'>"+"￦"+parseInt(productVat).toLocaleString("en-US")+"</td><td id='dataTotal' style='text-align: right'>"+"￦"+parseInt(productTotal).toLocaleString("en-US")+"</td><td id='dataDiscount' style='text-align: right'>100%</td><td id='dataRemark'>"+productRemark+"</td><td><button class='btn btn-sm btn-danger' data-index="+dataIndex+" id='dataDelBtn'>삭제</button></td></tr>");    	
             
         	console.log(dataArray);
         	
@@ -385,11 +394,7 @@
     	}else if($("#estDate").val() === ""){
     		alert("견적서 작성일자를 선택해주세요.");
     		$("#estDate").focus();
-    	}else if($("#estComName").val() === ""){
-			alert("상호를 입력해주십시오.");
-			$("#estComName").focus();
-			return false;
-		}else if($("#estComBoss").val() === ""){
+    	}else if($("#estComBoss").val() === ""){
 			alert("대표이사명을 입력해주십시오.");
 			$("#estComBoss").focus();
 			return false;
@@ -515,11 +520,7 @@
 	    	}else if($("#estDate").val() === ""){
 	    		alert("견적서 작성일자를 선택해주세요.");
 	    		$("#estDate").focus();
-	    	}else if($("#estComName").val() === ""){
-				alert("상호를 입력해주십시오.");
-				$("#estComName").focus();
-				return false;
-			}else if($("#estComBoss").val() === ""){
+	    	}else if($("#estComBoss").val() === ""){
 				alert("대표이사명을 입력해주십시오.");
 				$("#estComBoss").focus();
 				return false;
@@ -642,11 +643,7 @@
     	}else if($("#estDate").val() === ""){
     		alert("견적서 작성일자를 선택해주세요.");
     		$("#estDate").focus();
-    	}else if($("#estComName").val() === ""){
-			alert("상호를 입력해주십시오.");
-			$("#estComName").focus();
-			return false;
-		}else if($("#estComBoss").val() === ""){
+    	}else if($("#estComBoss").val() === ""){
 			alert("대표이사명을 입력해주십시오.");
 			$("#estComBoss").focus();
 			return false;
@@ -799,8 +796,7 @@
     function recall02(){
         var sum12 = parseInt($("#data02Netprice").val().replace(/[\D\s\._\-]+/g, "") || 0 );
         var sum22 = parseInt($("#data02Quanty").val().replace(/[\D\s\._\-]+/g, "") || 0);
-        var disc2 = parseFloat($("#data02Discount").val() || 0);
-        var sum32 = Math.round(sum12 * sum22 * (disc2 / 100));
+        var sum32 = Math.round(sum12 * sum22);
         var vat2 = Math.round(sum32 * 0.1);
         var Total2 = Math.round(sum32 + vat2);
         $("#data02Netprice").val(sum12.toLocaleString("en-US"));
@@ -813,7 +809,6 @@
     function recall03(){
         var Total = parseInt($("#data02Total").val().replace(/[\D\s\._\-]+/g, "") || 0 );
         var sum22 = parseInt($("#data02Quanty").val().replace(/[\D\s\._\-]+/g, "") || 0);
-        var disc2 = parseFloat($("#data02Discount").val() || 0);
         var sum32 = Math.round(Total/11*10);
         var vat2 = Math.round(Total / 11);
         var sum12 = Math.round((Total - vat2)/sum22);
@@ -830,6 +825,43 @@
     	var productSum = parseInt($("#product02InSum_table").html().replace(/[\D\s\._\-]+/g, ""));
     	var amountSum = parseInt($("#amountSum").val());
     	var vatSum = parseInt($("#vatSum").val());
+    	var nowDate = new Date();    
+    	var comName = "${detail.comName}";
+		
+        $("#estDate").val(nowDate.getFullYear() + "-" + nowDate.getMonth()+1 + "-" + nowDate.getDate());
+    	
+    	$("#select2").hide();
+        
+        $("#productSelect").change(function(){
+        	if($(this).val() === "selectOn"){
+        		$("#select1").show();
+        		$("#select1").find("#data02Title").attr("data-flag", true);
+        		$("#select2").hide();
+        		$("#select2").find("#data02Title").attr("data-flag", false);
+        		$("#select2").find("#data02Title").val("");
+        	}else{
+        		$("#select1").hide();
+        		$("#select1").find("#data02Title").attr("data-flag", false);
+        		$("#select1").find("#data02Title").val("");
+        		$("#select2").show();
+        		$("#select2").find("#data02Title").attr("data-flag", true);
+        	}
+        });
+        
+        $("#estComName").change(function(){
+        	$.ajax({
+        		url: "${path}/gw/selectComInfo/" + $(this).find("option:selected").attr("data-value"),
+        		method: "post",
+        		dataType: "json",
+        		success:function(data){
+        			$("#estComName").val(data.comName);
+        			$("#estComBoss").val(data.comBoss);
+        			$("#estComAdd").val(data.comAddress);
+        			$("#estComPhone").val(data.comPhone);
+        			$("#estComFax").val(data.comFax);
+        		}
+        	});
+        });
     	
     	qutylist.each(function(index, item){
 	    	var temp = {};

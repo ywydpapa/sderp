@@ -160,7 +160,7 @@ th, td{
 						<th>전&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;화 : ${comList.comPhone}</th>
 					</tr>
 					<tr>
-						<th>영&ensp;업&ensp;담&ensp;당 : ${detail.userName}</th>
+						<th>영&ensp;업&ensp;담&ensp;당 : ${detail.userName}/${detail.userTel}/${detail.userEmail}</th>
 						<th>팩&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;스 : ${comList.comFax}</th>
 					</tr>
 				</table>
@@ -200,7 +200,7 @@ th, td{
 						<th>전&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;화 : ${infoItem.estComPhone}</th>
 					</tr>
 					<tr>
-						<th>영&ensp;업&ensp;담&ensp;당 : ${detail.userName}</th>
+						<th>영&ensp;업&ensp;담&ensp;당 : ${detail.userName}/${detail.userTel}/${detail.userEmail}</th>
 						<th>팩&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;스 : ${infoItem.estComFax}</th>
 					</tr>
 				</table>

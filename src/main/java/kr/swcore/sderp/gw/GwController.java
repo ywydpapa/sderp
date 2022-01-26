@@ -144,6 +144,15 @@ public class GwController {
     	
     	return getVersion;
     }
+    
+    @ResponseBody
+    @RequestMapping("selectComInfo/{comInfoNo}")
+    public GwDTO selectVersionEst(@PathVariable("comInfoNo") int comInfoNo) 
+    {
+    	GwDTO allComList = gwService.allComList(comInfoNo);
+    	
+    	return allComList;
+    }
 
     @RequestMapping("estlist.do")
     public ModelAndView estList(HttpSession session, ModelAndView mav,
@@ -164,8 +173,11 @@ public class GwController {
     }
 
     @RequestMapping("estwrite.do")
-    public String estwrite(HttpSession session, Model model) {
-        return "gware/estwrite";
+    public ModelAndView estwrite(HttpSession session, ModelAndView mav) {
+    	mav.addObject("comList", gwService.comList(session));
+    	mav.addObject("allComList", gwService.allComList(session));
+    	mav.setViewName("gware/estwrite");
+        return mav;
     }
 
     @RequestMapping("estdetail/{estId}/{estVer}")
@@ -175,6 +187,7 @@ public class GwController {
         mav.addObject("list", gwService.listEstitems(dto));
         mav.addObject("infoItem", gwService.infoGetItem(dto));
         mav.addObject("comList", gwService.comList(session));
+        mav.addObject("allComList", gwService.allComList(session));
         return mav;
     }
     

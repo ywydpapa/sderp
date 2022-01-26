@@ -90,7 +90,11 @@
 									<tr>
 										<th class="text-center requiredTextCss">상 호</th>
 											<td>
-												<input type="text" class="form-control" id="estComName" value="${comList.comName}"/>
+												<select id="estComName" class="form-control">
+													<c:forEach var="row" items="${allComList}">
+														<option data-value="${row.comInfoNo}" value="${row.comName}">${row.comName}</option>
+													</c:forEach>
+												</select>
 											</td>
 											
 										<th class="text-center requiredTextCss">대표이사</th>
@@ -117,7 +121,7 @@
 										<td class="text-right">
 											<div class="input-group" style="margin:0;">
 												<span class="input-group-text" style="margin-top:5px;">견적일로 부터</span>&nbsp;
-												<input type="text" class="form-control" id="estComTerm" style="text-align:right;"/>&nbsp;
+												<input type="text" class="form-control" id="estComTerm" style="text-align:right;" value="2"/>&nbsp;
 												<span class="input-group-text" style="margin-top:5px;">주</span>
 											</div>
 										</td>
@@ -127,7 +131,7 @@
 									<!-- 유효기간&Remarks -->
 									<tr>			
 										<td colspan="10">
-										<textarea rows="5" id="estComSpec" class="form-control form-control-sm" placeholder="ex)결제조건은 검수(납품) 당월 계산서 발행, 익월 결제입니다."></textarea>
+										<textarea rows="5" id="estComSpec" class="form-control form-control-sm">결제조건은 검수(납품) 당월 계산서 발행, 익월 결제 입니다.<br>납기기간은 발주 후 최대 4주 입니다.<br>설치비용 포함 견적이며 고객사 응용프로그램 사용에 따른 커스터 마이징 비용은 미 포함이며 협의 후 포함합니다.</textarea>
 										</td>
 									</tr>
 									<!-- 유효기간&Remarks -->
@@ -137,7 +141,11 @@
 									<tr>
 										<th class="text-center requiredTextCss">상 호</th>
 											<td>
-												<input type="text" class="form-control" id="estComName" value="${infoItem.estComName}"/>
+												<select id="estComName" class="form-control">
+													<c:forEach var="row" items="${allComList}">
+														<option data-value="${row.comInfoNo}" value="${row.comName}">${row.comName}</option>
+													</c:forEach>
+												</select>
 											</td>
 											
 										<th class="text-center requiredTextCss">대표이사</th>
@@ -334,17 +342,23 @@
 									<td>
 										<input type="date" id="estDate" name="estDate" class="form-control" style="text-align: right;" value="${detail.estDate}">
 									</td>
-									<th class="text-center">첨부파일</th>
+									<th></th>
+									<td></td>
+									<th></th>
+									<td></td>
+									<!-- <th class="text-center">첨부파일</th>
 									<td>
 										<input class="form-control" type="file" id="addFile">
 									</td>
-									<th class="text-center">부가세</th>
+									<th></th>
+									<td></td> -->
+									<!-- <th class="text-center">부가세</th>
 									<td>
 										 <select name="vatYn" id="vatYn" class="form-control form-control-sm">
 											<option value="Y" selected>포함</option>
 											<option value="N" >비포함</option>
 										</select>
-									</td>
+									</td> -->
 								</tr>
 								<!--<tr>
 									<th class="text-center">첨부파일</th>
@@ -653,6 +667,9 @@
 			var path = "${path}";
 			var estId = "${detail.estId}";
 			var estVer = "${detail.estVer}";
+			var comName = "${infoItem.estComName}";
+			
+			$("#estComName").val(comName);
 			// 이벤트 시작 ==========================================================================
 			// 이벤트시 동작
 			$input.on("keyup", function (event) {

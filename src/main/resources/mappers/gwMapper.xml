@@ -32,6 +32,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     	select * from swc_estInfo where estId = #{estId} and estVer = #{estVer} and attrib not like 'XXX%' order by estId desc limit 1;
     </select>
 
+	<select id="allComList" resultType="gwDto">
+		select * from swc_comInfo
+		<if test="comInfoNo != null and comInfoNo != ''">
+			where comInfoNo = #{comInfoNo}
+		</if>
+		 order by comInfoNo asc;
+	</select>
+
     <insert id="insertest" useGeneratedKeys="true" keyProperty="getId">
     	<selectKey keyProperty="getId" resultType="int" order="AFTER">
 	        SELECT max(estNo) from swc_est
@@ -90,7 +98,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	    	productNetprice,
 	    	productVat,
 	    	productAmount,
-	    	productDis,
 	    	productTotal,
 	    	productRemark,
 	    	regDate,
@@ -109,7 +116,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	    	#{productNetprice},
 	    	#{productVat},
 	    	#{productAmount},
-	    	#{productDis},
 	    	#{productTotal},
 	    	#{productRemark},
 	    	now(),
@@ -202,7 +208,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 
 	<select id="detailest" resultType="gwDto">
-		select a.*, b.custName, b.custBossname, c.soppTitle, d.userName from swc_est a LEFT JOIN swc_cust b ON a.custNo = b.custNo LEFT JOIN swc_sopp c ON a.soppNo = c.soppNo left join swc_user d on a.userNo = d.userNo where a.estId=#{estId} and a.estVer = #{estVer} limit 1;
+		select a.*, b.custName, b.custBossname, c.soppTitle, d.userName, d.userTel, d.userEmail from swc_est a LEFT JOIN swc_cust b ON a.custNo = b.custNo LEFT JOIN swc_sopp c ON a.soppNo = c.soppNo left join swc_user d on a.userNo = d.userNo where a.estId=#{estId} and a.estVer = #{estVer} limit 1;
 	</select>
 
 	<select id="listestitems" resultType="gwDto">
@@ -218,7 +224,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<select id="comList" resultType="gwDto">
-		select * from swc_comInfo where compNo = #{compNo};
+		select * from swc_comInfo where comInfoNo = 1;
 	</select>
 	
 	<select id="mySearchList" resultType="gwDto">

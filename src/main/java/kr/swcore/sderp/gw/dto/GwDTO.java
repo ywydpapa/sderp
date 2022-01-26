@@ -23,6 +23,8 @@ public class GwDTO {
 	private String soppTitle;
 	private Integer compNo;
     private Integer userNo;
+    private String userTel;
+    private String userEmail;
     private String userName;
     private BigDecimal estAmt;
     private BigDecimal estAmount;
@@ -84,6 +86,8 @@ public class GwDTO {
     private int titleTotal;
     private int vatTotal;
     private int amountTotal;
+    
+    private int comInfoNo;
     private String comName;
     private String comAddress;
     private String comPhone;

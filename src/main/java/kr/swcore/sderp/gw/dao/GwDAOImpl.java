@@ -248,4 +248,16 @@ public class GwDAOImpl implements GwDAO{
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne("gw.infoGetItem", dto);
 	}
+
+	@Override
+	public List<GwDTO> allComList() {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("gw.allComList");
+	}
+
+	@Override
+	public GwDTO allComList(int comInfoNo) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("gw.allComList", comInfoNo);
+	}
 }

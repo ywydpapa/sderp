@@ -303,4 +303,16 @@ public class GwServiceImpl implements GwService{
 		// TODO Auto-generated method stub
 		return gwDao.infoGetItem(dto);
 	}
+
+	@Override
+	public List<GwDTO> allComList(HttpSession session) {
+		// TODO Auto-generated method stub
+		return gwDao.allComList();
+	}
+
+	@Override
+	public GwDTO allComList(int comInfoNo) {
+		// TODO Auto-generated method stub
+		return gwDao.allComList(comInfoNo);
+	}
 }

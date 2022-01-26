@@ -757,10 +757,6 @@
 			
 			var lastTab = localStorage.getItem('lastTab');
 			
-			$('a[data-toggle="tab"]').on('shown.bs.tab', function() {
-    		  	localStorage.setItem('lastTab', $(this).attr('href'));
-    		});
-			
 			if (lastTab) {
 			  	$('[href="' + lastTab + '"]').tab('show');
 			  	localStorage.clear();

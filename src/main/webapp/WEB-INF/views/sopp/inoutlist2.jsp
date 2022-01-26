@@ -276,8 +276,11 @@
 			.done(function(data) {
 				if(data.code == 10001){
 					alert("삭제 성공");
-					var url="${path}/sopp/inoutlist/"+$("#soppNo").val() + "/#tab02";
-					fn_Reloaddata01(url);
+					
+					//location.href="${path}/sopp/detail/"+ $("#soppNo").val() + "/#tab02";
+					localStorage.setItem('lastTab', "#tab02");
+					location.href="${path}/sopp/detail/"+ $("#soppNo").val();
+					
 				}else{
 					alert("삭제 실패");
 				}

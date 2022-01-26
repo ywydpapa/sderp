@@ -381,8 +381,9 @@
                 $("#data01Amt").val("");
                 $("#data01Remark").val("");
 				
-                var url="${path}/sopp/inoutlist/"+$("#soppNo").val() + "/#tab02";
-				fn_Reloaddata01(url);
+                localStorage.setItem('lastTab', "#tab02");
+                
+               	location.href="${path}/sopp/detail/"+$("#soppNo").val();
                 
             }else{
                 alert("저장 실패");
@@ -455,7 +456,7 @@
                 $("#data01Addbtn").show();
                 $("#data01Modbtn").hide();
                 
-                
+                localStorage.setItem('lastTab', "#tab02");
                 //var url="${path}/sopp/detail/"+$("#soppNo").val() + "/#tab02";
 				//fn_Reloaddata01(url);
                 location.href = "${path}/"+path.replace("${path}/", "");

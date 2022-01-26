@@ -455,6 +455,9 @@
                 $("#data01Addbtn").show();
                 $("#data01Modbtn").hide();
                 
+                
+                //var url="${path}/sopp/detail/"+$("#soppNo").val() + "/#tab02";
+				//fn_Reloaddata01(url);
                 location.href = "${path}/"+path.replace("${path}/", "");
             }else{
                 alert("저장 실패");
@@ -574,7 +577,13 @@
 
         $("#data01Modbtn").hide();
         var nowDate = new Date();      
-        $("#ioDate").val(nowDate.getFullYear() + "-" + parseInt(nowDate.getMonth()+1) + "-" + nowDate.getDate());
+        //$("#ioDate").val(nowDate.getFullYear() + "-" + parseInt(nowDate.getMonth()+1) + "-" + nowDate.getDate());
+        
+        
+        nowDate = nowDate.toISOString().slice(0, 10);
+		bir = document.getElementById("ioDate");
+		bir.value = nowDate;
+        
     });
 </script>
 <style>

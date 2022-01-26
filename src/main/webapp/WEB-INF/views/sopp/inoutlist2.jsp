@@ -58,7 +58,7 @@
 				<td style="text-align: right">₩<fmt:formatNumber value="${row.dataAmt}" pattern="#,###" /></td>
 				<td style="text-align: right">₩<fmt:formatNumber value="${row.dataTotal}" pattern="#,###" /></td>
 				<td>${row.dataRemark}</td>
-				<td><button class="btn btn-sm btn-dark" onClick="javascript:fn_data01modify(this)">수정</button></td>
+				<td><button class="btn btn-sm btn-dark" data-value="1101" onClick="javascript:fn_data01modify(this)">수정</button></td>
 				<td><button class="btn btn-sm btn-danger" onClick="javascript:fn_data01delete1(${row.soppdataNo})">삭제</button></td>
 			</tr>
 		</c:if>
@@ -90,7 +90,7 @@
 				<td style="text-align: right">₩<fmt:formatNumber value="${row.dataAmt}" pattern="#,###" /></td>
 				<td style="text-align: right">₩<fmt:formatNumber value="${row.dataTotal}" pattern="#,###" /></td>
 				<td>${row.dataRemark}</td>
-				<td><button class="btn btn-sm btn-dark" onClick="javascript:fn_data01modify(this)">수정</button></td>
+				<td><button class="btn btn-sm btn-dark" data-value="1102" onClick="javascript:fn_data01modify(this)">수정</button></td>
 				<td><button class="btn btn-sm btn-danger" onClick="javascript:fn_data01delete1(${row.soppdataNo})">삭제</button></td>
 			</tr>
 		</c:if>
@@ -177,6 +177,14 @@
 			if(dataType == 1101){
 				$("#data01Type").val("1101");
 			} else if(dataType == 1102){
+				$("#data01Type").val("1102");
+			}
+			
+			if($(e).attr("data-value") === "1101"){
+				console.log("매입");
+				$("#data01Type").val("1101");
+			}else{
+				console.log("매출");
 				$("#data01Type").val("1102");
 			}
 

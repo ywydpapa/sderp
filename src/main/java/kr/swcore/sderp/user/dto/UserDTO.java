@@ -23,5 +23,7 @@ public class UserDTO {
 	private int org_id;
 	private String userChangePasswd;
 	private String attrib;
+	private String userTel;
+	private String userEmail;
 
 }

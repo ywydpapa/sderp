@@ -10,11 +10,23 @@
 
 <div id="main_content">
 	<script type="text/javascript">
-	<c:if test="${userInfo.userId == sessionScope.userNo || sessionScope.userRole eq 'ADMIN'}">
+	<c:if test="${userInfo.userNo == sessionScope.userNo || sessionScope.userRole eq 'ADMIN'}">
 		function fn_userUpdate() {
 			var userData = {};
+			//전화번도 유효성 검사
+			var regExp = /^[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}/;
+			var userTel		= $("#userTel").val();
+			
+			if( !regExp.test(userTel)) {
+			     alert("전화번호를 다시 입력해주세요.");
+			     return;
+			};
+			//전화번도 유효성 검사
 			userData.userNo 		= $("#userNo").val();
 			userData.userId 		= $("#userId").val();
+			//이메일, 전화번호
+			userData.userEmail		= $("#userEmail").val();
+			userData.userTel		= $("#userTel").val();
 			
 			if($("[name='userPasswd']").attr("data-number") == 1){
 				userData.userPasswd 	= 1;
@@ -121,6 +133,20 @@
 										<option value="XXXXX">로그인 금지</option>
 										</select></td>
 								</tr>
+								<!-- tel -->
+								<tr>
+									<td>전화번호</td>
+									<td><input type="text" class="form-control form-control-sm" id="userTel" name="userTel" value="${userInfo.userTel}" placeholder="000-0000-0000">
+									</td>
+								</tr>
+								<!-- tel value="${userInfo.userTel}"-->
+								<!-- e-mail -->
+								<tr>
+									<td>이메일</td>
+									<td><input type="text" class="form-control form-control-sm" id="userEmail" name="userEmail" value="${userInfo.userEmail}">
+									</td>
+								</tr>
+								<!-- e-mail value="${userInfo.userEmail}"-->
 								<tr>
 									<td>표시 순서</td>
 									<td>

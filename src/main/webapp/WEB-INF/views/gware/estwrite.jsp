@@ -113,7 +113,7 @@
 								<td class="text-right">
 									<div class="input-group" style="margin:0;">
 										<span class="input-group-text" style="margin-top:5px;">견적일로 부터</span>&nbsp;
-										<input type="text" class="form-control" id="estComTerm" value="2" style="text-align:right;"/>&nbsp;
+										<input type="text" class="form-control" id="estComTerm" value="4" style="text-align:right;"/>&nbsp;
 										<span class="input-group-text" style="margin-top:5px;">주</span>
 									</div>
 								</td>
@@ -231,7 +231,7 @@
 													<div class="modal-content modal-80size">
 														<div class="modal-header">
 															<h4 class="modal-title">거래처검색</h4>
-															<button type="button" data-dismiss="modal" aria-label="Close">
+															<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 																<span aria-hidden="true">&times;</span>
 															</button>
 														</div>

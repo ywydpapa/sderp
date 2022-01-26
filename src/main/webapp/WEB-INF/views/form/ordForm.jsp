@@ -158,7 +158,7 @@ th, td{
 				<th>전&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;화 : ${comList.comPhone}</th>
 			</tr>
 			<tr>
-				<th>영&ensp;업&ensp;담&ensp;당 : ${detailListApp.userName}</th>
+				<th>영&ensp;업&ensp;담&ensp;당 : ${detailListApp.userName}/${detailListApp.userTel}/${detailListApp.userEmail}</th>
 				<th>팩&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;스 : ${comList.comFax}</th>
 			</tr>
 		</table>
@@ -213,7 +213,7 @@ th, td{
 			</tbody>
 		</table>
 		<div id="pdfRemarks">
-			<h3>Remarks<br>
+			<h3>Remarks
 				<span>${detailList.docDesc}</span>
 			</h3>
 		</div>

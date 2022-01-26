@@ -66,7 +66,7 @@ th, td{
 #headList tr th:last-child{
 	padding:2px 0 2px 0;
 	position:absolute;
-	left:50%;
+	left:55%;
 }
 
 #totalInfo{
@@ -261,7 +261,7 @@ th, td{
 									<tr id="mainTr">
 										<td style="text-align:center;">${noIndex}</td>
 										<td style="text-align:center; font-weight:700;">${row.itemKinds}</td>
-										<td>${row.productName}<br/>${repSpec.replaceAll("\\n", "<br>")}</td>
+										<td><span style="font-weight:600;">${row.productName}</span><br/>${repSpec.replaceAll("\\n", "<br>")}</td>
 										<td style="text-align:center;">${row.productQty}</td>
 										<td></td>
 										<td style="text-align:right;"><fmt:formatNumber value="${row.productNetprice}" pattern="#,###" /></td>
@@ -290,7 +290,7 @@ th, td{
 							<tr id="mainTr">
 								<td class="noTitleTd" style="text-align:center;">${rowIndex}</td>
 								<td style="text-align:center; font-weight:700;">${row.itemKinds}</td>
-								<td>${row.productName}<br/>${repSpec.replaceAll("\\n", "<br>")}</td>
+								<td><span style="font-weight:600;">${row.productName}</span><br/>${repSpec.replaceAll("\\n", "<br>")}</td>
 								<td style="text-align:center;">${row.productQty}</td>
 								<td></td>
 								<td style="text-align:right;"><fmt:formatNumber value="${row.productNetprice}" pattern="#,###" /></td>
@@ -317,24 +317,11 @@ th, td{
 				</tr>
 			</tbody>
 		</table>
-		<c:choose>
-			<c:when test="${empty infoItem}">
-				<div id="pdfRemarks">
-					<h3>Remarks<br>
-						<span>결제조건은 검수(납품) 당월 계산서 발행, 익월 결제 입니다.</span><br/>
-						<span>납기기간은 발주 후 최대 4주 입니다.</span><br/>
-						<span>설치비용 포함 견적이며 고객사 응용프로그램 사용에 따른 커스터마이징 비용은 미 포함이며 협의 후 포함합니다.</span>
-					</h3>
-				</div>
-			</c:when>
-			<c:otherwise>
-				<div id="pdfRemarks">
-					<h3>Remarks<br>
-						${infoItem.estComSpec}
-					</h3>
-				</div>
-			</c:otherwise>
-		</c:choose>
+		<div id="pdfRemarks">
+			<h3>Remarks
+				<span>${infoItem.estComSpec}</span>
+			</h3>
+		</div>
 		<div id="pdfBottom">
 			<img src="${path}/images/pdf_bottom.png" id="bottomImg" />
 		</div>

@@ -121,7 +121,7 @@
 										<td class="text-right">
 											<div class="input-group" style="margin:0;">
 												<span class="input-group-text" style="margin-top:5px;">견적일로 부터</span>&nbsp;
-												<input type="text" class="form-control" id="estComTerm" style="text-align:right;" value="2"/>&nbsp;
+												<input type="text" class="form-control" id="estComTerm" style="text-align:right;" value="4"/>&nbsp;
 												<span class="input-group-text" style="margin-top:5px;">주</span>
 											</div>
 										</td>

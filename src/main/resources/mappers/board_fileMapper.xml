@@ -24,9 +24,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  </select>
  
  <update id="board_file_delete">
-	update  `swc_board_file`
-	set 
-	`bf_delflag` = 'y'
+	delete from  `swc_board_file`
 	where bf_pk=#{bf_pk};
  </update>
  
@@ -42,7 +40,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  	select *
  	from swc_noticefiledata
  	join `swc_user` on swc_noticefiledata.userNo = swc_user.userNo
- 	where bf_pk=#{bf_pk}
+ 	where bf_pk=#{bf_pk} and `bf_delflag` = 'n' and
  	and `swc_noticefiledata`.attrib not like 'XXX%'
 	order by uploadDate desc
 </select>

@@ -29,10 +29,14 @@ public interface GwService {
     List<GwDTO> detailDocData(int docNo);
     GwDTO detailUserAtt(int attendId);
     int insertDoc(GwDTO dto);
+    int myDocCopyInsert(GwDTO dto);
+    int myDocCopyInsertApp(GwDTO dto);
+    int myDocCopyInsertData(GwDTO dto);
     int insertDocApp(GwDTO dto);
     int insertDocData(GwDTO dto);
     int insertUserAtt(GwDTO dto);
     int updateDoc(GwDTO dto);
+    int myDocListUpdate(GwDTO dto);
     int updateDocApp(GwDTO dto);
     int updateDocData(GwDTO dto);
     int updateUserAtt(GwDTO dto);

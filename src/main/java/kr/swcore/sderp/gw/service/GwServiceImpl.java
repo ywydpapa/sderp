@@ -125,6 +125,21 @@ public class GwServiceImpl implements GwService{
     }
     
     @Override
+    public int myDocCopyInsert(GwDTO dto) {
+        return gwDao.myDocCopyInsert(dto);
+    }
+    
+    @Override
+    public int myDocCopyInsertApp(GwDTO dto) {
+        return gwDao.myDocCopyInsertApp(dto);
+    }
+    
+    @Override
+    public int myDocCopyInsertData(GwDTO dto) {
+        return gwDao.myDocCopyInsertData(dto);
+    }
+    
+    @Override
     public int insertDocApp(GwDTO dto) {
 
         return gwDao.insertDocApp(dto);
@@ -144,6 +159,11 @@ public class GwServiceImpl implements GwService{
     @Override
     public int updateDoc(GwDTO dto) {
         return gwDao.updateDoc(dto);
+    }
+    
+    @Override
+    public int myDocListUpdate(GwDTO dto) {
+        return gwDao.myDocListUpdate(dto);
     }
     
     @Override

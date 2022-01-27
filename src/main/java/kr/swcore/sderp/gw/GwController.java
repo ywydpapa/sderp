@@ -10,7 +10,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -223,12 +222,55 @@ public class GwController {
          }
          return ResponseEntity.ok(param);
     }
+    
+    @RequestMapping("myDocListUpdate.do")
+    public  ResponseEntity<?> myDocListUpdate(@ModelAttribute GwDTO dto) {
+         Map<String, Object> param = new HashMap<>();
+         int docUpdate = gwService.myDocListUpdate(dto);
+         if (docUpdate >0) {
+             param.put("code","10001");
+         } else {
+             param.put("code","20001");
+         }
+         return ResponseEntity.ok(param);
+    }
 
     @RequestMapping("insert.do")
     public ResponseEntity<?> insert(@ModelAttribute GwDTO dto) {
         Map<String, Object> param = new HashMap<>();
         int docInsert = gwService.insertDoc(dto);
         param.put("getId", dto.getGetId());
+        if (docInsert >0) {
+            param.put("code","10001");
+        }
+        	else {param.put("code","20001");
+        }
+        return ResponseEntity.ok(param);
+    }
+    
+    @ResponseBody
+    @RequestMapping("myDocCopyInsert.do")
+    public int myDocCopyInsert(@ModelAttribute GwDTO dto) throws InterruptedException {
+        gwService.myDocCopyInsert(dto);
+        return dto.getGetId();
+    }
+    
+    @RequestMapping("myDocCopyInsertApp.do")
+    public ResponseEntity<?> myDocCopyInsertApp(@ModelAttribute GwDTO dto) {
+        Map<String, Object> param = new HashMap<>();
+        int docInsert = gwService.myDocCopyInsertApp(dto);
+        if (docInsert >0) {
+            param.put("code","10001");
+        }
+        	else {param.put("code","20001");
+        }
+        return ResponseEntity.ok(param);
+    }
+    
+    @RequestMapping("myDocCopyInsertData.do")
+    public ResponseEntity<?> myDocCopyInsertData(@ModelAttribute GwDTO dto) {
+        Map<String, Object> param = new HashMap<>();
+        int docInsert = gwService.myDocCopyInsertData(dto);
         if (docInsert >0) {
             param.put("code","10001");
         }

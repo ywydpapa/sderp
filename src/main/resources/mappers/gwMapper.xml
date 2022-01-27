@@ -248,7 +248,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		left join swc_businessdocapp b on a.docNo = b.docNo 
 		left join swc_user c on c.userNo = b.userNoIS 
 		left join swc_cust d on a.linkCustNo = d.custNo
-		where a.attrib not like 'XXX%' and b.compNo = #{compNo} and a.docStatus = 2 and b.appStatus BETWEEN 2 and 4 and b.appStatus != 3;
+		where a.attrib not like 'XXX%' and b.compNo = #{compNo} and a.docStatus BETWEEN 2 and 3 and b.appStatus BETWEEN 2 and 5 and b.appStatus != 3;
 	</select>
 	
 	<select id="myDocSerchList" resultType="gwDto">
@@ -308,6 +308,116 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		 	now(),
 		 	'10000'
 	 	);
+	</insert>
+	
+	<insert id="myDocCopyInsert" useGeneratedKeys="true" keyProperty="getId">
+		<selectKey keyProperty="getId" resultType="int" order="AFTER">
+	        SELECT max(docNo) from swc_businessdoc
+	    </selectKey>
+		insert into swc_businessdoc
+		(
+			docCrUserNo, 
+			docAppLvl, 
+			docType, 
+			docTitle, 
+			docStatus, 
+			linkSoppNo, 
+			linkCustNo, 
+			linkMasterdocNo, 
+			docDesc, 
+			docFormNo, 
+			docAmount, 
+			docDate, 
+			regDate, 
+			modDate, 
+			attrib
+		) 
+		select 
+			docCrUserNo, 
+			docAppLvl,
+			docType, 
+			docTitle, 
+			#{docStatus}, 
+			linkSoppNo, 
+			linkCustNo, 
+			linkMasterdocNo, 
+			docDesc, 
+			docFormNo, 
+			docAmount, 
+			docDate, 
+			regDate, 
+			now(), 
+			'10000' 
+		from swc_businessdoc 
+		where docNo = #{docNo};
+	</insert>
+	
+	<insert id="myDocCopyInsertApp">
+		insert into swc_businessdocapp
+		(
+			compNo, 
+			docNo, 
+			appLine, 
+			userNoCR, 
+			userNoIS, 
+			userNoAPP, 
+			appStatus, 
+			issueDate, 
+			appDate, 
+			appComment, 
+			regDate, 
+			modDate, 
+			attrib
+		) 
+		select 
+			compNo, 
+			#{docNo}, 
+			appLine, 
+			userNoCR, 
+			#{userNoIS}, 
+			userNoAPP, 
+			5, 
+			issueDate, 
+			appDate, 
+			appComment, 
+			regDate, 
+			now(), 
+			'10000' 
+		from swc_businessdocapp 
+		where docNo = #{tempId};
+	</insert>
+	
+	<insert id="myDocCopyInsertData">
+		insert into swc_businessdocdata
+		(
+			docNo, 
+			custName, 
+			productName, 
+			productNetprice, 
+			productQty, 
+			productAmount, 
+			productVat, 
+			productTotal, 
+			productRemark, 
+			regDate, 
+			modDate, 
+			attrib
+		) 
+		select 
+			#{docNo}, 
+			custName, 
+			productName, 
+			productNetprice, 
+			productQty, 
+			productAmount, 
+			productVat, 
+			productTotal, 
+			productRemark, 
+			regDate, 
+			now(), 
+			'10000' 
+		from swc_businessdocdata 
+		where docNo = #{tempId};
 	</insert>
 	
 	<insert id="insertDocApp">
@@ -429,6 +539,23 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			docFormNo = #{docFormNo},
 			docDate = #{docDate},
 			ModDate = now()
+		where docNo = #{docNo};
+	</update>
+	
+	<update id="myDocListUpdate">
+		update swc_businessdoc set
+			ModDate = now(),
+			attrib = 'XXXXX'
+		where docNo = #{docNo};
+		
+		update swc_businessdocapp set
+			ModDate = now(),
+			attrib = 'XXXXX'
+		where docNo = #{docNo};
+		
+		update swc_businessdocdata set
+			ModDate = now(),
+			attrib = 'XXXXX'
 		where docNo = #{docNo};
 	</update>
 	

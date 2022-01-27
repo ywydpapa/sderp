@@ -102,6 +102,8 @@ public class GwDTO {
     private int estComTerm;
     private String estComSpec;
     
+    private int tempId;
+    
     public GwDTO() {
         super();
     }

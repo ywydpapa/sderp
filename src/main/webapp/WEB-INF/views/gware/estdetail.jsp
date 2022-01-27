@@ -387,7 +387,7 @@
 	</div>
 	<div class="btn_wr text-right mt-3">
 		<button class="btn btn-md btn-success f-left" onClick="javascript:location='${path}/gw/estlist.do'">견적목록</button>
-		<button class="btn btn-danger" onClick="fn_data02ReInsert();">새로추가</button>
+		<button class="btn btn-md btn-danger" onClick="fn_data02ReInsert();">새로추가</button>
 		<c:if test="${sessionScope.userNo eq detail.userNo}">
 			<button class="btn btn-md btn-primary" onClick="fn_data02Update()">수정</button>
 			<button class="btn btn-md btn-danger" onClick="fn_data02Delete()">삭제</button>

@@ -215,14 +215,14 @@ th, td{
 		
 		<table id="mainTable">
 			<colgroup>
-		        <col width="5%">
+		        <col width="3%">
 		        <col width="10%">
-		        <col width="49%">
+		        <col width="55%">
 		        <col width="5%">
 		        <col width="7%">
 		        <col width="7%">
 		        <col width="7%">
-		        <col width="10%">
+		        <col width="7%">
 		    </colgroup>
 			<thead>
 				<tr>

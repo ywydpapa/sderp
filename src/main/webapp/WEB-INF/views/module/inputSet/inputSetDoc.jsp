@@ -94,7 +94,7 @@
                 <td>
                 	<div class="input-group" style="margin:0;">
 					  	<div class="input-group-prepend">
-					    	<select class="form-control" id="productSelect" style="width:130px;">
+					    	<select class="form-control" id="productSelect" style="width:130px; height:31px;">
                 				<option value="selectOn">항목 선택</option>
                 				<option value="selectOff">직접 입력</option>
                 			</select>
@@ -1095,8 +1095,3 @@
         $("#data02Modbtn").hide();
     });
 </script>
-<style>
-	#productSelect {
-		height: 31px;
-	}
-</style>

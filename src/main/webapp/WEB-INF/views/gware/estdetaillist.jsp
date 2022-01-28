@@ -21,8 +21,8 @@
         <col width="8%" />
         <col width="8%" />
         <col width="8%" />
-        <col width="8%" />
-        <col width="11%" />
+        <col width="14%" />
+        <col width="5%" />
         <col width="5%" />
     </colgroup>
     <thead>
@@ -36,30 +36,30 @@
         <th class="text-center">공급가액</th>
         <th class="text-center">부가세액</th>
         <th class="text-center">금액</th>
-        <th class="text-center">적용율</th>
         <th class="text-center">비고</th>
+        <th class="text-center">수정</th>
         <th class="text-center">삭제</th>
     </tr>
     </thead>
     <tbody>
     <c:forEach var="row" items="${list}">
+    	<input type="hidden" id="productCustNo" value="${row.custNo}" />
+		<input type="hidden" id="productNo" value="${row.productNo}" />
+		<input type="hidden" id="dataSpec" value="${row.productSpec}" />
     	<tr>
     		<td id="dataItemKinds" style='text-align:center;'>${row.itemKinds}</td>
     		<td id="dataItemTitle" style='text-align:center;'>${row.itemTitle}</td>
-    		<td id='salesCustNoN' style='text-align:center;'>
-    			<input type="hidden" id="productCustNo" value="${row.custNo}" />
-    			<input type="hidden" id="productNo" value="${row.productNo}" />
-    			${row.custName}
-    		</td>
+    		<td id='salesCustNoN' style='text-align:center;'>${row.custName}</td>
     		<td id='dataTitle' style='text-align:center;'>${row.productName}</td>
     		<td id='dataNetprice' style='text-align: right'>₩<fmt:formatNumber value="${row.productNetprice}" pattern="#,###" /></td>
     		<td id='dataQuanty' style='text-align: right'>${row.productQty}</td>
     		<td id='dataAmt' style='text-align: right'>₩<fmt:formatNumber value="${row.productAmount}" pattern="#,###" /></td>
     		<td id='dataVat' style='text-align: right'>₩<fmt:formatNumber value="${row.productVat}" pattern="#,###" /></td>
     		<td id='dataTotal' style='text-align: right'>₩<fmt:formatNumber value="${row.productTotal}" pattern="#,###" /></td>
-    		<td id='dataDiscount' style='text-align: right'>${row.productDis}%</td>
+    		<%-- <td id='dataDiscount' style='text-align: right'>${row.productDis}%</td> --%>
     		<td id='dataRemark'>${row.productRemark}</td>
-    		<td><button class='btn btn-sm btn-danger' id="dataDelBtn">삭제</button></td>
+    		<td style='text-align:center;'><button class='btn btn-sm btn-inverse' id="dataUpdateBtn" data-flag="1" data-id="${row.estItemNo}" onClick="dataUpdateBtn(this);">수정</button></td>
+    		<td style='text-align:center;'><button class='btn btn-sm btn-danger' id="dataDelBtn">삭제</button></td>
     	</tr>
     </c:forEach>
     </tbody>

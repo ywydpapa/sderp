@@ -49,6 +49,8 @@ public class SoppdataDTO {
 	private int amount;
 	private int take;
 
+	private String contTitle;
+	
 	public SoppdataDTO() {
 		super();
 		// TODO Auto-generated constructor stub

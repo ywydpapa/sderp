@@ -505,7 +505,7 @@
 		.pull-right{float:right!important;}
 	</style>
 	<script>
-	// data
+	// data	
 	var salesJson = {
 		'0' : ${graph1.sales[0]},
 		'1' : ${graph1.sales[1]},
@@ -568,6 +568,8 @@
 		'10' : ${graph1.profit[10]},
 		'11' : ${graph1.profit[11]}
 	}
+	//그래프1의 정의 그리고 그 옆에 profitOrgin 이 친구는 어디서 정의되어진 놈인가?
+			
 	var profitOrginJson = {
 		'0' : ${graph1.profitOrgin[0]},
 		'1' : ${graph1.profitOrgin[1]},
@@ -582,7 +584,6 @@
 		'10' : ${graph1.profitOrgin[10]},
 		'11' : ${graph1.profitOrgin[11]}
 	}
-
 	var profitOrginStackJson = {
 		'0' : profitOrginJson[0],
 		'1' : profitOrginJson[0] + profitOrginJson[1],

@@ -13,5 +13,9 @@ public interface SoppdataDAO {
 	List<SoppdataDTO> listIO(SoppdataDTO dto);
 	int deleteSoppdata01(int soppdataNo);
 	int insertSoppdata01(SoppdataDTO dto);
+	
+	List<SoppdataDTO> listSoppdata011(int soppNo);
+	List<SoppdataDTO> listSoppdata011_1(int soppNo);
+	List<SoppdataDTO> listSoppdata011_2(int soppNo);
 
 }

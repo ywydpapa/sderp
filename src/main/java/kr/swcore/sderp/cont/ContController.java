@@ -124,6 +124,7 @@ public class ContController {
 		mav.addObject("contDto", contDTO);
 		mav.addObject("dto", soppService.detailSopp(soppNo));
 		mav.addObject("dtodata01", soppdataService.listSoppdata01(soppNo));
+		mav.addObject("dtodata02", soppdataService.listSoppdata011(soppNo));
 		mav.addObject("dtodata02", soppdataService.listSoppdata02(soppNo));
 		mav.addObject("contType", codeService.listContType(session));
 		mav.addObject("contractType", codeService.listContractType(session));
@@ -133,6 +134,7 @@ public class ContController {
 		mav.addObject("techdinsopp",techdService.listTechdinsopp(session, soppNo, contNo));
 		mav.addObject("contFiles", contService.listFile(contNo));
 		mav.addObject("dtodata01", soppdataService.listSoppdata01(soppNo));
+		mav.addObject("dtodata02", soppdataService.listSoppdata011(soppNo));
 		return mav;
 	}
 
@@ -150,6 +152,18 @@ public class ContController {
 		mav.setViewName("slip/iowrite");
 		mav.addObject("contractType", codeService.listContractType(session));
 		mav.addObject("dtodata01", soppdataService.listSoppdata01(soppNo));
+		if(soppdataService.listSoppdata01(soppNo).isEmpty()) {
+			mav.addObject("dtodata01", soppdataService.listSoppdata011(soppNo));
+			if(soppdataService.listSoppdata011(soppNo).isEmpty()) {
+				mav.addObject("dtodata01", soppdataService.listSoppdata011_1(soppNo));
+				System.out.println("계약은 없고 영업기회만 있고 그 영업기회의 매입매출내역이 있을때");
+				if(soppdataService.listSoppdata011_1(soppNo).isEmpty())  {
+					mav.addObject("dtodata01", soppdataService.listSoppdata011_2(soppNo));
+					System.out.println("계약은 없고 영업기회만 있고 그 영업기회의 매입매출내역이 없을때");
+				}
+			}
+		}
+		System.out.println(mav);
 		mav.addObject("soppParam", soppNo);
 		return mav;
 	}
@@ -159,6 +173,7 @@ public class ContController {
 		mav.setViewName("slip/iodetail");
 		mav.addObject("contractType", codeService.listContractType(session));
 		mav.addObject("dtodata01", soppdataService.listSoppdata01(soppNo));
+		mav.addObject("dtodata02", soppdataService.listSoppdata011(soppNo));
 		mav.addObject("soppParam", soppNo);
 		return mav;
 	}

@@ -73,4 +73,22 @@ public class SoppdataServiceImpl implements SoppdataService {
 		return soppdataDao.listIO(dto);
 	}
 
+	@Override
+	public List<SoppdataDTO> listSoppdata011(int soppNo) {
+		// TODO Auto-generated method stub
+		return soppdataDao.listSoppdata011(soppNo);
+	}
+
+	@Override
+	public List<SoppdataDTO> listSoppdata011_1(int soppNo) {
+		// TODO Auto-generated method stub
+		return soppdataDao.listSoppdata011_1(soppNo);
+	}
+
+	@Override
+	public List<SoppdataDTO> listSoppdata011_2(int soppNo) {
+		// TODO Auto-generated method stub
+		return soppdataDao.listSoppdata011_2(soppNo);
+	}
+
 }

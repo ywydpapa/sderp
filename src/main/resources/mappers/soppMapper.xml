@@ -641,13 +641,37 @@ now()
 
 <select id="listSoppdata01"
  		resultType="soppdataDto">
- 		select a.*, b.soppTitle, c.custName as salesCustNoN
- 		from swc_soppData01 a
+ 		select a.*, b.soppTitle, d.contTitle, c.custName as salesCustNoN
+ 		from swc_soppdata01 a
 		left join swc_sopp b on a.soppNo = b.soppNo
  		left join swc_cust c on a.salesCustNo = c.custNo
+ 		left join swc_cont d on a.soppNo = d.soppNo
 		where a.attrib not like 'XXX%' 
 		AND a.soppNo=#{soppNo} and a.catNo=100001
 		order by dataType, regDatetime desc
+ </select>
+ 
+ <select id="listSoppdata011" resultType="soppdataDto">
+ 	select *
+	from swc_sopp 
+	JOIN swc_cont ON swc_sopp.soppNo = swc_cont.soppNo
+	where swc_sopp.attrib not 
+	like 'XXX%' AND swc_sopp.soppNo=#{soppNo} order by swc_sopp.regDatetime DESC
+ </select>
+ <select id="listSoppdata011_1" resultType="soppdataDto">
+ 	select a.*, b.soppTitle, c.custName as salesCustNoN
+ 		from swc_soppdata01 a
+		left join swc_sopp b on a.soppNo = b.soppNo
+ 		left join swc_cust c on a.salesCustNo = c.custNo
+		where a.attrib not like 'XXX%' 
+		AND a.soppNo=10005213 and a.catNo=100001
+		order by dataType, regDatetime desc
+ </select>
+  <select id="listSoppdata011_2" resultType="soppdataDto">
+ 	select *
+	from swc_sopp 
+	where attrib not 
+	like 'XXX%' AND soppNo=#{soppNo} order by regDatetime DESC
  </select>
  
  <select id="listIOsum" resultType="soppdataDto">

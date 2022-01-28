@@ -65,7 +65,10 @@
 												<div class="radio radio-inline">
 													<label style="margin-top: 10px;"> <input type="radio" name="contractType" value="NEW" checked="checked"> <i class="helper"></i>영업기회</label>
 												</div>
-												<div class="radio radio-inline">
+												<div class="radio radio-inline"  id="validation_text" style="display:none;">
+													<label style="color:red;">해당 영업기회는 계약이 존재하지 않습니다.</label>
+												</div>
+												<div class="radio radio-inline" id="checkbox_validation">
 													<label> <input type="radio" name="contractType" value="OLD"> <i class="helper"></i>계약</label>
 												</div>
 											</form>
@@ -163,8 +166,8 @@
 							</tbody>
 						</table>
 						<div class="table-responsive" style="overflow-x: hidden;">
-							<jsp:include page="/WEB-INF/views/module/inputSet/inputSetProductSalesInOut2.jsp"/>
-							<jsp:include page="/WEB-INF/views/sopp/inoutlist2.jsp"/>
+							<jsp:include page="/WEB-INF/views/module/inputSet/inputSetProductSalesInOut3.jsp"/>
+							<jsp:include page="/WEB-INF/views/sopp/inoutlist3.jsp"/>
 						</div>
 					</div>
 				</div>
@@ -173,7 +176,7 @@
 	</div>
 	<div class="btn_wr text-right mt-3">
 		<button class="btn btn-md btn-success f-left" onClick="javascript:location='${path}/cont/iolist.do'">자료목록</button>
-		<button class="btn btn-md btn-primary" onClick="fn_SaveContIO()">자료등록</button>
+		<!--<button class="btn btn-md btn-primary" onClick="fn_SaveContIO()">자료등록</button>-->
 		<button class="btn btn-md btn-inverse" onClick="javascript:location='${path}/cont/iolist.do'">취소</button>
 	</div>
 	<!--//계약등록-->
@@ -183,13 +186,17 @@
 		
 		if(soppParam > 0){
 			$("#soppNo").val(soppParam);
-			
-			if($("#hideSoppTitle").val() === undefined){
-				alert("매입매출 데이터가 없습니다.");
-				location.href = "${path}/cont/iowrite.do/0";
+			if($("#hideContTitle").val() === '') {
+				$("#checkbox_validation").hide();
+				$("#validation_text").show();
 			}
-			
+			//if($("#hideSoppTitle").val() === undefined){
+				//alert("매입매출 데이터가 없습니다.");
+				//location.href = "${path}/cont/iowrite.do/" + soppParam;
+			//}
 			$("#soppTitle").val($("#hideSoppTitle").val());
+			//hideContTitle
+			$("#oldContTitle").val($("#hideContTitle").val());
 			
 			if(localStorage.getItem("reloadSet") === "1t"){
 				setTimeout(() => {
@@ -222,7 +229,6 @@
 			var modal = $(this);
 			modal.find('.modal-body').load(button.data("remote"));
 		});
-		
 		function fnSetproductdata(a,b){
 			$("#productNo1").val(a);
 			$("#data01Title").val(b);
@@ -252,7 +258,14 @@
 			$("#contModal").modal("hide");
 			location.href = "${path}/cont/iowrite.do/" + e;
 		}
-
+		//계약 table의 soppNo 값이 0일 경우 
+		function fnSetContData1(a,b,c,d,e){
+			//영업기회와 sopno이 연결되어있지 않은 경우 경고창
+			alert("영업기회에 연결되어있지 않은 계약압니다.");
+			//영업기회와 sopno이 연결되어있지 않은 경우 경고창
+			$("#soppNo").val(e);
+			location.href = "${path}/cont/iowrite.do/" + e;
+		}
 		function fn_SaveContIO() {
 			var contData = {};
 			var contractType					= $("input[name='contractType']:checked").val();	// 신규 영업지원 or 기존계약

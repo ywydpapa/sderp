@@ -323,9 +323,9 @@
 			addquty.find("#itemKinds").val($(event).parents("tr").find("#dataItemKinds").html());
 			addquty.find("#itemTitle").val($(event).parents("tr").find("#dataItemTitle").html());
 			addquty.find("#productSalesEstimateCustName").val($(event).parents("tr").find("#salesCustNoN").html());
-			addquty.find("#productSalesEstimateCustNo").val($(event).parents("tbody").find("#productCustNo").val());
+			addquty.find("#productSalesEstimateCustNo").val($(event).parents("tr").find("#productCustNo").val());
 			
-			if($(event).parents("tbody").find("#productNo").val() === ""){
+			if($(event).parents("tr").find("#productNo").val() === ""){
         		$("#select1").hide();
         		$("#select1").find("#data02Title").attr("data-flag", false);
         		$("#select1").find("#data02Title").val("");
@@ -342,7 +342,7 @@
         		$("#select2").find("#data02Title").val("");
         		
         		addquty.find("#productSelect").val("selectOn").trigger("change");
-        		addquty.find("#productNo2").val($(event).parents("tbody").find("#productNo").val());
+        		addquty.find("#productNo2").val($(event).parents("tr").find("#productNo").val());
         		addquty.find("#data02Title[data-flag='true']").val($(event).parents("tr").find("#dataTitle").html());
 			}
 			
@@ -351,7 +351,7 @@
 			addquty.find("#data02Amt").val(parseInt($(event).parents("tr").find("#dataAmt").html().replace(/[\D\s\._\-]+/g, "")).toLocaleString("en-US"));
 			addquty.find("#data02Vat").val(parseInt($(event).parents("tr").find("#dataVat").html().replace(/[\D\s\._\-]+/g, "")).toLocaleString("en-US"));
 			addquty.find("#data02Total").val(parseInt($(event).parents("tr").find("#dataTotal").html().replace(/[\D\s\._\-]+/g, "")).toLocaleString("en-US"));
-			tinyMCE.get("data02Spec").setContent($(event).parents("tbody").find("#dataSpec").val());
+			tinyMCE.get("data02Spec").setContent($(event).parents("tr").find("#dataSpec").val());
 			tinyMCE.get("data02Remark").setContent($(event).parents("tr").find("#dataRemark").html());
 		}else{
 			$(event).removeClass();

@@ -43,10 +43,10 @@
     </thead>
     <tbody>
     <c:forEach var="row" items="${list}">
-    	<input type="hidden" id="productCustNo" value="${row.custNo}" />
-		<input type="hidden" id="productNo" value="${row.productNo}" />
-		<input type="hidden" id="dataSpec" value="${row.productSpec}" />
     	<tr>
+	    	<input type="hidden" id="productCustNo" value="${row.custNo}" />
+			<input type="hidden" id="productNo" value="${row.productNo}" />
+			<input type="hidden" id="dataSpec" value="${row.productSpec}" />
     		<td id="dataItemKinds" style='text-align:center;'>${row.itemKinds}</td>
     		<td id="dataItemTitle" style='text-align:center;'>${row.itemTitle}</td>
     		<td id='salesCustNoN' style='text-align:center;'>${row.custName}</td>

@@ -22,12 +22,6 @@
 <div id="main_content">
     <script>
         $(function(){
-            $('.RoleATable').DataTable({
-                info:false,
-                searching: true,
-                order: [[ 0, "desc" ]],
-            });
-            
             $('#divStatus4').find("#myDocTable").DataTable({
                 info:false,
                 searching: true,
@@ -35,6 +29,18 @@
             });
             
             $('#divStatus5').find("#myDocTable").DataTable({
+                info:false,
+                searching: true,
+                order: [[ 0, "desc" ]],
+            });
+            
+            $('#divAStatus2').find("#myDocTable").DataTable({
+                info:false,
+                searching: true,
+                order: [[ 0, "desc" ]],
+            });
+            
+            $('#divAStatus5').find("#myDocTable").DataTable({
                 info:false,
                 searching: true,
                 order: [[ 0, "desc" ]],
@@ -176,65 +182,132 @@
                 <div class="card-block table-border-style">
                     <div class="table-responsive" style="overflow:hidden;">
                     	<c:if test="${sessionScope.docRole eq 'A'}">
-                    		<table id="myDocTable" class="table table-striped table-bordered nowrap RoleATable">
-	                            <colgroup>
-	                                <col width="10%"/>
-	                                <col width="10%"/>
-	                                <col width="10%"/>
-	                                <col width="10%"/>
-	                                <col width="30%"/>
-	                                <col width="10%"/>
-	                                <col width="10%"/>
-	                                <col width="10%"/>
-	                            </colgroup>
-	                            <thead>
-		                            <tr>
-		                                <th class="text-center">작성일자</th>
-		                                <th class="text-center">문서번호</th>
-		                                <th class="text-center">문서종류</th>
-		                                <th class="text-center">거래처</th>
-		                                <th class="text-center">문서명</th>
-		                                <th class="text-center">금액</th>
-		                                <th class="text-center">요청자</th>
-		                                <th class="text-center">진행상태</th>
-		                            </tr>
-	                            </thead>
-	                            <tbody>
-	                            	<c:forEach var="row" items="${mydoclist}">
-		                      			<c:if test="${row.appStatus == 2}">
-			                                <tr>
-			                                    <td class="text-center">${row.regDate}</td>
-			                                    <td class="text-center">
-			                                		<a href="${path}/gw/detail/${row.docNo}">VTEK_2022${row.docNo}</a>
-			                                	</td>
-			                                    <td class="text-center">
-			                                    	<c:if test="${row.docType eq 'BUY'}">구매요청서</c:if>
-			                                    	<c:if test="${row.docType eq 'TRS'}">지출품의서</c:if>
-			                                    	<c:if test="${row.docType eq 'ODS'}">수주수</c:if>
-			                                    	<c:if test="${row.docType eq 'CKD'}">검토요청서</c:if>
-			                                    	<c:if test="${row.docType eq 'FMF'}">공문서 확인 요청서</c:if>
-			                                    	<c:if test="${row.docType eq 'COST'}">비용청구</c:if>
-			                                    	<c:if test="${row.docType eq 'TAX'}">세금공과금</c:if>
-			                                    	<c:if test="${row.docType eq 'CREDIT'}">외상매입금</c:if>
-			                                    	<c:if test="${row.docType eq 'PAY'}">급여</c:if>
-			                                    	<c:if test="${row.docType eq 'PUR'}">발주서</c:if>
-			                                    	<c:if test="${row.docType eq 'DIP'}">공문서</c:if>
-			                                    </td>
-			                                    <td class="text-center">${row.custName}</td>
-			                                    <td>${row.docTitle}</td>
-			                                    <td class="text-right">￦<fmt:formatNumber type="number" maxFractionDigits="3" value="${row.docAmount}" /></td>
-			                                    <td class="text-center">${row.userIsName}</td>
-			                                    <td class="text-center">검토요청</td>
-			                                    <%-- <td class="text-center">
-			                                    	<c:if test="${row.appStatus == 2}">검토요청</c:if>
-			                                    	<c:if test="${row.appStatus == 3}">반려</c:if>
-			                                    	<c:if test="${row.appStatus == 4}">승인요청</c:if>
-			                                    </td> --%>
-			                                </tr>
-		                       			</c:if>
-	                            	</c:forEach>
-                            	</tbody>
-	                        </table>
+                    		<div style="margin-bottom: 20px;">
+	                   			<button type="button" class="btn btn-primary" id="AbtnStatus2" onClick="fn_ABtnStatus2();" style="margin-right:10px;">검토요청</button>
+	                   			<button type="button" class="btn btn-secondary" id="AbtnStatus5" onClick="fn_ABtnStatus5();">승인완료</button>
+                   			</div>
+                    		<div id="divAStatus2">
+                    			<table id="myDocTable" class="table table-striped table-bordered nowrap RoleATable">
+		                            <colgroup>
+		                                <col width="10%"/>
+		                                <col width="10%"/>
+		                                <col width="10%"/>
+		                                <col width="10%"/>
+		                                <col width="30%"/>
+		                                <col width="10%"/>
+		                                <col width="10%"/>
+		                                <col width="10%"/>
+		                            </colgroup>
+		                            <thead>
+			                            <tr>
+			                                <th class="text-center">작성일자</th>
+			                                <th class="text-center">문서번호</th>
+			                                <th class="text-center">문서종류</th>
+			                                <th class="text-center">거래처</th>
+			                                <th class="text-center">문서명</th>
+			                                <th class="text-center">금액</th>
+			                                <th class="text-center">요청자</th>
+			                                <th class="text-center">진행상태</th>
+			                            </tr>
+		                            </thead>
+		                            <tbody>
+		                            	<c:forEach var="row" items="${mydoclist}">
+			                      			<c:if test="${row.appStatus == 2}">
+				                                <tr>
+				                                    <td class="text-center">${row.regDate}</td>
+				                                    <td class="text-center">
+				                                		<a href="${path}/gw/detail/${row.docNo}">VTEK_2022${row.docNo}</a>
+				                                	</td>
+				                                    <td class="text-center">
+				                                    	<c:if test="${row.docType eq 'BUY'}">구매요청서</c:if>
+				                                    	<c:if test="${row.docType eq 'TRS'}">지출품의서</c:if>
+				                                    	<c:if test="${row.docType eq 'ODS'}">수주수</c:if>
+				                                    	<c:if test="${row.docType eq 'CKD'}">검토요청서</c:if>
+				                                    	<c:if test="${row.docType eq 'FMF'}">공문서 확인 요청서</c:if>
+				                                    	<c:if test="${row.docType eq 'COST'}">비용청구</c:if>
+				                                    	<c:if test="${row.docType eq 'TAX'}">세금공과금</c:if>
+				                                    	<c:if test="${row.docType eq 'CREDIT'}">외상매입금</c:if>
+				                                    	<c:if test="${row.docType eq 'PAY'}">급여</c:if>
+				                                    	<c:if test="${row.docType eq 'PUR'}">발주서</c:if>
+				                                    	<c:if test="${row.docType eq 'DIP'}">공문서</c:if>
+				                                    </td>
+				                                    <td class="text-center">${row.custName}</td>
+				                                    <td>${row.docTitle}</td>
+				                                    <td class="text-right">￦<fmt:formatNumber type="number" maxFractionDigits="3" value="${row.docAmount}" /></td>
+				                                    <td class="text-center">${row.userIsName}</td>
+				                                    <td class="text-center">검토요청</td>
+				                                    <%-- <td class="text-center">
+				                                    	<c:if test="${row.appStatus == 2}">검토요청</c:if>
+				                                    	<c:if test="${row.appStatus == 3}">반려</c:if>
+				                                    	<c:if test="${row.appStatus == 4}">승인요청</c:if>
+				                                    </td> --%>
+				                                </tr>
+			                       			</c:if>
+		                            	</c:forEach>
+	                            	</tbody>
+		                        </table>
+                    		</div>
+                    		<div id="divAStatus5">
+                    			<table id="myDocTable" class="table table-striped table-bordered nowrap RoleATable">
+		                            <colgroup>
+		                                <col width="10%"/>
+		                                <col width="10%"/>
+		                                <col width="10%"/>
+		                                <col width="10%"/>
+		                                <col width="30%"/>
+		                                <col width="10%"/>
+		                                <col width="10%"/>
+		                                <col width="10%"/>
+		                            </colgroup>
+		                            <thead>
+			                            <tr>
+			                                <th class="text-center">작성일자</th>
+			                                <th class="text-center">문서번호</th>
+			                                <th class="text-center">문서종류</th>
+			                                <th class="text-center">거래처</th>
+			                                <th class="text-center">문서명</th>
+			                                <th class="text-center">금액</th>
+			                                <th class="text-center">요청자</th>
+			                                <th class="text-center">진행상태</th>
+			                            </tr>
+		                            </thead>
+		                            <tbody>
+		                            	<c:forEach var="row" items="${mydoclist}">
+			                      			<c:if test="${row.appStatus == 5 && row.docFormNo eq 'TREQ'}">
+				                                <tr>
+				                                    <td class="text-center">${row.regDate}</td>
+				                                    <td class="text-center">
+				                                		<a href="${path}/gw/detail/${row.docNo}">VTEK_2022${row.docNo}</a>
+				                                	</td>
+				                                    <td class="text-center">
+				                                    	<c:if test="${row.docType eq 'BUY'}">구매요청서</c:if>
+				                                    	<c:if test="${row.docType eq 'TRS'}">지출품의서</c:if>
+				                                    	<c:if test="${row.docType eq 'ODS'}">수주수</c:if>
+				                                    	<c:if test="${row.docType eq 'CKD'}">검토요청서</c:if>
+				                                    	<c:if test="${row.docType eq 'FMF'}">공문서 확인 요청서</c:if>
+				                                    	<c:if test="${row.docType eq 'COST'}">비용청구</c:if>
+				                                    	<c:if test="${row.docType eq 'TAX'}">세금공과금</c:if>
+				                                    	<c:if test="${row.docType eq 'CREDIT'}">외상매입금</c:if>
+				                                    	<c:if test="${row.docType eq 'PAY'}">급여</c:if>
+				                                    	<c:if test="${row.docType eq 'PUR'}">발주서</c:if>
+				                                    	<c:if test="${row.docType eq 'DIP'}">공문서</c:if>
+				                                    </td>
+				                                    <td class="text-center">${row.custName}</td>
+				                                    <td>${row.docTitle}</td>
+				                                    <td class="text-right">￦<fmt:formatNumber type="number" maxFractionDigits="3" value="${row.docAmount}" /></td>
+				                                    <td class="text-center">${row.userIsName}</td>
+				                                    <td class="text-center">검토요청</td>
+				                                    <%-- <td class="text-center">
+				                                    	<c:if test="${row.appStatus == 2}">검토요청</c:if>
+				                                    	<c:if test="${row.appStatus == 3}">반려</c:if>
+				                                    	<c:if test="${row.appStatus == 4}">승인요청</c:if>
+				                                    </td> --%>
+				                                </tr>
+			                       			</c:if>
+		                            	</c:forEach>
+	                            	</tbody>
+		                        </table>
+                    		</div>
 	                   	</c:if>
                    		<c:if test="${sessionScope.docRole eq 'S'}">
                    			<div style="margin-bottom: 20px;">
@@ -492,7 +565,24 @@
         	$("#btnStatus5").attr("class", "btn btn-primary");
         	$("#btnStatus4").removeClass();
         	$("#btnStatus4").attr("class", "btn btn-secondary");
-        	$('#divStatus4').find("#myDocTable").DataTable().clear();
+        }
+        
+        function fn_ABtnStatus2(){
+        	$("#divAStatus2").show();
+        	$("#divAStatus5").hide();
+        	$("#AbtnStatus2").removeClass();
+        	$("#AbtnStatus2").attr("class", "btn btn-primary");
+        	$("#AbtnStatus5").removeClass();
+        	$("#AbtnStatus5").attr("class", "btn btn-secondary");
+        }
+        
+        function fn_ABtnStatus5(){
+        	$("#divAStatus5").show();
+        	$("#divAStatus2").hide();
+        	$("#AbtnStatus5").removeClass();
+        	$("#AbtnStatus5").attr("class", "btn btn-primary");
+        	$("#AbtnStatus2").removeClass();
+        	$("#AbtnStatus2").attr("class", "btn btn-secondary");
         }
 
         function fnSetUserData(a, b) {
@@ -621,6 +711,7 @@
         	$("#vatEdate").val(localStorage.getItem("vatEdate"));
         	
         	$("#divStatus5").hide();
+        	$("#divAStatus5").hide();
         	
         	$("#thisAllCheck").click(function(){
         		if($(this).is(":checked")){

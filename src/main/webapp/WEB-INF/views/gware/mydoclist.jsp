@@ -296,7 +296,7 @@
 				                                    <td>${row.docTitle}</td>
 				                                    <td class="text-right">￦<fmt:formatNumber type="number" maxFractionDigits="3" value="${row.docAmount}" /></td>
 				                                    <td class="text-center">${row.userIsName}</td>
-				                                    <td class="text-center">검토요청</td>
+				                                    <td class="text-center">승인완료</td>
 				                                    <%-- <td class="text-center">
 				                                    	<c:if test="${row.appStatus == 2}">검토요청</c:if>
 				                                    	<c:if test="${row.appStatus == 3}">반려</c:if>

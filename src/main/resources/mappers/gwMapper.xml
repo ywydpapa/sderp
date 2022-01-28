@@ -248,7 +248,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		left join swc_businessdocapp b on a.docNo = b.docNo 
 		left join swc_user c on c.userNo = b.userNoIS 
 		left join swc_cust d on a.linkCustNo = d.custNo
-		where a.attrib not like 'XXX%' and b.compNo = #{compNo} and a.docStatus BETWEEN 2 and 3 and b.appStatus BETWEEN 2 and 5 and b.appStatus != 3;
+		where a.attrib not like 'XXX%' and b.compNo = #{compNo} and a.docStatus BETWEEN 2 and 3 and b.appStatus BETWEEN 2 and 5 and b.appStatus != 3 order by a.docNo desc;
 	</select>
 	
 	<select id="myDocSerchList" resultType="gwDto">

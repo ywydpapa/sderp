@@ -23,6 +23,13 @@ public class AccountController {
         return mav;
     }
 
+    @RequestMapping("vatupload.do")
+    public ModelAndView vatUpload(HttpSession session, ModelAndView mav) {
+        mav.addObject("vatList", accountService.listvat(session));
+        mav.setViewName("settle/vatupload");
+        return mav;
+    }
+
     @RequestMapping("vatdetail/{vatId}")
     public ModelAndView vatDetail(@PathVariable("vatId") int vatId, ModelAndView mav) {
         mav.addObject("vatdetail", accountService.detailvat(vatId));

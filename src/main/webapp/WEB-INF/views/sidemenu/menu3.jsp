@@ -111,7 +111,7 @@
                                             </a>
                                         </li>
                                         <li class="pcoded-hasmenu">
-                                            <a href="${path}/acc/vatwrite.do">
+                                            <a href="${path}/acc/vatupload.do">
                                                 <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
                                                 <span class="pcoded-mtext" data-i18n="nav.menu-levels.menu-level-22">계산서 등록</span>
                                                 <span class="pcoded-mcaret"></span>

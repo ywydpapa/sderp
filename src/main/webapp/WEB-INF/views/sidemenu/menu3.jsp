@@ -43,7 +43,7 @@
                                         </li>
                                     </ul>
                                     </li>
-                                    <li class="pcoded-hasmenu pcoded <c:if test="${path2 eq '/cont/iolist.do' || path2 eq '/cont/iowrite.do'}">pcoded-trigger</c:if>">
+                                    <li class="pcoded-hasmenu pcoded <c:if test="${path2 eq '/cont/iolist.do' || path2 eq '/cont/iowrite.do' || path2 eq '/cont/iowrite.do/0'}">pcoded-trigger</c:if>">
                                     <a href="javascript:void(0)">
                                         <span class="pcoded-micon"><i class="icon-calculator"></i></span>
                                         <span class="pcoded-mtext"  data-i18n="nav.form-select.main">매입/매출관리</span>

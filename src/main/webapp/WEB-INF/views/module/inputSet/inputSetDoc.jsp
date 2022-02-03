@@ -6,7 +6,7 @@
     <table class="table table-sm bst02">
         <tbody>
         <tr>
-            <th scope="row">결제 항목</th>
+            <th scope="row">결재 항목</th>
         </tr>
         </tbody>
     </table>
@@ -25,8 +25,8 @@
         <thead>
         <tr>
             <th class="text-center">거래처</th>
-            <th class="text-center">결제 항목</th>
-            <th class="text-center">자동결제</th>
+            <th class="text-center">결재 항목</th>
+            <th class="text-center">자동결재</th>
             <th class="text-center">단가</th>
             <th class="text-center">수량</th>
             <th class="text-center">공급가액</th>

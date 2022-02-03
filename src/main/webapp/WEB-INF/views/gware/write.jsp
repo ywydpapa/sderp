@@ -16,7 +16,7 @@
             <div class="col-lg-12">
                 <div class="page-header-title">
                     <div class="d-inline">
-                        결제서류 작성
+                        결재서류 작성
                     </div>
                 </div>
             </div>
@@ -26,7 +26,7 @@
 
     <!--계약등록-->
     <div class="cnt_wr">
-        <h5 class="cont_title"><i class="icofont icofont-square-right"></i>결제정보</h5>
+        <h5 class="cont_title"><i class="icofont icofont-square-right"></i>결재정보</h5>
         <div class="row">
             <div class="col-sm-12">
                 <div class="card-block table-border-style">
@@ -46,7 +46,7 @@
                             </colgroup>
                             <tbody>
                             <tr>
-                                <th scope="row" class="text-center">결제 문서 종류</th>
+                                <th scope="row" class="text-center">결재 문서 종류</th>
                                 <td colspan="2">
                                     <div class="form-radio">
                                         <form>
@@ -187,7 +187,7 @@
 										<input type="file" name="file" id="addFile" />
 									</form>
                                 </td>
-                                <th class="text-center requiredTextCss">결제자(*)</th>
+                                <th class="text-center requiredTextCss">결재자(*)</th>
                                 <td>
 									<%-- <div class="input-group input-group-sm mb-0">
 										<input type="text" class="form-control" name="userName"

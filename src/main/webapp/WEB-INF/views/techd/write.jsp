@@ -100,7 +100,9 @@
 									<td class="techdDetailCont">
 										<div class="input-group input-group-sm mb-0">
 											<input type="text" class="form-control" name="contTitle"
-												   id="contTitle" value="${dto.contTitle}" readonly /> <input type="hidden"
+												   id="contTitle" value="${dto.contTitle}" readonly /> 
+												   <input type="hidden" id="contSoppNo" />
+												   <input type="hidden"
 																											  name="contNo" id="contNo" value="" /> <span
 												class="input-group-btn">
 												<button class="btn btn-primary sch-opportunity2"
@@ -400,9 +402,10 @@
 		$("#soppModal").modal("hide");
 	}
 
-	function fnSetContData(a, b) {
+	function fnSetContData(a, b, c, d, e) {
 		$("#contNo").val(b);
 		$("#contTitle").val(a);
+		$("#contSoppNo").val(e);
 		$(".modal-backdrop").remove();
 		$("#contModal").modal("hide");
 	}
@@ -423,7 +426,8 @@
 			sprtData.exContNo				= 0;							// 기존계약
 			sprtData.cntrctMth				= ${contractType[0].codeNo};
 		} else {
-			sprtData.soppNo					= 0;							// 영업기회
+			console.log($("#contSoppNo").val());
+			sprtData.soppNo					= $("#contSoppNo").val();							// 영업기회
 			sprtData.exContNo				= $("#contNo").val();			// 기존계약
 			sprtData.cntrctMth				= ${contractType[1].codeNo};
 		}
@@ -445,7 +449,7 @@
 			sprtData.techdDesc 		= $("#techdDesc").val();
 		}
 		
-		sprtData.soppNo				= $("#soppNo").val() ? $("#soppNo").val() : 0; // 영업기회번호
+		/* sprtData.soppNo				= $("#soppNo").val() ? $("#soppNo").val() : 0; // 영업기회번호 */
 		sprtData.contNo				= $("#contNo").val() ? $("#contNo").val() : 0; // 계약번호
 		
 		console.log(sprtData.techdFrom);

@@ -123,6 +123,7 @@
 										<div class="input-group input-group-sm mb-0">
 											<input type="text" class="form-control" name="oldContTitle" id="oldContTitle" readonly>
 											<input type="hidden" name="oldContNo" id="oldContNo" value="" />
+											<input type="hidden" id="oldSoppNo" value="" />
 											<span class="input-group-btn">
 												<button class="btn btn-primary sch-opportunity2" data-remote="${path}/modal/popup.do?popId=cont"
 														type="button" data-toggle="modal" data-target="#contModal">
@@ -551,9 +552,10 @@
 			$("#supplyModal").modal("hide");
 		}
 
-		function fnSetContData(a,b,c,d){
+		function fnSetContData(a,b,c,d,e){
 			$("#oldContTitle").val(a);
 			$("#oldContNo").val(b);
+			$("#oldSoppNo").val(e);
 			$(".modal-backdrop").remove();
 			$("#contModal").modal("hide");
 		}
@@ -572,7 +574,7 @@
 					return;
 				}
 			} else {
-				contData.soppNo					= 0;							// 영업기회
+				contData.soppNo					= $("#oldSoppNo").val();							// 영업기회
 				contData.exContNo				= $("#oldContNo").val();		// 기존계약
 				contData.cntrctMth				= ${contractType[1].codeNo};
 				if($("#paymaintSdate").val() != "") contData.paymaintSdate = $("#paymaintSdate").val();		// 유상유지보수 시작일자

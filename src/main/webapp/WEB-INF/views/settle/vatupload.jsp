@@ -31,6 +31,29 @@
                         </div>
                     </div>
                     <div class="btn_wr" style="float:right;">
+                    	<button class="btn btn-sm btn-danger" data-toggle="modal" data-target="#fileUploadModal">읽어오기</button>
+						<div class="modal fade " id="fileUploadModal" tabindex="-1" role="dialog">
+							<div class="modal-dialog modal-80size" role="document">
+								<div class="modal-content modal-80size">
+									<div class="modal-header">
+										<h4 class="modal-title">CSV 파일 등록</h4>
+										<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+											<span aria-hidden="true">&times;</span>
+										</button>
+									</div>
+									<div class="modal-body">
+										<form id="uploadForm">
+											<input type="file" name="file" id="fileUpload" />
+										</form>
+										<br> 파일 설명<input type="text" class="form-control" id="fileDesc" />
+									</div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-default waves-effect" onclick="uploadFile()">등록</button>
+										<button type="button" class="btn btn-default waves-effect" data-dismiss="modal">닫기</button>
+									</div>
+								</div>
+							</div>
+						</div>
                         <!-- hide and show -->
                         <button class="btn btn-sm btn-success" id="fold" onclick="acordian_action()" style="z-index:99">펼치기</button>
                         <button class="btn btn-sm btn-success" id="fold2" onclick="acordian_action1()" style="z-index:10; display:none;">접기</button>
@@ -42,6 +65,8 @@
                 </div>
             </div>
         </div>
+        <div id="dvCSV">
+		</div>
         <!--Page-header end 페이지 타이틀 -->
         <!--영업활동조회-->
         <div class="cnt_wr" id="acordian" style="display:none;">
@@ -253,6 +278,38 @@
 
     <!-- hide and show -->
     <script>
+    function uploadFile(){
+        var regex = /^([a-zA-Z0-9\s_\\.\-:])+(.csv|.txt)$/;
+        if (regex.test($("#fileUpload").val().toLowerCase())) {
+            if (typeof (FileReader) != "undefined") {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    var table = $("<table />");
+                    var rows = e.target.result.split("\n");
+                    for (var i = 0; i < rows.length; i++) {
+                        var row = $("<tr />");
+                        var cells = rows[i].split(",");
+                        if (cells.length > 1) {
+                            for (var j = 0; j < cells.length; j++) {
+                                var cell = $("<td />");
+                                cell.html(cells[j]);
+                                row.append(cell);
+                            }
+                            table.append(row);
+                        }
+                    }
+                    $("#dvCSV").html('');
+                    $("#dvCSV").append(table);
+                }
+                reader.readAsText($("#fileUpload")[0].files[0]);
+            } else {
+                alert("This browser does not support HTML5.");
+            }
+        } else {
+            alert("Please upload a valid CSV file.");
+        }
+    }
+    
         function acordian_action(){
             if($("#acordian").css("display") == "none"){
                 $("#acordian").show();

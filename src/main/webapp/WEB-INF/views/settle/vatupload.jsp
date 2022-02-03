@@ -17,6 +17,8 @@
 <html>
 <jsp:include page="../head.jsp"/>
 <jsp:include page="../body-top3.jsp"/>
+<script src="${path}/js/jquery.table2CSV.js"></script>
+<script src="${path}/js/jquery.TableCSVExport.js"></script>
 
 <div id="main_content">
 
@@ -31,6 +33,7 @@
                         </div>
                     </div>
                     <div class="btn_wr" style="float:right;">
+                    	<button class="btn btn-sm btn-danger" onClick="downloadCSV();">내보내기</button>
                     	<button class="btn btn-sm btn-danger" data-toggle="modal" data-target="#fileUploadModal">읽어오기</button>
 						<div class="modal fade " id="fileUploadModal" tabindex="-1" role="dialog">
 							<div class="modal-dialog modal-80size" role="document">
@@ -65,8 +68,8 @@
                 </div>
             </div>
         </div>
-        <div id="dvCSV">
-		</div>
+        <!-- <div id="dvCSV">
+		</div> -->
         <!--Page-header end 페이지 타이틀 -->
         <!--영업활동조회-->
         <div class="cnt_wr" id="acordian" style="display:none;">
@@ -278,38 +281,64 @@
 
     <!-- hide and show -->
     <script>
-    function uploadFile(){
-        var regex = /^([a-zA-Z0-9\s_\\.\-:])+(.csv|.txt)$/;
-        if (regex.test($("#fileUpload").val().toLowerCase())) {
-            if (typeof (FileReader) != "undefined") {
-                var reader = new FileReader();
-                reader.onload = function (e) {
-                    var table = $("<table />");
-                    var rows = e.target.result.split("\n");
-                    for (var i = 0; i < rows.length; i++) {
-                        var row = $("<tr />");
-                        var cells = rows[i].split(",");
-                        if (cells.length > 1) {
-                            for (var j = 0; j < cells.length; j++) {
-                                var cell = $("<td />");
-                                cell.html(cells[j]);
-                                row.append(cell);
-                            }
-                            table.append(row);
-                        }
-                    }
-                    $("#dvCSV").html('');
-                    $("#dvCSV").append(table);
-                }
-                reader.readAsText($("#fileUpload")[0].files[0]);
-            } else {
-                alert("This browser does not support HTML5.");
-            }
-        } else {
-            alert("Please upload a valid CSV file.");
-        }
-    }
-    
+	    function uploadFile(){
+	        var regex = /^([a-zA-Z0-9\s_\\.\-:])+(.csv|.txt)$/;
+	        if (regex.test($("#fileUpload").val().toLowerCase())) {
+	            if (typeof (FileReader) != "undefined") {
+	                var reader = new FileReader();
+	                reader.onload = function (e) {
+	                    var table = $("<table class='table table-striped table-bordered nowrap' />");
+	                    var rows = e.target.result.split("\n");
+	                    for (var i = 5; i < rows.length; i++) {
+	                        var row = $("<tr />");
+	                        var cells = rows[i].split(",");
+	                        if (cells.length > 1) {
+	                            for (var j = 0; j < cells.length; j++) {
+	                                var cell = $("<td />");
+	                                cell.html(cells[j]);
+	                                row.append(cell);
+	                            }
+	                            table.append(row);
+	                        }
+	                    }
+	                    $("#vatTable").html('');
+	                    $("#vatTable").append(table);
+	                }
+	                reader.readAsText($("#fileUpload")[0].files[0]);
+	            }
+	        } else {
+	            alert("파일명이 영어로 된 csv 파일만 등록가능합니다.");
+	        }
+	    }
+	    
+	    function downloadCSV() {
+	    	var getDate = new Date();
+	    	var compNo = "${sessionScope.compNo}";
+	    	var year = getDate.getFullYear();
+	    	var month = getDate.getMonth()+1;
+	    	var day = getDate.getDate();
+	    	var fileName = "";
+	    	
+	    	if(month < 10){
+		    	month = "0" + month;
+	    	}
+	    	
+	    	if(day < 10){
+	    		day = "0" + day;	
+	    	}
+	    	
+	    	var now = year + "-" + month + "-" + day;
+	    	
+	    	if(compNo === "100002"){
+	    		fileName = "VTEK" + "(" + now + ")";	
+	    	}
+	    	
+	    	$('#vatTable').TableCSVExport({
+	            delivery: 'download',
+	            filename: fileName + '.csv'
+	        });
+	    }
+	    
         function acordian_action(){
             if($("#acordian").css("display") == "none"){
                 $("#acordian").show();

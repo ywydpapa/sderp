@@ -251,7 +251,7 @@ th, td{
 								<th style="border-right:1px solid #000;"></th>
 								<th style="border-right:1px solid #000;"></th>
 								<th style="border-right:1px solid #000;"></th>
-								<th style="text-align:right; border-right:1px solid #000;"><fmt:formatNumber value="${titleList.titleTotal}" pattern="#,###" /></th>
+								<th style="text-align:right; border-right:1px solid #000;"><fmt:formatNumber value="${titleList.amountTotal}" pattern="#,###" /></th>
 								<th></th>
 							</tr>
 							<c:forEach var="row" items="${list}" varStatus="status">

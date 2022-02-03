@@ -206,9 +206,9 @@
 					<div class="btn_wr" style="float:right;">
 						<!-- hide and show -->
 						<button class="btn btn-sm btn-success" id="fold"
-							onclick="acordian_action()" style="z-index: 99">펼치기</button>
+							onclick="acordian_action()">펼치기</button>
 						<button class="btn btn-sm btn-success" id="fold2"
-							onclick="acordian_action1()" style="z-index: 10; display: none;">접기</button>
+							onclick="acordian_action1()" style="display: none;">접기</button>
 						<!-- hide and show -->
 						<button class="btn btn-sm btn-inverse" onClick="javascript:fnClearall()"><i class="icofont icofont-spinner-alt-3"></i>초기화</button>
 						<button class="btn btn-sm btn-primary" onClick="javascript:fnListcon()" id="search"><i class="icofont icofont-search"></i>검색</button>	

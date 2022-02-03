@@ -100,10 +100,10 @@
 								<td>${ritem.end}</td>
 								<c:choose>
 									<c:when test="${ritem.schedCheck eq '1' }">
-										<td class="chktd"><input type="checkbox" id="chk" data-id="${ritem.id }" data-check="1" data-name="checks" class="r1chk form-control-sm" checked></td>
+										<td class="chktd"><input type="checkbox" id="chk" data-id="${ritem.id }" data-check="1" data-name="checks" class="r1chk" checked></td>
 									</c:when>
 									<c:otherwise>
-										<td class="chktd"><input type="checkbox" id="chk" data-id="${ritem.id }" data-check="0" data-name="checks" class="r1chk form-control-sm"></td>
+										<td class="chktd"><input type="checkbox" id="chk" data-id="${ritem.id }" data-check="0" data-name="checks" class="r1chk"></td>
 									</c:otherwise>
 								</c:choose>
 							</tr>
@@ -116,10 +116,10 @@
 							</td>
 							<c:choose>
 								<c:when test="${myadd.prCheck eq '1' }">
-									<td style="text-align:center;"><input type="checkbox" data-id="${myadd.sreportNo}" data-check="1" data-name="add" class="praddchk form-control-sm" checked></td>
+									<td style="text-align:center;"><input type="checkbox" data-id="${myadd.sreportNo}" data-check="1" data-name="add" class="praddchk" checked></td>
 								</c:when>
 								<c:otherwise>
-									<td style="text-align:center;"><input type="checkbox" data-id="${myadd.sreportNo}" data-check="0" data-name="add" class="praddchk form-control-sm"></td>
+									<td style="text-align:center;"><input type="checkbox" data-id="${myadd.sreportNo}" data-check="0" data-name="add" class="praddchk"></td>
 								</c:otherwise>
 							</c:choose>
 							</tr>
@@ -171,10 +171,10 @@
 								<td>${ritem.end}</td>
 								<c:choose>
 									<c:when test="${ritem.schedCheck eq '1' }">
-										<td class="chktd"><input type="checkbox" id="chk" data-id="${ritem.id }" data-check="1" data-name="checks" class="r2chk form-control-sm" checked></td>
+										<td class="chktd"><input type="checkbox" id="chk" data-id="${ritem.id }" data-check="1" data-name="checks" class="r2chk" checked></td>
 									</c:when>
 									<c:otherwise>
-										<td class="chktd"><input type="checkbox" id="chk" data-id="${ritem.id }" data-check="0" data-name="checks" class="r2chk form-control-sm"></td>
+										<td class="chktd"><input type="checkbox" id="chk" data-id="${ritem.id }" data-check="0" data-name="checks" class="r2chk"></td>
 									</c:otherwise>
 								</c:choose>
 							</tr>
@@ -185,10 +185,10 @@
 							<td colspan=4><textarea id="thaddtext" class="form-control" cols="50" rows="5">${myadd.thComment}</textarea></td>
 							<c:choose>
 								<c:when test="${myadd.thCheck eq '1' }">
-									<td style="text-align:center;"><input type="checkbox" data-id="${myadd.sreportNo }" data-check="1" data-name="add" class="thaddchk form-control-sm" checked></td>
+									<td style="text-align:center;"><input type="checkbox" data-id="${myadd.sreportNo }" data-check="1" data-name="add" class="thaddchk" checked></td>
 								</c:when>
 								<c:otherwise>
-									<td style="text-align:center;"><input type="checkbox" data-id="${myadd.sreportNo }" data-check="0" data-name="add" class="thaddchk form-control-sm"></td>
+									<td style="text-align:center;"><input type="checkbox" data-id="${myadd.sreportNo }" data-check="0" data-name="add" class="thaddchk"></td>
 								</c:otherwise>
 							</c:choose>
 							</tr>
@@ -240,10 +240,10 @@
 								<td>${ritem.end}</td>
 								<c:choose>
 									<c:when test="${ritem.schedCheck eq '1'}">
-										<td class="chktd"><input type="checkbox" id="chk" data-id="${ritem.id }" data-check="1" data-name="checks" class="r3chk form-control-sm" checked></td>
+										<td class="chktd"><input type="checkbox" id="chk" data-id="${ritem.id }" data-check="1" data-name="checks" class="r3chk" checked></td>
 									</c:when>
 									<c:otherwise>
-										<td class="chktd"><input type="checkbox" id="chk" data-id="${ritem.id }" data-check="0" data-name="checks" class="r3chk form-control-sm"></td>
+										<td class="chktd"><input type="checkbox" id="chk" data-id="${ritem.id }" data-check="0" data-name="checks" class="r3chk"></td>
 									</c:otherwise>
 								</c:choose>
 							</tr>
@@ -256,10 +256,10 @@
 							</td>
 							<c:choose>
 								<c:when test="${myadd2.thCheck eq '1' }">
-									<td style="text-align:center;"><input type="checkbox" data-id="${myadd2.sreportNo}" data-check="1" data-name="add" class="nxaddchk form-control-sm" checked></td>
+									<td style="text-align:center;"><input type="checkbox" data-id="${myadd2.sreportNo}" data-check="1" data-name="add" class="nxaddchk" checked></td>
 								</c:when>
 								<c:otherwise>
-									<td style="text-align:center;"><input type="checkbox" data-id="${myadd2.sreportNo}" data-check="0" data-name="add" class="nxaddchk form-control-sm"></td>
+									<td style="text-align:center;"><input type="checkbox" data-id="${myadd2.sreportNo}" data-check="0" data-name="add" class="nxaddchk"></td>
 								</c:otherwise>
 							</c:choose>
 							</tr>

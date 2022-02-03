@@ -53,7 +53,7 @@ public class schedController {
 		mav.setViewName("sched/list");
 		return mav;
 	}
-
+	
 	@RequestMapping("schedreport.do")
 	public ModelAndView schedrep(HttpSession session,HttpSession session2,HttpSession session3, ModelAndView mav, @ModelAttribute SchedDTO dto) {
 		mav.addObject("rlist",schedService.listSreport(session, session2, null, null));
@@ -170,12 +170,13 @@ public class schedController {
 		Map<String, Object> param = new HashMap<>();
 		Gson gson = new Gson();
 		String jsonStr = gson.toJson(payload.get("checkData"));
-		JsonParser jsonParser = new JsonParser();
-		JsonArray jsonArray = (JsonArray) jsonParser.parse(jsonStr);
-		
+		JsonParser jsonParser = new JsonParser();		
+		JsonArray jsonArray = (JsonArray) jsonParser.parse(jsonStr);		
 		String sreStr = gson.toJson(payload.get("sreportData"));
 		System.out.println(sreStr);
 		JsonObject jsonObject = (JsonObject) jsonParser.parse(sreStr);
+
+		
 		System.out.println(jsonObject.get("userNo"));
 		
 		dto.setUserNo(jsonObject.get("userNo").getAsInt());
@@ -185,6 +186,7 @@ public class schedController {
 		dto.setThComment(jsonObject.get("thComment").getAsString());
 		dto.setThCheck(jsonObject.get("thCheck").getAsInt());
 		
+		
 		int srIResult = schedService.insertSreport(dto);
 		
 		for(int i =0; i < jsonArray.size(); i++) {
@@ -192,11 +194,24 @@ public class schedController {
 			JsonObject object = (JsonObject) jsonArray.get(i);
 			int schedNo = object.get("schedNo").getAsInt();
 			int schedCheck = object.get("schedCheck").getAsInt();
-			
 			schedDto.setSchedNo(schedNo);
-			schedDto.setSchedCheck(schedCheck);
-			
+			schedDto.setSchedCheck(schedCheck);		
 			schedService.updateSreport(schedDto);
+			
+			//sales 세팅	
+			int salesNo = object.get("schedNo").getAsInt();
+			int salesCheck = object.get("schedCheck").getAsInt();
+			schedDto.setSalesNo(salesNo);
+			schedDto.setSalesCheck(salesCheck);
+			schedService.updateSreport1(schedDto);
+			
+			//techd 세팅
+			int techdNo = object.get("schedNo").getAsInt();
+			int techdCheck = object.get("schedCheck").getAsInt();
+			schedDto.setTechdNo(techdNo);
+			schedDto.setTechdCheck(techdCheck);			
+			schedService.updateSreport2(schedDto);
+			
 		}
 		
 		if (srIResult >0) {
@@ -237,6 +252,20 @@ public class schedController {
 			schedDto.setSchedNo(schedNo);
 			schedDto.setSchedCheck(schedCheck);
 			schedService.updateSreport(schedDto);
+			
+			//sales 세팅	
+			int salesNo = object.get("schedNo").getAsInt();
+			int salesCheck = object.get("schedCheck").getAsInt();
+			schedDto.setSalesNo(salesNo);
+			schedDto.setSalesCheck(salesCheck);
+			schedService.updateSreport1(schedDto);
+			
+			//techd 세팅
+			int techdNo = object.get("schedNo").getAsInt();
+			int techdCheck = object.get("schedCheck").getAsInt();
+			schedDto.setTechdNo(techdNo);
+			schedDto.setTechdCheck(techdCheck);			
+			schedService.updateSreport2(schedDto);
 		}
 		
 		if (srIResult >0) {

@@ -29,4 +29,6 @@ public interface SchedService {
 	SchedDTO myAddtext(HttpSession session,SchedDTO dto);
 	SchedDTO myAddtext2(HttpSession session,SchedDTO dto);
 	int updateSreport(SchedDTO dto);
+	int updateSreport1(SchedDTO dto);
+	int updateSreport2(SchedDTO dto);
 }

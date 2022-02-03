@@ -25,4 +25,6 @@ public interface SchedDAO {
 	SchedDTO myAddtext2(SchedDTO dto);
 	List<SchedDTO> detailSreport(SchedDTO dto);
 	int updateSreport(SchedDTO dto);
+	int updateSreport1(SchedDTO dto);
+	int updateSreport2(SchedDTO dto);
 }

@@ -740,6 +740,14 @@ order by weekno,weekdays,start
  	update swc_sched set schedCheck=#{schedCheck} where schedNo=#{schedNo}
  </update>
  
+ <update id="updateSreport1">
+ 	update swc_sales set salesCheck=#{salesCheck} where salesNo=#{salesNo}
+ </update>
+ 
+  <update id="updateSreport2">
+ 	update swc_techd set techdCheck=#{techdCheck} where techdNo=#{techdNo}
+ </update>
+ 
  <insert id="insertSreport">
  insert into swc_sreport
  (userNo,compNo,weekNum,prComment,prCheck,thComment,thCheck,regDate)

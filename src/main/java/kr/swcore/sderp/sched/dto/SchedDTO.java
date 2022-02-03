@@ -16,6 +16,8 @@ public class SchedDTO extends PageDTO {
 	private int soppNo;
 	private int custNo;
 	private int contNo;
+	private int salesNo;
+	private int techdNo;
 	private int id;
 	private String schedName;
 	private String schedFrom;
@@ -23,6 +25,10 @@ public class SchedDTO extends PageDTO {
 	private String schedTitle;
 	private String schedDesc;
 	private int schedCheck;
+	
+	private int techdCheck;
+	private int salesCheck;
+	
 	private String subschedNo;
 	private String schedActive;
 	private String schedAllday;

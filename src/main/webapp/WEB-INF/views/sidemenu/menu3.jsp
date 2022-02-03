@@ -20,7 +20,7 @@
                                         <span class="pcoded-mcaret"></span>
                                     </a>
                                 </li>
-                                <li class="pcoded-hasmenu  pcoded">
+                                <li class="pcoded-hasmenu  pcoded <c:if test="${path2 eq '/cont/sliplist.do' || path2 eq '/cont/slipwrite.do'}">pcoded-trigger</c:if>">
                                     <a href="javascript:void(0)">
                                         <span class="pcoded-micon"><i class="ti-receipt"></i></span>
                                         <span class="pcoded-mtext"  data-i18n="nav.basic-components.main">전표관리</span>
@@ -43,7 +43,7 @@
                                         </li>
                                     </ul>
                                     </li>
-                                    <li class="pcoded-hasmenu pcoded <c:if test="${path2 eq '/cont/iolist.do' || path2 eq '/cont/iowrite.do' || fn:startsWith(path2, '/cont')}">pcoded-trigger</c:if>">
+                                    <li class="pcoded-hasmenu pcoded <c:if test="${path2 eq '/cont/iolist.do' || path2 eq '/cont/iowrite.do'}">pcoded-trigger</c:if>">
                                     <a href="javascript:void(0)">
                                         <span class="pcoded-micon"><i class="icon-calculator"></i></span>
                                         <span class="pcoded-mtext"  data-i18n="nav.form-select.main">매입/매출관리</span>
@@ -66,7 +66,7 @@
                                         </li>
                                     </ul>
                                     </li>
-                                    <li class="pcoded-hasmenu  pcoded">
+                                    <li class="pcoded-hasmenu  pcoded <c:if test="${path2 eq '/acc/list.do' || path2 eq '/acc/write.do'}">pcoded-trigger</c:if>">
                                     <a href="javascript:void(0)">
                                         <span class="pcoded-micon"><i class="fa fa-krw"></i></span>
                                         <span class="pcoded-mtext"  data-i18n="nav.basic-components.main">자금관리</span>
@@ -96,7 +96,7 @@
                                         </li>
                                     </ul>
                                     </li>
-                                    <li class="pcoded-hasmenu  pcoded">
+                                    <li class="pcoded-hasmenu pcoded <c:if test="${path2 eq '/acc/vatlist.do' || path2 eq '/acc/vatupload.do'}">pcoded-trigger</c:if>">
                                     <a href="javascript:void(0)">
                                         <span class="pcoded-micon"><i class="ti-stats-up"></i></span>
                                         <span class="pcoded-mtext"  data-i18n="nav.basic-components.main">채권채무관리</span>

@@ -11,15 +11,15 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <c:set var="path" value ="${pageContext.request.contextPath}"/>
-
+<c:set var="path2" value="${requestScope['javax.servlet.forward.servlet_path']}" />
 
 <!DOCTYPE html>
 <html>
 <jsp:include page="../head.jsp"/>
-<jsp:include page="../body-top.jsp"/>
+<jsp:include page="../body-top3.jsp"/>
 
 <div id="main_content">
-
+	
     <c:if test="${preserveSearchCondition != 'Y'}">
         <!-- Page-header start 페이지 타이틀-->
         <div class="page-header2">

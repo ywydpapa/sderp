@@ -265,7 +265,7 @@ th, td{
 										<td style="text-align:center;">${row.productQty}</td>
 										<td></td>
 										<td style="text-align:right;"><fmt:formatNumber value="${row.productNetprice}" pattern="#,###" /></td>
-										<td style="text-align:right;"><fmt:formatNumber value="${row.productTotal}" pattern="#,###" /></td>
+										<td style="text-align:right;"><fmt:formatNumber value="${row.productAmount}" pattern="#,###" /></td>
 										<td style="border-right:1px solid #000;">${row.productRemark}</td>
 									</tr>
 								</c:if>
@@ -294,7 +294,7 @@ th, td{
 								<td style="text-align:center;">${row.productQty}</td>
 								<td></td>
 								<td style="text-align:right;"><fmt:formatNumber value="${row.productNetprice}" pattern="#,###" /></td>
-								<td style="text-align:right;"><fmt:formatNumber value="${row.productTotal}" pattern="#,###" /></td>
+								<td style="text-align:right;"><fmt:formatNumber value="${row.productAmount}" pattern="#,###" /></td>
 								<td style="border-right:1px solid #000;">${row.productRemark}</td>
 							</tr>
 						</c:forEach>

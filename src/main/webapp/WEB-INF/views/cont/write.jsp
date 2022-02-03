@@ -476,6 +476,16 @@
 			var modal = $(this);
 			modal.find('.modal-body').load(button.data("remote"));
 		});
+		
+		//계약 table의 soppNo 값이 0일 경우 
+		function fnSetContData1(a,b,c,d,e){
+			//영업기회와 sopno이 연결되어있지 않은 경우 경고창
+			alert("영업기회에 연결되어있지 않은 계약압니다.");
+			return false;
+			//영업기회와 sopno이 연결되어있지 않은 경우 경고창
+			/* $("#soppNo").val(e);
+			location.href = "${path}/cont/iowrite.do/" + e; */
+		}
 
 		function fnSetCustData(a, b) {
     		// '${row.custName}','${row.custNo}'

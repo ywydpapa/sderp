@@ -85,9 +85,9 @@
 							<c:forEach var="ritem" items="${rlist}" varStatus="stvar">
 							<c:if test="${ritem.weektype eq 'p'}">
 							<tr>
-								<td class="firstr1">${ritem.weekno}</td>
+								<td class="firstr1" style="vertical-align:middle;">${ritem.weekno}</td>
 								<td class="secondr1" style="vertical-align:middle;"><c:if test="${ritem.weekdays eq 2}">월</c:if><c:if test="${ritem.weekdays eq 3}">화</c:if><c:if test="${ritem.weekdays eq 4}">수</c:if><c:if test="${ritem.weekdays eq 5}">목</c:if><c:if test="${ritem.weekdays eq 6}">금</c:if><c:if test="${ritem.weekdays eq 7}">토</c:if></td>
-								<td>
+								<td style="vertical-align:middle;">
 								<c:choose>
 								<c:when test="${ritem.stype eq 'S'}"><a href="javascript:eventclk1(${ritem.id})">${ritem.title}</a></c:when>
 								<c:when test="${ritem.stype eq 'T'}"><a href="javascript:eventclk2(${ritem.id})">${ritem.title}</a></c:when>
@@ -96,14 +96,14 @@
 								</c:choose>
 								</td>
 								<td style='width:300;overflow:hidden;text-overflow;ellipsis;word-break:break-word'>${fn:replace(ritem.schedDesc, replaceChar, "<br/>") }</td>
-								<td>${ritem.start}</td>
-								<td>${ritem.end}</td>
+								<td style="vertical-align:middle;">${ritem.start}</td>
+								<td style="vertical-align:middle;">${ritem.end}</td>
 								<c:choose>
 									<c:when test="${ritem.schedCheck eq '1' }">
-										<td class="chktd"><input type="checkbox" id="chk" data-id="${ritem.id }" data-check="1" data-name="checks" class="r1chk" checked></td>
+										<td class="chktd" style="vertical-align:middle;"><input type="checkbox" id="chk" data-id="${ritem.id }" data-check="1" data-name="checks" class="r1chk" checked></td>
 									</c:when>
 									<c:otherwise>
-										<td class="chktd"><input type="checkbox" id="chk" data-id="${ritem.id }" data-check="0" data-name="checks" class="r1chk"></td>
+										<td class="chktd" style="vertical-align:middle;"><input type="checkbox" id="chk" data-id="${ritem.id }" data-check="0" data-name="checks" class="r1chk"></td>
 									</c:otherwise>
 								</c:choose>
 							</tr>
@@ -116,10 +116,10 @@
 							</td>
 							<c:choose>
 								<c:when test="${myadd.prCheck eq '1' }">
-									<td style="text-align:center;"><input type="checkbox" data-id="${myadd.sreportNo}" data-check="1" data-name="add" class="praddchk" checked></td>
+									<td style="text-align:center;vertical-align:middle;"><input type="checkbox" data-id="${myadd.sreportNo}" data-check="1" data-name="add" class="praddchk" checked></td>
 								</c:when>
 								<c:otherwise>
-									<td style="text-align:center;"><input type="checkbox" data-id="${myadd.sreportNo}" data-check="0" data-name="add" class="praddchk"></td>
+									<td style="text-align:center;vertical-align:middle;"><input type="checkbox" data-id="${myadd.sreportNo}" data-check="0" data-name="add" class="praddchk"></td>
 								</c:otherwise>
 							</c:choose>
 							</tr>
@@ -156,9 +156,9 @@
 							<c:forEach var="ritem" items="${rlist}">
 							<c:if test="${ritem.weektype eq 't'}">
 							<tr>
-								<td class="firstr2">${ritem.weekno}</td>
+								<td class="firstr2" style="vertical-align:middle;">${ritem.weekno}</td>
 								<td class="secondr2" style="vertical-align:middle;"><c:if test="${ritem.weekdays eq 1}">일</c:if><c:if test="${ritem.weekdays eq 2}">월</c:if><c:if test="${ritem.weekdays eq 3}">화</c:if><c:if test="${ritem.weekdays eq 4}">수</c:if><c:if test="${ritem.weekdays eq 5}">목</c:if><c:if test="${ritem.weekdays eq 6}">금</c:if><c:if test="${ritem.weekdays eq 7}">토</c:if></td>
-								<td>
+								<td style="vertical-align:middle;">
 								<c:choose>
 								<c:when test="${ritem.stype eq 'S'}"><a href="javascript:eventclk1(${ritem.id})">${ritem.title}</a></c:when>
 								<c:when test="${ritem.stype eq 'T'}"><a href="javascript:eventclk2(${ritem.id})">${ritem.title}</a></c:when>
@@ -167,14 +167,14 @@
 								</c:choose>
 								</td>
 								<td style='width:300;overflow:hidden;text-overflow;ellipsis;word-break:break-word'>${fn:replace(ritem.schedDesc, replaceChar, "<br/>") }</td>
-								<td>${ritem.start}</td>
-								<td>${ritem.end}</td>
+								<td style="vertical-align:middle;">${ritem.start}</td>
+								<td style="vertical-align:middle;">${ritem.end}</td>
 								<c:choose>
 									<c:when test="${ritem.schedCheck eq '1' }">
-										<td class="chktd"><input type="checkbox" id="chk" data-id="${ritem.id }" data-check="1" data-name="checks" class="r2chk" checked></td>
+										<td class="chktd" style="vertical-align:middle;"><input type="checkbox" id="chk" data-id="${ritem.id }" data-check="1" data-name="checks" class="r2chk" checked></td>
 									</c:when>
 									<c:otherwise>
-										<td class="chktd"><input type="checkbox" id="chk" data-id="${ritem.id }" data-check="0" data-name="checks" class="r2chk"></td>
+										<td class="chktd" style="vertical-align:middle;"><input type="checkbox" id="chk" data-id="${ritem.id }" data-check="0" data-name="checks" class="r2chk"></td>
 									</c:otherwise>
 								</c:choose>
 							</tr>
@@ -185,10 +185,10 @@
 							<td colspan=4><textarea id="thaddtext" class="form-control" cols="50" rows="5">${myadd.thComment}</textarea></td>
 							<c:choose>
 								<c:when test="${myadd.thCheck eq '1' }">
-									<td style="text-align:center;"><input type="checkbox" data-id="${myadd.sreportNo }" data-check="1" data-name="add" class="thaddchk" checked></td>
+									<td style="text-align:center; vertical-align:middle;"><input type="checkbox" data-id="${myadd.sreportNo }" data-check="1" data-name="add" class="thaddchk" checked></td>
 								</c:when>
 								<c:otherwise>
-									<td style="text-align:center;"><input type="checkbox" data-id="${myadd.sreportNo }" data-check="0" data-name="add" class="thaddchk"></td>
+									<td style="text-align:center; vertical-align:middle;"><input type="checkbox" data-id="${myadd.sreportNo }" data-check="0" data-name="add" class="thaddchk"></td>
 								</c:otherwise>
 							</c:choose>
 							</tr>
@@ -225,9 +225,9 @@
 							<c:forEach var="ritem" items="${rlist}">
 							<c:if test="${ritem.weektype eq 'n'}">
 							<tr>
-								<td class="firstr3">${ritem.weekno}</td>
+								<td class="firstr3" style="vertical-align:middle;">${ritem.weekno}</td>
 								<td class="secondr3"><c:if test="${ritem.weekdays eq 1}">일</c:if><c:if test="${ritem.weekdays eq 2}">월</c:if><c:if test="${ritem.weekdays eq 3}">화</c:if><c:if test="${ritem.weekdays eq 4}">수</c:if><c:if test="${ritem.weekdays eq 5}">목</c:if><c:if test="${ritem.weekdays eq 6}">금</c:if><c:if test="${ritem.weekdays eq 7}">토</c:if></td>
-								<td>
+								<td style="vertical-align:middle;">
 								<c:choose>
 								<c:when test="${ritem.stype eq 'S'}"><a href="javascript:eventclk1(${ritem.id})">${ritem.title}</a></c:when>
 								<c:when test="${ritem.stype eq 'T'}"><a href="javascript:eventclk2(${ritem.id})">${ritem.title}</a></c:when>
@@ -236,14 +236,14 @@
 								</c:choose>
 								</td>
 								<td style='width:300;overflow:hidden;text-overflow;ellipsis;word-break:break-word'>${ritem.schedDesc}</td>
-								<td>${ritem.start}</td>
-								<td>${ritem.end}</td>
+								<td style="vertical-align:middle;">${ritem.start}</td>
+								<td style="vertical-align:middle;">${ritem.end}</td>
 								<c:choose>
 									<c:when test="${ritem.schedCheck eq '1'}">
-										<td class="chktd"><input type="checkbox" id="chk" data-id="${ritem.id }" data-check="1" data-name="checks" class="r3chk" checked></td>
+										<td class="chktd" style="vertical-align:middle;"><input type="checkbox" id="chk" data-id="${ritem.id }" data-check="1" data-name="checks" class="r3chk" checked></td>
 									</c:when>
 									<c:otherwise>
-										<td class="chktd"><input type="checkbox" id="chk" data-id="${ritem.id }" data-check="0" data-name="checks" class="r3chk"></td>
+										<td class="chktd" style="vertical-align:middle;"><input type="checkbox" id="chk" data-id="${ritem.id }" data-check="0" data-name="checks" class="r3chk"></td>
 									</c:otherwise>
 								</c:choose>
 							</tr>
@@ -256,10 +256,10 @@
 							</td>
 							<c:choose>
 								<c:when test="${myadd2.thCheck eq '1' }">
-									<td style="text-align:center;"><input type="checkbox" data-id="${myadd2.sreportNo}" data-check="1" data-name="add" class="nxaddchk" checked></td>
+									<td style="text-align:center; vertical-align:middle;"><input type="checkbox" data-id="${myadd2.sreportNo}" data-check="1" data-name="add" class="nxaddchk" checked></td>
 								</c:when>
 								<c:otherwise>
-									<td style="text-align:center;"><input type="checkbox" data-id="${myadd2.sreportNo}" data-check="0" data-name="add" class="nxaddchk"></td>
+									<td style="text-align:center; vertical-align:middle;"><input type="checkbox" data-id="${myadd2.sreportNo}" data-check="0" data-name="add" class="nxaddchk"></td>
 								</c:otherwise>
 							</c:choose>
 							</tr>

@@ -258,6 +258,7 @@
 			$("#contModal").modal("hide");
 			location.href = "${path}/cont/iowrite.do/" + e;
 		}
+		
 		//계약 table의 soppNo 값이 0일 경우 
 		function fnSetContData1(a,b,c,d,e){
 			//영업기회와 sopno이 연결되어있지 않은 경우 경고창
@@ -266,6 +267,7 @@
 			$("#soppNo").val(e);
 			location.href = "${path}/cont/iowrite.do/" + e;
 		}
+		
 		function fn_SaveContIO() {
 			var contData = {};
 			var contractType					= $("input[name='contractType']:checked").val();	// 신규 영업지원 or 기존계약

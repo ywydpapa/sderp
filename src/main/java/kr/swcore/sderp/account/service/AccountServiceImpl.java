@@ -27,6 +27,23 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
+    public List<AccountDTO> modalVatB(HttpSession session) {
+        int compNo = SessionInfoGet.getCompNo(session);
+        return accountDAO.modalVatB(compNo);
+    }
+
+    @Override
+    public List<AccountDTO> modalVatS(HttpSession session) {
+        int compNo = SessionInfoGet.getCompNo(session);
+        return accountDAO.modalVatS(compNo);
+    }
+
+    @Override
+    public int checkVat(String vatSerial) {
+        return accountDAO.checkVat(vatSerial);
+    }
+
+    @Override
     public AccountDTO detailvat(int vatId) {
         return accountDAO.detailvat(vatId);
     }

@@ -8,6 +8,8 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import kr.swcore.sderp.account.dto.AccountDTO;
+import kr.swcore.sderp.account.service.AccountService;
 import kr.swcore.sderp.common.dto.DeptToPlanTblDTO;
 import kr.swcore.sderp.common.dto.PageDTO;
 import kr.swcore.sderp.common.service.DeptToPlanTblService;
@@ -75,6 +77,9 @@ public class HomeController {
 
 	@Inject
 	TechdService techdService;
+
+	@Inject
+	AccountService accountService;
 
 	@Inject
 	DeptToPlanTblService deptToPlanTblService;
@@ -236,6 +241,18 @@ public class HomeController {
 			List<ContDTO> list=contService.listCont(session, null, null);
 			model.addAttribute("list",list);
 			rtn = "modal/contList";
+		}
+
+		else if("vatB".equals(popId)) {
+			List<AccountDTO> list=accountService.modalVatB(session);
+			model.addAttribute("list",list);
+			rtn = "modal/vatListB";
+		}
+
+		else if("vatS".equals(popId)) {
+			List<AccountDTO> list=accountService.modalVatS(session);
+			model.addAttribute("list",list);
+			rtn = "modal/vatListS";
 		}
 		
 		else if("custmem".equals(popId)) {

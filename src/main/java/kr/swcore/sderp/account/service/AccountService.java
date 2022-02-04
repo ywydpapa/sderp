@@ -8,6 +8,9 @@ import java.util.List;
 public interface AccountService {
     List<AccountDTO> listvat(HttpSession session);
     List<AccountDTO> listvatitem(int vatId);
+    List<AccountDTO> modalVatB(HttpSession session);
+    List<AccountDTO> modalVatS(HttpSession session);
+    int checkVat(String vatSerial);
     AccountDTO detailvat(int vatId);
     int insertVat(AccountDTO dto);
     int insertVatitem(AccountDTO dto);

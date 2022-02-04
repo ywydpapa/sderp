@@ -24,6 +24,21 @@ public class AccountDAOImpl implements AccountDAO {
     }
 
     @Override
+    public List<AccountDTO> modalVatB(int compNo) {
+        return sqlSession.selectList("account.modalVatB",compNo);
+    }
+
+    @Override
+    public List<AccountDTO> modalVatS(int compNo) {
+        return sqlSession.selectList("account.modalVatS",compNo);
+    }
+
+    @Override
+    public int checkVat(String vatSerial) {
+        return sqlSession.selectOne("account.checkVat", vatSerial);
+    }
+
+    @Override
     public AccountDTO detailvat(int vatId) {
         return sqlSession.selectOne("account.detailVat", vatId);
     }

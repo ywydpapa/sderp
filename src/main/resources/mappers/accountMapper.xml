@@ -19,6 +19,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select * from swc_vatdata where vatId = #{vatId};
 	</select>
 
+	<select id="modalVatB" resultType="accountDto">
+		select * from swc_vat where vatStatus in ('B1','B3') and attrib not like 'XXX%' and compNo = #{compNo}
+	</select>
+
+	<select id="modalVatS" resultType="accountDto">
+		select * from swc_vat where vatStatus in ('S1','S3') and attrib not like 'XXX%' and compNo = #{compNo}
+	</select>
+
+	<select id="checkVat" resultType="accountDto">
+		select count(*) from swc_vat where vatSerial = #{vatSerial}
+	</select>
+
 	<insert id="insertVat">
 		insert into swc_vat
 (compNo,

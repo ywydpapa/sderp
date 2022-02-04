@@ -20,11 +20,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 
 	<select id="modalVatB" resultType="accountDto">
-		select * from swc_vat where vatStatus in ('B1','B3') and attrib not like 'XXX%' and compNo = #{compNo}
+		select a.*, b.custName from swc_vat a left join swc_cust b on a.vatSellerCustNo = b.custNo where a.vatStatus in ('B1','B3') and a.attrib not like 'XXX%' and a.compNo = #{compNo}
 	</select>
 
 	<select id="modalVatS" resultType="accountDto">
-		select * from swc_vat where vatStatus in ('S1','S3') and attrib not like 'XXX%' and compNo = #{compNo}
+		select a.*, b.custName from swc_vat a left join swc_cust b on a.vatSellerCustNo = b.custNo where a.vatStatus in ('S1','S3') and a.attrib not like 'XXX%' and a.compNo = #{compNo}
 	</select>
 
 	<select id="checkVat" resultType="accountDto">

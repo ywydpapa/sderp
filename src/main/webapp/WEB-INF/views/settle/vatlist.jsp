@@ -37,7 +37,7 @@
 						<!-- hide and show -->
                         <button class="btn btn-sm btn-inverse" onClick="javascript:fnClearall()"><i class="icofont icofont-spinner-alt-3"></i>초기화</button>
                         <button class="btn btn-sm btn-primary" onClick="javascript:fnListcon()"><i class="icofont icofont-search"></i>검색</button>
-                        <button class="btn btn-sm btn-outline"onClick="javascript:location='${path}/acc/vatWrite.do'"><i class="icofont icofont-pencil-alt-2"></i>계산서 등록</button>
+                        <button class="btn btn-sm btn-outline"onClick="javascript:location='${path}/acc/vatupload.do'"><i class="icofont icofont-pencil-alt-2"></i>계산서 등록</button>
                     </div>
                 </div>
             </div>

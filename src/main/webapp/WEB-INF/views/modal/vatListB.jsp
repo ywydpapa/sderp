@@ -25,9 +25,16 @@
     <c:forEach var="row" items="${list}">
       <tr align="center">
         <td><a href="javascript:fnvatListB('${row.vatSerial}', '${row.vatSellerCustNo}', '${row.vatAmount}');">${row.vatSerial}</a></td>
-        <td>${row.vatSellerCustNo}</td>
-        <td>${row.vatAmount}</td>
-        <td>${row.vatRemark}</td>
+        <c:choose>
+	        <c:when test="${empty row.custName}">
+	           <td>미등록업체</td>
+	        </c:when>
+	        <c:otherwise>
+	          	<td>${row.custName}</td>
+	        </c:otherwise>
+        </c:choose>
+        <td>₩<fmt:formatNumber value="${row.vatAmount}" pattern="#,###" /></td>
+        <td class="text-left">${row.vatRemark}</td>
       </tr>
     </c:forEach>
     </tbody>

@@ -43,5 +43,7 @@ public class AccountDTO {
     private String vatIssueType;
     private String vatEmail;
     
+    private String custName;
+    
     private int resultCount;
 }

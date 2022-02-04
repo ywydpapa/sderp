@@ -7,14 +7,15 @@
 <table class="table table-sm bst02" id="inoutlist">
 	<colgroup>
 		<col width="10%" />
-		<col width="17.5%" />
-		<col width="17.5%" />
-		<col width="10%" />
-		<col width="10%" />
+		<col width="13%" />
+		<col width="13%" />
 		<col width="5%" />
 		<col width="10%" />
 		<col width="5%" />
+		<col width="10%" />
 		<col width="5%" />
+		<col width="8%" />
+		<col width="18%" />
 		<col width="5%" />
 		<col width="5%" />
 	</colgroup>
@@ -29,6 +30,7 @@
 			<th class="text-center">공급가액</th>
 			<th class="text-center">금액</th>
 			<th class="text-center">비고</th>
+			<th class="text-center">승인번호</th>
 			<th class="text-center">수정</th>
 			<th class="text-center">삭제</th>
 		</tr>
@@ -50,14 +52,15 @@
 						<td>매입(${row.vatDate})</td>
 					</c:otherwise>
 				</c:choose>
-				<td>${row.salesCustNoN}<input hidden value="${row.salesCustNo}"></td>
-				<td>${row.dataTitle}<input hidden value="${row.productNo}"></td>
+				<td>${row.salesCustNoN}<input type="hidden" value="${row.salesCustNo}"></td>
+				<td>${row.dataTitle}<input type="hidden" value="${row.productNo}"></td>
 				<td style="text-align: right">₩<fmt:formatNumber value="${row.dataNetprice}" pattern="#,###" /></td>
 				<td style="text-align: right"><fmt:formatNumber value="${row.dataQuanty}" pattern="#,###" /></td>
 				<td style="text-align: right">₩<fmt:formatNumber value="${row.dataVat}" pattern="#,###" /></td>
 				<td style="text-align: right">₩<fmt:formatNumber value="${row.dataAmt}" pattern="#,###" /></td>
 				<td style="text-align: right">₩<fmt:formatNumber value="${row.dataTotal}" pattern="#,###" /></td>
 				<td>${row.dataRemark}</td>
+				<td>${row.vatSerial}</td>
 				<td><button class="btn btn-sm btn-dark" data-value="1101" onClick="javascript:fn_data01modify(this)">수정</button></td>
 				<td><button class="btn btn-sm btn-danger" onClick="javascript:fn_data01delete1(${row.soppdataNo})">삭제</button></td>
 			</tr>
@@ -65,7 +68,7 @@
 	</c:forEach>
 	<tr class="item1">
 		<td colspan="1" style="text-align: center; background: #80808030;">매입합계</td>
-		<td colspan="10" style="text-align: right; background: #80808030;" id="product01InSum_table">₩<fmt:formatNumber value="${totalSum1}" pattern="#,###" /></td>
+		<td colspan="11" style="text-align: right; background: #80808030;" id="product01InSum_table">₩<fmt:formatNumber value="${totalSum1}" pattern="#,###" /></td>
 	</tr>
 	<c:forEach var="row" items="${dtodata01}">
 		<c:if test="${row.dataType eq '1102'}">
@@ -82,14 +85,15 @@
 						<td>매출(${row.vatDate})</td>
 					</c:otherwise>
 				</c:choose>
-				<td>${row.salesCustNoN}<input hidden value="${row.salesCustNo}"></td>
-				<td>${row.dataTitle}<input hidden value="${row.productNo}"></td>
+				<td>${row.salesCustNoN}<input type="hidden" value="${row.salesCustNo}"></td>
+				<td>${row.dataTitle}<input type="hidden" value="${row.productNo}"></td>
 				<td style="text-align: right">₩<fmt:formatNumber value="${row.dataNetprice}" pattern="#,###" /></td>
 				<td style="text-align: right"><fmt:formatNumber value="${row.dataQuanty}" pattern="#,###" /></td>
 				<td style="text-align: right">₩<fmt:formatNumber value="${row.dataVat}" pattern="#,###" /></td>
 				<td style="text-align: right">₩<fmt:formatNumber value="${row.dataAmt}" pattern="#,###" /></td>
 				<td style="text-align: right">₩<fmt:formatNumber value="${row.dataTotal}" pattern="#,###" /></td>
 				<td>${row.dataRemark}</td>
+				<td>${row.vatSerial}</td>
 				<td><button class="btn btn-sm btn-dark" data-value="1102" onClick="javascript:fn_data01modify(this)">수정</button></td>
 				<td><button class="btn btn-sm btn-danger" onClick="javascript:fn_data01delete1(${row.soppdataNo})">삭제</button></td>
 			</tr>
@@ -97,7 +101,7 @@
 	</c:forEach>
 	<tr class="item1" style="text-align: right">
 		<td colspan="1" style="text-align: center; background: #80808030;">매출합계</td>
-		<td colspan="10" style="text-align: right; background: #80808030;" id="product01OutSum_table">₩<fmt:formatNumber value="${totalSum2}" pattern="#,###" /></td>
+		<td colspan="11" style="text-align: right; background: #80808030;" id="product01OutSum_table">₩<fmt:formatNumber value="${totalSum2}" pattern="#,###" /></td>
 	</tr>
 	</tbody>
 </table>
@@ -181,11 +185,15 @@
 			}
 			
 			if($(e).attr("data-value") === "1101"){
-				console.log("매입");
 				$("#data01Type").val("1101");
+				$("#vatBdiv").show();
+    			$("#vatSdiv").hide();
+				$("#vatBdiv").find("#vatSerial").val($(tr).children().eq(9)[0].innerText);
 			}else{
-				console.log("매출");
 				$("#data01Type").val("1102");
+				$("#vatBdiv").hide();
+    			$("#vatSdiv").show();
+				$("#vatSdiv").find("#vatSerial").val($(tr).children().eq(9)[0].innerText);
 			}
 
 			var soppdataNo = Number(tr.attr("id"));
@@ -237,8 +245,12 @@
 			$("#data01Title").val("");
 			$("#data01Netprice").val("");
 			$("#data01Quanty").val("");
+			$("#data01Vat").val("");
 			$("#data01Amt").val("");
+			$("#data01Total").val("");
 			$("#data01Remark").val("");
+			$("#vatBdiv").find("#vatSerial").val("");
+			$("#vatSdiv").find("#vatSerial").val("");
 
 			$(e).addClass("btn-dark");
 			$(e).removeClass("btn-warning");

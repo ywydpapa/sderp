@@ -42,4 +42,6 @@ public class AccountDTO {
     private String vatSerial;
     private String vatIssueType;
     private String vatEmail;
+    
+    private int resultCount;
 }

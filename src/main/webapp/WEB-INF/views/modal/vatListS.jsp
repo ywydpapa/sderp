@@ -24,7 +24,7 @@
         <tbody>
         <c:forEach var="row" items="${list}">
             <tr align="center">
-                <td>${row.vatSerial}</td>
+                <td><a href="javascript:fnvatListS('${row.vatSerial}', '${row.vatSellerCustNo}', '${row.vatAmount}');">${row.vatSerial}</a></td>
                 <td>${row.vatSellerCustNo}</td>
                 <td>${row.vatAmount}</td>
                 <td>${row.vatRemark}</td>
@@ -41,4 +41,12 @@
             searching: true
         });
     });
+    
+    function fnvatListS(a, b, c) {
+        $("#vatSdiv").find("#vatSerial").val(a);
+        $("#vatSdiv").find("#vatSellerCustNo").val(b);
+        $("#vatSdiv").find("#vatAmount").val(c);      
+        $(".modal-backdrop").remove();
+        $("#vatSModal").modal("hide");
+    }
 </script>

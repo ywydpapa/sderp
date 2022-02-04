@@ -51,6 +51,8 @@ public class SoppdataDTO {
 
 	private String contTitle;
 	
+	private String vatSerial;
+	
 	public SoppdataDTO() {
 		super();
 		// TODO Auto-generated constructor stub

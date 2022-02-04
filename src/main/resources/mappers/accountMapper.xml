@@ -28,37 +28,42 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 
 	<select id="checkVat" resultType="accountDto">
-		select * from swc_vat where vatSerial = #{vatSerial}
+		select count(*) as resultCount from swc_vat where vatSerial = #{vatSerial}
 	</select>
 
-	<insert id="insertVat">
-		insert into swc_vat
-(compNo,
-vatBuyerCustNo,
-vatSellerCustNo,
-vatStatus,
-vatNo,
-vatIssueDate,
-vatTradeDate,
-vatType,
-vatTax,
-vatAmount,
-vatRemark,
-regDate,
-attrib) values (#{compNo},
-				#{vatBuyerCustNo},
-				#{vatSellerCustNo},
-				#{vatStatus},
-				#{vatNo},
-				#{vatIssueDate},
-				#{vatTradeDate},
-				#{vatType},
-				#{vatTax},
-				#{vatAmount},
-				#{vatRemark},
-				now(),
-				'100001');
-	</insert>
+<insert id="insertVat">
+	insert into swc_vat
+	(
+		compNo,
+		vatBuyerCustNo,
+		vatSellerCustNo,
+		vatStatus,
+		vatNo,
+		vatIssueDate,
+		vatTradeDate,
+		vatType,
+		vatTax,
+		vatAmount,
+		vatRemark,
+		regDate,
+		attrib) 
+		values 
+	(
+		#{compNo},
+		#{vatBuyerCustNo},
+		#{vatSellerCustNo},
+		#{vatStatus},
+		#{vatNo},
+		#{vatIssueDate},
+		#{vatTradeDate},
+		#{vatType},
+		#{vatTax},
+		#{vatAmount},
+		#{vatRemark},
+		now(),
+		'100001'
+	);
+</insert>
 
 	<insert id="insertVatItem">
 		insert into swc_vatdata

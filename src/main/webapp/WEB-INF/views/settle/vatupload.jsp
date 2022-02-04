@@ -58,13 +58,8 @@
 							</div>
 						</div>
                         <!-- hide and show -->
-                        <button class="btn btn-sm btn-success" id="fold" onclick="acordian_action()" style="z-index:99">펼치기</button>
-                        <button class="btn btn-sm btn-success" id="fold2" onclick="acordian_action1()" style="z-index:10; display:none;">접기</button>
-                        <!-- hide and show -->
-                        <button class="btn btn-sm btn-inverse" onClick="javascript:fnClearall()"><i class="icofont icofont-spinner-alt-3"></i>초기화</button>
-                        <button class="btn btn-sm btn-primary" onClick="javascript:fnListcon()"><i class="icofont icofont-search"></i>검색</button>
-                        <button id="chkBtn" class="btn btn-sm btn-outline"onClick="javascript:fnCheckVatlist()"><i class="icofont icofont-pencil-alt-2"></i>계산서 검토</button>
-                        <button id="regBtn" class="btn btn-sm btn-outline"onClick="javascript:fnRegVatlist()"><i class="icofont icofont-pencil-alt-2"></i>계산서 등록</button>
+                        <button id="chkBtn" class="btn btn-sm btn-secondary"onClick="javascript:fnCheckVatlist()" disabled>계산서 검토</button>
+                        <button id="regBtn" class="btn btn-sm btn-primary"onClick="javascript:fnRegVatlist()">계산서 등록</button>
                     </div>
                 </div>
             </div>
@@ -270,10 +265,10 @@
     					}
     					for(var cell = 0; cell < sheet_data[row].length; cell++){
                             if (cell == 0){
-                                if(row==5){
+                                if(row == 5){
                                     table_output += '<td>검토</td><td>' + sheet_data[row][cell] + '</td>';
                                 }else{
-                                    table_output += '<td><input type="checkbox" disabled class="vatchecked"></td><td>' + sheet_data[row][cell] + '</td>';
+                                    table_output += '<td><input type="checkbox" class="vatchecked" onClick="return false;"></td><td>' + sheet_data[row][cell] + '</td>';
                                 }
                             } else {
                                 if (cell == 1){
@@ -320,6 +315,13 @@
 	        } else {
 	            alert("파일명이 영어로 된 csv 파일만 등록가능합니다.");
 	        } */
+	        
+    		$(".modal-backdrop").remove();
+   	      	$("#fileUploadModal").modal("hide");
+   	      	
+   	      	$("#chkBtn").removeClass();
+   	      	$("#chkBtn").removeAttr("disabled");
+   	      	$("#chkBtn").attr("class", "btn btn-sm btn-success");
 	    }
 	    
 	    function downloadCSV() {
@@ -353,25 +355,31 @@
 	    }
 
         function fnCheckVatlist(){
-            var $Serial = $(".vserial");
-            var $Chkl = $(".vatchecked");
-            for (var i = 0; i<$Serial.length; i++){
-                var vatdata = {};
-                vatdata.vatSerial = $Serial[i].innerText;
-                console.log(vatdata);
+        	if($(this).attr("data-value") == 0){
+        		$(this).attr("data-value", 1);	
+        	}
+        	
+            var chk = $(".vatchecked");
+            
+            chk.each(function(index, item){
+            	var vatdata = {};
+                vatdata.vatSerial = $(item).parent().next().next().html();
+            	
                 $.ajax({
                     url : "${path}/acc/vatcheck.do",
                     data : vatdata,
                     method : "POST",
-                    dataType : "json"
-                })
-                .done(function(data){
-                  console.log(i);
+                    dataType : "json",
+                    success:function(data){
+                    	console.log(data);
+                    	if(data.resultCount > 0){
+                    		$(item).attr("checked", false);
+                    	}else{
+                    		$(item).attr("checked", true);
+                    	}
+                    }
                 });
-            }
-
-
-
+            });
         }
 
         function fnRegVatlist(){

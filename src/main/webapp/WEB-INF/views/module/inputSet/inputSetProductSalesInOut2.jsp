@@ -22,6 +22,7 @@
             <col width="10%" />
             <col width="10%" />
             <col width="15%" />
+            <col width="7%" />
             <col width="5%" />
         </colgroup>
         <thead>
@@ -35,6 +36,7 @@
             <th class="text-center">공급가</th>
             <th class="text-center">부가세</th>
             <th class="text-center">합계금액</th>
+            <th class="text-center">승인번호</th>
             <th class="text-center">적요</th>
             <th class="text-center">기능</th>
         </tr>
@@ -177,6 +179,70 @@
                 <td><input type="text" id="data01Amt" class="form-control form-control-sm" readonly placeholder="자동계산됩니다." style="min-width: 80px;" /></td>
 				<td><input type="text" id="data01Vat" required class="form-control form-control-sm" style="min-width: 80px;" /></td>
 				<td><input type="text" id="data01Total" class="form-control form-control-sm" placeholder="부가세 포함 금액 자동계산." style="min-width: 80px;" /></td>
+				<td>
+					<div id="vatBdiv">
+	                    <div class="input-group input-group-sm mb-0">
+	                        <input type="text" class="form-control" name="vatSerial" id="vatSerial" value="" readonly>
+	                        <input type="hidden" id="vatSellerCustNo" value="" />
+	                        <input type="hidden" id="vatAmount" value="">
+	                        <span class="input-group-btn">
+	                            <button class="btn btn-primary sch-company" data-remote="${path}/modal/popup.do?popId=vatB" type="button" data-toggle="modal" data-target="#vatBModal">
+	                                <i class="icofont icofont-search"></i>
+	                            </button>
+	                        </span>
+	                        <!--modal-->
+	                        <div class="modal fade " id="vatBModal" tabindex="-1" role="dialog">
+	                            <div class="modal-dialog modal-80size" role="document">
+	                                <div class="modal-content modal-80size">
+	                                    <div class="modal-header">
+	                                        <h4 class="modal-title">매입/매출 거래처 선택</h4>
+	                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	                                            <span aria-hidden="true">&times;</span>
+	                                        </button>
+	                                    </div>
+	                                    <div class="modal-body">
+	                                    </div>
+	                                    <div class="modal-footer">
+	                                        <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
+	                                    </div>
+	                                </div>
+	                            </div>
+	                        </div>
+	                        <!--//modal-->
+	                    </div>
+					</div>
+					<div id="vatSdiv">
+	                    <div class="input-group input-group-sm mb-0">
+	                        <input type="text" class="form-control" name="vatSerial" id="vatSerial" value="" readonly>
+	                        <input type="hidden" id="vatSellerCustNo" value="" />
+	                        <input type="hidden" id="vatAmount" value="">
+	                        <span class="input-group-btn">
+	                            <button class="btn btn-primary sch-company" data-remote="${path}/modal/popup.do?popId=vatS" type="button" data-toggle="modal" data-target="#vatSModal">
+	                                <i class="icofont icofont-search"></i>
+	                            </button>
+	                        </span>
+	                        <!--modal-->
+	                        <div class="modal fade " id="vatSModal" tabindex="-1" role="dialog">
+	                            <div class="modal-dialog modal-80size" role="document">
+	                                <div class="modal-content modal-80size">
+	                                    <div class="modal-header">
+	                                        <h4 class="modal-title">매입/매출 거래처 선택</h4>
+	                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	                                            <span aria-hidden="true">&times;</span>
+	                                        </button>
+	                                    </div>
+	                                    <div class="modal-body">
+	                                    </div>
+	                                    <div class="modal-footer">
+	                                        <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
+	                                    </div>
+	                                </div>
+	                            </div>
+	                        </div>
+	                        <!--//modal-->
+	                    </div>
+					</div>
+                </td>
                 <td><input type="text" id="data01Remark" class="form-control form-control-sm" /></td>
                 <td>
                     <button id="data01Addbtn" class="btn btn-success btn-sm" onClick="javascript:fn_data01Insert()">추가</button>
@@ -340,6 +406,13 @@
             if($("#productNo1").val() != "") data01Data.productNo	= $("#productNo1").val();
             data01Data.dataTitle 	= $("#data01Title[data-flag='true']").val();
         }
+        
+        if($("#data01Type").val() === "1101"){
+			data01Data.vatSerial = $("#vatBdiv").find("#vatSerial").val();
+		}else{
+			data01Data.vatSerial = $("#vatSdiv").find("#vatSerial").val();
+		}
+        
         data01Data.dataType		= $("#data01Type").val();
         data01Data.dataNetprice	= $("#data01Netprice").val().replace(/[\D\s\._\-]+/g, "");
         data01Data.dataQuanty	= $("#data01Quanty").val().replace(/[\D\s\._\-]+/g, "");
@@ -380,7 +453,9 @@
                 $("#data01Quanty").val("");
                 $("#data01Amt").val("");
                 $("#data01Remark").val("");
-				
+                $("#vatBdiv").find("#vatSerial").val("");
+                $("#vatSdiv").find("#vatSerial").val("");
+                
                 localStorage.setItem('lastTab', "#tab02");
                 
                	location.href="${path}/sopp/detail/"+$("#soppNo").val();
@@ -414,6 +489,13 @@
             if($("#productNo1").val() != "") data01Data.productNo	= $("#productNo1").val();
             data01Data.dataTitle 	= $("#data01Title[data-flag='true']").val();
         }
+        
+        if($("#data01Type").val() === "1101"){
+			data01Data.vatSerial = $("#vatBdiv").find("#vatSerial").val();
+		}else{
+			data01Data.vatSerial = $("#vatSdiv").find("#vatSerial").val();
+		}
+        
         data01Data.dataType		= $("#data01Type").val();
         data01Data.dataNetprice	= $("#data01Netprice").val().replace(/[\D\s\._\-]+/g, "");
         data01Data.dataQuanty	= $("#data01Quanty").val().replace(/[\D\s\._\-]+/g, "");
@@ -563,6 +645,18 @@
     }
 
     $(document).ready(function(){
+    	$("#vatSdiv").hide();
+    	
+    	$("#data01Type").change(function(){
+    		if($(this).val() === "1101"){
+    			$("#vatBdiv").show();
+    			$("#vatSdiv").hide();
+    		}else{
+    			$("#vatBdiv").hide();
+    			$("#vatSdiv").show();
+    		}
+    	});
+    	
         $('#data01Netprice,#data01Quanty').on('keyup',function(){
             recall();
         });

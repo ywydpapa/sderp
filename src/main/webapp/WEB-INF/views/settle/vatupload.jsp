@@ -355,7 +355,7 @@
         function fnCheckVatlist(){
             var $Serial = $(".vserial");
             var $Chkl = $(".vatchecked");
-            for (var i = 1; i<$Serial.length; i++){
+            for (var i = 0; i<$Serial.length; i++){
                 var vatdata = {};
                 vatdata.vatSerial = $Serial[i].innerText;
                 console.log(vatdata);
@@ -366,10 +366,7 @@
                     dataType : "json"
                 })
                 .done(function(data){
-                    if (data.vatId  ''){
-                        console.log(i);
-                        $($Chkl[i]).prop("checked",true);
-                    }
+                  console.log(i);
                 });
             }
 

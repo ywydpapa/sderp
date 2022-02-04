@@ -267,7 +267,17 @@
 		}
 	});
 	function fn_data01delete2(soppdataNo) {
+		var path = $(location).attr("pathname");
 		var msg = "선택한 건을 삭제하시겠습니까?";
+		
+		if($("[name='contractType']:checked").val() === "NEW"){
+			localStorage.setItem("reloadSet", "1t");
+    	}else{
+    		localStorage.setItem("oldContNo", $("#oldContNo").val());
+			localStorage.setItem("oldContTitle", $("#oldContTitle").val());
+			localStorage.setItem("reloadSet", "2t");
+    	}
+		
 		if( confirm(msg) ){
 			$.ajax({
 				url: "${path}/sopp/deletedata01.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
@@ -281,7 +291,8 @@
 					//location.href="${path}/sopp/detail/"+ $("#soppNo").val() + "/#tab02";
 					//localStorage.setItem('lastTab', "#tab02");
 					//location.href="${path}/sopp/detail/"+ $("#soppNo").val();
-					location.href = "${path}/cont/iowrite.do/" + $("#soppNo").val();
+					//location.href = "${path}/cont/iowrite.do/" + $("#soppNo").val();
+					location.href = "${path}/cont/iowrite.do/" + $("#soppNo").val() + "/" + $("#oldContNo").val();
 				}else{
 					alert("삭제 실패");
 				}

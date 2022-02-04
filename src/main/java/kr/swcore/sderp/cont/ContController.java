@@ -146,20 +146,45 @@ public class ContController {
 		mav.addObject("areaType", codeService.listAreaType(session));
 		return mav;
 	}
-	
 	@RequestMapping("iowrite.do/{soppNo}")
 	public ModelAndView iowrite(@PathVariable("soppNo") int soppNo, HttpSession session, ModelAndView mav) {
 		mav.setViewName("slip/iowrite");
 		mav.addObject("contractType", codeService.listContractType(session));
-		mav.addObject("dtodata01", soppdataService.listSoppdata01(soppNo));
-		if(soppdataService.listSoppdata01(soppNo).isEmpty()) {
-			mav.addObject("dtodata01", soppdataService.listSoppdata011(soppNo));
-			if(soppdataService.listSoppdata011(soppNo).isEmpty()) {
-				mav.addObject("dtodata01", soppdataService.listSoppdata011_1(soppNo));
-				System.out.println("계약은 없고 영업기회만 있고 그 영업기회의 매입매출내역이 있을때");
-				if(soppdataService.listSoppdata011_1(soppNo).isEmpty())  {
-					mav.addObject("dtodata01", soppdataService.listSoppdata011_2(soppNo));
-					System.out.println("계약은 없고 영업기회만 있고 그 영업기회의 매입매출내역이 없을때");
+			mav.addObject("dtodata01", soppdataService.listSoppdata01(soppNo));
+			if(soppdataService.listSoppdata01(soppNo).isEmpty()) {
+				mav.addObject("dtodata01", soppdataService.listSoppdata011(soppNo));
+				if(soppdataService.listSoppdata011(soppNo).isEmpty()) {
+					mav.addObject("dtodata01", soppdataService.listSoppdata011_1(soppNo));
+					System.out.println("계약은 없고 영업기회만 있고 그 영업기회의 매입매출내역이 있을때");
+					if(soppdataService.listSoppdata011_1(soppNo).isEmpty())  {
+						mav.addObject("dtodata01", soppdataService.listSoppdata011_2(soppNo));
+						System.out.println("계약은 없고 영업기회만 있고 그 영업기회의 매입매출내역이 없을때");
+					}
+				}
+			}
+		System.out.println(mav);
+		mav.addObject("soppParam", soppNo);
+		return mav;
+	}
+	
+	@RequestMapping("iowrite.do/{soppNo}/{contNo}")
+	public ModelAndView iowrite(@PathVariable("soppNo") int soppNo, @PathVariable("contNo") int contNo, HttpSession session, ModelAndView mav) {
+		mav.setViewName("slip/iowrite");
+		mav.addObject("contractType", codeService.listContractType(session));
+		mav.addObject("dtodata01", soppdataService.listContdata(contNo));
+		System.out.println("soppNo의 값이 10005223일 때");
+		if(soppdataService.listContdata(contNo).isEmpty()) {
+			mav.addObject("dtodata01", soppdataService.listSoppdata01(soppNo));
+			System.out.println("정상적인 select");
+			if(soppdataService.listSoppdata01(soppNo).isEmpty()) {
+				mav.addObject("dtodata01", soppdataService.listSoppdata011(soppNo));
+				if(soppdataService.listSoppdata011(soppNo).isEmpty()) {
+					mav.addObject("dtodata01", soppdataService.listSoppdata011_1(soppNo));
+					System.out.println("계약은 없고 영업기회만 있고 그 영업기회의 매입매출내역이 있을때");
+					if(soppdataService.listSoppdata011_1(soppNo).isEmpty())  {
+						mav.addObject("dtodata01", soppdataService.listSoppdata011_2(soppNo));
+						System.out.println("계약은 없고 영업기회만 있고 그 영업기회의 매입매출내역이 없을때");
+					}
 				}
 			}
 		}

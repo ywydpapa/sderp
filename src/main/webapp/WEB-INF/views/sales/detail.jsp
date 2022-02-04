@@ -211,9 +211,14 @@
 									<td></td>
 								</tr>
 								<tr>
-									<th scope="row">내용</th>
-									<td colspan="7"><textarea name="salesDesc" id="salesDesc" rows="8"
-											class="form-control">${dto.salesDesc}</textarea></td>
+									<th scope="row">
+										내용
+									</th>
+									<td colspan="7">
+										<textarea name="salesDesc" id="salesDesc" rows="7" class="form-control form-control-sm">
+											${dto.salesDesc}
+										</textarea>
+									</td>
 								</tr>
 							</tbody>
 						</table>
@@ -308,12 +313,13 @@
 			salesData.custNo 		= $("#custName").val() != "" ? Number($("#custNo").val()) : 0;
 			salesData.soppNo 		= $("#soppName").val() != "" ? Number($("#soppNo").val()) : 0;
 			salesData.ptncNo 		= $("#endCustName").val() != "" ? Number($("#endCustNo").val()) : 0;
-			salesData.salesType 		= $("#salesType").val();
 			
+			salesData.salesType 		= $("#salesType").val();
 			if($("textarea").attr("style") === "visibility: hidden;"){
 				salesData.salesDesc			= tinyMCE.get("salesDesc").getContent();
 			}else{
 				salesData.salesDesc 		= $("#salesDesc").val();
+				salesData.salesDesc 		= tinyMCE.get("salesDesc").getContent();
 			}
 			
 			if (!salesData.salesFrdatetime){

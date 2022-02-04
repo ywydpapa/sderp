@@ -58,7 +58,7 @@
                                             </a>
                                         </li>
                                         <li class="pcoded-hasmenu">
-                                            <a href="${path}/cont/iowrite.do/0">
+                                            <a href="${path}/cont/iowrite.do/0/0">
                                                 <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
                                                 <span class="pcoded-mtext" data-i18n="nav.menu-levels.menu-level-22">매입매출등록</span>
                                                 <span class="pcoded-mcaret"></span>

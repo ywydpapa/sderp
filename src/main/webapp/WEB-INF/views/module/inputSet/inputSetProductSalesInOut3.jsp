@@ -385,7 +385,9 @@
                 
                	location.href="${path}/sopp/detail/"+$("#soppNo").val(); */
                	
-               	location.href = "${path}/cont/iowrite.do/" + $("#soppNo").val();
+               	
+               	
+               	location.href = "${path}/cont/iowrite.do/" + $("#soppNo").val() + "/" + $("#oldContNo").val();
                 
             }else{
                 alert("저장 실패");

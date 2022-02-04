@@ -75,4 +75,10 @@ public class SoppdataDAOImpl implements SoppdataDAO {
 		return sqlSession.selectList("sopp.listSoppdata011_2", soppNo);
 	}
 
+	@Override
+	public List<SoppdataDTO> listContdata(int contNo) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("sopp.listContdata", contNo);
+	}
+
 }

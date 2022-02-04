@@ -119,6 +119,7 @@
 											<input type="text" class="form-control" name="oldContTitle" id="oldContTitle" readonly />
 											<input type="hidden" name="oldContNo" id="oldContNo" value="" />
 											<input type="hidden" name="oldSoppNo" id="oldSoppNo" value="" />
+											<input type="hidden" name="ContNo" id="ContNo" value="" />
 											<span class="input-group-btn">
 												<button class="btn btn-primary sch-opportunity2" data-remote="${path}/modal/popup.do?popId=cont"
 														type="button" data-toggle="modal" data-target="#contModal">
@@ -256,16 +257,7 @@
 			$("#soppNo").val(e);
 			$(".modal-backdrop").remove();
 			$("#contModal").modal("hide");
-			location.href = "${path}/cont/iowrite.do/" + e;
-		}
-		
-		//계약 table의 soppNo 값이 0일 경우 
-		function fnSetContData1(a,b,c,d,e){
-			//영업기회와 sopno이 연결되어있지 않은 경우 경고창
-			alert("영업기회에 연결되어있지 않은 계약압니다.");
-			//영업기회와 sopno이 연결되어있지 않은 경우 경고창
-			$("#soppNo").val(e);
-			location.href = "${path}/cont/iowrite.do/" + e;
+			location.href = "${path}/cont/iowrite.do/" + e + "/" + b;
 		}
 		
 		function fn_SaveContIO() {

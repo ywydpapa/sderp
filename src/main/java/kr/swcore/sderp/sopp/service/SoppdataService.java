@@ -21,5 +21,6 @@ public interface SoppdataService {
 	List<SoppdataDTO> listSoppdata011(int soppNo);
 	List<SoppdataDTO> listSoppdata011_1(int soppNo);
 	List<SoppdataDTO> listSoppdata011_2(int soppNo);
+	List<SoppdataDTO> listContdata(int contNo);
 
 }

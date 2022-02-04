@@ -20,12 +20,7 @@
 				<tr align="center">
 					<td>${row.contNo}</td>
 					<td id="modalContSoppNo" data-sopp="${row.soppNo}">
-					<c:if test="${row.soppNo eq 0}">
-					<a href="javascript:fnSetContData1('${row.contTitle}','${row.contNo}','${row.userNo}','${row.custNo}','${row.soppNo}');">${row.contTitle}</a>
-					</c:if>
-					<c:if test="${row.soppNo != 0}">
-					<a href="javascript:fnSetContData('${row.contTitle}','${row.contNo}','${row.userNo}','${row.custNo}','${row.soppNo}');">${row.contTitle}</a>
-					</c:if>
+						<a href="javascript:fnSetContData('${row.contTitle}','${row.contNo}','${row.userNo}','${row.custNo}','${row.soppNo}');">${row.contTitle}</a>
 					</td>
 					<td>${row.custName}</td>
 					<td>${row.userName}</td>

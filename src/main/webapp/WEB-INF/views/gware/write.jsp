@@ -317,6 +317,21 @@
         }
 
         $(document).ready(function() {
+        	var getDate = new Date();
+			var year = getDate.getFullYear();
+			var month = getDate.getMonth()+1;
+			var day = getDate.getDate();
+			
+			if(month < 10){
+				month = "0" + month;
+			}
+			
+			if(day < 10){
+				day = "0" + day;
+			}
+			
+			$("#docDate").val(year + "-" + month + "-" + day);
+			
 			$("#docSelect2").hide();
 			$("#docSelect3").hide();
         });

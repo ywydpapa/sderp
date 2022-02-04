@@ -668,6 +668,9 @@
 			var estId = "${detail.estId}";
 			var estVer = "${detail.estVer}";
 			var comName = "${infoItem.estComName}";
+			var estDate = "${detail.estDate}";
+			
+			$("#estDate").val(estDate);
 			
 			$("#estComName").val(comName);
 			// 이벤트 시작 ==========================================================================

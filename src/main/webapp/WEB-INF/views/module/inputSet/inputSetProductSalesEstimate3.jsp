@@ -447,6 +447,7 @@
 		FlagQutyList.find("#dataVat").html("￦"+parseInt(productVat).toLocaleString("en-US"));
 		FlagQutyList.find("#dataTotal").html("￦"+parseInt(productTotal).toLocaleString("en-US"));
 		FlagQutyList.find("#dataRemark").html(productRemark);
+		FlagQutyList.find("#dataSpec").val(productSpec);
 
 		dataFlag.removeClass();
 		dataFlag.prop("class", "btn btn-sm btn-inverse");
@@ -1077,7 +1078,8 @@
         	var productVat = $(item).find("#dataVat").html().replace(/[\D\s\._\-]+/g, "");
         	var productTotal = $(item).find("#dataTotal").html().replace(/[\D\s\._\-]+/g, "");
         	var productRemark = $(item).find("#dataRemark").html();
-        	
+        	var dataSpec = $(item).find("#dataSpec").val();
+        		
         	productSum = productSum + parseInt(productTotal);
         	amountSum = amountSum + parseInt(productAmount);
         	vatSum = vatSum + parseInt(productVat);
@@ -1098,6 +1100,7 @@
         	temp.productVat = productVat;
         	temp.productTotal = productTotal;
         	temp.productRemark = productRemark;
+        	temp.productSpec = dataSpec;
         	
         	dataArray.push(temp);
         	

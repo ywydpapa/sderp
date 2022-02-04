@@ -1,9 +1,13 @@
 package kr.swcore.sderp.account;
 
+import kr.swcore.sderp.account.dto.AccountDTO;
 import kr.swcore.sderp.account.service.AccountService;
+import kr.swcore.sderp.gw.dto.GwDTO;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.inject.Inject;
@@ -21,6 +25,14 @@ public class AccountController {
         mav.addObject("vatList", accountService.listvat(session));
         mav.setViewName("settle/vatlist");
         return mav;
+    }
+
+    @ResponseBody
+    @RequestMapping("vatcheck.do")
+    public AccountDTO vchk(ModelAndView mav, @ModelAttribute AccountDTO dto)
+    {
+        AccountDTO vserial = accountService.checkVat(dto);
+       return vserial;
     }
 
     @RequestMapping("vatupload.do")

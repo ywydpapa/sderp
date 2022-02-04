@@ -39,8 +39,8 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public int checkVat(String vatSerial) {
-        return accountDAO.checkVat(vatSerial);
+    public AccountDTO checkVat(AccountDTO dto) {
+        return accountDAO.checkVat(dto);
     }
 
     @Override

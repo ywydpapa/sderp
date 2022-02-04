@@ -28,7 +28,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 
 	<select id="checkVat" resultType="accountDto">
-		select count(*) from swc_vat where vatSerial = #{vatSerial}
+		select * from swc_vat where vatSerial = #{vatSerial}
 	</select>
 
 	<insert id="insertVat">

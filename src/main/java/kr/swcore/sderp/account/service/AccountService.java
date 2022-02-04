@@ -10,7 +10,7 @@ public interface AccountService {
     List<AccountDTO> listvatitem(int vatId);
     List<AccountDTO> modalVatB(HttpSession session);
     List<AccountDTO> modalVatS(HttpSession session);
-    int checkVat(String vatSerial);
+    AccountDTO checkVat(AccountDTO dto);
     AccountDTO detailvat(int vatId);
     int insertVat(AccountDTO dto);
     int insertVatitem(AccountDTO dto);

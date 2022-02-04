@@ -34,8 +34,8 @@ public class AccountDAOImpl implements AccountDAO {
     }
 
     @Override
-    public int checkVat(String vatSerial) {
-        return sqlSession.selectOne("account.checkVat", vatSerial);
+    public AccountDTO checkVat(AccountDTO dto) {
+        return sqlSession.selectOne("account.checkVat", dto);
     }
 
     @Override

@@ -9,7 +9,7 @@ public interface AccountDAO {
     List<AccountDTO> listvatitem(int vatId);
     List<AccountDTO> modalVatB(int compNo);
     List<AccountDTO> modalVatS(int compNo);
-    int checkVat(String vatSerial);
+    AccountDTO checkVat(AccountDTO dto);
     AccountDTO detailvat(int vatId);
     int insertVat(AccountDTO dto);
     int insertVatitem(AccountDTO dto);

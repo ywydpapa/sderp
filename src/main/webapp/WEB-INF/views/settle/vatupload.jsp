@@ -63,7 +63,8 @@
                         <!-- hide and show -->
                         <button class="btn btn-sm btn-inverse" onClick="javascript:fnClearall()"><i class="icofont icofont-spinner-alt-3"></i>초기화</button>
                         <button class="btn btn-sm btn-primary" onClick="javascript:fnListcon()"><i class="icofont icofont-search"></i>검색</button>
-                        <button class="btn btn-sm btn-outline"onClick="javascript:location='${path}/acc/vatWrite.do'"><i class="icofont icofont-pencil-alt-2"></i>계산서 등록</button>
+                        <button id="chkBtn" class="btn btn-sm btn-outline"onClick="javascript:fnCheckVatlist()"><i class="icofont icofont-pencil-alt-2"></i>계산서 검토</button>
+                        <button id="regBtn" class="btn btn-sm btn-outline"onClick="javascript:fnRegVatlist()"><i class="icofont icofont-pencil-alt-2"></i>계산서 등록</button>
                     </div>
                 </div>
             </div>
@@ -267,11 +268,21 @@
     					}else{
     						table_output += "<tr>";
     					}
-    					
     					for(var cell = 0; cell < sheet_data[row].length; cell++){
-    						table_output += '<td>' + sheet_data[row][cell] + '</td>';
+                            if (cell == 0){
+                                if(row==5){
+                                    table_output += '<td>검토</td><td>' + sheet_data[row][cell] + '</td>';
+                                }else{
+                                    table_output += '<td><input type="checkbox" disabled class="vatchecked"></td><td>' + sheet_data[row][cell] + '</td>';
+                                }
+                            } else {
+                                if (cell == 1){
+                                    table_output += '<td class="vserial">' + sheet_data[row][cell] + '</td>';
+                                }else{
+                                    table_output += '<td>' + sheet_data[row][cell] + '</td>';
+                                }
+                            }
     					}
-    					
     					table_output += '</tr>';
     				}
     				
@@ -340,7 +351,36 @@
     	        preserveColors: false // set to true if you want background colors and font colors preserved
     	    });
 	    }
-	    
+
+        function fnCheckVatlist(){
+            var $Serial = $(".vserial");
+            var $Chkl = $(".vatchecked");
+            for (var i = 1; i<$Serial.length; i++){
+                var vatdata = {};
+                vatdata.vatSerial = $Serial[i].innerText;
+                console.log(vatdata);
+                $.ajax({
+                    url : "${path}/acc/vatcheck.do",
+                    data : vatdata,
+                    method : "POST",
+                    dataType : "json"
+                })
+                .done(function(data){
+                    if (data.vatId  ''){
+                        console.log(i);
+                        $($Chkl[i]).prop("checked",true);
+                    }
+                });
+            }
+
+
+
+        }
+
+        function fnRegVatlist(){
+            alert("유효성 검사 후 등록작업");
+        }
+
         function acordian_action(){
             if($("#acordian").css("display") == "none"){
                 $("#acordian").show();

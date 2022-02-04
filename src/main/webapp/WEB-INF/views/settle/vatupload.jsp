@@ -273,13 +273,17 @@
                                 if(row==5){
                                     table_output += '<td>검토</td><td>' + sheet_data[row][cell] + '</td>';
                                 }else{
-                                    table_output += '<td><input type="checkbox" disabled class="vatchecked"></td><td>' + sheet_data[row][cell] + '</td>';
+                                    table_output += '<td><input type="checkbox" disabled class="vatchecked"></td><td class="vatlist'+cell+'">' + sheet_data[row][cell] + '</td>';
                                 }
                             } else {
                                 if (cell == 1){
-                                    table_output += '<td class="vserial">' + sheet_data[row][cell] + '</td>';
+                                    if (row==5){
+                                        table_output += '<td>' + sheet_data[row][cell] + '</td>';
+                                    }else{
+                                        table_output += '<td class="vserial">' + sheet_data[row][cell] + '</td>';
+                                    }
                                 }else{
-                                    table_output += '<td>' + sheet_data[row][cell] + '</td>';
+                                    table_output += '<td class="vatlist'+cell+'">' + sheet_data[row][cell] + '</td>';
                                 }
                             }
     					}
@@ -367,6 +371,7 @@
                 })
                 .done(function(data){
                   console.log(i);
+                  console.log(data);
                 });
             }
 

@@ -17,8 +17,8 @@
 <html>
 <jsp:include page="../head.jsp"/>
 <jsp:include page="../body-top3.jsp"/>
-<script src="${path}/js/jquery.table2CSV.js"></script>
-<script src="${path}/js/jquery.TableCSVExport.js"></script>
+<script src="${path}/js/jquery.table2excel.js"></script>
+<script type="text/javascript" src="https://unpkg.com/xlsx@0.15.1/dist/xlsx.full.min.js"></script>
 
 <div id="main_content">
 
@@ -39,7 +39,7 @@
 							<div class="modal-dialog modal-80size" role="document">
 								<div class="modal-content modal-80size">
 									<div class="modal-header">
-										<h4 class="modal-title">CSV 파일 등록</h4>
+										<h4 class="modal-title">EXCEL 파일 등록</h4>
 										<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 											<span aria-hidden="true">&times;</span>
 										</button>
@@ -231,47 +231,9 @@
         <div class="row">
             <div class="col-sm-12">
                 <div class="card-block table-border-style">
-                    <div class="table-responsive">
-                        <table id="vatTable" class="table table-striped table-bordered nowrap ">
-                            <colgroup>
-                                <col width="10%"/>
-                                <col width="5%"/>
-                                <col width="15%"/>
-                                <col width="10%"/>
-                                <col width="10%"/>
-                                <col width="10%"/>
-                                <col width="10%"/>
-                                <col width="15%"/>
-                                <col width="15%"/>
-                            </colgroup>
-                            <thead>
-                            <tr>
-                                <th class="text-center">등록일</th>
-                                <th class="text-center">매입/매출</th>
-                                <th class="text-center">거래처 : 발행번호</th>
-                                <th class="text-center">상태</th>
-                                <th class="text-center">공급가</th>
-                                <th class="text-center">세액</th>
-                                <th class="text-center">합계금액</th>
-                                <th class="text-center">연결문서</th>
-                                <th class="text-center">메모</th>
-                            </tr>
-                            </thead>
-                            <c:forEach items="${vatList}" var="vlist">
-                                <tr>
-                                    <td class="text-center">${vlist.vatIssueDate}</td>
-                                    <td class="text-center"><c:if test = "${vlist.vatType eq 'B'}">매입</c:if><c:if test = "${vlist.vatType eq 'S'}">매출</c:if></td>
-                                    <td class="text-center"><c:if test = "${vlist.vatType eq 'S'}">${vlist.vatBuyerName}</c:if> <c:if test = "${vlist.vatType eq 'B'}">${vlist.vatSellerName}</c:if> <a href="#"> : ${vlist.vatSerial}</a></td>
-                                    <td class="text-center"><c:if test = "${vlist.vatStatus eq 'B1'}">매입발행</c:if><c:if test = "${vlist.vatStatus eq 'B3'}">지급처리중</c:if><c:if test = "${vlist.vatStatus eq 'B5'}">지급완료</c:if>
-                                        <c:if test = "${vlist.vatStatus eq 'S1'}">매출발행</c:if><c:if test = "${vlist.vatStatus eq 'S3'}">수금처리중</c:if><c:if test = "${vlist.vatStatus eq 'S5'}">수금완료</c:if></td>
-                                    <td class="text-right"><fmt:formatNumber type="number" maxFractionDigits="3" value="${vlist.vatAmount}" /></td>
-                                    <td class="text-right"><fmt:formatNumber type="number" maxFractionDigits="3" value="${vlist.vatTax}" /></td>
-                                    <td class="text-right"><fmt:formatNumber type="number" maxFractionDigits="3" value="${vlist.vatAmount + vlist.vatTax}" /></td>
-                                    <td>${vlist.linkedDocNo}</td>
-                                    <td>${vlist.vatRemark}</td>
-                                </tr>
-                            </c:forEach>
-                        </table>
+                    <div class="table-responsive" id="excel_data">
+                        <!-- <table id="vatTable" class="table table-striped table-bordered nowrap ">
+                        </table> -->
                     </div>
                 </div>
             </div>
@@ -281,8 +243,46 @@
 
     <!-- hide and show -->
     <script>
+    	
+    	
 	    function uploadFile(){
-	        var regex = /^([a-zA-Z0-9\s_\\.\-:])+(.csv|.txt)$/;
+	    	const excel_file = document.getElementById("fileUpload");
+	    	
+    		var reader = new FileReader();
+			    		
+    		reader.readAsArrayBuffer(excel_file.files[0]);
+    		
+    		reader.onload = function(){
+    			var data = new Uint8Array(reader.result);
+    			var work_book = XLSX.read(data, {type: 'array'});
+    			var sheet_name = work_book.SheetNames;
+    			var sheet_data = XLSX.utils.sheet_to_json(work_book.Sheets[sheet_name[0]], {header:1});
+    			
+    			if(sheet_data.length > 0){
+    				var table_output = '<table id="vatTable" class="table table-striped table-bordered" style="text-align:center;">';
+    				
+    				for(var row = 5; row < sheet_data.length; row++){
+    					if(row == 5){
+	    					table_output += "<tr style='font-weight:600;'>";
+    					}else{
+    						table_output += "<tr>";
+    					}
+    					
+    					for(var cell = 0; cell < sheet_data[row].length; cell++){
+    						table_output += '<td>' + sheet_data[row][cell] + '</td>';
+    					}
+    					
+    					table_output += '</tr>';
+    				}
+    				
+    				table_output += '</table>';
+    				
+    				document.getElementById("excel_data").innerHTML = table_output;
+    			}
+    		}
+    		
+    		//csv 주석
+	        /* var regex = /^([a-zA-Z0-9\s_\\.\-:])+(.csv|.txt)$/;
 	        if (regex.test($("#fileUpload").val().toLowerCase())) {
 	            if (typeof (FileReader) != "undefined") {
 	                var reader = new FileReader();
@@ -308,7 +308,7 @@
 	            }
 	        } else {
 	            alert("파일명이 영어로 된 csv 파일만 등록가능합니다.");
-	        }
+	        } */
 	    }
 	    
 	    function downloadCSV() {
@@ -333,10 +333,12 @@
 	    		fileName = "VTEK" + "(" + now + ")";	
 	    	}
 	    	
-	    	$('#vatTable').TableCSVExport({
-	            delivery: 'download',
-	            filename: fileName + '.csv'
-	        });
+    	    $("#vatTable").table2excel({
+    	        exclude: ".excludeThisClass",
+    	        name: "sheet",
+    	        filename: fileName + ".xls", // do include extension
+    	        preserveColors: false // set to true if you want background colors and font colors preserved
+    	    });
 	    }
 	    
         function acordian_action(){

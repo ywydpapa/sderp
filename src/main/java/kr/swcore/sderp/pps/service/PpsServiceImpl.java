@@ -1,4 +1,7 @@
-﻿package kr.swcore.sderp.pps.service;
+package kr.swcore.sderp.pps.service;
 
-public class PpsServiceImpl {
+import org.springframework.stereotype.Service;
+
+@Service
+public class PpsServiceImpl implements PpsService {
 }

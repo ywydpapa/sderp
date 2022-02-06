@@ -34,6 +34,7 @@
     <typeAlias alias="board_fileDto" type="kr.swcore.sderp.board_file.dto.Board_fileDTO"/>
     <typeAlias alias="board_fileDataDTO" type="kr.swcore.sderp.board_file.dto.Board_fileDataDTO"/>
         <typeAlias alias="accountDto" type="kr.swcore.sderp.account.dto.AccountDTO"/>
+        <typeAlias alias="ppsDto" type="kr.swcore.sderp.account.dto.PpsDTO"/>
     </typeAliases>
  
 </configuration>

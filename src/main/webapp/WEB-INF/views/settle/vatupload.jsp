@@ -59,7 +59,8 @@
 						</div>
                         <!-- hide and show -->
                         <button id="chkBtn" class="btn btn-sm btn-secondary"onClick="javascript:fnCheckVatlist()" disabled>계산서 검토</button>
-                        <button id="regBtn" class="btn btn-sm btn-primary"onClick="javascript:fnRegVatlist()">계산서 등록</button>
+                        <button id="regBBtn" class="btn btn-sm btn-primary"onClick="javascript:fnRegBVatlist()">매입계산서 등록</button>
+                        <button id="regSBtn" class="btn btn-sm btn-primary"onClick="javascript:fnRegSVatlist()">매출계산서 등록</button>
                     </div>
                 </div>
             </div>
@@ -380,10 +381,15 @@
                     }
                 });
             });
+            
         }
 
-        function fnRegVatlist(){
-            alert("유효성 검사 후 등록작업");
+        function fnRegBVatlist(){
+            alert("유효성 검사 후 매입 등록작업");
+        }
+
+        function fnRegSVatlist(){
+            alert("유효성 검사 후 매출 등록작업");
         }
 
         function acordian_action(){

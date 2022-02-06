@@ -43,9 +43,26 @@ public class AccountDTO {
     private String vatIssueType;
     private String vatEmail;
     private BigDecimal vatSum;
-    
     private String custName;
-    
     private int resultCount;
+
+    private Integer bacId;
+    private String bankCode;
+    private String bacNo;
+    private String bacSerial;
+    private String bacIssueDate;
+    private String lastUpdTime;
+    private String bacOwner;
+    private String bacType;
+    private BigDecimal bacBalance;
+    private Integer baclogId;
+    private BigDecimal inAmt;
+    private BigDecimal outAmmt;
+    private String baclogTime;
+    private String logType;
+    private String logRemark;
+    private BigDecimal balanceAmt;
+    private String branchCode;
+    private String linkDoc;
 }
 

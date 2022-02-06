@@ -17,11 +17,9 @@
 <html>
 <jsp:include page="../head.jsp"/>
 <jsp:include page="../body-top3.jsp"/>
-<script src="${path}/js/jquery.table2excel.js"></script>
-<script type="text/javascript" src="https://unpkg.com/xlsx@0.15.1/dist/xlsx.full.min.js"></script>
 
 <div id="main_content">
-
+	
     <c:if test="${preserveSearchCondition != 'Y'}">
         <!-- Page-header start 페이지 타이틀-->
         <div class="page-header2">
@@ -29,44 +27,22 @@
                 <div class="col-lg-12">
                     <div class="page-header-title" style="float:left;">
                         <div style="margin-top:15px;">
-                            <h6 style="font-weight:600;">계산서 읽어오기 </h6>
+                            <h6 style="font-weight:600;">계좌 잔고 목록 </h6>
                         </div>
                     </div>
                     <div class="btn_wr" style="float:right;">
-                    	<button class="btn btn-sm btn-danger" onClick="downloadCSV();">내보내기</button>
-                    	<button class="btn btn-sm btn-danger" data-toggle="modal" data-target="#fileUploadModal">읽어오기</button>
-						<div class="modal fade " id="fileUploadModal" tabindex="-1" role="dialog">
-							<div class="modal-dialog modal-80size" role="document">
-								<div class="modal-content modal-80size">
-									<div class="modal-header">
-										<h4 class="modal-title">EXCEL 파일 등록</h4>
-										<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-											<span aria-hidden="true">&times;</span>
-										</button>
-									</div>
-									<div class="modal-body">
-										<form id="uploadForm">
-											<input type="file" name="file" id="fileUpload" />
-										</form>
-										<br> 파일 설명<input type="text" class="form-control" id="fileDesc" />
-									</div>
-									<div class="modal-footer">
-										<button type="button" class="btn btn-default waves-effect" onclick="uploadFile()">등록</button>
-										<button type="button" class="btn btn-default waves-effect" data-dismiss="modal">닫기</button>
-									</div>
-								</div>
-							</div>
-						</div>
                         <!-- hide and show -->
-                        <button id="chkBtn" class="btn btn-sm btn-secondary" onClick="javascript:fnCheckVatlist()" disabled>계산서 검토</button>
-                        <button id="regBBtn" class="btn btn-sm btn-primary" onClick="javascript:fnRegBVatlist()">매입계산서 등록</button>
-                        <button id="regSBtn" class="btn btn-sm btn-primary" onClick="javascript:fnRegSVatlist()">매출계산서 등록</button>
+						<button class="btn btn-sm btn-success" id="fold" onclick="acordian_action()">펼치기</button>
+						<button class="btn btn-sm btn-success" id="fold2" onclick="acordian_action1()" style="display:none;">접기</button>
+						<!-- hide and show -->
+                        <button class="btn btn-sm btn-inverse" onClick="javascript:fnClearall()"><i class="icofont icofont-spinner-alt-3"></i>초기화</button>
+                        <button class="btn btn-sm btn-primary" onClick="javascript:fnListcon()"><i class="icofont icofont-search"></i>검색</button>
+                        <button class="btn btn-sm btn-danger" onClick="javascript:fnChgStatus()">상태변경</button>
+                        <button class="btn btn-sm btn-outline"onClick="javascript:location='${path}/acc/bacupdate.do'"><i class="icofont icofont-pencil-alt-2"></i>계좌내역 등록</button>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- <div id="dvCSV">
-		</div> -->
         <!--Page-header end 페이지 타이틀 -->
         <!--영업활동조회-->
         <div class="cnt_wr" id="acordian" style="display:none;">
@@ -228,9 +204,37 @@
         <div class="row">
             <div class="col-sm-12">
                 <div class="card-block table-border-style">
-                    <div class="table-responsive" id="excel_data">
-                        <!-- <table id="vatTable" class="table table-striped table-bordered nowrap ">
-                        </table> -->
+                    <div class="table-responsive">
+                        <table id="vatTable" class="table table-striped table-bordered nowrap ">
+                            <colgroup>
+                                <col width="10%"/>
+                                <col width="10%"/>
+                                <col width="10%"/>
+                                <col width="10%"/>
+                                <col width="15%"/>
+                                <col width="15%"/>
+                            </colgroup>
+                            <thead>
+                            <tr>
+                                <th class="text-center">은행</th>
+                                <th class="text-center">계좌번호</th>
+                                <th class="text-center">최종확인 일자</th>
+                                <th class="text-center">잔고</th>
+                                <th class="text-center">상태</th>
+                                <th class="text-center">메모</th>
+                            </tr>
+                            </thead>
+                            <c:forEach items="${vatList}" var="vlist">
+                                <tr>
+                                    <td class="text-center">${vlist.bankCode}</td>
+                                    <td class="text-center">${vlist.bacNo}</td>
+                                    <td class="text-right">${vlist.lastUpdTime}</td>
+                                    <td class="text-right"><fmt:formatNumber type="number" maxFractionDigits="3" value="${vlist.bacBalance}" /></td>
+                                    <td class="text-left">${vlist.bacType}</td>
+                                    <td class="text-left"></td>
+                                </tr>
+                            </c:forEach>
+                        </table>
                     </div>
                 </div>
             </div>
@@ -238,270 +242,98 @@
     </div>
     <!--//리스트 table-->
 
-    <!-- hide and show -->
+	<!-- hide and show -->
+	<script>
+	function acordian_action(){
+		if($("#acordian").css("display") == "none"){
+		    $("#acordian").show();
+		    $("#fold").hide();
+		    $("#fold2").show();
+
+		} else {
+		    $("#acordian").hide();
+		    $("#fold").show();
+		}
+	}
+	function acordian_action1(){
+		if($("#acordian").css("display") != "none"){
+		    $("#acordian").hide();
+		    $("#fold").show();
+		    $("#fold2").hide();
+
+		} else {
+		    $("#acordian").show();
+		    $("#fold").hide();
+		}
+	}
+	</script>
+	<!-- hide and show -->
+
     <script>
-    	
-    	
-	    function uploadFile(){
-	    	const excel_file = document.getElementById("fileUpload");
-	    	
-    		var reader = new FileReader();
-			    		
-    		reader.readAsArrayBuffer(excel_file.files[0]);
-    		
-    		reader.onload = function(){
-    			var data = new Uint8Array(reader.result);
-    			var work_book = XLSX.read(data, {type: 'array'});
-    			var sheet_name = work_book.SheetNames;
-    			var sheet_data = XLSX.utils.sheet_to_json(work_book.Sheets[sheet_name[0]], {header:1});
-    			
-    			if(sheet_data.length > 0){
-    				var table_output = '<table id="vatTable" class="table table-striped table-bordered" style="text-align:center;">';
-    				
-    				for(var row = 5; row < sheet_data.length; row++){
-    					if(row == 5){
-	    					table_output += "<tr style='font-weight:600;'>";
-    					}else{
-    						table_output += "<tr>";
-    					}
-    					for(var cell = 0; cell < sheet_data[row].length; cell++){
-                            if (cell == 0){
-                                if(row == 5){
-                                    table_output += '<td>검토</td><td>' + sheet_data[row][cell] + '</td>';
-                                }else{
-                                    table_output += '<td><input type="checkbox" class="vatchecked" onClick="return false;"></td><td class="vatlst'+cell+'">' + sheet_data[row][cell] + '</td>';
-                                }
-                            } else {
-                                if (row == 5){
-                                    table_output += '<td>' + sheet_data[row][cell] + '</td>';
-                                }else{
-                                    table_output += '<td class="vatlst'+cell+'">' + sheet_data[row][cell] + '</td>';
-                                }
-                                }
-    					}
-    					table_output += '</tr>';
-    				}
-    				
-    				table_output += '</table>';
-    				
-    				document.getElementById("excel_data").innerHTML = table_output;
-    			}
-    		}
-    		
-    		//csv 주석
-	        /* var regex = /^([a-zA-Z0-9\s_\\.\-:])+(.csv|.txt)$/;
-	        if (regex.test($("#fileUpload").val().toLowerCase())) {
-	            if (typeof (FileReader) != "undefined") {
-	                var reader = new FileReader();
-	                reader.onload = function (e) {
-	                    var table = $("<table class='table table-striped table-bordered nowrap' />");
-	                    var rows = e.target.result.split("\n");
-	                    for (var i = 5; i < rows.length; i++) {
-	                        var row = $("<tr />");
-	                        var cells = rows[i].split(",");
-	                        if (cells.length > 1) {
-	                            for (var j = 0; j < cells.length; j++) {
-	                                var cell = $("<td />");
-	                                cell.html(cells[j]);
-	                                row.append(cell);
-	                            }
-	                            table.append(row);
-	                        }
-	                    }
-	                    $("#vatTable").html('');
-	                    $("#vatTable").append(table);
-	                }
-	                reader.readAsText($("#fileUpload")[0].files[0]);
-	            }
-	        } else {
-	            alert("파일명이 영어로 된 csv 파일만 등록가능합니다.");
-	        } */
-	        
-    		$(".modal-backdrop").remove();
-   	      	$("#fileUploadModal").modal("hide");
+        $('#custModal').on('show.bs.modal', function(e) {
+            var button = $(e.relatedTarget);
+            var modal = $(this);
+            modal.find('.modal-body').load(button.data("remote"));
+        });
+        $('#userModal').on('show.bs.modal', function(e) {
+            var button = $(e.relatedTarget);
+            var modal = $(this);
+            modal.find('.modal-body').load(button.data("remote"));
+        });
+        $('#soppModal').on('show.bs.modal', function(e) {
+            var button = $(e.relatedTarget);
+            var modal = $(this);
+            modal.find('.modal-body').load(button.data("remote"));
+        });
 
-   	      	$("#chkBtn").removeClass();
-   	      	$("#chkBtn").removeAttr("disabled");
-   	      	$("#chkBtn").attr("class", "btn btn-sm btn-success");
-            $("#regBBtn").attr("disabled");
-            $("#regSBtn").attr("disabled");
-	    }
-	    
-	    function downloadCSV() {
-	    	var getDate = new Date();
-	    	var compNo = "${sessionScope.compNo}";
-	    	var year = getDate.getFullYear();
-	    	var month = getDate.getMonth()+1;
-	    	var day = getDate.getDate();
-	    	var fileName = "";
-	    	
-	    	if(month < 10){
-		    	month = "0" + month;
-	    	}
-	    	
-	    	if(day < 10){
-	    		day = "0" + day;	
-	    	}
-	    	
-	    	var now = year + "-" + month + "-" + day;
-	    	
-	    	if(compNo === "100002"){
-	    		fileName = "VTEK" + "(" + now + ")";	
-	    	}
-	    	
-    	    $("#vatTable").table2excel({
-    	        exclude: ".excludeThisClass",
-    	        name: "sheet",
-    	        filename: fileName + ".xls", // do include extension
-    	        preserveColors: false // set to true if you want background colors and font colors preserved
-    	    });
-	    }
+        function fnSetCustData(a, b) {
+            $("#custNo").val(b);
+            $("#custName").val(a);
+            $(".modal-backdrop").remove();
+            $("#custModal").modal("hide");
+        }
 
-        function fnCheckVatlist(){
-        	if($(this).attr("data-value") == 0){
-        		$(this).attr("data-value", 1);	
-        	}
-        	
-            var chk = $(".vatchecked");
-            
-            chk.each(function(index, item){
-            	var vatdata = {};
-                vatdata.vatSerial = $(item).parent().next().next().html();
-            	
-                $.ajax({
-                    url : "${path}/acc/vatcheck.do",
-                    data : vatdata,
-                    method : "POST",
-                    dataType : "json",
-                    success:function(data){
-                    	console.log(data);
-                    	if(data.resultCount > 0){
-                    		$(item).attr("checked", false);
-                    	}else{
-                    		$(item).attr("checked", true);
-                    	}
-                        $("#regBBtn").removeAttr("disabled");
-                        $("#regSBtn").removeAttr("disabled");
+        function fnSetUserData(a, b) {
+            $("#userName").val(b);
+            $("#userNo").val(a);
+            $(".modal-backdrop").remove();
+            $("#userModal").modal("hide");
+        }
+
+        function fnSetSoppData(a, b) {
+            $("#soppNo").val(b);
+            $("#soppTitle").val(a);
+            $(".modal-backdrop").remove();
+            $("#soppModal").modal("hide");
+        }
+
+        function fnChgStatus(){
+            $Aarr=$(".vatSno");
+            $Barr=$(".vatStchg");
+            $Carr=$(".vatTyp");
+            for (var i=0; i<$Barr.length; i++) {
+                if ($($Barr[i]).is(":checked") == true) {
+                    var vatData = {};
+                    vatData.vatSerial = $Aarr[i].innerText;
+                    if ($Carr[i].innerText == '매입'){
+                        vatData.vatStatus = 'B5';
+                    }else{
+                        vatData.vatStatus = 'S5';
                     }
-                });
-            });
-            
-        }
-
-        function fnRegBVatlist(){
-            var $Chkarr = $(".vatchecked");  //체크여부
-            var $Aarr = $(".vatlst0");         // 작성일
-            var $Barr = $(".vatlst1");           // 승인번호
-            var $Carr = $(".vatlst2");          //발급일자
-            var $Darr = $(".vatlst3");           // 전송일자
-            var $Earr = $(".vatlst4");           // 사업자 번호
-            var $Farr = $(".vatlst15");           // 공급금액
-            var $Garr = $(".vatlst16");           // 세액
-            var $Harr = $(".vatlst18");           // 세금계산서 종류
-            var $Iarr = $(".vatlst19");           // 발급유형
-            var $Jarr = $(".vatlst20");           // 비고
-            var $Karr = $(".vatlst22");           // 공급자 이메일
-
-            for (var i=0; i<$Barr.length; i++){
-                if ($($Chkarr[i]).is(":checked")==true){
-                    var vatData = {};
-                    vatData.vatStatus = 'B1';
-                    vatData.vatType = 'B';
-                    vatData.compNo = ${compNo};
-                    vatData.vatNo = $Earr[i].innerText;
-                    vatData.vatSerial = $Barr[i].innerText;
-                    vatData.vatEmail = $Karr[i].innerText;
-                    vatData.vatIssueDate = $Aarr[i].innerText;
-                    vatData.vatTradeDate = $Carr[i].innerText;
-                    vatData.vatTransDate = $Darr[i].innerText;
-                    vatData.vatTax = Number($Garr[i].innerText.replace(/[\D\s\._\-]+/g, ""));
-                    vatData.vatAmount = Number($Farr[i].innerText.replace(/[\D\s\._\-]+/g, ""));
-                    vatData.vatRemark = $Jarr[i].innerText;
-                    vatData.vatIssueType = $Iarr[i].innerText;
-                    console.log(vatData);
                     $.ajax({
-                        url : "${path}/acc/insertvat.do",
-                        data : vatData,
-                        method : "POST",
-                        dataType: "json"
-                    })
-                    .done(function(){
-                    });
-                }
-            }
-            alert("매입자료 등록 완료");
-            fnCheckVatlist();
-        }
-
-        function fnRegSVatlist(){
-            var $Chkarr = $(".vatchecked");  //체크여부
-            var $Aarr = $(".vatlst0");         // 작성일
-            var $Barr = $(".vatlst1");           // 승인번호
-            var $Carr = $(".vatlst2");          //발급일자
-            var $Darr = $(".vatlst3");           // 전송일자
-            var $Earr = $(".vatlst9");           // 사업자 번호
-            var $Farr = $(".vatlst15");           // 공급금액
-            var $Garr = $(".vatlst16");           // 세액
-            var $Harr = $(".vatlst18");           // 세금계산서 종류
-            var $Iarr = $(".vatlst19");           // 발급유형
-            var $Jarr = $(".vatlst20");           // 비고
-            var $Karr = $(".vatlst23");           // 공급자 이메일
-
-            for (var i=0; i<$Barr.length; i++){
-                if ($($Chkarr[i]).is(":checked")==true){
-                    var vatData = {};
-                    vatData.vatStatus = 'S1';
-                    vatData.vatType = 'S';
-                    vatData.compNo = ${compNo};
-                    vatData.vatNo = $Earr[i].innerText;
-                    vatData.vatSerial = $Barr[i].innerText;
-                    vatData.vatEmail = $Karr[i].innerText;
-                    vatData.vatIssueDate = $Aarr[i].innerText;
-                    vatData.vatTradeDate = $Carr[i].innerText;
-                    vatData.vatTransDate = $Darr[i].innerText;
-                    vatData.vatTax = Number($Garr[i].innerText.replace(/[\D\s\._\-]+/g, ""));
-                    vatData.vatAmount = Number($Farr[i].innerText.replace(/[\D\s\._\-]+/g, ""));
-                    vatData.vatRemark = $Jarr[i].innerText;
-                    vatData.vatIssueType = $Iarr[i].innerText;
-                    console.log(vatData);
-                    $.ajax({
-                        url : "${path}/acc/insertvat.do",
+                        url : "${path}/acc/vatStatuschg.do",
                         data : vatData,
                         method : "POST",
                         dataType: "json"
                     })
                         .done(function(){
-
                         });
                 }
+                alert("변경 처리 완료");
             }
-            alert("매출자료 등록 완료");
-            fnCheckVatlist();
+
         }
 
-        function acordian_action(){
-            if($("#acordian").css("display") == "none"){
-                $("#acordian").show();
-                $("#fold").hide();
-                $("#fold2").show();
-
-            } else {
-                $("#acordian").hide();
-                $("#fold").show();
-            }
-        }
-        function acordian_action1(){
-            if($("#acordian").css("display") != "none"){
-                $("#acordian").hide();
-                $("#fold").show();
-                $("#fold2").hide();
-
-            } else {
-                $("#acordian").show();
-                $("#fold").hide();
-            }
-        }
     </script>
-    <!-- hide and show -->
 </div>
 <jsp:include page="../body-bottom.jsp"/>

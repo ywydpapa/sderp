@@ -1,8 +1,11 @@
 package kr.swcore.sderp.pps;
 
+import kr.swcore.sderp.pps.dto.PpsDTO;
 import kr.swcore.sderp.pps.service.PpsService;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.inject.Inject;
@@ -21,5 +24,11 @@ public class PpsController {
         return mav;
     }
 
+    @RequestMapping("ppsupload.do")
+    public ModelAndView ppsupload(HttpSession session, ModelAndView mav){
+        mav.addObject("ppsList", ppsService.listPps(session));
+        mav.setViewName("pps/ppsupload");
+        return mav;
+    }
 
 }

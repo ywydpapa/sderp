@@ -19,6 +19,11 @@ public class AccountDAOImpl implements AccountDAO {
     }
 
     @Override
+    public List<AccountDTO> listbac(int compNo) {
+        return sqlSession.selectList("account.baclist", compNo);
+    }
+
+    @Override
     public List<AccountDTO> listvatitem(int vatId) {
         return sqlSession.selectList("account.listVatitem", vatId);
     }
@@ -46,6 +51,16 @@ public class AccountDAOImpl implements AccountDAO {
     @Override
     public int insertVat(AccountDTO dto) {
         return sqlSession.insert("account.insertVat", dto);
+    }
+
+    @Override
+    public int insertBac(AccountDTO dto) {
+        return sqlSession.insert("account.insbaclog",dto);
+    }
+
+    @Override
+    public int insertBacledger(AccountDTO dto) {
+        return sqlSession.insert("account.insbac",dto);
     }
 
     @Override

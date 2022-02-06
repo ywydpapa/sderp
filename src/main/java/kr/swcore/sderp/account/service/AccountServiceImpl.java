@@ -22,6 +22,12 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
+    public List<AccountDTO> listbac(HttpSession session) {
+        int compNo = SessionInfoGet.getCompNo(session);
+        return accountDAO.listbac(compNo);
+    }
+
+    @Override
     public List<AccountDTO> listvatitem(int vatId) {
         return accountDAO.listvatitem(vatId);
     }
@@ -51,6 +57,16 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public int insertVat(AccountDTO dto) {
         return accountDAO.insertVat(dto);
+    }
+
+    @Override
+    public int insertBac(AccountDTO dto) {
+        return accountDAO.insertBac(dto);
+    }
+
+    @Override
+    public int insertBacledger(AccountDTO dto) {
+        return accountDAO.insertBacledger(dto);
     }
 
     @Override

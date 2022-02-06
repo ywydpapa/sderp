@@ -29,6 +29,28 @@ public class AccountController {
         return mav;
     }
 
+    @RequestMapping("baclist.do")
+    public ModelAndView bacList(HttpSession session, ModelAndView mav) {
+        mav.addObject("vatList", accountService.listbac(session));
+        mav.setViewName("settle/baclist");
+        return mav;
+    }
+
+    @RequestMapping("bacdetail.do")
+    public ModelAndView bacDetail(HttpSession session, ModelAndView mav) {
+        mav.addObject("vatList", accountService.listbac(session));
+        mav.setViewName("settle/bacdetail");
+        return mav;
+    }
+
+    @RequestMapping("bacupdate.do")
+    public ModelAndView bacUpload(HttpSession session, ModelAndView mav) {
+        mav.addObject("vatList", accountService.listvat(session));
+        mav.setViewName("settle/bacupload");
+        return mav;
+    }
+
+
     @ResponseBody
     @RequestMapping("vatcheck.do")
     public AccountDTO vchk(ModelAndView mav, @ModelAttribute AccountDTO dto)
@@ -55,6 +77,32 @@ public class AccountController {
     public ResponseEntity<Object> insertvat(HttpSession session, @ModelAttribute AccountDTO dto){
         Map<String,Object> param = new HashMap<>();
         int vatIns = accountService.insertVat(dto);
+        if(vatIns > 0){
+            param.put("code","10001");
+        }
+        else {
+            param.put("code", "20001");
+        }
+        return ResponseEntity.ok(param);
+    }
+
+    @RequestMapping("insertbac.do")
+    public ResponseEntity<Object> insertbac(HttpSession session, @ModelAttribute AccountDTO dto){
+        Map<String,Object> param = new HashMap<>();
+        int vatIns = accountService.insertBac(dto);
+        if(vatIns > 0){
+            param.put("code","10001");
+        }
+        else {
+            param.put("code", "20001");
+        }
+        return ResponseEntity.ok(param);
+    }
+
+    @RequestMapping("insertbacledger.do")
+    public ResponseEntity<Object> insertbacledger(HttpSession session, @ModelAttribute AccountDTO dto){
+        Map<String,Object> param = new HashMap<>();
+        int vatIns = accountService.insertBacledger(dto);
         if(vatIns > 0){
             param.put("code","10001");
         }

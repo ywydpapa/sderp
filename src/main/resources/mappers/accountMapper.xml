@@ -33,6 +33,67 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select count(*) as resultCount from swc_vat where vatSerial = #{vatSerial}
 	</select>
 
+	<select id="baclist" resultType="accountDto">
+		select * from swc_bac where compNo = #{compNo} and attrib not like 'XXX%';
+	</select>
+
+	<select id="baclog" resultType="accountDto">
+		select * from swc_bacledger where bacSerial = #{bacSerial} and attrib not like 'XXX%' order by baclogTime;
+	</select>
+
+	<insert id="insbaclog">
+		insert into swc_bacledger
+(compNo,
+bacSerial,
+inAmt,
+outAmmt,
+baclogTime,
+logType,
+logRemark,
+balanceAmt,
+branchCode,
+linkDoc,
+regDate,
+attrib ) values (#{compNo},
+				 #{bacSerial},
+				 #{inAmt},
+				 #{outAmmt},
+				 #{baclogTime},
+				 #{logType},
+				 #{logRemark},
+				 #{balanceAmt},
+				 #{branchCode},
+				 #{linkDoc},
+				 now(),
+				 '10000');
+	</insert>
+
+	<insert id="insbac">
+		insert into swc_bac
+(bankCode,
+compNo,
+bacNo,
+bacSerial,
+bacIssueDate,
+lastUpdTime,
+bacOwner,
+bacType,
+bacBalance,
+regDate,
+attrib) values (#{bankCode},
+				#{compNo},
+				#{bacNo},
+				#{bacSerial},
+				#{bacIssueDate},
+				#{lastUpdTime},
+				#{bacOwner},
+				#{bacType},
+				#{bacBalance},
+				now(),
+				'100001');
+	</insert>
+
+
 <insert id="insertVat">
 	insert into swc_vat
 	(

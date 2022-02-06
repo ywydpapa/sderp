@@ -16,7 +16,7 @@
 <!DOCTYPE html>
 <html>
 <jsp:include page="../head.jsp"/>
-<jsp:include page="../body-top3.jsp"/>
+<jsp:include page="../body-top.jsp"/>
 
 <div id="main_content">
 	
@@ -27,18 +27,18 @@
                 <div class="col-lg-12">
                     <div class="page-header-title" style="float:left;">
                         <div style="margin-top:15px;">
-                            <h6 style="font-weight:600;">계산서 목록 </h6>
+                            <h6 style="font-weight:600;">조달 구매요청 목록 </h6>
                         </div>
                     </div>
                     <div class="btn_wr" style="float:right;">
                         <!-- hide and show -->
-						<button class="btn btn-sm btn-success" id="fold" onclick="acordian_action()">펼치기</button>
+						<button class="btn btn-sm btn-success" id="fold" onclick="acordian_action()" disabled>펼치기</button>
 						<button class="btn btn-sm btn-success" id="fold2" onclick="acordian_action1()" style="display:none;">접기</button>
 						<!-- hide and show -->
                         <button class="btn btn-sm btn-inverse" onClick="javascript:fnClearall()"><i class="icofont icofont-spinner-alt-3"></i>초기화</button>
                         <button class="btn btn-sm btn-primary" onClick="javascript:fnListcon()"><i class="icofont icofont-search"></i>검색</button>
-                        <button class="btn btn-sm btn-danger" onClick="javascript:fnChgStatus()">상태변경</button>
-                        <button class="btn btn-sm btn-outline"onClick="javascript:location='${path}/acc/vatupload.do'"><i class="icofont icofont-pencil-alt-2"></i>계산서 등록</button>
+                        <button class="btn btn-sm btn-danger" onClick="javascript:fnChgStatus()">할당처리</button>
+                        <button class="btn btn-sm btn-outline"onClick="javascript:location='${path}/pps/ppsupload.do'"><i class="icofont icofont-pencil-alt-2"></i>조달자료 등록</button>
                     </div>
                 </div>
             </div>
@@ -215,36 +215,44 @@
                                 <col width="10%"/>
                                 <col width="10%"/>
                                 <col width="10%"/>
-                                <col width="15%"/>
-                                <col width="15%"/>
+                                <col width="10%"/>
+                                <col width="10%"/>
+                                <col width="10%"/>
+                                <col width="10%"/>
+                                <col width="10%"/>
                             </colgroup>
                             <thead>
                             <tr>
-                                <th class="text-center">등록일</th>
-                                <th class="text-center">매입/매출</th>
-                                <th class="text-center">거래처</th>
-                                <th class="text-center">발행번호</th>
-                                <th class="text-center">상태</th>
-                                <th class="text-center">공급가</th>
-                                <th class="text-center">세액</th>
-                                <th class="text-center">합계금액</th>
-                                <th class="text-center">연결문서(합계금액)</th>
-                                <th class="text-center">메모</th>
+                                <th class="text-center">계약일자</th>
+                                <th class="text-center">수요기관(코드)</th>
+                                <th class="text-center">지역</th>
+                                <th class="text-center">계약번호</th>
+                                <th class="text-center">계약건명</th>
+                                <th class="text-center">계약품목(계약물품번호)</th>
+                                <th class="text-center">단가</th>
+                                <th class="text-center">수량</th>
+                                <th class="text-center">단위</th>
+                                <th class="text-center">금액</th>
+                                <th class="text-center">납품기한</th>
+                                <th class="text-center">납품장소</th>
+                                <th class="text-center">비고</th>
                             </tr>
                             </thead>
                             <c:forEach items="${ppsList}" var="vlist">
                                 <tr>
-                                <td class="text-center">${vlist.vatIssueDate}</td>
-                                    <td class="text-center vatTyp"><c:if test = "${vlist.vatType eq 'B'}">매입</c:if><c:if test = "${vlist.vatType eq 'S'}">매출</c:if></td>
-                                    <td class="text-center"><c:if test = "${vlist.vatType eq 'S'}">${vlist.vatBuyerName}</c:if> <c:if test = "${vlist.vatType eq 'B'}">${vlist.vatSellerName}</c:if></td>
-                                    <td class="text-center vatSno"><a href="#">${vlist.vatSerial}</a></td>
-                                    <td class="text-center"><c:if test = "${vlist.vatStatus eq 'B1'}">매입발행</c:if><c:if test = "${vlist.vatStatus eq 'B3'}">지급처리중</c:if><c:if test = "${vlist.vatStatus eq 'B5'}">지급완료</c:if>
-                                        <c:if test = "${vlist.vatStatus eq 'S1'}">매출발행</c:if><c:if test = "${vlist.vatStatus eq 'S3'}">수금처리중</c:if><c:if test = "${vlist.vatStatus eq 'S5'}">수금완료</c:if><input type="checkbox" class="vatStchg"></td>
-                                    <td class="text-right"><fmt:formatNumber type="number" maxFractionDigits="3" value="${vlist.vatAmount}" /></td>
-                                    <td class="text-right"><fmt:formatNumber type="number" maxFractionDigits="3" value="${vlist.vatTax}" /></td>
-                                    <td class="text-right"><fmt:formatNumber type="number" maxFractionDigits="3" value="${vlist.vatAmount + vlist.vatTax}" /></td>
-                                    <td class="text-right"><a href = "#"><fmt:formatNumber type="number" maxFractionDigits="3" value="${vlist.vatSum}" /></a></td>
-                                    <td>${vlist.vatRemark}</td>
+                                <td class="text-center">${vlist.contractDate}</td>
+                                    <td class="text-center">${vlist.buyerName}(${vlist.buyerCode})</td>
+                                    <td class="text-center">${vlist.buyerArea}(${vlist.buyerAreacode})</td>
+                                    <td class="text-center">${vlist.reqNo}</td>
+                                    <td class="text-center">${vlist.contractTitle}</td>
+                                    <td class="text-center">${vlist.reqItem}(${vlist.reqItemcode})</td>
+                                    <td class="text-right"><fmt:formatNumber type="number" maxFractionDigits="3" value="${vlist.itemNetprice}" /></td>
+                                    <td class="text-right"><fmt:formatNumber type="number" maxFractionDigits="3" value="${vlist.itemQty}" /></td>
+                                    <td class="text-center">${vlist.itemUnit}</td>
+                                    <td class="text-right"><fmt:formatNumber type="number" maxFractionDigits="3" value="${vlist.itemAmount}" /></td>
+                                    <td class="text-center">${vlist.deliveryDate}</td>
+                                    <td class="text-center">${vlist.deliveryPlace}</td>
+                                    <td></td>
                                 </tr>
                             </c:forEach>
                         </table>

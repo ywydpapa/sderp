@@ -11,14 +11,13 @@ import java.math.BigDecimal;
 @Setter
 @ToString
 public class PpsDTO {
-
     private Integer ppsId;
     private Integer compNo;
     private String buyerCode;
     private String buyerName;
     private String buyerArea;
     private String buyerAreacode;
-    private Integer reqNo;
+    private String reqNo;
     private String reqItemcode;
     private String reqItem;
     private BigDecimal itemNetprice;

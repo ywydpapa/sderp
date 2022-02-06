@@ -14,4 +14,5 @@ public interface AccountService {
     AccountDTO detailvat(int vatId);
     int insertVat(AccountDTO dto);
     int insertVatitem(AccountDTO dto);
+    int updvatStat(AccountDTO dto);
 }

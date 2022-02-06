@@ -15,6 +15,21 @@ public class PpsDAOImpl implements PpsDAO{
 
     @Override
     public List<PpsDTO> listPps(int compNo) {
-        return sqlSession.selectList("pps.listPps", compNo);
+        return sqlSession.selectList("pps.ppsList", compNo);
+    }
+
+    @Override
+    public PpsDTO detailPps(int ppsId) {
+        return sqlSession.selectOne("pps.ppsDetail", ppsId);
+    }
+
+    @Override
+    public int insertPps(PpsDTO dto) {
+        return sqlSession.insert("pps.ppsInsert", dto);
+    }
+
+    @Override
+    public int updatePps(PpsDTO dto) {
+        return 0;
     }
 }

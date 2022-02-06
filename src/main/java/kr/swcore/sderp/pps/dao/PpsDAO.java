@@ -6,4 +6,7 @@ import java.util.List;
 
 public interface PpsDAO {
     List<PpsDTO> listPps(int compNo);
+    PpsDTO detailPps(int ppsId);
+    int insertPps(PpsDTO dto);
+    int updatePps(PpsDTO dto);
 }

@@ -3,5 +3,58 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="pps">
+    <select id="ppsList" resultType="PpsDTO">
+        select * from swc_pps where attrib not like 'XXX%';
+    </select>
 
+    <select id="ppsDetail" resultType="PpsDTO">
+        select * from swc_pps where ppsID = #{ppsId};
+    </select>
+
+    <insert id="ppsInsert">
+        insert into swc_pps
+(ppsId,
+    compNo,
+    buyerCode,
+    buyerName,
+    buyerArea,
+    buyerAreacode,
+    reqNo,
+    reqItemcode,
+    reqItem,
+    itemNetprice,
+    itemQty,
+    itemUnit,
+    itemAmount,
+    contractTitle,
+    modQty,
+    modAmount,
+    contractDate,
+    deliveryDate,
+    deliveryPlace,
+    regDate,
+    attrib ) values
+(#{ppsId},
+    #{compNo},
+    #{buyerCode},
+    #{buyerName},
+    #{buyerArea},
+    #{buyerAreacode},
+    #{reqNo},
+    #{reqItemcode},
+    #{reqItem},
+    #{itemNetprice},
+    #{itemQty},
+    #{itemUnit},
+    #{itemAmount},
+    #{contractTitle},
+    #{modQty},
+    #{modAmount},
+    #{contractDate},
+    #{deliveryDate},
+    #{deliveryPlace},
+    now(),
+    '10000'
+);
+    </insert>
 </mapper>

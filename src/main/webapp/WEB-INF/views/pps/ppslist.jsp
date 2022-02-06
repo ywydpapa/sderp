@@ -232,7 +232,7 @@
                                 <th class="text-center">메모</th>
                             </tr>
                             </thead>
-                            <c:forEach items="${vatList}" var="vlist">
+                            <c:forEach items="${ppsList}" var="vlist">
                                 <tr>
                                 <td class="text-center">${vlist.vatIssueDate}</td>
                                     <td class="text-center vatTyp"><c:if test = "${vlist.vatType eq 'B'}">매입</c:if><c:if test = "${vlist.vatType eq 'S'}">매출</c:if></td>

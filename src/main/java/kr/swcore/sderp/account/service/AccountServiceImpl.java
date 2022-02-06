@@ -57,4 +57,9 @@ public class AccountServiceImpl implements AccountService {
     public int insertVatitem(AccountDTO dto) {
         return accountDAO.insertVatitem(dto);
     }
+
+    @Override
+    public int updvatStat(AccountDTO dto) {
+        return accountDAO.updvatStat(dto);
+    }
 }

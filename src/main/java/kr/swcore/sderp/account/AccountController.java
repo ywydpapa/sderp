@@ -64,4 +64,16 @@ public class AccountController {
         return ResponseEntity.ok(param);
     }
 
+    @RequestMapping("vatStatuschg.do")
+    public ResponseEntity<Object> chgvat(HttpSession session, @ModelAttribute AccountDTO dto){
+        Map<String,Object> param = new HashMap<>();
+        int chgVat = accountService.updvatStat(dto);
+        if(chgVat > 0){
+            param.put("code","10001");
+        }
+        else {
+            param.put("code", "20001");
+        }
+        return ResponseEntity.ok(param);
+    }
 }

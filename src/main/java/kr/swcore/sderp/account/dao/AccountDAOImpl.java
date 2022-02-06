@@ -52,4 +52,9 @@ public class AccountDAOImpl implements AccountDAO {
     public int insertVatitem(AccountDTO dto) {
         return sqlSession.insert("account.insertVatItem", dto);
     }
+
+    @Override
+    public int updvatStat(AccountDTO dto) {
+        return sqlSession.update("account.updVatStatus", dto);
+    }
 }

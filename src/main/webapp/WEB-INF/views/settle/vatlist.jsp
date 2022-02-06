@@ -166,7 +166,7 @@
                                     </div>
                                 </div>
                                 <div class="col-sm-12 col-xl-3">
-                                    <label class="col-form-label" for="co_name">처리 상태</label>
+                                    <label class="col-form-label" for="salesType">처리 상태</label>
                                     <select name="select" class="form-control form-control-sm" id="salesType">
                                         <option value>선택</option>
                                         <c:forEach var = "acttype" items="${acttype}">
@@ -225,7 +225,7 @@
                                 <th class="text-center">공급가</th>
                                 <th class="text-center">세액</th>
                                 <th class="text-center">합계금액</th>
-                                <th class="text-center">연결문서</th>
+                                <th class="text-center">연결문서(합계금액)</th>
                                 <th class="text-center">메모</th>
                             </tr>
                             </thead>

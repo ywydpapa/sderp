@@ -2,7 +2,7 @@ package kr.swcore.sderp.account;
 
 import kr.swcore.sderp.account.dto.AccountDTO;
 import kr.swcore.sderp.account.service.AccountService;
-import kr.swcore.sderp.gw.dto.GwDTO;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,6 +12,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
+import java.util.HashMap;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/acc/*")
@@ -47,6 +49,19 @@ public class AccountController {
         mav.addObject("vatdetail", accountService.detailvat(vatId));
         mav.setViewName("settle/vatdetail");
         return mav;
+    }
+
+    @RequestMapping("insertvat.do")
+    public ResponseEntity<Object> insertvat(HttpSession session, @ModelAttribute AccountDTO dto){
+        Map<String,Object> param = new HashMap<>();
+        int vatIns = accountService.insertVat(dto);
+        if(vatIns > 0){
+            param.put("code","10001");
+        }
+        else {
+            param.put("code", "20001");
+        }
+        return ResponseEntity.ok(param);
     }
 
 }

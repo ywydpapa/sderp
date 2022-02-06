@@ -191,7 +191,7 @@
                                     </div>
                                 </div>
                                 <div class="col-sm-12 col-xl-3">
-                                    <label class="col-form-label" for="co_name">처리 상태</label>
+                                    <label class="col-form-label" for="salesType">처리 상태</label>
                                     <select name="select" class="form-control form-control-sm" id="salesType">
                                         <option value>선택</option>
                                         <c:forEach var = "acttype" items="${acttype}">
@@ -269,15 +269,15 @@
                                 if(row == 5){
                                     table_output += '<td>검토</td><td>' + sheet_data[row][cell] + '</td>';
                                 }else{
-                                    table_output += '<td><input type="checkbox" class="vatchecked" onClick="return false;"></td><td>' + sheet_data[row][cell] + '</td>';
+                                    table_output += '<td><input type="checkbox" class="vatchecked" onClick="return false;"></td><td class="vatlst'+cell+'">' + sheet_data[row][cell] + '</td>';
                                 }
                             } else {
-                                if (cell == 1){
-                                    table_output += '<td class="vserial">' + sheet_data[row][cell] + '</td>';
-                                }else{
+                                if (row == 5){
                                     table_output += '<td>' + sheet_data[row][cell] + '</td>';
+                                }else{
+                                    table_output += '<td class="vatlst'+cell+'">' + sheet_data[row][cell] + '</td>';
                                 }
-                            }
+                                }
     					}
     					table_output += '</tr>';
     				}
@@ -319,10 +319,12 @@
 	        
     		$(".modal-backdrop").remove();
    	      	$("#fileUploadModal").modal("hide");
-   	      	
+
    	      	$("#chkBtn").removeClass();
    	      	$("#chkBtn").removeAttr("disabled");
    	      	$("#chkBtn").attr("class", "btn btn-sm btn-success");
+            $("#regBBtn").attr("disabled");
+            $("#regSBtn").attr("disabled");
 	    }
 	    
 	    function downloadCSV() {
@@ -378,6 +380,8 @@
                     	}else{
                     		$(item).attr("checked", true);
                     	}
+                        $("#regBBtn").removeAttr("disabled");
+                        $("#regSBtn").removeAttr("disabled");
                     }
                 });
             });
@@ -385,11 +389,96 @@
         }
 
         function fnRegBVatlist(){
-            alert("유효성 검사 후 매입 등록작업");
+            var $Chkarr = $(".vatchecked");  //체크여부
+            var $Aarr = $(".vatlst0");         // 작성일
+            var $Barr = $(".vatlst1l");           // 승인번호
+            var $Carr = $(".vatlst2");          //발급일자
+            var $Darr = $(".vatlst3");           // 전송일자
+            var $Earr = $(".vatlst4");           // 사업자 번호
+            var $Farr = $(".vatlst15");           // 공급금액
+            var $Garr = $(".vatlst16");           // 세액
+            var $Harr = $(".vatlst18");           // 세금계산서 종류
+            var $Iarr = $(".vatlst19");           // 발급유형
+            var $Jarr = $(".vatlst20");           // 비고
+            var $Karr = $(".vatlst22");           // 공급자 이메일
+
+            for (var i=0; i<$Barr.length; i++){
+                if ($($Chkarr[i]).is(":checked")==true){
+                    var vatData = {};
+                    vatData.vatStatus = 'B1';
+                    vatData.vatType = 'B';
+                    vatData.compNo = ${compNo};
+                    vatData.vatNo = $Earr[i].innerText;
+                    vatData.vatSerial = $Barr[i].innerText;
+                    vatData.vatEmail = $Karr[i].innerText;
+                    vatData.vatIssueDate = $Aarr[i].innerText;
+                    vatData.vatTradeDate = $Carr[i].innerText;
+                    vatData.vatTransDate = $Darr[i].innerText;
+                    vatData.vatTax = Number($Garr[i].innerText.replace(/[\D\s\._\-]+/g, ""));
+                    vatData.vatAmount = Number($Farr[i].innerText.replace(/[\D\s\._\-]+/g, ""));
+                    vatData.vatRemark = $Jarr[i].innerText;
+                    vatData.vatIssueType = $Iarr[i].innerText;
+                    console.log(vatData);
+                    $.ajax({
+                        url : "${path}/acc/insertvat.do",
+                        data : vatData,
+                        method : "POST",
+                        dataType: "json"
+                    })
+                    .done(function(){
+
+                    });
+                }
+            }
+            alert("매입자료 등록 완료");
+            fnCheckVatlist();
+
         }
 
         function fnRegSVatlist(){
-            alert("유효성 검사 후 매출 등록작업");
+            var $Chkarr = $(".vatchecked");  //체크여부
+            var $Aarr = $(".vatlst0");         // 작성일
+            var $Barr = $(".vatlst1");           // 승인번호
+            var $Carr = $(".vatlst2");          //발급일자
+            var $Darr = $(".vatlst3");           // 전송일자
+            var $Earr = $(".vatlst9");           // 사업자 번호
+            var $Farr = $(".vatlst15");           // 공급금액
+            var $Garr = $(".vatlst16");           // 세액
+            var $Harr = $(".vatlst18");           // 세금계산서 종류
+            var $Iarr = $(".vatlst19");           // 발급유형
+            var $Jarr = $(".vatlst20");           // 비고
+            var $Karr = $(".vatlst23");           // 공급자 이메일
+
+            for (var i=0; i<$Barr.length; i++){
+                if ($($Chkarr[i]).is(":checked")==true){
+                    var vatData = {};
+                    vatData.vatStatus = 'S1';
+                    vatData.vatType = 'S';
+                    vatData.compNo = ${compNo};
+                    vatData.vatNo = $Earr[i].innerText;
+                    vatData.vatSerial = $Barr[i].innerText;
+                    vatData.vatEmail = $Karr[i].innerText;
+                    vatData.vatIssueDate = $Aarr[i].innerText;
+                    vatData.vatTradeDate = $Carr[i].innerText;
+                    vatData.vatTransDate = $Darr[i].innerText;
+                    vatData.vatTax = Number($Garr[i].innerText.replace(/[\D\s\._\-]+/g, ""));
+                    vatData.vatAmount = Number($Farr[i].innerText.replace(/[\D\s\._\-]+/g, ""));
+                    vatData.vatRemark = $Jarr[i].innerText;
+                    vatData.vatIssueType = $Iarr[i].innerText;
+                    console.log(vatData);
+                    $.ajax({
+                        url : "${path}/acc/insertvat.do",
+                        data : vatData,
+                        method : "POST",
+                        dataType: "json"
+                    })
+                        .done(function(){
+
+                        });
+                }
+            }
+            alert("매출자료 등록 완료");
+            fnCheckVatlist();
         }
 
         function acordian_action(){

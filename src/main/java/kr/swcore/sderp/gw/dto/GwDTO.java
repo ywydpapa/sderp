@@ -103,6 +103,7 @@ public class GwDTO {
     private String estComSpec;
     
     private int tempId;
+    private String firstUser;
     
     public GwDTO() {
         super();

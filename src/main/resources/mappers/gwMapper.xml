@@ -244,10 +244,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<select id="myDocList" resultType="gwDto">
-		select a.*, c.userName as userIsName, b.appStatus, d.custName from swc_businessdoc a 
+		select a.*, c.userName as userIsName, b.appStatus, d.custName, e.userName as firstUser from swc_businessdoc a 
 		left join swc_businessdocapp b on a.docNo = b.docNo 
 		left join swc_user c on c.userNo = b.userNoIS 
 		left join swc_cust d on a.linkCustNo = d.custNo
+		left join swc_user e on a.docCrUserNo = e.userNo
 		where a.attrib not like 'XXX%' and b.compNo = #{compNo} and a.docStatus BETWEEN 2 and 3 and b.appStatus BETWEEN 2 and 5 and b.appStatus != 3 order by a.docNo desc;
 	</select>
 	

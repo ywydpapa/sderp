@@ -206,7 +206,7 @@
 			                                <th class="text-center">거래처</th>
 			                                <th class="text-center">문서명</th>
 			                                <th class="text-center">금액</th>
-			                                <th class="text-center">요청자</th>
+			                                <th class="text-center">작성자</th>
 			                                <th class="text-center">진행상태</th>
 			                            </tr>
 		                            </thead>
@@ -234,7 +234,7 @@
 				                                    <td class="text-center">${row.custName}</td>
 				                                    <td>${row.docTitle}</td>
 				                                    <td class="text-right">￦<fmt:formatNumber type="number" maxFractionDigits="3" value="${row.docAmount}" /></td>
-				                                    <td class="text-center">${row.userIsName}</td>
+				                                    <td class="text-center">${row.firstUser}</td>
 				                                    <td class="text-center">검토요청</td>
 				                                    <%-- <td class="text-center">
 				                                    	<c:if test="${row.appStatus == 2}">검토요청</c:if>
@@ -267,7 +267,7 @@
 			                                <th class="text-center">거래처</th>
 			                                <th class="text-center">문서명</th>
 			                                <th class="text-center">금액</th>
-			                                <th class="text-center">요청자</th>
+			                                <th class="text-center">작성자</th>
 			                                <th class="text-center">진행상태</th>
 			                            </tr>
 		                            </thead>
@@ -295,7 +295,7 @@
 				                                    <td class="text-center">${row.custName}</td>
 				                                    <td>${row.docTitle}</td>
 				                                    <td class="text-right">￦<fmt:formatNumber type="number" maxFractionDigits="3" value="${row.docAmount}" /></td>
-				                                    <td class="text-center">${row.userIsName}</td>
+				                                    <td class="text-center">${row.firstUser}</td>
 				                                    <td class="text-center">승인완료</td>
 				                                    <%-- <td class="text-center">
 				                                    	<c:if test="${row.appStatus == 2}">검토요청</c:if>
@@ -337,7 +337,7 @@
 		                                <th class="text-center">거래처</th>
 		                                <th class="text-center">문서명</th>
 		                                <th class="text-center">금액</th>
-		                                <th class="text-center">요청자</th>
+		                                <th class="text-center">작성자</th>
 		                                <th class="text-center">진행상태</th>
 		                            </tr>
 		                            </thead>
@@ -368,7 +368,7 @@
 				                                    <td class="text-center">${row.custName}</td>
 				                                    <td>${row.docTitle}</td>
 				                                    <td class="text-right">￦<fmt:formatNumber type="number" maxFractionDigits="3" value="${row.docAmount}" /></td>
-				                                    <td class="text-center">${row.userIsName}</td>
+				                                    <td class="text-center">${row.firstUser}</td>
 				                                    <td class="text-center">승인요청</td>
 				                                    <%-- <td class="text-center">
 				                                    	<c:if test="${row.appStatus == 2}">검토요청</c:if>
@@ -401,7 +401,7 @@
 		                                <th class="text-center">거래처</th>
 		                                <th class="text-center">문서명</th>
 		                                <th class="text-center">금액</th>
-		                                <th class="text-center">요청자</th>
+		                                <th class="text-center">작성자</th>
 		                                <th class="text-center">진행상태</th>
 		                            </tr>
 		                            </thead>
@@ -429,7 +429,7 @@
 				                                    <td class="text-center">${row.custName}</td>
 				                                    <td>${row.docTitle}</td>
 				                                    <td class="text-right">￦<fmt:formatNumber type="number" maxFractionDigits="3" value="${row.docAmount}" /></td>
-				                                    <td class="text-center">${row.userIsName}</td>
+				                                    <td class="text-center">${row.firstUser}</td>
 				                                    <td class="text-center">승인완료</td>
 				                                    <%-- <td class="text-center">
 				                                    	<c:if test="${row.appStatus == 2}">검토요청</c:if>

@@ -240,8 +240,6 @@
 
     <!-- hide and show -->
     <script>
-    	
-    	
 	    function uploadFile(){
 	    	const excel_file = document.getElementById("fileUpload");
 	    	
@@ -420,12 +418,19 @@
                     vatData.vatIssueType = $Iarr[i].innerText;
                     console.log(vatData);
                     $.ajax({
-                        url : "${path}/acc/insertvat.do",
-                        data : vatData,
-                        method : "POST",
-                        dataType: "json"
-                    })
-                    .done(function(){
+                    	url: "${path}/acc/selectVatCust/" + vatData.vatNo,
+                    	method: "post",
+                    	dataType: "json",
+                    	async: false,
+                    	success:function(data){
+                    		vatData.vatSellerCustNo = data.getNo;
+		                    $.ajax({
+		                        url : "${path}/acc/insertvat.do",
+		                        data : vatData,
+		                        method : "POST",
+		                        dataType: "json"
+		                    });
+                    	}
                     });
                 }
             }
@@ -439,7 +444,7 @@
             var $Barr = $(".vatlst1");           // 승인번호
             var $Carr = $(".vatlst2");          //발급일자
             var $Darr = $(".vatlst3");           // 전송일자
-            var $Earr = $(".vatlst9");           // 사업자 번호
+            var $Earr = $(".vatlst4");           // 사업자 번호
             var $Farr = $(".vatlst15");           // 공급금액
             var $Garr = $(".vatlst16");           // 세액
             var $Harr = $(".vatlst18");           // 세금계산서 종류
@@ -465,14 +470,20 @@
                     vatData.vatIssueType = $Iarr[i].innerText;
                     console.log(vatData);
                     $.ajax({
-                        url : "${path}/acc/insertvat.do",
-                        data : vatData,
-                        method : "POST",
-                        dataType: "json"
-                    })
-                        .done(function(){
-
-                        });
+                    	url: "${path}/acc/selectVatCust/" + vatData.vatNo,
+                    	method: "post",
+                    	dataType: "json",
+                    	async: false,
+                    	success:function(data){
+                    		vatData.vatSellerCustNo = data.getNo;
+		                    $.ajax({
+		                        url : "${path}/acc/insertvat.do",
+		                        data : vatData,
+		                        method : "POST",
+		                        dataType: "json"
+		                    });
+                    	}
+                    });
                 }
             }
             alert("매출자료 등록 완료");

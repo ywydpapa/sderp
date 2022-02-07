@@ -78,4 +78,9 @@ public class AccountServiceImpl implements AccountService {
     public int updvatStat(AccountDTO dto) {
         return accountDAO.updvatStat(dto);
     }
+
+	@Override
+	public AccountDTO selectVatCust(String vatNo) {
+		return accountDAO.selectVatCust(vatNo);
+	}
 }

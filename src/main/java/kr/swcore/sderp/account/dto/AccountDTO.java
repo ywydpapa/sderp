@@ -64,5 +64,7 @@ public class AccountDTO {
     private BigDecimal balanceAmt;
     private String branchCode;
     private String linkDoc;
+    
+    private int getNo;
 }
 

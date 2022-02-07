@@ -72,4 +72,9 @@ public class AccountDAOImpl implements AccountDAO {
     public int updvatStat(AccountDTO dto) {
         return sqlSession.update("account.updVatStatus", dto);
     }
+
+	@Override
+	public AccountDTO selectVatCust(String vatNo) {
+		return sqlSession.selectOne("account.selectVatCust", vatNo);
+	}
 }

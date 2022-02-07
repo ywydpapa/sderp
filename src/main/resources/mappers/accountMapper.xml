@@ -40,6 +40,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="baclog" resultType="accountDto">
 		select * from swc_bacledger where bacSerial = #{bacSerial} and attrib not like 'XXX%' order by baclogTime;
 	</select>
+	
+	<select id="selectVatCust" resultType="accountDto">
+		select custNo as getNo from swc_cust where custVatno = #{vatNo}
+	</select>
 
 	<insert id="insbaclog">
 		insert into swc_bacledger

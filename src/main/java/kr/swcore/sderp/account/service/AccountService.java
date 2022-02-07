@@ -18,4 +18,5 @@ public interface AccountService {
     int insertBacledger(AccountDTO dto);
     int insertVatitem(AccountDTO dto);
     int updvatStat(AccountDTO dto);
+    AccountDTO selectVatCust(String vatNo);
 }

@@ -56,6 +56,14 @@ public class AccountController {
         mav.setViewName("settle/bacupload");
         return mav;
     }
+    
+    @ResponseBody
+    @RequestMapping("selectVatCust/{vatNo}")
+    public AccountDTO selectVatCust(@PathVariable("vatNo") String vatNo) {
+    	AccountDTO dto = accountService.selectVatCust(vatNo);
+    	
+		return dto;
+    }
 
 
     @ResponseBody

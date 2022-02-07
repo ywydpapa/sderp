@@ -36,9 +36,21 @@
 			<div class="col-xl-6" style="margin-bottom:5px;">
 				<a href="" class="btn btn-primary" id="btnPdf" onClick="javascript:popupPdf(); return false;" style="float:right;">견적서 출력</a>
 				<!-- hide and show -->
+				
 				<button class="btn btn-success" id="fold" onclick="acordian_action()" style="z-index: 99; float:right; margin-right:5px;">펼치기</button>
 				<button class="btn btn-success" id="fold2" onclick="acordian_action1()" style="z-index: 10; display: none; float:right; margin-right:5px;">접기</button>
 				<!-- hide and show -->
+				<div class="form-radio" style="float:right;">
+					<form>
+						<div class="radio radio-inline" style="margin-top:10px;">
+							<label> <input type="radio" name="titlePdf" value="radioOnTitle" checked="checked"> <i class="helper"></i>타이틀</label>
+						</div>
+						<div class="radio radio-inline" style="margin-top:10px;">
+							<label> <input type="radio" name="titlePdf" value="radioOffTitle" checked="checked"> <i class="helper"></i>타이틀 없음</label>
+						</div>
+						<!--<a href="" class="btn btn-success" id="btnPdf" onClick="javascript:popupPdf(); return false;" style="float:right;">견적서 출력</a>-->
+					</form>
+				</div>
 			</div>
 		</div>
 		<div class="row">
@@ -62,28 +74,6 @@
 							<col width="15%"/>
 						</colgroup>
 						<tbody>
-							<tr>
-								<th class="text-center">견적서 출력</th>
-								<td>
-									<div class="form-radio">
-										<form>
-											<div class="radio radio-inline" style="margin-top:10px;">
-												<label> <input type="radio" name="titlePdf" value="radioOnTitle" checked="checked"> <i class="helper"></i>타이틀</label>
-											</div>
-											<div class="radio radio-inline" style="margin-top:10px;">
-												<label> <input type="radio" name="titlePdf" value="radioOffTitle" checked="checked"> <i class="helper"></i>타이틀 없음</label>
-											</div>
-											
-											<!--<a href="" class="btn btn-success" id="btnPdf" onClick="javascript:popupPdf(); return false;" style="float:right;">견적서 출력</a>-->
-										</form>
-									</div>
-								</td>
-								<!-- <td class="text-right" colspan="6" style="border-left:1px solid #fff;">
-									<div>
-										<button class="btn btn-primary" onClick="infoSave();">정보저장</button>
-									</div>
-								</td> -->
-							</tr>
 							<c:choose>
 								<c:when test="${empty infoItem}">
 									<input type="hidden" id="infoItemFlag" value="0" />

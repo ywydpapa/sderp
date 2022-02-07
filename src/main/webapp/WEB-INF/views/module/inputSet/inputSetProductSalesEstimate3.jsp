@@ -284,7 +284,7 @@
 			
 		$("#product02InSum_table").html("￦"+parseInt(calTotal).toLocaleString("en-US"));
 		$("#amountSum").val(calAmount);
-		$("#vatSum").val(vatSum);
+		$("#vatSum").val(calVat);
 		
 		dataArray.splice($(this).attr("data-index"), 1);
 		$("#qutylist tbody tr").eq($(this).attr("data-index")).remove();
@@ -430,8 +430,8 @@
         dataArray[flagIndex].productSpec = productSpec;
 			
         var calTotalSum = parseInt(calTotal) + parseInt(productTotal);
-        var calAmountSum = parseInt($("#amountSum").val()) + parseInt(productAmount);
-        var calVatSum = parseInt($("#vatSum").val()) + parseInt(productVat);
+        var calAmountSum = parseInt(calAmount) + parseInt(productAmount);
+        var calVatSum = parseInt(calVat) + parseInt(productVat);
         
 		$("#product02InSum_table").html("￦"+parseInt(calTotalSum).toLocaleString("en-US"));
 		$("#amountSum").val(calAmountSum);

@@ -166,7 +166,7 @@
 			var salesCustNo = Number($(tr).children().eq(1)[0].children[0].value);
 			$("#productSalesInOutCustName").val(salesCustNoN);
 			$("#productSalesInOutCustNo").val(salesCustNo);
-
+			
 			var data01Title = $(tr).children().eq(2)[0].innerText;
 			var productNo1 = Number($(tr).children().eq(2)[0].children[0].value);
 			$("#data01Title").val(data01Title);

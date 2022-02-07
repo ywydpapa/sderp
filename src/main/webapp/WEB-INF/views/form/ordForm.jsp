@@ -190,7 +190,7 @@ th, td{
 			    		<td style='text-align: center;'>${row.productName}</td>
 			    		<td style='text-align: center;'>${row.productQty}</td>
 			    		<td style="text-align: right;"><fmt:formatNumber value="${row.productVat}" pattern="#,###" /></td>
-			    		<td style='text-align: right;'><fmt:formatNumber value="${row.productAmount}" pattern="#,###" /></td>
+			    		<td style='text-align: right;'><fmt:formatNumber value="${row.productNetprice}" pattern="#,###" /></td>
 			    		<td style='text-align: right;'><fmt:formatNumber value="${row.productTotal}" pattern="#,###" /></td>
 			    		<td></td>
 			    	</tr>

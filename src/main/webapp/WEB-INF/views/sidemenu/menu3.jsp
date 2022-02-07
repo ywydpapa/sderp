@@ -138,9 +138,9 @@
                                             </a>
                                         </li>
                                         <li class="pcoded-hasmenu">
-                                            <a href="${path}/product/list.do">
+                                            <a href="${path}/acc/regbac.do">
                                                 <span class="pcoded-micon"><i class="ti-direction-alt"></i></span>
-                                                <span class="pcoded-mtext" data-i18n="nav.menu-levels.menu-level-22">상품설정</span>
+                                                <span class="pcoded-mtext" data-i18n="nav.menu-levels.menu-level-22">계좌 등록</span>
                                                 <span class="pcoded-mcaret"></span>
                                             </a>
                                             </ul>

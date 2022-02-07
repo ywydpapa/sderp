@@ -36,6 +36,13 @@ public class AccountController {
         return mav;
     }
 
+    @RequestMapping("regbac.do")
+    public ModelAndView regbac(HttpSession session, ModelAndView mav) {
+        mav.addObject("vatList", accountService.listbac(session));
+        mav.setViewName("settle/regbaclist");
+        return mav;
+    }
+
     @RequestMapping("bacdetail.do")
     public ModelAndView bacDetail(HttpSession session, ModelAndView mav) {
         mav.addObject("vatList", accountService.listbac(session));

@@ -32,8 +32,10 @@
                     </div>
                     <div class="btn_wr" style="float:right;">
                         <!-- hide and show -->
+<%--
 						<button class="btn btn-sm btn-success" id="fold" onclick="acordian_action()">펼치기</button>
 						<button class="btn btn-sm btn-success" id="fold2" onclick="acordian_action1()" style="display:none;">접기</button>
+--%>
 						<!-- hide and show -->
                         <button class="btn btn-sm btn-danger" onClick="javascript:fnChgStatus()">상태변경</button>
                         <%--<button class="btn btn-sm btn-outline"onClick="javascript:location='${path}/acc/bacupdate.do'"><i class="icofont icofont-pencil-alt-2"></i>계좌내역 등록</button>--%>
@@ -198,34 +200,74 @@
     </c:if>
     <div class="row">
         <div class="col-sm-12">
-            <h5> 계좌 등록</h5>
             <div class="card-block table-border-style">
                 <div class="table-responsive">
                     <table id="bacregTable" class="table table-striped table-bordered nowrap ">
+                        <colgroup>
+                            <col width="15%"/>
+                            <col width="15%"/>
+                            <col width="15%"/>
+                            <col width="15%"/>
+                            <col width="15%"/>
+                            <col width="15%"/>
+                        </colgroup>
                         <tbody>
                         <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
+                            <td class="text-center" colspan="5"><h5>계좌 등록</h5></td>
+                            <td class="text-right"><button class="btn btn-danger" onclick="javascript:fnregBac();">등록</button></td>
                         </tr>
                         <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
+                            <th class="text-center">은행</th>
+                            <td>
+                                <select id="selbank" class="form-control">
+                                    <option value="">선택</option>
+                                </select>
+                            </td>
+                            <th class="text-center">계좌종류</th>
+                            <td><select id="SelbacType" class = "form-control">
+                                <option value="BAS" selected>보통예금</option>
+                                <option value="LTB">정기예금</option>
+                            </select></td>
+                            <th class="text-center">개설일</th>
+                            <td><input type="date" id="bacissueDate" class="form-control"></td>
                         </tr>
                         <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
+                            <th class="text-center">계좌번호</th>
+                            <td>
+                                <input type="date" id="bacNo" class="form-control">
+                            </td>
+                            <th class="text-center">계좌연결아이디</th>
+                            <td>
+                                <input type="date" id="bacserial" class="form-control">
+                            </td>
+                            <th class="text-center">등록일</th>
+                            <td><input type="date" id="bacregDate" class="form-control"></td>
+                        </tr>
+                        <tr>
+                            <th class="text-center">예금주명</th>
+                            <td><input id="bacowner" class="form-control"></td>
+                            <th class="text-center">이체한도</th>
+                            <td><input id="translimit" class="form-control"></td>
+                            <th class="text-center">메모</th>
+                            <td><input id="bacmemo" class="form-control"></td>
+                        </tr>
+                        <tr>
+                            <th class="text-center">시작잔고</th>
+                            <td><input type="text" id="startbalance" class="number form-control"></td>
+                            <th class="text-center">서명</th>
+                            <td>
+                                <select id="bacsign" class="form-control">
+                                    <option value="SIG">사인</option>
+                                    <option value="STMP">도장</option>
+                                </select>
+                            </td>
+                            <th class="text-center">비밀번호</th>
+                            <td>
+                                <select id="" class="form-control">
+                                    <option value="PASS">비밀번호</option>
+                                    <option value="OTP">OTP</option>
+                                </select>
+                            </td>
                         </tr>
                         </tbody>
                     </table>

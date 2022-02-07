@@ -232,6 +232,18 @@
                             <td><input type="date" id="bacissueDate" class="form-control"></td>
                         </tr>
                         <tr>
+                            <th class="text-center">계좌번호</th>
+                            <td>
+                                <input type="date" id="bacNo" class="form-control">
+                            </td>
+                            <th class="text-center">계좌연결아이디</th>
+                            <td>
+                                <input type="date" id="bacserial" class="form-control">
+                            </td>
+                            <th class="text-center">등록일</th>
+                            <td><input type="date" id="bacregDate" class="form-control"></td>
+                        </tr>
+                        <tr>
                             <th class="text-center">예금주명</th>
                             <td><input id="bacowner" class="form-control"></td>
                             <th class="text-center">이체한도</th>

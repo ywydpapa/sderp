@@ -443,7 +443,7 @@
 		sprtData.techdType			= $("#techdType").val();					// 지원형태
 		sprtData.techdSteps			= $("#techdSteps").val();					// 진행단계
 		
-		if($("textarea").attr("style") === "visibility: hidden;"){
+		if($("textarea").attr("style") === "display:none;"){
 			sprtData.techdDesc			= tinyMCE.get("techdDesc").getContent();
 		}else{
 			sprtData.techdDesc 		= $("#techdDesc").val();

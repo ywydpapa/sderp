@@ -404,7 +404,7 @@
 			salesData.ptncNo 		= $("#endCustName").val() != "" ? Number($("#endCustNo").val()) : 0;
 			salesData.salesType 		= $("#salesType").val();
 			
-			if($("textarea").attr("style") === "visibility: hidden;"){
+			if($("textarea").attr("style") === "display: none;"){
 				salesData.salesDesc			= tinyMCE.get("salesDesc").getContent();
 			}else{
 				salesData.salesDesc 		= $("#salesDesc").val();

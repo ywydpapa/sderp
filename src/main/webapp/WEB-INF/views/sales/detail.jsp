@@ -215,9 +215,7 @@
 										내용
 									</th>
 									<td colspan="7">
-										<textarea name="salesDesc" id="salesDesc" rows="7" class="form-control form-control-sm">
-											${dto.salesDesc}
-										</textarea>
+										<textarea name="salesDesc" id="salesDesc" rows="7" class="form-control form-control-sm">${dto.salesDesc}</textarea>
 									</td>
 								</tr>
 							</tbody>
@@ -313,13 +311,12 @@
 			salesData.custNo 		= $("#custName").val() != "" ? Number($("#custNo").val()) : 0;
 			salesData.soppNo 		= $("#soppName").val() != "" ? Number($("#soppNo").val()) : 0;
 			salesData.ptncNo 		= $("#endCustName").val() != "" ? Number($("#endCustNo").val()) : 0;
-			
 			salesData.salesType 		= $("#salesType").val();
-			if($("textarea").attr("style") === "visibility: hidden;"){
+			
+			if($("textarea").attr("style") === "display: none;"){
 				salesData.salesDesc			= tinyMCE.get("salesDesc").getContent();
 			}else{
 				salesData.salesDesc 		= $("#salesDesc").val();
-				salesData.salesDesc 		= tinyMCE.get("salesDesc").getContent();
 			}
 			
 			if (!salesData.salesFrdatetime){

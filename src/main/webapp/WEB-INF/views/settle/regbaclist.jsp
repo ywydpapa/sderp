@@ -213,7 +213,7 @@
                         </colgroup>
                         <tbody>
                         <tr>
-                            <td class="text-center" colspan="5"><h5>계좌 등록</h5></td>
+                            <td class="text-left align-middle" colspan="5"><h5>계좌 등록</h5></td>
                             <td class="text-right"><button class="btn btn-danger" onclick="javascript:fnregBac();">등록</button></td>
                         </tr>
                         <tr>
@@ -234,7 +234,7 @@
                         <tr>
                             <th class="text-center">계좌번호</th>
                             <td>
-                                <input type="date" id="bacNo" class="form-control">
+                                <input type="text" id="bacNo" class="form-control">
                             </td>
                             <th class="text-center">계좌연결아이디</th>
                             <td>

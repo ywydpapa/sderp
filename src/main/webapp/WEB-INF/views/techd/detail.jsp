@@ -127,8 +127,8 @@
 									<td>
 										<div class="input-group input-group-sm mb-0">
 											<input type="text" class="form-control" name="custName" readonly
-												id="custName" value="${dto.custName}" /> <input type="hidden" name="custNo"
-												id="custNo" value="${dto.custNo}" /> <span class="input-group-btn">
+												id="custName" value="${dto.endCustName}" /> <input type="hidden" name="custNo"
+												id="custNo" value="${dto.endCustNo}" /> <span class="input-group-btn">
 												<button class="btn btn-primary sch-company"
 													data-remote="${path}/modal/popup.do?popId=cust"
 													type="button" data-toggle="modal" data-target="#custModal">

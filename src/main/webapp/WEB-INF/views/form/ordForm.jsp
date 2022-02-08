@@ -167,9 +167,10 @@ th, td{
 		        <col width="5%">
 		        <col width="49%">
 		        <col width="5%">
-		        <col width="7%">
-		        <col width="7%">
-		        <col width="7%">
+		        <col width="5%">
+		        <col width="5%">
+		        <col width="5%">
+		        <col width="5%">
 		        <col width="10%">
 		    </colgroup>
 			<thead>
@@ -177,8 +178,9 @@ th, td{
 					<th style="border-left:1px solid #000;">No.</th>
 					<th>품 명 / 규 격</th>
 					<th>수량</th>
+					<th>단가</th>
+					<th>공급가액</th>
 					<th>부가세</th>
-					<th>공급 단가</th>
 					<th>합계</th>
 					<th>비고</th>
 				</tr>
@@ -189,8 +191,9 @@ th, td{
 			    		<td style="text-align: center;">${status.index+1}</td>
 			    		<td style='text-align: center;'>${row.productName}</td>
 			    		<td style='text-align: center;'>${row.productQty}</td>
-			    		<td style="text-align: right;"><fmt:formatNumber value="${row.productVat}" pattern="#,###" /></td>
 			    		<td style='text-align: right;'><fmt:formatNumber value="${row.productNetprice}" pattern="#,###" /></td>
+			    		<td style='text-align: right;'><fmt:formatNumber value="${row.productAmount}" pattern="#,###" /></td>
+			    		<td style="text-align: right;"><fmt:formatNumber value="${row.productVat}" pattern="#,###" /></td>
 			    		<td style='text-align: right;'><fmt:formatNumber value="${row.productTotal}" pattern="#,###" /></td>
 			    		<td></td>
 			    	</tr>

@@ -442,6 +442,7 @@
 		sprtData.techdTo			= setDateHourMinute($("#techdTo").val(), $("#endTime").val());						// 지원일자 종료
 		sprtData.techdType			= $("#techdType").val();					// 지원형태
 		sprtData.techdSteps			= $("#techdSteps").val();					// 진행단계
+		sprtData.endCustNo 			= $("#endCustNo").val();
 		
 		if($("textarea").attr("style") === "display:none;"){
 			sprtData.techdDesc			= tinyMCE.get("techdDesc").getContent();

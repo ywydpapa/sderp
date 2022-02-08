@@ -329,11 +329,13 @@
 											<col width="10%" />
 										</colgroup>
 										<thead>
-											<th class="text-center">일자</th>
-											<th class="text-center">지원형태</th>
-											<th class="text-center">장소</th>
-											<th class="text-center">담당자</th>
-											<th class="text-center">비고</th>
+											<tr>
+												<th class="text-center">일자</th>
+												<th class="text-center">지원형태</th>
+												<th class="text-center">장소</th>
+												<th class="text-center">담당자</th>
+												<th class="text-center">비고</th>
+											</tr>
 										</thead>
 										<tbody>
 											<c:forEach var="row2" items="${techdinsopp}">

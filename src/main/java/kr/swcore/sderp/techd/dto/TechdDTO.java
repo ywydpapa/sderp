@@ -45,6 +45,9 @@ public class TechdDTO extends PageDTO {
 	private String regEDate;	// 등록일 끝
 	private String cntrctMthN;	// 계약방법
 	
+	private int endCustNo;
+	private String endCustName;
+	
 	public TechdDTO() {
 		super();
 		// TODO Auto-generated constructor stub

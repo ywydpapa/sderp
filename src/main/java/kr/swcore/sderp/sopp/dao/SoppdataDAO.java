@@ -2,6 +2,7 @@ package kr.swcore.sderp.sopp.dao;
 
 import java.util.List;
 
+import kr.swcore.sderp.sopp.dto.SoppDTO;
 import kr.swcore.sderp.sopp.dto.SoppdataDTO;
 
 public interface SoppdataDAO {
@@ -18,5 +19,7 @@ public interface SoppdataDAO {
 	List<SoppdataDTO> listSoppdata011_1(int soppNo);
 	List<SoppdataDTO> listSoppdata011_2(int soppNo);
 	List<SoppdataDTO> listContdata(int contNo);
+	
+	List<SoppdataDTO> listSoppdata01_08(SoppDTO data);
 
 }

@@ -7,6 +7,7 @@ import javax.inject.Inject;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
+import kr.swcore.sderp.sopp.dto.SoppDTO;
 import kr.swcore.sderp.sopp.dto.SoppdataDTO;
 
 @Repository
@@ -79,6 +80,12 @@ public class SoppdataDAOImpl implements SoppdataDAO {
 	public List<SoppdataDTO> listContdata(int contNo) {
 		// TODO Auto-generated method stub
 		return sqlSession.selectList("sopp.listContdata", contNo);
+	}
+
+	@Override
+	public List<SoppdataDTO> listSoppdata01_08(SoppDTO data) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("sopp.listSoppdata01_08", data);
 	}
 
 }

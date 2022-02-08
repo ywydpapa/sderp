@@ -116,8 +116,8 @@ public class ContController {
 		return mav;
 	}
 
-	@RequestMapping("/detail/{contNo}/{soppNo}")
-	public ModelAndView detail(HttpSession session, @PathVariable("contNo") int contNo, @PathVariable("soppNo") int soppNo, ModelAndView mav) {
+	@RequestMapping("/detail/{soppNo}/{contNo}")
+	public ModelAndView detail(HttpSession session, @PathVariable("contNo") int contNo, @PathVariable("soppNo") int soppNo, SoppDTO data, ModelAndView mav) {
 		mav.setViewName("cont/detail");
 		ContDTO contDTO = new ContDTO();
 		contDTO = contService.detailCont(contNo);
@@ -135,6 +135,9 @@ public class ContController {
 		mav.addObject("contFiles", contService.listFile(contNo));
 		mav.addObject("dtodata01", soppdataService.listSoppdata01(soppNo));
 		mav.addObject("dtodata02", soppdataService.listSoppdata011(soppNo));
+		data.setContNo(contNo);
+		data.setSoppNo(soppNo);
+		mav.addObject("dtodata01", soppdataService.listSoppdata01_08(data));
 		return mav;
 	}
 

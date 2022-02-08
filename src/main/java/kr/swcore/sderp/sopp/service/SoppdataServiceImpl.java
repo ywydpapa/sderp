@@ -10,6 +10,7 @@ import kr.swcore.sderp.util.SessionInfoGet;
 import org.springframework.stereotype.Service;
 
 import kr.swcore.sderp.sopp.dao.SoppdataDAO;
+import kr.swcore.sderp.sopp.dto.SoppDTO;
 import kr.swcore.sderp.sopp.dto.SoppdataDTO;
 @Service
 public class SoppdataServiceImpl implements SoppdataService {
@@ -95,6 +96,12 @@ public class SoppdataServiceImpl implements SoppdataService {
 	public List<SoppdataDTO> listContdata(int contNo) {
 		// TODO Auto-generated method stub
 		return soppdataDao.listContdata(contNo);
+	}
+
+	@Override
+	public List<SoppdataDTO> listSoppdata01_08(SoppDTO data) {
+		// TODO Auto-generated method stub
+		return soppdataDao.listSoppdata01_08(data);
 	}
 
 }

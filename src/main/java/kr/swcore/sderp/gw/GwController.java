@@ -211,6 +211,16 @@ public class GwController {
     	return mav;
     }
     
+    @RequestMapping("treqForm/{docNo}")
+    public ModelAndView treqForm(@PathVariable("docNo") int docNo, HttpSession session, ModelAndView mav, GwDTO dto) {
+    	mav.addObject("detailList", gwService.detailDoc(docNo));
+    	mav.addObject("detailListApp", gwService.detailDocApp(docNo));
+    	mav.addObject("detailListData", gwService.detailDocData(docNo));
+    	mav.addObject("comList", gwService.comList(session));
+        mav.setViewName("form/treqForm");
+    	return mav;
+    }
+    
     @RequestMapping("update.do")
     public  ResponseEntity<?> update(@ModelAttribute GwDTO dto) {
          Map<String, Object> param = new HashMap<>();

@@ -104,6 +104,7 @@ public class GwDTO {
     
     private int tempId;
     private String firstUser;
+    private String custVatNo;
     
     public GwDTO() {
         super();

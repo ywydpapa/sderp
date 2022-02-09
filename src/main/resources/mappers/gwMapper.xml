@@ -9,7 +9,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 
     <select id="detailDoc" resultType="gwDto">
-        select a.*, b.soppTitle, c.custName, c.custBossname from swc_businessdoc a left join swc_sopp b on a.linkSoppNo = b.soppNo left join swc_cust c on a.linkCustNo = c.custNo where a.attrib not like 'XXX%' and a.docNo=#{docNo};
+        select a.*, b.soppTitle, c.custName, c.custVatNo, c.custBossname, d.userName from swc_businessdoc a left join swc_sopp b on a.linkSoppNo = b.soppNo left join swc_cust c on a.linkCustNo = c.custNo left join swc_user d on a.docCrUserNo = d.userNo where a.attrib not like 'XXX%' and a.docNo=#{docNo};
     </select>
     
     <select id="detailDocApp" resultType="gwDto">

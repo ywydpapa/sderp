@@ -76,8 +76,8 @@
                                         <c:if test="${detailList.docType eq 'BUY'}">
                                             <button class="btn btn-success" onclick="javascript:popupPdf();">구매요청서 출력</button>
                                         </c:if>
-                                        <c:if test="${detailList.docType eq 'TRS'}">
-                                            <button class="btn btn-success" onclick="javascript:popupPdf();">지출품의서 출력</button>
+                                       	<c:if test="${detailList.docFormNo eq 'TREQ'}">
+                                            <a href="${path}/gw/treqForm/${detailList.docNo}" class="btn btn-success" id="btnPdf" onClick="javascript:popupPdf(this); return false;">지출결의서 출력</a>
                                         </c:if>
                                     </c:if>
                                 </td>
@@ -367,7 +367,7 @@
             $("#productdataModal2").find(".modal-footer button").trigger('click');
         }
 
-        function popupPdf(){
+        function popupPdf(e){
             var nWidth = "800";
             var nHeight = "1000";
 
@@ -387,7 +387,7 @@
             strOption += "toolbar=no,menubar=no,location=no,";
             strOption += "resizable=yes,status=yes";
 
-            var winObj = window.open($("#btnPdf").attr("href"), '', strOption);
+            var winObj = window.open($(e).attr("href"), '', strOption);
 
             if (winObj == null) {
                 alert("팝업 차단을 해제해주세요.");

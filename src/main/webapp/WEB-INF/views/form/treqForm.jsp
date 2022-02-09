@@ -32,6 +32,21 @@ th, td{
   	padding:1px 1px 4px 2px;
 }
 
+#headList{
+	text-align:left;
+	border: 2px solid #000; 
+}
+
+#headList tr th:first-child{
+	padding:2px 0 2px 200px;
+}
+
+#headList tr th:last-child{
+	padding:2px 0 2px 0;
+	position:absolute;
+	left:60%;
+}
+
 #imgLogo #logoLeft{
 	margin-top: 60px;
 	width:28%;
@@ -52,21 +67,6 @@ th, td{
 	text-align:center;
 	margin-top: 30px;
 	margin-bottom: 20px;
-}
-
-#headList{
-	text-align:left;
-	border: 2px solid #000; 
-}
-
-#headList tr th:first-child{
-	padding:2px 0 2px 30px;
-}
-
-#headList tr th:last-child{
-	padding:2px 0 2px 0;
-	position:absolute;
-	left:50%;
 }
 
 #totalInfo{
@@ -130,52 +130,52 @@ th, td{
 		<div id="pdfTitle">
 			<div id="titlePdf">지출결의서</div>
 		</div>
-		<table id="headList">
+		<table style="border-collapse: collapse;">
 			<thead>
-				<tr>
+				<tr style="border:1px solid #000;">
 					<th>부 서</th>
-					<th>담 당</th>
-					<th>과 장</th>
-					<th>부 서 장</th>
-					<th>임 원</th>
-					<th>대 표 이 사</th>
+					<th style="border-left:1px solid #000;">담 당</th>
+					<th style="border-left:1px solid #000;">과 장</th>
+					<th style="border-left:1px solid #000;">부 서 장</th>
+					<th style="border-left:1px solid #000;">임 원</th>
+					<th style="border-left:1px solid #000;">대 표 이 사</th>
 				</tr>
 			</thead>
+			<tbody>
+				<tr style="border:1px solid #000;">
+					<td style="width:16%; height:80px;"></td>
+					<td style="width:16%; height:80px; border-left:1px solid #000;"></td>
+					<td style="width:16%; height:80px; border-left:1px solid #000;"></td>
+					<td style="width:16%; height:80px; border-left:1px solid #000;"></td>
+					<td style="width:16%; height:80px; border-left:1px solid #000;"></td>
+					<td style="width:16%; height:80px; border-left:1px solid #000;"></td>
+				</tr>
+			</tbody>
+		</table>
+		
+		<table id="headList">
 			<tr>
-				<th>일&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;자 : ${detailList.docDate}</th>
-				<th>상&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;호 : ${comList.comName}</th>
+				<th>상&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;호 : ${detailList.custName}</th>
+				<th>담&ensp;&nbsp;&nbsp;당&ensp;&nbsp;&nbsp;자 : </th>
 			</tr>
 			<tr>
-				<th>문&ensp;서&ensp;제&ensp;목 : ${detailList.docTitle}</th>
-				<th>대&ensp;표&ensp;이&ensp;사 : ${comList.comBoss} (직인생략)</th>
+				<th>대&ensp;&nbsp;&nbsp;표&ensp;&nbsp;&nbsp;자 : ${detailList.custBossname}</th>
+				<th>계&ensp;좌&ensp;번&ensp;호 : </th>
 			</tr>
 			<tr>
-				<th>사&ensp;&nbsp;&nbsp;업&ensp;&nbsp;&nbsp;명 : ${detailList.custName}</th>
-				<th>주&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;소 : ${comList.comAddress}</th>
+				<th>사업자등록번호 : ${detailList.custVatNo}</th>
+				<th>은&ensp;&nbsp;&nbsp;행&ensp;&nbsp;&nbsp;명 : </th>
 			</tr>
 			<tr>
-				<th>
-					수&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;신 :
-					<c:choose>
-						<c:when test="${empty detailList.custBossname}">
-							${detailList.custName}
-						</c:when>
-						<c:otherwise>
-							${detailList.custName}/${detailList.custBossname}
-						</c:otherwise>
-					</c:choose> 
-				</th>
-				<th>전&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;화 : ${comList.comPhone}</th>
-			</tr>
-			<tr>
-				<th>영&ensp;업&ensp;담&ensp;당 : ${detailListApp.userName}/${detailListApp.userTel}/${detailListApp.userEmail}</th>
-				<th>팩&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;스 : ${comList.comFax}</th>
+				<th>전&ensp;화&ensp;번&ensp;호</th>
+				<th>예&ensp;&nbsp;&nbsp;금&ensp;&nbsp;&nbsp;주 : </th>
 			</tr>
 		</table>
-		<table id="mainTable">
+		
+		<table id="mainTable" style="margin-bottom: 0;">
 			<colgroup>
-		        <col width="5%">
-		        <col width="49%">
+		        <col width="10%">
+		        <col width="39%">
 		        <col width="5%">
 		        <col width="5%">
 		        <col width="5%">
@@ -185,7 +185,7 @@ th, td{
 		    </colgroup>
 			<thead>
 				<tr>
-					<th style="border-left:1px solid #000;">No.</th>
+					<th style="border-left:1px solid #000;">사용일자</th>
 					<th>품 명 / 규 격</th>
 					<th>수량</th>
 					<th>단가</th>
@@ -198,7 +198,7 @@ th, td{
 			<tbody>
 				<c:forEach var="row" items="${detailListData}" varStatus="status">
 			    	<tr id="mainTr">
-			    		<td style="text-align: center;">${status.index+1}</td>
+			    		<td style="text-align: center;">${row.regDate}</td>
 			    		<td style='text-align: center;'>${row.productName}</td>
 			    		<td style='text-align: center;'>${row.productQty}</td>
 			    		<td style='text-align: right;'><fmt:formatNumber value="${row.productNetprice}" pattern="#,###" /></td>
@@ -207,29 +207,29 @@ th, td{
 			    		<td style='text-align: right;'><fmt:formatNumber value="${row.productTotal}" pattern="#,###" /></td>
 			    		<td></td>
 			    	</tr>
+			    	<c:set var="totalSum" value="${totalSum + row.productTotal}" />
 			    </c:forEach>
-				<%-- <tr style="border-top:1px solid #000;">
-					<th colspan="6" style="border-right:1px solid #000;">공&ensp;급&ensp;가&ensp;합&ensp;계</th>
-					<td style="text-align:right;"><fmt:formatNumber value="${amountTotal}" pattern="#,###" /></td>
-					<th></th>
-				</tr>
-				<tr>
-					<th colspan="6" style="border-right:1px solid #000; border-top:1px solid #000; border-bottom:1px solid #000;">부&ensp;가&ensp;가&ensp;치&ensp;세</th>
-					<td style="text-align:right; border-top:1px solid #000; border-bottom:1px solid #000;"><fmt:formatNumber value="${vatTotal}" pattern="#,###" /></td>
-					<th style="border-top:1px solid #000; border-bottom:1px solid #000;"></th>
-				</tr>
-				<tr>
-					<th colspan="6" style="border-right:1px solid #000;">총&ensp;&ensp;&ensp;&ensp;금&ensp;&ensp;&ensp;&ensp;액</th>
-					<td style="text-align:right;"><fmt:formatNumber value="${dataTotal}" pattern="#,###" /></td>
-					<th></th>
-				</tr> --%>
+			    <tr style="border-top:1px solid #000;">
+			    	<th colspan="6" style="border-right:1px solid #000;">합 계</th>
+			    	<td style="text-align: right;"><fmt:formatNumber value="${totalSum}" pattern="#,###" /></td>
+			    	<td></td>
+			    </tr>
 			</tbody>
 		</table>
-		<div id="pdfRemarks">
-			<h3>Remarks
-				<span>${detailList.docDesc}</span>
-			</h3>
-		</div>
+		<table style="border-left:2px solid #000; border-right:2px solid #000; border-bottom:2px solid #000; border-collapse: collapse;">
+			<tr>
+		    	<td style="text-align: center; width: 50%;">
+		    		<p>상기와 같이 지급하여 주시기 바랍니다.</p>
+		    		<p>${fn:substring(detailList.docDate, 0, 4)}년 ${fn:substring(detailList.docDate, 5, 7)}월 ${fn:substring(detailList.docDate, 8, 10)}일</p>
+		    		<p>성 명 : &ensp;&ensp;${detailList.userName}</p>
+		    	</td>
+		    	<td style="text-align: center; border-left:1px solid #000; width: 50%;">
+		    		<p>상기의 금액을 지급완료하였음.</p>
+		    		<br/>
+		    		<p>출납담당 &ensp;&ensp;구민주&ensp;&ensp;&ensp;&ensp;(인)</p>
+		    	</td>
+		    </tr>
+		</table>
 		<div id="pdfBottom">
 			<img src="${path}/images/pdf_bottom.png" id="bottomImg" />
 		</div>

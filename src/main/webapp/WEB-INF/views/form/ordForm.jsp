@@ -187,7 +187,7 @@ th, td{
 			</thead>
 			<tbody>
 				<c:forEach var="row" items="${detailListData}" varStatus="status">
-			    	<tr>
+			    	<tr id="mainTr">
 			    		<td style="text-align: center;">${status.index+1}</td>
 			    		<td style='text-align: center;'>${row.productName}</td>
 			    		<td style='text-align: center;'>${row.productQty}</td>

@@ -786,25 +786,18 @@
 										var updateData = {};
 										var amt1101 = 0;
 										var amt1102 = 0;
-										var amtTotal1101 = 0;
-										var amtTotal1102 = 0;
 										var dataAmt = 0;
-										var dataTotal = 0;
 										
 										for(var i = 0; i < selectData.length; i++){
 											if(selectData[i].dataType === "1101"){
 												amt1101 += selectData[i].dataAmt;
-												amtTotal1101 += selectData[i].dataTotal;
 											}else if(selectData[i].dataType === "1102"){
 												amt1102 += selectData[i].dataAmt;
-												amtTotal1102 += selectData[i].dataTotal;
 											}
 										}
 										
 										dataAmt = amt1102 - amt1101;
-										dataTotal = amtTotal1102 - amtTotal1101;
 										updateData.contNo = getNo;
-										updateData.contAmt = dataTotal;
 										updateData.net_profit = dataAmt;
 										
 										$.ajax({

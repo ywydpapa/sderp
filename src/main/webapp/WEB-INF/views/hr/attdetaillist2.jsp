@@ -70,11 +70,13 @@
 
     function fn_AttRtn(){
         var msg = "근태 신청을 반려 하시겠습니까?";
+        var attDesc = $("#hrDesc").html();
+        
         if( confirm(msg) ){
             var rej = prompt("반려사유를 입력해 주십시오.");
             var attData={};
             attData.attendId = $("#attendId").val();
-            var addDesc ="${list.attDesc}" + " : "+ "<span style='color:red'>"+rej+"</span>";
+            var addDesc = attDesc + " : "+ "<span style='color:red'>"+rej+"</span>";
             attData.attDesc = addDesc;
             console.log(attData);
             $.ajax({
@@ -98,6 +100,7 @@
 
     function fn_SaveSched() {
         var schedData = {};
+        var attDesc = $("#hrDesc").html();
         schedData.schedFrom = "${list.attStart}";
         schedData.schedTo = "${list.attEnd}";
         var typ = ${list.attType};
@@ -114,7 +117,7 @@
         }else {
             schedData.schedTitle = "근태 자동등록";
         }
-        schedData.schedDesc 		= "${list.attDesc}";
+        schedData.schedDesc 		= attDesc;
         schedData.userNo 		= "${list.userNo}";
         schedData.schedType 		= '10262';
         schedData.schedCat 		= '11111';

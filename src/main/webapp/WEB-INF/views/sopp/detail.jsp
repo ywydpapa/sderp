@@ -615,6 +615,7 @@
 
 		function fn_Contreq() {
 			var msg = "계약요청을 진행하시겠습니까?";
+			var dataLength = "${fn:length(dtodata01)}";
 			if (confirm(msg)){
 				if ($("#soppTitle").val() === "") {
 					alert("영업기회명을 입력하십시오.");
@@ -631,9 +632,17 @@
 				} else if($("#soppType").val() === ""){
 					alert("판매방식을 선택해주십시오.");
 					return;
+				} else if($("#soppTargetAmt").val() == 0){
+					alert("예상매출을 입력해주십시오.");
+					return;
+				} else if(dataLength == 0){
+					alert("매입매출을 등록해주십시오.");
+					return;
 				}
+				
 				var soppData = {};
 				soppData.soppNo 		= $("#soppNo").val();
+				soppData.soppTargetAmt 	= $("#soppTargetAmt").val().replace(/[\D\s\._\-]+/g, "");
 				soppData.soppSrate 		= '100';
 				soppData.soppStatus 	= '10182';
 				$.ajax({ url: "${path}/sopp/updateSoppStatus.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소

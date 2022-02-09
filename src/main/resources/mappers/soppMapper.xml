@@ -888,9 +888,10 @@ select a.soppNo, dataType ,b.soppTitle, c.custName as custName, sum(case when a.
 
 	<update id="soppStatusChange">
 		update swc_sopp set
-				soppStatus = #{soppStatus},
-		                    soppSrate = #{soppSrate},
-		                    modDatetime = now()
+		soppTargetAmt = #{soppTargetAmt},
+		soppStatus = #{soppStatus},
+        soppSrate = #{soppSrate},
+		modDatetime = now()
 		where soppNo = #{soppNo}
 	</update>
 

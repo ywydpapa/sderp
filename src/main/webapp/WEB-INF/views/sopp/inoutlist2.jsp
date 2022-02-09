@@ -264,7 +264,7 @@
 	$(document).ready(function(){
 		var product01DiffSum = $("#product01DiffSum").html().replace(/[\D\s\._\-]+/g, "");
 		var product01OutSum = $("#product01OutSum").html().replace(/[\D\s\._\-]+/g, "");
-		var product01Percent = Math.floor(product01DiffSum / product01OutSum * 100).toFixed(2);
+		var product01Percent = product01DiffSum / product01OutSum * 100;
 		if(product01Percent == 'NaN'){
 			$("#product01Percent").html('0'+'%');
 		} else if (product01Percent == '-Infinity'){
@@ -272,9 +272,9 @@
 		} else if (product01Percent == 'Infinity'){
 			$("#product01Percent").html('0'+'%');
 		} else if(product01Percent >= 0){
-			$("#product01Percent").html('+'+product01Percent+'%');
+			$("#product01Percent").html('+'+product01Percent.toString().substring(0, 4)+'%');
 		} else if(product01Percent < 0){
-			$("#product01Percent").html(product01Percent+'%');
+			$("#product01Percent").html(product01Percent.toString().substring(0, 4)+'%');
 		}
 	});
 	function fn_data01delete1(soppdataNo) {

@@ -196,7 +196,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  
  <update id="soppListUpdate">
 	update swc_cont 
-	set net_profit = #{net_profit}, contAmt = #{contAmt}
+	set net_profit = #{net_profit}
 	where contNo=#{contNo}
  </update>
  

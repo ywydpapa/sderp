@@ -34,7 +34,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 
 	<select id="baclist" resultType="accountDto">
-		select * from swc_bac where compNo = #{compNo} and attrib not like 'XXX%';
+		select c.desc03 bacTypeN ,b.desc03 bankCodeN ,a.* from swc_bac a
+																   left join swc_code b on b.code03 = a.bankCode
+																   left join swc_code c on c.code03 = a.bacType
+		where a.compNo = #{compNo} and a.attrib not like 'XXX%';
 	</select>
 
 	<select id="baclog" resultType="accountDto">

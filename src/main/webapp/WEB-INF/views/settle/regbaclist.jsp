@@ -241,38 +241,18 @@
                             <td>
                                 <input type="text" id="bacNo" class="form-control">
                             </td>
-                            <th class="text-center">계좌연결아이디</th>
+                            <th class="text-center">예금주</th>
                             <td>
-                                <input type="date" id="bacserial" class="form-control">
+                                <input type="text" id="bacowner" class="form-control">
                             </td>
-                            <th class="text-center">등록일</th>
-                            <td><input type="date" id="bacregDate" class="form-control"></td>
-                        </tr>
-                        <tr>
-                            <th class="text-center">예금주명</th>
-                            <td><input id="bacowner" class="form-control"></td>
                             <th class="text-center">이체한도</th>
-                            <td><input id="translimit" class="form-control"></td>
-                            <th class="text-center">메모</th>
-                            <td><input id="bacmemo" class="form-control"></td>
+                            <td><input type="text" id="baclimit" class="form-control"></td>
                         </tr>
                         <tr>
-                            <th class="text-center">시작잔고</th>
-                            <td><input type="text" id="startbalance" class="number form-control"></td>
-                            <th class="text-center">서명</th>
-                            <td>
-                                <select id="bacsign" class="form-control">
-                                    <option value="SIG">사인</option>
-                                    <option value="STMP">도장</option>
-                                </select>
-                            </td>
-                            <th class="text-center">비밀번호</th>
-                            <td>
-                                <select id="" class="form-control">
-                                    <option value="PASS">비밀번호</option>
-                                    <option value="OTP">OTP</option>
-                                </select>
-                            </td>
+                            <th class="text-center">개설지점명</th>
+                            <td><input type="text" id="bacbranch" class="form-control"></td>
+                            <th class="text-center">메모</th>
+                            <td colspan="3"><input id="bacmemo" class="form-control"></td>
                         </tr>
                         </tbody>
                     </table>
@@ -297,12 +277,14 @@
                                 <col width="10%"/>
                                 <col width="10%"/>
                                 <col width="10%"/>
+                                <col width="10%"/>
                                 <col width="15%"/>
                                 <col width="15%"/>
                             </colgroup>
                             <thead>
                             <tr>
                                 <th class="text-center">은행</th>
+                                <th class="text-center">계좌종류</th>
                                 <th class="text-center">계좌번호</th>
                                 <th class="text-center">최종확인 일자</th>
                                 <th class="text-center">잔고</th>
@@ -312,12 +294,13 @@
                             </thead>
                             <c:forEach items="${vatList}" var="vlist">
                                 <tr>
-                                    <td class="text-center">${vlist.bankCode}</td>
+                                    <td class="text-center">${vlist.bankCodeN}</td>
+                                    <td class="text-center">${vlist.bacTypeN}</td>
                                     <td class="text-center">${vlist.bacNo}</td>
                                     <td class="text-right">${vlist.lastUpdTime}</td>
                                     <td class="text-right"><fmt:formatNumber type="number" maxFractionDigits="3" value="${vlist.bacBalance}" /></td>
-                                    <td class="text-left">${vlist.bacType}</td>
-                                    <td class="text-left"></td>
+                                    <td class="text-center"><c:if test="${empty vlist.bacStatus}">정상</c:if><c:if test="${not empty vlist.bacStatus}">제한</c:if></td>
+                                    <td class="text-left">${vlist.bacMemo}</td>
                                 </tr>
                             </c:forEach>
                         </table>
@@ -418,6 +401,68 @@
                 alert("변경 처리 완료");
             }
 
+        }
+
+        function reverseStr(str) {
+            let result = '';
+            for(let i = str.length - 1; i >= 0; i--) {
+                result = result + str[i];
+            }
+            return result;
+        }
+
+        function fnregBac(){
+            bacData = {};
+            bacData.bankCode = $("#selbank").val();
+            bacData.compNo = "${sessionScope.compNo}";
+            bacData.bacNo = $("#bacNo").val();
+            bacData.bacSerial = reverseStr($("#bacNo").val().replace(/[\D\s\._\-]+/g, ""));
+            bacData.bacMemo = $("#bacmemo").val();
+            bacData.bacOwner = $("#bacowner").val();
+            bacData.bacLimit = $("#baclimit").val();
+            bacData.bacIssueDate = $("#bacissueDate").val();
+            bacData.bacBranch = $("#bacbranch").val();
+            bacData.bacType = $("#SelbacType").val();
+            bacData.bacBalance = '0';
+
+            if (!bacData.bankCode) {
+                alert("은행코드를 선택 하십시오.");
+                return;
+            }
+            if (!bacData.bacNo) {
+                alert("계좌번호를 입력 하십시오.");
+                return;
+            }
+            if (!bacData.bacOwner) {
+                alert("예금주명을 입력 하십시오.");
+                return;
+            }
+            if (!bacData.bacType) {
+                alert("계좌종류를 선택 하십시오.");
+                return;
+            }
+            console.log(bacData);
+            $.ajax({ url: "${path}/acc/insertbac.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
+                data: bacData , // HTTP 요청과 함께 서버로 보낼 데이터
+                method: "POST", // HTTP 요청 메소드(GET, POST 등)
+                dataType: "json" // 서버에서 보내줄 데이터의 타입
+            }) // HTTP 요청이 성공하면 요청한 데이터가 done() 메소드로 전달됨. .
+                .done(function(data) {
+                    if(data.code == 10001){
+                        alert("저장 성공");
+                        var url = '${path}/acc/regbac.do';
+                        location.href = url;
+                    }else{
+                        alert("저장 실패");
+                    }
+                }) // HTTP 요청이 실패하면 오류와 상태에 관한 정보가 fail() 메소드로 전달됨.
+                .fail(function(xhr, status, errorThrown) {
+                    alert("통신 실패");
+                });
+        }
+
+        function fnChgStatus(){
+            alert("기능 미구현 상태 입니다.")
         }
 
     </script>

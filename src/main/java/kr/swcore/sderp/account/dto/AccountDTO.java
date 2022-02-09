@@ -64,6 +64,12 @@ public class AccountDTO {
     private BigDecimal balanceAmt;
     private String branchCode;
     private String linkDoc;
+    private BigDecimal bacLimit;
+    private String bacMemo;
+    private String bacBranch;
+    private String bacTypeN;
+    private String bankCodeN;
+    private String bacStatus;
     
     private int getNo;
     private int count;

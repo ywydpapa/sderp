@@ -55,12 +55,12 @@ public class AccountDAOImpl implements AccountDAO {
 
     @Override
     public int insertBac(AccountDTO dto) {
-        return sqlSession.insert("account.insbaclog",dto);
+        return sqlSession.insert("account.insbac",dto);
     }
 
     @Override
     public int insertBacledger(AccountDTO dto) {
-        return sqlSession.insert("account.insbac",dto);
+        return sqlSession.insert("account.insbaclog",dto);
     }
 
     @Override

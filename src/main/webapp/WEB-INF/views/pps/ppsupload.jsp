@@ -269,7 +269,7 @@
                                 if(row == 0){
                                     table_output += '<td>검토</td><td>' + sheet_data[row][cell] + '</td>';
                                 }else{
-                                    table_output += '<td><input type="checkbox" class="vatchecked" onClick="return false;"></td><td class="vatlst'+cell+'">' + sheet_data[row][cell] + '</td>';
+                                    table_output += '<td><input type="checkbox" class="ppschecked" onClick="return false;"></td><td class="vatlst'+cell+'">' + sheet_data[row][cell] + '</td>';
                                 }
                             } else {
                                 if (row == 0){
@@ -335,12 +335,12 @@
             var chk = $(".ppschecked");
             
             chk.each(function(index, item){
-            	var vatdata = {};
-                vatdata.reqNo = $(item).parent().next().next().next().next().next().html();
+            	var ppsData = {};
+                ppsData.reqNo = $(item).parent().next().next().next().next().next().html();
             	
                 $.ajax({
                     url : "${path}/pps/ppscheck.do",
-                    data : vatdata,
+                    data : ppsData,
                     method : "POST",
                     dataType : "json",
                     success:function(data){
@@ -354,48 +354,61 @@
                     }
                 });
             });
-            
         }
 
         function fnRegPpslist(){
-            var $Chkarr = $(".vatchecked");  //체크여부
-            var $Aarr = $(".vatlst0");         // 작성일
-            var $Barr = $(".vatlst1l");           // 승인번호
-            var $Carr = $(".vatlst2");          //발급일자
-            var $Darr = $(".vatlst3");           // 전송일자
-            var $Earr = $(".vatlst4");           // 사업자 번호
-            var $Farr = $(".vatlst15");           // 공급금액
-            var $Garr = $(".vatlst16");           // 세액
-            var $Harr = $(".vatlst18");           // 세금계산서 종류
-            var $Iarr = $(".vatlst19");           // 발급유형
-            var $Jarr = $(".vatlst20");           // 비고
-            var $Karr = $(".vatlst22");           // 공급자 이메일
+            var $Chkarr = $(".ppschecked");  //체크여부
+            var $Aarr = $(".vatlst10");         // 수요기관코드
+            var $Barr = $(".vatlst7");           // 수요기관명
+            var $Carr = $(".vatlst9");          // 수요기관지역명
+            var $Darr = $(".vatlst8");           // 수요기관구분
+            var $Earr = $(".vatlst4");           // 계약번호
+            var $Farr = $(".vatlst11");           // 계약물품번호
+            var $Garr = $(".vatlst16");           // 계약품명
+            var $Harr = $(".vatlst17");           // 단가
+            var $Iarr = $(".vatlst18");           // 수량
+            var $Jarr = $(".vatlst19");           // 단위
+            var $Karr = $(".vatlst20");           // 금액
+            var $Larr = $(".vatlst23");           // 계약건명
+            var $Marr = $(".vatlst32");           // 증감수량
+            var $Narr = $(".vatlst33");           // 증감금액
+            var $Oarr = $(".vatlst3");           // 계약일자
+            var $Parr = $(".vatlst35");           // 납품기한일자
+            var $Qarr = $(".vatlst34");           // 납품장소
+            var compNo = "${sessionScope.compNo}";
 
             for (var i=0; i<$Barr.length; i++){
                 if ($($Chkarr[i]).is(":checked")==true){
-                    var vatData = {};
-                    vatData.vatStatus = 'B1';
-                    vatData.vatType = 'B';
-                    vatData.compNo = ${compNo};
-                    vatData.vatNo = $Earr[i].innerText;
-                    vatData.vatSerial = $Barr[i].innerText;
-                    vatData.vatEmail = $Karr[i].innerText;
-                    vatData.vatIssueDate = $Aarr[i].innerText;
-                    vatData.vatTradeDate = $Carr[i].innerText;
-                    vatData.vatTransDate = $Darr[i].innerText;
-                    vatData.vatTax = Number($Garr[i].innerText.replace(/[\D\s\._\-]+/g, ""));
-                    vatData.vatAmount = Number($Farr[i].innerText.replace(/[\D\s\._\-]+/g, ""));
-                    vatData.vatRemark = $Jarr[i].innerText;
-                    vatData.vatIssueType = $Iarr[i].innerText;
-                    console.log(vatData);
-                    $.ajax({
+                    var ppsData = {};
+                    var contractDate = $Parr[i].innerText.substring(0,4) + "-" + $Parr[i].innerText.substring(5,7) + "-" + $Parr[i].innerText.substring(8,10);
+                    var deliveryDate = $Qarr[i].innerText.substring(0,4) + "-" + $Qarr[i].innerText.substring(5,7) + "-" + $Qarr[i].innerText.substring(8,10);
+                    	
+                    ppsData.compNo = compNo;
+                    ppsData.buyerCode = $Aarr[i].innerText;
+                    ppsData.buyerName = $Barr[i].innerText;
+                    ppsData.buyerArea = $Carr[i].innerText;
+                    ppsData.buyerAreacode = $Darr[i].innerText;
+                    ppsData.reqNo = $Earr[i].innerText;
+                    ppsData.reqItemcode = $Farr[i].innerText;
+                    ppsData.reqItem = $Farr[i].innerText;
+                    ppsData.itemNetprice = Number($Harr[i].innerText.replace(/[\D\s\._\-]+/g, ""));
+                    ppsData.itemQty = $Iarr[i].innerText;
+                    ppsData.itemUnit = $Jarr[i].innerText;
+                    ppsData.itemAmount = Number($Karr[i].innerText.replace(/[\D\s\._\-]+/g, ""));
+                   	ppsData.contractTitle = $Larr[i].innerText;
+                   	ppsData.modQty = $Marr[i].innerText;
+                   	ppsData.modAmount = Number($Narr[i].innerText.replace(/[\D\s\._\-]+/g, ""));
+                   	ppsData.contractDate = contractDate;
+                   	ppsData.deliveryDate = deliveryDate;
+                   	ppsData.deliveryPlace = $Qarr[i].innerText;
+                    console.log(ppsData);
+                    
+                    /* $.ajax({
                         url : "${path}/acc/insertvat.do",
                         data : vatData,
                         method : "POST",
                         dataType: "json"
-                    })
-                    .done(function(){
-                    });
+                    }); */
                 }
             }
         }

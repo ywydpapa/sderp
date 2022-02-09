@@ -1,5 +1,6 @@
 package kr.swcore.sderp.pps.service;
 
+import kr.swcore.sderp.account.dto.AccountDTO;
 import kr.swcore.sderp.pps.dao.PpsDAO;
 import kr.swcore.sderp.pps.dto.PpsDTO;
 import kr.swcore.sderp.util.SessionInfoGet;
@@ -34,4 +35,10 @@ public class PpsServiceImpl implements PpsService {
     public int updatePps(PpsDTO dto) {
         return 0;
     }
+    
+	@Override
+	public PpsDTO checkPps(PpsDTO dto) {
+		// TODO Auto-generated method stub
+		return ppsDao.checkPps(dto);
+	}
 }

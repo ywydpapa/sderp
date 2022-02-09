@@ -73,11 +73,11 @@ public class AccountController {
 
 
     @ResponseBody
-    @RequestMapping("vatcheck.do")
+    @RequestMapping("ppscheck.do")
     public AccountDTO vchk(ModelAndView mav, @ModelAttribute AccountDTO dto)
     {
         AccountDTO vserial = accountService.checkVat(dto);
-       return vserial;
+        return vserial;
     }
 
     @RequestMapping("vatupload.do")

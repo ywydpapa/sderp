@@ -10,6 +10,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <select id="ppsDetail" resultType="PpsDTO">
         select * from swc_pps where ppsID = #{ppsId};
     </select>
+    
+    <select id="checkPps" resultType="accountDto">
+		select count(*) as resultCount from swc_pps where reqNo = #{reqNo}
+	</select>
 
     <insert id="ppsInsert">
         insert into swc_pps

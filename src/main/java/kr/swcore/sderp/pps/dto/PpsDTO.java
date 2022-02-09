@@ -33,4 +33,6 @@ public class PpsDTO {
     private String regDate;
     private String modDate;
     private String attrib;
+    
+    private int resultCount;
 }

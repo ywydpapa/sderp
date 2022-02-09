@@ -32,4 +32,10 @@ public class PpsDAOImpl implements PpsDAO{
     public int updatePps(PpsDTO dto) {
         return 0;
     }
+
+	@Override
+	public PpsDTO checkPps(PpsDTO dto) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("pps.checkPps", dto);
+	}
 }

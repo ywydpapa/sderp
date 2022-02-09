@@ -1,5 +1,6 @@
 package kr.swcore.sderp.pps;
 
+import kr.swcore.sderp.account.dto.AccountDTO;
 import kr.swcore.sderp.pps.dto.PpsDTO;
 import kr.swcore.sderp.pps.service.PpsService;
 import org.springframework.stereotype.Controller;
@@ -22,6 +23,14 @@ public class PpsController {
         mav.addObject("ppsList", ppsService.listPps(session));
         mav.setViewName("pps/ppslist");
         return mav;
+    }
+    
+    @ResponseBody
+    @RequestMapping("vatcheck.do")
+    public PpsDTO vchk(ModelAndView mav, @ModelAttribute PpsDTO dto)
+    {
+    	PpsDTO vserial = ppsService.checkPps(dto);
+        return vserial;
     }
 
     @RequestMapping("ppsupload.do")

@@ -366,8 +366,8 @@
 			schedData.userNo 		= $("#userNo").val();
 			schedData.custNo 		= $("#custNo").val() ? Number($("#custNo").val()) : 0;
 			schedData.soppNo 		= $("#soppNo").val() ? Number($("#soppNo").val()) : 0;
-			
-			if($("textarea").attr("style") === "visibility: hidden;"){
+
+			if($("textarea").attr("style") === "display: none;"){
 				schedData.schedDesc 		= tinyMCE.get("schedDesc").getContent();
 			}else{
 				schedData.schedDesc 		= $("#schedDesc").val();

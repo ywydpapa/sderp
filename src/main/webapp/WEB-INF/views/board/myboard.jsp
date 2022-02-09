@@ -76,6 +76,7 @@
 							<option value = "dept" disabled>부서</option>
 							<option value = "individual" disabled>개인</option>
 							--%>
+
 						</select>
 						<div style="display: inline-block;">
 							<h5>월 계획대비 실적</h5>

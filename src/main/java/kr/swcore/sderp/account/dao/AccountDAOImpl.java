@@ -77,4 +77,10 @@ public class AccountDAOImpl implements AccountDAO {
 	public AccountDTO selectVatCust(String vatNo) {
 		return sqlSession.selectOne("account.selectVatCust", vatNo);
 	}
+
+	@Override
+	public List<AccountDTO> connect_list(AccountDTO dto) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("account.connect_list",dto);
+	}
 }

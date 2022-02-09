@@ -20,6 +20,16 @@
 
 <div id="main_content">
 	
+	<script>
+	$(function(){
+		$('#vatTable').DataTable({
+			info:false,
+			searching: true,
+			order: [[ 0, "desc" ]],
+		});
+	});	
+	</script>
+	
     <c:if test="${preserveSearchCondition != 'Y'}">
         <!-- Page-header start 페이지 타이틀-->
         <div class="page-header2">
@@ -237,13 +247,13 @@
                                 <td class="text-center">${vlist.vatIssueDate}</td>
                                     <td class="text-center vatTyp"><c:if test = "${vlist.vatType eq 'B'}">매입</c:if><c:if test = "${vlist.vatType eq 'S'}">매출</c:if></td>
                                     <td class="text-center"><c:if test = "${vlist.vatType eq 'S'}">${vlist.vatBuyerName}</c:if> <c:if test = "${vlist.vatType eq 'B'}">${vlist.vatSellerName}</c:if></td>
-                                    <td class="text-center vatSno"><a href="#">${vlist.vatSerial}</a></td>
+                                    <td class="text-center vatSno">${vlist.vatSerial}</td>
                                     <td class="text-center"><c:if test = "${vlist.vatStatus eq 'B1'}">매입발행</c:if><c:if test = "${vlist.vatStatus eq 'B3'}">지급처리중</c:if><c:if test = "${vlist.vatStatus eq 'B5'}">지급완료</c:if>
                                         <c:if test = "${vlist.vatStatus eq 'S1'}">매출발행</c:if><c:if test = "${vlist.vatStatus eq 'S3'}">수금처리중</c:if><c:if test = "${vlist.vatStatus eq 'S5'}">수금완료</c:if><input type="checkbox" class="vatStchg"></td>
                                     <td class="text-right"><fmt:formatNumber type="number" maxFractionDigits="3" value="${vlist.vatAmount}" /></td>
                                     <td class="text-right"><fmt:formatNumber type="number" maxFractionDigits="3" value="${vlist.vatTax}" /></td>
                                     <td class="text-right"><fmt:formatNumber type="number" maxFractionDigits="3" value="${vlist.vatAmount + vlist.vatTax}" /></td>
-                                    <td class="text-right"><a href = "#"><fmt:formatNumber type="number" maxFractionDigits="3" value="${vlist.vatSum}" /></a></td>
+                                    <td class="text-right"><a  onclick="location.href='totalamount/${vlist.vatSerial}'"><fmt:formatNumber type="number" maxFractionDigits="3" value="${vlist.vatSum}" /></a></td>
                                     <td>${vlist.vatRemark}</td>
                                 </tr>
                             </c:forEach>
@@ -342,9 +352,9 @@
                         .done(function(){
                         });
                 }
-                alert("변경 처리 완료");
             }
-
+            alert("변경 처리 완료");
+            location.href = location.href;
         }
 
     </script>

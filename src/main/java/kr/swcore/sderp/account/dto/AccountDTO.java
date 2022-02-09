@@ -71,6 +71,17 @@ public class AccountDTO {
     private String bankCodeN;
     private String bacStatus;
     
+    private String regDatetime;
+    private String issueDate;
+    private int userNo;
+    private String userName;
+    private String dataTitle;
+    private String dataQuanty;
+    private String dataVat;
+    private String dataAmt;
+    private String dataTotal;
+    private String dataRemark;
+    private String vatDate;
     private int getNo;
     private int count;
 }

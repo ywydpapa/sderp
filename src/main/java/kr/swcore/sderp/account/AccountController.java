@@ -2,6 +2,7 @@ package kr.swcore.sderp.account;
 
 import kr.swcore.sderp.account.dto.AccountDTO;
 import kr.swcore.sderp.account.service.AccountService;
+import kr.swcore.sderp.code.service.CodeService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -22,6 +23,9 @@ public class AccountController {
     @Inject
     AccountService accountService;
 
+    @Inject
+    CodeService codeService;
+
     @RequestMapping("vatlist.do")
     public ModelAndView vatList(HttpSession session, ModelAndView mav) {
         mav.addObject("vatList", accountService.listvat(session));
@@ -39,6 +43,8 @@ public class AccountController {
     @RequestMapping("regbac.do")
     public ModelAndView regbac(HttpSession session, ModelAndView mav) {
         mav.addObject("vatList", accountService.listbac(session));
+        mav.addObject("bnkcd", codeService.listCode003("BANKCD"));
+        mav.addObject("baccd", codeService.listCode003("BACTYPE"));
         mav.setViewName("settle/regbaclist");
         return mav;
     }

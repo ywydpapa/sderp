@@ -34,4 +34,6 @@ public interface SoppService {
 		int uploadFile(HttpSession session, int soppNo, MultipartHttpServletRequest fileList) throws IOException;
 		Integer deleteFile(HttpSession session, SoppFileDataDTO dto);
 		SoppFileDataDTO downloadFile(SoppFileDataDTO dto);
+		int soppListApp(SoppDTO dto);
+		int beforeAppUpdate(int soppNo);
 }

@@ -510,6 +510,56 @@ from
  values (#{compNo}, #{custNo},#{userNo}, #{buyrNo},#{ptncNo}, #{soppTitle}, #{soppDesc}, #{soppType}, #{soppSrate}, #{soppStatus},
          #{soppTargetDate}, #{soppTargetAmt},'10000',#{cntrctMth}, #{custMemberNo})
  </insert>
+ 
+<insert id="soppListApp" useGeneratedKeys="true" keyProperty="getNo">
+	<selectKey keyProperty="getNo" resultType="int" order="AFTER">
+        SELECT max(contNo) from swc_cont
+    </selectKey>
+ 	insert into swc_cont
+		(
+			compNo, 
+			soppNo,
+			cntrctMth,
+			contType,
+			exCOntNo,
+			userNo,
+			custNo,
+			custMemberNo,
+			contTitle,
+			buyrNo,
+			buyrMemberNo,
+			ptncNo,
+			supplyNo,
+			contAmt,
+			vatYn,
+			net_profit,
+			regDatetime,
+			modDatetime,
+			attrib
+		) 
+		select 
+			compNo,
+			soppNo,
+			cntrctMth,
+			soppType,
+			0,
+			userNo,
+			custNo,
+			0,
+			#{soppTitle},
+			buyrNo,
+			buyrMemberNo,
+			ptncNo,
+			0,
+			soppTargetAmt,
+			'N',
+			0,
+			now(),
+			now(),
+			'100000'
+		from swc_sopp 
+		where soppNo = #{soppNo};
+</insert>
 
  <update id="updateSopp">
 	update swc_sopp 
@@ -538,6 +588,14 @@ from
 	,sopp2regDatetime=now()
 	where compNo = #{compNo}
 		and soppNo = #{soppNo}
+</update>
+
+<update id="beforeAppUpdate">
+	update swc_sopp 
+	set 
+	soppStatus = '10183',
+	modDatetime = now()
+	where soppNo = #{soppNo}
 </update>
  
 <delete id="deleteSopp">

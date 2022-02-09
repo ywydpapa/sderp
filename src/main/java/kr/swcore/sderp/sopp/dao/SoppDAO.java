@@ -25,5 +25,6 @@ public interface SoppDAO {
 	int uploadFile(SoppFileDataDTO dto);
 	Integer deleteFile(SoppFileDataDTO dto);
 	SoppFileDataDTO downloadFile(SoppFileDataDTO dto);
-	
+	int soppListApp(SoppDTO dto);
+	int beforeAppUpdate(int soppNo);
 }

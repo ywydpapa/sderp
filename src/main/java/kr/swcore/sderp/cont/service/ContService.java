@@ -33,4 +33,5 @@ public interface ContService {
 	Integer deleteFile(HttpSession session, ContFileDataDTO dto);
 	ContFileDataDTO downloadFile(ContFileDataDTO dto);
 	ContDTO listSumCont(HttpSession session);
+	int soppListUpdate(HttpSession session, ContDTO dto);
 }

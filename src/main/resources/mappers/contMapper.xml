@@ -194,6 +194,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
  </update>
  
+ <update id="soppListUpdate">
+	update swc_cont 
+	set net_profit = #{net_profit}, contAmt = #{contAmt}
+	where contNo=#{contNo}
+ </update>
+ 
  <delete id="deleteCont">
 	update swc_cont 
 	set attrib = 'XXXXX'

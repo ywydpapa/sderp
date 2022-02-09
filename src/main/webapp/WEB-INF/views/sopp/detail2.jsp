@@ -273,7 +273,7 @@
 															<fmt:formatDate value="${sopp2regDatetime}" pattern="yyyy-MM-dd HH:mm:ss"/>
 															)
 														</th>
-														<td colspan="3"><textarea name="sopp2Desc" id="sopp2Desc" rows="8" class="form-control">${dto.sopp2Desc}</textarea></td>
+														<td colspan="7"><textarea name="sopp2Desc" id="sopp2Desc" rows="8" class="form-control">${dto.sopp2Desc}</textarea></td>
 													</tr>
 												</c:if>
 												</tbody>

@@ -123,4 +123,15 @@ public class SoppDAOImpl implements SoppDAO {
 	public SoppFileDataDTO downloadFile(SoppFileDataDTO dto) {
 		return sqlSession.selectOne("sopp.downloadFile", dto);
 	}
+
+	@Override
+	public int soppListApp(SoppDTO dto) {
+		return sqlSession.insert("sopp.soppListApp", dto);
+	}
+
+	@Override
+	public int beforeAppUpdate(int soppNo) {
+		// TODO Auto-generated method stub
+		return sqlSession.update("sopp.beforeAppUpdate", soppNo);
+	}
 }

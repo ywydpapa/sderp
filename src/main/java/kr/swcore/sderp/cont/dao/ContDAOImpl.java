@@ -96,4 +96,10 @@ public class ContDAOImpl implements ContDAO {
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne("cont.listSumCont", compNo);
 	}
+
+	@Override
+	public int soppListUpdate(ContDTO dto) {
+		// TODO Auto-generated method stub
+		return sqlSession.update("cont.soppListUpdate",dto);
+	}
 }

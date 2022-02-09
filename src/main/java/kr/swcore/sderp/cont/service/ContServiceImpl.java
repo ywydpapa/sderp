@@ -210,4 +210,9 @@ public class ContServiceImpl implements ContService {
 		int compNo = SessionInfoGet.getCompNo(session);
 		return contDao.listSumCont(compNo);
 	}
+
+	@Override
+	public int soppListUpdate(HttpSession session, ContDTO dto) {
+		return contDao.soppListUpdate(dto);
+	}
 }

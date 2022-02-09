@@ -3,6 +3,8 @@ package kr.swcore.sderp.sopp;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import kr.swcore.sderp.code.service.CodeService;
+import kr.swcore.sderp.cont.dto.ContDTO;
+import kr.swcore.sderp.cont.service.ContService;
 import kr.swcore.sderp.gw.service.GwService;
 import kr.swcore.sderp.sales.service.SalesService;
 import kr.swcore.sderp.sopp.dto.SoppDTO;
@@ -29,6 +31,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -56,6 +59,9 @@ public class SoppController {
 	
 	@Inject
 	GwService gwService;
+	
+	@Inject
+	ContService contService;
 	
 	@RequestMapping("list.do")
 	public ModelAndView list(HttpSession session, ModelAndView mav) {
@@ -355,6 +361,52 @@ public class SoppController {
 	}
 	return ResponseEntity.ok(param);
 }
-
-
+	
+	@RequestMapping("soppListApp.do")
+	public ResponseEntity<?> soppListApp(@ModelAttribute SoppDTO dto) {
+		Map<String, Object> param = new HashMap<>();
+		int soppdataInsert = soppService.soppListApp(dto);
+		param.put("getNo", dto.getGetNo());
+		if (soppdataInsert >0) {
+			param.put("code","10001"); 
+		}
+		else {param.put("code","20001");
+		}
+		return ResponseEntity.ok(param);
+	}
+	
+	@ResponseBody
+	@RequestMapping("selectSoppData/{soppNo}")
+	public List<SoppdataDTO> selectSoppData(@PathVariable("soppNo") int soppNo) {
+		List<SoppdataDTO> dataList = soppdataService.listSoppdata01(soppNo);
+		
+		return dataList;
+	}
+	
+	@RequestMapping("soppListUpdate.do")
+	public ResponseEntity<?> soppListUpdate(HttpSession session, @ModelAttribute ContDTO dto) {
+		logger.info("sopp logger : " + dto.toString());
+		
+		Map<String, Object> param = new HashMap<>();
+		int soppUpdate = contService.soppListUpdate(session, dto);
+		if (soppUpdate >0) {
+			param.put("code","10001"); 
+		}
+		else {param.put("code","20001");
+		}
+		return ResponseEntity.ok(param);
+	}
+	
+	@RequestMapping("beforeAppUpdate/{soppNo}")
+	public ResponseEntity<?> beforeAppUpdate(@PathVariable("soppNo") int soppNo) {
+		Map<String, Object> param = new HashMap<>();
+		int soppUpdate = soppService.beforeAppUpdate(soppNo);
+		if (soppUpdate >0) {
+			param.put("code","10001"); 
+		}
+		else {param.put("code","20001");
+		}
+		return ResponseEntity.ok(param);
+	}
+	
 }

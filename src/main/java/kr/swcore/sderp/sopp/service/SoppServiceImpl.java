@@ -361,6 +361,16 @@ public class SoppServiceImpl implements SoppService {
 	public SoppFileDataDTO downloadFile(SoppFileDataDTO dto) {
 		return soppDao.downloadFile(dto);
 	}
+
+	@Override
+	public int soppListApp(SoppDTO dto) {
+		return soppDao.soppListApp(dto);
+	}
+
+	@Override
+	public int beforeAppUpdate(int soppNo) {
+		return soppDao.beforeAppUpdate(soppNo);
+	}
 	
 
 }

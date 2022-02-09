@@ -26,4 +26,6 @@ public interface ContDAO {
 	ContFileDataDTO downloadFile(ContFileDataDTO dto);
 	
 	ContDTO listSumCont(int compNo);
+	
+	int soppListUpdate(ContDTO dto);
 }

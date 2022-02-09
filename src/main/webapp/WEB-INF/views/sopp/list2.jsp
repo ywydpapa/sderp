@@ -549,7 +549,7 @@
 							</tbody>
 						</table>
 					</div>
-					<button class="btn btn-md btn-primary" onclick="fn_sopp2_PartAprv()">승인</button>
+					<button class="btn btn-md btn-primary" onclick="fn_soppListInsert()">승인</button>
 					<button class="btn btn-md btn-danger" onclick="fn_sopp2_PartReject()">반려</button>
 					<button class="btn btn-md btn-dark" onclick="fn_sopp2_PartHolding()">보류</button>
 				</div>
@@ -750,8 +750,85 @@
 			$(".modal-backdrop").remove();
 			$("#custmemberModal").modal("hide");
 		}
+		
+		function fn_soppListInsert(){
+			var checkboxes = $("#soppTable").find("input[type=checkbox]:checked");
+			var soppStatus = "${sstatuslist[5].codeNo}";
+			
+			checkboxes.each(function(index, item){
+				var insertData = {};
+				var soppTitle = $(item).parent().next().next().next().next().children().html();
+				insertData.soppNo = $(item).attr("id");
+				insertData.soppStatus = soppStatus;
+				insertData.soppTitle = soppTitle + "(자동생성)";
+				
+				$.ajax({
+					url: "${path}/sopp/beforeAppUpdate/" + insertData.soppNo,
+					method: "post",
+					async: false,
+					dataType: "json",
+					success:function(){
+						$.ajax({
+							url: "${path}/sopp/soppListApp.do",
+							method: "post",
+							async: false,
+							data: insertData,
+							dataType: "json",
+							success:function(data){
+								var getNo = data.getNo;
+								
+								$.ajax({
+									url: "${path}/sopp/selectSoppData/" + insertData.soppNo,
+									method: "post",
+									async: false,
+									dataType: "json",
+									success:function(selectData){
+										var updateData = {};
+										var amt1101 = 0;
+										var amt1102 = 0;
+										var amtTotal1101 = 0;
+										var amtTotal1102 = 0;
+										var dataAmt = 0;
+										var dataTotal = 0;
+										
+										for(var i = 0; i < selectData.length; i++){
+											if(selectData[i].dataType === "1101"){
+												amt1101 += selectData[i].dataAmt;
+												amtTotal1101 += selectData[i].dataTotal;
+											}else if(selectData[i].dataType === "1102"){
+												amt1102 += selectData[i].dataAmt;
+												amtTotal1102 += selectData[i].dataTotal;
+											}
+										}
+										
+										dataAmt = amt1102 - amt1101;
+										dataTotal = amtTotal1102 - amtTotal1101;
+										updateData.contNo = getNo;
+										updateData.contAmt = dataTotal;
+										updateData.net_profit = dataAmt;
+										
+										$.ajax({
+											url: "${path}/sopp/soppListUpdate.do",
+											method: "post",
+											async: false,
+											data: updateData,
+											dataType: "json",
+										});
+									}
+								});
+							}
+						});
+					}
+				});
+			});
+			
+			setTimeout(() => {
+				alert("승인 완료되었습니다.");
+				location.reload();
+			}, 500);
+		}
 
-		function fn_sopp2_PartAprv(){
+		/* function fn_sopp2_PartAprv(){
 			var role = '${sessionScope.userRole}';
 			if(role != 'ADMIN'){
 				alert("관리자만 접근이 가능합니다.");
@@ -792,7 +869,7 @@
 			.fail(function(xhr, status, errorThrown) {
 				alert("통신 실패");
 			});
-		}
+		} */
 
 		function fn_sopp2_PartReject(){
 			var role = '${sessionScope.userRole}';

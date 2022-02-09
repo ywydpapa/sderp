@@ -221,12 +221,17 @@
                             <td>
                                 <select id="selbank" class="form-control">
                                     <option value="">선택</option>
+                                    <c:forEach var="row" items="${bnkcd}">
+                                        <option value="${row.code03}">${row.desc03}</option>
+                                    </c:forEach>
                                 </select>
                             </td>
                             <th class="text-center">계좌종류</th>
                             <td><select id="SelbacType" class = "form-control">
-                                <option value="BAS" selected>보통예금</option>
-                                <option value="LTB">정기예금</option>
+                                <option value="">선택</option>
+                                <c:forEach var="row" items="${baccd}">
+                                    <option value="${row.code03}">${row.desc03}</option>
+                                </c:forEach>
                             </select></td>
                             <th class="text-center">개설일</th>
                             <td><input type="date" id="bacissueDate" class="form-control"></td>

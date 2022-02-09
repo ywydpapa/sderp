@@ -75,7 +75,7 @@ public class AccountController {
 
 
     @ResponseBody
-    @RequestMapping("ppscheck.do")
+    @RequestMapping("vatcheck.do")
     public AccountDTO vchk(ModelAndView mav, @ModelAttribute AccountDTO dto)
     {
         AccountDTO vserial = accountService.checkVat(dto);

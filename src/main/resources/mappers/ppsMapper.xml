@@ -11,13 +11,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         select * from swc_pps where ppsID = #{ppsId};
     </select>
     
-    <select id="checkPps" resultType="accountDto">
+    <select id="checkPps" resultType="PpsDTO">
 		select count(*) as resultCount from swc_pps where reqNo = #{reqNo}
 	</select>
 
     <insert id="ppsInsert">
         insert into swc_pps
-(ppsId,
+	(
     compNo,
     buyerCode,
     buyerName,
@@ -37,8 +37,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     deliveryDate,
     deliveryPlace,
     regDate,
-    attrib ) values
-(#{ppsId},
+    attrib 
+    ) 
+    values
+	(
     #{compNo},
     #{buyerCode},
     #{buyerName},

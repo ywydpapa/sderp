@@ -229,7 +229,7 @@
             <div class="col-sm-12">
                 <div class="card-block table-border-style">
                     <div class="table-responsive" id="excel_data">
-                        <!-- <table id="vatTable" class="table table-striped table-bordered nowrap ">
+                        <!-- <table id="ppsTable" class="table table-striped table-bordered nowrap ">
                         </table> -->
                     </div>
                 </div>
@@ -256,7 +256,7 @@
     			var sheet_data = XLSX.utils.sheet_to_json(work_book.Sheets[sheet_name[0]], {header:1});
     			
     			if(sheet_data.length > 0){
-    				var table_output = '<table id="vatTable" class="table table-striped table-bordered" style="text-align:center;">';
+    				var table_output = '<table id="ppsTable" class="table table-striped table-bordered" style="text-align:center;">';
     				
     				for(var row = 0; row < sheet_data.length; row++){
     					if(row == 0){
@@ -269,13 +269,13 @@
                                 if(row == 0){
                                     table_output += '<td>검토</td><td>' + sheet_data[row][cell] + '</td>';
                                 }else{
-                                    table_output += '<td><input type="checkbox" class="ppschecked" onClick="return false;"></td><td class="vatlst'+cell+'">' + sheet_data[row][cell] + '</td>';
+                                    table_output += '<td><input type="checkbox" class="ppschecked" onClick="return false;"></td><td class="ppslst'+cell+'">' + sheet_data[row][cell] + '</td>';
                                 }
                             } else {
                                 if (row == 0){
                                     table_output += '<td>' + sheet_data[row][cell] + '</td>';
                                 }else{
-                                    table_output += '<td class="vatlst'+cell+'">' + sheet_data[row][cell] + '</td>';
+                                    table_output += '<td class="ppslst'+cell+'">' + sheet_data[row][cell] + '</td>';
                                 }
                                 }
     					}
@@ -319,7 +319,7 @@
 	    		fileName = "VTEK" + "(" + now + ")";	
 	    	}
 	    	
-    	    $("#vatTable").table2excel({
+    	    $("#ppsTable").table2excel({
     	        exclude: ".excludeThisClass",
     	        name: "sheet",
     	        filename: fileName + ".xls", // do include extension
@@ -358,30 +358,30 @@
 
         function fnRegPpslist(){
             var $Chkarr = $(".ppschecked");  //체크여부
-            var $Aarr = $(".vatlst10");         // 수요기관코드
-            var $Barr = $(".vatlst7");           // 수요기관명
-            var $Carr = $(".vatlst9");          // 수요기관지역명
-            var $Darr = $(".vatlst8");           // 수요기관구분
-            var $Earr = $(".vatlst4");           // 계약번호
-            var $Farr = $(".vatlst11");           // 계약물품번호
-            var $Garr = $(".vatlst16");           // 계약품명
-            var $Harr = $(".vatlst17");           // 단가
-            var $Iarr = $(".vatlst18");           // 수량
-            var $Jarr = $(".vatlst19");           // 단위
-            var $Karr = $(".vatlst20");           // 금액
-            var $Larr = $(".vatlst23");           // 계약건명
-            var $Marr = $(".vatlst32");           // 증감수량
-            var $Narr = $(".vatlst33");           // 증감금액
-            var $Oarr = $(".vatlst3");           // 계약일자
-            var $Parr = $(".vatlst35");           // 납품기한일자
-            var $Qarr = $(".vatlst34");           // 납품장소
+            var $Aarr = $(".ppslst10");         // 수요기관코드
+            var $Barr = $(".ppslst7");           // 수요기관명
+            var $Carr = $(".ppslst9");          // 수요기관지역명
+            var $Darr = $(".ppslst8");           // 수요기관구분
+            var $Earr = $(".ppslst4");           // 계약번호
+            var $Farr = $(".ppslst11");           // 계약물품번호
+            var $Garr = $(".ppslst16");           // 계약품명
+            var $Harr = $(".ppslst17");           // 단가
+            var $Iarr = $(".ppslst18");           // 수량
+            var $Jarr = $(".ppslst19");           // 단위
+            var $Karr = $(".ppslst20");           // 금액
+            var $Larr = $(".ppslst23");           // 계약건명
+            var $Marr = $(".ppslst32");           // 증감수량
+            var $Narr = $(".ppslst33");           // 증감금액
+            var $Oarr = $(".ppslst3");           // 계약일자
+            var $Parr = $(".ppslst35");           // 납품기한일자
+            var $Qarr = $(".ppslst34");           // 납품장소
             var compNo = "${sessionScope.compNo}";
 
-            for (var i=0; i<$Barr.length; i++){
+            for (var i=0; i<$Earr.length; i++){
                 if ($($Chkarr[i]).is(":checked")==true){
                     var ppsData = {};
-                    var contractDate = $Parr[i].innerText.substring(0,4) + "-" + $Parr[i].innerText.substring(5,7) + "-" + $Parr[i].innerText.substring(8,10);
-                    var deliveryDate = $Qarr[i].innerText.substring(0,4) + "-" + $Qarr[i].innerText.substring(5,7) + "-" + $Qarr[i].innerText.substring(8,10);
+                    var contractDate = $Oarr[i].innerText.substring(0,4) + "-" + $Oarr[i].innerText.substring(4,6) + "-" + $Oarr[i].innerText.substring(6,8);
+                    var deliveryDate = $Parr[i].innerText.substring(0,4) + "-" + $Parr[i].innerText.substring(4,6) + "-" + $Parr[i].innerText.substring(6,8);
                     	
                     ppsData.compNo = compNo;
                     ppsData.buyerCode = $Aarr[i].innerText;
@@ -403,14 +403,16 @@
                    	ppsData.deliveryPlace = $Qarr[i].innerText;
                     console.log(ppsData);
                     
-                    /* $.ajax({
-                        url : "${path}/acc/insertvat.do",
-                        data : vatData,
+                    $.ajax({
+                        url : "${path}/pps/insertpps.do",
+                        data : ppsData,
                         method : "POST",
                         dataType: "json"
-                    }); */
+                    });
                 }
             }
+            alert("조달 등록 완료");
+            fnCheckPpslist();
         }
 
         function acordian_action(){

@@ -177,4 +177,10 @@ attrib) values (#{vatId},
 	<update id="updVatStatus">
 		update swc_vat set vatStatus=#{vatStatus} where vatSerial = #{vatSerial};
 	</update>
+	
+	<select id="connect_list" resultType="accountDto">
+		select * from swc_soppdata01
+		left join swc_user on swc_soppdata01.userNo = swc_user.userNo
+		where vatSerial = #{vatSerial};
+	</select>
 </mapper>

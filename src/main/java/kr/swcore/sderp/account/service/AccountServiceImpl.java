@@ -83,4 +83,10 @@ public class AccountServiceImpl implements AccountService {
 	public AccountDTO selectVatCust(String vatNo) {
 		return accountDAO.selectVatCust(vatNo);
 	}
+
+	@Override
+	public List<AccountDTO> connect_list(AccountDTO dto) {
+		// TODO Auto-generated method stub
+		return accountDAO.connect_list(dto);
+	}
 }

@@ -19,4 +19,5 @@ public interface AccountService {
     int insertVatitem(AccountDTO dto);
     int updvatStat(AccountDTO dto);
     AccountDTO selectVatCust(String vatNo);
+	List<AccountDTO> connect_list(AccountDTO dto);
 }

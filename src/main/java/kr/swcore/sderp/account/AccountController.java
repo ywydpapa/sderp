@@ -5,6 +5,7 @@ import kr.swcore.sderp.account.service.AccountService;
 import kr.swcore.sderp.code.service.CodeService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -145,4 +147,13 @@ public class AccountController {
         }
         return ResponseEntity.ok(param);
     }
+    
+    @RequestMapping("/totalamount/{vatSerial}")
+    public String totalamount(@PathVariable("vatSerial") String vatSerial, AccountDTO dto, Model model) {
+    	dto.setVatSerial(vatSerial);
+    	List<AccountDTO> connect_list = accountService.connect_list(dto);
+    	model.addAttribute("connect_list", connect_list);
+    	return "settle/totalamount";
+    }
+    
 }

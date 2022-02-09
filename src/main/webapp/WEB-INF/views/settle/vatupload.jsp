@@ -372,7 +372,6 @@
                     method : "POST",
                     dataType : "json",
                     success:function(data){
-                    	console.log(data);
                     	if(data.resultCount > 0){
                     		$(item).attr("checked", false);
                     	}else{
@@ -416,18 +415,23 @@
                     vatData.vatAmount = Number($Farr[i].innerText.replace(/[\D\s\._\-]+/g, ""));
                     vatData.vatRemark = $Jarr[i].innerText;
                     vatData.vatIssueType = $Iarr[i].innerText;
-                    console.log(vatData);
                     $.ajax({
                     	url: "${path}/acc/selectVatCust/" + vatData.vatNo,
                     	method: "post",
                     	dataType: "json",
                     	async: false,
                     	success:function(data){
-                    		vatData.vatSellerCustNo = data.getNo;
+                    		if(data.count > 0){
+	                    		vatData.vatSellerCustNo = data.getNo;
+                    		}else{
+                    			vatData.vatSellerCustNo = 0;
+                    		}
+                    		
 		                    $.ajax({
 		                        url : "${path}/acc/insertvat.do",
 		                        data : vatData,
 		                        method : "POST",
+		                        async: false,
 		                        dataType: "json"
 		                    });
                     	}
@@ -475,10 +479,16 @@
                     	dataType: "json",
                     	async: false,
                     	success:function(data){
-                    		vatData.vatSellerCustNo = data.getNo;
+                    		if(data.count > 0){
+	                    		vatData.vatSellerCustNo = data.getNo;
+                    		}else{
+                    			vatData.vatSellerCustNo = 0;
+                    		}
+                    		
 		                    $.ajax({
 		                        url : "${path}/acc/insertvat.do",
 		                        data : vatData,
+		                        async: false,
 		                        method : "POST",
 		                        dataType: "json"
 		                    });

@@ -66,5 +66,6 @@ public class AccountDTO {
     private String linkDoc;
     
     private int getNo;
+    private int count;
 }
 

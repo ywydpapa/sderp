@@ -35,7 +35,6 @@
 							<i class="icofont icofont-spinner-alt-5"></i>
 						</div> -->
 						<select class="custom-select mr-sm-2" name="graph1TargetYear" id="graph1TargetYear" style="float:right;">
-							<option value = "2021" <c:if test="${graph1.targetYear == 2021}"></c:if> >2021</option>
 							<option value = "2022" <c:if test="${graph1.targetYear == 2022}">selected</c:if> >2022</option>
 						</select>
 						<select class="custom-select mr-sm-2" name="graph1TargetDepartment" id="graph1TargetDepartment" style="float:right;">
@@ -69,7 +68,6 @@
 							<option value = "12" <c:if test="${graph2.targetMonth == 12}">selected</c:if> >12</option>
 						</select>
 						<select class="custom-select mr-sm-1" name="graph2TargetYear" id="graph2TargetYear" style="float:right;">
-							<option value = "2021" <c:if test="${graph2.targetYear == 2021}"></c:if> >2021</option>
 							<option value = "2022" <c:if test="${graph2.targetYear == 2022}">selected</c:if> >2022</option>
 						</select>
 						<select class="custom-select mr-sm-1" name="graph2TargetDepartment" id="graph2TargetDepartment" style="float:right;">
@@ -116,7 +114,6 @@
 				<div class="card">
 					<div class="card-header">
 						<select class="custom-select mr-sm-1" name="graph3TargetYear" id="graph3TargetYear" style="float:right;">
-							<option value = "2021" <c:if test="${graph3.targetYear == 2021}"></c:if> >2021</option>
 							<option value = "2022" <c:if test="${graph3.targetYear == 2022}">selected</c:if> >2022</option>
 						</select>
 						<select class="custom-select mr-sm-1" name="graph3TargetDepartment" id="graph3TargetDepartment" style="float:right;">
@@ -163,7 +160,6 @@
 				<div class="card">
 					<div class="card-header">
 						<select class="custom-select mr-sm-1" name="graph4TargetYear" id="graph4TargetYear" style="float:right;">
-							<option value = "2021" <c:if test="${graph4.targetYear == 2021}"></c:if> >2021</option>
 							<option value = "2022" <c:if test="${graph4.targetYear == 2022}">selected</c:if> >2022</option>
 						</select>
 						<select class="custom-select mr-sm-1" name="graph4TargetDepartment" id="graph4TargetDepartment" style="float:right;">

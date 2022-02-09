@@ -362,7 +362,11 @@
 			schedData.userNo 		= $("#userNo").val();
 			if($("#custName").val() != "") schedData.custNo 		= Number($("#custNo").val());
 			if($("#soppName").val() != "") schedData.soppNo 		= Number($("#soppNo").val());
-			schedData.schedDesc 		= $("#schedDesc").val();
+			if($("textarea").attr("style") === "display: none;"){
+				schedData.schedDesc 		= tinyMCE.get("schedDesc").getContent();
+			}else{
+				schedData.schedDesc 		= $("#schedDesc").val();
+			}
 			/* schedData.schedType 		= $("#schedType").val(); */
 			schedData.schedCat 		= $("#schedCat").val();
 			if($("#custName").val() != "") schedData.contNo		= Number($("#contNo").val());

@@ -444,7 +444,7 @@
 		sprtData.techdSteps			= $("#techdSteps").val();					// 진행단계
 		sprtData.endCustNo 			= $("#endCustNo").val();
 		
-		if($("textarea").attr("style") === "display:none;"){
+		if($("textarea").attr("style") === "display: none;"){
 			sprtData.techdDesc			= tinyMCE.get("techdDesc").getContent();
 		}else{
 			sprtData.techdDesc 		= $("#techdDesc").val();

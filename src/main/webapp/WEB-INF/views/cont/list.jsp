@@ -596,6 +596,19 @@
 			$("#userName").val(userName);
 		} */
 	});
+	function fnClearall() {
+		/* document.getElementById("contTitle").value ='';
+		document.getElementById("custName").value ='';
+		document.getElementById("endCustName").value ='';
+		document.getElementById("targetDatefrom").value ='';
+		document.getElementById("targetDateto").value ='';
+		document.getElementById("freemaintSdate").value ='';
+		document.getElementById("freemaintEdate").value ='';
+		document.getElementById("userName").value ='';
+		document.getElementById("regSDate").value ='';
+		document.getElementById("regEDate").value =''; */
+		location.href ="/sderp/cont/list.do"; 
+	}
 	</script>
 </div>
 <jsp:include page="../body-bottom.jsp"/>

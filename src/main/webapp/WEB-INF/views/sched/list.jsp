@@ -405,7 +405,8 @@
 										</div>
 									</div>
 								</div>
-								<div class="col-sm-12 col-xl-2">
+								<!-- 계약관련 일치되는 데이터가 일정상에 존재할수 없음. -->
+								<div class="col-sm-12 col-xl-2" style="display:none;">
 									<label class="col-form-label" for="custmemberName">계약</label>
 									<div class="input-group input-group-sm mb-0">
 										<input type="text" class="form-control" name="contTitle"
@@ -438,6 +439,7 @@
 										</div>
 									</div>
 								</div>
+								<!-- 계약관련 일치되는 데이터가 일정상에 존재할수 없음. -->
 							<div class="col-sm-1">
 								<label class="col-form-label" for="co_name">일정구분</label>
 								<select name="select" class="form-control form-control-sm" id="schedType">

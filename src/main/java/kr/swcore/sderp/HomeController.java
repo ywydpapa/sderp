@@ -18,6 +18,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -161,6 +162,8 @@ public class HomeController {
 	public ModelAndView modal(@RequestParam Map<String, Object> params, Model model, ModelAndView mav, HttpSession session, HttpServletRequest servletRequest) {
 		String rtn = "";
 		String popId = (String)params.get("popId"); 
+		String vatSerial = (String) params.get("popId2");
+		
 		if("cust".equals(popId)) {
 			List<CustDTO> list=custService.listCust(session);
 			model.addAttribute("list",list);
@@ -275,6 +278,27 @@ public class HomeController {
 			model.addAttribute("list", list);
 			rtn = "modal/productGoodsCategory";
 		}
+
+		else if("vatSerialdata".equals(popId)) {
+			System.out.println(vatSerial);
+			List<AccountDTO> list = accountService.modalbB(vatSerial);
+			model.addAttribute("list", list);
+			rtn = "modal/vatSerialList";
+		}
+		
+		logger.debug(rtn);
+		
+		mav.setViewName(rtn);
+		return mav;
+	}
+	@RequestMapping("/modal/popup1.do")
+	public ModelAndView modal1(@RequestParam Map<String, Object> params, Model model, ModelAndView mav, HttpSession session, HttpServletRequest servletRequest) {
+		String rtn = "";
+		String vatSerial = (String)params.get("popId"); 
+
+		List<AccountDTO> list = accountService.modalbB(vatSerial);
+		model.addAttribute("list", list);
+		rtn = "modal/vatSerialList";
 
 		logger.debug(rtn);
 		

@@ -181,6 +181,7 @@ attrib) values (#{vatId},
 	<select id="connect_list" resultType="accountDto">
 		select * from swc_soppdata01
 		left join swc_user on swc_soppdata01.userNo = swc_user.userNo
-		where vatSerial = #{vatSerial};
+		LEFT JOIN swc_sopp on swc_soppdata01.soppNo = swc_sopp.soppNo
+		where vatSerial = #{vatSerial}
 	</select>
 </mapper>

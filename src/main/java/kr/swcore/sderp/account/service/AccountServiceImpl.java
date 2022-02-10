@@ -89,4 +89,9 @@ public class AccountServiceImpl implements AccountService {
 		// TODO Auto-generated method stub
 		return accountDAO.connect_list(dto);
 	}
+
+	@Override
+		public List<AccountDTO> modalbB(String vatSerial) {
+	    	return accountDAO.modalbB(vatSerial);
+	}
 }

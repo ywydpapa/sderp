@@ -253,13 +253,39 @@
                                     <td class="text-right"><fmt:formatNumber type="number" maxFractionDigits="3" value="${vlist.vatAmount}" /></td>
                                     <td class="text-right"><fmt:formatNumber type="number" maxFractionDigits="3" value="${vlist.vatTax}" /></td>
                                     <td class="text-right"><fmt:formatNumber type="number" maxFractionDigits="3" value="${vlist.vatAmount + vlist.vatTax}" /></td>
-                                    <td class="text-right"><a  onclick="location.href='totalamount/${vlist.vatSerial}'"><fmt:formatNumber type="number" maxFractionDigits="3" value="${vlist.vatSum}" /></a></td>
+                                    <td class="text-right">
+                                    	<a data-remote="${path}/modal/popup1.do?popId=${vlist.vatSerial}" type="button"
+                                                data-toggle="modal" data-target="#userModal1">
+                                    		<fmt:formatNumber type="number" maxFractionDigits="3" value="${vlist.vatSum}" />
+                                    	</a>
+                                    </td>
                                     <td>${vlist.vatRemark}</td>
                                 </tr>
                             </c:forEach>
                         </table>
                     </div>
                 </div>
+                <!-- model -->
+                <div class="modal fade " id="userModal1" tabindex="-1" role="dialog">
+					<div class="modal-dialog modal-80size" role="document">
+						<div class="modal-content modal-80size">
+							<div class="modal-header">
+								<h4 class="modal-title">연결문서(합계금액)</h4>
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+							</div>
+						<div class="modal-body">
+							<h5>연결문서(합계금액)</h5>
+							<p>Loading!!!</p>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
+						</div>
+						</div>
+					</div>
+				</div>
+				<!-- model -->
             </div>
         </div>
     </div>
@@ -304,6 +330,11 @@
             modal.find('.modal-body').load(button.data("remote"));
         });
         $('#soppModal').on('show.bs.modal', function(e) {
+            var button = $(e.relatedTarget);
+            var modal = $(this);
+            modal.find('.modal-body').load(button.data("remote"));
+        });
+        $('#userModal1').on('show.bs.modal', function(e) {
             var button = $(e.relatedTarget);
             var modal = $(this);
             modal.find('.modal-body').load(button.data("remote"));

@@ -83,4 +83,10 @@ public class AccountDAOImpl implements AccountDAO {
 		// TODO Auto-generated method stub
 		return sqlSession.selectList("account.connect_list",dto);
 	}
+
+	@Override
+	public List<AccountDTO> modalbB(String vatSerial) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("account.connect_list", vatSerial);
+	}
 }

@@ -82,6 +82,7 @@ public class AccountDTO {
     private String dataTotal;
     private String dataRemark;
     private String vatDate;
+    private String soppTitle;
     private int getNo;
     private int count;
 }

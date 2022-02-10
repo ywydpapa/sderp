@@ -19,4 +19,5 @@ public interface AccountDAO {
     int updvatStat(AccountDTO dto);
     AccountDTO selectVatCust(String vatNo);
 	List<AccountDTO> connect_list(AccountDTO dto);
+	List<AccountDTO> modalbB(String vatSerial);
 }

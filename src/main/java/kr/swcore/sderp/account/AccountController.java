@@ -34,6 +34,14 @@ public class AccountController {
         mav.setViewName("settle/vatlist");
         return mav;
     }
+    
+    @ResponseBody
+    @RequestMapping("baccheck.do")
+    public AccountDTO baccheck(ModelAndView mav, @ModelAttribute AccountDTO dto)
+    {
+        AccountDTO vserial = accountService.checkBac(dto);
+        return vserial;
+    }
 
     @RequestMapping("baclist.do")
     public ModelAndView bacList(HttpSession session, ModelAndView mav) {
@@ -50,6 +58,8 @@ public class AccountController {
         mav.setViewName("settle/regbaclist");
         return mav;
     }
+    
+    
 
     @RequestMapping("bacdetail.do")
     public ModelAndView bacDetail(HttpSession session, ModelAndView mav) {

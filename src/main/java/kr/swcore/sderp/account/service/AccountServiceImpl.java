@@ -94,4 +94,9 @@ public class AccountServiceImpl implements AccountService {
 		public List<AccountDTO> modalbB(String vatSerial) {
 	    	return accountDAO.modalbB(vatSerial);
 	}
+
+	@Override
+	public AccountDTO checkBac(AccountDTO dto) {
+		return accountDAO.checkBac(dto);
+	}
 }

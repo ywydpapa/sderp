@@ -20,4 +20,5 @@ public interface AccountDAO {
     AccountDTO selectVatCust(String vatNo);
 	List<AccountDTO> connect_list(AccountDTO dto);
 	List<AccountDTO> modalbB(String vatSerial);
+	AccountDTO checkBac(AccountDTO dto);
 }

@@ -1,6 +1,5 @@
 package kr.swcore.sderp.pps;
 
-import kr.swcore.sderp.account.dto.AccountDTO;
 import kr.swcore.sderp.pps.dto.PpsDTO;
 import kr.swcore.sderp.pps.service.PpsService;
 

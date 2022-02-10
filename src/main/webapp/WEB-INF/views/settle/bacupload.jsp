@@ -58,8 +58,8 @@
 							</div>
 						</div>
                         <!-- hide and show -->
-                        <button id="chkBtn" class="btn btn-sm btn-secondary" onClick="javascript:fnCheckVatlist()" disabled>내역 검토</button>
-                        <button id="regBtn" class="btn btn-sm btn-primary" onClick="javascript:fnRegBVatlist()">계좌내역 등록</button>
+                        <button id="chkBtn" class="btn btn-sm btn-secondary" onClick="javascript:fnCheckBaclist()" disabled>내역 검토</button>
+                        <button id="regBtn" class="btn btn-sm btn-primary" onClick="javascript:fnRegBaclist()">계좌내역 등록</button>
                     </div>
                 </div>
             </div>
@@ -228,7 +228,7 @@
             <div class="col-sm-12">
                 <div class="card-block table-border-style">
                     <div class="table-responsive" id="excel_data">
-                        <!-- <table id="vatTable" class="table table-striped table-bordered nowrap ">
+                        <!-- <table id="bacTable" class="table table-striped table-bordered nowrap ">
                         </table> -->
                     </div>
                 </div>
@@ -239,8 +239,13 @@
 
     <!-- hide and show -->
     <script>
-    	
-    	
+	    function reverse(str) {
+	        var reverse = str.split('');
+	        reverse = reverse.reverse();
+	     
+	        return reverse.join('')
+	    }
+    
 	    function uploadFile(){
 	    	const excel_file = document.getElementById("fileUpload");
 	    	
@@ -255,10 +260,12 @@
     			var sheet_data = XLSX.utils.sheet_to_json(work_book.Sheets[sheet_name[0]], {header:1});
     			
     			if(sheet_data.length > 0){
-    				var table_output = '<table id="vatTable" class="table table-striped table-bordered" style="text-align:center;">';
+    				var table_output = '<table id="bacTable" class="table table-striped table-bordered" style="text-align:center;">';
     				
-    				for(var row = 5; row < sheet_data.length; row++){
-    					if(row == 5){
+    				for(var row = 0; row < sheet_data.length; row++){
+    					if(row < 5){
+    						table_output += "<tr id='trHide'>";
+    					}else if(row == 5){
 	    					table_output += "<tr style='font-weight:600;'>";
     					}else{
     						table_output += "<tr>";
@@ -268,15 +275,17 @@
                                 if(row == 5){
                                     table_output += '<td>검토</td><td>' + sheet_data[row][cell] + '</td>';
                                 }else{
-                                    table_output += '<td><input type="checkbox" class="vatchecked" onClick="return false;"></td><td class="vatlst'+cell+'">' + sheet_data[row][cell] + '</td>';
+                                    table_output += '<td><input type="checkbox" class="bacchecked" onClick="return false;"></td><td class="baclst'+cell+'">' + sheet_data[row][cell] + '</td>';
                                 }
+                            } else if(cell == 1){
+                            	table_output += '<td id="tdHide">' + sheet_data[row][cell] + '</td>';
                             } else {
                                 if (row == 5){
                                     table_output += '<td>' + sheet_data[row][cell] + '</td>';
                                 }else{
-                                    table_output += '<td class="vatlst'+cell+'">' + sheet_data[row][cell] + '</td>';
+                                    table_output += '<td class="baclst'+cell+'">' + sheet_data[row][cell] + '</td>';
                                 }
-                                }
+                            }
     					}
     					table_output += '</tr>';
     				}
@@ -284,6 +293,19 @@
     				table_output += '</table>';
     				
     				document.getElementById("excel_data").innerHTML = table_output;
+    				var bacNo = $("#trHide").eq(0).find("#tdHide").html();
+    				var bacSerial = reverse(bacNo).replaceAll("-", "");
+    				localStorage.setItem("bacNo", bacNo);
+    				localStorage.setItem("bacSerial", bacSerial);
+    				
+    				$("#bacTable tbody #trHide").each(function(index, item){
+    					$(item).hide();
+    				});
+    				
+    				$("#bacTable tbody tr #tdHide").each(function(index, item){
+    					$(item).prev().hide();
+    					$(item).hide();
+    				});
     			}
     		}
 
@@ -319,7 +341,7 @@
 	    		fileName = "VTEK" + "(" + now + ")";	
 	    	}
 	    	
-    	    $("#vatTable").table2excel({
+    	    $("#bacTable").table2excel({
     	        exclude: ".excludeThisClass",
     	        name: "sheet",
     	        filename: fileName + ".xls", // do include extension
@@ -327,80 +349,72 @@
     	    });
 	    }
 
-        function fnCheckVatlist(){
+        function fnCheckBaclist(){
         	if($(this).attr("data-value") == 0){
         		$(this).attr("data-value", 1);	
         	}
         	
-            var chk = $(".vatchecked");
-            
-            chk.each(function(index, item){
-            	var vatdata = {};
-                vatdata.vatSerial = $(item).parent().next().next().html();
-            	
-                $.ajax({
-                    url : "${path}/acc/vatcheck.do",
-                    data : vatdata,
-                    method : "POST",
-                    dataType : "json",
-                    success:function(data){
-                    	console.log(data);
-                    	if(data.resultCount > 0){
-                    		$(item).attr("checked", false);
-                    	}else{
-                    		$(item).attr("checked", true);
-                    	}
-                        $("#regBBtn").removeAttr("disabled");
-                        $("#regSBtn").removeAttr("disabled");
-                    }
-                });
+            var chk = $(".bacchecked");
+        	var bacData = {};
+        	bacData.bacSerial = localStorage.getItem("bacSerial");
+        	
+            $.ajax({
+                url : "${path}/acc/baccheck.do",
+                data : bacData,
+                method : "POST",
+                dataType : "json",
+                success:function(data){
+               	 	chk.each(function(index, item){
+	                	if(data.resultCount > 0){
+	                		$(item).attr("checked", false);
+	                	}else{
+	                		$(item).attr("checked", true);
+	                	}
+                    });
+               	 	
+                    $("#regBBtn").removeAttr("disabled");
+                    $("#regSBtn").removeAttr("disabled");
+                }
             });
-            
         }
 
         function fnRegBaclist(){
-            var $Chkarr = $(".vatchecked");  //체크여부
-            var $Aarr = $(".vatlst0");         // 작성일
-            var $Barr = $(".vatlst1");           // 승인번호
-            var $Carr = $(".vatlst2");          //발급일자
-            var $Darr = $(".vatlst3");           // 전송일자
-            var $Earr = $(".vatlst4");           // 사업자 번호
-            var $Farr = $(".vatlst15");           // 공급금액
-            var $Garr = $(".vatlst16");           // 세액
-            var $Harr = $(".vatlst18");           // 세금계산서 종류
-            var $Iarr = $(".vatlst19");           // 발급유형
-            var $Jarr = $(".vatlst20");           // 비고
-            var $Karr = $(".vatlst22");           // 공급자 이메일
-
-            for (var i=0; i<$Barr.length; i++){
+            var $Chkarr = $(".bacchecked");  //체크여부
+            var $Aarr = $(".baclst5");         // 입금액
+            var $Barr = $(".baclst6");           // 출금금액
+            var $Carr = $(".baclst2");          // 거래시간
+            var $Darr = $(".baclst3");           // 거래종류
+            var $Earr = $(".baclst9");           // 적요
+            var $Farr = $(".baclst7");           // 잔액
+            var $Garr = $(".baclst8");           // 거래점
+            var compNo = "${sessionScope.compNo}";
+            var bacSerial = localStorage.getItem("bacSerial");
+			
+            for (var i=0; i<$Aarr.length; i++){
                 if ($($Chkarr[i]).is(":checked")==true){
-                    var vatData = {};
-                    vatData.vatStatus = 'B1';
-                    vatData.vatType = 'B';
-                    vatData.compNo = ${compNo};
-                    vatData.vatNo = $Earr[i].innerText;
-                    vatData.vatSerial = $Barr[i].innerText;
-                    vatData.vatEmail = $Karr[i].innerText;
-                    vatData.vatIssueDate = $Aarr[i].innerText;
-                    vatData.vatTradeDate = $Carr[i].innerText;
-                    vatData.vatTransDate = $Darr[i].innerText;
-                    vatData.vatTax = Number($Garr[i].innerText.replace(/[\D\s\._\-]+/g, ""));
-                    vatData.vatAmount = Number($Farr[i].innerText.replace(/[\D\s\._\-]+/g, ""));
-                    vatData.vatRemark = $Jarr[i].innerText;
-                    vatData.vatIssueType = $Iarr[i].innerText;
-                    console.log(vatData);
+                    var bacData = {};
+                    bacData.compNo = compNo;
+                    bacData.bacSerial = bacSerial;
+                    bacData.inAmt = Number($Aarr[i].innerText);
+                    bacData.outAmt = Number($Barr[i].innerText);
+                    bacData.baclogTime = $Carr[i].innerText;
+                    bacData.logType = $Darr[i].innerText;
+                    bacData.logRemark = $Earr[i].innerText;
+                    bacData.balanceAmt = Number($Farr[i].innerText);
+                    bacData.branchCode = $Garr[i].innerText;
+                    bacData.linkDoc = "";
+                    console.log(bacData);
+                    
                     $.ajax({
-                        url : "${path}/acc/insertvat.do",
-                        data : vatData,
+                        url : "${path}/acc/insertbacledger.do",
+                        data : bacData,
                         method : "POST",
                         dataType: "json"
-                    })
-                    .done(function(){
                     });
                 }
             }
-            alert("자료 등록 완료");
-            fnCheckVatlist();
+            alert("계좌 등록 완료");
+            fnCheckBaclist();
         }
 
 

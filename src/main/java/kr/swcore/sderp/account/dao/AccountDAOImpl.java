@@ -60,7 +60,7 @@ public class AccountDAOImpl implements AccountDAO {
 
     @Override
     public int insertBacledger(AccountDTO dto) {
-        return sqlSession.insert("account.insbaclog",dto);
+        return sqlSession.insert("account.insertbacledger",dto);
     }
 
     @Override
@@ -88,5 +88,10 @@ public class AccountDAOImpl implements AccountDAO {
 	public List<AccountDTO> modalbB(String vatSerial) {
 		// TODO Auto-generated method stub
 		return sqlSession.selectList("account.connect_list", vatSerial);
+	}
+
+	@Override
+	public AccountDTO checkBac(AccountDTO dto) {
+		return sqlSession.selectOne("account.checkBac", dto);
 	}
 }

@@ -57,7 +57,7 @@ public class AccountDTO {
     private BigDecimal bacBalance;
     private Integer baclogId;
     private BigDecimal inAmt;
-    private BigDecimal outAmmt;
+    private BigDecimal outAmt;
     private String baclogTime;
     private String logType;
     private String logRemark;

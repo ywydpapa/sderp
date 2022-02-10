@@ -27,7 +27,7 @@
 			searching: true,
 			order: [[ 0, "desc" ]],
 		});
-	});	
+	});
 	</script>
 	
     <c:if test="${preserveSearchCondition != 'Y'}">
@@ -45,10 +45,18 @@
 						<button class="btn btn-sm btn-success" id="fold" onclick="acordian_action()">펼치기</button>
 						<button class="btn btn-sm btn-success" id="fold2" onclick="acordian_action1()" style="display:none;">접기</button>
 						<!-- hide and show -->
-                        <button class="btn btn-sm btn-inverse" onClick="javascript:fnClearall()"><i class="icofont icofont-spinner-alt-3"></i>초기화</button>
-                        <button class="btn btn-sm btn-primary" onClick="javascript:fnListcon()"><i class="icofont icofont-search"></i>검색</button>
-                        <button class="btn btn-sm btn-danger" onClick="javascript:fnChgStatus()">상태변경</button>
-                        <button class="btn btn-sm btn-outline"onClick="javascript:location='${path}/acc/vatupload.do'"><i class="icofont icofont-pencil-alt-2"></i>계산서 등록</button>
+                        <button class="btn btn-sm btn-inverse" onClick="javascript:fnClearall()">
+                        	<i class="icofont icofont-spinner-alt-3"></i>초기화
+                        </button>
+                        <button class="btn btn-sm btn-primary" onClick="javascript:fnListcon()">
+                        	<i class="icofont icofont-search"></i>검색
+                        </button>
+                        <button class="btn btn-sm btn-danger" onClick="javascript:fnChgStatus()">
+                        	상태변경
+                        </button>
+                        <button class="btn btn-sm btn-outline"onClick="javascript:location='${path}/acc/vatupload.do'">
+                        	<i class="icofont icofont-pencil-alt-2"></i>계산서 등록
+                        </button>
                     </div>
                 </div>
             </div>
@@ -64,24 +72,19 @@
                                 <div class="col-sm-12 col-xl-3">
                                     <label class="col-form-label" for="userName">담당사원</label>
                                     <div class="input-group input-group-sm mb-0">
-                                        <input type="text" class="form-control" name="userName"
-                                               id="userName" value="" readonly /> <input type="hidden"
-                                                                                         name="userNo" id="userNo" value="" /> <span
-                                            class="input-group-btn">
-										<button class="btn btn-primary sch-company"
-                                                data-remote="${path}/modal/popup.do?popId=user" type="button"
-                                                data-toggle="modal" data-target="#userModal">
-											<i class="icofont icofont-search"></i>
-										</button>
-									</span>
-                                        <div class="modal fade " id="userModal" tabindex="-1"
-                                             role="dialog">
+                                        <input type="text" class="form-control" name="userName" id="userName" value="" readonly /> 
+                                        <input type="hidden" name="userNo" id="userNo" value="" /> 
+                                        <span class="input-group-btn">
+											<button class="btn btn-primary sch-company" data-remote="${path}/modal/popup.do?popId=user" type="button" data-toggle="modal" data-target="#userModal">
+												<i class="icofont icofont-search"></i>
+											</button>
+										</span>
+                                        <div class="modal fade " id="userModal" tabindex="-1" role="dialog">
                                             <div class="modal-dialog modal-80size" role="document">
                                                 <div class="modal-content modal-80size">
                                                     <div class="modal-header">
                                                         <h4 class="modal-title"></h4>
-                                                        <button type="button" class="close" data-dismiss="modal"
-                                                                aria-label="Close">
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                             <span aria-hidden="true">&times;</span>
                                                         </button>
                                                     </div>
@@ -90,8 +93,9 @@
                                                         <p>Loading!!!</p>
                                                     </div>
                                                     <div class="modal-footer">
-                                                        <button type="button" class="btn btn-default waves-effect "
-                                                                data-dismiss="modal">Close</button>
+                                                        <button type="button" class="btn btn-default waves-effect " data-dismiss="modal">
+                                                        	Close
+                                                        </button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -101,25 +105,19 @@
                                 <div class="col-sm-12 col-xl-3">
                                     <label class="col-form-label" for="soppTitle">영업기회</label>
                                     <div class="input-group input-group-sm mb-0">
-                                        <input type="text" class="form-control" name="soppTitle"
-                                               id="soppTitle" value="" readonly /> <input
-                                            type="hidden" name="soppNo" id="soppNo"
-                                            value="" /> <span class="input-group-btn">
-											<button class="btn btn-primary sch-company"
-                                                    data-remote="${path}/modal/popup.do?popId=sopp"
-                                                    type="button" data-toggle="modal"
-                                                    data-target="#soppModal">
+                                        <input type="text" class="form-control" name="soppTitle" id="soppTitle" value="" readonly />
+                                        <input type="hidden" name="soppNo" id="soppNo" value="" /> 
+                                        <span class="input-group-btn">
+											<button class="btn btn-primary sch-company" data-remote="${path}/modal/popup.do?popId=sopp" type="button" data-toggle="modal" data-target="#soppModal">
 												<i class="icofont icofont-search"></i>
 											</button>
 										</span>
-                                        <div class="modal fade " id="soppModal" tabindex="-1"
-                                             role="dialog">
+                                        <div class="modal fade " id="soppModal" tabindex="-1" role="dialog">
                                             <div class="modal-dialog modal-80size" role="document">
                                                 <div class="modal-content modal-80size">
                                                     <div class="modal-header">
                                                         <h4 class="modal-title">영업기회 검색</h4>
-                                                        <button type="button" class="close"
-                                                                data-dismiss="modal" aria-label="Close">
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                             <span aria-hidden="true">&times;</span>
                                                         </button>
                                                     </div>
@@ -128,9 +126,9 @@
                                                         <p>Loading!!!</p>
                                                     </div>
                                                     <div class="modal-footer">
-                                                        <button type="button"
-                                                                class="btn btn-default waves-effect "
-                                                                data-dismiss="modal">Close</button>
+                                                        <button type="button" class="btn btn-default waves-effect " data-dismiss="modal">
+                                                        	Close
+                                                        </button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -140,25 +138,19 @@
                                 <div class="col-sm-12 col-xl-3">
                                     <label class="col-form-label" for="custName">매출처</label>
                                     <div class="input-group input-group-sm mb-0">
-                                        <input type="text" class="form-control" name="custName"
-                                               id="custName" value="" readonly /> <input
-                                            type="hidden" name="custNo" id="custNo"
-                                            value="" /> <span class="input-group-btn">
-												<button class="btn btn-primary sch-company"
-                                                        data-remote="${path}/modal/popup.do?popId=cust"
-                                                        type="button" data-toggle="modal"
-                                                        data-target="#custModal">
-													<i class="icofont icofont-search"></i>
-												</button>
-											</span>
-                                        <div class="modal fade " id="custModal" tabindex="-1"
-                                             role="dialog">
+                                        <input type="text" class="form-control" name="custName" id="custName" value="" readonly />
+                                        <input type="hidden" name="custNo" id="custNo" value="" /> 
+                                        <span class="input-group-btn">
+											<button class="btn btn-primary sch-company" data-remote="${path}/modal/popup.do?popId=cust" type="button" data-toggle="modal" data-target="#custModal">
+												<i class="icofont icofont-search"></i>
+											</button>
+										</span>
+                                        <div class="modal fade " id="custModal" tabindex="-1" role="dialog">
                                             <div class="modal-dialog modal-80size" role="document">
                                                 <div class="modal-content modal-80size">
                                                     <div class="modal-header">
                                                         <h4 class="modal-title">매출처검색</h4>
-                                                        <button type="button" class="close"
-                                                                data-dismiss="modal" aria-label="Close">
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                             <span aria-hidden="true">&times;</span>
                                                         </button>
                                                     </div>
@@ -167,9 +159,9 @@
                                                         <p>Loading!!!</p>
                                                     </div>
                                                     <div class="modal-footer">
-                                                        <button type="button"
-                                                                class="btn btn-default waves-effect "
-                                                                data-dismiss="modal">Close</button>
+                                                        <button type="button" class="btn btn-default waves-effect " data-dismiss="modal">
+                                                        	Close
+                                                        </button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -190,12 +182,18 @@
                             <div class="form-group row">
                                 <div class="col-sm-12 col-xl-3">
                                     <label class="col-form-label">발행일</label>
-                                    <p class="input_inline"><input class="form-control form-control-sm col-xl-6" type="date" id="salesFrdatetime"> ~ <input class="form-control form-control-sm col-xl-6" type="date" id="salesTodatetime">
+                                    <p class="input_inline">
+                                    	<input class="form-control form-control-sm col-xl-6" type="date" id="salesFrdatetime" />
+                                    		~ 
+                                    	<input class="form-control form-control-sm col-xl-6" type="date" id="salesTodatetime" />
                                     </p>
                                 </div>
                                 <div class="col-sm-12 col-xl-3">
                                     <label class="col-form-label">거래일</label>
-                                    <p class="input_inline"><input class="form-control form-control-sm col-xl-6" type="date" id="regSDate"> ~ <input class="form-control form-control-sm col-xl-6" type="date" id="regEDate">
+                                    <p class="input_inline">
+                                    	<input class="form-control form-control-sm col-xl-6" type="date" id="regSDate">
+                                    		~
+                                    	<input class="form-control form-control-sm col-xl-6" type="date" id="regEDate">
                                     </p>
                                 </div>
                             </div>
@@ -245,17 +243,35 @@
                             <c:forEach items="${vatList}" var="vlist">
                                 <tr>
                                 <td class="text-center">${vlist.vatIssueDate}</td>
-                                    <td class="text-center vatTyp"><c:if test = "${vlist.vatType eq 'B'}">매입</c:if><c:if test = "${vlist.vatType eq 'S'}">매출</c:if></td>
-                                    <td class="text-center"><c:if test = "${vlist.vatType eq 'S'}">${vlist.vatBuyerName}</c:if> <c:if test = "${vlist.vatType eq 'B'}">${vlist.vatSellerName}</c:if></td>
+                                    <td class="text-center vatTyp">
+                                    	<c:if test = "${vlist.vatType eq 'B'}">매입</c:if>
+                                    	<c:if test = "${vlist.vatType eq 'S'}">매출</c:if>
+                                    </td>
+                                    <td class="text-center">
+                                    	<c:if test = "${vlist.vatType eq 'S'}">${vlist.vatBuyerName}</c:if> 
+                                    	<c:if test = "${vlist.vatType eq 'B'}">${vlist.vatSellerName}</c:if>
+                                   	</td>
                                     <td class="text-center vatSno">${vlist.vatSerial}</td>
-                                    <td class="text-center"><c:if test = "${vlist.vatStatus eq 'B1'}">매입발행</c:if><c:if test = "${vlist.vatStatus eq 'B3'}">지급처리중</c:if><c:if test = "${vlist.vatStatus eq 'B5'}">지급완료</c:if>
-                                        <c:if test = "${vlist.vatStatus eq 'S1'}">매출발행</c:if><c:if test = "${vlist.vatStatus eq 'S3'}">수금처리중</c:if><c:if test = "${vlist.vatStatus eq 'S5'}">수금완료</c:if><input type="checkbox" class="vatStchg"></td>
-                                    <td class="text-right"><fmt:formatNumber type="number" maxFractionDigits="3" value="${vlist.vatAmount}" /></td>
-                                    <td class="text-right"><fmt:formatNumber type="number" maxFractionDigits="3" value="${vlist.vatTax}" /></td>
-                                    <td class="text-right"><fmt:formatNumber type="number" maxFractionDigits="3" value="${vlist.vatAmount + vlist.vatTax}" /></td>
+                                    <td class="text-center">
+                                    	<c:if test = "${vlist.vatStatus eq 'B1'}">매입발행</c:if>
+                                    	<c:if test = "${vlist.vatStatus eq 'B3'}">지급처리중</c:if>
+                                    	<c:if test = "${vlist.vatStatus eq 'B5'}">지급완료</c:if>
+                                        <c:if test = "${vlist.vatStatus eq 'S1'}">매출발행</c:if>
+                                        <c:if test = "${vlist.vatStatus eq 'S3'}">수금처리중</c:if>
+                                        <c:if test = "${vlist.vatStatus eq 'S5'}">수금완료</c:if>
+                                        <input type="checkbox" class="vatStchg">
+                                    </td>
                                     <td class="text-right">
-                                    	<a data-remote="${path}/modal/popup1.do?popId=${vlist.vatSerial}" type="button"
-                                                data-toggle="modal" data-target="#userModal1">
+                                    	<fmt:formatNumber type="number" maxFractionDigits="3" value="${vlist.vatAmount}" />
+                                    </td>
+                                    <td class="text-right">
+                                    	<fmt:formatNumber type="number" maxFractionDigits="3" value="${vlist.vatTax}" />
+                                    </td>
+                                    <td class="text-right">
+                                    	<fmt:formatNumber type="number" maxFractionDigits="3" value="${vlist.vatAmount + vlist.vatTax}" />
+                                    </td>
+                                    <td class="text-right">
+                                    	<a data-remote="${path}/modal/popup1.do?popId=${vlist.vatSerial}" type="button" data-toggle="modal" data-target="#userModal1">
                                     		<fmt:formatNumber type="number" maxFractionDigits="3" value="${vlist.vatSum}" />
                                     	</a>
                                     </td>

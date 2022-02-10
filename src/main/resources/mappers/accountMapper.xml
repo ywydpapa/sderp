@@ -182,6 +182,6 @@ attrib) values (#{vatId},
 		select * from swc_soppdata01
 		left join swc_user on swc_soppdata01.userNo = swc_user.userNo
 		LEFT JOIN swc_sopp on swc_soppdata01.soppNo = swc_sopp.soppNo
-		where vatSerial = #{vatSerial}
+		where vatSerial = #{vatSerial} and swc_soppdata01.attrib not like 'XXX%'
 	</select>
 </mapper>

@@ -278,13 +278,6 @@ public class HomeController {
 			model.addAttribute("list", list);
 			rtn = "modal/productGoodsCategory";
 		}
-
-		else if("vatSerialdata".equals(popId)) {
-			System.out.println(vatSerial);
-			List<AccountDTO> list = accountService.modalbB(vatSerial);
-			model.addAttribute("list", list);
-			rtn = "modal/vatSerialList";
-		}
 		
 		logger.debug(rtn);
 		

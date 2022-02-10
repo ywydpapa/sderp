@@ -202,8 +202,9 @@
     <div class="col-sm-12">
         <select class="form-control-sm" id="baclist">
             <option value="">선택</option>
-            <option value="1">계좌1</option>
-            <option value="2">계좌2</option>
+            <c:forEach var="row" items="${bacList}">
+	            <option value="${row.bacSerial}">${row.bacNo}</option>
+            </c:forEach>
         </select>
     </div>
 </div>
@@ -213,7 +214,7 @@
             <div class="col-sm-12">
                 <div class="card-block table-border-style">
                     <div class="table-responsive">
-                        <table id="vatTable" class="table table-striped table-bordered nowrap ">
+                        <table id="bacTable" class="table table-striped table-bordered nowrap ">
                             <colgroup>
                                 <col width="10%"/>
                                 <col width="10%"/>
@@ -234,53 +235,83 @@
                                 <th class="text-center">메모</th>
                             </tr>
                             </thead>
-                            <c:forEach items="${vatList}" var="vlist">
-                                <tr>
-                                    <td class="text-center">${vlist.baclogTime}</td>
-                                    <td class="text-center">${vlist.logRemark}</td>
-                                    <td class="text-right"><fmt:formatNumber type="number" maxFractionDigits="3" value="${vlist.inAmt}" /></td>
-                                    <td class="text-right"><fmt:formatNumber type="number" maxFractionDigits="3" value="${vlist.outAmt}" /></td>
-                                    <td class="text-right"><fmt:formatNumber type="number" maxFractionDigits="3" value="${vlist.balanceAmt}" /></td>
-                                    <td>${vlist.branchCode}</td>
-                                    <td>${vlist.linkDoc}</td>
-                                </tr>
-                            </c:forEach>
+                            <tbody>
+<%-- 	                            <c:forEach items="${vatList}" var="vlist">
+	                                <tr>
+	                                    <td class="text-center">${vlist.baclogTime}</td>
+	                                    <td class="text-center">${vlist.logRemark}</td>
+	                                    <td class="text-right"><fmt:formatNumber type="number" maxFractionDigits="3" value="${vlist.inAmt}" /></td>
+	                                    <td class="text-right"><fmt:formatNumber type="number" maxFractionDigits="3" value="${vlist.outAmt}" /></td>
+	                                    <td class="text-right"><fmt:formatNumber type="number" maxFractionDigits="3" value="${vlist.balanceAmt}" /></td>
+	                                    <td>${vlist.branchCode}</td>
+	                                    <td>${vlist.linkDoc}</td>
+	                                </tr>
+	                            </c:forEach> --%>
+                          	</tbody>
                         </table>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <!--//리스트 table-->
-
-	<!-- hide and show -->
-	<script>
-	function acordian_action(){
-		if($("#acordian").css("display") == "none"){
-		    $("#acordian").show();
-		    $("#fold").hide();
-		    $("#fold2").show();
-
-		} else {
-		    $("#acordian").hide();
-		    $("#fold").show();
-		}
-	}
-	function acordian_action1(){
-		if($("#acordian").css("display") != "none"){
-		    $("#acordian").hide();
-		    $("#fold").show();
-		    $("#fold2").hide();
-
-		} else {
-		    $("#acordian").show();
-		    $("#fold").hide();
-		}
-	}
-	</script>
-	<!-- hide and show -->
-
     <script>
+	    <!--//리스트 table-->
+		<!-- hide and show -->
+		$(document).ready(function(){
+			var bacTable = $("#bacTable tbody");
+			
+			$("#baclist").change(function(){
+				$.ajax({
+					url: "${path}/acc/bacSelectList/" + $(this).val(),
+					method: "post",
+					dataType: "json",
+					success:function(data){
+						console.log(data);
+						if(data.length > 0){
+							for(var i = 0; i < data.length; i++){
+								bacTable.append("<tr>");
+								bacTable.append("<td style='text-align:center;'>" + data[i].baclogTime + "</td>");
+								bacTable.append("<td style='text-align:center;'>" + data[i].bacDesc + "</td>");
+								bacTable.append("<td style='text-align:center;'>" + data[i].inAmt + "</td>");
+								bacTable.append("<td style='text-align:center;'>" + data[i].outAmt + "</td>");
+								bacTable.append("<td style='text-align:center;'>" + data[i].balanceAmt + "</td>");
+								bacTable.append("<td style='text-align:center;'>" + data[i].branchCode + "</td>");
+								bacTable.append("<td style='text-align:center;'>" + data[i].logRemark + "</td>");
+								bacTable.append("</tr>");
+							}
+						}else{
+							bacTable.html("");
+						}
+					}
+				});
+			});
+		});	
+		
+		function acordian_action(){
+			if($("#acordian").css("display") == "none"){
+			    $("#acordian").show();
+			    $("#fold").hide();
+			    $("#fold2").show();
+	
+			} else {
+			    $("#acordian").hide();
+			    $("#fold").show();
+			}
+		}
+		
+		function acordian_action1(){
+			if($("#acordian").css("display") != "none"){
+			    $("#acordian").hide();
+			    $("#fold").show();
+			    $("#fold2").hide();
+	
+			} else {
+			    $("#acordian").show();
+			    $("#fold").hide();
+			}
+		}
+		<!-- hide and show -->
+		
         $('#custModal').on('show.bs.modal', function(e) {
             var button = $(e.relatedTarget);
             var modal = $(this);

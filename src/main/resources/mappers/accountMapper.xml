@@ -12,7 +12,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	where a.compNo = #{compNo} and a.attrib not like 'XXX%' group by vatSerial
 
 </select>
-
+	<select id="bacSelectList" resultType="accountDto">
+		select * from swc_bacledger where bacSerial = #{bacSerial};
+	</select>
+	
 	<select id="detailVat" resultType="accountDto">
 		select * from swc_vat where vatId = #{vatId};
 	</select>
@@ -57,6 +60,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		(
 			compNo,
 			bacSerial,
+			bacDesc,
 			inAmt,
 			outAmt,
 			baclogTime,
@@ -72,6 +76,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		(
 			#{compNo},
 			#{bacSerial},
+			#{bacDesc},
 			#{inAmt},
 			#{outAmt},
 			#{baclogTime},

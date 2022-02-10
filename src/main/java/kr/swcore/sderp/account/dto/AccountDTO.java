@@ -85,5 +85,6 @@ public class AccountDTO {
     private String soppTitle;
     private int getNo;
     private int count;
+    private String bacDesc;
 }
 

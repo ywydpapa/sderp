@@ -99,4 +99,9 @@ public class AccountServiceImpl implements AccountService {
 	public AccountDTO checkBac(AccountDTO dto) {
 		return accountDAO.checkBac(dto);
 	}
+
+	@Override
+	public List<AccountDTO> bacSelectList(String bacSerial) {
+		return accountDAO.bacSelectList(bacSerial);
+	}
 }

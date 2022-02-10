@@ -94,4 +94,9 @@ public class AccountDAOImpl implements AccountDAO {
 	public AccountDTO checkBac(AccountDTO dto) {
 		return sqlSession.selectOne("account.checkBac", dto);
 	}
+
+	@Override
+	public List<AccountDTO> bacSelectList(String bacSerial) {
+		return sqlSession.selectList("account.bacSelectList", bacSerial);
+	}
 }

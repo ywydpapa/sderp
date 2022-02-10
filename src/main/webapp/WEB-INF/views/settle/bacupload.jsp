@@ -387,6 +387,7 @@
             var $Earr = $(".baclst9");           // 적요
             var $Farr = $(".baclst7");           // 잔액
             var $Garr = $(".baclst8");           // 거래점
+            var $Harr = $(".baclst4");			// 내용
             var compNo = "${sessionScope.compNo}";
             var bacSerial = localStorage.getItem("bacSerial");
 			
@@ -395,6 +396,7 @@
                     var bacData = {};
                     bacData.compNo = compNo;
                     bacData.bacSerial = bacSerial;
+                    bacData.bacDesc = $Harr[i].innerText;
                     bacData.inAmt = Number($Aarr[i].innerText);
                     bacData.outAmt = Number($Barr[i].innerText);
                     bacData.baclogTime = $Carr[i].innerText;

@@ -21,4 +21,5 @@ public interface AccountDAO {
 	List<AccountDTO> connect_list(AccountDTO dto);
 	List<AccountDTO> modalbB(String vatSerial);
 	AccountDTO checkBac(AccountDTO dto);
+	List<AccountDTO> bacSelectList(String bacSerial);
 }

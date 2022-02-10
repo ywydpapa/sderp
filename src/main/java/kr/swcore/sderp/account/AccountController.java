@@ -63,7 +63,7 @@ public class AccountController {
 
     @RequestMapping("bacdetail.do")
     public ModelAndView bacDetail(HttpSession session, ModelAndView mav) {
-        mav.addObject("vatList", accountService.listbac(session));
+        mav.addObject("bacList", accountService.listbac(session));
         mav.setViewName("settle/bacdetail");
         return mav;
     }
@@ -92,6 +92,14 @@ public class AccountController {
         return vserial;
     }
 
+    @ResponseBody
+    @RequestMapping("bacSelectList/{bacSerial}")
+    public List<AccountDTO> bacSelectList(@PathVariable("bacSerial") String bacSerial){
+    	List<AccountDTO> accList = accountService.bacSelectList(bacSerial);
+    	
+    	return accList;
+    }
+    
     @RequestMapping("vatupload.do")
     public ModelAndView vatUpload(HttpSession session, ModelAndView mav) {
         mav.addObject("vatList", accountService.listvat(session));

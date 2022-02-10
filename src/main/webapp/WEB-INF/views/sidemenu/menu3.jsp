@@ -66,7 +66,7 @@
                                         </li>
                                     </ul>
                                     </li>
-                                    <li class="pcoded-hasmenu  pcoded <c:if test="${path2 eq '/acc/list.do' || path2 eq '/acc/write.do'}">pcoded-trigger</c:if>">
+                                    <li class="pcoded-hasmenu  pcoded <c:if test="${path2 eq '/acc/baclist.do' || path2 eq '/acc/bacupload.do' || path2 eq '/acc/bacdetail.do' || path2 eq '/acc/bacupdate.do'}">pcoded-trigger</c:if>">
                                     <a href="javascript:void(0)">
                                         <span class="pcoded-micon"><i class="fa fa-krw"></i></span>
                                         <span class="pcoded-mtext"  data-i18n="nav.basic-components.main">자금관리</span>

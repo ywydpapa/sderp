@@ -226,12 +226,12 @@
                             <thead>
                             <tr>
                                 <th class="text-center">일자</th>
-                                <th class="text-center">적요</th>
+                                <th class="text-center">기재내용</th>
                                 <th class="text-center">입금</th>
                                 <th class="text-center">출금</th>
-                                <th class="text-center">잔고</th>
+                                <th class="text-center">잔액</th>
                                 <th class="text-center">거래점</th>
-                                <th class="text-center">연결문서</th>
+                                <th class="text-center">메모</th>
                             </tr>
                             </thead>
                             <c:forEach items="${vatList}" var="vlist">

@@ -646,7 +646,7 @@ from
  </select> -->
 
  <insert id="insertSoppdata01">
- insert into swc_soppData01 
+ insert into swc_soppdata01 
  (soppNo,
 userNo,
 catNo,

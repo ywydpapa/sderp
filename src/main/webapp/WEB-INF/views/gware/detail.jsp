@@ -76,10 +76,10 @@
                                         <c:if test="${detailList.docType eq 'BUY'}">
                                             <button class="btn btn-success" onclick="javascript:popupPdf();">구매요청서 출력</button>
                                         </c:if>
-                                       	<c:if test="${detailList.docFormNo eq 'TREQ'}">
-                                            <a href="${path}/gw/treqForm/${detailList.docNo}" class="btn btn-success" id="btnPdf" onClick="javascript:popupPdf(this); return false;">지출결의서 출력</a>
-                                        </c:if>
                                     </c:if>
+	                               	<c:if test="${detailList.docFormNo eq 'TREQ'}">
+	                                    <a href="${path}/gw/treqForm/${detailList.docNo}" class="btn btn-success" id="btnPdf" onClick="javascript:popupPdf(this); return false;">지출결의서 출력</a>
+	                                </c:if>
                                 </td>
                             </tr>
                             <tr>

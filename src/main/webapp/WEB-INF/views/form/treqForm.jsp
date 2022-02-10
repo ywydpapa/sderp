@@ -175,22 +175,16 @@ th, td{
 		<table id="mainTable" style="margin-bottom: 0;">
 			<colgroup>
 		        <col width="10%">
-		        <col width="39%">
+		        <col width="49%">
 		        <col width="5%">
 		        <col width="5%">
-		        <col width="5%">
-		        <col width="5%">
-		        <col width="5%">
-		        <col width="10%">
+		        <col width="15%">
 		    </colgroup>
 			<thead>
 				<tr>
 					<th style="border-left:1px solid #000;">사용일자</th>
 					<th>품 명 / 규 격</th>
 					<th>수량</th>
-					<th>단가</th>
-					<th>공급가액</th>
-					<th>부가세</th>
 					<th>합계</th>
 					<th>비고</th>
 				</tr>
@@ -201,16 +195,13 @@ th, td{
 			    		<td style="text-align: center;">${row.regDate}</td>
 			    		<td style='text-align: center;'>${row.productName}</td>
 			    		<td style='text-align: center;'>${row.productQty}</td>
-			    		<td style='text-align: right;'><fmt:formatNumber value="${row.productNetprice}" pattern="#,###" /></td>
-			    		<td style='text-align: right;'><fmt:formatNumber value="${row.productAmount}" pattern="#,###" /></td>
-			    		<td style="text-align: right;"><fmt:formatNumber value="${row.productVat}" pattern="#,###" /></td>
 			    		<td style='text-align: right;'><fmt:formatNumber value="${row.productTotal}" pattern="#,###" /></td>
 			    		<td></td>
 			    	</tr>
 			    	<c:set var="totalSum" value="${totalSum + row.productTotal}" />
 			    </c:forEach>
 			    <tr style="border-top:1px solid #000;">
-			    	<th colspan="6" style="border-right:1px solid #000;">합 계</th>
+			    	<th colspan="3" style="border-right:1px solid #000;">합 계</th>
 			    	<td style="text-align: right;"><fmt:formatNumber value="${totalSum}" pattern="#,###" /></td>
 			    	<td></td>
 			    </tr>

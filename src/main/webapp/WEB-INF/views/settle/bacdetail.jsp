@@ -210,6 +210,7 @@
     </c:if>
 	<div class="row" style="margin-bottom: 10px;">
 		<div class="col-sm-12">
+            <label for="baclist">계좌번호</label>
 			<select class="form-control-sm" id="baclist">
 				<option value="">선택</option>
 				<c:forEach var="row" items="${bacList}">
@@ -283,9 +284,9 @@
 								bacTable.append("<tr>");
 								bacTable.append("<td style='text-align:center;'>" + data[i].baclogTime + "</td>");
 								bacTable.append("<td style='text-align:center;'>" + data[i].bacDesc + "</td>");
-								bacTable.append("<td style='text-align:center;'>" + data[i].inAmt + "</td>");
-								bacTable.append("<td style='text-align:center;'>" + data[i].outAmt + "</td>");
-								bacTable.append("<td style='text-align:center;'>" + data[i].balanceAmt + "</td>");
+								bacTable.append("<td style='text-align:right;'>" + parseInt(data[i].inAmt).toLocaleString("en-US") + "</td>");
+								bacTable.append("<td style='text-align:right;'>" + parseInt(data[i].outAmt).toLocaleString("en-US") + "</td>");
+								bacTable.append("<td style='text-align:right;'>" + parseInt(data[i].balanceAmt).toLocaleString("en-US") + "</td>");
 								bacTable.append("<td style='text-align:center;'>" + data[i].branchCode + "</td>");
 								bacTable.append("<td style='text-align:center;'>" + data[i].logRemark + "</td>");
 								bacTable.append("</tr>");

@@ -231,8 +231,9 @@
                                 <col width="10%"/>
                                 <col width="10%"/>
                                 <col width="10%"/>
-                                <col width="15%"/>
-                                <col width="15%"/>
+                                <col width="10%"/>
+                                <col width="5%"/>
+                                <col width="20%"/>
                                 <col width="15%"/>
                             </colgroup>
                             <thead>
@@ -244,6 +245,7 @@
                                 <th class="text-center">잔액</th>
                                 <th class="text-center">거래점</th>
                                 <th class="text-center">메모</th>
+                                <th class="text-center">연결</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -288,8 +290,8 @@
 								bacTable.find("tr").eq(i).append("<td style='text-align:right;'>" + parseInt(data[i].balanceAmt).toLocaleString("en-US") + "</td>");
 								bacTable.find("tr").eq(i).append("<td style='text-align:center;'>" + data[i].branchCode + "</td>");
 								bacTable.find("tr").eq(i).append("<td style='text-align:center;'>" + data[i].logRemark + "</td>");
+                                bacTable.find("tr").eq(i).append("<td style='text-align:center;'>" + data[i].baclogId + "</td>");
 							}
-							
 							$("#bacTable").DataTable({
 								info:false,
 				                destroy: true,

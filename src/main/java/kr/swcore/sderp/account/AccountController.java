@@ -174,4 +174,17 @@ public class AccountController {
     	return "settle/totalamount";
     }
     
+    @RequestMapping("lastUpdate.do")
+    public ResponseEntity<Object> lastUpdate(HttpSession session, @ModelAttribute AccountDTO dto){
+        Map<String,Object> param = new HashMap<>();
+        int bacIns = accountService.lastUpdate(dto);
+        if(bacIns > 0){
+            param.put("code","10001");
+        }
+        else {
+            param.put("code", "20001");
+        }
+        return ResponseEntity.ok(param);
+    }
+    
 }

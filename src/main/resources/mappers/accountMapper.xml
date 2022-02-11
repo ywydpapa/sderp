@@ -200,6 +200,10 @@ attrib) values (#{vatId},
 		update swc_vat set vatStatus=#{vatStatus} where vatSerial = #{vatSerial};
 	</update>
 	
+	<update id="lastUpdate">
+		update swc_bac set lastUpdTime = now() where bacSerial = #{bacSerial};
+	</update>
+	
 	<select id="connect_list" resultType="accountDto">
 		select * from swc_soppdata01
 		left join swc_user on swc_soppdata01.userNo = swc_user.userNo

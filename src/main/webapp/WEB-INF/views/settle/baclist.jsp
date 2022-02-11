@@ -205,7 +205,7 @@
             <div class="col-sm-12">
                 <div class="card-block table-border-style">
                     <div class="table-responsive">
-                        <table id="bacTable" class="table table-striped table-bordered nowrap ">
+                        <table id="vatTable" class="table table-striped table-bordered nowrap ">
                             <colgroup>
                                 <col width="10%"/>
                                 <col width="10%"/>

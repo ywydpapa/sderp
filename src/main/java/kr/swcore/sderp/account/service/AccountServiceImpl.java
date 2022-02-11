@@ -104,4 +104,9 @@ public class AccountServiceImpl implements AccountService {
 	public List<AccountDTO> bacSelectList(String bacSerial) {
 		return accountDAO.bacSelectList(bacSerial);
 	}
+
+	@Override
+	public int lastUpdate(AccountDTO dto) {
+		return accountDAO.lastUpdate(dto);
+	}
 }

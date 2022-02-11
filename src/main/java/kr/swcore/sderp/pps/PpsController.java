@@ -3,6 +3,7 @@ package kr.swcore.sderp.pps;
 import kr.swcore.sderp.pps.dto.PpsDTO;
 import kr.swcore.sderp.pps.service.PpsService;
 
+import kr.swcore.sderp.user.service.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -22,9 +23,13 @@ public class PpsController {
     @Inject
     PpsService ppsService;
 
+    @Inject
+    UserService userService;
+
     @RequestMapping("ppslist.do")
     public ModelAndView ppslist(HttpSession session, ModelAndView mav){
         mav.addObject("ppsList", ppsService.listPps(session));
+        mav.addObject("userList", userService.userList(session));
         mav.setViewName("pps/ppslist");
         return mav;
     }

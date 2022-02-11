@@ -37,7 +37,6 @@
 						<!-- hide and show -->
                         <button class="btn btn-sm btn-inverse" onClick="javascript:fnClearall()"><i class="icofont icofont-spinner-alt-3"></i>초기화</button>
                         <button class="btn btn-sm btn-primary" onClick="javascript:fnListcon()"><i class="icofont icofont-search"></i>검색</button>
-                        <button class="btn btn-sm btn-danger" onClick="javascript:fnChgStatus()">할당처리</button>
                         <button class="btn btn-sm btn-outline"onClick="javascript:location='${path}/pps/ppsupload.do'"><i class="icofont icofont-pencil-alt-2"></i>조달자료 등록</button>
                     </div>
                 </div>
@@ -205,8 +204,35 @@
             <div class="col-sm-12">
                 <div class="card-block table-border-style">
                     <div class="table-responsive">
+                        <table id="controlTable">
+                            <colgroup>
+                                <col width="50%">
+                                <col width="20%">
+                                <col width="30%">
+                            </colgroup>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td class="text-right">
+                                    <div class="row">
+                                        <div style="float: left">
+                                            <select id="assignUser" class="UserSelect form-control">
+                                                <c:forEach var="row" items="${userList}">
+                                                    <option value="${row.userNo}" <c:if test="${sessionScope.userNo eq row.userNo}">selected</c:if>>${row.userName}</option>
+                                                </c:forEach>
+                                            </select>
+                                        </div>
+                                        <div style="float: left">
+                                            <button class="btn btn-sm btn-danger" onClick="javascript:fnAssignPps()">개별 할당(1:1)</button>
+                                            <button class="btn btn-sm btn-danger" onClick="javascript:fnAssignPpss()">일괄 할당(1:n)</button>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
                         <table id="vatTable" class="table table-striped table-bordered nowrap ">
                             <colgroup>
+                                <col width="2%">
                                 <col width="10%"/>
                                 <col width="5%"/>
                                 <col width="7%"/>
@@ -223,6 +249,7 @@
                             </colgroup>
                             <thead>
                             <tr>
+                                <th></th>
                                 <th class="text-center">계약일자</th>
                                 <th class="text-center">수요기관(코드)</th>
                                 <th class="text-center">지역</th>
@@ -235,24 +262,25 @@
                                 <th class="text-center">금액</th>
                                 <th class="text-center">납품기한</th>
                                 <th class="text-center">납품장소</th>
-                                <th class="text-center">비고</th>
+                                <th class="text-center">영업기회번호</th>
                             </tr>
                             </thead>
                             <c:forEach items="${ppsList}" var="vlist">
                                 <tr>
-                                <td class="text-center">${vlist.contractDate}</td>
-                                    <td class="text-center">${vlist.buyerName}(${vlist.buyerCode})</td>
-                                    <td class="text-center">${vlist.buyerArea}(${vlist.buyerAreacode})</td>
-                                    <td class="text-center">${vlist.reqNo}</td>
-                                    <td class="text-center">${vlist.contractTitle}</td>
-                                    <td class="text-center">${vlist.reqItem}(${vlist.reqItemcode})</td>
-                                    <td class="text-right"><fmt:formatNumber type="number" maxFractionDigits="3" value="${vlist.itemNetprice}" /></td>
-                                    <td class="text-right"><fmt:formatNumber type="number" maxFractionDigits="3" value="${vlist.itemQty}" /></td>
-                                    <td class="text-center">${vlist.itemUnit}</td>
-                                    <td class="text-right"><fmt:formatNumber type="number" maxFractionDigits="3" value="${vlist.itemAmount}" /></td>
-                                    <td class="text-center">${vlist.deliveryDate}</td>
-                                    <td class="text-center">${vlist.deliveryPlace}</td>
-                                    <td></td>
+                                    <td><input type="checkbox" class="Chkpps" <c:if test="${not empty vlist.soppNo}">disabled</c:if>></td>
+                                    <td class="text-center PpsItem01">${vlist.contractDate}</td>
+                                    <td class="text-center PpsItem02">${vlist.buyerName}(${vlist.buyerCode})</td>
+                                    <td class="text-center PpsItem03">${vlist.buyerArea}(${vlist.buyerAreacode})</td>
+                                    <td class="text-center PpsItem04">${vlist.reqNo}</td>
+                                    <td class="text-center PpsItem05">${vlist.contractTitle}</td>
+                                    <td class="text-left PpsItem06">${vlist.reqItem}(${vlist.reqItemcode})</td>
+                                    <td class="text-right PpsItem07"><fmt:formatNumber type="number" maxFractionDigits="3" value="${vlist.itemNetprice}" /></td>
+                                    <td class="text-right PpsItem08"><fmt:formatNumber type="number" maxFractionDigits="3" value="${vlist.itemQty}" /></td>
+                                    <td class="text-center PpsItem09">${vlist.itemUnit}</td>
+                                    <td class="text-right PpsItem10"><fmt:formatNumber type="number" maxFractionDigits="3" value="${vlist.itemAmount}" /></td>
+                                    <td class="text-center PpsItem11">${vlist.deliveryDate}</td>
+                                    <td class="text-center PpsItem12">${vlist.deliveryPlace}</td>
+                                    <td class="text-center PpsItem13">${vlist.soppNo}</td>
                                 </tr>
                             </c:forEach>
                         </table>
@@ -328,31 +356,98 @@
             $("#soppModal").modal("hide");
         }
 
-        function fnChgStatus(){
-            $Aarr=$(".vatSno");
-            $Barr=$(".vatStchg");
-            $Carr=$(".vatTyp");
-            for (var i=0; i<$Barr.length; i++) {
-                if ($($Barr[i]).is(":checked") == true) {
-                    var vatData = {};
-                    vatData.vatSerial = $Aarr[i].innerText;
-                    if ($Carr[i].innerText == '매입'){
-                        vatData.vatStatus = 'B5';
-                    }else{
-                        vatData.vatStatus = 'S5';
-                    }
+        function fnAssignPps(){
+            $Chkarr = $(".Chkpps");
+            $A01arr = $(".PpsItem01");
+            $A02arr = $(".PpsItem02");
+            $A03arr = $(".PpsItem03");
+            $A04arr = $(".PpsItem04");
+            $A05arr = $(".PpsItem05");
+            $A06arr = $(".PpsItem06");
+            $A07arr = $(".PpsItem07");
+            $A08arr = $(".PpsItem08");
+            $A09arr = $(".PpsItem09");
+            $A10arr = $(".PpsItem10");
+            $A11arr = $(".PpsItem11");
+            $A12arr = $(".PpsItem12");
+
+            for (var i=0; i<$A01arr.length; i++) {
+                if ($($Chkarr[i]).is(":checked") == true) {
+                    var soppData = {};
+                    soppData.compNo = ${sessionScope.compNo};
+                    soppData.userNo = $("#assignUser").val();
+                    soppData.buyrNo = '103700';
+                    soppData.soppTitle = "(조달할당) "+ $A05arr[i].innerText;
+                    soppData.soppDesc = "(조달 계약 번호) : "+ $A04arr[i].innerText;
+                    soppData.soppTargetAmt = Number($A10arr[i].innerText.replace(/[\D\s\._\-]+/g, ""));
+                    soppData.soppTargetDate = $A11arr[i].innerText;
+                    soppData.soppType = '10174';
+                    soppData.soppStatus = '10178';
+                    soppData.soppSrate = '100';
+                    soppData.businessType = '조달발주';
+                    console.log(soppData);
                     $.ajax({
-                        url : "${path}/acc/vatStatuschg.do",
-                        data : vatData,
+                        url : "${path}/sopp/insert.do",
+                        data : soppData,
                         method : "POST",
                         dataType: "json"
                     })
                         .done(function(){
+                            alert("할당 처리 완료");
                         });
                 }
-                alert("변경 처리 완료");
-            }
 
+            }
+        }
+
+        function fnAssignPpss(){
+            $Chkarr = $(".Chkpps");
+            $A01arr = $(".PpsItem01");
+            $A02arr = $(".PpsItem02");
+            $A03arr = $(".PpsItem03");
+            $A04arr = $(".PpsItem04");
+            $A05arr = $(".PpsItem05");
+            $A06arr = $(".PpsItem06");
+            $A07arr = $(".PpsItem07");
+            $A08arr = $(".PpsItem08");
+            $A09arr = $(".PpsItem09");
+            $A10arr = $(".PpsItem10");
+            $A11arr = $(".PpsItem11");
+            $A12arr = $(".PpsItem12");
+
+                    var soppData = {};
+                    soppData.compNo = ${sessionScope.compNo};
+                    soppData.userNo = $("#assignUser").val();
+                    soppData.buyrNo = '103700';
+                    soppData.soppTitle = "(조달할당) 일괄계약 ";
+                    for (var i=0; i<$A01arr.length; i++) {
+                        if ($($Chkarr[i]).is(":checked") == true) {
+                            soppData.soppDesc = "(조달 계약 번호) : " + $A04arr[i].innerText;
+                        }}
+                    for (var i=0; i<$A01arr.length; i++) {
+                        if ($($Chkarr[i]).is(":checked") == true) {
+                    soppData.soppTargetAmt = Number($A10arr[i].innerText.replace(/[\D\s\._\-]+/g, ""));
+                        }}
+                    soppData.soppTargetDate = $A11arr[i].innerText;
+                    soppData.soppType = '10174';
+                    soppData.soppStatus = '10178';
+                    soppData.soppSrate = '100';
+                    soppData.businessType = '조달발주';
+                    console.log(soppData);
+                    $.ajax({
+                        url : "${path}/sopp/insert.do",
+                        data : soppData,
+                        method : "POST",
+                        dataType: "json"
+                    })
+                        .done(function(){
+                            for (var i=0; i<$A01arr.length; i++) {
+                                if ($($Chkarr[i]).is(":checked") == true) {
+                                    //계약번호 업데이트 해야함.
+                                }
+                                }
+                            alert("할당 처리 완료");
+                        });
         }
 
     </script>

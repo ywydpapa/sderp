@@ -20,7 +20,16 @@
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <div id="main_content">
-	
+	<style>
+	.select2-container {
+		width: 13%!important;
+	}
+
+	.select2-container--default .select2-selection--single .select2-selection__rendered {
+		background-color: white;
+		line-height: 10px!important;
+	}
+	</style>
     <c:if test="${preserveSearchCondition != 'Y'}">
         <!-- Page-header start 페이지 타이틀-->
         <div class="page-header2">
@@ -201,12 +210,6 @@
     </c:if>
 	<div class="row" style="margin-bottom: 10px;">
 		<div class="col-sm-12">
-			<!--<select class="form-control-sm" id="baclist">
-            <option value="">선택</option>
-            <c:forEach var="row" items="${bacList}">
-	            <option value="${row.bacSerial}">${row.bacNo}</option>
-            </c:forEach>
-        </select>-->
 			<select class="form-control-sm" id="baclist">
 				<option value="">선택</option>
 				<c:forEach var="row" items="${bacList}">
@@ -264,6 +267,8 @@
     <script>
 	    <!--//리스트 table-->
 		<!-- hide and show -->
+		$(document).ready(function() { $("#baclist").select2(); });
+		
 		$(document).ready(function(){
 			var bacTable = $("#bacTable tbody");
 			
@@ -382,18 +387,5 @@
 
         }
     </script>
-    <script>
-    $(document).ready(function() { $("#baclist").select2(); });
-    </script>
 </div>
 <jsp:include page="../body-bottom.jsp"/>
-<style>
-		.select2-container {
-			width: 13%!important;
-		}
-		.select2-container--default .select2-selection--single .select2-selection__rendered {
-			background-color: white;
-			line-height: 10px!important;
-		}
-		
-	</style>

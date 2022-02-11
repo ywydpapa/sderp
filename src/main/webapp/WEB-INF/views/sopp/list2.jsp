@@ -820,6 +820,29 @@
 				location.reload();
 			}, 500);
 		}
+		
+		function fn_soppListCom(){
+			var checkboxes = $("#soppTable").find("input[type=checkbox]:checked");
+			var soppStatus = "${sstatuslist[7].codeNo}";
+			
+			checkboxes.each(function(index, item){
+				var comData = {};
+				comData.soppNo = $(item).attr("id");
+				comData.soppStatus = soppStatus;
+				
+				$.ajax({
+					url: "${path}/sopp/beforeComUpdate/" + comData.soppNo,
+					method: "post",
+					async: false,
+					dataType: "json"
+				});
+			});
+			
+			setTimeout(() => {
+				alert("반려되었습니다.");
+				location.reload();
+			}, 300);
+		}
 
 		/* function fn_sopp2_PartAprv(){
 			var role = '${sessionScope.userRole}';

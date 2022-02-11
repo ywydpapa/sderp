@@ -409,4 +409,16 @@ public class SoppController {
 		return ResponseEntity.ok(param);
 	}
 	
+	@RequestMapping("beforeComUpdate/{soppNo}")
+	public ResponseEntity<?> beforeComUpdate(@PathVariable("soppNo") int soppNo) {
+		Map<String, Object> param = new HashMap<>();
+		int soppUpdate = soppService.beforeComUpdate(soppNo);
+		if (soppUpdate >0) {
+			param.put("code","10001"); 
+		}
+		else {param.put("code","20001");
+		}
+		return ResponseEntity.ok(param);
+	}
+	
 }

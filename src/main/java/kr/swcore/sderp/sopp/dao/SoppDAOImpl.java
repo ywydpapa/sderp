@@ -134,9 +134,4 @@ public class SoppDAOImpl implements SoppDAO {
 		// TODO Auto-generated method stub
 		return sqlSession.update("sopp.beforeAppUpdate", soppNo);
 	}
-
-	@Override
-	public int beforeComUpdate(int soppNo) {
-		return sqlSession.update("sopp.beforeComUpdate", soppNo);
-	}
 }

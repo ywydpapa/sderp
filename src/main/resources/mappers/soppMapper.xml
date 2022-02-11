@@ -597,13 +597,6 @@ from
 	modDatetime = now()
 	where soppNo = #{soppNo}
 </update>
-
-<update id="beforeComUpdate">
-	update swc_sopp
-	set soppStatus = #{soppStatus},
-	modDatetime = now()
-	where soppNo = #{soppNo}
-</update>
  
 <delete id="deleteSopp">
 	update swc_sopp 

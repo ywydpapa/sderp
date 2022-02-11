@@ -229,7 +229,7 @@
                                     <td class="text-center">${vlist.bankCode}</td>
                                     <td class="text-center">${vlist.bacNo}</td>
                                     <td class="text-right">${vlist.lastUpdTime}</td>
-                                    <td class="text-right"><fmt:formatNumber type="number" maxFractionDigits="3" value="${vlist.bacBalance}" /></td>
+                                    <td class="text-right"><fmt:formatNumber type="number" maxFractionDigits="3" value="${vlist.balanceAmt}" /></td>
                                     <td class="text-left">${vlist.bacType}</td>
                                     <td class="text-left"></td>
                                 </tr>

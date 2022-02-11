@@ -41,9 +41,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 
 	<select id="baclist" resultType="accountDto">
-		select c.desc03 bacTypeN ,b.desc03 bankCodeN ,a.* from swc_bac a
+		select c.desc03 bacTypeN ,b.desc03 bankCodeN ,a.*, d.baclogTime, d.balanceAmt from swc_bac a
 	   	left join swc_code b on b.code03 = a.bankCode
-	   	left join swc_code c on c.code03 = a.bacType
+	   	LEFT join swc_code c on c.code03 = a.bacType
+	   	LEFT JOIN (SELECT bacSerial, balanceAmt, baclogTime FROM swc_bacledger ORDER BY baclogTime DESC LIMIT 1) d ON a.bacSerial = d.bacSerial
 		where a.compNo = #{compNo} and a.attrib not like 'XXX%';
 	</select>
 

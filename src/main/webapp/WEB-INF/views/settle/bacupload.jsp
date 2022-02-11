@@ -413,10 +413,23 @@
                         url : "${path}/acc/insertbacledger.do",
                         data : bacData,
                         method : "POST",
+                        async: false,
                         dataType: "json"
                     });
                 }
             }
+            
+            var updateData = {};
+        	updateData.bacSerial = bacSerial;
+        	
+        	$.ajax({
+        		url: "${path}/acc/lastUpdate.do",
+        		method: "post",
+        		async: false,
+        		data: updateData,
+        		dataType: "json",
+        	});
+        	
             alert("계좌 등록 완료");
             fnCheckBaclist();
         }

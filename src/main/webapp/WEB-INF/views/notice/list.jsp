@@ -113,7 +113,7 @@
 							if(data == null || data == undefined) {
 								return '';
 							} else {
-								return '<span title="'+data+'">'+data+'</span>';
+								return '<span class="yyyyMMddConvert">'+data+'</span>';
 							}
 						},
 					},
@@ -146,6 +146,12 @@
 
 			noticeTable.on('draw', function () {
 				setTimeout(fnDrawAfterCss, 10);
+				
+				var elementArrDay = $(".yyyyMMddConvert");
+				for(var i=0; i<elementArrDay.length; i++){
+					var temp = elementArrDay[i].innerText;
+					elementArrDay[i].innerText = temp.split(" ")[0];
+				}
 			});
 		});
 

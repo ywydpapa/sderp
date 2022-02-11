@@ -11,4 +11,5 @@ public interface PpsService {
     int insertPps(PpsDTO dto);
     int updatePps(PpsDTO dto);
     PpsDTO checkPps(PpsDTO dto);
+    int assignUpdate(PpsDTO dto);
 }

@@ -561,6 +561,16 @@ from
 		where soppNo = #{soppNo};
 </insert>
 
+ <insert id="assignPps" useGeneratedKeys="true" keyProperty="getNo">
+ <selectKey keyProperty="getNo" resultType="int" order="AFTER">
+     SELECT max(soppNo) from swc_sopp
+ </selectKey>
+ insert into swc_sopp (compNo, custNo,userNo, buyrNo, ptncNo, soppTitle, soppDesc, soppType, soppSrate, soppStatus
+ , soppTargetDate, soppTargetAmt,attrib, cntrctMth, custMemberNo)
+ values (#{compNo}, #{custNo},#{userNo}, #{buyrNo},#{ptncNo}, #{soppTitle}, #{soppDesc}, #{soppType}, #{soppSrate}, #{soppStatus},
+         #{soppTargetDate}, #{soppTargetAmt},'10000',#{cntrctMth}, #{custMemberNo})
+ </insert>
+
  <update id="updateSopp">
 	update swc_sopp 
 	set 

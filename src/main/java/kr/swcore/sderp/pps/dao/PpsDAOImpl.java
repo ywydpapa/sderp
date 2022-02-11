@@ -38,4 +38,9 @@ public class PpsDAOImpl implements PpsDAO{
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne("pps.checkPps", dto);
 	}
+
+	@Override
+	public int assignUpdate(PpsDTO dto) {
+		return sqlSession.update("pps.assignUpdate", dto);
+	}
 }

@@ -40,4 +40,9 @@ public class PpsServiceImpl implements PpsService {
 		// TODO Auto-generated method stub
 		return ppsDao.checkPps(dto);
 	}
+	
+	@Override
+    public int assignUpdate(PpsDTO dto) {
+        return ppsDao.assignUpdate(dto);
+    }
 }

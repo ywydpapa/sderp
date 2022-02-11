@@ -18,49 +18,55 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <insert id="ppsInsert">
         insert into swc_pps
 	(
-    compNo,
-    buyerCode,
-    buyerName,
-    buyerArea,
-    buyerAreacode,
-    reqNo,
-    reqItemcode,
-    reqItem,
-    itemNetprice,
-    itemQty,
-    itemUnit,
-    itemAmount,
-    contractTitle,
-    modQty,
-    modAmount,
-    contractDate,
-    deliveryDate,
-    deliveryPlace,
-    regDate,
-    attrib 
-    ) 
-    values
-	(
-    #{compNo},
-    #{buyerCode},
-    #{buyerName},
-    #{buyerArea},
-    #{buyerAreacode},
-    #{reqNo},
-    #{reqItemcode},
-    #{reqItem},
-    #{itemNetprice},
-    #{itemQty},
-    #{itemUnit},
-    #{itemAmount},
-    #{contractTitle},
-    #{modQty},
-    #{modAmount},
-    #{contractDate},
-    #{deliveryDate},
-    #{deliveryPlace},
-    now(),
-    '10000'
-);
+	    compNo,
+	    buyerCode,
+	    buyerName,
+	    buyerArea,
+	    buyerAreacode,
+	    reqNo,
+	    reqItemcode,
+	    reqItem,
+	    itemNetprice,
+	    itemQty,
+	    itemUnit,
+	    itemAmount,
+	    contractTitle,
+	    modQty,
+	    modAmount,
+	    contractDate,
+	    deliveryDate,
+	    deliveryPlace,
+	    regDate,
+	    attrib 
+	    ) 
+	    values
+		(
+	    #{compNo},
+	    #{buyerCode},
+	    #{buyerName},
+	    #{buyerArea},
+	    #{buyerAreacode},
+	    #{reqNo},
+	    #{reqItemcode},
+	    #{reqItem},
+	    #{itemNetprice},
+	    #{itemQty},
+	    #{itemUnit},
+	    #{itemAmount},
+	    #{contractTitle},
+	    #{modQty},
+	    #{modAmount},
+	    #{contractDate},
+	    #{deliveryDate},
+	    #{deliveryPlace},
+	    now(),
+	    '10000'
+	);
     </insert>
+    
+    <update id="assignUpdate">
+    	update swc_pps set	
+    	soppNo = #{soppNo}
+    	where ppsId = #{ppsId};
+    </update>
 </mapper>

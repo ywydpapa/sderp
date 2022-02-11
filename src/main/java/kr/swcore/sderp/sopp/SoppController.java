@@ -409,4 +409,12 @@ public class SoppController {
 		return ResponseEntity.ok(param);
 	}
 	
+	@RequestMapping("assignPps.do")
+	public ResponseEntity<?> assignPps(@ModelAttribute SoppDTO dto) {
+		Map<String, Object> param = new HashMap<>();
+		int schedInsertResult = soppService.assignPps(dto);
+		param.put("getNo", dto.getGetNo());
+		return ResponseEntity.ok(param);
+	}
+	
 }

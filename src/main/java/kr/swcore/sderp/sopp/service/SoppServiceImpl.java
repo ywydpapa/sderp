@@ -371,6 +371,11 @@ public class SoppServiceImpl implements SoppService {
 	public int beforeAppUpdate(int soppNo) {
 		return soppDao.beforeAppUpdate(soppNo);
 	}
+
+	@Override
+	public int assignPps(SoppDTO dto) {
+		return soppDao.assignPps(dto);
+	}
 	
 
 }

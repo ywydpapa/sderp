@@ -204,33 +204,17 @@
             <div class="col-sm-12">
                 <div class="card-block table-border-style">
                     <div class="table-responsive">
-                        <table id="controlTable">
-                            <colgroup>
-                                <col width="50%">
-                                <col width="20%">
-                                <col width="30%">
-                            </colgroup>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td class="text-right">
-                                    <div class="row">
-                                        <div style="float: left">
-                                            <select id="assignUser" class="UserSelect form-control">
-                                                <c:forEach var="row" items="${userList}">
-                                                    <option value="${row.userNo}" <c:if test="${sessionScope.userNo eq row.userNo}">selected</c:if>>${row.userName}</option>
-                                                </c:forEach>
-                                            </select>
-                                        </div>
-                                        <div style="float: left">
-                                            <button class="btn btn-sm btn-danger" onClick="javascript:fnAssignPps()">개별 할당(1:1)</button>
-                                            <button class="btn btn-sm btn-danger" onClick="javascript:fnAssignPpss()">일괄 할당(1:n)</button>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-                        </table>
-                        <table id="vatTable" class="table table-striped table-bordered nowrap ">
+                        <div style="float: left; margin-right:5px;">
+                            <select id="assignUser" class="UserSelect form-control">
+                                <c:forEach var="row" items="${userList}">
+                                    <option value="${row.userNo}" <c:if test="${sessionScope.userNo eq row.userNo}">selected</c:if>>${row.userName}</option>
+                                </c:forEach>
+                            </select>
+                        </div>
+                        <div style="float: left">
+                            <button class="btn btn-sm btn-primary" onClick="javascript:fnAssignPps()">개별 할당(1:1)</button>
+                        </div>
+                        <table id="vatTable" class="table table-striped table-bordered nowrap " style="margin-top: 40px;">
                             <colgroup>
                                 <col width="2%">
                                 <col width="10%"/>
@@ -267,7 +251,7 @@
                             </thead>
                             <c:forEach items="${ppsList}" var="vlist">
                                 <tr>
-                                    <td><input type="checkbox" class="Chkpps" <c:if test="${not empty vlist.soppNo}">disabled</c:if>></td>
+                                    <td><input type="checkbox" class="Chkpps" data-id="${vlist.ppsId}" <c:if test="${not empty vlist.soppNo}">disabled</c:if>></td>
                                     <td class="text-center PpsItem01">${vlist.contractDate}</td>
                                     <td class="text-center PpsItem02">${vlist.buyerName}(${vlist.buyerCode})</td>
                                     <td class="text-center PpsItem03">${vlist.buyerArea}(${vlist.buyerAreacode})</td>
@@ -373,6 +357,7 @@
 
             for (var i=0; i<$A01arr.length; i++) {
                 if ($($Chkarr[i]).is(":checked") == true) {
+                	var ppsId = $($Chkarr[i]).attr("data-id");
                     var soppData = {};
                     soppData.compNo = ${sessionScope.compNo};
                     soppData.userNo = $("#assignUser").val();
@@ -381,75 +366,43 @@
                     soppData.soppDesc = "(조달 계약 번호) : "+ $A04arr[i].innerText;
                     soppData.soppTargetAmt = Number($A10arr[i].innerText.replace(/[\D\s\._\-]+/g, ""));
                     soppData.soppTargetDate = $A11arr[i].innerText;
-                    soppData.soppType = '10174';
+                    soppData.soppType = '10173';
                     soppData.soppStatus = '10178';
                     soppData.soppSrate = '100';
                     soppData.businessType = '조달발주';
+                    soppData.cntrctMth = '10247';
+                    soppData.custNo = '103700';
                     console.log(soppData);
+                    
                     $.ajax({
-                        url : "${path}/sopp/insert.do",
+                        url : "${path}/sopp/assignPps.do",
                         data : soppData,
                         method : "POST",
-                        dataType: "json"
-                    })
-                        .done(function(){
-                            alert("할당 처리 완료");
-                        });
+                        async: false,
+                        dataType: "json",
+                        success:function(data){
+                       		var getNo = data.getNo;
+		                    var updateData = {};
+                       		updateData.ppsId = ppsId;
+                       		updateData.soppNo = getNo;
+                       		
+                       		$.ajax({
+                       			url: "${path}/pps/assignUpdate.do",
+                       			method: "post",
+                       			data: updateData,
+                       			async: false,
+                       			dataType: "json",
+                       		});
+                        }
+                    });
                 }
-
             }
+            
+            setTimeout(() => {
+	            alert("할당 완료");
+	            location.reload();
+			}, 500);
         }
-
-        function fnAssignPpss(){
-            $Chkarr = $(".Chkpps");
-            $A01arr = $(".PpsItem01");
-            $A02arr = $(".PpsItem02");
-            $A03arr = $(".PpsItem03");
-            $A04arr = $(".PpsItem04");
-            $A05arr = $(".PpsItem05");
-            $A06arr = $(".PpsItem06");
-            $A07arr = $(".PpsItem07");
-            $A08arr = $(".PpsItem08");
-            $A09arr = $(".PpsItem09");
-            $A10arr = $(".PpsItem10");
-            $A11arr = $(".PpsItem11");
-            $A12arr = $(".PpsItem12");
-
-                    var soppData = {};
-                    soppData.compNo = ${sessionScope.compNo};
-                    soppData.userNo = $("#assignUser").val();
-                    soppData.buyrNo = '103700';
-                    soppData.soppTitle = "(조달할당) 일괄계약 ";
-                    for (var i=0; i<$A01arr.length; i++) {
-                        if ($($Chkarr[i]).is(":checked") == true) {
-                            soppData.soppDesc = "(조달 계약 번호) : " + $A04arr[i].innerText;
-                        }}
-                    for (var i=0; i<$A01arr.length; i++) {
-                        if ($($Chkarr[i]).is(":checked") == true) {
-                    soppData.soppTargetAmt = Number($A10arr[i].innerText.replace(/[\D\s\._\-]+/g, ""));
-                        }}
-                    soppData.soppTargetDate = $A11arr[i].innerText;
-                    soppData.soppType = '10174';
-                    soppData.soppStatus = '10178';
-                    soppData.soppSrate = '100';
-                    soppData.businessType = '조달발주';
-                    console.log(soppData);
-                    $.ajax({
-                        url : "${path}/sopp/insert.do",
-                        data : soppData,
-                        method : "POST",
-                        dataType: "json"
-                    })
-                        .done(function(){
-                            for (var i=0; i<$A01arr.length; i++) {
-                                if ($($Chkarr[i]).is(":checked") == true) {
-                                    //계약번호 업데이트 해야함.
-                                }
-                                }
-                            alert("할당 처리 완료");
-                        });
-        }
-
     </script>
 </div>
 <jsp:include page="../body-bottom.jsp"/>

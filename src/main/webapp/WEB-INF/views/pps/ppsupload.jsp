@@ -277,7 +277,7 @@
                                 }else{
                                     table_output += '<td class="ppslst'+cell+'">' + sheet_data[row][cell] + '</td>';
                                 }
-                                }
+                            }
     					}
     					table_output += '</tr>';
     				}

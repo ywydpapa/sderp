@@ -61,5 +61,18 @@ public class PpsController {
         }
         return ResponseEntity.ok(param);
     }
-
+    
+    @RequestMapping("assignUpdate.do")
+    public ResponseEntity<Object> assignUpdate(HttpSession session, @ModelAttribute PpsDTO dto){
+        Map<String,Object> param = new HashMap<>();
+        int ppsIns = ppsService.assignUpdate(dto);
+        if(ppsIns > 0){
+            param.put("code","10001");
+        }
+        else {
+            param.put("code", "20001");
+        }
+        return ResponseEntity.ok(param);
+    }
+    
 }

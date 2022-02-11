@@ -262,7 +262,7 @@
     			if(sheet_data.length > 0){
     				var table_output = '<table id="bacTable" class="table table-striped table-bordered" style="text-align:center;">';
     				
-    				for(var row = 0; row < sheet_data.length; row++){
+    				for(var row = 0; row < sheet_data.length-1; row++){
     					if(row < 5){
     						table_output += "<tr id='trHide'>";
     					}else if(row == 5){
@@ -355,26 +355,28 @@
         	}
         	
             var chk = $(".bacchecked");
-        	var bacData = {};
-        	bacData.bacSerial = localStorage.getItem("bacSerial");
         	
-            $.ajax({
-                url : "${path}/acc/baccheck.do",
-                data : bacData,
-                method : "POST",
-                dataType : "json",
-                success:function(data){
-               	 	chk.each(function(index, item){
-	                	if(data.resultCount > 0){
-	                		$(item).attr("checked", false);
-	                	}else{
-	                		$(item).attr("checked", true);
-	                	}
-                    });
-               	 	
-                    $("#regBBtn").removeAttr("disabled");
-                    $("#regSBtn").removeAttr("disabled");
-                }
+        	chk.each(function(index, item){
+	        	var bacData = {};
+	        	bacData.bacSerial = localStorage.getItem("bacSerial");
+	        	bacData.baclogTime = $(item).parent().next().next().next().html();
+                
+                $.ajax({
+                    url : "${path}/acc/baccheck.do",
+                    data : bacData,
+                    method : "POST",
+                    dataType : "json",
+                    success:function(data){
+                    	if(data.resultCount > 0){
+                    		$(item).attr("checked", false);
+                    	}else{
+                    		$(item).attr("checked", true);
+                    	}
+                   	 	
+                        $("#regBBtn").removeAttr("disabled");
+                        $("#regSBtn").removeAttr("disabled");
+                    }
+                });
             });
         }
 
@@ -399,7 +401,7 @@
                     bacData.bacDesc = $Harr[i].innerText;
                     bacData.inAmt = Number($Aarr[i].innerText);
                     bacData.outAmt = Number($Barr[i].innerText);
-                    bacData.baclogTime = $Carr[i].innerText;
+                    bacData.baclogTime = $Carr[i+2].innerText;
                     bacData.logType = $Darr[i].innerText;
                     bacData.logRemark = $Earr[i].innerText;
                     bacData.balanceAmt = Number($Farr[i].innerText);

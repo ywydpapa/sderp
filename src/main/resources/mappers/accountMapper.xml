@@ -13,7 +13,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 </select>
 	<select id="bacSelectList" resultType="accountDto">
-		select * from swc_bacledger where bacSerial = #{bacSerial};
+		select * from swc_bacledger where bacSerial = #{bacSerial} order by baclogTime desc;
 	</select>
 	
 	<select id="detailVat" resultType="accountDto">
@@ -37,7 +37,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<select id="checkBac" resultType="accountDto">
-		select count(*) as resultCount from swc_bac where bacSerial = #{bacSerial}
+		select count(*) as resultCount from swc_bacledger where bacSerial = #{bacSerial} and baclogTime = #{baclogTime}
 	</select>
 
 	<select id="baclist" resultType="accountDto">

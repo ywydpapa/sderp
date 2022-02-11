@@ -268,10 +268,9 @@
     <script>
 	    <!--//리스트 table-->
 		<!-- hide and show -->
-		$(document).ready(function() { $("#baclist").select2(); });
-		
 		$(document).ready(function(){
 			var bacTable = $("#bacTable tbody");
+			$("#baclist").select2(); 
 			
 			$("#baclist").change(function(){
 				$.ajax({
@@ -281,18 +280,23 @@
 					success:function(data){
 						if(data.length > 0){
 							for(var i = 0; i < data.length; i++){
-								bacTable.append("<tr>");
-								bacTable.append("<td style='text-align:center;'>" + data[i].baclogTime + "</td>");
-								bacTable.append("<td style='text-align:center;'>" + data[i].bacDesc + "</td>");
-								bacTable.append("<td style='text-align:right;'>" + parseInt(data[i].inAmt).toLocaleString("en-US") + "</td>");
-								bacTable.append("<td style='text-align:right;'>" + parseInt(data[i].outAmt).toLocaleString("en-US") + "</td>");
-								bacTable.append("<td style='text-align:right;'>" + parseInt(data[i].balanceAmt).toLocaleString("en-US") + "</td>");
-								bacTable.append("<td style='text-align:center;'>" + data[i].branchCode + "</td>");
-								bacTable.append("<td style='text-align:center;'>" + data[i].logRemark + "</td>");
-								bacTable.append("</tr>");
+								bacTable.append("<tr></tr>");
+								bacTable.find("tr").eq(i).append("<td style='text-align:center;'>" + data[i].baclogTime + "</td>");
+								bacTable.find("tr").eq(i).append("<td style='text-align:center;'>" + data[i].bacDesc + "</td>");
+								bacTable.find("tr").eq(i).append("<td style='text-align:right;'>" + parseInt(data[i].inAmt).toLocaleString("en-US") + "</td>");
+								bacTable.find("tr").eq(i).append("<td style='text-align:right;'>" + parseInt(data[i].outAmt).toLocaleString("en-US") + "</td>");
+								bacTable.find("tr").eq(i).append("<td style='text-align:right;'>" + parseInt(data[i].balanceAmt).toLocaleString("en-US") + "</td>");
+								bacTable.find("tr").eq(i).append("<td style='text-align:center;'>" + data[i].branchCode + "</td>");
+								bacTable.find("tr").eq(i).append("<td style='text-align:center;'>" + data[i].logRemark + "</td>");
 							}
+							
+							$("#bacTable").DataTable({
+								info:false,
+				                destroy: true,
+				                order: [[ 0, "desc" ]],
+							});
 						}else{
-							bacTable.html("");
+							bacTable.empty();
 						}
 					}
 				});

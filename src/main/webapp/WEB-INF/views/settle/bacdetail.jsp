@@ -17,7 +17,8 @@
 <html>
 <jsp:include page="../head.jsp"/>
 <jsp:include page="../body-top3.jsp"/>
-
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <div id="main_content">
 	
     <c:if test="${preserveSearchCondition != 'Y'}">
@@ -198,17 +199,23 @@
         </div>
         <!--//영업활동조회-->
     </c:if>
-<div class="row">
-    <div class="col-sm-12">
-        <select class="form-control-sm" id="baclist">
+	<div class="row" style="margin-bottom: 10px;">
+		<div class="col-sm-12">
+			<!--<select class="form-control-sm" id="baclist">
             <option value="">선택</option>
             <c:forEach var="row" items="${bacList}">
 	            <option value="${row.bacSerial}">${row.bacNo}</option>
             </c:forEach>
-        </select>
-    </div>
-</div>
-    <!--리스트 table-->
+        </select>-->
+			<select class="form-control-sm" id="baclist">
+				<option value="">선택</option>
+				<c:forEach var="row" items="${bacList}">
+					<option value="${row.bacSerial}">${row.bacNo}</option>
+				</c:forEach>
+			</select>
+		</div>
+	</div>
+	<!--리스트 table-->
     <div class="cnt_wr" id="list-container">
         <div class="row">
             <div class="col-sm-12">
@@ -374,7 +381,19 @@
             }
 
         }
-
+    </script>
+    <script>
+    $(document).ready(function() { $("#baclist").select2(); });
     </script>
 </div>
 <jsp:include page="../body-bottom.jsp"/>
+<style>
+		.select2-container {
+			width: 13%!important;
+		}
+		.select2-container--default .select2-selection--single .select2-selection__rendered {
+			background-color: white;
+			line-height: 10px!important;
+		}
+		
+	</style>

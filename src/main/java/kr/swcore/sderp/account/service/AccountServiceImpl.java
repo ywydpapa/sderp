@@ -109,4 +109,9 @@ public class AccountServiceImpl implements AccountService {
 	public int lastUpdate(AccountDTO dto) {
 		return accountDAO.lastUpdate(dto);
 	}
+
+	@Override
+	public int bacSerialUpdate(AccountDTO dto) {
+		return accountDAO.bacSerialUpdate(dto);
+	}
 }

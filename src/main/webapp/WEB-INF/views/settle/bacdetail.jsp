@@ -233,7 +233,8 @@
                                 <col width="10%"/>
                                 <col width="10%"/>
                                 <col width="5%"/>
-                                <col width="20%"/>
+                                <col width="10%"/>
+                                <col width="10%"/>
                                 <col width="15%"/>
                             </colgroup>
                             <thead>
@@ -245,6 +246,7 @@
                                 <th class="text-center">잔액</th>
                                 <th class="text-center">거래점</th>
                                 <th class="text-center">메모</th>
+                                <th class="text-center">승인번호</th>
                                 <th class="text-center">연결</th>
                             </tr>
                             </thead>
@@ -262,6 +264,40 @@
 	                            </c:forEach> --%>
                           	</tbody>
                         </table>
+                        <div class="modal fade " id="bacVatSModal" tabindex="-1" role="dialog">
+                            <div class="modal-dialog modal-80size" role="document">
+                                <div class="modal-content modal-80size">
+                                    <div class="modal-header">
+                                        <h4 class="modal-title">매입/매출 거래처 선택</h4>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal fade " id="bacVatBModal" tabindex="-1" role="dialog">
+                            <div class="modal-dialog modal-80size" role="document">
+                                <div class="modal-content modal-80size">
+                                    <div class="modal-header">
+                                        <h4 class="modal-title">매입/매출 거래처 선택</h4>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -290,8 +326,15 @@
 								bacTable.find("tr").eq(i).append("<td style='text-align:right;'>" + parseInt(data[i].balanceAmt).toLocaleString("en-US") + "</td>");
 								bacTable.find("tr").eq(i).append("<td style='text-align:center;'>" + data[i].branchCode + "</td>");
 								bacTable.find("tr").eq(i).append("<td style='text-align:center;'>" + data[i].logRemark + "</td>");
-                                bacTable.find("tr").eq(i).append("<td style='text-align:center;'>" + data[i].baclogId + "</td>");
+								bacTable.find("tr").eq(i).append("<td style='text-align:center;'>" + data[i].linkDoc + "</td>");
+								
+								if(parseInt(data[i].inAmt) > parseInt(data[i].outAmt)){
+	                                bacTable.find("tr").eq(i).append("<td style='text-align:center;'><button class='btn btn-primary sch-company' data-remote='${path}/modal/popup.do?popId=bacVatS' type='button' id='bacVatSBtn' data-toggle='modal' data-target='#bacVatSModal' data-id='"+data[i].baclogId+"'>" + data[i].baclogId + "</button></td>");
+								}else{
+									bacTable.find("tr").eq(i).append("<td style='text-align:center;'><button class='btn btn-primary sch-company' data-remote='${path}/modal/popup.do?popId=bacVatB' type='button' id='bacVatBBtn' data-toggle='modal' data-target='#bacVatBModal' data-id='"+data[i].baclogId+"'>" + data[i].baclogId + "</button></td>");
+								}
 							}
+							
 							$("#bacTable").DataTable({
 								info:false,
 				                destroy: true,
@@ -345,7 +388,34 @@
             var modal = $(this);
             modal.find('.modal-body').load(button.data("remote"));
         });
-
+		
+        $('#bacVatBModal').on('show.bs.modal', function(e) {
+			var button = $(e.relatedTarget);
+			localStorage.setItem("thisId", button.attr("data-id"));
+			var modal = $(this);
+			modal.find('.modal-body').load(button.data("remote"));
+		});
+		
+		$('#bacVatSModal').on('show.bs.modal', function(e) {
+			var button = $(e.relatedTarget);
+			localStorage.setItem("thisId", button.attr("data-id"));
+			var modal = $(this);
+			modal.find('.modal-body').load(button.data("remote"));
+		});
+		
+		$('#bacVatBModal').on('hidden.bs.modal', function(e) {
+			localStorage.setItem("thisId", $(e).attr("data-id"));
+			var button = $(e.relatedTarget);
+			var modal = $(this);
+			modal.find('.modal-body').html("");
+		});
+		
+		$('#bacVatSModal').on('hidden.bs.modal', function(e) {
+			var button = $(e.relatedTarget);
+			var modal = $(this);
+			modal.find('.modal-body').html("");
+		});
+        
         function fnSetCustData(a, b) {
             $("#custNo").val(b);
             $("#custName").val(a);

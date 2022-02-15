@@ -187,4 +187,17 @@ public class AccountController {
         return ResponseEntity.ok(param);
     }
     
+    @RequestMapping("bacSerialUpdate.do")
+    public ResponseEntity<Object> bacSerialUpdate(HttpSession session, @ModelAttribute AccountDTO dto){
+        Map<String,Object> param = new HashMap<>();
+        int bacIns = accountService.bacSerialUpdate(dto);
+        if(bacIns > 0){
+            param.put("code","10001");
+        }
+        else {
+            param.put("code", "20001");
+        }
+        return ResponseEntity.ok(param);
+    }
+    
 }

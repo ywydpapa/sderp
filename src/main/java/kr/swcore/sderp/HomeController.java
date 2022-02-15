@@ -214,6 +214,18 @@ public class HomeController {
 			model.addAttribute("list",list);
 			rtn = "modal/ptncList";
 		}
+		
+		else if("bacVatB".equals(popId)) {
+			List<AccountDTO> list=accountService.modalVatB(session);
+			model.addAttribute("list",list);
+			rtn = "modal/bacVatListB";
+		}
+
+		else if("bacVatS".equals(popId)) {
+			List<AccountDTO> list=accountService.modalVatS(session);
+			model.addAttribute("list",list);
+			rtn = "modal/bacVatListS";
+		}
 
 		else if("supply".equals(popId)) {
 //			List<CustDTO> list=custService.listSupply(session);

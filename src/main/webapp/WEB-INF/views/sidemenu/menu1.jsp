@@ -286,6 +286,24 @@
 						<span class="pcoded-mcaret"></span>
 					</a>
 				</li>
+				<li class="pcoded-hasmenu">
+					<a href="${path}/techd/contlist.do">
+						<span class="pcoded-micon">
+							<i class="ti-angle-right"></i>
+						</span>
+						<span class="pcoded-mtext" data-i18n="nav.menu-levels.menu-level-22">유지보수 계약 관리</span>
+						<span class="pcoded-mcaret"></span>
+					</a>
+				</li>
+				<li class="pcoded-hasmenu">
+					<a href="${path}/techd/bbuycontlist.do">
+						<span class="pcoded-micon">
+							<i class="ti-angle-right"></i>
+						</span>
+						<span class="pcoded-mtext" data-i18n="nav.menu-levels.menu-level-22">유지보수 매입 관리</span>
+						<span class="pcoded-mcaret"></span>
+					</a>
+				</li>
 			</ul>
 		</li>
 		

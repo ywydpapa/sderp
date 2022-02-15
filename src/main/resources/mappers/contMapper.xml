@@ -19,6 +19,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		</if>
  </select>
 
+	<select id="listcont3m" resultType="contDto">
+		select a.*, b.userName , c.custName, d.desc03 contTypeN, g.desc03 cntrctMthN
+		from swc_cont a
+				 left join swc_user b on a.userNo = b.userNo
+				 left join swc_cust c on a.custNo = c.custNo
+				 left join swc_code d on a.contType = d.codeNo
+				 left join swc_code g on a.cntrctMth = g.codeNo
+		where a.paymaintEdate BETWEEN NOW() and DATE_ADD(NOW(), INTERVAL +3 MONTH );
+	</select>
+
+
 	<select id="listContbycust"
 			resultType="contDto">
 		select a.*, b.userName , c.custName, d.desc03 contTypeN, g.desc03 cntrctMthN

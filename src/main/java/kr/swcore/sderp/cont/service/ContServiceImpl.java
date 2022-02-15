@@ -36,6 +36,11 @@ public class ContServiceImpl implements ContService {
 	}
 
 	@Override
+	public List<ContDTO> listCont3m() {
+		return contDao.listCont3m();
+	}
+
+	@Override
 	public List<ContDTO> listContbycust(int custNo) {
 		return contDao.listContbycust(custNo);
 	}

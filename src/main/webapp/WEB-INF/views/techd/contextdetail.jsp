@@ -28,7 +28,7 @@
 			<div class="col-lg-12">
 				<div class="page-header-title">
 					<div class="d-inline">
-						계약 조회
+						연장 대상 유지보수 계약 조회
 					</div>
 				</div>
 			</div>
@@ -416,7 +416,7 @@
 							</div>
 						</div>
 						<div class="btn_wr text-right mt-3" id="tab01_bottom">
-							<button class="btn btn-md btn-success f-left" onClick="javascript:location='${path}/cont/list.do'">계약목록</button>
+							<button class="btn btn-md btn-success f-left" onClick="javascript:location='${path}/techd/contlist.do'">갱신대상 계약목록</button>
 							<c:if test="${contDto.userNo eq sessionScope.userNo || sessionScope.userRole eq 'ADMIN'}">
 								<button class="btn btn-md btn-danger" onClick="fn_ExtendCont()">유지보수 계약연장</button>
 								<button class="btn btn-md btn-danger" onClick="fn_DeleteCont()">삭제</button>
@@ -522,7 +522,7 @@
 					</div>
 				</div>
 				<div class="btn_wr text-right mt-3" id="tab_common_bottom">
-					<button class="btn btn-md btn-success f-left" onClick="javascript:location='${path}/cont/list.do'">계약목록</button>
+					<button class="btn btn-md btn-success f-left" onClick="javascript:location='${path}/techd/contlist.do'">유지보수 갱신대상 계약목록</button>
 				</div>
 	<!--//계약등록-->
 

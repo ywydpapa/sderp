@@ -329,9 +329,9 @@
 								bacTable.find("tr").eq(i).append("<td style='text-align:center;'>" + data[i].linkDoc + "</td>");
 								
 								if(parseInt(data[i].inAmt) > parseInt(data[i].outAmt)){
-	                                bacTable.find("tr").eq(i).append("<td style='text-align:center;'><button class='btn btn-primary sch-company' data-remote='${path}/modal/popup.do?popId=bacVatS' type='button' id='bacVatSBtn' data-toggle='modal' data-target='#bacVatSModal' data-id='"+data[i].baclogId+"'>" + data[i].baclogId + "</button></td>");
+	                                bacTable.find("tr").eq(i).append("<td style='text-align:center;'><button class='btn btn-primary sch-company' data-remote='${path}/modal/popup.do?popId=bacVatS' type='button' id='bacVatSBtn' data-toggle='modal' data-target='#bacVatSModal' data-id='"+data[i].baclogId+"'>연결</button></td>");
 								}else{
-									bacTable.find("tr").eq(i).append("<td style='text-align:center;'><button class='btn btn-primary sch-company' data-remote='${path}/modal/popup.do?popId=bacVatB' type='button' id='bacVatBBtn' data-toggle='modal' data-target='#bacVatBModal' data-id='"+data[i].baclogId+"'>" + data[i].baclogId + "</button></td>");
+									bacTable.find("tr").eq(i).append("<td style='text-align:center;'><button class='btn btn-primary sch-company' data-remote='${path}/modal/popup.do?popId=bacVatB' type='button' id='bacVatBBtn' data-toggle='modal' data-target='#bacVatBModal' data-id='"+data[i].baclogId+"'>연결</button></td>");
 								}
 							}
 							

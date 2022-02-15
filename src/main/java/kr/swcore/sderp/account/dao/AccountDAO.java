@@ -23,4 +23,5 @@ public interface AccountDAO {
 	AccountDTO checkBac(AccountDTO dto);
 	List<AccountDTO> bacSelectList(String bacSerial);
 	int lastUpdate(AccountDTO dto);
+	int bacSerialUpdate(AccountDTO dto);
 }

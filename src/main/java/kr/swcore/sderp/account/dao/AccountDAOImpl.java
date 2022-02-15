@@ -104,4 +104,9 @@ public class AccountDAOImpl implements AccountDAO {
 	public int lastUpdate(AccountDTO dto) {
 		return sqlSession.update("account.lastUpdate", dto);
 	}
+
+	@Override
+	public int bacSerialUpdate(AccountDTO dto) {
+		return sqlSession.update("account.bacSerialUpdate", dto);
+	}
 }

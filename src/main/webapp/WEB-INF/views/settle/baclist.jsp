@@ -226,7 +226,7 @@
                             </thead>
                             <c:forEach items="${vatList}" var="vlist">
                                 <tr>
-                                    <td class="text-center">${vlist.bankCode}</td>
+                                    <td class="text-center">${vlist.bankCodeN}</td>
                                     <td class="text-center">${vlist.bacNo}</td>
                                     <td class="text-right">${vlist.lastUpdTime}</td>
                                     <td class="text-right"><fmt:formatNumber type="number" maxFractionDigits="3" value="${vlist.balanceAmt}" /></td>

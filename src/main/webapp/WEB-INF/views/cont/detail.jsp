@@ -49,6 +49,7 @@
 					<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#tab04" role="tab">파일첨부(${fn:length(contFiles)})</a></li>
 					<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#tab05" role="tab">기술지원 내역(${fn:length(techdinsopp)})</a></li>
 					<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#tab06" role="tab">영업활동 내역(${fn:length(salesinsopp)})</a></li>
+					<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#tab07" role="tab">계산서 발행일정</a></li>
 				</ul>
 				<!-- Tab panes -->
 				<div class="tab-content tabs m-t-20">
@@ -385,6 +386,33 @@
 												</tr>
 												
 												<tr>
+													<th>계산서 발행방법</th>
+													<td>
+														<select id="vatIstype" class="form-control">
+															<option value="OT">전체금액 한번</option>
+															<option value="EM">1/12 매월 발행</option>
+															<option value="QY">1/4 분기 발행</option>
+															<option value="HY">1/2 반기 발행</option>
+															<option value="RQ">요청 발행</option>
+														</select>
+													</td>
+													<th>발행일자</th>
+													<td>
+														<select id="vatIsday" class="form-control">
+															<option value="day01">1일</option>
+															<option value="day10">10일</option>
+															<option value="day15">15일</option>
+															<option value="day20">20일</option>
+															<option value="day25">25일</option>
+															<option value="day31">말일</option>
+														</select>
+													</td>
+													<th>계산서 발행일정</th>
+													<td>
+														<select id="vatsched" class="form-control">
+															<option value="">연-월-일 금액</option>
+														</select>
+													</td>
 													<th>지역</th>
 													<td>
 														<select name="select" id="contArea" class="form-control form-control-sm">
@@ -394,14 +422,6 @@
 															</c:forEach>
 														</select>
 													</td>
-													<!-- 빈박스 -->
-													<th></th>
-													<td></td>
-													<th></th>
-													<td></td>
-													<th></th>
-													<td></td>
-													<!-- 빈박스 -->
 												</tr>
 												<tr>
 													<th scope="row">내용</th>
@@ -501,6 +521,46 @@
 											<th class="text-center">담당자</th>
 											<th class="text-center">장소</th>
 											<th class="text-center">비용</th>
+										</tr>
+										</thead>
+										<tbody>
+										<c:forEach var="row2" items="${salesinsopp}">
+											<tr class="item1">
+												<td>${row2.salesFrdatetime}</td>
+												<td>${row2.salesTypeN}</td>
+												<td>${row2.salesDesc}</td>
+												<td>${row2.userName}</td>
+												<td>${row2.salesPlace}</td>
+												<td>경비관련 연결예정</td>
+											</tr>
+										</c:forEach>
+										</tbody>
+									</table>
+								</form>
+							</div>
+						</div>
+					</div>
+					<div class="tab-pane " id="tab07" role="tabpanel">
+						<div class="card-block table-border-style">
+							<div class="table-responsive" style="overflow-x: hidden;">
+								<form name="form2" method="post" onsubmit="return false;">
+									<table class="table table-sm bst02" id="vatIssuelist">
+										<colgroup>
+											<col width="10%" />
+											<col width="30%" />
+											<col width="20%" />
+											<col width="10%" />
+											<col width="10%" />
+											<col width="20%" />
+										</colgroup>
+										<thead>
+										<tr>
+											<th class="text-center">예정일자</th>
+											<th class="text-center">계약명</th>
+											<th class="text-center">공급가</th>
+											<th class="text-center">세액</th>
+											<th class="text-center">합계금액</th>
+											<th class="text-center">발행일자</th>
 										</tr>
 										</thead>
 										<tbody>

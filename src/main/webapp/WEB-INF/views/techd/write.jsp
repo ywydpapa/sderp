@@ -102,9 +102,8 @@
 											<input type="text" class="form-control" name="contTitle"
 												   id="contTitle" value="${dto.contTitle}" readonly /> 
 												   <input type="hidden" id="contSoppNo" />
-												   <input type="hidden"
-																											  name="contNo" id="contNo" value="" /> <span
-												class="input-group-btn">
+												   <input type="hidden" name="contNo" id="contNo" value="" /> 
+												   <span class="input-group-btn">
 												<button class="btn btn-primary sch-opportunity2"
 														data-remote="${path}/modal/popup.do?popId=cont"
 														type="button" data-toggle="modal" data-target="#contModal">

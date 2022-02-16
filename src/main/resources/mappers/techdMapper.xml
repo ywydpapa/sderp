@@ -206,7 +206,7 @@ from
 
 <select id="detailTechd"
  		resultType="techdDto">
- 		select a.*, b.userName , c.custName, d.soppTitle, e.contTitle, f.custMname custmemberName, g.desc03 cntrctMthN, h.custName as endCustName,
+	select a.*, b.userName , c.custName as endCustName, d.soppTitle, e.contTitle, f.custMname custmemberName, g.desc03 cntrctMthN, h.custName,
  		       CONCAT(left(a.techdFrom,10),'T',substring(a.techdFrom,12,9)) targetDatefrom,
  		       CONCAT(left(a.techdTo,10),'T',substring(a.techdTo,12,9)) targetDateto
  		from swc_techd a  
@@ -248,9 +248,9 @@ from
  values 
  (
 	#{compNo},
-	#{custNo},
-	#{custmemberNo},
 	#{endCustNo},
+	#{custmemberNo},
+	#{compNo},
 	#{cntrctMth},
 	#{techdTitle},
 	#{techdDesc},

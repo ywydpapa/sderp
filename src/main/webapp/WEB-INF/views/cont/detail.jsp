@@ -399,12 +399,12 @@
 													<th>발행일자</th>
 													<td>
 														<select id="vatIsday" class="form-control">
-															<option value="day01">1일</option>
-															<option value="day10">10일</option>
-															<option value="day15">15일</option>
-															<option value="day20">20일</option>
-															<option value="day25">25일</option>
-															<option value="day31">말일</option>
+															<option value="01">1일</option>
+															<option value="10">10일</option>
+															<option value="15">15일</option>
+															<option value="20">20일</option>
+															<option value="25">25일</option>
+															<option value="31">말일</option>
 														</select>
 													</td>
 													<th>계산서 발행일정</th>
@@ -1118,7 +1118,45 @@
 					return (input === 0) ? "0" : input.toLocaleString("en-US");
 				});
 			});
-
+			
+			
+			$("#vatIstype, #vatIsday").change(function(){
+				var contAmt = $("#contAmt").val().replace(/[\D\s\._\-]+/g, "");
+				var vatIsday = $("#vatIsday").val();
+				$("#vatsched").html("");
+				
+				if($("#vatIstype").val() === "EM"){
+					var avg = parseInt(contAmt/12);
+					$("#vatsched").append("<option value=''>연-월-일 금액</option>");
+			
+					for(var i = 1; i <= 12; i++){
+						if(i < 10){
+							if(i == 2 && vatIsday === "31"){
+								$("#vatsched").append("<option value='"+i+"'>2022-0" + i + "-28 " + avg.toLocaleString("en-US") + "</option>");
+							}else{
+								$("#vatsched").append("<option value='"+i+"'>2022-0" + i + "-" + vatIsday + " " + avg.toLocaleString("en-US") + "</option>");
+							}
+						}else{
+							$("#vatsched").append("<option value='"+i+"'>2022-" + i + "-" + vatIsday + " " + avg.toLocaleString("en-US") + "</option>");
+						}
+					}
+				}else if($("#vatIstype").val() === "QY"){
+					var avg = parseInt(contAmt/4);
+					$("#vatsched").append("<option value=''>연-월-일 금액</option>");
+					$("#vatsched").append("<option value='03'>2022-03-" + vatIsday + " " + avg.toLocaleString("en-US") + "</option>");
+					$("#vatsched").append("<option value='06'>2022-06-" + vatIsday + " " + avg.toLocaleString("en-US") + "</option>");
+					$("#vatsched").append("<option value='09'>2022-09-" + vatIsday + " " + avg.toLocaleString("en-US") + "</option>");
+					$("#vatsched").append("<option value='12'>2022-12-" + vatIsday + " " + avg.toLocaleString("en-US") + "</option>");
+				}else if($("#vatIstype").val() === "HY"){
+					var avg = parseInt(contAmt/2);
+					$("#vatsched").append("<option value=''>연-월-일 금액</option>");
+					$("#vatsched").append("<option value='06'>2022-06-" + vatIsday + " " + avg.toLocaleString("en-US") + "</option>");
+					$("#vatsched").append("<option value='12'>2022-12-" + vatIsday + " " + avg.toLocaleString("en-US") + "</option>");
+				}else{
+					$("#vatsched").append("<option value=''>연-월-일 금액</option>");
+				}
+			});
+			
 			$("#tab_common_bottom").hide();
 			
 			var lastTab = localStorage.getItem('lastTab');

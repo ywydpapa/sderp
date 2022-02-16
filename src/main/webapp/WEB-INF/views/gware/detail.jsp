@@ -68,7 +68,7 @@
                                 <td colspan="5" class="text-right" style="border-left: 0;">
                                     <c:if test="${detailListApp.appStatus eq '5'}">
                                         <c:if test="${detailList.docType eq 'PUR'}">
-                                        	<a href="${path}/gw/ordForm/${detailList.docNo}" class="btn btn-success" id="btnPdf" onClick="javascript:popupPdf(); return false;">발주서 출력</a>
+                                        	<a href="${path}/gw/ordForm/${detailList.docNo}" class="btn btn-success" id="btnPdf" onClick="javascript:popupPdf(this); return false;">발주서 출력</a>
                                         </c:if>
                                         <c:if test="${detailList.docType eq 'DIP'}">
                                             <button class="btn btn-success" onclick="javascript:popupPdf();">공문서 출력</button>

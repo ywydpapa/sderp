@@ -139,7 +139,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	       e.desc03 as cntrctMthN,
 	       (select custName from swc_cust where custNo = a.custNo) custName,
 		   (select q.custMname from swc_custData03 q where q.custData03no = a.custMemberNo) custMemberName,
-	       (select custName from swc_cust where custNo = a.buyrNo) buyrName,
+	       (select custName from swc_cust where custNo = c.buyrNo) buyrName,
 	       (select q.custMname from swc_custData03 q where q.custData03no = a.buyrMemberNo) buyrMemberName,
 		   (select custName from swc_cust where custNo = a.ptncNo) ptncName,
 		   (select custName from swc_cust where custNo = a.supplyNo) supplyName,

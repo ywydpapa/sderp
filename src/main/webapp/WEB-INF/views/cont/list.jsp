@@ -195,14 +195,14 @@
 			<div class="col-sm-12">
 				<div class="card-block table-border-style">
 					<div class="table-responsive">
-						<table class="table table-striped table-bordered nowrap" style="margin-bottom: 20px;">
+						<%-- <table class="table table-striped table-bordered nowrap" style="margin-bottom: 20px;">
 								<tr>
 									<th style="text-align:center;">총 계약금액</th>
 									<td style="text-align:center;"><fmt:formatNumber type="number" maxFractionDigits="3" value="${listSum.sumAmt}" /></td>
 									<th style="text-align:center;">총 매출이익</th>
 									<td style="text-align:center;"><fmt:formatNumber type="number" maxFractionDigits="3" value="${listSum.sumProfit}" /></td>
 								</tr>
-						</table>
+						</table> --%>
 						<table id="contTable" class="table table-striped table-bordered nowrap ">
 							<colgroup>
 								<col width="1%"/>

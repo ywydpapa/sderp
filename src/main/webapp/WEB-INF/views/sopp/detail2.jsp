@@ -632,14 +632,15 @@
 			.done(function(data) {
 				if(data.code == 10001){
 					alert("승인되었습니다.");
-					var msg = "자동 계약서 생성을 진행할까요?";
+					/* var msg = "자동 계약서 생성을 진행할까요?";
 					if (confirm(msg)){
 						autocontCr();
 						alert("자동으로 계약이 생성되었습니다. ");
 					}else{
 						alert("계약등록을 별도로 진행해야 합니다. ");
-					}
-						location.href="${path}/sopp/list2.do";
+					} */
+					autocontCr();
+					location.href="${path}/sopp/list2.do";
 				}else{
 					alert("승인 실패");
 				}

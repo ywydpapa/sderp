@@ -1130,28 +1130,55 @@
 					$("#vatsched").append("<option value=''>연-월-일 금액</option>");
 			
 					for(var i = 1; i <= 12; i++){
-						if(i < 10){
-							if(i == 2 && vatIsday === "31"){
-								$("#vatsched").append("<option value='"+i+"'>2022-0" + i + "-28 " + avg.toLocaleString("en-US") + "</option>");
+						if(vatIsday === "31"){
+							if(i < 10){
+								if(i == 2){
+									$("#vatsched").append("<option value='"+i+"'>2022-0" + i + "-28 " + avg.toLocaleString("en-US") + "</option>");
+								}else if(i == 4 || i == 6 || i == 9){
+									$("#vatsched").append("<option value='"+i+"'>2022-0" + i + "-30 " + avg.toLocaleString("en-US") + "</option>");
+								}else{
+									$("#vatsched").append("<option value='"+i+"'>2022-0" + i + "-" + vatIsday + " " + avg.toLocaleString("en-US") + "</option>");
+								}
 							}else{
-								$("#vatsched").append("<option value='"+i+"'>2022-0" + i + "-" + vatIsday + " " + avg.toLocaleString("en-US") + "</option>");
+								if(i == 11){
+									$("#vatsched").append("<option value='"+i+"'>2022-" + i + "-30 " + avg.toLocaleString("en-US") + "</option>");
+								}else{
+									$("#vatsched").append("<option value='"+i+"'>2022-" + i + "-" + vatIsday + " " + avg.toLocaleString("en-US") + "</option>");
+								}
 							}
 						}else{
-							$("#vatsched").append("<option value='"+i+"'>2022-" + i + "-" + vatIsday + " " + avg.toLocaleString("en-US") + "</option>");
+							if(i < 10){
+								$("#vatsched").append("<option value='"+i+"'>2022-0" + i + "-" + vatIsday + " " + avg.toLocaleString("en-US") + "</option>");
+							}else{
+								$("#vatsched").append("<option value='"+i+"'>2022-" + i + "-" + vatIsday + " " + avg.toLocaleString("en-US") + "</option>");
+							}
 						}
 					}
 				}else if($("#vatIstype").val() === "QY"){
 					var avg = parseInt(contAmt/4);
 					$("#vatsched").append("<option value=''>연-월-일 금액</option>");
-					$("#vatsched").append("<option value='03'>2022-03-" + vatIsday + " " + avg.toLocaleString("en-US") + "</option>");
-					$("#vatsched").append("<option value='06'>2022-06-" + vatIsday + " " + avg.toLocaleString("en-US") + "</option>");
-					$("#vatsched").append("<option value='09'>2022-09-" + vatIsday + " " + avg.toLocaleString("en-US") + "</option>");
-					$("#vatsched").append("<option value='12'>2022-12-" + vatIsday + " " + avg.toLocaleString("en-US") + "</option>");
+					if(vatIsday === "31"){
+						$("#vatsched").append("<option value='03'>2022-03-31 " + avg.toLocaleString("en-US") + "</option>");
+						$("#vatsched").append("<option value='06'>2022-06-30 " + avg.toLocaleString("en-US") + "</option>");
+						$("#vatsched").append("<option value='09'>2022-09-30 " + avg.toLocaleString("en-US") + "</option>");
+						$("#vatsched").append("<option value='12'>2022-12-31 " + avg.toLocaleString("en-US") + "</option>");
+					}else{
+						$("#vatsched").append("<option value='03'>2022-03-" + vatIsday + " " + avg.toLocaleString("en-US") + "</option>");
+						$("#vatsched").append("<option value='06'>2022-06-" + vatIsday + " " + avg.toLocaleString("en-US") + "</option>");
+						$("#vatsched").append("<option value='09'>2022-09-" + vatIsday + " " + avg.toLocaleString("en-US") + "</option>");
+						$("#vatsched").append("<option value='12'>2022-12-" + vatIsday + " " + avg.toLocaleString("en-US") + "</option>");
+					}
 				}else if($("#vatIstype").val() === "HY"){
 					var avg = parseInt(contAmt/2);
 					$("#vatsched").append("<option value=''>연-월-일 금액</option>");
-					$("#vatsched").append("<option value='06'>2022-06-" + vatIsday + " " + avg.toLocaleString("en-US") + "</option>");
-					$("#vatsched").append("<option value='12'>2022-12-" + vatIsday + " " + avg.toLocaleString("en-US") + "</option>");
+					
+					if(vatIsday === "31"){
+						$("#vatsched").append("<option value='06'>2022-06-30 " + avg.toLocaleString("en-US") + "</option>");
+						$("#vatsched").append("<option value='12'>2022-12-31 " + avg.toLocaleString("en-US") + "</option>");	
+					}else{
+						$("#vatsched").append("<option value='06'>2022-06-" + vatIsday + " " + avg.toLocaleString("en-US") + "</option>");
+						$("#vatsched").append("<option value='12'>2022-12-" + vatIsday + " " + avg.toLocaleString("en-US") + "</option>");
+					}
 				}else{
 					$("#vatsched").append("<option value=''>연-월-일 금액</option>");
 				}

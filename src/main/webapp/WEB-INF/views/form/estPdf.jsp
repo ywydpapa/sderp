@@ -260,7 +260,7 @@ th, td{
 									<c:set var="repSpec" value='${row.productSpec.replaceAll("\\\<.*?\\\>","")}' />
 									<tr id="mainTr">
 										<td style="text-align:center;">${noIndex}</td>
-										<td style="text-align:center; font-weight:700;">${row.itemKinds}</td>
+										<td style="text-align:center; font-weight:700;word-break:break-all;">${row.itemKinds}</td>
 										<td id="specTd"><span style="font-weight:600;">${row.productName}</span><%-- ${repSpec.replaceAll("\\n", "<br>")} --%>${row.productSpec}</td>
 										<td style="text-align:center;">${row.productQty}</td>
 										<td></td>
@@ -289,7 +289,7 @@ th, td{
 							<c:set var="amountTotal" value="${amountTotal + row.productAmount}" />
 							<tr id="mainTr">
 								<td class="noTitleTd" style="text-align:center;">${rowIndex}</td>
-								<td style="text-align:center; font-weight:700;">${row.itemKinds}</td>
+								<td style="text-align:center; font-weight:700;word-break:break-all;">${row.itemKinds}</td>
 								<td id="specTd"><span style="font-weight:600;">${row.productName}</span><%-- ${repSpec.replaceAll("\\n", "<br>")} --%>${row.productSpec}</td>
 								<td style="text-align:center;">${row.productQty}</td>
 								<td></td>

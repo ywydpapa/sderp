@@ -126,12 +126,11 @@
 									<th scope="row" class="requiredTextCss">엔드유저</th>
 									<td>
 										<div class="input-group input-group-sm mb-0">
-											<input type="text" class="form-control" name="custName" readonly
-												id="custName" value="${dto.endCustName}" /> <input type="hidden" name="custNo"
-												id="custNo" value="${dto.endCustNo}" /> <span class="input-group-btn">
-												<button class="btn btn-primary sch-company"
-													data-remote="${path}/modal/popup.do?popId=cust"
-													type="button" data-toggle="modal" data-target="#custModal">
+											<input type="text" class="form-control" name="custName" readonly id="custName" value="${dto.endCustName}" /> 
+											<!--<input type="text" class="form-control" name="custName" readonly id="custName" value="${dto.endCustName}" />-->
+												<input type="hidden" name="custNo" id="custNo" value="${dto.endCustNo}" />
+												<span class="input-group-btn">
+												<button class="btn btn-primary sch-company" data-remote="${path}/modal/popup.do?popId=cust" type="button" data-toggle="modal" data-target="#custModal">
 													<i class="icofont icofont-search"></i>
 												</button>
 											</span>

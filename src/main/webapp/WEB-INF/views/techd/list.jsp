@@ -256,15 +256,23 @@
 							</div>
 						</div>
 						<div class="btn_wr text-right" style="right;">
-						<!-- hide and show -->
-						<button class="btn btn-sm btn-success" id="fold"
-							onclick="acordian_action()">펼치기</button>
-						<button class="btn btn-sm btn-success" id="fold2"
-							onclick="acordian_action1()" style=" display: none;">접기</button>
-						<!-- hide and show -->
-						<button class="btn btn-sm btn-inverse" onClick="javascript:fnClearall()"><i class="icofont icofont-spinner-alt-3"></i>초기화</button>
-							<button class="btn btn-sm btn-primary" onClick="javascript:fnListcon()" id="search"><i class="icofont icofont-search"></i>검색</button>
-							<button class="btn btn-sm btn-outline"onClick="javascript:location='${path}/techd/write.do'"><i class="icofont icofont-pencil-alt-2"></i>등록</button>
+							<!-- hide and show -->
+							<button class="btn btn-sm btn-success" id="fold" onclick="acordian_action()">
+								펼치기
+							</button>
+							<button class="btn btn-sm btn-success" id="fold2" onclick="acordian_action1()" style=" display: none;">
+								접기
+							</button>
+							<!-- hide and show -->
+							<button class="btn btn-sm btn-inverse" onClick="javascript:fnClearall()">
+								<i class="icofont icofont-spinner-alt-3"></i>초기화
+							</button>
+							<button class="btn btn-sm btn-primary" onClick="javascript:fnListcon()" id="search">
+								<i class="icofont icofont-search"></i>검색
+							</button>
+							<button class="btn btn-sm btn-outline"onClick="javascript:location='${path}/techd/write.do'">
+								<i class="icofont icofont-pencil-alt-2"></i>등록
+							</button>
 						</div>
 					</div>
 				</div>
@@ -396,12 +404,14 @@
 								<div class="form-group row">
 									<div class="col-sm-12 col-xl-3">
 										<label class="col-form-label">일정시작일</label>
-										<p class="input_inline"><input class="form-control form-control-sm col-xl-6" type="date" id="targetDatefrom" onChange="javascript:inputDate($('#targetDatefrom').val(), $('#targetDateto').val(),this)"> ~ <input class="form-control form-control-sm col-xl-6" type="date" id="targetDateto" onChange="javascript:inputDate($('#targetDatefrom').val(), $('#targetDateto').val(),this)">
+										<p class="input_inline">
+											<input class="form-control form-control-sm col-xl-6" type="date" id="targetDatefrom" onChange="javascript:inputDate($('#targetDatefrom').val(), $('#targetDateto').val(),this)"> ~ <input class="form-control form-control-sm col-xl-6" type="date" id="targetDateto" onChange="javascript:inputDate($('#targetDatefrom').val(), $('#targetDateto').val(),this)">
 										</p>
 									</div>
 									<div class="col-sm-12 col-xl-3 ex_reduce">
 										<label class="col-form-label">등록일</label>
-										<p class="input_inline"><input class="form-control form-control-sm col-xl-6" type="date" id="regSDate" onChange="javascript:inputDate($('#regSDate').val(), $('#regEDate').val(),this)"> ~ <input class="form-control form-control-sm col-xl-6" type="date" id="regEDate" onChange="javascript:inputDate($('#regSDate').val(), $('#regEDate').val(),this)">
+										<p class="input_inline">
+											<input class="form-control form-control-sm col-xl-6" type="date" id="regSDate" onChange="javascript:inputDate($('#regSDate').val(), $('#regEDate').val(),this)"> ~ <input class="form-control form-control-sm col-xl-6" type="date" id="regEDate" onChange="javascript:inputDate($('#regSDate').val(), $('#regEDate').val(),this)">
 										</p>
 									</div>
 									<div class="col-sm-12 col-xl-3 ex_reduce">
@@ -476,6 +486,7 @@
 		</div>
 		<!--//리스트 table-->
 	<script>
+	
 	function acordian_action(){
 		if($("#acordian").css("display") == "none"){
 		    $("#acordian").show();
@@ -498,9 +509,7 @@
 		    $("#fold").hide();
 		}
 	}
-</script>
-
-	<script>
+	
 		$("input[type='text']").keyup(function(e){
 			if(e.keyCode == 13){
 				$("#search").click();

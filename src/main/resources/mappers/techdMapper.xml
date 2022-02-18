@@ -274,7 +274,9 @@ from
  <update id="updateTechd">
 	update swc_techd 
 	set 
+	<if test="custNo != 100002">
 	custNo = #{custNo},
+	</if>
 	soppNo = #{soppNo},
 	contNo = #{contNo},
 	custmemberNo = #{custmemberNo},

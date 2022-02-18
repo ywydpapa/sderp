@@ -58,28 +58,28 @@
 							<col width="15%"/>
 						</colgroup>
 							<tbody>
-								<tr>
-								<th class="text-center">견적서 출력</th>
-								<td>
-									<div class="form-radio">
-										<form>
-											<div class="radio radio-inline" style="margin-top:10px;">
-												<label> <input type="radio" name="titlePdf" value="radioOnTitle" checked="checked"> <i class="helper"></i>타이틀</label>
-											</div>
-											<div class="radio radio-inline" style="margin-top:10px;">
-												<label> <input type="radio" name="titlePdf" value="radioOffTitle" checked="checked"> <i class="helper"></i>타이틀 없음</label>
-											</div>
-											
-											<!--<a href="" class="btn btn-success" id="btnPdf" onClick="javascript:popupPdf(); return false;" style="float:right;">견적서 출력</a>-->
-										</form>
-									</div>
-								</td>
-								<!-- <td class="text-right" colspan="6" style="border-left:1px solid #fff;">
-									<div>
-										<button class="btn btn-primary" onClick="infoSave();">정보저장</button>
-									</div>
-								</td> -->
-							</tr>
+								<!-- <tr>
+									<th class="text-center">견적서 출력</th>
+									<td>
+										<div class="form-radio">
+											<form>
+												<div class="radio radio-inline" style="margin-top:10px;">
+													<label> <input type="radio" name="titlePdf" value="radioOnTitle" checked="checked"> <i class="helper"></i>타이틀</label>
+												</div>
+												<div class="radio radio-inline" style="margin-top:10px;">
+													<label> <input type="radio" name="titlePdf" value="radioOffTitle" checked="checked"> <i class="helper"></i>타이틀 없음</label>
+												</div>
+												
+												<a href="" class="btn btn-success" id="btnPdf" onClick="javascript:popupPdf(); return false;" style="float:right;">견적서 출력</a>
+											</form>
+										</div>
+									</td>
+									<td class="text-right" colspan="6" style="border-left:1px solid #fff;">
+										<div>
+											<button class="btn btn-primary" onClick="infoSave();">정보저장</button>
+										</div>
+									</td>
+								</tr> -->
 							<tr>
 								<th class="text-center requiredTextCss">상 호</th>
 									<td>

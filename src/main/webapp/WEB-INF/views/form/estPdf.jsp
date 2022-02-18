@@ -261,7 +261,7 @@ th, td{
 									<tr id="mainTr">
 										<td style="text-align:center;">${noIndex}</td>
 										<td style="text-align:center; font-weight:700;">${row.itemKinds}</td>
-										<td><span style="font-weight:600;">${row.productName}</span><br/><%-- ${repSpec.replaceAll("\\n", "<br>")} --%>${row.productSpec}</td>
+										<td id="specTd"><span style="font-weight:600;">${row.productName}</span><%-- ${repSpec.replaceAll("\\n", "<br>")} --%>${row.productSpec}</td>
 										<td style="text-align:center;">${row.productQty}</td>
 										<td></td>
 										<td style="text-align:right;"><fmt:formatNumber value="${row.productNetprice}" pattern="#,###" /></td>
@@ -290,7 +290,7 @@ th, td{
 							<tr id="mainTr">
 								<td class="noTitleTd" style="text-align:center;">${rowIndex}</td>
 								<td style="text-align:center; font-weight:700;">${row.itemKinds}</td>
-								<td><span style="font-weight:600;">${row.productName}</span><br/><%-- ${repSpec.replaceAll("\\n", "<br>")} --%>${row.productSpec}</td>
+								<td id="specTd"><span style="font-weight:600;">${row.productName}</span><%-- ${repSpec.replaceAll("\\n", "<br>")} --%>${row.productSpec}</td>
 								<td style="text-align:center;">${row.productQty}</td>
 								<td></td>
 								<td style="text-align:right;"><fmt:formatNumber value="${row.productNetprice}" pattern="#,###" /></td>
@@ -374,6 +374,12 @@ function romanize(num) {
 $(document).ready(function(){
 	var temp = [];
 	var dataTemp = {};
+	var specTd = $("#mainTable tbody #mainTr #specTd");
+	
+	specTd.each(function(index, item){
+		$(item).html($(item).html().replaceAll("<p>", "<br>").replaceAll("</p>", ""));
+		console.log($(item).html());
+	});
 	
 	if($("#mainTable tbody tr").find("#titleNumber")){
 		$("#mainTable tbody tr").find("#titleNumber").each(function(index, item){

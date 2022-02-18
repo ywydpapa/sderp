@@ -69,138 +69,80 @@
                     <div class="col-sm-12">
                         <div class="card_box sch_it">
                             <div class="form-group row">
-                                <div class="col-sm-12 col-xl-3">
-                                    <label class="col-form-label" for="userName">담당사원</label>
-                                    <div class="input-group input-group-sm mb-0">
-                                        <input type="text" class="form-control" name="userName" id="userName" value="" readonly /> 
-                                        <input type="hidden" name="userNo" id="userNo" value="" /> 
-                                        <span class="input-group-btn">
-											<button class="btn btn-primary sch-company" data-remote="${path}/modal/popup.do?popId=user" type="button" data-toggle="modal" data-target="#userModal">
+                            	<div class="col-sm-12 col-xl-3">
+									<label class="col-form-label">거래처</label>
+									<div class="input-group input-group-sm mb-0">
+										<input type="text" class="form-control" name="vatSellerName" id="vatSellerName" value="${param.vatSellerName}" readonly />
+										<input type="hidden" name="vatSellerCustNo" id="vatSellerCustNo" value="${param.vatSellerCustNo}" />
+										<span class="input-group-btn">
+											<button class="btn btn-primary sch-company"
+												data-remote="${path}/modal/popup.do?popId=cust"
+												type="button" data-toggle="modal"
+												data-target="#custModal">
 												<i class="icofont icofont-search"></i>
 											</button>
 										</span>
-                                        <div class="modal fade " id="userModal" tabindex="-1" role="dialog">
-                                            <div class="modal-dialog modal-80size" role="document">
-                                                <div class="modal-content modal-80size">
-                                                    <div class="modal-header">
-                                                        <h4 class="modal-title"></h4>
-                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                            <span aria-hidden="true">&times;</span>
-                                                        </button>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        <h5>사용자목록</h5>
-                                                        <p>Loading!!!</p>
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-default waves-effect " data-dismiss="modal">
-                                                        	Close
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-12 col-xl-3">
-                                    <label class="col-form-label" for="soppTitle">영업기회</label>
-                                    <div class="input-group input-group-sm mb-0">
-                                        <input type="text" class="form-control" name="soppTitle" id="soppTitle" value="" readonly />
-                                        <input type="hidden" name="soppNo" id="soppNo" value="" /> 
-                                        <span class="input-group-btn">
-											<button class="btn btn-primary sch-company" data-remote="${path}/modal/popup.do?popId=sopp" type="button" data-toggle="modal" data-target="#soppModal">
-												<i class="icofont icofont-search"></i>
-											</button>
-										</span>
-                                        <div class="modal fade " id="soppModal" tabindex="-1" role="dialog">
-                                            <div class="modal-dialog modal-80size" role="document">
-                                                <div class="modal-content modal-80size">
-                                                    <div class="modal-header">
-                                                        <h4 class="modal-title">영업기회 검색</h4>
-                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                            <span aria-hidden="true">&times;</span>
-                                                        </button>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        <h5>영업기회 목록</h5>
-                                                        <p>Loading!!!</p>
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-default waves-effect " data-dismiss="modal">
-                                                        	Close
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-12 col-xl-3">
-                                    <label class="col-form-label" for="custName">매출처</label>
-                                    <div class="input-group input-group-sm mb-0">
-                                        <input type="text" class="form-control" name="custName" id="custName" value="" readonly />
-                                        <input type="hidden" name="custNo" id="custNo" value="" /> 
-                                        <span class="input-group-btn">
-											<button class="btn btn-primary sch-company" data-remote="${path}/modal/popup.do?popId=cust" type="button" data-toggle="modal" data-target="#custModal">
-												<i class="icofont icofont-search"></i>
-											</button>
-										</span>
-                                        <div class="modal fade " id="custModal" tabindex="-1" role="dialog">
-                                            <div class="modal-dialog modal-80size" role="document">
-                                                <div class="modal-content modal-80size">
-                                                    <div class="modal-header">
-                                                        <h4 class="modal-title">매출처검색</h4>
-                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                            <span aria-hidden="true">&times;</span>
-                                                        </button>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        <h5>매출처목록</h5>
-                                                        <p>Loading!!!</p>
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-default waves-effect " data-dismiss="modal">
-                                                        	Close
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+										<div class="modal fade " id="custModal" tabindex="-1"
+											role="dialog">
+											<div class="modal-dialog modal-80size" role="document">
+												<div class="modal-content modal-80size">
+													<div class="modal-header">
+														<h4 class="modal-title">매출처검색</h4>
+														<button type="button" class="close"
+															data-dismiss="modal" aria-label="Close">
+															<span aria-hidden="true">&times;</span>
+														</button>
+													</div>
+													<div class="modal-body">
+														<h5>매출처목록</h5>
+														<p>Loading!!!</p>
+													</div>
+													<div class="modal-footer">
+														<button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
                                 <div class="col-sm-12 col-xl-3">
                                     <label class="col-form-label" for="salesType">처리 상태</label>
                                     <select name="select" class="form-control form-control-sm" id="salesType">
-                                        <option value>선택</option>
+                                        <option>선택</option>
                                         <c:forEach var = "acttype" items="${acttype}">
                                             <option value="${acttype.codeNo}">${acttype.desc03}</option>
                                         </c:forEach>
                                     </select>
                                 </div>
-
+                                <div class="col-sm-12 col-xl-3">
+                                    <label class="col-form-label" for="vatType">매입/매출</label>
+                                    <select name="select" class="form-control form-control-sm" id="vatType">
+                                        <option value="">선택</option>
+                                        <option value="B">매입</option>
+                                        <option value="S">매출</option>
+                                    </select>
+                                </div>
                             </div>
                             <div class="form-group row">
-                                <div class="col-sm-12 col-xl-3">
-                                    <label class="col-form-label">발행일</label>
+                                <div class="col-sm-12 col-xl-4">
+                                    <label class="col-form-label">등록일</label>
                                     <p class="input_inline">
-                                    	<input class="form-control form-control-sm col-xl-6" type="date" id="salesFrdatetime" />
+                                    	<input class="form-control form-control-sm col-xl-6" type="date" id="vatIssueDateFrom" value="${param.vatIssueDateFrom}"/>
                                     		~ 
-                                    	<input class="form-control form-control-sm col-xl-6" type="date" id="salesTodatetime" />
+                                    	<input class="form-control form-control-sm col-xl-6" type="date" id="vatIssueDateTo" value="${param.vatIssueDateTo}"/>
                                     </p>
                                 </div>
                                 <div class="col-sm-12 col-xl-3">
-                                    <label class="col-form-label">거래일</label>
-                                    <p class="input_inline">
-                                    	<input class="form-control form-control-sm col-xl-6" type="date" id="regSDate">
-                                    		~
-                                    	<input class="form-control form-control-sm col-xl-6" type="date" id="regEDate">
-                                    </p>
-                                </div>
+									<label class="col-form-label">발행번호</label>
+									<input type="text" class="form-control form-control-md" id="vatSerial" name="" placeholder="" value="${param.vatSerial}">
+								</div>
+								<div class="col-sm-12 col-xl-3">
+									<label class="col-form-label">메모</label>
+									<input type="text" class="form-control form-control-md" id="vatRemark" name="" placeholder="" value="${param.vatRemark}">
+								</div>
                             </div>
-
                         </div>
                     </div>
-
                 </form>
             </div>
         </div>
@@ -305,36 +247,13 @@
             </div>
         </div>
     </div>
-    <!--//리스트 table-->
-
-	<!-- hide and show -->
-	<script>
-	function acordian_action(){
-		if($("#acordian").css("display") == "none"){
-		    $("#acordian").show();
-		    $("#fold").hide();
-		    $("#fold2").show();
-
-		} else {
-		    $("#acordian").hide();
-		    $("#fold").show();
-		}
-	}
-	function acordian_action1(){
-		if($("#acordian").css("display") != "none"){
-		    $("#acordian").hide();
-		    $("#fold").show();
-		    $("#fold2").hide();
-
-		} else {
-		    $("#acordian").show();
-		    $("#fold").hide();
-		}
-	}
-	</script>
-	<!-- hide and show -->
-
     <script>
+    	var vatType = "${param.vatType}";
+		
+    	if(vatType !== ""){
+    		$("#vatType").val(vatType);
+    	}
+    
         $('#custModal').on('show.bs.modal', function(e) {
             var button = $(e.relatedTarget);
             var modal = $(this);
@@ -355,10 +274,65 @@
             var modal = $(this);
             modal.find('.modal-body').load(button.data("remote"));
         });
+        
+        function fnListcon() {
+    		var vatData = {};
+    		vatData.vatSellerCustNo = $("#vatSellerCustNo").val() ? Number($("#vatSellerCustNo").val()) : 0;
+    		vatData.vatSellerName = $("#vatSellerName").val() ? $("#vatSellerName").val() : null;
+    		vatData.vatType = $("#vatType").val() ? $("#vatType").val() : null;
+    		vatData.vatIssueDateFrom = $("#vatIssueDateFrom").val() ? $("#vatIssueDateFrom").val() : null;
+    		vatData.vatIssueDateTo = $("#vatIssueDateTo").val() ? $("#vatIssueDateTo").val() : null;
+    		vatData.vatSerial = $("#vatSerial").val() ? $("#vatSerial").val() : null;						// 판매방식
+    		vatData.vatRemark = $("#vatRemark").val() ? $("#vatRemark").val() : null;
+    		
+    		var param = "?";
+    		var paramFirst = true;
+    		for (variable in vatData) {
+    			console.log("key: " + variable + ", value: " + vatData[variable]);
+    			if(vatData[variable] != null && vatData[variable] != 0) {
+    				if(paramFirst){
+    					param = param + variable + "=" + vatData[variable];
+    					paramFirst = false;
+    				} else {
+    					param = param + "&" + variable + "=" + vatData[variable];
+    				}
+    			}
+    		}
+
+    		if(param == "?"){
+    			param = "";
+    		}
+
+    		var url = '${path}/acc/vatlist.do'+param;
+    		location.href = url;
+    	}
+    	
+    	function acordian_action(){
+    		if($("#acordian").css("display") == "none"){
+    		    $("#acordian").show();
+    		    $("#fold").hide();
+    		    $("#fold2").show();
+
+    		} else {
+    		    $("#acordian").hide();
+    		    $("#fold").show();
+    		}
+    	}
+    	function acordian_action1(){
+    		if($("#acordian").css("display") != "none"){
+    		    $("#acordian").hide();
+    		    $("#fold").show();
+    		    $("#fold2").hide();
+
+    		} else {
+    		    $("#acordian").show();
+    		    $("#fold").hide();
+    		}
+    	}
 
         function fnSetCustData(a, b) {
-            $("#custNo").val(b);
-            $("#custName").val(a);
+            $("#vatSellerCustNo").val(b);
+            $("#vatSellerName").val(a);
             $(".modal-backdrop").remove();
             $("#custModal").modal("hide");
         }

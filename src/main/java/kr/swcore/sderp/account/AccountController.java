@@ -3,12 +3,15 @@ package kr.swcore.sderp.account;
 import kr.swcore.sderp.account.dto.AccountDTO;
 import kr.swcore.sderp.account.service.AccountService;
 import kr.swcore.sderp.code.service.CodeService;
+import kr.swcore.sderp.cont.dto.ContDTO;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -29,8 +32,25 @@ public class AccountController {
     CodeService codeService;
 
     @RequestMapping("vatlist.do")
-    public ModelAndView vatList(HttpSession session, ModelAndView mav) {
-        mav.addObject("vatList", accountService.listvat(session));
+    public ModelAndView vatList(HttpSession session, ModelAndView mav, 
+    							@RequestParam(value = "vatSellerCustNo", required = false) Integer vatSellerCustNo,
+								 @RequestParam(value = "vatType", required = false) String vatType,
+								 @RequestParam(value = "vatIssueDateFrom", required = false) String vatIssueDateFrom,
+								 @RequestParam(value = "vatIssueDateTo", required = false) String vatIssueDateTo,
+								 @RequestParam(value = "vatSerial", required = false) String vatSerial,
+								 @RequestParam(value = "vatRemark", required = false) String vatRemark) {
+    	if(vatSellerCustNo != null || vatType != null || vatIssueDateFrom != null || vatIssueDateTo != null || vatSerial != null || vatRemark != null){
+			AccountDTO dto = new AccountDTO();
+			if(vatSellerCustNo != null) dto.setVatSellerCustNo(vatSellerCustNo);
+			if(vatType != null) dto.setVatType(vatType);
+			if(vatIssueDateFrom != null) dto.setVatIssueDateFrom(vatIssueDateFrom);
+			if(vatIssueDateTo != null) dto.setVatIssueDateTo(vatIssueDateTo);
+			if(vatSerial != null) dto.setVatSerial(vatSerial);
+			if(vatRemark != null) dto.setVatRemark(vatRemark);
+			mav.addObject("vatList", accountService.listvatSearch(session, dto));
+		} else {
+			mav.addObject("vatList", accountService.listvat(session));
+		}
         mav.setViewName("settle/vatlist");
         return mav;
     }

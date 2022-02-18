@@ -12,6 +12,31 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	where a.compNo = #{compNo} and a.attrib not like 'XXX%' group by vatSerial
 
 </select>
+
+<select id="listVatSearch" resultType="accountDto">
+ 		select a.*, b.custName vatSellerName, c.custName vatBuyerName, sum(d.dataAmt) vatSum from swc_vat a
+			   left join swc_cust b on a.vatSellerCustNo = b.custNo
+			   left join swc_cust c on a.vatBuyerCustNo = c.custNo
+			   left join swc_soppdata01 d on a.vatSerial = d.vatSerial and d.attrib not like 'XXX%'
+		where a.compNo = #{compNo} and a.attrib not like 'XXX%' 
+		<if test="vatSellerCustNo != null and vatSellerCustNo != ''">
+ 		 	and a.vatSellerCustNo = #{vatSellerCustNo}
+ 		</if>
+ 		<if test="vatType != null and vatType != ''">
+ 		 	and a.vatType = #{vatType}
+ 		</if>
+ 		<if test="vatIssueDateTo != null and vatIssueDateTo != ''">
+ 		 	and a.vatIssueDate BETWEEN #{vatIssueDateFrom} and #{vatIssueDateTo}
+ 		</if>
+ 		<if test="vatSerial != null and vatSerial != ''">
+ 		 	and a.vatSerial like CONCAT('%', #{vatSerial}, '%')
+ 		</if>
+ 		<if test="vatRemark != null and vatRemark != ''">
+ 		 	and a.vatRemark like CONCAT('%', #{vatRemark}, '%')
+ 		</if>
+		 group by vatSerial
+ </select>
+ 
 	<select id="bacSelectList" resultType="accountDto">
 		select * from swc_bacledger where bacSerial = #{bacSerial} order by baclogTime desc;
 	</select>

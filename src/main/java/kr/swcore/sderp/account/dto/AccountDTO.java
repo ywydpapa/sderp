@@ -86,5 +86,8 @@ public class AccountDTO {
     private int getNo;
     private int count;
     private String bacDesc;
+    
+    private String vatIssueDateFrom;
+    private String vatIssueDateTo;
 }
 

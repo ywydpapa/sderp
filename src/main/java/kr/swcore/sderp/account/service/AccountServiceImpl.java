@@ -114,4 +114,11 @@ public class AccountServiceImpl implements AccountService {
 	public int bacSerialUpdate(AccountDTO dto) {
 		return accountDAO.bacSerialUpdate(dto);
 	}
+
+	@Override
+	public List<AccountDTO> listvatSearch(HttpSession session, AccountDTO dto) {
+		int compNo = SessionInfoGet.getCompNo(session);
+		dto.setCompNo(compNo);
+		return accountDAO.listvatSearch(dto);
+	}
 }

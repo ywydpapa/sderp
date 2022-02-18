@@ -109,4 +109,9 @@ public class AccountDAOImpl implements AccountDAO {
 	public int bacSerialUpdate(AccountDTO dto) {
 		return sqlSession.update("account.bacSerialUpdate", dto);
 	}
+
+	@Override
+	public List<AccountDTO> listvatSearch(AccountDTO dto) {
+		return sqlSession.selectList("account.listVatSearch", dto);
+	}
 }

@@ -673,6 +673,7 @@
 		    					data: {
 		    						estId: updateData.estId,
 		    					},
+		    					async: false,
 		    					dataType: "json",
 		    					success:function(data){
 									for(var i = 0; i < dataArray.length; i++){
@@ -683,6 +684,7 @@
 						  					url: "${path}/gw/insertEstitems.do",
 						  					method: "post",
 						  					data: JSON.parse(JsonArray),
+						  					async: false,
 						  					dataType: "json",
 						  				});
 						 			}
@@ -798,6 +800,7 @@
 			    					data: {
 			    						estId: updateData.estId,
 			    					},
+			    					async: false,
 			    					dataType: "json",
 			    					success:function(data){
 										for(var i = 0; i < dataArray.length; i++){
@@ -808,6 +811,7 @@
 							  					url: "${path}/gw/insertEstitems.do",
 							  					method: "post",
 							  					data: JSON.parse(JsonArray),
+							  					async: false,
 							  					dataType: "json",
 							  				});
 							 			}
@@ -902,6 +906,7 @@
    		    					data: {
    		    						estId: updateData.estId,
    		    					},
+   		    					async: false,
    		    					dataType: "json",
    		    					success:function(data){
    									for(var i = 0; i < dataArray.length; i++){
@@ -912,6 +917,7 @@
    						  					url: "${path}/gw/insertEstitems.do",
    						  					method: "post",
    						  					data: JSON.parse(JsonArray),
+   						  					async: false,
    						  					dataType: "json",
    						  				});
    						 			}
@@ -925,6 +931,7 @@
        							data: {
        								estId: updateData.estId,
        							},
+       							async: false,
        							dataType: "json",
        							success:function(data){
        								dataInfoUpdate.estId = updateData.estId;
@@ -961,6 +968,7 @@
    				    	    					url: "${path}/gw/estInfoInsert.do",
    				    	    					method: "post",
    				    	    					data: dataInfoInsert,
+   				    	    					async: false,
    				    	    					dataType: "json",
    				    	    					success:function(){
    				    	    						alert("수정되었습니다.");

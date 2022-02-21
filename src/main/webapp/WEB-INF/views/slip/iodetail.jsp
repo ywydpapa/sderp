@@ -157,7 +157,7 @@
 									</td>
 									<th class="text-center">계산서 발행일자</th>
 									<td>
-										<input type="date" id="vatDate" name="vatDate" class="form-control" style="text-align: right;" value="">
+										<input type="date" max="9999-12-30" id="vatDate" name="vatDate" class="form-control" style="text-align: right;" value="">
 									</td>
 								</tr>
 							</tbody>

@@ -197,7 +197,7 @@
                                 </td>
                                 <th class="text-center requiredTextCss">작성일자(*)</th>
                                 <td>
-                                    <input type="date" id="docDate" name="docDate" class="form-control" style="text-align: right;" value="${detailList.docDate}">
+                                    <input type="date" max="9999-12-30" id="docDate" name="docDate" class="form-control" style="text-align: right;" value="${detailList.docDate}">
                                 </td>
                                 <c:choose>
 	                           		<c:when test="${detailListApp.appStatus == 1 || detailListApp.appStatus == 3}">

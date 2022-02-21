@@ -335,19 +335,19 @@
 													<th scope="row">발주일자</th>
 													<td>
 														<div class="input-group input-group-sm mb-0">
-															<input class="form-control form-control-sm" type="date" id="contOrddate" name="contOrddate" value="${contDto.contOrddate}">
+															<input class="form-control form-control-sm" type="date" max="9999-12-30" id="contOrddate" name="contOrddate" value="${contDto.contOrddate}">
 														</div>
 													</td>
 													<th>공급일자</th>
 													<td>
 														<div class="input-group input-group-sm mb-0">
-															<input class="form-control form-control-sm" type="date" id="supplyDate" name="supplyDate" value="${contDto.supplyDate}" >
+															<input class="form-control form-control-sm" type="date" max="9999-12-30" id="supplyDate" name="supplyDate" value="${contDto.supplyDate}" >
 														</div>
 													</td>
 													<th scope="row">검수일자</th>
 													<td>
 														<div class="input-group input-group-sm mb-0">
-															<input class="form-control form-control-sm " type="date" id="delivDate" name="delivDate" value="${contDto.delivDate}">
+															<input class="form-control form-control-sm " type="date" max="9999-12-30" id="delivDate" name="delivDate" value="${contDto.delivDate}">
 														</div>
 													</td>
 												</tr>
@@ -355,17 +355,17 @@
 													<th scope="row" class="contDetailSopp">무상 유지보수일자</th>
 													<td class="contDetailSopp">
 														<div class="input-group input-group-sm mb-0">
-															<input class="form-control " type="date" id="freemaintSdate" value="${contDto.freemaintSdate}" >
+															<input class="form-control " type="date" max="9999-12-30" id="freemaintSdate" value="${contDto.freemaintSdate}" >
 															<span style="line-height:30px;">&nbsp;~&nbsp;</span>
-															<input class="form-control " type="date" id="freemaintEdate" value="${contDto.freemaintEdate}">
+															<input class="form-control " type="date" max="9999-12-31" id="freemaintEdate" value="${contDto.freemaintEdate}">
 														</div>
 													</td>
 													<th scope="row" class="contDetailCont">유상 유지보수일자</th>
 													<td class="contDetailCont">
 														<div class="input-group input-group-sm mb-0">
-															<input class="form-control" type="date" id="paymaintSdate" value="${contDto.paymaintSdate}">
+															<input class="form-control" type="date" max="9999-12-30" id="paymaintSdate" value="${contDto.paymaintSdate}">
 															<span style="line-height:30px;">&nbsp;~&nbsp;</span>
-															<input class="form-control form-control-sm col-sm-6 m-l-5" type="date" id="paymaintEdate" value="${contDto.paymaintEdate}">
+															<input class="form-control form-control-sm col-sm-6 m-l-5" type="date" max="9999-12-31" id="paymaintEdate" value="${contDto.paymaintEdate}">
 														</div>
 													</td>
 													<th >계약금액</th>

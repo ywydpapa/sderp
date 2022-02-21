@@ -119,12 +119,14 @@
 								<div class="col-sm-12 col-xl-3">
 									<label class="col-form-label">전표 작성일자</label>
 									<div class="ms-selectable sales_date">
-									<p class="input_inline"><input class="form-control form-control-sm col-xl-6" type="date" id="targetDatefrom" > ~ <input class="form-control form-control-sm col-xl-6" type="date" id="targetDateto" >
+									<p class="input_inline">
+										<input class="form-control form-control-sm col-xl-6" type="date" max="9999-12-30" id="targetDatefrom" > ~ <input class="form-control form-control-sm col-xl-6" type="date" max="9999-12-31" id="targetDateto" >
 									</div>
 								</div>
 								<div class="col-sm-12 col-xl-3 ex_reduce">
 									<label class="col-form-label">전표 승인일자</label>
-									<p class="input_inline"><input class="form-control form-control-sm col-xl-6" type="date" id="freemaintSdate"> ~ <input class="form-control form-control-sm col-xl-6" type="date" id="freemaintEdate">
+									<p class="input_inline">
+										<input class="form-control form-control-sm col-xl-6" type="date" max="9999-12-30" id="freemaintSdate"> ~ <input class="form-control form-control-sm col-xl-6" type="date" max="9999-12-31" id="freemaintEdate">
 									</p>
 								</div>
 								

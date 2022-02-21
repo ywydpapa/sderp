@@ -153,7 +153,8 @@
 								<div class="col-sm-12 col-xl-3">
 									<label class="col-form-label">판매일자</label>
 									<div class="ms-selectable sales_date">
-									<p class="input_inline"><input class="form-control form-control-sm col-xl-6" type="date" id="targetDatefrom" > ~ <input class="form-control form-control-sm col-xl-6" type="date" id="targetDateto" >
+									<p class="input_inline">
+										<input class="form-control form-control-sm col-xl-6" type="date" max="9999-12-30" id="targetDatefrom" > ~ <input class="form-control form-control-sm col-xl-6" type="date" max="9999-12-31" id="targetDateto" >
 									</div>
 								</div>
 							</div>
@@ -161,7 +162,8 @@
 								
 								<div class="col-sm-12 col-xl-3">
 									<label class="col-form-label">유지보수기간</label>
-									<p class="input_inline"><input class="form-control form-control-sm col-xl-6" type="date" id="freemaintSdate"> ~ <input class="form-control form-control-sm col-xl-6" type="date" id="freemaintEdate">
+									<p class="input_inline">
+										<input class="form-control form-control-sm col-xl-6" type="date" max="9999-12-30" id="freemaintSdate"> ~ <input class="form-control form-control-sm col-xl-6" type="date" max="9999-12-31" id="freemaintEdate">
 									</p>
 								</div>
 								<div class="col-sm-12 col-xl-2 ex_reduce">
@@ -179,7 +181,8 @@
 								</div>
 								<div class="col-sm-12 col-xl-3">
 									<label class="col-form-label">등록일</label>
-									<p class="input_inline"><input class="form-control form-control-sm col-xl-6" type="date" id="regSDate"> ~ <input class="form-control form-control-sm col-xl-6" type="date" id="regEDate">
+									<p class="input_inline">
+										<input class="form-control form-control-sm col-xl-6" type="date" max="9999-12-30" id="regSDate"> ~ <input class="form-control form-control-sm col-xl-6" type="date" max="9999-12-31" id="regEDate">
 									</p>
 								</div>
 							</div>

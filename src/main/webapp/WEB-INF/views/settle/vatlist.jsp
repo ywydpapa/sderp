@@ -127,9 +127,9 @@
                                 <div class="col-sm-12 col-xl-4">
                                     <label class="col-form-label">등록일</label>
                                     <p class="input_inline">
-                                    	<input class="form-control form-control-sm col-xl-6" type="date" id="vatIssueDateFrom" value="${param.vatIssueDateFrom}"/>
+                                    	<input class="form-control form-control-sm col-xl-6" type="date" max="9999-12-30" id="vatIssueDateFrom" value="${param.vatIssueDateFrom}"/>
                                     		~ 
-                                    	<input class="form-control form-control-sm col-xl-6" type="date" id="vatIssueDateTo" value="${param.vatIssueDateTo}"/>
+                                    	<input class="form-control form-control-sm col-xl-6" type="date" max="9999-12-31" id="vatIssueDateTo" value="${param.vatIssueDateTo}"/>
                                     </p>
                                 </div>
                                 <div class="col-sm-12 col-xl-3">

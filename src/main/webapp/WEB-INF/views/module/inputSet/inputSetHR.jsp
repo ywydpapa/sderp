@@ -38,7 +38,7 @@
                 <td class="text-center">
                 	<div style="width:100%">
                 		<div style="float:left; width:49%;" >
-		                	<input type="date" class="form-control form-control-sm" id="hrFrom"  />
+		                	<input type="date" max="9999-12-30" class="form-control form-control-sm" id="hrFrom"  />
                 		</div>
                 		<div style="float:left; width:49%;">
 		                	<input type="time" class="form-control form-control-sm" id="hrFromTm" />
@@ -48,7 +48,7 @@
                 <td class="text-center">
                 	<div style="width:100%">
                 		<div style="float:left; width:49%;" >
-		                	<input type="date" class="form-control form-control-sm" id="hrTo" />
+		                	<input type="date" max="9999-12-31" class="form-control form-control-sm" id="hrTo" />
                 		</div>
                 		<div style="float:left; width:49%;">
 		                	<input type="time" class="form-control form-control-sm" id="hrToTm"/>

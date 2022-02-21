@@ -48,7 +48,7 @@
                     </select>
                 </td>
                 <td>
-                    <input type="date" id="ioDate" name="inDate">
+                    <input type="date" id="ioDate" max="9999-12-30" name="inDate">
                 </td>
                 <td>
                     <div class="input-group input-group-sm mb-0">

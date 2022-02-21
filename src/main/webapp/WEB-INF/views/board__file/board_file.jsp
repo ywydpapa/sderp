@@ -297,7 +297,8 @@
 							</div>
 							<div class="col-sm-12 col-xl-3">
 								<label class="col-form-label">등록일</label>
-								<p class="input_inline"><input class="form-control form-control-sm col-xl-6" type="date" id="regSDate"> ~ <input class="form-control form-control-sm col-xl-6" type="date" id="regEDate">
+								<p class="input_inline">
+									<input class="form-control form-control-sm col-xl-6" type="date" max="9999-12-30" pattern="yyyy-" id="regSDate"> ~ <input class="form-control form-control-sm col-xl-6" type="date" max="9999-12-31" id="regEDate">
 								</p>
 							</div>
 						</div>	
@@ -351,9 +352,10 @@
 		</div>
 	</div>
 	<!--//리스트 table-->
-	
-	<!-- hide and show -->
 	<script>
+	
+	
+	
 	function acordian_action(){
 		if($("#acordian").css("display") == "none"){
 		    $("#acordian").show();
@@ -376,10 +378,7 @@
 		    $("#fold").hide();
 		}
 	}
-	</script>
-	<!-- hide and show -->
 	
-	<script>
 		$("#regSDate").change(function(){
 			var dateValue = $(this).val();
 			var dateValueArr = dateValue.split("-");

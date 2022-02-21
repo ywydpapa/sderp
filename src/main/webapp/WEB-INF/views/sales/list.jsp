@@ -428,14 +428,16 @@
 								</div>
 								<div class="col-sm-12 col-xl-3">
 									<label class="col-form-label">활동일</label>
-									<p class="input_inline"><input class="form-control form-control-sm col-xl-6" type="date" id="salesFrdatetime"> ~ <input class="form-control form-control-sm col-xl-6" type="date" id="salesTodatetime">
+									<p class="input_inline">
+										<input class="form-control form-control-sm col-xl-6" type="date" max="9999-12-30" id="salesFrdatetime"> ~ <input class="form-control form-control-sm col-xl-6" type="date" max="9999-12-31" id="salesTodatetime">
 									</p>
 								</div>
 							</div>
 							<div class="form-group row">
 								<div class="col-sm-12 col-xl-3">
 									<label class="col-form-label">등록일</label>
-									<p class="input_inline"><input class="form-control form-control-sm col-xl-6" type="date" id="regSDate"> ~ <input class="form-control form-control-sm col-xl-6" type="date" id="regEDate">
+									<p class="input_inline">
+										<input class="form-control form-control-sm col-xl-6" type="date" max="9999-12-30" id="regSDate"> ~ <input class="form-control form-control-sm col-xl-6" type="date" max="9999-12-31" id="regEDate">
 									</p>
 								</div>
 							</div>

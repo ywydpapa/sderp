@@ -145,7 +145,8 @@
                             </div>
                             <div class="col-sm-12 col-xl-3">
                                 <label class="col-form-label">작성일자</label>
-                                <p class="input_inline"><input class="form-control form-control-sm col-xl-6" type="date" id="vatSdate"> ~ <input class="form-control form-control-sm col-xl-6" type="date" id="vatEdate"></p>
+                                <p class="input_inline">
+                                	<input class="form-control form-control-sm col-xl-6" type="date" max="9999-12-30" id="vatSdate"> ~ <input class="form-control form-control-sm col-xl-6" type="date" max="9999-12-31" id="vatEdate"></p>
                             </div>
                         </div>
                     </div>

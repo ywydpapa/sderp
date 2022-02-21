@@ -405,13 +405,13 @@
 									<div class="col-sm-12 col-xl-3">
 										<label class="col-form-label">일정시작일</label>
 										<p class="input_inline">
-											<input class="form-control form-control-sm col-xl-6" type="date" id="targetDatefrom" onChange="javascript:inputDate($('#targetDatefrom').val(), $('#targetDateto').val(),this)"> ~ <input class="form-control form-control-sm col-xl-6" type="date" id="targetDateto" onChange="javascript:inputDate($('#targetDatefrom').val(), $('#targetDateto').val(),this)">
+											<input class="form-control form-control-sm col-xl-6" type="date" max="9999-12-30" id="targetDatefrom" onChange="javascript:inputDate($('#targetDatefrom').val(), $('#targetDateto').val(),this)"> ~ <input class="form-control form-control-sm col-xl-6" type="date" max="9999-12-31" id="targetDateto" onChange="javascript:inputDate($('#targetDatefrom').val(), $('#targetDateto').val(),this)">
 										</p>
 									</div>
 									<div class="col-sm-12 col-xl-3 ex_reduce">
 										<label class="col-form-label">등록일</label>
 										<p class="input_inline">
-											<input class="form-control form-control-sm col-xl-6" type="date" id="regSDate" onChange="javascript:inputDate($('#regSDate').val(), $('#regEDate').val(),this)"> ~ <input class="form-control form-control-sm col-xl-6" type="date" id="regEDate" onChange="javascript:inputDate($('#regSDate').val(), $('#regEDate').val(),this)">
+											<input class="form-control form-control-sm col-xl-6" type="date" max="9999-12-30" id="regSDate" onChange="javascript:inputDate($('#regSDate').val(), $('#regEDate').val(),this)"> ~ <input class="form-control form-control-sm col-xl-6" type="date" max="9999-12-31" id="regEDate" onChange="javascript:inputDate($('#regSDate').val(), $('#regEDate').val(),this)">
 										</p>
 									</div>
 									<div class="col-sm-12 col-xl-3 ex_reduce">

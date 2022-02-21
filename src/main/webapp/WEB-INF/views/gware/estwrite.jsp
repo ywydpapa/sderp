@@ -263,7 +263,7 @@
 									</td>
 									<th class="text-center requiredTextCss">견적서 작성일자(*)</th>
 									<td>
-										<input type="date" id="estDate" name="estDate" class="form-control" style="text-align: right;">
+										<input type="date" max="9999-12-31" id="estDate" name="estDate" class="form-control" style="text-align: right;">
 									</td>
 									<th></th>
 									<td></td>

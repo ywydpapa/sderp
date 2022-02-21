@@ -457,8 +457,8 @@
 								<div class="col-sm-12 col-xl-6">
 									<label class="col-form-label">매출예정일</label>
 									<p class="input_inline mb-0">
-										<input class="form-control form-control-sm col-xl-6" type="date" id="targetDatefrom"> ~
-										<input class="form-control form-control-sm col-xl-6" type="date" id="targetDateto">
+										<input class="form-control form-control-sm col-xl-6" type="date" max="9999-12-30" id="targetDatefrom"> ~
+										<input class="form-control form-control-sm col-xl-6" type="date" max="9999-12-31" id="targetDateto">
 									</p>
 								</div>
 								<!--//매출예정일-->

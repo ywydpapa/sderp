@@ -338,19 +338,19 @@
 									<th scope="row">발주일자</th>
 									<td>
 										<div class="input-group input-group-sm mb-0">
-											<input class="form-control form-control-sm " type="date" id="contOrddate" name="contOrddate">
+											<input class="form-control form-control-sm " type="date" max="9999-12-31" id="contOrddate" name="contOrddate">
 										</div>
 									</td>
 									<th>공급일자</th>
 									<td>
 										<div class="input-group input-group-sm mb-0">
-											<input class="form-control form-control-sm col-sm-12" type="date" id="supplyDate" name="supplyDate">
+											<input class="form-control form-control-sm col-sm-12" type="date" max="9999-12-31" id="supplyDate" name="supplyDate">
 										</div>
 									</td>
 									<th scope="row">검수일자</th>
 									<td>
 										<div class="input-group input-group-sm mb-0">
-											<input class="form-control form-control-sm col-sm-12" type="date" id="delivDate" name="delivDate">
+											<input class="form-control form-control-sm col-sm-12" type="date" max="9999-12-31" id="delivDate" name="delivDate">
 										</div>
 									</td>
 								</tr>
@@ -358,13 +358,13 @@
 									<th scope="row" class="contDetailSopp">무상유지보수일자</th>
 									<td class="contDetailSopp">
 										<div class="input-group input-group-sm mb-0">
-											<input class="form-control form-control-sm col-sm-6 m-r-5" type="date" id="freemaintSdate"> ~ <input class="form-control form-control-sm col-sm-6 m-l-5" type="date" id="freemaintEdate">
+											<input class="form-control form-control-sm col-sm-6 m-r-5" type="date" max="9999-12-30" id="freemaintSdate"> ~ <input class="form-control form-control-sm col-sm-6 m-l-5" type="date" max="9999-12-31" id="freemaintEdate">
 										</div>
 									</td>
 									<th scope="row" class="contDetailCont">유상유지보수일자</th>
 									<td class="contDetailCont">
 										<div class="input-group input-group-sm mb-0">
-											<input class="form-control form-control-sm col-sm-6 m-r-5" type="date" id="paymaintSdate"> ~ <input class="form-control form-control-sm col-sm-6 m-l-5" type="date" id="paymaintEdate">
+											<input class="form-control form-control-sm col-sm-6 m-r-5" type="date" max="9999-12-30" id="paymaintSdate"> ~ <input class="form-control form-control-sm col-sm-6 m-l-5" type="date" max="9999-12-31" id="paymaintEdate">
 										</div>
 									</td>
 									<th >계약금액</th>

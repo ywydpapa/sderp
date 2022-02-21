@@ -233,7 +233,7 @@
 													<tr>
 														<th scope="row">매출예정일</th>
 														<td>
-															<input class="form-control form-control-sm" name="soppTargetDate" id="soppTargetDate" type="date"	value="0">
+															<input class="form-control form-control-sm" name="soppTargetDate" id="soppTargetDate" type="date" max="9999-12-31" value="0">
 														</td>
 														<th class="requiredTextCss" scope="row">판매방식</th>
 														<td>

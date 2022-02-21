@@ -179,7 +179,7 @@
                                 </td>
                                 <th class="text-center requiredTextCss">작성일자(*)</th>
                                 <td>
-                                    <input type="date" id="docDate" name="docDate" class="form-control" style="text-align: right;" value="">
+                                    <input type="date" max="9999-12-30" id="docDate" name="docDate" class="form-control" style="text-align: right;" value="">
                                 </td>
                                 <th class="text-center">첨부파일</th>
                                 <td>

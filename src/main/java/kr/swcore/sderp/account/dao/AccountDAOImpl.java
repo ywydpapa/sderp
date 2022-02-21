@@ -55,7 +55,7 @@ public class AccountDAOImpl implements AccountDAO {
 
     @Override
     public int insertBac(AccountDTO dto) {
-        return sqlSession.insert("account.insbac",dto);
+        return sqlSession.insert("account.insertbac",dto);
     }
 
     @Override

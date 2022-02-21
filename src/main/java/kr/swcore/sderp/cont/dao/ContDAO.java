@@ -30,4 +30,5 @@ public interface ContDAO {
 	
 	int soppListUpdate(ContDTO dto);
 	int extInsert(ContDTO dto);
+	int extAttUpdate(ContDTO dto);
 }

@@ -113,4 +113,10 @@ public class ContDAOImpl implements ContDAO {
 		// TODO Auto-generated method stub
 		return sqlSession.insert("cont.extInsert", dto);
 	}
+
+	@Override
+	public int extAttUpdate(ContDTO dto) {
+		// TODO Auto-generated method stub
+		return sqlSession.update("cont.extAttUpdate", dto);
+	}
 }

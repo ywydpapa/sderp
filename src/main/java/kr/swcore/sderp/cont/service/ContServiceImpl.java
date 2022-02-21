@@ -226,4 +226,10 @@ public class ContServiceImpl implements ContService {
 		// TODO Auto-generated method stub
 		return contDao.extInsert(dto);
 	}
+	
+	@Override
+	public int extAttUpdate(ContDTO dto) {
+		// TODO Auto-generated method stub
+		return contDao.extAttUpdate(dto);
+	}
 }

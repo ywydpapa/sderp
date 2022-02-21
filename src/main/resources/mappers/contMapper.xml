@@ -211,6 +211,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	where contNo=#{contNo}
  </update>
  
+ <update id="extAttUpdate">
+ 	update swc_cont
+ 	set modDatetime = now(),
+ 	attrib = 'UPUPX'
+ 	where contNo = #{contNo}
+ </update>
+ 
  <delete id="deleteCont">
 	update swc_cont 
 	set attrib = 'XXXXX'
@@ -295,7 +302,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		userNo,
 		custNo,
 		custMemberNo,
-		contTitle,
+		#{contTitle},
 		contDesc,
 		buyrNo,
 		buyrMemberNo,

@@ -74,7 +74,7 @@
 											<tbody>
 												<tr>
 													<th scope="row">등록구분</th>
-													<td colspan="7">
+													<td colspan="8">
 														<div class="form-radio" style="float:left;">
 															<div class="radio radio-inline">
 																<label style="margin-top: 10px;"> <input type="radio" name="contractType" value="NEW" <c:if test="${contDto.cntrctMthN == '판매계약'}">checked</c:if>> <i class="helper"></i>판매계약</label>
@@ -82,9 +82,12 @@
 															<div class="radio radio-inline">
 																<label style="margin-top: 10px;"> <input type="radio" name="contractType" value="OLD" <c:if test="${contDto.cntrctMthN == '유지보수'}">checked</c:if>> <i class="helper"></i>유지보수</label>
 															</div>
+															<div class="radio radio-inline">
+																<label style="margin-top: 10px;"> <input type="radio" name="contractType" value="EXT" <c:if test="${contDto.cntrctMthN == '유지보수연장'}">checked</c:if>> <i class="helper"></i>유지보수연장</label>
+															</div>
 														</div>
 														<div style="float:right;">
-															<button type="button" class="btn btn-primary" id="extBtn">유지보수연장</button>
+															<button type="button" class="btn btn-secondary" id="extBtn" disabled>유지보수연장</button>
 														</div>
 													</td>
 												</tr>
@@ -592,41 +595,59 @@
 		});
 		
 		$("#extBtn").click(function(){
-			if(confirm("연장하시겠습니까??")){
-				var insertData = {};
-				var compNo = "${sessionScope.compNo}";
-				var contNo = $("#contNo").val();
-				var contOrddate = $("#contOrddate").val();
-				var supplyDate = $("#supplyDate").val();
-				var delivDate = $("#delivDate").val();
-				var paymaintSdate = $("#paymaintSdate").val();
-				var paymaintEdate = $("#paymaintEdate").val();
-				var getOrd = dateRep(contOrddate);
-				var getSup = dateRep(supplyDate);
-				var getDel = dateRep(delivDate);
-				var getPayS = dateRep(paymaintSdate);
-				var getPayE = dateRep(paymaintEdate);
-				
-				insertData.compNo = compNo;
-				insertData.contNo = contNo;
-				insertData.contOrddate = getOrd;
-				insertData.supplyDate = getSup;
-				insertData.delivDate = getDel;
-				insertData.paymaintSdate = getPayS;
-				insertData.paymaintEdate = getPayE;
-				
-				$.ajax({
-					url: "${path}/cont/extInsert.do",
-					method: "post",
-					data: insertData,
-					dataType: "json",
-					success:function(){
-						alert("연장되었습니다.");
-						location.href = "${path}/cont/list.do";
-					}
-				});
-			}else{
+			if($("#contTitle").val() === ""){
+				alert("계약명을 입력해주십시오.");
+				$("#contTitle").focus();
 				return false;
+			}else{
+				if(confirm("연장하시겠습니까??")){
+					var insertData = {};
+					var compNo = "${sessionScope.compNo}";
+					var contNo = $("#contNo").val();
+					var contTitle = $("#contTitle").val();
+					var contOrddate = $("#contOrddate").val();
+					var supplyDate = $("#supplyDate").val();
+					var delivDate = $("#delivDate").val();
+					var paymaintSdate = $("#paymaintSdate").val();
+					var paymaintEdate = $("#paymaintEdate").val();
+					var getOrd = dateRep(contOrddate);
+					var getSup = dateRep(supplyDate);
+					var getDel = dateRep(delivDate);
+					
+					insertData.compNo = compNo;
+					insertData.contNo = contNo;
+					insertData.contTitle = contTitle;
+					insertData.contOrddate = getOrd;
+					insertData.supplyDate = getSup;
+					insertData.delivDate = getDel;
+					insertData.paymaintSdate = paymaintSdate;
+					insertData.paymaintEdate = paymaintEdate;
+					
+					$.ajax({
+						url: "${path}/cont/extAttUpdate.do",
+						method: "post",
+						data: {
+							contNo: contNo
+						},
+						async: false,
+						dataType: "json",
+						success:function(){
+							$.ajax({
+								url: "${path}/cont/extInsert.do",
+								method: "post",
+								data: insertData,
+								async: false,
+								dataType: "json",
+								success:function(){
+									alert("연장되었습니다.");
+									location.href = "${path}/cont/list.do";
+								}
+							});
+						}
+					});
+				}else{
+					return false;
+				}
 			}
 		});
 		
@@ -1103,6 +1124,10 @@
 		} */
 
 		$(document).ready(function() {
+			localStorage.setItem("contTitle", $("#contTitle").val());
+			localStorage.setItem("paymaintSdate", $("#paymaintSdate").val());
+			localStorage.setItem("paymaintEdate", $("#paymaintEdate").val());
+			
 			var contractType					= $("input[name='contractType']:checked").val();	// 신규 영업지원 or 기존계약
 			if(contractType == 'NEW'){
 				$(".contDetailCont").hide();
@@ -1142,6 +1167,101 @@
 				$this.val(function () {
 					return (input === 0) ? "0" : input.toLocaleString("en-US");
 				});
+			});
+			
+			$("[name='contractType']").change(function(){
+				var extBtn = $("#extBtn");
+				var paymaintSdate = $("#paymaintSdate");
+				var paymaintEdate = $("#paymaintEdate");
+				var getPayS = dateRep(paymaintSdate.val());
+				var getPayE = dateRep(paymaintEdate.val());
+				
+				if($(this).val() === "EXT"){
+					extBtn.removeClass();
+					extBtn.attr("class", "btn btn-primary");
+					extBtn.attr("disabled", false);
+					$("#contTitle").val("");
+					paymaintSdate.val(getPayS);
+					paymaintEdate.val(getPayE);
+				}else{
+					extBtn.removeClass();
+					extBtn.attr("class", "btn btn-secondary");
+					extBtn.attr("disabled", true);
+					$("#contTitle").val(localStorage.getItem("contTitle"));
+					paymaintSdate.val(localStorage.getItem("paymaintSdate"));
+					paymaintEdate.val(localStorage.getItem("paymaintEdate"));
+				}
+			});
+			
+			$("#vatIstype, #vatIsday").change(function(){
+				if($("#paymaintSdate").val() === "" || $("#paymaintEdate").val() === ""){
+					alert("유상 유지보수일자를 선택해주십시오.");
+					$("#vatIstype").val("OT");
+					$("#vatIsday").val("01");
+					return false;
+				}else{
+					var contAmt = $("#contAmt").val().replace(/[\D\s\._\-]+/g, "");
+					var vatIsday = $("#vatIsday").val();
+					$("#vatsched").html("");
+					
+					if($("#vatIstype").val() === "EM"){
+						var avg = parseInt(contAmt/12);
+						$("#vatsched").append("<option value=''>연-월-일 금액</option>");
+				
+						for(var i = 1; i <= 12; i++){
+							if(vatIsday === "31"){
+								if(i < 10){
+									if(i == 2){
+										$("#vatsched").append("<option value='"+i+"'>2022-0" + i + "-28 " + avg.toLocaleString("en-US") + "</option>");
+									}else if(i == 4 || i == 6 || i == 9){
+										$("#vatsched").append("<option value='"+i+"'>2022-0" + i + "-30 " + avg.toLocaleString("en-US") + "</option>");
+									}else{
+										$("#vatsched").append("<option value='"+i+"'>2022-0" + i + "-" + vatIsday + " " + avg.toLocaleString("en-US") + "</option>");
+									}
+								}else{
+									if(i == 11){
+										$("#vatsched").append("<option value='"+i+"'>2022-" + i + "-30 " + avg.toLocaleString("en-US") + "</option>");
+									}else{
+										$("#vatsched").append("<option value='"+i+"'>2022-" + i + "-" + vatIsday + " " + avg.toLocaleString("en-US") + "</option>");
+									}
+								}
+							}else{
+								if(i < 10){
+									$("#vatsched").append("<option value='"+i+"'>2022-0" + i + "-" + vatIsday + " " + avg.toLocaleString("en-US") + "</option>");
+								}else{
+									$("#vatsched").append("<option value='"+i+"'>2022-" + i + "-" + vatIsday + " " + avg.toLocaleString("en-US") + "</option>");
+								}
+							}
+						}
+					}else if($("#vatIstype").val() === "QY"){
+						var avg = parseInt(contAmt/4);
+						$("#vatsched").append("<option value=''>연-월-일 금액</option>");
+						if(vatIsday === "31"){
+							$("#vatsched").append("<option value='03'>2022-03-31 " + avg.toLocaleString("en-US") + "</option>");
+							$("#vatsched").append("<option value='06'>2022-06-30 " + avg.toLocaleString("en-US") + "</option>");
+							$("#vatsched").append("<option value='09'>2022-09-30 " + avg.toLocaleString("en-US") + "</option>");
+							$("#vatsched").append("<option value='12'>2022-12-31 " + avg.toLocaleString("en-US") + "</option>");
+						}else{
+							$("#vatsched").append("<option value='03'>2022-03-" + vatIsday + " " + avg.toLocaleString("en-US") + "</option>");
+							$("#vatsched").append("<option value='06'>2022-06-" + vatIsday + " " + avg.toLocaleString("en-US") + "</option>");
+							$("#vatsched").append("<option value='09'>2022-09-" + vatIsday + " " + avg.toLocaleString("en-US") + "</option>");
+							$("#vatsched").append("<option value='12'>2022-12-" + vatIsday + " " + avg.toLocaleString("en-US") + "</option>");
+						}
+					}else if($("#vatIstype").val() === "HY"){
+						var avg = parseInt(contAmt/2);
+						$("#vatsched").append("<option value=''>연-월-일 금액</option>");
+						
+						if(vatIsday === "31"){
+							$("#vatsched").append("<option value='06'>2022-06-30 " + avg.toLocaleString("en-US") + "</option>");
+							$("#vatsched").append("<option value='12'>2022-12-31 " + avg.toLocaleString("en-US") + "</option>");	
+						}else{
+							$("#vatsched").append("<option value='06'>2022-06-" + vatIsday + " " + avg.toLocaleString("en-US") + "</option>");
+							$("#vatsched").append("<option value='12'>2022-12-" + vatIsday + " " + avg.toLocaleString("en-US") + "</option>");
+						}
+					}else{
+						$("#vatsched").append("<option value=''>연-월-일 금액</option>");
+					}
+				}
 			});
 
 			$("#tab_common_bottom").hide();

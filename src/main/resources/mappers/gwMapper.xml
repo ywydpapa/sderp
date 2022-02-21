@@ -517,6 +517,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where docNo = #{docNo}
 	</update>
 	
+	<update id="updateFile">
+		update swc_businessfiledata set
+			docNo = #{updateNo},
+			ModDatetime = now(),
+			attrib = '10000'
+		where docNo = #{docNo}
+	</update>
+	
 	<select id="listFile" resultType="gwFileDataDTO">
 	 	select * from swc_businessfiledata
 	 	where docNo=#{docNo}

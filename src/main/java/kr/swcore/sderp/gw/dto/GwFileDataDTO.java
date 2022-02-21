@@ -15,6 +15,7 @@ public class GwFileDataDTO {
 	private byte[] fileContent;
 	private Integer docNo;
 	private Integer userNo;
+	private Integer updateNo;
 
 	public GwFileDataDTO() {
 		super();

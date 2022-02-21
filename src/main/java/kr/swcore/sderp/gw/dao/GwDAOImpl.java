@@ -280,4 +280,10 @@ public class GwDAOImpl implements GwDAO{
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne("gw.allComList", comInfoNo);
 	}
+
+	@Override
+	public int updateFile(GwFileDataDTO dto) {
+		// TODO Auto-generated method stub
+		return sqlSession.update("gw.updateFile", dto);
+	}
 }

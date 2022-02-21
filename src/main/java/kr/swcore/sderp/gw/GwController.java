@@ -507,4 +507,16 @@ public class GwController {
 		
 		return entity;
 	}
+    
+    @RequestMapping("updateFile.do")
+    public  ResponseEntity<?> updateFile(@ModelAttribute GwFileDataDTO dto) {
+         Map<String, Object> param = new HashMap<>();
+         int estUpdate = gwService.updateFile(dto);
+         if (estUpdate >0) {
+             param.put("code","10001");
+         } else {
+             param.put("code","20001");
+         }
+         return ResponseEntity.ok(param);
+    }
 }

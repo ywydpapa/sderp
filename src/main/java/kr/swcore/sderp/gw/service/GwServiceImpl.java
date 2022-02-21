@@ -335,4 +335,9 @@ public class GwServiceImpl implements GwService{
 		// TODO Auto-generated method stub
 		return gwDao.allComList(comInfoNo);
 	}
+
+	@Override
+	public int updateFile(GwFileDataDTO dto) {
+		return gwDao.updateFile(dto);
+	}
 }

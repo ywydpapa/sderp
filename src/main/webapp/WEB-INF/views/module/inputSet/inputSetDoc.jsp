@@ -777,6 +777,7 @@
     }
     
     function fn_data02App(){
+    	var updateFile = {};
     	var docUserNo = $("#docUserNo").val();
     	var userNo = $("#userNo").val();
     	var userNoCR = $("#userNoCR").val();
@@ -848,6 +849,15 @@
 		    				data02App.issueDate = $("#issueDate").val();
 		    				data02App.appDate = $("#appDate").val();
 		    				data02App.appComment = tinyMCE.get("appComment").getContent();
+		    				updateFile.docNo = docNo;
+		    				updateFile.updateNo = data.getId;
+		    				
+		    				$.ajax({
+		    					url : "${path}/gw/updateFile.do/",
+		    					method : "POST",
+		    					data : updateFile,
+		    					dataType: "json",
+		    				});
 		    				
 		    				$.ajax({
 		    					url: "${path}/gw/insertApp.do",
@@ -876,6 +886,7 @@
     }
 
     function fn_data02Com(){
+    	var updateFile = {};
     	var docUserNo = $("#docUserNo").val();
     	var userNoCR = $("#userNoCR").val();
     	var userNo = $("#userNo").val();
@@ -938,6 +949,15 @@
 			   					data02App.issueDate = $("#issueDate").val();
 			   					data02App.appDate = $("#appDate").val();
 			    				data02App.appComment = tinyMCE.get("appComment").getContent();
+			    				updateFile.docNo = docNo;
+			    				updateFile.updateNo = data.getId;
+			    				
+			    				$.ajax({
+			    					url : "${path}/gw/updateFile.do/",
+			    					method : "POST",
+			    					data : updateFile,
+			    					dataType: "json",
+			    				});
 			    				
 			    				$.ajax({
 			    					url: "${path}/gw/insertApp.do",

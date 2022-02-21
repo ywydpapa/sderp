@@ -17,11 +17,13 @@
 				<col width="10%" />
 			</colgroup>
 			<thead>
-				<th class="text-center">일자</th>
-				<th class="text-center">파일명</th>
-				<th class="text-center">파일설명</th>
-				<th class="text-center">작성자</th>
-				<th class="text-center">삭제</th>
+				<tr>
+					<th class="text-center">일자</th>
+					<th class="text-center">파일명</th>
+					<th class="text-center">파일설명</th>
+					<th class="text-center">작성자</th>
+					<th class="text-center">삭제</th>
+				</tr>
 			</thead>
 			<tbody id="ItemFilelist">
 				<c:forEach var="row2" items="${board_filedata_detail}">

@@ -72,8 +72,8 @@
 					
 					<!-- ${sessionScope.userNo} -->
 					<c:if test="${sessionScope.userNo == board_file_detail[0].userNo}">
-					<button class="btn btn-md btn-primary f-left modal-list-btn" onClick="location.href='${path}/board__file/board_file_update/${board_file_detail[0].bf_pk}'">수정</button>
-					<button class="btn btn-md btn-danger f-left modal-list-btn" onClick="location.href='${path}/board__file/board_file_delete/${board_file_detail[0].bf_pk}'">삭제</button>
+						<button class="btn btn-md btn-primary f-right modal-list-btn" style="margin-left: 5px;" onClick="location.href='${path}/board__file/board_file_update/${board_file_detail[0].bf_pk}'">수정</button>
+						<button class="btn btn-md btn-danger f-right modal-list-btn" style="margin-left: 5px;" onClick="location.href='${path}/board__file/board_file_delete/${board_file_detail[0].bf_pk}'">삭제</button>
 					</c:if>
 					<!--  -->
 					

@@ -1193,6 +1193,74 @@
 			  	localStorage.clear();
 			}
 		});
+
+		$("#paymaintSdate").change(function(){
+			var dateValue = $(this).val();
+			var dateValueArr = dateValue.split("-");
+			var dateValueCom = new Date(dateValueArr[0], parseInt(dateValueArr[1])-1, dateValueArr[2]);
+			var EdateValue = $("#paymaintEdate").val();
+			var EdateDateArr = EdateValue.split("-");
+			var EdateDateCom = new Date(EdateDateArr[0], parseInt(EdateDateArr[1])-1, EdateDateArr[2]);
+			
+			
+			if(EdateValue == ""){
+				dateValueCom.setDate(dateValueCom.getDate()+1);
+			}else if(dateValueCom.getTime() > EdateDateCom.getTime()){
+				alert("시작일이 종료일보다 클 수 없습니다.");
+				dateValueCom.setDate(dateValueCom.getDate()+1);
+			}else{
+				return null;
+			}
+			
+			var year = dateValueCom.getFullYear();
+			var month = dateValueCom.getMonth()+1;
+			var day = dateValueCom.getDate();
+			
+			if(month < 10){
+				month = "0" + month;
+			}
+			
+			console.log(month);
+			if(day < 10){
+				day = "0" + day;
+			}
+			
+			$("#paymaintEdate").val(year + "-" + month + "-" + day);
+		});
+		
+		$("#paymaintEdate").change(function(){
+			var SdateValue = $("#paymaintSdate").val();
+			var SdateValueArr = SdateValue.split("-");
+			var SdateValueCom = new Date(SdateValueArr[0], parseInt(SdateValueArr[1])-1, SdateValueArr[2]);
+			var thisDateValue = $(this).val();
+			var thisDateArr = thisDateValue.split("-");
+			var thisDateCom = new Date(thisDateArr[0], parseInt(thisDateArr[1])-1, thisDateArr[2]);
+			
+			if(SdateValue == ""){
+				thisDateCom.setDate(thisDateCom.getDate()-1);
+			}else if(SdateValueCom.getTime() > thisDateCom.getTime()){
+				alert("종료일이 시작일보다 작을 수 없습니다.");
+				thisDateCom.setDate(thisDateCom.getDate()-1);
+			}else{
+				return null;
+			}
+			
+			var year = thisDateCom.getFullYear();
+			var month = thisDateCom.getMonth()+1;
+			var day = thisDateCom.getDate();
+			
+			if(month < 10){
+				month = "0" + month;
+			}
+			
+			if(day < 10){
+				day = "0" + day;
+			}
+			
+			$("#paymaintSdate").val(year + "-" + month + "-" + day);
+		});
+		
+		
 	</script>
 </div>
 <jsp:include page="../body-bottom.jsp"/>

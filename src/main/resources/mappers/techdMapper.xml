@@ -4,8 +4,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="techd">
 
-<select id="listTechd"
-		resultType="TechdDto">
+<select id="listTechd" resultType="TechdDto">
 	select subquery1.*
 	from
 		(
@@ -71,8 +70,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</if>
 </select>
 
-<select id="listTechdCnt"
-		resultType="_integer">
+<select id="listTechdCnt" resultType="_integer">
 select count(*)
 from
 (
@@ -139,8 +137,7 @@ from
 ) t
 </select>
 
-<select id="listTechdbycust"
- 		resultType="TechdDto">
+<select id="listTechdbycust" resultType="TechdDto">
  		select a.*, b.userName , c.custName, f.desc03 techdStepsN 
  		from swc_techd a  
 		left join swc_user b on a.userNo = b.userNo
@@ -152,8 +149,7 @@ from
  		order by techdFrom desc
  </select>
  
- <select id="listconTechd"
- 		resultType="TechdDto">
+ <select id="listconTechd" resultType="TechdDto">
  		select a.*, b.userName , c.custName, f.desc03 techdStepsN 
  		from swc_techd a  
 		left join swc_user b on a.userNo = b.userNo
@@ -186,15 +182,14 @@ from
 		order by techdFrom desc
  </select>
  
- <select id="listTechdinsopp"
- 		resultType="TechdDto">
+ <select id="listTechdinsopp" resultType="TechdDto">
  		select a.*, b.userName , c.custName, f.desc03 techdTypeN from swc_techd a  
 		left join swc_user b on a.userNo = b.userNo
 		left join swc_cust c on a.custNo = c.custNo
 		left join swc_sopp d on a.soppNo = d.soppNo
 		left join swc_cont e on a.contNo = e.contNo
 		left join swc_code f on a.techdType = f.codeNo 
-		where a.attrib not like 'XXX%' and a.compNo = #{compNo}
+		where a.attrib not like 'XXX%' and a.compNo = #{compNo} and a.soppNo != 10005223
 		<if test="soppNo != 0">
 			and a.soppNo = #{soppNo}
 		</if>
@@ -204,8 +199,7 @@ from
 		order by techdNo 
  </select>
 
-<select id="detailTechd"
- 		resultType="techdDto">
+<select id="detailTechd" resultType="techdDto">
 	select a.*, b.userName , c.custName as endCustName, d.soppTitle, e.contTitle, f.custMname custmemberName, g.desc03 cntrctMthN, h.custName,
  		       CONCAT(left(a.techdFrom,10),'T',substring(a.techdFrom,12,9)) targetDatefrom,
  		       CONCAT(left(a.techdTo,10),'T',substring(a.techdTo,12,9)) targetDateto

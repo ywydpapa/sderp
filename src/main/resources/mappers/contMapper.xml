@@ -251,6 +251,110 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		10000
  	)
  </insert>
+ 
+<insert id="extInsert">
+	insert into swc_cont
+	(
+		compNo, 
+		soppNo,
+		cntrctMth,
+		contType,
+		exContNo,
+		userNo,
+		custNo,
+		custMemberNo,
+		contTitle,
+		contDesc,
+		buyrNo,
+		buyrMemberNo,
+		ptncNo,
+		supplyNo,
+		supplyMemberNo,
+		contOrddate,
+		supplyDate,
+		delivDate,
+		contAmt,
+		vatYn,
+		net_profit,
+		freemaintSdate,
+		freemaintEdate,
+		paymaintSdate,
+		paymaintEdate,
+		contArea,
+		businessType,
+		regDatetime,
+		modDatetime,
+		attrib
+	) 
+	select 
+		#{compNo}, 
+		soppNo,
+		cntrctMth,
+		contType,
+		#{contNo},
+		userNo,
+		custNo,
+		custMemberNo,
+		contTitle,
+		contDesc,
+		buyrNo,
+		buyrMemberNo,
+		ptncNo,
+		supplyNo,
+		supplyMemberNo,
+		<choose>
+			<when test="contOrddate != null and contOrddate != ''">
+				#{contOrddate},
+			</when>
+			<otherwise>
+				contOrddate,
+			</otherwise>
+		</choose>
+		<choose>
+			<when test="supplyDate != null and supplyDate != ''">
+				#{supplyDate},
+			</when>
+			<otherwise>
+				supplyDate,
+			</otherwise>
+		</choose>
+		<choose>
+			<when test="delivDate != null and delivDate != ''">
+				#{delivDate},
+			</when>
+			<otherwise>
+				delivDate,
+			</otherwise>
+		</choose>
+		contAmt,
+		vatYn,
+		net_profit,
+		freemaintSdate,
+		freemaintEdate,
+		<choose>
+			<when test="paymaintSdate != null and paymaintSdate != ''">
+				#{paymaintSdate},
+			</when>
+			<otherwise>
+				paymaintSdate,
+			</otherwise>
+		</choose>
+		<choose>
+			<when test="paymaintEdate != null and paymaintEdate != ''">
+				#{paymaintEdate},
+			</when>
+			<otherwise>
+				paymaintEdate,
+			</otherwise>
+		</choose>
+		contArea,
+		businessType,
+		now(),
+		now(),
+		'10000'
+	from swc_cont 
+	where contNo = #{contNo};
+</insert>
  		
 <select id="downloadFile" resultType="contFileDataDTO">
 	select *

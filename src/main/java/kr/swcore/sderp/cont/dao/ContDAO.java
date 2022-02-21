@@ -29,4 +29,5 @@ public interface ContDAO {
 	ContDTO listSumCont(int compNo);
 	
 	int soppListUpdate(ContDTO dto);
+	int extInsert(ContDTO dto);
 }

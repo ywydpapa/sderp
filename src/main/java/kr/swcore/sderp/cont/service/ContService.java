@@ -35,4 +35,5 @@ public interface ContService {
 	ContFileDataDTO downloadFile(ContFileDataDTO dto);
 	ContDTO listSumCont(HttpSession session);
 	int soppListUpdate(HttpSession session, ContDTO dto);
+	int extInsert(ContDTO dto);
 }

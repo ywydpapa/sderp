@@ -74,19 +74,17 @@
 											<tbody>
 												<tr>
 													<th scope="row">등록구분</th>
-													<td colspan="3">
-														<div class="form-radio">
-															<form>
-																<div class="radio radio-inline">
-																	<label style="margin-top: 10px;"> <input type="radio" name="contractType" value="NEW" <c:if test="${contDto.cntrctMthN == '판매계약'}">checked</c:if>> <i class="helper"></i>판매계약</label>
-																</div>
-																<div class="radio radio-inline">
-																	<label style="margin-top: 10px;"> <input type="radio" name="contractType" value="OLD" <c:if test="${contDto.cntrctMthN == '유지보수'}">checked</c:if>> <i class="helper"></i>유지보수</label>
-																</div>
-																<div class="radio radio-inline">
-																	<label style="margin-top: 10px;"> <input type="radio" name="contractType" value="EXT" <c:if test="${contDto.cntrctMthN == '유지보수 연장'}">checked</c:if>> <i class="helper"></i>유지보수 연장</label>
-																</div>
-															</form>
+													<td colspan="7">
+														<div class="form-radio" style="float:left;">
+															<div class="radio radio-inline">
+																<label style="margin-top: 10px;"> <input type="radio" name="contractType" value="NEW" <c:if test="${contDto.cntrctMthN == '판매계약'}">checked</c:if>> <i class="helper"></i>판매계약</label>
+															</div>
+															<div class="radio radio-inline">
+																<label style="margin-top: 10px;"> <input type="radio" name="contractType" value="OLD" <c:if test="${contDto.cntrctMthN == '유지보수'}">checked</c:if>> <i class="helper"></i>유지보수</label>
+															</div>
+														</div>
+														<div style="float:right;">
+															<button type="button" class="btn btn-primary" id="extBtn">유지보수연장</button>
 														</div>
 													</td>
 												</tr>
@@ -385,6 +383,33 @@
 												</tr>
 												
 												<tr>
+													<th>계산서 발행방법</th>
+													<td>
+														<select id="vatIstype" class="form-control">
+															<option value="OT">전체금액 한번</option>
+															<option value="EM">1/12 매월 발행</option>
+															<option value="QY">1/4 분기 발행</option>
+															<option value="HY">1/2 반기 발행</option>
+															<option value="RQ">요청 발행</option>
+														</select>
+													</td>
+													<th>발행일자</th>
+													<td>
+														<select id="vatIsday" class="form-control">
+															<option value="01">1일</option>
+															<option value="10">10일</option>
+															<option value="15">15일</option>
+															<option value="20">20일</option>
+															<option value="25">25일</option>
+															<option value="31">말일</option>
+														</select>
+													</td>
+													<th>계산서 발행일정</th>
+													<td>
+														<select id="vatsched" class="form-control">
+															<option value="">연-월-일 금액</option>
+														</select>
+													</td>
 													<th>지역</th>
 													<td>
 														<select name="select" id="contArea" class="form-control form-control-sm">
@@ -394,14 +419,6 @@
 															</c:forEach>
 														</select>
 													</td>
-													<!-- 빈박스 -->
-													<th></th>
-													<td></td>
-													<th></th>
-													<td></td>
-													<th></th>
-													<td></td>
-													<!-- 빈박스 -->
 												</tr>
 												<tr>
 													<th scope="row">내용</th>
@@ -573,6 +590,74 @@
 			var modal = $(this);
 			modal.find('.modal-body').load(button.data("remote"));
 		});
+		
+		$("#extBtn").click(function(){
+			if(confirm("연장하시겠습니까??")){
+				var insertData = {};
+				var compNo = "${sessionScope.compNo}";
+				var contNo = $("#contNo").val();
+				var contOrddate = $("#contOrddate").val();
+				var supplyDate = $("#supplyDate").val();
+				var delivDate = $("#delivDate").val();
+				var paymaintSdate = $("#paymaintSdate").val();
+				var paymaintEdate = $("#paymaintEdate").val();
+				var getOrd = dateRep(contOrddate);
+				var getSup = dateRep(supplyDate);
+				var getDel = dateRep(delivDate);
+				var getPayS = dateRep(paymaintSdate);
+				var getPayE = dateRep(paymaintEdate);
+				
+				insertData.compNo = compNo;
+				insertData.contNo = contNo;
+				insertData.contOrddate = getOrd;
+				insertData.supplyDate = getSup;
+				insertData.delivDate = getDel;
+				insertData.paymaintSdate = getPayS;
+				insertData.paymaintEdate = getPayE;
+				
+				$.ajax({
+					url: "${path}/cont/extInsert.do",
+					method: "post",
+					data: insertData,
+					dataType: "json",
+					success:function(){
+						alert("연장되었습니다.");
+						location.href = "${path}/cont/list.do";
+					}
+				});
+			}else{
+				return false;
+			}
+		});
+		
+		function dateRep(getDate){
+			if(getDate === ""){
+				return '';	
+			}else{
+				var setDate = new Date(getDate);
+				var returnDate = "";
+				var year = "";
+				var month = "";
+				var day = "";
+				
+				setDate.setFullYear(setDate.getFullYear() + 1);
+				year = setDate.getFullYear();
+				month = setDate.getMonth() + 1;
+				day = setDate.getDate();
+				
+				if(month < 10){
+					month = "0" + month;
+				}
+				
+				if(day < 10){
+					day = "0" + day;
+				}
+				
+				returnDate = year + "-" + month + "-" + day;
+				
+				return returnDate;
+			}
+		}
 		
 		function fnSetproductdata(a,b){
 			$("#productNo1").val(a);

@@ -84,9 +84,6 @@
 																<div class="radio radio-inline">
 																	<label style="margin-top: 10px;"> <input type="radio" name="contractType" value="OLD" <c:if test="${contDto.cntrctMthN == '유지보수'}">checked</c:if>> <i class="helper"></i>유지보수</label>
 																</div>
-																<div class="radio radio-inline">
-																	<label style="margin-top: 10px;"> <input type="radio" name="contractType" value="EXT" <c:if test="${contDto.cntrctMthN == '유지보수 연장'}">checked</c:if>> <i class="helper"></i>유지보수 연장</label>
-																</div>
 															</form>
 														</div>
 													</td>
@@ -335,19 +332,19 @@
 													<th scope="row">발주일자</th>
 													<td>
 														<div class="input-group input-group-sm mb-0">
-															<input class="form-control form-control-sm" type="date" max="9999-12-30" id="contOrddate" name="contOrddate" value="${contDto.contOrddate}">
+															<input class="form-control form-control-sm" type="date" id="contOrddate" name="contOrddate" value="${contDto.contOrddate}">
 														</div>
 													</td>
 													<th>공급일자</th>
 													<td>
 														<div class="input-group input-group-sm mb-0">
-															<input class="form-control form-control-sm" type="date" max="9999-12-30" id="supplyDate" name="supplyDate" value="${contDto.supplyDate}" >
+															<input class="form-control form-control-sm" type="date" id="supplyDate" name="supplyDate" value="${contDto.supplyDate}" >
 														</div>
 													</td>
 													<th scope="row">검수일자</th>
 													<td>
 														<div class="input-group input-group-sm mb-0">
-															<input class="form-control form-control-sm " type="date" max="9999-12-30" id="delivDate" name="delivDate" value="${contDto.delivDate}">
+															<input class="form-control form-control-sm " type="date" id="delivDate" name="delivDate" value="${contDto.delivDate}">
 														</div>
 													</td>
 												</tr>
@@ -355,17 +352,17 @@
 													<th scope="row" class="contDetailSopp">무상 유지보수일자</th>
 													<td class="contDetailSopp">
 														<div class="input-group input-group-sm mb-0">
-															<input class="form-control " type="date" max="9999-12-30" id="freemaintSdate" value="${contDto.freemaintSdate}" >
+															<input class="form-control " type="date" id="freemaintSdate" value="${contDto.freemaintSdate}" >
 															<span style="line-height:30px;">&nbsp;~&nbsp;</span>
-															<input class="form-control " type="date" max="9999-12-31" id="freemaintEdate" value="${contDto.freemaintEdate}">
+															<input class="form-control " type="date" id="freemaintEdate" value="${contDto.freemaintEdate}">
 														</div>
 													</td>
 													<th scope="row" class="contDetailCont">유상 유지보수일자</th>
 													<td class="contDetailCont">
 														<div class="input-group input-group-sm mb-0">
-															<input class="form-control" type="date" max="9999-12-30" id="paymaintSdate" value="${contDto.paymaintSdate}">
+															<input class="form-control" type="date" id="paymaintSdate" value="${contDto.paymaintSdate}">
 															<span style="line-height:30px;">&nbsp;~&nbsp;</span>
-															<input class="form-control form-control-sm col-sm-6 m-l-5" type="date" max="9999-12-31" id="paymaintEdate" value="${contDto.paymaintEdate}">
+															<input class="form-control form-control-sm col-sm-6 m-l-5" type="date" id="paymaintEdate" value="${contDto.paymaintEdate}">
 														</div>
 													</td>
 													<th >계약금액</th>
@@ -1121,66 +1118,73 @@
 			
 			
 			$("#vatIstype, #vatIsday").change(function(){
-				var contAmt = $("#contAmt").val().replace(/[\D\s\._\-]+/g, "");
-				var vatIsday = $("#vatIsday").val();
-				$("#vatsched").html("");
+				if($("#paymaintSdate").val() === "" || $("#paymaintEdate").val() === ""){
+					alert("유상 유지보수일자를 선택해주십시오.");
+					$("#vatIstype").val("OT");
+					$("#vatIsday").val("01");
+					return false;
+				}else{
+					var contAmt = $("#contAmt").val().replace(/[\D\s\._\-]+/g, "");
+					var vatIsday = $("#vatIsday").val();
+					$("#vatsched").html("");
+					
+					if($("#vatIstype").val() === "EM"){
+						var avg = parseInt(contAmt/12);
+						$("#vatsched").append("<option value=''>연-월-일 금액</option>");
 				
-				if($("#vatIstype").val() === "EM"){
-					var avg = parseInt(contAmt/12);
-					$("#vatsched").append("<option value=''>연-월-일 금액</option>");
-			
-					for(var i = 1; i <= 12; i++){
-						if(vatIsday === "31"){
-							if(i < 10){
-								if(i == 2){
-									$("#vatsched").append("<option value='"+i+"'>2022-0" + i + "-28 " + avg.toLocaleString("en-US") + "</option>");
-								}else if(i == 4 || i == 6 || i == 9){
-									$("#vatsched").append("<option value='"+i+"'>2022-0" + i + "-30 " + avg.toLocaleString("en-US") + "</option>");
+						for(var i = 1; i <= 12; i++){
+							if(vatIsday === "31"){
+								if(i < 10){
+									if(i == 2){
+										$("#vatsched").append("<option value='"+i+"'>2022-0" + i + "-28 " + avg.toLocaleString("en-US") + "</option>");
+									}else if(i == 4 || i == 6 || i == 9){
+										$("#vatsched").append("<option value='"+i+"'>2022-0" + i + "-30 " + avg.toLocaleString("en-US") + "</option>");
+									}else{
+										$("#vatsched").append("<option value='"+i+"'>2022-0" + i + "-" + vatIsday + " " + avg.toLocaleString("en-US") + "</option>");
+									}
 								}else{
-									$("#vatsched").append("<option value='"+i+"'>2022-0" + i + "-" + vatIsday + " " + avg.toLocaleString("en-US") + "</option>");
+									if(i == 11){
+										$("#vatsched").append("<option value='"+i+"'>2022-" + i + "-30 " + avg.toLocaleString("en-US") + "</option>");
+									}else{
+										$("#vatsched").append("<option value='"+i+"'>2022-" + i + "-" + vatIsday + " " + avg.toLocaleString("en-US") + "</option>");
+									}
 								}
 							}else{
-								if(i == 11){
-									$("#vatsched").append("<option value='"+i+"'>2022-" + i + "-30 " + avg.toLocaleString("en-US") + "</option>");
+								if(i < 10){
+									$("#vatsched").append("<option value='"+i+"'>2022-0" + i + "-" + vatIsday + " " + avg.toLocaleString("en-US") + "</option>");
 								}else{
 									$("#vatsched").append("<option value='"+i+"'>2022-" + i + "-" + vatIsday + " " + avg.toLocaleString("en-US") + "</option>");
 								}
 							}
-						}else{
-							if(i < 10){
-								$("#vatsched").append("<option value='"+i+"'>2022-0" + i + "-" + vatIsday + " " + avg.toLocaleString("en-US") + "</option>");
-							}else{
-								$("#vatsched").append("<option value='"+i+"'>2022-" + i + "-" + vatIsday + " " + avg.toLocaleString("en-US") + "</option>");
-							}
 						}
-					}
-				}else if($("#vatIstype").val() === "QY"){
-					var avg = parseInt(contAmt/4);
-					$("#vatsched").append("<option value=''>연-월-일 금액</option>");
-					if(vatIsday === "31"){
-						$("#vatsched").append("<option value='03'>2022-03-31 " + avg.toLocaleString("en-US") + "</option>");
-						$("#vatsched").append("<option value='06'>2022-06-30 " + avg.toLocaleString("en-US") + "</option>");
-						$("#vatsched").append("<option value='09'>2022-09-30 " + avg.toLocaleString("en-US") + "</option>");
-						$("#vatsched").append("<option value='12'>2022-12-31 " + avg.toLocaleString("en-US") + "</option>");
+					}else if($("#vatIstype").val() === "QY"){
+						var avg = parseInt(contAmt/4);
+						$("#vatsched").append("<option value=''>연-월-일 금액</option>");
+						if(vatIsday === "31"){
+							$("#vatsched").append("<option value='03'>2022-03-31 " + avg.toLocaleString("en-US") + "</option>");
+							$("#vatsched").append("<option value='06'>2022-06-30 " + avg.toLocaleString("en-US") + "</option>");
+							$("#vatsched").append("<option value='09'>2022-09-30 " + avg.toLocaleString("en-US") + "</option>");
+							$("#vatsched").append("<option value='12'>2022-12-31 " + avg.toLocaleString("en-US") + "</option>");
+						}else{
+							$("#vatsched").append("<option value='03'>2022-03-" + vatIsday + " " + avg.toLocaleString("en-US") + "</option>");
+							$("#vatsched").append("<option value='06'>2022-06-" + vatIsday + " " + avg.toLocaleString("en-US") + "</option>");
+							$("#vatsched").append("<option value='09'>2022-09-" + vatIsday + " " + avg.toLocaleString("en-US") + "</option>");
+							$("#vatsched").append("<option value='12'>2022-12-" + vatIsday + " " + avg.toLocaleString("en-US") + "</option>");
+						}
+					}else if($("#vatIstype").val() === "HY"){
+						var avg = parseInt(contAmt/2);
+						$("#vatsched").append("<option value=''>연-월-일 금액</option>");
+						
+						if(vatIsday === "31"){
+							$("#vatsched").append("<option value='06'>2022-06-30 " + avg.toLocaleString("en-US") + "</option>");
+							$("#vatsched").append("<option value='12'>2022-12-31 " + avg.toLocaleString("en-US") + "</option>");	
+						}else{
+							$("#vatsched").append("<option value='06'>2022-06-" + vatIsday + " " + avg.toLocaleString("en-US") + "</option>");
+							$("#vatsched").append("<option value='12'>2022-12-" + vatIsday + " " + avg.toLocaleString("en-US") + "</option>");
+						}
 					}else{
-						$("#vatsched").append("<option value='03'>2022-03-" + vatIsday + " " + avg.toLocaleString("en-US") + "</option>");
-						$("#vatsched").append("<option value='06'>2022-06-" + vatIsday + " " + avg.toLocaleString("en-US") + "</option>");
-						$("#vatsched").append("<option value='09'>2022-09-" + vatIsday + " " + avg.toLocaleString("en-US") + "</option>");
-						$("#vatsched").append("<option value='12'>2022-12-" + vatIsday + " " + avg.toLocaleString("en-US") + "</option>");
+						$("#vatsched").append("<option value=''>연-월-일 금액</option>");
 					}
-				}else if($("#vatIstype").val() === "HY"){
-					var avg = parseInt(contAmt/2);
-					$("#vatsched").append("<option value=''>연-월-일 금액</option>");
-					
-					if(vatIsday === "31"){
-						$("#vatsched").append("<option value='06'>2022-06-30 " + avg.toLocaleString("en-US") + "</option>");
-						$("#vatsched").append("<option value='12'>2022-12-31 " + avg.toLocaleString("en-US") + "</option>");	
-					}else{
-						$("#vatsched").append("<option value='06'>2022-06-" + vatIsday + " " + avg.toLocaleString("en-US") + "</option>");
-						$("#vatsched").append("<option value='12'>2022-12-" + vatIsday + " " + avg.toLocaleString("en-US") + "</option>");
-					}
-				}else{
-					$("#vatsched").append("<option value=''>연-월-일 금액</option>");
 				}
 			});
 			

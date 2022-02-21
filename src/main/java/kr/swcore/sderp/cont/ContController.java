@@ -335,4 +335,12 @@ public class ContController {
 		
 		return entity;
 	}
+	
+	@RequestMapping("extInsert.do")
+	public ResponseEntity<?> extInsert(@ModelAttribute ContDTO dto) {
+		Map<String, Object> param = new HashMap<>();
+		int schedInsertResult = contService.extInsert(dto);
+		param.put("code", (String.valueOf(schedInsertResult)));
+		return ResponseEntity.ok(param);
+	}
 }

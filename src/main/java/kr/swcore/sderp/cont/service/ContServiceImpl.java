@@ -220,4 +220,10 @@ public class ContServiceImpl implements ContService {
 	public int soppListUpdate(HttpSession session, ContDTO dto) {
 		return contDao.soppListUpdate(dto);
 	}
+
+	@Override
+	public int extInsert(ContDTO dto) {
+		// TODO Auto-generated method stub
+		return contDao.extInsert(dto);
+	}
 }

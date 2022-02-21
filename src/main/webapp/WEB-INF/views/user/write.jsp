@@ -24,13 +24,15 @@
 				<tr>
 					<td>비밀번호</td>
 					<td>
-						<input class="form-control" type="password" name="userPasswd" id="userPasswd" value="" required placeholder="기본 비밀번호 입력" autocomplete="new-password">
+						<input class="form-control" type="password" name="userPasswd1" id="userPasswd1" value="" required placeholder="기본 비밀번호 입력" autocomplete="new-password">
+						<input class="form-control" style="display:none;" type="password" name="userPasswd" id="userPasswd" value="" required placeholder="기본 비밀번호 입력" autocomplete="new-password">
 					</td>
 				</tr>
 				<tr>
 					<td>이름</td>
-					<td><input class="form-control" name="userName" id="userName"
-						value="" required placeholder="사용자 실명 입력" autocomplete="off"></td>
+					<td>
+						<input class="form-control" name="userName" id="userName" value="" required placeholder="사용자 실명 입력" autocomplete="off">
+					</td>
 				</tr>
 				<tr>
 					<td>사용자 권한</td>
@@ -114,6 +116,8 @@
 		}
 
 	function fn_userInsert() {
+		var test = $('#userPasswd1').val();
+		$("#userPasswd").attr('value', test);
 		var userData = {};
 		userData.userId 		= $("#userId").val();
 		userData.userPasswd 	= $("#userPasswd").val();

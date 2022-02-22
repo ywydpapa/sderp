@@ -436,6 +436,7 @@
     			url: "${path}/gw/insert.do",
     			method: "post",
     			data: data02Data,
+    			async: false,
     			dataType: "json",
     			success: function(data){
     				data02App.compNo = $("#compNo").val();
@@ -476,6 +477,7 @@
 		  					url: "${path}/gw/insertData.do",
 		  					method: "post",
 		  					data: JSON.parse(JsonArray),
+		  					async: false,
 		  					dataType: "json"
 		  				});
 		 			}
@@ -526,6 +528,7 @@
     			url: "${path}/gw/insert.do",
     			method: "post",
     			data: data02Data,
+    			async: false,
     			dataType: "json",
     			success: function(data){
     				data02App.compNo = $("#compNo").val();
@@ -550,6 +553,7 @@
 		  					url: "${path}/gw/insertData.do",
 		  					method: "post",
 		  					data: JSON.parse(JsonArray),
+		  					async: false,
 		  					dataType: "json"
 		  				});
 		 			}
@@ -611,6 +615,7 @@
     			url: "${path}/gw/update.do",
     			method: "post",
     			data: data02Data,
+    			async: false,
     			dataType: "json",
     			success: function(data){
     				data02App.docNo = docNo;
@@ -669,6 +674,7 @@
 			  					url: "${path}/gw/insertData.do",
 			  					method: "post",
 			  					data: JSON.parse(JsonArray),
+			  					async: false,
 			  					dataType: "json"
 			  				});
 			 			}
@@ -719,6 +725,7 @@
                 url: "${path}/gw/update.do",
                 method: "post",
                 data: data02Data,
+                async: false,
                 dataType: "json",
                 success: function(data){
                     data02App.docNo = docNo;
@@ -747,6 +754,7 @@
                                 url: "${path}/gw/insertData.do",
                                 method: "post",
                                 data: JSON.parse(JsonArray),
+                                async: false,
                                 dataType: "json"
                             });
                         }
@@ -838,6 +846,7 @@
 		    			url: "${path}/gw/insert.do",
 		    			method: "post",
 		    			data: data02Data,
+		    			async: false,
 		    			dataType: "json",
 		    			success: function(data){
 		    				data02App.compNo = $("#compNo").val();
@@ -873,6 +882,7 @@
 				  					url: "${path}/gw/insertData.do",
 				  					method: "post",
 				  					data: JSON.parse(JsonArray),
+				  					async: false,
 				  					dataType: "json"
 				  				});
 				 			}
@@ -938,6 +948,7 @@
 			    			url: "${path}/gw/insert.do",
 			    			method: "post",
 			    			data: data02Data,
+			    			async: false,
 			    			dataType: "json",
 			    			success: function(data){
 			    				data02App.compNo = $("#compNo").val();
@@ -973,6 +984,7 @@
 					  					url: "${path}/gw/insertData.do",
 					  					method: "post",
 					  					data: JSON.parse(JsonArray),
+					  					async: false,
 					  					dataType: "json"
 					  				});
 					 			}

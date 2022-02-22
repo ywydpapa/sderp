@@ -273,7 +273,7 @@
 		                            </thead>
 		                            <tbody>
 		                            	<c:forEach var="row" items="${mydoclist}">
-			                      			<c:if test="${row.appStatus == 5 && row.docFormNo eq 'TREQ'}">
+			                      			<c:if test="${row.appStatus == 5}">
 				                                <tr>
 				                                    <td class="text-center">${row.regDate}</td>
 				                                    <td class="text-center">

@@ -359,7 +359,7 @@
 			}
 		});
 		
-		timer = setTimeout("timeAllimUpdate()", 2000);
+		timer = setTimeout("timeAllimUpdate()", 180000);
 	}
 	
 	$(document).ready(function(){

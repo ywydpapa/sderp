@@ -150,6 +150,12 @@ $(document).ready(function (e){
 		var uploadData = new FormData();
 		for(var i=0, filesTempArrLen = filesTempArr.length; i<filesTempArrLen; i++) {
 	    	uploadData.append('file', arr[i]);
+	    	//파일 확장자명
+	    	var file_name = arr[i].name.split(".").pop();
+	    	//파일 크기
+	    	var file_size = arr[i].size;
+	    	uploadData.append('fileSize', file_size);
+	    	uploadData.append('fileExtention', file_name);
 	    	uploadData.append('fileDesc', list[i]);
 	    	
 	    	if(uploadData.get('file').length == 0) {

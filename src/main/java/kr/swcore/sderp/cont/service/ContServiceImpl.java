@@ -191,6 +191,8 @@ public class ContServiceImpl implements ContService {
 		contFile.setFileId(UUID.randomUUID().toString());
 		contFile.setFileName(file.getOriginalFilename());
 		contFile.setFileContent(file.getBytes());
+		contFile.setFileExtention(fileList.getParameter("fileExtention"));
+		contFile.setFileSize(fileList.getParameter("fileSize"));
 		contFile.setFileDesc(fileList.getParameter("fileDesc"));
 		contFile.setContNo(contNo);
 		contFile.setUserNo(Integer.valueOf((String)session.getAttribute("userNo")));

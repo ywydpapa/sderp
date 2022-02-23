@@ -75,6 +75,8 @@ public class Board_fileServiceImpl implements Board_fileService{
 		board_Filelist.setFileId(UUID.randomUUID().toString());
 		board_Filelist.setFileName(file.getOriginalFilename());
 		board_Filelist.setFileContent(file.getBytes());
+		board_Filelist.setFileExtention(fileList.getParameter("fileExtention"));
+		board_Filelist.setFileSize(fileList.getParameter("fileSize"));
 		board_Filelist.setFileDesc(fileList.getParameter("fileDesc"));
 		board_Filelist.setBf_pk(bf_pk);
 		board_Filelist.setUserNo(Integer.valueOf((String)session.getAttribute("userNo")));

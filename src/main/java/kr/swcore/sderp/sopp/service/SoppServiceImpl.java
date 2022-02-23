@@ -345,6 +345,8 @@ public class SoppServiceImpl implements SoppService {
 		soppFile.setFileId(UUID.randomUUID().toString());
 		soppFile.setFileName(file.getOriginalFilename());
 		soppFile.setFileContent(file.getBytes());
+		soppFile.setFileSize(fileList.getParameter("fileSize"));
+		soppFile.setFileExtention(fileList.getParameter("fileExtention"));
 		soppFile.setFileDesc(fileList.getParameter("fileDesc"));
 		soppFile.setSoppNo(soppNo);
 		soppFile.setUserNo(Integer.valueOf((String)session.getAttribute("userNo")));

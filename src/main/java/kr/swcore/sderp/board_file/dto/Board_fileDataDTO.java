@@ -13,6 +13,8 @@ package kr.swcore.sderp.board_file.dto;
 		private String fileId;
 		private String fileName;
 		private String fileDesc;
+		private String fileExtention;
+		private String fileSize;
 		private String uploadDate;
 		private byte[] fileContent;
 		private Integer bf_pk;

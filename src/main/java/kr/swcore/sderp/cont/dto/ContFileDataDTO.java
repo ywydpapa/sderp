@@ -16,6 +16,9 @@ public class ContFileDataDTO {
 	private Integer contNo;
 	private Integer userNo;
 
+	private String fileExtention;
+	private String fileSize;
+	
 	public ContFileDataDTO() {
 		super();
 		// TODO Auto-generated constructor stub

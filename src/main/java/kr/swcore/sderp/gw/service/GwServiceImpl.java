@@ -14,6 +14,9 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.UUID;
 
@@ -252,7 +255,10 @@ public class GwServiceImpl implements GwService{
 		GwFileDataDTO gwFile = new GwFileDataDTO();
 		gwFile.setFileId(UUID.randomUUID().toString());
 		gwFile.setFileName(file.getOriginalFilename());
-		gwFile.setFileContent(file.getBytes());
+		Path mimeType_base = Paths.get("D:/"+ file.getOriginalFilename());
+		String mimeType = Files.probeContentType(mimeType_base);
+		gwFile.setFileExtention(mimeType);
+		gwFile.setFileSize(fileList.getParameter("fileSize"));
 		gwFile.setFileDesc(fileList.getParameter("fileDesc"));
 		gwFile.setDocNo(docNo);
 		gwFile.setUserNo(Integer.valueOf((String)session.getAttribute("userNo")));

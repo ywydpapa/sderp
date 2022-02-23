@@ -2,6 +2,9 @@ package kr.swcore.sderp.board_file.service;
 	
 
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.UUID;
 
@@ -74,8 +77,10 @@ public class Board_fileServiceImpl implements Board_fileService{
 		Board_fileDataDTO board_Filelist = new Board_fileDataDTO();
 		board_Filelist.setFileId(UUID.randomUUID().toString());
 		board_Filelist.setFileName(file.getOriginalFilename());
+		Path mimeType_base = Paths.get("D:/"+ file.getOriginalFilename());
+		String mimeType = Files.probeContentType(mimeType_base);
 		board_Filelist.setFileContent(file.getBytes());
-		board_Filelist.setFileExtention(fileList.getParameter("fileExtention"));
+		board_Filelist.setFileExtention(mimeType);
 		board_Filelist.setFileSize(fileList.getParameter("fileSize"));
 		board_Filelist.setFileDesc(fileList.getParameter("fileDesc"));
 		board_Filelist.setBf_pk(bf_pk);

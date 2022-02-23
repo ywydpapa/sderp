@@ -1,7 +1,9 @@
 package kr.swcore.sderp.cont.service;
 
 import java.io.IOException;
-
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.*;
 
 import javax.inject.Inject;
@@ -191,7 +193,9 @@ public class ContServiceImpl implements ContService {
 		contFile.setFileId(UUID.randomUUID().toString());
 		contFile.setFileName(file.getOriginalFilename());
 		contFile.setFileContent(file.getBytes());
-		contFile.setFileExtention(fileList.getParameter("fileExtention"));
+		Path mimeType_base = Paths.get("D:/"+ file.getOriginalFilename());
+		String mimeType = Files.probeContentType(mimeType_base);
+		contFile.setFileExtention(mimeType);
 		contFile.setFileSize(fileList.getParameter("fileSize"));
 		contFile.setFileDesc(fileList.getParameter("fileDesc"));
 		contFile.setContNo(contNo);

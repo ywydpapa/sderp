@@ -17,6 +17,10 @@ public class GwFileDataDTO {
 	private Integer userNo;
 	private Integer updateNo;
 
+	
+	private String fileExtention;
+	private String fileSize;
+	
 	public GwFileDataDTO() {
 		super();
 		// TODO Auto-generated constructor stub

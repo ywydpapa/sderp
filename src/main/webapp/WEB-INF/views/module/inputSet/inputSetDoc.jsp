@@ -388,6 +388,15 @@
     function fn_data02Insert() {
     	var uploadForm = $('#uploadForm')[0];
 		var uploadData = new FormData(uploadForm);
+		var fileInput = document.getElementById("addFile");
+		var files = fileInput.files;
+		var arr =Array.prototype.slice.call(files);
+		
+		
+		if(arr.length != 0) {
+			var file_size = arr[0].size;
+			uploadData.append("fileSize", file_size);
+		}
 		var docUserName = $("#docUserName").val();
 		var showDocType = "";
     	var data02Data = {};

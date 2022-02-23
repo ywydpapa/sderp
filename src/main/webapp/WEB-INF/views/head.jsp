@@ -345,13 +345,13 @@
 					allimSpan.html(data.length);
 				
 					for(var i = 0; i < data.length; i++){
-						allimMainUl.append("<li class='list-group-item' style='font-weight:600;'><a href='#' data-path='" + data[i].allimPath + "' data-id='" + data[i].allimNo + "' onClick='selectAllimClick(this);'>" + data[i].allimContents + "</a></li>");												
+						allimMainUl.append("<li class='list-group-item' style='font-weight:600;'><a href='#' data-path='" + data[i].allimPath + "' data-id='" + data[i].allimNo + "' onClick='selectAllimClick(this);'>" + data[i].allimContents + "<br>" + data[i].regDateTime + "</a></li>");												
 					}
 				}else if(data.length > 99){
 					allimSpan.html("99+");
 					
 					for(var i = 0; i < data.length; i++){
-						allimMainUl.append("<li><a href=''>" + data[i].allimContents + "</a></li>");												
+						allimMainUl.append("<li><a href=''>" + data[i].allimContents + "<br>" + data[i].regDateTime + "</a></li>");												
 					}
 				}else{
 					allimSpan.html("0");

@@ -388,9 +388,26 @@
     function fn_data02Insert() {
     	var uploadForm = $('#uploadForm')[0];
 		var uploadData = new FormData(uploadForm);
+		var docUserName = $("#docUserName").val();
 		var showDocType = "";
     	var data02Data = {};
     	var data02App = {};
+    	var compNo = $("#compNo").val();
+    	var userNo = 0;
+    	var msg = "";
+    	var role = "";
+    	var allimPath = "${path}";
+    	var allimSetPath = "";
+    	
+    	if($("[name='contractType']:checked").val() === "TREQ"){
+			data02App.appStatus = 2;
+			role = "A"; 
+			msg = docUserName + "님에게 결재관련 검토요청이 들어왔습니다.";
+		}else{
+			data02App.appStatus = 4;
+			role = "S";
+			msg = docUserName + "님에게 결재관련 승인요청이 들어왔습니다.";
+		}
     	
     	if($("#docSelect1").is(":visible") === true){
     		showDocType = $("#docSelect1").find("#docType").val();	
@@ -439,7 +456,7 @@
     			async: false,
     			dataType: "json",
     			success: function(data){
-    				data02App.compNo = $("#compNo").val();
+    				data02App.compNo = compNo;
     				data02App.docNo = data.getId;
     				data02App.userNoCR = $("#docUserNo").val();
     				data02App.userNoIS = $("#docUserNo").val();
@@ -447,8 +464,12 @@
     				
     				if($("[name='contractType']:checked").val() === "TREQ"){
     					data02App.appStatus = 2;
+    					role = "A"; 
+    					msg = docUserName + "님에게 결재관련 검토요청이 들어왔습니다.";
     				}else{
 	    				data02App.appStatus = 4;
+	    				role = "S";
+	    				msg = docUserName + "님에게 결재관련 승인요청이 들어왔습니다.";
     				}
     				
     				data02App.issueDate = $("#issueDate").val();
@@ -458,6 +479,7 @@
 	    					url : "${path}/gw/uploadfile/"+data.getId,
 	    					method : "POST",
 	    					data : uploadData,
+	    					async: false,
 	    					contentType : false,
 	    					processData : false,
 	    				});
@@ -467,6 +489,7 @@
     					url: "${path}/gw/insertApp.do",
     					method: "post",
     					data: data02App,
+    					async: false,
     					dataType: "json",
     				});
     				
@@ -481,6 +504,16 @@
 		  					dataType: "json"
 		  				});
 		 			}
+					
+					allimSetPath = "/gw/detail/" + data.getId;
+			    	fn_allimInsert(allimPath, userNo, compNo, msg, role, allimSetPath);
+					
+					userNo = $("#docUserNo").val();
+					msg = "결재등록이 완료되었습니다.";
+					role = "B";
+					
+					fn_allimInsert(allimPath, userNo, compNo, msg, role, allimSetPath);
+					
 		 			alert("등록되었습니다.");
 		 			location.href = "${path}/gw/write.do";
     			}
@@ -633,7 +666,6 @@
     				
     				data02App.appDate = $("#appDate").val();
     				
-    				console.log($("#appComment").val());
     				
      				if($("#appComment").val() === undefined){
     					data02App.appComment = "";	    					
@@ -646,14 +678,18 @@
     					url: "${path}/gw/updateApp.do",
     					method: "post",
     					data: data02App,
+    					async: false,
     					dataType: "json",
     				});
+    				
+    				console.log(uploadData.get('file').name);
     				
     				if(uploadData.get('file').name){
 	    				$.ajax({
 	    					url : "${path}/gw/uploadfileUpdate/"+docNo,
 	    					method : "POST",
 	    					data : uploadData,
+	    					async: false,
 	    					contentType : false,
 	    					processData : false,
 	    				});
@@ -663,6 +699,7 @@
     					url: "${path}/gw/updateData.do",
     					method: "post",
     					data: dataTemp,
+    					async: false,
     					dataType: "json",
     				});
     				

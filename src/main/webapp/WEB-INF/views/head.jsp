@@ -98,6 +98,7 @@
 <script type="text/javascript" src="${path}/assets/js/script.js"></script>
 <%-- <script type="text/javascript" src="${path}/js/print.min.js"></script> --%>
 <script src="https://cdn.tiny.cloud/1/kh4eirod6bgv8u2sxlaeikxy5hxfogh0edhzloljxh6zf046/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+<script src="${path}/js/allim.js"></script>
     <div class="theme-loader">
         <div class="ball-scale">
             <div class='contain'>
@@ -115,6 +116,8 @@
         </div>
     </div>
 <script>
+	var timer;
+	
 	$(function(){
 		$("#topMenu a").click(function(evt){
 			var url = this.href;
@@ -297,10 +300,70 @@
 		  	height : "200",
 		});
 	}
+	
+	function selectAllimClick(e){
+		var updateData = {};
+		updateData.allimNo = $(e).attr("data-id");
+		updateData.readCheck = 1;
+		
+		$.ajax({
+			url: "${path}/allim/allimReadUpdate.do",
+			method: "post",
+			data: updateData,
+			async: false,
+			dataType: "json",
+			success:function(){
+				location.href = "${path}" + $(e).attr("data-path");
+			}
+		});
+	}
 
-
+	function timeAllimUpdate(){
+		var allimData = {};
+		var userNo = "${sessionScope.userNo}";
+		var compNo = "${sessionScope.compNo}";
+		var allimRole = "${sessionScope.docRole}";
+		var allimSpan = $("#headerAllim span");
+		var allimMainUl = $("#headerAllim #headerAllimUl");
+		
+		allimData.userNo = userNo;
+		allimData.compNo = compNo;
+		allimData.allimRole = allimRole;
+		
+		$.ajax({
+			url: "${path}/allim/timeAllimSelect.do",
+			method: "post",
+			data: allimData,
+			async: false,
+			dataType: "json",
+			success:function(data){
+				allimSpan.html("");	
+				allimMainUl.html("");
+				
+				if(data.length > 0 && data.length < 99){
+					allimSpan.html(data.length);
+				
+					for(var i = 0; i < data.length; i++){
+						allimMainUl.append("<li style='font-weight:600;'><a href='#' data-path='" + data[i].allimPath + "' data-id='" + data[i].allimNo + "' onClick='selectAllimClick(this);'>● " + data[i].allimContents + "</a></li>");												
+					}
+				}else if(data.length > 99){
+					allimSpan.html("99+");
+					
+					for(var i = 0; i < data.length; i++){
+						allimMainUl.append("<li><a href=''>● " + data[i].allimContents + "</a></li>");												
+					}
+				}else{
+					allimSpan.html("0");
+					allimMainUl.append("<li><h6>새로운 알림이 없습니다.</h6></li>");
+				}
+			}
+		});
+		
+		timer = setTimeout("timeAllimUpdate()", 2000);
+	}
 	
 	$(document).ready(function(){
+		timeAllimUpdate();
 		setTiny();
 	});
 

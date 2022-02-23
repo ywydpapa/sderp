@@ -33,6 +33,7 @@
                     <div class="table-responsive">
                         <input type="hidden" id="compNo" value="${sessionScope.compNo}" />
                         <input type="hidden" id="docUserNo" value="${sessionScope.userNo}" />
+                        <input type="hidden" id="docUserName" value="${sessionScope.userName}" />
                         <table class="table table-sm bst02">
                             <colgroup>
                                 <col width="5%" />

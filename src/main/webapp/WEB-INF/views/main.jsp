@@ -455,13 +455,6 @@ $( document ).ready(function() {
 	var url ='${path}/myboard.do';
 	location.herf = url;
 });
-
-$(".header-notification")
-.mouseout(function () {
-	$(".show-notification").css("display","none");
-}).mouseover(function() {
-	$(".show-notification").css("display","block");
-});
 </script>
 </body>
 </html>

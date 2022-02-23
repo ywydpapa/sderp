@@ -313,7 +313,8 @@
 			async: false,
 			dataType: "json",
 			success:function(){
-				location.href = "${path}" + $(e).attr("data-path");
+				/* location.href = "${path}" + $(e).attr("data-path"); */
+				$(e).parent().remove();
 			}
 		});
 	}
@@ -344,7 +345,7 @@
 					allimSpan.html(data.length);
 				
 					for(var i = 0; i < data.length; i++){
-						allimMainUl.append("<li style='font-weight:600;'><a href='#' data-path='" + data[i].allimPath + "' data-id='" + data[i].allimNo + "' onClick='selectAllimClick(this);'>● " + data[i].allimContents + "</a></li>");												
+						allimMainUl.append("<li class='list-group-item' style='font-weight:600;'><a href='#' data-path='" + data[i].allimPath + "' data-id='" + data[i].allimNo + "' onClick='selectAllimClick(this);'>● " + data[i].allimContents + "</a></li>");												
 					}
 				}else if(data.length > 99){
 					allimSpan.html("99+");
@@ -354,7 +355,7 @@
 					}
 				}else{
 					allimSpan.html("0");
-					allimMainUl.append("<li><h6>새로운 알림이 없습니다.</h6></li>");
+					allimMainUl.append("<li style='text-align:center;'><h6>새로운 알림이 없습니다.</h6></li>");
 				}
 			}
 		});

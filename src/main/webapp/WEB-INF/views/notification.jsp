@@ -5,5 +5,5 @@
 <li class="header-notification" id="headerAllim" style="margin-top: 4%;">
 	<i class="ti-email" style="font-size: 25px;"></i>
 	<span class="badge bg-c-pink" style="position:absolute; top:0; right:0;"></span>
-	<ul class="show-notification" id="headerAllimUl" style="list-style:none;"></ul>
+	<ul class="show-notification list-group" id="headerAllimUl" style="list-style:none; max-height:200px; overflow-x: auto; overflow-y: scroll;"></ul>
 </li>

@@ -29,6 +29,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 	import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -134,12 +135,9 @@ import kr.swcore.sderp.board_file.service.Board_fileService;
 						
 						
 						//파일 업로드& etc test
-						
 						@RequestMapping("/uploadfile/{bf_pk}")
 						public ResponseEntity<?> uploadFile(HttpSession session, @PathVariable("bf_pk") int bf_pk, @ModelAttribute Board_fileDataDTO dto, MultipartHttpServletRequest fileList) throws IOException {
-							
 							int uploadFile = board_fileService.uploadFile(session, bf_pk, fileList);
-							System.out.println("파일 업로드 테스트");
 							Map<String, Object> param = new HashMap<>();
 							if(uploadFile > 0) {
 								param.put("code", "10001");

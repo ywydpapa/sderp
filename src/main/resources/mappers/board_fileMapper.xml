@@ -40,8 +40,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  	select *
  	from swc_noticefiledata
  	join `swc_user` on swc_noticefiledata.userNo = swc_user.userNo
- 	where bf_pk=#{bf_pk} and `bf_delflag` = 'n' and
- 	and `swc_noticefiledata`.attrib not like 'XXX%'
+ 	where bf_pk=#{bf_pk} and `swc_noticefiledata`.attrib not like 'XXX%'
 	order by uploadDate desc
 </select>
 
@@ -76,7 +75,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  <select id="board_filedata_detail" resultType="kr.swcore.sderp.board_file.dto.Board_fileDataDTO">
  	select * from `swc_noticefiledata`
  	join `swc_user` on swc_noticefiledata.userNo = swc_user.userNo
- 	where `bf_pk` = #{bf_pk};
+ 	where `bf_pk` = #{bf_pk}
+ 	order by uploadDate desc;
  </select>
  
  <select id="board_file_name" resultType="kr.swcore.sderp.board_file.dto.Board_fileDataDTO">

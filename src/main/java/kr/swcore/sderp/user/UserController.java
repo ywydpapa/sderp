@@ -103,7 +103,7 @@ public class UserController {
         return ResponseEntity.ok(param);
 	}
 
-
+	//사용자 정보등록 컨트롤러
 	@RequestMapping("insert.do")
 	public ResponseEntity<?> userInsert(@ModelAttribute UserDTO dto) {
 		Map<String, Object> param = new HashMap<>();
@@ -111,8 +111,8 @@ public class UserController {
 		int userdataInsert =userService.insertUserdata(dto);
 		if(userInsert > 0) {
        	param.put("code","10001");
-      }
-       else {
+		}
+		else {
         	param.put("code","20001");
         }
         return ResponseEntity.ok(param);

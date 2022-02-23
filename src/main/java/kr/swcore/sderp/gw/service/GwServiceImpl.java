@@ -259,6 +259,7 @@ public class GwServiceImpl implements GwService{
 		String mimeType = Files.probeContentType(mimeType_base);
 		gwFile.setFileExtention(mimeType);
 		gwFile.setFileSize(fileList.getParameter("fileSize"));
+		gwFile.setFileContent(file.getBytes());
 		gwFile.setFileDesc(fileList.getParameter("fileDesc"));
 		gwFile.setDocNo(docNo);
 		gwFile.setUserNo(Integer.valueOf((String)session.getAttribute("userNo")));

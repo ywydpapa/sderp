@@ -386,8 +386,10 @@
     }
 
     function fn_data02Insert() {
-    	var uploadForm = $('#uploadForm')[0];
-		var uploadData = new FormData(uploadForm);
+    	debugger;
+    	//var uploadForm = $('#uploadForm')[0];
+		//var uploadData = new FormData(uploadForm);
+		var uploadData = new FormData();
 		var fileInput = document.getElementById("addFile");
 		var files = fileInput.files;
 		var arr =Array.prototype.slice.call(files);
@@ -396,6 +398,7 @@
 		if(arr.length != 0) {
 			var file_size = arr[0].size;
 			uploadData.append("fileSize", file_size);
+			uploadData.append('file', arr[0]);
 		}
 		var docUserName = $("#docUserName").val();
 		var showDocType = "";
@@ -442,7 +445,8 @@
     	}else if($("#docUserNo").val() == $("#userNo").val()){
     		alert("자신에게 요청할 수 없습니다.");	
     		return false;
-    	}else if(!uploadData.get('file').name && $("[name='contractType']:checked").val() === "BREQ"){
+    	//}else if(!uploadData.get('file').name && $("[name='contractType']:checked").val() === "BREQ"){
+    	}else if(arr.length == 0){	
     		alert('영수증을 첨부해주십시오.');
     		return false;
     	}else{

@@ -250,7 +250,7 @@
 		$("#product01OutSum_table").html('₩'+product01OutSum.toLocaleString("en-US"));
 		$("#product01DiffSum").html('₩'+product01DiffSum.toLocaleString("en-US"));
 
-		product01Percent = Math.floor(product01DiffSum / product01OutSum * 100).toFixed(2);
+		product01Percent = product01DiffSum / product01OutSum * 100;
 		if(product01Percent == 'NaN'){
 			$("#product01Percent").html('0'+'%');
 		} else if (product01Percent == '-Infinity'){
@@ -258,9 +258,9 @@
 		} else if (product01Percent == 'Infinity'){
 			$("#product01Percent").html('0'+'%');
 		} else if(product01Percent >= 0){
-			$("#product01Percent").html('+'+product01Percent+'%');
+			$("#product01Percent").html('+'+product01Percent.toString().substring(0, 4) +'%');
 		} else if(product01Percent < 0){
-			$("#product01Percent").html(product01Percent+'%');
+			$("#product01Percent").html(product01Percent.toString().substring(0, 4) +'%');
 		}
 
 		var prduct01Cnt = product01In.length + product01Out.length;

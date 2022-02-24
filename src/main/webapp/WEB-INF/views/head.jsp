@@ -303,6 +303,8 @@
 	
 	function selectAllimClick(e){
 		var updateData = {};
+		var allimSpan = $("#headerAllim span");
+		var allimMainUl = $("#headerAllim #headerAllimUl");
 		updateData.allimNo = $(e).attr("data-id");
 		updateData.readCheck = 1;
 		
@@ -315,6 +317,12 @@
 			success:function(){
 				/* location.href = "${path}" + $(e).attr("data-path"); */
 				$(e).parent().remove();
+				allimSpan.html(parseInt(allimSpan.html()) - 1); 
+				
+				if(parseInt(allimSpan.html()) < 1){
+					allimSpan.html("0");
+					allimMainUl.html("<li style='text-align:center;'><h6>새로운 알림이 없습니다.</h6></li>");
+				}
 			}
 		});
 	}
@@ -345,7 +353,7 @@
 					allimSpan.html(data.length);
 				
 					for(var i = 0; i < data.length; i++){
-						allimMainUl.append("<li class='list-group-item' style='font-weight:600;'><a href='#' data-path='" + data[i].allimPath + "' data-id='" + data[i].allimNo + "' onClick='selectAllimClick(this);'>" + data[i].allimContents + "<br>" + data[i].regDateTime + "</a></li>");												
+						allimMainUl.append("<li class='list-group-item' style='font-weight:600; padding:10px 20px;'><a href='#' data-path='" + data[i].allimPath + "' data-id='" + data[i].allimNo + "' onClick='selectAllimClick(this);'>" + data[i].allimContents + "<br>" + data[i].regDateTime + "</a></li>");												
 					}
 				}else if(data.length > 99){
 					allimSpan.html("99+");
@@ -355,7 +363,7 @@
 					}
 				}else{
 					allimSpan.html("0");
-					allimMainUl.append("<li style='text-align:center;'><h6>새로운 알림이 없습니다.</h6></li>");
+					allimMainUl.html("<li style='text-align:center;'><h6>새로운 알림이 없습니다.</h6></li>");
 				}
 			}
 		});

@@ -386,20 +386,12 @@
     }
 
     function fn_data02Insert() {
-    	debugger;
     	//var uploadForm = $('#uploadForm')[0];
 		//var uploadData = new FormData(uploadForm);
 		var uploadData = new FormData();
 		var fileInput = document.getElementById("addFile");
 		var files = fileInput.files;
-		var arr =Array.prototype.slice.call(files);
-		
-		
-		if(arr.length != 0) {
-			var file_size = arr[0].size;
-			uploadData.append("fileSize", file_size);
-			uploadData.append('file', arr[0]);
-		}
+		var arr = Array.prototype.slice.call(files);
 		var docUserName = $("#docUserName").val();
 		var showDocType = "";
     	var data02Data = {};
@@ -410,6 +402,12 @@
     	var role = "";
     	var allimPath = "${path}";
     	var allimSetPath = "";
+    	
+    	if(arr.length != 0) {
+			var file_size = arr[0].size;
+			uploadData.append("fileSize", file_size);
+			uploadData.append('file', arr[0]);
+		}
     	
     	if($("[name='contractType']:checked").val() === "TREQ"){
 			data02App.appStatus = 2;

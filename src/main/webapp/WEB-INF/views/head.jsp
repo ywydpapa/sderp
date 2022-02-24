@@ -209,9 +209,10 @@
 		var currentPassword = $("#userPasswd").val();
 		var changePassword = $("#userChangePasswd").val();
 		var checkedChangePassword = $("#checkedUserChangePasswd").val();
+		var listDateFrom = $("#listDateFrom").val();
 		
-		if(fnIsNullOrEmpty(currentPassword) || fnIsNullOrEmpty(changePassword) || fnIsNullOrEmpty(checkedChangePassword)) {
-			alert("정보를 올바르게 입력하여 주십시오.");
+		if(fnIsNullOrEmpty(currentPassword)) {
+			alert("현재 비밀번호는 필수입니다.");
 			return;
 		}
 		if(changePassword != checkedChangePassword) {
@@ -223,6 +224,7 @@
 		userData.userId = userId;
 		userData.userPasswd = currentPassword;
 		userData.userChangePasswd = changePassword;
+		userData.listDateFrom = listDateFrom;
 		
 		$.ajax({
 			url : "${path}/user/updatePass.do",
@@ -232,7 +234,8 @@
 		}).done(function(data){
 			if(data.code == 10001){
 				alert("개인정보가 수정되었습니다.");
-				location.reload();
+				location.href = "${path}/user/logout.do";
+				alert("다시 로그인해주십시오.")
 			}else{
 				alert("유저 정보를 찾을 수 없습니다.");
 			}

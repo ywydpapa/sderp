@@ -6,7 +6,7 @@ import javax.servlet.http.HttpSession;
 import java.util.List;
 
 public interface PpsService {
-    List<PpsDTO> listPps(HttpSession session);
+    List<PpsDTO> listPps(HttpSession session, PpsDTO dto);
     PpsDTO detailPps(int ppsId);
     int insertPps(PpsDTO dto);
     int updatePps(PpsDTO dto);

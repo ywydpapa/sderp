@@ -41,8 +41,10 @@ public class SalesServiceImpl implements SalesService {
 	@Override
 	public List<SalesDTO> listSales(HttpSession session, PageDTO pageDTO) {
 		Integer compNo = SessionInfoGet.getCompNo(session);
+		String listDateFrom = SessionInfoGet.getlistDateFrom(session);
 		SalesDTO dto = new SalesDTO();
 		dto.setCompNo(compNo);
+		dto.setListDateFrom(listDateFrom);
 
 		if(pageDTO != null) {
 			Integer limit = pageDTO.getLimit();
@@ -127,6 +129,7 @@ public class SalesServiceImpl implements SalesService {
 	public Object listSales(HttpSession session, String param, HttpServletRequest request, HttpServletResponse response) {
 		SalesDTO dto = new SalesDTO();
 		Integer compNo = SessionInfoGet.getCompNo(session);						// 로그인 회사 구분 코드
+		String listDateFrom = SessionInfoGet.getlistDateFrom(session);
 		String userNostr = request.getParameter("userNo");
 		Integer userNo = userNostr.equals("") == true ? 0 : Integer.valueOf(userNostr);	// 담당사원
 		String soppNostr =  request.getParameter("soppNo");
@@ -148,6 +151,7 @@ public class SalesServiceImpl implements SalesService {
 		dto.setSalesTodatetime(salesTodatetime);
 		dto.setRegSDate(regSDate);
 		dto.setRegEDate(regEDate);
+		dto.setListDateFrom(listDateFrom);
 
 		String sEcho = request.getParameter("sEcho");
 		String limitstr = request.getParameter("iDisplayLength");

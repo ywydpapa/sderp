@@ -56,6 +56,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			<if test="schedType != null and schedType != ''">
 				and schedType = #{schedType}
 			</if>
+			<if test="listDateFrom != null and listDateFrom != ''">
+				and a.regDatetime Between #{listDateFrom} and now()
+			</if>
 			) subquery1
 		<if test="sSearch != null and sSearch != ''">
 		where
@@ -110,6 +113,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			<if test="schedType != null and schedType != ''">
 				and schedType = #{schedType}
 			</if>
+			<if test="listDateFrom != null and listDateFrom != ''">
+				and a.regDatetime Between #{listDateFrom} and now()
+			</if>
 			) subquery1
 		<if test="sSearch != null and sSearch != ''">
 			where
@@ -163,6 +169,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			</if>
 			<if test="schedType != null and schedType != ''">
 				and schedType = #{schedType}
+			</if>
+			<if test="listDateFrom != null and listDateFrom != ''">
+				and a.regdatetime Between #{listDateFrom} and now()
 			</if>
 			) subquery1
 		<if test="sSearch != null and sSearch != ''">
@@ -231,6 +240,9 @@ from
 	<if test="schedType != null and schedType != ''">
 		and schedType = #{schedType}
 	</if>
+	<if test="listDateFrom != null and listDateFrom != ''">
+		and a.regDatetime Between #{listDateFrom} and now()
+	</if>
 	) subquery1
 	<if test="sSearch != null and sSearch != ''">
 		where
@@ -285,6 +297,9 @@ from
 	<if test="schedType != null and schedType != ''">
 		and schedType = #{schedType}
 	</if>
+	<if test="listDateFrom != null and listDateFrom != ''">
+		and a.regDatetime Between #{listDateFrom} and now()
+	</if>
 	) subquery1
 	<if test="sSearch != null and sSearch != ''">
 		where
@@ -338,6 +353,9 @@ from
 	</if>
 	<if test="schedType != null and schedType != ''">
 		and schedType = #{schedType}
+	</if>
+	<if test="listDateFrom != null and listDateFrom != ''">
+		and a.regDatetime Between #{listDateFrom} and now()
 	</if>
 	) subquery1
 	<if test="sSearch != null and sSearch != ''">

@@ -204,7 +204,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<if test="userName != null and userName != ''">
  		 	and c.userName like CONCAT('%', #{userName}, '%')
  		</if>
-		GROUP BY estId)
+ 		<if test="listDateFrom != null and listDateFrom != ''"> 
+ 			and a.estDate Between #{listDateFrom} and now()
+ 		</if>  
+		GROUP BY estId) order by a.estNo desc
 	</select>
 
 	<select id="detailest" resultType="gwDto">

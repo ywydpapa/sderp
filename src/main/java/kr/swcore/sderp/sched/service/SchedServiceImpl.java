@@ -34,6 +34,7 @@ public class SchedServiceImpl implements SchedService {
 	@Override
 	public Object listSched(HttpSession session, String param, HttpServletRequest request, HttpServletResponse response) {
 		SoppDTO soppdto = SessionInfoGet.getCompNoDto(session);
+		String listDateFrom = SessionInfoGet.getlistDateFrom(session);
 		SchedDTO dto = new SchedDTO();
 		Integer compNo = SessionInfoGet.getCompNo(session);						// 濡쒓렇�씤 �쉶�궗 援щ텇 肄붾뱶
 		String userNostr = request.getParameter("userNo");
@@ -65,6 +66,7 @@ public class SchedServiceImpl implements SchedService {
 		dto.setSchedTo(schedTo);
 		dto.setRegSDate(regSDate);
 		dto.setRegEDate(regEDate);
+		dto.setListDateFrom(listDateFrom);
 
 		String sEcho = request.getParameter("sEcho");
 		String limitstr = request.getParameter("iDisplayLength");

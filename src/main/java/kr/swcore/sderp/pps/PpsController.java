@@ -27,8 +27,8 @@ public class PpsController {
     UserService userService;
 
     @RequestMapping("ppslist.do")
-    public ModelAndView ppslist(HttpSession session, ModelAndView mav){
-        mav.addObject("ppsList", ppsService.listPps(session));
+    public ModelAndView ppslist(HttpSession session, ModelAndView mav, @ModelAttribute PpsDTO dto){
+        mav.addObject("ppsList", ppsService.listPps(session, dto));
         mav.addObject("userList", userService.userList(session));
         mav.setViewName("pps/ppslist");
         return mav;
@@ -43,8 +43,8 @@ public class PpsController {
     }
 
     @RequestMapping("ppsupload.do")
-    public ModelAndView ppsupload(HttpSession session, ModelAndView mav){
-        mav.addObject("ppsList", ppsService.listPps(session));
+    public ModelAndView ppsupload(HttpSession session, ModelAndView mav, @ModelAttribute PpsDTO dto){
+        mav.addObject("ppsList", ppsService.listPps(session, dto));
         mav.setViewName("pps/ppsupload");
         return mav;
     }

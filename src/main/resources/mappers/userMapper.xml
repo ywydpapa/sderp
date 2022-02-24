@@ -41,7 +41,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  <update id="updateUserpass">
  		update swc_user set 
  		<!-- userName=#{userName}, --> 
- 		userPasswd=#{userChangePasswd}
+ 		<choose>
+ 			<when test="userChangePasswd != '' and userChangePasswd != null">
+ 				userPasswd=#{userChangePasswd}
+ 			</when>
+ 			<otherwise>
+ 				userPasswd=#{userPasswd}
+ 			</otherwise>
+ 		</choose>
+ 		<if test="listDateFrom != '' and listDateFrom != null">
+ 			, listDateFrom = #{listDateFrom}
+ 		</if>
  		<!-- userRole=#{userRole} -->
  		where userId=#{userId}
  		and userPasswd=#{userPasswd}

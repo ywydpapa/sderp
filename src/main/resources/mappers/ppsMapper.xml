@@ -4,7 +4,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="pps">
     <select id="ppsList" resultType="PpsDTO">
-        select * from swc_pps where attrib not like 'XXX%';
+        select * from swc_pps where attrib not like 'XXX%' and compNo = #{compNo}
+        <if test="listDateFrom != null and listDateFrom != ''"> 
+ 			and contractDate Between #{listDateFrom} and now()
+ 		</if>  
+ 		order by contractDate desc;
     </select>
 
     <select id="ppsDetail" resultType="PpsDTO">

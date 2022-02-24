@@ -164,7 +164,8 @@ public class GwController {
     		if(userName != null) dto.setUserName(userName);
     		mav.addObject("list", gwService.listEst(session, dto));
     	}else {
-    		mav.addObject("list", gwService.listEst(session));
+    		GwDTO dto = new GwDTO();
+    		mav.addObject("list", gwService.listEst(session, dto));
     	}
     	
         mav.setViewName("gware/estlist");

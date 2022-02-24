@@ -136,6 +136,7 @@ public class UserController {
 			session.setAttribute("compNo", userInfo.getCompNo()); // ȸ���ڵ�
 			session.setAttribute("userNo", Integer.toString(userInfo.getUserNo())); // ���� �Ϸù�ȣ
 			session.setAttribute("orgId", userInfo.getOrg_id()); // �μ� ��ȣ
+			session.setAttribute("listDateFrom", userInfo.getListDateFrom());
 		}else{
 			mav.setViewName("user/login");
 			mav.addObject("msg", "Fail");

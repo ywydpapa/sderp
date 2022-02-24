@@ -76,6 +76,8 @@ public class SchedDTO extends PageDTO {
 	private Integer weekNum;
 	private String org_title;
 	private String stype;
+	
+	private String listDateFrom;
 
 	public SchedDTO() {
 		super();

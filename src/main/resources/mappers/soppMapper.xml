@@ -73,6 +73,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<if test="soppSrate != null and soppSrate > 0">
 			and a.soppSrate = #{soppSrate}
 		</if>
+		<if test="listDateFrom != null and listDateFrom != ''">
+			and a.regDatetime Between #{listDateFrom} and now()
+		</if>
 		) subquery1
 	<if test="sSearch != null and sSearch != ''">
 	where
@@ -170,6 +173,9 @@ from
 		</if>
 		<if test="soppSrate != null and soppSrate > 0">
 			and a.soppSrate = #{soppSrate}
+		</if>
+		<if test="listDateFrom != null and listDateFrom != ''">
+			and a.regDatetime Between #{listDateFrom} and now()
 		</if>
 		) subquery1
 	<if test="sSearch != null and sSearch != ''">

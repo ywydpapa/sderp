@@ -36,4 +36,5 @@ public class PpsDTO {
     private Integer soppNo;
     
     private int resultCount;
+    private String listDateFrom;
 }

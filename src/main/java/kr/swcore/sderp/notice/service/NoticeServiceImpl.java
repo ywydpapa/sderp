@@ -29,8 +29,10 @@ public class NoticeServiceImpl implements NoticeService{
 	@Override
 	public List<NoticeDTO> listNotice(HttpSession session, PageDTO pageDTO) {
 		Integer compNo = SessionInfoGet.getCompNo(session);
+		String listDateFrom = SessionInfoGet.getlistDateFrom(session);
 		NoticeDTO dto = new NoticeDTO();
 		dto.setCompNo(compNo);
+		dto.setListDateFrom(listDateFrom);
 		
 		if(pageDTO != null) {
 			Integer limit = pageDTO.getLimit();

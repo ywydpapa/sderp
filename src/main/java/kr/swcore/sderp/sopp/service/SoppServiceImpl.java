@@ -39,8 +39,10 @@ public class SoppServiceImpl implements SoppService {
 	@Override
 	public List<SoppDTO> listSopp(HttpSession session, PageDTO pageDTO) {
 		Integer compNo = SessionInfoGet.getCompNo(session);
+		String listDateFrom = SessionInfoGet.getlistDateFrom(session);
 		SoppDTO dto = new SoppDTO();
 		dto.setCompNo(compNo);
+		dto.setListDateFrom(listDateFrom);
 
 		if(pageDTO != null) {
 			Integer limit = pageDTO.getLimit();
@@ -57,6 +59,7 @@ public class SoppServiceImpl implements SoppService {
 
 	@Override
 	public Object listSopp(HttpSession session, String param, HttpServletRequest request, HttpServletResponse response) {
+		String listDateFrom = SessionInfoGet.getlistDateFrom(session);
 		SoppDTO dto = new SoppDTO();
 		Integer compNo = SessionInfoGet.getCompNo(session);											// 로그인 회사 구분 코드
 		String userNostr = request.getParameter("userNo");
@@ -88,6 +91,7 @@ public class SoppServiceImpl implements SoppService {
 		dto.setTargetDateto(targetDateto);
 		dto.setTargetDatefrom2(targetDatefrom2);
 		dto.setTargetDateto2(targetDateto2);
+		dto.setListDateFrom(listDateFrom);
 
 		String sEcho = request.getParameter("sEcho");
 		String limitstr = request.getParameter("iDisplayLength");
@@ -140,6 +144,7 @@ public class SoppServiceImpl implements SoppService {
 
 	@Override
 	public Object listSopp2(HttpSession session, String param, HttpServletRequest request, HttpServletResponse response) {
+		String listDateFrom = SessionInfoGet.getlistDateFrom(session);
 		SoppDTO dto = new SoppDTO();
 		Integer compNo = SessionInfoGet.getCompNo(session);											// 로그인 회사 구분 코드
 		String userNostr = request.getParameter("userNo");
@@ -169,6 +174,7 @@ public class SoppServiceImpl implements SoppService {
 		dto.setTargetDateto(targetDateto);
 		dto.setTargetDatefrom2(targetDatefrom2);
 		dto.setTargetDateto2(targetDateto2);
+		dto.setListDateFrom(listDateFrom);
 
 		String sEcho = request.getParameter("sEcho");
 		String limitstr = request.getParameter("iDisplayLength");

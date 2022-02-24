@@ -59,6 +59,7 @@ public class SoppDTO extends PageDTO {
 	private String businessType;	// TODO : 영업타입 -> 삭제예정
 	
 	private int getNo;
+	private String listDateFrom;
 
 	public SoppDTO() {
 		super();

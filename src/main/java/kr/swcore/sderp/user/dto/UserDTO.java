@@ -25,5 +25,6 @@ public class UserDTO {
 	private String attrib;
 	private String userTel;
 	private String userEmail;
-
+	
+	private String listDateFrom;
 }

@@ -105,6 +105,7 @@ public class GwDTO {
     private int tempId;
     private String firstUser;
     private String custVatNo;
+    private String listDateFrom;
     
     public GwDTO() {
         super();

@@ -78,6 +78,8 @@ public class GwServiceImpl implements GwService{
 	@Override
 	public List<GwDTO> listEst(HttpSession session, GwDTO dto) {
 		Integer compNo = SessionInfoGet.getCompNo(session);
+		String listDateFrom = SessionInfoGet.getlistDateFrom(session);
+		dto.setListDateFrom(listDateFrom);
 		dto.setCompNo(compNo);
 		return gwDao.listEst(dto);
 	}

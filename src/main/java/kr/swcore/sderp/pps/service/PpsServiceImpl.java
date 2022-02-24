@@ -15,9 +15,12 @@ public class PpsServiceImpl implements PpsService {
     PpsDAO ppsDao;
 
     @Override
-    public List<PpsDTO> listPps(HttpSession session) {
+    public List<PpsDTO> listPps(HttpSession session, PpsDTO dto) {
         int compNo = SessionInfoGet.getCompNo(session);
-        return ppsDao.listPps(compNo);
+        String listDateFrom = SessionInfoGet.getlistDateFrom(session);
+        dto.setCompNo(compNo);
+        dto.setListDateFrom(listDateFrom);
+        return ppsDao.listPps(dto);
     }
 
     @Override

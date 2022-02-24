@@ -20,4 +20,5 @@ public class NoticeDTO extends PageDTO {
 	private String userName;
 	private int compNo;
 	private int row_num;
+	private String listDateFrom;
 }

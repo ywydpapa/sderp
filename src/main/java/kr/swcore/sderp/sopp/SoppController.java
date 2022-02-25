@@ -2,6 +2,7 @@ package kr.swcore.sderp.sopp;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+
 import kr.swcore.sderp.code.service.CodeService;
 import kr.swcore.sderp.cont.dto.ContDTO;
 import kr.swcore.sderp.cont.service.ContService;
@@ -135,6 +136,14 @@ public class SoppController {
 		mav.addObject("estList", gwService.getEstSopp(session, soppNo));
 		mav.setViewName("sopp/detail");
 		return mav;
+	}
+	
+	@RequestMapping("hovermodaldetail/{soppNo}") 
+	public ResponseEntity<?> hovermodaldetail(@PathVariable("soppNo") int soppNo, HttpSession session, @ModelAttribute SoppDTO dto) {
+		Map<String, Object> param = new HashMap<>();
+		param.put("data", soppService.detailSopp(soppNo));
+		param.put("data2", soppdataService.listSoppdata01_showdetail(soppNo));
+		return ResponseEntity.ok(param);
 	}
 
 	@RequestMapping("/detail2/{soppNo}")

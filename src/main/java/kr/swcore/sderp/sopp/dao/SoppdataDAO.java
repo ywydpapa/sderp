@@ -21,5 +21,6 @@ public interface SoppdataDAO {
 	List<SoppdataDTO> listContdata(int contNo);
 	
 	List<SoppdataDTO> listSoppdata01_08(SoppDTO data);
+	List<SoppdataDTO> listSoppdata01_showdetail(int soppNo);
 
 }

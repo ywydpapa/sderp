@@ -737,6 +737,17 @@ now()
 		AND a.soppNo=#{soppNo} and a.catNo=100001 and a.soppNo != 10005223
 		order by dataType, regDatetime desc
  </select>
+ <select id="listSoppdata01_showdetail"
+ 		resultType="soppdataDto">
+ 		select a.*, b.soppTitle, d.contTitle, c.custName as salesCustNoN
+ 		from swc_soppdata01 a
+		left join swc_sopp b on a.soppNo = b.soppNo
+ 		left join swc_cust c on a.salesCustNo = c.custNo
+ 		left join swc_cont d on a.soppNo = d.soppNo
+		where a.attrib not like 'XXX%' 
+		AND a.soppNo=#{soppNo} and a.catNo=100001 and a.soppNo != 10005223 AND a.dataType = 1101
+		order by dataType, regDatetime desc
+ </select>
  <select id="listSoppdata01_08" resultType="soppdataDto">
 	select a.*, b.soppTitle, d.contTitle, c.custName as salesCustNoN
  		from swc_soppdata01 a

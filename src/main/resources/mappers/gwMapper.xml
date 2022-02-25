@@ -223,7 +223,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 
 	<select id="myList" resultType="gwDto">
-		select a.*, b.appStatus, c.custName from swc_businessdoc a left join swc_businessdocapp b on a.docNo = b.docNo left join swc_cust c on a.linkCustNo = c.custNo where a.attrib not like 'XXX%' and a.docCrUserNo = #{docCrUserNo};
+		select a.*, b.appStatus, c.custName from swc_businessdoc a left join swc_businessdocapp b on a.docNo = b.docNo left join swc_cust c on a.linkCustNo = c.custNo where a.attrib not like 'XXX%' and a.docCrUserNo = #{docCrUserNo} ORDER BY docDate DESC;
 	</select>
 	
 	<select id="comList" resultType="gwDto">

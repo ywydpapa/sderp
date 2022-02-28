@@ -126,4 +126,40 @@ public class AccountServiceImpl implements AccountService {
         dto.setListDateFrom(listDateFrom);
 		return accountDAO.listvatSearch(dto);
 	}
+
+	@Override
+	public List<AccountDTO> listvatB(HttpSession session, AccountDTO dto) {
+		int compNo = SessionInfoGet.getCompNo(session);
+        String listDateFrom = SessionInfoGet.getlistDateFrom(session);
+        dto.setCompNo(compNo);
+        dto.setListDateFrom(listDateFrom);
+        return accountDAO.listvatB(dto);
+	}
+
+	@Override
+	public List<AccountDTO> listvatSearchB(HttpSession session, AccountDTO dto) {
+		int compNo = SessionInfoGet.getCompNo(session);
+		String listDateFrom = SessionInfoGet.getlistDateFrom(session);
+        dto.setCompNo(compNo);
+        dto.setListDateFrom(listDateFrom);
+		return accountDAO.listvatSearchB(dto);
+	}
+
+	@Override
+	public List<AccountDTO> listvatS(HttpSession session, AccountDTO dto) {
+		int compNo = SessionInfoGet.getCompNo(session);
+        String listDateFrom = SessionInfoGet.getlistDateFrom(session);
+        dto.setCompNo(compNo);
+        dto.setListDateFrom(listDateFrom);
+        return accountDAO.listvatS(dto);
+	}
+
+	@Override
+	public List<AccountDTO> listvatSearchS(HttpSession session, AccountDTO dto) {
+		int compNo = SessionInfoGet.getCompNo(session);
+		String listDateFrom = SessionInfoGet.getlistDateFrom(session);
+        dto.setCompNo(compNo);
+        dto.setListDateFrom(listDateFrom);
+		return accountDAO.listvatSearchS(dto);
+	}
 }

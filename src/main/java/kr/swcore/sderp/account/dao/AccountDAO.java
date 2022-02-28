@@ -25,4 +25,8 @@ public interface AccountDAO {
 	int lastUpdate(AccountDTO dto);
 	int bacSerialUpdate(AccountDTO dto);
 	List<AccountDTO> listvatSearch(AccountDTO dto);
+	List<AccountDTO> listvatB(AccountDTO dto);
+	List<AccountDTO> listvatSearchB(AccountDTO dto);
+	List<AccountDTO> listvatS(AccountDTO dto);
+	List<AccountDTO> listvatSearchS(AccountDTO dto);
 }

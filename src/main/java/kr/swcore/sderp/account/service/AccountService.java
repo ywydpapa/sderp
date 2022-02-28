@@ -26,4 +26,8 @@ public interface AccountService {
 	int lastUpdate(AccountDTO dto);
 	int bacSerialUpdate(AccountDTO dto);
 	List<AccountDTO> listvatSearch(HttpSession session, AccountDTO dto);
+	List<AccountDTO> listvatB(HttpSession session, AccountDTO dto);
+	List<AccountDTO> listvatSearchB(HttpSession session, AccountDTO dto);
+	List<AccountDTO> listvatS(HttpSession session, AccountDTO dto);
+	List<AccountDTO> listvatSearchS(HttpSession session, AccountDTO dto);
 }

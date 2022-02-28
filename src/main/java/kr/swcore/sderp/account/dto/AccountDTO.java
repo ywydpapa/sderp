@@ -91,5 +91,7 @@ public class AccountDTO {
     private String vatIssueDateTo;
     
     private String listDateFrom;
+    private BigDecimal amount;
+    private BigDecimal tax;
 }
 

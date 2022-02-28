@@ -96,17 +96,24 @@
                                         </li>
                                     </ul>
                                     </li>
-                                    <li class="pcoded-hasmenu pcoded <c:if test="${path2 eq '/acc/vatlist.do' || path2 eq '/acc/vatupload.do'}">pcoded-trigger</c:if>">
+                                    <li class="pcoded-hasmenu pcoded <c:if test="${path2 eq '/acc/vatlistB.do' || path2 eq '/acc/vatlistS.do' || path2 eq '/acc/vatupload.do'}">pcoded-trigger</c:if>">
                                     <a href="javascript:void(0)">
                                         <span class="pcoded-micon"><i class="ti-stats-up"></i></span>
                                         <span class="pcoded-mtext"  data-i18n="nav.basic-components.main">채권채무관리</span>
                                         <span class="pcoded-mcaret"></span>
                                     </a>
-                                                                        <ul class="pcoded-submenu">
+                                   	<ul class="pcoded-submenu">
                                         <li class="pcoded-hasmenu ">
-                                            <a href="${path}/acc/vatlist.do">
+                                            <a href="${path}/acc/vatlistB.do">
                                                 <span class="pcoded-micon"><i class="ti-direction-alt"></i></span>
-                                                <span class="pcoded-mtext" data-i18n="nav.menu-levels.menu-level-21">계산서 조회</span>
+                                                <span class="pcoded-mtext" data-i18n="nav.menu-levels.menu-level-21">매입 계산서 조회</span>
+                                                <span class="pcoded-mcaret"></span>
+                                            </a>
+                                        </li>
+                                        <li class="pcoded-hasmenu ">
+                                            <a href="${path}/acc/vatlistS.do">
+                                                <span class="pcoded-micon"><i class="ti-direction-alt"></i></span>
+                                                <span class="pcoded-mtext" data-i18n="nav.menu-levels.menu-level-21">매출 계산서 조회</span>
                                                 <span class="pcoded-mcaret"></span>
                                             </a>
                                         </li>

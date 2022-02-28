@@ -5,7 +5,7 @@ import kr.swcore.sderp.account.dto.AccountDTO;
 import java.util.List;
 
 public interface AccountDAO {
-    List<AccountDTO> listvat(int compNo);
+    List<AccountDTO> listvat(AccountDTO dto);
     List<AccountDTO> listbac(int compNo);
     List<AccountDTO> listvatitem(int vatId);
     List<AccountDTO> modalVatB(int compNo);

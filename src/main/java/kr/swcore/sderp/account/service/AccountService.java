@@ -6,7 +6,7 @@ import javax.servlet.http.HttpSession;
 import java.util.List;
 
 public interface AccountService {
-    List<AccountDTO> listvat(HttpSession session);
+    List<AccountDTO> listvat(HttpSession session, AccountDTO dto);
     List<AccountDTO> listbac(HttpSession session);
     List<AccountDTO> listvatitem(int vatId);
     List<AccountDTO> modalVatB(HttpSession session);

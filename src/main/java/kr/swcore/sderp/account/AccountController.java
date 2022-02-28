@@ -49,7 +49,8 @@ public class AccountController {
 			if(vatRemark != null) dto.setVatRemark(vatRemark);
 			mav.addObject("vatList", accountService.listvatSearch(session, dto));
 		} else {
-			mav.addObject("vatList", accountService.listvat(session));
+			AccountDTO dto = new AccountDTO();
+			mav.addObject("vatList", accountService.listvat(session, dto));
 		}
         mav.setViewName("settle/vatlist");
         return mav;
@@ -89,8 +90,8 @@ public class AccountController {
     }
 
     @RequestMapping("bacupdate.do")
-    public ModelAndView bacUpload(HttpSession session, ModelAndView mav) {
-        mav.addObject("vatList", accountService.listvat(session));
+    public ModelAndView bacUpload(HttpSession session, ModelAndView mav, @ModelAttribute AccountDTO dto) {
+        mav.addObject("vatList", accountService.listvat(session, dto));
         mav.setViewName("settle/bacupload");
         return mav;
     }
@@ -121,8 +122,8 @@ public class AccountController {
     }
     
     @RequestMapping("vatupload.do")
-    public ModelAndView vatUpload(HttpSession session, ModelAndView mav) {
-        mav.addObject("vatList", accountService.listvat(session));
+    public ModelAndView vatUpload(HttpSession session, ModelAndView mav, @ModelAttribute AccountDTO dto) {
+        mav.addObject("vatList", accountService.listvat(session, dto));
         mav.setViewName("settle/vatupload");
         return mav;
     }

@@ -4,16 +4,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="account">
 
-<select id="listVat" resultType="accountDto">
-	select a.*, b.custName vatSellerName, c.custName vatBuyerName, sum(d.dataAmt) vatSum from swc_vat a
-			   left join swc_cust b on a.vatSellerCustNo = b.custNo
-			   left join swc_cust c on a.vatBuyerCustNo = c.custNo
-			   left join swc_soppdata01 d on a.vatSerial = d.vatSerial and d.attrib not like 'XXX%'
-	where a.compNo = #{compNo} and a.attrib not like 'XXX%' group by vatSerial
+	<select id="listVat" resultType="accountDto">
+		select a.*, b.custName vatSellerName, c.custName vatBuyerName, sum(d.dataAmt) vatSum from swc_vat a
+				   left join swc_cust b on a.vatSellerCustNo = b.custNo
+				   left join swc_cust c on a.vatBuyerCustNo = c.custNo
+				   left join swc_soppdata01 d on a.vatSerial = d.vatSerial and d.attrib not like 'XXX%'
+		where a.compNo = #{compNo} and a.attrib not like 'XXX%'
+		<if test="listDateFrom != null and listDateFrom != ''">
+			and a.vatIssueDate Between #{listDateFrom} and now()
+		</if>
+		 group by a.vatSerial order by a.vatIssueDate desc
+	
+	</select>
 
-</select>
-
-<select id="listVatSearch" resultType="accountDto">
+	<select id="listVatSearch" resultType="accountDto">
  		select a.*, b.custName vatSellerName, c.custName vatBuyerName, sum(d.dataAmt) vatSum from swc_vat a
 			   left join swc_cust b on a.vatSellerCustNo = b.custNo
 			   left join swc_cust c on a.vatBuyerCustNo = c.custNo
@@ -34,8 +38,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  		<if test="vatRemark != null and vatRemark != ''">
  		 	and a.vatRemark like CONCAT('%', #{vatRemark}, '%')
  		</if>
-		 group by vatSerial
- </select>
+ 		<if test="listDateFrom != null and listDateFrom != '' and vatIssueDateTo == null or vatIssueDateTo == '' and vatSerial == null or vatSerial == ''">
+			and a.vatIssueDate Between #{listDateFrom} and now()
+		</if>
+		 group by a.vatSerial order by a.vatIssueDate desc
+ 	</select>
  
 	<select id="bacSelectList" resultType="accountDto">
 		select * from swc_bacledger where bacSerial = #{bacSerial} order by baclogTime desc;

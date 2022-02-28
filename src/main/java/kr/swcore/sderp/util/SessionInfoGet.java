@@ -24,6 +24,11 @@ public class SessionInfoGet {
 	
 	public static String getlistDateFrom(HttpSession session) {
 		String listDateFrom = (String)session.getAttribute("listDateFrom");
+		
+		if(listDateFrom == null) {
+			listDateFrom = "2010-01-01";
+		}
+		
 		return listDateFrom;
 	}
 }

@@ -89,5 +89,7 @@ public class AccountDTO {
     
     private String vatIssueDateFrom;
     private String vatIssueDateTo;
+    
+    private String listDateFrom;
 }
 

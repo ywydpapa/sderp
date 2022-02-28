@@ -14,8 +14,8 @@ public class AccountDAOImpl implements AccountDAO {
 
 
     @Override
-    public List<AccountDTO> listvat(int compNo) {
-        return sqlSession.selectList("account.listVat", compNo);
+    public List<AccountDTO> listvat(AccountDTO dto) {
+        return sqlSession.selectList("account.listVat", dto);
     }
 
     @Override

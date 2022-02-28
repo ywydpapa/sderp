@@ -75,6 +75,9 @@ from
 		<if test="regEDate != null and regEDate != ''">
 			and date_format(a.regDatetime, '%Y-%m-%d') <![CDATA[<=]]> #{regEDate}
 		</if>
+		<if test="listDateFrom != null and listDateFrom != ''">
+			and a.regDatetime Between #{listDateFrom} and now()
+		</if>
 		) subquery1 where userName IS NOT NULL
 	<if test="sSearch != null and sSearch != ''">
 	where
@@ -151,6 +154,9 @@ from swc_notice a
 		<if test="regEDate != null and regEDate != ''">
 			and date_format(a.regDatetime, '%Y-%m-%d') <![CDATA[<=]]> #{regEDate}
 		</if>
+		<if test="listDateFrom != null and listDateFrom != ''">
+			and a.regDatetime Between #{listDateFrom} and now()
+		</if>
 		) subquery1 where userName IS NOT NULL
 	<if test="sSearch != null and sSearch != ''">
 	where
@@ -196,6 +202,9 @@ from
 		</if>
 		<if test="regEDate != null and regEDate != ''">
 			and date_format(a.regDatetime, '%Y-%m-%d') <![CDATA[<=]]> #{regEDate}
+		</if>
+		<if test="listDateFrom != null and listDateFrom != ''">
+			and a.regDatetime Between #{listDateFrom} and now()
 		</if>
 		) subquery1 where userName IS NOT NULL
 	<if test="sSearch != null and sSearch != ''">

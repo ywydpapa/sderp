@@ -53,6 +53,8 @@ public class SoppdataDTO {
 	
 	private String vatSerial;
 	
+	private String listDateFrom;
+	
 	public SoppdataDTO() {
 		super();
 		// TODO Auto-generated constructor stub

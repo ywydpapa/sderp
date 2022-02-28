@@ -165,15 +165,17 @@
 					<div class="table-responsive">
 						<table id="ioTable" class="table table-striped table-bordered nowrap ">
 							<colgroup>
-								<col width="20%"/>
+								<col width="5%"/>
+								<col width="25%"/>
 								<col width="10%"/>
 								<col width="15%"/>
 								<col width="15%"/>
-								<col width="20%"/>
-								<col width="20%"/>
+								<col width="15%"/>
+								<col width="15%"/>
 							</colgroup>							
 							<thead>
 								<tr>
+									<th class="text-center">영업기회일자</th>
 									<th class="text-center">영업기회명</th>
 									<th class="text-center">거래처</th>
 									<th class="text-center">매입합계</th>
@@ -185,6 +187,7 @@
 							<tbody>
 							<c:forEach var="row" items="${listsum}">
 								<tr>
+									<td class="text-center">${fn:substring(row.regDatetime,0,10)}</td>
 									<td>
 										<a href="${path}/cont/iodetail/${row.soppNo}">${row.soppTitle}</a>
 									</td>

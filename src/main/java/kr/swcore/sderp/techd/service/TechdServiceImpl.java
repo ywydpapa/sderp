@@ -41,7 +41,9 @@ public class TechdServiceImpl implements TechdService {
 	@Override
 	public List<TechdDTO> listTechd(HttpSession session, PageDTO pageDTO) {
 		Integer compNo = SessionInfoGet.getCompNo(session);
+		String listDateFrom = SessionInfoGet.getlistDateFrom(session);
 		TechdDTO dto = new TechdDTO();
+		dto.setListDateFrom(listDateFrom);
 		dto.setCompNo(compNo);
 
 		if(pageDTO != null) {
@@ -61,6 +63,7 @@ public class TechdServiceImpl implements TechdService {
 	public Object listTechd(HttpSession session, String param, HttpServletRequest request, HttpServletResponse response) {
 		TechdDTO dto = new TechdDTO();
 		Integer compNo = SessionInfoGet.getCompNo(session);						// 로그인 회사 구분 코드
+		String listDateFrom = SessionInfoGet.getlistDateFrom(session);
 		String userNostr = request.getParameter("userNo");
 		Integer userNo = userNostr.equals("") == true ? 0 : Integer.valueOf(userNostr);	// 담당사원
 		String custNostr =  request.getParameter("custNo");
@@ -86,6 +89,7 @@ public class TechdServiceImpl implements TechdService {
 		dto.setRegSDate(regSDate);
 		dto.setRegEDate(regEDate);
 		dto.setTechdDesc(techdDesc);
+		dto.setListDateFrom(listDateFrom);
 
 		String sEcho = request.getParameter("sEcho");
 		String limitstr = request.getParameter("iDisplayLength");

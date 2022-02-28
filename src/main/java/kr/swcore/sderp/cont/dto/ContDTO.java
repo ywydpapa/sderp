@@ -90,6 +90,7 @@ public class ContDTO implements Cloneable{
 	private String buyrMemberName;
 	private BigInteger sumAmt;
 	private BigInteger sumProfit;
+	private String listDateFrom;
 	// sopp 복사 끝
 	
 	public ContDTO() {

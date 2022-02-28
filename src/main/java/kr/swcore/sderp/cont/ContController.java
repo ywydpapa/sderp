@@ -237,7 +237,7 @@ public class ContController {
 			@RequestParam(value = "vatDateto", required = false) String vatDateto) {
 		mav.setViewName("slip/iolistall");
 		mav.addObject("contractType", codeService.listContractType(session));
-		mav.addObject("listall",soppdataService.listIO(dto));
+		mav.addObject("listall",soppdataService.listIO(session, dto));
 		return mav;
 	}
 	

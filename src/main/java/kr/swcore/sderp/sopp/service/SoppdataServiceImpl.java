@@ -56,20 +56,26 @@ public class SoppdataServiceImpl implements SoppdataService {
 	public List<SoppdataDTO> listIOsum(HttpSession session,SoppdataDTO dto) {
 		// TODO Auto-generated method stub
 		int compNo = SessionInfoGet.getCompNo(session);
+		String listDateFrom = SessionInfoGet.getlistDateFrom(session);
+		dto.setListDateFrom(listDateFrom);
 		dto.setCompNo(compNo);
 		return soppdataDao.listIOsum(dto);
 	}
 	
 	@Override
-	public List<SoppdataDTO> listSearchIO(HttpSession session,SoppdataDTO dto) {
+	public List<SoppdataDTO> listSearchIO(HttpSession session, SoppdataDTO dto) {
 		// TODO Auto-generated method stub
 		int compNo = SessionInfoGet.getCompNo(session);
+		String listDateFrom = SessionInfoGet.getlistDateFrom(session);
+		dto.setListDateFrom(listDateFrom);
 		dto.setCompNo(compNo);
 		return soppdataDao.listSearchIO(dto);
 	}
 
 	@Override
-	public List<SoppdataDTO> listIO(SoppdataDTO dto) {
+	public List<SoppdataDTO> listIO(HttpSession session, SoppdataDTO dto) {
+		String listDateFrom = SessionInfoGet.getlistDateFrom(session);
+		dto.setListDateFrom(listDateFrom);
 		// TODO Auto-generated method stub
 		return soppdataDao.listIO(dto);
 	}

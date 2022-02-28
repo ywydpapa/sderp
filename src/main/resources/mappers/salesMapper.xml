@@ -40,7 +40,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<if test="regEDate != null and regEDate != ''">
 			and date_format(a.regDatetime, '%Y-%m-%d') <![CDATA[<=]]> #{regEDate}
 		</if>
-		<if test="listDateFrom != null and listDateFrom != ''">
+		<if test="listDateFrom != null and listDateFrom != '' and salesFrdatetime == null or salesFrdatetime == '' and salesTodatetime == null or salesTodatetime == '' and regSDate == null or regSDate == '' and regEDate == null or regEDate == ''">
 			and a.regDatetime Between #{listDateFrom} and now()
 		</if>
 		) subquery1
@@ -107,7 +107,7 @@ from
 		<if test="regEDate != null and regEDate != ''">
 			and date_format(a.regDatetime, '%Y-%m-%d') <![CDATA[<=]]> #{regEDate}
 		</if>
-		<if test="listDateFrom != null and listDateFrom != ''">
+		<if test="listDateFrom != null and listDateFrom != '' and salesFrdatetime == null or salesFrdatetime == '' and salesTodatetime == null or salesTodatetime == '' and regSDate == null or regSDate == '' and regEDate == null or regEDate == ''">
 			and a.regDatetime Between #{listDateFrom} and now()
 		</if>
 		) subquery1

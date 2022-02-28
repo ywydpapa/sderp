@@ -50,6 +50,8 @@ public class ContServiceImpl implements ContService {
 	@Override
 	public List<ContDTO> listCont(HttpSession session, PageDTO pageDTO, ContDTO dto) {
 		SoppDTO soppdto = SessionInfoGet.getCompNoDto(session);
+		String listDateFrom = SessionInfoGet.getlistDateFrom(session);
+		soppdto.setListDateFrom(listDateFrom);
 
 		if(pageDTO != null) {
 			Integer limit = pageDTO.getLimit();
@@ -64,6 +66,8 @@ public class ContServiceImpl implements ContService {
 	@Override
 	public List<ContDTO> listconCont(HttpSession session, ContDTO dto) {
 		int compNo = SessionInfoGet.getCompNo(session);
+		String listDateFrom = SessionInfoGet.getlistDateFrom(session);
+		dto.setListDateFrom(listDateFrom);
 		dto.setCompNo(compNo);
 		return contDao.listconCont(dto);
 	}

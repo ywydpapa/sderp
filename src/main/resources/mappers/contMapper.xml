@@ -13,6 +13,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		left join swc_code d on a.contType = d.codeNo
  		left join swc_code g on a.cntrctMth = g.codeNo
 		where a.attrib not like 'XXX%' and a.compNo = #{compNo}
+		<if test="listDateFrom != null and listDateFrom != ''">
+			and a.regDatetime Between #{listDateFrom} and now()
+		</if>
 		order by regDatetime desc
 		<if test="limit > 0">
 			limit  #{limit} offset #{offset}
@@ -127,6 +130,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  		<if test="businessType != null and businessType != ''">
  		 	and a.businessType = #{businessType}
  		</if>
+ 		<if test="listDateFrom != null and listDateFrom != '' and regSDate == null or regSDate == '' and regEDate == null or regEDate == ''">
+			and a.regDatetime Between #{listDateFrom} and now()
+		</if>
 		 order by regDatetime desc
  </select>
 

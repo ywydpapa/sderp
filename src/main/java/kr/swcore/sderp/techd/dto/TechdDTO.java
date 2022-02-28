@@ -47,6 +47,7 @@ public class TechdDTO extends PageDTO {
 	
 	private int endCustNo;
 	private String endCustName;
+	private String listDateFrom;
 	
 	public TechdDTO() {
 		super();

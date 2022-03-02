@@ -1046,6 +1046,7 @@
         	if($(this).val() === "selectOn"){
         		$("#select1").show();
         		$("#select1").find("#data02Title").attr("data-flag", true);
+        		$("#select1").find("#productNo2").val("");
         		$("#select2").hide();
         		$("#select2").find("#data02Title").attr("data-flag", false);
         		$("#select2").find("#data02Title").val("");
@@ -1053,6 +1054,7 @@
         		$("#select1").hide();
         		$("#select1").find("#data02Title").attr("data-flag", false);
         		$("#select1").find("#data02Title").val("");
+        		$("#select1").find("#productNo2").val("");
         		$("#select2").show();
         		$("#select2").find("#data02Title").attr("data-flag", true);
         	}

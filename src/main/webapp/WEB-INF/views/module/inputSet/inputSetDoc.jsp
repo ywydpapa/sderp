@@ -444,7 +444,7 @@
     		alert("자신에게 요청할 수 없습니다.");	
     		return false;
     	//}else if(!uploadData.get('file').name && $("[name='contractType']:checked").val() === "BREQ"){
-    	}else if(arr.length == 0){	
+    	}else if(arr.length == 0 && $("[name='contractType']:checked").val() === "BREQ"){	
     		alert('영수증을 첨부해주십시오.');
     		return false;
     	}else{
@@ -485,7 +485,7 @@
     				
     				data02App.issueDate = $("#issueDate").val();
     				
-    				if(uploadData.get('file').name){
+    				if(arr.length == 0){
 	    				$.ajax({
 	    					url : "${path}/gw/uploadfile/"+data.getId,
 	    					method : "POST",

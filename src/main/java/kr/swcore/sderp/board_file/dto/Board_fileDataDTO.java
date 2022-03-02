@@ -20,6 +20,4 @@ package kr.swcore.sderp.board_file.dto;
 		private Integer bf_pk;
 		private Integer userNo;
 		private String userName;
-
-
 	}

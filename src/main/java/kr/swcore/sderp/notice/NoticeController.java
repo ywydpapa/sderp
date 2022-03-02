@@ -39,7 +39,7 @@ public class NoticeController {
 	
 	@RequestMapping("list.do")
 	public ModelAndView list(HttpSession session, ModelAndView mav) {
-		mav.addObject("list", noticeService.listNotice(session, null));
+		//mav.addObject("list", noticeService.listNotice(session, null));
 		mav.addObject("first","Y");
 		mav.setViewName("notice/list");
 		return mav;

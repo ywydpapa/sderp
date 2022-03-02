@@ -526,7 +526,12 @@
 					fn_allimInsert(allimPath, userNo, compNo, msg, role, allimSetPath);
 					
 		 			alert("등록되었습니다.");
+		 			$.LoadingOverlay("show", true);
 		 			location.href = "${path}/gw/write.do";
+		 			
+		 			setTimeout(function(){
+					    $.LoadingOverlay("hide", true);
+					}, 5000);
     			}
     		});
     	}

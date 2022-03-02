@@ -57,11 +57,9 @@ import kr.swcore.sderp.board_file.service.Board_fileService;
 				//List<Board_fileDTO> board_file_name =  board_fileService.board_file_name(dto);
 				//model.addAttribute("board_file_name", board_file_name);
 				
-				List<Board_fileDTO> board_file_list = board_fileService.board_file_list(dto);
+				//List<Board_fileDTO> board_file_list = board_fileService.board_file_list(dto);
 				
-				System.out.println("board_file_list.get(0).getUserName()" + board_file_list.get(0).getUserName());
-				
-				model.addAttribute("board_file_list", board_file_list);
+				//model.addAttribute("board_file_list", board_file_list);
 			
 				
 				return "board__file/board_file";

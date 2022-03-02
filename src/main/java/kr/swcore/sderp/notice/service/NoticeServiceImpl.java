@@ -52,6 +52,7 @@ public class NoticeServiceImpl implements NoticeService{
 			HttpServletResponse response) {
 		NoticeDTO dto = new NoticeDTO();
 		Integer compNo = SessionInfoGet.getCompNo(session);	
+		String listDateFrom = SessionInfoGet.getlistDateFrom(session);
 //		String userNostr = request.getParameter("userNo");
 //		Integer userNo = userNostr.equals("") == true ? 0 : Integer.valueOf(userNostr);	// 담당사원
 		String notiTitle = request.getParameter("notiTitle") != null ? (String) request.getParameter("notiTitle") : "";
@@ -65,6 +66,7 @@ public class NoticeServiceImpl implements NoticeService{
 		dto.setNotiContents(notiContents);
 		dto.setRegSDate(regSDate);
 		dto.setRegEDate(regEDate);
+		dto.setListDateFrom(listDateFrom);
 		
 		String limitstr = request.getParameter("iDisplayLength");
 		Integer limit = limitstr != null ? Integer.valueOf(limitstr) : 20;	// 기본값 20 세팅
@@ -159,6 +161,7 @@ public class NoticeServiceImpl implements NoticeService{
 			HttpServletResponse response) {
 		Board_fileDTO dto = new Board_fileDTO();
 		Integer compNo = SessionInfoGet.getCompNo(session);	
+		String listDateFrom = SessionInfoGet.getlistDateFrom(session);
 //		String userNostr = request.getParameter("userNo");
 //		Integer userNo = userNostr.equals("") == true ? 0 : Integer.valueOf(userNostr);	// 담당사원
 		String bf_Title = request.getParameter("bf_Title") != null ? (String) request.getParameter("bf_Title") : "";
@@ -172,6 +175,7 @@ public class NoticeServiceImpl implements NoticeService{
 		dto.setBf_Contents(bf_Contents);
 		dto.setRegSDate(regSDate);
 		dto.setRegEDate(regEDate);
+		dto.setListDateFrom(listDateFrom);
 		
 		String limitstr = request.getParameter("iDisplayLength");
 		Integer limit = limitstr != null ? Integer.valueOf(limitstr) : 20;	// 기본값 20 세팅

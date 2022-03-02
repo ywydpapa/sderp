@@ -98,6 +98,7 @@
 <script type="text/javascript" src="${path}/assets/js/script.js"></script>
 <%-- <script type="text/javascript" src="${path}/js/print.min.js"></script> --%>
 <script src="https://cdn.tiny.cloud/1/kh4eirod6bgv8u2sxlaeikxy5hxfogh0edhzloljxh6zf046/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+<script src="https://cdn.jsdelivr.net/npm/gasparesganga-jquery-loading-overlay@2.1.7/dist/loadingoverlay.min.js"></script>
 <script src="${path}/js/allim.js"></script>
     <div class="theme-loader">
         <div class="ball-scale">

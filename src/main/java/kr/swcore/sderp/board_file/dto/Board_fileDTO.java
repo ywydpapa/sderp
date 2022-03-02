@@ -18,6 +18,7 @@ public class Board_fileDTO extends PageDTO{
 	private String regSDate;	// 등록일 시작
 	private String regEDate;
 	private String userName;
+	private String listDateFrom;
 	
 	//추가 DTO//추가 DTO//추가 DTO//추가 DTO//추가 DTO
 	private int compNo;

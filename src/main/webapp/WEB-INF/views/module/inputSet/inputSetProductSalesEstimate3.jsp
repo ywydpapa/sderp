@@ -440,7 +440,7 @@
 		FlagQutyList.find("#dataItemKinds").html(itemKinds);
 		FlagQutyList.find("#dataItemTitle").html(itemTitle);
 		FlagQutyList.find("#salesCustNoN").html(productSalesEstimateCustName);
-		FlagQutyList.find("#dataTitle").val(productName);
+		FlagQutyList.find("#dataTitle").html(productName);
 		FlagQutyList.find("#dataNetprice").html("￦"+parseInt(productNetprice).toLocaleString("en-US"));
 		FlagQutyList.find("#dataQuanty").html(productQty);
 		FlagQutyList.find("#dataAmt").html("￦"+parseInt(productAmount).toLocaleString("en-US"));

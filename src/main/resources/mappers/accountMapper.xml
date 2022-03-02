@@ -4,7 +4,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="account">
 
-	<!-- <select id="listVat" resultType="accountDto">
+	<select id="listVat" resultType="accountDto">
 		select a.*, b.custName vatSellerName, c.custName vatBuyerName, sum(d.dataAmt) vatSum from swc_vat a
 				   left join swc_cust b on a.vatSellerCustNo = b.custNo
 				   left join swc_cust c on a.vatBuyerCustNo = c.custNo
@@ -42,7 +42,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			and a.vatIssueDate Between #{listDateFrom} and now()
 		</if>
 		 group by a.vatSerial order by a.vatIssueDate desc
- 	</select> -->
+ 	</select>
  	
  	<select id="listVatB" resultType="accountDto">
 		select a.*, b.custName vatSellerName, c.custName vatBuyerName, sum(case when a.vatType='B' then a.vatAmount end) AS amount, sum(case when a.vatType='B' then a.vatTax end) AS tax from swc_vat a

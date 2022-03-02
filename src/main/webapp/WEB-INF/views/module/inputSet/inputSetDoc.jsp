@@ -409,16 +409,6 @@
 			uploadData.append('file', arr[0]);
 		}
     	
-    	if($("[name='contractType']:checked").val() === "TREQ"){
-			data02App.appStatus = 2;
-			role = "A"; 
-			msg = docUserName + "님에게 결재관련 검토요청이 들어왔습니다.";
-		}else{
-			data02App.appStatus = 4;
-			role = "S";
-			msg = docUserName + "님에게 결재관련 승인요청이 들어왔습니다.";
-		}
-    	
     	if($("#docSelect1").is(":visible") === true){
     		showDocType = $("#docSelect1").find("#docType").val();	
     	}else if($("#docSelect2").is(":visible") === true){

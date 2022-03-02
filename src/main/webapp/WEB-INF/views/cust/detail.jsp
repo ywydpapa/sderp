@@ -119,7 +119,7 @@
 											<tr>
 												<th scope="row">주소</th>
 												<td><input name="custAddr" id="custAddr" type="text"
-													value="${dto02.custAddr}" class="form-control form-control-sm">
+													value="${dto02.custAddr}" class="form-control form-control-sm" placeholder="우편번호를 등록하시면 자동등록 됩니다..." readonly>
 												</td>
 											</tr>
 											<tr>
@@ -561,7 +561,13 @@
 			custData2.custAddr2 	= $("#custAddr2").val();
 			custData2.custTel 		= $("#custTel").val();
 			custData2.custFax 		= $("#custFax").val();
-			custData2.custMemo 		= $("#custMemo").val();
+			
+			if($("textarea[id='custMemo']").attr("style") === "display: none;"){
+				custData2.custMemo 		= tinyMCE.get("custMemo").getContent();
+			}else{
+				custData2.custMemo 		= $("#custMemo").val();
+			}
+			
 
 			$.ajax({ url: "${path}/cust/insert02.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
 						data: custData2 , // HTTP 요청과 함께 서버로 보낼 데이터
@@ -748,6 +754,7 @@
 	$(document).ready(function(){
 		$('#saleType').val('${dto.saleType}').prop("selected",true);
 		$('#compType').val('${dto.compType}').prop("selected",true);
+		
 	});
 	</script>
 </div>

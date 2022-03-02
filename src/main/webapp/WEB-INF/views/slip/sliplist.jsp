@@ -462,8 +462,16 @@
 		if(param == "?"){
 			param = "";
 		}
+		
+		if(document.querySelector('#acordian').style.cssText == "display: none;"){
+			var testAco1 = document.querySelector('#acordian').style.cssText;
+			localStorage.setItem('lastAco1', testAco1);	
+		}else {
+			var testAco2 = document.querySelector('#acordian').style.cssText;
+			localStorage.setItem('lastAco2', testAco2);
+		}
 
-		var url = '${path}/cont/list.do'+param;
+		var url = '${path}/cont/sliplist.do'+param;
 		location.href = url;
 	}
 	
@@ -499,6 +507,12 @@
 			var userName = '${sessionScope.userName}';
 			$("#userName").val(userName);
 		} */
+		var lastAco1 = localStorage.getItem('lastAco1');
+		var lastAco2 = localStorage.getItem('lastAco2');
+		if(lastAco1 == null && lastAco2 != null) {
+			 $("#acordian").css("display", "block");
+		}
+		localStorage.clear();
 	});
 	</script>
 </div>

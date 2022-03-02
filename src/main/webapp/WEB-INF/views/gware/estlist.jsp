@@ -368,6 +368,14 @@
 		localStorage.setItem("custName", $("#custName").val());
 		localStorage.setItem("userName", estData.userName);
 
+		if(document.querySelector('#acordian').style.cssText == "display: none;"){
+			var testAco1 = document.querySelector('#acordian').style.cssText;
+			localStorage.setItem('lastAco1', testAco1);	
+		}else {
+			var testAco2 = document.querySelector('#acordian').style.cssText;
+			localStorage.setItem('lastAco2', testAco2);
+		}
+		
 		var url = '${path}/gw/estlist.do'+param;
 		location.href = url;
 	}
@@ -398,7 +406,6 @@
 				$("#userName").val("");
 			} else {
 				$("#userName").val(localStorage.getItem("userName"));
-				localStorage.clear();
 			}
 			
 			if('${param.custNo}' == ''){
@@ -407,13 +414,18 @@
 			} else {
 				$("#custNo").val(localStorage.getItem("custNo"));
 				$("#custName").val(localStorage.getItem("custName"));
-				localStorage.clear();
 			}
 			
 		} /* else {
 			var userName = '${sessionScope.userName}';
 			$("#userName").val(userName);
 		} */
+		var lastAco1 = localStorage.getItem('lastAco1');
+		var lastAco2 = localStorage.getItem('lastAco2');
+		if(lastAco1 == null && lastAco2 != null) {
+			 $("#acordian").css("display", "block");
+		}
+		localStorage.clear();
 	});
 	</script>
 </div>

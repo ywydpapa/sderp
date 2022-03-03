@@ -63,4 +63,5 @@ public interface GwService {
     List<GwDTO> allComList(HttpSession session);
     GwDTO allComList(int comInfoNo);
     int updateFile(GwFileDataDTO dto);
+	void deletefile(int docNo);
 }

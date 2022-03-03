@@ -528,9 +528,20 @@
     }
 
     function fn_tempInsert() {
+    	var uploadData = new FormData();
+		var fileInput = document.getElementById("addFile");
+		var files = fileInput.files;
+		var arr = Array.prototype.slice.call(files);
+		
 		var showDocType = "";
     	var data02Data = {};
     	var data02App = {};
+    	
+    	if(arr.length != 0) {
+			var file_size = arr[0].size;
+			uploadData.append("fileSize", file_size);
+			uploadData.append('file', arr[0]);
+		}
     	
     	if($("#docSelect1").is(":visible") === true){
     		showDocType = $("#docSelect1").find("#docType").val();	
@@ -584,6 +595,16 @@
     					data: data02App,
     					dataType: "json",
     				});
+    				if(arr.length != 0){
+	    				$.ajax({
+	    					url : "${path}/gw/uploadfile/"+data.getId,
+	    					method : "POST",
+	    					data : uploadData,
+	    					async: false,
+	    					contentType : false,
+	    					processData : false,
+	    				});
+    				}
     				
 					for(var i = 0; i < dataArray.length; i++){
 						dataArray[i].docNo = data.getId;
@@ -605,8 +626,11 @@
 
 
     function fn_data02Update() {
-    	var uploadForm = $('#uploadForm')[0];
-		var uploadData = new FormData(uploadForm);
+    	//var uploadForm = $('#uploadForm')[0];
+		var updateData = new FormData();
+		var fileInput = document.getElementById("addFile");
+		var files = fileInput.files;
+		var arr = Array.prototype.slice.call(files);
     	var data02Data = {};
     	var data02App = {};
     	var dataTemp = {};
@@ -614,6 +638,11 @@
     	var showDocType = "";
     	
     	dataTemp.docNo = docNo;
+
+    	if(arr.length != 0) {
+    		updateData.append('fileSize', arr[0].size);
+    		updateData.append('file', arr[0]);
+		}
     	
     	if($("#docSelect1").is(":visible") === true){
     		showDocType = $("#docSelect1").find("#docType").val();	
@@ -678,7 +707,17 @@
     				}else{
 	    				data02App.appComment = tinyMCE.get("appComment").getContent();
     				}
-    				
+    			
+     				if(arr.length != 0){
+	    				$.ajax({
+	    					url : "${path}/gw/uploadfileUpdate/"+docNo,
+	    					method : "POST",
+	    					data : updateData,
+	    					async: false,
+	    					contentType : false,
+	    					processData : false,
+	    				});
+    				};
     				
     				$.ajax({
     					url: "${path}/gw/updateApp.do",
@@ -688,9 +727,9 @@
     					dataType: "json",
     				});
     				
-    				console.log(uploadData.get('file').name);
+    				//console.log(uploadData.get('file').name);
     				
-    				if(uploadData.get('file').name){
+    				/* if(uploadData.get('file').name){
 	    				$.ajax({
 	    					url : "${path}/gw/uploadfileUpdate/"+docNo,
 	    					method : "POST",
@@ -699,7 +738,7 @@
 	    					contentType : false,
 	    					processData : false,
 	    				});
-    		    	}
+    		    	} */
     				
     				$.ajax({
     					url: "${path}/gw/updateData.do",
@@ -1032,8 +1071,8 @@
 					  				});
 					 			}
 					 			alert("반려되었습니다.");
-					 			location.href = "${path}/gw/mydoclist.do";
-			    			}
+					 			location.href = "${path}/gw/mylist.do";
+			    			}//mydoclist.do -> 기존 링크
 			    		});
 					}
 				});

@@ -275,6 +275,10 @@ public class GwServiceImpl implements GwService{
 		GwFileDataDTO gwFile = new GwFileDataDTO();
 		gwFile.setFileId(UUID.randomUUID().toString());
 		gwFile.setFileName(file.getOriginalFilename());
+		Path mimeType_base = Paths.get("D:/"+ file.getOriginalFilename());
+		String mimeType = Files.probeContentType(mimeType_base);
+		gwFile.setFileExtention(mimeType);
+		gwFile.setFileSize(fileList.getParameter("fileSize"));
 		gwFile.setFileContent(file.getBytes());
 		gwFile.setFileDesc(fileList.getParameter("fileDesc"));
 		gwFile.setDocNo(docNo);
@@ -348,5 +352,11 @@ public class GwServiceImpl implements GwService{
 	@Override
 	public int updateFile(GwFileDataDTO dto) {
 		return gwDao.updateFile(dto);
+	}
+
+	@Override
+	public void deletefile(int docNo) {
+		// TODO Auto-generated method stub
+		gwDao.deletefile(docNo);
 	}
 }

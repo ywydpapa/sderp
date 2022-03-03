@@ -487,7 +487,8 @@ public class GwController {
     
     @RequestMapping("/uploadfileUpdate/{docNo}")
 	public ResponseEntity<?> uploadfileUpdate(HttpSession session, @PathVariable("docNo") int docNo, MultipartHttpServletRequest fileList) throws IOException {
-		int uploadFile = gwService.uploadFileUpdate(session, docNo, fileList);
+    	gwService.deletefile(docNo);
+		int uploadFile = gwService.uploadFile(session, docNo, fileList);
 		Map<String, Object> param = new HashMap<>();
 		if(uploadFile > 0) {
 			param.put("code", "10001");

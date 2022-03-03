@@ -524,6 +524,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where docNo = #{docNo}
 	</update>
 	
+	<delete id="deletefile">
+		delete from swc_businessfiledata 
+		where docNo = #{docNo};
+	</delete>
+	
 	<update id="updateFile">
 		update swc_businessfiledata set
 			docNo = #{updateNo},

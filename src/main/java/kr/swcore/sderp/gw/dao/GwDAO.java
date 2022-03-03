@@ -58,4 +58,5 @@ public interface GwDAO {
     List<GwDTO> allComList();
     GwDTO allComList(int comInfoNo);
     int updateFile(GwFileDataDTO dto);
+	void deletefile(int docNo);
 }

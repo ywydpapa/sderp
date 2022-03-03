@@ -475,7 +475,7 @@
     				
     				data02App.issueDate = $("#issueDate").val();
     				
-    				if(arr.length == 0){
+    				if(arr.length != 0){
 	    				$.ajax({
 	    					url : "${path}/gw/uploadfile/"+data.getId,
 	    					method : "POST",

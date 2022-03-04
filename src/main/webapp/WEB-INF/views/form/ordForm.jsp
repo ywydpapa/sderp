@@ -140,7 +140,7 @@ th, td{
 				<th>대&ensp;표&ensp;이&ensp;사 : ${comList.comBoss} (직인생략)</th>
 			</tr>
 			<tr>
-				<th>사&ensp;&nbsp;&nbsp;업&ensp;&nbsp;&nbsp;명 : ${detailList.custName}</th>
+				<th>사&ensp;&nbsp;&nbsp;업&ensp;&nbsp;&nbsp;명 : ${detailList.soppTitle}</th>
 				<th>주&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;소 : ${comList.comAddress}</th>
 			</tr>
 			<tr>

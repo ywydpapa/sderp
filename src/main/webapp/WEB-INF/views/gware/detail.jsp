@@ -36,6 +36,7 @@
                         <input type="hidden" id="docNo" value="${detailList.docNo}" />
                         <input type="hidden" id="userNoCR" value="${detailListApp.userNoCR}" />
                         <input type="hidden" id="appStatus" value="${detailListApp.appStatus}" />
+                        <input type="hidden" id="docUserName" value="${sessionScope.userName}" />
                         <table class="table table-sm bst02">
                             <colgroup>
 								<col width="5%" />
@@ -210,12 +211,14 @@
 		                                <th class="text-center">파일다운로드</th>
 		                                <td>
 		                                    <a href="javascript:downloadFile('${detailFile.fileId}', '${detailFile.fileName}');">${detailFile.fileName}</a>
+		                                    <input type="hidden" id="filename1" name="filename1" value="${detailFile.fileName}">
 		                                </td>
 		                        	</c:when>
 		                       	 	<c:otherwise>
 		                        		<th class="text-center">파일다운로드</th>
 		                                <td>
 		                                	<a href="javascript:downloadFile('${detailFile.fileId}', '${detailFile.fileName}');">${detailFile.fileName}</a>
+		                                	 <input type="hidden" id="filename1" name="filename1" value="${detailFile.fileName}">
 		                                </td>
 		                                <th class="text-center requiredTextCss">결제자(*)</th>
 		                                <td>
@@ -295,7 +298,7 @@
         </c:if>
         <c:if test="${sessionScope.userNo eq detailListApp.userNoCR && detailListApp.appStatus == 1}">
             <!-- <button class="btn btn-md btn-primary" onClick="fn_tempUpdate()">임시저장</button> -->
-            <button class="btn btn-md btn-primary" onClick="fn_data02Insert()">결재등록</button>
+            <button class="btn btn-md btn-primary" onClick="fn_data02Insert1()">결재등록</button>
 	        <button class="btn btn-md btn-success" onClick="fn_data02Update()">수정</button>
         	<button class="btn btn-md btn-danger" onClick="fn_data02delete()">삭제</button>
         </c:if>

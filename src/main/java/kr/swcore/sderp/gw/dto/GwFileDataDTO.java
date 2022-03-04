@@ -16,7 +16,7 @@ public class GwFileDataDTO {
 	private Integer docNo;
 	private Integer userNo;
 	private Integer updateNo;
-
+	private Integer lastdocNo;
 	
 	private String fileExtention;
 	private String fileSize;

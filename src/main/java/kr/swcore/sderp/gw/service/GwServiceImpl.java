@@ -359,4 +359,11 @@ public class GwServiceImpl implements GwService{
 		// TODO Auto-generated method stub
 		gwDao.deletefile(docNo);
 	}
+
+	@Override
+	public void uploadFile2(GwFileDataDTO dto) {
+		// TODO Auto-generated method stub
+		gwDao.uploadFile2(dto);
+	}
+
 }

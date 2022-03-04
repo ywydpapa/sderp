@@ -526,7 +526,7 @@
     		});
     	}
     }
-
+    
     function fn_tempInsert() {
     	var uploadData = new FormData();
 		var fileInput = document.getElementById("addFile");
@@ -544,7 +544,7 @@
 		}
     	
     	if($("#docSelect1").is(":visible") === true){
-    		showDocType = $("#docSelect1").find("#docType").val();	
+    		showDocType = $("#docSelect1").find("#docType").val();
     	}else if($("#docSelect2").is(":visible") === true){
     		showDocType = $("#docSelect2").find("#docType").val();
     	}else{
@@ -1208,4 +1208,154 @@
         
         $("#data02Modbtn").hide();
     });
+    
+    function fn_data02Insert1() {
+    	debugger;
+		var uploadData = new FormData();
+		var fileInput = document.getElementById("addFile");
+		var files = fileInput.files;
+		var arr = Array.prototype.slice.call(files);
+		var filename1 = $("#filename1").val();
+		var lastdocNo = $("#docNo").val();
+		var docUserName = $("#docUserName").val();
+		var showDocType = "";
+    	var data02Data = {};
+    	var data02App = {};
+    	var compNo = $("#compNo").val();
+    	var userNo = 0;
+    	var msg = "";
+    	var role = "";
+    	var allimPath = "${path}";
+    	var allimSetPath = "";
+    	
+    	if(arr.length != 0) {
+			var file_size = arr[0].size;
+			uploadData.append("fileSize", file_size);
+			uploadData.append('file', arr[0]);
+		}
+    	
+    	if($("#docSelect1").is(":visible") === true){
+    		showDocType = $("#docSelect1").find("#docType").val();	
+    	}else if($("#docSelect2").is(":visible") === true){
+    		showDocType = $("#docSelect2").find("#docType").val();
+    	}else{
+    		showDocType = $("#docSelect3").find("#docType").val();
+    	}
+		
+    	if($("#docTitle").val() === ""){
+    		alert("문서 제목을 작성하십시오.");
+    		$("#docTitle").focus();
+    		return false;
+    	}else if(showDocType === ""){
+    		alert("문서 종류를 선택해주십시오.");
+    		return false;
+    	}else if($("#docDate").val() === ""){
+    		alert("작성일자를 선택해주십시오.");
+    		return false;
+    	}else if($("#userName").val() === ""){
+    		alert("결재자를 선택해주십시오.");
+    		return false;
+    	}else if($("#docUserNo").val() == $("#userNo").val()){
+    		alert("자신에게 요청할 수 없습니다.");	
+    		return false;
+    	}else if(arr.length == 0 && filename1 == null && $("[name='contractType']:checked").val() === "BREQ"){	
+    		alert('영수증을 첨부해주십시오.');
+    		return false;
+    	}else{
+    		data02Data.docCrUserNo = $("#docUserNo").val();
+    		data02Data.docType = showDocType;
+    		data02Data.docTitle = $("#docTitle").val();
+    		data02Data.linkSoppNo = $("#soppNo").val();
+    		data02Data.linkCustNo = $("#custNo").val();
+    		data02Data.docDesc = tinyMCE.get("docDesc").getContent();
+    		data02Data.docAmount = parseInt($("#product02InSum_table").html().replace(/[\D\s\._\-]+/g, ""));
+    		data02Data.linkMasterdocNo = 0;
+    		data02Data.docStatus = 2;
+    		data02Data.docFormNo = $("[name='contractType']:checked").val();
+    		data02Data.docDate = $("#docDate").val();
+    	
+    		$.ajax({
+    			url: "${path}/gw/insert.do",
+    			method: "post",
+    			data: data02Data,
+    			async: false,
+    			dataType: "json",
+    			success: function(data){
+    				data02App.compNo = compNo;
+    				data02App.docNo = data.getId;
+    				data02App.userNoCR = $("#docUserNo").val();
+    				data02App.userNoIS = $("#docUserNo").val();
+    				data02App.userNoAPP = $("#userNo").val();
+    				
+    				if($("[name='contractType']:checked").val() === "TREQ"){
+    					data02App.appStatus = 2;
+    					role = "A"; 
+    					msg = docUserName + "님에게 결재관련 검토요청이 들어왔습니다.";
+    				}else{
+	    				data02App.appStatus = 4;
+	    				role = "S";
+	    				msg = docUserName + "님에게 결재관련 승인요청이 들어왔습니다.";
+    				}
+    				
+    				data02App.issueDate = $("#issueDate").val();
+    				if(arr.length != 0){
+	    				$.ajax({
+	    					url : "${path}/gw/uploadfile/"+data.getId,
+	    					method : "POST",
+	    					data : uploadData,
+	    					async: false,
+	    					contentType : false,
+	    					processData : false,
+	    				});
+    				}else if(arr.length == 0 && filename1 != null){
+    					$.ajax({
+	    					url : "${path}/gw/uploadfile2/"+data.getId + "/" +lastdocNo,
+	    					method : "POST",
+	    					async: false,
+	    					contentType : false,
+	    					processData : false,
+	    				});
+    				};
+    				
+    				$.ajax({
+    					url: "${path}/gw/insertApp.do",
+    					method: "post",
+    					data: data02App,
+    					async: false,
+    					dataType: "json",
+    				});
+    				
+					for(var i = 0; i < dataArray.length; i++){
+						dataArray[i].docNo = data.getId;
+						var JsonArray = JSON.stringify(dataArray[i]);
+		  				$.ajax({
+		  					url: "${path}/gw/insertData.do",
+		  					method: "post",
+		  					data: JSON.parse(JsonArray),
+		  					async: false,
+		  					dataType: "json"
+		  				});
+		 			}
+					
+					allimSetPath = "/gw/detail/" + data.getId;
+			    	fn_allimInsert(allimPath, userNo, compNo, msg, role, allimSetPath);
+					
+					userNo = $("#docUserNo").val();
+					msg = "결재등록이 완료되었습니다.";
+					role = "B";
+					
+					fn_allimInsert(allimPath, userNo, compNo, msg, role, allimSetPath);
+					
+		 			alert("등록되었습니다.");
+		 			$.LoadingOverlay("show", true);
+		 			location.href = "${path}/gw/write.do";
+		 			
+		 			setTimeout(function(){
+					    $.LoadingOverlay("hide", true);
+					}, 5000);
+    			}
+    		});
+    	}
+    }
+    
 </script>

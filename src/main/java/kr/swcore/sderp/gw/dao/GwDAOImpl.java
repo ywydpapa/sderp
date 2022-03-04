@@ -292,4 +292,10 @@ public class GwDAOImpl implements GwDAO{
 		// TODO Auto-generated method stub
 		sqlSession.delete("gw.deletefile", docNo);
 	}
+
+	@Override
+	public void uploadFile2(GwFileDataDTO dto) {
+		// TODO Auto-generated method stub
+		sqlSession.update("gw.uploadFile2", dto);
+	}
 }

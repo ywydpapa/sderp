@@ -748,5 +748,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		    modDate = now()
 		where appId = #{appId};
 	</update>
-
+	
+	<update id="uploadFile2">
+		update swc_businessfiledata set
+			docNo = #{docNo}
+		where docNo = #{lastdocNo};
+	</update>
+	
 </mapper>

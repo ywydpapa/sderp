@@ -485,6 +485,20 @@ public class GwController {
 		return ResponseEntity.ok(param);
 	}
     
+    @RequestMapping("/uploadfile2/{docNo}/{lastdocNo}")
+	public void uploadFile2(@PathVariable("docNo") int docNo, @PathVariable("lastdocNo") int lastdocNo, GwFileDataDTO dto){
+    	dto.setDocNo(docNo);
+    	dto.setLastdocNo(lastdocNo);
+    	System.out.println(dto.getDocNo());
+    	System.out.println(dto.getLastdocNo());
+		gwService.uploadFile2(dto);	
+	}
+    
+    @RequestMapping("/deleteoldfile/{docNo}")
+	public void uploadFile2(@PathVariable("docNo") int docNo){
+    	gwService.deletefile(docNo);
+	}
+    
     @RequestMapping("/uploadfileUpdate/{docNo}")
 	public ResponseEntity<?> uploadfileUpdate(HttpSession session, @PathVariable("docNo") int docNo, MultipartHttpServletRequest fileList) throws IOException {
     	gwService.deletefile(docNo);

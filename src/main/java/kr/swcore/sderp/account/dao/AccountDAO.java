@@ -7,14 +7,18 @@ import java.util.List;
 public interface AccountDAO {
     List<AccountDTO> listvat(AccountDTO dto);
     List<AccountDTO> listbac(int compNo);
+    List<AccountDTO> listCard(int compNo);
     List<AccountDTO> listvatitem(int vatId);
     List<AccountDTO> modalVatB(int compNo);
     List<AccountDTO> modalVatS(int compNo);
     AccountDTO checkVat(AccountDTO dto);
+    AccountDTO cardCheck(AccountDTO dto);
     AccountDTO detailvat(int vatId);
     int insertVat(AccountDTO dto);
     int insertBac(AccountDTO dto);
+    int insertCard(AccountDTO dto);
     int insertBacledger(AccountDTO dto);
+    int insertCardLedger(AccountDTO dto);
     int insertVatitem(AccountDTO dto);
     int updvatStat(AccountDTO dto);
     AccountDTO selectVatCust(String vatNo);
@@ -23,6 +27,7 @@ public interface AccountDAO {
 	AccountDTO checkBac(AccountDTO dto);
 	List<AccountDTO> bacSelectList(String bacSerial);
 	int lastUpdate(AccountDTO dto);
+	int lastUpdateCard(AccountDTO dto);
 	int bacSerialUpdate(AccountDTO dto);
 	List<AccountDTO> listvatSearch(AccountDTO dto);
 	List<AccountDTO> listvatB(AccountDTO dto);

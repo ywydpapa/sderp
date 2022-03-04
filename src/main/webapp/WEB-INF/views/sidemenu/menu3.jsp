@@ -66,13 +66,13 @@
                                         </li>
                                     </ul>
                                     </li>
-                                    <li class="pcoded-hasmenu  pcoded <c:if test="${path2 eq '/acc/baclist.do' || path2 eq '/acc/bacupload.do' || path2 eq '/acc/bacdetail.do' || path2 eq '/acc/bacupdate.do'}">pcoded-trigger</c:if>">
+                                    <li class="pcoded-hasmenu  pcoded <c:if test="${path2 eq '/acc/baclist.do' || path2 eq '/acc/bacupload.do' || path2 eq '/acc/bacdetail.do' || path2 eq '/acc/bacupdate.do' || path2 eq '/acc/cardUpload.do'}">pcoded-trigger</c:if>">
                                     <a href="javascript:void(0)">
                                         <span class="pcoded-micon"><i class="fa fa-krw"></i></span>
                                         <span class="pcoded-mtext"  data-i18n="nav.basic-components.main">자금관리</span>
                                         <span class="pcoded-mcaret"></span>
                                     </a>
-                                                                        <ul class="pcoded-submenu">
+                                    <ul class="pcoded-submenu">
                                         <li class="pcoded-hasmenu ">
                                             <a href="${path}/acc/baclist.do">
                                                 <span class="pcoded-micon"><i class="ti-direction-alt"></i></span>
@@ -84,6 +84,13 @@
                                             <a href="${path}/acc/bacupdate.do">
                                                 <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
                                                 <span class="pcoded-mtext" data-i18n="nav.menu-levels.menu-level-22">내역변경등록</span>
+                                                <span class="pcoded-mcaret"></span>
+                                            </a>
+                                        </li>
+                                        <li class="pcoded-hasmenu">
+                                            <a href="${path}/acc/cardUpload.do">
+                                                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                                                <span class="pcoded-mtext" data-i18n="nav.menu-levels.menu-level-22">카드내역등록</span>
                                                 <span class="pcoded-mcaret"></span>
                                             </a>
                                         </li>
@@ -130,7 +137,7 @@
                          
                          <div class="pcoded-navigatio-lavel" data-i18n="nav.category.other">설정</div>
                             <ul class="pcoded-item pcoded-left-item">
-                                <li class="pcoded-hasmenu ">
+                                <li class="pcoded-hasmenu <c:if test="${path2 eq '/cust/list.do' || path2 eq '/acc/regbac.do' || path2 eq '/acc/regCard.do' || path2 eq '/code/write.do'}">pcoded-trigger</c:if>">
                                     <a href="javascript:void(0)">
                                         <span class="pcoded-micon"><i class="ti-settings"></i><b>M</b></span>
                                         <span class="pcoded-mtext" data-i18n="nav.menu-levels.main">설정</span>
@@ -148,6 +155,13 @@
                                             <a href="${path}/acc/regbac.do">
                                                 <span class="pcoded-micon"><i class="ti-direction-alt"></i></span>
                                                 <span class="pcoded-mtext" data-i18n="nav.menu-levels.menu-level-22">계좌 등록</span>
+                                                <span class="pcoded-mcaret"></span>
+                                            </a>
+                                        </li>
+                                        <li class="pcoded-hasmenu">
+                                            <a href="${path}/acc/regCard.do">
+                                                <span class="pcoded-micon"><i class="ti-direction-alt"></i></span>
+                                                <span class="pcoded-mtext" data-i18n="nav.menu-levels.menu-level-22">카드 등록</span>
                                                 <span class="pcoded-mcaret"></span>
                                             </a>
                                         </li>

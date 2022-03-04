@@ -3,8 +3,6 @@ package kr.swcore.sderp.account;
 import kr.swcore.sderp.account.dto.AccountDTO;
 import kr.swcore.sderp.account.service.AccountService;
 import kr.swcore.sderp.code.service.CodeService;
-import kr.swcore.sderp.cont.dto.ContDTO;
-
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -113,6 +111,14 @@ public class AccountController {
         AccountDTO vserial = accountService.checkBac(dto);
         return vserial;
     }
+    
+    @ResponseBody
+    @RequestMapping("cardCheck.do")
+    public AccountDTO cardCheck(ModelAndView mav, @ModelAttribute AccountDTO dto)
+    {
+        AccountDTO cardserial = accountService.cardCheck(dto);
+        return cardserial;
+    }
 
     @RequestMapping("baclist.do")
     public ModelAndView bacList(HttpSession session, ModelAndView mav) {
@@ -130,7 +136,14 @@ public class AccountController {
         return mav;
     }
     
-    
+    @RequestMapping("regCard.do")
+    public ModelAndView regCard(HttpSession session, ModelAndView mav) {
+        mav.addObject("cardList", accountService.listCard(session));
+        mav.addObject("bnkcd", codeService.listCode003("BANKCD"));
+        mav.addObject("baccd", codeService.listCode003("BACTYPE"));
+        mav.setViewName("settle/regcardlist");
+        return mav;
+    }
 
     @RequestMapping("bacdetail.do")
     public ModelAndView bacDetail(HttpSession session, ModelAndView mav) {
@@ -143,6 +156,13 @@ public class AccountController {
     public ModelAndView bacUpload(HttpSession session, ModelAndView mav, @ModelAttribute AccountDTO dto) {
         mav.addObject("vatList", accountService.listvat(session, dto));
         mav.setViewName("settle/bacupload");
+        return mav;
+    }
+    
+    @RequestMapping("cardUpload.do")
+    public ModelAndView cardUpload(HttpSession session, ModelAndView mav, @ModelAttribute AccountDTO dto) {
+        mav.addObject("vatList", accountService.listvat(session, dto));
+        mav.setViewName("settle/cardupload");
         return mav;
     }
     
@@ -210,12 +230,38 @@ public class AccountController {
         }
         return ResponseEntity.ok(param);
     }
+    
+    @RequestMapping("insertCard.do")
+    public ResponseEntity<Object> insertCard(HttpSession session, @ModelAttribute AccountDTO dto){
+        Map<String,Object> param = new HashMap<>();
+        int cardIns = accountService.insertCard(dto);
+        if(cardIns > 0){
+            param.put("code","10001");
+        }
+        else {
+            param.put("code", "20001");
+        }
+        return ResponseEntity.ok(param);
+    }
 
     @RequestMapping("insertbacledger.do")
     public ResponseEntity<Object> insertbacledger(HttpSession session, @ModelAttribute AccountDTO dto){
         Map<String,Object> param = new HashMap<>();
         int vatIns = accountService.insertBacledger(dto);
         if(vatIns > 0){
+            param.put("code","10001");
+        }
+        else {
+            param.put("code", "20001");
+        }
+        return ResponseEntity.ok(param);
+    }
+    
+    @RequestMapping("insertCardLedger.do")
+    public ResponseEntity<Object> insertCardLedger(HttpSession session, @ModelAttribute AccountDTO dto){
+        Map<String,Object> param = new HashMap<>();
+        int cardIns = accountService.insertCardLedger(dto);
+        if(cardIns > 0){
             param.put("code","10001");
         }
         else {
@@ -250,6 +296,19 @@ public class AccountController {
         Map<String,Object> param = new HashMap<>();
         int bacIns = accountService.lastUpdate(dto);
         if(bacIns > 0){
+            param.put("code","10001");
+        }
+        else {
+            param.put("code", "20001");
+        }
+        return ResponseEntity.ok(param);
+    }
+    
+    @RequestMapping("lastUpdateCard.do")
+    public ResponseEntity<Object> lastUpdateCard(HttpSession session, @ModelAttribute AccountDTO dto){
+        Map<String,Object> param = new HashMap<>();
+        int cardIns = accountService.lastUpdateCard(dto);
+        if(cardIns > 0){
             param.put("code","10001");
         }
         else {

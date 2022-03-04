@@ -29,6 +29,12 @@ public class AccountServiceImpl implements AccountService {
         int compNo = SessionInfoGet.getCompNo(session);
         return accountDAO.listbac(compNo);
     }
+    
+    @Override
+    public List<AccountDTO> listCard(HttpSession session) {
+        int compNo = SessionInfoGet.getCompNo(session);
+        return accountDAO.listCard(compNo);
+    }
 
     @Override
     public List<AccountDTO> listvatitem(int vatId) {
@@ -66,10 +72,20 @@ public class AccountServiceImpl implements AccountService {
     public int insertBac(AccountDTO dto) {
         return accountDAO.insertBac(dto);
     }
+    
+    @Override
+    public int insertCard(AccountDTO dto) {
+        return accountDAO.insertCard(dto);
+    }
 
     @Override
     public int insertBacledger(AccountDTO dto) {
         return accountDAO.insertBacledger(dto);
+    }
+    
+    @Override
+    public int insertCardLedger(AccountDTO dto) {
+        return accountDAO.insertCardLedger(dto);
     }
 
     @Override
@@ -94,13 +110,18 @@ public class AccountServiceImpl implements AccountService {
 	}
 
 	@Override
-		public List<AccountDTO> modalbB(String vatSerial) {
-	    	return accountDAO.modalbB(vatSerial);
+	public List<AccountDTO> modalbB(String vatSerial) {
+    	return accountDAO.modalbB(vatSerial);
 	}
 
 	@Override
 	public AccountDTO checkBac(AccountDTO dto) {
 		return accountDAO.checkBac(dto);
+	}
+	
+	@Override
+	public AccountDTO cardCheck(AccountDTO dto) {
+		return accountDAO.cardCheck(dto);
 	}
 
 	@Override
@@ -111,6 +132,11 @@ public class AccountServiceImpl implements AccountService {
 	@Override
 	public int lastUpdate(AccountDTO dto) {
 		return accountDAO.lastUpdate(dto);
+	}
+	
+	@Override
+	public int lastUpdateCard(AccountDTO dto) {
+		return accountDAO.lastUpdateCard(dto);
 	}
 
 	@Override

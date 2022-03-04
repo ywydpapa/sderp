@@ -151,12 +151,22 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="checkBac" resultType="accountDto">
 		select count(*) as resultCount from swc_bacledger where bacSerial = #{bacSerial} and baclogTime = #{baclogTime}
 	</select>
-
+	
+	<select id="cardCheck" resultType="accountDto">
+		select count(*) as resultCount from swc_cardledger where appSerial = #{appSerial}
+	</select>
+	
 	<select id="baclist" resultType="accountDto">
 		select c.desc03 bacTypeN ,b.desc03 bankCodeN ,a.*, d.baclogTime, d.balanceAmt from swc_bac a
 	   	left join swc_code b on b.code03 = a.bankCode
 	   	LEFT join swc_code c on c.code03 = a.bacType
 	   	LEFT JOIN (SELECT bacSerial, balanceAmt, baclogTime FROM swc_bacledger ORDER BY baclogTime DESC LIMIT 1) d ON a.bacSerial = d.bacSerial
+		where a.compNo = #{compNo} and a.attrib not like 'XXX%';
+	</select>
+
+	<select id="listCard" resultType="accountDto">
+		select a.*, b.desc03 bankCodeN from swc_card a
+	   	left join swc_code b on b.code03 = a.cardBank
 		where a.compNo = #{compNo} and a.attrib not like 'XXX%';
 	</select>
 
@@ -202,6 +212,41 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			'10000'
 		);
 	</insert>
+	
+	<insert id="insertCardLedger">
+		insert into swc_cardledger
+		(
+			compNo,
+			cardSerial,
+			appContents,
+			appSerial,
+			useDivision,
+			salesType,
+			instPeriod,
+			appAmount,
+			appExchange,
+			appDate,
+			appTime,
+			regDate,
+			attrib 
+		) 
+		values 
+		(
+			#{compNo},
+			#{cardSerial},
+			#{appContents},
+			#{appSerial},
+			#{useDivision},
+			#{salesType},
+			#{instPeriod},
+			#{appAmount},
+			#{appExchange},
+			#{appDate},
+			#{appTime},
+			now(),
+			'10000'
+		);
+	</insert>
 
 	<insert id="insertbac">
 		insert into swc_bac
@@ -233,7 +278,33 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			'100001'
 		);
 	</insert>
-
+	
+	<insert id="insertCard">
+		insert into swc_card
+		(
+			compNo,
+			cardSerial,
+			cardDivision,
+			cardBank,
+			cardStatus,
+			cardMemo,
+			cardIssueDate,
+			regDate,
+			attrib
+		) 
+		values 
+		(
+			#{compNo},
+			#{cardSerial},
+			#{cardDivision},
+			#{cardBank},
+			#{cardStatus},
+			#{cardMemo},
+			#{cardIssueDate},
+			now(),
+			'100001'
+		);
+	</insert>
 
 <insert id="insertVat">
 	insert into swc_vat
@@ -314,6 +385,10 @@ attrib) values (#{vatId},
 	
 	<update id="lastUpdate">
 		update swc_bac set lastUpdTime = now() where bacSerial = #{bacSerial};
+	</update>
+	
+	<update id="lastUpdateCard">
+		update swc_card set lastUpdTime = now() where cardSerial = #{cardSerial};
 	</update>
 	
 	<update id="bacSerialUpdate">

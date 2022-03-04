@@ -12,7 +12,6 @@ public class AccountDAOImpl implements AccountDAO {
     @Inject
     SqlSession sqlSession;
 
-
     @Override
     public List<AccountDTO> listvat(AccountDTO dto) {
         return sqlSession.selectList("account.listVat", dto);
@@ -21,6 +20,11 @@ public class AccountDAOImpl implements AccountDAO {
     @Override
     public List<AccountDTO> listbac(int compNo) {
         return sqlSession.selectList("account.baclist", compNo);
+    }
+    
+    @Override
+    public List<AccountDTO> listCard(int compNo) {
+        return sqlSession.selectList("account.listCard", compNo);
     }
 
     @Override
@@ -57,10 +61,20 @@ public class AccountDAOImpl implements AccountDAO {
     public int insertBac(AccountDTO dto) {
         return sqlSession.insert("account.insertbac",dto);
     }
+    
+    @Override
+    public int insertCard(AccountDTO dto) {
+        return sqlSession.insert("account.insertCard",dto);
+    }
 
     @Override
     public int insertBacledger(AccountDTO dto) {
         return sqlSession.insert("account.insertbacledger",dto);
+    }
+    
+    @Override
+    public int insertCardLedger(AccountDTO dto) {
+        return sqlSession.insert("account.insertCardLedger",dto);
     }
 
     @Override
@@ -94,6 +108,11 @@ public class AccountDAOImpl implements AccountDAO {
 	public AccountDTO checkBac(AccountDTO dto) {
 		return sqlSession.selectOne("account.checkBac", dto);
 	}
+	
+	@Override
+	public AccountDTO cardCheck(AccountDTO dto) {
+		return sqlSession.selectOne("account.cardCheck", dto);
+	}
 
 	@Override
 	public List<AccountDTO> bacSelectList(String bacSerial) {
@@ -103,6 +122,11 @@ public class AccountDAOImpl implements AccountDAO {
 	@Override
 	public int lastUpdate(AccountDTO dto) {
 		return sqlSession.update("account.lastUpdate", dto);
+	}
+	
+	@Override
+	public int lastUpdateCard(AccountDTO dto) {
+		return sqlSession.update("account.lastUpdateCard", dto);
 	}
 
 	@Override

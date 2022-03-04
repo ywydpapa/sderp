@@ -93,5 +93,24 @@ public class AccountDTO {
     private String listDateFrom;
     private BigDecimal amount;
     private BigDecimal tax;
+    
+    private int cardNo;
+    private String depName;
+    private String cardSerial;
+    private String cardDivision;
+    private String cardBank;
+    private String cardStatus;
+    private String cardMemo;
+    private String cardIssueDate;
+    private int cardLogNo;
+    private String appContents;
+    private String appSerial;
+    private String useDivision;
+    private String salesType;
+    private int instPeriod;
+    private BigDecimal appAmount;
+    private String appExchange;
+    private String appDate;
+    private String appTime;
 }
 

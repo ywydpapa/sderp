@@ -151,6 +151,13 @@ public class AccountController {
         mav.setViewName("settle/bacdetail");
         return mav;
     }
+    
+    @RequestMapping("cardDetail.do")
+    public ModelAndView cardDetail(HttpSession session, ModelAndView mav) {
+        mav.addObject("cardList", accountService.listCard(session));
+        mav.setViewName("settle/carddetail");
+        return mav;
+    }
 
     @RequestMapping("bacupdate.do")
     public ModelAndView bacUpload(HttpSession session, ModelAndView mav, @ModelAttribute AccountDTO dto) {
@@ -187,6 +194,14 @@ public class AccountController {
     @RequestMapping("bacSelectList/{bacSerial}")
     public List<AccountDTO> bacSelectList(@PathVariable("bacSerial") String bacSerial){
     	List<AccountDTO> accList = accountService.bacSelectList(bacSerial);
+    	
+    	return accList;
+    }
+    
+    @ResponseBody
+    @RequestMapping("cardSelectList/{cardSerial}")
+    public List<AccountDTO> cardSelectList(@PathVariable("cardSerial") String cardSerial){
+    	List<AccountDTO> accList = accountService.cardSelectList(cardSerial);
     	
     	return accList;
     }

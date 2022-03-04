@@ -128,6 +128,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select * from swc_bacledger where bacSerial = #{bacSerial} order by baclogTime desc;
 	</select>
 	
+	<select id="cardSelectList" resultType="accountDto">
+		select * from swc_cardledger where cardSerial = #{cardSerial} order by appDate desc;
+	</select>
+	
 	<select id="detailVat" resultType="accountDto">
 		select * from swc_vat where vatId = #{vatId};
 	</select>

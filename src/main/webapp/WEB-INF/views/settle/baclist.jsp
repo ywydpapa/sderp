@@ -32,12 +32,12 @@
                     </div>
                     <div class="btn_wr" style="float:right;">
                         <!-- hide and show -->
-						<button class="btn btn-sm btn-success" id="fold" onclick="acordian_action()">펼치기</button>
+						<!-- <button class="btn btn-sm btn-success" id="fold" onclick="acordian_action()">펼치기</button>
 						<button class="btn btn-sm btn-success" id="fold2" onclick="acordian_action1()" style="display:none;">접기</button>
-						<!-- hide and show -->
+						hide and show
                         <button class="btn btn-sm btn-inverse" onClick="javascript:fnClearall()"><i class="icofont icofont-spinner-alt-3"></i>초기화</button>
                         <button class="btn btn-sm btn-primary" onClick="javascript:fnListcon()"><i class="icofont icofont-search"></i>검색</button>
-                        <button class="btn btn-sm btn-danger" onClick="javascript:fnChgStatus()">상태변경</button>
+                        <button class="btn btn-sm btn-danger" onClick="javascript:fnChgStatus()">상태변경</button> -->
                         <button class="btn btn-sm btn-outline"onClick="javascript:location='${path}/acc/bacupdate.do'"><i class="icofont icofont-pencil-alt-2"></i>계좌내역 등록</button>
                     </div>
                 </div>
@@ -45,7 +45,7 @@
         </div>
         <!--Page-header end 페이지 타이틀 -->
         <!--영업활동조회-->
-        <div class="cnt_wr" id="acordian" style="display:none;">
+        <%-- <div class="cnt_wr" id="acordian" style="display:none;">
             <div class="row">
                 <form id="searchForm" method="post" onsubmit="return false;" class="col-sm-12">
                     <div class="col-sm-12">
@@ -196,7 +196,7 @@
 
                 </form>
             </div>
-        </div>
+        </div> --%>
         <!--//영업활동조회-->
     </c:if>
 

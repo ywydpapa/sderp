@@ -128,6 +128,11 @@ public class AccountServiceImpl implements AccountService {
 	public List<AccountDTO> bacSelectList(String bacSerial) {
 		return accountDAO.bacSelectList(bacSerial);
 	}
+	
+	@Override
+	public List<AccountDTO> cardSelectList(String cardSerial) {
+		return accountDAO.cardSelectList(cardSerial);
+	}
 
 	@Override
 	public int lastUpdate(AccountDTO dto) {

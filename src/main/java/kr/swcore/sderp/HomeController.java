@@ -259,13 +259,13 @@ public class HomeController {
 		}
 
 		else if("vatB".equals(popId)) {
-			List<AccountDTO> list=accountService.modalVatB(session);
+			List<AccountDTO> list = accountService.modalVatB(session);
 			model.addAttribute("list",list);
 			rtn = "modal/vatListB";
 		}
 
 		else if("vatS".equals(popId)) {
-			List<AccountDTO> list=accountService.modalVatS(session);
+			List<AccountDTO> list = accountService.modalVatS(session);
 			model.addAttribute("list",list);
 			rtn = "modal/vatListS";
 		}

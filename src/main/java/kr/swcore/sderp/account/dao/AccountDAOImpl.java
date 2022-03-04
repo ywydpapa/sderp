@@ -118,6 +118,11 @@ public class AccountDAOImpl implements AccountDAO {
 	public List<AccountDTO> bacSelectList(String bacSerial) {
 		return sqlSession.selectList("account.bacSelectList", bacSerial);
 	}
+	
+	@Override
+	public List<AccountDTO> cardSelectList(String cardSerial) {
+		return sqlSession.selectList("account.cardSelectList", cardSerial);
+	}
 
 	@Override
 	public int lastUpdate(AccountDTO dto) {

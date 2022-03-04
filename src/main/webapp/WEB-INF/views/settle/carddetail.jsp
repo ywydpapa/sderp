@@ -46,9 +46,9 @@
 						<button class="btn btn-sm btn-success" id="fold2" onclick="acordian_action1()" style="display:none;">접기</button>
 						hide and show
                         <button class="btn btn-sm btn-inverse" onClick="javascript:fnClearall()"><i class="icofont icofont-spinner-alt-3"></i>초기화</button>
-                        <button class="btn btn-sm btn-primary" onClick="javascript:fnListcon()"><i class="icofont icofont-search"></i>검색</button> -->
-                        <button class="btn btn-sm btn-danger" onClick="javascript:fnChgStatus()">상태변경</button>
-                        <button class="btn btn-sm btn-outline"onClick="javascript:location='${path}/acc/bacupdate.do'"><i class="icofont icofont-pencil-alt-2"></i>내역 등록</button>
+                        <button class="btn btn-sm btn-primary" onClick="javascript:fnListcon()"><i class="icofont icofont-search"></i>검색</button>
+                        <button class="btn btn-sm btn-danger" onClick="javascript:fnChgStatus()">상태변경</button> -->
+                        <button class="btn btn-sm btn-outline"onClick="javascript:location='${path}/acc/cardUpload.do'"><i class="icofont icofont-pencil-alt-2"></i>내역 등록</button>
                     </div>
                 </div>
             </div>
@@ -211,11 +211,11 @@
     </c:if>
 	<div class="row" style="margin-bottom: 10px;">
 		<div class="col-sm-12">
-            <label for="baclist">계좌번호</label>
-			<select class="form-control-sm" id="baclist">
+            <label for="cardlist">카드번호</label>
+			<select class="form-control-sm" id="cardlist">
 				<option value="">선택</option>
-				<c:forEach var="row" items="${bacList}">
-					<option value="${row.bacSerial}">${row.bacNo}</option>
+				<c:forEach var="row" items="${cardList}">
+					<option value="${row.cardSerial}">${row.cardSerial}</option>
 				</c:forEach>
 			</select>
 		</div>
@@ -226,29 +226,29 @@
             <div class="col-sm-12">
                 <div class="card-block table-border-style">
                     <div class="table-responsive">
-                        <table id="bacTable" class="table table-striped table-bordered nowrap ">
+                        <table id="cardTable" class="table table-striped table-bordered nowrap ">
                             <colgroup>
                                 <col width="10%"/>
                                 <col width="10%"/>
+                                <col width="15%"/>
                                 <col width="10%"/>
                                 <col width="10%"/>
                                 <col width="10%"/>
                                 <col width="5%"/>
                                 <col width="10%"/>
                                 <col width="10%"/>
-                                <col width="15%"/>
                             </colgroup>
                             <thead>
                             <tr>
                                 <th class="text-center">일자</th>
-                                <th class="text-center">기재내용</th>
-                                <th class="text-center">입금</th>
-                                <th class="text-center">출금</th>
-                                <th class="text-center">잔액</th>
-                                <th class="text-center">거래점</th>
-                                <th class="text-center">메모</th>
+                                <th class="text-center">카드번호</th>
+                                <th class="text-center">가맹점명/국가명</th>
                                 <th class="text-center">승인번호</th>
-                                <th class="text-center">연결</th>
+                                <th class="text-center">사용구분</th>
+                                <th class="text-center">매출종류</th>
+                                <th class="text-center">할부기간</th>
+                                <th class="text-center">승인금액</th>
+                                <th class="text-center">환율</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -308,41 +308,36 @@
 	    <!--//리스트 table-->
 		<!-- hide and show -->
 		$(document).ready(function(){
-			var bacTable = $("#bacTable tbody");
-			$("#baclist").select2(); 
+			var cardTable = $("#cardTable tbody");
+			$("#cardlist").select2(); 
 			
-			$("#baclist").change(function(){
+			$("#cardlist").change(function(){
 				$.ajax({
-					url: "${path}/acc/bacSelectList/" + $(this).val(),
+					url: "${path}/acc/cardSelectList/" + $(this).val(),
 					method: "post",
 					dataType: "json",
 					success:function(data){
 						if(data.length > 0){
 							for(var i = 0; i < data.length; i++){
-								bacTable.append("<tr></tr>");
-								bacTable.find("tr").eq(i).append("<td style='text-align:center;'>" + data[i].baclogTime + "</td>");
-								bacTable.find("tr").eq(i).append("<td style='text-align:center;'>" + data[i].bacDesc + "</td>");
-								bacTable.find("tr").eq(i).append("<td style='text-align:right;'>" + parseInt(data[i].inAmt).toLocaleString("en-US") + "</td>");
-								bacTable.find("tr").eq(i).append("<td style='text-align:right;'>" + parseInt(data[i].outAmt).toLocaleString("en-US") + "</td>");
-								bacTable.find("tr").eq(i).append("<td style='text-align:right;'>" + parseInt(data[i].balanceAmt).toLocaleString("en-US") + "</td>");
-								bacTable.find("tr").eq(i).append("<td style='text-align:center;'>" + data[i].branchCode + "</td>");
-								bacTable.find("tr").eq(i).append("<td style='text-align:center;'>" + data[i].logRemark + "</td>");
-								bacTable.find("tr").eq(i).append("<td style='text-align:center;'>" + data[i].linkDoc + "</td>");
-								
-								if(parseInt(data[i].inAmt) > parseInt(data[i].outAmt)){
-	                                bacTable.find("tr").eq(i).append("<td style='text-align:center;'><button class='btn btn-sm btn-primary sch-company' data-remote='${path}/modal/popup.do?popId=bacVatS' type='button' id='bacVatSBtn' data-toggle='modal' data-target='#bacVatSModal' data-id='"+data[i].baclogId+"'>연결</button></td>");
-								}else{
-									bacTable.find("tr").eq(i).append("<td style='text-align:center;'><button class='btn btn-sm btn-primary sch-company' data-remote='${path}/modal/popup.do?popId=bacVatB' type='button' id='bacVatBBtn' data-toggle='modal' data-target='#bacVatBModal' data-id='"+data[i].baclogId+"'>연결</button></td>");
-								}
+								cardTable.append("<tr></tr>");
+								cardTable.find("tr").eq(i).append("<td style='text-align:center;'>" + data[i].appDate + "</td>");
+								cardTable.find("tr").eq(i).append("<td style='text-align:center;'>" + data[i].cardSerial + "</td>");
+								cardTable.find("tr").eq(i).append("<td style='text-align:center;'>" + data[i].appContents + "</td>");
+								cardTable.find("tr").eq(i).append("<td style='text-align:center;'>" + data[i].appSerial + "</td>");
+								cardTable.find("tr").eq(i).append("<td style='text-align:center;'>" + data[i].useDivision + "</td>");
+								cardTable.find("tr").eq(i).append("<td style='text-align:center;'>" + data[i].salesType + "</td>");
+								cardTable.find("tr").eq(i).append("<td style='text-align:center;'>" + data[i].instPeriod + "</td>");
+								cardTable.find("tr").eq(i).append("<td style='text-align:right;'>" + parseInt(data[i].appAmount).toLocaleString("en-US") + "</td>");
+								cardTable.find("tr").eq(i).append("<td style='text-align:center;'>" + data[i].appExchange + "</td>");
 							}
 							
-							$("#bacTable").DataTable({
+							$("#cardTable").DataTable({
 								info:false,
 				                destroy: true,
 				                order: [[ 0, "desc" ]],
 							});
 						}else{
-							bacTable.empty();
+							cardTable.empty();
 						}
 					}
 				});

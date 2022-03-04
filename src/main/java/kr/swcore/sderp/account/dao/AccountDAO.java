@@ -26,6 +26,7 @@ public interface AccountDAO {
 	List<AccountDTO> modalbB(String vatSerial);
 	AccountDTO checkBac(AccountDTO dto);
 	List<AccountDTO> bacSelectList(String bacSerial);
+	List<AccountDTO> cardSelectList(String cardSerial);
 	int lastUpdate(AccountDTO dto);
 	int lastUpdateCard(AccountDTO dto);
 	int bacSerialUpdate(AccountDTO dto);

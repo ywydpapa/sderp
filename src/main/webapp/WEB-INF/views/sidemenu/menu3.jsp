@@ -66,7 +66,7 @@
                                         </li>
                                     </ul>
                                     </li>
-                                    <li class="pcoded-hasmenu  pcoded <c:if test="${path2 eq '/acc/baclist.do' || path2 eq '/acc/bacupload.do' || path2 eq '/acc/bacdetail.do' || path2 eq '/acc/bacupdate.do' || path2 eq '/acc/cardUpload.do'}">pcoded-trigger</c:if>">
+                                    <li class="pcoded-hasmenu  pcoded <c:if test="${path2 eq '/acc/baclist.do' || path2 eq '/acc/bacupload.do' || path2 eq '/acc/bacdetail.do' || path2 eq '/acc/bacupdate.do' || path2 eq '/acc/cardUpload.do' || path2 eq '/acc/cardDetail.do'}">pcoded-trigger</c:if>">
                                     <a href="javascript:void(0)">
                                         <span class="pcoded-micon"><i class="fa fa-krw"></i></span>
                                         <span class="pcoded-mtext"  data-i18n="nav.basic-components.main">자금관리</span>
@@ -83,7 +83,14 @@
                                         <li class="pcoded-hasmenu">
                                             <a href="${path}/acc/bacupdate.do">
                                                 <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                                <span class="pcoded-mtext" data-i18n="nav.menu-levels.menu-level-22">내역변경등록</span>
+                                                <span class="pcoded-mtext" data-i18n="nav.menu-levels.menu-level-22">계좌내역등록</span>
+                                                <span class="pcoded-mcaret"></span>
+                                            </a>
+                                        </li>
+                                        <li class="pcoded-hasmenu">
+                                            <a href="${path}/acc/bacdetail.do">
+                                                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                                                <span class="pcoded-mtext" data-i18n="nav.menu-levels.menu-level-23">계좌내역조회</span>
                                                 <span class="pcoded-mcaret"></span>
                                             </a>
                                         </li>
@@ -95,9 +102,9 @@
                                             </a>
                                         </li>
                                         <li class="pcoded-hasmenu">
-                                            <a href="${path}/acc/bacdetail.do">
+                                            <a href="${path}/acc/cardDetail.do">
                                                 <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                                <span class="pcoded-mtext" data-i18n="nav.menu-levels.menu-level-23">계좌내역 조회</span>
+                                                <span class="pcoded-mtext" data-i18n="nav.menu-levels.menu-level-23">카드내역조회</span>
                                                 <span class="pcoded-mcaret"></span>
                                             </a>
                                         </li>

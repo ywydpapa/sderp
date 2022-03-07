@@ -112,5 +112,9 @@ public class AccountDTO {
     private String appExchange;
     private String appDate;
     private String appTime;
+    private BigDecimal vatAmountB;
+    private BigDecimal vatAmountS;
+    private BigDecimal serialTotalB;
+    private BigDecimal serialTotalS;
 }
 

@@ -199,13 +199,13 @@
                                         <input type="checkbox" class="vatStchg">
                                     </td>
                                     <td class="text-right">
-                                    	<fmt:formatNumber type="number" maxFractionDigits="3" value="${vlist.amount}" />
+                                    	<fmt:formatNumber type="number" maxFractionDigits="3" value="${vlist.vatAmount}" />
                                     </td>
                                     <td class="text-right">
-                                    	<fmt:formatNumber type="number" maxFractionDigits="3" value="${vlist.tax}" />
+                                    	<fmt:formatNumber type="number" maxFractionDigits="3" value="${vlist.vatTax}" />
                                     </td>
                                     <td class="text-right">
-                                    	<fmt:formatNumber type="number" maxFractionDigits="3" value="${vlist.amount + vlist.tax}" />
+                                    	<fmt:formatNumber type="number" maxFractionDigits="3" value="${vlist.vatAmount + vlist.vatTax}" />
                                     </td>
                                     <td class="text-right">
                                     	<a data-remote="${path}/modal/popup1.do?popId=${vlist.vatSerial}" type="button" data-toggle="modal" data-target="#userModal1">

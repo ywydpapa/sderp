@@ -150,67 +150,51 @@
                     <div class="table-responsive">
                         <table id="vatTable" class="table table-striped table-bordered nowrap ">
                             <colgroup>
-                                <col width="10%"/>
-                                <col width="5%"/>
-                                <col width="7%"/>
-                                <col width="7%"/>
-                                <col width="10%"/>
-                                <col width="10%"/>
-                                <col width="10%"/>
-                                <col width="10%"/>
+                                <col width="40%"/>
+                                <col width="15%"/>
+                                <col width="15%"/>
                                 <col width="15%"/>
                                 <col width="15%"/>
                             </colgroup>
                             <thead>
                             <tr>
-                                <th class="text-center">등록일</th>
-                                <th class="text-center">매입/매출</th>
                                 <th class="text-center">거래처</th>
-                                <th class="text-center">발행번호</th>
-                                <th class="text-center">상태</th>
-                                <th class="text-center">공급가</th>
-                                <th class="text-center">세액</th>
-                                <th class="text-center">합계금액</th>
-                                <th class="text-center">연결문서(합계금액)</th>
-                                <th class="text-center">메모</th>
+                                <th class="text-center">매입합계</th>
+                                <th class="text-center">지불완료합계</th>
+                                <th class="text-center">매출합계</th>
+                                <th class="text-center">수금완료합계</th>
                             </tr>
                             </thead>
                             <c:forEach items="${vatList}" var="vlist">
                                 <tr>
-                                <td class="text-center">${vlist.vatIssueDate}</td>
-                                    <td class="text-center vatTyp">
-                                    	<c:if test = "${vlist.vatType eq 'B'}">매입</c:if>
-                                    	<c:if test = "${vlist.vatType eq 'S'}">매출</c:if>
-                                    </td>
                                     <td class="text-center">
                                     	<c:if test = "${vlist.vatType eq 'S'}">${vlist.vatBuyerName}</c:if> 
                                     	<c:if test = "${vlist.vatType eq 'B'}">${vlist.vatSellerName}</c:if>
                                    	</td>
-                                    <td class="text-center vatSno">${vlist.vatSerial}</td>
-                                    <td class="text-center">
-                                    	<c:if test = "${vlist.vatStatus eq 'B1'}">매입발행</c:if>
-                                    	<c:if test = "${vlist.vatStatus eq 'B3'}">지급처리중</c:if>
-                                    	<c:if test = "${vlist.vatStatus eq 'B5'}">지급완료</c:if>
-                                        <c:if test = "${vlist.vatStatus eq 'S1'}">매출발행</c:if>
-                                        <c:if test = "${vlist.vatStatus eq 'S3'}">수금처리중</c:if>
-                                        <c:if test = "${vlist.vatStatus eq 'S5'}">수금완료</c:if>
-                                        <input type="checkbox" class="vatStchg">
+                                    <td class="text-right">
+                                    	<c:choose>
+                                    		<c:when test="${vlist.vatAmountB > 0}"><fmt:formatNumber type="number" maxFractionDigits="3" value="${vlist.vatAmountB}" /></c:when>
+                                    		<c:otherwise>0</c:otherwise>
+                                    	</c:choose>
                                     </td>
                                     <td class="text-right">
-                                    	<fmt:formatNumber type="number" maxFractionDigits="3" value="${vlist.vatAmount}" />
+                                    	<c:choose>
+                                    		<c:when test="${vlist.serialTotalB > 0}"><fmt:formatNumber type="number" maxFractionDigits="3" value="${vlist.serialTotalB}" /></c:when>
+                                    		<c:otherwise>0</c:otherwise>
+                                    	</c:choose>
                                     </td>
                                     <td class="text-right">
-                                    	<fmt:formatNumber type="number" maxFractionDigits="3" value="${vlist.vatTax}" />
-                                    </td>
+										<c:choose>
+                                    		<c:when test="${vlist.vatAmountS > 0}"><fmt:formatNumber type="number" maxFractionDigits="3" value="${vlist.vatAmountS}" /></c:when>
+                                    		<c:otherwise>0</c:otherwise>
+                                    	</c:choose>
+									</td>
                                     <td class="text-right">
-                                    	<fmt:formatNumber type="number" maxFractionDigits="3" value="${vlist.vatAmount + vlist.vatTax}" />
+                                    	<c:choose>
+                                    		<c:when test="${vlist.serialTotalS > 0}"><fmt:formatNumber type="number" maxFractionDigits="3" value="${vlist.serialTotalS}" /></c:when>
+                                    		<c:otherwise>0</c:otherwise>
+                                    	</c:choose>
                                     </td>
-                                    <td class="text-right">
-                                    	<a data-remote="${path}/modal/popup1.do?popId=${vlist.vatSerial}" type="button" data-toggle="modal" data-target="#userModal1">
-                                    		<fmt:formatNumber type="number" maxFractionDigits="3" value="${vlist.vatSum}" />
-                                    	</a>
-                                    </td>
-                                    <td>${vlist.vatRemark}</td>
                                 </tr>
                             </c:forEach>
                         </table>

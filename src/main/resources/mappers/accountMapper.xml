@@ -5,7 +5,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="account">
 
 	<select id="listVat" resultType="accountDto">
-		select a.*, b.custName vatSellerName, c.custName vatBuyerName, sum(d.dataAmt) vatSum from swc_vat a
+		select a.*, b.custName vatSellerName, c.custName vatBuyerName, sum(case when a.vatType='B' then a.vatTax + a.vatAmount end) AS vatAmountB, sum(case when a.vatType='S' then a.vatTax + a.vatAmount end) AS vatAmountS, 
+		sum(case when a.vatType='B' then d.dataTotal end) AS serialTotalB, sum(case when a.vatType='S' then d.dataTotal end) AS serialTotalS
+		from swc_vat a
 				   left join swc_cust b on a.vatSellerCustNo = b.custNo
 				   left join swc_cust c on a.vatBuyerCustNo = c.custNo
 				   left join swc_soppdata01 d on a.vatSerial = d.vatSerial and d.attrib not like 'XXX%'
@@ -13,12 +15,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<if test="listDateFrom != null and listDateFrom != ''">
 			and a.vatIssueDate Between #{listDateFrom} and now()
 		</if>
-		 group by a.vatSerial order by a.vatIssueDate desc
+		 group by (case when a.vatType='B' then a.vatSellerCustNo END), (case when a.vatType='S' then a.vatBuyerCustNo END) order by a.vatIssueDate desc
 	
 	</select>
 
 	<select id="listVatSearch" resultType="accountDto">
- 		select a.*, b.custName vatSellerName, c.custName vatBuyerName, sum(d.dataAmt) vatSum from swc_vat a
+ 		select a.*, b.custName vatSellerName, c.custName vatBuyerName, sum(case when a.vatType='B' then a.vatTax + a.vatAmount end) AS vatAmountB, sum(case when a.vatType='S' then a.vatTax + a.vatAmount end) AS vatAmountS, 
+		sum(case when a.vatType='B' then d.dataTotal end) AS serialTotalB, sum(case when a.vatType='S' then d.dataTotal end) AS serialTotalS 
+		from swc_vat a
 			   left join swc_cust b on a.vatSellerCustNo = b.custNo
 			   left join swc_cust c on a.vatBuyerCustNo = c.custNo
 			   left join swc_soppdata01 d on a.vatSerial = d.vatSerial and d.attrib not like 'XXX%'
@@ -41,11 +45,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  		<if test="listDateFrom != null and listDateFrom != '' and vatIssueDateTo == null or vatIssueDateTo == '' and vatSerial == null or vatSerial == ''">
 			and a.vatIssueDate Between #{listDateFrom} and now()
 		</if>
-		 group by a.vatSerial order by a.vatIssueDate desc
+		 group by (case when a.vatType='B' then a.vatSellerCustNo END), (case when a.vatType='S' then a.vatBuyerCustNo END) order by a.vatIssueDate desc
  	</select>
  	
  	<select id="listVatB" resultType="accountDto">
-		select a.*, b.custName vatSellerName, c.custName vatBuyerName, sum(case when a.vatType='B' then a.vatAmount end) AS amount, sum(case when a.vatType='B' then a.vatTax end) AS tax from swc_vat a
+		select a.*, b.custName vatSellerName, c.custName vatBuyerName from swc_vat a
 				   left join swc_cust b on a.vatSellerCustNo = b.custNo
 				   left join swc_cust c on a.vatBuyerCustNo = c.custNo
 				   left join swc_soppdata01 d on a.vatSerial = d.vatSerial and d.attrib not like 'XXX%'
@@ -53,12 +57,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<if test="listDateFrom != null and listDateFrom != ''">
 			and a.vatIssueDate Between #{listDateFrom} and now()
 		</if>
-		 group by a.vatSellerCustNo order by a.vatIssueDate desc
+		 order by a.vatIssueDate desc
 	
 	</select>
 
 	<select id="listVatSearchB" resultType="accountDto">
- 		select a.*, b.custName vatSellerName, c.custName vatBuyerName, sum(case when a.vatType='B' then a.vatAmount end) AS amount, sum(case when a.vatType='B' then a.vatTax end) AS tax from swc_vat a
+ 		select a.*, b.custName vatSellerName, c.custName vatBuyerName from swc_vat a
 			   left join swc_cust b on a.vatSellerCustNo = b.custNo
 			   left join swc_cust c on a.vatBuyerCustNo = c.custNo
 			   left join swc_soppdata01 d on a.vatSerial = d.vatSerial and d.attrib not like 'XXX%'
@@ -81,11 +85,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  		<if test="listDateFrom != null and listDateFrom != '' and vatIssueDateTo == null or vatIssueDateTo == '' and vatSerial == null or vatSerial == ''">
 			and a.vatIssueDate Between #{listDateFrom} and now()
 		</if>
-		 group by a.vatSellerCustNo order by a.vatIssueDate desc
+		 order by a.vatIssueDate desc
  	</select>
  	
  	<select id="listVatS" resultType="accountDto">
-		select a.*, b.custName vatSellerName, c.custName vatBuyerName, sum(case when a.vatType='S' then a.vatAmount end) AS amount, sum(case when a.vatType='S' then a.vatTax end) AS tax from swc_vat a
+		select a.*, b.custName vatSellerName, c.custName vatBuyerName from swc_vat a
 				   left join swc_cust b on a.vatSellerCustNo = b.custNo
 				   left join swc_cust c on a.vatBuyerCustNo = c.custNo
 				   left join swc_soppdata01 d on a.vatSerial = d.vatSerial and d.attrib not like 'XXX%'
@@ -93,12 +97,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<if test="listDateFrom != null and listDateFrom != ''">
 			and a.vatIssueDate Between #{listDateFrom} and now()
 		</if>
-		 group by a.vatBuyerCustNo order by a.vatIssueDate desc
+		 order by a.vatIssueDate desc
 	
 	</select>
 
 	<select id="listVatSearchS" resultType="accountDto">
- 		select a.*, b.custName vatSellerName, c.custName vatBuyerName, sum(case when a.vatType='S' then a.vatAmount end) AS amount, sum(case when a.vatType='S' then a.vatTax end) AS tax from swc_vat a
+ 		select a.*, b.custName vatSellerName, c.custName vatBuyerName from swc_vat a
 			   left join swc_cust b on a.vatSellerCustNo = b.custNo
 			   left join swc_cust c on a.vatBuyerCustNo = c.custNo
 			   left join swc_soppdata01 d on a.vatSerial = d.vatSerial and d.attrib not like 'XXX%'
@@ -121,7 +125,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  		<if test="listDateFrom != null and listDateFrom != '' and vatIssueDateTo == null or vatIssueDateTo == '' and vatSerial == null or vatSerial == ''">
 			and a.vatIssueDate Between #{listDateFrom} and now()
 		</if>
-		 group by a.vatBuyerCustNo order by a.vatIssueDate desc
+		 order by a.vatIssueDate desc
  	</select>
  
 	<select id="bacSelectList" resultType="accountDto">

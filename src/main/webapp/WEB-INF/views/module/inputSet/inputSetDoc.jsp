@@ -1183,11 +1183,11 @@
         });
     	
     	$("#selectCheck").change(function(){
-    		$("#data02Netprice").val("");
+    		$("#data02Netprice").val(0);
             $("#data02Quanty").val(1);
-            $("#data02Amt").val("");
-            $("#data02Vat").val("");
-            $("#data02Total").val("");
+            $("#data02Amt").val(0);
+            $("#data02Vat").val(0);
+            $("#data02Total").val(0);
     	})
     	
     	$('#data02Netprice,#data02Quanty').on('keyup',function(){

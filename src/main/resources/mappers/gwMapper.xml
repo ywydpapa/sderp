@@ -219,7 +219,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<select id="titleGroupBy" resultType="gwDto">
-		SELECT *, SUM(productVat) AS vatTotal, SUM(productAmount) AS amountTotal, SUM(productTotal) AS titleTotal from swc_estitems where estId = #{estId} and estVer = #{estVer} and attrib not like 'XXX%' GROUP BY itemTitle ORDER BY itemTitle DESC;
+		SELECT *, SUM(productVat) AS vatTotal, SUM(productAmount) AS amountTotal, SUM(productTotal) AS titleTotal from swc_estitems where estId = #{estId} and estVer = #{estVer} and attrib not like 'XXX%' GROUP BY itemTitle ORDER BY estItemNo asc;
 	</select>
 
 	<select id="myList" resultType="gwDto">

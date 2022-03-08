@@ -276,14 +276,9 @@ th, td{
 						</c:forEach>
 					</c:when>
 					<c:otherwise>
-						<c:set var="rowIndex" value="1" />
-						<c:set var="titleIndex" value="0" />
 						<c:forEach var="row" items="${list}" varStatus="status">
+							<c:set var="rowIndex" value="${rowIndex+1}" />
 							<c:set var="repSpec" value='${row.productSpec.replaceAll("\\\<.*?\\\>","")}' />
-							<c:if test="${titleList[titleIndex].itemTitle != row.itemTitle}">
-								<c:set var="rowIndex" value="${rowIndex+1}" />
-								<c:set var="titleIndex" value="${titleIndex+1}" />
-							</c:if>
 							<c:set var="dataTotal" value="${dataTotal + row.productTotal}" />
 							<c:set var="vatTotal" value="${vatTotal + row.productVat}" />
 							<c:set var="amountTotal" value="${amountTotal + row.productAmount}" />

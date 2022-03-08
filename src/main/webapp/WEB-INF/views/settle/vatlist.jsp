@@ -34,10 +34,8 @@
                         </div>
                     </div>
                     <div class="btn_wr" style="float:right;">
-                        <!-- hide and show -->
 						<button class="btn btn-sm btn-success" id="fold" onclick="acordian_action()">펼치기</button>
 						<button class="btn btn-sm btn-success" id="fold2" onclick="acordian_action1()" style="display:none;">접기</button>
-						<!-- hide and show -->
                         <button class="btn btn-sm btn-inverse" onClick="javascript:fnClearall()">
                         	<i class="icofont icofont-spinner-alt-3"></i>초기화
                         </button>
@@ -142,7 +140,7 @@
         <!--//영업활동조회-->
     </c:if>
 
-    <!--리스트 table-->
+    <!--리스트 table--> 
     <div class="cnt_wr" id="list-container">
         <div class="row">
             <div class="col-sm-12">

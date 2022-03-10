@@ -290,6 +290,17 @@ public class HomeController {
 			model.addAttribute("list", list);
 			rtn = "modal/productGoodsCategory";
 		}
+		else if("custVatListModal".equals(popId)) {
+			//Integer compNo = Integer.valueOf((String) params.get("compNo"));
+			AccountDTO dto = new AccountDTO();
+			Integer custNo = Integer.parseInt(String.valueOf(params.get("custNo"))); 
+			Integer compNo = Integer.parseInt(String.valueOf(params.get("compNo")));
+			dto.setCustNo(custNo);
+			dto.setCompNo(compNo);
+			List<AccountDTO> list = accountService.custVatListModal(dto);
+			model.addAttribute("list", list);
+			rtn = "modal/custVatListModal";
+		}
 		
 		logger.debug(rtn);
 		

@@ -116,5 +116,6 @@ public class AccountDTO {
     private BigDecimal vatAmountS;
     private BigDecimal serialTotalB;
     private BigDecimal serialTotalS;
+    private int custNo;
 }
 

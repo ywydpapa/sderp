@@ -166,8 +166,16 @@
                             <c:forEach items="${vatList}" var="vlist">
                                 <tr>
                                     <td class="text-center">
-                                    	<c:if test = "${vlist.vatType eq 'S'}">${vlist.vatBuyerName}</c:if> 
-                                    	<c:if test = "${vlist.vatType eq 'B'}">${vlist.vatSellerName}</c:if>
+                                    	<c:if test = "${vlist.vatType eq 'S'}">
+                                    		<a data-remote="${path}/modal/popup.do?popId=custVatListModal&custNo=${vlist.vatBuyerCustNo}&compNo=${sessionScope.compNo}" type="button" data-toggle="modal" data-target="#custVatList" style="cursor: pointer; text-decoration: underline;">
+                                    			${vlist.vatBuyerName}
+                                    		</a>
+                                    		</c:if> 
+                                    	<c:if test = "${vlist.vatType eq 'B'}">
+                                    		<a data-remote="${path}/modal/popup.do?popId=custVatListModal&custNo=${vlist.vatSellerCustNo}&compNo=${sessionScope.compNo}" type="button" data-toggle="modal" data-target="#custVatList" style="cursor: pointer; text-decoration: underline;">
+                                    			${vlist.vatSellerName}
+                                    		</a>
+                                    	</c:if>
                                    	</td>
                                     <td class="text-right">
                                     	<c:choose>
@@ -199,11 +207,11 @@
                     </div>
                 </div>
                 <!-- model -->
-                <div class="modal fade " id="userModal1" tabindex="-1" role="dialog">
+                <div class="modal fade " id="custVatList" tabindex="-1" role="dialog">
 					<div class="modal-dialog modal-80size" role="document">
 						<div class="modal-content modal-80size">
 							<div class="modal-header">
-								<h4 class="modal-title">연결문서(합계금액)</h4>
+								<h4 class="modal-title">목록</h4>
 								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 									<span aria-hidden="true">&times;</span>
 								</button>
@@ -244,7 +252,7 @@
             var modal = $(this);
             modal.find('.modal-body').load(button.data("remote"));
         });
-        $('#userModal1').on('show.bs.modal', function(e) {
+        $('#custVatList').on('show.bs.modal', function(e) {
             var button = $(e.relatedTarget);
             var modal = $(this);
             modal.find('.modal-body').load(button.data("remote"));

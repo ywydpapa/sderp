@@ -35,4 +35,5 @@ public interface AccountDAO {
 	List<AccountDTO> listvatSearchB(AccountDTO dto);
 	List<AccountDTO> listvatS(AccountDTO dto);
 	List<AccountDTO> listvatSearchS(AccountDTO dto);
+	List<AccountDTO> custVatListModal(AccountDTO dto);
 }

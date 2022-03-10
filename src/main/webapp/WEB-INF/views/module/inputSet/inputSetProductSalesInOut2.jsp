@@ -195,7 +195,7 @@
 	                            <div class="modal-dialog modal-80size" role="document">
 	                                <div class="modal-content modal-80size">
 	                                    <div class="modal-header">
-	                                        <h4 class="modal-title">매입/매출 거래처 선택</h4>
+	                                        <h4 class="modal-title">승인번호</h4>
 	                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 	                                            <span aria-hidden="true">&times;</span>
 	                                        </button>
@@ -226,7 +226,7 @@
 	                            <div class="modal-dialog modal-80size" role="document">
 	                                <div class="modal-content modal-80size">
 	                                    <div class="modal-header">
-	                                        <h4 class="modal-title">매입/매출 거래처 선택</h4>
+	                                        <h4 class="modal-title">승인번호</h4>
 	                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 	                                            <span aria-hidden="true">&times;</span>
 	                                        </button>

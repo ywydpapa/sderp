@@ -208,7 +208,7 @@
                                     	<fmt:formatNumber type="number" maxFractionDigits="3" value="${vlist.vatAmount + vlist.vatTax}" />
                                     </td>
                                     <td class="text-right">
-                                    	<a data-remote="${path}/modal/popup1.do?popId=${vlist.vatSerial}" type="button" data-toggle="modal" data-target="#userModal1">
+                                    	<a data-remote="${path}/modal/popup1.do?popId=${vlist.vatSerial}" type="button" data-toggle="modal" data-target="#userModal1" style="cursor: pointer; text-decoration: underline;">
                                     		<fmt:formatNumber type="number" maxFractionDigits="3" value="${vlist.vatSum}" />
                                     	</a>
                                     </td>

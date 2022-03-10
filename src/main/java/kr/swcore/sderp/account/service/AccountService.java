@@ -36,4 +36,5 @@ public interface AccountService {
 	List<AccountDTO> listvatSearchB(HttpSession session, AccountDTO dto);
 	List<AccountDTO> listvatS(HttpSession session, AccountDTO dto);
 	List<AccountDTO> listvatSearchS(HttpSession session, AccountDTO dto);
+	List<AccountDTO> custVatListModal(AccountDTO dto);
 }

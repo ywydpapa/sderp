@@ -193,4 +193,9 @@ public class AccountServiceImpl implements AccountService {
         dto.setListDateFrom(listDateFrom);
 		return accountDAO.listvatSearchS(dto);
 	}
+
+	@Override
+	public List<AccountDTO> custVatListModal(AccountDTO dto) {
+		return accountDAO.custVatListModal(dto);
+	}
 }

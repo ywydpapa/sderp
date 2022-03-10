@@ -148,7 +148,8 @@
                     <div class="table-responsive">
                         <table id="vatTable" class="table table-striped table-bordered nowrap ">
                             <colgroup>
-                                <col width="40%"/>
+                                <col width="30%"/>
+                                <col width="10%"/>
                                 <col width="15%"/>
                                 <col width="15%"/>
                                 <col width="15%"/>
@@ -157,6 +158,7 @@
                             <thead>
                             <tr>
                                 <th class="text-center">거래처</th>
+                                <th class="text-center">기초잔액</th>
                                 <th class="text-center">매입합계</th>
                                 <th class="text-center">지불완료합계</th>
                                 <th class="text-center">매출합계</th>
@@ -176,6 +178,12 @@
                                     			${vlist.vatSellerName}
                                     		</a>
                                     	</c:if>
+                                   	</td>
+                                   	<td class="text-right">
+                                   		<c:choose>
+                                    		<c:when test="${vlist.custBalance > 0}"><fmt:formatNumber type="number" maxFractionDigits="3" value="${vlist.custBalance}" /></c:when>
+                                    		<c:otherwise>0</c:otherwise>
+                                    	</c:choose>
                                    	</td>
                                     <td class="text-right">
                                     	<c:choose>

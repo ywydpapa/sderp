@@ -269,6 +269,27 @@
 													class="form-control form-control-sm"></td>
 											</tr>
 											<tr>
+												<th scope="row">기준연도</th>
+												<td><input name="custByear" id="custByear" type="text" placeholder="년도만 입력해주십시오.(ex:2022)" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" maxlength="4"
+													value="${dto04.custByear}"
+													class="form-control form-control-sm"></td>
+											</tr>
+											<tr>
+												<th scope="row">기초잔액</th>
+												<td><input name="custBBalance" id="custBBalance" placeholder="숫자만 입력해주십시오." oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" type="text" maxlength="15"
+													value="${dto04.custBBalance}"
+													class="form-control form-control-sm"></td>
+											</tr>
+											<tr>
+												<th scope="row">금액타입</th>
+												<td>
+													<select class="form-control form-control-sm" id="balanceType">
+														<option value="DR">DR(줄돈)</option>
+														<option value="CR">CR(받을돈)</option>
+													</select>
+												</td>
+											</tr>
+											<tr>
 												<th scope="row">계산서 이메일</th>
 												<td><input name="custVatemail1" id="custVatemail1" type="email"
 													value="${dto04.custVatemail}"
@@ -616,13 +637,23 @@
 			}
 
 		function fn_custUpdate04(){
+			var compNo = "${sessionScope.compNo}";
 			var custData4 = {};
 			custData4.custNo 		= $("#custNo").val();
+			custData4.compNo		= compNo;
+			custData4.custByear	= $("#custByear").val();
+			custData4.balanceType	= $("#balanceType").val();
+			custData4.custBBalance	= $("#custBBalance").val();
 			custData4.custVatemail	= $("#custVatemail").val();
-			custData4.custVatno		= $("#custVatno").val();
+			custData4.custVatno		= $("#custVatno1").val();
 			custData4.custVattype 	= $("#custVattype").val();
 			custData4.custVatbiz	= $("#custVatbiz").val();
-			custData4.custVatmemo 	= $("#custVatmemo").val();
+			
+			if($("#custVatmemo").attr("style") === "display: none;"){
+				custData4.custVatmemo 	= tinyMCE.get("custVatmemo").getContent();
+			}else{
+				custData4.custVatmemo 	= $("#custVatmemo").val();
+			}
 
 			$.ajax({ url: "${path}/cust/insert04.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
 						data: custData4 , // HTTP 요청과 함께 서버로 보낼 데이터
@@ -752,8 +783,16 @@
 		}
 
 	$(document).ready(function(){
+		var balanceType = "${dto04.balanceType}";
+		
 		$('#saleType').val('${dto.saleType}').prop("selected",true);
 		$('#compType').val('${dto.compType}').prop("selected",true);
+		
+		if(balanceType !== ""){
+			setTimeout(() => {
+				$("#balanceType").val(balanceType);
+			}, 300);
+		}
 		
 	});
 	</script>

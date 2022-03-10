@@ -46,9 +46,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  		SELECT * from swc_custData03 where custNo=#{custNo} and attrib not like 'XXX%' order by custData03no DESC limit 1
  </select>
 
-<select id="detailCust04"
- 		resultType="custDto">
- 		SELECT * from swc_custData04 where custNo=#{custNo} and attrib not like 'XXX%' order by custData04no DESC limit 1
+<select id="detailCust04" resultType="custDto">
+ 		SELECT * from swc_custData where custNo=#{custNo} and attrib not like 'XXX%' order by custdataNo DESC limit 1
  </select>
 
  <select id="detailsCust"
@@ -85,10 +84,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  </insert>
 
  <insert id="insertCust04">
- update swc_custData04 set attrib = "XXXXX" where custNo=#{custNo};
- insert into swc_custData04 (custNo,custVatno,custVatemail, custVattype,custVatbiz, custVatmemo,attrib)
+ update swc_custdata set attrib = "XXXXX" where custNo=#{custNo};
+ insert into swc_custdata (custNo, compNo, custByear, balanceType, custBBalance, custVatno, custVatemail, custVattype, custVatbiz, custVatmemo, regDatetime, attrib)
  values
- (#{custNo},#{custVatno},#{custVatemail}, #{custVattype},#{custVatbiz}, #{custVatmemo},'10000');
+ (#{custNo}, #{compNo}, #{custByear}, #{balanceType}, #{custBBalance}, #{custVatno}, #{custVatemail}, #{custVattype}, #{custVatbiz}, #{custVatmemo}, now(), '10000');
  </insert>
 
  <update id="updateCust">

@@ -33,9 +33,9 @@ th, td{
 }
 
 #mainPdf{
-   padding-left: 1%;
-   padding-right: 3%;
-   padding-top: 2%;
+	padding-left: 2%;
+   	padding-right: 2.5%;
+   	padding-top: 2%;
 }
 
 #imgLogo #logoLeft{
@@ -45,12 +45,12 @@ th, td{
 }
 
 #imgLogo #logoRight{
-   width:68%;
+   width:67%;
    height:auto;
    position:absolute; 
-   top:29px;
+   top:28px;
    right: 0;
-   padding-right: 3%;
+   padding-right: 2.5%;
 }
 
 #pdfTitle #titlePdf{
@@ -321,7 +321,7 @@ th, td{
       </table>
       <div id="pdfRemarks">
          <h3>Remarks
-            <span>${infoItem.estComSpec}</span>
+            <span style="padding:0;">${infoItem.estComSpec}</span>
          </h3>
       </div>
       <div id="pdfBottom">
@@ -352,6 +352,7 @@ function solPdf(){
    var element = document.getElementById("mainPdf");
    
    html2pdf().from(element).set({
+	  margin:5,
       filename: estId + '(' + nowDate + ')' + '.pdf',
       html2canvas: { scale: 10 },
       jsPDF: {orientation: 'portrait', unit: 'mm', format: 'a4', compressPDF: true}

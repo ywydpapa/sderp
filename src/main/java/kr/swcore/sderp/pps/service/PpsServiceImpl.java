@@ -48,4 +48,13 @@ public class PpsServiceImpl implements PpsService {
     public int assignUpdate(PpsDTO dto) {
         return ppsDao.assignUpdate(dto);
     }
+
+	@Override
+	public List<PpsDTO> ppsStatusList(HttpSession session, PpsDTO dto) {
+		int compNo = SessionInfoGet.getCompNo(session);
+        String listDateFrom = SessionInfoGet.getlistDateFrom(session);
+        dto.setCompNo(compNo);
+        dto.setListDateFrom(listDateFrom);
+        return ppsDao.ppsStatusList(dto);
+	}
 }

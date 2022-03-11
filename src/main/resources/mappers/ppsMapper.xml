@@ -10,6 +10,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  		</if>  
  		order by contractDate desc;
     </select>
+    
+    <select id="ppsStatusList" resultType="PpsDTO">
+        select * from swc_pps where attrib not like 'XXX%' and compNo = #{compNo} and soppNo IS NOT NULL
+        <if test="listDateFrom != null and listDateFrom != ''"> 
+ 			and contractDate Between #{listDateFrom} and now()
+ 		</if>  
+ 		order by contractDate desc;
+    </select>
 
     <select id="ppsDetail" resultType="PpsDTO">
         select * from swc_pps where ppsID = #{ppsId};

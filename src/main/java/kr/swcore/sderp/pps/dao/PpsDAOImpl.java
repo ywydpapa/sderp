@@ -43,4 +43,9 @@ public class PpsDAOImpl implements PpsDAO{
 	public int assignUpdate(PpsDTO dto) {
 		return sqlSession.update("pps.assignUpdate", dto);
 	}
+
+	@Override
+	public List<PpsDTO> ppsStatusList(PpsDTO dto) {
+		return sqlSession.selectList("pps.ppsStatusList", dto);
+	}
 }

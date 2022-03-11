@@ -165,7 +165,7 @@
 				</li>
 			</ul>
 		</li>
-		<li class="pcoded-hasmenu pcoded <c:if test="${path2 eq '/pps/ppslist.do' || path2 eq '/pps/ppsstatuslist.do' || fn:startsWith(path2, '/pps/ppsdetail') || fn:startsWith(path2, '/pps/statusdetail')}">pcoded-trigger</c:if>">
+		<li class="pcoded-hasmenu pcoded <c:if test="${path2 eq '/pps/ppslist.do' || path2 eq '/pps/ppsStatusList.do' || fn:startsWith(path2, '/pps/ppsdetail') || fn:startsWith(path2, '/pps/statusdetail')}">pcoded-trigger</c:if>">
 			<a href="javascript:void(0)">
 					<span class="pcoded-micon">
 						<i class="ti-package"></i>
@@ -184,7 +184,7 @@
 					</a>
 				</li>
 				<li class="pcoded-hasmenu">
-					<a href="${path}/pps/ppsstatuslist.do">
+					<a href="${path}/pps/ppsStatusList.do">
 						<span class="pcoded-micon">
 							<i class="ti-angle-right"></i>
 						</span>

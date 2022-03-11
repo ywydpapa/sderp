@@ -34,6 +34,14 @@ public class PpsController {
         return mav;
     }
     
+    @RequestMapping("ppsStatusList.do")
+    public ModelAndView ppsStatusList(HttpSession session, ModelAndView mav, @ModelAttribute PpsDTO dto){
+        mav.addObject("ppsList", ppsService.ppsStatusList(session, dto));
+        mav.addObject("userList", userService.userList(session));
+        mav.setViewName("pps/ppsstatuslist");
+        return mav;
+    }
+    
     @ResponseBody
     @RequestMapping("ppscheck.do")
     public PpsDTO vchk(ModelAndView mav, @ModelAttribute PpsDTO dto)

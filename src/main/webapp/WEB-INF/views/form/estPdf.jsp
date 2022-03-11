@@ -20,6 +20,7 @@
 body{
 	font-family:MalgunGothic, sans-serif;
 	font-weight:0;
+	overflow: hidden;
 }
 
 table{
@@ -33,7 +34,7 @@ th, td{
 }
 
 #imgLogo #logoLeft{
-	margin-top: 60px;
+	margin-top: 10px;
 	width:28%;
 	height:auto;
 }
@@ -42,7 +43,7 @@ th, td{
 	width:70%;
 	height:auto;
 	position:absolute; 
-	top:63px;
+	top:13px;
 	right: 0;
 }
 

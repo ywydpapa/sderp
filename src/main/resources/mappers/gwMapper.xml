@@ -13,7 +13,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </select>
     
     <select id="detailDocApp" resultType="gwDto">
-        select a.*, b.userName, b.userTel, b.userEmail from swc_businessdocapp a left join swc_user b on a.userNoCR = b.userNo where a.attrib not like 'XXX%' and a.docNo=#{docNo};
+        select a.*, b.userName, b.userTel, b.userEmail from swc_businessdocapp a left join swc_user b on a.userNoIS = b.userNo where a.attrib not like 'XXX%' and a.docNo=#{docNo};
     </select>
     
     <select id="detailDocData" resultType="gwDto">

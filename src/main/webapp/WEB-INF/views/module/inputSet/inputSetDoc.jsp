@@ -438,6 +438,7 @@
     		alert('영수증을 첨부해주십시오.');
     		return false;
     	}else{
+    		$.LoadingOverlay("show", true);
     		data02Data.docCrUserNo = $("#docUserNo").val();
     		data02Data.docType = showDocType;
     		data02Data.docTitle = $("#docTitle").val();
@@ -516,7 +517,6 @@
 					fn_allimInsert(allimPath, userNo, compNo, msg, role, allimSetPath);
 					
 		 			alert("등록되었습니다.");
-		 			$.LoadingOverlay("show", true);
 		 			location.href = "${path}/gw/write.do";
 		 			
 		 			setTimeout(function(){
@@ -562,6 +562,7 @@
             alert("작성일자를 입력해주십시오.");
             return false;
         }else{
+        	$.LoadingOverlay("show", true);
     		data02Data.docCrUserNo = $("#docUserNo").val();
     		data02Data.docType = showDocType;
     		data02Data.docTitle = $("#docTitle").val();
@@ -619,6 +620,10 @@
 		 			}
 		 			alert("등록되었습니다.");
 		 			location.href = "${path}/gw/write.do";
+
+		 			setTimeout(function(){
+					    $.LoadingOverlay("hide", true);
+					}, 5000);
     			}
     		});
     	}
@@ -669,6 +674,7 @@
     		alert("자신에게 요청할 수 없습니다.");	
     		return false;
     	}else{
+    		$.LoadingOverlay("show", true);
     		data02Data.docNo = docNo;
     		data02Data.docType = showDocType;
     		data02Data.docTitle = $("#docTitle").val();
@@ -760,8 +766,13 @@
 			  					dataType: "json"
 			  				});
 			 			}
+						
 			 			alert("수정되었습니다.");
 			 			location.href = "${path}/gw/detail/"+docNo;
+			 			
+			 			setTimeout(function(){
+						    $.LoadingOverlay("hide", true);
+						}, 5000);
 					}, 300);
     			}
     		});
@@ -793,6 +804,7 @@
             alert("자신에게 요청할 수 없습니다.");
             return false;
         }else{
+        	$.LoadingOverlay("show", true);
             data02Data.docNo = docNo;
             data02Data.docType = showDocType;
             data02Data.docTitle = $("#docTitle").val();
@@ -840,8 +852,13 @@
                                 dataType: "json"
                             });
                         }
+                        
                         alert("수정되었습니다.");
                         location.href = "${path}/gw/detail/"+docNo;
+    		 			
+                        setTimeout(function(){
+    					    $.LoadingOverlay("hide", true);
+    					}, 5000);
                     }, 300);
                 }
             });
@@ -900,6 +917,7 @@
     		alert("결재자를 선택해주십시오.");
     		return false;
     	}else{
+			$.LoadingOverlay("show", true);
 	    	if($("#appStatus").val() == 4){
 	    		docStatus = 3;
 	    		appStatus = 5;
@@ -968,8 +986,13 @@
 				  					dataType: "json"
 				  				});
 				 			}
+							
 				 			alert("완료되었습니다.");
 				 			location.href = "${path}/gw/mydoclist.do";
+
+				 			setTimeout(function(){
+							    $.LoadingOverlay("hide", true);
+							}, 5000);
 		    			}
 		    		});
 				}
@@ -1010,6 +1033,7 @@
     		return false;
     	}else{
     		if(confirm("정말 반려하시겠습니까??")){
+    			$.LoadingOverlay("show", true);
 	    		data02Data.docCrUserNo = userNoCR;
 	    		data02Data.docType = showDocType;
 	    		data02Data.docTitle = $("#docTitle").val();
@@ -1072,6 +1096,10 @@
 					 			}
 					 			alert("반려되었습니다.");
 					 			location.href = "${path}/gw/mylist.do";
+
+					 			setTimeout(function(){
+								    $.LoadingOverlay("hide", true);
+								}, 5000);
 			    			}//mydoclist.do -> 기존 링크
 			    		});
 					}
@@ -1210,7 +1238,6 @@
     });
     
     function fn_data02Insert1() {
-    	debugger;
 		var uploadData = new FormData();
 		var fileInput = document.getElementById("addFile");
 		var files = fileInput.files;

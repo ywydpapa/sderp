@@ -118,5 +118,6 @@ public class AccountDTO {
     private BigDecimal serialTotalS;
     private int custNo;
     private int custBalance;
+    private String vatProductName;
 }
 

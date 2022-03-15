@@ -400,6 +400,7 @@
                 var $Jarr = $(".vatlst20");           // 비고
                 var $Karr = $(".vatlst22");           // 공급자 이메일
                 var $Larr = $(".vatlst9");			  // 사업자번호
+                var $Marr = $(".vatlst26");			  // 품목명
 
                 for (var i=0; i<$Barr.length; i++){
                     if ($($Chkarr[i]).is(":checked")==true){
@@ -409,6 +410,7 @@
                         vatData.compNo = ${compNo};
                         vatData.vatNo = $Earr[i].innerText;
                         vatData.vatSerial = $Barr[i].innerText;
+                        vatData.vatProductName = $Marr[i].innerText;
                         vatData.vatEmail = $Karr[i].innerText;
                         vatData.vatIssueDate = $Aarr[i].innerText;
                         vatData.vatTradeDate = $Carr[i].innerText;
@@ -477,6 +479,7 @@
                 var $Jarr = $(".vatlst20");           // 비고
                 var $Karr = $(".vatlst23");           // 공급자 이메일
                 var $Larr = $(".vatlst9");			  // 사업자번호
+                var $Marr = $(".vatlst26");			  // 품목명
 
                 for (var i=0; i<$Barr.length; i++){
                     if ($($Chkarr[i]).is(":checked")==true){
@@ -486,6 +489,7 @@
                         vatData.compNo = ${compNo};
                         vatData.vatNo = $Larr[i].innerText;
                         vatData.vatSerial = $Barr[i].innerText;
+                        vatData.vatProductName = $Marr[i].innerText;
                         vatData.vatEmail = $Karr[i].innerText;
                         vatData.vatIssueDate = $Aarr[i].innerText;
                         vatData.vatTradeDate = $Carr[i].innerText;

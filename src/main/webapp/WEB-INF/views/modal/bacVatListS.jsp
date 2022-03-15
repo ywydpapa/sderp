@@ -14,30 +14,34 @@
 <div class="dt-responsive table-responsive">
     <table id="vatlistTable" class="table table-striped table-bordered nowrap">
         <thead>
-        <tr>
-            <th>승인번호</th>
-            <th>업체명</th>
-            <th>공급가액</th>
-            <th>비고</th>
-        </tr>
-        </thead>
-        <tbody>
-        <c:forEach var="row" items="${list}">
-            <tr align="center">
-                <td><a href="javascript:fnvatListS('${row.vatSerial}', '${row.vatSellerCustNo}', '${row.vatAmount}');">${row.vatSerial}</a></td>
-                <c:choose>
-	                <c:when test="${empty row.custName}">
-		                <td>미등록업체</td>
-	                </c:when>
-	                <c:otherwise>
-	                	<td>${row.custName}</td>
-	                </c:otherwise>
-                </c:choose>
-                <td>₩<fmt:formatNumber value="${row.vatAmount}" pattern="#,###" /></td>
-                <td class="text-left">${row.vatRemark}</td>
-            </tr>
-        </c:forEach>
-        </tbody>
+		    <tr>
+		    	<th>작성일자</th>
+		      	<th>거래처</th>
+		      	<th>금액</th>
+		      	<th>품명</th>
+		      	<th>비고</th>
+		      	<th>승인번호</th>
+		    </tr>
+	    </thead>
+	    <tbody>
+		    <c:forEach var="row" items="${list}">
+		      <tr align="center">
+		      	<td>${row.vatIssueDate}</td>
+		        <c:choose>
+			        <c:when test="${empty row.custName}">
+			           <td>미등록업체</td>
+			        </c:when>
+			        <c:otherwise>
+			          	<td>${row.custName}</td>
+			        </c:otherwise>
+		        </c:choose>
+		        <td>₩<fmt:formatNumber value="${row.vatAmount + row.vatTax}" pattern="#,###" /></td>
+		        <td>${row.vatProductName}</td>
+		        <td class="text-left">${row.vatRemark}</td>
+		        <td><a href="javascript:fnvatListB('${row.vatSerial}', '${row.vatSellerCustNo}', '${row.vatAmount}');">${row.vatSerial}</a></td>
+		      </tr>
+		    </c:forEach>
+	    </tbody>
     </table>
 </div>
 

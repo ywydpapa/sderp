@@ -177,17 +177,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select c.desc03 bacTypeN ,b.desc03 bankCodeN ,a.*, d.baclogTime, d.balanceAmt from swc_bac a
 	   	left join swc_code b on b.code03 = a.bankCode
 	   	LEFT join swc_code c on c.code03 = a.bacType
-	   	LEFT JOIN (SELECT * FROM(
-SELECT * 
-	FROM swc_bacledger 
-	WHERE (bacSerial, regDate) IN (
-SELECT bacSerial, MAX(regDate)
-FROM swc_bacledger GROUP BY bacSerial
-)
-ORDER BY regdate DESC
-)t
-GROUP BY t.bacSerial) d ON a.bacSerial = d.bacSerial
-		where a.compNo = #{compNo} and a.attrib not like 'XXX%';
+	   	LEFT JOIN 
+	   	(SELECT * FROM(
+			SELECT * 
+				FROM swc_bacledger 
+				WHERE (bacSerial, baclogTime) IN (
+			SELECT bacSerial, MAX(baclogTime)
+			FROM swc_bacledger GROUP BY bacSerial
+			)
+			ORDER BY baclogTime DESC
+		)t
+		GROUP BY t.bacSerial) d ON a.bacSerial = d.bacSerial
+				where a.compNo = #{compNo} and a.attrib not like 'XXX%';
 	</select>
 
 	<select id="listCard" resultType="accountDto">

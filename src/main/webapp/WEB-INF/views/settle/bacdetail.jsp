@@ -312,6 +312,7 @@
 			$("#baclist").select2(); 
 			
 			$("#baclist").change(function(){
+				bacTable.empty();
 				$.ajax({
 					url: "${path}/acc/bacSelectList/" + $(this).val(),
 					method: "post",
@@ -346,6 +347,10 @@
 						}
 					}
 				});
+				$.LoadingOverlay("show", true);
+				setTimeout(function(){
+					$.LoadingOverlay("hide", true);
+				}, 1000);
 			});
 		});	
 		

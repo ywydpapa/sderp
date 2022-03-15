@@ -48,7 +48,7 @@
 							<h6 style="font-weight:600;">백계약 대상 목록 조회</h6>
 						</div>
 					</div>
-					<div class="btn_wr" style="float:right;">
+					<div class="btn_wr" style="float:right; display: none;">
 						<!-- hide and show -->
 						<button class="btn btn-sm btn-success" id="fold"
 							onclick="acordian_action()">펼치기</button>

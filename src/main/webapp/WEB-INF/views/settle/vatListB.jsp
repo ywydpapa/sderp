@@ -35,13 +35,13 @@
                     </div>
                     <div class="btn_wr" style="float:right;">
                         <!-- hide and show -->
-						<button class="btn btn-sm btn-success" id="fold" onclick="acordian_action()">펼치기</button>
-						<button class="btn btn-sm btn-success" id="fold2" onclick="acordian_action1()" style="display:none;">접기</button>
+						<button class="btn btn-sm btn-success" style="display:none;" id="fold" onclick="acordian_action()">펼치기</button>
+						<button class="btn btn-sm btn-success" style="display:none;" id="fold2"  onclick="acordian_action1()" style="display:none;">접기</button>
 						<!-- hide and show -->
-                        <button class="btn btn-sm btn-inverse" onClick="javascript:fnClearall()">
+                        <button class="btn btn-sm btn-inverse" style="display:none;" onClick="javascript:fnClearall()">
                         	<i class="icofont icofont-spinner-alt-3"></i>초기화
                         </button>
-                        <button class="btn btn-sm btn-primary" onClick="javascript:fnListcon()">
+                        <button class="btn btn-sm btn-primary" style="display:none;" onClick="javascript:fnListcon()">
                         	<i class="icofont icofont-search"></i>검색
                         </button>
                         <button class="btn btn-sm btn-danger" onClick="javascript:fnChgStatus()">

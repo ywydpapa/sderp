@@ -839,6 +839,7 @@ select a.soppNo, dataType ,b.soppTitle, c.custName as custName, sum(case when a.
  		from swc_soppData01 a
 		left join swc_sopp b on a.soppNo = b.soppNo
  		left join swc_cust c on a.salesCustNo = c.custNo
+ 		left join swc_user d on a.userNo = d.userNo
 		where a.attrib not like 'XXX%'
 		<if test="dataType != null and dataType != ''">
  		 	and a.dataType = #{dataType}
@@ -855,8 +856,25 @@ select a.soppNo, dataType ,b.soppTitle, c.custName as custName, sum(case when a.
  		<if test="vatDateto != null and vatDateto != ''">
  			and date_format(a.vatDate, '%Y-%m-%d') <![CDATA[<=]]> #{vatDateto}
  		</if>
+ 		<if test="cntrctMth != null and cntrctMth != ''">
+ 			and a.dataType = #{cntrctMth}
+ 		</if>
+ 		<if test="userName != null and userName != ''">
+ 			and d.userName  like concat('%',#{userName},'%')
+ 		</if>
  		<if test="listDateFrom != null and listDateFrom != '' and vatDatefrom == null or vatDatefrom == '' and vatDateto == null or vatDateto == ''">
  			and b.regDatetime Between #{listDateFrom} and now()
+ 		</if>
+ 		<if test="freemaintSdate != null and freemaintSdate != ''">
+ 			and date_format(b.regDatetime, '%Y-%m-%d') Between #{freemaintSdate} and 
+ 			<choose>
+ 			<when test="freemaintEdate != null and freemaintEdate != ''">
+ 				#{freemaintEdate}
+ 			</when>
+ 			<otherwise>
+ 				now()
+ 			</otherwise>
+ 			</choose>
  		</if>
 		and a.catNo=100001
 		order by a.soppNo desc

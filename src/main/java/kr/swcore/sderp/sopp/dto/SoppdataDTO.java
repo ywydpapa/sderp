@@ -55,6 +55,10 @@ public class SoppdataDTO {
 	
 	private String listDateFrom;
 	
+	private String cntrctMth;
+	private String freemaintSdate;
+	private String freemaintEdate;
+	
 	public SoppdataDTO() {
 		super();
 		// TODO Auto-generated constructor stub

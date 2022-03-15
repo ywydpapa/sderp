@@ -234,7 +234,12 @@ public class ContController {
 			@RequestParam(value = "custNo", required = false) String custNo,
 			@RequestParam(value = "dataType", required = false) String dataType,
 			@RequestParam(value = "vatDatefrom", required = false) String vatDatefrom,
-			@RequestParam(value = "vatDateto", required = false) String vatDateto) {
+			@RequestParam(value = "vatDateto", required = false) String vatDateto,
+			@RequestParam(value = "userName", required = false) String userName,
+			@RequestParam(value = "cntrctMth", required = false) String cntrctMth,
+			@RequestParam(value = "freemaintSdate", required = false) String freemaintSdate,
+			@RequestParam(value = "freemaintEdate", required = false) String freemaintEdate
+			) {
 		mav.setViewName("slip/iolistall");
 		mav.addObject("contractType", codeService.listContractType(session));
 		mav.addObject("listall",soppdataService.listIO(session, dto));

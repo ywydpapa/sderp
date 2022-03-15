@@ -293,6 +293,7 @@
 		}
 		
 		$("#freemaintSdate").val(year + "-" + month + "-" + day);
+		$("#freemaintEdate").val(year + "-" + month + "-" + day);
 	});
 	
 	$("#regSDate").change(function(){
@@ -374,9 +375,12 @@
 		$(".modal-backdrop").remove();
 		$("#endCustModal").modal("hide");
 	}
-
 	function fnListcon() {
 		var contData = {};
+		contData.userName = $('#userName').val();
+		contData.cntrctMth = $('#cntrctMth').val();
+		contData.freemaintSdate = $('#freemaintSdate').val();
+		contData.freemaintEdate = $('#freemaintEdate').val();
 		contData.userNo = $("#userNo").val() ? Number($("#userNo").val()) : 0;
 		contData.salesCustNo = $("#custNo").val() ? Number($("#custNo").val()) : 0;
 		contData.vatDatefrom = $("#vatSdate").val() ? $("#vatSdate").val() : null;

@@ -205,6 +205,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select count(*) as count, custNo as getNo from swc_cust where custVatno = #{vatNo}
 	</select>
 
+	<select id="treqCardList" resultType="accountDto">
+		select * from swc_cardledger
+	</select>
+
 	<insert id="insertbacledger">
 		insert into swc_bacledger
 		(

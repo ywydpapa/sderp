@@ -457,6 +457,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<insert id="insertDocData">
 		insert into swc_businessdocdata (
 			docNo,
+			docAppSerial,
 			custName,
 			productName,
 			productNetprice,
@@ -469,6 +470,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			attrib
 		) values (
 		 	#{docNo},
+		 	#{docAppSerial},
 		 	#{custName},
 		 	#{productName},
 		 	#{productNetprice},

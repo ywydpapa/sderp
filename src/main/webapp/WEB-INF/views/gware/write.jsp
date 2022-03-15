@@ -237,11 +237,34 @@
                         <c:set var="now" value="<%=new java.util.Date()%>" />
                        	<c:set var="sysDate"><fmt:formatDate value="${now}" pattern="yyyy-MM-dd HH:mm:ss" /></c:set>
                        	<input type="hidden" id="issueDate" value="${sysDate}" />
+                       	<div id="cardAddBtn" style="float:right; margin-top:20px; margin-bottom:20px;">
+                       		<button class="btn btn-primary sch-company" data-remote="${path}/modal/popup.do?popId=cardAddModal" type="button" data-toggle="modal" data-target="#cardAddModal">
+                                <i class="icofont icofont-search"></i>카드내역추가
+                            </button>
+                       	</div>
                         <div class="table-responsive" style="overflow-x: hidden;">
                             <jsp:include page="/WEB-INF/views/module/inputSet/inputSetDoc.jsp"/>
                             <jsp:include page="/WEB-INF/views/gware/docdtaillist.jsp"/>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade " id="cardAddModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-80size" role="document">
+            <div class="modal-content modal-80size">
+                <div class="modal-header">
+                    <h4 class="modal-title">카드 내역</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-success waves-effect" data-dismiss="modal" onclick="cardDataSave();">선택추가</button>
                 </div>
             </div>
         </div>
@@ -284,6 +307,12 @@
         });
 
         $('#contModal').on('show.bs.modal', function(e) {
+            var button = $(e.relatedTarget);
+            var modal = $(this);
+            modal.find('.modal-body').load(button.data("remote"));
+        });
+        
+        $('#cardAddModal').on('show.bs.modal', function(e) {
             var button = $(e.relatedTarget);
             var modal = $(this);
             modal.find('.modal-body').load(button.data("remote"));
@@ -335,6 +364,7 @@
 			
 			$("#docSelect2").hide();
 			$("#docSelect3").hide();
+			$("#cardAddBtn").hide();
         });
     </script>
 </div>

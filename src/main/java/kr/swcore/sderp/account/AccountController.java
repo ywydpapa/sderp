@@ -181,7 +181,6 @@ public class AccountController {
 		return dto;
     }
 
-
     @ResponseBody
     @RequestMapping("vatcheck.do")
     public AccountDTO vchk(ModelAndView mav, @ModelAttribute AccountDTO dto)

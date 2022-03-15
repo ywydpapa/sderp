@@ -168,4 +168,9 @@ public class AccountDAOImpl implements AccountDAO {
 	public List<AccountDTO> custVatListModal(AccountDTO dto) {
 		return sqlSession.selectList("account.custVatListModal", dto);
 	}
+
+	@Override
+	public List<AccountDTO> treqCardList(AccountDTO dto) {
+		return sqlSession.selectList("account.treqCardList", dto);
+	}
 }

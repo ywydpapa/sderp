@@ -18,7 +18,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -162,7 +161,6 @@ public class HomeController {
 	public ModelAndView modal(@RequestParam Map<String, Object> params, Model model, ModelAndView mav, HttpSession session, HttpServletRequest servletRequest) {
 		String rtn = "";
 		String popId = (String)params.get("popId"); 
-		String vatSerial = (String) params.get("popId2");
 		
 		if("cust".equals(popId)) {
 			List<CustDTO> list=custService.listCust(session);
@@ -300,6 +298,13 @@ public class HomeController {
 			List<AccountDTO> list = accountService.custVatListModal(dto);
 			model.addAttribute("list", list);
 			rtn = "modal/custVatListModal";
+		}
+		else if("cardAddModal".equals(popId)) {
+			//Integer compNo = Integer.valueOf((String) params.get("compNo"));
+			AccountDTO dto = new AccountDTO();
+			List<AccountDTO> list = accountService.treqCardList(dto);
+			model.addAttribute("list", list);
+			rtn = "modal/treqCardList";
 		}
 		
 		logger.debug(rtn);

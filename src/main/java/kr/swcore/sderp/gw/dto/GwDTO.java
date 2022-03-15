@@ -106,6 +106,7 @@ public class GwDTO {
     private String firstUser;
     private String custVatNo;
     private String listDateFrom;
+    private String docAppSerial;
     
     public GwDTO() {
         super();

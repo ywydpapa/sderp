@@ -171,6 +171,7 @@
 
 <script>
 	var dataArray = [];
+	var resultArray = [];
     var dataIndex = 0;
     
     $("#select2").hide();
@@ -326,6 +327,112 @@
 		});
 	}
 	
+	function cardDataCheck(){
+		var cardChecks = $("#cardlistTable tbody tr td #cardCheckSerial");
+		var checkSerialTable = $("#qutylist tbody tr");
+		var checkSerialArray1 = [];
+		var checkSerialArray2 = [];
+		var checkIndex = 0;
+		
+		resultArray = [];
+		
+		checkSerialTable.find("#docAppSerial").each(function(index, item){
+			checkSerialArray1.push($(item).val());
+		});
+		
+		cardChecks.each(function(index, item){
+			if($(item).is(":checked") === true){
+				var cardSerial = $(item).parent().next().next().html();
+				var cardProductName = $(item).parent().next().next().next().next().html();
+				var temp = {};
+				
+				temp.cardSerial = cardSerial;
+				temp.cardProductName = cardProductName;
+				
+				checkSerialArray2.push(temp);
+			}
+		});
+		
+		for(var i = 0; i < checkSerialArray2.length; i++){
+			if(checkSerialArray1.indexOf(checkSerialArray2[i].cardSerial) > -1){
+				checkIndex++;
+				resultArray = [checkIndex, checkSerialArray2[i].cardSerial, checkSerialArray2[i].cardProductName];
+			}
+		}
+		
+		console.log(resultArray);
+		
+		return resultArray;
+	}
+	
+	function cardDataSave(){
+		var cardChecks = $("#cardlistTable tbody tr td #cardCheckSerial");
+		var resultArray = [];
+		
+		resultArray = cardDataCheck();
+		
+		if(resultArray[0] > 0){
+			alert("승인번호: " + resultArray[1] + "카드항목: " + resultArray[2] + "\n추가한 항목 중 동일한 카드내역이 존재합니다.");
+			return false;
+		}else{
+			cardChecks.each(function(index, item){
+				var temp = {};
+				
+				if($(item).is(":checked") === true){
+					var cardSerial = $(item).parent().next().next().html();
+					var cardProductName = $(item).parent().next().next().next().next().html();
+					var cardTotal = parseInt($(item).parent().next().next().next().next().next().html().replace(/[\D\s\._\-]+/g, ""));
+					var cardRemarks = $(item).parent().next().next().next().next().next().next().next().find("#cardRemarks").val();
+					var cardAmount = 0;
+					var cardNetprice = 0;
+					var cardVat = 0;
+					
+			        cardAmount = Math.round(cardTotal/11*10);
+			        cardVat = Math.round(cardTotal / 11);
+			        cardNetprice = Math.round((cardTotal - cardVat)/1);
+					
+					var productSalesEstimateCustName = "무등록거래처";
+			    	var productNo = 103428;
+			    	var productName = cardProductName;
+			    	var productNetprice = cardNetprice;
+			    	var productQty = 1;
+			    	var productAmount = cardAmount;
+			    	var productVat = cardVat;
+			    	var productTotal = cardTotal;
+			    	var productRemark = cardRemarks;
+			    	var qutylist = $("#qutylist tbody");
+					
+			    	temp.docNo = 0;
+			    	temp.custName = productSalesEstimateCustName;
+			    	temp.productName = productName;
+			    	temp.productNetprice = productNetprice;
+			    	temp.productQty = productQty;
+			    	temp.productAmount = productAmount;
+			    	temp.productVat = productVat;
+			    	temp.productTotal = productTotal;
+			    	temp.productRemark = productRemark;
+			    	temp.docAppSerial = cardSerial;
+			    	
+			        var productSum = parseInt($("#product02InSum_table").html().replace(/[\D\s\._\-]+/g, "")) + cardTotal;
+			        var amountSum = parseInt(productAmount) + parseInt($("#amountSum").val());
+			        var vatSum = parseInt(productVat) + parseInt($("#vatSum").val());
+			        
+			        $("#product02InSum_table").html("￦"+parseInt(productSum).toLocaleString("en-US"));
+			        $("#amountSum").val(amountSum);
+			        $("#vatSum").val(vatSum);
+			    	
+			    	dataArray.push(temp);
+			    	
+			        qutylist.append("<tr><input type='hidden' id='docAppSerial' value='"+cardSerial+"'><td id='salesCustNoN' style='text-align:center;'>"+productSalesEstimateCustName+"</td><td id='dataTitle' style='text-align:center;'>"+productName+"</td><td id='dataNetprice' style='text-align: right'>"+"￦"+parseInt(productNetprice).toLocaleString("en-US")+"</td><td id='dataQuanty' style='text-align: right'>"+productQty+"</td><td id='dataAmt' style='text-align: right'>"+"￦"+parseInt(productAmount).toLocaleString("en-US")+"</td><td id='dataVat' style='text-align: right'>"+"￦"+parseInt(productVat).toLocaleString("en-US")+"</td><td id='dataTotal' style='text-align: right'>"+"￦"+parseInt(productTotal).toLocaleString("en-US")+"</td><td id='dataRemark'>"+productRemark+"</td><td style='text-align:center;'><button class='btn btn-sm btn-danger text-center' data-index="+dataIndex+" id='dataDelBtn'>삭제</button></td></tr>");    	
+			        
+			        dataIndex++;
+			        
+			        $("#cardAddModal").hide();
+				}
+			});
+		}
+	}
+	
     function dataSave(){
     	if($('#productSalesEstimateCustName').val() === ""){
     		alert("거래처를 선택해주십시오.");
@@ -355,6 +462,7 @@
 	    	temp.productVat = productVat;
 	    	temp.productTotal = productTotal;
 	    	temp.productRemark = productRemark;
+	    	temp.docAppSerial = "";
 	    	
 	        var productSum = parseInt($("#product02InSum_table").html().replace(/[\D\s\._\-]+/g, "")) + parseInt($("#data02Total").val().replace(/[\D\s\._\-]+/g, ""));
 	        var amountSum = parseInt(productAmount) + parseInt($("#amountSum").val());
@@ -379,7 +487,7 @@
 	        $("#data02Total").val("");
 	        $("#data02Remark").val("");
 	    	
-	        qutylist.append("<tr><td id='salesCustNoN' style='text-align:center;'>"+productSalesEstimateCustName+"</td><td id='dataTitle' style='text-align:center;'>"+productName+"</td><td id='dataNetprice' style='text-align: right'>"+"￦"+parseInt(productNetprice).toLocaleString("en-US")+"</td><td id='dataQuanty' style='text-align: right'>"+productQty+"</td><td id='dataAmt' style='text-align: right'>"+"￦"+parseInt(productAmount).toLocaleString("en-US")+"</td><td id='dataVat' style='text-align: right'>"+"￦"+parseInt(productVat).toLocaleString("en-US")+"</td><td id='dataTotal' style='text-align: right'>"+"￦"+parseInt(productTotal).toLocaleString("en-US")+"</td><td id='dataRemark'>"+productRemark+"</td><td style='text-align:center;'><button class='btn btn-sm btn-danger text-center' data-index="+dataIndex+" id='dataDelBtn'>삭제</button></td></tr>");    	
+	        qutylist.append("<tr><input type='hidden' id='docAppSerial' value=''><td id='salesCustNoN' style='text-align:center;'>"+productSalesEstimateCustName+"</td><td id='dataTitle' style='text-align:center;'>"+productName+"</td><td id='dataNetprice' style='text-align: right'>"+"￦"+parseInt(productNetprice).toLocaleString("en-US")+"</td><td id='dataQuanty' style='text-align: right'>"+productQty+"</td><td id='dataAmt' style='text-align: right'>"+"￦"+parseInt(productAmount).toLocaleString("en-US")+"</td><td id='dataVat' style='text-align: right'>"+"￦"+parseInt(productVat).toLocaleString("en-US")+"</td><td id='dataTotal' style='text-align: right'>"+"￦"+parseInt(productTotal).toLocaleString("en-US")+"</td><td id='dataRemark'>"+productRemark+"</td><td style='text-align:center;'><button class='btn btn-sm btn-danger text-center' data-index="+dataIndex+" id='dataDelBtn'>삭제</button></td></tr>");    	
 	        
 	        dataIndex++;
     	}
@@ -1156,6 +1264,7 @@
     	
     	qutylist.each(function(index, item){
 	    	var temp = {};
+	    	var docAppSerial = $(item).find("#docAppSerial").val();
     		var productSalesEstimateCustName = $(item).find('#salesCustNoN').html();
         	var productNo = $(item).find("#productSalesEstimateCustNo").html();
         	var productName = $(item).find("#dataTitle").html();
@@ -1179,7 +1288,7 @@
         	temp.productVat = productVat;
         	temp.productTotal = productTotal;
         	temp.productRemark = productRemark;
-        	
+        	temp.docAppSerial = docAppSerial;
         	
         	dataArray.push(temp);
         	console.log(dataArray);
@@ -1194,14 +1303,17 @@
 	    		$("#docSelect1").show();
 	    		$("#docSelect2").hide();
 	    		$("#docSelect3").hide();
+	    		$("#cardAddBtn").hide();
 	    	}else if($("[name='contractType']:checked").val() === 'TREQ'){
 	    		$("#docSelect1").hide();
 	    		$("#docSelect2").show();
 	    		$("#docSelect3").hide();
+	    		$("#cardAddBtn").show();
 	    	}else{
 	    		$("#docSelect1").hide();
 	    		$("#docSelect2").hide();
 	    		$("#docSelect3").show();
+	    		$("#cardAddBtn").hide();
 	    	}
     	});
     	

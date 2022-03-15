@@ -198,4 +198,9 @@ public class AccountServiceImpl implements AccountService {
 	public List<AccountDTO> custVatListModal(AccountDTO dto) {
 		return accountDAO.custVatListModal(dto);
 	}
+
+	@Override
+	public List<AccountDTO> treqCardList(AccountDTO dto) {
+		return accountDAO.treqCardList(dto);
+	}
 }

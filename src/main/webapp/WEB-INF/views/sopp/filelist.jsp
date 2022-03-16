@@ -185,6 +185,8 @@ $(document).ready(function (e){
 	    	var uploadData = new FormData();
 		}
 		alert("파일 업로드 완료");
+		localStorage.setItem('lastTab', '#tab04');
+		location.href = $("#soppNo").val();
 	}
 
 	function deleteFile(fileId) {

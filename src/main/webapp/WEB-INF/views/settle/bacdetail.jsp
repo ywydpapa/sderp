@@ -212,7 +212,7 @@
 	<div class="row" style="margin-bottom: 10px;">
 		<div class="col-sm-12">
             <label for="baclist">계좌번호</label>
-			<select class="form-control-sm" id="baclist">
+			<select class="form-control-sm" id="baclist" name="baclist">
 				<option value="">선택</option>
 				<c:forEach var="row" items="${bacList}">
 					<option value="${row.bacSerial}">${row.bacNo}</option>
@@ -225,8 +225,8 @@
         <div class="row">
             <div class="col-sm-12">
                 <div class="card-block table-border-style">
-                    <div class="table-responsive">
-                        <table id="bacTable" class="table table-striped table-bordered nowrap ">
+                    <div id="testcreatebactable" class="table-responsive">
+                        <table id="bacTable" class="table table-striped table-bordered nowrap">
                             <colgroup>
                                 <col width="10%"/>
                                 <col width="10%"/>
@@ -306,13 +306,89 @@
     </div>
     <script>
 	    <!--//리스트 table-->
-		<!-- hide and show -->
 		$(document).ready(function(){
+			localStorage.getItem(lastTab);
 			var bacTable = $("#bacTable tbody");
 			$("#baclist").select2(); 
+
+			$.LoadingOverlay("show", true);
+			bacTable.empty();
+			
+			$.ajax({
+				url: "${path}/acc/bacSelectList/" + lastTab,
+				method: "post",
+				dataType: "json",
+				success:function(data){
+					if(data.length > 0){
+						for(var i = 0; i < data.length; i++){
+						 	bacTable.append("<tr></tr>");
+							bacTable.find("tr").eq(i).append("<td style='text-align:center;'>" + data[i].baclogTime + "</td>");
+							bacTable.find("tr").eq(i).append("<td style='text-align:center;'>" + data[i].bacDesc + "</td>");
+							bacTable.find("tr").eq(i).append("<td style='text-align:right;'>" + parseInt(data[i].inAmt).toLocaleString("en-US") + "</td>");
+							bacTable.find("tr").eq(i).append("<td style='text-align:right;'>" + parseInt(data[i].outAmt).toLocaleString("en-US") + "</td>");
+							bacTable.find("tr").eq(i).append("<td style='text-align:right;'>" + parseInt(data[i].balanceAmt).toLocaleString("en-US") + "</td>");
+							bacTable.find("tr").eq(i).append("<td style='text-align:center;'>" + data[i].branchCode + "</td>");
+							bacTable.find("tr").eq(i).append("<td style='text-align:center;'>" + data[i].logRemark + "</td>");
+							bacTable.find("tr").eq(i).append("<td style='text-align:center;'>" + data[i].linkDoc + "</td>"); 
+							 if(parseInt(data[i].inAmt) > parseInt(data[i].outAmt)){
+		                     	bacTable.find("tr").eq(i).append("<td style='text-align:center;'><button class='btn btn-sm btn-primary sch-company' data-remote='${path}/modal/popup.do?popId=bacVatS' type='button' id='bacVatSBtn' data-toggle='modal' data-target='#bacVatSModal' data-id='"+data[i].baclogId+"'>연결</button></td>");
+							}else{
+								bacTable.find("tr").eq(i).append("<td style='text-align:center;'><button class='btn btn-sm btn-primary sch-company' data-remote='${path}/modal/popup.do?popId=bacVatB' type='button' id='bacVatBBtn' data-toggle='modal' data-target='#bacVatBModal' data-id='"+data[i].baclogId+"'>연결</button></td>");
+							} 
+						}
+						$("#bacTable").DataTable({
+							info:false,
+			                destroy: true,
+			                order: [[ 0, "desc" ]],
+						});
+					}else{
+						bacTable.empty();
+					}
+				}
+			})
+			localStorage.clear();
+			setTimeout(function(){
+				$.LoadingOverlay("hide", true);
+			}, 1000);
+		});	
 			
 			$("#baclist").change(function(){
+				var bacTable = $("#bacTable tbody");
+				$("#baclist").select2(); 
+				localStorage.setItem('lastTab', $('#baclist').val());
+				$.LoadingOverlay("show", true);
 				bacTable.empty();
+				
+				/* /* var testcreatebactable = document.getElementById('testcreatebactable');
+				var new_table = document.createElement('table');
+				new_table.setAttribute*('class', 'table table-striped table-bordered nowrap');
+				new_table.appendChild() 
+				sb = "<table  id='bacTable' class='table table-striped table-bordered nowrap'>"
+						+"<colgroup>"
+							+"<col style='width: 10%'>"
+							+"<col style='width: 10%'>"
+							+"<col style='width: 10%'>"
+							+"<col style='width: 10%'>"
+							+"<col style='width: 10%'>"
+							+"<col style='width: 5%'>"
+							+"<col style='width: 10%'>"
+							+"<col style='width: 10%'>"
+							+"<col style='width: 15%'>"
+						+"</colgroup>"
+						+"<thead>"
+							+"<tr>"
+								+"<th style='width: 160.266px;rowspan: '1';colspan= '1';' class='text-center'>일자</th>"
+								+"<th class='text-center'>기재내용</th>"
+								+"<th class='text-center'>입금</th>"
+								+"<th class='text-center'>출금</th>"
+								+"<th class='text-center'>잔액</th>"
+								+"<th class='text-center'>거래점</th>"
+								+"<th class='text-center'>메모</th>"
+								+"<th class='text-center'>승인번호</th>"
+								+"<th class='text-center'>연결</th>"
+							+"</tr>"
+						+"</tread>"
+						+"<tbody>"; */
 				$.ajax({
 					url: "${path}/acc/bacSelectList/" + $(this).val(),
 					method: "post",
@@ -320,7 +396,7 @@
 					success:function(data){
 						if(data.length > 0){
 							for(var i = 0; i < data.length; i++){
-								bacTable.append("<tr></tr>");
+							 	bacTable.append("<tr></tr>");
 								bacTable.find("tr").eq(i).append("<td style='text-align:center;'>" + data[i].baclogTime + "</td>");
 								bacTable.find("tr").eq(i).append("<td style='text-align:center;'>" + data[i].bacDesc + "</td>");
 								bacTable.find("tr").eq(i).append("<td style='text-align:right;'>" + parseInt(data[i].inAmt).toLocaleString("en-US") + "</td>");
@@ -328,14 +404,36 @@
 								bacTable.find("tr").eq(i).append("<td style='text-align:right;'>" + parseInt(data[i].balanceAmt).toLocaleString("en-US") + "</td>");
 								bacTable.find("tr").eq(i).append("<td style='text-align:center;'>" + data[i].branchCode + "</td>");
 								bacTable.find("tr").eq(i).append("<td style='text-align:center;'>" + data[i].logRemark + "</td>");
-								bacTable.find("tr").eq(i).append("<td style='text-align:center;'>" + data[i].linkDoc + "</td>");
-								
-								if(parseInt(data[i].inAmt) > parseInt(data[i].outAmt)){
-	                                bacTable.find("tr").eq(i).append("<td style='text-align:center;'><button class='btn btn-sm btn-primary sch-company' data-remote='${path}/modal/popup.do?popId=bacVatS' type='button' id='bacVatSBtn' data-toggle='modal' data-target='#bacVatSModal' data-id='"+data[i].baclogId+"'>연결</button></td>");
+								bacTable.find("tr").eq(i).append("<td style='text-align:center;'>" + data[i].linkDoc + "</td>"); 
+							/* 	sb += +"<tr>"
+											+"<td style='text-align:center;'>" + data[i].baclogTime + "</td>"
+											+"<td style='text-align:center;'>" + data[i].bacDesc + "</td>"
+											+"<td style='text-align:right;'>" + parseInt(data[i].inAmt).toLocaleString("en-US") + "</td>"
+											+"<td style='text-align:right;'>" + parseInt(data[i].outAmt).toLocaleString("en-US") + "</td>"
+											+"<td style='text-align:right;'>" + parseInt(data[i].balanceAmt).toLocaleString("en-US") + "</td>"
+											+"<td style='text-align:center;'>" + data[i].branchCode + "</td>"
+											+"<td style='text-align:center;'>" + data[i].logRemark + "</td>"
+											+"<td style='text-align:center;'>" + data[i].linkDoc + "</td>"
+											+"<c:if test='"+parseInt(data[i].inAmt) > parseInt(data[i].outAmt+"'>"
+												+"<td style='text-align:center;'><button class='btn btn-sm btn-primary sch-company' data-remote='${path}/modal/popup.do?popId=bacVatS' type='button' id='bacVatSBtn' data-toggle='modal' data-target='#bacVatSModal' data-id='"+data[i].baclogId+"'>연결</button></td>"
+											+"</c:if></tr>";
+											+"<c:if test='"+parseInt(data[i].inAmt) <= parseInt(data[i].outAmt+"'>"
+												+"<td style='text-align:center;'><button class='btn btn-sm btn-primary sch-company' data-remote='${path}/modal/popup.do?popId=bacVatB' type='button' id='bacVatBBtn' data-toggle='modal' data-target='#bacVatBModal' data-id='"+data[i].baclogId+"'>연결</button></td>"
+											+"</c:if></tr>"; */
+								 if(parseInt(data[i].inAmt) > parseInt(data[i].outAmt)){
+			                                bacTable.find("tr").eq(i).append("<td style='text-align:center;'><button class='btn btn-sm btn-primary sch-company' data-remote='${path}/modal/popup.do?popId=bacVatS' type='button' id='bacVatSBtn' data-toggle='modal' data-target='#bacVatSModal' data-id='"+data[i].baclogId+"'>연결</button></td>");
+									/* sb += +"<td style='text-align:center;'><button class='btn btn-sm btn-primary sch-company' data-remote='${path}/modal/popup.do?popId=bacVatS' type='button' id='bacVatSBtn' data-toggle='modal' data-target='#bacVatSModal' data-id='"+data[i].baclogId+"'>연결</button></td>"
+											+"</tr>"; */
 								}else{
-									bacTable.find("tr").eq(i).append("<td style='text-align:center;'><button class='btn btn-sm btn-primary sch-company' data-remote='${path}/modal/popup.do?popId=bacVatB' type='button' id='bacVatBBtn' data-toggle='modal' data-target='#bacVatBModal' data-id='"+data[i].baclogId+"'>연결</button></td>");
-								}
+									/* sb += +"<td style='text-align:center;'><button class='btn btn-sm btn-primary sch-company' data-remote='${path}/modal/popup.do?popId=bacVatB' type='button' id='bacVatBBtn' data-toggle='modal' data-target='#bacVatBModal' data-id='"+data[i].baclogId+"'>연결</button></td>"
+											+"</tr>"; */
+											bacTable.find("tr").eq(i).append("<td style='text-align:center;'><button class='btn btn-sm btn-primary sch-company' data-remote='${path}/modal/popup.do?popId=bacVatB' type='button' id='bacVatBBtn' data-toggle='modal' data-target='#bacVatBModal' data-id='"+data[i].baclogId+"'>연결</button></td>");
+								} 
 							}
+							/* sb += "</tbody>";
+							sb += "</table>"; */
+							
+							/* bacTablereal.html(sb); */
 							
 							$("#bacTable").DataTable({
 								info:false,
@@ -347,12 +445,8 @@
 						}
 					}
 				});
-				$.LoadingOverlay("show", true);
-				setTimeout(function(){
-					$.LoadingOverlay("hide", true);
-				}, 1000);
+				location.href="${path}/acc/bacdetail.do/";
 			});
-		});	
 		
 		function acordian_action(){
 			if($("#acordian").css("display") == "none"){
@@ -467,8 +561,13 @@
                 }
                 alert("변경 처리 완료");
             }
-
         }
+        var lastTab = localStorage.getItem('lastTab');
+		
+		if (lastTab) {
+		  	$('[href="' + lastTab + '"]').tab('show');
+		  	localStorage.clear();
+		}
     </script>
 </div>
 <jsp:include page="../body-bottom.jsp"/>

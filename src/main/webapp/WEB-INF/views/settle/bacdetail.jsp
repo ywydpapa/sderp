@@ -218,6 +218,7 @@
 					<option value="${row.bacSerial}">${row.bacNo}</option>
 				</c:forEach>
 			</select>
+			<input type="hidden" id="baclisthideNum" value="">
 		</div>
 	</div>
 	<!--리스트 table-->
@@ -308,6 +309,9 @@
 	    <!--//리스트 table-->
 		$(document).ready(function(){
 			localStorage.getItem(lastTab);
+			if(lastTab != null || lastTab != ''){
+				$('#baclisthideNum').attr('value', lastTab);
+			}
 			var bacTable = $("#bacTable tbody");
 			var tableHtml = "";
 			$("#baclist").select2(); 
@@ -335,7 +339,7 @@
 						 		tableHtml += "<td style='text-align:center;'><button class='btn btn-sm btn-primary sch-company' data-remote='${path}/modal/popup.do?popId=bacVatS' type='button' id='bacVatSBtn' data-toggle='modal' data-target='#bacVatSModal' data-id='"+data[i].baclogId+"'>연결</button></td>";
 							}else{
 								tableHtml += "<td style='text-align:center;'><button class='btn btn-sm btn-primary sch-company' data-remote='${path}/modal/popup.do?popId=bacVatB' type='button' id='bacVatBBtn' data-toggle='modal' data-target='#bacVatBModal' data-id='"+data[i].baclogId+"'>연결</button></td>";
-							} 
+							}
 						}
 						
 						bacTable.html(tableHtml);
@@ -521,7 +525,6 @@
 		
 		if (lastTab) {
 		  	$('[href="' + lastTab + '"]').tab('show');
-		  	localStorage.clear();
 		}
     </script>
 </div>

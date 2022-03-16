@@ -70,9 +70,10 @@
 			 success:function(){
 				 localStorage.clear();
 				 alert("연결되었습니다.");
-				 location.reload();
 			 }
 		  });
+		  localStorage.setItem('lastTab', $('#baclisthideNum').val());
+		  location.href="${path}/acc/bacdetail.do";
 	  }else{
 		  return false;
 	  }

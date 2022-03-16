@@ -154,11 +154,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 
 	<select id="modalVatB" resultType="accountDto">
-		select a.*, b.custName from swc_vat a left join swc_cust b on a.vatSellerCustNo = b.custNo where a.vatStatus in ('B1','B3') and a.attrib not like 'XXX%' and a.compNo = #{compNo} order by a.vatIssueDate desc
+		select a.*, b.custName from swc_vat a left join swc_cust b on a.vatSellerCustNo = b.custNo where a.vatStatus in ('B1','B3') and a.attrib not like 'XXX%' AND a.linkedcheck = 1 and a.compNo = #{compNo} order by a.vatIssueDate desc
 	</select>
 
 	<select id="modalVatS" resultType="accountDto">
-		select a.*, b.custName from swc_vat a left join swc_cust b on a.vatBuyerCustNo = b.custNo where a.vatStatus in ('S1','S3') and a.attrib not like 'XXX%' and a.compNo = #{compNo} order by a.vatIssueDate desc
+		select a.*, b.custName from swc_vat a left join swc_cust b on a.vatBuyerCustNo = b.custNo where a.vatStatus in ('S1','S3') and a.attrib not like 'XXX%' AND a.linkedcheck = 1 and a.compNo = #{compNo} order by a.vatIssueDate desc
 	</select>
 
 	<select id="checkVat" resultType="accountDto">
@@ -434,4 +434,7 @@ attrib) values (#{vatId},
 		LEFT JOIN swc_sopp on swc_soppdata01.soppNo = swc_sopp.soppNo
 		where vatSerial = #{vatSerial} and swc_soppdata01.attrib not like 'XXX%'
 	</select>
+	<update id="updatevatlinkedcheck">
+		update swc_vat set linkedcheck = 0 where vatSerial = #{linkDoc}
+	</update>
 </mapper>

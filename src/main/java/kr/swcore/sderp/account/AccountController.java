@@ -3,12 +3,15 @@ package kr.swcore.sderp.account;
 import kr.swcore.sderp.account.dto.AccountDTO;
 import kr.swcore.sderp.account.service.AccountService;
 import kr.swcore.sderp.code.service.CodeService;
+import kr.swcore.sderp.salesTarget.dto.SalesTargetDTO;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
@@ -335,6 +338,7 @@ public class AccountController {
     public ResponseEntity<Object> bacSerialUpdate(HttpSession session, @ModelAttribute AccountDTO dto){
         Map<String,Object> param = new HashMap<>();
         int bacIns = accountService.bacSerialUpdate(dto);
+        accountService.updatevatlinkedcheck(dto);
         if(bacIns > 0){
             param.put("code","10001");
         }
@@ -343,5 +347,4 @@ public class AccountController {
         }
         return ResponseEntity.ok(param);
     }
-    
 }

@@ -1,6 +1,8 @@
 package kr.swcore.sderp.account.dao;
 
 import kr.swcore.sderp.account.dto.AccountDTO;
+import kr.swcore.sderp.salesTarget.dto.SalesTargetDTO;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
@@ -173,4 +175,11 @@ public class AccountDAOImpl implements AccountDAO {
 	public List<AccountDTO> treqCardList(AccountDTO dto) {
 		return sqlSession.selectList("account.treqCardList", dto);
 	}
+
+	@Override
+	public int updatevatlinkedcheck(AccountDTO dto) {
+		// TODO Auto-generated method stub
+		 return sqlSession.update("account.updatevatlinkedcheck", dto);
+	}
+	
 }

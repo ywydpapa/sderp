@@ -1,6 +1,7 @@
 package kr.swcore.sderp.account.dao;
 
 import kr.swcore.sderp.account.dto.AccountDTO;
+import kr.swcore.sderp.salesTarget.dto.SalesTargetDTO;
 
 import java.util.List;
 
@@ -37,4 +38,5 @@ public interface AccountDAO {
 	List<AccountDTO> listvatSearchS(AccountDTO dto);
 	List<AccountDTO> custVatListModal(AccountDTO dto);
 	List<AccountDTO> treqCardList(AccountDTO dto);
+	int updatevatlinkedcheck(AccountDTO dto);
 }

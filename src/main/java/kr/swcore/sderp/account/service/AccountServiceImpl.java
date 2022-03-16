@@ -203,4 +203,11 @@ public class AccountServiceImpl implements AccountService {
 	public List<AccountDTO> treqCardList(AccountDTO dto) {
 		return accountDAO.treqCardList(dto);
 	}
+
+	@Override
+	public int updatevatlinkedcheck(AccountDTO dto) {
+		// TODO Auto-generated method stub
+		return accountDAO.updatevatlinkedcheck(dto);
+	}
+
 }

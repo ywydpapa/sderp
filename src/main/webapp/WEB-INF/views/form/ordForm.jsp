@@ -20,6 +20,7 @@
 body{
 	font-family:MalgunGothic, sans-serif;
 	font-weight:0;
+	overflow: hidden;
 }
 
 table{

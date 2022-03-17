@@ -212,6 +212,16 @@ public class GwController {
     	return mav;
     }
     
+    @RequestMapping("purForm/{docNo}")
+    public ModelAndView purForm(@PathVariable("docNo") int docNo, HttpSession session, ModelAndView mav, GwDTO dto) {
+    	mav.addObject("detailList", gwService.detailDoc(docNo));
+    	mav.addObject("detailListApp", gwService.detailDocApp(docNo));
+    	mav.addObject("detailListData", gwService.detailDocData(docNo));
+    	mav.addObject("comList", gwService.comList(session));
+        mav.setViewName("form/purForm");
+    	return mav;
+    }
+    
     @RequestMapping("treqForm/{docNo}")
     public ModelAndView treqForm(@PathVariable("docNo") int docNo, HttpSession session, ModelAndView mav, GwDTO dto) {
     	mav.addObject("detailList", gwService.detailDoc(docNo));

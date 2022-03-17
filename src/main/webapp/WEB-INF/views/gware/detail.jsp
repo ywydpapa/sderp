@@ -75,7 +75,7 @@
                                             <button class="btn btn-success" onclick="javascript:popupPdf();">공문서 출력</button>
                                         </c:if>
                                         <c:if test="${detailList.docType eq 'BUY'}">
-                                            <button class="btn btn-success" onclick="javascript:popupPdf();">구매요청서 출력</button>
+                                            <a href="${path}/gw/purForm/${detailList.docNo}" class="btn btn-success" id="btnPdf" onClick="javascript:popupPdf(this); return false;">구매요청서 출력</a>
                                         </c:if>
                                     </c:if>
 	                               	<c:if test="${detailList.docFormNo eq 'TREQ'}">

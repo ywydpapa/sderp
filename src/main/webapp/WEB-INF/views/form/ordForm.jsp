@@ -6,122 +6,10 @@
 <c:set var="path" value ="${pageContext.request.contextPath}"/>
 <!DOCTYPE html>
 <html>
+<link rel="stylesheet" type="text/css" href="${path}/css/pdfForm.css">
 <script type="text/javascript" src="${path}/js/jquery.min.js"></script>
 <script src="${path}/js/html2pdf.bundle.min.js"></script>
-<style>
-/* body{
-	-webkit-font-smoothing: antialiased;
-  	-moz-osx-font-smoothing: auto;
-  	font-weight:600;
-} */
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300&family=Outfit:wght@600&display=swap');
-@font-face {font-family:MalgunGothic; src:url(${path}/form/fonts/malgun.ttf);}
 
-body{
-	font-family:MalgunGothic, sans-serif;
-	font-weight:0;
-	overflow: hidden;
-}
-
-table{
-	width:100%; 
-	font-size: 10px; 
-	margin-bottom: 10px;
-}
-
-th, td{
-  	padding:1px 1px 4px 2px;
-}
-
-#imgLogo #logoLeft{
-	margin-top: 60px;
-	width:28%;
-	height:auto;
-}
-
-#imgLogo #logoRight{
-	width:70%;
-	height:auto;
-	position:absolute; 
-	top:63px;
-	right: 0;
-}
-
-#pdfTitle #titlePdf{
-	font-family: 'Outfit', sans-serif;
-	font-size: 40px;
-	text-align:center;
-	margin-top: 30px;
-	margin-bottom: 20px;
-}
-
-#headList{
-	text-align:left;
-	border: 2px solid #000; 
-}
-
-#headList tr th:first-child{
-	padding:2px 0 2px 30px;
-}
-
-#headList tr th:last-child{
-	padding:2px 0 2px 0;
-	position:absolute;
-	left:50%;
-}
-
-#totalInfo{
-	text-align: left;
-	border: 2px solid #000; 
-	padding: 5px 0;
-}
-
-#totalInfo tr th:first-child{
-	padding: 4px 0 4px 30px;
-}
-
-#totalInfo tr th:last-child{
-	padding: 4px 0 4px 0;
-	position:absolute;
-	left:62%;
-}
-
-#pdfRemarks{
-	font-size: 10px;
-	margin-bottom: 20px;
-}
-
-#pdfRemarks h3 span{
-	font-size: 10px;
-	padding: 0 10px;
-}
-
-#pdfBottom img{
-	width:60%;
-	float:right;
-}
-
-#mainTable{
-	border: 2px solid #000; 
-	border-collapse: collapse;
-}
-
-#mainTable thead tr th{
-	color: #fff;
-	background-color: #990B19;
-	border-right:1px solid #000;
-	border-bottom:1px solid #000;
-}
-
-#mainTable tbody td{
-	border-right:1px solid #000;
-}
-
-#mainTable #mainTr td{
-	border-bottom:1px solid #000;
-}
-
-</style>
 <body>
 	<div class="mainPdf" id="mainPdf">
 		<div id="imgLogo">
@@ -142,7 +30,7 @@ th, td{
 			</tr>
 			<tr>
 				<th>사&ensp;&nbsp;&nbsp;업&ensp;&nbsp;&nbsp;명 : ${detailList.soppTitle}</th>
-				<th>주&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;소 : ${comList.comAddress}</th>
+				<th style="max-width:100%;"><div style="margin:0; float:left;">주&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;소 :&nbsp;</div><div style="display: flex;">${comList.comAddress}</div><div style="padding-top: 1.5%;">전 화 / 팩 스 : ${comList.comPhone} / ${comList.comFax}</div></th>
 			</tr>
 			<tr>
 				<th>
@@ -156,22 +44,22 @@ th, td{
 						</c:otherwise>
 					</c:choose> 
 				</th>
-				<th>전&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;화 : ${comList.comPhone}</th>
+				<th></th>
 			</tr>
 			<tr>
 				<th>영&ensp;업&ensp;담&ensp;당 : ${detailListApp.userName}/${detailListApp.userTel}/${detailListApp.userEmail}</th>
-				<th>팩&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;스 : ${comList.comFax}</th>
+				<th></th>
 			</tr>
 		</table>
 		<table id="mainTable">
 			<colgroup>
 		        <col width="5%">
-		        <col width="49%">
+		        <col width="45%">
 		        <col width="5%">
-		        <col width="5%">
-		        <col width="5%">
-		        <col width="5%">
-		        <col width="5%">
+		        <col width="6%">
+		        <col width="6%">
+		        <col width="6%">
+		        <col width="6%">
 		        <col width="10%">
 		    </colgroup>
 			<thead>

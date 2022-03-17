@@ -144,7 +144,7 @@ th, td{
 					</tr>
 					<tr>
 						<th>사&ensp;&nbsp;&nbsp;업&ensp;&nbsp;&nbsp;명 : ${detail.estTitle}</th>
-						<th style="max-width:29%;"><div style="margin:0; float:left;">주&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;소 : </div><span style="display: flax; padding-left: 1%;">${comList.comAddress}</span></th>
+						<th style="max-width:100%;"><div style="margin:0; float:left;">주&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;소 :&nbsp;</div><div style="display: flex;">${comList.comAddress}</div><div style="padding-top: 1.5%;">전 화 / 팩 스 : ${comList.comPhone} / ${comList.comFax}</div></th>
 					</tr>
 					<tr>
 						<th>
@@ -162,7 +162,7 @@ th, td{
 					</tr>
 					<tr>
 						<th>영&ensp;업&ensp;담&ensp;당 : ${detail.userName}/${detail.userTel}/${detail.userEmail}</th>
-						<th>전 화 / 팩 스 : ${comList.comPhone} / ${comList.comFax}</th>
+						<th></th>
 					</tr>
 				</table>
 				<table id="totalInfo">
@@ -184,7 +184,7 @@ th, td{
 					</tr>
 					<tr>
 						<th>사&ensp;&nbsp;&nbsp;업&ensp;&nbsp;&nbsp;명 : ${detail.estTitle}</th>
-						<th style="max-width:29%;"><div style="margin:0; float:left;">주&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;소 : </div><span style="display: flax; padding-left: 1%;">${infoItem.estComAdd}</span></th>
+						<th><div style="margin:0; float:left;">주&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;소 :&nbsp;</div><div style="display: flex;">${infoItem.estComAdd}</div><div style="padding-top: 1.5%;">전 화 / 팩 스 : ${infoItem.estComPhone} / ${infoItem.estComFax}</div></th>
 					</tr>
 					<tr>
 						<th>
@@ -202,7 +202,7 @@ th, td{
 					</tr>
 					<tr>
 						<th>영&ensp;업&ensp;담&ensp;당 : ${detail.userName}/${detail.userTel}/${detail.userEmail}</th>
-						<th>전 화 / 팩 스 : ${infoItem.estComPhone} / ${infoItem.estComFax}</th>
+						<th></th>
 					</tr>
 				</table>
 				<table id="totalInfo">

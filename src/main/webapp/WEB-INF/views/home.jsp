@@ -186,7 +186,9 @@ margin-left:10px;
 			<li><a href="${path}/">home</a></li>
 			<li><a class="menuLink selected" href="${path}/sidemenu/menu1.do">업무관리</a></li>
 			<li><a class="menuLink" href="${path}/sidemenu/menu2.do">그룹웨어</a></li>
-			<li><a class="menuLink" href="${path}/sidemenu/menu3.do">회계관리</a></li>
+			<c:if test="${sessionScope.userRole eq 'ADMIN'}">
+				<li><a class="menuLink" href="${path}/sidemenu/menu3.do">회계관리</a></li>
+			</c:if>
 		</ul>
 
 	</nav>

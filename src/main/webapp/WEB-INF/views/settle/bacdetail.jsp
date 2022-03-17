@@ -309,9 +309,7 @@
 	    <!--//리스트 table-->
 		$(document).ready(function(){
 			localStorage.getItem(lastTab);
-			if(lastTab != null || lastTab != ''){
-				$('#baclisthideNum').attr('value', lastTab);
-			}
+			$('#baclisthideNum').attr('value', lastTab);
 			var bacTable = $("#bacTable tbody");
 			var tableHtml = "";
 			$("#baclist").select2(); 

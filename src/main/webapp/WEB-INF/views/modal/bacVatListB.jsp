@@ -58,6 +58,7 @@
 		  var updateData = {};
 		  var bacId = localStorage.getItem("thisId");
 		  var vatSerial = a;
+		  var baclisthideNum = $('#baclisthideNum').val();
 		  
 		  updateData.baclogId = bacId;
 		  updateData.linkDoc = vatSerial;
@@ -68,11 +69,10 @@
 			 data: updateData,
 			 dataType: "json",
 			 success:function(){
-				 localStorage.clear();
 				 alert("연결되었습니다.");
 			 }
 		  });
-		  localStorage.setItem('lastTab', $('#baclisthideNum').val());
+		  localStorage.setItem('lastTab', baclisthideNum);
 		  location.href="${path}/acc/bacdetail.do";
 	  }else{
 		  return false;

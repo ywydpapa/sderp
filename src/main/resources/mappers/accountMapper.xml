@@ -6,7 +6,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<select id="listVat" resultType="accountDto">
 		select a.*, b.custName vatSellerName, c.custName vatBuyerName, sum(case when a.vatType='B' then a.vatTax + a.vatAmount end) AS vatAmountB, sum(case when a.vatType='S' then a.vatTax + a.vatAmount end) AS vatAmountS, 
-		sum(case when a.vatStatus='B5' then d.dataTotal end) AS serialTotalB, sum(case when a.vatStatus='S5' then d.dataTotal end) AS serialTotalS, f.custBBalance AS custBalance
+		sum(case when a.vatStatus='B5' then d.dataTotal end) AS serialTotalB, sum(case when a.vatStatus='S5' then d.dataTotal end) AS serialTotalS, f.custCRbalance AS custBalance
 		from swc_vat a
 				   left join swc_cust b on a.vatSellerCustNo = b.custNo
 				   left join swc_cust c on a.vatBuyerCustNo = c.custNo

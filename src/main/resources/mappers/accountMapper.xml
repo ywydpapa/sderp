@@ -235,11 +235,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  	</select>
  
 	<select id="bacSelectList" resultType="accountDto">
-		select * from swc_bacledger where bacSerial = #{bacSerial} order by baclogTime desc limit #{betFirstNum}, #{betLastNum};
-	</select>
-	
-	<select id="bacSelectListCnt" resultType="accountDto">
-		select count(*) as resultCount from swc_bacledger where bacSerial = #{bacSerial};
+		select * from swc_bacledger where bacSerial = #{bacSerial} order by baclogTime desc;
 	</select>
 	
 	<select id="cardSelectList" resultType="accountDto">

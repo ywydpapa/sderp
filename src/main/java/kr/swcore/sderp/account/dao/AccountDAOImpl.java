@@ -1,6 +1,8 @@
 package kr.swcore.sderp.account.dao;
 
 import kr.swcore.sderp.account.dto.AccountDTO;
+import kr.swcore.sderp.salesTarget.dto.SalesTargetDTO;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
@@ -135,13 +137,8 @@ public class AccountDAOImpl implements AccountDAO {
 	}
 
 	@Override
-	public List<AccountDTO> bacSelectList(AccountDTO dto) {
-		return sqlSession.selectList("account.bacSelectList", dto);
-	}
-	
-	@Override
-	public AccountDTO bacSelectListCnt(AccountDTO dto) {
-		return sqlSession.selectOne("account.bacSelectListCnt", dto);
+	public List<AccountDTO> bacSelectList(String bacSerial) {
+		return sqlSession.selectList("account.bacSelectList", bacSerial);
 	}
 	
 	@Override

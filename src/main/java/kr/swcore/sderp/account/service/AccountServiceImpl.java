@@ -161,13 +161,8 @@ public class AccountServiceImpl implements AccountService {
 	}
 
 	@Override
-	public List<AccountDTO> bacSelectList(AccountDTO dto) {
-		return accountDAO.bacSelectList(dto);
-	}
-	
-	@Override
-	public AccountDTO bacSelectListCnt(AccountDTO dto) {
-		return accountDAO.bacSelectListCnt(dto);
+	public List<AccountDTO> bacSelectList(String bacSerial) {
+		return accountDAO.bacSelectList(bacSerial);
 	}
 	
 	@Override

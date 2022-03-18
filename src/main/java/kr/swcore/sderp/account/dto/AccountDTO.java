@@ -121,7 +121,5 @@ public class AccountDTO {
     private int custDRbalance;
     private int custBalance;
     private String vatProductName;
-    private int betFirstNum;
-    private int betLastNum;
 }
 

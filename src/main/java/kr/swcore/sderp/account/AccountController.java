@@ -3,6 +3,7 @@ package kr.swcore.sderp.account;
 import kr.swcore.sderp.account.dto.AccountDTO;
 import kr.swcore.sderp.account.service.AccountService;
 import kr.swcore.sderp.code.service.CodeService;
+import kr.swcore.sderp.salesTarget.dto.SalesTargetDTO;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -10,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
@@ -241,19 +243,11 @@ public class AccountController {
     }
 
     @ResponseBody
-    @RequestMapping("bacSelectList.do")
-    public List<AccountDTO> bacSelectList(@ModelAttribute AccountDTO dto){
-    	List<AccountDTO> accList = accountService.bacSelectList(dto);
+    @RequestMapping("bacSelectList/{bacSerial}")
+    public List<AccountDTO> bacSelectList(@PathVariable("bacSerial") String bacSerial){
+    	List<AccountDTO> accList = accountService.bacSelectList(bacSerial);
     	
     	return accList;
-    }
-    
-    @ResponseBody
-    @RequestMapping("bacSelectListCnt.do")
-    public AccountDTO bacSelectListCnt(@ModelAttribute AccountDTO dto){
-    	AccountDTO count = accountService.bacSelectListCnt(dto);
-    	
-    	return count;
     }
     
     @ResponseBody

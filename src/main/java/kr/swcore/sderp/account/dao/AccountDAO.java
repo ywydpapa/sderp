@@ -1,7 +1,6 @@
 package kr.swcore.sderp.account.dao;
 
 import kr.swcore.sderp.account.dto.AccountDTO;
-import kr.swcore.sderp.salesTarget.dto.SalesTargetDTO;
 
 import java.util.List;
 
@@ -30,7 +29,8 @@ public interface AccountDAO {
 	List<AccountDTO> connect_list(AccountDTO dto);
 	List<AccountDTO> modalbB(String vatSerial);
 	AccountDTO checkBac(AccountDTO dto);
-	List<AccountDTO> bacSelectList(String bacSerial);
+	List<AccountDTO> bacSelectList(AccountDTO dto);
+	AccountDTO bacSelectListCnt(AccountDTO dto);
 	List<AccountDTO> cardSelectList(String cardSerial);
 	int lastUpdate(AccountDTO dto);
 	int lastUpdateCard(AccountDTO dto);

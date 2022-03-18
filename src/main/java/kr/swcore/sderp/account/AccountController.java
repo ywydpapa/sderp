@@ -347,4 +347,10 @@ public class AccountController {
         }
         return ResponseEntity.ok(param);
     }
+    
+    @RequestMapping("cancelconnect.do/{linkDoc}")
+    public void cancelconnect(@PathVariable("linkDoc") String linkDoc){
+    	accountService.cancelconnect(linkDoc);
+    	accountService.cancelconnect2(linkDoc);
+    }
 }

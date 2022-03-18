@@ -39,4 +39,6 @@ public interface AccountDAO {
 	List<AccountDTO> custVatListModal(AccountDTO dto);
 	List<AccountDTO> treqCardList(AccountDTO dto);
 	int updatevatlinkedcheck(AccountDTO dto);
+	void cancelconnect(String linkDoc);
+	void cancelconnect2(String linkDoc);
 }

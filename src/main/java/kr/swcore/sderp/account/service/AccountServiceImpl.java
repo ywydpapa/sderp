@@ -210,4 +210,15 @@ public class AccountServiceImpl implements AccountService {
 		return accountDAO.updatevatlinkedcheck(dto);
 	}
 
+	@Override
+	public void cancelconnect(String linkDoc) {
+		// TODO Auto-generated method stub
+		accountDAO.cancelconnect(linkDoc);
+	}
+	@Override
+	public void cancelconnect2(String linkDoc) {
+		// TODO Auto-generated method stub
+		accountDAO.cancelconnect2(linkDoc);
+	}
+
 }

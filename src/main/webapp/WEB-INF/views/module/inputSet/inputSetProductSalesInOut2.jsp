@@ -388,6 +388,7 @@
 	}
     
     function fn_data01Insert() {
+    	$.LoadingOverlay("show", true);
     	var path = $(location).attr("pathname");
     	 
     	if($("[name='contractType']:checked").val() === "NEW"){
@@ -467,6 +468,9 @@
         .fail(function(xhr, status, errorThrown) {
             alert("통신 실패");
         });
+        setTimeout(function(){
+			$.LoadingOverlay("hide", true);
+		}, 1000);
     }
 
     function fn_data01Update() {

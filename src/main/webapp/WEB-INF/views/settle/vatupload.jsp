@@ -59,8 +59,8 @@
 						</div>
                         <!-- hide and show -->
                         <button id="chkBtn" class="btn btn-sm btn-secondary" onClick="javascript:fnCheckVatlist()" disabled>계산서 검토</button>
-                        <button id="regBBtn" class="btn btn-sm btn-primary" onClick="javascript:fnRegBVatlist()">매입계산서 등록</button>
-                        <button id="regSBtn" class="btn btn-sm btn-primary" onClick="javascript:fnRegSVatlist()">매출계산서 등록</button>
+                        <button style="display: none;" id="regBBtn" class="btn btn-sm btn-primary" onClick="javascript:fnRegBVatlist()">매입계산서 등록</button>
+                        <button style="display: none;" id="regSBtn" class="btn btn-sm btn-primary" onClick="javascript:fnRegSVatlist()">매출계산서 등록</button>
                     </div>
                 </div>
             </div>
@@ -361,8 +361,12 @@
         	}
         	
             var chk = $(".vatchecked");
+            var chkLength = $(".vatchecked").length;
             
             chk.each(function(index, item){
+            	if(index == 0){
+	        		$.LoadingOverlay("show", true);
+        		}
             	var vatdata = {};
                 vatdata.vatSerial = $(item).parent().next().next().html();
             	
@@ -379,14 +383,20 @@
                     	}
                         $("#regBBtn").removeAttr("disabled");
                         $("#regSBtn").removeAttr("disabled");
+                        if(index == chkLength-1){
+			                $.LoadingOverlay("hide", true);
+			                alert("내역 검토가 완료되었습니다.");
+                    	}
                     }
                 });
             });
-            
+            $("#regBBtn").show();
+            $("#regSBtn").show();
         }
 
         function fnRegBVatlist(){
         	if(confirm("매입계산서를 등록하시겠습니까??")){
+        		$.LoadingOverlay("show", true);
         		var $Chkarr = $(".vatchecked");  //체크여부
                 var $Aarr = $(".vatlst0");         // 작성일
                 var $Barr = $(".vatlst1");           // 승인번호
@@ -401,7 +411,7 @@
                 var $Karr = $(".vatlst22");           // 공급자 이메일
                 var $Larr = $(".vatlst9");			  // 사업자번호
                 var $Marr = $(".vatlst26");			  // 품목명
-
+                
                 for (var i=0; i<$Barr.length; i++){
                     if ($($Chkarr[i]).is(":checked")==true){
                         var vatData = {};
@@ -458,7 +468,9 @@
                     }
                 }
                 alert("매입자료 등록 완료");
-                fnCheckVatlist();
+                setTimeout(function(){
+    				$.LoadingOverlay("hide", true);
+    			}, 1000);
         	}else{
         		return false;
         	}
@@ -466,6 +478,7 @@
 
         function fnRegSVatlist(){
         	if(confirm("매출계산서를 등록하시겠습니까??")){
+        		$.LoadingOverlay("show", true);
         		var $Chkarr = $(".vatchecked");  //체크여부
                 var $Aarr = $(".vatlst0");         // 작성일
                 var $Barr = $(".vatlst1");           // 승인번호
@@ -510,7 +523,6 @@
                         		}else{
                         			vatData.vatSellerCustNo = 0;
                         		}
-                        		
                         		$.ajax({
                                 	url: "${path}/acc/selectVatCust/" + $Larr[i].innerText,
                                 	method: "post",
@@ -537,7 +549,9 @@
                     }
                 }
                 alert("매출자료 등록 완료");
-                fnCheckVatlist();
+                setTimeout(function(){
+    				$.LoadingOverlay("hide", true);
+    			}, 1000);
         	}else{
         		return false;
         	}

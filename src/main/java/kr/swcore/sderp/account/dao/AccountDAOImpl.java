@@ -181,5 +181,17 @@ public class AccountDAOImpl implements AccountDAO {
 		// TODO Auto-generated method stub
 		 return sqlSession.update("account.updatevatlinkedcheck", dto);
 	}
+
+	@Override
+	public void cancelconnect(String linkDoc) {
+		// TODO Auto-generated method stub
+		sqlSession.update("account.cancelconnect", linkDoc);
+	}
+
+	@Override
+	public void cancelconnect2(String linkDoc) {
+		// TODO Auto-generated method stub
+		sqlSession.delete("account.cancelconnect2", linkDoc);
+	}
 	
 }

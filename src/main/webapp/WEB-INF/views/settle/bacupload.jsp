@@ -59,7 +59,7 @@
 						</div>
                         <!-- hide and show -->
                         <button id="chkBtn" class="btn btn-sm btn-secondary" onClick="javascript:fnCheckBaclist()" disabled>내역 검토</button>
-                        <button id="regBtn" class="btn btn-sm btn-primary" onClick="javascript:fnRegBaclist()">계좌내역 등록</button>
+                        <button style="display:none;" id="regBtn" class="btn btn-sm btn-primary" onClick="javascript:fnRegBaclist()">계좌내역 등록</button>
                     </div>
                 </div>
             </div>
@@ -353,10 +353,13 @@
         	if($(this).attr("data-value") == 0){
         		$(this).attr("data-value", 1);	
         	}
-        	
             var chk = $(".bacchecked");
-        	
+            var chkLength = $(".bacchecked").length;
+            
         	chk.each(function(index, item){
+        		if(index == 0){
+	        		$.LoadingOverlay("show", true);
+        		}
 	        	var bacData = {};
 	        	bacData.bacSerial = localStorage.getItem("bacSerial");
 	        	bacData.baclogTime = $(item).parent().next().next().next().html();
@@ -375,12 +378,18 @@
                    	 	
                         $("#regBBtn").removeAttr("disabled");
                         $("#regSBtn").removeAttr("disabled");
+                        if(index == chkLength-1){
+			                $.LoadingOverlay("hide", true);
+			                alert("내역 검토가 완료되었습니다.");
+                    	}
                     }
                 });
             });
+        	$('#regBtn').show();
         }
 
         function fnRegBaclist(){
+        	$.LoadingOverlay("show", true);
             var $Chkarr = $(".bacchecked");  //체크여부
             var $Aarr = $(".baclst5");         // 입금액
             var $Barr = $(".baclst6");           // 출금금액
@@ -429,9 +438,11 @@
         		data: updateData,
         		dataType: "json",
         	});
-        	
+            setTimeout(function(){
+				$.LoadingOverlay("hide", true);
+			}, 1000);
             alert("계좌 등록 완료");
-            fnCheckBaclist();
+            location.reload();
         }
 
 

@@ -330,14 +330,26 @@
 						 	+ parseInt(data[i].outAmt).toLocaleString("en-US") + "</td><td style='text-align:right;'>"
 						 	+ parseInt(data[i].balanceAmt).toLocaleString("en-US") + "</td><td style='text-align:center;'>"
 						 	+ data[i].branchCode + "</td><td style='text-align:center;'>"
-						 	+ data[i].logRemark + "</td><td style='text-align:center;'>"
-						 	+ data[i].linkDoc + "</td>";
-							
+						 	+ data[i].logRemark + "</td>";
+						 	//+ data[i].linkDoc + "</td>";
+							if(data[i].linkDoc != '' && data[i].linkDoc != null){
+								tableHtml += "<td style='text-align:center;'>" + data[i].linkDoc + "</td>";
+							}else {
+								tableHtml += "<td style='text-align:center;'></td>"
+							} 
 						 	if(parseInt(data[i].inAmt) > parseInt(data[i].outAmt)){
-						 		tableHtml += "<td style='text-align:center;'><button class='btn btn-sm btn-primary sch-company' data-remote='${path}/modal/popup.do?popId=bacVatS' type='button' id='bacVatSBtn' data-toggle='modal' data-target='#bacVatSModal' data-id='"+data[i].baclogId+"'>연결</button></td>";
-							}else{
-								tableHtml += "<td style='text-align:center;'><button class='btn btn-sm btn-primary sch-company' data-remote='${path}/modal/popup.do?popId=bacVatB' type='button' id='bacVatBBtn' data-toggle='modal' data-target='#bacVatBModal' data-id='"+data[i].baclogId+"'>연결</button></td>";
-							}
+						 		if(data[i].linkDoc != '' && data[i].linkDoc != null){
+						 			tableHtml += "<td style='text-align:center;'><button class='btn btn-sm btn-secondary sch-company' data-id='"+data[i].linkDoc+"' onclick='cancelconnect(this)'>취소</button></td>";
+						 		}else{
+						 			tableHtml += "<td style='text-align:center;'><button class='btn btn-sm btn-primary sch-company' data-remote='${path}/modal/popup.do?popId=bacVatS' type='button' id='bacVatSBtn' data-toggle='modal' data-target='#bacVatSModal' data-id='"+data[i].baclogId+"'>연결</button></td>";	
+						 		}
+						 	}else{
+						 		if(data[i].linkDoc != '' && data[i].linkDoc != null){
+						 			tableHtml += "<td style='text-align:center;'><button class='btn btn-sm btn-secondary sch-company' data-id='"+data[i].linkDoc+"' onclick='cancelconnect(this)'>취소</button></td>";
+						 		}else{
+									tableHtml += "<td style='text-align:center;'><button class='btn btn-sm btn-primary sch-company' data-remote='${path}/modal/popup.do?popId=bacVatB' type='button' id='bacVatBBtn' data-toggle='modal' data-target='#bacVatBModal' data-id='"+data[i].baclogId+"'>연결</button></td>";
+						 		}
+						 	}
 						}
 						
 						bacTable.html(tableHtml);
@@ -523,6 +535,21 @@
 		
 		if (lastTab) {
 		  	$('[href="' + lastTab + '"]').tab('show');
+		}
+		function cancelconnect(e) {
+			if(confirm("취소처리 하시겠습니까?")){
+				var baclisthideNum = $('#baclisthideNum').val(); 
+				$.ajax({
+              		url : "${path}/acc/cancelconnect.do/" +$(e).attr("data-id"),
+					method : "POST",
+					dataType: "json"
+            	});
+				alert("취소처리가 완료되었습니다.");
+				localStorage.setItem('lastTab', baclisthideNum);
+				location.href="${path}/acc/bacdetail.do";
+			}else {
+				return false;
+			}
 		}
     </script>
 </div>

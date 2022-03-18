@@ -307,11 +307,13 @@
     </div>
     <script>
    	 	var pageListNum = 15;
+   		var counter = 0;
 	    <!--//리스트 table-->
 		$(document).ready(function(){
 			localStorage.getItem("lastTab");
 			$("#baclist").select2(); 
 			$("#baclist").val(localStorage.getItem("lastTab"));
+		});
 			
 			$("#baclist").change(function(){
 				var selectData = {};
@@ -348,12 +350,25 @@
 							 	+ data[i].branchCode + "</td><td style='text-align:center;'>"
 							 	+ data[i].logRemark + "</td><td style='text-align:center;'>"
 							 	+ data[i].linkDoc + "</td>";
-								
-							 	if(parseInt(data[i].inAmt) > parseInt(data[i].outAmt)){
+	                             if(parseInt(data[i].inAmt) > parseInt(data[i].outAmt)){
+	                                 if(data[i].linkDoc != '' && data[i].linkDoc != null){
+	                                     tableHtml += "<td style='text-align:center;'><button class='btn btn-sm btn-secondary sch-company' data-id='"+data[i].linkDoc+"' onclick='cancelconnect(this)'>취소</button></td>";
+	                                 }else{
+	                                     tableHtml += "<td style='text-align:center;'><button class='btn btn-sm btn-primary sch-company' data-remote='${path}/modal/popup.do?popId=bacVatS' type='button' id='bacVatSBtn' data-toggle='modal' data-target='#bacVatSModal' data-id='"+data[i].baclogId+"'>연결</button></td>";    
+	                                 }
+	                             }else{
+	                                 if(data[i].linkDoc != '' && data[i].linkDoc != null){
+	                                     tableHtml += "<td style='text-align:center;'><button class='btn btn-sm btn-secondary sch-company' data-id='"+data[i].linkDoc+"' onclick='cancelconnect(this)'>취소</button></td>";
+	                                 }else{
+	                                    tableHtml += "<td style='text-align:center;'><button class='btn btn-sm btn-primary sch-company' data-remote='${path}/modal/popup.do?popId=bacVatB' type='button' id='bacVatBBtn' data-toggle='modal' data-target='#bacVatBModal' data-id='"+data[i].baclogId+"'>연결</button></td>";
+	                                 }
+	                             }
+							 	
+							 	/* if(parseInt(data[i].inAmt) > parseInt(data[i].outAmt)){
 							 		tableHtml += "<td style='text-align:center;'><button class='btn btn-sm btn-primary sch-company' data-remote='${path}/modal/popup.do?popId=bacVatS' type='button' id='bacVatSBtn' data-toggle='modal' data-target='#bacVatSModal' data-id='"+data[i].baclogId+"'>연결</button></td>";
 								}else{
 									tableHtml += "<td style='text-align:center;'><button class='btn btn-sm btn-primary sch-company' data-remote='${path}/modal/popup.do?popId=bacVatB' type='button' id='bacVatBBtn' data-toggle='modal' data-target='#bacVatBModal' data-id='"+data[i].baclogId+"'>연결</button></td>";
-								} 
+								}  */
 							}
 							bacTable.html(tableHtml);
 						}else{
@@ -374,7 +389,7 @@
 							var countRe = parseInt(data.resultCount/pageListNum);
 							pageHtml = "";
 							
-							pageHtml += "<ul class='pagination'><li class='page-item'><a class='page-link' href='#' tabindex='-1'>Previous</a></li>";
+							pageHtml += "<ul class='pagination'><li class='page-item'><a class='page-link' href='#' onClick='pagePrevious(this);'>Previous</a></li>";
 							
 							if(count > pageNation){
 								for(var j = 1; j <= pageNation; j++){
@@ -403,8 +418,7 @@
 				setTimeout(function(){
 					$.LoadingOverlay("hide", true);
 				}, 1000);
-			});
-		});	
+			});	
 			
 		function pageClick(e){
 			var selectData = {};
@@ -436,11 +450,19 @@
 						 	+ data[i].logRemark + "</td><td style='text-align:center;'>"
 						 	+ data[i].linkDoc + "</td>";
 							
-						 	if(parseInt(data[i].inAmt) > parseInt(data[i].outAmt)){
-						 		tableHtml += "<td style='text-align:center;'><button class='btn btn-sm btn-primary sch-company' data-remote='${path}/modal/popup.do?popId=bacVatS' type='button' id='bacVatSBtn' data-toggle='modal' data-target='#bacVatSModal' data-id='"+data[i].baclogId+"'>연결</button></td>";
-							}else{
-								tableHtml += "<td style='text-align:center;'><button class='btn btn-sm btn-primary sch-company' data-remote='${path}/modal/popup.do?popId=bacVatB' type='button' id='bacVatBBtn' data-toggle='modal' data-target='#bacVatBModal' data-id='"+data[i].baclogId+"'>연결</button></td>";
-							} 
+							 if(parseInt(data[i].inAmt) > parseInt(data[i].outAmt)){
+                                 if(data[i].linkDoc != '' && data[i].linkDoc != null){
+                                     tableHtml += "<td style='text-align:center;'><button class='btn btn-sm btn-secondary sch-company' data-id='"+data[i].linkDoc+"' onclick='cancelconnect(this)'>취소</button></td>";
+                                 }else{
+                                     tableHtml += "<td style='text-align:center;'><button class='btn btn-sm btn-primary sch-company' data-remote='${path}/modal/popup.do?popId=bacVatS' type='button' id='bacVatSBtn' data-toggle='modal' data-target='#bacVatSModal' data-id='"+data[i].baclogId+"'>연결</button></td>";    
+                                 }
+                             }else{
+                                 if(data[i].linkDoc != '' && data[i].linkDoc != null){
+                                     tableHtml += "<td style='text-align:center;'><button class='btn btn-sm btn-secondary sch-company' data-id='"+data[i].linkDoc+"' onclick='cancelconnect(this)'>취소</button></td>";
+                                 }else{
+                                    tableHtml += "<td style='text-align:center;'><button class='btn btn-sm btn-primary sch-company' data-remote='${path}/modal/popup.do?popId=bacVatB' type='button' id='bacVatBBtn' data-toggle='modal' data-target='#bacVatBModal' data-id='"+data[i].baclogId+"'>연결</button></td>";
+                                 }
+                             }					
 						}
 						bacTable.html(tableHtml);
 					}else{
@@ -450,44 +472,209 @@
 			});
 		}	
 		
-		function pageNext(e){
-			var prevNum = parseInt($(e).parent().prev().find("a").html());
-			var firstNum = prevNum + 1;
-			var lastNum = prevNum + prevNum;
+		function pagePrevious(e){
+			counter--;
+			var selectData = {};
+			var pageCheck = {};
+			var bacTable = $("#bacTable tbody");
 			var pageDiv = $("#pageDiv");
 			var tableHtml = "";
-			pageDiv.html("");
+			var pageHtml = "";
+			var pageNation = 10;
+			var pageFirstBetween = 0;
+			bacTable.empty();
+			pageDiv.empty();
+			
+			selectData.bacSerial = $('#baclist').val();
+			selectData.betFirstNum = pageFirstBetween;
+			selectData.betLastNum = pageListNum;
+			pageCheck.bacSerial = $('#baclist').val();
 			
 			$.ajax({
-				url: "${path}/acc/bacSelectList/" + $("#baclist").val(),
+				url: "${path}/acc/bacSelectList.do",
 				method: "get",
+				data: selectData,
 				dataType: "json",
 				success:function(data){
 					if(data.length > 0){
-						var pageListNum = 15;
-						var lastPageNum = parseInt(data.length/pageListNum);
-						var lastPageNumCal = lastPageNum - prevNum;						
+						console.log("data: " + data.length);
 						
-						tableHtml += "<ul class='pagination'><li class='page-item'><a class='page-link' href='#' tabindex='-1'>Previous</a></li>";
-						
-						if(lastPageNumCal > 10){
-							for(var j = prevNum; j <= prevNum+10; j++){
-								tableHtml += "<li class='page-item'><a class='page-link' href='#' onClick='pageClick(this);'>" + j + "</a></li>";
-							}
-							tableHtml += "<li class='page-item'><a class='page-link' href='#' onClick='pageNext(this);'>Next</a></li></ul>";
-						}else{
-							for(var j = prevNum; j <= lastPageNumCal; j++){
-								tableHtml += "<li class='page-item'><a class='page-link' href='#' onClick='pageClick(this);'>" + j + "</a></li>";
-							}
+						for(var i = 0; i < data.length; i++){
+							tableHtml += "<tr><td style='text-align:center;'>" + data[i].baclogTime + "</td><td style='text-align:center;'>" 
+							+ data[i].bacDesc + "</td><td style='text-align:right;'>" 
+							+ parseInt(data[i].inAmt).toLocaleString("en-US") + "</td><td style='text-align:right;'>"
+						 	+ parseInt(data[i].outAmt).toLocaleString("en-US") + "</td><td style='text-align:right;'>"
+						 	+ parseInt(data[i].balanceAmt).toLocaleString("en-US") + "</td><td style='text-align:center;'>"
+						 	+ data[i].branchCode + "</td><td style='text-align:center;'>"
+						 	+ data[i].logRemark + "</td><td style='text-align:center;'>"
+						 	+ data[i].linkDoc + "</td>";
+							
+							if(parseInt(data[i].inAmt) > parseInt(data[i].outAmt)){
+                                if(data[i].linkDoc != '' && data[i].linkDoc != null){
+                                    tableHtml += "<td style='text-align:center;'><button class='btn btn-sm btn-secondary sch-company' data-id='"+data[i].linkDoc+"' onclick='cancelconnect(this)'>취소</button></td>";
+                                }else{
+                                    tableHtml += "<td style='text-align:center;'><button class='btn btn-sm btn-primary sch-company' data-remote='${path}/modal/popup.do?popId=bacVatS' type='button' id='bacVatSBtn' data-toggle='modal' data-target='#bacVatSModal' data-id='"+data[i].baclogId+"'>연결</button></td>";    
+                                }
+                            }else{
+                                if(data[i].linkDoc != '' && data[i].linkDoc != null){
+                                    tableHtml += "<td style='text-align:center;'><button class='btn btn-sm btn-secondary sch-company' data-id='"+data[i].linkDoc+"' onclick='cancelconnect(this)'>취소</button></td>";
+                                }else{
+                                   tableHtml += "<td style='text-align:center;'><button class='btn btn-sm btn-primary sch-company' data-remote='${path}/modal/popup.do?popId=bacVatB' type='button' id='bacVatBBtn' data-toggle='modal' data-target='#bacVatBModal' data-id='"+data[i].baclogId+"'>연결</button></td>";
+                                }
+                            }
 						}
-						
-						pageDiv.html(tableHtml);
+						bacTable.html(tableHtml);
 					}else{
-						pageDiv.html("");
+						bacTable.html("");
 					}
 				}
 			});
+			
+			$.ajax({
+				url: "${path}/acc/bacSelectListCnt.do",
+				method: "post",
+				data: pageCheck,
+				dataType: "json",
+				success:function(data){
+					console.log(data.resultCount);
+					if(data.resultCount > 0){
+						var count = parseInt(data.resultCount/pageListNum);
+						var countRe = parseInt(data.resultCount/pageListNum);
+						pageHtml = "";
+						
+						pageHtml += "<ul class='pagination'><li class='page-item'><a class='page-link' href='#' onClick='pagePrevious(this);'>Previous</a></li>";
+						
+						if(count > pageNation){
+							for(var j = 1+counter*10; j <= pageNation*(counter+1); j++){
+								pageHtml += "<li class='page-item'><a class='page-link' href='#' onClick='pageClick(this);'>" + j + "</a></li>";
+							}
+							pageHtml += "<li class='page-item'><a class='page-link' href='#' onClick='pageNext(this);'>Next</a></li></ul>";
+						}else{
+							if(countRe > 0){
+								countRe = countRe + 1;
+							}else{
+								countRe = 0;
+							}
+							
+							for(var j = 1; j <= countRe; j++){
+								pageHtml += "<li class='page-item'><a class='page-link' href='#' onClick='pageClick(this);'>" + j + "</a></li>";
+							}
+						}
+						
+						pageDiv.html(pageHtml);
+					}else{
+						pageDiv.empty();
+					}
+				}
+			});
+			
+			setTimeout(function(){
+				$.LoadingOverlay("hide", true);
+			}, 1000);
+			
 		}
+		
+		function pageNext(e){
+			counter++;
+			var selectData = {};
+			var pageCheck = {};
+			var bacTable = $("#bacTable tbody");
+			var pageDiv = $("#pageDiv");
+			var tableHtml = "";
+			var pageHtml = "";
+			var pageNation = 10;
+			var pageFirstBetween = 0;
+			bacTable.empty();
+			pageDiv.empty();
+			
+			selectData.bacSerial = $('#baclist').val();
+			selectData.betFirstNum = pageFirstBetween;
+			selectData.betLastNum = pageListNum;
+			pageCheck.bacSerial = $('#baclist').val();
+			
+			$.ajax({
+				url: "${path}/acc/bacSelectList.do",
+				method: "get",
+				data: selectData,
+				dataType: "json",
+				success:function(data){
+					if(data.length > 0){
+						console.log("data: " + data.length);
+						
+						for(var i = 0; i < data.length; i++){
+							tableHtml += "<tr><td style='text-align:center;'>" + data[i].baclogTime + "</td><td style='text-align:center;'>" 
+							+ data[i].bacDesc + "</td><td style='text-align:right;'>" 
+							+ parseInt(data[i].inAmt).toLocaleString("en-US") + "</td><td style='text-align:right;'>"
+						 	+ parseInt(data[i].outAmt).toLocaleString("en-US") + "</td><td style='text-align:right;'>"
+						 	+ parseInt(data[i].balanceAmt).toLocaleString("en-US") + "</td><td style='text-align:center;'>"
+						 	+ data[i].branchCode + "</td><td style='text-align:center;'>"
+						 	+ data[i].logRemark + "</td><td style='text-align:center;'>"
+						 	+ data[i].linkDoc + "</td>";
+							
+							if(parseInt(data[i].inAmt) > parseInt(data[i].outAmt)){
+                                if(data[i].linkDoc != '' && data[i].linkDoc != null){
+                                    tableHtml += "<td style='text-align:center;'><button class='btn btn-sm btn-secondary sch-company' data-id='"+data[i].linkDoc+"' onclick='cancelconnect(this)'>취소</button></td>";
+                                }else{
+                                    tableHtml += "<td style='text-align:center;'><button class='btn btn-sm btn-primary sch-company' data-remote='${path}/modal/popup.do?popId=bacVatS' type='button' id='bacVatSBtn' data-toggle='modal' data-target='#bacVatSModal' data-id='"+data[i].baclogId+"'>연결</button></td>";    
+                                }
+                            }else{
+                                if(data[i].linkDoc != '' && data[i].linkDoc != null){
+                                    tableHtml += "<td style='text-align:center;'><button class='btn btn-sm btn-secondary sch-company' data-id='"+data[i].linkDoc+"' onclick='cancelconnect(this)'>취소</button></td>";
+                                }else{
+                                   tableHtml += "<td style='text-align:center;'><button class='btn btn-sm btn-primary sch-company' data-remote='${path}/modal/popup.do?popId=bacVatB' type='button' id='bacVatBBtn' data-toggle='modal' data-target='#bacVatBModal' data-id='"+data[i].baclogId+"'>연결</button></td>";
+                                }
+                            }
+						}
+						bacTable.html(tableHtml);
+					}else{
+						bacTable.html("");
+					}
+				}
+			});
+			
+			$.ajax({
+				url: "${path}/acc/bacSelectListCnt.do",
+				method: "post",
+				data: pageCheck,
+				dataType: "json",
+				success:function(data){
+					console.log(data.resultCount);
+					if(data.resultCount > 0){
+						var count = parseInt(data.resultCount/pageListNum);
+						var countRe = parseInt(data.resultCount/pageListNum);
+						pageHtml = "";
+						
+						pageHtml += "<ul class='pagination'><li class='page-item'><a class='page-link' href='#' onClick='pagePrevious(this);'>Previous</a></li>";
+						
+						if(count > pageNation){
+							for(var j = 1+counter*10; j <= pageNation*(counter+1); j++){
+								pageHtml += "<li class='page-item'><a class='page-link' href='#' onClick='pageClick(this);'>" + j + "</a></li>";
+							}
+							pageHtml += "<li class='page-item'><a class='page-link' href='#' onClick='pageNext(this);'>Next</a></li></ul>";
+						}else{
+							if(countRe > 0){
+								countRe = countRe + 1;
+							}else{
+								countRe = 0;
+							}
+							
+							for(var j = 1; j <= countRe; j++){
+								pageHtml += "<li class='page-item'><a class='page-link' href='#' onClick='pageClick(this);'>" + j + "</a></li>";
+							}
+						}
+						
+						pageDiv.html(pageHtml);
+					}else{
+						pageDiv.empty();
+					}
+				}
+			});
+			
+			setTimeout(function(){
+				$.LoadingOverlay("hide", true);
+			}, 1000);
+			
+		};
 		
 		function acordian_action(){
 			if($("#acordian").css("display") == "none"){
@@ -604,11 +791,27 @@
             }
         }
         var lastTab = localStorage.getItem('lastTab');
-		
+        
 		if (lastTab) {
 		  	$('[href="' + lastTab + '"]').tab('show');
 		  	localStorage.clear();
 		}
+        function cancelconnect(e) {
+            if(confirm("취소처리 하시겠습니까?")){
+                var baclisthideNum = $('#baclisthideNum').val(); 
+                $.ajax({
+                      url : "${path}/acc/cancelconnect.do/" +$(e).attr("data-id"),
+                    method : "POST",
+                    dataType: "json"
+                });
+                alert("취소처리가 완료되었습니다.");
+                localStorage.setItem('lastTab', baclisthideNum);
+                location.href="${path}/acc/bacdetail.do";
+            }else {
+                return false;
+            }
+        }
+		
     </script>
 </div>
 <jsp:include page="../body-bottom.jsp"/>

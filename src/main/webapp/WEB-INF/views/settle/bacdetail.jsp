@@ -218,7 +218,6 @@
 					<option value="${row.bacSerial}">${row.bacNo}</option>
 				</c:forEach>
 			</select>
-			<input type="hidden" id="baclisthideNum" value="">
 		</div>
 	</div>
 	<!--리스트 table-->
@@ -266,6 +265,7 @@
 	                            </c:forEach> --%>
                           	</tbody>
                         </table>
+                        <div id="pageDiv" style="float: right;"></div>
                         <div class="modal fade " id="bacVatSModal" tabindex="-1" role="dialog">
                             <div class="modal-dialog modal-80size" role="document">
                                 <div class="modal-content modal-80size">
@@ -306,85 +306,39 @@
         </div>
     </div>
     <script>
+   	 	var pageListNum = 15;
 	    <!--//리스트 table-->
 		$(document).ready(function(){
-			localStorage.getItem(lastTab);
-			$('#baclisthideNum').attr('value', lastTab);
-			var bacTable = $("#bacTable tbody");
-			var tableHtml = "";
+			localStorage.getItem("lastTab");
 			$("#baclist").select2(); 
-
-			$.LoadingOverlay("show", true);
-			bacTable.empty();
-			
-			$.ajax({
-				url: "${path}/acc/bacSelectList/" + lastTab,
-				method: "post",
-				dataType: "json",
-				success:function(data){
-					if(data.length > 0){
-						for(var i = 0; i < data.length; i++){
-							tableHtml += "<tr><td style='text-align:center;'>" + data[i].baclogTime + "</td><td style='text-align:center;'>" 
-							+ data[i].bacDesc + "</td><td style='text-align:right;'>" 
-							+ parseInt(data[i].inAmt).toLocaleString("en-US") + "</td><td style='text-align:right;'>"
-						 	+ parseInt(data[i].outAmt).toLocaleString("en-US") + "</td><td style='text-align:right;'>"
-						 	+ parseInt(data[i].balanceAmt).toLocaleString("en-US") + "</td><td style='text-align:center;'>"
-						 	+ data[i].branchCode + "</td><td style='text-align:center;'>"
-						 	+ data[i].logRemark + "</td>";
-						 	//+ data[i].linkDoc + "</td>";
-							if(data[i].linkDoc != '' && data[i].linkDoc != null){
-								tableHtml += "<td style='text-align:center;'>" + data[i].linkDoc + "</td>";
-							}else {
-								tableHtml += "<td style='text-align:center;'></td>"
-							} 
-						 	if(parseInt(data[i].inAmt) > parseInt(data[i].outAmt)){
-						 		if(data[i].linkDoc != '' && data[i].linkDoc != null){
-						 			tableHtml += "<td style='text-align:center;'><button class='btn btn-sm btn-secondary sch-company' data-id='"+data[i].linkDoc+"' onclick='cancelconnect(this)'>취소</button></td>";
-						 		}else{
-						 			tableHtml += "<td style='text-align:center;'><button class='btn btn-sm btn-primary sch-company' data-remote='${path}/modal/popup.do?popId=bacVatS' type='button' id='bacVatSBtn' data-toggle='modal' data-target='#bacVatSModal' data-id='"+data[i].baclogId+"'>연결</button></td>";	
-						 		}
-						 	}else{
-						 		if(data[i].linkDoc != '' && data[i].linkDoc != null){
-						 			tableHtml += "<td style='text-align:center;'><button class='btn btn-sm btn-secondary sch-company' data-id='"+data[i].linkDoc+"' onclick='cancelconnect(this)'>취소</button></td>";
-						 		}else{
-									tableHtml += "<td style='text-align:center;'><button class='btn btn-sm btn-primary sch-company' data-remote='${path}/modal/popup.do?popId=bacVatB' type='button' id='bacVatBBtn' data-toggle='modal' data-target='#bacVatBModal' data-id='"+data[i].baclogId+"'>연결</button></td>";
-						 		}
-						 	}
-						}
-						
-						bacTable.html(tableHtml);
-						
-						$("#bacTable").DataTable({
-							info:false,
-			                destroy: true,
-			                order: [[ 0, "desc" ]],
-			                searching: true,
-						});
-					}else{
-						bacTable.empty();
-					}
-				}
-			});
-			localStorage.clear();
-			setTimeout(function(){
-				$.LoadingOverlay("hide", true);
-			}, 1000);
-		});	
+			$("#baclist").val(localStorage.getItem("lastTab"));
 			
 			$("#baclist").change(function(){
+				var selectData = {};
+				var pageCheck = {};
 				var bacTable = $("#bacTable tbody");
+				var pageDiv = $("#pageDiv");
 				var tableHtml = "";
-				$("#baclist").select2(); 
-				localStorage.setItem('lastTab', $('#baclist').val());
-				$.LoadingOverlay("show", true);
+				var pageHtml = "";
+				var pageNation = 10;
+				var pageFirstBetween = 0;
 				bacTable.empty();
-
+				pageDiv.empty();
+				
+				selectData.bacSerial = $(this).val();
+				selectData.betFirstNum = pageFirstBetween;
+				selectData.betLastNum = pageListNum;
+				pageCheck.bacSerial = $(this).val();
+				
 				$.ajax({
-					url: "${path}/acc/bacSelectList/" + $(this).val(),
-					method: "post",
+					url: "${path}/acc/bacSelectList.do",
+					method: "get",
+					data: selectData,
 					dataType: "json",
 					success:function(data){
 						if(data.length > 0){
+							console.log("data: " + data.length);
+							
 							for(var i = 0; i < data.length; i++){
 								tableHtml += "<tr><td style='text-align:center;'>" + data[i].baclogTime + "</td><td style='text-align:center;'>" 
 								+ data[i].bacDesc + "</td><td style='text-align:right;'>" 
@@ -401,21 +355,139 @@
 									tableHtml += "<td style='text-align:center;'><button class='btn btn-sm btn-primary sch-company' data-remote='${path}/modal/popup.do?popId=bacVatB' type='button' id='bacVatBBtn' data-toggle='modal' data-target='#bacVatBModal' data-id='"+data[i].baclogId+"'>연결</button></td>";
 								} 
 							}
-							
 							bacTable.html(tableHtml);
-							
-							$("#bacTable").DataTable({
-								info:false,
-				                destroy: true,
-				                order: [[ 0, "desc" ]],
-							});
 						}else{
-							bacTable.empty();
+							bacTable.html("");
 						}
 					}
 				});
-				location.href="${path}/acc/bacdetail.do";
+				
+				$.ajax({
+					url: "${path}/acc/bacSelectListCnt.do",
+					method: "post",
+					data: pageCheck,
+					dataType: "json",
+					success:function(data){
+						console.log(data.resultCount);
+						if(data.resultCount > 0){
+							var count = parseInt(data.resultCount/pageListNum);
+							var countRe = parseInt(data.resultCount/pageListNum);
+							pageHtml = "";
+							
+							pageHtml += "<ul class='pagination'><li class='page-item'><a class='page-link' href='#' tabindex='-1'>Previous</a></li>";
+							
+							if(count > pageNation){
+								for(var j = 1; j <= pageNation; j++){
+									pageHtml += "<li class='page-item'><a class='page-link' href='#' onClick='pageClick(this);'>" + j + "</a></li>";
+								}
+								pageHtml += "<li class='page-item'><a class='page-link' href='#' onClick='pageNext(this);'>Next</a></li></ul>";
+							}else{
+								if(countRe > 0){
+									countRe = countRe + 1;
+								}else{
+									countRe = 0;
+								}
+								
+								for(var j = 1; j <= countRe; j++){
+									pageHtml += "<li class='page-item'><a class='page-link' href='#' onClick='pageClick(this);'>" + j + "</a></li>";
+								}
+							}
+							
+							pageDiv.html(pageHtml);
+						}else{
+							pageDiv.empty();
+						}
+					}
+				});
+				
+				setTimeout(function(){
+					$.LoadingOverlay("hide", true);
+				}, 1000);
 			});
+		});	
+			
+		function pageClick(e){
+			var selectData = {};
+			var bacTable = $("#bacTable tbody");
+			var pageDiv = $("#pageDiv");
+			var tableHtml = "";
+			var pageNation = 10;
+			var pageSetNum = pageListNum * (parseInt($(e).html()) - 1);
+			bacTable.html("");
+
+			selectData.bacSerial = $("#baclist").val();
+			selectData.betFirstNum = pageSetNum;
+			selectData.betLastNum = pageListNum;
+			
+			$.ajax({
+				url: "${path}/acc/bacSelectList.do",
+				method: "get",
+				data: selectData,
+				dataType: "json",
+				success:function(data){
+					if(data.length > 0){
+						for(var i = 0; i < data.length; i++){
+							tableHtml += "<tr><td style='text-align:center;'>" + data[i].baclogTime + "</td><td style='text-align:center;'>" 
+							+ data[i].bacDesc + "</td><td style='text-align:right;'>" 
+							+ parseInt(data[i].inAmt).toLocaleString("en-US") + "</td><td style='text-align:right;'>"
+						 	+ parseInt(data[i].outAmt).toLocaleString("en-US") + "</td><td style='text-align:right;'>"
+						 	+ parseInt(data[i].balanceAmt).toLocaleString("en-US") + "</td><td style='text-align:center;'>"
+						 	+ data[i].branchCode + "</td><td style='text-align:center;'>"
+						 	+ data[i].logRemark + "</td><td style='text-align:center;'>"
+						 	+ data[i].linkDoc + "</td>";
+							
+						 	if(parseInt(data[i].inAmt) > parseInt(data[i].outAmt)){
+						 		tableHtml += "<td style='text-align:center;'><button class='btn btn-sm btn-primary sch-company' data-remote='${path}/modal/popup.do?popId=bacVatS' type='button' id='bacVatSBtn' data-toggle='modal' data-target='#bacVatSModal' data-id='"+data[i].baclogId+"'>연결</button></td>";
+							}else{
+								tableHtml += "<td style='text-align:center;'><button class='btn btn-sm btn-primary sch-company' data-remote='${path}/modal/popup.do?popId=bacVatB' type='button' id='bacVatBBtn' data-toggle='modal' data-target='#bacVatBModal' data-id='"+data[i].baclogId+"'>연결</button></td>";
+							} 
+						}
+						bacTable.html(tableHtml);
+					}else{
+						bacTable.html("");
+					}
+				}
+			});
+		}	
+		
+		function pageNext(e){
+			var prevNum = parseInt($(e).parent().prev().find("a").html());
+			var firstNum = prevNum + 1;
+			var lastNum = prevNum + prevNum;
+			var pageDiv = $("#pageDiv");
+			var tableHtml = "";
+			pageDiv.html("");
+			
+			$.ajax({
+				url: "${path}/acc/bacSelectList/" + $("#baclist").val(),
+				method: "get",
+				dataType: "json",
+				success:function(data){
+					if(data.length > 0){
+						var pageListNum = 15;
+						var lastPageNum = parseInt(data.length/pageListNum);
+						var lastPageNumCal = lastPageNum - prevNum;						
+						
+						tableHtml += "<ul class='pagination'><li class='page-item'><a class='page-link' href='#' tabindex='-1'>Previous</a></li>";
+						
+						if(lastPageNumCal > 10){
+							for(var j = prevNum; j <= prevNum+10; j++){
+								tableHtml += "<li class='page-item'><a class='page-link' href='#' onClick='pageClick(this);'>" + j + "</a></li>";
+							}
+							tableHtml += "<li class='page-item'><a class='page-link' href='#' onClick='pageNext(this);'>Next</a></li></ul>";
+						}else{
+							for(var j = prevNum; j <= lastPageNumCal; j++){
+								tableHtml += "<li class='page-item'><a class='page-link' href='#' onClick='pageClick(this);'>" + j + "</a></li>";
+							}
+						}
+						
+						pageDiv.html(tableHtml);
+					}else{
+						pageDiv.html("");
+					}
+				}
+			});
+		}
 		
 		function acordian_action(){
 			if($("#acordian").css("display") == "none"){
@@ -535,21 +607,7 @@
 		
 		if (lastTab) {
 		  	$('[href="' + lastTab + '"]').tab('show');
-		}
-		function cancelconnect(e) {
-			if(confirm("취소처리 하시겠습니까?")){
-				var baclisthideNum = $('#baclisthideNum').val(); 
-				$.ajax({
-              		url : "${path}/acc/cancelconnect.do/" +$(e).attr("data-id"),
-					method : "POST",
-					dataType: "json"
-            	});
-				alert("취소처리가 완료되었습니다.");
-				localStorage.setItem('lastTab', baclisthideNum);
-				location.href="${path}/acc/bacdetail.do";
-			}else {
-				return false;
-			}
+		  	localStorage.clear();
 		}
     </script>
 </div>

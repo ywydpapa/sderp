@@ -196,6 +196,10 @@
                                     	</c:choose>
                                     </td>
                                     <td class="text-right">
+                                    	<c:choose>
+                                    		<c:when test="${((vlist.custBalance + vlist.vatAmountB) - vlist.serialTotalB) > 0}"><fmt:formatNumber type="number" maxFractionDigits="3" value="${(vlist.custBalance + vlist.vatAmountB) - vlist.serialTotalB}" /></c:when>
+                                    		<c:otherwise>0</c:otherwise>
+                                    	</c:choose>
                                     </td>
                                 </tr>
                             </c:forEach>

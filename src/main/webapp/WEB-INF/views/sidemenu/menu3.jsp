@@ -110,7 +110,7 @@
                                         </li>
                                     </ul>
                                     </li>
-                                    <li class="pcoded-hasmenu pcoded <c:if test="${path2 eq '/acc/vatlistB.do' || path2 eq '/acc/vatlistS.do' || path2 eq '/acc/vatupload.do' || path2 eq '/acc/vatlist.do'}">pcoded-trigger</c:if>">
+                                    <li class="pcoded-hasmenu pcoded <c:if test="${path2 eq '/acc/vatlistB.do' || path2 eq '/acc/vatlistS.do' || path2 eq '/acc/vatupload.do' || path2 eq '/acc/vatlist.do' || path2 eq '/acc/sumBvatlist.do' || path2 eq '/acc/sumSvatlist.do'}">pcoded-trigger</c:if>">
                                     <a href="javascript:void(0)">
                                         <span class="pcoded-micon"><i class="ti-stats-up"></i></span>
                                         <span class="pcoded-mtext"  data-i18n="nav.basic-components.main">채권채무관리</span>

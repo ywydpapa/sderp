@@ -195,8 +195,11 @@
                                     		<c:otherwise>0</c:otherwise>
                                     	</c:choose>
                                     </td>
-                                    <td>
-
+                                    <td class="text-right">
+										<c:choose>
+                                    		<c:when test="${((vlist.custBalance + vlist.vatAmountS) - vlist.serialTotalS) > 0}"><fmt:formatNumber type="number" maxFractionDigits="3" value="${(vlist.custBalance + vlist.vatAmountS) - vlist.serialTotalS}" /></c:when>
+                                    		<c:otherwise>0</c:otherwise>
+                                    	</c:choose>
                                     </td>
                                 </tr>
                             </c:forEach>

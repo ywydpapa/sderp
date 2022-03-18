@@ -108,6 +108,7 @@ public class GwDTO {
     private String listDateFrom;
     private String docAppSerial;
     
+    private int selectoption;
     public GwDTO() {
         super();
     }

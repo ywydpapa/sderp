@@ -256,21 +256,38 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<select id="myDocSerchList" resultType="gwDto">
-		select a.*, c.userName as userIsName, b.appStatus from swc_businessdoc a 
+		select a.*, c.userName as userIsName, b.appStatus, d.custName, e.userName as firstUser from swc_businessdoc a 
 		left join swc_businessdocapp b on a.docNo = b.docNo 
-		left join swc_user c on c.userNo = b.userNoIS
-		left join swc_user d on a.docCrUserNo = d.userNo 
-		where a.attrib not like 'XXX%' and b.compNo = #{compNo} 
+		left join swc_user c on c.userNo = b.userNoIS 
+		left join swc_cust d on a.linkCustNo = d.custNo
+		left join swc_user e on a.docCrUserNo = e.userNo
+		where a.attrib not like 'XXX%' and b.compNo = #{compNo}
 		<if test="custNo != null and custNo != ''">
  		 	and a.linkCustNo = #{custNo}
  		</if>
 		<if test="userName != null and userName != ''">
- 		 	and d.userName like CONCAT('%', #{userName}, '%')
+ 		 	and e.userName like CONCAT('%', #{userName}, '%')
  		</if>
  		<if test="vatSdate != null and vatSdate != ''">
  		 	and a.docDate BETWEEN #{vatSdate} and #{vatEdate}
  		</if>
-		and a.docStatus = 2 and b.appStatus BETWEEN 2 and 4 and b.appStatus != 3;
+ 		<if test="selectoption != null and selectoption  != ''">
+ 			<choose>
+ 				<when test="selectoption == 1">
+ 					and a.docType = "PUR"
+ 				</when>
+ 				<when test="selectoption == 2">
+ 					and a.docType = "COST"
+ 				</when>
+ 				<when test="selectoption == 3">
+ 					and a.docType = "DIP"
+ 				</when>
+ 				<when test="selectoption == 4">
+ 					and a.docType = "TRS"
+ 				</when>
+ 			</choose>
+ 		</if>
+		and a.docStatus BETWEEN 2 and 3 and b.appStatus BETWEEN 2 and 5 and b.appStatus != 3 order by a.docNo desc;
 	</select>
 	
 	<select id="getEstSopp" resultType="gwDto">

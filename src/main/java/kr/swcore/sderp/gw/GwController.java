@@ -73,14 +73,18 @@ public class GwController {
     		@RequestParam(value = "custNo", required = false) Integer custNo,
 			@RequestParam(value = "userName", required = false) String userName,
 			@RequestParam(value = "vatSdate", required = false) String vatSdate,
-			@RequestParam(value = "vatEdate", required = false) String vatEdate) 
+			@RequestParam(value = "vatEdate", required = false) String vatEdate,
+			@RequestParam(value = "selectoption", required = false) Integer selectoption
+			) 
     {
-    	if(custNo != null || userName != null || vatSdate != null || vatEdate != null){
+    	if(custNo != null || userName != null || vatSdate != null || vatEdate != null || selectoption != null){
 			GwDTO dto = new GwDTO();
     		if(custNo != null) dto.setCustNo(custNo);
     		if(userName != null) dto.setUserName(userName);
     		if(vatSdate != null) dto.setVatSdate(vatSdate);
     		if(vatEdate != null) dto.setVatEdate(vatEdate);
+    		if(selectoption != null) dto.setSelectoption(selectoption);
+    		
     		mav.addObject("mydoclist", gwService.myDocList(session, dto));
     	}else {
     		mav.addObject("mydoclist", gwService.myDocList(session));
@@ -89,7 +93,7 @@ public class GwController {
         mav.setViewName("gware/mydoclist");
         return mav;
     }
-
+    
     @RequestMapping("write.do")
     public ModelAndView docWrite(HttpSession session, ModelAndView mav) {
         mav.setViewName("gware/write");

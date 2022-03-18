@@ -168,6 +168,16 @@
                                 <label class="col-form-label">작성일자</label>
                                 <p class="input_inline"><input class="form-control form-control-sm col-xl-6" type="date" id="vatSdate"> ~ <input class="form-control form-control-sm col-xl-6" type="date" id="vatEdate"></p>
                             </div>
+                            <div class="col-sm-12 col-xl-3">
+                            	<label class="col-form-label">문서종류</label>
+                            	<select class="form-control form-control-sm col-xl-6" id="selectoption">
+                    				<option value="0"selected>선택</option>
+                    				<option value="1">발주서</option>
+                    				<option value="2">지출결의서</option>
+                    				<option value="3">공문서</option>
+                    				<option value="4">지출품의서</option>
+                    			</select>
+                    		</div>
                         </div>
                     </div>
                 </div>
@@ -672,6 +682,8 @@
     		myDocData.userName = $("#userName").val() ? $("#userName").val() : null;
     		myDocData.vatSdate = $("#vatSdate").val() ? $("#vatSdate").val() : null;
     		myDocData.vatEdate = $("#vatEdate").val() ? $("#vatEdate").val() : null;
+    		myDocData.selectoption = $("#selectoption").val() ? $("#selectoption").val() : null;
+    		
     		var param = "?";
     		var paramFirst = true;
     		for (variable in myDocData) {
@@ -695,6 +707,7 @@
     		localStorage.setItem("userName", myDocData.userName);
     		localStorage.setItem("vatSdate", $("#vatSdate").val());
     		localStorage.setItem("vatEdate", $("#vatEdate").val());
+    		localStorage.setItem("selectoption", $("#selectoption").val());
 
     		var url = '${path}/gw/mydoclist.do'+param;
     		location.href = url;
@@ -707,6 +720,7 @@
         });
 
         $(document).ready(function() {
+        	
         	$("#vatSdate").val(localStorage.getItem("vatSdate"));
         	$("#vatEdate").val(localStorage.getItem("vatEdate"));
         	
@@ -741,6 +755,20 @@
 		} */
 			localStorage.clear();
         });
+       /*  $("#selectoption").change(function(){
+        	if($("#selectoption").val() != 0){
+        		var lastselectoption = $("#selectoption").val();
+        		localStorage.setItem('lastselectoption', lastselectoption);
+        		location.href="/sderp/gw/mydoclist2.do/"+ lastselectoption
+        	}else if($("#selectoption").val() == 0){
+        		location.href="/sderp/gw/mydoclist.do"
+        		}
+        	});
+        var lastselectoption = localStorage.getItem('lastselectoption');
+        var lastTab = localStorage.getItem('lastTab');
+        if (lastTab) {
+		  	$('[href="' + lastTab + '"]').tab('show');
+		} */
     </script>
 </div>
 <jsp:include page="../body-bottom.jsp"/>

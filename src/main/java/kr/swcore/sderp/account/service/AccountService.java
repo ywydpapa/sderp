@@ -7,6 +7,10 @@ import java.util.List;
 
 public interface AccountService {
     List<AccountDTO> listvat(HttpSession session, AccountDTO dto);
+	List<AccountDTO> sumBvat(HttpSession session, AccountDTO dto);
+	List<AccountDTO> sumSvat(HttpSession session, AccountDTO dto);
+	List<AccountDTO> sumBvatSearch(HttpSession session, AccountDTO dto);
+	List<AccountDTO> sumSvatSearch(HttpSession session, AccountDTO dto);
     List<AccountDTO> listbac(HttpSession session);
     List<AccountDTO> listCard(HttpSession session);
     List<AccountDTO> listvatitem(int vatId);

@@ -7,7 +7,11 @@ import java.util.List;
 
 public interface AccountDAO {
     List<AccountDTO> listvat(AccountDTO dto);
-    List<AccountDTO> listbac(int compNo);
+	List<AccountDTO> sumBvat(AccountDTO dto);
+	List<AccountDTO> sumSvat(AccountDTO dto);
+	List<AccountDTO> sumBvatSearch(AccountDTO dto);
+	List<AccountDTO> sumSvatSearch(AccountDTO dto);
+	List<AccountDTO> listbac(int compNo);
     List<AccountDTO> listCard(int compNo);
     List<AccountDTO> listvatitem(int vatId);
     List<AccountDTO> modalVatB(int compNo);

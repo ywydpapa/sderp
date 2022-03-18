@@ -24,7 +24,43 @@ public class AccountServiceImpl implements AccountService {
         return accountDAO.listvat(dto);
     }
 
-    @Override
+	@Override
+	public List<AccountDTO> sumBvat(HttpSession session, AccountDTO dto) {
+		int compNo = SessionInfoGet.getCompNo(session);
+		String listDateFrom = SessionInfoGet.getlistDateFrom(session);
+		dto.setCompNo(compNo);
+		dto.setListDateFrom(listDateFrom);
+		return accountDAO.sumBvat(dto);
+	}
+
+	@Override
+	public List<AccountDTO> sumSvat(HttpSession session, AccountDTO dto) {
+		int compNo = SessionInfoGet.getCompNo(session);
+		String listDateFrom = SessionInfoGet.getlistDateFrom(session);
+		dto.setCompNo(compNo);
+		dto.setListDateFrom(listDateFrom);
+		return accountDAO.sumSvat(dto);
+	}
+
+	@Override
+	public List<AccountDTO> sumBvatSearch(HttpSession session, AccountDTO dto) {
+		int compNo = SessionInfoGet.getCompNo(session);
+		String listDateFrom = SessionInfoGet.getlistDateFrom(session);
+		dto.setCompNo(compNo);
+		dto.setListDateFrom(listDateFrom);
+		return accountDAO.sumBvatSearch(dto);
+	}
+
+	@Override
+	public List<AccountDTO> sumSvatSearch(HttpSession session, AccountDTO dto) {
+		int compNo = SessionInfoGet.getCompNo(session);
+		String listDateFrom = SessionInfoGet.getlistDateFrom(session);
+		dto.setCompNo(compNo);
+		dto.setListDateFrom(listDateFrom);
+		return accountDAO.sumSvatSearch(dto);
+	}
+
+	@Override
     public List<AccountDTO> listbac(HttpSession session) {
         int compNo = SessionInfoGet.getCompNo(session);
         return accountDAO.listbac(compNo);

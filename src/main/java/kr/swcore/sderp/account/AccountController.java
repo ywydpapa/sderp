@@ -56,6 +56,56 @@ public class AccountController {
         mav.setViewName("settle/vatlist");
         return mav;
     }
+
+    @RequestMapping("sumBvatlist.do")
+    public ModelAndView sumBvatList(HttpSession session, ModelAndView mav,
+                                @RequestParam(value = "vatSellerCustNo", required = false) Integer vatSellerCustNo,
+                                @RequestParam(value = "vatType", required = false) String vatType,
+                                @RequestParam(value = "vatIssueDateFrom", required = false) String vatIssueDateFrom,
+                                @RequestParam(value = "vatIssueDateTo", required = false) String vatIssueDateTo,
+                                @RequestParam(value = "vatSerial", required = false) String vatSerial,
+                                @RequestParam(value = "vatRemark", required = false) String vatRemark) {
+        if(vatSellerCustNo != null || vatType != null || vatIssueDateFrom != null || vatIssueDateTo != null || vatSerial != null || vatRemark != null){
+            AccountDTO dto = new AccountDTO();
+            if(vatSellerCustNo != null) dto.setVatSellerCustNo(vatSellerCustNo);
+            if(vatType != null) dto.setVatType(vatType);
+            if(vatIssueDateFrom != null) dto.setVatIssueDateFrom(vatIssueDateFrom);
+            if(vatIssueDateTo != null) dto.setVatIssueDateTo(vatIssueDateTo);
+            if(vatSerial != null) dto.setVatSerial(vatSerial);
+            if(vatRemark != null) dto.setVatRemark(vatRemark);
+            mav.addObject("vatList", accountService.sumBvatSearch(session, dto));
+        } else {
+            AccountDTO dto = new AccountDTO();
+            mav.addObject("vatList", accountService.sumBvat(session, dto));
+        }
+        mav.setViewName("settle/sumBvatlist");
+        return mav;
+    }
+
+    @RequestMapping("sumSvatlist.do")
+    public ModelAndView sumSvatList(HttpSession session, ModelAndView mav,
+                                    @RequestParam(value = "vatBuyerCustNo", required = false) Integer vatBuyerCustNo,
+                                    @RequestParam(value = "vatType", required = false) String vatType,
+                                    @RequestParam(value = "vatIssueDateFrom", required = false) String vatIssueDateFrom,
+                                    @RequestParam(value = "vatIssueDateTo", required = false) String vatIssueDateTo,
+                                    @RequestParam(value = "vatSerial", required = false) String vatSerial,
+                                    @RequestParam(value = "vatRemark", required = false) String vatRemark) {
+        if(vatBuyerCustNo != null || vatType != null || vatIssueDateFrom != null || vatIssueDateTo != null || vatSerial != null || vatRemark != null){
+            AccountDTO dto = new AccountDTO();
+            if(vatBuyerCustNo != null) dto.setVatSellerCustNo(vatBuyerCustNo);
+            if(vatType != null) dto.setVatType(vatType);
+            if(vatIssueDateFrom != null) dto.setVatIssueDateFrom(vatIssueDateFrom);
+            if(vatIssueDateTo != null) dto.setVatIssueDateTo(vatIssueDateTo);
+            if(vatSerial != null) dto.setVatSerial(vatSerial);
+            if(vatRemark != null) dto.setVatRemark(vatRemark);
+            mav.addObject("vatList", accountService.sumSvatSearch(session, dto));
+        } else {
+            AccountDTO dto = new AccountDTO();
+            mav.addObject("vatList", accountService.sumSvat(session, dto));
+        }
+        mav.setViewName("settle/sumSvatlist");
+        return mav;
+    }
     
     @RequestMapping("vatlistB.do")
     public ModelAndView vatListB(HttpSession session, ModelAndView mav, 

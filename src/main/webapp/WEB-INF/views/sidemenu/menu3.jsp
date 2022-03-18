@@ -117,10 +117,24 @@
                                         <span class="pcoded-mcaret"></span>
                                     </a>
                                    	<ul class="pcoded-submenu">
-                                   		<li class="pcoded-hasmenu ">
+                                   		<%--<li class="pcoded-hasmenu ">
                                             <a href="${path}/acc/vatlist.do">
                                                 <span class="pcoded-micon"><i class="ti-direction-alt"></i></span>
                                                 <span class="pcoded-mtext" data-i18n="nav.menu-levels.menu-level-21">업체별 계산서 조회</span>
+                                                <span class="pcoded-mcaret"></span>
+                                            </a>
+                                        </li>--%>
+                                        <li class="pcoded-hasmenu ">
+                                            <a href="${path}/acc/sumBvatlist.do">
+                                                <span class="pcoded-micon"><i class="ti-direction-alt"></i></span>
+                                                <span class="pcoded-mtext" data-i18n="nav.menu-levels.menu-level-21">업체별 미지급 현황</span>
+                                                <span class="pcoded-mcaret"></span>
+                                            </a>
+                                        </li>
+                                        <li class="pcoded-hasmenu ">
+                                            <a href="${path}/acc/sumSvatlist.do">
+                                                <span class="pcoded-micon"><i class="ti-direction-alt"></i></span>
+                                                <span class="pcoded-mtext" data-i18n="nav.menu-levels.menu-level-21">업체별 미수금 현황</span>
                                                 <span class="pcoded-mcaret"></span>
                                             </a>
                                         </li>

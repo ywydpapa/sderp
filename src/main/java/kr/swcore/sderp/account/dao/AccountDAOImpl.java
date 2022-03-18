@@ -19,7 +19,27 @@ public class AccountDAOImpl implements AccountDAO {
         return sqlSession.selectList("account.listVat", dto);
     }
 
-    @Override
+	@Override
+	public List<AccountDTO> sumBvat(AccountDTO dto) {
+		return sqlSession.selectList("account.sumBVat", dto);
+	}
+
+	@Override
+	public List<AccountDTO> sumSvat(AccountDTO dto) {
+		return sqlSession.selectList("account.sumSVat",dto);
+	}
+
+	@Override
+	public List<AccountDTO> sumBvatSearch(AccountDTO dto) {
+		return sqlSession.selectList("account.sumBVatSearch",dto);
+	}
+
+	@Override
+	public List<AccountDTO> sumSvatSearch(AccountDTO dto) {
+		return sqlSession.selectList("account.sumSVatSearch",dto);
+	}
+
+	@Override
     public List<AccountDTO> listbac(int compNo) {
         return sqlSession.selectList("account.baclist", compNo);
     }

@@ -72,7 +72,8 @@
 				 alert("연결되었습니다.");
 			 }
 		  });
-		  localStorage.setItem('lastTab', baclisthideNum);
+		  localStorage.setItem('lastTab', $('#baclist_num').val());
+		  localStorage.setItem('lastpageNum', $('#reloadpage_num').val());
 		  location.href="${path}/acc/bacdetail.do";
 	  }else{
 		  return false;

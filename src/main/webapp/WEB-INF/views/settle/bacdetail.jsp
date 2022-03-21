@@ -218,6 +218,8 @@
 					<option value="${row.bacSerial}">${row.bacNo}</option>
 				</c:forEach>
 			</select>
+			<input id="reloadpage_num" type="hidden" value="0">
+			<input id="baclist_num" type="hidden" value="">
 		</div>
 	</div>
 	<!--리스트 table-->
@@ -310,12 +312,126 @@
    		var counter = 0;
 	    <!--//리스트 table-->
 		$(document).ready(function(){
+			var selectData = {};
+			var pageCheck = {};
+			var bacTable = $("#bacTable tbody");
+			var pageDiv = $("#pageDiv");
+			var tableHtml = "";
+			var pageHtml = "";
+			var pageNation = 10;
+			var pageFirstBetween = 0;
+			
+			bacTable.empty();
+			pageDiv.empty();
 			localStorage.getItem("lastTab");
+			localStorage.getItem("lastpageNum");
 			$("#baclist").select2(); 
-			$("#baclist").val(localStorage.getItem("lastTab"));
+			
+			if(localStorage.getItem("lastTab") != null && localStorage.getItem("lastTab") != '' && localStorage.getItem("lastpageNum") != null && localStorage.getItem("lastpageNum") != '') {
+				var selectData = {};
+				var bacTable = $("#bacTable tbody");
+				var pageDiv = $("#pageDiv");
+				var tableHtml = "";
+				var pageNation = 10;
+				bacTable.html("");
+
+				selectData.bacSerial = localStorage.getItem("lastTab");
+				selectData.betFirstNum = 15*(localStorage.getItem("lastpageNum"));
+				selectData.betLastNum = 15;
+				pageCheck.bacSerial = localStorage.getItem("lastTab");
+				
+				$.ajax({
+					url: "${path}/acc/bacSelectList.do",
+					method: "get",
+					data: selectData,
+					dataType: "json",
+					success:function(data){
+						if(data.length > 0){
+							for(var i = 0; i < data.length; i++){
+								tableHtml += "<tr><td style='text-align:center;'>" + data[i].baclogTime + "</td><td style='text-align:center;'>" 
+								+ data[i].bacDesc + "</td><td style='text-align:right;'>" 
+								+ parseInt(data[i].inAmt).toLocaleString("en-US") + "</td><td style='text-align:right;'>"
+							 	+ parseInt(data[i].outAmt).toLocaleString("en-US") + "</td><td style='text-align:right;'>"
+							 	+ parseInt(data[i].balanceAmt).toLocaleString("en-US") + "</td><td style='text-align:center;'>"
+							 	+ data[i].branchCode + "</td><td style='text-align:center;'>"
+							 	+ data[i].logRemark + "</td><td style='text-align:center;'>"
+							 	+ data[i].linkDoc + "</td>";
+								
+								 if(parseInt(data[i].inAmt) > parseInt(data[i].outAmt)){
+	                                 if(data[i].linkDoc != '' && data[i].linkDoc != null){
+	                                     tableHtml += "<td style='text-align:center;'><button class='btn btn-sm btn-secondary sch-company' data-id='"+data[i].linkDoc+"' onclick='cancelconnect(this)'>취소</button></td>";
+	                                 }else{
+	                                     tableHtml += "<td style='text-align:center;'><button class='btn btn-sm btn-primary sch-company' data-remote='${path}/modal/popup.do?popId=bacVatS' type='button' id='bacVatSBtn' data-toggle='modal' data-target='#bacVatSModal' data-id='"+data[i].baclogId+"'>연결</button></td>";    
+	                                 }
+	                             }else{
+	                                 if(data[i].linkDoc != '' && data[i].linkDoc != null){
+	                                     tableHtml += "<td style='text-align:center;'><button class='btn btn-sm btn-secondary sch-company' data-id='"+data[i].linkDoc+"' onclick='cancelconnect(this)'>취소</button></td>";
+	                                 }else{
+	                                    tableHtml += "<td style='text-align:center;'><button class='btn btn-sm btn-primary sch-company' data-remote='${path}/modal/popup.do?popId=bacVatB' type='button' id='bacVatBBtn' data-toggle='modal' data-target='#bacVatBModal' data-id='"+data[i].baclogId+"'>연결</button></td>";
+	                                 }
+	                             }					
+							}
+							bacTable.html(tableHtml);
+						}else{
+							bacTable.html("");
+						}
+					}
+				});
+				var test0321 = (localStorage.getItem("lastpageNum")+1)/100;
+				var endpageNum = Math.ceil(test0321)*10;
+				var startpageNum = Math.floor(test0321)*10;
+				counter = Math.floor(test0321);
+				
+				$.ajax({
+					url: "${path}/acc/bacSelectListCnt.do",
+					method: "post",
+					data: pageCheck,
+					dataType: "json",
+					success:function(data){
+						console.log(data.resultCount);
+						if(data.resultCount > 0){
+							var count = parseInt(data.resultCount/pageListNum);
+							var countRe = parseInt(data.resultCount/pageListNum);
+							pageHtml = "";
+							pageHtml += "<ul class='pagination'><li class='page-item'><a class='page-link' href='#' onClick='pagePrevious(this);'>Previous</a></li>";
+							
+							if(count > pageNation){
+								
+								for(var j = startpageNum+1; j <= endpageNum; j++){
+									if(j <= count+1){
+										pageHtml += "<li class='page-item' id='"+ j +"'><a class='page-link' href='#' onClick='pageClick(this);'>" + j + "</a></li>";	
+									}
+								
+								}
+								pageHtml += "<li class='page-item'><a class='page-link' href='#' onClick='pageNext(this);'>Next</a></li></ul>";
+							}else{
+								if(countRe > 0){
+									countRe = countRe + 1;
+								}else{
+									countRe = 0;
+								}
+								
+								for(var j = 1; j <= countRe; j++){
+									pageHtml += "<li class='page-item'><a class='page-link' href='#' onClick='pageClick(this);'>" + j + "</a></li>";
+								}
+							}
+							
+							pageDiv.html(pageHtml);
+						}else{
+							pageDiv.empty();
+						}
+					}
+				}); 
+				 
+			}
+			$('#reloadpage_num').val(localStorage.getItem("lastpageNum"));
+			$('#baclist_num').val(localStorage.getItem("lastTab"));
+			localStorage.clear();
 		});
 			
 			$("#baclist").change(function(){
+				var baclist_num  = $('#baclist').val();
+				$('#baclist_num').val(baclist_num);
 				var selectData = {};
 				var pageCheck = {};
 				var bacTable = $("#bacTable tbody");
@@ -393,7 +509,7 @@
 							
 							if(count > pageNation){
 								for(var j = 1; j <= pageNation; j++){
-									pageHtml += "<li class='page-item'><a class='page-link' href='#' onClick='pageClick(this);'>" + j + "</a></li>";
+									pageHtml += "<li class='page-item' id='"+ j +"'><a class='page-link' href='#' onClick='pageClick(this);'>" + j + "</a></li>";
 								}
 								pageHtml += "<li class='page-item'><a class='page-link' href='#' onClick='pageNext(this);'>Next</a></li></ul>";
 							}else{
@@ -427,9 +543,11 @@
 			var tableHtml = "";
 			var pageNation = 10;
 			var pageSetNum = pageListNum * (parseInt($(e).html()) - 1);
+			var pagememoryNum = (pageSetNum/15)
+			$('#reloadpage_num').val(pagememoryNum);
 			bacTable.html("");
 
-			selectData.bacSerial = $("#baclist").val();
+			selectData.bacSerial = $("#baclist_num").val();
 			selectData.betFirstNum = pageSetNum;
 			selectData.betLastNum = pageListNum;
 			
@@ -473,6 +591,7 @@
 		}	
 		
 		function pagePrevious(e){
+			if(counter != 0){
 			counter--;
 			var selectData = {};
 			var pageCheck = {};
@@ -485,10 +604,10 @@
 			bacTable.empty();
 			pageDiv.empty();
 			
-			selectData.bacSerial = $('#baclist').val();
+			selectData.bacSerial = $('#baclist_num').val();
 			selectData.betFirstNum = pageFirstBetween;
 			selectData.betLastNum = pageListNum;
-			pageCheck.bacSerial = $('#baclist').val();
+			pageCheck.bacSerial = $('#baclist_num').val();
 			
 			$.ajax({
 				url: "${path}/acc/bacSelectList.do",
@@ -546,7 +665,7 @@
 						
 						if(count > pageNation){
 							for(var j = 1+counter*10; j <= pageNation*(counter+1); j++){
-								pageHtml += "<li class='page-item'><a class='page-link' href='#' onClick='pageClick(this);'>" + j + "</a></li>";
+								pageHtml += "<li class='page-item' id='"+ j +"'><a class='page-link' href='#' onClick='pageClick(this);'>" + j + "</a></li>";
 							}
 							pageHtml += "<li class='page-item'><a class='page-link' href='#' onClick='pageNext(this);'>Next</a></li></ul>";
 						}else{
@@ -571,7 +690,7 @@
 			setTimeout(function(){
 				$.LoadingOverlay("hide", true);
 			}, 1000);
-			
+			}
 		}
 		
 		function pageNext(e){
@@ -587,10 +706,10 @@
 			bacTable.empty();
 			pageDiv.empty();
 			
-			selectData.bacSerial = $('#baclist').val();
+			selectData.bacSerial = $('#baclist_num').val();
 			selectData.betFirstNum = pageFirstBetween;
 			selectData.betLastNum = pageListNum;
-			pageCheck.bacSerial = $('#baclist').val();
+			pageCheck.bacSerial = $('#baclist_num').val();
 			
 			$.ajax({
 				url: "${path}/acc/bacSelectList.do",
@@ -642,15 +761,19 @@
 					if(data.resultCount > 0){
 						var count = parseInt(data.resultCount/pageListNum);
 						var countRe = parseInt(data.resultCount/pageListNum);
+						var testcnt = counter*10
 						pageHtml = "";
-						
 						pageHtml += "<ul class='pagination'><li class='page-item'><a class='page-link' href='#' onClick='pagePrevious(this);'>Previous</a></li>";
 						
 						if(count > pageNation){
 							for(var j = 1+counter*10; j <= pageNation*(counter+1); j++){
-								pageHtml += "<li class='page-item'><a class='page-link' href='#' onClick='pageClick(this);'>" + j + "</a></li>";
+								if(j <= count+1){
+									pageHtml += "<li class='page-item' id='"+ j +"'><a class='page-link' href='#' onClick='pageClick(this);'>" + j + "</a></li>";	
+								}
 							}
-							pageHtml += "<li class='page-item'><a class='page-link' href='#' onClick='pageNext(this);'>Next</a></li></ul>";
+							if(testcnt+10 < count){
+								pageHtml += "<li class='page-item'><a class='page-link' href='#' onClick='pageNext(this);'>Next</a></li></ul>";
+							}
 						}else{
 							if(countRe > 0){
 								countRe = countRe + 1;
@@ -791,10 +914,10 @@
             }
         }
         var lastTab = localStorage.getItem('lastTab');
+        var lastpageNum = localStorage.getItem('lastpageNum');
         
 		if (lastTab) {
-		  	$('[href="' + lastTab + '"]').tab('show');
-		  	localStorage.clear();
+		  	$('[href="'+ lastTab + lastpageNum +'"]').tab('show');
 		}
         function cancelconnect(e) {
             if(confirm("취소처리 하시겠습니까?")){
@@ -805,7 +928,8 @@
                     dataType: "json"
                 });
                 alert("취소처리가 완료되었습니다.");
-                localStorage.setItem('lastTab', baclisthideNum);
+                localStorage.setItem('lastTab', $('#baclist_num').val());
+                localStorage.setItem('lastpageNum', $('#reloadpage_num').val());
                 location.href="${path}/acc/bacdetail.do";
             }else {
                 return false;

@@ -47,4 +47,5 @@ public interface AccountDAO {
 	int updatevatlinkedcheck(AccountDTO dto);
 	void cancelconnect(String linkDoc);
 	void cancelconnect2(String linkDoc);
+	int bacCheckConnect(AccountDTO dto);
 }

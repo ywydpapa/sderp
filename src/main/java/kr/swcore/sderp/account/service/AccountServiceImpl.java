@@ -280,4 +280,9 @@ public class AccountServiceImpl implements AccountService {
 		accountDAO.cancelconnect2(linkDoc);
 	}
 
+	@Override
+	public int bacCheckConnect(AccountDTO dto) {
+		return accountDAO.bacCheckConnect(dto);
+	}
+
 }

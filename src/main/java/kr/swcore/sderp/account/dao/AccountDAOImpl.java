@@ -226,5 +226,11 @@ public class AccountDAOImpl implements AccountDAO {
 		// TODO Auto-generated method stub
 		sqlSession.delete("account.cancelconnect2", linkDoc);
 	}
+
+	@Override
+	public int bacCheckConnect(AccountDTO dto) {
+		// TODO Auto-generated method stub
+		return sqlSession.insert("account.bacCheckConnect", dto);
+	}
 	
 }

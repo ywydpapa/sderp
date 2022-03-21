@@ -123,5 +123,8 @@ public class AccountDTO {
     private String vatProductName;
     private int betFirstNum;
     private int betLastNum;
+    private int detailId;
+    private String linkType;
+    private String linkDocno;
 }
 

@@ -434,4 +434,18 @@ public class AccountController {
     	accountService.cancelconnect(linkDoc);
     	accountService.cancelconnect2(linkDoc);
     }
+    
+    @RequestMapping("bacCheckConnect.do")
+    public ResponseEntity<Object> bacCheckConnect(HttpSession session, @ModelAttribute AccountDTO dto){
+        Map<String,Object> param = new HashMap<>();
+        int bacIns = accountService.bacCheckConnect(dto);
+        accountService.updatevatlinkedcheck(dto);
+        if(bacIns > 0){
+            param.put("code","10001");
+        }
+        else {
+            param.put("code", "20001");
+        }
+        return ResponseEntity.ok(param);
+    }
 }

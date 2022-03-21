@@ -15,6 +15,7 @@
     <table id="vatlistTable" class="table table-striped table-bordered nowrap">
         <thead>
 		    <tr>
+		    	<th>선택</th>
 		    	<th>작성일자</th>
 		      	<th>거래처</th>
 		      	<th>금액</th>
@@ -26,6 +27,7 @@
 	    <tbody>
 		    <c:forEach var="row" items="${list}">
 		      <tr align="center">
+		      	<td><input type="checkbox" class="form-control" id="checkSerial" data-number="${row.vatSerial}"></td>
 		      	<td>${row.vatIssueDate}</td>
 		        <c:choose>
 			        <c:when test="${empty row.custName}">
@@ -77,6 +79,36 @@
 		  location.href="${path}/acc/bacdetail.do";
   	  }else{
   		  return false;
+  	  }
+    }
+    
+    function checkConnect(){
+  	  if(confirm("선택하신 번호 연결하시겠습니까??")){
+  		  var listTable = $("#vatlistTable tbody tr td");
+  		  var bacId = localStorage.getItem("thisId");
+  		  var compNo = "${sessionScope.compNo}";
+  		  
+  		  
+  		  listTable.find("#checkSerial").each(function(index, item){
+		  	  if($(item).is(":checked") === true){
+		  		  var insertData = {};
+		  		  
+		  		  insertData.compNo = compNo;
+		  		  insertData.baclogId = bacId;
+		  		  insertData.linkType = "VAT";
+		  		  insertData.linkDocno = $(item).attr("data-number");
+		  		  
+	  			  $.ajax({
+	  				 url: "${path}/acc/bacCheckConnect.do",
+	  				 method: "post",
+	  				 data: insertData,
+	  				 async: false,
+	  				 dataType: "json"
+	  			  });
+		  	  }
+  		  });
+  		  
+  		  alert("연결되었습니다.");
   	  }
     }
 </script>

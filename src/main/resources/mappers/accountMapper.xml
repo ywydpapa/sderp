@@ -550,6 +550,27 @@ attrib) values (#{vatId},
 				now(),
 				'100001');
 	</insert>
+	
+	<insert id="bacCheckConnect">
+		insert into swc_bacledger_detail
+		(
+			compNo,
+			baclogId,
+			linkType,
+			linkDocno,
+			regDate,
+			attrib	
+		)
+		values
+		(
+			#{compNo},
+			#{baclogId},
+			#{linkType},
+			#{linkDocno},
+			now(),
+			'10000'			
+		);
+	</insert>
 
 	<update id="updVatStatus">
 		update swc_vat set vatStatus=#{vatStatus} where vatSerial = #{vatSerial};

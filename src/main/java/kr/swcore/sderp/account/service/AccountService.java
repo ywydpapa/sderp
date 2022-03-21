@@ -41,6 +41,8 @@ public interface AccountService {
 	List<AccountDTO> listvatSearchB(HttpSession session, AccountDTO dto);
 	List<AccountDTO> listvatS(HttpSession session, AccountDTO dto);
 	List<AccountDTO> listvatSearchS(HttpSession session, AccountDTO dto);
+	List<AccountDTO> listvatT(HttpSession session, AccountDTO dto);
+	List<AccountDTO> listvatSearchT(HttpSession session, AccountDTO dto);
 	List<AccountDTO> custVatListModal(AccountDTO dto);
 	List<AccountDTO> treqCardList(AccountDTO dto);
 	int updatevatlinkedcheck(AccountDTO dto);

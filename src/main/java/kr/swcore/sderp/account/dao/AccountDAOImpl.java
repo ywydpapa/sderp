@@ -190,6 +190,16 @@ public class AccountDAOImpl implements AccountDAO {
 	}
 
 	@Override
+	public List<AccountDTO> listvatT(AccountDTO dto) {
+		return sqlSession.selectList("account.listVatT",dto);
+	}
+
+	@Override
+	public List<AccountDTO> listvatSearchT(AccountDTO dto) {
+		return sqlSession.selectList("account.listVatSearchT", dto);
+	}
+
+	@Override
 	public List<AccountDTO> custVatListModal(AccountDTO dto) {
 		return sqlSession.selectList("account.custVatListModal", dto);
 	}

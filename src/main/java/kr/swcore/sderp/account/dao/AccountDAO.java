@@ -40,6 +40,8 @@ public interface AccountDAO {
 	List<AccountDTO> listvatSearchB(AccountDTO dto);
 	List<AccountDTO> listvatS(AccountDTO dto);
 	List<AccountDTO> listvatSearchS(AccountDTO dto);
+	List<AccountDTO> listvatT(AccountDTO dto);
+	List<AccountDTO> listvatSearchT(AccountDTO dto);
 	List<AccountDTO> custVatListModal(AccountDTO dto);
 	List<AccountDTO> treqCardList(AccountDTO dto);
 	int updatevatlinkedcheck(AccountDTO dto);

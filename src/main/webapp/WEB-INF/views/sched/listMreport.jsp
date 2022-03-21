@@ -169,7 +169,7 @@ function solPdf(id){
 	html2pdf().from(element).set({
 	  margin: 5,
       filename: name + '(' + nowDate + ')' + '.pdf',
-      html2canvas: { scale: 10 },
+      html2canvas: { scale: 3 },
       jsPDF: {orientation: 'landscape', unit: 'mm', format: 'a4', compressPDF: true}
 	}).save();
 	
@@ -199,9 +199,9 @@ function print_pdf(){
 	var element = document.getElementById("loadHtml");
 	
 	html2pdf().from(element).set({
-	  margin: 10,
+	  margin: 5,
       filename: '주간업무일지.pdf',
-      html2canvas: { scale: 10 },
+      html2canvas: { scale: 3 },
       jsPDF: {orientation: 'landscape', unit: 'mm', format: 'a4', compressPDF: true}
 	}).save();
 	

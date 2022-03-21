@@ -149,6 +149,7 @@ public class ContController {
 		mav.addObject("areaType", codeService.listAreaType(session));
 		return mav;
 	}
+	
 	@RequestMapping("iowrite.do/{soppNo}")
 	public ModelAndView iowrite(@PathVariable("soppNo") int soppNo, HttpSession session, ModelAndView mav) {
 		mav.setViewName("slip/iowrite");

@@ -278,6 +278,7 @@
 		}
 	});
 	function fn_data01delete1(soppdataNo) {
+		var pathname = $(location).attr('pathname');
 		var msg = "선택한 건을 삭제하시겠습니까?";
 		if( confirm(msg) ){
 			$.ajax({
@@ -291,7 +292,8 @@
 					
 					//location.href="${path}/sopp/detail/"+ $("#soppNo").val() + "/#tab02";
 					localStorage.setItem('lastTab', "#tab02");
-					location.href="${path}/cont/detail/"+ $("#soppNo").val() +"/"+ $("#contNo").val();
+					/* location.href="${path}/cont/detail/"+ $("#soppNo").val() +"/"+ $("#contNo").val(); */
+					location.href = pathname;
 					
 				}else{
 					alert("삭제 실패");

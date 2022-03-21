@@ -167,8 +167,8 @@
 							</tbody>
 						</table>
 						<div class="table-responsive" style="overflow-x: hidden;">
-							<jsp:include page="/WEB-INF/views/module/inputSet/inputSetProductSalesInOut3.jsp"/>
-							<jsp:include page="/WEB-INF/views/sopp/inoutlist3.jsp"/>
+							<jsp:include page="/WEB-INF/views/module/inputSet/inputSetProductSalesInOut4.jsp"/>
+							<jsp:include page="/WEB-INF/views/sopp/inoutlist4.jsp"/>
 						</div>
 					</div>
 				</div>

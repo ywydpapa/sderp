@@ -382,7 +382,7 @@
 													</td>
 												</tr>
 												
-												<tr>
+												<%-- <tr>
 													<th>계산서 발행방법</th>
 													<td>
 														<select id="vatIstype" class="form-control">
@@ -419,7 +419,7 @@
 															</c:forEach>
 														</select>
 													</td>
-												</tr>
+												</tr> --%>
 												<tr>
 													<th scope="row">내용</th>
 													<td colspan="7">

@@ -361,7 +361,7 @@
 											<input class="form-control form-control-sm col-sm-6 m-r-5" type="date" max="9999-12-30" id="freemaintSdate"> ~ <input class="form-control form-control-sm col-sm-6 m-l-5" type="date" max="9999-12-31" id="freemaintEdate">
 										</div>
 									</td>
-									<th scope="row" class="contDetailCont">유상유지보수일자</th>
+									<!-- <th scope="row" class="contDetailCont">유상유지보수일자</th>
 									<td class="contDetailCont">
 										<div class="input-group input-group-sm mb-0">
 											<input class="form-control form-control-sm col-sm-6 m-r-5" type="date" max="9999-12-30" id="paymaintSdate"> ~ <input class="form-control form-control-sm col-sm-6 m-l-5" type="date" max="9999-12-31" id="paymaintEdate">
@@ -380,9 +380,9 @@
 									</td>
 									<th>매출이익</th>
 									<td><input style="text-align: right;" type="text" id="netprofit" name="netprofit" class="form-control" value="0">
-									</td>
+									</td> -->
 								</tr>
-								<tr>
+								<%-- <tr>
 									<th scope="row">지역</th>
 									<td>
 										<select name="select" id="contArea" class="form-control form-control-sm" >
@@ -400,7 +400,7 @@
 									<th></th>
 									<td></td>
 									<!-- 빈박스 -->
-								</tr>
+								</tr> --%>
 								<tr>
 									<th scope="row">내용</th>
 									<td colspan="7">

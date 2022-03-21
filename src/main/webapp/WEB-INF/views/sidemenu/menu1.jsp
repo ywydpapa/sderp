@@ -260,7 +260,7 @@
 				</li>
 			</ul>
 		</li>
-		<li class="pcoded-hasmenu pcoded <c:if test="${path2 eq '/techd/list.do' || path2 eq '/techd/list.do' || path2 eq '/techd/write.do' || path2 eq '/techd/contlist.do' || path2 eq '/techd/bbuycontlist.do' || fn:startsWith(path2, '/techd/detail')}">pcoded-trigger</c:if>">
+		<li class="pcoded-hasmenu pcoded <c:if test="${path2 eq '/techd/list.do' || path2 eq '/techd/list.do' || path2 eq '/techd/write.do' || path2 eq '/techd/contlist.do' || path2 eq '/techd/bbuycontlist.do' || fn:startsWith(path2, '/techd/detail') || fn:startsWith(path2, '/techd/contextdetail')}">pcoded-trigger</c:if>">
 			<a href="javascript:void(0)">
 				<span class="pcoded-micon">
 					<i class="ti-agenda"></i></span>

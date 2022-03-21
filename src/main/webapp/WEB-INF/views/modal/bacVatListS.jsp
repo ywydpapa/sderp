@@ -72,7 +72,7 @@
 			 	alert("연결되었습니다.");
   			 }
   		  });
-  		  llocalStorage.setItem('lastTab', $('#baclist_num').val());
+  		  localStorage.setItem('lastTab', $('#baclist_num').val());
 		  localStorage.setItem('lastpageNum', $('#reloadpage_num').val());
 		  location.href="${path}/acc/bacdetail.do";
   	  }else{

@@ -108,6 +108,7 @@
 		  });
 		  
 		  alert("연결되었습니다.");
+		  location.href="${path}/acc/bacdetail.do";
 	  }
   }
 </script>

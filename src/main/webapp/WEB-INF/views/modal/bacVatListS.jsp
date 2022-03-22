@@ -83,32 +83,32 @@
     }
     
     function checkConnect(){
-  	  if(confirm("선택하신 번호 연결하시겠습니까??")){
-  		  var listTable = $("#vatlistTable tbody tr td");
-  		  var bacId = localStorage.getItem("thisId");
-  		  var compNo = "${sessionScope.compNo}";
-  		  
-  		  
-  		  listTable.find("#checkSerial").each(function(index, item){
-		  	  if($(item).is(":checked") === true){
-		  		  var insertData = {};
-		  		  
-		  		  insertData.compNo = compNo;
-		  		  insertData.baclogId = bacId;
-		  		  insertData.linkType = "VAT";
-		  		  insertData.linkDocno = $(item).attr("data-number");
-		  		  
-	  			  $.ajax({
-	  				 url: "${path}/acc/bacCheckConnect.do",
-	  				 method: "post",
-	  				 data: insertData,
-	  				 async: false,
-	  				 dataType: "json"
-	  			  });
-		  	  }
-  		  });
-  		  
-  		  alert("연결되었습니다.");
-  	  }
+	  	if(confirm("선택하신 번호 연결하시겠습니까??")){
+	  		var listTable = $("#vatlistTable tbody tr td");
+	  		var bacId = localStorage.getItem("thisId");
+	  		var compNo = "${sessionScope.compNo}";
+	  		  
+	  		listTable.find("#checkSerial").each(function(index, item){
+			  	if($(item).is(":checked") === true){
+			  		var insertData = {};
+			  		  
+			  		insertData.compNo = compNo;
+			  		insertData.baclogId = bacId;
+			  		insertData.linkType = "VAT";
+			  		insertData.linkDocno = $(item).attr("data-number");
+			  		  
+		  			$.ajax({
+		  				url: "${path}/acc/bacCheckConnect.do",
+		  				method: "post",
+		  				data: insertData,
+		  				async: false,
+		  				dataType: "json"
+		  			});
+			  	}
+	  		});
+	  		  
+	  		alert("연결되었습니다.");
+			location.href="${path}/acc/bacdetail.do";
+	  	}
     }
 </script>

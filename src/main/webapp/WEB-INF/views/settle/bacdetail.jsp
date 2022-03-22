@@ -398,12 +398,14 @@
 							pageHtml += "<ul class='pagination'><li class='page-item'><a class='page-link' href='#' onClick='pagePrevious(this);'>Previous</a></li>";
 							
 							if(count > pageNation){
-								
 								for(var j = startpageNum+1; j <= endpageNum; j++){
 									if(j <= count+1){
-										pageHtml += "<li class='page-item' id='"+ j +"'><a class='page-link' href='#' onClick='pageClick(this);'>" + j + "</a></li>";	
+										if(j-1 == $('#reloadpage_num').val()){
+											pageHtml += "<li class='page-item active' id='"+ j +"'><a class='page-link' href='#' onClick='pageClick(this);'>" + j + "</a></li>";	
+										}else{
+											pageHtml += "<li class='page-item' id='"+ j +"'><a class='page-link' href='#' onClick='pageClick(this);'>" + j + "</a></li>";	
+										}
 									}
-								
 								}
 								pageHtml += "<li class='page-item'><a class='page-link' href='#' onClick='pageNext(this);'>Next</a></li></ul>";
 							}else{
@@ -414,7 +416,11 @@
 								}
 								
 								for(var j = 1; j <= countRe; j++){
-									pageHtml += "<li class='page-item'><a class='page-link' href='#' onClick='pageClick(this);'>" + j + "</a></li>";
+									if(j-1 == $('#reloadpage_num').val()){
+										pageHtml += "<li class='page-item active'><a class='page-link' href='#' onClick='pageClick(this);'>" + j + "</a></li>";
+									}else {
+										pageHtml += "<li class='page-item'><a class='page-link' href='#' onClick='pageClick(this);'>" + j + "</a></li>";
+									}
 								}
 							}
 							
@@ -514,7 +520,11 @@
 						
 						if(count > pageNation){
 							for(var j = 1; j <= pageNation; j++){
-								pageHtml += "<li class='page-item' id='"+ j +"'><a class='page-link' href='#' onClick='pageClick(this);'>" + j + "</a></li>";
+								if(j == 1){
+									pageHtml += "<li class='page-item active' id='"+ j +"'><a class='page-link' href='#' onClick='pageClick(this);'>" + j + "</a></li>";
+								}else{
+									pageHtml += "<li class='page-item' id='"+ j +"'><a class='page-link' href='#' onClick='pageClick(this);'>" + j + "</a></li>";
+								}
 							}
 							pageHtml += "<li class='page-item'><a class='page-link' href='#' onClick='pageNext(this);'>Next</a></li></ul>";
 						}else{
@@ -525,7 +535,11 @@
 							}
 							
 							for(var j = 1; j <= countRe; j++){
-								pageHtml += "<li class='page-item'><a class='page-link' href='#' onClick='pageClick(this);'>" + j + "</a></li>";
+								if(j == 1){
+									pageHtml += "<li class='page-item active' id='"+ j +"'><a class='page-link' href='#' onClick='pageClick(this);'>" + j + "</a></li>";
+								}else{
+									pageHtml += "<li class='page-item' id='"+ j +"'><a class='page-link' href='#' onClick='pageClick(this);'>" + j + "</a></li>";
+								}
 							}
 						}
 						

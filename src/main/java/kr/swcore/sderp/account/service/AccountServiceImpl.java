@@ -285,4 +285,9 @@ public class AccountServiceImpl implements AccountService {
 		return accountDAO.bacCheckConnect(dto);
 	}
 
+	@Override
+	public int billInsert(AccountDTO dto) {
+		return accountDAO.billInsert(dto);
+	}
+
 }

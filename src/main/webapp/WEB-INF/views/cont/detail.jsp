@@ -49,7 +49,7 @@
 					<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#tab04" role="tab">파일첨부(${fn:length(soppFiles)})</a></li>
 					<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#tab05" role="tab">기술지원 내역(${fn:length(techdinsopp)})</a></li>
 					<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#tab06" role="tab">영업활동 내역(${fn:length(salesinsopp)})</a></li>
-					<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#tab07" role="tab">계산서 발행일정</a></li>
+					<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#tab07" role="tab">계산서 발행</a></li>
 				</ul>
 				<!-- Tab panes -->
 				<div class="tab-content tabs m-t-20">
@@ -542,6 +542,11 @@
 					<div class="tab-pane " id="tab07" role="tabpanel">
 						<div class="card-block table-border-style">
 							<div class="table-responsive" style="overflow-x: hidden;">
+								<jsp:include page="/WEB-INF/views/module/inputSet/inputSetBill.jsp"/>
+							</div>
+						</div>
+						<%-- <div class="card-block table-border-style">
+							<div class="table-responsive" style="overflow-x: hidden;">
 								<form name="form2" method="post" onsubmit="return false;">
 									<table class="table table-sm bst02" id="vatIssuelist">
 										<colgroup>
@@ -577,7 +582,7 @@
 									</table>
 								</form>
 							</div>
-						</div>
+						</div> --%>
 					</div>
 				</div>
 				<div class="btn_wr text-right mt-3" id="tab_common_bottom">
@@ -594,6 +599,10 @@
 		$("#tablist > li:nth-child(n+2)").click(function (){
 			$("#tab01_bottom").hide();
 			$("#tab_common_bottom").show();
+		});
+		
+		$("#tablist > li:nth-child(7)").click(function (){
+			$("#tab_common_bottom").hide();
 		});
 		
 		$('#endCustModal').on('show.bs.modal', function(e) {
@@ -632,6 +641,16 @@
 			var modal = $(this);
 			modal.find('.modal-body').load(button.data("remote"));
 		});
+		
+		function fnSetBillCustData(a, b, c) {
+	    	var index = localStorage.getItem("getItemIndex");
+	        $("#billTableFirst tbody tr td #custNo_" + index).val(b);
+	        $("#billTableFirst tbody tr td #custName_" + index).val(a);
+	        $("#billTableFirst tbody tr td #custVatNo_" + index).val(c);
+	        $(".modal-backdrop").remove();
+	        $("#billCustModal").modal("hide");
+	        localStorage.clear();
+	    }
 		
 		function fnSetproductdata(a,b){
 			$("#productNo1").val(a);

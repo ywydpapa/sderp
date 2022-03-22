@@ -448,4 +448,17 @@ public class AccountController {
         }
         return ResponseEntity.ok(param);
     }
+    
+    @RequestMapping("billInsert.do")
+    public ResponseEntity<Object> billInsert(HttpSession session, @ModelAttribute AccountDTO dto){
+        Map<String,Object> param = new HashMap<>();
+        int billIns = accountService.billInsert(dto);
+        if(billIns > 0){
+            param.put("code","10001");
+        }
+        else {
+            param.put("code", "20001");
+        }
+        return ResponseEntity.ok(param);
+    }
 }

@@ -49,4 +49,5 @@ public interface AccountService {
 	void cancelconnect_linkedcheck(String linkDoc);
 	void cancelconnect_linkDoc(String linkDoc);
 	int bacCheckConnect(AccountDTO dto);
+	int billInsert(AccountDTO dto);
 }

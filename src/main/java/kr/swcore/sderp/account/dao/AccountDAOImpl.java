@@ -232,5 +232,11 @@ public class AccountDAOImpl implements AccountDAO {
 		// TODO Auto-generated method stub
 		return sqlSession.insert("account.bacCheckConnect", dto);
 	}
+
+	@Override
+	public int billInsert(AccountDTO dto) {
+		// TODO Auto-generated method stub
+		return sqlSession.insert("account.billInsert", dto);
+	}
 	
 }

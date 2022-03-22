@@ -126,5 +126,6 @@ public class AccountDTO {
     private int detailId;
     private String linkType;
     private String linkDocno;
+    private String vatMemo;
 }
 

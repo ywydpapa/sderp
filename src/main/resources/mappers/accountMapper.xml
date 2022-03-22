@@ -571,6 +571,55 @@ attrib) values (#{vatId},
 			'10000'			
 		);
 	</insert>
+	
+	<insert id="billInsert">
+		insert into swc_vat
+		(
+			compNo,
+			vatBuyerCustNo,
+			vatSellerCustNo,
+			vatEmail,
+			vatStatus,
+			vatNo,
+			vatSerial,
+			vatProductName,
+			vatIssueDate,
+			vatTradeDate,
+			vatTransDate,
+			vatType,
+			vatTax,
+			vatAmount,
+			vatRemark,
+			vatMemo,
+			vatIssueType,
+			linkedDocNo,
+			regDate,
+	 		attrib
+	 	)
+			values 
+		(
+			#{compNo},
+			#{vatBuyerCustNo},
+			#{vatSellerCustNo},
+			#{vatEmail},
+			#{vatStatus},
+			#{vatNo},
+			#{vatSerial},
+			#{vatProductName},
+			#{vatIssueDate},
+			#{vatTradeDate},
+			#{vatTransDate},
+			#{vatType},
+			#{vatTax},
+			#{vatAmount},
+			#{vatRemark},
+			#{vatMemo},
+			#{vatIssueType},
+			#{linkedDocNo},
+			now(),
+			'100001'
+		);
+	</insert>
 
 	<update id="updVatStatus">
 		update swc_vat set vatStatus=#{vatStatus} where vatSerial = #{vatSerial};

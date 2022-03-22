@@ -403,7 +403,7 @@
             var bacSerial = localStorage.getItem("bacSerial");
 			
             for (var i=0; i<$Aarr.length; i++){
-                if ($($Chkarr[i]).is(":checked")==true){
+                if ($($Chkarr[i+4]).is(":checked")==true){
                     var bacData = {};
                     bacData.compNo = compNo;
                     bacData.bacSerial = bacSerial;

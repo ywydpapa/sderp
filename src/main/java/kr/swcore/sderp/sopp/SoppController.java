@@ -149,11 +149,14 @@ public class SoppController {
 	@RequestMapping("/detail2/{soppNo}")
 	public ModelAndView detail2(@PathVariable("soppNo") int soppNo, ModelAndView mav, HttpSession session) {
 		mav.addObject("dto", soppService.detailSopp(soppNo));
-		mav.addObject("dtodata01", soppdataService.listSoppdata01(soppNo));
 		mav.addObject("dtodata02", soppdataService.listSoppdata02(soppNo));
 		mav.addObject("saleslist", codeService.listSalestype(session));
 		mav.addObject("sstatuslist", codeService.listSstatus(session));
 		mav.addObject("salesinsopp",salesService.listSalesinsopp(session, soppNo, 0));
+		mav.addObject("techdinsopp",techdService.listTechdinsopp(session, soppNo, 0));
+		mav.addObject("soppFiles",soppService.listFile(soppNo));
+		mav.addObject("dtodata01", soppdataService.listSoppdata01(soppNo));
+		mav.addObject("estList", gwService.getEstSopp(session, soppNo));
 		mav.setViewName("sopp/detail2");
 		return mav;
 	}

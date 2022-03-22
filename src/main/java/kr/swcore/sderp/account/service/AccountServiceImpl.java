@@ -270,14 +270,14 @@ public class AccountServiceImpl implements AccountService {
 	}
 
 	@Override
-	public void cancelconnect(String linkDoc) {
+	public void cancelconnect_linkedcheck(String linkDoc) {
 		// TODO Auto-generated method stub
-		accountDAO.cancelconnect(linkDoc);
+		accountDAO.cancelconnect_linkedcheck(linkDoc);
 	}
 	@Override
-	public void cancelconnect2(String linkDoc) {
+	public void cancelconnect_linkDoc(String linkDoc) {
 		// TODO Auto-generated method stub
-		accountDAO.cancelconnect2(linkDoc);
+		accountDAO.cancelconnect_linkDoc(linkDoc);
 	}
 
 	@Override

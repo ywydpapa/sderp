@@ -2,6 +2,7 @@ package kr.swcore.sderp.cont;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
@@ -135,6 +136,7 @@ public class ContController {
 		mav.addObject("contFiles", contService.listFile(contNo));
 		mav.addObject("dtodata01", soppdataService.listSoppdata01(soppNo));
 		mav.addObject("dtodata02", soppdataService.listSoppdata011(soppNo));
+		mav.addObject("soppFiles",soppService.listFile(soppNo));
 		data.setContNo(contNo);
 		data.setSoppNo(soppNo);
 		mav.addObject("dtodata01", soppdataService.listSoppdata01_08(data));

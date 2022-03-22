@@ -216,15 +216,15 @@ public class AccountDAOImpl implements AccountDAO {
 	}
 
 	@Override
-	public void cancelconnect(String linkDoc) {
+	public void cancelconnect_linkedcheck(String linkDoc) {
 		// TODO Auto-generated method stub
-		sqlSession.update("account.cancelconnect", linkDoc);
+		sqlSession.update("account.cancelconnect_linkedcheck", linkDoc);
 	}
 
 	@Override
-	public void cancelconnect2(String linkDoc) {
+	public void cancelconnect_linkDoc(String linkDoc) {
 		// TODO Auto-generated method stub
-		sqlSession.delete("account.cancelconnect2", linkDoc);
+		sqlSession.delete("account.cancelconnect_linkDoc", linkDoc);
 	}
 
 	@Override

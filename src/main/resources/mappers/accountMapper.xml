@@ -597,11 +597,11 @@ attrib) values (#{vatId},
 	<update id="updatevatlinkedcheck">
 		update swc_vat set linkedcheck = 0 where vatSerial = #{linkDoc}
 	</update>
-	<update id="cancelconnect">
+	<update id="cancelconnect_linkedcheck">
 		update swc_vat set linkedcheck = 1
 		where vatSerial = #{linkDoc};
 	</update>
-	<update id="cancelconnect2">
+	<update id="cancelconnect_linkDoc">
 		update swc_bacledger set linkDoc = ''
 		where linkDoc = #{linkDoc}
 	</update>

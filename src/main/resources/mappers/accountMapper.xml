@@ -301,15 +301,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 
 	<select id="checkVat" resultType="accountDto">
-		select count(*) as resultCount from swc_vat where vatSerial = #{vatSerial}
+		select count(*) as resultCount from swc_vat where vatSerial = #{vatSerial} and attrib not like 'XXX%'
 	</select>
 	
 	<select id="checkBac" resultType="accountDto">
-		select count(*) as resultCount from swc_bacledger where bacSerial = #{bacSerial} and baclogTime = #{baclogTime}
+		select count(*) as resultCount from swc_bacledger where bacSerial = #{bacSerial} and baclogTime = #{baclogTime} and attrib not like 'XXX%'
 	</select>
 	
 	<select id="cardCheck" resultType="accountDto">
-		select count(*) as resultCount from swc_cardledger where appSerial = #{appSerial}
+		select count(*) as resultCount from swc_cardledger where appSerial = #{appSerial} and attrib not like 'XXX%'
 	</select>
 	
 	<select id="baclist" resultType="accountDto">

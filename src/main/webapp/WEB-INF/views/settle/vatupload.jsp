@@ -425,8 +425,8 @@
                         vatData.vatIssueDate = $Aarr[i].innerText;
                         vatData.vatTradeDate = $Carr[i].innerText;
                         vatData.vatTransDate = $Darr[i].innerText;
-                        vatData.vatTax = Number($Garr[i].innerText.replace(/[\D\s\._\-]+/g, ""));
-                        vatData.vatAmount = Number($Farr[i].innerText.replace(/[\D\s\._\-]+/g, ""));
+                        vatData.vatTax = Number($Garr[i].innerText);
+                        vatData.vatAmount = Number($Farr[i].innerText);
                         vatData.vatRemark = $Jarr[i].innerText;
                         vatData.vatIssueType = $Iarr[i].innerText;
                         
@@ -470,6 +470,7 @@
                 alert("매입자료 등록 완료");
                 setTimeout(function(){
     				$.LoadingOverlay("hide", true);
+    				fnCheckVatlist();
     			}, 1000);
         	}else{
         		return false;
@@ -507,8 +508,8 @@
                         vatData.vatIssueDate = $Aarr[i].innerText;
                         vatData.vatTradeDate = $Carr[i].innerText;
                         vatData.vatTransDate = $Darr[i].innerText;
-                        vatData.vatTax = Number($Garr[i].innerText.replace(/[\D\s\._\-]+/g, ""));
-                        vatData.vatAmount = Number($Farr[i].innerText.replace(/[\D\s\._\-]+/g, ""));
+                        vatData.vatTax = Number($Garr[i].innerText);
+                        vatData.vatAmount = Number($Farr[i].innerText);
                         vatData.vatRemark = $Jarr[i].innerText;
                         vatData.vatIssueType = $Iarr[i].innerText;
                         console.log(vatData);
@@ -551,6 +552,7 @@
                 alert("매출자료 등록 완료");
                 setTimeout(function(){
     				$.LoadingOverlay("hide", true);
+    				fnCheckVatlist();
     			}, 1000);
         	}else{
         		return false;

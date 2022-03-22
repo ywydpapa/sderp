@@ -57,8 +57,8 @@ public class CustDTO {
 	private int custData03no;
 	private int custData04no;
 	private String custByear;
-	private String balanceType;
-	private BigDecimal custBBalance;
+	private BigDecimal custCRbalance;
+	private BigDecimal custDRbalance;
 
 	public CustDTO() {
 		super();

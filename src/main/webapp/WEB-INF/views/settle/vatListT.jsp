@@ -30,7 +30,7 @@
                 <div class="col-lg-12">
                     <div class="page-header-title" style="float:left;">
                         <div style="margin-top:15px;">
-                            <h6 style="font-weight:600;">계산서 발행 대상  </h6>
+                            <h6 style="font-weight:600;">계산서 발행</h6>
                         </div>
                     </div>
                     <div class="btn_wr" style="float:right;">
@@ -161,7 +161,7 @@
                             </colgroup>
                             <thead>
                             <tr>
-                                <th class="text-center"></th>
+                                <th class="text-center">선택</th>
                                 <th class="text-center">발행요청일</th>
                                 <th class="text-center">거래처</th>
                                 <th class="text-center">공급가</th>
@@ -190,7 +190,7 @@
                                     	<fmt:formatNumber type="number" maxFractionDigits="3" value="${vlist.vatAmount + vlist.vatTax}" />
                                     </td>
                                     <td>${vlist.vatRemark}</td>
-                                    <td>${vlist.vatRemark}</td>
+                                    <td>${vlist.vatMemo}</td>
                                 </tr>
                             </c:forEach>
                         </table>

@@ -168,7 +168,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<if test="listDateFrom != null and listDateFrom != ''">
 			and a.vatIssueDate Between #{listDateFrom} and now()
 		</if>
-		group by a.vatSerial order by a.vatIssueDate desc
+		order by a.vatIssueDate desc
 	</select>
 
 	<select id="listVatSearchB" resultType="accountDto">

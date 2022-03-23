@@ -30,7 +30,7 @@
                 <div class="col-lg-12">
                     <div class="page-header-title" style="float:left;">
                         <div style="margin-top:15px;">
-                            <h6 style="font-weight:600;">계산서 목록 </h6>
+                            <h6 style="font-weight:600;">업체별 미지급 현황</h6>
                         </div>
                     </div>
                     <div class="btn_wr" style="float:right;">

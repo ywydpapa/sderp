@@ -37,7 +37,7 @@
                 <div class="col-lg-12">
                     <div class="page-header-title" style="float:left;">
                         <div style="margin-top:15px;">
-                            <h6 style="font-weight:600;">계좌상세내역 </h6>
+                            <h6 style="font-weight:600;">카드 상세 내역</h6>
                         </div>
                     </div>
                     <div class="btn_wr" style="float:right;">

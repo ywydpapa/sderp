@@ -93,6 +93,10 @@ public class ContDTO implements Cloneable{
 	private String listDateFrom;
 	// sopp 복사 끝
 	
+	private String custVatno;
+	private String custBossname;
+	private String custEmail;
+	
 	public ContDTO() {
 		super();
 		// TODO Auto-generated constructor stub

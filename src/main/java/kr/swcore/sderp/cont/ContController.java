@@ -2,27 +2,21 @@ package kr.swcore.sderp.cont;
 
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.xml.stream.events.DTD;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import kr.swcore.sderp.sales.service.SalesService;
-import kr.swcore.sderp.salesTarget.dto.SalesTargetDTO;
 import kr.swcore.sderp.sopp.dto.SoppDTO;
-import kr.swcore.sderp.sopp.dto.SoppFileDataDTO;
 import kr.swcore.sderp.sopp.dto.SoppdataDTO;
 import kr.swcore.sderp.sopp.service.SoppService;
 import kr.swcore.sderp.sopp.service.SoppdataService;
 import kr.swcore.sderp.techd.service.TechdService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -36,14 +30,15 @@ import kr.swcore.sderp.code.service.CodeService;
 import kr.swcore.sderp.cont.dto.ContDTO;
 import kr.swcore.sderp.cont.dto.ContFileDataDTO;
 import kr.swcore.sderp.cont.service.ContService;
-import kr.swcore.sderp.gw.dto.GwDTO;
+import kr.swcore.sderp.cust.service.CustService;
 
 @Controller
 @RequestMapping("/cont/*")
 
 public class ContController {
 	
-	private static final Logger logger = LoggerFactory.getLogger(ContController.class);
+	@Inject
+	CustService custService;
 	
 	@Inject
 	ContService contService;
@@ -134,9 +129,8 @@ public class ContController {
 		mav.addObject("salesinsopp",salesService.listSalesinsopp(session, soppNo, contNo));
 		mav.addObject("techdinsopp",techdService.listTechdinsopp(session, soppNo, contNo));
 		mav.addObject("contFiles", contService.listFile(contNo));
-		mav.addObject("dtodata01", soppdataService.listSoppdata01(soppNo));
-		mav.addObject("dtodata02", soppdataService.listSoppdata011(soppNo));
 		mav.addObject("soppFiles",soppService.listFile(soppNo));
+		mav.addObject("sessionCust", custService.sessionSelectCust(session));
 		data.setContNo(contNo);
 		data.setSoppNo(soppNo);
 		mav.addObject("dtodata01", soppdataService.listSoppdata01_08(data));

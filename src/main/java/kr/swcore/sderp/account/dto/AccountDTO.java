@@ -127,5 +127,13 @@ public class AccountDTO {
     private String linkType;
     private String linkDocno;
     private String vatMemo;
+    
+    //계산서 추가 컬럼
+    private int contNo;
+    private String vatBillType;
+    private String vatRecType;
+    private String vatStandard;
+    private int vatQuan;
+    private BigDecimal vatNet;
 }
 

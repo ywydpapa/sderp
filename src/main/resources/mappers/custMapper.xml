@@ -60,6 +60,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  		select * from swc_custData03 where custNo=#{custNo} and attrib not like 'XXX%'
  </select>
  
+ <select id="sessionSelectCust" resultType="custDto">
+ 	select * from swc_cust where custCompNo = #{custCompNo} and attrib not like 'XXX%'
+ </select>
  
  <insert id="insertCust">
  insert into swc_cust (compNo, custName,custVatno, custEmail, custVatemail, custBossname,attrib)

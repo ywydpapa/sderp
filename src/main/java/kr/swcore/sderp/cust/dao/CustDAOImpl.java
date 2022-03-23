@@ -158,4 +158,9 @@ public class CustDAOImpl implements CustDAO {
 	public List<CustDTO> listCustNameSimilarCheck(CustDTO custDTO) {
 		return sqlSession.selectList("cust.listCustNameSimilarCheck", custDTO);
 	}
+
+	@Override
+	public CustDTO sessionSelectCust(int custCompNo) {
+		return sqlSession.selectOne("cust.sessionSelectCust", custCompNo);
+	}
 }

@@ -15,6 +15,7 @@ public class CustDTO {
 	
 	private int custNo;
 	private int compNo;
+	private int custCompNo;
 	private String custName;
 	private String custVatno;
 	private String custEmail;

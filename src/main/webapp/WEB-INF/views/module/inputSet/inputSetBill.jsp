@@ -5,63 +5,117 @@
 <form name="form2" method="post" onsubmit="return false;">
 	<div style="width:100%;">
 		<div style="float:right; margin-bottom:10px;">
-			<button type="button" class="btn btn-primary" id="bodyAddBtn">추가하기</button>
+			<button type="button" class="btn btn-primary" id="bodyAddBtn">설정</button>
 		</div>
 		<div style="float:right; margin-right:10px; margin-top:5px;">
 			<input type="text" class="form-control" id="addNum" placeholder="만들 갯수 입력(ex:5)" value="1" maxlength="2" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
 		</div>
 	</div>
-    <table class="table table-sm bst02" id="billTableFirst" style="margin-bottom: 1%;">
-    	<colgroup>
+	<div style="clear:both;">
+		<div style="float:left; width:50%;">
+			<span style="font-weight: 600;">※ 공급자</span>
+			<input type="hidden" id="sessionCustNo" value="${sessionCust.custNo}" />
+			<table class="table table-sm bst02" id="billProTable">
+				<thead>
+					<tr>
+						<th class="text-center">사업자등록번호</th>
+						<th class="text-center">상호</th>
+						<th class="text-center">대표자명</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td><input type="text" class="form-control" id="sessionVatNo" value="${sessionCust.custVatno}" readonly></td>
+						<td><input type="text" class="form-control" id="sessionCustName" value="${sessionCust.custName}"></td>
+						<td><input type="text" class="form-control" id="sessionCustBossname" value="${sessionCust.custBossname}"></td>
+					</tr>			
+				</tbody>
+			</table>
+		</div>
+		<div style="float:right; width:50%;">
+			<span style="font-weight: 600;">※ 공급받는자</span>
+			<input type="hidden" id="custNo" value="${contDto.custNo}" />
+			<input type="hidden" id="custEmail" value="${contDto.custEmail}" />
+			<table class="table table-sm bst02" id="billRecTable">
+				<thead>
+					<tr>
+						<th class="text-center">사업자등록번호</th>
+						<th class="text-center">상호</th>
+						<th class="text-center">대표자명</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td><input type="text" class="form-control" id="custVatNo" value="${contDto.custVatno}" readonly></td>
+						<td><input type="text" class="form-control" id="custName" value="${contDto.custName}" readonly></td>
+						<td><input type="text" class="form-control" id="custBossname" value="${contDto.custBossname}" readonly></td>
+					</tr>			
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<table class="table table-sm bst02" id="billMarksTable" style="margin-bottom:1%;">
+		<colgroup>
+			<col width="10%" />
+			<col width="10%" />
+            <col width="20%" />
+            <col width="60%" />
+        </colgroup>
+		<thead>
+			<tr>
+				<th class="text-center">계산서종류</th>
+				<th class="text-center">영수/청구</th>
+				<th class="text-center">작성일자</th>
+				<th class="text-center">비고</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>
+					<select class="form-control" id="vatBillType">
+						<option value="01">일반</option>
+						<option value="02">영세율</option>
+					</select>
+				</td>
+				<td>
+					<select class="form-control" id="vatRecType">
+						<option value="01">영수</option>
+						<option value="02">청구</option>
+					</select>
+				</td>
+				<td><input type="date" max="9999-12-31" class="form-control" id="vatIssueDate"></td>
+				<td><input type="text" class="form-control" id="vatRemark"></td>
+			</tr>
+		</tbody>
+	</table>
+	
+	<table class="table table-sm bst02" id="billItemTable">
+		<colgroup>
             <col width="3%" />
-            <col width="5%" />
-            <col width="25%" />
-            <col width="15%" />
-            <col width="25%" />
-            <col width="9%" />
-            <col width="9%" />
-            <col width="9%" />
-        </colgroup>
-        <thead>
-	        <tr>
-	        	<th class="text-center">번호</th>
-	            <th class="text-center">발행요청일</th>
-	            <th class="text-center">승인번호</th>
-	            <th class="text-center">거래처</th>
-	            <th class="text-center">품목명</th>
-	            <th class="text-center">공급가</th>
-	            <th class="text-center">세액</th>
-	            <th class="text-center">합계금액</th>
-	            
-	        </tr>
-        </thead>
-        <tbody></tbody>
-    </table>
-    <table class="table table-sm bst02" id="billTableSecond">
-    	<colgroup>
-           	<col width="3%" />
-           	<col width="5%" />
-           	<col width="5%" />
-           	<col width="5%" />
+            <col width="17%" />
             <col width="10%" />
-            <col width="16%" />
+            <col width="5%" />
+            <col width="10%" />
+            <col width="10%" />
+            <col width="10%" />
             <col width="30%" />
-            <col width="30%" />
+            <col width="5%" />
         </colgroup>
-        <thead>
-	        <tr>
-	        	<th class="text-center">번호</th>
-	        	<th class="text-center">발행일</th>
-	        	<th class="text-center">거래일</th>
-	        	<th class="text-center">전송일자</th>
-	        	<th class="text-center">발급유형</th>
-	            <th class="text-center">상대처 이메일</th>
-	            <th class="text-center">품목비고</th>
-	            <th class="text-center">메모</th>
-	        </tr>
-        </thead>
-        <tbody></tbody>
-    </table>
+		<thead>
+			<tr>
+				<th class="text-center">발행일</th>
+				<th class="text-center">품목</th>
+				<th class="text-center">규격</th>
+				<th class="text-center">수량</th>
+				<th class="text-center">단가</th>
+				<th class="text-center">공급가액</th>
+				<th class="text-center">세액</th>
+				<th class="text-center">비고</th>
+				<th class="text-center">초기화</th>
+			</tr>
+		</thead>
+		<tbody></tbody>
+	</table>
     <div class="text-right mt-3">
 		<button class="btn btn-md btn-success f-left" onClick="javascript:location='${path}/cont/list.do'">계약목록</button>
 		<button type="button" class="btn btn-md btn-primary" onclick="fn_billItemInsert();">생성하기</button>
@@ -88,52 +142,37 @@
 <script>
     $(document).ready(function(){
     	var nowDate = new Date();
-    	var tableBodyFirst = $("#billTableFirst tbody");
-		var tableBodySecond = $("#billTableSecond tbody");
+    	var tableBody = $("#billItemTable tbody");
 		
     	nowDate = nowDate.toISOString().slice(0, 10);
     	
+    	$("#vatIssueDate").val(nowDate);
+    	
     	$("#bodyAddBtn").click(function(){
     		var number = $("#addNum").val();
-    		var bodyHtmlFirst = "";
-    		var bodyHtmlSecond = "";
+    		var bodyHtml = "";
 
     		if(number < 1){
     			alert("갯수가 1보다 작을 수 없습니다.");
     			return false;
     		}else{
-    			tableBodyFirst.empty();
-    			tableBodySecond.empty();
+    			tableBody.empty();
 	    		
-	    		for(var i = 1; i <= number; i++){
-	    			bodyHtmlFirst += "<tr><td class='text-center'>" + i + "</td>"
-	    			+ "<td><input type='date' class='form-control' max='9999-12-30' id='billBodyDate_" + i + "' name='billBodyDate_" + i + "' value='" + nowDate + "'></td>"
-	    			+ "<td><input type='text' class='form-control form-control-sm' id='billBodySerial_" + i + "' style='min-width: 80px;' /></td>"
-	    			+ "<td><div class='input-group input-group-sm mb-0'><input type='text' class='form-control' name='custName_" + i + "' id='custName_" + i + "' readonly><input type='hidden' id='custNo_" + i + "'/><input type='hidden' id='custVatNo_" + i + "'/>" 
-	    			+ "<span class='input-group-btn'><button class='btn btn-primary sch-company' data-remote='${path}/modal/popup.do?popId=billCust' type='button' data-index='" + i + "' id='custModalBtn' data-toggle='modal' data-target='#billCustModal'><i class='icofont icofont-search'></i></button></span></div></td>"
-	    			+ "<td><input type='text' class='form-control form-control-sm' id='billBodyProductName_" + i + "' style='min-width: 80px;' /></td>"
-	    			+ "<td><input type='text' class='form-control form-control-sm billBodyAmt' id='billBodyAmt_" + i + "' style='min-width: 80px;' value='0' /></td>"
-	    			+ "<td><input type='text' class='form-control form-control-sm billBodyTax' id='billBodyTax_" + i + "' style='min-width: 80px;' value='0' /></td>"
-	    			+ "<td><input type='text' class='form-control form-control-sm billBodyTotal' name='billBodyTotal' id='billBodyTotal_" + i + "' data-index='" + i + "' style='min-width: 80px;' value='0' readonly/></td></tr>";
-	    			
-	    			bodyHtmlSecond += "<tr><td class='text-center'>" + i + "</td>"
-	    			+ "<td><input type='date' class='form-control' max='9999-12-30' id='billBodyIssueDate_" + i + "' name='billBodyIssueDate_" + i + "' value='" + nowDate + "'></td>"
-	    			+ "<td><input type='date' class='form-control' max='9999-12-30' id='billBodyTradeDate_" + i + "' name='billBodyTradeDate_" + i + "' value='" + nowDate + "'></td>"
-	    			+ "<td><input type='date' class='form-control' max='9999-12-30' id='billBodyTransDate_" + i + "' name='billBodyTransDate_" + i + "' value='" + nowDate + "'></td>"
-	    			+ "<td><select class='form-control form-control-sm' id='billBodyIssueType_" + i + "' style='min-width: 80px;'><option value='자체발급'>자체발급</option><option value='ASP발급'>ASP발급</option><option value='인터넷발급'>인터넷발급</option><option value='겸용서식발급'>겸용서식발급</option></select></td>"
-	    			+ "<td><input type='text' class='form-control form-control-sm' id='billBodyEmail_" + i + "' style='min-width: 80px;' /></td>"
-	    			+ "<td><input type='text' class='form-control form-control-sm' id='billBodyHistory_" + i + "' style='min-width: 80px;' /></td>"
-	    			+ "<td><input type='text' class='form-control form-control-sm' id='billBodyMemo_" + i + "' style='min-width: 80px;' /></td></tr>";
+	    		for(var i = 1; i <= number; i++) {
+	    			bodyHtml += "<tr><td><input type='date' class='form-control' max='9999-12-30' id='vatTradeDate_" + i + "' name='vatTradeDate_" + i + "' value='" + nowDate + "'></td>"
+	    			+ "<td><input type='text' class='form-control form-control-sm' id='vatProductName_" + i + "' style='min-width: 80px;' /></td>"
+	    			+ "<td><input type='text' class='form-control form-control-sm' id='vatStandard_" + i + "' style='min-width: 80px;' /></td>"
+	    			+ "<td><input type='text' class='form-control form-control-sm vatQuan' id='vatQuan_" + i + "' style='min-width: 80px;' value='1' /></td>"
+	    			+ "<td><input type='text' class='form-control form-control-sm vatNet' id='vatNet_" + i + "' data-index='" + i + "' onchange='calReplace(this)' style='min-width: 80px;' value='0' /></td>"
+	    			+ "<td><input type='text' class='form-control form-control-sm vatAmount' id='vatAmount_" + i + "' style='min-width: 80px;' value='0' readonly/></td>"
+	    			+ "<td><input type='text' class='form-control form-control-sm vatTax' id='vatTax_" + i + "' style='min-width: 80px;' value='0' readonly/></td>"
+	    			+ "<td><input type='text' class='form-control form-control-sm' id='vatMemo_" + i + "' style='min-width: 80px;' /></td>"
+	    			+ "<td><button type='button' class='btn btn-sm btn-danger' data-index='" + i + "' onClick='billItemDelBtn(this);'>삭제</button></td></tr>";
 	    		}
 	    		
-	    		tableBodyFirst.html(bodyHtmlFirst);
-	    		tableBodySecond.html(bodyHtmlSecond);
+	    		tableBody.html(bodyHtml);
     		}
     	});
-    });
-    
-    $("#billTableFirst tbody tr td").find(".billBodyAmt").change(function(){
-    	console.log("실행");
     });
     
     $('#billCustModal').on('show.bs.modal', function(e) {
@@ -143,54 +182,80 @@
 		modal.find('.modal-body').load(button.data("remote"));
 	});
     
+    function billItemDelBtn(event){
+    	var tableBody = $("#billItemTable tbody tr");
+    	var indexNum = $(event).attr("data-index");
+    	var nowDate = new Date();
+    	
+    	nowDate = nowDate.toISOString().slice(0, 10);
+    	
+    	tableBody.find("td #vatTradeDate_" + indexNum).val(nowDate);
+    	tableBody.find("td #vatProductName_" + indexNum).val("");
+    	tableBody.find("td #vatStandard_" + indexNum).val("");
+    	tableBody.find("td #vatQuan_" + indexNum).val(1);
+    	tableBody.find("td #vatNet_" + indexNum).val(0);
+    	tableBody.find("td #vatAmount_" + indexNum).val(0);
+    	tableBody.find("td #vatTax_" + indexNum).val(0);
+    	tableBody.find("td #vatMemo_" + indexNum).val("");
+    }
+    
+    function calReplace(event){
+    	var indexNum = $(event).attr("data-index");
+    	var netNumber = parseInt($(event).val().replace(/,/g, "") || 0);
+    	var quanNumber = parseInt($("#vatQuan_" + indexNum).val());
+    	var calNumber = Math.round(netNumber * quanNumber);
+    	var calTax = Math.round(calNumber * 0.1);
+    	
+    	$(event).val(netNumber.toLocaleString("en-US"));
+    	$("#vatAmount_" + indexNum).val(calNumber.toLocaleString("en-US"));
+    	$("#vatTax_" + indexNum).val(calTax.toLocaleString("en-US"));
+    }
+    
     function fn_billItemInsert() {
-    	var pathname = $(location).attr('pathname');
-    	var compNo = "${sessionScope.compNo}";
-    	var billTableFirst = $("#billTableFirst tbody tr");
-    	var billTableSecond = $("#billTableSecond tbody tr");
-    	var insertData = [];
-    	
-    	for(var i = 1; i <= billTableFirst.length; i++){
-	    	var temp = {};
-			
-	    	temp.compNo = compNo;
-	    	temp.vatBuyerCustNo = billTableFirst.find("td #custNo_" + i).val();
-	    	temp.vatSellerCustNo = "103771"; //비전테크로 임시 저장
-	    	temp.vatStatus = "T1";
-	    	temp.vatNo = billTableFirst.find("td #custVatNo_" + i).val();
-	    	temp.vatSerial = billTableFirst.find("td #billBodySerial_" + i).val();
-	    	temp.vatType = "T";
-	    	temp.vatProductName = billTableFirst.find("td #billBodyProductName_" + i).val();
-	    	temp.vatTax = billTableFirst.find("td #billBodyTax_" + i).val();
-	    	temp.vatAmount = billTableFirst.find("td #billBodyAmt_" + i).val();
+    	if(confirm("생성하시겠습니까??")){
+	    	var pathname = $(location).attr('pathname');
+	    	var compNo = "${sessionScope.compNo}";
+	    	var tableBody = $("#billItemTable tbody tr");
 	    	
-	    	insertData.push(temp);
+	    	for(var i = 1; i <= tableBody.length; i++){
+		    	var insertData = {};
+				
+		    	insertData.compNo = compNo;
+		    	insertData.contNo = $("#contNo").val();
+		    	insertData.vatBuyerCustNo = $("#custNo").val();
+		    	insertData.vatSellerCustNo = $("#sessionCustNo").val();
+		    	insertData.vatEmail = $("#custEmail").val();
+		    	insertData.vatStatus = "T1";
+		    	insertData.vatNo = $("#custVatNo").val();
+		    	insertData.vatProductName = tableBody.find("td #vatProductName_" + i).val();
+		    	insertData.vatIssueDate = $("#vatIssueDate").val();
+		    	insertData.vatTradeDate = tableBody.find("td #vatTradeDate_" + i).val();
+		    	insertData.vatBillType = $("#vatBillType").val();
+		    	insertData.vatRecType = $("#vatRecType").val();
+		    	insertData.vatStandard = tableBody.find("td #vatStandard_" + i).val();
+		    	insertData.vatQuan = tableBody.find("td #vatQuan_" + i).val();
+		    	insertData.vatNet = parseInt(tableBody.find("td #vatNet_" + i).val().replace(/,/g, ""));
+		    	insertData.vatAmount = parseInt(tableBody.find("td #vatAmount_" + i).val().replace(/,/g, ""));
+		    	insertData.vatTax = parseInt(tableBody.find("td #vatTax_" + i).val().replace(/,/g, ""));
+		    	insertData.vatRemark = $("#vatRemark").val();
+		    	insertData.vatMemo = tableBody.find("td #vatMemo_" + i).val();
+		    	insertData.vatType = "T";
+		    	
+		    	$.ajax({
+	    			url: "${path}/acc/billInsert.do",
+	    			method: "post",
+	    			data: insertData,
+	    			async: false,
+	    			dataType: "json",
+	    		});
+	    	}
+	    	
+	    	localStorage.setItem('lastTab', "#tab07");
+	    	alert("완료되었습니다.");
+	    	location.href = pathname;
+    	}else{
+    		return false;
     	}
-    	
-    	for(var i = 0; i < billTableSecond.length; i++){
-    		var index = i + 1;
-    		insertData[i].vatIssueDate = billTableSecond.find("td #billBodyIssueDate_" + index).val();
-    		insertData[i].vatTradeDate = billTableSecond.find("td #billBodyTradeDate_" + index).val();
-    		insertData[i].vatTransDate = billTableSecond.find("td #billBodyTransDate_" + index).val();
-    		insertData[i].vatIssueType = billTableSecond.find("td #billBodyIssueType_" + index).val();
-    		insertData[i].vatEmail = billTableSecond.find("td #billBodyEmail_" + index).val();
-    		insertData[i].vatRemark = billTableSecond.find("td #billBodyHistory_" + index).val();
-    		insertData[i].vatMemo = billTableSecond.find("td #billBodyMemo_" + index).val();
-    		
-    		var JsonArray = JSON.stringify(insertData[i]);
-    		
-    		$.ajax({
-    			url: "${path}/acc/billInsert.do",
-    			method: "post",
-    			data: JSON.parse(JsonArray),
-    			async: false,
-    			dataType: "json",
-    		});
-    	}
-    	
-    	localStorage.setItem('lastTab', "#tab07");
-    	alert("완료되었습니다.");
-    	location.href = pathname;
     }
     
     

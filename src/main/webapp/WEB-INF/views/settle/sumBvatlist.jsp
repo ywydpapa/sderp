@@ -19,6 +19,7 @@
 			info:false,
 			searching: true,
 			order: [[ 0, "desc" ]],
+			ordering: true
 		});
 	});
 	</script>
@@ -286,7 +287,7 @@
     			param = "";
     		}
 
-    		var url = '${path}/acc/vatlist.do'+param;
+    		var url = '${path}/acc/sumBvatlist.do'+param;
     		location.href = url;
     	}
     	

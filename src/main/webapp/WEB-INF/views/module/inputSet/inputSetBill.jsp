@@ -88,7 +88,6 @@
 			</tr>
 		</tbody>
 	</table>
-	
 	<table class="table table-sm bst02" id="billItemTable">
 		<colgroup>
             <col width="3%" />
@@ -119,6 +118,46 @@
     <div class="text-right mt-3">
 		<button class="btn btn-md btn-success f-left" onClick="javascript:location='${path}/cont/list.do'">계약목록</button>
 		<button type="button" class="btn btn-md btn-primary" onclick="fn_billItemInsert();">생성하기</button>
+	</div>
+	<div style="margin-top:1%; max-height: 300px; overflow-y: scroll;">
+		<table class="table table-sm bst02" id="billItemSelectTable">
+			<colgroup>
+	            <col width="3%" />
+	            <col width="17%" />
+	            <col width="10%" />
+	            <col width="5%" />
+	            <col width="10%" />
+	            <col width="10%" />
+	            <col width="10%" />
+	            <col width="35%" />
+	        </colgroup>
+			<thead>
+				<tr>
+					<th class="text-center">발행일</th>
+					<th class="text-center">품목</th>
+					<th class="text-center">규격</th>
+					<th class="text-center">수량</th>
+					<th class="text-center">단가</th>
+					<th class="text-center">공급가액</th>
+					<th class="text-center">세액</th>
+					<th class="text-center">비고</th>
+				</tr>
+			</thead>
+			<tbody>
+				<c:forEach var="row" items="${vatData01}">
+					<tr>
+						<td class="text-center">${row.vatTradeDate}</td>
+		    			<td class="text-center">${row.vatProductName}</td>
+		    			<td class="text-center">${row.vatStandard}</td>
+		    			<td class="text-right">${row.vatQuan}</td>
+		    			<td class="text-right"><fmt:formatNumber value="${row.vatNet}" pattern="#,###" /></td>
+		    			<td class="text-right"><fmt:formatNumber value="${row.vatAmount}" pattern="#,###" /></td>
+		    			<td class="text-right"><fmt:formatNumber value="${row.vatTax}" pattern="#,###" /></td>
+		    			<td class="text-left">${row.vatMemo}</td>
+					</tr>
+				</c:forEach>
+			</tbody>
+		</table>
 	</div>
     <div class="modal fade " id="billCustModal" tabindex="-1" role="dialog">
         <div class="modal-dialog modal-80size" role="document">

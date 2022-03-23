@@ -238,5 +238,10 @@ public class AccountDAOImpl implements AccountDAO {
 		// TODO Auto-generated method stub
 		return sqlSession.insert("account.billInsert", dto);
 	}
+
+	@Override
+	public List<AccountDTO> vatSelectList(AccountDTO dto) {
+		return sqlSession.selectList("account.vatSelectList", dto);
+	}
 	
 }

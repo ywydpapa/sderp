@@ -40,7 +40,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<select id="sumBVatSearch" resultType="accountDto">
 		select a.*, b.custName vatSellerName, c.custName vatBuyerName, sum(case when a.vatType='B' then a.vatTax + a.vatAmount end) AS vatAmountB, sum(case when a.vatStatus='B5' then d.dataTotal end) AS serialTotalB,
-		f.custDRbalance AS custBalance
+		f.custDRbalance as custBalance
 		from swc_vat a
 		left join swc_cust b on a.vatSellerCustNo = b.custNo
 		left join swc_cust c on a.vatBuyerCustNo = c.custNo
@@ -166,7 +166,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		left join swc_cust c on a.vatBuyerCustNo = c.custNo
 		where a.compNo = #{compNo} and a.attrib not like 'XXX%' and a.vatType = 'T'
 		<if test="listDateFrom != null and listDateFrom != ''">
-			and a.vatIssueDate Between #{listDateFrom} and now()
+			and a.regDate Between #{listDateFrom} and now()
 		</if>
 		order by a.vatIssueDate desc
 	</select>
@@ -346,6 +346,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<select id="treqCardList" resultType="accountDto">
 		select * from swc_cardledger
+	</select>
+	
+	<select id="vatSelectList" resultType="accountDto">
+		select * from swc_vat where contNo = #{contNo} and attrib not like 'XXX%' order by vatId asc;
 	</select>
 
 	<insert id="insertbacledger">

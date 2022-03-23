@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
+import kr.swcore.sderp.account.service.AccountService;
 import kr.swcore.sderp.code.service.CodeService;
 import kr.swcore.sderp.cont.dto.ContDTO;
 import kr.swcore.sderp.cont.dto.ContFileDataDTO;
@@ -57,6 +58,9 @@ public class ContController {
 
 	@Inject
 	TechdService techdService;
+	
+	@Inject
+	AccountService accountService;
 	
 	@RequestMapping("list.do")
 	public ModelAndView list(HttpSession session, ModelAndView mav,
@@ -131,6 +135,7 @@ public class ContController {
 		mav.addObject("contFiles", contService.listFile(contNo));
 		mav.addObject("soppFiles",soppService.listFile(soppNo));
 		mav.addObject("sessionCust", custService.sessionSelectCust(session));
+		mav.addObject("vatData01", accountService.vatSelectList(contNo));
 		data.setContNo(contNo);
 		data.setSoppNo(soppNo);
 		mav.addObject("dtodata01", soppdataService.listSoppdata01_08(data));

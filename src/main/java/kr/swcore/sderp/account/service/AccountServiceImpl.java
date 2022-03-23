@@ -290,4 +290,12 @@ public class AccountServiceImpl implements AccountService {
 		return accountDAO.billInsert(dto);
 	}
 
+	@Override
+	public List<AccountDTO> vatSelectList(int contNo) {
+		AccountDTO dto = new AccountDTO();
+		dto.setContNo(contNo);
+		
+		return accountDAO.vatSelectList(dto);
+	}
+
 }

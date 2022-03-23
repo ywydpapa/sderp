@@ -49,4 +49,5 @@ public interface AccountDAO {
 	void cancelconnect_linkDoc(String linkDoc);
 	int bacCheckConnect(AccountDTO dto);
 	int billInsert(AccountDTO dto);
+	List<AccountDTO> vatSelectList(AccountDTO dto);
 }

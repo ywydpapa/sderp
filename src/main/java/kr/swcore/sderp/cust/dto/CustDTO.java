@@ -60,6 +60,8 @@ public class CustDTO {
 	private String custByear;
 	private BigDecimal custCRbalance;
 	private BigDecimal custDRbalance;
+	private BigDecimal custBBalance;
+	private String balanceType;
 
 	public CustDTO() {
 		super();

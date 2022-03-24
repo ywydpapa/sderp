@@ -642,13 +642,8 @@
 			custData4.custNo 		= $("#custNo").val();
 			custData4.compNo		= compNo;
 			custData4.custByear	= $("#custByear").val();
-			
-			if($("#balanceType").val() === "DR"){
-				custData4.custDRbalance	= $("#custBBalance").val();
-			}else{
-				custData4.custCRbalance	= $("#custBBalance").val();
-			}
-				
+			custData4.custBBalance	= $("#custBBalance").val();
+			custData4.balanceType	= $("#balanceType").val();
 			custData4.custVatemail	= $("#custVatemail").val();
 			custData4.custVatno		= $("#custVatno1").val();
 			custData4.custVattype 	= $("#custVattype").val();

@@ -50,4 +50,5 @@ public interface AccountDAO {
 	int bacCheckConnect(AccountDTO dto);
 	int billInsert(AccountDTO dto);
 	List<AccountDTO> vatSelectList(AccountDTO dto);
+	int sVatToChange(AccountDTO dto);
 }

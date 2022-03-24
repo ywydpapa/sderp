@@ -298,4 +298,9 @@ public class AccountServiceImpl implements AccountService {
 		return accountDAO.vatSelectList(dto);
 	}
 
+	@Override
+	public int sVatToChange(AccountDTO dto) {
+		return accountDAO.sVatToChange(dto);
+	}
+
 }

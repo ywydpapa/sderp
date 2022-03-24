@@ -160,39 +160,41 @@
                                 <col width="20%"/>
                             </colgroup>
                             <thead>
-                            <tr>
-                                <th class="text-center">선택</th>
-                                <th class="text-center">발행요청일</th>
-                                <th class="text-center">거래처</th>
-                                <th class="text-center">공급가</th>
-                                <th class="text-center">세액</th>
-                                <th class="text-center">합계금액</th>
-                                <th class="text-center">내역</th>
-                                <th class="text-center">메모</th>
-                            </tr>
+	                            <tr>
+	                                <th class="text-center">선택</th>
+	                                <th class="text-center">발행요청일</th>
+	                                <th class="text-center">거래처</th>
+	                                <th class="text-center">공급가</th>
+	                                <th class="text-center">세액</th>
+	                                <th class="text-center">합계금액</th>
+	                                <th class="text-center">내역</th>
+	                                <th class="text-center">메모</th>
+	                            </tr>
                             </thead>
-                            <c:forEach items="${vatList}" var="vlist">
-                                <tr>
-                                <td class="text-center"><input type="checkbox" class="vatTcheck"></td>
-                                <td class="text-center">${vlist.vatIssueDate}</td>
-                                    <td class="text-center">
-                                    	<%-- <c:if test = "${vlist.vatType eq 'S'}">${vlist.vatBuyerName}</c:if> 
-                                    	<c:if test = "${vlist.vatType eq 'B'}">${vlist.vatSellerName}</c:if> --%>
-                                    	${vlist.vatBuyerName}
-                                   	</td>
-                                    <td class="text-right">
-                                    	<fmt:formatNumber type="number" maxFractionDigits="3" value="${vlist.vatAmount}" />
-                                    </td>
-                                    <td class="text-right">
-                                    	<fmt:formatNumber type="number" maxFractionDigits="3" value="${vlist.vatTax}" />
-                                    </td>
-                                    <td class="text-right">
-                                    	<fmt:formatNumber type="number" maxFractionDigits="3" value="${vlist.vatAmount + vlist.vatTax}" />
-                                    </td>
-                                    <td>${vlist.vatRemark}</td>
-                                    <td>${vlist.vatMemo}</td>
-                                </tr>
-                            </c:forEach>
+                            <tbody>
+	                            <c:forEach items="${vatList}" var="vlist">
+	                                <tr>
+	                                <td class="text-center"><input type="checkbox" class="vatTcheck" id="vatTcheck" data-id="${vlist.vatId}"></td>
+	                                <td class="text-center">${vlist.vatIssueDate}</td>
+	                                    <td class="text-center">
+	                                    	<%-- <c:if test = "${vlist.vatType eq 'S'}">${vlist.vatBuyerName}</c:if> 
+	                                    	<c:if test = "${vlist.vatType eq 'B'}">${vlist.vatSellerName}</c:if> --%>
+	                                    	${vlist.vatBuyerName}
+	                                   	</td>
+	                                    <td class="text-right">
+	                                    	<fmt:formatNumber type="number" maxFractionDigits="3" value="${vlist.vatAmount}" />
+	                                    </td>
+	                                    <td class="text-right">
+	                                    	<fmt:formatNumber type="number" maxFractionDigits="3" value="${vlist.vatTax}" />
+	                                    </td>
+	                                    <td class="text-right">
+	                                    	<fmt:formatNumber type="number" maxFractionDigits="3" value="${vlist.vatAmount + vlist.vatTax}" />
+	                                    </td>
+	                                    <td>${vlist.vatRemark}</td>
+	                                    <td>${vlist.vatMemo}</td>
+	                                </tr>
+	                            </c:forEach>
+                            </tbody>
                         </table>
                     </div>
                 </div>
@@ -247,6 +249,39 @@
             var modal = $(this);
             modal.find('.modal-body').load(button.data("remote"));
         });
+        
+        function fnVatExl(){
+        	if(confirm("생성하시겠습니까??")){
+	        	var pathName = $(location).attr("pathname");
+	        	var listChecks = $("#vatTable tbody tr td #vatTcheck");
+	        	var compNo = "${sessionScope.compNo}";
+	        	
+	        	console.log(listChecks.find("#vatTcheck").length);
+	        	
+	        	listChecks.each(function(index, item){
+	        		if($(item).is(":checked") === true){
+	        			var updateData = {};
+	        			updateData.vatId = $(item).attr("data-id");
+	        			updateData.compNo = compNo;
+	        			updateData.vatStatus = "S1";
+	        			updateData.vatType = "S";
+	        			
+	        			$.ajax({
+	        				url: "${path}/acc/sVatToChange.do",
+	        				method: "post",
+	        				data: updateData,
+	        				async: false,
+	        				dataType: "json"
+	        			});
+	        		}
+	        	});
+	        	
+	        	alert("생성되었습니다.");
+	        	location.href = pathName;
+        	}else{
+        		return false;
+        	}
+        }
         
         function fnListcon() {
     		var vatData = {};

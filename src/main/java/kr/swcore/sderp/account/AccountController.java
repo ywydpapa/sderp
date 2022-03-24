@@ -3,6 +3,7 @@ package kr.swcore.sderp.account;
 import kr.swcore.sderp.account.dto.AccountDTO;
 import kr.swcore.sderp.account.service.AccountService;
 import kr.swcore.sderp.code.service.CodeService;
+import kr.swcore.sderp.cont.dto.ContDTO;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -461,4 +462,16 @@ public class AccountController {
         }
         return ResponseEntity.ok(param);
     }
+    
+    @RequestMapping("sVatToChange.do")
+	public ResponseEntity<?> sVatToChange(@ModelAttribute AccountDTO dto) {
+		Map<String, Object> param = new HashMap<>();
+		int vatUpdate = accountService.sVatToChange(dto);
+		if (vatUpdate >0) {
+			param.put("code","10001"); 
+		}
+		else {param.put("code","20001");
+		}
+		return ResponseEntity.ok(param);
+	}
 }

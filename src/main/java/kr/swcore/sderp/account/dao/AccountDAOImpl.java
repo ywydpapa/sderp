@@ -243,5 +243,10 @@ public class AccountDAOImpl implements AccountDAO {
 	public List<AccountDTO> vatSelectList(AccountDTO dto) {
 		return sqlSession.selectList("account.vatSelectList", dto);
 	}
+
+	@Override
+	public int sVatToChange(AccountDTO dto) {
+		return sqlSession.update("account.sVatToChange", dto);
+	}
 	
 }

@@ -51,4 +51,5 @@ public interface AccountService {
 	int bacCheckConnect(AccountDTO dto);
 	int billInsert(AccountDTO dto);
 	List<AccountDTO> vatSelectList(int contNo);
+	int sVatToChange(AccountDTO dto);
 }

@@ -662,4 +662,8 @@ attrib) values (#{vatId},
 		update swc_bacledger set linkDoc = ''
 		where linkDoc = #{linkDoc}
 	</update>
+	
+	<update id="sVatToChange">
+		update swc_vat set vatStatus = #{vatStatus}, vatType = #{vatType} where vatId = #{vatId};
+	</update>
 </mapper>

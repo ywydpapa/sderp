@@ -129,8 +129,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				   left join swc_cust c on a.vatBuyerCustNo = c.custNo
 				   left join swc_soppdata01 d on a.vatSerial = d.vatSerial and d.attrib not like 'XXX%'
 		where a.compNo = #{compNo} and a.attrib not like 'XXX%' and a.vatType = 'B'
-		<if test="listDateFrom != null and listDateFrom != ''">
-			and a.vatIssueDate Between #{listDateFrom} and now()
+		<if test="vatIssueDateFrom != null and vatIssueDateFrom !=''">
+			and a.vatIssueDate Between #{vatIssueDateFrom} and #{vatIssueDateTo}
 		</if>
 		 group by a.vatSerial order by a.vatIssueDate desc
 	
@@ -154,22 +154,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			   left join swc_soppdata01 d on a.vatSerial = d.vatSerial and d.attrib not like 'XXX%'
 		where a.compNo = #{compNo} and a.attrib not like 'XXX%' and a.vatType = 'B' 
 		<if test="vatSellerCustNo != null and vatSellerCustNo != ''">
- 		 	and a.vatSellerCustNo = #{vatSellerCustNo}
- 		</if>
- 		<if test="vatType != null and vatType != ''">
- 		 	and a.vatType = #{vatType}
- 		</if>
- 		<if test="vatIssueDateTo != null and vatIssueDateTo != ''">
- 		 	and a.vatIssueDate BETWEEN #{vatIssueDateFrom} and #{vatIssueDateTo}
- 		</if>
- 		<if test="vatSerial != null and vatSerial != ''">
- 		 	and a.vatSerial like CONCAT('%', #{vatSerial}, '%')
- 		</if>
- 		<if test="vatRemark != null and vatRemark != ''">
- 		 	and a.vatRemark like CONCAT('%', #{vatRemark}, '%')
- 		</if>
- 		<if test="listDateFrom != null and listDateFrom != '' and vatIssueDateTo == null or vatIssueDateTo == '' and vatSerial == null or vatSerial == ''">
-			and a.vatIssueDate Between #{listDateFrom} and now()
+			and a.vatSellerCustNo = #{vatSellerCustNo}
+		</if>
+		<if test="vatIssueDateFrom != null and vatIssueDateFrom !=''">
+			and a.vatIssueDate Between #{vatIssueDateFrom} and #{vatIssueDateTo}
 		</if>
 		 group by a.vatSerial order by a.vatIssueDate desc
  	</select>
@@ -180,8 +168,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				   left join swc_cust c on a.vatBuyerCustNo = c.custNo
 				   left join swc_soppdata01 d on a.vatSerial = d.vatSerial and d.attrib not like 'XXX%'
 		where a.compNo = #{compNo} and a.attrib not like 'XXX%' and a.vatType = 'S'
-		<if test="listDateFrom != null and listDateFrom != ''">
-			and a.vatIssueDate Between #{listDateFrom} and now()
+		<if test="vatIssueDateFrom != null and vatIssueDateFrom !=''">
+			and a.vatIssueDate Between #{vatIssueDateFrom} and #{vatIssueDateTo}
 		</if>
 		 group by a.vatSerial order by a.vatIssueDate desc
 	
@@ -193,23 +181,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			   left join swc_cust c on a.vatBuyerCustNo = c.custNo
 			   left join swc_soppdata01 d on a.vatSerial = d.vatSerial and d.attrib not like 'XXX%'
 		where a.compNo = #{compNo} and a.attrib not like 'XXX%' and a.vatType = 'S' 
-		<if test="vatSellerCustNo != null and vatSellerCustNo != ''">
- 		 	and a.vatSellerCustNo = #{vatSellerCustNo}
- 		</if>
- 		<if test="vatType != null and vatType != ''">
- 		 	and a.vatType = #{vatType}
- 		</if>
- 		<if test="vatIssueDateTo != null and vatIssueDateTo != ''">
- 		 	and a.vatIssueDate BETWEEN #{vatIssueDateFrom} and #{vatIssueDateTo}
- 		</if>
- 		<if test="vatSerial != null and vatSerial != ''">
- 		 	and a.vatSerial like CONCAT('%', #{vatSerial}, '%')
- 		</if>
- 		<if test="vatRemark != null and vatRemark != ''">
- 		 	and a.vatRemark like CONCAT('%', #{vatRemark}, '%')
- 		</if>
- 		<if test="listDateFrom != null and listDateFrom != '' and vatIssueDateTo == null or vatIssueDateTo == '' and vatSerial == null or vatSerial == ''">
-			and a.vatIssueDate Between #{listDateFrom} and now()
+		<if test="vatBuyerCustNo != null and vatBuyerCustNo != ''">
+			and a.vatBuyerCustNo = #{vatBuyerCustNo}
+		</if>
+		<if test="vatIssueDateFrom != null and vatIssueDateFrom !=''">
+			and a.vatIssueDate Between #{vatIssueDateFrom} and #{vatIssueDateTo}
 		</if>
 		 group by a.vatSerial order by a.vatIssueDate desc
  	</select>

@@ -35,15 +35,14 @@
                     </div>
                     <div class="btn_wr" style="float:right;">
                         <!-- hide and show -->
-						<!-- <button class="btn btn-sm btn-success" id="fold" onclick="acordian_action()">펼치기</button>
-						<button class="btn btn-sm btn-success" id="fold2"  onclick="acordian_action1()">접기</button>
-						hide and show
+						<button class="btn btn-sm btn-success" id="fold" onclick="acordian_action()">펼치기</button>
+						<button class="btn btn-sm btn-success" id="fold2"  onclick="acordian_action1()" style="display:none;">접기</button>
                         <button class="btn btn-sm btn-inverse" onClick="javascript:fnClearall()">
                         	<i class="icofont icofont-spinner-alt-3"></i>초기화
                         </button>
                         <button class="btn btn-sm btn-primary" onClick="javascript:fnListcon()">
                         	<i class="icofont icofont-search"></i>검색
-                        </button> -->
+                        </button>
                         <button class="btn btn-sm btn-inverse" onClick="javascript:fnChgStatus3()">
                         	부분지급
                         </button>
@@ -101,41 +100,29 @@
 										</div>
 									</div>
 								</div>
-                                <div class="col-sm-12 col-xl-3">
-                                    <label class="col-form-label" for="salesType">처리 상태</label>
-                                    <select name="select" class="form-control form-control-sm" id="salesType">
-                                        <option>선택</option>
-                                        <c:forEach var = "acttype" items="${acttype}">
-                                            <option value="${acttype.codeNo}">${acttype.desc03}</option>
-                                        </c:forEach>
-                                    </select>
-                                </div>
-                                <!-- <div class="col-sm-12 col-xl-3">
-                                    <label class="col-form-label" for="vatType">매입/매출</label>
-                                    <select name="select" class="form-control form-control-sm" id="vatType">
-                                        <option value="">선택</option>
-                                        <option value="B">매입</option>
-                                        <option value="S">매출</option>
-                                    </select>
-                                </div> -->
-                            </div>
-                            <div class="form-group row">
-                                <div class="col-sm-12 col-xl-4">
-                                    <label class="col-form-label">등록일</label>
-                                    <p class="input_inline">
+                                <div class="col-sm-12 col-xl-5">
+                                	<c:set var="today" value="<%=new java.util.Date() %>"/>
+                                	<fmt:formatDate value="${today}" pattern="yyyy" var="start"/>
+                                    <label class="col-form-label">발행일</label>
+                                    <p class="input-group">
+                                    	<select class="form-control form-control-sm" id="searchYear">
+                                    		<option value="">년도 선택</option>
+                                    		<c:forEach var="i" begin="0" end="100" step="1">
+                                    			<option value="${start - i}">${start - i}</option>
+                                    		</c:forEach>
+                                    	</select>
+                                    	<select class="form-control form-control-sm" id="searchChoice" disabled="disabled">
+                                    		<option value="">분기별 선택</option>
+                                    		<option value="3">1/4분기</option>
+                                    		<option value="6">2/4분기</option>
+                                    		<option value="9">3/4분기</option>
+                                    		<option value="12">4/4분기</option>
+                                    	</select>
                                     	<input class="form-control form-control-sm col-xl-6" type="date" max="9999-12-30" id="vatIssueDateFrom" value="${param.vatIssueDateFrom}"/>
                                     		~ 
                                     	<input class="form-control form-control-sm col-xl-6" type="date" max="9999-12-31" id="vatIssueDateTo" value="${param.vatIssueDateTo}"/>
                                     </p>
                                 </div>
-                                <div class="col-sm-12 col-xl-3">
-									<label class="col-form-label">발행번호</label>
-									<input type="text" class="form-control form-control-md" id="vatSerial" name="" placeholder="" value="${param.vatSerial}">
-								</div>
-								<div class="col-sm-12 col-xl-3">
-									<label class="col-form-label">메모</label>
-									<input type="text" class="form-control form-control-md" id="vatRemark" name="" placeholder="" value="${param.vatRemark}">
-								</div>
                             </div>
                         </div>
                     </div>
@@ -151,6 +138,23 @@
             <div class="col-sm-12">
                 <div class="card-block table-border-style">
                     <div class="table-responsive">
+                    	<span style="font-weight:600;">※총합계</span>
+                    	<table class="table table-striped table-bordered nowrap" style="margin-bottom: 1%;">
+                    		<c:forEach items="${vatList}" var="vlist">
+                    			<c:set var="totalSum" value="${totalSum + (vlist.vatAmount + vlist.vatTax)}" />
+                    		</c:forEach>
+                   			<tr>
+                   				<th class="text-center">매입합계</th>
+                   				<c:choose>
+                    				<c:when test="${empty vatList}">
+		                            	<th class="text-right">0</th>
+                    				</c:when>
+                    				<c:otherwise>
+	                    				<th class="text-center"><fmt:formatNumber type="number" maxFractionDigits="3" value="${totalSum}" /></th>
+                    				</c:otherwise>
+                   				</c:choose>
+                   			</tr>
+                    	</table>
                         <table id="vatTable" class="table table-striped table-bordered nowrap ">
                             <colgroup>
                                 <col width="10%"/>
@@ -246,11 +250,125 @@
         </div>
     </div>
     <script>
-    	var vatType = "${param.vatType}";
-		
-    	if(vatType !== ""){
-    		$("#vatType").val(vatType);
-    	}
+    	$(document).ready(function(){
+	    	var vatType = "${param.vatType}";
+			
+	    	if(vatType !== ""){
+	    		$("#vatType").val(vatType);
+	    	}
+			
+	    	$("#searchYear").change(function(){
+	    		var dateFrom = $("#vatIssueDateFrom");
+	    		var dateTo = $("#vatIssueDateTo");
+	    		var choice = $("#searchChoice");
+	    		
+	    		if($(this).val() === ""){
+	    			dateFrom.val("");
+	    			dateTo.val("");
+	    			choice.attr("disabled", true);
+					choice.val("");	    			
+	    		}else{
+	    			choice.attr("disabled", false);
+	    			choice.val("");
+	    			dateFrom.val($(this).val() + "-01-01");
+	    			dateTo.val($(this).val() + "-12-31");
+	    		}
+	    	});
+	    	
+	    	$("#searchChoice").change(function(){
+	    		var year = $("#searchYear");
+	    		var dateFrom = $("#vatIssueDateFrom");
+	    		var dateTo = $("#vatIssueDateTo");
+	    		
+	    		if($(this).val() == 3){
+	    			dateFrom.val(year.val() + "-01-01");
+	    			dateTo.val(year.val() + "-03-31");
+	    		}else if($(this).val() == 6){
+	    			dateFrom.val(year.val() + "-04-01");
+	    			dateTo.val(year.val() + "-06-30");
+	    		}else if($(this).val() == 9){
+	    			dateFrom.val(year.val() + "-07-01");
+	    			dateTo.val(year.val() + "-09-30");
+	    		}else if($(this).val() == 12){
+	    			dateFrom.val(year.val() + "-10-01");
+	    			dateTo.val(year.val() + "-12-31");
+	    		}else{
+	    			dateFrom.val(year.val() + "-01-01");
+	    			dateTo.val(year.val() + "-12-31");
+	    		}
+	    	});
+	    	
+	    	$("#vatIssueDateFrom").change(function(){
+				var dateValue = $(this).val();
+				var dateValueArr = dateValue.split("-");
+				var dateValueCom = new Date(dateValueArr[0], parseInt(dateValueArr[1])-1, dateValueArr[2]);
+				var EdateValue = $("#vatIssueDateTo").val();
+				var EdateDateArr = EdateValue.split("-");
+				var EdateDateCom = new Date(EdateDateArr[0], parseInt(EdateDateArr[1])-1, EdateDateArr[2]);
+				
+				if(EdateValue == ""){
+					dateValueCom.setDate(dateValueCom.getDate()+1);
+				}else if(dateValueCom.getTime() > EdateDateCom.getTime()){
+					alert("시작일이 종료일보다 클 수 없습니다.");
+					dateValueCom.setDate(dateValueCom.getDate()+1);
+				}else{
+					return null;
+				}
+				
+				var year = dateValueCom.getFullYear();
+				var month = dateValueCom.getMonth()+1;
+				var day = dateValueCom.getDate();
+				
+				if(month < 10){
+					month = "0" + month;
+				}
+				
+				if(day < 10){
+					day = "0" + day;
+				}
+				
+				$("#vatIssueDateTo").val(year + "-" + month + "-" + day);
+			});
+			
+			$("#vatIssueDateTo").change(function(){
+				var SdateValue = $("#vatIssueDateFrom").val();
+				var SdateValueArr = SdateValue.split("-");
+				var SdateValueCom = new Date(SdateValueArr[0], parseInt(SdateValueArr[1])-1, SdateValueArr[2]);
+				var thisDateValue = $(this).val();
+				var thisDateArr = thisDateValue.split("-");
+				var thisDateCom = new Date(thisDateArr[0], parseInt(thisDateArr[1])-1, thisDateArr[2]);
+				
+				if(SdateValue == ""){
+					thisDateCom.setDate(thisDateCom.getDate()-1);
+				}else if(SdateValueCom.getTime() > thisDateCom.getTime()){
+					alert("종료일이 시작일보다 작을 수 없습니다.");
+					thisDateCom.setDate(thisDateCom.getDate()-1);
+				}else{
+					return null;
+				}
+				
+				var year = thisDateCom.getFullYear();
+				var month = thisDateCom.getMonth()+1;
+				var day = thisDateCom.getDate();
+				
+				if(month < 10){
+					month = "0" + month;
+				}
+				
+				if(day < 10){
+					day = "0" + day;
+				}
+				
+				$("#vatIssueDateFrom").val(year + "-" + month + "-" + day);
+			});
+			
+	        var lastAco1 = localStorage.getItem('lastAco1');
+	        var lastAco2 = localStorage.getItem('lastAco2');
+	        if(lastAco1 == null && lastAco2 != null) {
+	             $("#acordian").css("display", "block");
+		        localStorage.clear();
+	        }
+    	});
     
         $('#custModal').on('show.bs.modal', function(e) {
             var button = $(e.relatedTarget);
@@ -276,12 +394,9 @@
         function fnListcon() {
     		var vatData = {};
     		vatData.vatSellerCustNo = $("#vatSellerCustNo").val() ? Number($("#vatSellerCustNo").val()) : 0;
-    		vatData.vatSellerName = $("#vatSellerName").val() ? $("#vatSellerName").val() : null;
-    		vatData.vatType = $("#vatType").val() ? $("#vatType").val() : null;
+    		vatData.vatSellerName = $("#vatSellerName").val();
     		vatData.vatIssueDateFrom = $("#vatIssueDateFrom").val() ? $("#vatIssueDateFrom").val() : null;
     		vatData.vatIssueDateTo = $("#vatIssueDateTo").val() ? $("#vatIssueDateTo").val() : null;
-    		vatData.vatSerial = $("#vatSerial").val() ? $("#vatSerial").val() : null;						// 판매방식
-    		vatData.vatRemark = $("#vatRemark").val() ? $("#vatRemark").val() : null;
     		
     		var param = "?";
     		var paramFirst = true;
@@ -408,15 +523,6 @@
             alert("변경 처리 완료");
             location.href = location.href;
         }
-        
-    	$(document).ready(function() {
-    		var lastAco1 = localStorage.getItem('lastAco1');
-    		var lastAco2 = localStorage.getItem('lastAco2');
-    		if(lastAco1 == null && lastAco2 != null) {
-    			 $("#acordian").css("display", "block");
-    		}
-    		localStorage.clear();	
-    	});
         
     </script>
 </div>

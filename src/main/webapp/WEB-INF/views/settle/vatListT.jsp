@@ -256,8 +256,6 @@
 	        	var listChecks = $("#vatTable tbody tr td #vatTcheck");
 	        	var compNo = "${sessionScope.compNo}";
 	        	
-	        	console.log(listChecks.find("#vatTcheck").length);
-	        	
 	        	listChecks.each(function(index, item){
 	        		if($(item).is(":checked") === true){
 	        			var updateData = {};

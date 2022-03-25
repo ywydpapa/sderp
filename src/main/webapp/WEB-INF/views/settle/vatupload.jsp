@@ -420,15 +420,24 @@
                         vatData.compNo = ${compNo};
                         vatData.vatNo = $Earr[i].innerText;
                         vatData.vatSerial = $Barr[i].innerText;
-                        vatData.vatProductName = $Marr[i].innerText;
-                        vatData.vatEmail = $Karr[i].innerText;
                         vatData.vatIssueDate = $Aarr[i].innerText;
                         vatData.vatTradeDate = $Carr[i].innerText;
                         vatData.vatTransDate = $Darr[i].innerText;
-                        vatData.vatTax = Number($Garr[i].innerText);
+                        vatData.vatTax = isNaN(Number($Garr[i].innerText)) ? 0 : Number($Garr[i].innerText);
+                        
+                        if(isNaN(Number($Garr[i].innerText))){
+							vatData.vatProductName = $(".vatlst25")[i].innerText;
+	                        vatData.vatEmail = $(".vatlst21")[i].innerText;
+	                        vatData.vatRemark = $(".vatlst19")[i].innerText;
+	                        vatData.vatIssueType = $(".vatlst18")[i].innerText;
+						}else{
+	                        vatData.vatProductName = $Marr[i].innerText;
+	                        vatData.vatEmail = $Karr[i].innerText;
+	                        vatData.vatRemark = $Jarr[i].innerText;
+	                        vatData.vatIssueType = $Iarr[i].innerText;
+						}      
+                        
                         vatData.vatAmount = Number($Farr[i].innerText);
-                        vatData.vatRemark = $Jarr[i].innerText;
-                        vatData.vatIssueType = $Iarr[i].innerText;
                         
                         $.ajax({
                         	url: "${path}/acc/selectVatCust/" + vatData.vatNo,
@@ -503,15 +512,24 @@
                         vatData.compNo = ${compNo};
                         vatData.vatNo = $Larr[i].innerText;
                         vatData.vatSerial = $Barr[i].innerText;
-                        vatData.vatProductName = $Marr[i].innerText;
-                        vatData.vatEmail = $Karr[i].innerText;
                         vatData.vatIssueDate = $Aarr[i].innerText;
                         vatData.vatTradeDate = $Carr[i].innerText;
                         vatData.vatTransDate = $Darr[i].innerText;
-                        vatData.vatTax = Number($Garr[i].innerText);
                         vatData.vatAmount = Number($Farr[i].innerText);
-                        vatData.vatRemark = $Jarr[i].innerText;
-                        vatData.vatIssueType = $Iarr[i].innerText;
+                        vatData.vatTax = isNaN(Number($Garr[i].innerText)) ? 0 : Number($Garr[i].innerText);
+                        
+						if(isNaN(Number($Garr[i].innerText))){
+							vatData.vatProductName = $(".vatlst25")[i].innerText;
+	                        vatData.vatEmail = $(".vatlst22")[i].innerText;
+	                        vatData.vatRemark = $(".vatlst19")[i].innerText;
+	                        vatData.vatIssueType = $(".vatlst17")[i].innerText;
+						}else{
+	                        vatData.vatProductName = $Marr[i].innerText;
+	                        vatData.vatEmail = $Karr[i].innerText;
+	                        vatData.vatRemark = $Jarr[i].innerText;
+	                        vatData.vatIssueType = $Iarr[i].innerText;
+						}                        
+                        
                         console.log(vatData);
                         $.ajax({
                         	url: "${path}/acc/selectVatCust/" + $Earr[i].innerText,

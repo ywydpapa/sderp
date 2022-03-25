@@ -606,7 +606,7 @@ attrib) values (#{vatId},
 	</insert>
 
 	<update id="updVatStatus">
-		update swc_vat set vatStatus=#{vatStatus} where vatSerial = #{vatSerial};
+		update swc_vat set vatStatus = #{vatStatus} where vatSerial = #{vatSerial} and compNo = #{compNo} and attrib not like 'XXX%';
 	</update>
 	
 	<update id="lastUpdate">

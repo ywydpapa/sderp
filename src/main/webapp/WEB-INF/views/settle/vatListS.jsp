@@ -35,17 +35,20 @@
                     </div>
                     <div class="btn_wr" style="float:right;">
                         <!-- hide and show -->
-						<button class="btn btn-sm btn-success" style="display:none;" id="fold" onclick="acordian_action()">펼치기</button>
-						<button class="btn btn-sm btn-success" style="display:none;" id="fold2" onclick="acordian_action1()" style="display:none;">접기</button>
-						<!-- hide and show -->
-                        <button class="btn btn-sm btn-inverse" style="display:none;" onClick="javascript:fnClearall()">
+						<!-- <button class="btn btn-sm btn-success" id="fold" onclick="acordian_action()">펼치기</button>
+						<button class="btn btn-sm btn-success" id="fold2" onclick="acordian_action1()">접기</button>
+						hide and show
+                        <button class="btn btn-sm btn-inverse" onClick="javascript:fnClearall()">
                         	<i class="icofont icofont-spinner-alt-3"></i>초기화
                         </button>
-                        <button class="btn btn-sm btn-primary" style="display:none;" onClick="javascript:fnListcon()">
+                        <button class="btn btn-sm btn-primary" onClick="javascript:fnListcon()">
                         	<i class="icofont icofont-search"></i>검색
+                        </button> -->
+                        <button class="btn btn-sm btn-inverse"  onClick="javascript:fnChgStatus3()">
+                        	부분지급
                         </button>
-                        <button class="btn btn-sm btn-danger"  onClick="javascript:fnChgStatus()">
-                        	상태변경
+                        <button class="btn btn-sm btn-danger"  onClick="javascript:fnChgStatus5()">
+                        	지급완료
                         </button>
                         <button class="btn btn-sm btn-outline"onClick="javascript:location='${path}/acc/vatupload.do'">
                         	<i class="icofont icofont-pencil-alt-2"></i>계산서 등록
@@ -196,7 +199,7 @@
                                         <c:if test = "${vlist.vatStatus eq 'S1'}">매출발행</c:if>
                                         <c:if test = "${vlist.vatStatus eq 'S3'}">수금처리중</c:if>
                                         <c:if test = "${vlist.vatStatus eq 'S5'}">수금완료</c:if>
-                                        <input type="checkbox" class="vatStchg">
+                                        <input type="checkbox" class="vatStchg" data-id="${vlist.vatSerial}">
                                     </td>
                                     <td class="text-right">
                                     	<fmt:formatNumber type="number" maxFractionDigits="3" value="${vlist.vatAmount}" />
@@ -269,6 +272,58 @@
             var modal = $(this);
             modal.find('.modal-body').load(button.data("remote"));
         });
+        
+        function fnChgStatus3(){
+        	var tableBody = $("#vatTable tbody tr td .vatStchg");
+        	var compNo = "${sessionScope.compNo}";
+        	
+        	tableBody.each(function(index, item){
+        		if($(item).is(":checked") === true){
+		        	var vatSerial = $(this).attr("data-id");
+	        		var vatData = {};
+	        		vatData.compNo = compNo;
+	        		vatData.vatSerial = vatSerial;
+	        		vatData.vatStatus = 'S3';
+	        		
+	        		$.ajax({
+	                    url : "${path}/acc/vatStatuschg.do",
+	                    data : vatData,
+	                    async: false,
+	                    method : "POST",
+	                    dataType: "json"
+	                });
+        		}
+        	});
+        	
+            alert("변경 처리 완료");
+            location.href = location.href;
+        }
+
+        function fnChgStatus5(){
+        	var tableBody = $("#vatTable tbody tr td .vatStchg");
+        	var compNo = "${sessionScope.compNo}";
+        	
+        	tableBody.each(function(index, item){
+        		if($(item).is(":checked") === true){
+		        	var vatSerial = $(this).attr("data-id");
+	        		var vatData = {};
+	        		vatData.compNo = compNo;
+	        		vatData.vatSerial = vatSerial;
+	        		vatData.vatStatus = 'S5';
+	        		
+	        		$.ajax({
+	                    url : "${path}/acc/vatStatuschg.do",
+	                    data : vatData,
+	                    async: false,
+	                    method : "POST",
+	                    dataType: "json"
+	                });
+        		}
+        	});
+        	
+            alert("변경 처리 완료");
+            location.href = location.href;
+        }
         
         function fnListcon() {
     		var vatData = {};
@@ -352,33 +407,6 @@
             $("#soppTitle").val(a);
             $(".modal-backdrop").remove();
             $("#soppModal").modal("hide");
-        }
-
-        function fnChgStatus(){
-            $Aarr=$(".vatSno");
-            $Barr=$(".vatStchg");
-            $Carr=$(".vatTyp");
-            for (var i=0; i<$Barr.length; i++) {
-                if ($($Barr[i]).is(":checked") == true) {
-                    var vatData = {};
-                    vatData.vatSerial = $Aarr[i].innerText;
-                    if ($Carr[i].innerText == '매입'){
-                        vatData.vatStatus = 'B5';
-                    }else{
-                        vatData.vatStatus = 'S5';
-                    }
-                    $.ajax({
-                        url : "${path}/acc/vatStatuschg.do",
-                        data : vatData,
-                        method : "POST",
-                        dataType: "json"
-                    })
-                        .done(function(){
-                        });
-                }
-            }
-            alert("변경 처리 완료");
-            location.href = location.href;
         }
         
     	$(document).ready(function() {

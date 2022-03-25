@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Service;
 
+import kr.swcore.sderp.common.dto.DeptToPlanTblDTO;
 import kr.swcore.sderp.sopp.dto.SoppDTO;
 import kr.swcore.sderp.user.dao.UserDAO;
 import kr.swcore.sderp.user.dto.UserDTO;
@@ -105,5 +106,11 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public List<UserDTO> userListWithOrgId(UserDTO dto) {
 		return userDao.userListWithOrgId(dto.getOrg_id());
+	}
+
+	@Override
+	public List<UserDTO> allList() {
+		// TODO Auto-generated method stub
+		return userDao.allList();
 	}
 }

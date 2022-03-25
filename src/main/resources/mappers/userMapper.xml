@@ -108,4 +108,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where userId=#{userId}
 </update>
 
+<select id="allList" resultType="userDto">
+	select * from swc_user
+	where attrib not like 'XXX'
+</select>
 </mapper>

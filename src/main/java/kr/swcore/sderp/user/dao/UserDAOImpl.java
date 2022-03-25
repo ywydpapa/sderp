@@ -1,5 +1,6 @@
 package kr.swcore.sderp.user.dao;
 
+import kr.swcore.sderp.common.dto.DeptToPlanTblDTO;
 import kr.swcore.sderp.sopp.dto.SoppDTO;
 import kr.swcore.sderp.user.dto.UserDTO;
 import org.apache.ibatis.session.SqlSession;
@@ -84,6 +85,12 @@ public class UserDAOImpl implements UserDAO {
 	@Override
 	public UserDTO userSessionCheck(UserDTO dto) {
 		return sqlSession.selectOne("user.userSessionCheck", dto);
+	}
+
+	@Override
+	public List<UserDTO> allList() {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("user.allList");
 	}
 
 

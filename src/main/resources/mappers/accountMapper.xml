@@ -251,7 +251,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="modalVatS" resultType="accountDto">
 		select a.*, b.custName from swc_vat a left join swc_cust b on a.vatBuyerCustNo = b.custNo where a.vatStatus in ('S1','S3') and a.attrib not like 'XXX%' AND a.linkedcheck = 1 and a.compNo = #{compNo} order by a.vatIssueDate desc
 	</select>
-
 	<select id="checkVat" resultType="accountDto">
 		select count(*) as resultCount from swc_vat where vatSerial = #{vatSerial} and attrib not like 'XXX%'
 	</select>
@@ -606,16 +605,171 @@ attrib) values (#{vatId},
 	<update id="updatevatlinkedcheck">
 		update swc_vat set linkedcheck = 0 where vatSerial = #{linkDoc}
 	</update>
-	<update id="cancelconnect_linkedcheck">
-		update swc_vat set linkedcheck = 1
-		where vatSerial = #{linkDoc};
-	</update>
-	<update id="cancelconnect_linkDoc">
-		update swc_bacledger set linkDoc = ''
-		where linkDoc = #{linkDoc}
-	</update>
-	
 	<update id="sVatToChange">
 		update swc_vat set vatStatus = #{vatStatus}, vatType = #{vatType} where vatId = #{vatId};
 	</update>
+	<update id="updatelogIdlink">
+		update swc_bacledger set linkDoc = 'y'
+		where baclogId = #{baclogId}
+	</update>
+	<update id="updatevatmultilinkedcheck">
+		update swc_vat set linkedcheck = 0 where vatSerial = #{linkDocno}
+	</update>
+	
+	
+	<select id="bac_connect_list" resultType="accountDto">
+		SELECT * FROM swc_vat WHERE vatSerial = #{vatId}
+	</select>
+	<select id="new_bac_connect_list" resultType="accountDto">
+		SELECT b.*, c.custName FROM swc_bacledger_detail a 
+		left join swc_vat b on a.linkDocno = b.vatSerial
+		LEFT JOIN swc_cust c ON b.vatEmail = c.custEmail
+		WHERE baclogId = #{vatId}
+	</select>
+	<select id="connnectlist_Num" resultType="integer">
+		SELECT COUNT(*) FROM swc_bacledger_detail 
+		WHERE baclogId = #{baclogId}
+	</select>
+	<delete id="deleteconnectlist">
+		delete from swc_bacledger_detail
+		where linkDocno = #{linkDocno}
+	</delete>
+	<update id="cancelconnect_linkedcheck">
+		update swc_vat set linkedcheck = 1
+		where vatSerial = #{linkDocno};
+	</update>
+	<select id="searchserial"  resultType="integer">
+		SELECT COUNT(*) FROM swc_bacledger
+		WHERE linkDoc = #{linkDocno}
+	</select>
+	<update id="cancelconnect_linkDoc">
+		update swc_bacledger set linkDoc = ''
+		where linkDoc = #{linkDocno}
+	</update>
+	<update id="cancel_connect_final">
+		update swc_bacledger set linkDoc = ''
+		where baclogId = #{baclogId}
+	</update>
+	<select id="number_linkDoc" resultType="String">
+		select linkDoc from swc_bacledger
+		where baclogId = #{baclogId}
+	</select>
+	<insert id="change_originlinkDoc">
+			insert into swc_bacledger_detail
+		(
+			compNo,
+			baclogId,
+			linkType,
+			linkDocno,
+			regDate,
+			attrib	
+		)
+		values
+		(
+			#{compNo},
+			#{baclogId},
+			#{linkType},
+			#{linkDocno},
+			now(),
+			'10000'			
+		);
+	</insert>
+	<select id="dataprice" resultType="accountDto">
+		SELECT * FROM swc_bacledger_detail  a
+		left join swc_vat b ON b.vatSerial = a.linkDocno
+		WHERE a.baclogId = #{baclogId}
+	</select>
+	<select id="total_price" resultType="accountDto">
+		SELECT a.inAmt, a.outAmt, b.linkDocno
+		FROM swc_bacledger a
+		left join swc_bacledger_detail b on a.baclogId = b.baclogId
+		WHERE a.baclogId = #{baclogId}
+	</select>
+	<update id="update_s5">
+		update swc_vat set vatStatus = 'S5'
+		where vatSerial = #{linkDocno};
+	</update>
+	<update id="update_s3">
+		update swc_vat set vatStatus = 'S5'
+		where vatSerial = #{linkDocno};
+	</update>
+	<update id="update_b5">
+		update swc_vat set vatStatus = 'B5'
+		where vatSerial = #{linkDocno};
+	</update>
+	<update id="update_b3">
+		update swc_vat set vatStatus = 'B3'
+		where vatSerial = #{linkDocno};
+	</update>
+	
+	<select id="gradata" resultType="accountDto">
+		select sst.userNo, su.userName. sst.deptNo, sst.targetType,
+		sst.mm01, sst.mm02, sst.mm03, sst.mm04, sst.mm05
+		sst.mm06, sst.mm07, sst.mm08, sst.mm09, sst.mm10
+		sst.mm11, sst.mm12
+		from swc_sales_target sst
+		left join swc_user su on sst.userNo = su.userNo
+		where sst.compNo = #{compNo} and sst.targetYear = #{targetYear}
+		and sst.targetType = #{targetType} and sst.userNo IN
+	</select>
+	<select id="gradata01" resultType="accountDto">
+		select * from swc_vat
+		where (vatStatus = 'S1' or vatStatus = 'S5')
+		and date_format(vatIssueDate, '%Y-%m-%d') BETWEEN '2022-01-01' and '2022-01-31';
+	</select>
+	<select id="gradata02" resultType="accountDto">
+		select * from swc_vat
+		where (vatStatus = 'S1' or vatStatus = 'S5')
+		and date_format(vatIssueDate, '%Y-%m-%d') BETWEEN '2022-01-02' and '2022-02-31';
+	</select>
+	<select id="gradata03" resultType="accountDto">
+		select * from swc_vat
+		where (vatStatus = 'S1' or vatStatus = 'S5')
+		and date_format(vatIssueDate, '%Y-%m-%d') BETWEEN '2022-03-01' and '2022-03-31';
+	</select>
+	<select id="gradata04" resultType="accountDto">
+		select * from swc_vat
+		where (vatStatus = 'S1' or vatStatus = 'S5')
+		and date_format(vatIssueDate, '%Y-%m-%d') BETWEEN '2022-04-01' and '2022-04-31';
+	</select>
+	<select id="gradata05" resultType="accountDto">
+		select * from swc_vat
+		where (vatStatus = 'S1' or vatStatus = 'S5')
+		and date_format(vatIssueDate, '%Y-%m-%d') BETWEEN '2022-05-01' and '2022-05-31';
+	</select>
+	<select id="gradata06" resultType="accountDto">
+		select * from swc_vat
+		where (vatStatus = 'S1' or vatStatus = 'S5')
+		and date_format(vatIssueDate, '%Y-%m-%d') BETWEEN '2022-06-01' and '2022-06-31';
+	</select>
+	<select id="gradata07" resultType="accountDto">
+		select * from swc_vat
+		where (vatStatus = 'S1' or vatStatus = 'S5')
+		and date_format(vatIssueDate, '%Y-%m-%d') BETWEEN '2022-07-01' and '2022-07-31';
+	</select>
+	<select id="gradata08" resultType="accountDto">
+		select * from swc_vat
+		where (vatStatus = 'S1' or vatStatus = 'S5')
+		and date_format(vatIssueDate, '%Y-%m-%d') BETWEEN '2022-08-01' and '2022-08-31';
+	</select>
+	<select id="gradata09" resultType="accountDto">
+		select * from swc_vat
+		where (vatStatus = 'S1' or vatStatus = 'S5')
+		and date_format(vatIssueDate, '%Y-%m-%d') BETWEEN '2022-09-01' and '2022-09-31';
+	</select>
+	<select id="gradata10" resultType="accountDto">
+		select * from swc_vat
+		where (vatStatus = 'S1' or vatStatus = 'S5')
+		and date_format(vatIssueDate, '%Y-%m-%d') BETWEEN '2022-10-01' and '2022-10-31';
+	</select>
+	<select id="gradata11" resultType="accountDto">
+		select * from swc_vat
+		where (vatStatus = 'S1' or vatStatus = 'S5')
+		and date_format(vatIssueDate, '%Y-%m-%d') BETWEEN '2022-11-01' and '2022-11-31';
+	</select>
+	<select id="gradata12" resultType="accountDto">
+		select * from swc_vat
+		where (vatStatus = 'S1' or vatStatus = 'S5')
+		and date_format(vatIssueDate, '%Y-%m-%d') BETWEEN '2022-12-01' and '2022-12-31';
+	</select>
 </mapper>

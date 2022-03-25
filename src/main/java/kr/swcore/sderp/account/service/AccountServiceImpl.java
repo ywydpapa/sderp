@@ -270,17 +270,6 @@ public class AccountServiceImpl implements AccountService {
 	}
 
 	@Override
-	public void cancelconnect_linkedcheck(String linkDoc) {
-		// TODO Auto-generated method stub
-		accountDAO.cancelconnect_linkedcheck(linkDoc);
-	}
-	@Override
-	public void cancelconnect_linkDoc(String linkDoc) {
-		// TODO Auto-generated method stub
-		accountDAO.cancelconnect_linkDoc(linkDoc);
-	}
-
-	@Override
 	public int bacCheckConnect(AccountDTO dto) {
 		return accountDAO.bacCheckConnect(dto);
 	}
@@ -291,6 +280,7 @@ public class AccountServiceImpl implements AccountService {
 	}
 
 	@Override
+
 	public List<AccountDTO> vatSelectList(int contNo) {
 		AccountDTO dto = new AccountDTO();
 		dto.setContNo(contNo);
@@ -302,5 +292,111 @@ public class AccountServiceImpl implements AccountService {
 	public int sVatToChange(AccountDTO dto) {
 		return accountDAO.sVatToChange(dto);
 	}
+	
+	@Override
+	public List<AccountDTO> bac_connect_list(String bacId) {
+        return accountDAO.bac_connect_list(bacId);
+	}
+	
+	@Override
+	public List<AccountDTO> new_bac_connect_list(String bacId) {
+		// TODO Auto-generated method stub
+		 return accountDAO.new_bac_connect_list(bacId);
+	}
+	
+	@Override
+	public void cancelconnect_linkedcheck(AccountDTO dto) {
+		// TODO Auto-generated method stub
+		accountDAO.cancelconnect_linkedcheck(dto);
+	}
+	@Override
+	public void cancelconnect_linkDoc(AccountDTO dto) {
+		// TODO Auto-generated method stub
+		accountDAO.cancelconnect_linkDoc(dto);
+	}
 
+	@Override
+	public void updatevatmultilinkedcheck(AccountDTO dto) {
+		// TODO Auto-generated method stub
+		accountDAO.updatevatmultilinkedcheck(dto);
+	}
+
+	@Override
+	public void updatelogIdlink(AccountDTO dto) {
+		// TODO Auto-generated method stub
+		accountDAO.updatelogIdlink(dto);
+	}
+
+
+	@Override
+	public int connnectlist_Num(AccountDTO dto) {
+		// TODO Auto-generated method stub
+		return accountDAO.connnectlist_Num(dto);
+	}
+
+	@Override
+	public void deleteconnectlist(AccountDTO dto) {
+		// TODO Auto-generated method stub
+		accountDAO.deleteconnectlist(dto);
+	}
+
+	@Override
+	public int searchserial(AccountDTO dto) {
+		// TODO Auto-generated method stub
+		return accountDAO.searchserial(dto);
+	}
+	
+	@Override
+	public void cancel_connect_final(AccountDTO dto) {
+		// TODO Auto-generated method stub
+		accountDAO.cancel_connect_final(dto);
+
+	}
+
+	@Override
+	public String number_linkDoc(AccountDTO dto) {
+		// TODO Auto-generated method stub
+		return accountDAO.number_linkDoc(dto);
+	}
+
+	@Override
+	public void change_originlinkDoc(AccountDTO dto) {
+		// TODO Auto-generated method stub
+		accountDAO.change_originlinkDoc(dto);
+	}
+
+	@Override
+	public List<AccountDTO> dataprice(AccountDTO dto) {
+		// TODO Auto-generated method stub
+		return accountDAO.dataprice(dto);
+	}
+
+	@Override
+	public List<AccountDTO> total_price(AccountDTO dto) {
+		// TODO Auto-generated method stub
+		return accountDAO.total_price(dto);
+	}
+
+	@Override
+	public void update_s5(AccountDTO dto) {
+		// TODO Auto-generated method stub
+		accountDAO.update_s5(dto);
+	}
+	@Override
+	public void update_s3(AccountDTO dto) {
+		// TODO Auto-generated method stub
+		accountDAO.update_s3(dto);
+	}
+
+	@Override
+	public void update_b5(AccountDTO dto) {
+		// TODO Auto-generated method stub
+		accountDAO.update_b5(dto);
+	}
+
+	@Override
+	public void update_b3(AccountDTO dto) {
+		// TODO Auto-generated method stub
+		accountDAO.update_b3(dto);
+	}
 }

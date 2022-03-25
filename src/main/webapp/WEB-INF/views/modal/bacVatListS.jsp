@@ -40,7 +40,8 @@
 		        <td>₩<fmt:formatNumber value="${row.vatAmount + row.vatTax}" pattern="#,###" /></td>
 		        <td>${row.vatProductName}</td>
 		        <td class="text-left">${row.vatRemark}</td>
-		        <td><a href="javascript:fnvatListS('${row.vatSerial}', '${row.vatSellerCustNo}', '${row.vatAmount}');">${row.vatSerial}</a></td>
+		        <td>${row.vatSerial}</td>
+		        <!-- <a href="javascript:fnvatListS('${row.vatSerial}', '${row.vatSellerCustNo}', '${row.vatAmount}');"></a>  -->
 		      </tr>
 		    </c:forEach>
 	    </tbody>
@@ -104,10 +105,13 @@
 		  				async: false,
 		  				dataType: "json"
 		  			});
+		  			
 			  	}
 	  		});
 	  		  
 	  		alert("연결되었습니다.");
+	  		localStorage.setItem('lastTab', $('#baclist_num').val());
+			localStorage.setItem('lastpageNum', $('#reloadpage_num').val());
 			location.href="${path}/acc/bacdetail.do";
 	  	}
     }

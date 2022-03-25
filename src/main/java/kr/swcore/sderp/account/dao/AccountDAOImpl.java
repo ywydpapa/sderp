@@ -214,19 +214,6 @@ public class AccountDAOImpl implements AccountDAO {
 		// TODO Auto-generated method stub
 		 return sqlSession.update("account.updatevatlinkedcheck", dto);
 	}
-
-	@Override
-	public void cancelconnect_linkedcheck(String linkDoc) {
-		// TODO Auto-generated method stub
-		sqlSession.update("account.cancelconnect_linkedcheck", linkDoc);
-	}
-
-	@Override
-	public void cancelconnect_linkDoc(String linkDoc) {
-		// TODO Auto-generated method stub
-		sqlSession.delete("account.cancelconnect_linkDoc", linkDoc);
-	}
-
 	@Override
 	public int bacCheckConnect(AccountDTO dto) {
 		// TODO Auto-generated method stub
@@ -249,4 +236,111 @@ public class AccountDAOImpl implements AccountDAO {
 		return sqlSession.update("account.sVatToChange", dto);
 	}
 	
+	@Override
+	public List<AccountDTO> new_bac_connect_list(String bacId) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("account.new_bac_connect_list",bacId);
+	}
+	
+	@Override
+	public List<AccountDTO> bac_connect_list(String bacId) {
+		return sqlSession.selectList("account.bac_connect_list",bacId);
+	}
+	
+	@Override
+	public void updatevatmultilinkedcheck(AccountDTO dto) {
+		// TODO Auto-generated method stub
+		sqlSession.update("account.updatevatmultilinkedcheck", dto);
+	}
+
+	@Override
+	public void updatelogIdlink(AccountDTO dto) {
+		// TODO Auto-generated method stub
+		sqlSession.update("account.updatelogIdlink", dto);
+	}
+
+
+	@Override
+	public int connnectlist_Num(AccountDTO dto) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("account.connnectlist_Num", dto);
+	}
+
+	@Override
+	public void deleteconnectlist(AccountDTO dto) {
+		// TODO Auto-generated method stub
+		sqlSession.delete("account.deleteconnectlist", dto);
+	}
+
+	@Override
+	public int searchserial(AccountDTO dto) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("account.searchserial", dto);
+	}
+
+	@Override
+	public void cancel_connect_final(AccountDTO dto) {
+		// TODO Auto-generated method stub
+		sqlSession.update("account.cancel_connect_final", dto);
+
+	}
+	@Override
+	public void cancelconnect_linkedcheck(AccountDTO dto) {
+		// TODO Auto-generated method stub
+		sqlSession.update("account.cancelconnect_linkedcheck", dto);
+	}
+
+	@Override
+	public void cancelconnect_linkDoc(AccountDTO dto) {
+		// TODO Auto-generated method stub
+		sqlSession.delete("account.cancelconnect_linkDoc", dto);
+	}
+
+	@Override
+	public String number_linkDoc(AccountDTO dto) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("account.number_linkDoc", dto);
+	}
+
+	@Override
+	public void change_originlinkDoc(AccountDTO dto) {
+		// TODO Auto-generated method stub
+		sqlSession.insert("account.change_originlinkDoc", dto);
+	}
+
+	@Override
+	public List<AccountDTO> dataprice(AccountDTO dto) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("account.dataprice", dto);
+	}
+
+	@Override
+	public List<AccountDTO> total_price(AccountDTO dto) {
+		// TODO Auto-generated method stub
+		return  sqlSession.selectList("account.total_price", dto);
+	}
+
+	@Override
+	public void update_s5(AccountDTO dto) {
+		// TODO Auto-generated method stub
+		sqlSession.update("account.update_s5", dto);
+	}
+
+	@Override
+	public void update_s3(AccountDTO dto) {
+		// TODO Auto-generated method stub
+		sqlSession.update("account.update_s3", dto);
+	}
+
+	@Override
+	public void update_b5(AccountDTO dto) {
+		// TODO Auto-generated method stub
+		sqlSession.update("account.update_b5", dto);
+	}
+
+	@Override
+	public void update_b3(AccountDTO dto) {
+		// TODO Auto-generated method stub
+		sqlSession.update("account.update_b3", dto);
+	}
 }

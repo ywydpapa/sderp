@@ -45,10 +45,29 @@ public interface AccountDAO {
 	List<AccountDTO> custVatListModal(AccountDTO dto);
 	List<AccountDTO> treqCardList(AccountDTO dto);
 	int updatevatlinkedcheck(AccountDTO dto);
-	void cancelconnect_linkedcheck(String linkDoc);
-	void cancelconnect_linkDoc(String linkDoc);
 	int bacCheckConnect(AccountDTO dto);
 	int billInsert(AccountDTO dto);
+
 	List<AccountDTO> vatSelectList(AccountDTO dto);
 	int sVatToChange(AccountDTO dto);
+	
+	List<AccountDTO> bac_connect_list(String bacId);
+	List<AccountDTO> new_bac_connect_list(String bacId);
+	void updatevatmultilinkedcheck(AccountDTO dto);
+	void updatelogIdlink(AccountDTO dto);
+
+	int connnectlist_Num(AccountDTO dto);
+	void deleteconnectlist(AccountDTO dto);
+	int searchserial(AccountDTO dto);
+	void cancel_connect_final(AccountDTO dto);
+	void cancelconnect_linkedcheck(AccountDTO dto);
+	void cancelconnect_linkDoc(AccountDTO dto);
+	String number_linkDoc(AccountDTO dto);
+	void change_originlinkDoc(AccountDTO dto);
+	List<AccountDTO> dataprice(AccountDTO dto);
+	List<AccountDTO> total_price(AccountDTO dto);
+	void update_s5(AccountDTO dto);
+	void update_s3(AccountDTO dto);
+	void update_b5(AccountDTO dto);
+	void update_b3(AccountDTO dto);
 }

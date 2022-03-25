@@ -36,8 +36,8 @@
     </thead>
     <tbody>
     <c:forEach var="row" items="${detailListData}">
+    	<input type="hidden" id="docAppSerial" value="${row.docAppSerial}" />
     	<tr>
-    		<input type="hidden" id="docAppSerial" value="${row.docAppSerial}" />
     		<td id='salesCustNoN' style='text-align:center;'>${row.custName}</td>
     		<td id='dataTitle' style='text-align:center;'>${row.productName}</td>
     		<td id='dataNetprice' style='text-align: right;'>₩<fmt:formatNumber value="${row.productNetprice}" pattern="#,###" /></td>

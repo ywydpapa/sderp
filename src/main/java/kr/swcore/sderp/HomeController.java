@@ -128,6 +128,8 @@ public class HomeController {
 		
 		mav.addObject("noticelist", noticeService.listNotice(session, pageDTO));
 		mav.addObject("graph1",salesTargetService.listSalesTargetYearTotalSalesIndividual(session, null));
+		List<UserDTO> allList = userService.allList();
+		mav.addObject("username", allList);
 
 		mav.setViewName("board/myboard");
 		long afterTime = System.currentTimeMillis();
@@ -311,7 +313,6 @@ public class HomeController {
 			model.addAttribute("list", list);
 			rtn = "modal/treqCardList";
 		}
-		
 		logger.debug(rtn);
 		
 		mav.setViewName(rtn);
@@ -325,6 +326,21 @@ public class HomeController {
 		List<AccountDTO> list = accountService.modalbB(vatSerial);
 		model.addAttribute("list", list);
 		rtn = "modal/vatSerialList";
+
+		logger.debug(rtn);
+		
+		mav.setViewName(rtn);
+		return mav;
+	}
+	@RequestMapping("/modal/popup2.do")
+	public ModelAndView modal2(@RequestParam Map<String, Object> params, Model model, ModelAndView mav, HttpSession session, HttpServletRequest servletRequest) {
+		String rtn = "";
+		String bacId = (String)params.get("popId");
+		List<AccountDTO> list=accountService.bac_connect_list(bacId);
+		List<AccountDTO> secound_list=accountService.new_bac_connect_list(bacId);
+		model.addAttribute("list",list);
+		model.addAttribute("secound_list",secound_list);
+		rtn = "modal/bac_connect_list";
 
 		logger.debug(rtn);
 		

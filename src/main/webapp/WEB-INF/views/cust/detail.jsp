@@ -275,19 +275,16 @@
 													class="form-control form-control-sm"></td>
 											</tr>
 											<tr>
-												<th scope="row">기초잔액</th>
-												<td><input name="custBBalance" id="custBBalance" placeholder="숫자만 입력해주십시오." oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" type="text" maxlength="15"
-													value="${dto04.custBBalance}"
+												<th scope="row">줄돈</th>
+												<td><input name="custBBalance" id="custDRbalance" placeholder="숫자만 입력해주십시오." oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" type="text" maxlength="15"
+													value="${dto04.custDRbalance}"
 													class="form-control form-control-sm"></td>
 											</tr>
 											<tr>
-												<th scope="row">금액타입</th>
-												<td>
-													<select class="form-control form-control-sm" id="balanceType">
-														<option value="DR">DR(줄돈)</option>
-														<option value="CR">CR(받을돈)</option>
-													</select>
-												</td>
+												<th scope="row">받을돈</th>
+												<td><input name="custBBalance" id="custCRbalance" placeholder="숫자만 입력해주십시오." oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" type="text" maxlength="15"
+													value="${dto04.custCRbalance}"
+													class="form-control form-control-sm"></td>
 											</tr>
 											<tr>
 												<th scope="row">계산서 이메일</th>
@@ -642,8 +639,8 @@
 			custData4.custNo 		= $("#custNo").val();
 			custData4.compNo		= compNo;
 			custData4.custByear	= $("#custByear").val();
-			custData4.custBBalance	= $("#custBBalance").val();
-			custData4.balanceType	= $("#balanceType").val();
+			custData4.custCRbalance	= $("#custCRbalance").val();
+			custData4.custDRbalance	= $("#custDRbalance").val();
 			custData4.custVatemail	= $("#custVatemail").val();
 			custData4.custVatno		= $("#custVatno1").val();
 			custData4.custVattype 	= $("#custVattype").val();
@@ -783,17 +780,8 @@
 		}
 
 	$(document).ready(function(){
-		var balanceType = "${dto04.balanceType}";
-		
 		$('#saleType').val('${dto.saleType}').prop("selected",true);
 		$('#compType').val('${dto.compType}').prop("selected",true);
-		
-		if(balanceType !== ""){
-			setTimeout(() => {
-				$("#balanceType").val(balanceType);
-			}, 300);
-		}
-		
 	});
 	</script>
 </div>

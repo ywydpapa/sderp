@@ -88,9 +88,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
  <insert id="insertCust04">
  update swc_custdata set attrib = "XXXXX" where custNo=#{custNo};
- insert into swc_custdata (custNo, compNo, balanceType, custBBalance, custByear, custCRbalance, custDRbalance, custVatno, custVatemail, custVattype, custVatbiz, custVatmemo, regDatetime, attrib)
+ insert into swc_custdata (custNo, compNo, custByear, custCRbalance, custDRbalance, custVatno, custVatemail, custVattype, custVatbiz, custVatmemo, regDatetime, attrib)
  values
- (#{custNo}, #{compNo}, #{balanceType}, #{custBBalance}, #{custByear}, #{custCRbalance}, #{custDRbalance}, #{custVatno}, #{custVatemail}, #{custVattype}, #{custVatbiz}, #{custVatmemo}, now(), '10000');
+ (#{custNo}, #{compNo}, #{custByear}, #{custCRbalance}, #{custDRbalance}, #{custVatno}, #{custVatemail}, #{custVattype}, #{custVatbiz}, #{custVatmemo}, now(), '10000');
  </insert>
 
  <update id="updateCust">

@@ -32,7 +32,7 @@
         </thead>
         <c:forEach items="${list}" var="list">
             <tr>
-            <td class="text-center">${list.vatIssueDate}</td>
+            	<td class="text-center">${list.vatIssueDate}</td>
                 <td class="text-center vatTyp">
                 	<c:if test = "${list.vatType eq 'S'}">매출</c:if> 
                 	<c:if test = "${list.vatType eq 'B'}">매입</c:if>

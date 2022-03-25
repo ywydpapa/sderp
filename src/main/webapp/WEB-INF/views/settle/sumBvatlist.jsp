@@ -190,16 +190,9 @@
 	                            <c:forEach items="${vatList}" var="vlist">
 	                                <tr>
 	                                    <td class="text-center">
-	                                    	<c:if test = "${vlist.vatType eq 'S'}">
-	                                    		<a data-remote="${path}/modal/popup.do?popId=custVatListModal&custNo=${vlist.vatBuyerCustNo}&compNo=${sessionScope.compNo}" type="button" data-toggle="modal" data-target="#custVatList" style="cursor: pointer; text-decoration: underline;">
-	                                    			${vlist.vatBuyerName}
-	                                    		</a>
-	                                    		</c:if> 
-	                                    	<c:if test = "${vlist.vatType eq 'B'}">
-	                                    		<a data-remote="${path}/modal/popup.do?popId=custVatListModal&custNo=${vlist.vatSellerCustNo}&compNo=${sessionScope.compNo}" type="button" data-toggle="modal" data-target="#custVatList" style="cursor: pointer; text-decoration: underline;">
-	                                    			${vlist.vatSellerName}
-	                                    		</a>
-	                                    	</c:if>
+                                    		<a data-remote="${path}/modal/popup.do?popId=custVatListModal&custNo=${vlist.vatSellerCustNo}&compNo=${sessionScope.compNo}&vatIssueDateFrom=${param.vatIssueDateFrom}&vatIssueDateTo=${param.vatIssueDateTo}" type="button" data-toggle="modal" data-target="#custVatList" style="cursor: pointer; text-decoration: underline;">
+                                    			${vlist.vatSellerName}
+                                    		</a>
 	                                   	</td>
 	                                   	<td class="text-right">
 	                                   		<c:choose>

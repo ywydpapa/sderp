@@ -300,8 +300,12 @@ public class HomeController {
 			AccountDTO dto = new AccountDTO();
 			Integer custNo = Integer.parseInt(String.valueOf(params.get("custNo"))); 
 			Integer compNo = Integer.parseInt(String.valueOf(params.get("compNo")));
+			String vatIssueDateFrom = String.valueOf(params.get("vatIssueDateFrom"));
+			String vatIssueDateTo = String.valueOf(params.get("vatIssueDateTo"));
 			dto.setCustNo(custNo);
 			dto.setCompNo(compNo);
+			dto.setVatIssueDateFrom(vatIssueDateFrom);
+			dto.setVatIssueDateTo(vatIssueDateTo);
 			List<AccountDTO> list = accountService.custVatListModal(dto);
 			model.addAttribute("list", list);
 			rtn = "modal/custVatListModal";

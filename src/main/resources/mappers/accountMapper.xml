@@ -221,7 +221,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  		select a.*, b.custName vatSellerName, c.custName vatBuyerName from swc_vat a
  		left join swc_cust b on a.vatSellerCustNo = b.custNo
 		left join swc_cust c on a.vatBuyerCustNo = c.custNo
- 		where a.compNo = #{compNo} and a.vatBuyerCustNo = #{custNo} or a.vatSellerCustNo = #{custNo} order by a.vatIssueDate desc;
+ 		where a.compNo = #{compNo} 
+		<if test="vatIssueDateFrom != null and vatIssueDateFrom !=''">
+			and a.vatIssueDate Between #{vatIssueDateFrom} and #{vatIssueDateTo}
+		</if>
+ 		and (a.vatBuyerCustNo = #{custNo} or a.vatSellerCustNo = #{custNo}) order by a.vatIssueDate desc;
  	</select>
  
 	<select id="bacSelectList" resultType="accountDto">

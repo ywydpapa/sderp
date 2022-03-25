@@ -627,7 +627,7 @@ attrib) values (#{vatId},
 	<select id="new_bac_connect_list" resultType="accountDto">
 		SELECT b.*, c.custName FROM swc_bacledger_detail a 
 		left join swc_vat b on a.linkDocno = b.vatSerial
-		LEFT JOIN swc_cust c ON b.vatEmail = c.custEmail
+		LEFT JOIN swc_cust c ON b.vatBuyerCustNo = c.custNo
 		WHERE baclogId = #{vatId}
 	</select>
 	<select id="connnectlist_Num" resultType="integer">
@@ -694,7 +694,7 @@ attrib) values (#{vatId},
 		where vatSerial = #{linkDocno};
 	</update>
 	<update id="update_s3">
-		update swc_vat set vatStatus = 'S5'
+		update swc_vat set vatStatus = 'S3'
 		where vatSerial = #{linkDocno};
 	</update>
 	<update id="update_b5">
@@ -704,6 +704,18 @@ attrib) values (#{vatId},
 	<update id="update_b3">
 		update swc_vat set vatStatus = 'B3'
 		where vatSerial = #{linkDocno};
+	</update>
+	<select id="select_vatStatus" resultType="accountDto">
+		select vatStatus from swc_vat
+		where vatSerial = #{linkDocno}
+	</select>
+	<update id="update_vatStatus">
+		update swc_vat set vatStatus = 'S1'
+		where vatSerial = #{linkDocno}
+	</update>
+	<update id="update_vatStatus_B">
+		update swc_vat set vatStatus = 'B1'
+		where vatSerial = #{linkDocno}
 	</update>
 	
 	<select id="gradata" resultType="accountDto">

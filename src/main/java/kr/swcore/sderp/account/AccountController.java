@@ -534,10 +534,20 @@ public class AccountController {
         
         //swc_bacledger_detail에 갯수
         int listNumber = accountService.connnectlist_Num(dto);
+        List<AccountDTO> select_vatStatus = accountService.select_vatStatus(dto);
         if(listNumber != 0) {
         	//swc_bacledger는 delete 되게 그리고 해당 serial를 가진 swc_vat은 1로 변경
         	accountService.deleteconnectlist(dto);
         	accountService.cancelconnect_linkedcheck(dto);
+        	if(select_vatStatus.get(0).getVatStatus().equals("S5")) {
+        		accountService.update_vatStatus(dto);
+        	}else if(select_vatStatus.get(0).getVatStatus().equals("S3")) {
+        		accountService.update_vatStatus(dto);
+        	}else if(select_vatStatus.get(0).getVatStatus().equals("B5")) {
+        		accountService.update_vatStatus_B(dto);
+        	}else if(select_vatStatus.get(0).getVatStatus().equals("B3")) {
+        		accountService.update_vatStatus_B(dto);
+        	}
         }
         //0일 경우는 두가지 경우가 존재 (기존에 swc_bacledger의 컬럼으로 들어가 있는 경우, 진짜 아무 연결이 없는경우)
         else if (listNumber == 0) {

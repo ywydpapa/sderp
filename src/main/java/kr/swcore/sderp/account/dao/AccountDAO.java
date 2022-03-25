@@ -70,4 +70,7 @@ public interface AccountDAO {
 	void update_s3(AccountDTO dto);
 	void update_b5(AccountDTO dto);
 	void update_b3(AccountDTO dto);
+	void update_vatStatus(AccountDTO dto);
+	List<AccountDTO> select_vatStatus(AccountDTO dto);
+	void update_vatStatus_B(AccountDTO dto);
 }

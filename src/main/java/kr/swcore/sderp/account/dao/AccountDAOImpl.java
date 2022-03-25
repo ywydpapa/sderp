@@ -343,4 +343,22 @@ public class AccountDAOImpl implements AccountDAO {
 		// TODO Auto-generated method stub
 		sqlSession.update("account.update_b3", dto);
 	}
+
+	@Override
+	public void update_vatStatus(AccountDTO dto) {
+		// TODO Auto-generated method stub
+		sqlSession.update("account.update_vatStatus", dto);
+	}
+
+	@Override
+	public List<AccountDTO> select_vatStatus(AccountDTO dto) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("account.select_vatStatus", dto);
+	}
+
+	@Override
+	public void update_vatStatus_B(AccountDTO dto) {
+		// TODO Auto-generated method stub
+		sqlSession.update("account.update_vatStatus_B", dto);
+	}
 }

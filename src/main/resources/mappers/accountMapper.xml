@@ -22,7 +22,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 
 	<select id="sumBVat" resultType="accountDto">
-		select a.*, b.custName vatSellerName, c.custName vatBuyerName, sum(a.vatTax + a.vatAmount) AS vatAmountB, sum(case when a.vatStatus='B5' then d.dataTotal end) AS serialTotalB,
+		select a.*, b.custName vatSellerName, c.custName vatBuyerName, sum(a.vatTax + a.vatAmount) AS vatAmountB, sum(case when a.vatStatus='B5' then a.vatAmount + a.vatTax end) AS serialTotalB,
 		        f.custDRbalance AS custBalance
 		from swc_vat a
 		left join swc_cust b on a.vatSellerCustNo = b.custNo
@@ -39,7 +39,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 
 	<select id="sumBVatSearch" resultType="accountDto">
-		select a.*, b.custName vatSellerName, c.custName vatBuyerName, sum(a.vatTax + a.vatAmount) AS vatAmountB, sum(case when a.vatStatus='B5' then d.dataTotal end) AS serialTotalB,
+		select a.*, b.custName vatSellerName, c.custName vatBuyerName, sum(a.vatTax + a.vatAmount) AS vatAmountB, sum(case when a.vatStatus='B5' then a.vatAmount + a.vatTax end) AS serialTotalB,
 		f.custDRbalance as custBalance
 		from swc_vat a
 		left join swc_cust b on a.vatSellerCustNo = b.custNo
@@ -59,7 +59,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 
 	<select id="sumSVat" resultType="accountDto">
-		select a.*, b.custName vatSellerName, c.custName vatBuyerName, sum(a.vatTax + a.vatAmount) AS vatAmountS, sum(case when a.vatStatus='S5' then d.dataTotal end) AS serialTotalS,
+		select a.*, b.custName vatSellerName, c.custName vatBuyerName, sum(a.vatTax + a.vatAmount) AS vatAmountS, sum(case when a.vatStatus='S5' then a.vatAmount + a.vatTax end) AS serialTotalS,
 		f.custCRbalance AS custBalance
 		from swc_vat a
 		left join swc_cust b on a.vatSellerCustNo = b.custNo
@@ -76,7 +76,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 
 	<select id="sumSVatSearch" resultType="accountDto">
-		select a.*, b.custName vatSellerName, c.custName vatBuyerName, sum(a.vatTax + a.vatAmount) AS vatAmountS, sum(case when a.vatStatus='S5' then d.dataTotal end) AS serialTotalS,
+		select a.*, b.custName vatSellerName, c.custName vatBuyerName, sum(a.vatTax + a.vatAmount) AS vatAmountS, sum(case when a.vatStatus='S5' then a.vatAmount + a.vatTax end) AS serialTotalS,
 		f.custCRbalance AS custBalance
 		from swc_vat a
 		left join swc_cust b on a.vatSellerCustNo = b.custNo

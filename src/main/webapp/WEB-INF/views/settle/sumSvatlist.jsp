@@ -143,7 +143,7 @@
                     		<thead>
                     			<tr>
                     				<th class="text-center">기초잔액합계</th>
-                    				<th class="text-center">매입합계</th>
+                    				<th class="text-center">매출합계</th>
                     				<th class="text-center">수금완료합계</th>
                     				<th class="text-center">잔액</th>
                     			</tr>

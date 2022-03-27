@@ -189,7 +189,7 @@
                             <c:forEach items="${vatList}" var="vlist">
                                 <tr>
                                     <td class="text-center">
-                                   		<a data-remote="${path}/modal/popup.do?popId=custVatListModal&custNo=${vlist.vatBuyerCustNo}&compNo=${sessionScope.compNo}&vatIssueDateFrom=${param.vatIssueDateFrom}&vatIssueDateTo=${param.vatIssueDateTo}" type="button" data-toggle="modal" data-target="#custVatList" style="cursor: pointer; text-decoration: underline;">
+                                   		<a data-remote="${path}/modal/popup.do?popId=custVatListModal&custNo=${vlist.vatBuyerCustNo}&compNo=${sessionScope.compNo}&vatIssueDateFrom=${param.vatIssueDateFrom}&vatIssueDateTo=${param.vatIssueDateTo}&vatType=S" type="button" data-toggle="modal" data-target="#custVatList" style="cursor: pointer; text-decoration: underline;">
                                    			${vlist.vatBuyerName}
                                    		</a>
                                    	</td>

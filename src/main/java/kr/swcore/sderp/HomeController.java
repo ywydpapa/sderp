@@ -1,5 +1,6 @@
 package kr.swcore.sderp;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import java.util.Map;
@@ -298,14 +299,17 @@ public class HomeController {
 		else if("custVatListModal".equals(popId)) {
 			//Integer compNo = Integer.valueOf((String) params.get("compNo"));
 			AccountDTO dto = new AccountDTO();
+			LocalDate now = LocalDate.now();
 			Integer custNo = Integer.parseInt(String.valueOf(params.get("custNo"))); 
 			Integer compNo = Integer.parseInt(String.valueOf(params.get("compNo")));
-			String vatIssueDateFrom = String.valueOf(params.get("vatIssueDateFrom"));
-			String vatIssueDateTo = String.valueOf(params.get("vatIssueDateTo"));
+			String vatIssueDateFrom = String.valueOf(params.get("vatIssueDateFrom")) != "" ? String.valueOf(params.get("vatIssueDateFrom")) : now.getYear() + "-01-01";
+			String vatIssueDateTo = String.valueOf(params.get("vatIssueDateTo")) != "" ? String.valueOf(params.get("vatIssueDateTo")) : now.getYear() + "-12-31";
+			String vatType = String.valueOf(params.get("vatType"));
 			dto.setCustNo(custNo);
 			dto.setCompNo(compNo);
 			dto.setVatIssueDateFrom(vatIssueDateFrom);
 			dto.setVatIssueDateTo(vatIssueDateTo);
+			dto.setVatType(vatType);
 			List<AccountDTO> list = accountService.custVatListModal(dto);
 			model.addAttribute("list", list);
 			rtn = "modal/custVatListModal";

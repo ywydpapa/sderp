@@ -221,7 +221,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  		select a.*, b.custName vatSellerName, c.custName vatBuyerName from swc_vat a
  		left join swc_cust b on a.vatSellerCustNo = b.custNo
 		left join swc_cust c on a.vatBuyerCustNo = c.custNo
- 		where a.compNo = #{compNo} 
+ 		where a.compNo = #{compNo} and vatType = #{vatType}
 		<if test="vatIssueDateFrom != null and vatIssueDateFrom !=''">
 			and a.vatIssueDate Between #{vatIssueDateFrom} and #{vatIssueDateTo}
 		</if>

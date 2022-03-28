@@ -249,7 +249,7 @@
                                 <th class="text-center">잔액</th>
                                 <th class="text-center">거래점</th>
                                 <th class="text-center">메모</th>
-                                <th class="text-center">승인 연결 여부(Y/N)</th>
+                                <th class="text-center">승인 연결 여부</th>
                                 <th class="text-center">연결</th>
                             </tr>
                             </thead>
@@ -380,12 +380,12 @@
 								
 								if(data[i].linkDoc != '' && data[i].linkDoc != null){
 							 		if(data[i].linkDoc == 'y'){
-							 			tableHtml += "<td style='text-align:center;'><button style='cursor:pointer; background-color:transparent; border:none;' type='button' data-remote='${path}/modal/popup2.do?popId="+data[i].baclogId+"' id='bac_connect_list' data-toggle='modal' data-target='#bac_connect_listModal' data-id='"+data[i].baclogId+"'>Y</a></td>";
+							 			tableHtml += "<td style='text-align:center;'><button class='btn btn-sm btn-secondary sch-company' type='button' data-remote='${path}/modal/popup2.do?popId="+data[i].baclogId+"' id='bac_connect_list' data-toggle='modal' data-target='#bac_connect_listModal' data-id='"+data[i].baclogId+"'>Y</a></td>";
 							 		}else{    
-							 			tableHtml += "<td style='text-align:center;'><button style='cursor:pointer; background-color:transparent; border:none;' type='button' data-remote='${path}/modal/popup2.do?popId="+data[i].linkDoc+"' id='bac_connect_list' data-toggle='modal' data-target='#bac_connect_listModal' data-id='"+data[i].baclogId+"'>Y</a></td>"; 
+							 			tableHtml += "<td style='text-align:center;'><button class='btn btn-sm btn-secondary sch-company' type='button' data-remote='${path}/modal/popup2.do?popId="+data[i].linkDoc+"' id='bac_connect_list' data-toggle='modal' data-target='#bac_connect_listModal' data-id='"+data[i].baclogId+"'>Y</a></td>"; 
 							 		}
 							 	}else{
-							 		tableHtml += "<td style='text-align:center;'><a>N</a></td>";
+							 		tableHtml += "<td style='text-align:center;'><a></a></td>";
 							 	}
 							 	
 								 if(parseInt(data[i].inAmt) > parseInt(data[i].outAmt)){
@@ -507,12 +507,12 @@
 					 	+ data[i].logRemark + "</td>";
 					 	if(data[i].linkDoc != '' && data[i].linkDoc != null){
 					 		if(data[i].linkDoc == 'y'){
-					 			tableHtml += "<td style='text-align:center;'><button style='cursor:pointer; background-color:transparent; border:none;' type='button' data-remote='${path}/modal/popup2.do?popId="+data[i].baclogId+"' id='bac_connect_list' data-toggle='modal' data-target='#bac_connect_listModal' data-id='"+data[i].baclogId+"'>Y</a></td>";
+					 			tableHtml += "<td style='text-align:center;'><button class='btn btn-sm btn-secondary sch-company' type='button' data-remote='${path}/modal/popup2.do?popId="+data[i].baclogId+"' id='bac_connect_list' data-toggle='modal' data-target='#bac_connect_listModal' data-id='"+data[i].baclogId+"'>Y</a></td>";
 					 		}else{    
-					 			tableHtml += "<td style='text-align:center;'><button style='cursor:pointer; background-color:transparent; border:none;' type='button' data-remote='${path}/modal/popup2.do?popId="+data[i].linkDoc+"' id='bac_connect_list' data-toggle='modal' data-target='#bac_connect_listModal' data-id='"+data[i].baclogId+"'>Y</a></td>"; 
+					 			tableHtml += "<td style='text-align:center;'><button class='btn btn-sm btn-secondary sch-company' type='button' data-remote='${path}/modal/popup2.do?popId="+data[i].linkDoc+"' id='bac_connect_list' data-toggle='modal' data-target='#bac_connect_listModal' data-id='"+data[i].baclogId+"'>Y</a></td>"; 
 					 		}
 					 	}else{
-					 		tableHtml += "<td style='text-align:center;'><a>N</a></td>";
+					 		tableHtml += "<td style='text-align:center;'><a></a></td>";
 					 	}
                         if(parseInt(data[i].inAmt) > parseInt(data[i].outAmt)){
                         	if(data[i].linkDoc != '' && data[i].linkDoc != null){
@@ -627,12 +627,12 @@
 							
 							if(data[i].linkDoc != '' && data[i].linkDoc != null){
 						 		if(data[i].linkDoc == 'y'){
-						 			tableHtml += "<td style='text-align:center;'><button style='cursor:pointer; background-color:transparent; border:none;' type='button' data-remote='${path}/modal/popup2.do?popId="+data[i].baclogId+"' id='bac_connect_list' data-toggle='modal' data-target='#bac_connect_listModal' data-id='"+data[i].baclogId+"'>Y</a></td>";
+						 			tableHtml += "<td style='text-align:center;'><button class='btn btn-sm btn-secondary sch-company' type='button' data-remote='${path}/modal/popup2.do?popId="+data[i].baclogId+"' id='bac_connect_list' data-toggle='modal' data-target='#bac_connect_listModal' data-id='"+data[i].baclogId+"'>Y</a></td>";
 						 		}else{    
-						 			tableHtml += "<td style='text-align:center;'><button style='cursor:pointer; background-color:transparent; border:none;' type='button' data-remote='${path}/modal/popup2.do?popId="+data[i].linkDoc+"' id='bac_connect_list' data-toggle='modal' data-target='#bac_connect_listModal' data-id='"+data[i].baclogId+"'>Y</a></td>"; 
+						 			tableHtml += "<td style='text-align:center;'><button class='btn btn-sm btn-secondary sch-company' type='button' data-remote='${path}/modal/popup2.do?popId="+data[i].linkDoc+"' id='bac_connect_list' data-toggle='modal' data-target='#bac_connect_listModal' data-id='"+data[i].baclogId+"'>Y</a></td>"; 
 						 		}
 						 	}else{
-						 		tableHtml += "<td style='text-align:center;'><a>N</a></td>";
+						 		tableHtml += "<td style='text-align:center;'><a></a></td>";
 						 	}
 						 	
 							 if(parseInt(data[i].inAmt) > parseInt(data[i].outAmt)){
@@ -747,12 +747,12 @@
 							
 							if(data[i].linkDoc != '' && data[i].linkDoc != null){
 						 		if(data[i].linkDoc == 'y'){
-						 			tableHtml += "<td style='text-align:center;'><button style='cursor:pointer; background-color:transparent; border:none;' type='button' data-remote='${path}/modal/popup2.do?popId="+data[i].baclogId+"' id='bac_connect_list' data-toggle='modal' data-target='#bac_connect_listModal' data-id='"+data[i].baclogId+"'>Y</a></td>";
+						 			tableHtml += "<td style='text-align:center;'><button class='btn btn-sm btn-secondary sch-company' type='button' data-remote='${path}/modal/popup2.do?popId="+data[i].baclogId+"' id='bac_connect_list' data-toggle='modal' data-target='#bac_connect_listModal' data-id='"+data[i].baclogId+"'>Y</a></td>";
 						 		}else{    
-						 			tableHtml += "<td style='text-align:center;'><button style='background-color:transparent; border:none;' type='button' data-remote='${path}/modal/popup2.do?popId="+data[i].linkDoc+"' id='bac_connect_list' data-toggle='modal' data-target='#bac_connect_listModal' data-id='"+data[i].baclogId+"'>Y</a></td>"; 
+						 			tableHtml += "<td style='text-align:center;'><button class='btn btn-sm btn-secondary sch-company' type='button' data-remote='${path}/modal/popup2.do?popId="+data[i].linkDoc+"' id='bac_connect_list' data-toggle='modal' data-target='#bac_connect_listModal' data-id='"+data[i].baclogId+"'>Y</a></td>"; 
 						 		}
 						 	}else{
-						 		tableHtml += "<td style='text-align:center;'><a>N</a></td>";
+						 		tableHtml += "<td style='text-align:center;'><a></a></td>";
 						 	}
 						 	
 							 if(parseInt(data[i].inAmt) > parseInt(data[i].outAmt)){
@@ -862,12 +862,12 @@
 							
 							if(data[i].linkDoc != '' && data[i].linkDoc != null){
 						 		if(data[i].linkDoc == 'y'){
-						 			tableHtml += "<td style='text-align:center;'><button style='cursor:pointer; background-color:transparent; border:none;' type='button' data-remote='${path}/modal/popup2.do?popId="+data[i].baclogId+"' id='bac_connect_list' data-toggle='modal' data-target='#bac_connect_listModal' data-id='"+data[i].baclogId+"'>Y</a></td>";
+						 			tableHtml += "<td style='text-align:center;'><button class='btn btn-sm btn-secondary sch-company' type='button' data-remote='${path}/modal/popup2.do?popId="+data[i].baclogId+"' id='bac_connect_list' data-toggle='modal' data-target='#bac_connect_listModal' data-id='"+data[i].baclogId+"'>Y</a></td>";
 						 		}else{    
-						 			tableHtml += "<td style='text-align:center;'><button style='background-color:transparent; border:none;' type='button' data-remote='${path}/modal/popup2.do?popId="+data[i].linkDoc+"' id='bac_connect_list' data-toggle='modal' data-target='#bac_connect_listModal' data-id='"+data[i].baclogId+"'>Y</a></td>"; 
+						 			tableHtml += "<td style='text-align:center;'><button class='btn btn-sm btn-secondary sch-company' type='button' data-remote='${path}/modal/popup2.do?popId="+data[i].linkDoc+"' id='bac_connect_list' data-toggle='modal' data-target='#bac_connect_listModal' data-id='"+data[i].baclogId+"'>Y</a></td>"; 
 						 		}
 						 	}else{
-						 		tableHtml += "<td style='text-align:center;'><a>N</a></td>";
+						 		tableHtml += "<td style='text-align:center;'><a></a></td>";
 						 	}
 						 	
 							 if(parseInt(data[i].inAmt) > parseInt(data[i].outAmt)){

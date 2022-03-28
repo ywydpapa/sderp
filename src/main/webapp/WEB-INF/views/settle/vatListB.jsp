@@ -179,6 +179,7 @@
                                 <th class="text-center">세액</th>
                                 <th class="text-center">합계금액</th>
                                 <th class="text-center">연결문서(합계금액)</th>
+                                <th class="text-center">항목</th>
                                 <th class="text-center">메모</th>
                             </tr>
                             </thead>
@@ -219,6 +220,7 @@
                                     		<fmt:formatNumber type="number" maxFractionDigits="3" value="${vlist.vatSum}" />
                                     	</a>
                                     </td>
+                                    <td>${vlist.vatProductName}</td>
                                     <td>${vlist.vatRemark}</td>
                                 </tr>
                             </c:forEach>

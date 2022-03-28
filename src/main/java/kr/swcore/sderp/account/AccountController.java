@@ -62,18 +62,30 @@ public class AccountController {
     public ModelAndView sumBvatList(HttpSession session, ModelAndView mav,
                                 @RequestParam(value = "vatSellerCustNo", required = false) Integer vatSellerCustNo,
                                 @RequestParam(value = "vatIssueDateFrom", required = false) String vatIssueDateFrom,
-                                @RequestParam(value = "vatIssueDateTo", required = false) String vatIssueDateTo) {
+                                @RequestParam(value = "vatIssueDateTo", required = false) String vatIssueDateTo,
+                                @RequestParam(value = "selectYear", required = false) Integer selectYear) {
         if(vatSellerCustNo != null || vatIssueDateFrom != null || vatIssueDateTo != null){
             AccountDTO dto = new AccountDTO();
+            LocalDate now = LocalDate.now();
+            int year = now.getYear();
             if(vatSellerCustNo != null) dto.setVatSellerCustNo(vatSellerCustNo);
             if(vatIssueDateFrom != null) dto.setVatIssueDateFrom(vatIssueDateFrom);
             if(vatIssueDateTo != null) dto.setVatIssueDateTo(vatIssueDateTo);
+            
+            if(selectYear != null) {
+            	dto.setSelectYear(selectYear);
+            }else {
+            	dto.setSelectYear(year);
+            }
+            
             mav.addObject("vatList", accountService.sumBvatSearch(session, dto));
         } else {
             AccountDTO dto = new AccountDTO();
             LocalDate now = LocalDate.now();
-            dto.setVatIssueDateFrom(now.getYear() + "-01-01");
-            dto.setVatIssueDateTo(now.getYear() + "-12-31");
+            int year = now.getYear();
+            dto.setVatIssueDateFrom(year + "-01-01");
+            dto.setVatIssueDateTo(year + "-12-31");
+            dto.setSelectYear(year);
             mav.addObject("vatList", accountService.sumBvat(session, dto));
         }
         mav.setViewName("settle/sumBvatlist");
@@ -84,18 +96,30 @@ public class AccountController {
     public ModelAndView sumSvatList(HttpSession session, ModelAndView mav,
                                     @RequestParam(value = "vatBuyerCustNo", required = false) Integer vatBuyerCustNo,
                                     @RequestParam(value = "vatIssueDateFrom", required = false) String vatIssueDateFrom,
-                                    @RequestParam(value = "vatIssueDateTo", required = false) String vatIssueDateTo) {
+                                    @RequestParam(value = "vatIssueDateTo", required = false) String vatIssueDateTo, 
+                                    @RequestParam(value = "selectYear", required = false) Integer selectYear) {
         if(vatBuyerCustNo != null || vatIssueDateFrom != null || vatIssueDateTo != null){
             AccountDTO dto = new AccountDTO();
+            LocalDate now = LocalDate.now();
+            int year = now.getYear();
             if(vatBuyerCustNo != null) dto.setVatBuyerCustNo(vatBuyerCustNo);
             if(vatIssueDateFrom != null) dto.setVatIssueDateFrom(vatIssueDateFrom);
             if(vatIssueDateTo != null) dto.setVatIssueDateTo(vatIssueDateTo);
+            
+            if(selectYear != null) {
+            	dto.setSelectYear(selectYear);
+            }else {
+            	dto.setSelectYear(year);
+            }
+            
             mav.addObject("vatList", accountService.sumSvatSearch(session, dto));
         } else {
             AccountDTO dto = new AccountDTO();
             LocalDate now = LocalDate.now();
-            dto.setVatIssueDateFrom(now.getYear() + "-01-01");
-            dto.setVatIssueDateTo(now.getYear() + "-12-31");
+            int year = now.getYear();
+            dto.setVatIssueDateFrom(year + "-01-01");
+            dto.setVatIssueDateTo(year + "-12-31");
+            dto.setSelectYear(year);
             mav.addObject("vatList", accountService.sumSvat(session, dto));
         }
         mav.setViewName("settle/sumSvatlist");
@@ -116,8 +140,9 @@ public class AccountController {
 		} else {
 			AccountDTO dto = new AccountDTO();
             LocalDate now = LocalDate.now();
-            dto.setVatIssueDateFrom(now.getYear() + "-01-01");
-            dto.setVatIssueDateTo(now.getYear() + "-12-31");
+            int year = now.getYear();
+            dto.setVatIssueDateFrom(year + "-01-01");
+            dto.setVatIssueDateTo(year + "-12-31");
 			mav.addObject("vatList", accountService.listvatB(session, dto));
 		}
         mav.setViewName("settle/vatListB");
@@ -138,8 +163,9 @@ public class AccountController {
 		} else {
 			AccountDTO dto = new AccountDTO();
             LocalDate now = LocalDate.now();
-            dto.setVatIssueDateFrom(now.getYear() + "-01-01");
-            dto.setVatIssueDateTo(now.getYear() + "-12-31");
+            int year = now.getYear();
+            dto.setVatIssueDateFrom(year + "-01-01");
+            dto.setVatIssueDateTo(year + "-12-31");
 			mav.addObject("vatList", accountService.listvatS(session, dto));
 		}
         mav.setViewName("settle/vatListS");

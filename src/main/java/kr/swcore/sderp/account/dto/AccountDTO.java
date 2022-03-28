@@ -135,5 +135,6 @@ public class AccountDTO {
     private String vatStandard;
     private int vatQuan;
     private BigDecimal vatNet;
+    private int selectYear;
 }
 

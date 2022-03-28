@@ -394,6 +394,7 @@
     		vatData.vatBuyerName = $("#vatBuyerName").val();
     		vatData.vatIssueDateFrom = $("#vatIssueDateFrom").val() ? $("#vatIssueDateFrom").val() : null;
     		vatData.vatIssueDateTo = $("#vatIssueDateTo").val() ? $("#vatIssueDateTo").val() : null;
+    		vatData.selectYear = $("#searchYear").val();
     		
     		var param = "?";
     		var paramFirst = true;

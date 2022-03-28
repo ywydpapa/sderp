@@ -403,14 +403,20 @@
                 var $Carr = $(".vatlst2");          //발급일자
                 var $Darr = $(".vatlst3");           // 전송일자
                 var $Earr = $(".vatlst4");           // 사업자 번호
-                var $Farr = $(".vatlst15");           // 공급금액
-                var $Garr = $(".vatlst16");           // 세액
+                var $Farr = $(".vatlst30");           // 공급금액
+                var $Garr = $(".vatlst31");           // 세액
                 var $Harr = $(".vatlst18");           // 세금계산서 종류
                 var $Iarr = $(".vatlst19");           // 발급유형
                 var $Jarr = $(".vatlst20");           // 비고
                 var $Karr = $(".vatlst22");           // 공급자 이메일
                 var $Larr = $(".vatlst9");			  // 사업자번호
                 var $Marr = $(".vatlst26");			  // 품목명
+                //추가 컬럼.
+                var $Narr = $(".vatlst27"); 			  //규격
+                var $Oarr = $(".vatlst28"); 			  //수량
+                var $Parr = $(".vatlst29"); 			  //단가
+                var $Qarr = $(".vatlst18"); 			  //전자세금계산서종류
+                var $Rarr = $(".vatlst21"); 			  //영수/청구 구분
                 
                 for (var i=0; i<$Barr.length; i++){
                     if ($($Chkarr[i]).is(":checked")==true){
@@ -436,8 +442,22 @@
 	                        vatData.vatRemark = $Jarr[i].innerText;
 	                        vatData.vatIssueType = $Iarr[i].innerText;
 						}      
+                        if($Qarr[i].innerText == '일반' || $Qarr[i].innerText == '일반(수정)'){
+                        	vatData.vatBillType = '01';
+                        }else if($Qarr[i].innerText == '영세율'){
+                        	vatData.vatBillType = '02';
+                        }
+                        
+                        if($Rarr[i].innerText == '영수'){
+                        	vatData.vatRecType = '01';
+                        }else if($Rarr[i].innerText == '청구'){
+                        	vatData.vatRecType = '02';
+                        }
                         
                         vatData.vatAmount = Number($Farr[i].innerText);
+                        vatData.vatStandard = $Narr[i].innerText;
+                        vatData.vatQuan = Number($Oarr[i].innerText);
+                        vatData.vatNet = Number($Parr[i].innerText);
                         
                         $.ajax({
                         	url: "${path}/acc/selectVatCust/" + vatData.vatNo,
@@ -495,14 +515,21 @@
                 var $Carr = $(".vatlst2");          //발급일자
                 var $Darr = $(".vatlst3");           // 전송일자
                 var $Earr = $(".vatlst4");           // 사업자 번호
-                var $Farr = $(".vatlst15");           // 공급금액
-                var $Garr = $(".vatlst16");           // 세액
+                var $Farr = $(".vatlst30");           // 공급금액
+                var $Garr = $(".vatlst31");           // 세액
+                
                 var $Harr = $(".vatlst18");           // 세금계산서 종류
                 var $Iarr = $(".vatlst19");           // 발급유형
                 var $Jarr = $(".vatlst20");           // 비고
                 var $Karr = $(".vatlst23");           // 공급자 이메일
                 var $Larr = $(".vatlst9");			  // 사업자번호
                 var $Marr = $(".vatlst26");			  // 품목명
+                
+                var $Narr = $(".vatlst27"); 			  //규격
+                var $Oarr = $(".vatlst28"); 			  //수량
+                var $Parr = $(".vatlst29"); 			  //단가
+                var $Qarr = $(".vatlst18"); 			  //전자세금계산서종류
+                var $Rarr = $(".vatlst21"); 			  //영수/청구 구분
 
                 for (var i=0; i<$Barr.length; i++){
                     if ($($Chkarr[i]).is(":checked")==true){
@@ -517,6 +544,9 @@
                         vatData.vatTransDate = $Darr[i].innerText;
                         vatData.vatAmount = Number($Farr[i].innerText);
                         vatData.vatTax = isNaN(Number($Garr[i].innerText)) ? 0 : Number($Garr[i].innerText);
+                        vatData.vatStandard = $Narr[i].innerText;
+                        vatData.vatQuan = Number($Oarr[i].innerText);
+                        vatData.vatNet = Number($Parr[i].innerText);
                         
 						if(isNaN(Number($Garr[i].innerText))){
 							vatData.vatProductName = $(".vatlst25")[i].innerText;
@@ -529,7 +559,18 @@
 	                        vatData.vatRemark = $Jarr[i].innerText;
 	                        vatData.vatIssueType = $Iarr[i].innerText;
 						}                        
-                        
+						 if($Qarr[i].innerText == '일반' || $Qarr[i].innerText == '일반(수정)'){
+	                        	vatData.vatBillType = '01';
+	                        }else if($Qarr[i].innerText == '영세율'){
+	                        	vatData.vatBillType = '02';
+	                        }
+	                        
+	                        if($Rarr[i].innerText == '영수'){
+	                        	vatData.vatRecType = '01';
+	                        }else if($Rarr[i].innerText == '청구'){
+	                        	vatData.vatRecType = '02';
+	                        }
+	                        
                         console.log(vatData);
                         $.ajax({
                         	url: "${path}/acc/selectVatCust/" + $Earr[i].innerText,

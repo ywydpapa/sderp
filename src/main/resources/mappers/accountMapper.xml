@@ -717,6 +717,18 @@ attrib) values (#{vatId},
 		update swc_vat set vatStatus = 'B1'
 		where vatSerial = #{linkDocno}
 	</update>
+	<select id="endusernamelist" resultType="accountDto">
+		SELECT a.buyrNo, b.custName FROM swc_sopp a
+		LEFT JOIN swc_cust b ON a.buyrNo = b.custNo
+		WHERE a.soppNo = #{soppNo}
+	</select>
+	<select id="endusernamelist_cont" resultType="accountDto">
+		SELECT a.buyrNo, b.custName, a.buyrMemberNo, c.custMname FROM swc_cont a
+		LEFT JOIN swc_cust b ON a.buyrNo = b.custNo
+		LEFT JOIN swc_custdata03 c ON a.buyrMemberNo = c.custData03no
+		WHERE a.contNo = #{contNo}
+	</select>
+	
 	
 	<select id="gradata" resultType="accountDto">
 		select sst.userNo, su.userName. sst.deptNo, sst.targetType,

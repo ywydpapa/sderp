@@ -73,4 +73,6 @@ public interface AccountDAO {
 	void update_vatStatus(AccountDTO dto);
 	List<AccountDTO> select_vatStatus(AccountDTO dto);
 	void update_vatStatus_B(AccountDTO dto);
+	List<AccountDTO> endusernamelist(AccountDTO dto);
+	List<AccountDTO> endusernamelist_cont(AccountDTO dto);
 }

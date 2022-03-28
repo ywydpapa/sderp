@@ -83,6 +83,7 @@ public class AccountDTO {
     private String dataRemark;
     private String vatDate;
     private String soppTitle;
+    private int soppNo;
     private int getNo;
     private int count;
     private String bacDesc;
@@ -127,6 +128,9 @@ public class AccountDTO {
     private String linkType;
     private String linkDocno;
     private String vatMemo;
+    private int buyrNo;
+    private int buyrMemberNo;
+    private String custMname;
     
     //계산서 추가 컬럼
     private int contNo;

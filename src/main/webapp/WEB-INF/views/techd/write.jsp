@@ -396,6 +396,15 @@
 
 	function fnSetSoppData(a, b) {
 		$("#soppNo").val(b);
+		$.ajax({
+			url: "${path}/acc/endusernamelist.do/" + b,
+			method: "post",
+			dataType: "json"
+		})
+		.done(function(result){
+			$("#endCustNo").val(result.data[0].buyrNo);
+			$("#endCustName").val(result.data[0].custName);
+		});
 		$("#soppTitle").val(a);
 		$(".modal-backdrop").remove();
 		$("#soppModal").modal("hide");
@@ -403,6 +412,21 @@
 
 	function fnSetContData(a, b, c, d, e) {
 		$("#contNo").val(b);
+		$.ajax({
+			url: "${path}/acc/endusernamelist_cont.do/" + b,
+			method: "post",
+			dataType: "json"
+		})
+		.done(function(result){
+			if(result.data[0].buyrNo == '' || result.data[0].buyrNo == null){
+				alert("해당 계약은 엔드유저가 등록되어있지 않습니다.");
+			}else if(result.data[0].buyrNo != '' || result.data[0].buyrNo != null){
+				$("#endCustNo").val(result.data[0].buyrNo);
+				$("#endCustName").val(result.data[0].custName);
+				$('#custmemberName').val(result.data[0].custMname);
+				$('#custmemberNo').val(result.data[0].buyrMemberNo);
+			}
+		});
 		$("#contTitle").val(a);
 		$("#contSoppNo").val(e);
 		$(".modal-backdrop").remove();

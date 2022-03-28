@@ -594,4 +594,21 @@ public class AccountController {
         }
         return ResponseEntity.ok(param);
     }
+    
+    @RequestMapping("endusernamelist.do/{soppNo}")
+    public ResponseEntity<Object> endusernamelist(@PathVariable("soppNo") int soppNo, HttpSession session, AccountDTO dto){
+        Map<String,Object> param = new HashMap<>();
+        dto.setSoppNo(soppNo);
+        List<AccountDTO> endusernamelist = accountService.endusernamelist(dto);
+        param.put("data", endusernamelist);
+        return ResponseEntity.ok(param);
+    }
+    @RequestMapping("endusernamelist_cont.do/{contNo}")
+    public ResponseEntity<Object> endusernamelist_cont(@PathVariable("contNo") int contNo, HttpSession session, AccountDTO dto){
+        Map<String,Object> param = new HashMap<>();
+        dto.setContNo(contNo);
+        List<AccountDTO> endusernamelist_cont = accountService.endusernamelist_cont(dto);
+        param.put("data", endusernamelist_cont);
+        return ResponseEntity.ok(param);
+    }
 }

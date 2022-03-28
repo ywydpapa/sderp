@@ -384,9 +384,18 @@
 			$(".modal-backdrop").remove();
 			$("#endCustModal").modal("hide");
 		}
-		
+		//buyrNo
 		function fnSetSoppData(a, b) {
 			$("#soppNo").val(b);
+			$.ajax({
+				url: "${path}/acc/endusernamelist.do/" + b,
+				method: "post",
+				dataType: "json"
+			})
+			.done(function(result){
+				$("#endCustNo").val(result.data[0].buyrNo);
+				$("#endCustName").val(result.data[0].custName);
+			});
 			$("#soppTitle").val(a);
 			$(".modal-backdrop").remove();
 			$("#soppModal").modal("hide");

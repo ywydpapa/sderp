@@ -417,4 +417,16 @@ public class AccountServiceImpl implements AccountService {
 		// TODO Auto-generated method stub
 		accountDAO.update_vatStatus_B(dto);
 	}
+
+	@Override
+	public List<AccountDTO> endusernamelist(AccountDTO dto) {
+		// TODO Auto-generated method stub
+		return accountDAO.endusernamelist(dto);
+	}
+
+	@Override
+	public List<AccountDTO> endusernamelist_cont(AccountDTO dto) {
+		// TODO Auto-generated method stub
+		return accountDAO.endusernamelist_cont(dto);
+	}
 }

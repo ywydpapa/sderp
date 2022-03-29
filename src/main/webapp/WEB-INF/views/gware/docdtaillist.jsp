@@ -12,17 +12,20 @@
 <c:set var="path" value ="${pageContext.request.contextPath}"/>
 <table class="table table-sm bst02" id="qutylist">
     <colgroup>
-        <col width="13%" />
+        <col width="3%" />
         <col width="15%" />
-        <col width="8%" />
-        <col width="8%" />
-        <col width="8%" />
-        <col width="8%" />
-        <col width="8%" />
+        <col width="15%" />
+        <col width="7%" />
+        <col width="7%" />
+        <col width="7%" />
+        <col width="7%" />
+        <col width="7%" />
         <col width="25%" />
+        <col width="10%" />
     </colgroup>
     <thead>
     <tr>
+    	<th class="text-center">거래일자</th>
         <th class="text-center">거래처</th>
         <th class="text-center">항목</th>
         <th class="text-center">단가</th>
@@ -38,6 +41,14 @@
     <c:forEach var="row" items="${detailListData}">
     	<input type="hidden" id="docAppSerial" value="${row.docAppSerial}" />
     	<tr>
+    		<c:choose>
+    			<c:when test="${empty row.productDate}">
+    				<td id='dataDate' style='text-align:center'>${row.regDate}</td>
+    			</c:when>
+    			<c:otherwise>
+    				<td id='dataDate' style='text-align:center'>${row.productDate}</td>
+    			</c:otherwise>
+    		</c:choose>
     		<td id='salesCustNoN' style='text-align:center;'>${row.custName}</td>
     		<td id='dataTitle' style='text-align:center;'>${row.productName}</td>
     		<td id='dataNetprice' style='text-align: right;'>₩<fmt:formatNumber value="${row.productNetprice}" pattern="#,###" /></td>
@@ -46,7 +57,10 @@
     		<td id='dataVat' style='text-align: right;'>₩<fmt:formatNumber value="${row.productVat}" pattern="#,###" /></td>
     		<td id='dataTotal' style='text-align: right;'>₩<fmt:formatNumber value="${row.productTotal}" pattern="#,###" /></td>
     		<td id='dataRemark'>${row.productRemark}</td>
-    		<td style="text-align:center;"><button class='btn btn-sm btn-danger' id="dataDelBtn">삭제</button></td>
+    		<td style="text-align:center;">
+    			<button class='btn btn-sm btn-inverse' id="dataUpBtn" data-number="0" style='margin-right:1%;'>수정</button>
+    			<button class='btn btn-sm btn-danger' id="dataDelBtn">삭제</button>
+    		</td>
     	</tr>
     </c:forEach>
     </tbody>

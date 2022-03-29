@@ -420,6 +420,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			productVat, 
 			productTotal, 
 			productRemark, 
+			productDate,
 			regDate, 
 			modDate, 
 			attrib
@@ -434,6 +435,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			productVat, 
 			productTotal, 
 			productRemark, 
+			productDate,
 			regDate, 
 			now(), 
 			'10000' 
@@ -483,6 +485,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			productVat,
 			productTotal,
 			productRemark,
+			productDate,
 			regDate,
 			attrib
 		) values (
@@ -496,6 +499,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		 	#{productVat},
 		 	#{productTotal},
 		 	#{productRemark},
+		 	#{productDate},
 		 	now(),
 		 	'10000'
 	 	);

@@ -12,18 +12,21 @@
     </table>
     <table class="table table-sm bst02" id="addquty">
         <colgroup>
-            <col width="13%" />
+        	<col width="1%" />
+            <col width="15%" />
             <col width="20%" />
             <col width="5%" />
-            <col width="8%" />
-            <col width="8%" />
-            <col width="8%" />
-            <col width="8%" />
-            <col width="8%" />
-            <col width="25%" />
+            <col width="7%" />
+            <col width="7%" />
+            <col width="7%" />
+            <col width="7%" />
+            <col width="7%" />
+            <col width="22%" />
+            <col width="5%" />
         </colgroup>
         <thead>
         <tr>
+        	<th class="text-center">거래일자</th>
             <th class="text-center">거래처</th>
             <th class="text-center">결재 항목</th>
             <th class="text-center">자동결재</th>
@@ -38,6 +41,9 @@
         </thead>
         <tbody>
             <tr class="item1">
+            	<td>
+            		<input type="date" class="form-control" id="data02ProductDate">
+            	</td>
                 <td>
                     <div class="input-group input-group-sm mb-0">
                         <input type="text" class="form-control" name="product" id="productSalesEstimateCustName" value="" readonly>
@@ -302,6 +308,76 @@
 			dataIndex = index+1;
 		});
 	});
+	
+	$(document).on("click", "#dataUpBtn", function(){
+		var now = new Date();
+		var qutylist = $("#qutylist tbody tr td");
+    	
+		now = now.toISOString().slice(0,10);
+		
+		if($(this).attr("data-number") > 0){
+    		$(this).attr("data-number", 0);
+    		$(this).text("수정");
+    		$(this).removeAttr("class");
+    		$(this).attr("class", "btn btn-sm btn-inverse");
+    		
+    		$("#data02Addbtn").text("추가");
+    		$("#data02Addbtn").removeAttr("class");
+    		$("#data02Addbtn").removeAttr("onClick");
+    		$("#data02Addbtn").attr("class", "btn btn-sm btn-success");
+    		$("#data02Addbtn").attr("onClick", "dataSave();");
+    		
+    		$("#select1").show();
+    		$("#select1").find("#data02Title").attr("data-flag", true);
+    		$("#select2").hide();
+    		$("#select2").find("#data02Title").attr("data-flag", false);
+    		$("#select2").find("#data02Title").val("");
+    		$("#productSelect").val("selectOn");
+    		
+    		$("#data02ProductDate").val(now);
+    		$("#productSalesEstimateCustName").val("");
+	    	$("#data02Title[data-flag='true']").val("");
+    		$("#data02Netprice").val(0);
+    		$("#data02Quanty").val(1);
+    		$("#data02Amt").val(0);
+    		$("#data02Vat").val(0);
+    		$("#data02Total").val(0);
+    		$("#data02Remark").val("");
+    	}else{
+    		if(qutylist.find("#dataUpBtn[data-number='1']").length > 0){
+    			alert("한번에 한개씩 수정가능합니다.");
+    			return false;
+    		}
+    		
+    		$(this).attr("data-number", 1);
+    		$(this).text("취소");
+    		$(this).removeAttr("class");
+    		$(this).attr("class", "btn btn-sm btn-warning");
+
+    		$("#data02Addbtn").text("수정");
+    		$("#data02Addbtn").removeAttr("class");
+    		$("#data02Addbtn").removeAttr("onClick");
+    		$("#data02Addbtn").attr("class", "btn btn-sm btn-inverse");
+    		$("#data02Addbtn").attr("onClick", "dataUpdate();");
+    		
+    		$("#select1").hide();
+    		$("#select1").find("#data02Title").attr("data-flag", false);
+    		$("#select1").find("#data02Title").val("");
+    		$("#select2").show();
+    		$("#productSelect").val("selectOff");
+    		$("#select2").find("#data02Title").attr("data-flag", true);
+    		
+    		$("#data02ProductDate").val($(this).parents("tr").find("#dataDate").html());
+    		$("#productSalesEstimateCustName").val($(this).parents("tr").find("#salesCustNoN").html());
+	    	$("#data02Title[data-flag='true']").val($(this).parents("tr").find("#dataTitle").html());
+    		$("#data02Netprice").val(parseInt($(this).parents("tr").find("#dataNetprice").html().replace(/[\D\s\._\-]+/g, "")).toLocaleString("en-US"));
+    		$("#data02Quanty").val($(this).parents("tr").find("#dataQuanty").html());
+    		$("#data02Amt").val(parseInt($(this).parents("tr").find("#dataAmt").html().replace(/[\D\s\._\-]+/g, "")).toLocaleString("en-US"));
+    		$("#data02Vat").val(parseInt($(this).parents("tr").find("#dataVat").html().replace(/[\D\s\._\-]+/g, "")).toLocaleString("en-US"));
+    		$("#data02Total").val(parseInt($(this).parents("tr").find("#dataTotal").html().replace(/[\D\s\._\-]+/g, "")).toLocaleString("en-US"));
+    		$("#data02Remark").val($(this).parents("tr").find("#dataRemark").html());
+    	}
+	});
 
 	function downloadFile(fileId, fileName) {
 		var downloadData = {};
@@ -386,6 +462,7 @@
 					var cardAmount = 0;
 					var cardNetprice = 0;
 					var cardVat = 0;
+					var cardDate = $(item).parent().next().find("#cardDate").val();
 					
 			        cardAmount = Math.round(cardTotal/11*10);
 			        cardVat = Math.round(cardTotal / 11);
@@ -400,6 +477,7 @@
 			    	var productVat = cardVat;
 			    	var productTotal = cardTotal;
 			    	var productRemark = cardRemarks;
+			    	var productDate = cardDate;
 			    	var qutylist = $("#qutylist tbody");
 					
 			    	temp.docNo = 0;
@@ -411,6 +489,7 @@
 			    	temp.productVat = productVat;
 			    	temp.productTotal = productTotal;
 			    	temp.productRemark = productRemark;
+			    	temp.productDate = productDate;
 			    	temp.docAppSerial = cardSerial;
 			    	
 			        var productSum = parseInt($("#product02InSum_table").html().replace(/[\D\s\._\-]+/g, "")) + cardTotal;
@@ -423,7 +502,7 @@
 			    	
 			    	dataArray.push(temp);
 			    	
-			        qutylist.append("<tr><input type='hidden' id='docAppSerial' value='"+cardSerial+"'><td id='salesCustNoN' style='text-align:center;'>"+productSalesEstimateCustName+"</td><td id='dataTitle' style='text-align:center;'>"+productName+"</td><td id='dataNetprice' style='text-align: right'>"+"￦"+parseInt(productNetprice).toLocaleString("en-US")+"</td><td id='dataQuanty' style='text-align: right'>"+productQty+"</td><td id='dataAmt' style='text-align: right'>"+"￦"+parseInt(productAmount).toLocaleString("en-US")+"</td><td id='dataVat' style='text-align: right'>"+"￦"+parseInt(productVat).toLocaleString("en-US")+"</td><td id='dataTotal' style='text-align: right'>"+"￦"+parseInt(productTotal).toLocaleString("en-US")+"</td><td id='dataRemark'>"+productRemark+"</td><td style='text-align:center;'><button class='btn btn-sm btn-danger text-center' data-index="+dataIndex+" id='dataDelBtn'>삭제</button></td></tr>");    	
+			        qutylist.append("<tr><input type='hidden' id='docAppSerial' value='"+cardSerial+"'><td id='dataDate' style='text-align:center;'>"+productDate+"</td><td id='salesCustNoN' style='text-align:center;'>"+productSalesEstimateCustName+"</td><td id='dataTitle' style='text-align:center;'>"+productName+"</td><td id='dataNetprice' style='text-align: right'>"+"￦"+parseInt(productNetprice).toLocaleString("en-US")+"</td><td id='dataQuanty' style='text-align: right'>"+productQty+"</td><td id='dataAmt' style='text-align: right'>"+"￦"+parseInt(productAmount).toLocaleString("en-US")+"</td><td id='dataVat' style='text-align: right'>"+"￦"+parseInt(productVat).toLocaleString("en-US")+"</td><td id='dataTotal' style='text-align: right'>"+"￦"+parseInt(productTotal).toLocaleString("en-US")+"</td><td id='dataRemark'>"+productRemark+"</td><td style='text-align:center;'><button class='btn btn-sm btn-inverse' id='dataUpBtn' data-index="+dataIndex+" data-number='0' style='margin-right:4%;'>수정</button><button class='btn btn-sm btn-danger text-center' data-index="+dataIndex+" id='dataDelBtn'>삭제</button></td></tr>");    	
 			        
 			        dataIndex++;
 			        
@@ -441,6 +520,7 @@
     		alert("결재항목을 선택하거나 작성해주십시오.");
     		return false;
     	}else{
+    		var now = new Date();
 	    	var temp = {};
 	    	var productSalesEstimateCustName = $('#productSalesEstimateCustName').val();
 	    	var productNo = $("#productSalesEstimateCustNo").val();
@@ -451,7 +531,10 @@
 	    	var productVat = $("#data02Vat").val().replace(/[\D\s\._\-]+/g, "");
 	    	var productTotal = $("#data02Total").val().replace(/[\D\s\._\-]+/g, "");
 	    	var productRemark = $("#data02Remark").val();
+	    	var productDate = $("#data02ProductDate").val();
 	    	var qutylist = $("#qutylist tbody");
+	    	
+        	now = now.toISOString().slice(0, 10);
 			
 	    	temp.docNo = 0;
 	    	temp.custName = productSalesEstimateCustName;
@@ -462,6 +545,7 @@
 	    	temp.productVat = productVat;
 	    	temp.productTotal = productTotal;
 	    	temp.productRemark = productRemark;
+	    	temp.productDate = productDate;
 	    	temp.docAppSerial = "";
 	    	
 	        var productSum = parseInt($("#product02InSum_table").html().replace(/[\D\s\._\-]+/g, "")) + parseInt($("#data02Total").val().replace(/[\D\s\._\-]+/g, ""));
@@ -480,16 +564,86 @@
 	        $("#productSalesEstimateCustNo").val("");
 	        $("#productNo2").val("");
 	        $("#data02Title[data-flag='true']").val("");
-	        $("#data02Netprice").val("");
+	        $("#data02Netprice").val(0);
 	        $("#data02Quanty").val(1);
-	        $("#data02Amt").val("");
-	        $("#data02Vat").val("");
-	        $("#data02Total").val("");
+	        $("#data02Amt").val(0);
+	        $("#data02Vat").val(0);
+	        $("#data02Total").val(0);
 	        $("#data02Remark").val("");
+	        $("#data02ProductDate").val(now);
 	    	
-	        qutylist.append("<tr><input type='hidden' id='docAppSerial' value=''><td id='salesCustNoN' style='text-align:center;'>"+productSalesEstimateCustName+"</td><td id='dataTitle' style='text-align:center;'>"+productName+"</td><td id='dataNetprice' style='text-align: right'>"+"￦"+parseInt(productNetprice).toLocaleString("en-US")+"</td><td id='dataQuanty' style='text-align: right'>"+productQty+"</td><td id='dataAmt' style='text-align: right'>"+"￦"+parseInt(productAmount).toLocaleString("en-US")+"</td><td id='dataVat' style='text-align: right'>"+"￦"+parseInt(productVat).toLocaleString("en-US")+"</td><td id='dataTotal' style='text-align: right'>"+"￦"+parseInt(productTotal).toLocaleString("en-US")+"</td><td id='dataRemark'>"+productRemark+"</td><td style='text-align:center;'><button class='btn btn-sm btn-danger text-center' data-index="+dataIndex+" id='dataDelBtn'>삭제</button></td></tr>");    	
+	        qutylist.append("<tr><input type='hidden' id='docAppSerial' value=''><td id='dataDate' style='text-align:center;'>"+productDate+"</td><td id='salesCustNoN' style='text-align:center;'>"+productSalesEstimateCustName+"</td><td id='dataTitle' style='text-align:center;'>"+productName+"</td><td id='dataNetprice' style='text-align: right'>"+"￦"+parseInt(productNetprice).toLocaleString("en-US")+"</td><td id='dataQuanty' style='text-align: right'>"+productQty+"</td><td id='dataAmt' style='text-align: right'>"+"￦"+parseInt(productAmount).toLocaleString("en-US")+"</td><td id='dataVat' style='text-align: right'>"+"￦"+parseInt(productVat).toLocaleString("en-US")+"</td><td id='dataTotal' style='text-align: right'>"+"￦"+parseInt(productTotal).toLocaleString("en-US")+"</td><td id='dataRemark'>"+productRemark+"</td><td style='text-align:center;'><button class='btn btn-sm btn-inverse' id='dataUpBtn' data-index="+dataIndex+" data-number='0' style='margin-right:4%;'>수정</button><button class='btn btn-sm btn-danger text-center' data-index="+dataIndex+" id='dataDelBtn'>삭제</button></td></tr>");    	
 	        
 	        dataIndex++;
+	        console.log(dataArray);
+    	}
+    }
+    
+    function dataUpdate(){
+    	var now = new Date();
+    	var productSalesEstimateCustName = $('#productSalesEstimateCustName').val();
+    	var productNo = $("#productSalesEstimateCustNo").val();
+    	var productName = $("#data02Title[data-flag='true']").val();
+    	var productNetprice = $("#data02Netprice").val().replace(/[\D\s\._\-]+/g, "");
+    	var productQty = $("#data02Quanty").val();
+    	var productAmount = $("#data02Amt").val().replace(/[\D\s\._\-]+/g, "");
+    	var productVat = $("#data02Vat").val().replace(/[\D\s\._\-]+/g, "");
+    	var productTotal = $("#data02Total").val().replace(/[\D\s\._\-]+/g, "");
+    	var productRemark = $("#data02Remark").val();
+    	var productDate = $("#data02ProductDate").val();
+    	var qutylist = $("#qutylist tbody tr");
+    	var indexNum = 0;
+    	
+    	qutylist.find("td #dataUpBtn").each(function(index, item){
+    		if($(item).attr("data-number") == 1){
+    			indexNum = $(item).attr("data-index");
+    		}
+    	});
+    	
+    	console.log(indexNum);
+    	
+    	if(indexNum >= 0 && indexNum !== ""){
+	    	now = now.toISOString().slice(0, 10);
+	
+	    	qutylist.find("#dataUpBtn[data-number='1']").text("수정");
+	    	qutylist.find("#dataUpBtn[data-number='1']").removeAttr("class");
+	    	qutylist.find("#dataUpBtn[data-number='1']").attr("class", "btn btn-sm btn-inverse");
+	    	qutylist.find("#dataUpBtn[data-number='1']").attr("data-number", 0);
+	    	
+	    	dataArray[indexNum].custName = productSalesEstimateCustName;
+	    	dataArray[indexNum].productName = productName;
+	    	dataArray[indexNum].productNetprice = productNetprice;
+	    	dataArray[indexNum].productQty = productQty;
+	    	dataArray[indexNum].productAmount = productAmount;
+	    	dataArray[indexNum].productVat = productVat;
+	    	dataArray[indexNum].productTotal = productTotal;
+	    	dataArray[indexNum].productRemark = productRemark;
+	    	dataArray[indexNum].productDate = productDate;
+	    	
+	    	qutylist.eq(indexNum).html("<input type='hidden' id='docAppSerial' value=''><td id='dataDate' style='text-align:center;'>"+productDate+"</td><td id='salesCustNoN' style='text-align:center;'>"+productSalesEstimateCustName+"</td><td id='dataTitle' style='text-align:center;'>"+productName+"</td><td id='dataNetprice' style='text-align: right'>"+"￦"+parseInt(productNetprice).toLocaleString("en-US")+"</td><td id='dataQuanty' style='text-align: right'>"+productQty+"</td><td id='dataAmt' style='text-align: right'>"+"￦"+parseInt(productAmount).toLocaleString("en-US")+"</td><td id='dataVat' style='text-align: right'>"+"￦"+parseInt(productVat).toLocaleString("en-US")+"</td><td id='dataTotal' style='text-align: right'>"+"￦"+parseInt(productTotal).toLocaleString("en-US")+"</td><td id='dataRemark'>"+productRemark+"</td><td style='text-align:center;'><button class='btn btn-sm btn-inverse' id='dataUpBtn' data-index="+indexNum+" data-number='0' style='margin-right:4%;'>수정</button><button class='btn btn-sm btn-danger text-center' data-index="+indexNum+" id='dataDelBtn'>삭제</button></td>");
+	    	
+			$("#data02Type option:eq(0)").attr("selected","selected");
+	        $("#soppdataNoEstimate").val("");
+	        $("#productSalesEstimateCustName").val("");
+	        $("#productSalesEstimateCustNo").val("");
+	        $("#productNo2").val("");
+	        $("#data02Title[data-flag='true']").val("");
+	        $("#data02Netprice").val(0);
+	        $("#data02Quanty").val(1);
+	        $("#data02Amt").val(0);
+	        $("#data02Vat").val(0);
+	        $("#data02Total").val(0);
+	        $("#data02Remark").val("");
+	        $("#data02ProductDate").val(now);
+	
+	    	$("#data02Addbtn").text("추가");
+			$("#data02Addbtn").removeAttr("class");
+			$("#data02Addbtn").removeAttr("onClick");
+			$("#data02Addbtn").attr("class", "btn btn-sm btn-success");
+			$("#data02Addbtn").attr("onClick", "dataSave();");
+    	}else{
+    		alert("버튼 에러!");
+    		return false;
     	}
     }
 
@@ -1259,8 +1413,11 @@
     }
 
     $(document).ready(function(){
+    	var now = new Date();
     	var qutylist = $("#qutylist tbody tr");
     	var productSum = parseInt($("#product02InSum_table").html().replace(/[\D\s\._\-]+/g, ""));
+    	
+    	now = now.toISOString().slice(0, 10);
     	
     	qutylist.each(function(index, item){
 	    	var temp = {};
@@ -1274,9 +1431,11 @@
         	var productVat = $(item).find("#dataVat").html().replace(/[\D\s\._\-]+/g, "");
         	var productTotal = $(item).find("#dataTotal").html().replace(/[\D\s\._\-]+/g, "");
         	var productRemark = $(item).find("#dataRemark").html();
+        	var productDate = $(item).find("#dataDate").html();
         	
         	productSum = productSum + parseInt(productTotal);
         	
+        	$(item).find("#dataUpBtn").attr("data-index", index);
         	$(item).find("#dataDelBtn").attr("data-index", index);
         	
         	temp.docNo = 0;
@@ -1288,6 +1447,7 @@
         	temp.productVat = productVat;
         	temp.productTotal = productTotal;
         	temp.productRemark = productRemark;
+        	temp.productDate = productDate;
         	temp.docAppSerial = docAppSerial;
         	
         	dataArray.push(temp);
@@ -1347,6 +1507,7 @@
         });
         
         $("#data02Modbtn").hide();
+        $("#data02ProductDate").val(now);
     });
     
     function fn_data02Insert1() {

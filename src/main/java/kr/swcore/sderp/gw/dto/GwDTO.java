@@ -107,6 +107,7 @@ public class GwDTO {
     private String custVatNo;
     private String listDateFrom;
     private String docAppSerial;
+    private String productDate;
     
     private int selectoption;
     public GwDTO() {

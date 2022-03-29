@@ -15,7 +15,7 @@
   <table id="cardlistTable" class="table table-striped table-bordered nowrap" style="width:100%; overflow:hidden;">
     <thead>
     <tr>
-    	<th>선택</th>
+    	<td align="center" style="vertical-align:middle; width:5%;"><input type="checkbox" class="form-control" id="cardAllCheck" name="cardAllCheck" onclick="allCheck(this);"></td>
     	<th>일자</th>
       	<th>승인번호</th>
       	<th>카드번호</th>
@@ -29,7 +29,7 @@
 	    <c:forEach var="row" items="${list}">
 	      	<tr>
 	      		<td align="center" style="vertical-align:middle;"><input type="checkbox" class="form-control" id="cardCheckSerial" name="cardCheckSerial" data-id="${row.appSerial}"></td>
-	        	<td align="center" style="vertical-align:middle;">${row.appDate}</td>
+	        	<td align="center" style="vertical-align:middle;"><input type="date" class="form-control" value="${row.appDate}" max="9999-12-31" id="cardDate" style="width:auto;"></td>
 	        	<td align="center" style="vertical-align:middle;">${row.appSerial}</td>
 	        	<td align="center" style="vertical-align:middle;">${row.cardSerial}</td>
 	        	<td align="left" style="vertical-align:middle;">${row.appContents}</td>
@@ -56,5 +56,17 @@
 	  $("#vatBdiv").find("#vatAmount").val(c);      
       $(".modal-backdrop").remove();
       $("#vatBModal").modal("hide");
+  }
+  
+  function allCheck(e){
+	  if($(e).is(":checked") === true){
+		  $("#cardlistTable tbody tr td").find("#cardCheckSerial").each(function(index, item){
+			  $(item).prop("checked", true);
+		  });
+	  }else{
+		  $("#cardlistTable tbody tr td").find("#cardCheckSerial").each(function(index, item){
+			  $(item).prop("checked", false);
+		  });
+	  }
   }
 </script>

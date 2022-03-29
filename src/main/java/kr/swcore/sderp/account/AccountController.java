@@ -611,4 +611,17 @@ public class AccountController {
         param.put("data", endusernamelist_cont);
         return ResponseEntity.ok(param);
     }
+    
+    @RequestMapping("vatHtml/{vatId}/{contNo}")
+    public ModelAndView vatHtml(HttpSession session, ModelAndView mav, AccountDTO dto) {
+    	mav.setViewName("form/vatHtml");
+		/*
+		 * mav.addObject("detail",gwService.detailEst(dto));
+		 * mav.addObject("list",gwService.listEstitems(dto)); mav.addObject("titleList",
+		 * gwService.titleGroupBy(dto)); mav.addObject("comList",
+		 * gwService.comList(session)); mav.addObject("infoItem",
+		 * gwService.infoGetItem(dto));
+		 */
+    	return mav;
+    }
 }

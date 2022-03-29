@@ -593,8 +593,6 @@
 			});
 		}
 
-
-
 		function fn_data02delete(soppdataNo) {
 			var msg = "선택한 건을 삭제하시겠습니까?";
 			if( confirm(msg) ){

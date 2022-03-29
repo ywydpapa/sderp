@@ -563,7 +563,7 @@ from
 			0,
 			now(),
 			now(),
-			DATA_FORMAT(now(), '%Y-%m-%d'),
+			now(),
 			'100000'
 		from swc_sopp 
 		where soppNo = #{soppNo};

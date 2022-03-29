@@ -64,10 +64,10 @@
 		<table id="mainTable" style="margin-bottom: 0;">
 			<colgroup>
 		        <col width="10%">
-		        <col width="49%">
+		        <col width="19%">
 		        <col width="5%">
 		        <col width="5%">
-		        <col width="15%">
+		        <col width="45%">
 		    </colgroup>
 			<thead>
 				<tr>
@@ -85,7 +85,7 @@
 			    		<td style='text-align: center;'>${row.productName}</td>
 			    		<td style='text-align: center;'>${row.productQty}</td>
 			    		<td style='text-align: right;'><fmt:formatNumber value="${row.productTotal}" pattern="#,###" /></td>
-			    		<td></td>
+			    		<td style='text-align: center;'>${row.productRemark}</td>
 			    	</tr>
 			    	<c:set var="totalSum" value="${totalSum + row.productTotal}" />
 			    </c:forEach>

@@ -81,7 +81,14 @@
 			<tbody>
 				<c:forEach var="row" items="${detailListData}" varStatus="status">
 			    	<tr id="mainTr">
-			    		<td style="text-align: center;">${row.regDate}</td>
+			    		<c:choose>
+			    			<c:when test="${empty row.productDate}">
+					    		<td style="text-align: center;">${row.regDate}</td>
+			    			</c:when>
+			    			<c:otherwise>
+			    				<td style="text-align: center;">${row.productDate}</td>
+			    			</c:otherwise>
+			    		</c:choose>
 			    		<td style='text-align: center;'>${row.productName}</td>
 			    		<td style='text-align: center;'>${row.productQty}</td>
 			    		<td style='text-align: right;'><fmt:formatNumber value="${row.productTotal}" pattern="#,###" /></td>

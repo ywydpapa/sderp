@@ -37,4 +37,6 @@ public interface ContService {
 	int soppListUpdate(HttpSession session, ContDTO dto);
 	int extInsert(ContDTO dto);
 	int extAttUpdate(ContDTO dto);
+	List<ContDTO> defaultgradata01();
+	int insert_maintenance(HttpSession session, ContDTO dto);
 }

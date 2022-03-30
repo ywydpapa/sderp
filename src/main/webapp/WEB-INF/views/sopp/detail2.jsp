@@ -657,24 +657,38 @@
 			contData.compNo = ${compNo};
 			contData.contType = $("#soppType").val();
 			contData.cntrctMth = $("#cntrctMth").val();
+			contData.buyrNo =$('#endCustNo').val();
 			contData.contAmt = $("#soppTargetAmt").val().replace(/[\D\s\._\-]+/g, "");
 			contData.net_profit = $("#product01DiffSum").html().replace(/[\D\s\._\-]+/g, "");
 			contData.vatYn = "N";
-			console.log(contData);			
-			$.ajax({ url: "${path}/cont/insert.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소 
-				data: contData , // HTTP 요청과 함께 서버로 보낼 데이터 
-				method: "POST", // HTTP 요청 메소드(GET, POST 등) 
-				dataType: "json" // 서버에서 보내줄 데이터의 타입 
-			}) // HTTP 요청이 성공하면 요청한 데이터가 done() 메소드로 전달됨. .
-			.done(function(data) {
-				if(data.code == 10001){
-				}else{
-					alert("계약 저장 실패");
-				}
-			}) 
-			.fail(function(xhr, status, errorThrown) { 
-				alert("통신 실패");
-			});
+			console.log(contData);		
+			
+			//유상 유지보수에 한하여 별개 쿼리
+			if($('#cntrctMth').val() == "10248"){
+				$.ajax({ url: "${path}/cont/insert_maintenance.do",
+					data: contData ,
+					method: "POST", 
+					dataType: "json" 
+				}) 
+			};
+			//유상 유지보수에 한하여 별개 쿼리
+			
+			if($('#cntrctMth').val() != "10248"){
+				$.ajax({ url: "${path}/cont/insert.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소 
+					data: contData , // HTTP 요청과 함께 서버로 보낼 데이터 
+					method: "POST", // HTTP 요청 메소드(GET, POST 등) 
+					dataType: "json" // 서버에서 보내줄 데이터의 타입 
+				}) // HTTP 요청이 성공하면 요청한 데이터가 done() 메소드로 전달됨. .
+				.done(function(data) {
+					if(data.code == 10001){
+					}else{
+						alert("계약 저장 실패");
+					}
+				}) 
+				.fail(function(xhr, status, errorThrown) { 
+					alert("통신 실패");
+				});
+			}
 		}
 		
 		function fn_sopp2Reject(){

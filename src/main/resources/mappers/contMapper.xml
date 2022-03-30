@@ -177,15 +177,24 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  
  <insert id="insertCont">
  insert into swc_cont (contTitle, contDesc, compNo, soppNo, exContNo, userNo, custNo, custmemberNo, ptncNo, supplyNo, contOrddate,
-                       supplyDate, delivDate, contAmt, freemaintSdate, freemaintEdate, paymaintSdate, paymaintEdate, vatYn, contArea, cntrctMth,
-                       contType,net_profit ,attrib, buyrNo, buyrMemberNo
+                       supplyDate, delivDate, contAmt, freemaintSdate, freemaintEdate, vatYn, contArea, cntrctMth,
+                       contType,net_profit ,attrib, buyrNo, buyrMemberNo, paymaintSdate, paymaintEdate
                        )
  values (#{contTitle}, #{contDesc}, #{compNo}, #{soppNo}, #{exContNo}, #{userNo}, #{custNo}, #{custmemberNo}, #{ptncNo}, #{supplyNo}, #{contOrddate},
-         #{supplyDate}, #{delivDate}, #{contAmt}, #{freemaintSdate}, #{freemaintEdate}, #{paymaintSdate}, #{paymaintEdate}, #{vatYn}, #{contArea}, #{cntrctMth},
-         #{contType}, #{net_profit},'100000', #{buyrNo}, #{buyrMemberNo}
+         #{supplyDate}, #{delivDate}, #{contAmt}, #{freemaintSdate}, #{freemaintEdate}, #{vatYn}, #{contArea}, #{cntrctMth},
+         #{contType}, #{net_profit},'100000', #{buyrNo}, #{buyrMemberNo}, #{paymaintSdate}, #{paymaintEdate}
          )
  </insert>
-
+<insert id="insert_maintenance">
+	insert into swc_cont (contTitle, contDesc, compNo, soppNo, exContNo, userNo, custNo, custmemberNo, ptncNo, supplyNo, contOrddate,
+                       supplyDate, delivDate, contAmt, freemaintSdate, freemaintEdate, vatYn, contArea, cntrctMth,
+                       contType,net_profit ,attrib, buyrNo, buyrMemberNo, paymaintSdate, paymaintEdate
+                       )
+ values (#{contTitle}, #{contDesc}, #{compNo}, #{soppNo}, #{exContNo}, #{userNo}, #{custNo}, #{custmemberNo}, #{ptncNo}, #{supplyNo}, #{contOrddate},
+         #{supplyDate}, #{delivDate}, #{contAmt}, #{freemaintSdate}, #{freemaintEdate}, #{vatYn}, #{contArea}, #{cntrctMth},
+         #{contType}, #{net_profit},'100000', #{buyrNo}, #{buyrMemberNo}, NOW(), DATE_ADD(NOW(), INTERVAL 1 YEAR)
+         )
+</insert>
  <update id="updateCont">
 	update swc_cont 
 	set 
@@ -194,6 +203,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	soppNo=#{soppNo}, 
 	userNo=#{userNo}, 
 	custNo=#{custNo}, 
+	exContNo = #{exContNo},
 	custmemberNo=#{custmemberNo}, 
 	ptncNo=#{ptncNo}, 
 	supplyNo=#{supplyNo}, 
@@ -389,5 +399,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		modDatetime = now()
 	where fileId = #{fileId} and contNo=#{contNo}
 </delete>		
+ 
+ <select id="defaultgradata01" resultType="contDto">
+ 	SELECT * FROM swc_cont 
+	where date_format(regDatetime, '%Y') = '2022'
+	AND attrib NOT LIKE 'XXX%'
+	AND (DATE_FORMAT(paymaintSdate, '%Y') = 2022 OR paymaintSdate IS NULL);
+ </select>
  
 </mapper>

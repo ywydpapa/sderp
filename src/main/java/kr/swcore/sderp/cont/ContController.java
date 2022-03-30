@@ -2,6 +2,7 @@ package kr.swcore.sderp.cont;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
@@ -269,6 +270,14 @@ public class ContController {
 		param.put("code", (String.valueOf(schedInsertResult)));
 		return ResponseEntity.ok(param);
 	}
+	
+	@RequestMapping("insert_maintenance.do")
+	public ResponseEntity<?> insert_maintenance(HttpSession session, @ModelAttribute ContDTO dto) {
+		Map<String, Object> param = new HashMap<>();
+		int schedInsertResult = contService.insert_maintenance(session, dto);
+		param.put("code", (String.valueOf(schedInsertResult)));
+		return ResponseEntity.ok(param);
+	}
 
 	@RequestMapping("update.do")
 	public ResponseEntity<?> update(@ModelAttribute ContDTO dto) {
@@ -360,6 +369,14 @@ public class ContController {
 		}
 		else {param.put("code","20001");
 		}
+		return ResponseEntity.ok(param);
+	}
+	
+	@RequestMapping("defaultgradata01.do")
+	public ResponseEntity<?> defaultgradata01(@ModelAttribute ContDTO dto) {
+		Map<String, Object> param = new HashMap<>();
+		List <ContDTO> defaultgradata01 = contService.defaultgradata01();
+		param.put("data", defaultgradata01);
 		return ResponseEntity.ok(param);
 	}
 	

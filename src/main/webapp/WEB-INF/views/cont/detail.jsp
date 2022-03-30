@@ -92,6 +92,7 @@
 													<th scope="row" class="requiredTextCss">계약명</th>
 													<td>
 														<input type="text" class="form-control form-control-sm" id="contTitle" name="contTitle" value="${contDto.contTitle }">
+														<input type="hidden" class="form-control" name="soppNo" id="soppNo" value="${contDto.soppNo}" />
 													</td>
 													<th scope="row" >계약번호</th>
 													<td>
@@ -736,7 +737,7 @@
 				contData.exContNo				= 0;							// 기존계약
 				contData.cntrctMth				= Number(${contractType[0].codeNo});
 			} else if(contractType == 'OLD'){
-				contData.soppNo					= 0;							// 영업기회
+				contData.soppNo					= Number($("#soppNo").val());			// 영업기회
 				contData.exContNo				= Number($("#oldContNo").val());		// 기존계약
 				contData.cntrctMth				= Number(${contractType[1].codeNo});
 			}

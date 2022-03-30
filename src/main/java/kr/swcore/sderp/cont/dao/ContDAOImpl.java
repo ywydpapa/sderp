@@ -119,4 +119,16 @@ public class ContDAOImpl implements ContDAO {
 		// TODO Auto-generated method stub
 		return sqlSession.update("cont.extAttUpdate", dto);
 	}
+
+	@Override
+	public List<ContDTO> defaultgradata01() {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("cont.defaultgradata01");
+	}
+
+	@Override
+	public int insert_maintenance(ContDTO dto) {
+		// TODO Auto-generated method stub
+		return sqlSession.insert("cont.insert_maintenance",dto);
+	}
 }

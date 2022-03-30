@@ -242,4 +242,16 @@ public class ContServiceImpl implements ContService {
 		// TODO Auto-generated method stub
 		return contDao.extAttUpdate(dto);
 	}
+
+	@Override
+	public List<ContDTO> defaultgradata01() {
+		// TODO Auto-generated method stub
+		return contDao.defaultgradata01();
+	}
+
+	@Override
+	public int insert_maintenance(HttpSession session, ContDTO dto) {
+		// TODO Auto-generated method stub
+		return contDao.insert_maintenance(dto);
+	}
 }

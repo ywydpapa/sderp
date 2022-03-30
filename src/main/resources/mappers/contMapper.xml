@@ -194,7 +194,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
          #{supplyDate}, #{delivDate}, #{contAmt}, #{freemaintSdate}, #{freemaintEdate}, #{vatYn}, #{contArea}, #{cntrctMth},
          #{contType}, #{net_profit},'100000', #{buyrNo}, #{buyrMemberNo}, NOW(), DATE_ADD(NOW(), INTERVAL 1 YEAR)
          )
+         <selectKey keyProperty="contNo" resultType="int" order="AFTER">
+         	SELECT LAST_INSERT_ID()
+         </selectKey>
 </insert>
+<update id="update_maintenance">
+	update swc_cont set 
+	exContNo = #{contNo}
+	where contNo = #{contNo}
+</update>
  <update id="updateCont">
 	update swc_cont 
 	set 

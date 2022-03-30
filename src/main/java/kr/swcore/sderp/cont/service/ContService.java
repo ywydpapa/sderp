@@ -39,4 +39,5 @@ public interface ContService {
 	int extAttUpdate(ContDTO dto);
 	List<ContDTO> defaultgradata01();
 	int insert_maintenance(HttpSession session, ContDTO dto);
+	int update_maintenance(ContDTO dto);
 }

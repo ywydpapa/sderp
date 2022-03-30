@@ -254,4 +254,10 @@ public class ContServiceImpl implements ContService {
 		// TODO Auto-generated method stub
 		return contDao.insert_maintenance(dto);
 	}
+
+	@Override
+	public int update_maintenance(ContDTO dto) {
+		// TODO Auto-generated method stub
+		return contDao.update_maintenance(dto);
+	}
 }

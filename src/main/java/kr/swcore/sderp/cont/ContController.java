@@ -274,8 +274,8 @@ public class ContController {
 	@RequestMapping("insert_maintenance.do")
 	public ResponseEntity<?> insert_maintenance(HttpSession session, @ModelAttribute ContDTO dto) {
 		Map<String, Object> param = new HashMap<>();
-		int schedInsertResult = contService.insert_maintenance(session, dto);
-		param.put("code", (String.valueOf(schedInsertResult)));
+		contService.insert_maintenance(session, dto);
+		contService.update_maintenance(dto);
 		return ResponseEntity.ok(param);
 	}
 

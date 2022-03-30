@@ -33,4 +33,5 @@ public interface ContDAO {
 	int extAttUpdate(ContDTO dto);
 	List<ContDTO> defaultgradata01();
 	int insert_maintenance(ContDTO dto);
+	int update_maintenance(ContDTO dto);
 }

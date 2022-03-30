@@ -79,8 +79,8 @@
 				</td>
 				<td>
 					<select class="form-control" id="vatRecType">
-						<option value="02">청구</option>
-						<option value="01">영수</option>
+						<option value="01">청구</option>
+						<option value="02">영수</option>
 					</select>
 				</td>
 				<td><input type="date" max="9999-12-31" class="form-control" id="vatIssueDate"></td>

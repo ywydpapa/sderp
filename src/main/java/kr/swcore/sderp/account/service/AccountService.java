@@ -76,4 +76,6 @@ public interface AccountService {
 	void update_vatStatus_B(AccountDTO dto);
 	List<AccountDTO> endusernamelist(AccountDTO dto);
 	List<AccountDTO> endusernamelist_cont(AccountDTO dto);
+	List<AccountDTO> vatHtmlListB(AccountDTO dto);
+	List<AccountDTO> vatHtmlListS(AccountDTO dto);
 }

@@ -373,4 +373,16 @@ public class AccountDAOImpl implements AccountDAO {
 		// TODO Auto-generated method stub
 		return sqlSession.selectList("account.endusernamelist_cont", dto);
 	}
+
+	@Override
+	public List<AccountDTO> vatHtmlListB(AccountDTO dto) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("account.vatHtmlListB", dto);
+	}
+
+	@Override
+	public List<AccountDTO> vatHtmlListS(AccountDTO dto) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("account.vatHtmlListS", dto);
+	}
 }

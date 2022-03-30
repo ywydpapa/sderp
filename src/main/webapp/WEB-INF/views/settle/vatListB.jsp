@@ -196,7 +196,7 @@
                                     	<c:if test = "${vlist.vatType eq 'B'}">${vlist.vatSellerName}</c:if> --%>
                                     	${vlist.vatSellerName}
                                    	</td>
-                                    <td class="text-center vatSno"><a href="${path}/acc/vatHtml/${vlist.vatId}/${vlist.contNo}" onClick="javascript:popupVat(this); return false;">${vlist.vatSerial}</a></td>
+                                    <td class="text-center vatSno"><a href="${path}/acc/vatHtml/${vlist.vatSerial}/${vlist.vatType}" onClick="javascript:popupVat(this); return false;">${vlist.vatSerial}</a></td>
                                     <td class="text-center">
                                     	<c:if test = "${vlist.vatStatus eq 'B1'}">매입발행</c:if>
                                     	<c:if test = "${vlist.vatStatus eq 'B3'}">지급처리중</c:if>
@@ -205,7 +205,7 @@
                                         <c:if test = "${vlist.vatStatus eq 'S3'}">수금처리중</c:if>
                                         <c:if test = "${vlist.vatStatus eq 'S5'}">수금완료</c:if> --%>
                                         <input type="checkbox" class="vatStchg" data-id="${vlist.vatSerial}">
-                                    </td>
+                                    </td>	
                                     <td class="text-right">
                                     	<fmt:formatNumber type="number" maxFractionDigits="3" value="${vlist.vatAmount}" />
                                     </td>
@@ -394,8 +394,8 @@
         });
         
         function popupVat(e){
-            var nWidth = "800";
-            var nHeight = "1000";
+            var nWidth = "700";
+            var nHeight = "700";
 
             var curX = window.screenLeft;
             var curY = window.screenTop;

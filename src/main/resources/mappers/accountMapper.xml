@@ -306,6 +306,32 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="vatSelectList" resultType="accountDto">
 		select * from swc_vat where contNo = #{contNo} and attrib not like 'XXX%' order by vatId asc;
 	</select>
+	
+	<select id="vatHtmlListB" resultType="accountDto">
+		select a.*, rb.custName AS recCustName, rb.custBossname AS recBossName, rc.custAddr AS recCustAddrFirst, rc.custAddr2 AS recCustAddrLast, rd.custVattype AS recCustVatType, rd.custVatbiz AS recCustVatBiz, 
+		pb.custName AS proCustName, pb.custBossname AS proBossName, pb.custEmail AS proCustEmail, pc.custAddr AS proCustAddrFirst, pc.custAddr2 AS proCustAddrLast, pd.custVattype AS proCustVatType, pd.custVatbiz AS proCustVatBiz, pd.custVatno AS proCustVatNo 
+		from swc_vat a
+		LEFT JOIN swc_cust rb on a.vatSellerCustNo = rb.custNo
+		LEFT JOIN swc_custdata02 rc ON a.vatSellerCustNo = rc.custNo
+		LEFT JOIN swc_custdata rd ON a.vatSellerCustNo = rd.custNo
+		LEFT JOIN swc_cust pb on a.vatBuyerCustNo = pb.custNo
+		LEFT JOIN swc_custdata02 pc ON a.vatBuyerCustNo = pc.custNo
+		LEFT JOIN swc_custdata pd ON a.vatBuyerCustNo = pd.custNo
+		where a.vatSerial = #{vatSerial} and a.vatType = #{vatType} and a.attrib not like 'XXX%'
+	</select>
+	
+	<select id="vatHtmlListS" resultType="accountDto">
+		select a.*, rb.custName AS recCustName, rb.custBossname AS recBossName, rc.custAddr AS recCustAddrFirst, rc.custAddr2 AS recCustAddrLast, rd.custVattype AS recCustVatType, rd.custVatbiz AS recCustVatBiz, 
+		pb.custName AS proCustName, pb.custBossname AS proBossName, pb.custEmail AS proCustEmail, pc.custAddr AS proCustAddrFirst, pc.custAddr2 AS proCustAddrLast, pd.custVattype AS proCustVatType, pd.custVatbiz AS proCustVatBiz, pd.custVatno AS proCustVatNo 
+		from swc_vat a
+		LEFT JOIN swc_cust rb on a.vatBuyerCustNo = rb.custNo
+		LEFT JOIN swc_custdata02 rc ON a.vatBuyerCustNo = rc.custNo
+		LEFT JOIN swc_custdata rd ON a.vatBuyerCustNo = rd.custNo
+		LEFT JOIN swc_cust pb on a.vatSellerCustNo = pb.custNo
+		LEFT JOIN swc_custdata02 pc ON a.vatSellerCustNo = pc.custNo
+		LEFT JOIN swc_custdata pd ON a.vatSellerCustNo = pd.custNo
+		where a.vatSerial = #{vatSerial} and a.vatType = #{vatType} and a.attrib not like 'XXX%'
+	</select>
 
 	<insert id="insertbacledger">
 		insert into swc_bacledger

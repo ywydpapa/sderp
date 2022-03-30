@@ -140,5 +140,21 @@ public class AccountDTO {
     private int vatQuan;
     private BigDecimal vatNet;
     private int selectYear;
+    
+    //vatHtml
+    private String recCustName;
+    private String recBossName;
+    private String recCustAddrFirst;
+    private String recCustAddrLast;
+    private String recCustVatType;
+    private String recCustVatBiz;
+    private String proCustName;
+    private String proBossName;
+    private String proCustEmail;
+    private String proCustAddrFirst;
+    private String proCustAddrLast;
+    private String proCustVatType;
+    private String proCustVatBiz; 
+    private String proCustVatNo;
 }
 

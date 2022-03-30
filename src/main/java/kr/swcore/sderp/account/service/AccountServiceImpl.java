@@ -429,4 +429,14 @@ public class AccountServiceImpl implements AccountService {
 		// TODO Auto-generated method stub
 		return accountDAO.endusernamelist_cont(dto);
 	}
+
+	@Override
+	public List<AccountDTO> vatHtmlListB(AccountDTO dto) {
+		return accountDAO.vatHtmlListB(dto);
+	}
+
+	@Override
+	public List<AccountDTO> vatHtmlListS(AccountDTO dto) {
+		return accountDAO.vatHtmlListS(dto);
+	}
 }

@@ -612,9 +612,19 @@ public class AccountController {
         return ResponseEntity.ok(param);
     }
     
-    @RequestMapping("vatHtml/{vatId}/{contNo}")
-    public ModelAndView vatHtml(HttpSession session, ModelAndView mav, AccountDTO dto) {
+    @RequestMapping("vatHtml/{vatSerial}/{vatType}")
+    public ModelAndView vatHtml(HttpSession session, ModelAndView mav, @PathVariable("vatSerial") String vatSerial, @PathVariable("vatType") String vatType) {
+    	AccountDTO dto = new AccountDTO();
+    	dto.setVatSerial(vatSerial);
+    	dto.setVatType(vatType);
+    	
+    	if(vatType.equals("B")) {
+    		mav.addObject("vatList", accountService.vatHtmlListB(dto));
+    	}else {
+    		mav.addObject("vatList", accountService.vatHtmlListS(dto));
+    	}
     	mav.setViewName("form/vatHtml");
+    	
 		/*
 		 * mav.addObject("detail",gwService.detailEst(dto));
 		 * mav.addObject("list",gwService.listEstitems(dto)); mav.addObject("titleList",

@@ -196,7 +196,7 @@
                                     	<c:if test = "${vlist.vatType eq 'B'}">${vlist.vatSellerName}</c:if> --%>
                                     	${vlist.vatBuyerName}
                                    	</td>
-                                    <td class="text-center vatSno">${vlist.vatSerial}</td>
+                                    <td class="text-center vatSno"><a href="${path}/acc/vatHtml/${vlist.vatSerial}/${vlist.vatType}" onClick="javascript:popupVat(this); return false;">${vlist.vatSerial}</a></td>
                                     <td class="text-center">
                                     	<%-- <c:if test = "${vlist.vatStatus eq 'B1'}">매입발행</c:if>
                                     	<c:if test = "${vlist.vatStatus eq 'B3'}">지급처리중</c:if>
@@ -443,6 +443,34 @@
         	
             alert("변경 처리 완료");
             location.href = location.href;
+        }
+        
+        function popupVat(e){
+            var nWidth = "700";
+            var nHeight = "700";
+
+            var curX = window.screenLeft;
+            var curY = window.screenTop;
+            var curWidth = document.body.clientWidth;
+            var curHeight = document.body.clientHeight;
+
+            var nLeft = curX + (curWidth / 2) - (nWidth / 2);
+            var nTop = curY + (curHeight / 2) - (nHeight / 2);
+
+            var strOption = "";
+            strOption += "left=" + nLeft + "px,";
+            strOption += "top=" + nTop + "px,";
+            strOption += "width=" + nWidth + "px,";
+            strOption += "height=" + nHeight + "px,";
+            strOption += "toolbar=no,menubar=no,location=no,";
+            strOption += "resizable=yes,status=yes";
+
+            var winObj = window.open($(e).attr("href"), '', strOption);
+
+            if (winObj == null) {
+                alert("팝업 차단을 해제해주세요.");
+                return false;
+            }
         }
         
         function fnListcon() {

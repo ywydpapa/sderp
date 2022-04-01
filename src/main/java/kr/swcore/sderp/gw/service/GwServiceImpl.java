@@ -366,4 +366,14 @@ public class GwServiceImpl implements GwService{
 		gwDao.uploadFile2(dto);
 	}
 
+	@Override
+	public int docDrawUpdate(GwDTO dto) {
+		return gwDao.docDrawUpdate(dto);
+	}
+
+	@Override
+	public int docDrawDelete(GwDTO dto) {
+		return gwDao.docDrawDelete(dto);
+	}
+
 }

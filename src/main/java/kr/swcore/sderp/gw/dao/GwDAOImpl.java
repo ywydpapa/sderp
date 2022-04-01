@@ -298,16 +298,4 @@ public class GwDAOImpl implements GwDAO{
 		// TODO Auto-generated method stub
 		sqlSession.update("gw.uploadFile2", dto);
 	}
-
-	@Override
-	public int docDrawUpdate(GwDTO dto) {
-		// TODO Auto-generated method stub
-		return sqlSession.update("gw.docDrawUpdate", dto);
-	}
-
-	@Override
-	public int docDrawDelete(GwDTO dto) {
-		// TODO Auto-generated method stub
-		return sqlSession.update("gw.docDrawDelete", dto);
-	}
 }

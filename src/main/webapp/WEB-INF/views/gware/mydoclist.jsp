@@ -11,6 +11,14 @@
 <jsp:include page="../head.jsp"/>
 <jsp:include page="../body-top2.jsp"/>
 
+<style>
+	input[type="checkbox"]{
+		width: 15px;
+		height: 15px;
+		margin-top: 5px;
+	}
+</style>
+
 <div id="main_content">
     <script>
         $(function(){
@@ -187,10 +195,6 @@
                     		<div style="margin-bottom: 20px;">
 	                   			<button type="button" class="btn btn-primary" id="AbtnStatus2" onClick="fn_ABtnStatus2();" style="margin-right:10px;">검토요청</button>
 	                   			<button type="button" class="btn btn-secondary" id="AbtnStatus5" onClick="fn_ABtnStatus5();">승인완료</button>
-	                   			<div id="drawDiv" style="float:right;">
-	                   				<button type="button" class="btn btn-secondary" id="drawBtn">출금</button>
-	                   				<button type="button" class="btn btn-secondary" id="drawDelBtn">출금취소</button>
-	                   			</div>
                    			</div>
                     		<div id="divAStatus2">
                     			<table id="myDocTable" class="table table-striped table-bordered nowrap RoleATable">
@@ -256,22 +260,17 @@
                     		<div id="divAStatus5">
                     			<table id="myDocTable" class="table table-striped table-bordered nowrap RoleATable">
 		                            <colgroup>
-		                            	<col width="3%"/>
-		                                <col width="5%"/>
+		                                <col width="10%"/>
 		                                <col width="10%"/>
 		                                <col width="10%"/>
 		                                <col width="10%"/>
 		                                <col width="30%"/>
 		                                <col width="10%"/>
 		                                <col width="10%"/>
-		                                <col width="7%"/>
-		                                <col width="5%"/>
+		                                <col width="10%"/>
 		                            </colgroup>
 		                            <thead>
 			                            <tr>
-			                            	<th>
-			                            		<input type="checkbox" class="form-control" id="docAllCheck" style="margin-bottom:5px;">
-			                            	</th>
 			                                <th class="text-center">작성일자</th>
 			                                <th class="text-center">문서번호</th>
 			                                <th class="text-center">문서종류</th>
@@ -280,23 +279,12 @@
 			                                <th class="text-center">금액</th>
 			                                <th class="text-center">작성자</th>
 			                                <th class="text-center">진행상태</th>
-			                                <th class="text-center">출금여부</th>
 			                            </tr>
 		                            </thead>
 		                            <tbody>
 		                            	<c:forEach var="row" items="${mydoclist}">
 			                      			<c:if test="${row.appStatus == 5}">
 				                                <tr>
-				                                	<td>
-				                                		<c:choose>
-				                                			<c:when test="${row.docFormNo eq 'TREQ'}">
-						                                		<input type="checkbox" class="form-control" id="docCheck" data-id="${row.docNo}" style="margin-top:3px;">
-				                                			</c:when>
-				                                			<c:otherwise>
-				                                				<input type="checkbox" class="form-control" style="margin-top:3px;" disabled>
-				                                			</c:otherwise>
-				                                		</c:choose>
-				                                	</td>
 				                                    <td class="text-center">${row.regDate}</td>
 				                                    <td class="text-center">
 				                                		<a href="${path}/gw/detail/${row.docNo}">VTEK_2022${row.docNo}</a>
@@ -319,14 +307,11 @@
 				                                    <td class="text-right">￦<fmt:formatNumber type="number" maxFractionDigits="3" value="${row.docAmount}" /></td>
 				                                    <td class="text-center">${row.firstUser}</td>
 				                                    <td class="text-center">승인완료</td>
-				                                    <td class="text-center">
-				                                    	<c:if test="${row.docDrawStatus eq 1 && row.docFormNo eq 'TREQ'}">
-															Y
-				                                    	</c:if>
-				                                    	<c:if test="${row.docDrawStatus eq 0 && row.docFormNo eq 'TREQ'}">
-															N
-				                                    	</c:if>
-				                                    </td>
+				                                    <%-- <td class="text-center">
+				                                    	<c:if test="${row.appStatus == 2}">검토요청</c:if>
+				                                    	<c:if test="${row.appStatus == 3}">반려</c:if>
+				                                    	<c:if test="${row.appStatus == 4}">승인요청</c:if>
+				                                    </td> --%>
 				                                </tr>
 			                       			</c:if>
 		                            	</c:forEach>
@@ -599,7 +584,6 @@
         	$("#AbtnStatus2").attr("class", "btn btn-primary");
         	$("#AbtnStatus5").removeClass();
         	$("#AbtnStatus5").attr("class", "btn btn-secondary");
-        	$("#drawDiv").hide();
         }
         
         function fn_ABtnStatus5(){
@@ -609,7 +593,6 @@
         	$("#AbtnStatus5").attr("class", "btn btn-primary");
         	$("#AbtnStatus2").removeClass();
         	$("#AbtnStatus2").attr("class", "btn btn-secondary");
-        	$("#drawDiv").show();
         }
 
         function fnSetUserData(a, b) {
@@ -729,70 +712,6 @@
     		var url = '${path}/gw/mydoclist.do'+param;
     		location.href = url;
         }
-        
-        function docDrawUpdate(){
-        	if(confirm("출금 상태를 완료하시겠습니까??")){
-	        	var tableCheck = $("#myDocTable tbody tr td");
-	        	var path = $(location).attr("pathname");
-	        	
-	        	tableCheck.find("#docCheck").each(function(index, item){
-	        		if($(this).is(":checked") === true){
-			        	var updateData = {};
-		        		
-			        	updateData.docNo = $(this).attr("data-id");
-			        	
-			        	$.ajax({
-			        		url: "${path}/gw/docDrawUpdate.do",
-			        		method: "post",
-			        		async: false,
-			        		data: updateData,
-			        		dataType: "json",
-			        		error: function(){
-			        			alert("에러입니다!!\n다시 시도해주십시오.");
-			        			return false;
-			        		}
-			        	});
-	        		}
-	        	});
-	        	
-	        	alert("변경되었습니다.");
-	        	location.href = path;
-        	}else{
-        		return false;
-        	}
-        }
-        
-        function docDrawDelete(){
-        	if(confirm("출금 상태를 취소하시겠습니까??")){
-	        	var tableCheck = $("#myDocTable tbody tr td");
-	        	var path = $(location).attr("pathname");
-	        	
-	        	tableCheck.find("#docCheck").each(function(index, item){
-	        		if($(this).is(":checked") === true){
-			        	var updateData = {};
-		        		
-			        	updateData.docNo = $(this).attr("data-id");
-			        	
-			        	$.ajax({
-			        		url: "${path}/gw/docDrawDelete.do",
-			        		method: "post",
-			        		async: false,
-			        		data: updateData,
-			        		dataType: "json",
-			        		error: function(){
-			        			alert("에러입니다!!\n다시 시도해주십시오.");
-			        			return false;
-			        		}
-			        	});
-	        		}
-	        	});
-	        	
-	        	alert("변경되었습니다.");
-	        	location.href = path;
-        	}else{
-        		return false;
-        	}
-        }
 
         $("input[type='text']").keyup(function(e){
             if(e.keyCode == 13){
@@ -801,9 +720,10 @@
         });
 
         $(document).ready(function() {
+        	
         	$("#vatSdate").val(localStorage.getItem("vatSdate"));
         	$("#vatEdate").val(localStorage.getItem("vatEdate"));
-        	$("#drawDiv").hide();
+        	
         	$("#divStatus5").hide();
         	$("#divAStatus5").hide();
         	
@@ -813,55 +733,7 @@
         		}else{
         			$("#myDocTable tbody tr td").find("#thisCheck").prop("checked", false);
         		}
-        	});
-        	
-        	$("#myDocTable tbody tr td").find("#docCheck").change(function(){
-        		if($("#myDocTable tbody tr td").find("#docCheck:checked").length > 0){
-        			$("#drawBtn").removeAttr("class");
-        			$("#drawBtn").removeAttr("onClick");
-        			$("#drawBtn").attr("class", "btn btn-success");
-        			$("#drawBtn").attr("onClick", "docDrawUpdate();");
-        			$("#drawDelBtn").removeAttr("class");
-        			$("#drawDelBtn").removeAttr("onClick");
-        			$("#drawDelBtn").attr("class", "btn btn-danger");
-        			$("#drawDelBtn").attr("onClick", "docDrawDelete();");
-        		}else{
-        			$("#drawBtn").removeAttr("class");
-        			$("#drawBtn").removeAttr("onClick");
-        			$("#drawBtn").attr("class", "btn btn-secondary");
-        			$("#drawDelBtn").removeAttr("class");
-        			$("#drawDelBtn").removeAttr("onClick");
-        			$("#drawDelBtn").attr("class", "btn btn-secondary");
-        		}
-        	});
-        	
-        	$("#docAllCheck").click(function(){
-        		if($(this).is(":checked") === true){
-        			$("#drawBtn").removeAttr("class");
-        			$("#drawBtn").removeAttr("onClick");
-        			$("#drawBtn").attr("class", "btn btn-success");
-        			$("#drawBtn").attr("onClick", "docDrawUpdate();");
-        			$("#drawDelBtn").removeAttr("class");
-        			$("#drawDelBtn").removeAttr("onClick");
-        			$("#drawDelBtn").attr("class", "btn btn-danger");
-        			$("#drawDelBtn").attr("onClick", "docDrawDelete();");
-        			
-        			$("#myDocTable tbody tr td").find("#docCheck").each(function(index, item){
-        				$(this).prop("checked", true);
-        			});
-        		}else{
-        			$("#drawBtn").removeAttr("class");
-        			$("#drawBtn").removeAttr("onClick");
-        			$("#drawBtn").attr("class", "btn btn-secondary");
-        			$("#drawDelBtn").removeAttr("class");
-        			$("#drawDelBtn").removeAttr("onClick");
-        			$("#drawDelBtn").attr("class", "btn btn-secondary");
-        			
-        			$("#myDocTable tbody tr td").find("#docCheck").each(function(index, item){
-        				$(this).prop("checked", false);
-        			});
-        		}
-        	});
+        	})
         	
             if(window.location.search.toString().startsWith('?')){
             	if('${param.userName}' == ''){
@@ -877,11 +749,26 @@
     				$("#custNo").val(localStorage.getItem("custNo"));
     				$("#custName").val(localStorage.getItem("custName"));
     			}
-            } 
-        	
+            } /* else {
+			var userName = '${sessionScope.userName}';
+			$("#userName").val(userName);
+		} */
 			localStorage.clear();
         });
-       
+       /*  $("#selectoption").change(function(){
+        	if($("#selectoption").val() != 0){
+        		var lastselectoption = $("#selectoption").val();
+        		localStorage.setItem('lastselectoption', lastselectoption);
+        		location.href="/sderp/gw/mydoclist2.do/"+ lastselectoption
+        	}else if($("#selectoption").val() == 0){
+        		location.href="/sderp/gw/mydoclist.do"
+        		}
+        	});
+        var lastselectoption = localStorage.getItem('lastselectoption');
+        var lastTab = localStorage.getItem('lastTab');
+        if (lastTab) {
+		  	$('[href="' + lastTab + '"]').tab('show');
+		} */
     </script>
 </div>
 <jsp:include page="../body-bottom.jsp"/>

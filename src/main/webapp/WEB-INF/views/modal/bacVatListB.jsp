@@ -114,4 +114,15 @@
 		  location.href="${path}/acc/bacdetail.do";
 	  }
   }
+  function allCheck(e){
+	  if($(e).is(":checked") === true){
+		  $("#vatlistTable tbody tr td").find("#checkSerial").each(function(index, item){
+			  $(item).prop("checked", true);
+		  });
+	  }else{
+		  $("#vatlistTable tbody tr td").find("#checkSerial").each(function(index, item){
+			  $(item).prop("checked", false);
+		  });
+	  }
+  }
 </script>

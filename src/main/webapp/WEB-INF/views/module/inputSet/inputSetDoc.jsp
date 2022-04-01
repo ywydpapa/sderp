@@ -441,8 +441,50 @@
 		return resultArray;
 	}
 	
+	function cardDataCheck_purchase(){
+		var cardChecks =  $("#vatlistTable tbody tr td #checkSerial");
+		var checkSerialTable = $("#qutylist tbody tr");
+		var checkSerialArray1 = [];
+		var checkSerialArray2 = [];
+		var checkIndex = 0;
+		
+		resultArray = [];
+		
+		checkSerialTable.find("#docAppSerial").each(function(index, item){
+			checkSerialArray1.push($(item).val());
+		});
+		
+		cardChecks.each(function(index, item){
+			if($(item).is(":checked") === true){
+				var cardSerial = $(item).parent().next().next().next().next().next().next().html();
+				var cardProductName = $(item).parent().next().next().next().next().html();
+				var temp = {};
+				
+				temp.cardSerial = cardSerial;
+				temp.cardProductName = cardProductName;
+				
+				checkSerialArray2.push(temp);
+			}
+		});
+		
+		for(var i = 0; i < checkSerialArray2.length; i++){
+			if(checkSerialArray1.indexOf(checkSerialArray2[i].cardSerial) > -1){
+				checkIndex++;
+				resultArray = [checkIndex, checkSerialArray2[i].cardSerial, checkSerialArray2[i].cardProductName];
+			}
+		}
+		
+		console.log(resultArray);
+		
+		return resultArray;
+	}
+	
 	function cardDataSave(){
-		var cardChecks = $("#cardlistTable tbody tr td #cardCheckSerial");
+		//if($("#cardlistTable tbody tr td #cardCheckSerial") != '' && $("#cardlistTable tbody tr td #cardCheckSerial") != null){
+			var cardChecks = $("#cardlistTable tbody tr td #cardCheckSerial");
+		//}else if($("#vatlistTable tbody tr td #checkSerial") != '' && $("#vatlistTable tbody tr td #checkSerial") != null){
+		//	var cardChecks = $("#vatlistTable tbody tr td #checkSerial");
+		//}
 		var resultArray = [];
 		
 		resultArray = cardDataCheck();
@@ -511,6 +553,82 @@
 			});
 		}
 	}
+	
+	function cardDataSave_purchase(){
+		var cardChecks = $("#vatlistTable tbody tr td #checkSerial");
+		
+		var resultArray = [];
+		
+		resultArray = cardDataCheck_purchase();
+		
+		if(resultArray[0] > 0){
+			alert("승인번호: " + resultArray[1] +  "\n품명 : " + resultArray[2] + "\n추가한 항목 중 동일한 항목이 존재합니다.");
+			return false;
+		}else{
+			cardChecks.each(function(index, item){
+				var temp = {};
+				
+				if($(item).is(":checked") === true){
+					var cardProductName = $(item).parent().next().next().next().next().html();
+					var write_data = $(item).parent().next().html();//작성일자.//작성일자
+					var deal_location = $(item).parent().next().next().html();//거래처
+					var cardTotal = parseInt($(item).parent().next().next().next().html().replace(/[\D\s\._\-]+/g, ""));// 금액
+					var acess_Num =  $(item).parent().next().next().next().next().next().next().html();//승인번호
+					var cardRemarks = $(item).parent().next().next().next().next().next().html();
+					var cardAmount = 0;
+					var cardNetprice = 0;
+					var cardVat = 0;
+					var cardDate = $(item).parent().next().find("#cardDate").val();
+					
+			        cardAmount = Math.round(cardTotal/11*10);
+			        cardVat = Math.round(cardTotal / 11);
+			        cardNetprice = Math.round((cardTotal - cardVat)/1);
+					
+					var productSalesEstimateCustName = deal_location;
+			    	var productNo = 103428;
+			    	var productName = cardProductName;
+			    	var productNetprice = cardNetprice;
+			    	var productQty = 1;
+			    	var productAmount = cardAmount;
+			    	var productVat = cardVat;
+			    	var productTotal = cardTotal;
+			    	var productRemark = cardRemarks;
+			    	var productDate = write_data;
+			    	var qutylist = $("#qutylist tbody");
+					
+			    	temp.docNo = 0;
+			    	temp.custName = productSalesEstimateCustName;
+			    	temp.productName = productName;
+			    	temp.productNetprice = productNetprice;
+			    	temp.productQty = productQty;
+			    	temp.productAmount = productAmount;
+			    	temp.productVat = productVat;
+			    	temp.productTotal = productTotal;
+			    	temp.productRemark = productRemark;
+			    	temp.productDate = productDate;
+			    	temp.docAppSerial = acess_Num;
+			    	
+			        var productSum = parseInt($("#product02InSum_table").html().replace(/[\D\s\._\-]+/g, "")) + cardTotal;
+			        var amountSum = parseInt(productAmount) + parseInt($("#amountSum").val());
+			        var vatSum = parseInt(productVat) + parseInt($("#vatSum").val());
+			        
+			        $("#product02InSum_table").html("￦"+parseInt(productSum).toLocaleString("en-US"));
+			        $("#amountSum").val(amountSum);
+			        $("#vatSum").val(vatSum);
+			    	
+			    	dataArray.push(temp);
+			    	
+			        qutylist.append("<tr><input type='hidden' id='docAppSerial' value='"+acess_Num+"'><td id='dataDate' style='text-align:center;'>"+productDate+"</td><td id='salesCustNoN' style='text-align:center;'>"+productSalesEstimateCustName+"</td><td id='dataTitle' style='text-align:center;'>"+productName+"</td><td id='dataNetprice' style='text-align: right'>"+"￦"+parseInt(productNetprice).toLocaleString("en-US")+"</td><td id='dataQuanty' style='text-align: right'>"+productQty+"</td><td id='dataAmt' style='text-align: right'>"+"￦"+parseInt(productAmount).toLocaleString("en-US")+"</td><td id='dataVat' style='text-align: right'>"+"￦"+parseInt(productVat).toLocaleString("en-US")+"</td><td id='dataTotal' style='text-align: right'>"+"￦"+parseInt(productTotal).toLocaleString("en-US")+"</td><td id='dataRemark'>"+productRemark+"</td><td style='text-align:center;'><button class='btn btn-sm btn-inverse' id='dataUpBtn' data-index="+dataIndex+" data-number='0' style='margin-right:4%;'>수정</button><button class='btn btn-sm btn-danger text-center' data-index="+dataIndex+" id='dataDelBtn'>삭제</button></td></tr>");    	
+			        
+			        dataIndex++;
+			        
+			        $("#cardAddModal").hide();
+				}
+			});
+		}
+	}
+	
+	
 	
     function dataSave(){
     	if($('#productSalesEstimateCustName').val() === ""){

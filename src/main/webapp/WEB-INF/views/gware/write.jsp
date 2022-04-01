@@ -241,6 +241,9 @@
                        		<button class="btn btn-primary sch-company" data-remote="${path}/modal/popup.do?popId=cardAddModal" type="button" data-toggle="modal" data-target="#cardAddModal">
                                 <i class="icofont icofont-search"></i>카드내역추가
                             </button>
+                            <button class="btn btn-primary sch-company" data-remote="${path}/modal/popup.do?popId=bacVatB" type="button" data-toggle="modal" data-target="#list_Purchase">
+                           		<i class="icofont icofont-search"></i>매입계산서추가
+                            </button>
                        	</div>
                         <div class="table-responsive" style="overflow-x: hidden;">
                             <jsp:include page="/WEB-INF/views/module/inputSet/inputSetDoc.jsp"/>
@@ -269,6 +272,25 @@
             </div>
         </div>
     </div>
+     <div class="modal fade " id="list_Purchase" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-80size" role="document">
+            <div class="modal-content modal-80size">
+                <div class="modal-header">
+                    <h4 class="modal-title">매입 계산서 목록</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-success waves-effect" data-dismiss="modal" onclick="cardDataSave_purchase();">선택추가</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
     <div class="btn_wr text-right mt-3">
         <button class="btn btn-md btn-success f-left" onClick="javascript:location='${path}/gw/mylist.do'">결재목록</button>
         <button class="btn btn-md btn-primary" onClick="fn_tempInsert()">임시저장</button>
@@ -313,6 +335,12 @@
         });
         
         $('#cardAddModal').on('show.bs.modal', function(e) {
+            var button = $(e.relatedTarget);
+            var modal = $(this);
+            modal.find('.modal-body').load(button.data("remote"));
+        });
+        
+        $('#list_Purchase').on('show.bs.modal', function(e) {
             var button = $(e.relatedTarget);
             var modal = $(this);
             modal.find('.modal-body').load(button.data("remote"));

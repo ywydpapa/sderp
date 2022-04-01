@@ -570,7 +570,7 @@
 				
 				if($(item).is(":checked") === true){
 					var cardProductName = $(item).parent().next().next().next().next().html();
-					var write_data = $(item).parent().next().html();//작성일자.//작성일자
+					var write_data = $(item).parent().next().find("#cardDate_bacB").val();//작성일자.//작성일자
 					var deal_location = $(item).parent().next().next().html();//거래처
 					var cardTotal = parseInt($(item).parent().next().next().next().html().replace(/[\D\s\._\-]+/g, ""));// 금액
 					var acess_Num =  $(item).parent().next().next().next().next().next().next().html();//승인번호
@@ -578,8 +578,7 @@
 					var cardAmount = 0;
 					var cardNetprice = 0;
 					var cardVat = 0;
-					var cardDate = $(item).parent().next().find("#cardDate").val();
-					
+					var cardDate = $(item).parent().next().find("#cardDate_bacB").val();
 			        cardAmount = Math.round(cardTotal/11*10);
 			        cardVat = Math.round(cardTotal / 11);
 			        cardNetprice = Math.round((cardTotal - cardVat)/1);

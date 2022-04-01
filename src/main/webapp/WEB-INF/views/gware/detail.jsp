@@ -251,11 +251,16 @@
                             </tr>
                             </tbody>
                         </table>
-                        <c:if test="${sessionScope.userNo eq detailListApp.userNoCR && detailListApp.appStatus == 3}">
+                        <c:if test="${sessionScope.userNo eq detailListApp.userNoCR && detailListApp.appStatus == 3 || detailListApp.appStatus == 1}">
 	                        <div id="cardAddBtn" style="float:right; margin-top:20px; margin-bottom:20px;">
 	                       		<button class="btn btn-primary sch-company" data-remote="${path}/modal/popup.do?popId=cardAddModal" type="button" data-toggle="modal" data-target="#cardAddModal">
 	                                <i class="icofont icofont-search"></i>카드내역추가
 	                            </button>
+	                            <c:if test="${sessionScope.docRole eq 'A'}">
+	                       		<button class="btn btn-primary sch-company" data-remote="${path}/modal/popup.do?popId=bacVatB_spending_resolution" type="button" data-toggle="modal" data-target="#list_Purchase">
+                           			<i class="icofont icofont-search"></i>매입계산서추가
+                           		</button>
+                           		</c:if>
 	                       	</div>
                        	</c:if>
                         <div class="table-responsive" style="overflow-x: hidden;">
@@ -305,6 +310,24 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
                     <button type="button" class="btn btn-success waves-effect" data-dismiss="modal" onclick="cardDataSave();">선택추가</button>
+                </div>
+            </div>
+        </div>
+    </div>
+     <div class="modal fade " id="list_Purchase" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-80size" role="document">
+            <div class="modal-content modal-80size">
+                <div class="modal-header">
+                    <h4 class="modal-title">매입 계산서 목록</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-success waves-effect" data-dismiss="modal" onclick="cardDataSave_purchase();">선택추가</button>
                 </div>
             </div>
         </div>
@@ -367,6 +390,12 @@
         });
 
         $('#cardAddModal').on('show.bs.modal', function(e) {
+            var button = $(e.relatedTarget);
+            var modal = $(this);
+            modal.find('.modal-body').load(button.data("remote"));
+        });
+        
+        $('#list_Purchase').on('show.bs.modal', function(e) {
             var button = $(e.relatedTarget);
             var modal = $(this);
             modal.find('.modal-body').load(button.data("remote"));

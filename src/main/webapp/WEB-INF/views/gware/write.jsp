@@ -241,9 +241,11 @@
                        		<button class="btn btn-primary sch-company" data-remote="${path}/modal/popup.do?popId=cardAddModal" type="button" data-toggle="modal" data-target="#cardAddModal">
                                 <i class="icofont icofont-search"></i>카드내역추가
                             </button>
-                            <button class="btn btn-primary sch-company" data-remote="${path}/modal/popup.do?popId=bacVatB" type="button" data-toggle="modal" data-target="#list_Purchase">
+                            <c:if test="${sessionScope.docRole eq 'A'}">
+                            <button class="btn btn-primary sch-company" data-remote="${path}/modal/popup.do?popId=bacVatB_spending_resolution" type="button" data-toggle="modal" data-target="#list_Purchase">
                            		<i class="icofont icofont-search"></i>매입계산서추가
                             </button>
+                            </c:if>
                        	</div>
                         <div class="table-responsive" style="overflow-x: hidden;">
                             <jsp:include page="/WEB-INF/views/module/inputSet/inputSetDoc.jsp"/>

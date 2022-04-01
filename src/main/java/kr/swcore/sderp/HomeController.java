@@ -226,6 +226,11 @@ public class HomeController {
 			model.addAttribute("list",list);
 			rtn = "modal/bacVatListB";
 		}
+		else if("bacVatB_spending_resolution".equals(popId)) {
+			List<AccountDTO> list=accountService.modalVatB(session);
+			model.addAttribute("list",list);
+			rtn = "modal/bacVatList_spending_resolution";
+		}
 
 		else if("bacVatS".equals(popId)) {
 			List<AccountDTO> list=accountService.modalVatS(session);

@@ -156,5 +156,8 @@ public class AccountDTO {
     private String proCustVatType;
     private String proCustVatBiz; 
     private String proCustVatNo;
+    
+    //계좌내역 메모 기능
+    private String bacUpdateMemo;
 }
 

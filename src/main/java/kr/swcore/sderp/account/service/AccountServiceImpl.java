@@ -439,4 +439,10 @@ public class AccountServiceImpl implements AccountService {
 	public List<AccountDTO> vatHtmlListS(AccountDTO dto) {
 		return accountDAO.vatHtmlListS(dto);
 	}
+
+	@Override
+	public int bacUpdateMemo(AccountDTO dto) {
+		// TODO Auto-generated method stub
+		return accountDAO.bacUpdateMemo(dto);
+	}
 }

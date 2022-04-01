@@ -385,4 +385,10 @@ public class AccountDAOImpl implements AccountDAO {
 		// TODO Auto-generated method stub
 		return sqlSession.selectList("account.vatHtmlListS", dto);
 	}
+
+	@Override
+	public int bacUpdateMemo(AccountDTO dto) {
+		// TODO Auto-generated method stub
+		return sqlSession.update("account.bacUpdateMemo", dto);
+	}
 }

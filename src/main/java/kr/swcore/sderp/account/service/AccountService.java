@@ -78,4 +78,5 @@ public interface AccountService {
 	List<AccountDTO> endusernamelist_cont(AccountDTO dto);
 	List<AccountDTO> vatHtmlListB(AccountDTO dto);
 	List<AccountDTO> vatHtmlListS(AccountDTO dto);
+	int bacUpdateMemo(AccountDTO dto);
 }

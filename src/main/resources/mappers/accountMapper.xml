@@ -656,6 +656,10 @@ attrib) values (#{vatId},
 		update swc_vat set linkedcheck = 0 where vatSerial = #{linkDocno}
 	</update>
 	
+	<update id="bacUpdateMemo">
+		update swc_bacledger set bacUpdateMemo = #{bacUpdateMemo} where compNo = #{compNo} and baclogId = #{baclogId};
+	</update>
+	
 	
 	<select id="bac_connect_list" resultType="accountDto">
 		SELECT * FROM swc_vat WHERE vatSerial = #{vatId}

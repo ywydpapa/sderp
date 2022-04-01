@@ -39,6 +39,7 @@
     </thead>
     <tbody>
     <c:forEach var="row" items="${detailListData}">
+    	<input type="hidden" value="${row.appStatus}" />
     	<input type="hidden" id="docAppSerial" value="${row.docAppSerial}" />
     	<tr>
     		<c:choose>
@@ -57,10 +58,16 @@
     		<td id='dataVat' style='text-align: right;'>₩<fmt:formatNumber value="${row.productVat}" pattern="#,###" /></td>
     		<td id='dataTotal' style='text-align: right;'>₩<fmt:formatNumber value="${row.productTotal}" pattern="#,###" /></td>
     		<td id='dataRemark'>${row.productRemark}</td>
-    		<td style="text-align:center;">
-    			<button class='btn btn-sm btn-inverse' id="dataUpBtn" data-number="0" style='margin-right:1%;'>수정</button>
-    			<button class='btn btn-sm btn-danger' id="dataDelBtn">삭제</button>
-    		</td>
+    		<c:if test="${(row.appStatus == 1 || row.appStatus == 2 || row.appStatus == 3) && sessionScope.userNo == row.userNoCR}">
+	    		<td style="text-align:center;">
+	    			<button class='btn btn-sm btn-inverse' id="dataUpBtn" data-number="0" style='margin-right:1%;'>수정</button>
+	    			<button class='btn btn-sm btn-danger' id="dataDelBtn">삭제</button>
+	    		</td>
+	    	</c:if>
+	    	<c:if test="${(row.appStatus == 4 || row.appStatus == 5) && sessionScope.userNo != row.userNoCR}">
+	    		<td style="text-align:center;">
+	    		</td>
+	    	</c:if>
     	</tr>
     </c:forEach>
     </tbody>

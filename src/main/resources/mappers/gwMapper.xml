@@ -17,7 +17,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </select>
     
     <select id="detailDocData" resultType="gwDto">
-        select * from swc_businessdocdata where attrib not like 'XXX%' and docNo=#{docNo};
+        SELECT a.*, b.appStatus, b.userNoCR from swc_businessdocdata a 
+		LEFT JOIN swc_businessdocapp b ON a.docNo = b.docNo 
+		WHERE a.attrib not like 'XXX%' AND b.attrib not like 'XXX%' AND a.docNo=#{docNo}; 
     </select>
     
     <select id="selectVersion" resultType="gwDto">

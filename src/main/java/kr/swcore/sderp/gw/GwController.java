@@ -248,6 +248,30 @@ public class GwController {
          return ResponseEntity.ok(param);
     }
     
+    @RequestMapping("docDrawUpdate.do")
+    public  ResponseEntity<?> docDrawUpdate(@ModelAttribute GwDTO dto) {
+         Map<String, Object> param = new HashMap<>();
+         int docUpdate = gwService.docDrawUpdate(dto);
+         if (docUpdate >0) {
+             param.put("code","10001");
+         } else {
+             param.put("code","20001");
+         }
+         return ResponseEntity.ok(param);
+    }
+    
+    @RequestMapping("docDrawDelete.do")
+    public  ResponseEntity<?> docDrawDelete(@ModelAttribute GwDTO dto) {
+         Map<String, Object> param = new HashMap<>();
+         int docUpdate = gwService.docDrawDelete(dto);
+         if (docUpdate >0) {
+             param.put("code","10001");
+         } else {
+             param.put("code","20001");
+         }
+         return ResponseEntity.ok(param);
+    }
+    
     @RequestMapping("myDocListUpdate.do")
     public  ResponseEntity<?> myDocListUpdate(@ModelAttribute GwDTO dto) {
          Map<String, Object> param = new HashMap<>();

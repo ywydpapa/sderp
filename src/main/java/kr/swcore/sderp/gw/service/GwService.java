@@ -65,5 +65,6 @@ public interface GwService {
     int updateFile(GwFileDataDTO dto);
 	void deletefile(int docNo);
 	void uploadFile2(GwFileDataDTO dto);
-
+	int docDrawUpdate(GwDTO dto);
+	int docDrawDelete(GwDTO dto);
 }

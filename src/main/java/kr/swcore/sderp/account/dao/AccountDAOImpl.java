@@ -391,4 +391,10 @@ public class AccountDAOImpl implements AccountDAO {
 		// TODO Auto-generated method stub
 		return sqlSession.update("account.bacUpdateMemo", dto);
 	}
+	
+	@Override
+	public int bacDrawInsert(AccountDTO dto) {
+		// TODO Auto-generated method stub
+		return sqlSession.insert("account.bacDrawInsert", dto);
+	}
 }

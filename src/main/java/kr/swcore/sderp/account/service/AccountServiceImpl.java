@@ -445,4 +445,10 @@ public class AccountServiceImpl implements AccountService {
 		// TODO Auto-generated method stub
 		return accountDAO.bacUpdateMemo(dto);
 	}
+	
+	@Override
+	public int bacDrawInsert(AccountDTO dto) {
+		// TODO Auto-generated method stub
+		return accountDAO.bacDrawInsert(dto);
+	}
 }

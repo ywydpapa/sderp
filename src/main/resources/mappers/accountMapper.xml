@@ -619,6 +619,40 @@ attrib) values (#{vatId},
 			'100001'
 		);
 	</insert>
+	
+	<insert id="bacDrawInsert">
+		<selectKey resultType="int" keyProperty="balanceAmt" order="BEFORE">
+			select balanceAmt from swc_bacledger where bacSerial = #{bacSerial} and compNo = #{compNo} order by baclogId desc limit 1
+	 	</selectKey>
+		insert into swc_bacledger
+		(
+			compNo,
+			bacSerial,
+			bacDesc,
+			inAmt,
+			outAmt,
+			baclogTime,
+			logType,
+			balanceAmt,
+			branchCode,
+			regDate,
+			attrib
+		)
+			values
+		(
+			#{compNo},
+			#{bacSerial},
+			#{bacDesc},
+			#{inAmt},
+			#{outAmt},
+			now(),
+			#{logType},
+			#{balanceAmt - outAmt},
+			#{branchCode},
+			now(),
+			'10000'
+		)
+	</insert>
 
 	<update id="updVatStatus">
 		update swc_vat set vatStatus = #{vatStatus} where vatSerial = #{vatSerial} and compNo = #{compNo} and attrib not like 'XXX%';

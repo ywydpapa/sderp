@@ -188,8 +188,8 @@
 	                   			<button type="button" class="btn btn-primary" id="AbtnStatus2" onClick="fn_ABtnStatus2();" style="margin-right:10px;">검토요청</button>
 	                   			<button type="button" class="btn btn-secondary" id="AbtnStatus5" onClick="fn_ABtnStatus5();">승인완료</button>
 	                   			<div id="drawDiv" style="float:right;">
-	                   				<button type="button" class="btn btn-secondary" id="drawBtn">출금</button>
-	                   				<button type="button" class="btn btn-secondary" id="drawDelBtn">출금취소</button>
+	                   				<button type="button" class="btn btn-secondary" data-remote="${path}/modal/popup.do?popId=docDrawModal" data-toggle="modal" id="drawBtn" data-target="#docDrawModal" disabled>출금</button>
+	                   				<button type="button" class="btn btn-secondary" id="drawDelBtn" disabled>출금취소</button>
 	                   			</div>
                    			</div>
                     		<div id="divAStatus2">
@@ -316,7 +316,7 @@
 				                                    </td>
 				                                    <td class="text-center">${row.custName}</td>
 				                                    <td>${row.docTitle}</td>
-				                                    <td class="text-right">￦<fmt:formatNumber type="number" maxFractionDigits="3" value="${row.docAmount}" /></td>
+				                                    <td class="text-right" id="outAmt">￦<fmt:formatNumber type="number" maxFractionDigits="3" value="${row.docAmount}" /></td>
 				                                    <td class="text-center">${row.firstUser}</td>
 				                                    <td class="text-center">승인완료</td>
 				                                    <td class="text-center">
@@ -477,6 +477,27 @@
             </div>
         </div>
     </div>
+    <div class="modal fade " id="docDrawModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-80size" role="document">
+            <div class="modal-content modal-80size">
+                <div class="modal-header">
+                    <h4 class="modal-title">출금정보</h4>
+                    <button type="button" class="close"
+                            data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <h5>매출처목록</h5>
+                    <p>Loading!!!</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-success waves-effect" data-dismiss="modal" onclick="docDrawUpdate();">확인</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <!--//리스트 table-->
     <script>
         $("#myDocTable tbody tr").find("#absSum").each(function(index, item){
@@ -569,6 +590,11 @@
             modal.find('.modal-body').load(button.data("remote"));
         });
         $('#endCustModal').on('show.bs.modal', function(e) {
+            var button = $(e.relatedTarget);
+            var modal = $(this);
+            modal.find('.modal-body').load(button.data("remote"));
+        });
+        $('#docDrawModal').on('show.bs.modal', function(e) {
             var button = $(e.relatedTarget);
             var modal = $(this);
             modal.find('.modal-body').load(button.data("remote"));
@@ -730,28 +756,61 @@
     		location.href = url;
         }
         
+        function reverse(str) {
+	        var reverse = str.split('');
+	        reverse = reverse.reverse();
+	     
+	        return reverse.join('')
+	    }
+        
         function docDrawUpdate(){
         	if(confirm("출금 상태를 완료하시겠습니까??")){
 	        	var tableCheck = $("#myDocTable tbody tr td");
 	        	var path = $(location).attr("pathname");
-	        	
+	        	var compNo = "${sessionScope.compNo}";
+	        	var bacNo = $("#bacNo").val();
+				var bacSerial = reverse(bacNo).replaceAll("-", "");
+				
 	        	tableCheck.find("#docCheck").each(function(index, item){
 	        		if($(this).is(":checked") === true){
 			        	var updateData = {};
+			        	var drawData = {};
 		        		
 			        	updateData.docNo = $(this).attr("data-id");
 			        	
+			        	drawData.compNo = compNo;
+			        	drawData.bacSerial = bacSerial;
+			        	drawData.bacDesc = $("#bacDesc").val();
+			        	drawData.inAmt = 0;
+			        	drawData.outAmt = $(this).prents("tr").find("td #outAmt").html().replace(/[\D\s\._\-]+/g, "");
+			        	drawData.logType = $("#logType").val();
+			        	drawData.branchCode = $("#branchCode").val();
+			        	
 			        	$.ajax({
-			        		url: "${path}/gw/docDrawUpdate.do",
+			        		url: "${path}/acc/bacDrawInsert.do",
 			        		method: "post",
 			        		async: false,
-			        		data: updateData,
+			        		data: drawData,
 			        		dataType: "json",
-			        		error: function(){
-			        			alert("에러입니다!!\n다시 시도해주십시오.");
+			        		success:function(){
+					        	$.ajax({
+					        		url: "${path}/gw/docDrawUpdate.do",
+					        		method: "post",
+					        		async: false,
+					        		data: updateData,
+					        		dataType: "json",
+					        		error: function(){
+					        			alert("상태를 변경할 수 없습니다.\n다시 시도해주십시오.");
+					        			return false;
+					        		}
+					        	});
+			        		},
+			        		error:function(){
+			        			alert("등록이 정상적으로 되지 않았습니다.\n다시 시도해주십시오.");
 			        			return false;
 			        		}
 			        	});
+			        	
 	        		}
 	        	});
 	        	
@@ -818,17 +877,18 @@
         	$("#myDocTable tbody tr td").find("#docCheck").change(function(){
         		if($("#myDocTable tbody tr td").find("#docCheck:checked").length > 0){
         			$("#drawBtn").removeAttr("class");
-        			$("#drawBtn").removeAttr("onClick");
+        			$("#drawBtn").attr("disabled", false);
         			$("#drawBtn").attr("class", "btn btn-success");
-        			$("#drawBtn").attr("onClick", "docDrawUpdate();");
+        			$("#drawDelBtn").attr("disabled", false);
         			$("#drawDelBtn").removeAttr("class");
         			$("#drawDelBtn").removeAttr("onClick");
         			$("#drawDelBtn").attr("class", "btn btn-danger");
         			$("#drawDelBtn").attr("onClick", "docDrawDelete();");
         		}else{
         			$("#drawBtn").removeAttr("class");
-        			$("#drawBtn").removeAttr("onClick");
+        			$("#drawBtn").attr("disabled", true);
         			$("#drawBtn").attr("class", "btn btn-secondary");
+        			$("#drawDelBtn").attr("disabled", true);
         			$("#drawDelBtn").removeAttr("class");
         			$("#drawDelBtn").removeAttr("onClick");
         			$("#drawDelBtn").attr("class", "btn btn-secondary");
@@ -838,10 +898,10 @@
         	$("#docAllCheck").click(function(){
         		if($(this).is(":checked") === true){
         			$("#drawBtn").removeAttr("class");
-        			$("#drawBtn").removeAttr("onClick");
+        			$("#drawBtn").attr("disabled", false);
         			$("#drawBtn").attr("class", "btn btn-success");
-        			$("#drawBtn").attr("onClick", "docDrawUpdate();");
         			$("#drawDelBtn").removeAttr("class");
+        			$("#drawDelBtn").attr("disabled", false);
         			$("#drawDelBtn").removeAttr("onClick");
         			$("#drawDelBtn").attr("class", "btn btn-danger");
         			$("#drawDelBtn").attr("onClick", "docDrawDelete();");
@@ -851,8 +911,9 @@
         			});
         		}else{
         			$("#drawBtn").removeAttr("class");
-        			$("#drawBtn").removeAttr("onClick");
+        			$("#drawBtn").attr("disabled", true);
         			$("#drawBtn").attr("class", "btn btn-secondary");
+        			$("#drawDelBtn").attr("disabled", true);
         			$("#drawDelBtn").removeAttr("class");
         			$("#drawDelBtn").removeAttr("onClick");
         			$("#drawDelBtn").attr("class", "btn btn-secondary");

@@ -376,13 +376,13 @@
 									data[i].bacUpdateMemo = "";
 								}
 								
-								tableHtml += "<tr><td style='text-align:center;'>" + data[i].baclogTime + "</td><td style='text-align:center;'>" 
-								+ data[i].bacDesc + "</td><td style='text-align:right;'>" 
-								+ parseInt(data[i].inAmt).toLocaleString("en-US") + "</td><td style='text-align:right;'>"
-							 	+ parseInt(data[i].outAmt).toLocaleString("en-US") + "</td><td style='text-align:right;'>"
-							 	+ parseInt(data[i].balanceAmt).toLocaleString("en-US") + "</td><td style='text-align:center;'>"
-							 	+ data[i].branchCode + "</td><td style='text-align:center;'>"
-							 	+ data[i].logRemark + "</td><td style='text-align:center;'>"
+								tableHtml += "<tr><td style='text-align:center;vertical-align:middle;'>" + data[i].baclogTime + "</td><td style='text-align:center;vertical-align:middle;'>" 
+								+ data[i].bacDesc + "</td><td style='text-align:right;vertical-align:middle;'>" 
+								+ parseInt(data[i].inAmt).toLocaleString("en-US") + "</td><td style='text-align:right;vertical-align:middle;'>"
+							 	+ parseInt(data[i].outAmt).toLocaleString("en-US") + "</td><td style='text-align:right;vertical-align:middle;'>"
+							 	+ parseInt(data[i].balanceAmt).toLocaleString("en-US") + "</td><td style='text-align:center;vertical-align:middle;'>"
+							 	+ data[i].branchCode + "</td><td style='text-align:center;vertical-align:middle;'>"
+							 	+ data[i].logRemark + "</td><td style='text-align:center;vertical-align:middle;'>"
 							 	+ "<input type='text' class='form-control' id='bacUpdateMemo_"+i+"' value='"+data[i].bacUpdateMemo+"'></td>";
 								
 								if(data[i].linkDoc != '' && data[i].linkDoc != null){
@@ -509,13 +509,13 @@
 							data[i].bacUpdateMemo = "";
 						}
 						
-						tableHtml += "<tr><td style='text-align:center;'>" + data[i].baclogTime + "</td><td style='text-align:center;'>" 
-						+ data[i].bacDesc + "</td><td style='text-align:right;'>" 
-						+ parseInt(data[i].inAmt).toLocaleString("en-US") + "</td><td style='text-align:right;'>"
-					 	+ parseInt(data[i].outAmt).toLocaleString("en-US") + "</td><td style='text-align:right;'>"
-					 	+ parseInt(data[i].balanceAmt).toLocaleString("en-US") + "</td><td style='text-align:center;'>"
-					 	+ data[i].branchCode + "</td><td style='text-align:center;'>"
-					 	+ data[i].logRemark + "</td><td style='text-align:center;'>"
+						tableHtml += "<tr><td style='text-align:center;vertical-align:middle;'>" + data[i].baclogTime + "</td><td style='text-align:center;vertical-align:middle;'>" 
+						+ data[i].bacDesc + "</td><td style='text-align:right;vertical-align:middle;'>" 
+						+ parseInt(data[i].inAmt).toLocaleString("en-US") + "</td><td style='text-align:right;vertical-align:middle;'>"
+					 	+ parseInt(data[i].outAmt).toLocaleString("en-US") + "</td><td style='text-align:right;vertical-align:middle;'>"
+					 	+ parseInt(data[i].balanceAmt).toLocaleString("en-US") + "</td><td style='text-align:center;vertical-align:middle;'>"
+					 	+ data[i].branchCode + "</td><td style='text-align:center;vertical-align:middle;'>"
+					 	+ data[i].logRemark + "</td><td style='text-align:center;vertical-align:middle;'>"
 					 	+ "<input type='text' class='form-control' id='bacUpdateMemo_"+i+"' value='"+data[i].bacUpdateMemo+"'></td>";
 					 	
 					 	if(data[i].linkDoc != '' && data[i].linkDoc != null){
@@ -634,13 +634,13 @@
 							if(data[i].bacUpdateMemo === null){
 								data[i].bacUpdateMemo = "";
 							}
-							tableHtml += "<tr><td style='text-align:center;'>" + data[i].baclogTime + "</td><td style='text-align:center;'>" 
-							+ data[i].bacDesc + "</td><td style='text-align:right;'>" 
-							+ parseInt(data[i].inAmt).toLocaleString("en-US") + "</td><td style='text-align:right;'>"
-						 	+ parseInt(data[i].outAmt).toLocaleString("en-US") + "</td><td style='text-align:right;'>"
-						 	+ parseInt(data[i].balanceAmt).toLocaleString("en-US") + "</td><td style='text-align:center;'>"
-						 	+ data[i].branchCode + "</td><td style='text-align:center;'>"
-						 	+ data[i].logRemark + "</td><td style='text-align:center;'>"
+							tableHtml += "<tr><td style='text-align:center;vertical-align:middle;'>" + data[i].baclogTime + "</td><td style='text-align:center;vertical-align:middle;'>" 
+							+ data[i].bacDesc + "</td><td style='text-align:right;vertical-align:middle;'>" 
+							+ parseInt(data[i].inAmt).toLocaleString("en-US") + "</td><td style='text-align:right;vertical-align:middle;'>"
+						 	+ parseInt(data[i].outAmt).toLocaleString("en-US") + "</td><td style='text-align:right;vertical-align:middle;'>"
+						 	+ parseInt(data[i].balanceAmt).toLocaleString("en-US") + "</td><td style='text-align:center;vertical-align:middle;'>"
+						 	+ data[i].branchCode + "</td><td style='text-align:center;vertical-align:middle;'>"
+						 	+ data[i].logRemark + "</td><td style='text-align:center;vertical-align:middle;'>"
 						 	+ "<input type='text' class='form-control' id='bacUpdateMemo_"+i+"' value='"+data[i].bacUpdateMemo+"'></td>";
 							
 							if(data[i].linkDoc != '' && data[i].linkDoc != null){
@@ -758,13 +758,13 @@
 							if(data[i].bacUpdateMemo === null){
 								data[i].bacUpdateMemo = "";
 							}
-							tableHtml += "<tr><td style='text-align:center;'>" + data[i].baclogTime + "</td><td style='text-align:center;'>" 
-							+ data[i].bacDesc + "</td><td style='text-align:right;'>" 
-							+ parseInt(data[i].inAmt).toLocaleString("en-US") + "</td><td style='text-align:right;'>"
-						 	+ parseInt(data[i].outAmt).toLocaleString("en-US") + "</td><td style='text-align:right;'>"
-						 	+ parseInt(data[i].balanceAmt).toLocaleString("en-US") + "</td><td style='text-align:center;'>"
-						 	+ data[i].branchCode + "</td><td style='text-align:center;'>"
-						 	+ data[i].logRemark + "</td><td style='text-align:center;'>"
+							tableHtml += "<tr><td style='text-align:center;vertical-align:middle;'>" + data[i].baclogTime + "</td><td style='text-align:center;vertical-align:middle;'>" 
+							+ data[i].bacDesc + "</td><td style='text-align:right;vertical-align:middle;'>" 
+							+ parseInt(data[i].inAmt).toLocaleString("en-US") + "</td><td style='text-align:right;vertical-align:middle;'>"
+						 	+ parseInt(data[i].outAmt).toLocaleString("en-US") + "</td><td style='text-align:right;vertical-align:middle;'>"
+						 	+ parseInt(data[i].balanceAmt).toLocaleString("en-US") + "</td><td style='text-align:center;vertical-align:middle;'>"
+						 	+ data[i].branchCode + "</td><td style='text-align:center;vertical-align:middle;'>"
+						 	+ data[i].logRemark + "</td><td style='text-align:center;vertical-align:middle;'>"
 						 	+ "<input type='text' class='form-control' id='bacUpdateMemo_"+i+"' value='"+data[i].bacUpdateMemo+"'></td>";
 							
 							if(data[i].linkDoc != '' && data[i].linkDoc != null){
@@ -877,13 +877,13 @@
 							if(data[i].bacUpdateMemo === null){
 								data[i].bacUpdateMemo = "";
 							}
-							tableHtml += "<tr><td style='text-align:center;'>" + data[i].baclogTime + "</td><td style='text-align:center;'>" 
-							+ data[i].bacDesc + "</td><td style='text-align:right;'>" 
-							+ parseInt(data[i].inAmt).toLocaleString("en-US") + "</td><td style='text-align:right;'>"
-						 	+ parseInt(data[i].outAmt).toLocaleString("en-US") + "</td><td style='text-align:right;'>"
-						 	+ parseInt(data[i].balanceAmt).toLocaleString("en-US") + "</td><td style='text-align:center;'>"
-						 	+ data[i].branchCode + "</td><td style='text-align:center;'>"
-						 	+ data[i].logRemark + "</td><td style='text-align:center;'>"
+							tableHtml += "<tr><td style='text-align:center;vertical-align:middle;'>" + data[i].baclogTime + "</td><td style='text-align:center;vertical-align:middle;'>" 
+							+ data[i].bacDesc + "</td><td style='text-align:right;vertical-align:middle;'>" 
+							+ parseInt(data[i].inAmt).toLocaleString("en-US") + "</td><td style='text-align:right;vertical-align:middle;'>"
+						 	+ parseInt(data[i].outAmt).toLocaleString("en-US") + "</td><td style='text-align:right;vertical-align:middle;'>"
+						 	+ parseInt(data[i].balanceAmt).toLocaleString("en-US") + "</td><td style='text-align:center;vertical-align:middle;'>"
+						 	+ data[i].branchCode + "</td><td style='text-align:center;vertical-align:middle;'>"
+						 	+ data[i].logRemark + "</td><td style='text-align:center;vertical-align:middle;'>"
 						 	+ "<input type='text' class='form-control' id='bacUpdateMemo_"+i+"' value='"+data[i].bacUpdateMemo+"'></td>";
 							
 							if(data[i].linkDoc != '' && data[i].linkDoc != null){

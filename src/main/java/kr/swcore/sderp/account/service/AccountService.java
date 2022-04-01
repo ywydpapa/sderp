@@ -79,4 +79,5 @@ public interface AccountService {
 	List<AccountDTO> vatHtmlListB(AccountDTO dto);
 	List<AccountDTO> vatHtmlListS(AccountDTO dto);
 	int bacUpdateMemo(AccountDTO dto);
+	int bacDrawInsert(AccountDTO dto);
 }

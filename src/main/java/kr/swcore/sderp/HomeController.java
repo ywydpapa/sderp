@@ -326,6 +326,12 @@ public class HomeController {
 			model.addAttribute("list", list);
 			rtn = "modal/treqCardList";
 		}
+		else if("docDrawModal".equals(popId)) {
+			//Integer compNo = Integer.valueOf((String) params.get("compNo"));
+			List<AccountDTO> list = accountService.listbac(session);
+			model.addAttribute("list", list);
+			rtn = "modal/docDrawModal";
+		}
 		logger.debug(rtn);
 		
 		mav.setViewName(rtn);

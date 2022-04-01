@@ -647,4 +647,17 @@ public class AccountController {
         }
         return ResponseEntity.ok(param);
     }
+    
+    @RequestMapping("bacDrawInsert.do")
+    public ResponseEntity<Object> bacDrawInsert(HttpSession session, @ModelAttribute AccountDTO dto){
+        Map<String,Object> param = new HashMap<>();
+        int bacIns = accountService.bacDrawInsert(dto);
+        if(bacIns > 0){
+            param.put("code","10001");
+        }
+        else {
+            param.put("code", "20001");
+        }
+        return ResponseEntity.ok(param);
+    }
 }

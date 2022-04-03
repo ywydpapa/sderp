@@ -645,11 +645,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</update>
 	
 	<update id="docDrawUpdate">
-		update swc_businessdoc set docDrawStatus = 1 where docNo = #{docNo};
+		update swc_businessdoc set docDrawStatus = 1, docDrawNo = #{docDrawNo} where docNo = #{docNo};
 	</update>
 	
 	<update id="docDrawDelete">
-		update swc_businessdoc set docDrawStatus = 0 where docNo = #{docNo};
+		update swc_businessdoc set docDrawStatus = 0, docDrawNo = 0 where docNo = #{docNo};
 	</update>
 
 	<select id="listUserAtt" resultType="gwDto">

@@ -109,6 +109,7 @@ public class GwDTO {
     private String docAppSerial;
     private String productDate;
     private int docDrawStatus;
+    private int docDrawNo;
     
     private int selectoption;
     public GwDTO() {

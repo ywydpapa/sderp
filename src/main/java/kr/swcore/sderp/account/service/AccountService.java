@@ -80,4 +80,6 @@ public interface AccountService {
 	List<AccountDTO> vatHtmlListS(AccountDTO dto);
 	int bacUpdateMemo(AccountDTO dto);
 	int bacDrawInsert(AccountDTO dto);
+	int bacDrawDelect(AccountDTO dto);
+	int bacDrawAfterUpdate(AccountDTO dto);
 }

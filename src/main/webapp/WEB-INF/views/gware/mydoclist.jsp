@@ -269,8 +269,8 @@
 		                            </colgroup>
 		                            <thead>
 			                            <tr>
-			                            	<th>
-			                            		<input type="checkbox" class="form-control" id="docAllCheck" style="margin-bottom:5px;">
+			                            	<th class="text-center">
+			                            		<input type="checkbox" class="form-control" id="docAllCheck" onclick="drawAllCheckClick(this);" style="margin-bottom:5px;">
 			                            	</th>
 			                                <th class="text-center">작성일자</th>
 			                                <th class="text-center">문서번호</th>
@@ -290,7 +290,7 @@
 				                                	<td>
 				                                		<c:choose>
 				                                			<c:when test="${row.docFormNo eq 'TREQ'}">
-						                                		<input type="checkbox" class="form-control" id="docCheck" data-id="${row.docNo}" style="margin-top:3px;">
+						                                		<input type="checkbox" class="form-control" id="docCheck" data-id="${row.docNo}" data-drawno="${row.docDrawNo}" onclick="drawCheckClick();" style="margin-top:3px;width:30px;">
 				                                			</c:when>
 				                                			<c:otherwise>
 				                                				<input type="checkbox" class="form-control" style="margin-top:3px;" disabled>
@@ -315,7 +315,7 @@
 				                                    	<c:if test="${row.docType eq 'DIP'}">공문서</c:if>
 				                                    </td>
 				                                    <td class="text-center">${row.custName}</td>
-				                                    <td>${row.docTitle}</td>
+				                                    <td id="bacDesc">${row.docTitle}</td>
 				                                    <td class="text-right" id="outAmt">￦<fmt:formatNumber type="number" maxFractionDigits="3" value="${row.docAmount}" /></td>
 				                                    <td class="text-center">${row.firstUser}</td>
 				                                    <td class="text-center">승인완료</td>
@@ -770,52 +770,83 @@
 	        	var compNo = "${sessionScope.compNo}";
 	        	var bacNo = $("#bacNo").val();
 				var bacSerial = reverse(bacNo).replaceAll("-", "");
+				var tableCheckLength = tableCheck.find("#docCheck").length;
 				
 	        	tableCheck.find("#docCheck").each(function(index, item){
-	        		if($(this).is(":checked") === true){
+	        		if($(item).is(":checked") === true){
 			        	var updateData = {};
 			        	var drawData = {};
-		        		
-			        	updateData.docNo = $(this).attr("data-id");
+			        	var drawAfterData = {};
 			        	
 			        	drawData.compNo = compNo;
-			        	drawData.bacSerial = bacSerial;
-			        	drawData.bacDesc = $("#bacDesc").val();
+			        	drawData.bacDesc = $(item).parents("tr").find("#bacDesc").html();
 			        	drawData.inAmt = 0;
-			        	drawData.outAmt = $(this).prents("tr").find("td #outAmt").html().replace(/[\D\s\._\-]+/g, "");
+			        	drawData.outAmt = 0;
 			        	drawData.logType = $("#logType").val();
 			        	drawData.branchCode = $("#branchCode").val();
+			        	drawData.linkDoc = "";
 			        	
+	        			$.LoadingOverlay("show", true);
+	        			
 			        	$.ajax({
 			        		url: "${path}/acc/bacDrawInsert.do",
 			        		method: "post",
 			        		async: false,
 			        		data: drawData,
 			        		dataType: "json",
-			        		success:function(){
-					        	$.ajax({
-					        		url: "${path}/gw/docDrawUpdate.do",
+			        		success:function(data){
+			        			drawAfterData.bacSerial = bacSerial;
+			        			drawAfterData.compNo = drawData.compNo;
+			        			drawAfterData.outAmt = $(item).parents("tr").find("#outAmt").html().replace(/[\D\s\._\-]+/g, "");
+			        			drawAfterData.baclogId = data.getId;
+			        			
+			        			$.ajax({
+			        				url: "${path}/acc/bacDrawAfterUpdate.do",
 					        		method: "post",
 					        		async: false,
-					        		data: updateData,
+					        		data: drawAfterData,
 					        		dataType: "json",
-					        		error: function(){
-					        			alert("상태를 변경할 수 없습니다.\n다시 시도해주십시오.");
+					        		success:function(){
+					        			updateData.docNo = $(item).attr("data-id");
+					        			updateData.docDrawNo = data.getId;
+							        	
+					        			$.ajax({
+							        		url: "${path}/gw/docDrawUpdate.do",
+							        		method: "post",
+							        		async: false,
+							        		data: updateData,
+							        		dataType: "json",
+							        		error: function(){
+							        			alert("상태를 변경할 수 없습니다.\n다시 시도해주십시오.");
+							        			return false;
+							        		}
+							        	});
+					        		},
+					        		error:function(){
+					        			alert("등록 후 업데이트가 제대로 실행되지 못하였습니다.\n다시 시도해주십시오.");
 					        			return false;
 					        		}
-					        	});
+			        			});
 			        		},
 			        		error:function(){
 			        			alert("등록이 정상적으로 되지 않았습니다.\n다시 시도해주십시오.");
 			        			return false;
 			        		}
 			        	});
-			        	
 	        		}
+	        		
+		        	if(index == tableCheckLength){
+		        		setTimeout(function(){
+						    $.LoadingOverlay("hide", true);
+						}, 5000);
+		        	}
 	        	});
 	        	
-	        	alert("변경되었습니다.");
-	        	location.href = path;
+	        	setTimeout(function(){
+		        	alert("변경되었습니다.");
+		        	location.href = path;
+	        	}, 5000);
+	        	
         	}else{
         		return false;
         	}
@@ -825,29 +856,58 @@
         	if(confirm("출금 상태를 취소하시겠습니까??")){
 	        	var tableCheck = $("#myDocTable tbody tr td");
 	        	var path = $(location).attr("pathname");
+	        	var compNo = "${sessionScope.compNo}";
+	        	var tableCheckLength = tableCheck.find("#docCheck").length;
 	        	
 	        	tableCheck.find("#docCheck").each(function(index, item){
-	        		if($(this).is(":checked") === true){
-			        	var updateData = {};
+	        		if($(item).is(":checked") === true){
+			        	var updateDocData = {};
+		        		var updateBacData = {};
 		        		
-			        	updateData.docNo = $(this).attr("data-id");
-			        	
+		        		updateDocData.docNo = $(item).attr("data-id");
+		        		updateBacData.compNo = compNo;
+		        		updateBacData.baclogId = $(item).attr("data-drawno");
+		        		
+	        			$.LoadingOverlay("show", true);
+	        			
 			        	$.ajax({
 			        		url: "${path}/gw/docDrawDelete.do",
 			        		method: "post",
 			        		async: false,
-			        		data: updateData,
+			        		data: updateDocData,
 			        		dataType: "json",
+			        		success:function(){
+			        			$.ajax({
+			        				url: "${path}/acc/bacDrawDelect.do",
+			        				method: "post",
+			        				async: false,
+			        				data: updateBacData,
+			        				dataType: "json",
+			        				error:function(){
+			        					alert("계좌 데이터를 제대로 삭제하지 못했습니다.\n다시 시도해주십시오.");
+			        					return false;
+			        				}
+			        			});
+			        		},
 			        		error: function(){
-			        			alert("에러입니다!!\n다시 시도해주십시오.");
+			        			alert("상태를 제대로 변경하지 못했습니다.\n다시 시도해주십시오.");
 			        			return false;
 			        		}
 			        	});
 	        		}
+	        		
+	        		if(index == tableCheckLength){
+		        		setTimeout(function(){
+						    $.LoadingOverlay("hide", true);
+						}, 5000);
+		        	}
 	        	});
 	        	
-	        	alert("변경되었습니다.");
-	        	location.href = path;
+	        	setTimeout(function(){
+	        		alert("변경되었습니다.");
+	        		location.href = path;
+	        	}, 5000);
+	        	
         	}else{
         		return false;
         	}
@@ -858,6 +918,57 @@
                 $("#search").click();
             }
         });
+        
+        function drawCheckClick(){
+       		console.log($("#myDocTable tbody tr td").find("#docCheck:checked").length);
+        	if($("#myDocTable tbody tr td").find("#docCheck:checked").length > 0){
+    			$("#drawBtn").removeAttr("class");
+    			$("#drawBtn").attr("disabled", false);
+    			$("#drawBtn").attr("class", "btn btn-success");
+    			$("#drawDelBtn").attr("disabled", false);
+    			$("#drawDelBtn").removeAttr("class");
+    			$("#drawDelBtn").removeAttr("onClick");
+    			$("#drawDelBtn").attr("class", "btn btn-danger");
+    			$("#drawDelBtn").attr("onClick", "docDrawDelete();");
+    		}else{
+    			$("#drawBtn").removeAttr("class");
+    			$("#drawBtn").attr("disabled", true);
+    			$("#drawBtn").attr("class", "btn btn-secondary");
+    			$("#drawDelBtn").attr("disabled", true);
+    			$("#drawDelBtn").removeAttr("class");
+    			$("#drawDelBtn").removeAttr("onClick");
+    			$("#drawDelBtn").attr("class", "btn btn-secondary");
+    		}
+        }
+        
+        function drawAllCheckClick(e){
+        	if($(e).is(":checked") === true){
+    			$("#drawBtn").removeAttr("class");
+    			$("#drawBtn").attr("disabled", false);
+    			$("#drawBtn").attr("class", "btn btn-success");
+    			$("#drawDelBtn").removeAttr("class");
+    			$("#drawDelBtn").attr("disabled", false);
+    			$("#drawDelBtn").removeAttr("onClick");
+    			$("#drawDelBtn").attr("class", "btn btn-danger");
+    			$("#drawDelBtn").attr("onClick", "docDrawDelete();");
+    			
+    			$("#myDocTable tbody tr td").find("#docCheck").each(function(index, item){
+    				$(item).prop("checked", true);
+    			});
+    		}else{
+    			$("#drawBtn").removeAttr("class");
+    			$("#drawBtn").attr("disabled", true);
+    			$("#drawBtn").attr("class", "btn btn-secondary");
+    			$("#drawDelBtn").attr("disabled", true);
+    			$("#drawDelBtn").removeAttr("class");
+    			$("#drawDelBtn").removeAttr("onClick");
+    			$("#drawDelBtn").attr("class", "btn btn-secondary");
+    			
+    			$("#myDocTable tbody tr td").find("#docCheck").each(function(index, item){
+    				$(item).prop("checked", false);
+    			});
+    		}
+        }
 
         $(document).ready(function() {
         	$("#vatSdate").val(localStorage.getItem("vatSdate"));
@@ -871,56 +982,6 @@
         			$("#myDocTable tbody tr td").find("#thisCheck").prop("checked", true);
         		}else{
         			$("#myDocTable tbody tr td").find("#thisCheck").prop("checked", false);
-        		}
-        	});
-        	
-        	$("#myDocTable tbody tr td").find("#docCheck").change(function(){
-        		if($("#myDocTable tbody tr td").find("#docCheck:checked").length > 0){
-        			$("#drawBtn").removeAttr("class");
-        			$("#drawBtn").attr("disabled", false);
-        			$("#drawBtn").attr("class", "btn btn-success");
-        			$("#drawDelBtn").attr("disabled", false);
-        			$("#drawDelBtn").removeAttr("class");
-        			$("#drawDelBtn").removeAttr("onClick");
-        			$("#drawDelBtn").attr("class", "btn btn-danger");
-        			$("#drawDelBtn").attr("onClick", "docDrawDelete();");
-        		}else{
-        			$("#drawBtn").removeAttr("class");
-        			$("#drawBtn").attr("disabled", true);
-        			$("#drawBtn").attr("class", "btn btn-secondary");
-        			$("#drawDelBtn").attr("disabled", true);
-        			$("#drawDelBtn").removeAttr("class");
-        			$("#drawDelBtn").removeAttr("onClick");
-        			$("#drawDelBtn").attr("class", "btn btn-secondary");
-        		}
-        	});
-        	
-        	$("#docAllCheck").click(function(){
-        		if($(this).is(":checked") === true){
-        			$("#drawBtn").removeAttr("class");
-        			$("#drawBtn").attr("disabled", false);
-        			$("#drawBtn").attr("class", "btn btn-success");
-        			$("#drawDelBtn").removeAttr("class");
-        			$("#drawDelBtn").attr("disabled", false);
-        			$("#drawDelBtn").removeAttr("onClick");
-        			$("#drawDelBtn").attr("class", "btn btn-danger");
-        			$("#drawDelBtn").attr("onClick", "docDrawDelete();");
-        			
-        			$("#myDocTable tbody tr td").find("#docCheck").each(function(index, item){
-        				$(this).prop("checked", true);
-        			});
-        		}else{
-        			$("#drawBtn").removeAttr("class");
-        			$("#drawBtn").attr("disabled", true);
-        			$("#drawBtn").attr("class", "btn btn-secondary");
-        			$("#drawDelBtn").attr("disabled", true);
-        			$("#drawDelBtn").removeAttr("class");
-        			$("#drawDelBtn").removeAttr("onClick");
-        			$("#drawDelBtn").attr("class", "btn btn-secondary");
-        			
-        			$("#myDocTable tbody tr td").find("#docCheck").each(function(index, item){
-        				$(this).prop("checked", false);
-        			});
         		}
         	});
         	

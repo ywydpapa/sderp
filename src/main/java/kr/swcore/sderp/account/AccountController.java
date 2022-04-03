@@ -652,7 +652,34 @@ public class AccountController {
     public ResponseEntity<Object> bacDrawInsert(HttpSession session, @ModelAttribute AccountDTO dto){
         Map<String,Object> param = new HashMap<>();
         int bacIns = accountService.bacDrawInsert(dto);
+        param.put("getId", dto.getGetId());
         if(bacIns > 0){
+            param.put("code","10001");
+        }
+        else {
+            param.put("code", "20001");
+        }
+        return ResponseEntity.ok(param);
+    }
+    
+    @RequestMapping("bacDrawDelect.do")
+    public ResponseEntity<Object> bacDrawDelect(HttpSession session, @ModelAttribute AccountDTO dto){
+        Map<String,Object> param = new HashMap<>();
+        int bacDel = accountService.bacDrawDelect(dto);
+        if(bacDel > 0){
+            param.put("code","10001");
+        }
+        else {
+            param.put("code", "20001");
+        }
+        return ResponseEntity.ok(param);
+    }
+    
+    @RequestMapping("bacDrawAfterUpdate.do")
+    public ResponseEntity<Object> bacDrawAfterUpdate(HttpSession session, @ModelAttribute AccountDTO dto){
+        Map<String,Object> param = new HashMap<>();
+        int bacUp = accountService.bacDrawAfterUpdate(dto);
+        if(bacUp > 0){
             param.put("code","10001");
         }
         else {

@@ -14,14 +14,14 @@
 <div class="dt-responsive table-responsive">
 	<div>
 		<span>계좌번호선택</span>
-		<select id="bacNumber" class="form-control">
+		<select id="bacNo" class="form-control">
 			<c:forEach var="row" items="${list}">
 				<option value="${row.bacNo}">${row.bacNo}</option>
 			</c:forEach>
 		</select><br>
 		
 		<span>거래점(ex:기업)</span>
-		<input type="text" class="form-control" id="bacDesc"><br>
+		<input type="text" class="form-control" id="branchCode"><br>
 		
 		<span>거래종류(ex:타행입금)</span>
 		<input type="text" class="form-control" id="logType">

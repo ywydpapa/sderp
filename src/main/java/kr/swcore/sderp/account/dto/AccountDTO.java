@@ -159,5 +159,8 @@ public class AccountDTO {
     
     //계좌내역 메모 기능
     private String bacUpdateMemo;
+    
+    //아이디 값 들고오기
+    private int getId;
 }
 

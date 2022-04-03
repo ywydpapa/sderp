@@ -229,7 +229,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  	</select>
  
 	<select id="bacSelectList" resultType="accountDto">
-		select * from swc_bacledger where bacSerial = #{bacSerial} order by baclogTime desc limit #{betFirstNum}, #{betLastNum};
+		select * from swc_bacledger where bacSerial = #{bacSerial} and attrib not like 'XXX%' order by baclogTime desc limit #{betFirstNum}, #{betLastNum};
 	</select>
 	
 	<select id="bacSelectListCnt" resultType="accountDto">
@@ -277,7 +277,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				FROM swc_bacledger 
 				WHERE (bacSerial, baclogTime) IN (
 			SELECT bacSerial, MAX(baclogTime)
-			FROM swc_bacledger GROUP BY bacSerial
+			FROM swc_bacledger where attrib not like 'XXX%' GROUP BY bacSerial
 			)
 			ORDER BY baclogTime DESC
 		)t
@@ -620,39 +620,42 @@ attrib) values (#{vatId},
 		);
 	</insert>
 	
-	<insert id="bacDrawInsert">
-		<selectKey resultType="int" keyProperty="balanceAmt" order="BEFORE">
-			select balanceAmt from swc_bacledger where bacSerial = #{bacSerial} and compNo = #{compNo} order by baclogId desc limit 1
-	 	</selectKey>
+	<insert id="bacDrawInsert" useGeneratedKeys="true" keyProperty="getId">
+	 	<selectKey keyProperty="getId" resultType="int" order="AFTER">
+	        SELECT max(baclogId) from swc_bacledger
+	    </selectKey>
 		insert into swc_bacledger
 		(
 			compNo,
-			bacSerial,
 			bacDesc,
 			inAmt,
-			outAmt,
 			baclogTime,
 			logType,
-			balanceAmt,
 			branchCode,
+			linkDoc,
 			regDate,
 			attrib
 		)
 			values
 		(
 			#{compNo},
-			#{bacSerial},
 			#{bacDesc},
 			#{inAmt},
-			#{outAmt},
 			now(),
 			#{logType},
-			#{balanceAmt - outAmt},
 			#{branchCode},
+			#{linkDoc},
 			now(),
 			'10000'
 		)
 	</insert>
+	
+	<update id="bacDrawAfterUpdate">
+		<selectKey resultType="BigDecimal" keyProperty="balanceAmt" order="BEFORE">
+			select (balanceAmt - #{outAmt}) from swc_bacledger where bacSerial = #{bacSerial} and compNo = #{compNo} and attrib not like 'XXX%' order by baclogId desc limit 1
+	 	</selectKey>
+		update swc_bacledger set bacSerial = #{bacSerial}, outAmt = #{outAmt}, balanceAmt = #{balanceAmt} where compNo = #{compNo} and baclogId = #{baclogId};
+	</update>
 
 	<update id="updVatStatus">
 		update swc_vat set vatStatus = #{vatStatus} where vatSerial = #{vatSerial} and compNo = #{compNo} and attrib not like 'XXX%';
@@ -694,6 +697,9 @@ attrib) values (#{vatId},
 		update swc_bacledger set bacUpdateMemo = #{bacUpdateMemo} where compNo = #{compNo} and baclogId = #{baclogId};
 	</update>
 	
+	<update id="bacDrawDelect">
+		update swc_bacledger set attrib = 'XXXXX' where compNo = #{compNo} and baclogId = #{baclogId};
+	</update>
 	
 	<select id="bac_connect_list" resultType="accountDto">
 		SELECT * FROM swc_vat WHERE vatSerial = #{vatId}

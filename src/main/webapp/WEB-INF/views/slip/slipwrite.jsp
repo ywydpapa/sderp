@@ -234,7 +234,10 @@
 									<td><select type="text" id="slineType" class="form-control">
 									<option value="1">입금</option>
 									<option value="2">출금</option>
-									<option value="3">대체</option>
+									<option value="3">차변</option>
+									<option value="4">대변</option>
+									<option value="5">결산차변</option>
+									<option value="6">결산대변</option>
 									</select></td>
 									<td><input type="text" id="slineAcccd" class="form-control"></td>
 									<td><input type="text" id="slineCust" class="form-control"></td>

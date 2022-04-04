@@ -287,10 +287,10 @@
 		                            	<c:forEach var="row" items="${mydoclist}">
 			                      			<c:if test="${row.appStatus == 5}">
 				                                <tr>
-				                                	<td>
+				                                	<td class="text-center">
 				                                		<c:choose>
 				                                			<c:when test="${row.docFormNo eq 'TREQ'}">
-						                                		<input type="checkbox" class="form-control" id="docCheck" data-id="${row.docNo}" data-drawno="${row.docDrawNo}" onclick="drawCheckClick();" style="margin-top:3px;width:30px;">
+						                                		<input type="checkbox" class="form-control" id="docCheck" data-id="${row.docNo}" data-drawno="${row.docDrawNo}" onclick="drawCheckClick();" style="margin-top:3px;width:45px;">
 				                                			</c:when>
 				                                			<c:otherwise>
 				                                				<input type="checkbox" class="form-control" style="margin-top:3px;" disabled>

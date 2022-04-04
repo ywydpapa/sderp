@@ -26,7 +26,7 @@
 		<li class="">
 			<a href="${path}/notice/list.do">
 				<span class="pcoded-micon">
-					<i class="ti-home"></i>
+					<i class="ti-briefcase"></i>
 					<b>D</b>
 				</span>
 				<span class="pcoded-mtext" data-i18n="nav.dash.main">공지사항</span>
@@ -312,14 +312,21 @@
 		<li class="">
 			<a href="${pageContext.request.contextPath}/board__file/board_file">
 				<span class="pcoded-micon">
-					<i class="ti-agenda"></i></span>
+					<i class="ti-folder"></i></span>
 				<span class="pcoded-mtext" >자료실</span>
 				<span class="pcoded-mcaret"></span>
 			</a>
 		</li>
 		<!-- 게시판 관련 -->
 		
-		
+		<li class="">
+			<a href="${path}/manual.do" target="_blank">
+				<span class="pcoded-micon">
+					<i class="ti-book"></i></span>
+				<span class="pcoded-mtext" >메뉴얼가이드</span>
+				<span class="pcoded-mcaret"></span>
+			</a>
+		</li>
 	</ul>
 	
 	<c:if test="${fn:contains(userKey, '5') || fn:contains(userKey, '7') }">

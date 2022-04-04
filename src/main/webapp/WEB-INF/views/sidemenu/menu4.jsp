@@ -29,14 +29,14 @@
                                     </a>
                                     <ul class="pcoded-submenu">
                                         <li class="pcoded-hasmenu ">
-                                            <a href="${path}/slip/list.do">
+                                            <a href="${path}/mis/saleslist.do">
                                                 <span class="pcoded-micon"><i class="ti-direction-alt"></i></span>
                                                 <span class="pcoded-mtext" data-i18n="nav.menu-levels.menu-level-21">매입매출현황</span>
                                                 <span class="pcoded-mcaret"></span>
                                             </a>
                                         </li>
                                         <li class="pcoded-hasmenu">
-                                            <a href="${path}/slip/write.do">
+                                            <a href="${path}/mis/legerlist.do">
                                                 <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
                                                 <span class="pcoded-mtext" data-i18n="nav.menu-levels.menu-level-22">미수/미지급현황</span>
                                                 <span class="pcoded-mcaret"></span>
@@ -52,14 +52,14 @@
                                     </a>
                                                                         <ul class="pcoded-submenu">
                                         <li class="pcoded-hasmenu ">
-                                            <a href="${path}/sell/list.do">
+                                            <a href="${path}/mis/bacinoutlist.do">
                                                 <span class="pcoded-micon"><i class="ti-direction-alt"></i></span>
                                                 <span class="pcoded-mtext" data-i18n="nav.menu-levels.menu-level-21">입출금조회</span>
                                                 <span class="pcoded-mcaret"></span>
                                             </a>
                                         </li>
                                         <li class="pcoded-hasmenu">
-                                            <a href="${path}/sell/write.do">
+                                            <a href="${path}/mis/bacstatuslist.do">
                                                 <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
                                                 <span class="pcoded-mtext" data-i18n="nav.menu-levels.menu-level-22">일자별 자금일보</span>
                                                 <span class="pcoded-mcaret"></span>
@@ -75,21 +75,21 @@
                                     </a>
                                                                         <ul class="pcoded-submenu">
                                         <li class="pcoded-hasmenu ">
-                                            <a href="${path}/settl/list.do">
+                                            <a href="${path}/mis/soppstatuslist.do">
                                                 <span class="pcoded-micon"><i class="ti-direction-alt"></i></span>
                                                 <span class="pcoded-mtext" data-i18n="nav.menu-levels.menu-level-21">프로젝트 진행조회</span>
                                                 <span class="pcoded-mcaret"></span>
                                             </a>
                                         </li>
                                         <li class="pcoded-hasmenu">
-                                            <a href="${path}/settl/write.do">
+                                            <a href="${path}/mis/soppcostlist.do">
                                                 <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
                                                 <span class="pcoded-mtext" data-i18n="nav.menu-levels.menu-level-22">프로젝트별 수익분석</span>
                                                 <span class="pcoded-mcaret"></span>
                                             </a>
                                         </li>
                                         <li class="pcoded-hasmenu">
-                                            <a href="${path}/settl/write1.do">
+                                            <a href="${path}/mis/soppmarginlist.do">
                                                 <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
                                                 <span class="pcoded-mtext" data-i18n="nav.menu-levels.menu-level-23">프로젝트별 원가분석</span>
                                                 <span class="pcoded-mcaret"></span>
@@ -105,14 +105,14 @@
                                     </a>
                                                                         <ul class="pcoded-submenu">
                                         <li class="pcoded-hasmenu ">
-                                            <a href="${path}/ps/list.do">
+                                            <a href="${path}/mis/hrdutylist.do">
                                                 <span class="pcoded-micon"><i class="ti-direction-alt"></i></span>
                                                 <span class="pcoded-mtext" data-i18n="nav.menu-levels.menu-level-21">근태현황 조회</span>
                                                 <span class="pcoded-mcaret"></span>
                                             </a>
                                         </li>
                                         <li class="pcoded-hasmenu">
-                                            <a href="${path}/ps/write.do">
+                                            <a href="${path}/mis/hrcostlist.do">
                                                 <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
                                                 <span class="pcoded-mtext" data-i18n="nav.menu-levels.menu-level-22">개인별 원가분석</span>
                                                 <span class="pcoded-mcaret"></span>

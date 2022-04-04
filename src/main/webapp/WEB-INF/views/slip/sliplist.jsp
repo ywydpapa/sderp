@@ -171,7 +171,8 @@
 									<th class="text-center">승인일</th>
 									<th class="text-center">계정과목</th>
 									<th class="text-center">거래처</th>
-									<th class="text-center">금액</th>
+									<th class="text-center">차변금액</th>
+									<th class="text-center">대변금액</th>
 									<th class="text-center">적요</th>
 									<th class="text-center">상태</th>
 								</tr>

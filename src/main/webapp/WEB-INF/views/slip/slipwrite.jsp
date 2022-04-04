@@ -63,7 +63,7 @@
 										<div class="form-radio">
 											<form>
 												<div class="radio radio-inline">
-													<label style="margin-top: 10px;"> <input type="radio" name="slipType" value="IN" checked="checked"> <i class="helper"></i>입금전료</label>
+													<label style="margin-top: 10px;"> <input type="radio" name="slipType" value="IN" checked="checked"> <i class="helper"></i>입금전표</label>
 												</div>
 												<div class="radio radio-inline">
 													<label> <input type="radio" name="slipType" value="OUT"> <i class="helper"></i>출금전표</label>

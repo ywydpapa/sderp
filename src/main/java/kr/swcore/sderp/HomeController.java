@@ -158,7 +158,11 @@ public class HomeController {
 	public String menu4() {
 		return "sidemenu/menu4";
 	}
-
+	
+	@RequestMapping("/manual.do")
+	public String manual() {
+		return "manual/manual";
+	}
 
 	@RequestMapping("/modal/popup.do")
 	public ModelAndView modal(@RequestParam Map<String, Object> params, Model model, ModelAndView mav, HttpSession session, HttpServletRequest servletRequest) {

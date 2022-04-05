@@ -22,76 +22,57 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 
 	<select id="sumBVat" resultType="accountDto">
-		select a.*, b.custName vatSellerName, c.custName vatBuyerName, sum(a.vatTax + a.vatAmount) AS vatAmountB, sum(case when a.vatStatus='B5' then a.vatAmount + a.vatTax end) AS serialTotalB, g.settleDRbalance as custBalance
-		from swc_vat a
-		left join swc_cust b on a.vatSellerCustNo = b.custNo
-		left join swc_cust c on a.vatBuyerCustNo = c.custNo
-		left join swc_soppdata01 d on a.vatSerial = d.vatSerial and d.attrib not like 'XXX%'
-		left join swc_cust e ON a.vatSellerCustNo = e.custNo
-		left join swc_custdata f ON e.custNo = f.custNo and f.attrib not like 'XXX%'
-		left join (select * from swc_cust_balance where settleYear = #{selectYear}) g ON a.vatSellerCustNo = g.custNo
-		where a.compNo = #{compNo} and a.attrib not like 'XXX%' and vatType='B'
+		SELECT a.*, a.settleDRbalance as custBalance, c.custName AS vatSellerName, sum(b.vatTax + b.vatAmount) AS vatAmountB, sum(case when b.vatStatus='B5' then b.vatAmount + b.vatTax end) AS serialTotalB
+		FROM swc_cust_balance a 
+		LEFT JOIN swc_vat b ON a.custNo = b.vatSellerCustNo
+		LEFT JOIN swc_cust c ON b.vatSellerCustNo = c.custNo
+		WHERE a.compNo = #{compNo} AND a.attrib NOT LIKE 'XXX%' AND a.settleYear = #{selectYear} AND b.vatType = 'B' and a.settleDRbalance IS NOT NULL 
 		<if test="vatIssueDateFrom != null and vatIssueDateFrom !=''">
-			and a.vatIssueDate Between #{vatIssueDateFrom} and #{vatIssueDateTo}
+			and b.vatIssueDate BETWEEN #{vatIssueDateFrom} and #{vatIssueDateTo} 
 		</if>
-		group by a.vatSellerCustNo order by a.vatIssueDate desc
-
+		GROUP BY a.custNo order by b.vatIssueDate desc
 	</select>
 
 	<select id="sumBVatSearch" resultType="accountDto">
-		select a.*, b.custName vatSellerName, c.custName vatBuyerName, sum(a.vatTax + a.vatAmount) AS vatAmountB, sum(case when a.vatStatus='B5' then a.vatAmount + a.vatTax end) AS serialTotalB, g.settleDRbalance as custBalance
-		from swc_vat a
-		left join swc_cust b on a.vatSellerCustNo = b.custNo
-		left join swc_cust c on a.vatBuyerCustNo = c.custNo
-		left join swc_soppdata01 d on a.vatSerial = d.vatSerial and d.attrib not like 'XXX%'
-		left join swc_cust e ON a.vatSellerCustNo = e.custNo
-		left join swc_custdata f ON e.custNo = f.custNo and f.attrib not like 'XXX%'
-		left join (select * from swc_cust_balance where settleYear = #{selectYear}) g ON a.vatSellerCustNo = g.custNo
-		where a.compNo = #{compNo} and a.attrib not like 'XXX%' and vatType='B'
-		<if test="vatSellerCustNo != null and vatSellerCustNo != ''">
-			and a.vatSellerCustNo = #{vatSellerCustNo}
+		SELECT a.*, a.settleDRbalance as custBalance, c.custName AS vatSellerName, sum(b.vatTax + b.vatAmount) AS vatAmountB, sum(case when b.vatStatus='B5' then b.vatAmount + b.vatTax end) AS serialTotalB
+		FROM swc_cust_balance a 
+		LEFT JOIN swc_vat b ON a.custNo = b.vatSellerCustNo
+		LEFT JOIN swc_cust c ON b.vatSellerCustNo = c.custNo
+		WHERE a.compNo = #{compNo} AND a.attrib NOT LIKE 'XXX%' AND a.settleYear = #{selectYear} AND b.vatType = 'B' and a.settleDRbalance IS NOT NULL 
+		<if test="vatBuyerCustNo != null and vatBuyerCustNo != ''">
+			and b.vatBuyerCustNo = #{vatBuyerCustNo}
 		</if>
 		<if test="vatIssueDateFrom != null and vatIssueDateFrom !=''">
-			and a.vatIssueDate Between #{vatIssueDateFrom} and #{vatIssueDateTo}
+			and b.vatIssueDate BETWEEN #{vatIssueDateFrom} and #{vatIssueDateTo} 
 		</if>
-		group by a.vatSellerCustNo order by a.vatIssueDate desc
-
+		GROUP BY a.custNo order by b.vatIssueDate desc
 	</select>
 
 	<select id="sumSVat" resultType="accountDto">
-		select a.*, b.custName vatSellerName, c.custName vatBuyerName, sum(a.vatTax + a.vatAmount) AS vatAmountS, sum(case when a.vatStatus='S5' then a.vatAmount + a.vatTax end) AS serialTotalS, g.settleCRbalance as custBalance
-		from swc_vat a
-		left join swc_cust b on a.vatSellerCustNo = b.custNo
-		left join swc_cust c on a.vatBuyerCustNo = c.custNo
-		left join swc_soppdata01 d on a.vatSerial = d.vatSerial and d.attrib not like 'XXX%'
-		left join swc_cust e ON a.vatBuyerCustNo = e.custNo
-		left join swc_custdata f ON e.custNo = f.custNo and f.attrib not like 'XXX%'
-		left join (select * from swc_cust_balance where settleYear = #{selectYear}) g ON a.vatBuyerCustNo = g.custNo
-		where a.compNo = #{compNo} and a.attrib not like 'XXX%' and vatType='S'
+		SELECT a.*, a.settleCRbalance as custBalance, c.custName AS vatBuyerName, sum(b.vatTax + b.vatAmount) AS vatAmountS, sum(case when b.vatStatus='S5' then b.vatAmount + b.vatTax end) AS serialTotalS
+		FROM swc_cust_balance a 
+		LEFT JOIN swc_vat b ON a.custNo = b.vatBuyerCustNo
+		LEFT JOIN swc_cust c ON b.vatBuyerCustNo = c.custNo
+		WHERE a.compNo = #{compNo} AND a.attrib NOT LIKE 'XXX%' AND a.settleYear = #{selectYear} AND b.vatType = 'S' and a.settleCRbalance IS NOT NULL 
 		<if test="vatIssueDateFrom != null and vatIssueDateFrom !=''">
-			and a.vatIssueDate Between #{vatIssueDateFrom} and #{vatIssueDateTo}
+			and b.vatIssueDate BETWEEN #{vatIssueDateFrom} and #{vatIssueDateTo} 
 		</if>
-		group by a.vatBuyerCustNo order by a.vatIssueDate desc
-
+		GROUP BY a.custNo order by b.vatIssueDate desc
 	</select>
 
 	<select id="sumSVatSearch" resultType="accountDto">
-		select a.*, b.custName vatSellerName, c.custName vatBuyerName, sum(a.vatTax + a.vatAmount) AS vatAmountS, sum(case when a.vatStatus='S5' then a.vatAmount + a.vatTax end) AS serialTotalS, g.settleCRbalance as custBalance
-		from swc_vat a
-		left join swc_cust b on a.vatSellerCustNo = b.custNo
-		left join swc_cust c on a.vatBuyerCustNo = c.custNo
-		left join swc_soppdata01 d on a.vatSerial = d.vatSerial and d.attrib not like 'XXX%'
-		left join swc_cust e ON a.vatBuyerCustNo = e.custNo
-		left join swc_custdata f ON e.custNo = f.custNo and f.attrib not like 'XXX%'
-		left join (select * from swc_cust_balance where settleYear = #{selectYear}) g ON a.vatBuyerCustNo = g.custNo
-		where a.compNo = #{compNo} and a.attrib not like 'XXX%' and vatType='S'
+		SELECT a.*, a.settleCRbalance as custBalance, c.custName AS vatBuyerName, sum(b.vatTax + b.vatAmount) AS vatAmountS, sum(case when b.vatStatus='S5' then b.vatAmount + b.vatTax end) AS serialTotalS
+		FROM swc_cust_balance a 
+		LEFT JOIN swc_vat b ON a.custNo = b.vatBuyerCustNo
+		LEFT JOIN swc_cust c ON b.vatBuyerCustNo = c.custNo
+		WHERE a.compNo = #{compNo} AND a.attrib NOT LIKE 'XXX%' AND a.settleYear = #{selectYear} AND b.vatType = 'S' and a.settleCRbalance IS NOT NULL 
 		<if test="vatBuyerCustNo != null and vatBuyerCustNo != ''">
-			and a.vatBuyerCustNo = #{vatBuyerCustNo}
+			and b.vatBuyerCustNo = #{vatBuyerCustNo}
 		</if>
 		<if test="vatIssueDateFrom != null and vatIssueDateFrom !=''">
-			and a.vatIssueDate Between #{vatIssueDateFrom} and #{vatIssueDateTo}
+			and b.vatIssueDate BETWEEN #{vatIssueDateFrom} and #{vatIssueDateTo} 
 		</if>
-		group by a.vatBuyerCustNo order by a.vatIssueDate desc
+		GROUP BY a.custNo order by b.vatIssueDate desc
 	</select>
 
 	<select id="listVatSearch" resultType="accountDto">

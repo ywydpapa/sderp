@@ -148,6 +148,7 @@ public class AccountDTO {
     private String recCustAddrLast;
     private String recCustVatType;
     private String recCustVatBiz;
+    private String recCustVatNo;
     private String proCustName;
     private String proBossName;
     private String proCustEmail;

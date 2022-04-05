@@ -409,4 +409,10 @@ public class AccountDAOImpl implements AccountDAO {
 		// TODO Auto-generated method stub
 		return sqlSession.update("account.bacDrawDelect", dto);
 	}
+
+	@Override
+	public AccountDTO selectExcelData(AccountDTO dto) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("account.selectExcelData", dto);
+	}
 }

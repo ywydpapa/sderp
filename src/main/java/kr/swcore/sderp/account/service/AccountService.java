@@ -82,4 +82,5 @@ public interface AccountService {
 	int bacDrawInsert(AccountDTO dto);
 	int bacDrawDelect(AccountDTO dto);
 	int bacDrawAfterUpdate(AccountDTO dto);
+	AccountDTO selectExcelData(AccountDTO dto);
 }

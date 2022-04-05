@@ -687,4 +687,12 @@ public class AccountController {
         }
         return ResponseEntity.ok(param);
     }
+    
+    @ResponseBody
+    @RequestMapping("selectExcelData.do")
+    public AccountDTO selectExcelData(ModelAndView mav, @ModelAttribute AccountDTO dto)
+    {
+        AccountDTO vatDataList = accountService.selectExcelData(dto);
+        return vatDataList;
+    }
 }

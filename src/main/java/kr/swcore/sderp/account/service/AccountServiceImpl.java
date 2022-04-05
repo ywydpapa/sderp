@@ -463,4 +463,10 @@ public class AccountServiceImpl implements AccountService {
 		// TODO Auto-generated method stub
 		return accountDAO.bacDrawDelect(dto);
 	}
+
+	@Override
+	public AccountDTO selectExcelData(AccountDTO dto) {
+		// TODO Auto-generated method stub
+		return accountDAO.selectExcelData(dto);
+	}
 }

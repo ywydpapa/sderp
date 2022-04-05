@@ -10,6 +10,7 @@
 <html>
 <jsp:include page="../head.jsp"/>
 <jsp:include page="../body-top3.jsp"/>
+<script src="${path}/js/jquery.table2excel.js"></script>
 
 <div id="main_content">
 	
@@ -222,6 +223,73 @@
             </div>
         </div>
     </div>
+    
+    <table id="vatExTable" class="table table-striped table-bordered nowrap table2excel_with_colors">
+    	<thead>
+    		<tr style="text-align:center;">
+    			<th style="background-color:#FFCC99;">전자(세금)계산서 종류<br><span style="color:#FF0000;">(01:일반, 02:영세율)</span></th>
+    			<th style="background-color:#FFCC99;">작성일자</th>
+    			<th style="background-color:#FFCC99;">공급자 등록번호<br><span style="color:#FF0000;">("-" 없이 입력)</span></th>
+    			<th>공급자<br>종사업장번호</th>
+    			<th style="background-color:#FFCC99;">공급자 상호</th>
+    			<th style="background-color:#FFCC99;">공급자 성명</th>
+    			<th>공급자 사업장주소</th>
+    			<th>공급자 업태</th>
+    			<th>공급자 종목</th>
+    			<th>공급자 이메일</th>
+    			<th style="background-color:#FFCC99;">공급받는자 등록번호<br><span style="color:#FF0000;">("-" 없이 입력)</span></th>
+    			<th>공급받는자<br>종사업장번호</th>
+    			<th style="background-color:#FFCC99;">공급받는자 상호</th>
+    			<th style="background-color:#FFCC99;">공급받는자 성명</th>
+    			<th>공급받는자 상업장주소</th>
+    			<th>공급받는자 업태</th>
+    			<th>공급받는자 종목</th>
+    			<th>공급받는자 이메일1</th>
+    			<th>공급받는자 이메일2</th>
+    			<th style="background-color:#FFCC99;">공급가액</th>
+    			<th style="background-color:#FFCC99;">세액</th>
+    			<th>비고</th>
+    			<th style="background-color:#FFCC99;">일자1<br><span style="color:#FF0000;">(2자리, 작성년월 제외)</span></th>
+    			<th>품목1</th>
+    			<th>규격1</th>
+    			<th>수량1</th>
+    			<th>단가1</th>
+    			<th style="background-color:#FFCC99;">공급가액1</th>
+    			<th style="background-color:#FFCC99;">세액1</th>
+    			<th>품목비고1</th>
+    			<th>일자2<br><span style="color:#FFCC99;">(2자리, 작성년월 제외)</span></th>
+    			<th>품목2</th>
+    			<th>규격2</th>
+    			<th>수량2</th>
+    			<th>단가2</th>
+    			<th>공급가액2</th>
+    			<th>세액2</th>
+    			<th>품목비고2</th>
+    			<th>일자3<br><span style="color:#FFCC99;">(2자리, 작성년월 제외)</span></th>
+    			<th>품목3</th>
+    			<th>규격3</th>
+    			<th>수량3</th>
+    			<th>단가3</th>
+    			<th>공급가액3</th>
+    			<th>세액3</th>
+    			<th>품목비고3</th>
+    			<th>일자4<br><span style="color:#FFCC99;">(2자리, 작성년월 제외)</span></th>
+    			<th>품목4</th>
+    			<th>규격4</th>
+    			<th>수량4</th>
+    			<th>단가4</th>
+    			<th>공급가액4</th>
+    			<th>세액4</th>
+    			<th>품목비고4</th>
+    			<th>현금</th>
+    			<th>수표</th>
+    			<th>어음</th>
+    			<th>외상미수금</th>
+    			<th style="background-color:#FFCC99;">영수(01), 청구(02)</th>
+    		</tr>
+    	</thead>
+    	<tbody></tbody>
+    </table>
     <script>
     	var vatType = "${param.vatType}";
 		
@@ -255,7 +323,19 @@
 	        	var pathName = $(location).attr("pathname");
 	        	var listChecks = $("#vatTable tbody tr td #vatTcheck");
 	        	var compNo = "${sessionScope.compNo}";
+	        	var vatExTableThead = $("#vatExTable thead");
+	        	var vatExTableTbody = $("#vatExTable tbody");
+	        	var checkLength = listChecks.length;
+	        	var htmlCodeThead = "";
+	        	var htmlCodeTbody = "";
 	        	
+ 				/* htmlCodeThead = "<tr><th style='text-align:center;' colspan='7'>엑셀 업로드 양식(전자세금계산서-일반(영세율))</th></tr>"
+ 				+ "<tr><td colspan='12' style='color:#FF0000;'>★주황색으로 표시된 부분은 필수입력항목으로 반드시 입력하셔야 합니다.<br>★아래 '항목설명' 시트를 참고하여 작성하시기 바랍니다.</td></tr>"
+ 				+ "<tr><td colspan='12' style='color:#FF0000;'>★실제 업로드할 DATA는 7행부터 입력하여야 합니다. 최대 100건까지 입력이 가능하나, 발급은 최대 10건씩 처리가 됩니다.(100건 초과 자료는 처리 안됨)<br>★임의로 행을 추가하거나 삭제하는 경우 파일을 제대로 읽지 못하는 경우가 있으므로, 주어진 양식안에 반드시 작성을 하시기 바랍니다.</td></tr>"
+ 				+ "<tr><td colspan='12' style='color:#FF0000;'>★전자(세금)계산서 종류는 엑셀 업로드 양식에 따라 해당 전자(세금)계산서 종류코드를 반드시 입력하셔야 합니다.<br>★품목은 1건이상 입력해야 합니다.<br>★공급받는자 등록번호는 사업자등록번호, 주민등록번호를 입력할 수 있습니다. 외국인인 경우 '9999999999999'를 입력하시고, 비고란에 외국인등록번호 또는 여권번호를 입력하시기 바랍니다.</td></tr><tr><td></td></tr>";
+ 					
+ 				vatExTableThead.prepend(htmlCodeThead); */
+ 				
 	        	listChecks.each(function(index, item){
 	        		if($(item).is(":checked") === true){
 	        			var updateData = {};
@@ -264,18 +344,93 @@
 	        			updateData.vatStatus = "S1";
 	        			updateData.vatType = "S";
 	        			
-	        			$.ajax({
-	        				url: "${path}/acc/sVatToChange.do",
-	        				method: "post",
-	        				data: updateData,
-	        				async: false,
-	        				dataType: "json"
-	        			});
+	        			var selectData = {};
+	        			selectData.vatId = $(item).attr("data-id");
+	        			selectData.compNo = compNo;
+	        			
+	        			$.LoadingOverlay("show", true);
+	        			
+			        	$.ajax({
+			        		url: "${path}/acc/selectExcelData.do",
+			        		method: "post",
+			        		async: false,
+			        		data: selectData,
+			        		dataType: "json",
+			        		success:function(data){
+			        			var vatBillType = "";
+			        			var vatRecType = "";
+			        			var dateSlice = "";
+			        			
+			        			if(data.vatBillType === "01"){
+			        				vatBillType = "일반";	
+			        			}else{
+			        				vatBillType = "영세율";
+			        			}
+			        			
+			        			if(data.vatRecType === "01"){
+			        				vatRecType = "청구";	
+			        			}else{
+			        				vatRecType = "영수";
+			        			}
+			        			
+			        			dateSlice = data.vatTradeDate.slice(8,10);
+			        			
+			        			htmlCodeTbody += "<tr style='text-align:center;'>"
+			        			+ "<td style='background-color:#FFCC99;'>" + vatBillType + "</td><td style='background-color:#FFCC99;'>" + data.vatIssueDate + "</td><td style='background-color:#FFCC99;'>" + data.proCustVatNo + "</td><td></td>" 
+			        			+ "<td style='background-color:#FFCC99;'>" + data.vatSellerName + "</td><td style='background-color:#FFCC99;'>" + data.proBossName + "</td>" + "<td></td>" + "<td></td>" + "<td></td>" + "<td></td>"
+			        			+ "<td style='background-color:#FFCC99;'>" + data.recCustVatNo + "</td>" + "<td></td>" + "<td style='background-color:#FFCC99;'>" + data.vatBuyerName + "</td>" + "<td style='background-color:#FFCC99;'>" + data.recBossName + "</td>"
+			        			+ "<td></td>" + "<td></td>" + "<td></td>" + "<td></td>" + "<td></td>" + "<td style='background-color:#FFCC99;'>" + parseInt(data.vatAmount).toLocaleString("en-US") + "</td>"
+			        			+ "<td style='background-color:#FFCC99;'>" + parseInt(data.vatTax).toLocaleString("en-US") + "</td>" + "<td>" + data.vatRemark + "</td>" + "<td style='background-color:#FFCC99;'>" + dateSlice + "</td>"
+			        			+ "<td>" + data.vatProductName + "</td>" + "<td>" + data.vatStandard + "</td>" + "<td>" + data.vatQuan + "</td>" + "<td>" + parseInt(data.vatNet).toLocaleString("en-US") + "</td>"
+			        			+ "<td style='background-color:#FFCC99;'>" + parseInt(data.vatAmount).toLocaleString("en-US") + "</td>" + "<td style='background-color:#FFCC99;'>" + parseInt(data.vatTax).toLocaleString("en-US") + "</td>" + "<td></td>" + "<td></td>" + "<td></td>"
+			        			+ "<td></td>" +  "<td></td>" +  "<td></td>" +  "<td></td>" +  "<td></td>" +  "<td></td>" +  "<td></td>" +  "<td></td>" +  "<td></td>" +  "<td></td>" +  "<td></td>" +  "<td></td>"
+			        			+ "<td></td>" +  "<td></td>" +  "<td></td>" +  "<td></td>" +  "<td></td>" +  "<td></td>" +  "<td></td>" +  "<td></td>" +  "<td></td>" +  "<td></td>" +  "<td></td>" +  "<td></td>"
+			        			+ "<td></td>" +  "<td></td>" + "<td style='background-color:#FFCC99;'>" + vatRecType + "</td></tr>";
+								
+			        			$.ajax({
+			        				url: "${path}/acc/sVatToChange.do",
+			        				method: "post",
+			        				data: updateData,
+			        				async: false,
+			        				dataType: "json",
+			        				error:function(){
+			        					alert("상태를 변경하지 못했습니다.");
+			        					return false;
+			        				}
+			        			});
+			        		},
+			        		error:function(){
+			        			alert("데이터를 찾지 못했습니다.");
+			        			return false;
+			        		}
+			        	});
+			        	
+			        	if(index == checkLength){
+			        		setTimeout(function(){
+							    $.LoadingOverlay("hide", true);
+							}, 5000);
+			        	}
 	        		}
 	        	});
+ 				
+	        	vatExTableTbody.html(htmlCodeTbody);
 	        	
-	        	alert("생성되었습니다.");
-	        	location.href = pathName;
+	        	setTimeout(() => {
+		        	$("#vatExTable").table2excel({ 
+			        	exclude: ".vatExTable",
+			        	name: "Excel Document Name", 
+			        	filename: "세금계산서등록양식(일반).xls",
+			        	fileext: ".xls",
+						exclude_img: true,
+						exclude_links: true,
+						exclude_inputs: true,
+						preserveColors: true
+			        });
+		        	
+		        	alert("생성되었습니다.");
+		        	location.href = pathName;
+				}, 300);
+	        	
         	}else{
         		return false;
         	}
@@ -399,6 +554,8 @@
     			 $("#acordian").css("display", "block");
     		}
     		localStorage.clear();	
+    		
+    		$("#vatExTable").hide();
     	});
 
     </script>

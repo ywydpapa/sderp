@@ -957,8 +957,8 @@
     		$.ajax({
     			url: "${path}/gw/insert.do",
     			method: "post",
-    			data: data02Data,
     			async: false,
+    			data: data02Data,
     			dataType: "json",
     			success: function(data){
     				data02App.compNo = $("#compNo").val();
@@ -972,6 +972,7 @@
     				$.ajax({
     					url: "${path}/gw/insertApp.do",
     					method: "post",
+    					async: false,
     					data: data02App,
     					dataType: "json",
     				});
@@ -979,8 +980,8 @@
 	    				$.ajax({
 	    					url : "${path}/gw/uploadfile/"+data.getId,
 	    					method : "POST",
-	    					data : uploadData,
 	    					async: false,
+	    					data : uploadData,
 	    					contentType : false,
 	    					processData : false,
 	    				});
@@ -992,8 +993,8 @@
 		  				$.ajax({
 		  					url: "${path}/gw/insertData.do",
 		  					method: "post",
-		  					data: JSON.parse(JsonArray),
 		  					async: false,
+		  					data: JSON.parse(JsonArray),
 		  					dataType: "json"
 		  				});
 		 			}
@@ -1107,8 +1108,8 @@
     				$.ajax({
     					url: "${path}/gw/updateApp.do",
     					method: "post",
-    					data: data02App,
     					async: false,
+    					data: data02App,
     					dataType: "json",
     				});
     				
@@ -1128,8 +1129,8 @@
     				$.ajax({
     					url: "${path}/gw/updateData.do",
     					method: "post",
-    					data: dataTemp,
     					async: false,
+    					data: dataTemp,
     					dataType: "json",
     				});
     				
@@ -1140,8 +1141,8 @@
 			  				$.ajax({
 			  					url: "${path}/gw/insertData.do",
 			  					method: "post",
-			  					data: JSON.parse(JsonArray),
 			  					async: false,
+			  					data: JSON.parse(JsonArray),
 			  					dataType: "json"
 			  				});
 			 			}
@@ -1197,8 +1198,8 @@
             $.ajax({
                 url: "${path}/gw/update.do",
                 method: "post",
-                data: data02Data,
                 async: false,
+                data: data02Data,
                 dataType: "json",
                 success: function(data){
                     data02App.docNo = docNo;
@@ -1208,6 +1209,7 @@
                     $.ajax({
                         url: "${path}/gw/updateApp.do",
                         method: "post",
+                        async: false,
                         data: data02App,
                         dataType: "json",
                     });
@@ -1215,6 +1217,7 @@
                     $.ajax({
                         url: "${path}/gw/updateData.do",
                         method: "post",
+                        async: false,
                         data: dataTemp,
                         dataType: "json",
                     });
@@ -1226,8 +1229,8 @@
                             $.ajax({
                                 url: "${path}/gw/insertData.do",
                                 method: "post",
-                                data: JSON.parse(JsonArray),
                                 async: false,
+                                data: JSON.parse(JsonArray),
                                 dataType: "json"
                             });
                         }
@@ -1343,6 +1346,7 @@
 		    				$.ajax({
 		    					url : "${path}/gw/updateFile.do/",
 		    					method : "POST",
+		    					async: false,
 		    					data : updateFile,
 		    					dataType: "json",
 		    				});
@@ -1350,6 +1354,7 @@
 		    				$.ajax({
 		    					url: "${path}/gw/insertApp.do",
 		    					method: "post",
+		    					async: false,
 		    					data: data02App,
 		    					dataType: "json",
 		    				});
@@ -1360,8 +1365,8 @@
 				  				$.ajax({
 				  					url: "${path}/gw/insertData.do",
 				  					method: "post",
-				  					data: JSON.parse(JsonArray),
 				  					async: false,
+				  					data: JSON.parse(JsonArray),
 				  					dataType: "json"
 				  				});
 				 			}
@@ -1432,8 +1437,8 @@
 						$.ajax({
 			    			url: "${path}/gw/insert.do",
 			    			method: "post",
-			    			data: data02Data,
 			    			async: false,
+			    			data: data02Data,
 			    			dataType: "json",
 			    			success: function(data){
 			    				data02App.compNo = $("#compNo").val();
@@ -1451,6 +1456,7 @@
 			    				$.ajax({
 			    					url : "${path}/gw/updateFile.do/",
 			    					method : "POST",
+			    					async: false,
 			    					data : updateFile,
 			    					dataType: "json",
 			    				});
@@ -1458,6 +1464,7 @@
 			    				$.ajax({
 			    					url: "${path}/gw/insertApp.do",
 			    					method: "post",
+			    					async: false,
 			    					data: data02App,
 			    					dataType: "json",
 			    				});
@@ -1468,8 +1475,8 @@
 					  				$.ajax({
 					  					url: "${path}/gw/insertData.do",
 					  					method: "post",
-					  					data: JSON.parse(JsonArray),
 					  					async: false,
+					  					data: JSON.parse(JsonArray),
 					  					dataType: "json"
 					  				});
 					 			}

@@ -660,57 +660,66 @@
         }
         
         function fn_ListApp(){
+			var tableCheckLength = $("#myDocTable tbody tr td").find("#thisCheck:checked").length;        	
+        	$.LoadingOverlay("show", true);
+       		
         	$("#myDocTable tbody tr td").find("#thisCheck:checked").each(function(index, item){
-           		$.ajax({
-           			url: "${path}/gw/myDocListUpdate.do/",
-           			method: "post",
-           			data: {
-           				docNo: $(item).attr("data-id")
-           			},
-           			async : false,
-           			dataType: "json",
-           			success:function(){
-           				$.ajax({
-           					url: "${path}/gw/myDocCopyInsert.do",
-           					method: "post",
-           					data: {
-           						docNo: $(item).attr("data-id"),
-           						docStatus: 3
-           					},
-           					async : false,
-           					dataType: "json",
-           					success:function(data){
-           						var dataArrayApp = {};
-           		   	        	var dataArrayData = {};
-           		   	        	
-           						dataArrayApp.docNo = data;
-           						dataArrayApp.appStatus = 5;
-           						dataArrayApp.userNoIS = $("#docUserNo").val();
-           						dataArrayApp.tempId = $(item).attr("data-id");
-           						
-           						$.ajax({
-           							url: "${path}/gw/myDocCopyInsertApp.do",
-                   					method: "post",
-                   					data: dataArrayApp,
-                   					async : false,
-                   					dataType: "json",
-                   					success:function(){
-                   						dataArrayData.docNo = data;
-                   						dataArrayData.tempId = $(item).attr("data-id");
-                   						
-                   						$.ajax({
-                   							url: "${path}/gw/myDocCopyInsertData.do",
-                           					method: "post",
-                           					data: dataArrayData,
-                           					async : false,
-                           					dataType: "json"
-                   						});
-                   					}
-           						});
-           					}
-           				});
-           			}
-           		});
+  				$.ajax({
+  					url: "${path}/gw/myDocCopyInsert.do",
+  					method: "post",
+  					async : false,
+  					data: {
+  						docNo: $(item).attr("data-id"),
+  						docStatus: 3
+  					},
+  					dataType: "json",
+  					success:function(data){
+  						var dataArrayApp = {};
+  		   	        	var dataArrayData = {};
+  		   	        	
+  						dataArrayApp.docNo = data;
+  						dataArrayApp.appStatus = 5;
+  						dataArrayApp.userNoIS = $("#docUserNo").val();
+  						dataArrayApp.tempId = $(item).attr("data-id");
+  						
+  						$.ajax({
+  							url: "${path}/gw/myDocCopyInsertApp.do",
+          					method: "post",
+          					async : false,
+          					data: dataArrayApp,
+          					dataType: "json",
+          					success:function(){
+          						dataArrayData.docNo = data;
+          						dataArrayData.tempId = $(item).attr("data-id");
+          						
+          						$.ajax({
+          							url: "${path}/gw/myDocCopyInsertData.do",
+                  					method: "post",
+                  					async : false,
+                  					data: dataArrayData,
+                  					dataType: "json",
+                  					success:function(){
+                  						$.ajax({
+                  		           			url: "${path}/gw/myDocListUpdate.do/",
+                  		           			method: "post",
+                  		           			async : false,
+                  		           			data: {
+                  		           				docNo: $(item).attr("data-id")
+                  		           			},
+                  		           			dataType: "json"
+                  		           		});
+                  					}
+          						});
+          					}
+  						});
+  					}
+  				});
+           		
+	        	if(index == tableCheckLength){
+	        		setTimeout(function(){
+					    $.LoadingOverlay("hide", true);
+					}, 5000);
+	        	}
        		});
         	
            	setTimeout(() => {
@@ -791,8 +800,8 @@
 			        	$.ajax({
 			        		url: "${path}/acc/bacDrawInsert.do",
 			        		method: "post",
-			        		async: false,
 			        		data: drawData,
+			        		async: false,
 			        		dataType: "json",
 			        		success:function(data){
 			        			drawAfterData.bacSerial = bacSerial;
@@ -803,8 +812,8 @@
 			        			$.ajax({
 			        				url: "${path}/acc/bacDrawAfterUpdate.do",
 					        		method: "post",
-					        		async: false,
 					        		data: drawAfterData,
+					        		async: false,
 					        		dataType: "json",
 					        		success:function(){
 					        			updateData.docNo = $(item).attr("data-id");
@@ -813,8 +822,8 @@
 					        			$.ajax({
 							        		url: "${path}/gw/docDrawUpdate.do",
 							        		method: "post",
-							        		async: false,
 							        		data: updateData,
+							        		async: false,
 							        		dataType: "json",
 							        		error: function(){
 							        			alert("상태를 변경할 수 없습니다.\n다시 시도해주십시오.");

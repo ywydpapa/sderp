@@ -44,10 +44,10 @@
                         	<i class="icofont icofont-search"></i>검색
                         </button>
                         <button class="btn btn-sm btn-inverse"  onClick="javascript:fnChgStatus3()">
-                        	부분지급
+                        	부분수금
                         </button>
                         <button class="btn btn-sm btn-danger"  onClick="javascript:fnChgStatus5()">
-                        	지급완료
+                        	수금완료
                         </button>
                         <button class="btn btn-sm btn-outline"onClick="javascript:location='${path}/acc/vatupload.do'">
                         	<i class="icofont icofont-pencil-alt-2"></i>계산서 등록
@@ -157,16 +157,17 @@
                     	</table>
                         <table id="vatTable" class="table table-striped table-bordered nowrap ">
                             <colgroup>
-                                <col width="10%"/>
+                                <col width="5%"/>
                                 <col width="5%"/>
                                 <col width="7%"/>
                                 <col width="7%"/>
-                                <col width="10%"/>
-                                <col width="10%"/>
-                                <col width="10%"/>
-                                <col width="10%"/>
-                                <col width="15%"/>
-                                <col width="15%"/>
+                                <col width="5%"/>
+                                <col width="5%"/>
+                                <col width="5%"/>
+                                <col width="5%"/>
+                                <%-- <col width="15%"/> --%>
+                                <col width="30%"/>
+                                <col width="25%"/>
                             </colgroup>
                             <thead>
                             <tr>
@@ -178,29 +179,25 @@
                                 <th class="text-center">공급가</th>
                                 <th class="text-center">세액</th>
                                 <th class="text-center">합계금액</th>
-                                <th class="text-center">연결문서(합계금액)</th>
+                                
+                                <!-- 연결문서 지워라해서 일단 주석처리(2022.04.05) --> 
+                                <!-- <th class="text-center">연결문서(합계금액)</th> -->
+                                
                                 <th class="text-center">항목</th>
-                                <th class="text-center">메모</th>
+                                <th class="text-center">비고</th>
                             </tr>
                             </thead>
                             <c:forEach items="${vatList}" var="vlist">
                                 <tr>
-                                <td class="text-center">${vlist.vatIssueDate}</td>
+                                	<td class="text-center">${vlist.vatIssueDate}</td>
                                     <td class="text-center vatTyp">
-                                    	<%-- <c:if test = "${vlist.vatType eq 'B'}">매입</c:if>
-                                    	<c:if test = "${vlist.vatType eq 'S'}">매출</c:if> --%>
                                     	매출
                                     </td>
                                     <td class="text-center">
-                                    	<%-- <c:if test = "${vlist.vatType eq 'S'}">${vlist.vatBuyerName}</c:if> 
-                                    	<c:if test = "${vlist.vatType eq 'B'}">${vlist.vatSellerName}</c:if> --%>
                                     	${vlist.vatBuyerName}
                                    	</td>
                                     <td class="text-center vatSno"><a href="${path}/acc/vatHtml/${vlist.vatSerial}/${vlist.vatType}" onClick="javascript:popupVat(this); return false;">${vlist.vatSerial}</a></td>
                                     <td class="text-center">
-                                    	<%-- <c:if test = "${vlist.vatStatus eq 'B1'}">매입발행</c:if>
-                                    	<c:if test = "${vlist.vatStatus eq 'B3'}">지급처리중</c:if>
-                                    	<c:if test = "${vlist.vatStatus eq 'B5'}">지급완료</c:if> --%>
                                         <c:if test = "${vlist.vatStatus eq 'S1'}">매출발행</c:if>
                                         <c:if test = "${vlist.vatStatus eq 'S3'}">수금처리중</c:if>
                                         <c:if test = "${vlist.vatStatus eq 'S5'}">수금완료</c:if>
@@ -215,12 +212,19 @@
                                     <td class="text-right">
                                     	<fmt:formatNumber type="number" maxFractionDigits="3" value="${vlist.vatAmount + vlist.vatTax}" />
                                     </td>
-                                    <td class="text-right">
+                                    <%-- <td class="text-right">
                                     	<a data-remote="${path}/modal/popup1.do?popId=${vlist.vatSerial}" type="button" data-toggle="modal" data-target="#userModal1" style="cursor: pointer; text-decoration: underline;">
                                     		<fmt:formatNumber type="number" maxFractionDigits="3" value="${vlist.vatSum}" />
                                     	</a>
-                                    </td>
-                                    <td>${vlist.vatProductName}</td>
+                                    </td> --%>
+                                    <c:choose>
+                                    	<c:when test="${empty vlist.vatRemark}">
+		                                    <td>${vlist.vatProductName}</td>
+                                    	</c:when>
+                                    	<c:otherwise>
+                                    		<td>${vlist.vatProductName}(${vlist.vatRemark})</td>
+                                    	</c:otherwise>
+                                    </c:choose>
                                     <td>${vlist.vatRemark}</td>
                                 </tr>
                             </c:forEach>
@@ -446,8 +450,8 @@
         }
         
         function popupVat(e){
-            var nWidth = "700";
-            var nHeight = "700";
+            var nWidth = "800";
+            var nHeight = "800";
 
             var curX = window.screenLeft;
             var curY = window.screenTop;

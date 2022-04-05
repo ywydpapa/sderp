@@ -58,12 +58,12 @@
 						<li>
 							<div id="topMenu" class="nav_menu">
 								<ul>
-									<li><a class="menuLink on" href="${path}/sidemenu/menu1.do">업무관리</a></li>
+									<li><a class="menuLink" href="${path}/sidemenu/menu1.do">업무관리</a></li>
 									<li><a class="menuLink" href="${path}/sidemenu/menu2.do">그룹웨어</a></li>
 									<c:if test="${sessionScope.userRole eq 'ADMIN'}">
 										<li><a class="menuLink" href="${path}/sidemenu/menu3.do">회계관리</a></li>
 									</c:if>
-									<li><a class="menuLink" href="${path}/sidemenu/menu4.do">경영정보</a></li>
+									<li><a class="menuLink on" href="${path}/sidemenu/menu4.do">경영정보</a></li>
 								</ul>
 							</div>
 						</li>
@@ -85,7 +85,7 @@
 			    <div class="pcoded-inner-navbar main-menu">	
 					<!-- 사이드메뉴 시작 -->
 					<div id="sideMenu">
-						<jsp:include page="/WEB-INF/views/sidemenu/menu1.jsp" />
+						<jsp:include page="/WEB-INF/views/sidemenu/menu4.jsp" />
 					</div>
 					<!--  사이드 메뉴 종료 -->
 			    </div>

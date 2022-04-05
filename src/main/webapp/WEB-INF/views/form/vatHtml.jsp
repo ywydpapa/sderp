@@ -13,6 +13,8 @@
 	table{
 		border-collapse: collapse;
 		text-align: center;
+		font-size:13px;
+		margin:0 auto;
 	}
 	
 	th{
@@ -28,28 +30,80 @@
 	}
 	
 	#vatProInfo{
+		border-color: #DF7D7A;
 		border-right: none;
 	}
 	
+	#vatProInfo tr th{
+		background-color:#FFF7F5; 
+		color:#B76C70;
+		border-color: #D7A3A7;
+		width: 20%;
+	}
+	
 	#vatProInfo tr td{
+		border-color: #D7A3A7;
 		border-right: none;
 		height: 40px;
 		width: 25%;
 	}
 	
 	#vatRecInfo{
+		margin-bottom: 4%;
+		border-color: #C5CBDB;
 		border-left: none;
 	}
 	
+	#vatRecInfo tr th{
+		background-color: #F7F7FF; 
+		color:#6785A7;
+		border-color: #6D9CD4;
+		width: 20%;
+	}
+	
 	#vatRecInfo tr td{
+		border-color: #6D9CD4;
 		height: 40px;
 		width: 25%;
 	}
 	
+	#vatDateInfo tr th{
+		border-color: #ECECEC;
+		background-color: #F8F8F8;
+	}
+	
 	#vatDateInfo tr td{
+		border-color: #ECECEC;
 		width: 40%;
 	}
 	
+	#vatAmountInfo{
+		margin-bottom: 2%;
+	}
+	
+	#vatAmountInfo tr th{
+		border-color: #ECECEC;
+		background-color: #F8F8F8;
+	}
+	
+	#vatAmountInfo tr td{
+		border-color: #ECECEC;
+	}
+	
+	#vatItemInfo thead tr th{
+		border-left-color: #EBEBEB;
+		border-right-color: #EBEBEB;
+		border-bottom-color: #999999;
+		background-color: #F5F4F2;
+	}
+	
+	#vatItemInfo tbody tr td{
+		border-color: #EBEBEB;
+	}
+	
+	#vatItemInfo tbody tr:last-child td{
+		border-bottom-color: #000;
+	}
 </style>
 
 <body>
@@ -61,7 +115,7 @@
 			<div style="float:left; width:50%;">
 				<table class="table table-striped table-bordered nowrap " id="vatProInfo">
 					<tr>
-						<th rowspan="5">공<br>급<br>자</th>
+						<th rowspan="5" style="background-color:#FFC8CD !important; color:#BE5552 !important; width:6% !important;">공<br>급<br>자</th>
 						<th>등록번호</th>
 						<td>${vatList[0].proCustVatNo}</td>
 						<th>종사업장번호</th>
@@ -92,7 +146,7 @@
 			<div style="float:right; width:50%;">
 				<table class="table table-striped table-bordered nowrap " id="vatRecInfo">
 					<tr>
-						<th rowspan="5">공<br>급<br>받<br>는<br>자</th>
+						<th rowspan="5" style="background-color: #C6DBF8 !important; color: #3C6BB9 !important; width:6% !important;">공<br>급<br>받<br>는<br>자</th>
 						<th>등록번호</th>
 						<td>${vatList[0].vatNo}</td>
 						<th>종사업장번호</th>
@@ -133,8 +187,8 @@
 			<table class="table table-striped table-bordered nowrap " id="vatAmountInfo">
 				<c:forEach var="row" items="${vatList}">
 					<c:set var="vatTotal" value="${vatTotal + (row.vatTax + row.vatAmount)}"/>
-					<c:set var="vatAmount" value="${vatTotal + row.vatAmount}"/>
-					<c:set var="vatTax" value="${vatTotal + row.vatTax}"/>
+					<c:set var="vatAmount" value="${vatAmount + row.vatAmount}"/>
+					<c:set var="vatTax" value="${vatTax + row.vatTax}"/>
 				</c:forEach>
 				<tr>
 					<th>합계금액</th>

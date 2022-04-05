@@ -98,27 +98,27 @@
                                     </ul>
                                     </li>
                                     <li class="pcoded-hasmenu pcoded <c:if test="${path2 eq '/mis/hrdutylist.do' || path2 eq '/mis/hrcostlist.do'}">pcoded-trigger</c:if>">
-                                    <a href="javascript:void(0)">
-                                        <span class="pcoded-micon"><i class="icon-people"></i></span>
-                                        <span class="pcoded-mtext"  data-i18n="nav.basic-components.main">인사관리 현황</span>
-                                        <span class="pcoded-mcaret"></span>
-                                    </a>
-                                                                        <ul class="pcoded-submenu">
-                                        <li class="pcoded-hasmenu ">
-                                            <a href="${path}/mis/hrdutylist.do">
-                                                <span class="pcoded-micon"><i class="ti-direction-alt"></i></span>
-                                                <span class="pcoded-mtext" data-i18n="nav.menu-levels.menu-level-21">근태현황 조회</span>
-                                                <span class="pcoded-mcaret"></span>
-                                            </a>
-                                        </li>
-                                        <li class="pcoded-hasmenu">
-                                            <a href="${path}/mis/hrcostlist.do">
-                                                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                                <span class="pcoded-mtext" data-i18n="nav.menu-levels.menu-level-22">개인별 원가분석</span>
-                                                <span class="pcoded-mcaret"></span>
-                                            </a>
-                                        </li>
-                                    </ul>
+	                                    <a href="javascript:void(0)">
+	                                        <span class="pcoded-micon"><i class="icon-people"></i></span>
+	                                        <span class="pcoded-mtext"  data-i18n="nav.basic-components.main">인사관리 현황</span>
+	                                        <span class="pcoded-mcaret"></span>
+	                                    </a>
+	                                    <ul class="pcoded-submenu">
+	                                        <li class="pcoded-hasmenu ">
+	                                            <a href="${path}/mis/hrdutylist.do">
+	                                                <span class="pcoded-micon"><i class="ti-direction-alt"></i></span>
+	                                                <span class="pcoded-mtext" data-i18n="nav.menu-levels.menu-level-21">근태현황 조회</span>
+	                                                <span class="pcoded-mcaret"></span>
+	                                            </a>
+	                                        </li>
+	                                        <li class="pcoded-hasmenu">
+	                                            <a href="${path}/mis/hrcostlist.do">
+	                                                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+	                                                <span class="pcoded-mtext" data-i18n="nav.menu-levels.menu-level-22">개인별 원가분석</span>
+	                                                <span class="pcoded-mcaret"></span>
+	                                            </a>
+	                                        </li>
+	                                    </ul>
                                  </li>
                             </ul>
                          

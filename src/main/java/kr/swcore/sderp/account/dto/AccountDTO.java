@@ -131,6 +131,8 @@ public class AccountDTO {
     private int buyrNo;
     private int buyrMemberNo;
     private String custMname;
+    private String modal_vatmemo;
+    private BigDecimal total_Amt;
     
     //계산서 추가 컬럼
     private int contNo;

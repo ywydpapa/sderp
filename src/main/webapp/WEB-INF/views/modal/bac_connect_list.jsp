@@ -13,6 +13,16 @@
 
 <div class="dt-responsive table-responsive">
     <table id="bac_connect_table" class="table table-striped table-bordered nowrap">
+         <colgroup>
+        	<col width="3%"/>
+        	<col width="5%"/>
+        	<col width="10%"/>
+        	<col width="5%"/>
+        	<col width="5%"/>
+        	<col width="10%"/>
+        	<col width="10%"/>
+        	<col width="15%"/>
+        </colgroup>
         <thead>
 		    <tr>
 		    	<th>선택</th>
@@ -21,6 +31,7 @@
 		      	<th>금액</th>
 		      	<th>품명</th>
 		      	<th>비고</th>
+		      	<th>남은금액</th>
 		      	<th>승인번호</th>
 		    </tr>
 	    </thead>
@@ -58,6 +69,7 @@
 		        <td>₩<fmt:formatNumber value="${row.vatAmount + row.vatTax}" pattern="#,###" /></td>
 		        <td>${row.vatProductName}</td>
 		        <td class="text-left">${row.vatRemark}</td>
+		        <td><input type="text" class='form-control-sm' id="modal_vatmemo" style="border: 1px solid #ccc;" onkeyup="inputNumberFormat(this)" value="${row.modal_vatmemo}"></td>
 		        <td>${row.vatSerial}</td>
 		        </tr>
 		    </c:forEach>
@@ -66,6 +78,20 @@
     </table>
 </div>
 <script>
+function inputNumberFormat(obj) {
+    obj.value = comma(uncomma(obj.value));
+}
+
+function comma(str) {
+    str = String(str);
+    return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
+}
+
+function uncomma(str) {
+    str = String(str);
+    return str.replace(/[^\d]+/g, '');
+}
+
 $(function(){
     $('#vatlistTable').DataTable({
         info:false,
@@ -85,6 +111,7 @@ function cancelconnect(){
 		  			deleteData.compNo = compNo;
 		  			deleteData.baclogId = bacId;
 		  			deleteData.linkDocno = $(item).attr("data-number");
+		  			deleteData.modal_vatmemo = $(item).parent().next().next().next().next().next().next().children().first().val();
 		  			
 		  			$.ajax({
 		  				url: "${path}/acc/connect_link_check_cancel.do",

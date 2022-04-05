@@ -486,7 +486,6 @@ public class AccountController {
         		//하지만 연결하는 금액운 있는데 통장 금액과 일치하지 않는다면 s3 (뷴할 입/출금이라 생각하면 된다.)
         	}
         }
-        
         dto.setLinkDocno(datalinkDocno);
         int bacIns = accountService.bacCheckConnect(dto);
         accountService.updatevatmultilinkedcheck(dto);
@@ -520,8 +519,9 @@ public class AccountController {
 		int compareResult_out = sum.compareTo(out_num);
 		int compareResult_out_secound = out_num.compareTo(zeroBigDec);
 		
+		//
 		if(compareResult > 0) {
-			if(compareResult_in != 0){
+			if(compareResult_in < 0){
 				if(compareResult_in_secound > 0) {
 					for(int i=0; i < totalprice.size(); i++) {
 						dto.setLinkDocno(totalprice.get(i).getLinkDocno());
@@ -533,24 +533,62 @@ public class AccountController {
 					dto.setLinkDocno(totalprice.get(i).getLinkDocno());
 					accountService.update_s5(dto);
 				}
+			}else if(compareResult_in > 0) {
+				for(int i=0; i < totalprice.size(); i++) {
+					dto.setLinkDocno(totalprice.get(i).getLinkDocno());
+					accountService.update_s3(dto);
+					accountService.cancelconnect_linkedcheck(dto);
+				}
+				//detail에 해당하는 시리어의 id값을 가진 swc_bacledger의 in금액을 합치고 swc_vat의 금액과 같다면 해당 시리어를 가진 swc_vat의 lincked는 0, s5로 변경.
+				List <AccountDTO> checktotalprice_vat_and_detail = accountService.checktotalprice_vat_and_detail(dto);
+				BigDecimal total_detail = checktotalprice_vat_and_detail.get(0).getTotal_Amt();
+				int finalcompare = sum.compareTo(total_detail);
+				if(finalcompare == 0) {
+					accountService.update_s5(dto);
+					accountService.updatevatmultilinkedcheck(dto);
+				}
 			}
-		}else if(compareResult < 0)
-		  if(sum.equals(out_num)) {
-			  //s5
-			  for(int i=0; i < totalprice.size(); i++) {
-				  dto.setLinkDocno(totalprice.get(i).getLinkDocno());
-				  accountService.update_b5(dto);
-			  }
-		  }else if(compareResult_out != 0){
-			  if(compareResult_out_secound > 0) {
-				  //s3
-				  for(int i=0; i < totalprice.size(); i++) {
-					  dto.setLinkDocno(totalprice.get(i).getLinkDocno());
-					  accountService.update_b3(dto);
-				  }
-			  }
-		  }
+			
+		//
+		}else if(compareResult < 0) {
+			if(compareResult_out == 0) {
+				//s5
+				for(int i=0; i < totalprice.size(); i++) {
+					dto.setLinkDocno(totalprice.get(i).getLinkDocno());
+					accountService.update_b5(dto);
+				}
+			}else if(compareResult_out < 0){
+				if(compareResult_out_secound > 0) {
+					//s3
+					for(int i=0; i < totalprice.size(); i++) {
+						dto.setLinkDocno(totalprice.get(i).getLinkDocno());
+						accountService.update_b3(dto);
+					}
+				}
+			}else if(compareResult_out > 0) {
+				for(int i=0; i < totalprice.size(); i++) {
+					dto.setLinkDocno(totalprice.get(i).getLinkDocno());
+					accountService.update_b3(dto);
+					accountService.cancelconnect_linkedcheck(dto);
+				}
+				//detail에 해당하는 시리어의 id값을 가진 swc_bacledger의 in금액을 합치고 swc_vat의 금액과 같다면 해당 시리어를 가진 swc_vat의 lincked는 0, s5로 변경.
+				List <AccountDTO> checktotalprice_vat_and_detail_out = accountService.checktotalprice_vat_and_detail_out(dto);
+				BigDecimal total_detail = checktotalprice_vat_and_detail_out.get(0).getTotal_Amt();
+				int finalcompare = sum.compareTo(total_detail);
+				if(finalcompare == 0) {
+					accountService.update_b5(dto);
+					accountService.updatevatmultilinkedcheck(dto);
+				}
+			}
+		}
 
+        return ResponseEntity.ok(param);
+    }
+    
+    @RequestMapping("bacCheckConnect_modal_update.do")
+    public ResponseEntity<Object> bacCheckConnect_modal_update(HttpSession session, @ModelAttribute AccountDTO dto){
+        Map<String,Object> param = new HashMap<>();
+        accountService.bacCheckConnect_modal_update(dto);
         return ResponseEntity.ok(param);
     }
     
@@ -560,19 +598,72 @@ public class AccountController {
         
         //swc_bacledger_detail에 갯수
         int listNumber = accountService.connnectlist_Num(dto);
+        int detail_Count_equal_baclogId = accountService.detail_Count_equal_baclogId(dto);
         List<AccountDTO> select_vatStatus = accountService.select_vatStatus(dto);
         if(listNumber != 0) {
-        	//swc_bacledger는 delete 되게 그리고 해당 serial를 가진 swc_vat은 1로 변경
-        	accountService.deleteconnectlist(dto);
-        	accountService.cancelconnect_linkedcheck(dto);
-        	if(select_vatStatus.get(0).getVatStatus().equals("S5")) {
-        		accountService.update_vatStatus(dto);
-        	}else if(select_vatStatus.get(0).getVatStatus().equals("S3")) {
-        		accountService.update_vatStatus(dto);
-        	}else if(select_vatStatus.get(0).getVatStatus().equals("B5")) {
-        		accountService.update_vatStatus_B(dto);
-        	}else if(select_vatStatus.get(0).getVatStatus().equals("B3")) {
-        		accountService.update_vatStatus_B(dto);
+        	if(detail_Count_equal_baclogId == 1) {
+	        	//swc_bacledger는 delete 되게 그리고 해당 serial를 가진 swc_vat은 1로 변경
+	        	accountService.deleteconnectlist(dto);
+	        	accountService.cancelconnect_linkedcheck(dto);
+	        	if(select_vatStatus.get(0).getVatStatus().equals("S5")) {
+	        		accountService.update_vatStatus(dto);
+	        	}else if(select_vatStatus.get(0).getVatStatus().equals("S3")) {
+	        		accountService.update_vatStatus(dto);
+	        	}else if(select_vatStatus.get(0).getVatStatus().equals("B5")) {
+	        		accountService.update_vatStatus_B(dto);
+	        	}else if(select_vatStatus.get(0).getVatStatus().equals("B3")) {
+	        		accountService.update_vatStatus_B(dto);
+	        	}
+        	}else if(detail_Count_equal_baclogId != 1) {
+        		//입금 일때
+        		if(select_vatStatus.get(0).getVatStatus().equals("S5") || select_vatStatus.get(0).getVatStatus().equals("S3")){
+	        		accountService.deleteconnectlist_sub(dto);
+	        		
+	        		BigDecimal sum = new BigDecimal("0");
+	        	    	List<AccountDTO> dataprice_secound = accountService.dataprice_secound(dto);
+	        			for(int i=0; i < dataprice_secound.size(); i++) {
+	        				BigDecimal a = dataprice_secound.get(i).getVatTax(); 
+	        				BigDecimal b = dataprice_secound.get(i).getVatAmount();
+	        				sum = sum.add(a.add(b));
+	        			}
+	        		System.out.println("sum=================" + sum);
+	        		
+	        		List <AccountDTO> checktotalprice_vat_and_detail = accountService.checktotalprice_vat_and_detail(dto);
+					BigDecimal total_detail = checktotalprice_vat_and_detail.get(0).getTotal_Amt();
+					int finalcompare = sum.compareTo(total_detail);
+					System.out.println("finalcompare========================" + finalcompare);
+					if(finalcompare == 0) {
+						accountService.update_s5(dto);
+						accountService.updatevatmultilinkedcheck(dto);
+					}else if(finalcompare > 0) {
+						accountService.update_s3(dto);
+						accountService.cancelconnect_linkedcheck(dto);
+					}
+				//출금일때
+        		}else if(select_vatStatus.get(0).getVatStatus().equals("B5") || select_vatStatus.get(0).getVatStatus().equals("B3")) {
+        			accountService.deleteconnectlist_sub(dto);
+	        		
+	        		BigDecimal sum = new BigDecimal("0");
+	        	    	List<AccountDTO> dataprice_secound = accountService.dataprice_secound(dto);
+	        			for(int i=0; i < dataprice_secound.size(); i++) {
+	        				BigDecimal a = dataprice_secound.get(i).getVatTax(); 
+	        				BigDecimal b = dataprice_secound.get(i).getVatAmount();
+	        				sum = sum.add(a.add(b));
+	        			}
+	        		System.out.println("sum=================" + sum);
+	        		
+	        		List <AccountDTO> checktotalprice_vat_and_detail = accountService.checktotalprice_vat_and_detail(dto);
+					BigDecimal total_detail = checktotalprice_vat_and_detail.get(0).getTotal_Amt();
+					int finalcompare = sum.compareTo(total_detail);
+					System.out.println("finalcompare========================" + finalcompare);
+					if(finalcompare == 0) {
+						accountService.update_b5(dto);
+						accountService.updatevatmultilinkedcheck(dto);
+					}else if(finalcompare > 0) {
+						accountService.update_b3(dto);
+						accountService.cancelconnect_linkedcheck(dto);
+					}
+        		}
         	}
         }
         //0일 경우는 두가지 경우가 존재 (기존에 swc_bacledger의 컬럼으로 들어가 있는 경우, 진짜 아무 연결이 없는경우)
@@ -592,6 +683,8 @@ public class AccountController {
         		accountService.cancel_connect_final(dto);
         	}
         }
+        //취소 시 남은 금액 최신화
+        accountService.bacCheckConnect_modal_update(dto);
         return ResponseEntity.ok(param);
     }
     

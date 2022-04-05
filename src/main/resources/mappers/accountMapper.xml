@@ -725,6 +725,11 @@ attrib) values (#{vatId},
 		delete from swc_bacledger_detail
 		where linkDocno = #{linkDocno}
 	</delete>
+	<delete id="deleteconnectlist_sub">
+		delete from swc_bacledger_detail
+		where linkDocno = #{linkDocno} and baclogId = #{baclogId}
+	</delete>
+	
 	<update id="cancelconnect_linkedcheck">
 		update swc_vat set linkedcheck = 1
 		where vatSerial = #{linkDocno};
@@ -770,6 +775,11 @@ attrib) values (#{vatId},
 		left join swc_vat b ON b.vatSerial = a.linkDocno
 		WHERE a.baclogId = #{baclogId}
 	</select>
+	<select id="dataprice_secound" resultType="accountDto">
+		SELECT * FROM swc_bacledger_detail  a
+		left join swc_vat b ON b.vatSerial = a.linkDocno
+		WHERE a.linkDocno = #{linkDocno}
+	</select>
 	<select id="total_price" resultType="accountDto">
 		SELECT a.inAmt, a.outAmt, b.linkDocno
 		FROM swc_bacledger a
@@ -814,6 +824,26 @@ attrib) values (#{vatId},
 		LEFT JOIN swc_cust b ON a.buyrNo = b.custNo
 		LEFT JOIN swc_custdata03 c ON a.buyrMemberNo = c.custData03no
 		WHERE a.contNo = #{contNo}
+	</select>
+	<update id="bacCheckConnect_modal_update">
+		update swc_vat set modal_vatmemo = #{modal_vatmemo}
+		where vatSerial = #{linkDocno};
+	</update>
+	<select id="checktotalprice_vat_and_detail" resultType="accountDto">
+		SELECT a.*, c.inAmt, sum(c.inAmt) AS total_Amt FROM swc_bacledger_detail a
+		LEFT JOIN swc_vat b ON a.linkDocno = b.vatSerial
+		LEFT JOIN swc_bacledger c ON a.baclogId = c.baclogId
+		WHERE a.linkDocno = #{linkDocno}
+	</select>
+	<select id="checktotalprice_vat_and_detail_out" resultType="accountDto">
+		SELECT a.*, c.outAmt, sum(c.outAmt) AS total_Amt FROM swc_bacledger_detail a
+		LEFT JOIN swc_vat b ON a.linkDocno = b.vatSerial
+		LEFT JOIN swc_bacledger c ON a.baclogId = c.baclogId
+		WHERE a.linkDocno = #{linkDocno}
+	</select>
+	<select id="detail_Count_equal_baclogId" resultType="integer">
+		SELECT COUNT(*) FROM swc_bacledger_detail
+		WHERE linkDocno = #{linkDocno}
 	</select>
 	
 	

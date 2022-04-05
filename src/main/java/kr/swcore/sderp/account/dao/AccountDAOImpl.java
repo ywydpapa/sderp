@@ -415,4 +415,40 @@ public class AccountDAOImpl implements AccountDAO {
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne("account.selectExcelData", dto);
 	}
+	@Override
+	public void bacCheckConnect_modal_update(AccountDTO dto) {
+		// TODO Auto-generated method stub
+		sqlSession.update("account.bacCheckConnect_modal_update", dto);
+	}
+
+	@Override
+	public List<AccountDTO> checktotalprice_vat_and_detail(AccountDTO dto) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("account.checktotalprice_vat_and_detail", dto);
+	}
+
+	@Override
+	public int detail_Count_equal_baclogId(AccountDTO dto) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("account.detail_Count_equal_baclogId", dto);
+	}
+
+	@Override
+	public void deleteconnectlist_sub(AccountDTO dto) {
+		// TODO Auto-generated method stub
+		sqlSession.delete("account.deleteconnectlist_sub", dto);
+	}
+
+	@Override
+	public List<AccountDTO> dataprice_secound(AccountDTO dto) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("account.dataprice_secound", dto);
+	}
+
+	@Override
+	public List<AccountDTO> checktotalprice_vat_and_detail_out(AccountDTO dto) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("account.checktotalprice_vat_and_detail_out", dto);
+
+	}
 }

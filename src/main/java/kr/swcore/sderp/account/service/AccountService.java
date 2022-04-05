@@ -82,5 +82,14 @@ public interface AccountService {
 	int bacDrawInsert(AccountDTO dto);
 	int bacDrawDelect(AccountDTO dto);
 	int bacDrawAfterUpdate(AccountDTO dto);
+
 	AccountDTO selectExcelData(AccountDTO dto);
+
+	void bacCheckConnect_modal_update(AccountDTO dto);
+	List<AccountDTO> checktotalprice_vat_and_detail(AccountDTO dto);
+	int detail_Count_equal_baclogId(AccountDTO dto);
+	void deleteconnectlist_sub(AccountDTO dto);
+	List<AccountDTO> dataprice_secound(AccountDTO dto);
+	List<AccountDTO> checktotalprice_vat_and_detail_out(AccountDTO dto);
+
 }

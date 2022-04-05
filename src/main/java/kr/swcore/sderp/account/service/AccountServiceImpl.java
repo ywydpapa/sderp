@@ -469,4 +469,40 @@ public class AccountServiceImpl implements AccountService {
 		// TODO Auto-generated method stub
 		return accountDAO.selectExcelData(dto);
 	}
+	@Override
+	public void bacCheckConnect_modal_update(AccountDTO dto) {
+		// TODO Auto-generated method stub
+		accountDAO.bacCheckConnect_modal_update(dto);	
+	}
+
+	@Override
+	public List<AccountDTO> checktotalprice_vat_and_detail(AccountDTO dto) {
+		// TODO Auto-generated method stub
+		return accountDAO.checktotalprice_vat_and_detail(dto);
+	}
+
+	@Override
+	public int detail_Count_equal_baclogId(AccountDTO dto) {
+		// TODO Auto-generated method stub
+		return accountDAO.detail_Count_equal_baclogId(dto);
+	}
+
+	@Override
+	public void deleteconnectlist_sub(AccountDTO dto) {
+		// TODO Auto-generated method stub
+		accountDAO.deleteconnectlist_sub(dto);
+	}
+
+	@Override
+	public List<AccountDTO> dataprice_secound(AccountDTO dto) {
+		// TODO Auto-generated method stub
+		return accountDAO.dataprice_secound(dto);
+	}
+
+	@Override
+	public List<AccountDTO> checktotalprice_vat_and_detail_out(AccountDTO dto) {
+		// TODO Auto-generated method stub
+		return accountDAO.checktotalprice_vat_and_detail_out(dto);
+
+	}
 }

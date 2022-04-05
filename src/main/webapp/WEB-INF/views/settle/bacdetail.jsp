@@ -249,7 +249,7 @@
                                 <th class="text-center">출금</th>
                                 <th class="text-center">잔액</th>
                                 <th class="text-center">거래점</th>
-                                <th class="text-center">연결문서</th>
+                                <th class="text-center">통장메모내역</th>
                                 <th class="text-center">메모</th>
                                 <th class="text-center">승인연결</th>
                                 <th class="text-center">연결</th>
@@ -987,6 +987,8 @@
 					dataType: "json",
 					success: function(){
 						alert("업데이트 되었습니다.");
+						localStorage.setItem('lastTab', $('#baclist_num').val());
+						localStorage.setItem('lastpageNum', $('#reloadpage_num').val());
 						location.href = path;
 						return false;
 					},

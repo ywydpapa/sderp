@@ -13,6 +13,16 @@
 
 <div class="dt-responsive table-responsive">
     <table id="vatlistTable" class="table table-striped table-bordered nowrap">
+        <colgroup>
+        	<col width="3%"/>
+        	<col width="5%"/>
+        	<col width="10%"/>
+        	<col width="5%"/>
+        	<col width="5%"/>
+        	<col width="10%"/>
+        	<col width="10%"/>
+        	<col width="15%"/>
+        </colgroup>
         <thead>
 		    <tr>
 		    	<th>선택</th>
@@ -21,13 +31,14 @@
 		      	<th>금액</th>
 		      	<th>품명</th>
 		      	<th>비고</th>
+		      	<th>남은금액</th>
 		      	<th>승인번호</th>
 		    </tr>
 	    </thead>
 	    <tbody>
 		    <c:forEach var="row" items="${list}">
 		      <tr align="center">
-		      	<td><input type="checkbox" class="form-control" id="checkSerial" data-number="${row.vatSerial}"></td>
+		      	<td><input type="checkbox" class="form-control" id="checkSerial" data-number="${row.vatSerial}" data-code="${row.modal_vatmemo}"></td>
 		      	<td>${row.vatIssueDate}</td>
 		        <c:choose>
 			        <c:when test="${empty row.custName}">
@@ -40,6 +51,7 @@
 		        <td>₩<fmt:formatNumber value="${row.vatAmount + row.vatTax}" pattern="#,###" /></td>
 		        <td>${row.vatProductName}</td>
 		        <td class="text-left">${row.vatRemark}</td>
+		        <td><input type="text" class='form-control-sm' id="modal_vatmemo" style="border: 1px solid #ccc;" onkeyup="inputNumberFormat(this)" value="${row.modal_vatmemo}"/></td>
 		        <td>${row.vatSerial}</td>
 		        <!-- <a href="javascript:fnvatListS('${row.vatSerial}', '${row.vatSellerCustNo}', '${row.vatAmount}');"></a>  -->
 		      </tr>
@@ -49,6 +61,20 @@
 </div>
 
 <script>
+function inputNumberFormat(obj) {
+    obj.value = comma(uncomma(obj.value));
+}
+
+function comma(str) {
+    str = String(str);
+    return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
+}
+
+function uncomma(str) {
+    str = String(str);
+    return str.replace(/[^\d]+/g, '');
+}
+
     $(function(){
         $('#vatlistTable').DataTable({
             info:false,
@@ -97,7 +123,8 @@
 			  		insertData.baclogId = bacId;
 			  		insertData.linkType = "VAT";
 			  		insertData.linkDocno = $(item).attr("data-number");
-			  		  
+			  		insertData.modal_vatmemo = $(item).parent().next().next().next().next().next().next().children().first().val();
+			  		
 		  			$.ajax({
 		  				url: "${path}/acc/bacCheckConnect.do",
 		  				method: "post",
@@ -105,6 +132,14 @@
 		  				async: false,
 		  				dataType: "json"
 		  			});
+		  			//modal_vatmemo
+		  		 	$.ajax({
+		  				url: "${path}/acc/bacCheckConnect_modal_update.do",
+		  				method: "post",
+		  				data: insertData,
+		  				async: false,
+		  				dataType: "json"
+		  			}); 
 		  			
 			  	}
 	  		});

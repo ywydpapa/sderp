@@ -97,7 +97,7 @@
                                         </li>
                                     </ul>
                                     </li>
-                                    <li class="pcoded-hasmenu">
+                                    <li class="pcoded-hasmenu pcoded <c:if test="${path2 eq '/mis/hrdutylist.do' || path2 eq '/mis/hrcostlist.do'}">pcoded-trigger</c:if>">
                                     <a href="javascript:void(0)">
                                         <span class="pcoded-micon"><i class="icon-people"></i></span>
                                         <span class="pcoded-mtext"  data-i18n="nav.basic-components.main">인사관리 현황</span>

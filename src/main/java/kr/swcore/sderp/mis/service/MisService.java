@@ -6,5 +6,5 @@ import javax.servlet.http.HttpSession;
 import java.util.List;
 
 public interface MisService {
-    List<MisDTO> listHRduty(HttpSession session);
+    List<MisDTO> listHRduty(HttpSession session,MisDTO dto);
 }

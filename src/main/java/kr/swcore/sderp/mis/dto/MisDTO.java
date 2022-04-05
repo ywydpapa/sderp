@@ -11,5 +11,13 @@ public class MisDTO {
 
     private Integer compNo;
     private Integer userNo;
+    private Integer mdays;
+    private Integer ydays;
+    private Integer edays;
+    private Integer hdays;
+    private Integer kdays;
+    private String userName;
+    private Integer sYear;
+
 
 }

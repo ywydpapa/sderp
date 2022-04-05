@@ -14,7 +14,7 @@ public class MisDAOImpl implements MisDAO {
     SqlSession sqlSession;
 
     @Override
-    public List<MisDTO> listHRduty(int compNo) {
-        return null;
+    public List<MisDTO> listHRduty(MisDTO dto) {
+        return sqlSession.selectList("mis.hrdutylist",dto);
     }
 }

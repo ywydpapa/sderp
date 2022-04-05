@@ -4,5 +4,23 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="mis">
 
+    <select id="hrdutylist" resultType="misDto">
+        select su.userNo,us.userName,count(case when attType= '1' then 1 end) mdays,count(case when attType= '2' then 1 end) ydays
+        ,count(case when attType= '3' then 1 end) edays,count(case when attType= '4' then 1 end) hdays,count(case when attType= '5' then 1 end) kdays
+        from swc_userattend su
+        left join swc_user us on us.userNo = su.userNo
+        where attStatus = 5 and su.compNo = #{compNo}
+        <choose>
+        <when test="sYear == null ">
+            and date_format(su.attStart,'%Y') = date_format(now(),'%Y')
+        </when>
+            <when test = "sYear != null">
+            and date_format(su.attStart,'%Y') = #{sYear}
+            </when>
+        </choose>
+        group by userNo
+    </select>
+
+
 
 </mapper>

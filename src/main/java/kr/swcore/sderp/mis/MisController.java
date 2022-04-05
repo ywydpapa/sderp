@@ -1,5 +1,6 @@
 package kr.swcore.sderp.mis;
 
+import kr.swcore.sderp.mis.dto.MisDTO;
 import kr.swcore.sderp.mis.service.MisService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,13 +17,13 @@ public class MisController {
     MisService misService;
 
     @RequestMapping("/hrdutylist.do")
-    public ModelAndView hrdutylist(HttpSession session, ModelAndView mav) {
-        mav.addObject("dutyList", misService.listHRduty(session));
+    public ModelAndView hrdutylist(HttpSession session, MisDTO dto, ModelAndView mav) {
+        mav.addObject("dutyList", misService.listHRduty(session,dto));
         mav.setViewName("mis/hrdutylist");
         return mav;
     }
 
-    @RequestMapping("/hrcostlist.do")
+    /*@RequestMapping("/hrcostlist.do")
     public ModelAndView hrcostlist(HttpSession session, ModelAndView mav) {
         mav.addObject("costList", misService.listHRduty(session));
         mav.setViewName("mis/hrcostlist");
@@ -71,6 +72,6 @@ public class MisController {
         mav.addObject("ledgerList", misService.listHRduty(session));
         mav.setViewName("mis/ledgerlist");
         return mav;
-    }
+    }*/
 
 }

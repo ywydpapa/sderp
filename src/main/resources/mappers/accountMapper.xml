@@ -320,10 +320,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		from swc_vat a
 		LEFT JOIN swc_cust rb on a.vatSellerCustNo = rb.custNo
 		LEFT JOIN swc_custdata02 rc ON a.vatSellerCustNo = rc.custNo
-		LEFT JOIN swc_custdata rd ON a.vatSellerCustNo = rd.custNo
+		LEFT JOIN swc_custdata rd ON a.vatSellerCustNo = rd.custNo and rd.attrib not like 'XXX%'
 		LEFT JOIN swc_cust pb on a.vatBuyerCustNo = pb.custNo
 		LEFT JOIN swc_custdata02 pc ON a.vatBuyerCustNo = pc.custNo
-		LEFT JOIN swc_custdata pd ON a.vatBuyerCustNo = pd.custNo
+		LEFT JOIN swc_custdata pd ON a.vatBuyerCustNo = pd.custNo and pd.attrib not like 'XXX%'
 		where a.vatSerial = #{vatSerial} and a.vatType = #{vatType} and a.attrib not like 'XXX%'
 	</select>
 	
@@ -333,10 +333,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		from swc_vat a
 		LEFT JOIN swc_cust rb on a.vatBuyerCustNo = rb.custNo
 		LEFT JOIN swc_custdata02 rc ON a.vatBuyerCustNo = rc.custNo
-		LEFT JOIN swc_custdata rd ON a.vatBuyerCustNo = rd.custNo
+		LEFT JOIN swc_custdata rd ON a.vatBuyerCustNo = rd.custNo and rd.attrib not like 'XXX%'
 		LEFT JOIN swc_cust pb on a.vatSellerCustNo = pb.custNo
 		LEFT JOIN swc_custdata02 pc ON a.vatSellerCustNo = pc.custNo
-		LEFT JOIN swc_custdata pd ON a.vatSellerCustNo = pd.custNo
+		LEFT JOIN swc_custdata pd ON a.vatSellerCustNo = pd.custNo and pd.attrib not like 'XXX%'
 		where a.vatSerial = #{vatSerial} and a.vatType = #{vatType} and a.attrib not like 'XXX%'
 	</select>
 

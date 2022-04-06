@@ -69,8 +69,17 @@ public class AccountController {
             LocalDate now = LocalDate.now();
             int year = now.getYear();
             if(vatSellerCustNo != null) dto.setVatSellerCustNo(vatSellerCustNo);
-            if(vatIssueDateFrom != null) dto.setVatIssueDateFrom(vatIssueDateFrom);
-            if(vatIssueDateTo != null) dto.setVatIssueDateTo(vatIssueDateTo);
+            if(vatIssueDateFrom != null) {
+            	dto.setVatIssueDateFrom(vatIssueDateFrom);
+            }else {
+            	dto.setVatIssueDateFrom(year + "-01-01");
+            }
+            
+            if(vatIssueDateTo != null) {
+            	dto.setVatIssueDateTo(vatIssueDateTo);
+            }else {
+            	dto.setVatIssueDateTo(year + "-12-31");
+            }
             
             if(selectYear != null) {
             	dto.setSelectYear(selectYear);
@@ -103,8 +112,17 @@ public class AccountController {
             LocalDate now = LocalDate.now();
             int year = now.getYear();
             if(vatBuyerCustNo != null) dto.setVatBuyerCustNo(vatBuyerCustNo);
-            if(vatIssueDateFrom != null) dto.setVatIssueDateFrom(vatIssueDateFrom);
-            if(vatIssueDateTo != null) dto.setVatIssueDateTo(vatIssueDateTo);
+            if(vatIssueDateFrom != null) {
+            	dto.setVatIssueDateFrom(vatIssueDateFrom);
+            }else {
+            	dto.setVatIssueDateFrom(year + "-01-01");
+            }
+            
+            if(vatIssueDateTo != null) {
+            	dto.setVatIssueDateTo(vatIssueDateTo);
+            }else {
+            	dto.setVatIssueDateTo(year + "-12-31");
+            }
             
             if(selectYear != null) {
             	dto.setSelectYear(selectYear);

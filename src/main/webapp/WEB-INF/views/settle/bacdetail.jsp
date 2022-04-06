@@ -1037,7 +1037,7 @@
 					$("#bacCalTable tbody").html("<tr style='text-align:center;'><td>" + parseInt(data.inAmt).toLocaleString("en-US") + "</td><td>" + parseInt(data.outAmt).toLocaleString("en-US") + "</td><td>" + parseInt(data.inAmt + data.outAmt).toLocaleString("en-US") + "</td></tr>");
 				},
 				error:function(){
-					alert("총합 조회에 실패했습니다.");
+					alert("데이터가 없습니다.");
 					return false;
 				}
 			});

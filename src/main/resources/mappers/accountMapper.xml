@@ -208,6 +208,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		SELECT SUM(inAmt) AS inAmt, SUM(outAmt) AS outAmt from swc_bacledger 
 		where bacSerial = #{bacSerial} and attrib not like 'XXX%' 
 		and bacDesc like CONCAT('%', #{bacDesc}, '%')
+		<if test="baclogTimeFrom != null and baclogTimeFrom != ''">
+			and baclogTime Between #{baclogTimeFrom} and #{baclogTimeTo}
+		</if>
 		order by baclogTime desc;
 	</select>
  

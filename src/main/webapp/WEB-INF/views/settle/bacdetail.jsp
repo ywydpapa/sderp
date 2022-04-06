@@ -42,12 +42,11 @@
                     </div>
                     <div class="btn_wr" style="float:right;">
                         <!-- hide and show -->
-						<!-- <button class="btn btn-sm btn-success" id="fold" onclick="acordian_action()">펼치기</button>
+						<button class="btn btn-sm btn-success" id="fold" onclick="acordian_action()">펼치기</button>
 						<button class="btn btn-sm btn-success" id="fold2" onclick="acordian_action1()" style="display:none;">접기</button>
-						hide and show
                         <button class="btn btn-sm btn-inverse" onClick="javascript:fnClearall()"><i class="icofont icofont-spinner-alt-3"></i>초기화</button>
-                        <button class="btn btn-sm btn-primary" onClick="javascript:fnListcon()"><i class="icofont icofont-search"></i>검색</button> -->
-                        <button class="btn btn-sm btn-danger" onClick="javascript:fnChgStatus()">상태변경</button>
+                        <button class="btn btn-sm btn-primary" onClick="javascript:fnListcon()"><i class="icofont icofont-search"></i>검색</button>
+                        <!-- <button class="btn btn-sm btn-danger" onClick="javascript:fnChgStatus()">상태변경</button> -->
                         <button class="btn btn-sm btn-outline"onClick="javascript:location='${path}/acc/bacupdate.do'"><i class="icofont icofont-pencil-alt-2"></i>내역 등록</button>
                     </div>
                 </div>
@@ -55,158 +54,27 @@
         </div>
         <!--Page-header end 페이지 타이틀 -->
         <!--영업활동조회-->
-        <%-- <div class="cnt_wr" id="acordian" style="display:none;">
+        <div class="cnt_wr" id="acordian" style="display:none;">
             <div class="row">
                 <form id="searchForm" method="post" onsubmit="return false;" class="col-sm-12">
                     <div class="col-sm-12">
                         <div class="card_box sch_it">
                             <div class="form-group row">
                                 <div class="col-sm-12 col-xl-3">
-                                    <label class="col-form-label" for="userName">담당사원</label>
-                                    <div class="input-group input-group-sm mb-0">
-                                        <input type="text" class="form-control" name="userName"
-                                               id="userName" value="" readonly /> <input type="hidden"
-                                                                                         name="userNo" id="userNo" value="" /> <span
-                                            class="input-group-btn">
-										<button class="btn btn-primary sch-company"
-                                                data-remote="${path}/modal/popup.do?popId=user" type="button"
-                                                data-toggle="modal" data-target="#userModal">
-											<i class="icofont icofont-search"></i>
-										</button>
-									</span>
-                                        <div class="modal fade " id="userModal" tabindex="-1"
-                                             role="dialog">
-                                            <div class="modal-dialog modal-80size" role="document">
-                                                <div class="modal-content modal-80size">
-                                                    <div class="modal-header">
-                                                        <h4 class="modal-title"></h4>
-                                                        <button type="button" class="close" data-dismiss="modal"
-                                                                aria-label="Close">
-                                                            <span aria-hidden="true">&times;</span>
-                                                        </button>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        <h5>사용자목록</h5>
-                                                        <p>Loading!!!</p>
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-default waves-effect "
-                                                                data-dismiss="modal">Close</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    <label class="col-form-label">기재내용</label>
+                                    <input type="text" class="form-control" id="bacDesc">
                                 </div>
-                                <div class="col-sm-12 col-xl-3">
-                                    <label class="col-form-label" for="soppTitle">영업기회</label>
-                                    <div class="input-group input-group-sm mb-0">
-                                        <input type="text" class="form-control" name="soppTitle"
-                                               id="soppTitle" value="" readonly /> <input
-                                            type="hidden" name="soppNo" id="soppNo"
-                                            value="" /> <span class="input-group-btn">
-											<button class="btn btn-primary sch-company"
-                                                    data-remote="${path}/modal/popup.do?popId=sopp"
-                                                    type="button" data-toggle="modal"
-                                                    data-target="#soppModal">
-												<i class="icofont icofont-search"></i>
-											</button>
-										</span>
-                                        <div class="modal fade " id="soppModal" tabindex="-1"
-                                             role="dialog">
-                                            <div class="modal-dialog modal-80size" role="document">
-                                                <div class="modal-content modal-80size">
-                                                    <div class="modal-header">
-                                                        <h4 class="modal-title">영업기회 검색</h4>
-                                                        <button type="button" class="close"
-                                                                data-dismiss="modal" aria-label="Close">
-                                                            <span aria-hidden="true">&times;</span>
-                                                        </button>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        <h5>영업기회 목록</h5>
-                                                        <p>Loading!!!</p>
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button"
-                                                                class="btn btn-default waves-effect "
-                                                                data-dismiss="modal">Close</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-12 col-xl-3">
-                                    <label class="col-form-label" for="custName">매출처</label>
-                                    <div class="input-group input-group-sm mb-0">
-                                        <input type="text" class="form-control" name="custName"
-                                               id="custName" value="" readonly /> <input
-                                            type="hidden" name="custNo" id="custNo"
-                                            value="" /> <span class="input-group-btn">
-												<button class="btn btn-primary sch-company"
-                                                        data-remote="${path}/modal/popup.do?popId=cust"
-                                                        type="button" data-toggle="modal"
-                                                        data-target="#custModal">
-													<i class="icofont icofont-search"></i>
-												</button>
-											</span>
-                                        <div class="modal fade " id="custModal" tabindex="-1"
-                                             role="dialog">
-                                            <div class="modal-dialog modal-80size" role="document">
-                                                <div class="modal-content modal-80size">
-                                                    <div class="modal-header">
-                                                        <h4 class="modal-title">매출처검색</h4>
-                                                        <button type="button" class="close"
-                                                                data-dismiss="modal" aria-label="Close">
-                                                            <span aria-hidden="true">&times;</span>
-                                                        </button>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        <h5>매출처목록</h5>
-                                                        <p>Loading!!!</p>
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button"
-                                                                class="btn btn-default waves-effect "
-                                                                data-dismiss="modal">Close</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-12 col-xl-3">
-                                    <label class="col-form-label" for="salesType">처리 상태</label>
-                                    <select name="select" class="form-control form-control-sm" id="salesType">
-                                        <option value>선택</option>
-                                        <c:forEach var = "acttype" items="${acttype}">
-                                            <option value="${acttype.codeNo}">${acttype.desc03}</option>
-                                        </c:forEach>
-                                    </select>
-                                </div>
-
+	                            <div class="col-sm-12 col-xl-3">
+	                                <label class="col-form-label">일자별</label>
+	                                <p class="input_inline"><input class="form-control form-control-sm col-xl-6" type="date" max="9999-12-30" id="baclogTimeFrom"> ~ <input class="form-control form-control-sm col-xl-6" type="date" max="9999-12-31" id="baclogTimeTo">
+	                                </p>
+	                            </div>
                             </div>
-                            <div class="form-group row">
-                                <div class="col-sm-12 col-xl-3">
-                                    <label class="col-form-label">발행일</label>
-                                    <p class="input_inline">
-                                    	<input class="form-control form-control-sm col-xl-6" type="date" max="9999-12-30" id="salesFrdatetime"> ~ <input class="form-control form-control-sm col-xl-6" type="date" max="9999-12-31" id="salesTodatetime">
-                                    </p>
-                                </div>
-                                <div class="col-sm-12 col-xl-3">
-                                    <label class="col-form-label">거래일</label>
-                                    <p class="input_inline"><input class="form-control form-control-sm col-xl-6" type="date" max="9999-12-30" id="regSDate"> ~ <input class="form-control form-control-sm col-xl-6" type="date" max="9999-12-31" id="regEDate">
-                                    </p>
-                                </div>
-                            </div>
-
                         </div>
                     </div>
-
                 </form>
             </div>
-        </div> --%>
+        </div>
         <!--//영업활동조회-->
     </c:if>
 	<div class="row" style="margin-bottom: 10px;">
@@ -222,6 +90,24 @@
 			<input id="baclist_num" type="hidden" value="">
 		</div>
 	</div>
+	
+	<table id="bacCalTable" class="table table-striped table-bordered nowrap">
+		<thead>
+			<tr>
+				<th style='text-align:center;'>입금 총합</th>
+				<th style='text-align:center;'>출금 총합</th>
+				<th style='text-align:center;'>입금/출금 총합</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td style='text-align:center;'>0</td>
+				<td style='text-align:center;'>0</td>
+				<td style='text-align:center;'>0</td>
+			</tr>
+		</tbody>
+	</table>
+	
 	<!--리스트 table-->
     <div class="cnt_wr" id="list-container">
         <div class="row">
@@ -471,6 +357,70 @@
 			$('#reloadpage_num').val(localStorage.getItem("lastpageNum"));
 			$('#baclist_num').val(localStorage.getItem("lastTab"));
 			localStorage.clear();
+			
+			$("#baclogTimeFrom").change(function(){
+				var dateValue = $(this).val();
+				var dateValueArr = dateValue.split("-");
+				var dateValueCom = new Date(dateValueArr[0], parseInt(dateValueArr[1])-1, dateValueArr[2]);
+				var EdateValue = $("#baclogTimeTo").val();
+				var EdateDateArr = EdateValue.split("-");
+				var EdateDateCom = new Date(EdateDateArr[0], parseInt(EdateDateArr[1])-1, EdateDateArr[2]);
+				
+				if(EdateValue == ""){
+					dateValueCom.setDate(dateValueCom.getDate()+1);
+				}else if(dateValueCom.getTime() > EdateDateCom.getTime()){
+					alert("시작일이 종료일보다 클 수 없습니다.");
+					dateValueCom.setDate(dateValueCom.getDate()+1);
+				}else{
+					return null;
+				}
+				
+				var year = dateValueCom.getFullYear();
+				var month = dateValueCom.getMonth()+1;
+				var day = dateValueCom.getDate();
+				
+				if(month < 10){
+					month = "0" + month;
+				}
+				
+				if(day < 10){
+					day = "0" + day;
+				}
+				
+				$("#baclogTimeTo").val(year + "-" + month + "-" + day);
+			});
+			
+			$("#baclogTimeTo").change(function(){
+				var SdateValue = $("#baclogTimeFrom").val();
+				var SdateValueArr = SdateValue.split("-");
+				var SdateValueCom = new Date(SdateValueArr[0], parseInt(SdateValueArr[1])-1, SdateValueArr[2]);
+				var thisDateValue = $(this).val();
+				var thisDateArr = thisDateValue.split("-");
+				var thisDateCom = new Date(thisDateArr[0], parseInt(thisDateArr[1])-1, thisDateArr[2]);
+				
+				if(SdateValue == ""){
+					thisDateCom.setDate(thisDateCom.getDate()-1);
+				}else if(SdateValueCom.getTime() > thisDateCom.getTime()){
+					alert("종료일이 시작일보다 작을 수 없습니다.");
+					thisDateCom.setDate(thisDateCom.getDate()-1);
+				}else{
+					return null;
+				}
+				
+				var year = thisDateCom.getFullYear();
+				var month = thisDateCom.getMonth()+1;
+				var day = thisDateCom.getDate();
+				
+				if(month < 10){
+					month = "0" + month;
+				}
+				
+				if(day < 10){
+					day = "0" + day;
+				}
+				
+				$("#baclogTimeFrom").val(year + "-" + month + "-" + day);
+			});
 		});
 		
 
@@ -494,6 +444,18 @@
 		selectData.betFirstNum = pageFirstBetween;
 		selectData.betLastNum = pageListNum;
 		pageCheck.bacSerial = $(this).val();
+		
+		if(localStorage.getItem("searchDesc") != null && localStorage.getItem("searchDesc") != ""){
+			selectData.bacDesc = localStorage.getItem("searchDesc");
+			pageCheck.bacDesc = localStorage.getItem("searchDesc");
+		}
+		
+		if(localStorage.getItem("searchDateFrom") != null && localStorage.getItem("searchDateFrom") != ""){
+			selectData.baclogTimeFrom = localStorage.getItem("searchDateFrom");
+			pageCheck.baclogTimeFrom = localStorage.getItem("searchDateFrom");
+			selectData.baclogTimeTo = localStorage.getItem("searchDateTo");
+			pageCheck.baclogTimeTo = localStorage.getItem("searchDateTo");
+		}
 		
 		$.ajax({
 			url: "${path}/acc/bacSelectList.do",
@@ -623,6 +585,18 @@
 			selectData.betLastNum = pageListNum;
 			pageCheck.bacSerial = $('#baclist_num').val();
 			
+			if(localStorage.getItem("searchDesc") != null && localStorage.getItem("searchDesc") != ""){
+				selectData.bacDesc = localStorage.getItem("searchDesc");
+				pageCheck.bacDesc = localStorage.getItem("searchDesc");
+			}
+			
+			if(localStorage.getItem("searchDateFrom") != null && localStorage.getItem("searchDateFrom") != ""){
+				selectData.baclogTimeFrom = localStorage.getItem("searchDateFrom");
+				pageCheck.baclogTimeFrom = localStorage.getItem("searchDateFrom");
+				selectData.baclogTimeTo = localStorage.getItem("searchDateTo");
+				pageCheck.baclogTimeTo = localStorage.getItem("searchDateTo");
+			}
+			
 			$.ajax({
 				url: "${path}/acc/bacSelectList.do",
 				method: "get",
@@ -745,6 +719,20 @@
 			selectData.betFirstNum = counter*150;
 			selectData.betLastNum = pageListNum;
 			pageCheck.bacSerial = $('#baclist_num').val();
+			
+			if(localStorage.getItem("searchDesc") != null && localStorage.getItem("searchDesc") != ""){
+				selectData.bacDesc = localStorage.getItem("searchDesc");
+				pageCheck.bacDesc = localStorage.getItem("searchDesc");
+			}
+			
+			if(localStorage.getItem("searchDateFrom") != null && localStorage.getItem("searchDateFrom") != ""){
+				selectData.baclogTimeFrom = localStorage.getItem("searchDateFrom");
+				pageCheck.baclogTimeFrom = localStorage.getItem("searchDateFrom");
+				selectData.baclogTimeTo = localStorage.getItem("searchDateTo");
+				pageCheck.baclogTimeTo = localStorage.getItem("searchDateTo");
+			}
+			
+			
 			$.ajax({
 				url: "${path}/acc/bacSelectList.do",
 				method: "get",
@@ -863,6 +851,18 @@
 			selectData.betFirstNum = counter*150;
 			selectData.betLastNum = pageListNum;
 			pageCheck.bacSerial = $('#baclist_num').val();
+			
+			if(localStorage.getItem("searchDesc") != null && localStorage.getItem("searchDesc") != ""){
+				selectData.bacDesc = localStorage.getItem("searchDesc");
+				pageCheck.bacDesc = localStorage.getItem("searchDesc");
+			}
+			
+			if(localStorage.getItem("searchDateFrom") != null && localStorage.getItem("searchDateFrom") != ""){
+				selectData.baclogTimeFrom = localStorage.getItem("searchDateFrom");
+				pageCheck.baclogTimeFrom = localStorage.getItem("searchDateFrom");
+				selectData.baclogTimeTo = localStorage.getItem("searchDateTo");
+				pageCheck.baclogTimeTo = localStorage.getItem("searchDateTo");
+			}
 			
 			$.ajax({
 				url: "${path}/acc/bacSelectList.do",
@@ -1001,6 +1001,145 @@
 			}else{
 				return false;
 			}
+		}
+		
+		function fnListcon(){
+			var selectData = {};
+			var pageCheck = {};
+			var bacTable = $("#bacTable tbody");
+			var pageDiv = $("#pageDiv");
+			var tableHtml = "";
+			var pageHtml = "";
+			var pageNation = 10;
+			var pageFirstBetween = 0;
+			var bacList = $("#baclist").val().replaceAll("-", "");
+			bacTable.empty();
+			pageDiv.empty();
+
+			selectData.bacSerial = bacList;
+			selectData.betFirstNum = pageFirstBetween;
+			selectData.betLastNum = 15;
+			selectData.bacDesc = $("#bacDesc").val();
+			selectData.baclogTimeFrom = $("#baclogTimeFrom").val();
+			selectData.baclogTimeTo = $("#baclogTimeTo").val();
+			
+			localStorage.setItem("searchDesc", $("#bacDesc").val());
+			localStorage.setItem("searchDateFrom", $("#baclogTimeFrom").val());
+			localStorage.setItem("searchDateTo", $("#baclogTimeTo").val());
+			
+			$.ajax({
+				url: "${path}/acc/bacCalSelect.do",
+				method: "post",
+				data: selectData,
+				dataType: "json",
+				success:function(data){
+					$("#bacCalTable tbody").html("");
+					$("#bacCalTable tbody").html("<tr style='text-align:center;'><td>" + parseInt(data.inAmt).toLocaleString("en-US") + "</td><td>" + parseInt(data.outAmt).toLocaleString("en-US") + "</td><td>" + parseInt(data.inAmt + data.outAmt).toLocaleString("en-US") + "</td></tr>");
+				},
+				error:function(){
+					alert("총합 조회에 실패했습니다.");
+					return false;
+				}
+			});
+			
+			$.ajax({
+				url: "${path}/acc/bacSelectList.do",
+				method: "get",
+				data: selectData,
+				dataType: "json",
+				success:function(data){
+					if(data.length > 0){
+						console.log("data: " + data.length);
+						
+						for(var i = 0; i < data.length; i++){
+							if(data[i].bacUpdateMemo === null){
+								data[i].bacUpdateMemo = "";
+							}
+							tableHtml += "<tr><td style='text-align:center;vertical-align:middle;'>" + data[i].baclogTime + "</td><td style='text-align:center;vertical-align:middle;'>" 
+							+ data[i].bacDesc + "</td><td style='text-align:right;vertical-align:middle;'>" 
+							+ parseInt(data[i].inAmt).toLocaleString("en-US") + "</td><td style='text-align:right;vertical-align:middle;'>"
+						 	+ parseInt(data[i].outAmt).toLocaleString("en-US") + "</td><td style='text-align:right;vertical-align:middle;'>"
+						 	+ parseInt(data[i].balanceAmt).toLocaleString("en-US") + "</td><td style='text-align:center;vertical-align:middle;'>"
+						 	+ data[i].branchCode + "</td><td style='text-align:center;vertical-align:middle;'>"
+						 	+ data[i].logRemark + "</td><td style='text-align:center;vertical-align:middle;'>"
+						 	+ "<input type='text' class='form-control' id='bacUpdateMemo_"+i+"' value='"+data[i].bacUpdateMemo+"'></td>";
+							
+							if(data[i].linkDoc != '' && data[i].linkDoc != null){
+						 		if(data[i].linkDoc == 'y'){
+						 			tableHtml += "<td style='text-align:center;'><button class='btn btn-sm btn-secondary sch-company' type='button' data-remote='${path}/modal/popup2.do?popId="+data[i].baclogId+"' id='bac_connect_list' data-toggle='modal' data-target='#bac_connect_listModal' data-id='"+data[i].baclogId+"'>Y</a></td>";
+						 		}else{    
+						 			tableHtml += "<td style='text-align:center;'><button class='btn btn-sm btn-secondary sch-company' type='button' data-remote='${path}/modal/popup2.do?popId="+data[i].linkDoc+"' id='bac_connect_list' data-toggle='modal' data-target='#bac_connect_listModal' data-id='"+data[i].baclogId+"'>Y</a></td>"; 
+						 		}
+						 	}else{
+						 		tableHtml += "<td style='text-align:center;'><a></a></td>";
+						 	}
+						 	
+							 if(parseInt(data[i].inAmt) > parseInt(data[i].outAmt)){
+		                        	if(data[i].linkDoc != '' && data[i].linkDoc != null){
+		                            	tableHtml += "<td style='text-align:center;'><button class='btn btn-sm btn-danger' type='button' id='bacMemoUpBtn' data-index='"+i+"' data-id='"+data[i].baclogId+"' onClick='bacUpdateMemo(this);' style='margin-right:5px;'>메모업데이트</button><button class='btn btn-sm btn-success sch-company' data-remote='${path}/modal/popup.do?popId=bacVatS' type='button' id='bacVatSBtn' data-toggle='modal' data-target='#bacVatSModal' data-id='"+data[i].baclogId+"'>추가</button></td>"
+		                            }else{
+		                                tableHtml += "<td style='text-align:center;'><button class='btn btn-sm btn-danger' type='button' id='bacMemoUpBtn' data-index='"+i+"' data-id='"+data[i].baclogId+"' onClick='bacUpdateMemo(this);' style='margin-right:5px;'>메모업데이트</button><button class='btn btn-sm btn-primary sch-company' data-remote='${path}/modal/popup.do?popId=bacVatS' type='button' id='bacVatSBtn' data-toggle='modal' data-target='#bacVatSModal' data-id='"+data[i].baclogId+"'>연결</button></td>";    
+		                            }
+		                         }else{
+		                             if(data[i].linkDoc != '' && data[i].linkDoc != null){
+		                             	tableHtml += "<td style='text-align:center;'><button class='btn btn-sm btn-danger' type='button' id='bacMemoUpBtn' data-index='"+i+"' data-id='"+data[i].baclogId+"' onClick='bacUpdateMemo(this);' style='margin-right:5px;'>메모업데이트</button><button class='btn btn-sm btn-success sch-company' data-remote='${path}/modal/popup.do?popId=bacVatB' type='button' id='bacVatSBtn' data-toggle='modal' data-target='#bacVatSModal' data-id='"+data[i].baclogId+"'>추가</button></td>"
+		                             }else{
+		                                tableHtml += "<td style='text-align:center;'><button class='btn btn-sm btn-danger' type='button' id='bacMemoUpBtn' data-index='"+i+"' data-id='"+data[i].baclogId+"' onClick='bacUpdateMemo(this);' style='margin-right:5px;'>메모업데이트</button><button class='btn btn-sm btn-primary sch-company' data-remote='${path}/modal/popup.do?popId=bacVatB' type='button' id='bacVatBBtn' data-toggle='modal' data-target='#bacVatBModal' data-id='"+data[i].baclogId+"'>연결</button></td>";
+		                             }
+		                         }
+						}
+						bacTable.html(tableHtml);
+					}else{
+						bacTable.html("");
+					}
+				}
+			});
+			
+			$.ajax({
+				url: "${path}/acc/bacSelectListCnt.do",
+				method: "post",
+				data: selectData,
+				dataType: "json",
+				success:function(data){
+					console.log(data.resultCount);
+					if(data.resultCount > 0){
+						var count = parseInt(data.resultCount/pageListNum);
+						var countRe = parseInt(data.resultCount/pageListNum);
+						var hide_next_button = counter*10
+						pageHtml = "";
+						pageHtml += "<ul class='pagination'><li class='page-item'><a class='page-link' href='#' onClick='pagePrevious(this);'>Previous</a></li>";
+						
+						if(count > pageNation){
+							for(var j = 1+counter*10; j <= pageNation*(counter+1); j++){
+								if(j <= count+1){
+									if(j == 1+counter*10){
+										pageHtml += "<li class='page-item active' id='"+ j +"'><a class='page-link' href='#' onClick='pageClick(this);'>" + j + "</a></li>";
+									}else{
+										pageHtml += "<li class='page-item' id='"+ j +"'><a class='page-link' href='#' onClick='pageClick(this);'>" + j + "</a></li>";	
+									}
+								}
+							}
+							if(hide_next_button+10 < count){
+								pageHtml += "<li class='page-item'><a class='page-link' href='#' onClick='pageNext(this);'>Next</a></li></ul>";
+							}
+						}else{
+							if(countRe > 0){
+								countRe = countRe + 1;
+							}else{
+								countRe = 0;
+							}
+							
+							for(var j = 1; j <= countRe; j++){
+								pageHtml += "<li class='page-item'><a class='page-link' href='#' onClick='pageClick(this);'>" + j + "</a></li>";
+							}
+						}
+						
+						pageDiv.html(pageHtml);
+					}else{
+						pageDiv.empty();
+					}
+				}
+			});
 		}
 		
 		function acordian_action(){

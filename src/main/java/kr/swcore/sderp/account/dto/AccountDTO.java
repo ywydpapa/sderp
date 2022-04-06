@@ -165,5 +165,9 @@ public class AccountDTO {
     
     //아이디 값 들고오기
     private int getId;
+    
+    //계좌내역검색
+    private String baclogTimeFrom;
+    private String baclogTimeTo;
 }
 

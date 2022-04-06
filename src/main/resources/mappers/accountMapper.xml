@@ -203,13 +203,36 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		</if>
  		and (a.vatBuyerCustNo = #{custNo} or a.vatSellerCustNo = #{custNo}) order by a.vatIssueDate desc;
  	</select>
+ 	
+ 	<select id="bacCalSelect" resultType="accountDto">
+		SELECT SUM(inAmt) AS inAmt, SUM(outAmt) AS outAmt from swc_bacledger 
+		where bacSerial = #{bacSerial} and attrib not like 'XXX%' 
+		and bacDesc like CONCAT('%', #{bacDesc}, '%')
+		order by baclogTime desc;
+	</select>
  
 	<select id="bacSelectList" resultType="accountDto">
-		select * from swc_bacledger where bacSerial = #{bacSerial} and attrib not like 'XXX%' order by baclogTime desc limit #{betFirstNum}, #{betLastNum};
+		select * from swc_bacledger 
+		where bacSerial = #{bacSerial} and attrib not like 'XXX%' 
+		<if test="bacDesc != null and bacDesc != ''">
+			and bacDesc like CONCAT('%', #{bacDesc}, '%')
+		</if>
+		<if test="baclogTimeFrom != null and baclogTimeFrom != ''">
+			and baclogTime Between #{baclogTimeFrom} and #{baclogTimeTo}
+		</if>
+		order by baclogTime desc limit #{betFirstNum}, #{betLastNum};
 	</select>
 	
 	<select id="bacSelectListCnt" resultType="accountDto">
-		select count(*) as resultCount from swc_bacledger where bacSerial = #{bacSerial};
+		select count(*) as resultCount from swc_bacledger
+		where bacSerial = #{bacSerial} and attrib not like 'XXX%'
+		<if test="bacDesc != null and bacDesc != ''">
+			and bacDesc like CONCAT('%', #{bacDesc}, '%')
+		</if>
+		<if test="baclogTimeFrom != null and baclogTimeFrom != ''">
+			and baclogTime Between #{baclogTimeFrom} and #{baclogTimeTo}
+		</if>
+		order by baclogTime desc 
 	</select>
 	
 	<select id="cardSelectList" resultType="accountDto">

@@ -69,6 +69,16 @@
 	                                <p class="input_inline"><input class="form-control form-control-sm col-xl-6" type="date" max="9999-12-30" id="baclogTimeFrom"> ~ <input class="form-control form-control-sm col-xl-6" type="date" max="9999-12-31" id="baclogTimeTo">
 	                                </p>
 	                            </div>
+	                            <div class="col-sm-12 col-xl-3">
+	                                <label class="col-form-label">연결여부</label>
+	                                <p class="input_inline">
+	                                	<select id="linkDoc" class="form-control">
+	                                		<option value="">선택</option>
+	                                		<option value="y">Y</option>
+	                                		<option value="n">N</option>
+	                                	</select>
+	                                </p>
+	                            </div>
                             </div>
                         </div>
                     </div>
@@ -271,25 +281,29 @@
 							 	+ data[i].logRemark + "</td><td style='text-align:center;vertical-align:middle;'>"
 							 	+ "<input type='text' class='form-control' id='bacUpdateMemo_"+i+"' value='"+data[i].bacUpdateMemo+"'></td>";
 								
-								if(data[i].linkDoc == 'y'){
-							 		tableHtml += "<td style='text-align:center;'><button class='btn btn-sm btn-secondary sch-company' type='button' data-remote='${path}/modal/popup2.do?popId="+data[i].baclogId+"' id='bac_connect_list' data-toggle='modal' data-target='#bac_connect_listModal' data-id='"+data[i].baclogId+"'>Y</a></td>";
+								if(data[i].linkDoc != 'n' && data[i].linkDoc != null){
+							 		if(data[i].linkDoc == 'y'){
+							 			tableHtml += "<td style='text-align:center;'><button class='btn btn-sm btn-secondary sch-company' type='button' data-remote='${path}/modal/popup2.do?popId="+data[i].baclogId+"' id='bac_connect_list' data-toggle='modal' data-target='#bac_connect_listModal' data-id='"+data[i].baclogId+"'>Y</a></td>";
+							 		}else{    
+							 			tableHtml += "<td style='text-align:center;'><button class='btn btn-sm btn-secondary sch-company' type='button' data-remote='${path}/modal/popup2.do?popId="+data[i].linkDoc+"' id='bac_connect_list' data-toggle='modal' data-target='#bac_connect_listModal' data-id='"+data[i].baclogId+"'>Y</a></td>"; 
+							 		}
 							 	}else{
-							 		tableHtml += "<td style='text-align:center;'><a></a></td>";
+							 		tableHtml += "<td style='text-align:center;'></td>";
 							 	}
 							 	
-		                        if(parseInt(data[i].inAmt) > parseInt(data[i].outAmt)){
-		                        	if(data[i].linkDoc == 'y'){
-		                            	tableHtml += "<td style='text-align:center;'><button class='btn btn-sm btn-danger' type='button' id='bacMemoUpBtn' data-index='"+i+"' data-id='"+data[i].baclogId+"' onClick='bacUpdateMemo(this);' style='margin-right:5px;'>메모업데이트</button><button class='btn btn-sm btn-success sch-company' data-remote='${path}/modal/popup.do?popId=bacVatS&baclogId="+data[i].baclogId+"' type='button' id='bacVatSBtn' data-toggle='modal' data-target='#bacVatSModal' data-id='"+data[i].baclogId+"'>추가</button></td>"
-		                            }else{
-		                                tableHtml += "<td style='text-align:center;'><button class='btn btn-sm btn-danger' type='button' id='bacMemoUpBtn' data-index='"+i+"' data-id='"+data[i].baclogId+"' onClick='bacUpdateMemo(this);' style='margin-right:5px;'>메모업데이트</button><button class='btn btn-sm btn-primary sch-company' data-remote='${path}/modal/popup.do?popId=bacVatS&baclogId="+data[i].baclogId+"' type='button' id='bacVatSBtn' data-toggle='modal' data-target='#bacVatSModal' data-id='"+data[i].baclogId+"'>연결</button></td>";    
-		                            }
-		                         }else{
-		                             if(data[i].linkDoc == 'y'){
-		                             	tableHtml += "<td style='text-align:center;'><button class='btn btn-sm btn-danger' type='button' id='bacMemoUpBtn' data-index='"+i+"' data-id='"+data[i].baclogId+"' onClick='bacUpdateMemo(this);' style='margin-right:5px;'>메모업데이트</button><button class='btn btn-sm btn-success sch-company' data-remote='${path}/modal/popup.do?popId=bacVatB&baclogId="+data[i].baclogId+"' type='button' id='bacVatBBtn' data-toggle='modal' data-target='#bacVatSModal' data-id='"+data[i].baclogId+"'>추가</button></td>"
-		                             }else{
-		                                tableHtml += "<td style='text-align:center;'><button class='btn btn-sm btn-danger' type='button' id='bacMemoUpBtn' data-index='"+i+"' data-id='"+data[i].baclogId+"' onClick='bacUpdateMemo(this);' style='margin-right:5px;'>메모업데이트</button><button class='btn btn-sm btn-primary sch-company' data-remote='${path}/modal/popup.do?popId=bacVatB&baclogId="+data[i].baclogId+"' type='button' id='bacVatBBtn' data-toggle='modal' data-target='#bacVatBModal' data-id='"+data[i].baclogId+"'>연결</button></td>";
-		                             }
-		                         }		
+								 if(parseInt(data[i].inAmt) > parseInt(data[i].outAmt)){
+			                        	if(data[i].linkDoc != 'n' && data[i].linkDoc != null){
+			                            	tableHtml += "<td style='text-align:center;'><button class='btn btn-sm btn-danger' type='button' id='bacMemoUpBtn' data-index='"+i+"' data-id='"+data[i].baclogId+"' onClick='bacUpdateMemo(this);' style='margin-right:5px;'>메모업데이트</button><button class='btn btn-sm btn-success sch-company' data-remote='${path}/modal/popup.do?popId=bacVatS&baclogId="+data[i].baclogId+"' type='button' id='bacVatSBtn' data-toggle='modal' data-target='#bacVatSModal' data-id='"+data[i].baclogId+"'>추가</button></td>"
+			                            }else{
+			                                tableHtml += "<td style='text-align:center;'><button class='btn btn-sm btn-danger' type='button' id='bacMemoUpBtn' data-index='"+i+"' data-id='"+data[i].baclogId+"' onClick='bacUpdateMemo(this);' style='margin-right:5px;'>메모업데이트</button><button class='btn btn-sm btn-primary sch-company' data-remote='${path}/modal/popup.do?popId=bacVatS&baclogId="+data[i].baclogId+"' type='button' id='bacVatSBtn' data-toggle='modal' data-target='#bacVatSModal' data-id='"+data[i].baclogId+"'>연결</button></td>";    
+			                            }
+			                     }else{
+			                             if(data[i].linkDoc != 'n' && data[i].linkDoc != null){
+			                             	tableHtml += "<td style='text-align:center;'><button class='btn btn-sm btn-danger' type='button' id='bacMemoUpBtn' data-index='"+i+"' data-id='"+data[i].baclogId+"' onClick='bacUpdateMemo(this);' style='margin-right:5px;'>메모업데이트</button><button class='btn btn-sm btn-success sch-company' data-remote='${path}/modal/popup.do?popId=bacVatB&baclogId="+data[i].baclogId+"' type='button' id='bacVatBBtn' data-toggle='modal' data-target='#bacVatSModal' data-id='"+data[i].baclogId+"'>추가</button></td>"
+			                             }else{
+			                                tableHtml += "<td style='text-align:center;'><button class='btn btn-sm btn-danger' type='button' id='bacMemoUpBtn' data-index='"+i+"' data-id='"+data[i].baclogId+"' onClick='bacUpdateMemo(this);' style='margin-right:5px;'>메모업데이트</button><button class='btn btn-sm btn-primary sch-company' data-remote='${path}/modal/popup.do?popId=bacVatB&baclogId="+data[i].baclogId+"' type='button' id='bacVatBBtn' data-toggle='modal' data-target='#bacVatBModal' data-id='"+data[i].baclogId+"'>연결</button></td>";
+			                             }
+			                     }		
 							}
 							bacTable.html(tableHtml);
 						}else{
@@ -453,6 +467,11 @@
 			pageCheck.baclogTimeTo = localStorage.getItem("searchDateTo");
 		}
 		
+		if(localStorage.getItem("searchLinkDoc") != null && localStorage.getItem("searchLinkDoc") != ""){
+			selectData.linkDoc = localStorage.getItem("searchLinkDoc");
+			pageCheck.linkDoc = localStorage.getItem("searchLinkDoc");
+		}
+		
 		$.ajax({
 			url: "${path}/acc/bacSelectList.do",
 			method: "get",
@@ -476,20 +495,24 @@
 					 	+ data[i].logRemark + "</td><td style='text-align:center;vertical-align:middle;'>"
 					 	+ "<input type='text' class='form-control' id='bacUpdateMemo_"+i+"' value='"+data[i].bacUpdateMemo+"'></td>";
 					 	
-					 	if(data[i].linkDoc == 'y'){
-					 		tableHtml += "<td style='text-align:center;'><button class='btn btn-sm btn-secondary sch-company' type='button' data-remote='${path}/modal/popup2.do?popId="+data[i].baclogId+"' id='bac_connect_list' data-toggle='modal' data-target='#bac_connect_listModal' data-id='"+data[i].baclogId+"'>Y</a></td>";
+					 	if(data[i].linkDoc != 'n' && data[i].linkDoc != null){
+					 		if(data[i].linkDoc == 'y'){
+					 			tableHtml += "<td style='text-align:center;'><button class='btn btn-sm btn-secondary sch-company' type='button' data-remote='${path}/modal/popup2.do?popId="+data[i].baclogId+"' id='bac_connect_list' data-toggle='modal' data-target='#bac_connect_listModal' data-id='"+data[i].baclogId+"'>Y</a></td>";
+					 		}else{    
+					 			tableHtml += "<td style='text-align:center;'><button class='btn btn-sm btn-secondary sch-company' type='button' data-remote='${path}/modal/popup2.do?popId="+data[i].linkDoc+"' id='bac_connect_list' data-toggle='modal' data-target='#bac_connect_listModal' data-id='"+data[i].baclogId+"'>Y</a></td>"; 
+					 		}
 					 	}else{
 					 		tableHtml += "<td style='text-align:center;'><a></a></td>";
 					 	}
 					 	
                         if(parseInt(data[i].inAmt) > parseInt(data[i].outAmt)){
-                        	if(data[i].linkDoc == 'y'){
+                        	if(data[i].linkDoc != 'n' && data[i].linkDoc != null){
                             	tableHtml += "<td style='text-align:center;'><button class='btn btn-sm btn-danger' type='button' id='bacMemoUpBtn' data-index='"+i+"' data-id='"+data[i].baclogId+"' onClick='bacUpdateMemo(this);' style='margin-right:5px;'>메모업데이트</button><button class='btn btn-sm btn-success sch-company' data-remote='${path}/modal/popup.do?popId=bacVatS&baclogId="+data[i].baclogId+"' type='button' id='bacVatSBtn' data-toggle='modal' data-target='#bacVatSModal' data-id='"+data[i].baclogId+"'>추가</button></td>"
                             }else{
                                 tableHtml += "<td style='text-align:center;'><button class='btn btn-sm btn-danger' type='button' id='bacMemoUpBtn' data-index='"+i+"' data-id='"+data[i].baclogId+"' onClick='bacUpdateMemo(this);' style='margin-right:5px;'>메모업데이트</button><button class='btn btn-sm btn-primary sch-company' data-remote='${path}/modal/popup.do?popId=bacVatS&baclogId="+data[i].baclogId+"' type='button' id='bacVatSBtn' data-toggle='modal' data-target='#bacVatSModal' data-id='"+data[i].baclogId+"'>연결</button></td>";    
                             }
                          }else{
-                             if(data[i].linkDoc == 'y'){
+                             if(data[i].linkDoc != 'n' && data[i].linkDoc != null){
                              	tableHtml += "<td style='text-align:center;'><button class='btn btn-sm btn-danger' type='button' id='bacMemoUpBtn' data-index='"+i+"' data-id='"+data[i].baclogId+"' onClick='bacUpdateMemo(this);' style='margin-right:5px;'>메모업데이트</button><button class='btn btn-sm btn-success sch-company' data-remote='${path}/modal/popup.do?popId=bacVatB&baclogId="+data[i].baclogId+"' type='button' id='bacVatBBtn' data-toggle='modal' data-target='#bacVatSModal' data-id='"+data[i].baclogId+"'>추가</button></td>"
                              }else{
                                 tableHtml += "<td style='text-align:center;'><button class='btn btn-sm btn-danger' type='button' id='bacMemoUpBtn' data-index='"+i+"' data-id='"+data[i].baclogId+"' onClick='bacUpdateMemo(this);' style='margin-right:5px;'>메모업데이트</button><button class='btn btn-sm btn-primary sch-company' data-remote='${path}/modal/popup.do?popId=bacVatB&baclogId="+data[i].baclogId+"' type='button' id='bacVatBBtn' data-toggle='modal' data-target='#bacVatBModal' data-id='"+data[i].baclogId+"'>연결</button></td>";
@@ -589,6 +612,11 @@
 				pageCheck.baclogTimeTo = localStorage.getItem("searchDateTo");
 			}
 			
+			if(localStorage.getItem("searchLinkDoc") != null && localStorage.getItem("searchLinkDoc") != ""){
+				selectData.linkDoc = localStorage.getItem("searchLinkDoc");
+				pageCheck.linkDoc = localStorage.getItem("searchLinkDoc");
+			}
+			
 			$.ajax({
 				url: "${path}/acc/bacSelectList.do",
 				method: "get",
@@ -609,25 +637,29 @@
 						 	+ data[i].logRemark + "</td><td style='text-align:center;vertical-align:middle;'>"
 						 	+ "<input type='text' class='form-control' id='bacUpdateMemo_"+i+"' value='"+data[i].bacUpdateMemo+"'></td>";
 							
-							if(data[i].linkDoc == 'y'){
-						 		tableHtml += "<td style='text-align:center;'><button class='btn btn-sm btn-secondary sch-company' type='button' data-remote='${path}/modal/popup2.do?popId="+data[i].baclogId+"' id='bac_connect_list' data-toggle='modal' data-target='#bac_connect_listModal' data-id='"+data[i].baclogId+"'>Y</a></td>";
+							if(data[i].linkDoc != 'n' && data[i].linkDoc != null){
+						 		if(data[i].linkDoc == 'y'){
+						 			tableHtml += "<td style='text-align:center;'><button class='btn btn-sm btn-secondary sch-company' type='button' data-remote='${path}/modal/popup2.do?popId="+data[i].baclogId+"' id='bac_connect_list' data-toggle='modal' data-target='#bac_connect_listModal' data-id='"+data[i].baclogId+"'>Y</a></td>";
+						 		}else{    
+						 			tableHtml += "<td style='text-align:center;'><button class='btn btn-sm btn-secondary sch-company' type='button' data-remote='${path}/modal/popup2.do?popId="+data[i].linkDoc+"' id='bac_connect_list' data-toggle='modal' data-target='#bac_connect_listModal' data-id='"+data[i].baclogId+"'>Y</a></td>"; 
+						 		}
 						 	}else{
 						 		tableHtml += "<td style='text-align:center;'><a></a></td>";
 						 	}
 						 	
-	                        if(parseInt(data[i].inAmt) > parseInt(data[i].outAmt)){
-	                        	if(data[i].linkDoc == 'y'){
-	                            	tableHtml += "<td style='text-align:center;'><button class='btn btn-sm btn-danger' type='button' id='bacMemoUpBtn' data-index='"+i+"' data-id='"+data[i].baclogId+"' onClick='bacUpdateMemo(this);' style='margin-right:5px;'>메모업데이트</button><button class='btn btn-sm btn-success sch-company' data-remote='${path}/modal/popup.do?popId=bacVatS&baclogId="+data[i].baclogId+"' type='button' id='bacVatSBtn' data-toggle='modal' data-target='#bacVatSModal' data-id='"+data[i].baclogId+"'>추가</button></td>"
-	                            }else{
-	                                tableHtml += "<td style='text-align:center;'><button class='btn btn-sm btn-danger' type='button' id='bacMemoUpBtn' data-index='"+i+"' data-id='"+data[i].baclogId+"' onClick='bacUpdateMemo(this);' style='margin-right:5px;'>메모업데이트</button><button class='btn btn-sm btn-primary sch-company' data-remote='${path}/modal/popup.do?popId=bacVatS&baclogId="+data[i].baclogId+"' type='button' id='bacVatSBtn' data-toggle='modal' data-target='#bacVatSModal' data-id='"+data[i].baclogId+"'>연결</button></td>";    
-	                            }
-	                         }else{
-	                             if(data[i].linkDoc == 'y'){
-	                             	tableHtml += "<td style='text-align:center;'><button class='btn btn-sm btn-danger' type='button' id='bacMemoUpBtn' data-index='"+i+"' data-id='"+data[i].baclogId+"' onClick='bacUpdateMemo(this);' style='margin-right:5px;'>메모업데이트</button><button class='btn btn-sm btn-success sch-company' data-remote='${path}/modal/popup.do?popId=bacVatB&baclogId="+data[i].baclogId+"' type='button' id='bacVatBBtn' data-toggle='modal' data-target='#bacVatSModal' data-id='"+data[i].baclogId+"'>추가</button></td>"
-	                             }else{
-	                                tableHtml += "<td style='text-align:center;'><button class='btn btn-sm btn-danger' type='button' id='bacMemoUpBtn' data-index='"+i+"' data-id='"+data[i].baclogId+"' onClick='bacUpdateMemo(this);' style='margin-right:5px;'>메모업데이트</button><button class='btn btn-sm btn-primary sch-company' data-remote='${path}/modal/popup.do?popId=bacVatB&baclogId="+data[i].baclogId+"' type='button' id='bacVatBBtn' data-toggle='modal' data-target='#bacVatBModal' data-id='"+data[i].baclogId+"'>연결</button></td>";
-	                             }
-	                         }				
+							 if(parseInt(data[i].inAmt) > parseInt(data[i].outAmt)){
+		                        	if(data[i].linkDoc != 'n' && data[i].linkDoc != null){
+		                            	tableHtml += "<td style='text-align:center;'><button class='btn btn-sm btn-danger' type='button' id='bacMemoUpBtn' data-index='"+i+"' data-id='"+data[i].baclogId+"' onClick='bacUpdateMemo(this);' style='margin-right:5px;'>메모업데이트</button><button class='btn btn-sm btn-success sch-company' data-remote='${path}/modal/popup.do?popId=bacVatS&baclogId="+data[i].baclogId+"' type='button' id='bacVatSBtn' data-toggle='modal' data-target='#bacVatSModal' data-id='"+data[i].baclogId+"'>추가</button></td>"
+		                            }else{
+		                                tableHtml += "<td style='text-align:center;'><button class='btn btn-sm btn-danger' type='button' id='bacMemoUpBtn' data-index='"+i+"' data-id='"+data[i].baclogId+"' onClick='bacUpdateMemo(this);' style='margin-right:5px;'>메모업데이트</button><button class='btn btn-sm btn-primary sch-company' data-remote='${path}/modal/popup.do?popId=bacVatS&baclogId="+data[i].baclogId+"' type='button' id='bacVatSBtn' data-toggle='modal' data-target='#bacVatSModal' data-id='"+data[i].baclogId+"'>연결</button></td>";    
+		                            }
+		                         }else{
+		                             if(data[i].linkDoc != 'n' && data[i].linkDoc != null){
+		                             	tableHtml += "<td style='text-align:center;'><button class='btn btn-sm btn-danger' type='button' id='bacMemoUpBtn' data-index='"+i+"' data-id='"+data[i].baclogId+"' onClick='bacUpdateMemo(this);' style='margin-right:5px;'>메모업데이트</button><button class='btn btn-sm btn-success sch-company' data-remote='${path}/modal/popup.do?popId=bacVatB&baclogId="+data[i].baclogId+"' type='button' id='bacVatBBtn' data-toggle='modal' data-target='#bacVatSModal' data-id='"+data[i].baclogId+"'>추가</button></td>"
+		                             }else{
+		                                tableHtml += "<td style='text-align:center;'><button class='btn btn-sm btn-danger' type='button' id='bacMemoUpBtn' data-index='"+i+"' data-id='"+data[i].baclogId+"' onClick='bacUpdateMemo(this);' style='margin-right:5px;'>메모업데이트</button><button class='btn btn-sm btn-primary sch-company' data-remote='${path}/modal/popup.do?popId=bacVatB&baclogId="+data[i].baclogId+"' type='button' id='bacVatBBtn' data-toggle='modal' data-target='#bacVatBModal' data-id='"+data[i].baclogId+"'>연결</button></td>";
+		                             }
+		                         }					
 						}
 						bacTable.html(tableHtml);
 					}else{
@@ -720,6 +752,10 @@
 				pageCheck.baclogTimeTo = localStorage.getItem("searchDateTo");
 			}
 			
+			if(localStorage.getItem("searchLinkDoc") != null && localStorage.getItem("searchLinkDoc") != ""){
+				selectData.linkDoc = localStorage.getItem("searchLinkDoc");
+				pageCheck.linkDoc = localStorage.getItem("searchLinkDoc");
+			}
 			
 			$.ajax({
 				url: "${path}/acc/bacSelectList.do",
@@ -743,25 +779,29 @@
 						 	+ data[i].logRemark + "</td><td style='text-align:center;vertical-align:middle;'>"
 						 	+ "<input type='text' class='form-control' id='bacUpdateMemo_"+i+"' value='"+data[i].bacUpdateMemo+"'></td>";
 							
-							if(data[i].linkDoc == 'y'){
-						 		tableHtml += "<td style='text-align:center;'><button class='btn btn-sm btn-secondary sch-company' type='button' data-remote='${path}/modal/popup2.do?popId="+data[i].baclogId+"' id='bac_connect_list' data-toggle='modal' data-target='#bac_connect_listModal' data-id='"+data[i].baclogId+"'>Y</a></td>";
+							if(data[i].linkDoc != 'n' && data[i].linkDoc != null){
+						 		if(data[i].linkDoc == 'y'){
+						 			tableHtml += "<td style='text-align:center;'><button class='btn btn-sm btn-secondary sch-company' type='button' data-remote='${path}/modal/popup2.do?popId="+data[i].baclogId+"' id='bac_connect_list' data-toggle='modal' data-target='#bac_connect_listModal' data-id='"+data[i].baclogId+"'>Y</a></td>";
+						 		}else{    
+						 			tableHtml += "<td style='text-align:center;'><button class='btn btn-sm btn-secondary sch-company' type='button' data-remote='${path}/modal/popup2.do?popId="+data[i].linkDoc+"' id='bac_connect_list' data-toggle='modal' data-target='#bac_connect_listModal' data-id='"+data[i].baclogId+"'>Y</a></td>"; 
+						 		}
 						 	}else{
 						 		tableHtml += "<td style='text-align:center;'><a></a></td>";
 						 	}
 						 	
-	                        if(parseInt(data[i].inAmt) > parseInt(data[i].outAmt)){
-	                        	if(data[i].linkDoc == 'y'){
-	                            	tableHtml += "<td style='text-align:center;'><button class='btn btn-sm btn-danger' type='button' id='bacMemoUpBtn' data-index='"+i+"' data-id='"+data[i].baclogId+"' onClick='bacUpdateMemo(this);' style='margin-right:5px;'>메모업데이트</button><button class='btn btn-sm btn-success sch-company' data-remote='${path}/modal/popup.do?popId=bacVatS&baclogId="+data[i].baclogId+"' type='button' id='bacVatSBtn' data-toggle='modal' data-target='#bacVatSModal' data-id='"+data[i].baclogId+"'>추가</button></td>"
-	                            }else{
-	                                tableHtml += "<td style='text-align:center;'><button class='btn btn-sm btn-danger' type='button' id='bacMemoUpBtn' data-index='"+i+"' data-id='"+data[i].baclogId+"' onClick='bacUpdateMemo(this);' style='margin-right:5px;'>메모업데이트</button><button class='btn btn-sm btn-primary sch-company' data-remote='${path}/modal/popup.do?popId=bacVatS&baclogId="+data[i].baclogId+"' type='button' id='bacVatSBtn' data-toggle='modal' data-target='#bacVatSModal' data-id='"+data[i].baclogId+"'>연결</button></td>";    
-	                            }
-	                         }else{
-	                             if(data[i].linkDoc == 'y'){
-	                             	tableHtml += "<td style='text-align:center;'><button class='btn btn-sm btn-danger' type='button' id='bacMemoUpBtn' data-index='"+i+"' data-id='"+data[i].baclogId+"' onClick='bacUpdateMemo(this);' style='margin-right:5px;'>메모업데이트</button><button class='btn btn-sm btn-success sch-company' data-remote='${path}/modal/popup.do?popId=bacVatB&baclogId="+data[i].baclogId+"' type='button' id='bacVatBBtn' data-toggle='modal' data-target='#bacVatSModal' data-id='"+data[i].baclogId+"'>추가</button></td>"
-	                             }else{
-	                                tableHtml += "<td style='text-align:center;'><button class='btn btn-sm btn-danger' type='button' id='bacMemoUpBtn' data-index='"+i+"' data-id='"+data[i].baclogId+"' onClick='bacUpdateMemo(this);' style='margin-right:5px;'>메모업데이트</button><button class='btn btn-sm btn-primary sch-company' data-remote='${path}/modal/popup.do?popId=bacVatB&baclogId="+data[i].baclogId+"' type='button' id='bacVatBBtn' data-toggle='modal' data-target='#bacVatBModal' data-id='"+data[i].baclogId+"'>연결</button></td>";
-	                             }
-	                         }
+							 if(parseInt(data[i].inAmt) > parseInt(data[i].outAmt)){
+		                        	if(data[i].linkDoc != 'n' && data[i].linkDoc != null){
+		                            	tableHtml += "<td style='text-align:center;'><button class='btn btn-sm btn-danger' type='button' id='bacMemoUpBtn' data-index='"+i+"' data-id='"+data[i].baclogId+"' onClick='bacUpdateMemo(this);' style='margin-right:5px;'>메모업데이트</button><button class='btn btn-sm btn-success sch-company' data-remote='${path}/modal/popup.do?popId=bacVatS&baclogId="+data[i].baclogId+"' type='button' id='bacVatSBtn' data-toggle='modal' data-target='#bacVatSModal' data-id='"+data[i].baclogId+"'>추가</button></td>"
+		                            }else{
+		                                tableHtml += "<td style='text-align:center;'><button class='btn btn-sm btn-danger' type='button' id='bacMemoUpBtn' data-index='"+i+"' data-id='"+data[i].baclogId+"' onClick='bacUpdateMemo(this);' style='margin-right:5px;'>메모업데이트</button><button class='btn btn-sm btn-primary sch-company' data-remote='${path}/modal/popup.do?popId=bacVatS&baclogId="+data[i].baclogId+"' type='button' id='bacVatSBtn' data-toggle='modal' data-target='#bacVatSModal' data-id='"+data[i].baclogId+"'>연결</button></td>";    
+		                            }
+		                         }else{
+		                             if(data[i].linkDoc != 'n' && data[i].linkDoc != null){
+		                             	tableHtml += "<td style='text-align:center;'><button class='btn btn-sm btn-danger' type='button' id='bacMemoUpBtn' data-index='"+i+"' data-id='"+data[i].baclogId+"' onClick='bacUpdateMemo(this);' style='margin-right:5px;'>메모업데이트</button><button class='btn btn-sm btn-success sch-company' data-remote='${path}/modal/popup.do?popId=bacVatB&baclogId="+data[i].baclogId+"' type='button' id='bacVatBBtn' data-toggle='modal' data-target='#bacVatSModal' data-id='"+data[i].baclogId+"'>추가</button></td>"
+		                             }else{
+		                                tableHtml += "<td style='text-align:center;'><button class='btn btn-sm btn-danger' type='button' id='bacMemoUpBtn' data-index='"+i+"' data-id='"+data[i].baclogId+"' onClick='bacUpdateMemo(this);' style='margin-right:5px;'>메모업데이트</button><button class='btn btn-sm btn-primary sch-company' data-remote='${path}/modal/popup.do?popId=bacVatB&baclogId="+data[i].baclogId+"' type='button' id='bacVatBBtn' data-toggle='modal' data-target='#bacVatBModal' data-id='"+data[i].baclogId+"'>연결</button></td>";
+		                             }
+		                         }
 						}
 						bacTable.html(tableHtml);
 					}else{
@@ -848,6 +888,11 @@
 				pageCheck.baclogTimeTo = localStorage.getItem("searchDateTo");
 			}
 			
+			if(localStorage.getItem("searchLinkDoc") != null && localStorage.getItem("searchLinkDoc") != ""){
+				selectData.linkDoc = localStorage.getItem("searchLinkDoc");
+				pageCheck.linkDoc = localStorage.getItem("searchLinkDoc");
+			}
+			
 			$.ajax({
 				url: "${path}/acc/bacSelectList.do",
 				method: "get",
@@ -870,25 +915,29 @@
 						 	+ data[i].logRemark + "</td><td style='text-align:center;vertical-align:middle;'>"
 						 	+ "<input type='text' class='form-control' id='bacUpdateMemo_"+i+"' value='"+data[i].bacUpdateMemo+"'></td>";
 							
-							if(data[i].linkDoc == 'y'){
-						 		tableHtml += "<td style='text-align:center;'><button class='btn btn-sm btn-secondary sch-company' type='button' data-remote='${path}/modal/popup2.do?popId="+data[i].baclogId+"' id='bac_connect_list' data-toggle='modal' data-target='#bac_connect_listModal' data-id='"+data[i].baclogId+"'>Y</a></td>";
+							if(data[i].linkDoc != 'n' && data[i].linkDoc != null){
+						 		if(data[i].linkDoc == 'y'){
+						 			tableHtml += "<td style='text-align:center;'><button class='btn btn-sm btn-secondary sch-company' type='button' data-remote='${path}/modal/popup2.do?popId="+data[i].baclogId+"' id='bac_connect_list' data-toggle='modal' data-target='#bac_connect_listModal' data-id='"+data[i].baclogId+"'>Y</a></td>";
+						 		}else{    
+						 			tableHtml += "<td style='text-align:center;'><button class='btn btn-sm btn-secondary sch-company' type='button' data-remote='${path}/modal/popup2.do?popId="+data[i].linkDoc+"' id='bac_connect_list' data-toggle='modal' data-target='#bac_connect_listModal' data-id='"+data[i].baclogId+"'>Y</a></td>"; 
+						 		}
 						 	}else{
 						 		tableHtml += "<td style='text-align:center;'><a></a></td>";
 						 	}
 						 	
-	                        if(parseInt(data[i].inAmt) > parseInt(data[i].outAmt)){
-	                        	if(data[i].linkDoc == 'y'){
-	                            	tableHtml += "<td style='text-align:center;'><button class='btn btn-sm btn-danger' type='button' id='bacMemoUpBtn' data-index='"+i+"' data-id='"+data[i].baclogId+"' onClick='bacUpdateMemo(this);' style='margin-right:5px;'>메모업데이트</button><button class='btn btn-sm btn-success sch-company' data-remote='${path}/modal/popup.do?popId=bacVatS&baclogId="+data[i].baclogId+"' type='button' id='bacVatSBtn' data-toggle='modal' data-target='#bacVatSModal' data-id='"+data[i].baclogId+"'>추가</button></td>"
-	                            }else{
-	                                tableHtml += "<td style='text-align:center;'><button class='btn btn-sm btn-danger' type='button' id='bacMemoUpBtn' data-index='"+i+"' data-id='"+data[i].baclogId+"' onClick='bacUpdateMemo(this);' style='margin-right:5px;'>메모업데이트</button><button class='btn btn-sm btn-primary sch-company' data-remote='${path}/modal/popup.do?popId=bacVatS&baclogId="+data[i].baclogId+"' type='button' id='bacVatSBtn' data-toggle='modal' data-target='#bacVatSModal' data-id='"+data[i].baclogId+"'>연결</button></td>";    
-	                            }
-	                         }else{
-	                             if(data[i].linkDoc == 'y'){
-	                             	tableHtml += "<td style='text-align:center;'><button class='btn btn-sm btn-danger' type='button' id='bacMemoUpBtn' data-index='"+i+"' data-id='"+data[i].baclogId+"' onClick='bacUpdateMemo(this);' style='margin-right:5px;'>메모업데이트</button><button class='btn btn-sm btn-success sch-company' data-remote='${path}/modal/popup.do?popId=bacVatB&baclogId="+data[i].baclogId+"' type='button' id='bacVatBBtn' data-toggle='modal' data-target='#bacVatSModal' data-id='"+data[i].baclogId+"'>추가</button></td>"
-	                             }else{
-	                                tableHtml += "<td style='text-align:center;'><button class='btn btn-sm btn-danger' type='button' id='bacMemoUpBtn' data-index='"+i+"' data-id='"+data[i].baclogId+"' onClick='bacUpdateMemo(this);' style='margin-right:5px;'>메모업데이트</button><button class='btn btn-sm btn-primary sch-company' data-remote='${path}/modal/popup.do?popId=bacVatB&baclogId="+data[i].baclogId+"' type='button' id='bacVatBBtn' data-toggle='modal' data-target='#bacVatBModal' data-id='"+data[i].baclogId+"'>연결</button></td>";
-	                             }
-	                         }
+							 if(parseInt(data[i].inAmt) > parseInt(data[i].outAmt)){
+		                        	if(data[i].linkDoc != 'n' && data[i].linkDoc != null){
+		                            	tableHtml += "<td style='text-align:center;'><button class='btn btn-sm btn-danger' type='button' id='bacMemoUpBtn' data-index='"+i+"' data-id='"+data[i].baclogId+"' onClick='bacUpdateMemo(this);' style='margin-right:5px;'>메모업데이트</button><button class='btn btn-sm btn-success sch-company' data-remote='${path}/modal/popup.do?popId=bacVatS&baclogId="+data[i].baclogId+"' type='button' id='bacVatSBtn' data-toggle='modal' data-target='#bacVatSModal' data-id='"+data[i].baclogId+"'>추가</button></td>"
+		                            }else{
+		                                tableHtml += "<td style='text-align:center;'><button class='btn btn-sm btn-danger' type='button' id='bacMemoUpBtn' data-index='"+i+"' data-id='"+data[i].baclogId+"' onClick='bacUpdateMemo(this);' style='margin-right:5px;'>메모업데이트</button><button class='btn btn-sm btn-primary sch-company' data-remote='${path}/modal/popup.do?popId=bacVatS&baclogId="+data[i].baclogId+"' type='button' id='bacVatSBtn' data-toggle='modal' data-target='#bacVatSModal' data-id='"+data[i].baclogId+"'>연결</button></td>";    
+		                            }
+		                         }else{
+		                             if(data[i].linkDoc != 'n' && data[i].linkDoc != null){
+		                             	tableHtml += "<td style='text-align:center;'><button class='btn btn-sm btn-danger' type='button' id='bacMemoUpBtn' data-index='"+i+"' data-id='"+data[i].baclogId+"' onClick='bacUpdateMemo(this);' style='margin-right:5px;'>메모업데이트</button><button class='btn btn-sm btn-success sch-company' data-remote='${path}/modal/popup.do?popId=bacVatB&baclogId="+data[i].baclogId+"' type='button' id='bacVatBBtn' data-toggle='modal' data-target='#bacVatSModal' data-id='"+data[i].baclogId+"'>추가</button></td>"
+		                             }else{
+		                                tableHtml += "<td style='text-align:center;'><button class='btn btn-sm btn-danger' type='button' id='bacMemoUpBtn' data-index='"+i+"' data-id='"+data[i].baclogId+"' onClick='bacUpdateMemo(this);' style='margin-right:5px;'>메모업데이트</button><button class='btn btn-sm btn-primary sch-company' data-remote='${path}/modal/popup.do?popId=bacVatB&baclogId="+data[i].baclogId+"' type='button' id='bacVatBBtn' data-toggle='modal' data-target='#bacVatBModal' data-id='"+data[i].baclogId+"'>연결</button></td>";
+		                             }
+		                         }
 						}
 						bacTable.html(tableHtml);
 					}else{
@@ -1002,10 +1051,12 @@
 			selectData.bacDesc = $("#bacDesc").val();
 			selectData.baclogTimeFrom = $("#baclogTimeFrom").val();
 			selectData.baclogTimeTo = $("#baclogTimeTo").val();
+			selectData.linkDoc = $("#linkDoc").val();
 			
 			localStorage.setItem("searchDesc", $("#bacDesc").val());
 			localStorage.setItem("searchDateFrom", $("#baclogTimeFrom").val());
 			localStorage.setItem("searchDateTo", $("#baclogTimeTo").val());
+			localStorage.setItem("searchLinkDoc", $("#linkDoc").val());
 			
 			$.ajax({
 				url: "${path}/acc/bacCalSelect.do",
@@ -1044,23 +1095,27 @@
 						 	+ data[i].logRemark + "</td><td style='text-align:center;vertical-align:middle;'>"
 						 	+ "<input type='text' class='form-control' id='bacUpdateMemo_"+i+"' value='"+data[i].bacUpdateMemo+"'></td>";
 							
-							if(data[i].linkDoc == 'y'){
-						 		tableHtml += "<td style='text-align:center;'><button class='btn btn-sm btn-secondary sch-company' type='button' data-remote='${path}/modal/popup2.do?popId="+data[i].baclogId+"' id='bac_connect_list' data-toggle='modal' data-target='#bac_connect_listModal' data-id='"+data[i].baclogId+"'>Y</a></td>";
+							if(data[i].linkDoc != 'n' && data[i].linkDoc != null){
+						 		if(data[i].linkDoc == 'y'){
+						 			tableHtml += "<td style='text-align:center;'><button class='btn btn-sm btn-secondary sch-company' type='button' data-remote='${path}/modal/popup2.do?popId="+data[i].baclogId+"' id='bac_connect_list' data-toggle='modal' data-target='#bac_connect_listModal' data-id='"+data[i].baclogId+"'>Y</a></td>";
+						 		}else{    
+						 			tableHtml += "<td style='text-align:center;'><button class='btn btn-sm btn-secondary sch-company' type='button' data-remote='${path}/modal/popup2.do?popId="+data[i].linkDoc+"' id='bac_connect_list' data-toggle='modal' data-target='#bac_connect_listModal' data-id='"+data[i].baclogId+"'>Y</a></td>"; 
+						 		}
 						 	}else{
 						 		tableHtml += "<td style='text-align:center;'><a></a></td>";
 						 	}
 						 	
-	                        if(parseInt(data[i].inAmt) > parseInt(data[i].outAmt)){
-	                        	if(data[i].linkDoc == 'y'){
-	                            	tableHtml += "<td style='text-align:center;'><button class='btn btn-sm btn-danger' type='button' id='bacMemoUpBtn' data-index='"+i+"' data-id='"+data[i].baclogId+"' onClick='bacUpdateMemo(this);' style='margin-right:5px;'>메모업데이트</button><button class='btn btn-sm btn-success sch-company' data-remote='${path}/modal/popup.do?popId=bacVatS&baclogId="+data[i].baclogId+"' type='button' id='bacVatSBtn' data-toggle='modal' data-target='#bacVatSModal' data-id='"+data[i].baclogId+"'>추가</button></td>"
+							 if(parseInt(data[i].inAmt) > parseInt(data[i].outAmt)){
+	                        	if(data[i].linkDoc != 'n' && data[i].linkDoc != null){
+	                            	tableHtml += "<td style='text-align:center;'><button class='btn btn-sm btn-danger' type='button' id='bacMemoUpBtn' data-index='"+i+"' data-id='"+data[i].baclogId+"' onClick='bacUpdateMemo(this);' style='margin-right:5px;'>메모업데이트</button><button class='btn btn-sm btn-success sch-company' data-remote='${path}/modal/popup.do?popId=bacVatS' type='button' id='bacVatSBtn' data-toggle='modal' data-target='#bacVatSModal' data-id='"+data[i].baclogId+"'>추가</button></td>"
 	                            }else{
-	                                tableHtml += "<td style='text-align:center;'><button class='btn btn-sm btn-danger' type='button' id='bacMemoUpBtn' data-index='"+i+"' data-id='"+data[i].baclogId+"' onClick='bacUpdateMemo(this);' style='margin-right:5px;'>메모업데이트</button><button class='btn btn-sm btn-primary sch-company' data-remote='${path}/modal/popup.do?popId=bacVatS&baclogId="+data[i].baclogId+"' type='button' id='bacVatSBtn' data-toggle='modal' data-target='#bacVatSModal' data-id='"+data[i].baclogId+"'>연결</button></td>";    
+	                                tableHtml += "<td style='text-align:center;'><button class='btn btn-sm btn-danger' type='button' id='bacMemoUpBtn' data-index='"+i+"' data-id='"+data[i].baclogId+"' onClick='bacUpdateMemo(this);' style='margin-right:5px;'>메모업데이트</button><button class='btn btn-sm btn-primary sch-company' data-remote='${path}/modal/popup.do?popId=bacVatS' type='button' id='bacVatSBtn' data-toggle='modal' data-target='#bacVatSModal' data-id='"+data[i].baclogId+"'>연결</button></td>";    
 	                            }
 	                         }else{
-	                             if(data[i].linkDoc == 'y'){
-	                             	tableHtml += "<td style='text-align:center;'><button class='btn btn-sm btn-danger' type='button' id='bacMemoUpBtn' data-index='"+i+"' data-id='"+data[i].baclogId+"' onClick='bacUpdateMemo(this);' style='margin-right:5px;'>메모업데이트</button><button class='btn btn-sm btn-success sch-company' data-remote='${path}/modal/popup.do?popId=bacVatB&baclogId="+data[i].baclogId+"' type='button' id='bacVatBBtn' data-toggle='modal' data-target='#bacVatSModal' data-id='"+data[i].baclogId+"'>추가</button></td>"
+	                             if(data[i].linkDoc != 'n' && data[i].linkDoc != null){
+	                             	tableHtml += "<td style='text-align:center;'><button class='btn btn-sm btn-danger' type='button' id='bacMemoUpBtn' data-index='"+i+"' data-id='"+data[i].baclogId+"' onClick='bacUpdateMemo(this);' style='margin-right:5px;'>메모업데이트</button><button class='btn btn-sm btn-success sch-company' data-remote='${path}/modal/popup.do?popId=bacVatB' type='button' id='bacVatSBtn' data-toggle='modal' data-target='#bacVatSModal' data-id='"+data[i].baclogId+"'>추가</button></td>"
 	                             }else{
-	                                tableHtml += "<td style='text-align:center;'><button class='btn btn-sm btn-danger' type='button' id='bacMemoUpBtn' data-index='"+i+"' data-id='"+data[i].baclogId+"' onClick='bacUpdateMemo(this);' style='margin-right:5px;'>메모업데이트</button><button class='btn btn-sm btn-primary sch-company' data-remote='${path}/modal/popup.do?popId=bacVatB&baclogId="+data[i].baclogId+"' type='button' id='bacVatBBtn' data-toggle='modal' data-target='#bacVatBModal' data-id='"+data[i].baclogId+"'>연결</button></td>";
+	                                tableHtml += "<td style='text-align:center;'><button class='btn btn-sm btn-danger' type='button' id='bacMemoUpBtn' data-index='"+i+"' data-id='"+data[i].baclogId+"' onClick='bacUpdateMemo(this);' style='margin-right:5px;'>메모업데이트</button><button class='btn btn-sm btn-primary sch-company' data-remote='${path}/modal/popup.do?popId=bacVatB' type='button' id='bacVatBBtn' data-toggle='modal' data-target='#bacVatBModal' data-id='"+data[i].baclogId+"'>연결</button></td>";
 	                             }
 	                         }
 						}

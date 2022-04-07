@@ -211,6 +211,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<if test="baclogTimeFrom != null and baclogTimeFrom != ''">
 			and baclogTime Between #{baclogTimeFrom} and #{baclogTimeTo}
 		</if>
+		<if test="linkDoc != null and linkDoc != ''">
+			and linkDoc = #{linkDoc}
+		</if>
 		order by baclogTime desc;
 	</select>
  
@@ -223,6 +226,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<if test="baclogTimeFrom != null and baclogTimeFrom != ''">
 			and baclogTime Between #{baclogTimeFrom} and #{baclogTimeTo}
 		</if>
+		<if test="linkDoc != null and linkDoc != ''">
+			and linkDoc = #{linkDoc}
+		</if>
 		order by baclogTime desc limit #{betFirstNum}, #{betLastNum};
 	</select>
 	
@@ -234,6 +240,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		</if>
 		<if test="baclogTimeFrom != null and baclogTimeFrom != ''">
 			and baclogTime Between #{baclogTimeFrom} and #{baclogTimeTo}
+		</if>
+		<if test="linkDoc != null and linkDoc != ''">
+			and linkDoc = #{linkDoc}
 		</if>
 		order by baclogTime desc 
 	</select>

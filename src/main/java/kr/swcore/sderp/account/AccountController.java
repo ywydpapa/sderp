@@ -505,7 +505,7 @@ public class AccountController {
         String number_linkDoc = accountService.number_linkDoc(dto);
         
         if(!number_linkDoc.equals("y")) {
-        	if(!number_linkDoc.equals("")) {
+        	if(!number_linkDoc.equals("n")) {
         		dto.setLinkDocno(number_linkDoc);
         		accountService.change_originlinkDoc(dto);
         		//연결하는 금액과 통장 금액이 일치하는 경우 s5로 변경

@@ -742,11 +742,11 @@ attrib) values (#{vatId},
 		WHERE linkDoc = #{linkDocno}
 	</select>
 	<update id="cancelconnect_linkDoc">
-		update swc_bacledger set linkDoc = ''
+		update swc_bacledger set linkDoc = 'n'
 		where linkDoc = #{linkDocno}
 	</update>
 	<update id="cancel_connect_final">
-		update swc_bacledger set linkDoc = ''
+		update swc_bacledger set linkDoc = 'n'
 		where baclogId = #{baclogId}
 	</update>
 	<select id="number_linkDoc" resultType="String">

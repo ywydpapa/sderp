@@ -188,7 +188,9 @@
 	                   			<button type="button" class="btn btn-primary" id="AbtnStatus2" onClick="fn_ABtnStatus2();" style="margin-right:10px;">검토요청</button>
 	                   			<button type="button" class="btn btn-secondary" id="AbtnStatus5" onClick="fn_ABtnStatus5();">승인완료</button>
 	                   			<div id="drawDiv" style="float:right;">
-	                   				<button type="button" class="btn btn-secondary" data-remote="${path}/modal/popup.do?popId=docDrawModal" data-toggle="modal" id="drawBtn" data-target="#docDrawModal" disabled>출금</button>
+	                   				<%-- <button type="button" class="btn btn-secondary" data-remote="${path}/modal/popup.do?popId=docDrawModal" data-toggle="modal" id="drawBtn" data-target="#docDrawModal" disabled>출금</button>
+	                   				<button type="button" class="btn btn-secondary" id="drawDelBtn" disabled>출금취소</button> --%>
+	                   				<button type="button" class="btn btn-secondary" id="drawBtn" disabled>출금</button>
 	                   				<button type="button" class="btn btn-secondary" id="drawDelBtn" disabled>출금취소</button>
 	                   			</div>
                    			</div>
@@ -765,39 +767,54 @@
     		location.href = url;
         }
         
-        function reverse(str) {
+        /* function reverse(str) {
 	        var reverse = str.split('');
 	        reverse = reverse.reverse();
 	     
 	        return reverse.join('')
-	    }
+	    } */
         
         function docDrawUpdate(){
-        	if(confirm("출금 상태를 완료하시겠습니까??")){
+        	if(confirm("출금 상태를 변경하시겠습니까??")){
 	        	var tableCheck = $("#myDocTable tbody tr td");
 	        	var path = $(location).attr("pathname");
 	        	var compNo = "${sessionScope.compNo}";
-	        	var bacNo = $("#bacNo").val();
-				var bacSerial = reverse(bacNo).replaceAll("-", "");
-				var tableCheckLength = tableCheck.find("#docCheck").length;
+	        	/* var bacNo = $("#bacNo").val();
+				var bacSerial = reverse(bacNo).replaceAll("-", ""); */
+				var tableCheckLength = tableCheck.find("#docCheck:checked").length;
 				
 	        	tableCheck.find("#docCheck").each(function(index, item){
 	        		if($(item).is(":checked") === true){
 			        	var updateData = {};
-			        	var drawData = {};
-			        	var drawAfterData = {};
+
+			        	updateData.docNo = $(item).attr("data-id");
 			        	
+	        			/* var drawData = {};
+			        	var drawAfterData = {};
+	        			
 			        	drawData.compNo = compNo;
 			        	drawData.bacDesc = $(item).parents("tr").find("#bacDesc").html();
 			        	drawData.inAmt = 0;
 			        	drawData.outAmt = 0;
 			        	drawData.logType = $("#logType").val();
 			        	drawData.branchCode = $("#branchCode").val();
-			        	drawData.linkDoc = "";
+			        	drawData.linkDoc = ""; */
 			        	
 	        			$.LoadingOverlay("show", true);
 	        			
-			        	$.ajax({
+	        			$.ajax({
+			        		url: "${path}/gw/docDrawUpdate.do",
+			        		method: "post",
+			        		data: updateData,
+			        		async: false,
+			        		dataType: "json",
+			        		error: function(){
+			        			alert("상태를 변경할 수 없습니다.\n다시 시도해주십시오.");
+			        			return false;
+			        		}
+			        	});
+	        			
+			        	/* $.ajax({
 			        		url: "${path}/acc/bacDrawInsert.do",
 			        		method: "post",
 			        		data: drawData,
@@ -841,7 +858,7 @@
 			        			alert("등록이 정상적으로 되지 않았습니다.\n다시 시도해주십시오.");
 			        			return false;
 			        		}
-			        	});
+			        	}); */
 	        		}
 	        		
 		        	if(index == tableCheckLength){
@@ -866,20 +883,32 @@
 	        	var tableCheck = $("#myDocTable tbody tr td");
 	        	var path = $(location).attr("pathname");
 	        	var compNo = "${sessionScope.compNo}";
-	        	var tableCheckLength = tableCheck.find("#docCheck").length;
+	        	var tableCheckLength = tableCheck.find("#docCheck:checked").length;
 	        	
 	        	tableCheck.find("#docCheck").each(function(index, item){
 	        		if($(item).is(":checked") === true){
 			        	var updateDocData = {};
-		        		var updateBacData = {};
-		        		
 		        		updateDocData.docNo = $(item).attr("data-id");
+		        		
+/* 		        		var updateBacData = {};
 		        		updateBacData.compNo = compNo;
 		        		updateBacData.baclogId = $(item).attr("data-drawno");
-		        		
+ */		        		
 	        			$.LoadingOverlay("show", true);
 	        			
-			        	$.ajax({
+	        			$.ajax({
+			        		url: "${path}/gw/docDrawDelete.do",
+			        		method: "post",
+			        		async: false,
+			        		data: updateDocData,
+			        		dataType: "json",
+			        		error: function(){
+			        			alert("상태를 제대로 변경하지 못했습니다.\n다시 시도해주십시오.");
+			        			return false;
+			        		}
+			        	});
+	        			
+			        	/* $.ajax({
 			        		url: "${path}/gw/docDrawDelete.do",
 			        		method: "post",
 			        		async: false,
@@ -902,7 +931,7 @@
 			        			alert("상태를 제대로 변경하지 못했습니다.\n다시 시도해주십시오.");
 			        			return false;
 			        		}
-			        	});
+			        	}); */
 	        		}
 	        		
 	        		if(index == tableCheckLength){
@@ -929,11 +958,12 @@
         });
         
         function drawCheckClick(){
-       		console.log($("#myDocTable tbody tr td").find("#docCheck:checked").length);
         	if($("#myDocTable tbody tr td").find("#docCheck:checked").length > 0){
     			$("#drawBtn").removeAttr("class");
+    			$("#drawBtn").removeAttr("onClick");
     			$("#drawBtn").attr("disabled", false);
     			$("#drawBtn").attr("class", "btn btn-success");
+    			$("#drawBtn").attr("onClick", "docDrawUpdate();");
     			$("#drawDelBtn").attr("disabled", false);
     			$("#drawDelBtn").removeAttr("class");
     			$("#drawDelBtn").removeAttr("onClick");
@@ -941,6 +971,7 @@
     			$("#drawDelBtn").attr("onClick", "docDrawDelete();");
     		}else{
     			$("#drawBtn").removeAttr("class");
+    			$("#drawBtn").removeAttr("onClick");
     			$("#drawBtn").attr("disabled", true);
     			$("#drawBtn").attr("class", "btn btn-secondary");
     			$("#drawDelBtn").attr("disabled", true);
@@ -952,20 +983,25 @@
         
         function drawAllCheckClick(e){
         	if($(e).is(":checked") === true){
-    			$("#drawBtn").removeAttr("class");
-    			$("#drawBtn").attr("disabled", false);
-    			$("#drawBtn").attr("class", "btn btn-success");
-    			$("#drawDelBtn").removeAttr("class");
-    			$("#drawDelBtn").attr("disabled", false);
-    			$("#drawDelBtn").removeAttr("onClick");
-    			$("#drawDelBtn").attr("class", "btn btn-danger");
-    			$("#drawDelBtn").attr("onClick", "docDrawDelete();");
-    			
     			$("#myDocTable tbody tr td").find("#docCheck").each(function(index, item){
     				$(item).prop("checked", true);
     			});
+				
+    			if($("#myDocTable tbody tr td").find("#docCheck:checked").length > 0){
+	    			$("#drawBtn").removeAttr("class");
+	    			$("#drawBtn").removeAttr("onClick");
+	    			$("#drawBtn").attr("disabled", false);
+	    			$("#drawBtn").attr("class", "btn btn-success");
+	    			$("#drawBtn").attr("onClick", "docDrawUpdate();");
+	    			$("#drawDelBtn").removeAttr("class");
+	    			$("#drawDelBtn").attr("disabled", false);
+	    			$("#drawDelBtn").removeAttr("onClick");
+	    			$("#drawDelBtn").attr("class", "btn btn-danger");
+	    			$("#drawDelBtn").attr("onClick", "docDrawDelete();");
+    			}
     		}else{
     			$("#drawBtn").removeAttr("class");
+    			$("#drawBtn").removeAttr("onClick");
     			$("#drawBtn").attr("disabled", true);
     			$("#drawBtn").attr("class", "btn btn-secondary");
     			$("#drawDelBtn").attr("disabled", true);

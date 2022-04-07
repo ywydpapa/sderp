@@ -497,6 +497,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			vatRemark,
 			vatIssueType,
 			linkedDocNo,
+			modal_vatmemo,
 			regDate,
 	 		attrib)
 		values 
@@ -523,6 +524,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		#{vatRemark},
 		#{vatIssueType},
 		#{linkedDocNo},
+		#{modal_vatmemo},
 		now(),
 		'100001'
 	);

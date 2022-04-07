@@ -40,7 +40,14 @@
     <tbody>
 	    <c:forEach var="row" items="${list}">
 	      <tr align="center">
-	      	<td><input type="checkbox" class="form-control" id="checkSerial" data-number="${row.vatSerial}"></td>
+	      	<c:choose>
+	      		<c:when test="${row.vatAmount >= 0}">
+	      			<td><input type="checkbox" class="form-control" id="checkSerial" data-number="${row.vatSerial}" data-code="${row.modal_vatmemo}"></td>
+	      		</c:when>
+	      		<c:otherwise>
+	      			<td><input type="checkbox" class="form-control" id="checkSerial" data-number="${row.vatSerial}" data-code="${row.modal_vatmemo}" disabled></td>
+	      		</c:otherwise>
+	      	</c:choose>
 	      	<td>${row.vatIssueDate}</td>
 	        <c:choose>
 		        <c:when test="${empty row.custName}">

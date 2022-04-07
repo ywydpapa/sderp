@@ -458,6 +458,7 @@
                         vatData.vatStandard = $Narr[i].innerText;
                         vatData.vatQuan = Number($Oarr[i].innerText);
                         vatData.vatNet = isNaN(Number($Parr[i].innerText)) ? 0 : Number($Parr[i].innerText);
+                        vatData.modal_vatmemo = parseInt(vatData.vatAmount + vatData.vatTax).toLocaleString("en-US");
                         
                         $.ajax({
                         	url: "${path}/acc/selectVatCust/" + vatData.vatNo,
@@ -557,19 +558,20 @@
 	                        vatData.vatRemark = $Jarr[i].innerText;
 	                        vatData.vatIssueType = $Iarr[i].innerText;
 						}                        
-						 if($Qarr[i].innerText == '일반' || $Qarr[i].innerText == '일반(수정)'){
-	                        	vatData.vatBillType = '01';
-	                        }else if($Qarr[i].innerText == '영세율'){
-	                        	vatData.vatBillType = '02';
-	                        }
-	                        
-	                        if($Rarr[i].innerText == '영수'){
-	                        	vatData.vatRecType = '01';
-	                        }else if($Rarr[i].innerText == '청구'){
-	                        	vatData.vatRecType = '02';
-	                        }
-	                        
-                        console.log(vatData);
+						if($Qarr[i].innerText == '일반' || $Qarr[i].innerText == '일반(수정)'){
+                        	vatData.vatBillType = '01';
+                        }else if($Qarr[i].innerText == '영세율'){
+                        	vatData.vatBillType = '02';
+                        }
+                        
+                        if($Rarr[i].innerText == '영수'){
+                        	vatData.vatRecType = '01';
+                        }else if($Rarr[i].innerText == '청구'){
+                        	vatData.vatRecType = '02';
+                        }
+                        
+                        vatData.modal_vatmemo = parseInt(vatData.vatAmount + vatData.vatTax).toLocaleString("en-US");    
+                        
                         $.ajax({
                         	url: "${path}/acc/selectVatCust/" + $Earr[i].innerText,
                         	method: "post",

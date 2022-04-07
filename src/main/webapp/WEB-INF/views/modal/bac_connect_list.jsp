@@ -19,9 +19,9 @@
         	<col width="10%"/>
         	<col width="5%"/>
         	<col width="5%"/>
-        	<col width="10%"/>
-        	<col width="10%"/>
-        	<col width="15%"/>
+        	<col width="7%"/>
+        	<col width="5%"/>
+        	<col width="5%"/>
         </colgroup>
         <thead>
 		    <tr>
@@ -31,7 +31,8 @@
 		      	<th>금액</th>
 		      	<th>품명</th>
 		      	<th>비고</th>
-		      	<th>남은금액</th>
+		      	<th>연결금액</th>
+	      		<th>남은금액</th>
 		      	<th>승인번호</th>
 		    </tr>
 	    </thead>
@@ -69,13 +70,30 @@
 		        <td>₩<fmt:formatNumber value="${row.vatAmount + row.vatTax}" pattern="#,###" /></td>
 		        <td>${row.vatProductName}</td>
 		        <td class="text-left">${row.vatRemark}</td>
-		        <td><input type="text" class='form-control-sm' id="modal_vatmemo" style="border: 1px solid #ccc;" onkeyup="inputNumberFormat(this)" value="${row.modal_vatmemo}"></td>
+		        <td><input type="text" class='form-control-sm' id="" style="border: 1px solid #ccc;" onkeyup="inputNumberFormat(this)" value="<fmt:formatNumber value="${row.receive_data}" pattern="#,###" />"  disabled></td>
+	        	<td><input type="text" class='form-control-sm' id="modal_vatmemo" style="border: 1px solid #ccc;" onkeyup="inputNumberFormat(this)" value="<fmt:formatNumber value="${row.remain_data}" pattern="#,###" />"  disabled></td>
 		        <td>${row.vatSerial}</td>
 		        </tr>
 		    </c:forEach>
-		    
 	    </tbody>
     </table>
+
+  <table id="table_test" class="table table-striped table-bordered nowrap">
+  	<thead>
+		<tr>
+			<th>차액</th>
+			<th id="received_price_col">비고</th>
+		</tr>
+	</thead>
+	<tbody>
+		<c:forEach var="row" items="${list_secound}">
+			<tr align="center">
+				<td id="test2"><input id="difference_price" class='form-control-sm' style="border: 1px solid #ccc;" type="text" value="<fmt:formatNumber value="${row.difference_price}" pattern="#,###" />"></td>
+				<td><input id="received_price_detail" class='form-control' style="border: 1px solid #ccc;" type="text" value="${row.difference_memo}"></td>
+			</tr>
+		</c:forEach>
+	</tbody>
+  </table>
 </div>
 <script>
 function inputNumberFormat(obj) {
@@ -111,8 +129,8 @@ function cancelconnect(){
 		  			deleteData.compNo = compNo;
 		  			deleteData.baclogId = bacId;
 		  			deleteData.linkDocno = $(item).attr("data-number");
-		  			deleteData.modal_vatmemo = $(item).parent().next().next().next().next().next().next().children().first().val();
-		  			
+		  			deleteData.cancel_lincked_price = parseInt($(item).parent().next().next().next().next().next().next().children().first().val().replace(/,/g, ""));
+
 		  			$.ajax({
 		  				url: "${path}/acc/connect_link_check_cancel.do",
 		  				method: "post",
@@ -122,9 +140,15 @@ function cancelconnect(){
 		  			});
 		  		}
 		  	});
+			alert("취소되었습니다.");
 			localStorage.setItem('lastTab', $('#baclist_num').val());
 			localStorage.setItem('lastpageNum', $('#reloadpage_num').val());
 			location.href="${path}/acc/bacdetail.do";
 	}
 }
 </script>
+<style>
+	.modal-content {
+    width: 100%;
+}
+</style>

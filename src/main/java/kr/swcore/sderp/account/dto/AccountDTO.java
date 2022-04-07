@@ -132,7 +132,16 @@ public class AccountDTO {
     private int buyrMemberNo;
     private String custMname;
     private String modal_vatmemo;
+    private BigDecimal modal_receive_data;
+    private BigDecimal modal_vatmemo_secound;
     private BigDecimal total_Amt;
+    private BigDecimal received_price;
+    private BigDecimal difference_price;
+    private String difference_memo;
+    private BigDecimal receive_data;
+    private BigDecimal remain_data;
+    private BigDecimal modal_receive_data_sole;
+    private BigDecimal cancel_lincked_price;
     
     //계산서 추가 컬럼
     private int contNo;

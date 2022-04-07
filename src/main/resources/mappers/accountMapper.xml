@@ -556,6 +556,8 @@ attrib) values (#{vatId},
 			linkType,
 			linkDocno,
 			regDate,
+			receive_data,
+			remain_data,
 			attrib	
 		)
 		values
@@ -565,6 +567,8 @@ attrib) values (#{vatId},
 			#{linkType},
 			#{linkDocno},
 			now(),
+			#{modal_receive_data_sole},
+			#{modal_vatmemo_secound},
 			'10000'			
 		);
 	</insert>
@@ -706,8 +710,12 @@ attrib) values (#{vatId},
 	<select id="bac_connect_list" resultType="accountDto">
 		SELECT * FROM swc_vat WHERE vatSerial = #{vatId}
 	</select>
+	<select id="list_secound_modalVatB_secound" resultType="accountDto">
+		select * from swc_bacledger
+		where baclogId = #{baclogId}
+	</select>
 	<select id="new_bac_connect_list" resultType="accountDto">
-		SELECT b.*, c.custName FROM swc_bacledger_detail a 
+		SELECT b.*, c.custName, a.* FROM swc_bacledger_detail a 
 		left join swc_vat b on a.linkDocno = b.vatSerial
 		LEFT JOIN swc_cust c ON b.vatBuyerCustNo = c.custNo
 		WHERE baclogId = #{vatId}
@@ -753,6 +761,8 @@ attrib) values (#{vatId},
 			linkType,
 			linkDocno,
 			regDate,
+			receive_data,
+			remain_data,
 			attrib	
 		)
 		values
@@ -762,6 +772,8 @@ attrib) values (#{vatId},
 			#{linkType},
 			#{linkDocno},
 			now(),
+			#{modal_receive_data_sole},
+			#{modal_vatmemo_secound},
 			'10000'			
 		);
 	</insert>
@@ -821,7 +833,7 @@ attrib) values (#{vatId},
 		WHERE a.contNo = #{contNo}
 	</select>
 	<update id="bacCheckConnect_modal_update">
-		update swc_vat set modal_vatmemo = #{modal_vatmemo}
+		update swc_vat set modal_vatmemo = #{modal_vatmemo}, modal_receive_data = #{modal_receive_data}
 		where vatSerial = #{linkDocno};
 	</update>
 	<select id="checktotalprice_vat_and_detail" resultType="accountDto">
@@ -840,8 +852,26 @@ attrib) values (#{vatId},
 		SELECT COUNT(*) FROM swc_bacledger_detail
 		WHERE linkDocno = #{linkDocno}
 	</select>
-	
-	
+	<select id="list_secound_modalVatB" resultType="accountDto">
+		select * from swc_bacledger
+		where baclogId = #{baclogId}
+	</select>
+	<update id="bacCheckConnect_modal_baclogId_memo">
+		update swc_bacledger set difference_price = #{difference_price}, difference_memo = #{difference_memo}
+		where baclogId = #{baclogId}
+	</update>
+	<select id="getlicked_price" resultType="accountDto">
+		select * from swc_vat 
+		where vatSerial = #{linkDocno}
+	</select>
+	<select id="getlicked_price_secound" resultType="accountDto">
+		select * from swc_bacledger
+		where baclogId = #{baclogId}
+	</select>
+	<update id="bacCheckConnect_modal_update_secound">
+		update swc_bacledger set difference_price = #{difference_price}
+		where baclogId = #{baclogId}
+	</update>
 	<select id="gradata" resultType="accountDto">
 		select sst.userNo, su.userName. sst.deptNo, sst.targetType,
 		sst.mm01, sst.mm02, sst.mm03, sst.mm04, sst.mm05

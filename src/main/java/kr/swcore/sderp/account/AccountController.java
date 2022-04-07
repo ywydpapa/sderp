@@ -617,6 +617,13 @@ public class AccountController {
         accountService.bacCheckConnect_modal_update(dto);
         return ResponseEntity.ok(param);
     }
+    @RequestMapping("bacCheckConnect_modal_baclogId_memo.do")
+    public ResponseEntity<Object> bacCheckConnect_modal_baclogId_memo(HttpSession session, @ModelAttribute AccountDTO dto){
+        Map<String,Object> param = new HashMap<>();
+        accountService.bacCheckConnect_modal_baclogId_memo(dto);
+        return ResponseEntity.ok(param);
+    }
+    
     
     @RequestMapping("connect_link_check_cancel.do")
     public ResponseEntity<Object> connect_link_check_cancel(HttpSession session, @ModelAttribute AccountDTO dto){
@@ -710,7 +717,28 @@ public class AccountController {
         	}
         }
         //취소 시 남은 금액 최신화
+        System.out.println("test========================================================================");
+        BigDecimal a = dto.getCancel_lincked_price();
+        List <AccountDTO> getlicked_price = accountService.getlicked_price(dto);
+        BigDecimal b = new BigDecimal(getlicked_price.get(0).getModal_vatmemo().replaceAll("\\,",""));
+        BigDecimal c = getlicked_price.get(0).getModal_receive_data();
+        System.out.println("a ===============================" + a);
+        System.out.println("b ===============================" + b);
+        System.out.println("c ===============================" + c);
+        BigDecimal d = a.add(b);
+        BigDecimal e = c.subtract(a);
+        dto.setModal_vatmemo(new java.text.DecimalFormat("#,###").format(d).toString());
+        dto.setModal_receive_data(e);
         accountService.bacCheckConnect_modal_update(dto);
+        //계좌 잔여 금액
+        List <AccountDTO> getlicked_price_secound = accountService.getlicked_price_secound(dto);
+        BigDecimal f = getlicked_price_secound.get(0).getDifference_price();
+        System.out.println("f ============================" + f);
+        BigDecimal g = a.add(f);
+        System.out.println("g =============================" + g);
+        dto.setDifference_price(g);
+        accountService.bacCheckConnect_modal_update_secound(dto);
+        
         return ResponseEntity.ok(param);
     }
     
@@ -814,4 +842,5 @@ public class AccountController {
         AccountDTO vatDataList = accountService.selectExcelData(dto);
         return vatDataList;
     }
+
 }

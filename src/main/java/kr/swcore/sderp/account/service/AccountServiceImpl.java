@@ -511,4 +511,40 @@ public class AccountServiceImpl implements AccountService {
 		// TODO Auto-generated method stub
 		return accountDAO.bacCalSelect(dto);
 	}
+	@Override
+	public List<AccountDTO> list_secound_modalVatB(int baclogId) {
+		// TODO Auto-generated method stub
+		return accountDAO.list_secound_modalVatB(baclogId);
+	}
+
+	@Override
+	public void bacCheckConnect_modal_baclogId_memo(AccountDTO dto) {
+		// TODO Auto-generated method stub
+		accountDAO.bacCheckConnect_modal_baclogId_memo(dto);
+	}
+
+	@Override
+	public List<AccountDTO> list_secound_modalVatB_secound(String bacId) {
+		// TODO Auto-generated method stub
+		return accountDAO.list_secound_modalVatB_secound(bacId);
+	}
+
+	@Override
+	public List<AccountDTO> getlicked_price(AccountDTO dto) {
+		// TODO Auto-generated method stub
+		return accountDAO.getlicked_price(dto);
+	}
+
+	@Override
+	public List<AccountDTO> getlicked_price_secound(AccountDTO dto) {
+		// TODO Auto-generated method stub
+		return accountDAO.getlicked_price_secound(dto);
+	}
+
+	@Override
+	public void bacCheckConnect_modal_update_secound(AccountDTO dto) {
+		// TODO Auto-generated method stub
+		accountDAO.bacCheckConnect_modal_update_secound(dto);
+
+	}
 }

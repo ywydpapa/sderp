@@ -457,4 +457,40 @@ public class AccountDAOImpl implements AccountDAO {
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne("account.bacCalSelect", dto);
 	}
+	@Override
+	public List<AccountDTO> list_secound_modalVatB(int baclogId) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("account.list_secound_modalVatB", baclogId);
+	}
+
+	@Override
+	public void bacCheckConnect_modal_baclogId_memo(AccountDTO dto) {
+		// TODO Auto-generated method stub
+		sqlSession.update("account.bacCheckConnect_modal_baclogId_memo", dto);
+	}
+
+	@Override
+	public List<AccountDTO> list_secound_modalVatB_secound(String bacId) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("account.list_secound_modalVatB_secound", bacId);
+	}
+
+	@Override
+	public List<AccountDTO> getlicked_price(AccountDTO dto) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("account.getlicked_price", dto);
+	}
+
+	@Override
+	public List<AccountDTO> getlicked_price_secound(AccountDTO dto) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("account.getlicked_price_secound", dto);
+	}
+
+	@Override
+	public void bacCheckConnect_modal_update_secound(AccountDTO dto) {
+		// TODO Auto-generated method stub
+		sqlSession.update("account.bacCheckConnect_modal_update_secound", dto);
+
+	}
 }

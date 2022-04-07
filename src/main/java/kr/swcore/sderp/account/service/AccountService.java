@@ -91,5 +91,15 @@ public interface AccountService {
 	void deleteconnectlist_sub(AccountDTO dto);
 	List<AccountDTO> dataprice_secound(AccountDTO dto);
 	List<AccountDTO> checktotalprice_vat_and_detail_out(AccountDTO dto);
+
 	AccountDTO bacCalSelect(AccountDTO dto);
+
+	List<AccountDTO> list_secound_modalVatB(int baclogId);
+	void bacCheckConnect_modal_baclogId_memo(AccountDTO dto);
+	List<AccountDTO> list_secound_modalVatB_secound(String bacId);
+	List<AccountDTO> getlicked_price(AccountDTO dto);
+	List<AccountDTO> getlicked_price_secound(AccountDTO dto);
+	void bacCheckConnect_modal_update_secound(AccountDTO dto);
+
+
 }

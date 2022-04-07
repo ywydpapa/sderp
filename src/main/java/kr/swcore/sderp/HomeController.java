@@ -159,10 +159,33 @@ public class HomeController {
 		return "sidemenu/menu4";
 	}
 	
+	@RequestMapping("/manual_detail/introduction.do")
+	public String introduction() {
+		return "manual_detail/introduction";
+	}
+	
+	@RequestMapping("/manual_detail/calendar_menual.do")
+	public String calendar_menual() {
+		return "manual_detail/calendar_menual";
+	}
+	
+	@RequestMapping("/manual_detail/sales_menual.do")
+	public String sales_menual() {
+		return "manual_detail/sales_menual";
+	}
+	
+	@RequestMapping("/manual_detail/contract_menual.do")
+	public String contract_menual() {
+		return "manual_detail/contract_menual";
+	}
+	
 	@RequestMapping("/manual.do")
 	public String manual() {
 		return "manual/manual";
 	}
+	
+	
+	
 
 	@RequestMapping("/modal/popup.do")
 	public ModelAndView modal(@RequestParam Map<String, Object> params, Model model, ModelAndView mav, HttpSession session, HttpServletRequest servletRequest) {
@@ -227,7 +250,12 @@ public class HomeController {
 		
 		else if("bacVatB".equals(popId)) {
 			List<AccountDTO> list=accountService.modalVatB(session);
+			String baclogId_s = (String)params.get("baclogId");
+			int baclogId = Integer.parseInt(baclogId_s);
+			List<AccountDTO> list_secound = accountService.list_secound_modalVatB(baclogId);
+			System.out.println(list_secound.get(0).getOutAmt());
 			model.addAttribute("list",list);
+			model.addAttribute("list_secound",list_secound);
 			rtn = "modal/bacVatListB";
 		}
 		else if("bacVatB_spending_resolution".equals(popId)) {
@@ -238,6 +266,10 @@ public class HomeController {
 
 		else if("bacVatS".equals(popId)) {
 			List<AccountDTO> list=accountService.modalVatS(session);
+			String baclogId_s = (String)params.get("baclogId");
+			int baclogId = Integer.parseInt(baclogId_s);
+			List<AccountDTO> list_secound = accountService.list_secound_modalVatB(baclogId);
+			model.addAttribute("list_secound",list_secound);
 			model.addAttribute("list",list);
 			rtn = "modal/bacVatListS";
 		}
@@ -361,8 +393,10 @@ public class HomeController {
 		String bacId = (String)params.get("popId");
 		List<AccountDTO> list=accountService.bac_connect_list(bacId);
 		List<AccountDTO> secound_list=accountService.new_bac_connect_list(bacId);
+		List<AccountDTO> list_secound = accountService.list_secound_modalVatB_secound(bacId);
 		model.addAttribute("list",list);
 		model.addAttribute("secound_list",secound_list);
+		model.addAttribute("list_secound",list_secound);
 		rtn = "modal/bac_connect_list";
 
 		logger.debug(rtn);

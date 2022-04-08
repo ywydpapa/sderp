@@ -311,14 +311,19 @@
 			var cardTable = $("#cardTable tbody");
 			$("#cardlist").select2(); 
 			
+			
 			$("#cardlist").change(function(){
 				var tableHtml = "";
+				var selectData = {};
+				
+				selectData.cardDisNum = $(this).val();
 				
 				$("#cardTable").DataTable().destroy();
 				
 				$.ajax({
-					url: "${path}/acc/cardSelectList/" + $(this).val(),
+					url: "${path}/acc/cardSelectList.do",
 					method: "post",
+					data: selectData,
 					dataType: "json",
 					success:function(data){
 						if(data.length > 0){

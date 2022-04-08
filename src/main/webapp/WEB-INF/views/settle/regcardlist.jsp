@@ -239,6 +239,10 @@
                             <td>
                                 <input type="text" id="cardSerial" class="form-control">
                             </td>
+                            <th class="text-center">카드구별번호</th>
+                            <td>
+                                <input type="text" id="cardDisNum" class="form-control" readonly>
+                            </td>
                             <th class="text-center">메모</th>
                             <td colspan="2"><input id="cardMemo" class="form-control"></td>
                         </tr>
@@ -327,6 +331,14 @@
 	<!-- hide and show -->
 
     <script>
+    	$(document).ready(function(){
+    		$("#cardSerial").change(function(){
+    			var cardSerial = $(this).val().replaceAll("-", "");
+    			
+    			$("#cardDisNum").val(cardSerial.substring(cardSerial.length-6, cardSerial.length));
+    		});
+    	})
+    
         $('#custModal').on('show.bs.modal', function(e) {
             var button = $(e.relatedTarget);
             var modal = $(this);
@@ -408,6 +420,7 @@
             cardData.cardStatus = "정상";
             cardData.cardMemo = $("#cardMemo").val();
             cardData.cardIssueDate = $("#cardIssueDate").val();
+            cardData.cardDisNum = $("#cardDisNum").val();
 
             if (!cardData.cardBank) {
                 alert("은행코드를 선택 하십시오.");

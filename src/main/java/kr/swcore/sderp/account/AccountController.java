@@ -331,11 +331,19 @@ public class AccountController {
     }
     
     @ResponseBody
-    @RequestMapping("cardSelectList/{cardSerial}")
-    public List<AccountDTO> cardSelectList(@PathVariable("cardSerial") String cardSerial){
-    	List<AccountDTO> accList = accountService.cardSelectList(cardSerial);
+    @RequestMapping("cardSelectList.do")
+    public List<AccountDTO> cardSelectList(@ModelAttribute AccountDTO dto){
+    	List<AccountDTO> accList = accountService.cardSelectList(dto);
     	
     	return accList;
+    }
+    
+    @ResponseBody
+    @RequestMapping("cardSelectListCount.do")
+    public AccountDTO cardSelectListCount(@ModelAttribute AccountDTO dto){
+    	AccountDTO count = accountService.cardSelectListCount(dto);
+    	
+    	return count;
     }
     
     @RequestMapping("vatupload.do")

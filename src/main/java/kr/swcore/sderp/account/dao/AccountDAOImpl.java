@@ -145,8 +145,8 @@ public class AccountDAOImpl implements AccountDAO {
 	}
 	
 	@Override
-	public List<AccountDTO> cardSelectList(String cardSerial) {
-		return sqlSession.selectList("account.cardSelectList", cardSerial);
+	public List<AccountDTO> cardSelectList(AccountDTO dto) {
+		return sqlSession.selectList("account.cardSelectList", dto);
 	}
 
 	@Override
@@ -522,5 +522,10 @@ public class AccountDAOImpl implements AccountDAO {
 	public void update_check_remain_money_from_swc_vat_B(AccountDTO dto) {
 		// TODO Auto-generated method stub
 		sqlSession.update("account.update_check_remain_money_from_swc_vat_B", dto);
+	}
+	
+	public AccountDTO cardSelectListCount(AccountDTO dto) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("account.cardSelectListCount", dto);
 	}
 }

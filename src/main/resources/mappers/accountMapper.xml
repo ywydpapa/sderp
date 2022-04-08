@@ -251,6 +251,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select * from swc_cardledger where cardDisNum = #{cardDisNum} order by appDate desc;
 	</select>
 	
+	<select id="cardSelectListCount" resultType="accountDto">
+		select count(*) as resultCount from swc_cardledger where compNo = #{compNo} and cardDisNum = #{cardDisNum};
+	</select>
+	
 	<select id="detailVat" resultType="accountDto">
 		select * from swc_vat where vatId = #{vatId};
 	</select>
@@ -384,6 +388,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		(
 			compNo,
 			cardSerial,
+			cardDisNum,
 			appContents,
 			appSerial,
 			useDivision,
@@ -400,6 +405,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		(
 			#{compNo},
 			#{cardSerial},
+			#{cardDisNum},
 			#{appContents},
 			#{appSerial},
 			#{useDivision},
@@ -450,6 +456,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		(
 			compNo,
 			cardSerial,
+			cardDisNum,
 			cardDivision,
 			cardBank,
 			cardStatus,
@@ -462,6 +469,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		(
 			#{compNo},
 			#{cardSerial},
+			#{cardDisNum},
 			#{cardDivision},
 			#{cardBank},
 			#{cardStatus},

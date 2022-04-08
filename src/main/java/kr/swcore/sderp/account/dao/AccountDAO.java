@@ -31,7 +31,7 @@ public interface AccountDAO {
 	AccountDTO checkBac(AccountDTO dto);
 	List<AccountDTO> bacSelectList(AccountDTO dto);
 	AccountDTO bacSelectListCnt(AccountDTO dto);
-	List<AccountDTO> cardSelectList(String cardSerial);
+	List<AccountDTO> cardSelectList(AccountDTO dto);
 	int lastUpdate(AccountDTO dto);
 	int lastUpdateCard(AccountDTO dto);
 	int bacSerialUpdate(AccountDTO dto);
@@ -104,6 +104,6 @@ public interface AccountDAO {
 	List<AccountDTO> check_remain_money_from_swc_vat(AccountDTO dto);
 	void update_check_remain_money_from_swc_vat(AccountDTO dto);
 	void update_check_remain_money_from_swc_vat_B(AccountDTO dto);
-
+	AccountDTO cardSelectListCount(AccountDTO dto);
 
 }

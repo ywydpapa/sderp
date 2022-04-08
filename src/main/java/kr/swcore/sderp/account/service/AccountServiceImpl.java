@@ -171,8 +171,8 @@ public class AccountServiceImpl implements AccountService {
 	}
 	
 	@Override
-	public List<AccountDTO> cardSelectList(String cardSerial) {
-		return accountDAO.cardSelectList(cardSerial);
+	public List<AccountDTO> cardSelectList(AccountDTO dto) {
+		return accountDAO.cardSelectList(dto);
 	}
 
 	@Override
@@ -576,5 +576,10 @@ public class AccountServiceImpl implements AccountService {
 	public void update_check_remain_money_from_swc_vat_B(AccountDTO dto) {
 		// TODO Auto-generated method stub
 		accountDAO.update_check_remain_money_from_swc_vat_B(dto);
+	}
+	
+	public AccountDTO cardSelectListCount(AccountDTO dto) {
+		// TODO Auto-generated method stub
+		return accountDAO.cardSelectListCount(dto);
 	}
 }

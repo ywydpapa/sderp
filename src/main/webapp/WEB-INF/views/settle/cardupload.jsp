@@ -386,7 +386,7 @@
 				
 	            for (var i = 0; i < $Aarr.length; i++){
 	                if ($($Chkarr[i]).is(":checked")==true){
-	                    var cardData = {};
+ 	                    var cardData = {};
 	                    cardData.compNo = compNo;
 	                    cardData.appContents = $Aarr[i].innerText;
 	                    cardData.appSerial = $Barr[i].innerText;
@@ -398,6 +398,7 @@
 	                    cardData.appDate = $Iarr[i].innerText;
 	                    cardData.appTime = $Harr[i].innerText;
 	                    cardData.cardSerial = $Jarr[i].innerText;
+	                    cardData.cardDisNum = $($Jarr[i]).text().substring(1, $($Jarr[i]).text().length);
 	                    console.log(cardData);
 	                    
 	                    $.ajax({

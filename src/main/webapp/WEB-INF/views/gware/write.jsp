@@ -351,6 +351,8 @@
         function fnSetCustData(a, b) {
             $("#custNo").val(b);
             $("#custName").val(a);
+            $("#productSalesEstimateCustName").val(a);
+            $("#productSalesEstimateCustNo").val(b);
             $(".modal-backdrop").remove();
             $("#custModal").modal("hide");
         }

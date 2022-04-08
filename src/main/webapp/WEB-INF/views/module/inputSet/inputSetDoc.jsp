@@ -677,7 +677,7 @@
 	    	
 	    	$("#data02Type option:eq(0)").attr("selected","selected");
 	        $("#soppdataNoEstimate").val("");
-	        $("#productSalesEstimateCustName").val("");
+	        //$("#productSalesEstimateCustName").val("");
 	        $("#productSalesEstimateCustNo").val("");
 	        $("#productNo2").val("");
 	        $("#data02Title[data-flag='true']").val("");

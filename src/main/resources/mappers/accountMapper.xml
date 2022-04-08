@@ -883,6 +883,34 @@ attrib) values (#{vatId},
 		update swc_bacledger set difference_price = #{difference_price}
 		where baclogId = #{baclogId}
 	</update>
+	<select id="check_link_vatandbac" resultType="accountDto">
+		SELECT d.bacNo, a.vatProductName, a.modal_receive_data, a.modal_vatmemo, b.regDate, a.vatSerial, a.vatRemark
+		FROM swc_vat a
+		LEFT JOIN swc_bacledger_detail b ON a.vatSerial = b.linkDocno
+		LEFT JOIN swc_bacledger c ON b.baclogId = c.baclogId
+		LEFT JOIN swc_bac d ON c.bacSerial = d.bacSerial
+		order BY d.bacNo desc limit #{betFirstNum}, #{betLastNum};
+	</select>
+	<select id="check_link_vatandbacCnt" resultType="accountDto">
+		SELECT count(*) as resultCount
+		FROM swc_vat a
+		LEFT JOIN swc_bacledger_detail b ON a.vatSerial = b.linkDocno
+		LEFT JOIN swc_bacledger c ON b.baclogId = c.baclogId
+		LEFT JOIN swc_bac d ON c.bacSerial = d.bacSerial;
+	</select>
+	<select id="check_remain_money_from_swc_vat" resultType="accountDto">
+		SELECT * FROM swc_vat 
+		WHERE vatSerial = #{linkDocno};
+	</select>
+	<update id="update_check_remain_money_from_swc_vat">
+		update swc_vat set vatStatus = 'S5'
+		WHERE vatSerial = #{linkDocno}
+	</update>
+	<update id="update_check_remain_money_from_swc_vat_B">
+		update swc_vat set vatStatus = 'B5'
+		WHERE vatSerial = #{linkDocno}
+	</update>
+	
 	<select id="gradata" resultType="accountDto">
 		select sst.userNo, su.userName. sst.deptNo, sst.targetType,
 		sst.mm01, sst.mm02, sst.mm03, sst.mm04, sst.mm05

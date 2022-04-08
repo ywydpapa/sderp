@@ -263,6 +263,12 @@ public class AccountController {
         return mav;
     }
     
+    @RequestMapping("check_connect.do")
+    public ModelAndView check_connect(HttpSession session, ModelAndView mav) {
+        mav.setViewName("settle/check_connect");
+        return mav;
+    }
+    
     @RequestMapping("cardDetail.do")
     public ModelAndView cardDetail(HttpSession session, ModelAndView mav) {
         mav.addObject("cardList", accountService.listCard(session));
@@ -621,6 +627,16 @@ public class AccountController {
     public ResponseEntity<Object> bacCheckConnect_modal_baclogId_memo(HttpSession session, @ModelAttribute AccountDTO dto){
         Map<String,Object> param = new HashMap<>();
         accountService.bacCheckConnect_modal_baclogId_memo(dto);
+        
+        List <AccountDTO> check_remain_money_from_swc_vat = accountService.check_remain_money_from_swc_vat(dto);
+        if(check_remain_money_from_swc_vat.get(0).getModal_vatmemo() == "0"){
+        	if(check_remain_money_from_swc_vat.get(0).getVatStatus() == "S1" || check_remain_money_from_swc_vat.get(0).getVatStatus() == "S3") {
+        		accountService.update_check_remain_money_from_swc_vat(dto);
+        	}else if(check_remain_money_from_swc_vat.get(0).getVatStatus() == "B1" || check_remain_money_from_swc_vat.get(0).getVatStatus() == "B3") {
+        		accountService.update_check_remain_money_from_swc_vat_B(dto);
+        	}
+        }
+        
         return ResponseEntity.ok(param);
     }
     
@@ -841,6 +857,23 @@ public class AccountController {
     {
         AccountDTO vatDataList = accountService.selectExcelData(dto);
         return vatDataList;
+    }
+    
+    @RequestMapping("check_link_vatandbac.do")
+    public ResponseEntity<Object> check_link_vatandbac(HttpSession session, @ModelAttribute AccountDTO dto){
+    	Map<String,Object> param = new HashMap<>();
+        List <AccountDTO> check_link_vatandbac = accountService.check_link_vatandbac(dto);
+        System.out.println(check_link_vatandbac.get(0).getModal_receive_data());
+        param.put("data", check_link_vatandbac);
+        return ResponseEntity.ok(param);
+    }
+    
+    @ResponseBody
+    @RequestMapping("check_link_vatandbacCnt.do")
+    public AccountDTO check_link_vatandbacCnt(@ModelAttribute AccountDTO dto){
+    	AccountDTO count = accountService.check_link_vatandbacCnt(dto);
+    	
+    	return count;
     }
 
 }

@@ -547,4 +547,34 @@ public class AccountServiceImpl implements AccountService {
 		accountDAO.bacCheckConnect_modal_update_secound(dto);
 
 	}
+
+	@Override
+	public List<AccountDTO> check_link_vatandbac(AccountDTO dto) {
+		// TODO Auto-generated method stub
+		return accountDAO.check_link_vatandbac(dto);
+	}
+
+	@Override
+	public AccountDTO check_link_vatandbacCnt(AccountDTO dto) {
+		// TODO Auto-generated method stub
+		return accountDAO.check_link_vatandbacCnt(dto);
+	}
+
+	@Override
+	public List<AccountDTO> check_remain_money_from_swc_vat(AccountDTO dto) {
+		// TODO Auto-generated method stub
+		return accountDAO.check_remain_money_from_swc_vat(dto);
+	}
+
+	@Override
+	public void update_check_remain_money_from_swc_vat(AccountDTO dto) {
+		// TODO Auto-generated method stub
+		accountDAO.update_check_remain_money_from_swc_vat(dto);
+	}
+
+	@Override
+	public void update_check_remain_money_from_swc_vat_B(AccountDTO dto) {
+		// TODO Auto-generated method stub
+		accountDAO.update_check_remain_money_from_swc_vat_B(dto);
+	}
 }

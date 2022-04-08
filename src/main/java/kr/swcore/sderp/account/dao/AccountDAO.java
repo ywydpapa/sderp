@@ -99,6 +99,11 @@ public interface AccountDAO {
 	List<AccountDTO> getlicked_price(AccountDTO dto);
 	List<AccountDTO> getlicked_price_secound(AccountDTO dto);
 	void bacCheckConnect_modal_update_secound(AccountDTO dto);
+	List<AccountDTO> check_link_vatandbac(AccountDTO dto);
+	AccountDTO check_link_vatandbacCnt(AccountDTO dto);
+	List<AccountDTO> check_remain_money_from_swc_vat(AccountDTO dto);
+	void update_check_remain_money_from_swc_vat(AccountDTO dto);
+	void update_check_remain_money_from_swc_vat_B(AccountDTO dto);
 
 
 }

@@ -178,5 +178,7 @@ public class AccountDTO {
     //계좌내역검색
     private String baclogTimeFrom;
     private String baclogTimeTo;
+    
+    private String cardDisNum;
 }
 

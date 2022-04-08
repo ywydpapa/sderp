@@ -248,7 +248,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<select id="cardSelectList" resultType="accountDto">
-		select * from swc_cardledger where cardSerial = #{cardSerial} order by appDate desc;
+		select * from swc_cardledger where cardDisNum = #{cardDisNum} order by appDate desc;
 	</select>
 	
 	<select id="detailVat" resultType="accountDto">

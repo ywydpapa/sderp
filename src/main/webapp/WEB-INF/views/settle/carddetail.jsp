@@ -215,7 +215,7 @@
 			<select class="form-control-sm" id="cardlist">
 				<option value="">선택</option>
 				<c:forEach var="row" items="${cardList}">
-					<option value="${row.cardSerial}">${row.cardSerial}</option>
+					<option value="${row.cardDisNum}">${row.cardSerial}</option>
 				</c:forEach>
 			</select>
 		</div>
@@ -312,6 +312,10 @@
 			$("#cardlist").select2(); 
 			
 			$("#cardlist").change(function(){
+				var tableHtml = "";
+				
+				$("#cardTable").DataTable().destroy();
+				
 				$.ajax({
 					url: "${path}/acc/cardSelectList/" + $(this).val(),
 					method: "post",
@@ -319,28 +323,32 @@
 					success:function(data){
 						if(data.length > 0){
 							for(var i = 0; i < data.length; i++){
-								cardTable.append("<tr></tr>");
-								cardTable.find("tr").eq(i).append("<td style='text-align:center;'>" + data[i].appDate + "</td>");
-								cardTable.find("tr").eq(i).append("<td style='text-align:center;'>" + data[i].cardSerial + "</td>");
-								cardTable.find("tr").eq(i).append("<td style='text-align:center;'>" + data[i].appContents + "</td>");
-								cardTable.find("tr").eq(i).append("<td style='text-align:center;'>" + data[i].appSerial + "</td>");
-								cardTable.find("tr").eq(i).append("<td style='text-align:center;'>" + data[i].useDivision + "</td>");
-								cardTable.find("tr").eq(i).append("<td style='text-align:center;'>" + data[i].salesType + "</td>");
-								cardTable.find("tr").eq(i).append("<td style='text-align:center;'>" + data[i].instPeriod + "</td>");
-								cardTable.find("tr").eq(i).append("<td style='text-align:right;'>" + parseInt(data[i].appAmount).toLocaleString("en-US") + "</td>");
-								cardTable.find("tr").eq(i).append("<td style='text-align:center;'>" + data[i].appExchange + "</td>");
+								tableHtml += "<tr><td style='text-align:center;'>" + data[i].appDate + "</td>"
+								+ "<td style='text-align:center;'>" + data[i].cardSerial + "</td>"
+								+ "<td style='text-align:center;'>" + data[i].appContents + "</td>"
+								+ "<td style='text-align:center;'>" + data[i].appSerial + "</td>"
+								+ "<td style='text-align:center;'>" + data[i].useDivision + "</td>"
+								+ "<td style='text-align:center;'>" + data[i].salesType + "</td>"
+								+ "<td style='text-align:center;'>" + data[i].instPeriod + "</td>"
+								+ "<td style='text-align:right;'>" + parseInt(data[i].appAmount).toLocaleString("en-US") + "</td>"
+								+ "<td style='text-align:center;'>" + data[i].appExchange + "</td>";
 							}
 							
-							$("#cardTable").DataTable({
-								info:false,
-				                destroy: true,
-				                order: [[ 0, "desc" ]],
-							});
+							cardTable.html(tableHtml);
+							
+                            $("#cardTable").DataTable({
+                            	searching: true,
+                                info:false,
+                                destroy: true,
+                                order: [[ 0, "desc" ]],
+                            });
 						}else{
 							cardTable.empty();
 						}
+						
 					}
 				});
+				
 			});
 		});	
 		

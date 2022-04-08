@@ -341,16 +341,26 @@ public class HomeController {
 			//Integer compNo = Integer.valueOf((String) params.get("compNo"));
 			AccountDTO dto = new AccountDTO();
 			LocalDate now = LocalDate.now();
+			
 			Integer custNo = Integer.parseInt(String.valueOf(params.get("custNo"))); 
 			Integer compNo = Integer.parseInt(String.valueOf(params.get("compNo")));
-			String vatIssueDateFrom = String.valueOf(params.get("vatIssueDateFrom")) != "" ? String.valueOf(params.get("vatIssueDateFrom")) : now.getYear() + "-01-01";
-			String vatIssueDateTo = String.valueOf(params.get("vatIssueDateTo")) != "" ? String.valueOf(params.get("vatIssueDateTo")) : now.getYear() + "-12-31";
 			String vatType = String.valueOf(params.get("vatType"));
 			dto.setCustNo(custNo);
 			dto.setCompNo(compNo);
-			dto.setVatIssueDateFrom(vatIssueDateFrom);
-			dto.setVatIssueDateTo(vatIssueDateTo);
 			dto.setVatType(vatType);
+			
+			if(params.get("modalType").equals("cust")) {
+				String vatIssueDateFrom = String.valueOf(params.get("vatIssueDateFrom")) != "" ? String.valueOf(params.get("vatIssueDateFrom")) : now.getYear() + "-01-01";
+				String vatIssueDateTo = String.valueOf(params.get("vatIssueDateTo")) != "" ? String.valueOf(params.get("vatIssueDateTo")) : now.getYear() + "-12-31";
+				dto.setVatIssueDateFrom(vatIssueDateFrom);
+				dto.setVatIssueDateTo(vatIssueDateTo);
+			} else {
+				String vatIssueDateFrom = String.valueOf(params.get("vatIssueDateFrom")) != "" ? Integer.parseInt(String.valueOf(params.get("vatIssueDateFrom")).substring(0, 4)) - 1 + "-01-01" : now.getYear()-1 + "-01-01";
+				String vatIssueDateTo = String.valueOf(params.get("vatIssueDateTo")) != "" ? Integer.parseInt(String.valueOf(params.get("vatIssueDateTo")).substring(0, 4)) - 1 + "-12-31" : now.getYear()-1 + "-12-31";
+				dto.setVatIssueDateFrom(vatIssueDateFrom);
+				dto.setVatIssueDateTo(vatIssueDateTo);
+			}
+			
 			List<AccountDTO> list = accountService.custVatListModal(dto);
 			model.addAttribute("list", list);
 			rtn = "modal/custVatListModal";

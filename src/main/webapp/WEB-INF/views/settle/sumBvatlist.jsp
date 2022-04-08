@@ -190,13 +190,17 @@
 	                            <c:forEach items="${vatList}" var="vlist">
 	                                <tr>
 	                                    <td class="text-center">
-                                    		<a data-remote="${path}/modal/popup.do?popId=custVatListModal&custNo=${vlist.custNo}&compNo=${sessionScope.compNo}&vatIssueDateFrom=${param.vatIssueDateFrom}&vatIssueDateTo=${param.vatIssueDateTo}&vatType=B" type="button" data-toggle="modal" data-target="#custVatList" style="cursor: pointer; text-decoration: underline;">
+                                    		<a data-remote="${path}/modal/popup.do?popId=custVatListModal&modalType=cust&custNo=${vlist.custNo}&compNo=${sessionScope.compNo}&vatIssueDateFrom=${param.vatIssueDateFrom}&vatIssueDateTo=${param.vatIssueDateTo}&vatType=B" type="button" data-toggle="modal" data-target="#custVatList" style="cursor: pointer; text-decoration: underline;">
                                     			${vlist.vatSellerName}
                                     		</a>
 	                                   	</td>
 	                                   	<td class="text-right">
 	                                   		<c:choose>
-	                                    		<c:when test="${vlist.custBalance > 0}"><fmt:formatNumber type="number" maxFractionDigits="3" value="${vlist.custBalance}" /></c:when>
+	                                    		<c:when test="${vlist.custBalance > 0}">
+	                                    			<a data-remote="${path}/modal/popup.do?popId=custVatListModal&modalType=balance&custNo=${vlist.custNo}&compNo=${sessionScope.compNo}&vatIssueDateFrom=${param.vatIssueDateFrom}&vatIssueDateTo=${param.vatIssueDateTo}&vatType=B" type="button" data-toggle="modal" data-target="#custVatList" style="cursor: pointer; text-decoration: underline;">
+		                                    			<fmt:formatNumber type="number" maxFractionDigits="3" value="${vlist.custBalance}" />
+		                                    		</a>
+	                                    		</c:when>
 	                                    		<c:otherwise>0</c:otherwise>
 	                                    	</c:choose>
 	                                   	</td>

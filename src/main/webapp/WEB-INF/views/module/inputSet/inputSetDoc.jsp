@@ -630,13 +630,13 @@
 	
 	
     function dataSave(){
-    	if($('#productSalesEstimateCustName').val() === ""){
-    		alert("거래처를 선택해주십시오.");
-    		return false;
-    	}else if($("#data02Title[data-flag='true']").val() === ""){
-    		alert("결재항목을 선택하거나 작성해주십시오.");
-    		return false;
-    	}else{
+    //	if($('#productSalesEstimateCustName').val() === ""){
+    	//	alert("거래처를 선택해주십시오.");
+    //	return false;
+    	//}else if($("#data02Title[data-flag='true']").val() === ""){
+    	//	alert("결재항목을 선택하거나 작성해주십시오.");
+    	//	return false;
+    	//}else{
     		var now = new Date();
 	    	var temp = {};
 	    	var productSalesEstimateCustName = $('#productSalesEstimateCustName').val();
@@ -693,7 +693,7 @@
 	        
 	        dataIndex++;
 	        console.log(dataArray);
-    	}
+    	//}
     }
     
     function dataUpdate(){

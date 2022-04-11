@@ -169,7 +169,7 @@
                                         <li class="pcoded-hasmenu">
 	                                        <a href="${path}/acc/check_connect.do">
 	                                            <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-	                                            <span class="pcoded-mtext" data-i18n="nav.menu-levels.menu-level-23">계좌 계산서 연결</span>
+	                                            <span class="pcoded-mtext" data-i18n="nav.menu-levels.menu-level-23">계산서 연결현황</span>
 	                                            <span class="pcoded-mcaret"></span>
 	                                        </a>
                                     	</li>

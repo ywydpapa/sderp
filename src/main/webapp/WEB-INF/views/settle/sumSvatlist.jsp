@@ -19,7 +19,6 @@
 			info:false,
 			searching: true,
 			order: [[ 0, "desc" ]],
-			ordering: true
 		});
 	});
 	</script>

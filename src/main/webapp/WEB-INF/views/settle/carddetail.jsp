@@ -265,6 +265,9 @@
 	                            </c:forEach> --%>
                           	</tbody>
                         </table>
+                        
+                        <div id="pageDiv" style="float: right;"></div>
+                        
                         <div class="modal fade " id="bacVatSModal" tabindex="-1" role="dialog">
                             <div class="modal-dialog modal-80size" role="document">
                                 <div class="modal-content modal-80size">
@@ -305,28 +308,90 @@
         </div>
     </div>
     <script>
+    	const DEFAULT_NUM = 15;
+    	const CARD_TABLE = $("#cardTable tbody");
+    	const CLICK_PAGE_NUM = 10;
 	    <!--//리스트 table-->
 		<!-- hide and show -->
 		$(document).ready(function(){
-			var cardTable = $("#cardTable tbody");
 			$("#cardlist").select2(); 
 			
-			
 			$("#cardlist").change(function(){
-				var tableHtml = "";
-				var selectData = {};
+				var page = 1;
 				
-				selectData.cardDisNum = $(this).val();
+				localStorage.setItem("cardDisNum", $(this).val());
 				
-				$("#cardTable").DataTable().destroy();
-				
-				$.ajax({
-					url: "${path}/acc/cardSelectList.do",
-					method: "post",
-					data: selectData,
-					dataType: "json",
-					success:function(data){
-						if(data.length > 0){
+				pageNation(page, DEFAULT_NUM, localStorage.getItem("cardDisNum"));
+			});
+		});	
+		
+		function pageNation(page, DEFAULT_NUM, reData){
+			var cardTable = $("#cardTable tbody");
+			var compNo = "${sessionScope.compNo}";
+			var countData = {};
+			var selectData = {};
+			var tableHtml = "";
+			var pageHtml = "";
+			
+			cardTable.empty();
+			
+			countData.compNo = compNo;
+			countData.cardDisNum = reData;
+			
+			$.ajax({
+				url: "${path}/acc/cardSelectListCount.do",
+				method: "post",
+				data: countData,
+				dataType: "json",
+				success:function(countResult){
+					var count = countResult.resultCount;
+					var start = (page - 1) * DEFAULT_NUM;
+					var last = DEFAULT_NUM;
+					var lastPage = count % DEFAULT_NUM;
+					var pageNum = Math.floor(count / DEFAULT_NUM);
+					var lastPageNum = (lastPage > 0) ? pageNum + 1 : pageNum;
+					var setFirstPage = 0;
+					var setLastPage = setFirstPage + 9;
+					var activePage = localStorage.getItem("activePage");
+					
+					if(localStorage.getItem("setFirstPage") != null){
+						setFirstPage = localStorage.getItem("setFirstPage");
+					}else{
+						setFirstPage = page;
+					}
+					
+					if(setLastPage > lastPageNum){
+						setLastPage = lastPageNum;
+					}
+					
+					selectData.compNo = compNo;
+					selectData.cardDisNum = reData;
+					selectData.betFirstNum = start;
+					selectData.betLastNum = last;
+					
+					pageHtml += "<ul class='pagination'><li class='page-item'><a class='page-link' href='#' onClick='pagePrevious(this);'>Previous</a></li>";
+					
+					for(var i = setFirstPage; i <= setLastPage; i++){
+						if(i == activePage){
+							pageHtml += "<li class='page-item active' id='page_"+ i +"'><a class='page-link' href='#' data-number='"+ i +"' onClick='pageClick(this);'>" + i + "</a></li>"
+						}else{
+							pageHtml += "<li class='page-item' id='page_"+ i +"'><a class='page-link' href='#' data-number='"+ i +"' onClick='pageClick(this);'>" + i + "</a></li>"
+						}
+					}
+					
+					pageHtml += "<li class='page-item'><a class='page-link' id='pageNextBtn' href='#' onClick='pageNext(this);'>Next</a></li></ul>";
+					
+					$("#pageDiv").html(pageHtml);
+					
+					localStorage.setItem("lastPageNum", lastPageNum);
+					localStorage.removeItem("activePage");
+					
+					$.ajax({
+						url:"${path}/acc/cardSelectList.do",
+						method: "get",
+						data: selectData,
+						dataType: "json",
+						success:function(data){
 							for(var i = 0; i < data.length; i++){
 								tableHtml += "<tr><td style='text-align:center;'>" + data[i].appDate + "</td>"
 								+ "<td style='text-align:center;'>" + data[i].cardSerial + "</td>"
@@ -336,26 +401,82 @@
 								+ "<td style='text-align:center;'>" + data[i].salesType + "</td>"
 								+ "<td style='text-align:center;'>" + data[i].instPeriod + "</td>"
 								+ "<td style='text-align:right;'>" + parseInt(data[i].appAmount).toLocaleString("en-US") + "</td>"
-								+ "<td style='text-align:center;'>" + data[i].appExchange + "</td>";
+								+ "<td style='text-align:center;'>" + data[i].appExchange + "</td></tr>";
 							}
 							
 							cardTable.html(tableHtml);
-							
-                            $("#cardTable").DataTable({
-                            	searching: true,
-                                info:false,
-                                destroy: true,
-                                order: [[ 0, "desc" ]],
-                            });
-						}else{
-							cardTable.empty();
+						},
+						error:function(){
+							alert("데이터가 없습니다.");
+							return false;
 						}
-						
-					}
-				});
-				
+					});
+				},
+				error:function(){
+					alert("카운트에 실패했습니다.");
+					return false;
+				}
 			});
-		});	
+		}
+		
+		function pageClick(e){
+			var page = $(e).attr("data-number");
+			var setFirstPage = $(e).parents("ul").find("li:first").next().children().attr("data-number");
+			
+			localStorage.setItem("activePage", page);
+			localStorage.setItem("setFirstPage", setFirstPage);
+			pageNation(page, DEFAULT_NUM, localStorage.getItem("cardDisNum"));
+		}
+		
+		function pagePrevious(e){
+			var preFirstNum = $(e).parent().next().children().attr("data-number");
+			var calFirstNum = parseInt(preFirstNum) - CLICK_PAGE_NUM;
+			var calLastNum = 0;
+			
+			if(calFirstNum < 1){
+				calFirstNum = 1;
+			}
+
+			calLastNum = calFirstNum + 9;
+			
+			if(calLastNum > localStorage.getItem("lastPageNum")){
+				calLastNum = localStorage.getItem("lastPageNum");
+			}
+				
+			pageHtml(calFirstNum, calLastNum);
+		}
+		
+		function pageNext(e){
+			var preFirstNum = $(e).parents("ul").find("li:first").next().children().attr("data-number");
+			var calFirstNum = parseInt(preFirstNum) + CLICK_PAGE_NUM;
+			var calLastNum = calFirstNum + 9;
+			
+			if(calFirstNum > localStorage.getItem("lastPageNum")){
+				calFirstNum = preFirstNum;
+			}
+			
+			if(calLastNum > localStorage.getItem("lastPageNum")){
+				calLastNum = localStorage.getItem("lastPageNum");	
+			}
+			
+			pageHtml(calFirstNum, calLastNum);
+		}
+		
+		function pageHtml(start, last){
+			var pageHtml = "";
+			
+			$("#pageDiv").empty();
+			
+			pageHtml += "<ul class='pagination'><li class='page-item'><a class='page-link' href='#' onClick='pagePrevious(this);'>Previous</a></li>";
+			
+			for(var i = start; i <= last; i++){
+				pageHtml += "<li class='page-item' id='page_"+ i +"'><a class='page-link' href='#' data-number='"+ i +"' onClick='pageClick(this);'>" + i + "</a></li>"
+			}
+			
+			pageHtml += "<li class='page-item'><a class='page-link' href='#' onClick='pageNext(this);'>Next</a></li></ul>";
+			
+			$("#pageDiv").html(pageHtml);
+		}
 		
 		function acordian_action(){
 			if($("#acordian").css("display") == "none"){

@@ -27,7 +27,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		LEFT JOIN swc_vat b ON a.custNo = b.vatSellerCustNo AND b.vatIssueDate BETWEEN #{vatIssueDateFrom} and #{vatIssueDateTo}
 		LEFT JOIN swc_cust c ON a.custNo = c.custNo
 		WHERE a.compNo = #{compNo} AND a.attrib NOT LIKE 'XXX%' AND a.settleYear = #{selectYear} and a.settleDRbalance IS NOT NULL
-		GROUP BY a.custNo order BY a.logId asc
+		GROUP BY a.custNo order BY a.settleDRbalance desc
 	</select>
 
 	<select id="sumBVatSearch" resultType="accountDto">
@@ -39,7 +39,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<if test="vatSellerCustNo != null and vatSellerCustNo != ''">
 			and a.custNo = #{vatSellerCustNo}
 		</if>
-		GROUP BY a.custNo order BY a.logId asc
+		GROUP BY a.custNo order BY a.settleDRbalance asc
 	</select>
 
 	<select id="sumSVat" resultType="accountDto">
@@ -48,7 +48,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		LEFT JOIN swc_vat b ON a.custNo = b.vatBuyerCustNo AND b.vatIssueDate BETWEEN #{vatIssueDateFrom} and #{vatIssueDateTo}
 		LEFT JOIN swc_cust c ON a.custNo = c.custNo
 		WHERE a.compNo = #{compNo} AND a.attrib NOT LIKE 'XXX%' AND a.settleYear = #{selectYear} and a.settleCRbalance IS NOT NULL
-		GROUP BY a.custNo order BY a.logId asc
+		GROUP BY a.custNo order BY a.settleCRbalance desc
 	</select>
 
 	<select id="sumSVatSearch" resultType="accountDto">
@@ -60,7 +60,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<if test="vatBuyerCustNo != null and vatBuyerCustNo != ''">
 			and a.custNo = #{vatBuyerCustNo}
 		</if>
-		GROUP BY a.custNo order BY a.logId asc
+		GROUP BY a.custNo order BY a.settleCRbalance asc
 	</select>
 
 	<select id="listVatSearch" resultType="accountDto">
@@ -248,7 +248,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<select id="cardSelectList" resultType="accountDto">
-		select * from swc_cardledger where cardDisNum = #{cardDisNum} order by appDate desc;
+		select * from swc_cardledger where compNo = #{compNo} and cardDisNum = #{cardDisNum} order by appDate desc limit #{betFirstNum}, #{betLastNum};
 	</select>
 	
 	<select id="cardSelectListCount" resultType="accountDto">

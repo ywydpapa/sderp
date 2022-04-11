@@ -135,7 +135,6 @@ function select_total_price() {
 		$('#received_price_detail').show();
 		$('#received_price_col').show();
 	}
-	
 }
 
 
@@ -188,6 +187,7 @@ function uncomma(str) {
   }
   
   function checkConnect(){
+	  select_total_price();
 	  if(confirm("차액은 "+$('#difference_price').val()+"원 입니다. 연결하시겠습니까??")){
 		  var listTable = $("#vatlistTable tbody tr td");
 		  var bacId = localStorage.getItem("thisId");

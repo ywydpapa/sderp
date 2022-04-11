@@ -134,7 +134,6 @@ function select_total_price() {
 		$('#received_price_detail').show();
 		$('#received_price_col').show();
 	}
-	
 }
 
 
@@ -187,64 +186,65 @@ function uncomma(str) {
     }
     
     function checkConnect(){
-	  	if(confirm("차액은 "+$('#difference_price').val()+"원 입니다. 연결하시겠습니까??")){
-	  		var listTable = $("#vatlistTable tbody tr td");
-	  		var bacId = localStorage.getItem("thisId");
-	  		var compNo = "${sessionScope.compNo}";
-	  		  
-	  		listTable.find("#checkSerial").each(function(index, item){
-			  	if($(item).is(":checked") === true){
-			  		var insertData = {};
-			  		  
-			  		insertData.compNo = compNo;
-			  		insertData.baclogId = bacId;
-			  		insertData.linkType = "VAT";
-			  		insertData.linkDocno = $(item).attr("data-number");
-			  		//swc_vat의 modal_vatmemo modal_vatmemo - modal_receive_data
-					  //-> 받은 금액
-					  
-				  	  insertData.modal_receive_data_sole = parseInt($(item).parent().next().next().next().next().next().next().next().children().first().val().replace(/,/g, ""))
-					  //-> 남은 금액
-					  insertData.modal_vatmemo = parseInt($(item).parent().next().next().next().next().next().next().next().next().children().first().val().replace(/,/g, "")) - parseInt($(item).parent().next().next().next().next().next().next().next().children().first().val().replace(/,/g, ""))
-					  insertData.modal_vatmemo_secound = (parseInt($(item).parent().next().next().next().next().next().next().next().next().children().first().val().replace(/,/g, "")) - parseInt($(item).parent().next().next().next().next().next().next().next().children().first().val().replace(/,/g, "")));
-
-					  //-> 받을 금액과 받은 금액 합
-					  insertData.modal_receive_data = parseInt($(item).parent().next().next().next().next().next().next().children().first().val().replace(/,/g, "")) + parseInt($(item).parent().next().next().next().next().next().next().next().children().first().val().replace(/,/g, ""));  
-
-					  //swc_bacledger의 차액, 차액에 대한 메모
-					  insertData.difference_price = parseInt($('#difference_price').val().replace(/,/g, ""))
-					  insertData.difference_memo = $('#received_price_detail').val()
-			  		
-		  			$.ajax({
-		  				url: "${path}/acc/bacCheckConnect.do",
-		  				method: "post",
-		  				data: insertData,
-		  				async: false,
-		  				dataType: "json"
-		  			});
-		  			//modal_vatmemo
-		  		 	$.ajax({
-		  				url: "${path}/acc/bacCheckConnect_modal_update.do",
-		  				method: "post",
-		  				data: insertData,
-		  				async: false,
-		  				dataType: "json"
-		  			}); 
-		  		 	$.ajax({
-		  				url: "${path}/acc/bacCheckConnect_modal_baclogId_memo.do",
-		  				method: "post",
-		  				data: insertData,
-		  				async: false,
-		  				dataType: "json"
-		  			}); 
-			  	}
-	  		});
-	  		  
-	  		alert("연결되었습니다.");
-	  		localStorage.setItem('lastTab', $('#baclist_num').val());
-			localStorage.setItem('lastpageNum', $('#reloadpage_num').val());
-			location.href="${path}/acc/bacdetail.do";
-	  	}
+    	select_total_price();
+		  	if(confirm("차액은 "+$('#difference_price').val()+"원 입니다. 연결하시겠습니까??")){
+		  		var listTable = $("#vatlistTable tbody tr td");
+		  		var bacId = localStorage.getItem("thisId");
+		  		var compNo = "${sessionScope.compNo}";
+		  		  
+		  		listTable.find("#checkSerial").each(function(index, item){
+				  	if($(item).is(":checked") === true){
+				  		var insertData = {};
+				  		  
+				  		insertData.compNo = compNo;
+				  		insertData.baclogId = bacId;
+				  		insertData.linkType = "VAT";
+				  		insertData.linkDocno = $(item).attr("data-number");
+				  		//swc_vat의 modal_vatmemo modal_vatmemo - modal_receive_data
+						  //-> 받은 금액
+						  
+					  	  insertData.modal_receive_data_sole = parseInt($(item).parent().next().next().next().next().next().next().next().children().first().val().replace(/,/g, ""))
+						  //-> 남은 금액
+						  insertData.modal_vatmemo = parseInt($(item).parent().next().next().next().next().next().next().next().next().children().first().val().replace(/,/g, "")) - parseInt($(item).parent().next().next().next().next().next().next().next().children().first().val().replace(/,/g, ""))
+						  insertData.modal_vatmemo_secound = (parseInt($(item).parent().next().next().next().next().next().next().next().next().children().first().val().replace(/,/g, "")) - parseInt($(item).parent().next().next().next().next().next().next().next().children().first().val().replace(/,/g, "")));
+	
+						  //-> 받을 금액과 받은 금액 합
+						  insertData.modal_receive_data = parseInt($(item).parent().next().next().next().next().next().next().children().first().val().replace(/,/g, "")) + parseInt($(item).parent().next().next().next().next().next().next().next().children().first().val().replace(/,/g, ""));  
+	
+						  //swc_bacledger의 차액, 차액에 대한 메모
+						  insertData.difference_price = parseInt($('#difference_price').val().replace(/,/g, ""))
+						  insertData.difference_memo = $('#received_price_detail').val()
+				  		
+			  			$.ajax({
+			  				url: "${path}/acc/bacCheckConnect.do",
+			  				method: "post",
+			  				data: insertData,
+			  				async: false,
+			  				dataType: "json"
+			  			});
+			  			//modal_vatmemo
+			  		 	$.ajax({
+			  				url: "${path}/acc/bacCheckConnect_modal_update.do",
+			  				method: "post",
+			  				data: insertData,
+			  				async: false,
+			  				dataType: "json"
+			  			}); 
+			  		 	$.ajax({
+			  				url: "${path}/acc/bacCheckConnect_modal_baclogId_memo.do",
+			  				method: "post",
+			  				data: insertData,
+			  				async: false,
+			  				dataType: "json"
+			  			}); 
+				  	}
+		  		});
+		  		  
+		  		alert("연결되었습니다.");
+		  		localStorage.setItem('lastTab', $('#baclist_num').val());
+				localStorage.setItem('lastpageNum', $('#reloadpage_num').val());
+				location.href="${path}/acc/bacdetail.do";
+		  	}
     }
     function allCheck(e){
   	  if($(e).is(":checked") === true){

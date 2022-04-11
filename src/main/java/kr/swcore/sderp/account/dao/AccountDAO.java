@@ -105,5 +105,7 @@ public interface AccountDAO {
 	void update_check_remain_money_from_swc_vat(AccountDTO dto);
 	void update_check_remain_money_from_swc_vat_B(AccountDTO dto);
 	AccountDTO cardSelectListCount(AccountDTO dto);
+	List<AccountDTO> sumSvat_sub(AccountDTO dto);
+	List<AccountDTO> sumBvat_sub(AccountDTO dto);
 
 }

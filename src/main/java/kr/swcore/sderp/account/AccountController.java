@@ -86,8 +86,18 @@ public class AccountController {
             }else {
             	dto.setSelectYear(year);
             }
-            
-            mav.addObject("vatList", accountService.sumBvatSearch(session, dto));
+            List <AccountDTO> vatList =  accountService.sumBvatSearch(session, dto);
+            List <AccountDTO> sumBvat_sub = accountService.sumBvat_sub(session, dto);
+            for(int i = 0; i < sumBvat_sub.size(); i++) {
+            	for(int s = 0; s < vatList.size(); s++) {
+            		if(sumBvat_sub.get(i).getCustNo() == vatList.get(s).getCustNo()) {
+            			System.out.println("vatList.get(s).getContNo() ===========================" + vatList.get(s).getCustNo());
+            			vatList.get(s).setSerialTotalB(sumBvat_sub.get(i).getModal_receive_data());
+            			System.out.println("vatList.get(s).getSerialTotalB() =====================" + vatList.get(s).getSerialTotalB());
+            		}
+            	}
+            }
+            mav.addObject("vatList", vatList);
         } else {
             AccountDTO dto = new AccountDTO();
             LocalDate now = LocalDate.now();
@@ -95,7 +105,20 @@ public class AccountController {
             dto.setVatIssueDateFrom(year + "-01-01");
             dto.setVatIssueDateTo(year + "-12-31");
             dto.setSelectYear(year);
-            mav.addObject("vatList", accountService.sumBvat(session, dto));
+            
+            List <AccountDTO> vatList =  accountService.sumBvat(session, dto);
+            List <AccountDTO> sumBvat_sub = accountService.sumBvat_sub(session, dto);
+            for(int i = 0; i < sumBvat_sub.size(); i++) {
+            	for(int s = 0; s < vatList.size(); s++) {
+            		if(sumBvat_sub.get(i).getCustNo() == vatList.get(s).getCustNo()) {
+            			System.out.println("vatList.get(s).getContNo() ===========================" + vatList.get(s).getCustNo());
+            			vatList.get(s).setSerialTotalB(sumBvat_sub.get(i).getModal_receive_data());
+            			System.out.println("vatList.get(s).getSerialTotalB() =====================" + vatList.get(s).getSerialTotalB());
+            		}
+            	}
+            }
+            
+            mav.addObject("vatList", vatList);
         }
         mav.setViewName("settle/sumBvatlist");
         return mav;
@@ -129,8 +152,19 @@ public class AccountController {
             }else {
             	dto.setSelectYear(year);
             }
-            
+            List <AccountDTO> vatList = accountService.sumSvatSearch(session, dto);
+            List <AccountDTO> sumSvat_sub = accountService.sumSvat_sub(session, dto);
+            for(int i = 0; i < sumSvat_sub.size(); i++) {
+            	for(int s = 0; s < vatList.size(); s++) {
+            		if(sumSvat_sub.get(i).getCustNo() == vatList.get(s).getCustNo()) {
+            			System.out.println("vatList.get(s).getContNo() ===========================" + vatList.get(s).getCustNo());
+            			vatList.get(s).setSerialTotalS(sumSvat_sub.get(i).getModal_receive_data());
+            			System.out.println("vatList.get(s).getSerialTotalS() =====================" + vatList.get(s).getSerialTotalS());
+            		}
+            	}
+            }
             mav.addObject("vatList", accountService.sumSvatSearch(session, dto));
+            
         } else {
             AccountDTO dto = new AccountDTO();
             LocalDate now = LocalDate.now();
@@ -138,7 +172,19 @@ public class AccountController {
             dto.setVatIssueDateFrom(year + "-01-01");
             dto.setVatIssueDateTo(year + "-12-31");
             dto.setSelectYear(year);
-            mav.addObject("vatList", accountService.sumSvat(session, dto));
+            List <AccountDTO> sumSvat_sub = accountService.sumSvat_sub(session, dto);
+            List <AccountDTO> vatList = accountService.sumSvat(session, dto);
+            
+            for(int i = 0; i < sumSvat_sub.size(); i++) {
+            	for(int s = 0; s < vatList.size(); s++) {
+            		if(sumSvat_sub.get(i).getCustNo() == vatList.get(s).getCustNo()) {
+            			System.out.println("vatList.get(s).getContNo() ===========================" + vatList.get(s).getCustNo());
+            			vatList.get(s).setSerialTotalS(sumSvat_sub.get(i).getModal_receive_data());
+            			System.out.println("vatList.get(s).getSerialTotalS() =====================" + vatList.get(s).getSerialTotalS());
+            		}
+            	}
+            }
+            mav.addObject("vatList", vatList);
         }
         mav.setViewName("settle/sumSvatlist");
         return mav;

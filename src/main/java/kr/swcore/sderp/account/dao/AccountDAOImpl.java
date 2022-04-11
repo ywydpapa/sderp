@@ -528,4 +528,16 @@ public class AccountDAOImpl implements AccountDAO {
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne("account.cardSelectListCount", dto);
 	}
+
+	@Override
+	public List<AccountDTO> sumSvat_sub(AccountDTO dto) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("account.sumSvat_sub", dto);
+	}
+
+	@Override
+	public List<AccountDTO> sumBvat_sub(AccountDTO dto) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("account.sumBvat_sub", dto);
+	}
 }

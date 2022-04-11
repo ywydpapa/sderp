@@ -76,7 +76,7 @@
   	<thead>
 		<tr>
 			<th>입금금액</th>
-			<th>받은금액</th>
+			<th>받을금액</th>
 			<th>차액</th>
 			<th id="received_price_col"style="display: none;">비고</th>
 		</tr>

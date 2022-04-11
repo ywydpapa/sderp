@@ -31,8 +31,8 @@
 	      	<th>금액</th>
 	      	<th>품명</th>
 	      	<th>비고</th>
-	      	<th>받은금액</th>
-	      	<th>받을금액</th>
+	      	<th>지급금액</th>
+	      	<th>지급 할 금액</th>
 	      	<th>남은금액</th>
 	      	<th>승인번호</th>
 	    </tr>
@@ -76,7 +76,7 @@
   	<thead>
 		<tr>
 			<th>출금금액</th>
-			<th>받은금액</th>
+			<th>지급 할 금액</th>
 			<th>차액</th>
 			<th id="received_price_col"style="display: none;">비고</th>
 		</tr>

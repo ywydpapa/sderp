@@ -582,4 +582,16 @@ public class AccountServiceImpl implements AccountService {
 		// TODO Auto-generated method stub
 		return accountDAO.cardSelectListCount(dto);
 	}
+
+	@Override
+	public List<AccountDTO> sumSvat_sub(HttpSession session, AccountDTO dto) {
+		// TODO Auto-generated method stub
+		return accountDAO.sumSvat_sub(dto);
+	}
+
+	@Override
+	public List<AccountDTO> sumBvat_sub(HttpSession session, AccountDTO dto) {
+		// TODO Auto-generated method stub
+		return accountDAO.sumBvat_sub(dto);
+	}
 }

@@ -29,6 +29,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		WHERE a.compNo = #{compNo} AND a.attrib NOT LIKE 'XXX%' AND a.settleYear = #{selectYear} and a.settleDRbalance IS NOT NULL
 		GROUP BY a.custNo order BY a.settleDRbalance desc
 	</select>
+	<select id="sumBvat_sub" resultType="accountDto">
+		SELECT d.custNo, d.custName, c.modal_receive_data FROM swc_bacledger a
+		LEFT JOIN swc_bacledger_detail b ON a.baclogId = b.baclogId
+		LEFT JOIN swc_vat c ON b.linkDocno = c.vatSerial 
+		LEFT JOIN swc_cust d on c.vatBuyerCustNo = d.custNo
+		where linkDoc = 'y' AND (c.vatStatus = 'B3' or c.vatStatus = 'B5') and a.baclogTime LIKE '2022%' GROUP BY d.custName;
+	</select>
 
 	<select id="sumBVatSearch" resultType="accountDto">
 		SELECT a.*, a.settleDRbalance as custBalance, c.custName AS vatSellerName, sum(b.vatTax + b.vatAmount) AS vatAmountB, sum(case when b.vatStatus='B5' then b.vatAmount + b.vatTax end) AS serialTotalB
@@ -50,7 +57,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		WHERE a.compNo = #{compNo} AND a.attrib NOT LIKE 'XXX%' AND a.settleYear = #{selectYear} and a.settleCRbalance IS NOT NULL
 		GROUP BY a.custNo order BY a.settleCRbalance desc
 	</select>
-
+	<select id="sumSvat_sub" resultType="accountDto">
+		SELECT d.custNo, d.custName, c.modal_receive_data FROM swc_bacledger a
+		LEFT JOIN swc_bacledger_detail b ON a.baclogId = b.baclogId
+		LEFT JOIN swc_vat c ON b.linkDocno = c.vatSerial 
+		LEFT JOIN swc_cust d on c.vatBuyerCustNo = d.custNo
+		where linkDoc = 'y' AND (c.vatStatus = 'S3' or c.vatStatus = 'S5') and a.baclogTime LIKE '2022%' GROUP BY d.custName;
+	</select>
 	<select id="sumSVatSearch" resultType="accountDto">
 		SELECT a.*, a.settleCRbalance as custBalance, c.custName AS vatBuyerName, sum(b.vatTax + b.vatAmount) AS vatAmountS, sum(case when b.vatStatus='S5' then b.vatAmount + b.vatTax end) AS serialTotalS
 		FROM swc_cust_balance a 

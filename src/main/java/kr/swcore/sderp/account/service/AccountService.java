@@ -106,4 +106,6 @@ public interface AccountService {
 	void update_check_remain_money_from_swc_vat(AccountDTO dto);
 	void update_check_remain_money_from_swc_vat_B(AccountDTO dto);
 	AccountDTO cardSelectListCount(AccountDTO dto);
+	List<AccountDTO> sumSvat_sub(HttpSession session, AccountDTO dto);
+	List<AccountDTO> sumBvat_sub(HttpSession session, AccountDTO dto);
 }

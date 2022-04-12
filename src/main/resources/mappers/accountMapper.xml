@@ -33,7 +33,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		SELECT d.custNo, d.custName, c.modal_receive_data FROM swc_bacledger a
 		LEFT JOIN swc_bacledger_detail b ON a.baclogId = b.baclogId
 		LEFT JOIN swc_vat c ON b.linkDocno = c.vatSerial 
-		LEFT JOIN swc_cust d on c.vatBuyerCustNo = d.custNo
+		LEFT JOIN swc_cust d on c.vatSellerCustNo = d.custNo
 		where linkDoc = 'y' AND (c.vatStatus = 'B3' or c.vatStatus = 'B5') and a.baclogTime LIKE '2022%' GROUP BY d.custName;
 	</select>
 

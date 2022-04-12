@@ -34,7 +34,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		LEFT JOIN swc_bacledger_detail b ON a.baclogId = b.baclogId
 		LEFT JOIN swc_vat c ON b.linkDocno = c.vatSerial 
 		LEFT JOIN swc_cust d on c.vatSellerCustNo = d.custNo
-		where linkDoc = 'y' AND (c.vatStatus = 'B3' or c.vatStatus = 'B5') and a.baclogTime LIKE '2022%' GROUP BY d.custName;
+		where linkDoc = 'y' AND (c.vatStatus = 'B3' or c.vatStatus = 'B5') and a.baclogTime LIKE CONCAT('%', #{selectYear}, '%') GROUP BY d.custName;
 	</select>
 
 	<select id="sumBVatSearch" resultType="accountDto">
@@ -62,7 +62,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		LEFT JOIN swc_bacledger_detail b ON a.baclogId = b.baclogId
 		LEFT JOIN swc_vat c ON b.linkDocno = c.vatSerial 
 		LEFT JOIN swc_cust d on c.vatBuyerCustNo = d.custNo
-		where linkDoc = 'y' AND (c.vatStatus = 'S3' or c.vatStatus = 'S5') and a.baclogTime LIKE '2022%' GROUP BY d.custName;
+		where linkDoc = 'y' AND (c.vatStatus = 'S3' or c.vatStatus = 'S5') and a.baclogTime LIKE CONCAT('%', #{selectYear}, '%') GROUP BY d.custName;
 	</select>
 	<select id="sumSVatSearch" resultType="accountDto">
 		SELECT a.*, a.settleCRbalance as custBalance, c.custName AS vatBuyerName, sum(b.vatTax + b.vatAmount) AS vatAmountS, sum(case when b.vatStatus='S5' then b.vatAmount + b.vatTax end) AS serialTotalS

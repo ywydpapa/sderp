@@ -108,4 +108,5 @@ public interface AccountService {
 	AccountDTO cardSelectListCount(AccountDTO dto);
 	List<AccountDTO> sumSvat_sub(HttpSession session, AccountDTO dto);
 	List<AccountDTO> sumBvat_sub(HttpSession session, AccountDTO dto);
+	List<AccountDTO> check_lincked_last(AccountDTO dto);
 }

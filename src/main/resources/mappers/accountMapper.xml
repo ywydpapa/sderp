@@ -931,6 +931,10 @@ attrib) values (#{vatId},
 		update swc_vat set vatStatus = 'B5'
 		WHERE vatSerial = #{linkDocno}
 	</update>
+	<select id="check_lincked_last" resultType="accountDto">
+		select * from swc_vat
+		where vatSerial = #{linkDocno};
+	</select>
 	
 	<select id="gradata" resultType="accountDto">
 		select sst.userNo, su.userName. sst.deptNo, sst.targetType,

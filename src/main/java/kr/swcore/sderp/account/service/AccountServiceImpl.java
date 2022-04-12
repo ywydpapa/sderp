@@ -594,4 +594,10 @@ public class AccountServiceImpl implements AccountService {
 		// TODO Auto-generated method stub
 		return accountDAO.sumBvat_sub(dto);
 	}
+
+	@Override
+	public List<AccountDTO> check_lincked_last(AccountDTO dto) {
+		// TODO Auto-generated method stub
+		return accountDAO.check_lincked_last(dto);
+	}
 }

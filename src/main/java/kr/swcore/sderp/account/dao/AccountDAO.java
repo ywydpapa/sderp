@@ -107,5 +107,6 @@ public interface AccountDAO {
 	AccountDTO cardSelectListCount(AccountDTO dto);
 	List<AccountDTO> sumSvat_sub(AccountDTO dto);
 	List<AccountDTO> sumBvat_sub(AccountDTO dto);
+	List<AccountDTO> check_lincked_last(AccountDTO dto);
 
 }

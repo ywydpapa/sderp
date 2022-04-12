@@ -540,4 +540,10 @@ public class AccountDAOImpl implements AccountDAO {
 		// TODO Auto-generated method stub
 		return sqlSession.selectList("account.sumBvat_sub", dto);
 	}
+
+	@Override
+	public List<AccountDTO> check_lincked_last(AccountDTO dto) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("account.check_lincked_last", dto);
+	}
 }

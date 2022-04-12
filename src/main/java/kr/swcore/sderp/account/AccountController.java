@@ -634,8 +634,6 @@ public class AccountController {
 					accountService.updatevatmultilinkedcheck(dto);
 				}
 			}
-			
-		//
 		}else if(compareResult < 0) {
 			if(compareResult_out == 0) {
 				//s5
@@ -667,7 +665,6 @@ public class AccountController {
 				}
 			}
 		}
-
         return ResponseEntity.ok(param);
     }
     
@@ -675,6 +672,22 @@ public class AccountController {
     public ResponseEntity<Object> bacCheckConnect_modal_update(HttpSession session, @ModelAttribute AccountDTO dto){
         Map<String,Object> param = new HashMap<>();
         accountService.bacCheckConnect_modal_update(dto);
+      //수정 진행중============================================================================
+		List <AccountDTO> check_lincked_last = accountService.check_lincked_last(dto);
+		System.out.println(Integer.parseInt(check_lincked_last.get(0).getModal_vatmemo()));
+		if(Integer.parseInt(check_lincked_last.get(0).getModal_vatmemo()) == 0) {
+			System.out.println("check_lincked_last.get(0).getVatStatus()=====================================" + check_lincked_last.get(0).getVatStatus());
+			if(check_lincked_last.get(0).getVatStatus().equals("S1") || check_lincked_last.get(0).getVatStatus().equals("S3") || check_lincked_last.get(0).getVatStatus().equals("S5")) {
+				System.out.println("test2=====================================");
+				accountService.update_s5(dto);
+				accountService.updatevatmultilinkedcheck(dto);
+			}else if(check_lincked_last.get(0).getVatStatus().equals("B1") || check_lincked_last.get(0).getVatStatus().equals("B3") || check_lincked_last.get(0).getVatStatus().equals("B5")) {
+				System.out.println("test3=====================================");
+				accountService.update_b5(dto);
+				accountService.updatevatmultilinkedcheck(dto);
+			}
+		}
+		//수정 진행중============================================================================
         return ResponseEntity.ok(param);
     }
     @RequestMapping("bacCheckConnect_modal_baclogId_memo.do")

@@ -30,7 +30,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		GROUP BY a.custNo order BY a.settleDRbalance desc
 	</select>
 	<select id="sumBvat_sub" resultType="accountDto">
-		SELECT d.custNo, d.custName, c.modal_receive_data FROM swc_bacledger a
+		SELECT d.custNo, d.custName, sum(c.modal_receive_data) as modal_receive_data FROM swc_bacledger a
 		LEFT JOIN swc_bacledger_detail b ON a.baclogId = b.baclogId
 		LEFT JOIN swc_vat c ON b.linkDocno = c.vatSerial 
 		LEFT JOIN swc_cust d on c.vatSellerCustNo = d.custNo
@@ -58,7 +58,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		GROUP BY a.custNo order BY a.settleCRbalance desc
 	</select>
 	<select id="sumSvat_sub" resultType="accountDto">
-		SELECT d.custNo, d.custName, c.modal_receive_data FROM swc_bacledger a
+		SELECT d.custNo, d.custName, sum(c.modal_receive_data) as modal_receive_data FROM swc_bacledger a
 		LEFT JOIN swc_bacledger_detail b ON a.baclogId = b.baclogId
 		LEFT JOIN swc_vat c ON b.linkDocno = c.vatSerial 
 		LEFT JOIN swc_cust d on c.vatBuyerCustNo = d.custNo

@@ -163,7 +163,7 @@ public class AccountController {
             		}
             	}
             }
-            mav.addObject("vatList", accountService.sumSvatSearch(session, dto));
+            mav.addObject("vatList", vatList);
             
         } else {
             AccountDTO dto = new AccountDTO();

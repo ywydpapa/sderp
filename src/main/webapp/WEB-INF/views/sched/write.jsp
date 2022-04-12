@@ -373,7 +373,7 @@
 				schedData.schedDesc 		= $("#schedDesc").val();
 			}
 			
-			schedData.schedType 		= $("#schedType").val();
+			schedData.schedType 		= $("#schedType").val() ? Number($("#schedType").val()) : 0;
 			schedData.schedCat 		= $("#schedCat").val();
 			schedData.contNo		= $("#contNo").val() ? Number($("#contNo").val()) : 0;
 			schedData.schedCheck = 1;

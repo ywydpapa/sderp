@@ -564,9 +564,11 @@
 			var contData = {};
 			var contractType					= $("input[name='contractType']:checked").val();	// 신규 영업지원 or 기존계약
 			if(contractType == 'NEW'){
+				var cntrctMth = "${contractType[0].codeNo}";
+				
 				contData.soppNo					= $("#soppNo").val();			// 영업기회
 				contData.exContNo				= 0;							// 기존계약
-				contData.cntrctMth				= ${contractType[0].codeNo};
+				contData.cntrctMth				= cntrctMth;
 				if($("#freemaintSdate").val() != "") contData.freemaintSdate = $("#freemaintSdate").val();	// 무상유지보수 시작일자
 				if($("#freemaintEdate").val() != "") contData.freemaintEdate = $("#freemaintEdate").val();	// 무상유지보수 마감일자
 				if(!contData.soppNo){
@@ -574,9 +576,10 @@
 					return;
 				}
 			} else {
+				var cntrctMth = "${contractType[1].codeNo}";
 				contData.soppNo					= $("#oldSoppNo").val();							// 영업기회
 				contData.exContNo				= $("#oldContNo").val();		// 기존계약
-				contData.cntrctMth				= ${contractType[1].codeNo};
+				contData.cntrctMth				= cntrctMth;
 				if($("#paymaintSdate").val() != "") contData.paymaintSdate = $("#paymaintSdate").val();		// 유상유지보수 시작일자
 				if($("#paymaintEdate").val() != "") contData.paymaintEdate = $("#paymaintEdate").val();		// 유상유지보수 마감일자
 				if(!contData.exContNo){

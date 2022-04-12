@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <c:set var="path" value ="${pageContext.request.contextPath}"/>
 <%-- <form name="form2" method="post" onsubmit="return false;">
     <table class="table table-sm bst02">
@@ -261,7 +262,14 @@
     </table>
 </form> --%>
 <form name="form2" method="post" onsubmit="return false;">
-	<p style="font-weight: 600; color: red;">※ 추가는 분할횟수 및 계약금액에 상관없이 원래 방식대로 추가되고, 분할추가는 분할횟수 및 계약금액에 맞춰 다중으로 추가됩니다.</p>
+	<div style="width:100%;">
+		<div style="float:left; margin-top: 10px;">
+			<p style="font-weight: 600; color: red;">※ 추가는 분할횟수 및 계약금액에 상관없이 원래 방식대로 추가되고, 분할추가는 분할횟수 및 계약금액에 맞춰 다중으로 추가됩니다.</p>
+		</div>
+		<div id="contAmtUpBtn" style="float:right; margin-bottom: 15px;">
+			<button type="button" class="btn btn-success" onclick="contAmtUpdate();">계약금액 업데이트</button>
+		</div>
+	</div>
     <table class="table table-sm bst02">
         <tbody>
 	        <tr>
@@ -731,7 +739,6 @@
     	            method: "POST",
     	            dataType: "json"
     	        });
-    	        
         	}
         	localStorage.setItem('lastTab', "#tab02");
             alert("저장 성공");
@@ -1000,8 +1007,39 @@
             $("#data01Total").val(sumt.toLocaleString("en-US"));
         }
     }
+    
+    function contAmtUpdate(){
+    	if(confirm("매출합계를 계약금액으로 업데이트 하시겠습니까??")){
+    		var path = $(location).attr("pathname");
+    		var compNo = "${sessionScope.compNo}";
+    		var updateData = {};
+    		
+    		updateData.compNo = compNo;
+    		updateData.contNo = $("#contNo").val();
+    		updateData.contAmt = $("#product01OutSum").html().replace(/[\D\s\._\-]+/g, "");
+    		
+    		$.ajax({
+    			url: "${path}/cont/contAmtUpdate.do",
+    			method: "post",
+    			data: updateData,
+    			dataType: "json",
+    			success:function(){
+    				alert("업데이트 되었습니다.");
+    				location.href = path;
+    			},
+    			error:function(){
+    				alert("업데이트 하지 못했습니다.\n확인 후 다시 시도해주십시오.");
+    				return false;
+    			}
+    		});
+    	}else{
+			return false;    		
+    	}
+    }
 
     $(document).ready(function(){
+    	var pathName = $(location).attr("pathname");
+    	
     	$("#vatSdiv").hide();
     	
     	$("#data01Type").change(function(){
@@ -1047,6 +1085,12 @@
 				$(this).val(1);
 			}
 		});
+		
+		if(pathName.includes("/cont/detail/") || pathName.includes("/techd/contextdetail/")){
+			$("#contAmtUpBtn").show();
+		}else{
+			$("#contAmtUpBtn").hide();
+		}
 		
 		$("#mainDateFrom").val(nowDate);
 		$("#mainDateTo").val(calDate);

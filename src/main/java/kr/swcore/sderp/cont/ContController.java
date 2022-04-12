@@ -380,4 +380,15 @@ public class ContController {
 		return ResponseEntity.ok(param);
 	}
 	
+	@RequestMapping("contAmtUpdate.do")
+	public ResponseEntity<?> contAmtUpdate(@ModelAttribute ContDTO dto) {
+		Map<String, Object> param = new HashMap<>();
+		int contUpdate = contService.contAmtUpdate(dto);
+		if (contUpdate >0) {
+			param.put("code","10001"); 
+		}
+		else {param.put("code","20001");
+		}
+		return ResponseEntity.ok(param);
+	}
 }

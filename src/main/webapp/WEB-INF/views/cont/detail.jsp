@@ -63,15 +63,15 @@
 									<div class="table-responsive">
 										<table class="table table-sm bst02">
 											<colgroup>
-													<col width="5%" />
-													<col width="15%" />
-													<col width="5%" />
-													<col width="15%" />
-													<col width="5%" />
-													<col width="15%" />
-													<col width="5%" />
-													<col width="15%" />
-												</colgroup>
+												<col width="5%" />
+												<col width="15%" />
+												<col width="5%" />
+												<col width="15%" />
+												<col width="5%" />
+												<col width="15%" />
+												<col width="5%" />
+												<col width="15%" />
+											</colgroup>
 											<tbody>
 												<tr>
 													<th scope="row">등록구분</th>
@@ -207,8 +207,6 @@
 														</div>
 													</td>
 												</tr>
-												
-												
 												<tr>
 													<th class="requiredTextCss" scope="row">판매방식</th>
 													<td>
@@ -436,7 +434,7 @@
 						<div class="btn_wr text-right mt-3" id="tab01_bottom">
 							<button class="btn btn-md btn-success f-left" onClick="javascript:location='${path}/cont/list.do'">계약목록</button>
 							<c:if test="${contDto.userNo eq sessionScope.userNo || sessionScope.userRole eq 'ADMIN'}">
-								<button class="btn btn-md btn-danger" onClick="fn_ExtendCont()">유지보수 계약연장</button>
+								<!-- <button class="btn btn-md btn-danger" onClick="fn_ExtendCont()">유지보수 계약연장</button> -->
 								<button class="btn btn-md btn-danger" onClick="fn_DeleteCont()">삭제</button>
 								<button class="btn btn-md btn-primary" onClick="fn_SaveCont()">계약정보 수정</button>
 								<button class="btn btn-md btn-inverse" onClick="javascript:location='${path}/cont/list.do'">취소</button>

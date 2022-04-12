@@ -678,6 +678,7 @@
   					success:function(data){
   						var dataArrayApp = {};
   		   	        	var dataArrayData = {};
+  		   	        	var updateFile = {};
   		   	        	
   						dataArrayApp.docNo = data;
   						dataArrayApp.appStatus = 5;
@@ -723,7 +724,6 @@
 					}, 5000);
 	        	}
        		});
-        	
            	setTimeout(() => {
    	        	alert("승인되었습니다.");
    	        	location.reload();

@@ -299,8 +299,14 @@ public class GwController {
     
     @ResponseBody
     @RequestMapping("myDocCopyInsert.do")
-    public int myDocCopyInsert(@ModelAttribute GwDTO dto) throws InterruptedException {
+    public int myDocCopyInsert(@ModelAttribute GwDTO dto, GwFileDataDTO dtoa) throws InterruptedException {
         gwService.myDocCopyInsert(dto);
+        System.out.println("dto.getGetId() ===============================" + dto.getGetId());
+        System.out.println(dto.getDocNo());
+        dtoa.setDocNo(dto.getDocNo());
+        dtoa.setUpdateNo(dto.getGetId());
+        int estUpdate = gwService.updateFile(dtoa);
+        
         return dto.getGetId();
     }
     

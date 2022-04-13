@@ -260,6 +260,7 @@
 		                            <colgroup>
 		                            	<col width="3%"/>
 		                                <col width="5%"/>
+		                                <col width="5%"/>
 		                                <col width="10%"/>
 		                                <col width="10%"/>
 		                                <col width="10%"/>
@@ -267,13 +268,13 @@
 		                                <col width="10%"/>
 		                                <col width="10%"/>
 		                                <col width="7%"/>
-		                                <col width="5%"/>
 		                            </colgroup>
 		                            <thead>
 			                            <tr>
 			                            	<th class="text-center">
 			                            		<input type="checkbox" class="form-control" id="docAllCheck" onclick="drawAllCheckClick(this);" style="margin-bottom:5px;">
 			                            	</th>
+			                                <th class="text-center">출금여부</th>
 			                                <th class="text-center">작성일자</th>
 			                                <th class="text-center">문서번호</th>
 			                                <th class="text-center">문서종류</th>
@@ -282,7 +283,6 @@
 			                                <th class="text-center">금액</th>
 			                                <th class="text-center">작성자</th>
 			                                <th class="text-center">진행상태</th>
-			                                <th class="text-center">출금여부</th>
 			                            </tr>
 		                            </thead>
 		                            <tbody>
@@ -302,6 +302,20 @@
 				                                			</c:otherwise>
 				                                		</c:choose>
 				                                	</td>
+				                                	<td class="text-center">
+				                                    	<c:if test="${row.docDrawStatus eq 1 && row.docFormNo eq 'TREQ'}">
+															Y
+				                                    	</c:if>
+				                                    	<c:if test="${row.docDrawStatus eq 1 && row.docFormNo eq 'BREQ'}">
+				                                    		Y
+				                                    	</c:if>
+				                                    	<c:if test="${row.docDrawStatus eq 0 && row.docFormNo eq 'TREQ'}">
+															N
+				                                    	</c:if>
+				                                    	<c:if test="${row.docDrawStatus eq 0 && row.docFormNo eq 'BREQ'}">
+				                                    		N
+				                                    	</c:if>
+				                                    </td>
 				                                    <td class="text-center">${row.regDate}</td>
 				                                    <td class="text-center">
 				                                		<a href="${path}/gw/detail/${row.docNo}">VTEK_2022${row.docNo}</a>
@@ -324,20 +338,6 @@
 				                                    <td class="text-right" id="outAmt">￦<fmt:formatNumber type="number" maxFractionDigits="3" value="${row.docAmount}" /></td>
 				                                    <td class="text-center">${row.firstUser}</td>
 				                                    <td class="text-center">승인완료</td>
-				                                    <td class="text-center">
-				                                    	<c:if test="${row.docDrawStatus eq 1 && row.docFormNo eq 'TREQ'}">
-															Y
-				                                    	</c:if>
-				                                    	<c:if test="${row.docDrawStatus eq 1 && row.docFormNo eq 'BREQ'}">
-				                                    		Y
-				                                    	</c:if>
-				                                    	<c:if test="${row.docDrawStatus eq 0 && row.docFormNo eq 'TREQ'}">
-															N
-				                                    	</c:if>
-				                                    	<c:if test="${row.docDrawStatus eq 0 && row.docFormNo eq 'BREQ'}">
-				                                    		N
-				                                    	</c:if>
-				                                    </td>
 				                                </tr>
 			                       			</c:if>
 		                            	</c:forEach>
@@ -871,16 +871,12 @@
 	        		}
 	        		
 		        	if(index == tableCheckLength){
-		        		setTimeout(function(){
-						    $.LoadingOverlay("hide", true);
-						}, 5000);
+					    $.LoadingOverlay("hide", true);
 		        	}
 	        	});
 	        	
-	        	setTimeout(function(){
-		        	alert("변경되었습니다.");
-		        	location.href = path;
-	        	}, 5000);
+	        	alert("변경되었습니다.");
+	        	location.href = path;
 	        	
         	}else{
         		return false;
@@ -944,16 +940,12 @@
 	        		}
 	        		
 	        		if(index == tableCheckLength){
-		        		setTimeout(function(){
-						    $.LoadingOverlay("hide", true);
-						}, 5000);
+					    $.LoadingOverlay("hide", true);
 		        	}
 	        	});
 	        	
-	        	setTimeout(function(){
-	        		alert("변경되었습니다.");
-	        		location.href = path;
-	        	}, 5000);
+        		alert("변경되었습니다.");
+        		location.href = path;
 	        	
         	}else{
         		return false;

@@ -388,7 +388,6 @@
 	}
     
     function fn_data01Insert() {
-    	$.LoadingOverlay("show", true);
     	var path = $(location).attr("pathname");
     	 
     	if($("[name='contractType']:checked").val() === "NEW"){
@@ -433,7 +432,9 @@
             alert("상품명을 입력해주십시오.");
             return;
         }
-
+        
+        $.LoadingOverlay("show", true);
+        
         $.ajax({
             url: "${path}/sopp/insertdata01.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
             data: data01Data , // HTTP 요청과 함께 서버로 보낼 데이터

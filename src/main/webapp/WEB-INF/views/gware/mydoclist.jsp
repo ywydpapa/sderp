@@ -274,7 +274,7 @@
 			                            	<th class="text-center">
 			                            		<input type="checkbox" class="form-control" id="docAllCheck" onclick="drawAllCheckClick(this);" style="margin-bottom:5px;">
 			                            	</th>
-			                                <th class="text-center">출금여부</th>
+			                                <th class="text-center">출금</th>
 			                                <th class="text-center">작성일자</th>
 			                                <th class="text-center">문서번호</th>
 			                                <th class="text-center">문서종류</th>

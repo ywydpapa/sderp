@@ -23,10 +23,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<select id="sumBVat" resultType="accountDto">
 		SELECT a.*, b.settleDRbalance as custBalance, a.custName AS vatSellerName, SUM(c.vatTax + c.vatAmount) 
-		AS vatAmountB, sum(case when c.vatStatus='B5' then c.vatAmount + c.vatTax end) AS serialTotalB, c.modal_receive_data as modal_receive_data  FROM swc_cust a
+		AS vatAmountB, sum(case when c.vatStatus='B5' then c.vatAmount + c.vatTax end) AS serialTotalB FROM swc_cust a
 		LEFT JOIN swc_cust_balance b on a.custNo = b.custNo AND b.settleYear = #{selectYear} AND b.compNo = #{compNo} AND b.attrib NOT LIKE 'XXX%' AND b.settleDRbalance IS NOT NULL
 		LEFT JOIN swc_vat c ON a.custNo = c.vatSellerCustNo AND c.vatIssueDate BETWEEN #{vatIssueDateFrom} and #{vatIssueDateTo}
-		GROUP BY c.vatSellerCustNo ORDER BY b.settleDRbalance desc
+		GROUP BY a.custNo ORDER BY b.settleDRbalance desc
 	</select>
 	<select id="sumBvat_sub" resultType="accountDto">
 		SELECT d.custNo, d.custName, sum(c.modal_receive_data) as modal_receive_data FROM swc_bacledger a
@@ -38,21 +38,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<select id="sumBVatSearch" resultType="accountDto">
 		SELECT a.*, b.settleDRbalance as custBalance, a.custName AS vatSellerName, SUM(c.vatTax + c.vatAmount) 
-		AS vatAmountB, sum(case when c.vatStatus='B5' then c.vatAmount + c.vatTax end) AS serialTotalB, c.modal_receive_data as modal_receive_data  FROM swc_cust a
+		AS vatAmountB, sum(case when c.vatStatus='B5' then c.vatAmount + c.vatTax end) AS serialTotalB FROM swc_cust a
 		LEFT JOIN swc_cust_balance b on a.custNo = b.custNo AND b.settleYear = #{selectYear} AND b.compNo = #{compNo} AND b.attrib NOT LIKE 'XXX%' AND b.settleDRbalance IS NOT NULL
 		LEFT JOIN swc_vat c ON a.custNo = c.vatSellerCustNo AND c.vatIssueDate BETWEEN #{vatIssueDateFrom} and #{vatIssueDateTo}
 		<if test="vatSellerCustNo != null and vatSellerCustNo != ''">
-			and a.custNo = #{vatSellerCustNo}
+			where c.vatSellerCustNo = #{vatSellerCustNo}
 		</if>
-		GROUP BY c.vatSellerCustNo ORDER BY b.settleDRbalance desc
+		GROUP BY a.custNo ORDER BY b.settleDRbalance desc
 	</select>
 
 	<select id="sumSVat" resultType="accountDto">
 		SELECT a.*, b.settleCRbalance as custBalance, a.custName AS vatBuyerName, SUM(c.vatTax + c.vatAmount) 
-		AS vatAmountS, sum(case when c.vatStatus='S5' then c.vatAmount + c.vatTax end) AS serialTotalS, c.modal_receive_data as modal_receive_data  FROM swc_cust a
+		AS vatAmountS, sum(case when c.vatStatus='S5' then c.vatAmount + c.vatTax end) AS serialTotalS FROM swc_cust a
 		LEFT JOIN swc_cust_balance b on a.custNo = b.custNo AND b.settleYear = #{selectYear} AND b.compNo = #{compNo} AND b.attrib NOT LIKE 'XXX%' AND b.settleCRbalance IS NOT NULL
 		LEFT JOIN swc_vat c ON a.custNo = c.vatBuyerCustNo AND c.vatIssueDate BETWEEN #{vatIssueDateFrom} and #{vatIssueDateTo}
-		GROUP BY c.vatBuyerCustNo ORDER BY b.settleCRbalance desc
+		GROUP BY a.custNo ORDER BY b.settleCRbalance desc
 	</select>
 	<select id="sumSvat_sub" resultType="accountDto">
 		SELECT d.custNo, d.custName, sum(c.modal_receive_data) as modal_receive_data FROM swc_bacledger a
@@ -63,13 +63,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	<select id="sumSVatSearch" resultType="accountDto">
 		SELECT a.*, b.settleCRbalance as custBalance, a.custName AS vatBuyerName, SUM(c.vatTax + c.vatAmount) 
-		AS vatAmountS, sum(case when c.vatStatus='S5' then c.vatAmount + c.vatTax end) AS serialTotalS, c.modal_receive_data as modal_receive_data  FROM swc_cust a
+		AS vatAmountS, sum(case when c.vatStatus='S5' then c.vatAmount + c.vatTax end) AS serialTotalS FROM swc_cust a
 		LEFT JOIN swc_cust_balance b on a.custNo = b.custNo AND b.settleYear = #{selectYear} AND b.compNo = #{compNo} AND b.attrib NOT LIKE 'XXX%' AND b.settleCRbalance IS NOT NULL
 		LEFT JOIN swc_vat c ON a.custNo = c.vatBuyerCustNo AND c.vatIssueDate BETWEEN #{vatIssueDateFrom} and #{vatIssueDateTo}
 		<if test="vatBuyerCustNo != null and vatBuyerCustNo != ''">
-			and a.custNo = #{vatBuyerCustNo}
+			where c.vatBuyerCustNo = #{vatBuyerCustNo}
 		</if>
-		GROUP BY c.vatBuyerCustNo ORDER BY b.settleCRbalance desc
+		GROUP BY a.custNo ORDER BY b.settleCRbalance desc
 	</select>
 
 	<select id="listVatSearch" resultType="accountDto">
@@ -206,7 +206,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  		select a.*, b.custName vatSellerName, c.custName vatBuyerName from swc_vat a
  		left join swc_cust b on a.vatSellerCustNo = b.custNo
 		left join swc_cust c on a.vatBuyerCustNo = c.custNo
- 		where a.compNo = #{compNo} and vatType = #{vatType}
+ 		where a.compNo = #{compNo} and a.vatType = #{vatType} and a.attrib not like 'XXX%'
 		<if test="vatIssueDateFrom != null and vatIssueDateFrom !=''">
 			and a.vatIssueDate Between #{vatIssueDateFrom} and #{vatIssueDateTo}
 		</if>

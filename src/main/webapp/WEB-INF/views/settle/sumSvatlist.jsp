@@ -186,41 +186,43 @@
                             </tr>
                             </thead>
                             <c:forEach items="${vatList}" var="vlist">
-                                <tr>
-                                    <td class="text-center">
-                                   		<a data-remote="${path}/modal/popup.do?popId=custVatListModal&modalType=cust&custNo=${vlist.custNo}&compNo=${sessionScope.compNo}&vatIssueDateFrom=${param.vatIssueDateFrom}&vatIssueDateTo=${param.vatIssueDateTo}&vatType=S" type="button" data-toggle="modal" data-target="#custVatList" style="cursor: pointer; text-decoration: underline;">
-                                   			${vlist.vatBuyerName}
-                                   		</a>
-                                   	</td>
-                                   	<td class="text-right">
-                                   		<c:choose>
-                                    		<c:when test="${vlist.custBalance > 0}">
-                                    			<a data-remote="${path}/modal/popup.do?popId=custVatListModal&modalType=balance&custNo=${vlist.custNo}&compNo=${sessionScope.compNo}&vatIssueDateFrom=${param.vatIssueDateFrom}&vatIssueDateTo=${param.vatIssueDateTo}&vatType=S" type="button" data-toggle="modal" data-target="#custVatList" style="cursor: pointer; text-decoration: underline;">
-		                                   			<fmt:formatNumber type="number" maxFractionDigits="3" value="${vlist.custBalance}" />
-		                                   		</a>
-                                    		</c:when>
-                                    		<c:otherwise>0</c:otherwise>
-                                    	</c:choose>
-                                   	</td>
-                                    <td class="text-right">
-										<c:choose>
-                                    		<c:when test="${vlist.vatAmountS > 0}"><fmt:formatNumber type="number" maxFractionDigits="3" value="${vlist.vatAmountS}" /></c:when>
-                                    		<c:otherwise>0</c:otherwise>
-                                    	</c:choose>
-									</td>
-                                    <td class="text-right">
-                                    	<c:choose>
-                                    		<c:when test="${vlist.serialTotalS > 0}"><fmt:formatNumber type="number" maxFractionDigits="3" value="${vlist.serialTotalS}" /></c:when>
-                                    		<c:otherwise>0</c:otherwise>
-                                    	</c:choose>
-                                    </td>
-                                    <td class="text-right">
-										<c:choose>
-                                    		<c:when test="${((vlist.custBalance + vlist.vatAmountS) - vlist.serialTotalS) > 0}"><fmt:formatNumber type="number" maxFractionDigits="3" value="${(vlist.custBalance + vlist.vatAmountS) - vlist.serialTotalS}" /></c:when>
-                                    		<c:otherwise>0</c:otherwise>
-                                    	</c:choose>
-                                    </td>
-                                </tr>
+                            	<c:if test="${vlist.vatAmountS > 0 || vlist.serialTotalS > 0}">
+	                                <tr>
+	                                    <td class="text-center">
+	                                   		<a data-remote="${path}/modal/popup.do?popId=custVatListModal&modalType=cust&custNo=${vlist.custNo}&compNo=${sessionScope.compNo}&vatIssueDateFrom=${param.vatIssueDateFrom}&vatIssueDateTo=${param.vatIssueDateTo}&vatType=S" type="button" data-toggle="modal" data-target="#custVatList" style="cursor: pointer; text-decoration: underline;">
+	                                   			${vlist.vatBuyerName}
+	                                   		</a>
+	                                   	</td>
+	                                   	<td class="text-right">
+	                                   		<c:choose>
+	                                    		<c:when test="${vlist.custBalance > 0}">
+	                                    			<a data-remote="${path}/modal/popup.do?popId=custVatListModal&modalType=balance&custNo=${vlist.custNo}&compNo=${sessionScope.compNo}&vatIssueDateFrom=${param.vatIssueDateFrom}&vatIssueDateTo=${param.vatIssueDateTo}&vatType=S" type="button" data-toggle="modal" data-target="#custVatList" style="cursor: pointer; text-decoration: underline;">
+			                                   			<fmt:formatNumber type="number" maxFractionDigits="3" value="${vlist.custBalance}" />
+			                                   		</a>
+	                                    		</c:when>
+	                                    		<c:otherwise>0</c:otherwise>
+	                                    	</c:choose>
+	                                   	</td>
+	                                    <td class="text-right">
+											<c:choose>
+	                                    		<c:when test="${vlist.vatAmountS > 0}"><fmt:formatNumber type="number" maxFractionDigits="3" value="${vlist.vatAmountS}" /></c:when>
+	                                    		<c:otherwise>0</c:otherwise>
+	                                    	</c:choose>
+										</td>
+	                                    <td class="text-right">
+	                                    	<c:choose>
+	                                    		<c:when test="${vlist.serialTotalS > 0}"><fmt:formatNumber type="number" maxFractionDigits="3" value="${vlist.serialTotalS}" /></c:when>
+	                                    		<c:otherwise>0</c:otherwise>
+	                                    	</c:choose>
+	                                    </td>
+	                                    <td class="text-right">
+											<c:choose>
+	                                    		<c:when test="${((vlist.custBalance + vlist.vatAmountS) - vlist.serialTotalS) > 0}"><fmt:formatNumber type="number" maxFractionDigits="3" value="${(vlist.custBalance + vlist.vatAmountS) - vlist.serialTotalS}" /></c:when>
+	                                    		<c:otherwise>0</c:otherwise>
+	                                    	</c:choose>
+	                                    </td>
+	                                </tr>
+                               	</c:if>
                             </c:forEach>
                         </table>
                     </div>

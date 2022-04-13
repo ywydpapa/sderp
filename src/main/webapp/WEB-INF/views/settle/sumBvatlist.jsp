@@ -187,7 +187,6 @@
                             </thead>
                             <tbody>
 	                            <c:forEach items="${vatList}" var="vlist">
-	                            	<c:if test="${vlist.vatAmountB > 0 || vlist.serialTotalB > 0}">
 		                                <tr>
 		                                    <td class="text-center">
 	                                    		<a data-remote="${path}/modal/popup.do?popId=custVatListModal&modalType=cust&custNo=${vlist.custNo}&compNo=${sessionScope.compNo}&vatIssueDateFrom=${param.vatIssueDateFrom}&vatIssueDateTo=${param.vatIssueDateTo}&vatType=B" type="button" data-toggle="modal" data-target="#custVatList" style="cursor: pointer; text-decoration: underline;">
@@ -223,7 +222,6 @@
 		                                    	</c:choose>
 		                                    </td>
 		                                </tr>
-	                            	</c:if>
 	                            </c:forEach>
                             </tbody>
                         </table>

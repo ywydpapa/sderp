@@ -294,6 +294,9 @@
 				                                			<c:when test="${row.docFormNo eq 'TREQ'}">
 						                                		<input type="checkbox" class="form-control" id="docCheck" data-id="${row.docNo}" data-drawno="${row.docDrawNo}" onclick="drawCheckClick();" style="margin-top:3px;width:45px;">
 				                                			</c:when>
+				                                			<c:when test="${row.docFormNo eq 'BREQ'}">
+						                                		<input type="checkbox" class="form-control" id="docCheck" data-id="${row.docNo}" data-drawno="${row.docDrawNo}" onclick="drawCheckClick();" style="margin-top:3px;width:45px;">	                                				
+				                                			</c:when>
 				                                			<c:otherwise>
 				                                				<input type="checkbox" class="form-control" style="margin-top:3px;" disabled>
 				                                			</c:otherwise>
@@ -325,8 +328,14 @@
 				                                    	<c:if test="${row.docDrawStatus eq 1 && row.docFormNo eq 'TREQ'}">
 															Y
 				                                    	</c:if>
+				                                    	<c:if test="${row.docDrawStatus eq 1 && row.docFormNo eq 'BREQ'}">
+				                                    		Y
+				                                    	</c:if>
 				                                    	<c:if test="${row.docDrawStatus eq 0 && row.docFormNo eq 'TREQ'}">
 															N
+				                                    	</c:if>
+				                                    	<c:if test="${row.docDrawStatus eq 0 && row.docFormNo eq 'BREQ'}">
+				                                    		N
 				                                    	</c:if>
 				                                    </td>
 				                                </tr>

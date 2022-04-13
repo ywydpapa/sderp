@@ -589,7 +589,7 @@
 			}
 			contData.contTitle 				= $("#contTitle").val(); 		// 계약명
 			if($("#userName").val() != "")			contData.userNo		 	= Number($("#userNo").val());			// 담당사원
-			var net_profit = Number($("#netprofit").val().replace(/[\D\s\._\-]+/g, "")); // 매출이익
+			var net_profit = typeof $("#netprofit").val() === "undefined" ? 0 : Number($("#netprofit").val()).replace(/[\D\s\._\-]+/g, ""); // 매출이익
 			if (net_profit >= 0){
 				contData.net_profit = net_profit;
 			} else {
@@ -603,7 +603,7 @@
 			if($("#supplyDate").val() != "") 		contData.supplyDate = $("#supplyDate").val();		// 공급일자
 			if($("#delivDate").val() != "")  		contData.delivDate	 = $("#delivDate").val();		// 검수일자
 
-			var contAmt = Number($("#contAmt").val().replace(/[\D\s\._\-]+/g, ""));			// 계약금액
+			var contAmt = typeof $("#contAmt").val() === "undefined" ? 0 : Number($("#contAmt").val().replace(/[\D\s\._\-]+/g, ""));			// 계약금액
 			if (contAmt >= 0){
 				contData.contAmt = contAmt;
 			} else {

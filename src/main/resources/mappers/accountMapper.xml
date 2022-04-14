@@ -28,12 +28,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		LEFT JOIN swc_vat c ON a.custNo = c.vatSellerCustNo AND c.vatIssueDate BETWEEN #{vatIssueDateFrom} and #{vatIssueDateTo}
 		GROUP BY a.custNo ORDER BY b.settleDRbalance desc
 	</select>
-	<select id="sumBvat_sub" resultType="accountDto">
-		SELECT d.custNo, d.custName, sum(c.modal_receive_data) as modal_receive_data FROM swc_bacledger a
-		LEFT JOIN swc_bacledger_detail b ON a.baclogId = b.baclogId
-		LEFT JOIN swc_vat c ON b.linkDocno = c.vatSerial 
-		LEFT JOIN swc_cust d on c.vatSellerCustNo = d.custNo
-		where linkDoc = 'y' AND (c.vatStatus = 'B3' or c.vatStatus = 'B5') and a.baclogTime LIKE CONCAT('%', #{selectYear}, '%') GROUP BY d.custName;
+	<select id="sumBvat_sub" resultType="accountDto">		
+		SELECT a.custNo, a.custName, sum(b.modal_receive_data) AS modal_receive_data FROM swc_cust a
+		LEFT JOIN swc_vat b ON a.custNo = b.vatSellerCustNo AND (b.vatStatus = 'B3' OR b.vatStatus = 'B5')
+		LEFT JOIN(SELECT * FROM swc_bacledger_detail group BY linkDocno) c ON b.vatSerial = c.linkDocno 
+		LEFT JOIN swc_bacledger d ON d.baclogId = c.baclogId
+		WHERE d.linkDoc = 'y' and d.baclogTime LIKE CONCAT('%', 2022, '%') GROUP BY a.custName;
 	</select>
 
 	<select id="sumBVatSearch" resultType="accountDto">
@@ -55,11 +55,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		GROUP BY a.custNo ORDER BY b.settleCRbalance desc
 	</select>
 	<select id="sumSvat_sub" resultType="accountDto">
-		SELECT d.custNo, d.custName, sum(c.modal_receive_data) as modal_receive_data FROM swc_bacledger a
-		LEFT JOIN swc_bacledger_detail b ON a.baclogId = b.baclogId
-		LEFT JOIN swc_vat c ON b.linkDocno = c.vatSerial 
-		LEFT JOIN swc_cust d on c.vatBuyerCustNo = d.custNo
-		where linkDoc = 'y' AND (c.vatStatus = 'S3' or c.vatStatus = 'S5') and a.baclogTime LIKE CONCAT('%', #{selectYear}, '%') GROUP BY d.custName;
+		SELECT a.custNo, a.custName, sum(b.modal_receive_data) AS modal_receive_data  FROM swc_cust a
+		LEFT JOIN swc_vat b ON a.custNo = b.vatBuyerCustNo AND (b.vatStatus = 'S3' OR b.vatStatus = 'S5')
+		LEFT JOIN(SELECT * FROM swc_bacledger_detail group BY linkDocno) c ON b.vatSerial = c.linkDocno 
+		LEFT JOIN swc_bacledger d ON d.baclogId = c.baclogId
+		WHERE d.linkDoc = 'y' and d.baclogTime LIKE CONCAT('%', #{selectYear}, '%') GROUP BY a.custName;
 	</select>
 	<select id="sumSVatSearch" resultType="accountDto">
 		SELECT a.*, b.settleCRbalance as custBalance, a.custName AS vatBuyerName, SUM(c.vatTax + c.vatAmount) 

@@ -416,11 +416,13 @@
                     bacData.balanceAmt = Number($Farr[i].innerText);
                     bacData.branchCode = $Garr[i].innerText;
                     bacData.linkDoc = "n";
+                    
                     if (Number($Aarr[i].innerText) == 0){
                     	bacData.difference_price = Number($Barr[i].innerText);
-                    }else if(Number($Barr[i].innerText) == 0){
+                    }else{
                     	bacData.difference_price = Number($Aarr[i].innerText);
                     }
+                    
                     console.log(bacData);
                     
                     $.ajax({

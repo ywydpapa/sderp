@@ -602,11 +602,11 @@
 	                        }else if($(".vatlst20")[i].innerText == '청구'){
 	                        	vatData.vatRecType = '02';
 	                        }
-	                        vatData.vatAmount = Number($(".vatlst29")[i].innerText);
+	                        vatData.vatAmount = Number($(".vatlst14")[i].innerText);
 	                        vatData.vatStandard = $(".vatlst26")[i].innerText;
 	                        vatData.vatQuan = Number($(".vatlst27")[i].innerText);
 	                        vatData.vatNet = isNaN(Number($(".vatlst28")[i].innerText)) ? 0 : Number($(".vatlst28")[i].innerText);
-	                        vatData.modal_vatmemo = parseInt($(".vatlst29")[i].innerText).toLocaleString("en-US");
+	                        vatData.modal_vatmemo = parseInt($(".vatlst14")[i].innerText).toLocaleString("en-US");
 	                        
                     	}else {
                     		vatData.vatTax = isNaN(Number($Garr[i].innerText)) ? 0 : Number($Garr[i].innerText);

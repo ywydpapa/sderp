@@ -401,6 +401,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			balanceAmt,
 			branchCode,
 			linkDoc,
+			difference_price,
 			regDate,
 			attrib 
 		) 
@@ -417,6 +418,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			#{balanceAmt},
 			#{branchCode},
 			#{linkDoc},
+			#{difference_price},
 			now(),
 			'10000'
 		);

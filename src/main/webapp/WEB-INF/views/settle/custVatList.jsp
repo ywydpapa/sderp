@@ -277,6 +277,12 @@
 			
 			countData.compNo = compNo;
 			
+			if(reData != null){
+				countData.vatBuyerCustNo = reData.vatBuyerCustNo > 0 ? reData.vatBuyerCustNo : 0;
+				countData.vatIssueDateFrom = reData.vatIssueDateFrom != null ? reData.vatIssueDateFrom : null;
+				countData.vatIssueDateTo = reData.vatIssueDateTo != null ? reData.vatIssueDateTo : null;
+			}
+			
 			$.ajax({
 				url: "${path}/acc/custVatListCount.do",
 				method: "post",
@@ -305,12 +311,15 @@
 						setLastPage = lastPageNum;
 					}
 
-					console.log("first " + setFirstPage);
-					console.log("last " + setLastPage);
-					
 					selectData.compNo = compNo;
 					selectData.betFirstNum = start;
 					selectData.betLastNum = last;
+					
+					if(reData != null){
+						selectData.vatBuyerCustNo = reData.vatBuyerCustNo > 0 ? reData.vatBuyerCustNo : 0;
+						selectData.vatIssueDateFrom = reData.vatIssueDateFrom != null ? reData.vatIssueDateFrom : null;
+						selectData.vatIssueDateTo = reData.vatIssueDateTo != null ? reData.vatIssueDateTo : null;
+					}
 					
 					pageHtml += "<ul class='pagination'><li class='page-item'><a class='page-link' href='#' onClick='pagePrevious(this);'>Previous</a></li>";
 					
@@ -385,35 +394,15 @@
             }
         }
 		
-		
-		
 		function fnListcon() {
     		var vatData = {};
-    		vatData.vatSellerCustNo = $("#vatSellerCustNo").val() ? Number($("#vatSellerCustNo").val()) : 0;
-    		vatData.vatSellerName = $("#vatSellerName").val();
+    		var page = 1;
+    		
+    		vatData.vatBuyerCustNo = $("#vatBuyerCustNo").val() ? $("#vatBuyerCustNo").val() : 0;
     		vatData.vatIssueDateFrom = $("#vatIssueDateFrom").val() ? $("#vatIssueDateFrom").val() : null;
     		vatData.vatIssueDateTo = $("#vatIssueDateTo").val() ? $("#vatIssueDateTo").val() : null;
-    		vatData.selectYear = $("#searchYear").val();
     		
-    		var param = "?";
-    		var paramFirst = true;
-    		for (variable in vatData) {
-    			console.log("key: " + variable + ", value: " + vatData[variable]);
-    			if(vatData[variable] != null && vatData[variable] != 0) {
-    				if(paramFirst){
-    					param = param + variable + "=" + vatData[variable];
-    					paramFirst = false;
-    				} else {
-    					param = param + "&" + variable + "=" + vatData[variable];
-    				}
-    			}
-    		}
-
-    		if(param == "?"){
-    			param = "";
-    		}
-
-    		var url = '${path}/acc/sumBvatlist.do'+param;
+    		pageNation(page, DEFAULT_NUM, vatData);
     		
     		if(document.querySelector('#acordian').style.cssText == "display: none;"){
 	            var testAco1 = document.querySelector('#acordian').style.cssText;
@@ -422,8 +411,6 @@
 	            var testAco2 = document.querySelector('#acordian').style.cssText;
 	            localStorage.setItem('lastAco2', testAco2);
 	        }
-    		
-    		location.href = url;
     	}
 		
 		function acordian_action(){

@@ -361,6 +361,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		SELECT a.*, sum(a.vatTax) as sumVatTax, sum(a.vatAmount) as sumVatAmount, b.custName FROM swc_vat a
 		LEFT JOIN swc_cust b ON a.vatBuyerCustNo = b.custNo
 		WHERE a.vatBuyerCustNo != 0 and a.compNo = #{compNo}
+		<if test="vatBuyerCustNo != null and vatBuyerCustNo != ''">
+			and a.vatBuyerCustNo = #{vatBuyerCustNo}
+		</if>
+		<if test="vatIssueDateFrom != null and vatIssueDateFrom !=''">
+			and a.vatIssueDate Between #{vatIssueDateFrom} and #{vatIssueDateTo}
+		</if>
 		GROUP BY a.vatBuyerCustNo order by a.vatId asc limit #{betFirstNum}, #{betLastNum}
 	</select>
 	
@@ -368,6 +374,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		SELECT a.* FROM swc_vat a
 		LEFT JOIN swc_cust b ON a.vatBuyerCustNo = b.custNo
 		WHERE a.vatBuyerCustNo != 0 and a.compNo = #{compNo}
+		<if test="vatBuyerCustNo != null and vatBuyerCustNo != ''">
+			and a.vatBuyerCustNo = #{vatBuyerCustNo}
+		</if>
+		<if test="vatIssueDateFrom != null and vatIssueDateFrom !=''">
+			and a.vatIssueDate Between #{vatIssueDateFrom} and #{vatIssueDateTo}
+		</if>
 		GROUP BY a.vatBuyerCustNo
 	</select>
 

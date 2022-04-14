@@ -261,6 +261,28 @@ public class AccountController {
         return mav;
     }
     
+    @RequestMapping("custVatList.do")
+    public ModelAndView custVatList(HttpSession session, ModelAndView mav) {
+        mav.setViewName("settle/custVatList");
+        return mav;
+    }
+    
+    @ResponseBody
+    @RequestMapping("custVatListCount.do")
+    public List<AccountDTO> custVatListCount(ModelAndView mav, @ModelAttribute AccountDTO dto)
+    {
+    	List<AccountDTO> count = accountService.custVatListCount(dto);
+        return count;
+    }
+    
+    @ResponseBody
+    @RequestMapping("custSelectVatList.do")
+    public List<AccountDTO> custSelectVatList(@ModelAttribute AccountDTO dto)
+    {
+    	List<AccountDTO> count = accountService.custSelectVatList(dto);
+        return count;
+    }
+    
     @ResponseBody
     @RequestMapping("baccheck.do")
     public AccountDTO baccheck(ModelAndView mav, @ModelAttribute AccountDTO dto)
@@ -855,13 +877,17 @@ public class AccountController {
     	}
     	mav.setViewName("form/vatHtml");
     	
-		/*
-		 * mav.addObject("detail",gwService.detailEst(dto));
-		 * mav.addObject("list",gwService.listEstitems(dto)); mav.addObject("titleList",
-		 * gwService.titleGroupBy(dto)); mav.addObject("comList",
-		 * gwService.comList(session)); mav.addObject("infoItem",
-		 * gwService.infoGetItem(dto));
-		 */
+    	return mav;
+    }
+    
+    @RequestMapping("custVatListHtml/{custNo}")
+    public ModelAndView custVatListHtml(HttpSession session, ModelAndView mav, @PathVariable("custNo") int custNo) {
+    	AccountDTO dto = new AccountDTO();
+    	dto.setVatBuyerCustNo(custNo);
+    	
+		mav.addObject("custVatList", accountService.custVatListHtml(dto));
+    	mav.setViewName("form/vatHtml");
+    	
     	return mav;
     }
     

@@ -108,5 +108,7 @@ public interface AccountDAO {
 	List<AccountDTO> sumSvat_sub(AccountDTO dto);
 	List<AccountDTO> sumBvat_sub(AccountDTO dto);
 	List<AccountDTO> check_lincked_last(AccountDTO dto);
-
+	List<AccountDTO> custSelectVatList(AccountDTO dto);
+	List<AccountDTO> custVatListCount(AccountDTO dto);
+	List<AccountDTO> custVatListHtml(AccountDTO dto);
 }

@@ -546,4 +546,21 @@ public class AccountDAOImpl implements AccountDAO {
 		// TODO Auto-generated method stub
 		return sqlSession.selectList("account.check_lincked_last", dto);
 	}
+	
+	public List<AccountDTO> custSelectVatList(AccountDTO dto) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("account.custSelectVatList", dto);
+	}
+
+	@Override
+	public List<AccountDTO> custVatListCount(AccountDTO dto) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("account.custVatListCount", dto);
+	}
+
+	@Override
+	public List<AccountDTO> custVatListHtml(AccountDTO dto) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("account.custVatListHtml", dto);
+	}
 }

@@ -118,6 +118,8 @@
     </div>
 <script>
 	var timer;
+    const DEFAULT_NUM = 15;
+	const CLICK_PAGE_NUM = 10;
 	
 	$(function(){
 		$("#topMenu a").click(function(evt){
@@ -373,6 +375,65 @@
 		});
 		
 		timer = setTimeout("timeAllimUpdate()", 180000);
+	}
+	
+	function pageHtml(start, last){
+		var pageHtml = "";
+		
+		$("#pageDiv").empty();
+		
+		pageHtml += "<ul class='pagination'><li class='page-item'><a class='page-link' href='#' onClick='pagePrevious(this);'>Previous</a></li>";
+		
+		for(var i = start; i <= last; i++){
+			pageHtml += "<li class='page-item' id='page_"+ i +"'><a class='page-link' href='#' data-number='"+ i +"' onClick='pageClick(this);'>" + i + "</a></li>"
+		}
+		
+		pageHtml += "<li class='page-item'><a class='page-link' href='#' onClick='pageNext(this);'>Next</a></li></ul>";
+		
+		$("#pageDiv").html(pageHtml);
+	}
+	
+	function pageClick(e){
+		var page = $(e).attr("data-number");
+		var setFirstPage = $(e).parents("ul").find("li:first").next().children().attr("data-number");
+		
+		localStorage.setItem("activePage", page);
+		localStorage.setItem("setFirstPage", setFirstPage);
+		pageNation(page, DEFAULT_NUM, null);
+	}
+	
+	function pagePrevious(e){
+		var preFirstNum = $(e).parent().next().children().attr("data-number");
+		var calFirstNum = parseInt(preFirstNum) - CLICK_PAGE_NUM;
+		var calLastNum = 0;
+		
+		if(calFirstNum < 1){
+			calFirstNum = 1;
+		}
+
+		calLastNum = calFirstNum + 9;
+		
+		if(calLastNum > localStorage.getItem("lastPageNum")){
+			calLastNum = localStorage.getItem("lastPageNum");
+		}
+			
+		pageHtml(calFirstNum, calLastNum);
+	}
+	
+	function pageNext(e){
+		var preFirstNum = $(e).parents("ul").find("li:first").next().children().attr("data-number");
+		var calFirstNum = parseInt(preFirstNum) + CLICK_PAGE_NUM;
+		var calLastNum = calFirstNum + 9;
+		
+		if(calFirstNum > localStorage.getItem("lastPageNum")){
+			calFirstNum = preFirstNum;
+		}
+		
+		if(calLastNum > localStorage.getItem("lastPageNum")){
+			calLastNum = localStorage.getItem("lastPageNum");	
+		}
+		
+		pageHtml(calFirstNum, calLastNum);
 	}
 	
 	$(document).ready(function(){

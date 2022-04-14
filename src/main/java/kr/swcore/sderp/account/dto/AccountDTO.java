@@ -181,5 +181,9 @@ public class AccountDTO {
     
     //카드구별번호
     private String cardDisNum;
+    
+    //거래처별 계산서
+    private BigDecimal sumVatTax;
+    private BigDecimal sumVatAmount;
 }
 

@@ -356,6 +356,24 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		LEFT JOIN swc_custdata pd ON a.vatSellerCustNo = pd.custNo and pd.attrib not like 'XXX%'
 		where a.vatSerial = #{vatSerial} and a.vatType = #{vatType} and a.attrib not like 'XXX%'
 	</select>
+	
+	<select id="custSelectVatList" resultType="accountDto">
+		SELECT a.*, sum(a.vatTax) as sumVatTax, sum(a.vatAmount) as sumVatAmount, b.custName FROM swc_vat a
+		LEFT JOIN swc_cust b ON a.vatBuyerCustNo = b.custNo
+		WHERE a.vatBuyerCustNo != 0 and a.compNo = #{compNo}
+		GROUP BY a.vatBuyerCustNo order by a.vatId asc limit #{betFirstNum}, #{betLastNum}
+	</select>
+	
+	<select id="custVatListCount" resultType="accountDto">
+		SELECT a.* FROM swc_vat a
+		LEFT JOIN swc_cust b ON a.vatBuyerCustNo = b.custNo
+		WHERE a.vatBuyerCustNo != 0 and a.compNo = #{compNo}
+		GROUP BY a.vatBuyerCustNo
+	</select>
+
+	<select id="custVatListHtml" resultType="accountDto">
+		
+	</select>
 
 	<insert id="insertbacledger">
 		insert into swc_bacledger

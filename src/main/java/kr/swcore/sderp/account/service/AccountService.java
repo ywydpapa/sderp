@@ -109,4 +109,7 @@ public interface AccountService {
 	List<AccountDTO> sumSvat_sub(HttpSession session, AccountDTO dto);
 	List<AccountDTO> sumBvat_sub(HttpSession session, AccountDTO dto);
 	List<AccountDTO> check_lincked_last(AccountDTO dto);
+	List<AccountDTO> custSelectVatList(AccountDTO dto);
+	List<AccountDTO> custVatListCount(AccountDTO dto);
+	List<AccountDTO> custVatListHtml(AccountDTO dto);
 }

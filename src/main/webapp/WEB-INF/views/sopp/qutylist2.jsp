@@ -5,17 +5,21 @@
 <c:set var="path" value ="${pageContext.request.contextPath}"/>
 <table class="table table-sm bst02" id="qutylist">
 	<colgroup>
-		<col width="5%" />
-		<col width="10%" />
-		<col width="15%" />
-		<col width="10%" />
-		<col width="5%" />
-		<col width="10%" />
-		<col width="10%" />
-	</colgroup>
+		<col width="5%"/>
+		<col width="10%"/>
+		<col width="10%"/>
+		<col width="30%"/>
+		<col width="10%"/>
+		<col width="5%"/>
+		<col width="5%"/>
+		<col width="5%"/>
+		<col width="20%"/>
+	</colgroup>							
 	<thead>
 		<tr>
 			<th class="text-center">견적일자</th>
+			<th class="text-center">작성자</th>
+			<th class="text-center">견적번호</th>
 			<th class="text-center">견적명</th>
 			<th class="text-center">거래처</th>
 			<th class="text-center">공급가합계</th>
@@ -27,15 +31,19 @@
 	<tbody>
 	<c:forEach var="row" items="${estList}">
 		<tr>
-			<td style="text-align: center;">${row.estDate}</td>
-			<td style="text-align: center;"><a href="${path}/gw/estdetail/${row.estId}/${row.estVer}">${row.estId}</a></td>
-			<td style="text-align: center;">${row.custName}</td>
-			<td style="text-align: right;">₩<fmt:formatNumber value="${row.estAmount}" pattern="#,###" /></td>
-			<td style="text-align: right;">₩<fmt:formatNumber value="${row.estVat}" pattern="#,###" /></td>
-			<td style="text-align: right;">₩<fmt:formatNumber value="${row.estTotal}" pattern="#,###" /></td>
+			<td class="text-center">${row.estDate}</td>
+			<td class="text-center">${row.userName}</td>
+			<td class="text-center">
+				<a href="${path}/gw/estdetail/${row.estId}/${row.estVer}">${row.estId}</a>
+			</td>
+			<td class="text-center">${row.estTitle}</td>
+			<td class="text-center">${row.custName}</td>
+			<td class="text-right"><fmt:formatNumber type="number" maxFractionDigits="3" value="${row.estAmount}" /></td>
+			<td class="text-right"><fmt:formatNumber type="number" maxFractionDigits="3" value="${row.estVat}" /></td>
+			<td class="text-right"><fmt:formatNumber type="number" maxFractionDigits="3" value="${row.estTotal}" /></td>
 			<td>${row.estDesc}</td>
 		</tr>
-	</c:forEach>
+	</c:forEach>								
 	</tbody>
 </table>
 

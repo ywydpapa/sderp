@@ -29,7 +29,7 @@
                 <div class="col-lg-12">
                     <div class="page-header-title" style="float:left;">
                         <div style="margin-top:15px;">
-                            <h6 style="font-weight:600;">업체별 미수금 현황</h6>
+                            <h6 style="font-weight:600;">거래처별 매출 원장</h6>
                         </div>
                     </div>
                     <div class="btn_wr" style="float:right;">
@@ -272,6 +272,8 @@
 			var selectData = {};
 			var tableHtml = "";
 			var pageHtml = "";
+			var vatIssueDateFrom = 0;
+			var vatIssueDateTo = 0;
 			
 			vatTable.empty();
 			
@@ -279,8 +281,15 @@
 			
 			if(reData != null){
 				countData.vatBuyerCustNo = reData.vatBuyerCustNo > 0 ? reData.vatBuyerCustNo : 0;
-				countData.vatIssueDateFrom = reData.vatIssueDateFrom != null ? reData.vatIssueDateFrom : null;
-				countData.vatIssueDateTo = reData.vatIssueDateTo != null ? reData.vatIssueDateTo : null;
+				countData.vatIssueDateFrom = reData.vatIssueDateFrom != null ? reData.vatIssueDateFrom : "";
+				countData.vatIssueDateTo = reData.vatIssueDateTo != null ? reData.vatIssueDateTo : "";
+				
+				selectData.vatBuyerCustNo = reData.vatBuyerCustNo > 0 ? reData.vatBuyerCustNo : 0;
+				selectData.vatIssueDateFrom = reData.vatIssueDateFrom != null ? reData.vatIssueDateFrom : "";
+				selectData.vatIssueDateTo = reData.vatIssueDateTo != null ? reData.vatIssueDateTo : "";
+				
+				vatIssueDateFrom = selectData.vatIssueDateFrom;
+				vatIssueDateTo = selectData.vatIssueDateTo;
 			}
 			
 			$.ajax({
@@ -315,12 +324,6 @@
 					selectData.betFirstNum = start;
 					selectData.betLastNum = last;
 					
-					if(reData != null){
-						selectData.vatBuyerCustNo = reData.vatBuyerCustNo > 0 ? reData.vatBuyerCustNo : 0;
-						selectData.vatIssueDateFrom = reData.vatIssueDateFrom != null ? reData.vatIssueDateFrom : null;
-						selectData.vatIssueDateTo = reData.vatIssueDateTo != null ? reData.vatIssueDateTo : null;
-					}
-					
 					pageHtml += "<ul class='pagination'><li class='page-item'><a class='page-link' href='#' onClick='pagePrevious(this);'>Previous</a></li>";
 					
 					for(var i = setFirstPage; i <= setLastPage; i++){
@@ -345,7 +348,7 @@
 						dataType: "json",
 						success:function(data){
 							for(var i = 0; i < data.length; i++){
-								tableHtml += "<tr><td style='text-align:center;'><a href='${path}/acc/custVatListHtml/"+data[i].vatBuyerCustNo+"' onClick='javascript:popupVat(this); return false;'>" + data[i].custName + "</a></td>"
+								tableHtml += "<tr><td style='text-align:center;'><a href='${path}/acc/custVatListHtml/"+compNo+"/"+data[i].vatBuyerCustNo+"/"+vatIssueDateFrom+"/"+vatIssueDateTo+"' onClick='javascript:popupVat(this); return false;'>" + data[i].custName + "</a></td>"
 								+ "<td style='text-align:right;'>" + parseInt(data[i].sumVatAmount).toLocaleString("en-US") + "</td>"
 								+ "<td style='text-align:right;'>" + parseInt(data[i].sumVatTax).toLocaleString("en-US") + "</td>"
 								+ "<td style='text-align:right;'>" + parseInt(data[i].sumVatAmount + data[i].sumVatTax).toLocaleString("en-US") + "</td></tr>";

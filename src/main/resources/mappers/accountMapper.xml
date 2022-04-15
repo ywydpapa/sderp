@@ -385,7 +385,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 
 	<select id="custVatListHtml" resultType="accountDto">
-		
+		SELECT a.*, b.vatIssueDate, b.vatSerial FROM swc_cust a
+		LEFT JOIN swc_vat b ON a.custNo = b.vatBuyerCustNo AND b.vatIssueDate BETWEEN #{vatIssueDateFrom} and #{vatIssueDateTo}
+		WHERE a.compNo = #{compNo} and a.custNo = #{vatBuyerCustNo} ORDER BY b.vatIssueDate ASC 
 	</select>
 
 	<insert id="insertbacledger">

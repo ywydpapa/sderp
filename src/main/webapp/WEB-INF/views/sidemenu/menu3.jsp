@@ -176,7 +176,7 @@
                                     	<li class="pcoded-hasmenu">
 	                                        <a href="${path}/acc/custVatList.do">
 	                                            <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-	                                            <span class="pcoded-mtext" data-i18n="nav.menu-levels.menu-level-23">거래처별 월별 계산서 현황</span>
+	                                            <span class="pcoded-mtext" data-i18n="nav.menu-levels.menu-level-23">거래처별 매출 원장</span>
 	                                            <span class="pcoded-mcaret"></span>
 	                                        </a>
                                     	</li>

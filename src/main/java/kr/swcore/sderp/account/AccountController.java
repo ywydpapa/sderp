@@ -880,14 +880,29 @@ public class AccountController {
     	return mav;
     }
     
-    @RequestMapping("custVatListHtml/{custNo}")
-    public ModelAndView custVatListHtml(HttpSession session, ModelAndView mav, @PathVariable("custNo") int custNo) {
+    @RequestMapping("custVatListHtml/{compNo}/{vatBuyerCustNo}/{vatIssueDateFrom}/{vatIssueDateTo}")
+    public ModelAndView custVatListHtml(HttpSession session, ModelAndView mav, @PathVariable("compNo") int compNo, @PathVariable("vatBuyerCustNo") int vatBuyerCustNo, @PathVariable("vatIssueDateFrom") String vatIssueDateFrom, @PathVariable("vatIssueDateTo") String vatIssueDateTo) {
     	AccountDTO dto = new AccountDTO();
-    	dto.setVatBuyerCustNo(custNo);
+    	LocalDate now = LocalDate.now();
+    	int year = now.getYear();
     	
-		mav.addObject("custVatList", accountService.custVatListHtml(dto));
-    	mav.setViewName("form/vatHtml");
+    	if(vatIssueDateFrom != "0") {
+    		dto.setVatIssueDateFrom(vatIssueDateFrom);
+    	}else {
+    		dto.setVatIssueDateFrom(year + "-01-01");
+    	}
     	
+    	if(vatIssueDateTo != "0") {
+    		dto.setVatIssueDateTo(vatIssueDateTo);
+        }else {
+        	dto.setVatIssueDateTo(year + "-12-31");
+        }
+    	
+		dto.setVatBuyerCustNo(vatBuyerCustNo);
+		dto.setCompNo(compNo);
+    	
+        mav.addObject("custVatList", accountService.custVatListHtml(dto));
+    	mav.setViewName("form/custVatListHtml");
     	return mav;
     }
     

@@ -216,7 +216,13 @@
 </body>
 <script>
 function solPdf(){  
-	var estId = "${detail.estId}";
+	var estTitle = "${detail.estTitle}";
+	var estDate = "${detail.estDate}";
+	
+	var dateYear = estDate.substring(2,4);
+	var dateMonth = estDate.substring(5,7);
+	var dateDay = estDate.substring(9,11);
+	
 	var now = new Date();
 	var year = now.getFullYear();
 	var month = parseInt(now.getMonth())+1;
@@ -238,7 +244,7 @@ function solPdf(){
 	
 	html2pdf().from(element).set({
 	  margin: 5,
-      filename: estId + '(' + nowDate + ')' + '.pdf',
+      filename: dateYear + dateMonth + dateMonth + "_" + estTitle + '.pdf',
       html2canvas: { scale: 10 },
       jsPDF: {orientation: 'portrait', unit: 'mm', format: 'a4', compressPDF: true}
 	}).save();

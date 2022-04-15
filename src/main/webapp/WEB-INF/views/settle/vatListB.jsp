@@ -10,9 +10,12 @@
 <html>
 <jsp:include page="../head.jsp"/>
 <jsp:include page="../body-top3.jsp"/>
-
+<style>
+	#vatTable tbody tr td{
+		vertical-align: middle;
+	}
+</style>
 <div id="main_content">
-	
 	<script>
 	$(function(){
 		$('#vatTable').DataTable({
@@ -137,7 +140,7 @@
         <div class="row">
             <div class="col-sm-12">
                 <div class="card-block table-border-style">
-                    <div class="table-responsive">
+                    <div class="table-responsive" style="overflow:hidden;">
                     	<span style="font-weight:600;">※총합계</span>
                     	<table class="table table-striped table-bordered nowrap" style="margin-bottom: 1%;">
                     		<c:forEach items="${vatList}" var="vlist">
@@ -219,13 +222,13 @@
                                     </td> --%>
                                     <c:choose>
                                     	<c:when test="${empty vlist.vatRemark}">
-		                                    <td>${vlist.vatProductName}</td>
+		                                    <td style="white-space:normal;">${vlist.vatProductName}</td>
                                     	</c:when>
                                     	<c:otherwise>
-                                    		<td>${vlist.vatProductName}(${vlist.vatRemark})</td>
+                                    		<td style="white-space:normal;">${vlist.vatProductName}(${vlist.vatRemark})</td>
                                     	</c:otherwise>
                                     </c:choose>
-                                    <td>${vlist.vatRemark}</td>
+                                    <td style="white-space:normal;">${vlist.vatRemark}</td>
                                 </tr>
                             </c:forEach>
                         </table>

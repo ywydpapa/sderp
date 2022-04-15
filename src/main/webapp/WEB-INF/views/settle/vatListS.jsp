@@ -10,7 +10,11 @@
 <html>
 <jsp:include page="../head.jsp"/>
 <jsp:include page="../body-top3.jsp"/>
-
+<style>
+	#vatTable tbody tr td{
+		vertical-align: middle;
+	}
+</style>
 <div id="main_content">
 	
 	<script>
@@ -137,7 +141,7 @@
         <div class="row">
             <div class="col-sm-12">
                 <div class="card-block table-border-style">
-                    <div class="table-responsive">
+                    <div class="table-responsive"  style="overflow:hidden;">
                     	<span style="font-weight:600;">※총합계</span>
                     	<table class="table table-striped table-bordered nowrap" style="margin-bottom: 1%;">
                     		<c:forEach items="${vatList}" var="vlist">
@@ -187,47 +191,49 @@
                                 <th class="text-center">비고</th>
                             </tr>
                             </thead>
-                            <c:forEach items="${vatList}" var="vlist">
-                                <tr>
-                                	<td class="text-center">${vlist.vatIssueDate}</td>
-                                    <td class="text-center vatTyp">
-                                    	매출
-                                    </td>
-                                    <td class="text-center">
-                                    	${vlist.vatBuyerName}
-                                   	</td>
-                                    <td class="text-center vatSno"><a href="${path}/acc/vatHtml/${vlist.vatSerial}/${vlist.vatType}" onClick="javascript:popupVat(this); return false;">${vlist.vatSerial}</a></td>
-                                    <td class="text-center">
-                                        <c:if test = "${vlist.vatStatus eq 'S1'}">매출발행</c:if>
-                                        <c:if test = "${vlist.vatStatus eq 'S3'}">수금처리중</c:if>
-                                        <c:if test = "${vlist.vatStatus eq 'S5'}">수금완료</c:if>
-                                        <input type="checkbox" class="vatStchg" data-id="${vlist.vatSerial}">
-                                    </td>
-                                    <td class="text-right">
-                                    	<fmt:formatNumber type="number" maxFractionDigits="3" value="${vlist.vatAmount}" />
-                                    </td>
-                                    <td class="text-right">
-                                    	<fmt:formatNumber type="number" maxFractionDigits="3" value="${vlist.vatTax}" />
-                                    </td>
-                                    <td class="text-right">
-                                    	<fmt:formatNumber type="number" maxFractionDigits="3" value="${vlist.vatAmount + vlist.vatTax}" />
-                                    </td>
-                                    <%-- <td class="text-right">
-                                    	<a data-remote="${path}/modal/popup1.do?popId=${vlist.vatSerial}" type="button" data-toggle="modal" data-target="#userModal1" style="cursor: pointer; text-decoration: underline;">
-                                    		<fmt:formatNumber type="number" maxFractionDigits="3" value="${vlist.vatSum}" />
-                                    	</a>
-                                    </td> --%>
-                                    <c:choose>
-                                    	<c:when test="${empty vlist.vatRemark}">
-		                                    <td>${vlist.vatProductName}</td>
-                                    	</c:when>
-                                    	<c:otherwise>
-                                    		<td>${vlist.vatProductName}(${vlist.vatRemark})</td>
-                                    	</c:otherwise>
-                                    </c:choose>
-                                    <td>${vlist.vatRemark}</td>
-                                </tr>
-                            </c:forEach>
+                            <tbody>
+	                            <c:forEach items="${vatList}" var="vlist">
+	                                <tr>
+	                                	<td class="text-center">${vlist.vatIssueDate}</td>
+	                                    <td class="text-center vatTyp">
+	                                    	매출
+	                                    </td>
+	                                    <td class="text-center">
+	                                    	${vlist.vatBuyerName}
+	                                   	</td>
+	                                    <td class="text-center vatSno"><a href="${path}/acc/vatHtml/${vlist.vatSerial}/${vlist.vatType}" onClick="javascript:popupVat(this); return false;">${vlist.vatSerial}</a></td>
+	                                    <td class="text-center">
+	                                        <c:if test = "${vlist.vatStatus eq 'S1'}">매출발행</c:if>
+	                                        <c:if test = "${vlist.vatStatus eq 'S3'}">수금처리중</c:if>
+	                                        <c:if test = "${vlist.vatStatus eq 'S5'}">수금완료</c:if>
+	                                        <input type="checkbox" class="vatStchg" data-id="${vlist.vatSerial}">
+	                                    </td>
+	                                    <td class="text-right">
+	                                    	<fmt:formatNumber type="number" maxFractionDigits="3" value="${vlist.vatAmount}" />
+	                                    </td>
+	                                    <td class="text-right">
+	                                    	<fmt:formatNumber type="number" maxFractionDigits="3" value="${vlist.vatTax}" />
+	                                    </td>
+	                                    <td class="text-right">
+	                                    	<fmt:formatNumber type="number" maxFractionDigits="3" value="${vlist.vatAmount + vlist.vatTax}" />
+	                                    </td>
+	                                    <%-- <td class="text-right">
+	                                    	<a data-remote="${path}/modal/popup1.do?popId=${vlist.vatSerial}" type="button" data-toggle="modal" data-target="#userModal1" style="cursor: pointer; text-decoration: underline;">
+	                                    		<fmt:formatNumber type="number" maxFractionDigits="3" value="${vlist.vatSum}" />
+	                                    	</a>
+	                                    </td> --%>
+	                                    <c:choose>
+	                                    	<c:when test="${empty vlist.vatRemark}">
+			                                    <td style="white-space:normal;">${vlist.vatProductName}</td>
+	                                    	</c:when>
+	                                    	<c:otherwise>
+	                                    		<td style="white-space:normal;">${vlist.vatProductName}(${vlist.vatRemark})</td>
+	                                    	</c:otherwise>
+	                                    </c:choose>
+	                                    <td style="white-space:normal;">${vlist.vatRemark}</td>
+	                                </tr>
+	                            </c:forEach>
+                            </tbody>
                         </table>
                     </div>
                 </div>

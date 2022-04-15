@@ -28,6 +28,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		LEFT JOIN swc_vat c ON a.custNo = c.vatSellerCustNo AND c.vatIssueDate BETWEEN #{vatIssueDateFrom} and #{vatIssueDateTo} and c.attrib NOT LIKE 'XXX%' 
 		GROUP BY a.custNo ORDER BY b.settleDRbalance desc
 	</select>
+	
 	<select id="sumBvat_sub" resultType="accountDto">		
 		SELECT a.custNo, a.custName, sum(b.modal_receive_data) AS modal_receive_data FROM swc_cust a
 		LEFT JOIN swc_vat b ON a.custNo = b.vatSellerCustNo AND (b.vatStatus = 'B3' OR b.vatStatus = 'B5')

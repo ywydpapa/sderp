@@ -28,7 +28,7 @@
     <tbody>
 	    <c:forEach var="row" items="${list}">
 	      	<tr>
-	      		<td align="center" style="vertical-align:middle;"><input type="checkbox" class="form-control" id="cardCheckSerial" name="cardCheckSerial" data-id="${row.appSerial}"></td>
+	      		<td align="center" style="vertical-align:middle;"><input type="checkbox" class="form-control" id="cardCheckSerial" name="cardCheckSerial" data-id="${row.appSerial}" style="margin-top:3px;width:30px;"></td>
 	        	<td align="center" style="vertical-align:middle;"><input type="date" class="form-control" value="${row.appDate}" max="9999-12-31" id="cardDate" style="width:auto;"></td>
 	        	<td align="center" style="vertical-align:middle;">${row.appSerial}</td>
 	        	<td align="center" style="vertical-align:middle;">${row.cardSerial}</td>

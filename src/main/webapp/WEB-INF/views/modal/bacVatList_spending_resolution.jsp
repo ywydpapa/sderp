@@ -27,7 +27,7 @@
     <tbody>
 	    <c:forEach var="row" items="${list}">
 	      <tr align="center">
-	      	<td><input type="checkbox" class="form-control" id="checkSerial" data-number="${row.vatSerial}"></td>
+	      	<td><input type="checkbox" class="form-control" id="checkSerial" data-number="${row.vatSerial}" style="margin-top:3px;width:30px;"></td>
 	      	<td><input type="date" class="form-control" value="${row.vatIssueDate}" max="9999-12-31" id="cardDate_bacB" style="width:auto;"></td>
 	        <c:choose>
 		        <c:when test="${empty row.custName}">

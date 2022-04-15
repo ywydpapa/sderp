@@ -580,10 +580,13 @@
     	
     	var year = getDate.getFullYear();
     	var month = getDate.getMonth()+1;
+    	var day = getDate.getDate();
     	
     	if(month < 10){
     		month = "0" + month;
     	}
+    	
+    	var titleDate = year.toString().substring(2,4) + month + day;
     	
     	var estFirstName = "VTEK" + year + month + "_";
     	var data02Data = {};
@@ -621,7 +624,7 @@
 			$("#estComSpec").focus();
 			return false;
 		}else{
-    		data02Data.estTitle = $("#estTitle").val();
+    		data02Data.estTitle = titleDate + "_" + $("#estTitle").val();
     		data02Data.estType = $("input[name='contractType']:checked").val();
     		data02Data.custNo = $("#custNo").val();
     		data02Data.soppNo = $("#soppNo").val();

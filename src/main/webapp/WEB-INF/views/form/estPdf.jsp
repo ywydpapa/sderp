@@ -211,7 +211,7 @@
 		</div>
 	</div>
 	<div style="width:100%;">
-		<button type="button" onclick="solPdf();" style="border: 0; background-color: #4680ff; color: #fff; text-align:center; width: 30%; height:44px; cursor: pointer;">pdf 출력</button>
+		<button type="button" onclick="solPdf();" style="border: 0; background-color: #4680ff; color: #fff; text-align:center; width: 30%; height:44px; cursor: pointer;">PDF파일 저장</button>
 	</div>
 </body>
 <script>

@@ -755,7 +755,10 @@
 
 		$(document).ready(function(){
 			var $input = $("#soppTargetAmt");
+			var soppStatus = "${dto.soppStatus}";
 
+			$("#soppStatus").val(soppStatus);
+			
 			// 이벤트 시작 ==========================================================================
 			// 이벤트시 동작
 			$input.on("keyup", function (event) {

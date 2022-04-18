@@ -22,13 +22,13 @@
             <th class="text-center">등록일</th>
             <th class="text-center">매입/매출</th>
             <th class="text-center">거래처</th>
-            <th class="text-center">발행번호</th>
             <th class="text-center">품명</th>
             <th class="text-center">상태</th>
             <th class="text-center">공급가</th>
             <th class="text-center">세액</th>
             <th class="text-center">합계금액</th>
-            <th class="text-center">메모</th>
+            <th class="text-center">입/출금 일시</th><!--  -->
+            <th class="text-center">남은 금액(계산서)</th>
         </tr>
         </thead>
         <c:forEach items="${list}" var="list">
@@ -42,7 +42,6 @@
                 	<c:if test = "${list.vatType eq 'S'}">${list.vatBuyerName}</c:if> 
                 	<c:if test = "${list.vatType eq 'B'}">${list.vatSellerName}</c:if>
                	</td>
-                <td class="text-center vatSno">${list.vatSerial}</td>
                 <td class="text-center">${list.vatProductName}</td>
                 <td class="text-center">
                 	<c:if test = "${list.vatStatus eq 'B1'}">매입발행</c:if>
@@ -61,7 +60,8 @@
                 <td class="text-right">
                 	<fmt:formatNumber type="number" maxFractionDigits="3" value="${list.vatAmount + list.vatTax}" />
                 </td>
-                <td>${list.vatRemark}</td>
+                <td>${list.baclogTime}</td>
+                <td>${list.remain_data}</td>
             </tr>
         </c:forEach>
     </table>

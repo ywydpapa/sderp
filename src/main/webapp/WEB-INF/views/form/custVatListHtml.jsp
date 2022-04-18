@@ -9,12 +9,6 @@
 <script type="text/javascript" src="${path}/js/jquery.min.js"></script>
 <link rel="stylesheet" type="text/css" href="${path}/assets/css/bootstrap/css/bootstrap.min.css">
 
-<style>
-	#vatTable thead tr th{
-		text-align: center;
-	}
-</style>
-
 <body>
 	<div>
 		<div id="tableDiv" style="padding: 20px;">
@@ -31,12 +25,12 @@
 				<table id="vatTable_${dateValue}" class="table table-striped table-bordered nowrap">
 					<thead>
 						<tr>
-							<th>일자</th>
-							<th>거래처</th>
-							<th>계산서번호</th>
-							<th>세액</th>
-							<th>공급가액</th>
-							<th>합계</th>
+							<th style="text-align:center;">일자</th>
+							<th style="text-align:center;">거래처</th>
+							<th style="text-align:center;">계산서번호</th>
+							<th style="text-align:center;">세액</th>
+							<th style="text-align:center;">공급가액</th>
+							<th style="text-align:center;">합계</th>
 						</tr>
 					</thead>
 					<tbody>

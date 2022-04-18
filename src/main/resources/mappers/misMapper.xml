@@ -21,6 +21,74 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         group by userNo
     </select>
 
+    <select id="hrcostlist" resultType="misDto">
+        select userNo, userName from swc_user where compNo = #{compNo} and attrib not like "XXX%"
+    </select>
+
+    <select id="soppList" resultType="misDto">
+        select ss.*, su.userName  from swc_sopp ss
+        left join swc_user su on su.userNo = ss.userNo
+        where ss.compNo = #{compNo}
+        <choose>
+            <when test="sYear == null ">
+                and date_format(ss.soppTargetDate,'%Y') = date_format(now(),'%Y')
+            </when>
+            <when test = "sYear != null">
+                and date_format(ss.soppTargetDate,'%Y') = #{sYear}
+            </when>
+        </choose>
+        and ss.attrib not like 'XXX%'
+    </select>
+
+    <select id="soppCost" resultType="misDto">
+        select ss.soppNo , ss.soppTitle,su.userName, sum(case when ss2.dataType = '1101' then ss2.dataAmt else 0 end) cost , sum(case when ss2.dataType = '1102' then ss2.dataAmt else 0 end) income  from swc_sopp ss
+            left join swc_soppdata01 ss2 on ss2.soppNo = ss.soppNo
+            left join swc_user su on ss.userNo = su.userNo
+        where ss.compNo = #{compNo} and ss.attrib not like 'XXX%'
+        <choose>
+            <when test="sYear == null ">
+                and date_format(ss.soppTargetDate,'%Y') = date_format(now(),'%Y')
+            </when>
+            <when test = "sYear != null">
+                and date_format(ss.soppTargetDate,'%Y') = #{sYear}
+            </when>
+        </choose>
+        group by ss.soppNo
+    </select>
+
+    <select id="soppMargin" resultType="misDto">
+        select ss.soppNo , ss.soppTitle,su.userName, sum(case when ss2.dataType = '1101' then ss2.dataAmt else 0 end) cost , sum(case when ss2.dataType = '1102' then ss2.dataAmt else 0 end) income  from swc_sopp ss
+        left join swc_soppdata01 ss2 on ss2.soppNo = ss.soppNo
+        left join swc_user su on ss.userNo = su.userNo
+        where ss.compNo = #{compNo} and ss.attrib not like 'XXX%'
+        <choose>
+            <when test="sYear == null ">
+                and date_format(ss.soppTargetDate,'%Y') = date_format(now(),'%Y')
+            </when>
+            <when test = "sYear != null">
+                and date_format(ss.soppTargetDate,'%Y') = #{sYear}
+            </when>
+        </choose>
+        group by ss.soppNo
+    </select>
+
+    <select id="bacinout" resultType="misDto">
+        select c.desc03 bacTypeN ,b.desc03 bankCodeN ,a.*, d.baclogTime, d.balanceAmt from swc_bac a
+            left join swc_code b on b.code03 = a.bankCode
+            LEFT join swc_code c on c.code03 = a.bacType
+            LEFT JOIN (SELECT * FROM( SELECT * FROM swc_bacledger WHERE (bacSerial, baclogTime) IN
+                    ( SELECT bacSerial, MAX(baclogTime) FROM swc_bacledger where attrib not like 'XXX%' GROUP BY bacSerial) ORDER BY baclogTime DESC )t GROUP BY t.bacSerial) d ON a.bacSerial = d.bacSerial
+            where a.compNo = #{compNo} and a.attrib not like 'XXX%';
+    </select>
+
+    <select id="bacstatus" resultType="misDto">
+        select c.desc03 bacTypeN ,b.desc03 bankCodeN ,a.*, d.baclogTime, d.balanceAmt from swc_bac a
+             left join swc_code b on b.code03 = a.bankCode
+             LEFT join swc_code c on c.code03 = a.bacType
+             LEFT JOIN (SELECT * FROM( SELECT * FROM swc_bacledger WHERE (bacSerial, baclogTime) IN
+                      ( SELECT bacSerial, MAX(baclogTime) FROM swc_bacledger where attrib not like 'XXX%' GROUP BY bacSerial) ORDER BY baclogTime DESC )t GROUP BY t.bacSerial) d ON a.bacSerial = d.bacSerial
+        where a.compNo = #{compNo} and a.attrib not like 'XXX%';
+    </select>
 
 
 </mapper>

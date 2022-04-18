@@ -23,44 +23,46 @@ public class MisController {
         return mav;
     }
 
-    /*@RequestMapping("/hrcostlist.do")
-    public ModelAndView hrcostlist(HttpSession session, ModelAndView mav) {
-        mav.addObject("costList", misService.listHRduty(session));
+    @RequestMapping("/hrcostlist.do")
+    public ModelAndView hrcostlist(HttpSession session,MisDTO dto,  ModelAndView mav) {
+        mav.addObject("costList", misService.listHRcost(session, dto));
         mav.setViewName("mis/hrcostlist");
         return mav;
     }
 
     @RequestMapping("/soppstatuslist.do")
-    public ModelAndView soppstatuslist(HttpSession session, ModelAndView mav) {
-        mav.addObject("soppstatusList", misService.listHRduty(session));
+    public ModelAndView soppstatuslist(HttpSession session, MisDTO dto, ModelAndView mav) {
+        mav.addObject("soppList", misService.listSopp(session, dto));
         mav.setViewName("mis/soppstatuslist");
         return mav;
     }
+
     @RequestMapping("/soppcostlist.do")
-    public ModelAndView soppcostlist(HttpSession session, ModelAndView mav) {
-        mav.addObject("costList", misService.listHRduty(session));
+    public ModelAndView soppcostlist(HttpSession session, MisDTO dto, ModelAndView mav) {
+        mav.addObject("costList", misService.listSoppcost(session, dto));
         mav.setViewName("mis/soppcostlist");
         return mav;
     }
     @RequestMapping("/soppmarginlist.do")
-    public ModelAndView soppmarginlist(HttpSession session, ModelAndView mav) {
-        mav.addObject("marginList", misService.listHRduty(session));
+    public ModelAndView soppmarginlist(HttpSession session,MisDTO dto, ModelAndView mav) {
+        mav.addObject("marginList", misService.listSoppmargin(session, dto));
         mav.setViewName("mis/soppmarginlist");
         return mav;
     }
+
     @RequestMapping("/bacinoutlist.do")
-    public ModelAndView bacinoutlist(HttpSession session, ModelAndView mav) {
-        mav.addObject("inoutList", misService.listHRduty(session));
+    public ModelAndView bacinoutlist(HttpSession session, MisDTO dto, ModelAndView mav) {
+        mav.addObject("inoutList", misService.listBacinout(session,dto));
         mav.setViewName("mis/bacinoutlist");
         return mav;
     }
     @RequestMapping("/bacstatuslist.do")
-    public ModelAndView bacstatuslist(HttpSession session, ModelAndView mav) {
-        mav.addObject("statusList", misService.listHRduty(session));
+    public ModelAndView bacstatuslist(HttpSession session, MisDTO dto,  ModelAndView mav) {
+        mav.addObject("statusList", misService.listBacstatus(session,dto));
         mav.setViewName("mis/bacstatuslist");
         return mav;
     }
-
+/*
     @RequestMapping("/saleslist.do")
     public ModelAndView saleslist(HttpSession session, ModelAndView mav) {
         mav.addObject("salesList", misService.listHRduty(session));

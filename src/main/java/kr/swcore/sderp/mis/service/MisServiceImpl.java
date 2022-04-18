@@ -19,4 +19,46 @@ public class MisServiceImpl implements MisService{
         dto.setCompNo(compNo);
         return misDAO.listHRduty(dto);
     }
+
+    @Override
+    public List<MisDTO> listHRcost(HttpSession session, MisDTO dto) {
+        int compNo = SessionInfoGet.getCompNo(session);
+        dto.setCompNo(compNo);
+        return misDAO.listHRcost(dto);
+    }
+
+    @Override
+    public List<MisDTO> listSopp(HttpSession session, MisDTO dto) {
+        int compNo = SessionInfoGet.getCompNo(session);
+        dto.setCompNo(compNo);
+        return misDAO.listSopp(dto);
+    }
+
+    @Override
+    public List<MisDTO> listSoppcost(HttpSession session, MisDTO dto) {
+        int compNo = SessionInfoGet.getCompNo(session);
+        dto.setCompNo(compNo);
+        return misDAO.listSoppcost(dto);
+    }
+
+    @Override
+    public List<MisDTO> listSoppmargin(HttpSession session, MisDTO dto) {
+        int compNo = SessionInfoGet.getCompNo(session);
+        dto.setCompNo(compNo);
+        return misDAO.listSoppmargin(dto);
+    }
+
+    @Override
+    public List<MisDTO> listBacinout(HttpSession session, MisDTO dto) {
+        int compNo = SessionInfoGet.getCompNo(session);
+        dto.setCompNo(compNo);
+        return misDAO.listBacinout(dto);
+    }
+
+    @Override
+    public List<MisDTO> listBacstatus(HttpSession session, MisDTO dto) {
+        int compNo = SessionInfoGet.getCompNo(session);
+        dto.setCompNo(compNo);
+        return misDAO.listBacstatus(dto);
+    }
 }

@@ -27,7 +27,7 @@
             <th class="text-center">공급가</th>
             <th class="text-center">세액</th>
             <th class="text-center">합계금액</th>
-            <th class="text-center">입/출금 일시</th><!--  -->
+            <th class="text-center">입/출금 일시</th>
             <th class="text-center">남은 금액(계산서)</th>
         </tr>
         </thead>
@@ -60,8 +60,8 @@
                 <td class="text-right">
                 	<fmt:formatNumber type="number" maxFractionDigits="3" value="${list.vatAmount + list.vatTax}" />
                 </td>
-                <td>${list.baclogTime}</td>
-                <td>${list.remain_data}</td>
+                <td class="text-center">${list.baclogTime}</td>
+                <td class="text-right"><fmt:formatNumber type="number" maxFractionDigits="3" value="${list.remain_data}" /></td>
             </tr>
         </c:forEach>
     </table>

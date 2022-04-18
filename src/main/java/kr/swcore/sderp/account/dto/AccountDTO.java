@@ -151,6 +151,7 @@ public class AccountDTO {
     private int vatQuan;
     private BigDecimal vatNet;
     private int selectYear;
+    private BigDecimal test; 
     
     //vatHtml
     private String recCustName;
@@ -190,5 +191,19 @@ public class AccountDTO {
     private String custVatno;
     private String custBossname;
     private BigDecimal vatTotal;
+    
+    
+    private int mm01;
+	private int mm02;
+	private int mm03;
+	private int mm04;
+	private int mm05;
+	private int mm06;
+	private int mm07;
+	private int mm08;
+	private int mm09;
+	private int mm10;
+	private int mm11;
+	private int mm12;
 }
 

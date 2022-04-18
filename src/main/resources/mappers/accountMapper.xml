@@ -556,6 +556,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			vatIssueType,
 			linkedDocNo,
 			modal_vatmemo,
+			test,
 			regDate,
 	 		attrib)
 		values 
@@ -583,6 +584,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		#{vatIssueType},
 		#{linkedDocNo},
 		#{modal_vatmemo},
+		#{test},
 		now(),
 		'100001'
 	);
@@ -991,62 +993,62 @@ attrib) values (#{vatId},
 	</select>
 	<select id="gradata01" resultType="accountDto">
 		select * from swc_vat
-		where (vatStatus = 'S1' or vatStatus = 'S5')
+		where (vatStatus = 'S1' or vatStatus = 'S3' or vatStatus = 'S5')
 		and date_format(vatIssueDate, '%Y-%m-%d') BETWEEN '2022-01-01' and '2022-01-31';
 	</select>
 	<select id="gradata02" resultType="accountDto">
 		select * from swc_vat
-		where (vatStatus = 'S1' or vatStatus = 'S5')
-		and date_format(vatIssueDate, '%Y-%m-%d') BETWEEN '2022-01-02' and '2022-02-31';
+		where (vatStatus = 'S1' or vatStatus = 'S3' or vatStatus = 'S5')
+		and date_format(vatIssueDate, '%Y-%m-%d') BETWEEN '2022-02-02' and '2022-02-31';
 	</select>
 	<select id="gradata03" resultType="accountDto">
 		select * from swc_vat
-		where (vatStatus = 'S1' or vatStatus = 'S5')
+		where (vatStatus = 'S1' or vatStatus = 'S3' or vatStatus = 'S5')
 		and date_format(vatIssueDate, '%Y-%m-%d') BETWEEN '2022-03-01' and '2022-03-31';
 	</select>
 	<select id="gradata04" resultType="accountDto">
 		select * from swc_vat
-		where (vatStatus = 'S1' or vatStatus = 'S5')
+		where (vatStatus = 'S1' or vatStatus = 'S3' or vatStatus = 'S5')
 		and date_format(vatIssueDate, '%Y-%m-%d') BETWEEN '2022-04-01' and '2022-04-31';
 	</select>
 	<select id="gradata05" resultType="accountDto">
 		select * from swc_vat
-		where (vatStatus = 'S1' or vatStatus = 'S5')
+		where (vatStatus = 'S1' or vatStatus = 'S3' or vatStatus = 'S5')
 		and date_format(vatIssueDate, '%Y-%m-%d') BETWEEN '2022-05-01' and '2022-05-31';
 	</select>
 	<select id="gradata06" resultType="accountDto">
 		select * from swc_vat
-		where (vatStatus = 'S1' or vatStatus = 'S5')
+		where (vatStatus = 'S1' or vatStatus = 'S3' or vatStatus = 'S5')
 		and date_format(vatIssueDate, '%Y-%m-%d') BETWEEN '2022-06-01' and '2022-06-31';
 	</select>
 	<select id="gradata07" resultType="accountDto">
 		select * from swc_vat
-		where (vatStatus = 'S1' or vatStatus = 'S5')
+		where (vatStatus = 'S1' or vatStatus = 'S3' or vatStatus = 'S5')
 		and date_format(vatIssueDate, '%Y-%m-%d') BETWEEN '2022-07-01' and '2022-07-31';
 	</select>
 	<select id="gradata08" resultType="accountDto">
 		select * from swc_vat
-		where (vatStatus = 'S1' or vatStatus = 'S5')
+		where (vatStatus = 'S1' or vatStatus = 'S3' or vatStatus = 'S5')
 		and date_format(vatIssueDate, '%Y-%m-%d') BETWEEN '2022-08-01' and '2022-08-31';
 	</select>
 	<select id="gradata09" resultType="accountDto">
 		select * from swc_vat
-		where (vatStatus = 'S1' or vatStatus = 'S5')
+		where (vatStatus = 'S1' or vatStatus = 'S3' or vatStatus = 'S3' or vatStatus = 'S5')
 		and date_format(vatIssueDate, '%Y-%m-%d') BETWEEN '2022-09-01' and '2022-09-31';
 	</select>
 	<select id="gradata10" resultType="accountDto">
 		select * from swc_vat
-		where (vatStatus = 'S1' or vatStatus = 'S5')
+		where (vatStatus = 'S1' or vatStatus = 'S3' or vatStatus = 'S5')
 		and date_format(vatIssueDate, '%Y-%m-%d') BETWEEN '2022-10-01' and '2022-10-31';
 	</select>
 	<select id="gradata11" resultType="accountDto">
 		select * from swc_vat
-		where (vatStatus = 'S1' or vatStatus = 'S5')
+		where (vatStatus = 'S1' or vatStatus = 'S3' or vatStatus = 'S5')
 		and date_format(vatIssueDate, '%Y-%m-%d') BETWEEN '2022-11-01' and '2022-11-31';
 	</select>
 	<select id="gradata12" resultType="accountDto">
 		select * from swc_vat
-		where (vatStatus = 'S1' or vatStatus = 'S5')
+		where (vatStatus = 'S1' or vatStatus = 'S3' or vatStatus = 'S5')
 		and date_format(vatIssueDate, '%Y-%m-%d') BETWEEN '2022-12-01' and '2022-12-31';
 	</select>
 </mapper>

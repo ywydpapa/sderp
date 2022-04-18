@@ -34,7 +34,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		LEFT JOIN swc_vat b ON a.custNo = b.vatSellerCustNo AND (b.vatStatus = 'B3' OR b.vatStatus = 'B5')
 		LEFT JOIN(SELECT * FROM swc_bacledger_detail group BY linkDocno) c ON b.vatSerial = c.linkDocno 
 		LEFT JOIN swc_bacledger d ON d.baclogId = c.baclogId
-		WHERE d.linkDoc = 'y' and d.baclogTime LIKE CONCAT('%', #{selectYear}, '%') GROUP BY a.custName;
+		WHERE d.linkDoc = 'y' and d.baclogTime LIKE CONCAT('%', 2022, '%') GROUP BY a.custName;
 	</select>
 
 	<select id="sumBVatSearch" resultType="accountDto">
@@ -204,11 +204,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 
  	<select id="custVatListModal" resultType="accountDto">
- 		select a.*, b.custName vatSellerName, c.custName vatBuyerName, e.baclogTime, d.remain_data from swc_vat a
+ 		select a.*, b.custName vatSellerName, c.custName vatBuyerName from swc_vat a
  		left join swc_cust b on a.vatSellerCustNo = b.custNo
 		left join swc_cust c on a.vatBuyerCustNo = c.custNo
-		LEFT JOIN swc_bacledger_detail d ON a.vatSerial = d.linkDocno
-        LEFT JOIN swc_bacledger e ON d.baclogId = e.baclogId
  		where a.compNo = #{compNo} and a.vatType = #{vatType} and a.attrib not like 'XXX%'
 		<if test="vatIssueDateFrom != null and vatIssueDateFrom !=''">
 			and a.vatIssueDate Between #{vatIssueDateFrom} and #{vatIssueDateTo}

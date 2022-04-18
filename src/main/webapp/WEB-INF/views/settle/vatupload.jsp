@@ -59,6 +59,11 @@
 						</div>
                         <!-- hide and show -->
                         <button id="chkBtn" class="btn btn-sm btn-secondary" onClick="javascript:fnCheckVatlist()" disabled>계산서 검토</button>
+                        
+                        <!-- 항목 업데이트 하기 위한 버튼 -->
+                        <!-- <button style="display: none;" id="regBBtn" class="btn btn-sm btn-primary" onClick="javascript:productUpdate()">매입계산서 등록</button>
+                        <button style="display: none;" id="regSBtn" class="btn btn-sm btn-primary" onClick="javascript:productUpdate()">매출계산서 등록</button> -->
+                        
                         <button style="display: none;" id="regBBtn" class="btn btn-sm btn-primary" onClick="javascript:fnRegBVatlist()">매입계산서 등록</button>
                         <button style="display: none;" id="regSBtn" class="btn btn-sm btn-primary" onClick="javascript:fnRegSVatlist()">매출계산서 등록</button>
                     </div>
@@ -703,6 +708,31 @@
         		return false;
         	}
         }
+        
+        //vatProductName 업데이트를 위한 임시 함수
+        /* function productUpdate(){
+        	var compNo = "${sessionScope.compNo}";
+        	var $Chkarr = $(".vatchecked");  //체크여부
+        	var $Barr = $(".vatlst1");           // 승인번호
+        	var $Marr = $(".vatlst26");			  // 품목명
+        	
+        	for (var i=0; i<$Barr.length; i++){
+        		if ($($Chkarr[i]).is(":checked")==true){
+		        	var updateData = {};
+		        	updateData.compNo = compNo;
+		        	updateData.vatSerial = $Barr[i].innerText;
+		        	updateData.vatProductName = $Marr[i].innerText; 
+		        	
+		        	$.ajax({
+		        		url: "${path}/acc/productUpdate.do",
+		        		method: "post",
+		        		data: updateData,
+		        		async: false,
+		        		dataType: "json"
+		        	});
+        		}
+        	}
+        } */
 
         function acordian_action(){
             if($("#acordian").css("display") == "none"){

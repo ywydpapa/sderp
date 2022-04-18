@@ -983,5 +983,17 @@ public class AccountController {
     	
     	return count;
     }
-
+    
+    @RequestMapping("productUpdate.do")
+    public ResponseEntity<Object> productUpdate(HttpSession session, @ModelAttribute AccountDTO dto){
+        Map<String,Object> param = new HashMap<>();
+        int productUp = accountService.productUpdate(dto);
+        if(productUp > 0){
+            param.put("code","10001");
+        }
+        else {
+            param.put("code", "20001");
+        }
+        return ResponseEntity.ok(param);
+    }
 }

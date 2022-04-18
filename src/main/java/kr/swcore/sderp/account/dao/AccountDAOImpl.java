@@ -563,4 +563,10 @@ public class AccountDAOImpl implements AccountDAO {
 		// TODO Auto-generated method stub
 		return sqlSession.selectList("account.custVatListHtml", dto);
 	}
+
+	@Override
+	public int productUpdate(AccountDTO dto) {
+		// TODO Auto-generated method stub
+		return sqlSession.update("account.productUpdate", dto);
+	}
 }

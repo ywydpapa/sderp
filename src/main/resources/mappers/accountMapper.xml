@@ -776,6 +776,10 @@ attrib) values (#{vatId},
 		update swc_bacledger set attrib = 'XXXXX' where compNo = #{compNo} and baclogId = #{baclogId};
 	</update>
 	
+	<update id="productUpdate">
+		update swc_vat set vatProductName = #{vatProductName} where vatSerial = #{vatSerial} and compNo = #{compNo} and (vatProductName IS NULL OR vatProductName = '');
+	</update>
+	
 	<select id="bac_connect_list" resultType="accountDto">
 		SELECT * FROM swc_vat WHERE vatSerial = #{vatId}
 	</select>

@@ -112,4 +112,5 @@ public interface AccountService {
 	List<AccountDTO> custSelectVatList(AccountDTO dto);
 	List<AccountDTO> custVatListCount(AccountDTO dto);
 	List<AccountDTO> custVatListHtml(AccountDTO dto);
+	int productUpdate(AccountDTO dto);
 }

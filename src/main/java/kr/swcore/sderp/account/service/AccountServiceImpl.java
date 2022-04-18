@@ -617,4 +617,10 @@ public class AccountServiceImpl implements AccountService {
 		// TODO Auto-generated method stub
 		return accountDAO.custVatListHtml(dto);
 	}
+
+	@Override
+	public int productUpdate(AccountDTO dto) {
+		// TODO Auto-generated method stub
+		return accountDAO.productUpdate(dto);
+	}
 }

@@ -886,13 +886,13 @@ public class AccountController {
     	LocalDate now = LocalDate.now();
     	int year = now.getYear();
     	
-    	if(vatIssueDateFrom != "0") {
+    	if(!vatIssueDateFrom.equals("0")) {
     		dto.setVatIssueDateFrom(vatIssueDateFrom);
     	}else {
     		dto.setVatIssueDateFrom(year + "-01-01");
     	}
     	
-    	if(vatIssueDateTo != "0") {
+    	if(!vatIssueDateTo.equals("0")) {
     		dto.setVatIssueDateTo(vatIssueDateTo);
         }else {
         	dto.setVatIssueDateTo(year + "-12-31");

@@ -374,7 +374,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<if test="vatIssueDateFrom != null and vatIssueDateFrom !=''">
 			and a.vatIssueDate Between #{vatIssueDateFrom} and #{vatIssueDateTo}
 		</if>
-		GROUP BY a.vatBuyerCustNo order by a.vatId asc limit #{betFirstNum}, #{betLastNum}
+		GROUP BY a.vatBuyerCustNo order by b.custName asc limit #{betFirstNum}, #{betLastNum}
 	</select>
 	
 	<select id="custVatListCount" resultType="accountDto">
@@ -391,7 +391,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 
 	<select id="custVatListHtml" resultType="accountDto">
-		SELECT a.*, b.vatIssueDate, b.vatSerial FROM swc_cust a
+		SELECT a.*, b.vatIssueDate, b.vatSerial, b.vatTax, b.vatAmount, (b.vatTax + b.vatAmount) AS vatTotal FROM swc_cust a
 		LEFT JOIN swc_vat b ON a.custNo = b.vatBuyerCustNo AND b.vatIssueDate BETWEEN #{vatIssueDateFrom} and #{vatIssueDateTo}
 		WHERE a.compNo = #{compNo} and a.custNo = #{vatBuyerCustNo} ORDER BY b.vatIssueDate ASC 
 	</select>

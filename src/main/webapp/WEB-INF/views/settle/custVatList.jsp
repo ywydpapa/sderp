@@ -281,15 +281,15 @@
 			
 			if(reData != null){
 				countData.vatBuyerCustNo = reData.vatBuyerCustNo > 0 ? reData.vatBuyerCustNo : 0;
-				countData.vatIssueDateFrom = reData.vatIssueDateFrom != null ? reData.vatIssueDateFrom : "";
-				countData.vatIssueDateTo = reData.vatIssueDateTo != null ? reData.vatIssueDateTo : "";
+				countData.vatIssueDateFrom = reData.vatIssueDateFrom != "" ? reData.vatIssueDateFrom : "";
+				countData.vatIssueDateTo = reData.vatIssueDateTo != "" ? reData.vatIssueDateTo : "";
 				
 				selectData.vatBuyerCustNo = reData.vatBuyerCustNo > 0 ? reData.vatBuyerCustNo : 0;
-				selectData.vatIssueDateFrom = reData.vatIssueDateFrom != null ? reData.vatIssueDateFrom : "";
-				selectData.vatIssueDateTo = reData.vatIssueDateTo != null ? reData.vatIssueDateTo : "";
+				selectData.vatIssueDateFrom = reData.vatIssueDateFrom != "" ? reData.vatIssueDateFrom : "";
+				selectData.vatIssueDateTo = reData.vatIssueDateTo != "" ? reData.vatIssueDateTo : "";
 				
-				vatIssueDateFrom = selectData.vatIssueDateFrom;
-				vatIssueDateTo = selectData.vatIssueDateTo;
+				vatIssueDateFrom = reData.vatIssueDateFrom != "" ? selectData.vatIssueDateFrom : 0;
+				vatIssueDateTo = reData.vatIssueDateTo != "" ? selectData.vatIssueDateTo : 0;
 			}
 			
 			$.ajax({
@@ -370,8 +370,8 @@
 		}
 		
 		function popupVat(e){
-            var nWidth = "800";
-            var nHeight = "800";
+            var nWidth = "1500";
+            var nHeight = "1500";
 
             var curX = window.screenLeft;
             var curY = window.screenTop;
@@ -402,8 +402,8 @@
     		var page = 1;
     		
     		vatData.vatBuyerCustNo = $("#vatBuyerCustNo").val() ? $("#vatBuyerCustNo").val() : 0;
-    		vatData.vatIssueDateFrom = $("#vatIssueDateFrom").val() ? $("#vatIssueDateFrom").val() : null;
-    		vatData.vatIssueDateTo = $("#vatIssueDateTo").val() ? $("#vatIssueDateTo").val() : null;
+    		vatData.vatIssueDateFrom = $("#vatIssueDateFrom").val() ? $("#vatIssueDateFrom").val() : 0;
+    		vatData.vatIssueDateTo = $("#vatIssueDateTo").val() ? $("#vatIssueDateTo").val() : 0;
     		
     		pageNation(page, DEFAULT_NUM, vatData);
     		

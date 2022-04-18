@@ -185,5 +185,10 @@ public class AccountDTO {
     //거래처별 계산서
     private BigDecimal sumVatTax;
     private BigDecimal sumVatAmount;
+    
+    //원장
+    private String custVatno;
+    private String custBossname;
+    private BigDecimal vatTotal;
 }
 

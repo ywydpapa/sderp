@@ -945,6 +945,7 @@ attrib) values (#{vatId},
 		LEFT JOIN swc_bacledger_detail b ON a.vatSerial = b.linkDocno
 		LEFT JOIN swc_bacledger c ON b.baclogId = c.baclogId
 		LEFT JOIN swc_bac d ON c.bacSerial = d.bacSerial
+		where a.compNo = #{compNo}
 		order BY d.bacNo desc limit #{betFirstNum}, #{betLastNum};
 	</select>
 	<select id="check_link_vatandbacCnt" resultType="accountDto">
@@ -952,7 +953,8 @@ attrib) values (#{vatId},
 		FROM swc_vat a
 		LEFT JOIN swc_bacledger_detail b ON a.vatSerial = b.linkDocno
 		LEFT JOIN swc_bacledger c ON b.baclogId = c.baclogId
-		LEFT JOIN swc_bac d ON c.bacSerial = d.bacSerial;
+		LEFT JOIN swc_bac d ON c.bacSerial = d.bacSerial
+		where a.compNo = #{compNo};
 	</select>
 	<select id="check_remain_money_from_swc_vat" resultType="accountDto">
 		SELECT * FROM swc_vat 

@@ -23,6 +23,7 @@
     <c:if test="${preserveSearchCondition != 'Y'}">
         <!-- Page-header start 페이지 타이틀-->
         <div class="page-header2">
+        <input id="compNo_hidden" type="hidden" value="${sessionScope.compNo}">
             <div class="row align-items-end">
                 <div class="col-lg-12">
                     <div class="page-header-title" style="float:left;">
@@ -86,12 +87,12 @@
 			
 			selectData.betFirstNum = pageFirstBetween;
 			selectData.betLastNum = pageListNum;
-			
+			selectData.compNo = $('#compNo_hidden').val();
 			$.ajax({
 				url: "${path}/acc/check_link_vatandbac.do",
 				method: "get",
 				dataType: "json",
-				data: selectData
+				data: selectData,
 			})
 			.done(function(result){
 				for(var i = 0; i < result.data.length; i++){
@@ -127,6 +128,7 @@
 			$.ajax({
 				url: "${path}/acc/check_link_vatandbacCnt.do",
 				method: "post",
+				data: selectData,
 				dataType: "json",
 				success:function(data){
 					console.log(data.resultCount);
@@ -186,12 +188,13 @@
 
 			selectData.betFirstNum = pageSetNum;
 			selectData.betLastNum = pageListNum;
+			selectData.compNo = $('#compNo_hidden').val();
 			
 			$.ajax({
 				url: "${path}/acc/check_link_vatandbac.do",
 				method: "get",
 				dataType: "json",
-				data: selectData
+				data: selectData,
 			})
 			.done(function(result){
 				for(var i = 0; i < result.data.length; i++){
@@ -225,6 +228,8 @@
 				url: "${path}/acc/check_link_vatandbacCnt.do",
 				method: "post",
 				dataType: "json",
+				data: selectData,
+				
 				success:function(data){
 					console.log(data.resultCount);
 					if(data.resultCount > 0){
@@ -288,12 +293,13 @@
 			
 			selectData.betFirstNum = counter*150;
 			selectData.betLastNum = pageListNum;
-
+			selectData.compNo = $('#compNo_hidden').val();
+			
 			$.ajax({
 				url: "${path}/acc/check_link_vatandbac.do",
 				method: "get",
 				dataType: "json",
-				data: selectData
+				data: selectData,
 			})
 			.done(function(result){
 				for(var i = 0; i < result.data.length; i++){
@@ -325,6 +331,7 @@
 			$.ajax({
 				url: "${path}/acc/check_link_vatandbacCnt.do",
 				method: "post",
+				data: selectData,
 				dataType: "json",
 				success:function(data){
 					console.log(data.resultCount);
@@ -383,6 +390,7 @@
 			
 			selectData.betFirstNum = counter*150;
 			selectData.betLastNum = pageListNum;		
+			selectData.compNo = $('#compNo_hidden').val();
 			
 			$.ajax({
 				url: "${path}/acc/check_link_vatandbac.do",
@@ -420,6 +428,7 @@
 			$.ajax({
 				url: "${path}/acc/check_link_vatandbacCnt.do",
 				method: "post",
+				data: selectData,
 				dataType: "json",
 				success:function(data){
 					console.log(data.resultCount);

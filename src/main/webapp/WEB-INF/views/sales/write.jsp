@@ -46,7 +46,7 @@
 									<th scope="row" class="requiredTextCss">활동일</th>
 									<td colspan="3">
 										<div class="input-group input-group-sm mb-0 mr-1">
-											<input id="salesFrdatetime" class="form-control col-xl-2" type="date" max="9999-12-30" onChange="javascript:inputDate(setDateHourMinute($('#salesFrdatetime').val(), $('#startTime').val()), setDateHourMinute($('#salesTodatetime').val(), $('#endTime').val()),this)">
+											<input id="salesFrdatetime" style="width:400px" class="form-control col-xl-2" type="date" max="9999-12-30" onChange="javascript:inputDate(setDateHourMinute($('#salesFrdatetime').val(), $('#startTime').val()), setDateHourMinute($('#salesTodatetime').val(), $('#endTime').val()),this)">
 											<select id="startTime" style="width:100px" onChange="javascript:inputDate(setDateHourMinute($('#salesFrdatetime').val(), $('#startTime').val()), setDateHourMinute($('#salesTodatetime').val(), $('#endTime').val()),this)"></select>
 											<span style="line-height:30px;">&nbsp;~&nbsp;</span>
 											<input id="salesTodatetime" class="form-control col-xl-2" type="date" max="9999-12-31" onChange="javascript:inputDate(setDateHourMinute($('#salesFrdatetime').val(), $('#startTime').val()), setDateHourMinute($('#salesTodatetime').val(), $('#endTime').val()),this)">

@@ -18,7 +18,8 @@
 		$('#vatTable').DataTable({
 			info:false,
 			searching: true,
-			order: [[ 0, "desc" ]],
+			order: [[ 4, "desc" ]],
+			ordering: true
 		});
 	});
 	</script>

@@ -27,7 +27,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		LEFT JOIN swc_cust_balance b on a.custNo = b.custNo AND b.settleYear = #{selectYear} AND b.compNo = #{compNo} AND b.attrib NOT LIKE 'XXX%' AND b.settleDRbalance IS NOT NULL
 		LEFT JOIN swc_vat c ON a.custNo = c.vatSellerCustNo AND c.vatIssueDate BETWEEN #{vatIssueDateFrom} and #{vatIssueDateTo} and c.attrib NOT LIKE 'XXX%' 
 		WHERE a.compNo = #{compNo}
-		GROUP BY a.custNo ORDER BY b.settleDRbalance desc
+		GROUP BY a.custNo
 	</select>
 	
 	<select id="sumBvat_sub" resultType="accountDto">		
@@ -47,7 +47,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<if test="vatSellerCustNo != null and vatSellerCustNo != ''">
 			where c.vatSellerCustNo = #{vatSellerCustNo}
 		</if>
-		GROUP BY a.custNo ORDER BY b.settleDRbalance desc
+		GROUP BY a.custNo
 	</select>
 
 	<select id="sumSVat" resultType="accountDto">
@@ -56,7 +56,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		LEFT JOIN swc_cust_balance b on a.custNo = b.custNo AND b.settleYear = #{selectYear} AND b.compNo = #{compNo} AND b.attrib NOT LIKE 'XXX%' AND b.settleCRbalance IS NOT NULL
 		LEFT JOIN swc_vat c ON a.custNo = c.vatBuyerCustNo AND c.vatIssueDate BETWEEN #{vatIssueDateFrom} and #{vatIssueDateTo} and c.attrib NOT LIKE 'XXX%'
 		WHERE a.compNo = #{compNo}
-		GROUP BY a.custNo ORDER BY b.settleCRbalance desc
+		GROUP BY a.custNo
 	</select>
 	<select id="sumSvat_sub" resultType="accountDto">
 		SELECT a.custNo, a.custName, sum(b.modal_receive_data) AS modal_receive_data  FROM swc_cust a
@@ -74,7 +74,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<if test="vatBuyerCustNo != null and vatBuyerCustNo != ''">
 			where c.vatBuyerCustNo = #{vatBuyerCustNo}
 		</if>
-		GROUP BY a.custNo ORDER BY b.settleCRbalance desc
+		GROUP BY a.custNo
 	</select>
 
 	<select id="listVatSearch" resultType="accountDto">

@@ -184,6 +184,18 @@ public class CustController {
 		return ResponseEntity.ok(param);
 	}
 	
+	@RequestMapping("tempSelectCustInsert.do")
+	public ResponseEntity<?> tempSelectCustInsert(@ModelAttribute CustDTO dto) {
+		Map<String, Object> param = new HashMap<>();
+		int custUpdate = custService.tempSelectCustInsert(dto);
+		if (custUpdate >0) {
+			param.put("code","10001"); 
+		}
+		else {param.put("code","20001");
+		}
+		return ResponseEntity.ok(param);
+	}
+	
 	@ResponseBody
 	@RequestMapping(value="custCheck.do", method = RequestMethod.POST)
 	public int custCheck(CustDTO dto) {

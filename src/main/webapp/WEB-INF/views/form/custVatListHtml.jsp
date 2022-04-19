@@ -11,6 +11,9 @@
 
 <body>
 	<div>
+		<div style="text-align:center;">
+			<h3>거래처 원장</h3>
+		</div>
 		<div id="tableDiv" style="padding: 20px;">
 			<c:set var="dateArray" value="${fn:split('01,02,03,04,05,06,07,08,09,10,11,12', ',')}" />
 			<c:forEach var="dateValue" items="${dateArray}">
@@ -26,8 +29,7 @@
 					<thead>
 						<tr>
 							<th style="text-align:center;">일자</th>
-							<th style="text-align:center;">거래처</th>
-							<th style="text-align:center;">계산서번호</th>
+							<th style="text-align:center;">적요</th>
 							<th style="text-align:center;">세액</th>
 							<th style="text-align:center;">공급가액</th>
 							<th style="text-align:center;">합계</th>
@@ -37,16 +39,20 @@
 						<c:forEach var="row" items="${custVatList}">
 							<c:set var="dateMonth" value="${fn:substring(row.vatIssueDate, 5, 7)}" />
 							<c:if test="${(dateValue eq dateMonth)}">
-								<tr>
+								<tr id="divisionTr">
 									<td style="text-align:center;">${row.vatIssueDate}</td>
-									<td style="text-align:center;">${row.custName}</td>
-									<td style="text-align:center;">${row.vatSerial}</td>			
+									<td style="text-align:center;">${row.vatProductName}</td>			
 									<td style="text-align:right;"><fmt:formatNumber type="number" maxFractionDigits="3" value="${row.vatTax}" /></td>	
 									<td style="text-align:right;"><fmt:formatNumber type="number" maxFractionDigits="3" value="${row.vatAmount}" /></td>	
 									<td style="text-align:right;"><fmt:formatNumber type="number" maxFractionDigits="3" value="${row.vatTotal}" /></td>			
 								</tr>
+								<c:set var="calTotal" value="${calTotal + row.vatTotal}" />
 							</c:if>
 						</c:forEach>
+						<tr>
+							<th colspan="4" style="text-align:center;">월 계</th>
+							<th style="text-align:right;"><fmt:formatNumber type="number" maxFractionDigits="3" value="${calTotal}" /></th>
+						</tr>
 					</tbody>
 				</table>
 			</c:forEach>
@@ -56,9 +62,9 @@
 <script>
 	$(document).ready(function(){
 		$("[id^='vatTable_']").each(function(index, item){
-			console.log($(item).find("tbody tr").length);
-			if($(item).find("tbody tr").length == 0){
-				$(item).find("tbody").html("<tr><th colspan='6' style='text-align:center;'>조회된 데이터가 없습니다.</th></tr>");
+			if($(item).find("tbody #divisionTr").length == 0){
+				$(item).prev().remove();
+				$(item).remove();
 			}
 		});
 	});

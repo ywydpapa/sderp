@@ -64,6 +64,12 @@
                         <!-- <button style="display: none;" id="regBBtn" class="btn btn-sm btn-primary" onClick="javascript:productUpdate()">매입계산서 등록</button>
                         <button style="display: none;" id="regSBtn" class="btn btn-sm btn-primary" onClick="javascript:productUpdate()">매출계산서 등록</button> -->
                         
+                        <!-- 매입거래처 검토 후 insert -->
+                        <!-- <button id="tempCustBBtn" class="btn btn-sm btn-primary" onClick="javascript:tempCustInsertB()">매입거래처 등록</button> -->
+                        
+                        <!-- 매출거래처 검토 후 insert -->
+                        <!-- <button id="tempCustSBtn" class="btn btn-sm btn-primary" onClick="javascript:tempCustInsertS()">매출거래처 등록</button> -->
+                        
                         <button style="display: none;" id="regBBtn" class="btn btn-sm btn-primary" onClick="javascript:fnRegBVatlist()">매입계산서 등록</button>
                         <button style="display: none;" id="regSBtn" class="btn btn-sm btn-primary" onClick="javascript:fnRegSVatlist()">매출계산서 등록</button>
                     </div>
@@ -511,38 +517,37 @@
                         $.ajax({
                         	url: "${path}/acc/selectVatCust/" + vatData.vatNo,
                         	method: "post",
-                        	dataType: "json",
                         	async: false,
+                        	dataType: "json",
                         	success:function(data){
                         		if(data.count > 0){
     	                    		vatData.vatSellerCustNo = data.getNo;
                         		}else{
                         			vatData.vatSellerCustNo = 0;
                         		}
-                        		
-                        		$.ajax({
-                                	url: "${path}/acc/selectVatCust/" + $Larr[i].innerText,
-                                	method: "post",
-                                	dataType: "json",
-                                	async: false,
-                                	success:function(result){
-                                		if(data.count > 0){
-            	                    		vatData.vatBuyerCustNo = result.getNo;
-                                		}else{
-                                			vatData.vatBuyerCustNo = 0;
-                                		}
-                                		
-    				                    $.ajax({
-    				                        url : "${path}/acc/insertvat.do",
-    				                        data : vatData,
-    				                        method : "POST",
-    				                        async: false,
-    				                        dataType: "json"
-    				                    });
-                                	}
-                                });
                         	}
                         });
+                 		$.ajax({
+                         	url: "${path}/acc/selectVatCust/" + $Larr[i].innerText,
+                         	method: "post",
+                         	async: false,
+                         	dataType: "json",
+                         	success:function(result){
+                         		if(result.count > 0){
+     	                    		vatData.vatBuyerCustNo = result.getNo;
+                         		}else{
+                         			vatData.vatBuyerCustNo = 0;
+                         		}
+                         		
+			                    $.ajax({
+			                        url : "${path}/acc/insertvat.do",
+			                        data : vatData,
+			                        method : "POST",
+			                        async: false,
+			                        dataType: "json"
+			                    });
+                         	}
+                       });
                     }
                 }
                 alert("매입자료 등록 완료");
@@ -678,28 +683,29 @@
                         		}else{
                         			vatData.vatSellerCustNo = 0;
                         		}
-                        		$.ajax({
-                                	url: "${path}/acc/selectVatCust/" + $Larr[i].innerText,
-                                	method: "post",
-                                	dataType: "json",
-                                	async: false,
-                                	success:function(result){
-                                		if(data.count > 0){
-            	                    		vatData.vatBuyerCustNo = result.getNo;
-                                		}else{
-                                			vatData.vatBuyerCustNo = 0;
-                                		}
-                                		
-    				                    $.ajax({
-    				                        url : "${path}/acc/insertvat.do",
-    				                        data : vatData,
-    				                        method : "POST",
-    				                        async: false,
-    				                        dataType: "json"
-    				                    });
-                                	}
-                                });
                         	}
+                        });
+                       
+                   		$.ajax({
+                           	url: "${path}/acc/selectVatCust/" + $Larr[i].innerText,
+                           	method: "post",
+                           	dataType: "json",
+                           	async: false,
+                           	success:function(result){
+                           		if(result.count > 0){
+       	                    		vatData.vatBuyerCustNo = result.getNo;
+                           		}else{
+                           			vatData.vatBuyerCustNo = 0;
+                           		}
+                           		
+			                    $.ajax({
+			                        url : "${path}/acc/insertvat.do",
+			                        data : vatData,
+			                        method : "POST",
+			                        async: false,
+			                        dataType: "json"
+			                    });
+                           	}
                         });
                     }
                 }
@@ -735,6 +741,82 @@
 		        		dataType: "json"
 		        	});
         		}
+        	}
+        } */
+        
+        
+        /* 계산서 검토 후 등록시 거래처가 없을 경우에 거래처를 insert하기위한 함수 */
+        /* function tempCustInsertB(){
+        	var $Chkarr = $(".vatchecked");  //체크여부
+        	var $Aarr = $(".vatlst6");		//상호명
+        	var $Barr = $(".vatlst1");       // 승인번호
+        	var $Carr = $(".vatlst7");		//대표자명
+        	var $Earr = $(".vatlst4");       // 사업자 번호
+        	var compNo = "${sessionScope.compNo}";
+        	
+        	for (var i = 0; i < $Barr.length; i++){
+                if ($($Chkarr[i]).is(":checked")==true){
+		        	var insertData = {};
+		        	insertData.compNo = compNo;
+		        	insertData.custName = $Aarr[i].innerText;
+		        	insertData.custVatno = $Earr[i].innerText;
+		        	insertData.custBossname = $Carr[i].innerText;
+		        	
+		        	$.ajax({
+                    	url: "${path}/acc/selectVatCust/" + $Earr[i].innerText,
+                    	method: "post",
+                    	dataType: "json",
+                    	async: false,
+                    	success:function(data){
+                    		if(data.count < 1){
+                    			$.ajax({
+                                	url: "${path}/cust/tempSelectCustInsert.do",
+                                	method: "post",
+                                	async: false,
+                                	data: insertData,
+                                	dataType: "json"
+                            	});
+                    		}
+                    	}
+                    });
+                }
+        	}
+        }
+        
+        function tempCustInsertS(){
+        	var $Chkarr = $(".vatchecked");  //체크여부
+        	var $Aarr = $(".vatlst11");		//상호명
+        	var $Barr = $(".vatlst1");       // 승인번호
+        	var $Carr = $(".vatlst12");		//대표자명
+        	var $Earr = $(".vatlst9");       // 사업자 번호
+        	var compNo = "${sessionScope.compNo}";
+        	
+        	for (var i = 0; i < $Barr.length; i++){
+                if ($($Chkarr[i]).is(":checked")==true){
+		        	var insertData = {};
+		        	insertData.compNo = compNo;
+		        	insertData.custName = $Aarr[i].innerText;
+		        	insertData.custVatno = $Earr[i].innerText;
+		        	insertData.custBossname = $Carr[i].innerText;
+		        	
+		        	$.ajax({
+                    	url: "${path}/acc/selectVatCust/" + $Earr[i].innerText,
+                    	method: "post",
+                    	dataType: "json",
+                    	async: false,
+                    	success:function(data){
+                    		if(data.count < 1){
+                    			$.ajax({
+                                	url: "${path}/cust/tempSelectCustInsert.do",
+                                	method: "post",
+                                	async: false,
+                                	data: insertData,
+                                	dataType: "json"
+                            	});
+                    		}
+                    	}
+                    });
+                }
         	}
         } */
 

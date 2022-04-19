@@ -37,4 +37,5 @@ public interface CustService {
 	public int insertCust04(CustDTO dto);
 	Map<String, Object> insertSimpleRegister(HttpSession session, String param, HttpServletRequest request, HttpServletResponse response);
 	CustDTO sessionSelectCust(HttpSession session);
+	int tempSelectCustInsert(CustDTO dto);
 }

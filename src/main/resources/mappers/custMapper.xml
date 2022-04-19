@@ -92,6 +92,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  values
  (#{custNo}, #{compNo}, #{custByear}, #{custCRbalance}, #{custDRbalance}, #{custVatno}, #{custVatemail}, #{custVattype}, #{custVatbiz}, #{custVatmemo}, now(), '10000');
  </insert>
+ 
+ <insert id="tempSelectCustInsert">
+ 		insert into swc_cust 
+ 		(
+ 		compNo, custName,custVatno, custBossname, attrib
+ 		)
+ 		values 
+ 		(
+ 		#{compNo},#{custName},#{custVatno}, #{custBossname},'10000'
+ 		)
+ </insert>
 
  <update id="updateCust">
 	update swc_cust 

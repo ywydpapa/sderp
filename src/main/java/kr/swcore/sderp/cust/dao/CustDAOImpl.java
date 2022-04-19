@@ -163,4 +163,10 @@ public class CustDAOImpl implements CustDAO {
 	public CustDTO sessionSelectCust(int custCompNo) {
 		return sqlSession.selectOne("cust.sessionSelectCust", custCompNo);
 	}
+
+	@Override
+	public int tempSelectCustInsert(CustDTO dto) {
+		// TODO Auto-generated method stub
+		return sqlSession.insert("cust.tempSelectCustInsert",dto);
+	}
 }

@@ -222,4 +222,10 @@ public class CustServiceImpl implements CustService {
 		
 		return custDao.sessionSelectCust(custCompNo);
 	}
+
+	@Override
+	public int tempSelectCustInsert(CustDTO dto) {
+		// TODO Auto-generated method stub
+		return custDao.tempSelectCustInsert(dto);
+	}
 }

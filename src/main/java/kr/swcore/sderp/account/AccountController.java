@@ -272,6 +272,18 @@ public class AccountController {
     @RequestMapping("custSelectVatList.do")
     public List<AccountDTO> custSelectVatList(@ModelAttribute AccountDTO dto)
     {
+    	System.out.println("데이트 : " + dto.getVatIssueDateFrom());
+    	LocalDate now = LocalDate.now();
+        int year = now.getYear();
+        
+    	if(dto.getVatIssueDateFrom() == null) {
+    		dto.setVatIssueDateFrom(year + "-01-01");
+    	}
+    	
+    	if(dto.getVatIssueDateTo() == null) {
+    		dto.setVatIssueDateTo(year + "-12-31");
+    	}
+    	
     	List<AccountDTO> count = accountService.custSelectVatList(dto);
         return count;
     }

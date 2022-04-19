@@ -308,12 +308,12 @@
         </div>
     </div>
     <script>
-    	const DEFAULT_NUM = 15;
-    	const CARD_TABLE = $("#cardTable tbody");
-    	const CLICK_PAGE_NUM = 10;
 	    <!--//리스트 table-->
 		<!-- hide and show -->
 		$(document).ready(function(){
+			const CLICK_PAGE_NUM = 10;
+			const CARD_TABLE = $("#cardTable tbody");
+			const DEFAULT_NUM = 15;
 			$("#cardlist").select2(); 
 			
 			$("#cardlist").change(function(){

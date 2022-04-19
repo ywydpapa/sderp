@@ -91,9 +91,7 @@ public class AccountController {
             for(int i = 0; i < sumBvat_sub.size(); i++) {
             	for(int s = 0; s < vatList.size(); s++) {
             		if(sumBvat_sub.get(i).getCustNo() == vatList.get(s).getCustNo()) {
-            			System.out.println("vatList.get(s).getContNo() ===========================" + vatList.get(s).getCustNo());
             			vatList.get(s).setSerialTotalB(sumBvat_sub.get(i).getModal_receive_data());
-            			System.out.println("vatList.get(s).getSerialTotalB() =====================" + vatList.get(s).getSerialTotalB());
             		}
             	}
             }
@@ -111,9 +109,7 @@ public class AccountController {
             for(int i = 0; i < sumBvat_sub.size(); i++) {
             	for(int s = 0; s < vatList.size(); s++) {
             		if(sumBvat_sub.get(i).getCustNo() == vatList.get(s).getCustNo()) {
-            			System.out.println("vatList.get(s).getContNo() ===========================" + vatList.get(s).getCustNo());
             			vatList.get(s).setSerialTotalB(sumBvat_sub.get(i).getModal_receive_data());
-            			System.out.println("vatList.get(s).getSerialTotalB() =====================" + vatList.get(s).getSerialTotalB());
             		}
             	}
             }
@@ -157,9 +153,7 @@ public class AccountController {
             for(int i = 0; i < sumSvat_sub.size(); i++) {
             	for(int s = 0; s < vatList.size(); s++) {
             		if(sumSvat_sub.get(i).getCustNo() == vatList.get(s).getCustNo()) {
-            			System.out.println("vatList.get(s).getContNo() ===========================" + vatList.get(s).getCustNo());
             			vatList.get(s).setSerialTotalS(sumSvat_sub.get(i).getModal_receive_data());
-            			System.out.println("vatList.get(s).getSerialTotalS() =====================" + vatList.get(s).getSerialTotalS());
             		}
             	}
             }
@@ -178,14 +172,13 @@ public class AccountController {
             for(int i = 0; i < sumSvat_sub.size(); i++) {
             	for(int s = 0; s < vatList.size(); s++) {
             		if(sumSvat_sub.get(i).getCustNo() == vatList.get(s).getCustNo()) {
-            			System.out.println("vatList.get(s).getContNo() ===========================" + vatList.get(s).getCustNo());
             			vatList.get(s).setSerialTotalS(sumSvat_sub.get(i).getModal_receive_data());
-            			System.out.println("vatList.get(s).getSerialTotalS() =====================" + vatList.get(s).getSerialTotalS());
             		}
             	}
             }
             mav.addObject("vatList", vatList);
         }
+        
         mav.setViewName("settle/sumSvatlist");
         return mav;
     }

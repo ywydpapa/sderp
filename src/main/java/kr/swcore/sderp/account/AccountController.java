@@ -421,7 +421,7 @@ public class AccountController {
     
     @RequestMapping("vatupload.do")
     public ModelAndView vatUpload(HttpSession session, ModelAndView mav, @ModelAttribute AccountDTO dto) {
-        mav.addObject("vatList", accountService.listvat(session, dto));
+		/* mav.addObject("vatList", accountService.listvat(session, dto)); */
         mav.setViewName("settle/vatupload");
         return mav;
     }

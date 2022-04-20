@@ -264,6 +264,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		left join swc_cust d on a.linkCustNo = d.custNo
 		left join swc_user e on a.docCrUserNo = e.userNo
 		where a.attrib not like 'XXX%' and b.compNo = #{compNo}
+		<if test="withdraw_status == 1">
+			and a.docDrawStatus = 0
+		</if>
+		<if test ="withdraw_status == 2">
+			and a.docDrawStatus = 1
+		</if>
 		<if test="custNo != null and custNo != ''">
  		 	and a.linkCustNo = #{custNo}
  		</if>

@@ -74,16 +74,18 @@ public class GwController {
 			@RequestParam(value = "userName", required = false) String userName,
 			@RequestParam(value = "vatSdate", required = false) String vatSdate,
 			@RequestParam(value = "vatEdate", required = false) String vatEdate,
-			@RequestParam(value = "selectoption", required = false) Integer selectoption
+			@RequestParam(value = "selectoption", required = false) Integer selectoption,
+			@RequestParam(value = "withdraw_status", required = false) Integer withdraw_status
 			) 
     {
-    	if(custNo != null || userName != null || vatSdate != null || vatEdate != null || selectoption != null){
+    	if(custNo != null || userName != null || vatSdate != null || vatEdate != null || selectoption != null || withdraw_status != null){
 			GwDTO dto = new GwDTO();
     		if(custNo != null) dto.setCustNo(custNo);
     		if(userName != null) dto.setUserName(userName);
     		if(vatSdate != null) dto.setVatSdate(vatSdate);
     		if(vatEdate != null) dto.setVatEdate(vatEdate);
     		if(selectoption != null) dto.setSelectoption(selectoption);
+    		if(withdraw_status != null) dto.setWithdraw_status(withdraw_status);
     		
     		mav.addObject("mydoclist", gwService.myDocList(session, dto));
     	}else {

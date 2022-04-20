@@ -110,6 +110,7 @@ public class GwDTO {
     private String productDate;
     private int docDrawStatus;
     private int docDrawNo;
+    private Integer withdraw_status;
     
     private int selectoption;
     public GwDTO() {

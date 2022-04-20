@@ -170,6 +170,14 @@
                     				<option value="4">지출품의서</option>
                     			</select>
                     		</div>
+                    		<div class="col-sm-12 col-xl-3">
+                    			<label class="col-form-label">출금 상태</label>
+                            	<select class="form-control form-control-sm col-xl-6" id="withdraw_status">
+                    				<option value="0"selected>선택</option>
+                    				<option value="1">N</option>
+                    				<option value="2">Y</option>
+                    			</select>
+                    		</div>
                         </div>
                     </div>
                 </div>
@@ -274,6 +282,7 @@
 			                            	<th class="text-center">
 			                            		<input type="checkbox" class="form-control" id="docAllCheck" onclick="drawAllCheckClick(this);" style="margin-bottom:5px;">
 			                            	</th>
+			                            	<th class="text-center">진행상태</th>
 			                                <th class="text-center">출금</th>
 			                                <th class="text-center">작성일자</th>
 			                                <th class="text-center">문서번호</th>
@@ -282,7 +291,6 @@
 			                                <th class="text-center">문서명</th>
 			                                <th class="text-center">금액</th>
 			                                <th class="text-center">작성자</th>
-			                                <th class="text-center">진행상태</th>
 			                            </tr>
 		                            </thead>
 		                            <tbody>
@@ -302,6 +310,7 @@
 				                                			</c:otherwise>
 				                                		</c:choose>
 				                                	</td>
+				                                	<td class="text-center">승인완료</td>
 				                                	<td class="text-center">
 				                                    	<c:if test="${row.docDrawStatus eq 1 && row.docFormNo eq 'TREQ'}">
 															Y
@@ -337,7 +346,6 @@
 				                                    <td id="bacDesc">${row.docTitle}</td>
 				                                    <td class="text-right" id="outAmt">￦<fmt:formatNumber type="number" maxFractionDigits="3" value="${row.docAmount}" /></td>
 				                                    <td class="text-center">${row.firstUser}</td>
-				                                    <td class="text-center">승인완료</td>
 				                                </tr>
 			                       			</c:if>
 		                            	</c:forEach>
@@ -746,6 +754,7 @@
     		myDocData.vatSdate = $("#vatSdate").val() ? $("#vatSdate").val() : null;
     		myDocData.vatEdate = $("#vatEdate").val() ? $("#vatEdate").val() : null;
     		myDocData.selectoption = $("#selectoption").val() ? $("#selectoption").val() : null;
+    		myDocData.withdraw_status = $('#withdraw_status').val() ? $('#withdraw_status').val() : null;
     		
     		var param = "?";
     		var paramFirst = true;

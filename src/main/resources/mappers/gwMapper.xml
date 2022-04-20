@@ -265,7 +265,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		left join swc_user e on a.docCrUserNo = e.userNo
 		where a.attrib not like 'XXX%' and b.compNo = #{compNo}
 		<if test="withdraw_status == 1">
-			and a.docDrawStatus = 0
+			and a.docDrawStatus = 0 and (a.docFormNo = 'TREQ' or a.docFormNo = 'BREQ')
 		</if>
 		<if test ="withdraw_status == 2">
 			and a.docDrawStatus = 1

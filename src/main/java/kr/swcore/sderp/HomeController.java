@@ -129,8 +129,6 @@ public class HomeController {
 		
 		mav.addObject("noticelist", noticeService.listNotice(session, pageDTO));
 		mav.addObject("graph1",salesTargetService.listSalesTargetYearTotalSalesIndividual(session, null));
-		List<UserDTO> allList = userService.allList(session.getAttribute("compNo"));
-		mav.addObject("username", allList);
 		mav.setViewName("board/myboard");
 		long afterTime = System.currentTimeMillis();
 		long millisDiffTime = afterTime - beforeTime;

@@ -44,6 +44,7 @@ public class AccountDTO {
     private String vatEmail;
     private BigDecimal vatSum;
     private String custName;
+    private String custName_sub;
     private int resultCount;
 
     private Integer bacId;

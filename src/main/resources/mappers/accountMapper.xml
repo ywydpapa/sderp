@@ -831,9 +831,10 @@ attrib) values (#{vatId},
 		where baclogId = #{baclogId}
 	</select>
 	<select id="new_bac_connect_list" resultType="accountDto">
-		SELECT b.*, c.custName, a.* FROM swc_bacledger_detail a 
+		SELECT b.*, c.custName, d.custName AS custName_sub, a.* FROM swc_bacledger_detail a 
 		left join swc_vat b on a.linkDocno = b.vatSerial
 		LEFT JOIN swc_cust c ON b.vatBuyerCustNo = c.custNo
+		LEFT JOIN swc_cust d on b.vatSellerCustNo = d.custNo
 		WHERE baclogId = #{vatId}
 	</select>
 	<select id="connnectlist_Num" resultType="integer">

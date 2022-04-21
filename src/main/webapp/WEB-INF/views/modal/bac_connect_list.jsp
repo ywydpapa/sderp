@@ -63,6 +63,14 @@
 			        <c:when test="${empty row.custName}">
 			           <td>미등록업체</td>
 			        </c:when>
+			        <c:when test="${row.custName eq '(주)비전테크'}">
+			        	<c:if test="${empty row.custName_sub}">
+			        		<td>미등록업체</td>
+			        	</c:if>
+			        	<c:if test="${!empty row.custName_sub}">
+			        		<td>${row.custName_sub}</td>
+			        	</c:if>
+			        </c:when>
 			        <c:otherwise>
 			          	<td>${row.custName}</td>
 			        </c:otherwise>

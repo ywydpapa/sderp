@@ -588,6 +588,7 @@ public class AccountDAOImpl implements AccountDAO {
 		return sqlSession.selectList("account.ledgerListS",dto);
 	}
 	
+	@Override
 	public AccountDTO modalVatBCnt(AccountDTO dto) {
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne("account.modalVatBCnt", dto);

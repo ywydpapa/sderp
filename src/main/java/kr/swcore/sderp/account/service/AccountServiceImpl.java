@@ -598,7 +598,8 @@ public class AccountServiceImpl implements AccountService {
 		// TODO Auto-generated method stub
 		return accountDAO.check_lincked_last(dto);
 	}
-
+	
+	@Override
 	public List<AccountDTO> custSelectVatList(AccountDTO dto) {
 		// TODO Auto-generated method stub
 		return accountDAO.custSelectVatList(dto);

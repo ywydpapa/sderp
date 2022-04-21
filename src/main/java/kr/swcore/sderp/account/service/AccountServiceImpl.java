@@ -623,4 +623,28 @@ public class AccountServiceImpl implements AccountService {
 		// TODO Auto-generated method stub
 		return accountDAO.productUpdate(dto);
 	}
+
+	@Override
+	public List<AccountDTO> custVatListS(HttpSession session, AccountDTO dto) {
+		int compNo = SessionInfoGet.getCompNo(session);
+		String listDateFrom = SessionInfoGet.getlistDateFrom(session);
+		dto.setCompNo(compNo);
+		dto.setListDateFrom(listDateFrom);
+		return accountDAO.custVatListS(dto);
+	}
+
+	@Override
+	public List<AccountDTO> custVatListB(HttpSession session, AccountDTO dto) {
+		int compNo = SessionInfoGet.getCompNo(session);
+		String listDateFrom = SessionInfoGet.getlistDateFrom(session);
+		dto.setCompNo(compNo);
+		dto.setListDateFrom(listDateFrom);
+		return accountDAO.custVatListB(dto);
+	}
+
+	@Override
+	public List<AccountDTO> ledgerListS(HttpSession session, AccountDTO dto) {
+		// TODO Auto-generated method stub
+		return accountDAO.ledgerListS(dto);
+	}
 }

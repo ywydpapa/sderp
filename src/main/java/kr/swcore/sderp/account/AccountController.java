@@ -119,9 +119,72 @@ public class AccountController {
         mav.setViewName("settle/sumBvatlist");
         return mav;
     }
-
+    
     @RequestMapping("sumSvatlist.do")
-    public ModelAndView sumSvatList(HttpSession session, ModelAndView mav,
+    public ModelAndView sumSvatlist(HttpSession session, ModelAndView mav,
+            @RequestParam(value = "vatBuyerCustNo", required = false) Integer vatBuyerCustNo,
+            @RequestParam(value = "vatIssueDateFrom", required = false) String vatIssueDateFrom,
+            @RequestParam(value = "vatIssueDateTo", required = false) String vatIssueDateTo, 
+            @RequestParam(value = "selectYear", required = false) Integer selectYear) {
+		if(vatBuyerCustNo != null || vatIssueDateFrom != null || vatIssueDateTo != null){
+			AccountDTO dto = new AccountDTO();
+			LocalDate now = LocalDate.now();
+			int year = now.getYear();
+			if(vatBuyerCustNo != null) dto.setVatBuyerCustNo(vatBuyerCustNo);
+			if(vatIssueDateFrom != null) {
+				dto.setVatIssueDateFrom(vatIssueDateFrom);
+			}else {
+				dto.setVatIssueDateFrom(year + "-01-01");
+			}
+		
+			if(vatIssueDateTo != null) {
+				dto.setVatIssueDateTo(vatIssueDateTo);
+			}else {
+				dto.setVatIssueDateTo(year + "-12-31");
+			}
+		
+			if(selectYear != null) {
+				dto.setSelectYear(selectYear);
+			}else {
+				dto.setSelectYear(year);
+			}
+			List <AccountDTO> vatList = accountService.sumSvatSearch(session, dto);
+			List <AccountDTO> sumSvat_sub = accountService.sumSvat_sub(session, dto);
+			for(int i = 0; i < sumSvat_sub.size(); i++) {
+				for(int s = 0; s < vatList.size(); s++) {
+					if(sumSvat_sub.get(i).getCustNo() == vatList.get(s).getCustNo()) {
+						vatList.get(s).setSerialTotalS(sumSvat_sub.get(i).getModal_receive_data());
+					}
+				}
+			}
+			mav.addObject("vatList", vatList);
+		
+			} else {
+				AccountDTO dto = new AccountDTO();
+				LocalDate now = LocalDate.now();
+				int year = now.getYear();
+				dto.setVatIssueDateFrom(year + "-01-01");
+				dto.setVatIssueDateTo(year + "-12-31");
+				dto.setSelectYear(year);
+				List <AccountDTO> sumSvat_sub = accountService.sumSvat_sub(session, dto);
+				List <AccountDTO> vatList = accountService.sumSvat(session, dto);
+		
+				for(int i = 0; i < sumSvat_sub.size(); i++) {
+					for(int s = 0; s < vatList.size(); s++) {
+						if(sumSvat_sub.get(i).getCustNo() == vatList.get(s).getCustNo()) {
+							vatList.get(s).setSerialTotalS(sumSvat_sub.get(i).getModal_receive_data());
+						}
+					}
+				}
+			mav.addObject("vatList", vatList);
+		}
+	
+		mav.setViewName("settle/sumSvatlist");
+		return mav;
+	}
+
+    @RequestMapping("custVatListS.do")
+    public ModelAndView custVatListS(HttpSession session, ModelAndView mav,
                                     @RequestParam(value = "vatBuyerCustNo", required = false) Integer vatBuyerCustNo,
                                     @RequestParam(value = "vatIssueDateFrom", required = false) String vatIssueDateFrom,
                                     @RequestParam(value = "vatIssueDateTo", required = false) String vatIssueDateTo, 
@@ -167,7 +230,7 @@ public class AccountController {
             dto.setVatIssueDateTo(year + "-12-31");
             dto.setSelectYear(year);
             List <AccountDTO> sumSvat_sub = accountService.sumSvat_sub(session, dto);
-            List <AccountDTO> vatList = accountService.sumSvat(session, dto);
+            List <AccountDTO> vatList = accountService.custVatListS(session, dto);
             
             for(int i = 0; i < sumSvat_sub.size(); i++) {
             	for(int s = 0; s < vatList.size(); s++) {
@@ -179,7 +242,69 @@ public class AccountController {
             mav.addObject("vatList", vatList);
         }
         
-        mav.setViewName("settle/sumSvatlist");
+        mav.setViewName("settle/custVatListS");
+        return mav;
+    }
+    
+    @RequestMapping("custVatListB.do")
+    public ModelAndView custVatListB(HttpSession session, ModelAndView mav,
+                                @RequestParam(value = "vatSellerCustNo", required = false) Integer vatSellerCustNo,
+                                @RequestParam(value = "vatIssueDateFrom", required = false) String vatIssueDateFrom,
+                                @RequestParam(value = "vatIssueDateTo", required = false) String vatIssueDateTo,
+                                @RequestParam(value = "selectYear", required = false) Integer selectYear) {
+        if(vatSellerCustNo != null || vatIssueDateFrom != null || vatIssueDateTo != null){
+            AccountDTO dto = new AccountDTO();
+            LocalDate now = LocalDate.now();
+            int year = now.getYear();
+            if(vatSellerCustNo != null) dto.setVatSellerCustNo(vatSellerCustNo);
+            if(vatIssueDateFrom != null) {
+            	dto.setVatIssueDateFrom(vatIssueDateFrom);
+            }else {
+            	dto.setVatIssueDateFrom(year + "-01-01");
+            }
+            
+            if(vatIssueDateTo != null) {
+            	dto.setVatIssueDateTo(vatIssueDateTo);
+            }else {
+            	dto.setVatIssueDateTo(year + "-12-31");
+            }
+            
+            if(selectYear != null) {
+            	dto.setSelectYear(selectYear);
+            }else {
+            	dto.setSelectYear(year);
+            }
+            List <AccountDTO> vatList =  accountService.sumBvatSearch(session, dto);
+            List <AccountDTO> sumBvat_sub = accountService.sumBvat_sub(session, dto);
+            for(int i = 0; i < sumBvat_sub.size(); i++) {
+            	for(int s = 0; s < vatList.size(); s++) {
+            		if(sumBvat_sub.get(i).getCustNo() == vatList.get(s).getCustNo()) {
+            			vatList.get(s).setSerialTotalB(sumBvat_sub.get(i).getModal_receive_data());
+            		}
+            	}
+            }
+            mav.addObject("vatList", vatList);
+        } else {
+            AccountDTO dto = new AccountDTO();
+            LocalDate now = LocalDate.now();
+            int year = now.getYear();
+            dto.setVatIssueDateFrom(year + "-01-01");
+            dto.setVatIssueDateTo(year + "-12-31");
+            dto.setSelectYear(year);
+            
+            List <AccountDTO> vatList =  accountService.custVatListB(session, dto);
+            List <AccountDTO> sumBvat_sub = accountService.sumBvat_sub(session, dto);
+            for(int i = 0; i < sumBvat_sub.size(); i++) {
+            	for(int s = 0; s < vatList.size(); s++) {
+            		if(sumBvat_sub.get(i).getCustNo() == vatList.get(s).getCustNo()) {
+            			vatList.get(s).setSerialTotalB(sumBvat_sub.get(i).getModal_receive_data());
+            		}
+            	}
+            }
+            
+            mav.addObject("vatList", vatList);
+        }
+        mav.setViewName("settle/custVatListB");
         return mav;
     }
     
@@ -254,11 +379,11 @@ public class AccountController {
         return mav;
     }
     
-    @RequestMapping("custVatList.do")
-    public ModelAndView custVatList(HttpSession session, ModelAndView mav) {
-        mav.setViewName("settle/custVatList");
-        return mav;
-    }
+	/*
+	 * @RequestMapping("custVatList.do") public ModelAndView custVatList(HttpSession
+	 * session, ModelAndView mav) { mav.setViewName("settle/custVatList"); return
+	 * mav; }
+	 */
     
     @ResponseBody
     @RequestMapping("custVatListCount.do")
@@ -351,7 +476,6 @@ public class AccountController {
 
     @RequestMapping("bacupdate.do")
     public ModelAndView bacUpload(HttpSession session, ModelAndView mav, @ModelAttribute AccountDTO dto) {
-        mav.addObject("vatList", accountService.listvat(session, dto));
         mav.setViewName("settle/bacupload");
         return mav;
     }
@@ -906,6 +1030,7 @@ public class AccountController {
 		dto.setVatBuyerCustNo(vatBuyerCustNo);
 		dto.setCompNo(compNo);
     	
+		mav.addObject("ledgerList", accountService.ledgerListS(session, dto));
         mav.addObject("custVatList", accountService.custVatListHtml(dto));
     	mav.setViewName("form/custVatListHtml");
     	return mav;

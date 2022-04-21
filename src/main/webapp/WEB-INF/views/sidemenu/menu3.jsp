@@ -124,7 +124,7 @@
                                         </li>
                                     </ul>
                                     </li>
-                                    <li class="pcoded-hasmenu pcoded <c:if test="${path2 eq '/acc/vatlistB.do' || path2 eq '/acc/vatlistS.do' || path2 eq '/acc/vatupload.do' || path2 eq '/acc/vatlist.do' || path2 eq '/acc/vatlistT.do' || path2 eq '/acc/check_connect.do' || path2 eq '/acc/custVatList.do'}">pcoded-trigger</c:if>">
+                                    <li class="pcoded-hasmenu pcoded <c:if test="${path2 eq '/acc/vatlistB.do' || path2 eq '/acc/vatlistS.do' || path2 eq '/acc/vatupload.do' || path2 eq '/acc/vatlist.do' || path2 eq '/acc/vatlistT.do' || path2 eq '/acc/check_connect.do' || path2 eq '/acc/custVatList.do' || path2 eq '/acc/custVatListS.do' || path2 eq '/acc/custVatListB.do'}">pcoded-trigger</c:if>">
                                     <a href="javascript:void(0)">
                                         <span class="pcoded-micon"><i class="ti-stats-up"></i></span>
                                         <span class="pcoded-mtext"  data-i18n="nav.basic-components.main">세금계산서관리</span>
@@ -174,9 +174,16 @@
 	                                        </a>
                                     	</li>
                                     	<li class="pcoded-hasmenu">
-	                                        <a href="${path}/acc/custVatList.do">
+	                                        <a href="${path}/acc/custVatListS.do">
 	                                            <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
 	                                            <span class="pcoded-mtext" data-i18n="nav.menu-levels.menu-level-23">거래처별 매출 원장</span>
+	                                            <span class="pcoded-mcaret"></span>
+	                                        </a>
+                                    	</li>
+                                    	<li class="pcoded-hasmenu">
+	                                        <a href="${path}/acc/custVatListB.do">
+	                                            <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+	                                            <span class="pcoded-mtext" data-i18n="nav.menu-levels.menu-level-23">거래처별 매입 원장</span>
 	                                            <span class="pcoded-mcaret"></span>
 	                                        </a>
                                     	</li>

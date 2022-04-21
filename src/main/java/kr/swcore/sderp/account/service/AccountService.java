@@ -8,7 +8,10 @@ import java.util.List;
 public interface AccountService {
     List<AccountDTO> listvat(HttpSession session, AccountDTO dto);
 	List<AccountDTO> sumBvat(HttpSession session, AccountDTO dto);
+	List<AccountDTO> custVatListB(HttpSession session, AccountDTO dto);
+	List<AccountDTO> ledgerListS(HttpSession session, AccountDTO dto);
 	List<AccountDTO> sumSvat(HttpSession session, AccountDTO dto);
+	List<AccountDTO> custVatListS(HttpSession session, AccountDTO dto);
 	List<AccountDTO> sumBvatSearch(HttpSession session, AccountDTO dto);
 	List<AccountDTO> sumSvatSearch(HttpSession session, AccountDTO dto);
     List<AccountDTO> listbac(HttpSession session);

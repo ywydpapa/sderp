@@ -151,7 +151,7 @@
                             	<c:if test="${vlist.vatAmountS > 0 || vlist.serialTotalS > 0 || vlist.custBalance > 0}">
 	                                <tr>
 	                                    <td class="text-center">
-	                                   		<a href="${path}/acc/custVatListHtml/${vlist.compNo}/${vlist.custNo}/${vlist.vatIssueDateFrom}/${vlist.vatIssueDateTo}" type="button" onClick='javascript:popupVat(this); return false;' style="cursor: pointer; text-decoration: underline;">
+	                                   		<a href="${path}/acc/custVatListHtml/${vlist.compNo}/${vlist.custNo}/2022-01-01/2022-12-31" type="button" onClick='javascript:popupVat(this); return false;' style="cursor: pointer; text-decoration: underline;">
 	                                   			${vlist.vatBuyerName}
 	                                   		</a>
 	                                   	</td>

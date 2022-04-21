@@ -30,29 +30,43 @@
 						<tr>
 							<th style="text-align:center;">일자</th>
 							<th style="text-align:center;">적요</th>
-							<th style="text-align:center;">세액</th>
-							<th style="text-align:center;">공급가액</th>
-							<th style="text-align:center;">합계</th>
+							<th style="text-align:center;">차변</th>
+							<th style="text-align:center;">대변</th>
+							<th style="text-align:center;">잔액</th>
 						</tr>
 					</thead>
 					<tbody>
 						<c:forEach var="row" items="${custVatList}">
 							<c:set var="dateMonth" value="${fn:substring(row.vatIssueDate, 5, 7)}" />
 							<c:if test="${(dateValue eq dateMonth)}">
-								<tr id="divisionTr">
+								<tr id="divisionTrVat">
 									<td style="text-align:center;">${row.vatIssueDate}</td>
-									<td style="text-align:center;">${row.vatProductName}</td>			
-									<td style="text-align:right;"><fmt:formatNumber type="number" maxFractionDigits="3" value="${row.vatTax}" /></td>	
-									<td style="text-align:right;"><fmt:formatNumber type="number" maxFractionDigits="3" value="${row.vatAmount}" /></td>	
-									<td style="text-align:right;"><fmt:formatNumber type="number" maxFractionDigits="3" value="${row.vatTotal}" /></td>			
+									<td style="text-align:center;">${row.vatProductName}</td>
+									<td style="text-align:right;"><fmt:formatNumber type="number" maxFractionDigits="3" value="${row.vatTotal}" /></td>
+									<td style="text-align:right;"></td>
+									<td style="text-align:right;"><fmt:formatNumber type="number" maxFractionDigits="3" value="${row.vatTotal}" /></td>	
 								</tr>
 								<c:set var="calTotal" value="${calTotal + row.vatTotal}" />
+							</c:if>
+						</c:forEach>
+						<c:forEach var="row" items="${ledgerList}">
+							<c:set var="dateMonth" value="${fn:substring(row.baclogTime, 5, 7)}" />
+							<c:if test="${(dateValue eq dateMonth)}">
+								<tr id="divisionTrVat">
+									<td style="text-align:center;">${fn:substring(row.baclogTime, 0, 10)}</td>
+									<td style="text-align:center;">${row.vatProductName}</td>
+									<td style="text-align:right;"></td>
+									<td style="text-align:right;"><fmt:formatNumber type="number" maxFractionDigits="3" value="${row.receive_data}" /></td>
+									<td style="text-align:right;"><fmt:formatNumber type="number" maxFractionDigits="3" value="${row.vatTotal}" /></td>	
+								</tr>
+								<c:set var="calTotal" value="${calTotal + row.receive_data}" />
 							</c:if>
 						</c:forEach>
 						<tr>
 							<th colspan="4" style="text-align:center;">월 계</th>
 							<th style="text-align:right;"><fmt:formatNumber type="number" maxFractionDigits="3" value="${calTotal}" /></th>
 						</tr>
+						<c:remove var="calTotal"/>
 					</tbody>
 				</table>
 			</c:forEach>
@@ -62,7 +76,7 @@
 <script>
 	$(document).ready(function(){
 		$("[id^='vatTable_']").each(function(index, item){
-			if($(item).find("tbody #divisionTr").length == 0){
+			if($(item).find("tbody #divisionTrVat").length == 0 && $(item).find("tbody #divisionTrLedger").length == 0){
 				$(item).prev().remove();
 				$(item).remove();
 			}

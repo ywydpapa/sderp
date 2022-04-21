@@ -93,7 +93,7 @@
 			<select class="form-control-sm" id="baclist" name="baclist">
 				<option value="">선택</option>
 				<c:forEach var="row" items="${bacList}">
-					<option value="${row.bacSerial}">${row.bacNo}</option>
+					<option value="${row.bacSerial}">${row.bacNo}(${row.bacMemo})</option>
 				</c:forEach>
 			</select>
 			<input id="reloadpage_num" type="hidden" value="0">
@@ -106,12 +106,10 @@
 			<tr>
 				<th style='text-align:center;'>입금 총합</th>
 				<th style='text-align:center;'>출금 총합</th>
-				<th style='text-align:center;'>입금/출금 총합</th>
 			</tr>
 		</thead>
 		<tbody>
 			<tr>
-				<td style='text-align:center;'>0</td>
 				<td style='text-align:center;'>0</td>
 				<td style='text-align:center;'>0</td>
 			</tr>
@@ -1065,7 +1063,7 @@
 				dataType: "json",
 				success:function(data){
 					$("#bacCalTable tbody").html("");
-					$("#bacCalTable tbody").html("<tr style='text-align:center;'><td>" + parseInt(data.inAmt).toLocaleString("en-US") + "</td><td>" + parseInt(data.outAmt).toLocaleString("en-US") + "</td><td>" + parseInt(data.inAmt + data.outAmt).toLocaleString("en-US") + "</td></tr>");
+					$("#bacCalTable tbody").html("<tr style='text-align:center;'><td>" + parseInt(data.inAmt).toLocaleString("en-US") + "</td><td>" + parseInt(data.outAmt).toLocaleString("en-US") + "</td></tr>");
 				},
 				error:function(){
 					alert("데이터가 없습니다.");

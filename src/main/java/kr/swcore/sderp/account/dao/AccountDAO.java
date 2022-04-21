@@ -13,8 +13,8 @@ public interface AccountDAO {
 	List<AccountDTO> listbac(int compNo);
     List<AccountDTO> listCard(int compNo);
     List<AccountDTO> listvatitem(int vatId);
-    List<AccountDTO> modalVatB(int compNo);
-    List<AccountDTO> modalVatS(int compNo);
+    List<AccountDTO> modalVatB(AccountDTO dto);
+    List<AccountDTO> modalVatS(AccountDTO dto);
     AccountDTO checkVat(AccountDTO dto);
     AccountDTO cardCheck(AccountDTO dto);
     AccountDTO detailvat(int vatId);
@@ -93,7 +93,7 @@ public interface AccountDAO {
 
 	AccountDTO bacCalSelect(AccountDTO dto);
 
-	List<AccountDTO> list_secound_modalVatB(int baclogId);
+	List<AccountDTO> list_secound_modalVatB(AccountDTO dto);
 	void bacCheckConnect_modal_baclogId_memo(AccountDTO dto);
 	List<AccountDTO> list_secound_modalVatB_secound(String bacId);
 	List<AccountDTO> getlicked_price(AccountDTO dto);
@@ -112,4 +112,8 @@ public interface AccountDAO {
 	List<AccountDTO> custVatListCount(AccountDTO dto);
 	List<AccountDTO> custVatListHtml(AccountDTO dto);
 	int productUpdate(AccountDTO dto);
+	AccountDTO modalVatBCnt(AccountDTO dto);
+	AccountDTO modalVatSCnt(AccountDTO dto);
+	List<AccountDTO> modalVatB(int compNo);
+	List<AccountDTO> modalVatS(int compNo);
 }

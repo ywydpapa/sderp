@@ -3,6 +3,7 @@ package kr.swcore.sderp.account;
 import kr.swcore.sderp.account.dto.AccountDTO;
 import kr.swcore.sderp.account.service.AccountService;
 import kr.swcore.sderp.code.service.CodeService;
+import kr.swcore.sderp.util.SessionInfoGet;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -641,6 +642,14 @@ public class AccountController {
 						accountService.update_s3(dto);
 					}
 				}
+				//detail에 해당하는 시리어의 id값을 가진 swc_bacledger의 in금액을 합치고 swc_vat의 금액과 같다면 해당 시리어를 가진 swc_vat의 lincked는 0, s5로 변경.
+				List <AccountDTO> checktotalprice_vat_and_detail = accountService.checktotalprice_vat_and_detail(dto);
+				BigDecimal total_detail = checktotalprice_vat_and_detail.get(0).getTotal_Amt();
+				int finalcompare = sum.compareTo(total_detail);
+				if(finalcompare == 0) {
+					accountService.update_s5(dto);
+					accountService.updatevatmultilinkedcheck(dto);
+				}
 			}else if(compareResult_in == 0) {
 				for(int i=0; i < totalprice.size(); i++) {
 					dto.setLinkDocno(totalprice.get(i).getLinkDocno());
@@ -676,6 +685,14 @@ public class AccountController {
 						accountService.update_b3(dto);
 					}
 				}
+				//detail에 해당하는 시리어의 id값을 가진 swc_bacledger의 in금액을 합치고 swc_vat의 금액과 같다면 해당 시리어를 가진 swc_vat의 lincked는 0, s5로 변경.
+				List <AccountDTO> checktotalprice_vat_and_detail_out = accountService.checktotalprice_vat_and_detail_out(dto);
+				BigDecimal total_detail = checktotalprice_vat_and_detail_out.get(0).getTotal_Amt();
+				int finalcompare = sum.compareTo(total_detail);
+				if(finalcompare == 0) {
+					accountService.update_b5(dto);
+					accountService.updatevatmultilinkedcheck(dto);
+				}
 			}else if(compareResult_out > 0) {
 				for(int i=0; i < totalprice.size(); i++) {
 					dto.setLinkDocno(totalprice.get(i).getLinkDocno());
@@ -699,22 +716,17 @@ public class AccountController {
     public ResponseEntity<Object> bacCheckConnect_modal_update(HttpSession session, @ModelAttribute AccountDTO dto){
         Map<String,Object> param = new HashMap<>();
         accountService.bacCheckConnect_modal_update(dto);
-      //수정 진행중============================================================================
 		List <AccountDTO> check_lincked_last = accountService.check_lincked_last(dto);
 		System.out.println(Integer.parseInt(check_lincked_last.get(0).getModal_vatmemo()));
 		if(Integer.parseInt(check_lincked_last.get(0).getModal_vatmemo()) == 0) {
-			System.out.println("check_lincked_last.get(0).getVatStatus()=====================================" + check_lincked_last.get(0).getVatStatus());
 			if(check_lincked_last.get(0).getVatStatus().equals("S1") || check_lincked_last.get(0).getVatStatus().equals("S3") || check_lincked_last.get(0).getVatStatus().equals("S5")) {
-				System.out.println("test2=====================================");
 				accountService.update_s5(dto);
 				accountService.updatevatmultilinkedcheck(dto);
 			}else if(check_lincked_last.get(0).getVatStatus().equals("B1") || check_lincked_last.get(0).getVatStatus().equals("B3") || check_lincked_last.get(0).getVatStatus().equals("B5")) {
-				System.out.println("test3=====================================");
 				accountService.update_b5(dto);
 				accountService.updatevatmultilinkedcheck(dto);
 			}
 		}
-		//수정 진행중============================================================================
         return ResponseEntity.ok(param);
     }
     @RequestMapping("bacCheckConnect_modal_baclogId_memo.do")
@@ -827,14 +839,10 @@ public class AccountController {
         	}
         }
         //취소 시 남은 금액 최신화
-        System.out.println("test========================================================================");
         BigDecimal a = dto.getCancel_lincked_price();
         List <AccountDTO> getlicked_price = accountService.getlicked_price(dto);
         BigDecimal b = new BigDecimal(getlicked_price.get(0).getModal_vatmemo().replaceAll("\\,",""));
         BigDecimal c = getlicked_price.get(0).getModal_receive_data();
-        System.out.println("a ===============================" + a);
-        System.out.println("b ===============================" + b);
-        System.out.println("c ===============================" + c);
         BigDecimal d = a.add(b);
         BigDecimal e = c.subtract(a);
         dto.setModal_vatmemo(new java.text.DecimalFormat("#,###").format(d).toString());
@@ -843,9 +851,7 @@ public class AccountController {
         //계좌 잔여 금액
         List <AccountDTO> getlicked_price_secound = accountService.getlicked_price_secound(dto);
         BigDecimal f = getlicked_price_secound.get(0).getDifference_price();
-        System.out.println("f ============================" + f);
         BigDecimal g = a.add(f);
-        System.out.println("g =============================" + g);
         dto.setDifference_price(g);
         accountService.bacCheckConnect_modal_update_secound(dto);
         
@@ -1000,5 +1006,45 @@ public class AccountController {
             param.put("code", "20001");
         }
         return ResponseEntity.ok(param);
+    }
+    @RequestMapping("modalVatB.do")
+    public ResponseEntity<Object> modalVatB(HttpSession session, @ModelAttribute AccountDTO dto){
+    	Map<String,Object> param = new HashMap<>();
+    	Integer compNo = SessionInfoGet.getCompNo(session);
+    	dto.setCompNo(compNo);
+	    List<AccountDTO> list = accountService.modalVatB(dto);
+		List<AccountDTO> list_secound = accountService.list_secound_modalVatB(dto);
+		param.put("data",list);
+		param.put("data_secound",list_secound);
+		return ResponseEntity.ok(param);
+    }
+    @ResponseBody
+    @RequestMapping("modalVatBCnt.do")
+    public AccountDTO modalVatBCnt(HttpSession session, @ModelAttribute AccountDTO dto){
+    	Integer compNo = SessionInfoGet.getCompNo(session);
+    	dto.setCompNo(compNo);
+    	AccountDTO count = accountService.modalVatBCnt(dto);
+    	
+    	return count;
+    }
+    @RequestMapping("modalVatS.do")
+    public ResponseEntity<Object> modalVatS(HttpSession session, @ModelAttribute AccountDTO dto){
+    	Map<String,Object> param = new HashMap<>();
+    	Integer compNo = SessionInfoGet.getCompNo(session);
+    	dto.setCompNo(compNo);
+	    List<AccountDTO> list = accountService.modalVatS(dto);
+		List<AccountDTO> list_secound = accountService.list_secound_modalVatB(dto);
+		param.put("data",list);
+		param.put("data_secound",list_secound);
+		return ResponseEntity.ok(param);
+    }
+    @ResponseBody
+    @RequestMapping("modalVatSCnt.do")
+    public AccountDTO modalVatSCnt(HttpSession session, @ModelAttribute AccountDTO dto){
+    	Integer compNo = SessionInfoGet.getCompNo(session);
+    	dto.setCompNo(compNo);
+    	AccountDTO count = accountService.modalVatSCnt(dto);
+    	
+    	return count;
     }
 }

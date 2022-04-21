@@ -104,7 +104,7 @@ public class HomeController {
 	public String testview() {
 		return "code/listview";
 	}
-	
+
 	@RequestMapping("/myboard.do")
 	public ModelAndView refresh(HttpSession session, ModelAndView mav) {
 		long beforeTime = System.currentTimeMillis();
@@ -129,9 +129,8 @@ public class HomeController {
 		
 		mav.addObject("noticelist", noticeService.listNotice(session, pageDTO));
 		mav.addObject("graph1",salesTargetService.listSalesTargetYearTotalSalesIndividual(session, null));
-		List<UserDTO> allList = userService.allList();
+		List<UserDTO> allList = userService.allList(session.getAttribute("compNo"));
 		mav.addObject("username", allList);
-
 		mav.setViewName("board/myboard");
 		long afterTime = System.currentTimeMillis();
 		long millisDiffTime = afterTime - beforeTime;
@@ -249,33 +248,23 @@ public class HomeController {
 		}
 		
 		else if("bacVatB".equals(popId)) {
-			List<AccountDTO> list=accountService.modalVatB(session);
-			String baclogId_s = (String)params.get("baclogId");
-			int baclogId = Integer.parseInt(baclogId_s);
-			List<AccountDTO> list_secound = accountService.list_secound_modalVatB(baclogId);
-			System.out.println(list_secound.get(0).getOutAmt());
-			model.addAttribute("list",list);
-			model.addAttribute("list_secound",list_secound);
+			  String baclogId_s = (String)params.get("baclogId"); 
+			  int baclogId = Integer.parseInt(baclogId_s);
+			  model.addAttribute("baclogId", baclogId);
 			rtn = "modal/bacVatListB";
 		}
 		else if("bacVatB_spending_resolution".equals(popId)) {
-			List<AccountDTO> list=accountService.modalVatB(session);
-			model.addAttribute("list",list);
 			rtn = "modal/bacVatList_spending_resolution";
 		}
 
 		else if("bacVatS".equals(popId)) {
-			List<AccountDTO> list=accountService.modalVatS(session);
-			String baclogId_s = (String)params.get("baclogId");
+			String baclogId_s = (String)params.get("baclogId"); 
 			int baclogId = Integer.parseInt(baclogId_s);
-			List<AccountDTO> list_secound = accountService.list_secound_modalVatB(baclogId);
-			model.addAttribute("list_secound",list_secound);
-			model.addAttribute("list",list);
+			model.addAttribute("baclogId", baclogId);
 			rtn = "modal/bacVatListS";
 		}
 
 		else if("supply".equals(popId)) {
-//			List<CustDTO> list=custService.listSupply(session);
 			List<CustDTO> list=custService.listCust(session);
 			model.addAttribute("list",list);
 			rtn = "modal/supplyList";

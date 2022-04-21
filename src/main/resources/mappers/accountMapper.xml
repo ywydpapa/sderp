@@ -280,11 +280,52 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 
 	<select id="modalVatB" resultType="accountDto">
-		select a.*, b.custName from swc_vat a left join swc_cust b on a.vatSellerCustNo = b.custNo where a.vatStatus in ('B1','B3') and a.attrib not like 'XXX%' AND a.linkedcheck = 1 and a.compNo = #{compNo} order by a.vatIssueDate desc
+		select a.*, b.custName from swc_vat a 
+		left join swc_cust b on a.vatSellerCustNo = b.custNo 
+		WHERE a.vatStatus in ('B1','B3') and a.attrib not like 'XXX%' AND a.linkedcheck = 1 and a.compNo = #{compNo} 
+		<if test="custName_modal != '' and custName_modal != null">
+			and b.custName like CONCAT('%', #{custName_modal}, '%')
+		</if>
+		<if test="regSDate_modal != '' and regSDate_modal != null">
+			and a.vatIssueDate Between #{regSDate_modal} and #{regEDate_modal}
+		</if>
+		order by a.vatIssueDate desc limit #{betFirstNum}, #{betLastNum};
 	</select>
-
+	<select id="modalVatBCnt" resultType="accountDto">
+		select count(*) as resultCount from swc_vat a 
+		left join swc_cust b on a.vatSellerCustNo = b.custNo 
+		WHERE a.vatStatus in ('B1','B3') and a.attrib not like 'XXX%' AND a.linkedcheck = 1 and a.compNo = #{compNo} 
+		<if test="custName_modal != '' and custName_modal != null">
+			and b.custName like CONCAT('%', #{custName_modal}, '%')
+		</if>
+		<if test="regSDate_modal != '' and regSDate_modal != null">
+			and a.vatIssueDate Between #{regSDate_modal} and #{regEDate_modal}
+		</if>
+		order by a.vatIssueDate desc
+	</select>
 	<select id="modalVatS" resultType="accountDto">
-		select a.*, b.custName from swc_vat a left join swc_cust b on a.vatBuyerCustNo = b.custNo where a.vatStatus in ('S1','S3') and a.attrib not like 'XXX%' AND a.linkedcheck = 1 and a.compNo = #{compNo} order by a.vatIssueDate desc
+		select a.*, b.custName from swc_vat a 
+		left join swc_cust b on a.vatBuyerCustNo = b.custNo 
+		WHERE a.vatStatus in ('S1', 'S3') and a.attrib not like 'XXX%' AND a.linkedcheck = 1 and a.compNo = #{compNo} 
+		<if test="custName_modal != '' and custName_modal != null">
+			and b.custName like CONCAT('%', #{custName_modal}, '%')
+		</if>
+		<if test="regSDate_modal != '' and regSDate_modal != null">
+			and a.vatIssueDate Between #{regSDate_modal} and #{regEDate_modal}
+		</if>
+		order by a.vatIssueDate desc limit #{betFirstNum}, #{betLastNum};
+	</select>
+	<select id="modalVatSCnt" resultType="accountDto">
+		select count(*) as resultCount from swc_vat a 
+		left join swc_cust b on a.vatBuyerCustNo = b.custNo 
+		WHERE a.vatStatus in ('S1','S3') and a.attrib not like 'XXX%' AND a.linkedcheck = 1 and a.compNo = #{compNo} 
+		<if test="custName_modal != '' and custName_modal != null">
+			and b.custName like CONCAT('%', #{custName_modal}, '%')
+		</if>
+		<if test="regSDate_modal != '' and regSDate_modal != null">
+			and a.vatIssueDate Between #{regSDate_modal} and #{regEDate_modal}
+		</if>
+		order by a.vatIssueDate desc
 	</select>
 	<select id="checkVat" resultType="accountDto">
 		select count(*) as resultCount from swc_vat where vatSerial = #{vatSerial} and attrib not like 'XXX%'
@@ -994,7 +1035,7 @@ attrib) values (#{vatId},
 	<select id="gradata01" resultType="accountDto">
 		select * from swc_vat
 		where (vatStatus = 'S1' or vatStatus = 'S3' or vatStatus = 'S5')
-		and date_format(vatIssueDate, '%Y-%m-%d') BETWEEN '2022-01-01' and '2022-01-31';
+		and date_format(vatIssueDate, '%Y-%m-%d') BETWEEN '2022-01-01' and '2022-01-31' ;
 	</select>
 	<select id="gradata02" resultType="accountDto">
 		select * from swc_vat
@@ -1051,4 +1092,203 @@ attrib) values (#{vatId},
 		where (vatStatus = 'S1' or vatStatus = 'S3' or vatStatus = 'S5')
 		and date_format(vatIssueDate, '%Y-%m-%d') BETWEEN '2022-12-01' and '2022-12-31';
 	</select>
+	<select id="cnt_mouth_data" resultType="AccountDTO">
+ 			SELECT COUNT(*) AS count FROM swc_vat a
+			WHERE a.attrib not like "XXX%"
+			<choose>
+				<when test="mouth == 1">
+					and date_format(vatIssueDate, '%Y-%m-%d') BETWEEN '2022-01-01' and '2022-01-31';
+				</when>
+				<when test="mouth == 2">
+					and date_format(vatIssueDate, '%Y-%m-%d') BETWEEN '2022-02-01' and '2022-02-31';
+				</when>
+				<when test="mouth == 3">
+					and date_format(vatIssueDate, '%Y-%m-%d') BETWEEN '2022-03-01' and '2022-03-31';
+				</when>
+				<when test="mouth == 4">
+					and date_format(vatIssueDate, '%Y-%m-%d') BETWEEN '2022-04-01' and '2022-04-31';
+				</when>
+				<when test="mouth == 5">
+					and date_format(vatIssueDate, '%Y-%m-%d') BETWEEN '2022-05-01' and '2022-05-31';
+				</when>
+				<when test="mouth == 6">
+					and date_format(vatIssueDate, '%Y-%m-%d') BETWEEN '2022-06-01' and '2022-06-31';
+				</when>
+				<when test="mouth == 7">
+					and date_format(vatIssueDate, '%Y-%m-%d') BETWEEN '2022-07-01' and '2022-07-31';
+				</when>
+				<when test="mouth == 8">
+					and date_format(vatIssueDate, '%Y-%m-%d') BETWEEN '2022-08-01' and '2022-08-31';
+				</when>
+				<when test="mouth == 9">
+					and date_format(vatIssueDate, '%Y-%m-%d') BETWEEN '2022-09-01' and '2022-09-31';
+				</when>
+				<when test="mouth == 10">
+					and date_format(vatIssueDate, '%Y-%m-%d') BETWEEN '2022-10-01' and '2022-10-31';
+	 			</when>
+	 			<when test="mouth == 11">
+	 				and date_format(vatIssueDate, '%Y-%m-%d') BETWEEN '2022-11-01' and '2022-11-31';
+	 			</when>
+	 			<when test="mouth == 12">
+	 				and date_format(vatIssueDate, '%Y-%m-%d') BETWEEN '2022-12-01' and '2022-12-31';
+	 			</when>
+	 		</choose>
+ 		</select>
+ 		<select id="cnt_mouth_data_last" resultType="AccountDTO">
+ 			SELECT COUNT(*) AS count FROM swc_vat a
+			WHERE a.attrib not like "XXX%"
+			<choose>
+				<when test="last_mouth == 1">
+					and date_format(vatIssueDate, '%Y-%m-%d') BETWEEN '2022-01-01' and '2022-01-31';
+				</when>
+				<when test="last_mouth == 2">
+					and date_format(vatIssueDate, '%Y-%m-%d') BETWEEN '2022-02-01' and '2022-02-31';
+				</when>
+				<when test="last_mouth == 3">
+					and date_format(vatIssueDate, '%Y-%m-%d') BETWEEN '2022-03-01' and '2022-03-31';
+				</when>
+				<when test="last_mouth == 4">
+					and date_format(vatIssueDate, '%Y-%m-%d') BETWEEN '2022-04-01' and '2022-04-31';
+				</when>
+				<when test="last_mouth == 5">
+					and date_format(vatIssueDate, '%Y-%m-%d') BETWEEN '2022-05-01' and '2022-05-31';
+				</when>
+				<when test="last_mouth == 6">
+					and date_format(vatIssueDate, '%Y-%m-%d') BETWEEN '2022-06-01' and '2022-06-31';
+				</when>
+				<when test="last_mouth == 7">
+					and date_format(vatIssueDate, '%Y-%m-%d') BETWEEN '2022-07-01' and '2022-07-31';
+				</when>
+				<when test="last_mouth == 8">
+					and date_format(vatIssueDate, '%Y-%m-%d') BETWEEN '2022-08-01' and '2022-08-31';
+				</when>
+				<when test="last_mouth == 9">
+					and date_format(vatIssueDate, '%Y-%m-%d') BETWEEN '2022-09-01' and '2022-09-31';
+				</when>
+				<when test="last_mouth == 10">
+					and date_format(vatIssueDate, '%Y-%m-%d') BETWEEN '2022-10-01' and '2022-10-31';
+	 			</when>
+	 			<when test="last_mouth == 11">
+	 				and date_format(vatIssueDate, '%Y-%m-%d') BETWEEN '2022-11-01' and '2022-11-31';
+	 			</when>
+	 			<when test="last_mouth == 12">
+	 				and date_format(vatIssueDate, '%Y-%m-%d') BETWEEN '2022-12-01' and '2022-12-31';
+	 			</when>
+ 			</choose>
+ 		</select>
+ 		<select id="user_chart_target" resultType="AccountDTO">
+			<choose>
+				<when test="mouth == 1">
+					SELECT b.userNo, b.userName, a.mm01 AS month_target, a.mm01 AS test FROM swc_sales_target a
+					LEFT JOIN swc_user b ON a.userNo = b.userNo
+					WHERE a.targetYear = "2022" AND a.attrib NOT LIKE "XXX%" AND a.mm01 != 0
+				</when>
+				<when test="mouth == 2">
+					SELECT b.userNo, b.userName, a.mm02 AS month_target, a.mm01 AS test FROM swc_sales_target a
+					LEFT JOIN swc_user b ON a.userNo = b.userNo
+					WHERE a.targetYear = "2022" AND a.attrib NOT LIKE "XXX%" AND a.mm01 != 0
+				</when>
+				<when test="mouth == 3">
+					SELECT b.userNo, b.userName, a.mm03 AS month_target, a.mm01 AS test FROM swc_sales_target a
+					LEFT JOIN swc_user b ON a.userNo = b.userNo
+					WHERE a.targetYear = "2022" AND a.attrib NOT LIKE "XXX%" AND a.mm01 != 0
+				</when>
+				<when test="mouth == 4">
+					SELECT b.userNo, b.userName, a.mm04 AS month_target, a.mm01 AS test FROM swc_sales_target a
+					LEFT JOIN swc_user b ON a.userNo = b.userNo
+					WHERE a.targetYear = "2022" AND a.attrib NOT LIKE "XXX%" AND a.mm01 != 0
+				</when>
+				<when test="mouth == 5">
+					SELECT b.userNo, b.userName, a.mm05 AS month_target, a.mm01 AS test FROM swc_sales_target a
+					LEFT JOIN swc_user b ON a.userNo = b.userNo
+					WHERE a.targetYear = "2022" AND a.attrib NOT LIKE "XXX%" AND a.mm01 != 0
+				</when>
+				<when test="mouth == 6">
+					SELECT b.userNo, b.userName, a.mm06 AS month_target, a.mm01 AS test FROM swc_sales_target a
+					LEFT JOIN swc_user b ON a.userNo = b.userNo
+					WHERE a.targetYear = "2022" AND a.attrib NOT LIKE "XXX%" AND a.mm01 != 0
+				</when>
+				<when test="mouth == 7">
+					SELECT b.userNo, b.userName, a.mm07 AS month_target, a.mm01 AS test FROM swc_sales_target a
+					LEFT JOIN swc_user b ON a.userNo = b.userNo
+					WHERE a.targetYear = "2022" AND a.attrib NOT LIKE "XXX%" AND a.mm01 != 0
+				</when>
+				<when test="mouth == 8">
+					SELECT b.userNo, b.userName, a.mm08 AS month_target, a.mm01 AS test FROM swc_sales_target a
+					LEFT JOIN swc_user b ON a.userNo = b.userNo
+					WHERE a.targetYear = "2022" AND a.attrib NOT LIKE "XXX%" AND a.mm01 != 0
+				</when>
+				<when test="mouth == 9">
+					SELECT b.userNo, b.userName, a.mm09 AS month_target, a.mm01 AS test FROM swc_sales_target a
+					LEFT JOIN swc_user b ON a.userNo = b.userNo
+					WHERE a.targetYear = "2022" AND a.attrib NOT LIKE "XXX%" AND a.mm01 != 0
+				</when>
+				<when test="mouth == 10">
+					SELECT b.userNo, b.userName, a.mm10 AS month_target, a.mm01 AS test FROM swc_sales_target a
+					LEFT JOIN swc_user b ON a.userNo = b.userNo
+					WHERE a.targetYear = "2022" AND a.attrib NOT LIKE "XXX%" AND a.mm01 != 0
+				</when>
+				<when test="mouth == 11">
+					SELECT b.userNo, b.userName, a.mm11 AS month_target, a.mm01 AS test FROM swc_sales_target a
+					LEFT JOIN swc_user b ON a.userNo = b.userNo
+					WHERE a.targetYear = "2022" AND a.attrib NOT LIKE "XXX%" AND a.mm01 != 0
+				</when>
+				<when test="mouth == 12">
+					SELECT b.userNo, b.userName, a.mm12 AS month_target, a.mm01 AS test FROM swc_sales_target a
+					LEFT JOIN swc_user b ON a.userNo = b.userNo
+					WHERE a.targetYear = "2022" AND a.attrib NOT LIKE "XXX%" AND a.mm01 != 0
+				</when>
+			</choose>
+ 		</select>
+ 		<select id="user_now_graph" resultType="AccountDTO">
+ 			SELECT c.userNo, c.userName , SUM(a.test) AS test from swc_vat a
+			JOIN swc_cont b ON a.contNo = b.contNo
+			LEFT JOIN swc_user c ON b.userNo = c.userNo
+			WHERE a.attrib NOT LIKE "XXX%" AND (a.vatStatus = "S5" OR a.vatStatus = "S3")
+			<choose>
+				<when test="mouth == 1">
+					and a.vatIssueDate BETWEEN "2022-01-01" and "2022-01-31"
+				</when>
+				<when test="mouth == 2">
+					and a.vatIssueDate BETWEEN "2022-02-01" and "2022-02-31"
+				</when>
+				<when test="mouth == 3">
+					and a.vatIssueDate BETWEEN "2022-03-01" and "2022-03-31"
+				</when>
+				<when test="mouth == 4">
+					and a.vatIssueDate BETWEEN "2022-04-01" and "2022-04-31"
+				</when>
+				<when test="mouth == 5">
+					and a.vatIssueDate BETWEEN "2022-05-01" and "2022-05-31"
+				</when>
+				<when test="mouth == 6">
+					and a.vatIssueDate BETWEEN "2022-06-01" and "2022-06-31"
+				</when>
+				<when test="mouth == 7">
+					and a.vatIssueDate BETWEEN "2022-07-01" and "2022-07-31"
+				</when>
+				<when test="mouth == 8">
+					and a.vatIssueDate BETWEEN "2022-08-01" and "2022-08-31"
+				</when>
+				<when test="mouth == 9">
+					and a.vatIssueDate BETWEEN "2022-09-01" and "2022-09-31"
+				</when>
+				<when test="mouth == 10">
+					and a.vatIssueDate BETWEEN "2022-10-01" and "2022-10-31"
+				</when>
+				<when test="mouth == 11">
+					and a.vatIssueDate BETWEEN "2022-11-01" and "2022-11-31"
+				</when>
+				<when test="mouth == 12">
+					and a.vatIssueDate BETWEEN "2022-12-01" and "2022-12-31"
+				</when>
+			</choose>
+			GROUP BY c.userNo;
+ 		</select>
+ 		<select id="modalVatB_main">
+ 			select a.*, b.custName from swc_vat a left join swc_cust b on a.vatSellerCustNo = b.custNo where a.vatStatus in ('B1','B3') and a.attrib not like 'XXX%' AND a.linkedcheck = 1 and a.compNo = #{compNo} order by a.vatIssueDate desc
+ 		</select>
+ 		<select id="modalVatS_main">
+ 			select a.*, b.custName from swc_vat a left join swc_cust b on a.vatBuyerCustNo = b.custNo where a.vatStatus in ('S1','S3') and a.attrib not like 'XXX%' AND a.linkedcheck = 1 and a.compNo = #{compNo} order by a.vatIssueDate desc
+ 		</select>
 </mapper>

@@ -121,14 +121,14 @@
 	                                    </ul>
                                 	 </li>
                                 	 <!-- 영업 분석 -->
-                                	<%-- <li class="pcoded-hasmenu">
+                                	<%--  <li class="pcoded-hasmenu">
 	                                    <a href="javascript:void(0)">
 	                                        <span class="pcoded-micon"><i class="icon-folder-alt"></i></span>
 	                                        <span class="pcoded-mtext"  data-i18n="nav.basic-components.main">영업 분석</span>
 	                                        <span class="pcoded-mcaret"></span>
 	                                    </a>
 										<ul class="pcoded-submenu">
-	                                        <li class="pcoded-hasmenu ">
+	                                        <li class="pcoded-hasmenu" style="display: none;">
 	                                            <a href="${path}/salesTarget/goal_analysis.do">
 	                                                <span class="pcoded-micon"><i class="ti-direction-alt"></i></span>
 	                                                <span class="pcoded-mtext" data-i18n="nav.menu-levels.menu-level-21">목표 분석</span>
@@ -143,7 +143,7 @@
 	                                            </a>
 	                                        </li>
 	                                    </ul>
-                                    </li> --%>
+                                    </li>  --%>
                                 	 <!-- 영업 분석 -->
                                 	 
                                 	 

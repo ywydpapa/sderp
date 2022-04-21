@@ -44,6 +44,7 @@ public class AccountDTO {
     private String vatEmail;
     private BigDecimal vatSum;
     private String custName;
+    private String custName_sub;
     private int resultCount;
 
     private Integer bacId;
@@ -151,7 +152,10 @@ public class AccountDTO {
     private int vatQuan;
     private BigDecimal vatNet;
     private int selectYear;
-    private BigDecimal test; 
+    private BigDecimal test;
+    private String custName_modal;
+    private String regSDate_modal;
+    private String regEDate_modal;
     
     //vatHtml
     private String recCustName;
@@ -205,5 +209,8 @@ public class AccountDTO {
 	private int mm10;
 	private int mm11;
 	private int mm12;
+	private String mouth;
+	private String last_mouth;
+	private BigDecimal month_target;
 }
 

@@ -53,13 +53,13 @@ public class AccountDAOImpl implements AccountDAO {
     }
 
     @Override
-    public List<AccountDTO> modalVatB(int compNo) {
-        return sqlSession.selectList("account.modalVatB",compNo);
+    public List<AccountDTO> modalVatB(AccountDTO dto) {
+        return sqlSession.selectList("account.modalVatB",dto);
     }
 
     @Override
-    public List<AccountDTO> modalVatS(int compNo) {
-        return sqlSession.selectList("account.modalVatS",compNo);
+    public List<AccountDTO> modalVatS(AccountDTO dto) {
+        return sqlSession.selectList("account.modalVatS",dto);
     }
 
     @Override
@@ -458,9 +458,9 @@ public class AccountDAOImpl implements AccountDAO {
 		return sqlSession.selectOne("account.bacCalSelect", dto);
 	}
 	@Override
-	public List<AccountDTO> list_secound_modalVatB(int baclogId) {
+	public List<AccountDTO> list_secound_modalVatB(AccountDTO dto) {
 		// TODO Auto-generated method stub
-		return sqlSession.selectList("account.list_secound_modalVatB", baclogId);
+		return sqlSession.selectList("account.list_secound_modalVatB", dto);
 	}
 
 	@Override
@@ -586,5 +586,26 @@ public class AccountDAOImpl implements AccountDAO {
 	public List<AccountDTO> ledgerListS(AccountDTO dto) {
 		// TODO Auto-generated method stub
 		return sqlSession.selectList("account.ledgerListS",dto);
+	}
+	
+	public AccountDTO modalVatBCnt(AccountDTO dto) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("account.modalVatBCnt", dto);
+	}
+
+	@Override
+	public AccountDTO modalVatSCnt(AccountDTO dto) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("account.modalVatSCnt", dto);
+	}
+
+	@Override
+    public List<AccountDTO> modalVatB(int compNo) {
+        return sqlSession.selectList("account.modalVatB_main",compNo);
+	}
+
+	@Override
+	public List<AccountDTO> modalVatS(int compNo) {
+		return sqlSession.selectList("account.modalVatS_main",compNo);
 	}
 }

@@ -78,15 +78,13 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public List<AccountDTO> modalVatB(HttpSession session) {
-        int compNo = SessionInfoGet.getCompNo(session);
-        return accountDAO.modalVatB(compNo);
+    public List<AccountDTO> modalVatB(AccountDTO dto) {
+        return accountDAO.modalVatB(dto);
     }
 
     @Override
-    public List<AccountDTO> modalVatS(HttpSession session) {
-        int compNo = SessionInfoGet.getCompNo(session);
-        return accountDAO.modalVatS(compNo);
+    public List<AccountDTO> modalVatS(AccountDTO dto) {
+        return accountDAO.modalVatS(dto);
     }
 
     @Override
@@ -512,9 +510,9 @@ public class AccountServiceImpl implements AccountService {
 		return accountDAO.bacCalSelect(dto);
 	}
 	@Override
-	public List<AccountDTO> list_secound_modalVatB(int baclogId) {
+	public List<AccountDTO> list_secound_modalVatB(AccountDTO dto) {
 		// TODO Auto-generated method stub
-		return accountDAO.list_secound_modalVatB(baclogId);
+		return accountDAO.list_secound_modalVatB(dto);
 	}
 
 	@Override
@@ -646,5 +644,28 @@ public class AccountServiceImpl implements AccountService {
 	public List<AccountDTO> ledgerListS(HttpSession session, AccountDTO dto) {
 		// TODO Auto-generated method stub
 		return accountDAO.ledgerListS(dto);
+	}
+	
+	public AccountDTO modalVatBCnt(AccountDTO dto) {
+		// TODO Auto-generated method stub
+		return accountDAO.modalVatBCnt(dto);
+	}
+
+	@Override
+	public AccountDTO modalVatSCnt(AccountDTO dto) {
+		// TODO Auto-generated method stub
+		return accountDAO.modalVatSCnt(dto);
+	}
+
+	@Override
+    public List<AccountDTO> modalVatB(HttpSession session) {
+        int compNo = SessionInfoGet.getCompNo(session);
+        return accountDAO.modalVatB(compNo);
+	}
+
+	@Override
+	public List<AccountDTO> modalVatS(HttpSession session) {
+		int compNo = SessionInfoGet.getCompNo(session);
+        return accountDAO.modalVatS(compNo);
 	}
 }

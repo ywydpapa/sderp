@@ -124,7 +124,7 @@
 			var endpageNum = Math.ceil(origin_page_Num)*10;
 			var startpageNum = Math.floor(origin_page_Num)*10;
 			counter = Math.floor(origin_page_Num);
-			
+
 			$.ajax({
 				url: "${path}/acc/check_link_vatandbacCnt.do",
 				method: "post",
@@ -135,6 +135,7 @@
 					if(data.resultCount > 0){
 						var count = parseInt(data.resultCount/pageListNum);
 						var countRe = parseInt(data.resultCount/pageListNum);
+
 						pageHtml = "";
 						pageHtml += "<ul class='pagination'><li class='page-item'><a class='page-link' href='#' onClick='pagePrevious(this);'>Previous</a></li>";
 						

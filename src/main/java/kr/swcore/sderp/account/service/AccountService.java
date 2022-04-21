@@ -17,8 +17,8 @@ public interface AccountService {
     List<AccountDTO> listbac(HttpSession session);
     List<AccountDTO> listCard(HttpSession session);
     List<AccountDTO> listvatitem(int vatId);
-    List<AccountDTO> modalVatB(HttpSession session);
-    List<AccountDTO> modalVatS(HttpSession session);
+    List<AccountDTO> modalVatB(AccountDTO dto);
+    List<AccountDTO> modalVatS(AccountDTO dto);
     AccountDTO checkVat(AccountDTO dto);
     AccountDTO cardCheck(AccountDTO dto);
     AccountDTO detailvat(int vatId);
@@ -97,7 +97,7 @@ public interface AccountService {
 
 	AccountDTO bacCalSelect(AccountDTO dto);
 
-	List<AccountDTO> list_secound_modalVatB(int baclogId);
+	List<AccountDTO> list_secound_modalVatB(AccountDTO dto);
 	void bacCheckConnect_modal_baclogId_memo(AccountDTO dto);
 	List<AccountDTO> list_secound_modalVatB_secound(String bacId);
 	List<AccountDTO> getlicked_price(AccountDTO dto);
@@ -116,4 +116,8 @@ public interface AccountService {
 	List<AccountDTO> custVatListCount(AccountDTO dto);
 	List<AccountDTO> custVatListHtml(AccountDTO dto);
 	int productUpdate(AccountDTO dto);
+	AccountDTO modalVatBCnt(AccountDTO dto);
+	AccountDTO modalVatSCnt(AccountDTO dto);
+	List<AccountDTO> modalVatB(HttpSession session);
+	List<AccountDTO> modalVatS(HttpSession session);
 }

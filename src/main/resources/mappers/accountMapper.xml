@@ -35,7 +35,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		LEFT JOIN swc_vat b ON a.custNo = b.vatSellerCustNo AND (b.vatStatus = 'B3' OR b.vatStatus = 'B5')
 		LEFT JOIN(SELECT * FROM swc_bacledger_detail group BY linkDocno) c ON b.vatSerial = c.linkDocno
 		LEFT JOIN swc_bacledger d ON d.baclogId = c.baclogId
-		WHERE d.linkDoc = 'y' and d.baclogTime LIKE CONCAT('%', #{selectYear}, '%') GROUP BY a.custName;
+		WHERE d.linkDoc = 'y' and d.baclogTime LIKE CONCAT('%', #{selectYear}, '%') and b.attrib not like 'XXX%' GROUP BY a.custName;
 	</select>
 
 	<select id="sumBVatSearch" resultType="accountDto">
@@ -45,7 +45,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		LEFT JOIN swc_vat c ON a.custNo = c.vatSellerCustNo AND c.vatIssueDate BETWEEN #{vatIssueDateFrom} and #{vatIssueDateTo} and c.attrib NOT LIKE 'XXX%'
 		WHERE a.compNo = #{compNo} AND a.custCompNo != #{compNo}
 		<if test="vatSellerCustNo != null and vatSellerCustNo != ''">
-			where c.vatSellerCustNo = #{vatSellerCustNo}
+			and c.vatSellerCustNo = #{vatSellerCustNo}
 		</if>
 		GROUP BY a.custNo
 	</select>
@@ -63,7 +63,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		LEFT JOIN swc_vat b ON a.custNo = b.vatBuyerCustNo AND (b.vatStatus = 'S3' OR b.vatStatus = 'S5')
 		LEFT JOIN(SELECT * FROM swc_bacledger_detail group BY linkDocno) c ON b.vatSerial = c.linkDocno 
 		LEFT JOIN swc_bacledger d ON d.baclogId = c.baclogId
-		WHERE d.linkDoc = 'y' and d.baclogTime LIKE CONCAT('%', #{selectYear}, '%') GROUP BY a.custName;
+		WHERE d.linkDoc = 'y' and d.baclogTime LIKE CONCAT('%', #{selectYear}, '%') and b.attrib not like 'XXX%' GROUP BY a.custName;
 	</select>
 	<select id="sumSVatSearch" resultType="accountDto">
 		SELECT a.*, b.settleCRbalance as custBalance, a.custName AS vatBuyerName, SUM(c.vatTax + c.vatAmount) 
@@ -72,7 +72,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		LEFT JOIN swc_vat c ON a.custNo = c.vatBuyerCustNo AND c.vatIssueDate BETWEEN #{vatIssueDateFrom} and #{vatIssueDateTo} and c.attrib NOT LIKE 'XXX%'
 		WHERE a.compNo = #{compNo} AND a.custCompNo != #{compNo}
 		<if test="vatBuyerCustNo != null and vatBuyerCustNo != ''">
-			where c.vatBuyerCustNo = #{vatBuyerCustNo}
+			and c.vatBuyerCustNo = #{vatBuyerCustNo}
 		</if>
 		GROUP BY a.custNo
 	</select>
@@ -104,7 +104,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<select id="ledgerListB" resultType="accountDto">
-		SELECT a.*, c.baclogTime, d.custName FROM swc_bacledger_detail a
+		SELECT a.*, b.vatProductName, c.baclogTime, d.custName FROM swc_bacledger_detail a
 		LEFT JOIN swc_vat b ON a.linkDocno = b.vatSerial
 		LEFT JOIN swc_bacledger c ON a.baclogId = c.baclogId AND c.baclogTime BETWEEN #{vatIssueDateFrom} and #{vatIssueDateTo}
 		LEFT JOIN swc_cust d ON b.vatSellerCustNo = d.custNo
@@ -465,10 +465,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		GROUP BY a.vatBuyerCustNo
 	</select>
 
-	<select id="custVatListHtml" resultType="accountDto">
-		SELECT a.*, b.vatIssueDate, b.vatSerial, b.vatTax, b.vatAmount, (b.vatTax + b.vatAmount) AS vatTotal, b.vatProductName FROM swc_cust a
+	<select id="custVatListHtmlS" resultType="accountDto">
+		SELECT a.*, b.vatIssueDate, b.vatSerial, b.vatTax, b.vatAmount, (b.vatTax + b.vatAmount) AS vatTotal, b.vatProductName, c.settleCRbalance 
+		FROM swc_cust a
 		LEFT JOIN swc_vat b ON a.custNo = b.vatBuyerCustNo AND b.vatIssueDate BETWEEN #{vatIssueDateFrom} and #{vatIssueDateTo}
-		WHERE a.compNo = #{compNo} and a.custNo = #{vatBuyerCustNo} ORDER BY b.vatIssueDate ASC 
+		LEFT JOIN swc_cust_balance c ON a.custNo = c.custNo AND c.settleYear = #{selectYear}
+		WHERE a.compNo = #{compNo} and a.custNo = #{vatBuyerCustNo} and b.vatType = #{vatType} ORDER BY b.vatIssueDate ASC 
+	</select>
+	
+	<select id="custVatListHtmlB" resultType="accountDto">
+		SELECT a.*, b.vatIssueDate, b.vatSerial, b.vatTax, b.vatAmount, (b.vatTax + b.vatAmount) AS vatTotal, b.vatProductName, c.settleDRbalance 
+		FROM swc_cust a
+		LEFT JOIN swc_vat b ON a.custNo = b.vatSellerCustNo AND b.vatIssueDate BETWEEN #{vatIssueDateFrom} and #{vatIssueDateTo}
+		LEFT JOIN swc_cust_balance c ON a.custNo = c.custNo AND c.settleYear = #{selectYear}
+		WHERE a.compNo = #{compNo} and a.custNo = #{vatSellerCustNo} and b.vatType = #{vatType} ORDER BY b.vatIssueDate ASC 
 	</select>
 
 	<insert id="insertbacledger">

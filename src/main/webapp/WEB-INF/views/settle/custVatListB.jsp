@@ -31,7 +31,7 @@
                 <div class="col-lg-12">
                     <div class="page-header-title" style="float:left;">
                         <div style="margin-top:15px;">
-                            <h6 style="font-weight:600;">업체별 미지급 현황</h6>
+                            <h6 style="font-weight:600;">거래처별 매입 원장</h6>
                         </div>
                     </div>
                     <div class="btn_wr" style="float:right;">
@@ -149,22 +149,22 @@
                             </thead>
                             <tbody>
 	                            <c:forEach items="${vatList}" var="vlist">
-	                            	<c:if test="${vlist.vatAmountB > 0 || vlist.serialTotalB > 0 || vlist.custBalance > 0}">
+	                            	<c:if test="${vlist.vatAmountB > 0}">
 		                                <tr>
 		                                    <td class="text-center">
-	                                    		<a data-remote="${path}/modal/popup.do?popId=custVatListModal&modalType=cust&custNo=${vlist.custNo}&compNo=${sessionScope.compNo}&vatIssueDateFrom=${param.vatIssueDateFrom}&vatIssueDateTo=${param.vatIssueDateTo}&vatType=B" type="button" data-toggle="modal" data-target="#custVatList" style="cursor: pointer; text-decoration: underline;">
+	                                    		<a href="" data-id="${vlist.custNo}" id="custHtmlBtn" type="button" onClick='javascript:popupVat(this); return false;' style="cursor: pointer; text-decoration: underline;">
 	                                    			${vlist.vatSellerName}
 	                                    		</a>
 		                                   	</td>
 		                                    <td class="text-right">
 		                                    	<c:choose>
-		                                    		<c:when test="${vlist.vatAmountB > 0}"><fmt:formatNumber type="number" maxFractionDigits="3" value="${vlist.serialTotalB}" /></c:when>
+		                                    		<c:when test="${vlist.serialTotalB > 0}"><fmt:formatNumber type="number" maxFractionDigits="3" value="${vlist.serialTotalB}" /></c:when>
 		                                    		<c:otherwise>0</c:otherwise>
 		                                    	</c:choose>
 		                                    </td>
 		                                    <td class="text-right">
 		                                    	<c:choose>
-		                                    		<c:when test="${vlist.serialTotalB > 0}"><fmt:formatNumber type="number" maxFractionDigits="3" value="${vlist.vatAmountB}" /></c:when>
+		                                    		<c:when test="${vlist.vatAmountB > 0}"><fmt:formatNumber type="number" maxFractionDigits="3" value="${vlist.vatAmountB}" /></c:when>
 		                                    		<c:otherwise>0</c:otherwise>
 		                                    	</c:choose>
 		                                    </td>
@@ -208,10 +208,15 @@
     <script>
     	$(document).ready(function(){
 	    	var vatType = "${param.vatType}";
-			
+	    	var selectYear = "${param.selectYear}";
+	    	
 	    	if(vatType !== ""){
 	    		$("#vatType").val(vatType);
 	    	}
+	    	
+	    	if(selectYear !== ""){
+        		$("#searchYear").val(selectYear);
+        	}
 	    	
 	    	$("#searchYear").change(function(){
 	    		var dateFrom = $("#vatIssueDateFrom");
@@ -326,6 +331,50 @@
 	        }
     	});
     	
+    	function popupVat(e){
+        	var paramDateFrom = "${param.vatIssueDateFrom}";
+        	var paramDateTo = "${param.vatIssueDateTo}";
+        	var compNo = "${sessionScope.compNo}";
+        	var selectYear = 0;
+        	var href = "";
+        	
+        	if($("#searchYear").val() !== ""){
+        		selectYear = $("#searchYear").val();
+        	}
+        	
+        	if(paramDateFrom === "" || paramDateTo === ""){
+        		href = "${path}/acc/custVatListHtmlB/"+compNo+"/"+$(e).attr("data-id")+"/0/0/"+selectYear+"/B";
+        	}else{
+        		href = "${path}/acc/custVatListHtmlB/"+compNo+"/"+$(e).attr("data-id")+"/"+paramDateFrom+"/"+paramDateTo+"/"+selectYear+"/B";
+        	}
+        	
+            var nWidth = "1500";
+            var nHeight = "1500";
+
+            var curX = window.screenLeft;
+            var curY = window.screenTop;
+            var curWidth = document.body.clientWidth;
+            var curHeight = document.body.clientHeight;
+
+            var nLeft = curX + (curWidth / 2) - (nWidth / 2);
+            var nTop = curY + (curHeight / 2) - (nHeight / 2);
+
+            var strOption = "";
+            strOption += "left=" + nLeft + "px,";
+            strOption += "top=" + nTop + "px,";
+            strOption += "width=" + nWidth + "px,";
+            strOption += "height=" + nHeight + "px,";
+            strOption += "toolbar=no,menubar=no,location=no,";
+            strOption += "resizable=yes,status=yes";
+
+            var winObj = window.open(href, '', strOption);
+
+            if (winObj == null) {
+                alert("팝업 차단을 해제해주세요.");
+                return false;
+            }
+        }
+    	
     
         $('#custModal').on('show.bs.modal', function(e) {
             var button = $(e.relatedTarget);
@@ -374,7 +423,7 @@
     			param = "";
     		}
 
-    		var url = '${path}/acc/sumBvatlist.do'+param;
+    		var url = '${path}/acc/custVatListB.do'+param;
     		
     		if(document.querySelector('#acordian').style.cssText == "display: none;"){
 	            var testAco1 = document.querySelector('#acordian').style.cssText;

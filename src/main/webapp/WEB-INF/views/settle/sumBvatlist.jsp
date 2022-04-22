@@ -197,7 +197,7 @@
 		                                   	</td>
 		                                   	<td class="text-right">
 		                                   		<c:choose>
-		                                    		<c:when test="${vlist.custBalance > 0}">
+		                                    		<c:when test="${vlist.custBalance ne ''}">
 			                                    		<fmt:formatNumber type="number" maxFractionDigits="3" value="${vlist.custBalance}" />
 		                                    		</c:when>
 		                                    		<c:otherwise>0</c:otherwise>
@@ -218,7 +218,7 @@
 		                                    <td class="text-right">
                                     			<a data-remote="${path}/modal/popup.do?popId=custVatListModal&modalType=balance&custNo=${vlist.custNo}&compNo=${sessionScope.compNo}&modalFlag=0&vatType=B" type="button" data-toggle="modal" data-target="#custVatList" style="cursor: pointer; text-decoration: underline;">
 			                                    	<c:choose>
-			                                    		<c:when test="${(vlist.custBalance + vlist.vatAmountB) - vlist.serialTotalB > 0}">
+			                                    		<c:when test="${(vlist.custBalance + vlist.vatAmountB) - vlist.serialTotalB ne ''}">
 			                                    				<fmt:formatNumber type="number" maxFractionDigits="3" value="${(vlist.custBalance + vlist.vatAmountB) - vlist.serialTotalB}" />
 			                                    		</c:when>
 			                                    		<c:otherwise>0</c:otherwise>

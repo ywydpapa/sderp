@@ -558,9 +558,15 @@ public class AccountDAOImpl implements AccountDAO {
 	}
 
 	@Override
-	public List<AccountDTO> custVatListHtml(AccountDTO dto) {
+	public List<AccountDTO> custVatListHtmlS(AccountDTO dto) {
 		// TODO Auto-generated method stub
-		return sqlSession.selectList("account.custVatListHtml", dto);
+		return sqlSession.selectList("account.custVatListHtmlS", dto);
+	}
+	
+	@Override
+	public List<AccountDTO> custVatListHtmlB(AccountDTO dto) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("account.custVatListHtmlB", dto);
 	}
 
 	@Override
@@ -585,6 +591,12 @@ public class AccountDAOImpl implements AccountDAO {
 	public List<AccountDTO> ledgerListS(AccountDTO dto) {
 		// TODO Auto-generated method stub
 		return sqlSession.selectList("account.ledgerListS",dto);
+	}
+	
+	@Override
+	public List<AccountDTO> ledgerListB(AccountDTO dto) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("account.ledgerListB",dto);
 	}
 	
 	@Override

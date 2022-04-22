@@ -10,6 +10,7 @@ public interface AccountService {
 	List<AccountDTO> sumBvat(HttpSession session, AccountDTO dto);
 	List<AccountDTO> custVatListB(HttpSession session, AccountDTO dto);
 	List<AccountDTO> ledgerListS(HttpSession session, AccountDTO dto);
+	List<AccountDTO> ledgerListB(HttpSession session, AccountDTO dto);
 	List<AccountDTO> sumSvat(HttpSession session, AccountDTO dto);
 	List<AccountDTO> custVatListS(HttpSession session, AccountDTO dto);
 	List<AccountDTO> sumBvatSearch(HttpSession session, AccountDTO dto);
@@ -114,7 +115,8 @@ public interface AccountService {
 	List<AccountDTO> check_lincked_last(AccountDTO dto);
 	List<AccountDTO> custSelectVatList(AccountDTO dto);
 	List<AccountDTO> custVatListCount(AccountDTO dto);
-	List<AccountDTO> custVatListHtml(AccountDTO dto);
+	List<AccountDTO> custVatListHtmlS(AccountDTO dto);
+	List<AccountDTO> custVatListHtmlB(AccountDTO dto);
 	int productUpdate(AccountDTO dto);
 	AccountDTO modalVatBCnt(AccountDTO dto);
 	AccountDTO modalVatSCnt(AccountDTO dto);

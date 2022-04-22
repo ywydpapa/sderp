@@ -612,9 +612,15 @@ public class AccountServiceImpl implements AccountService {
 	}
 
 	@Override
-	public List<AccountDTO> custVatListHtml(AccountDTO dto) {
+	public List<AccountDTO> custVatListHtmlS(AccountDTO dto) {
 		// TODO Auto-generated method stub
-		return accountDAO.custVatListHtml(dto);
+		return accountDAO.custVatListHtmlS(dto);
+	}
+	
+	@Override
+	public List<AccountDTO> custVatListHtmlB(AccountDTO dto) {
+		// TODO Auto-generated method stub
+		return accountDAO.custVatListHtmlB(dto);
 	}
 
 	@Override
@@ -645,6 +651,12 @@ public class AccountServiceImpl implements AccountService {
 	public List<AccountDTO> ledgerListS(HttpSession session, AccountDTO dto) {
 		// TODO Auto-generated method stub
 		return accountDAO.ledgerListS(dto);
+	}
+	
+	@Override
+	public List<AccountDTO> ledgerListB(HttpSession session, AccountDTO dto) {
+		// TODO Auto-generated method stub
+		return accountDAO.ledgerListB(dto);
 	}
 	
 	public AccountDTO modalVatBCnt(AccountDTO dto) {

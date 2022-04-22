@@ -31,7 +31,7 @@
                 <div class="col-lg-12">
                     <div class="page-header-title" style="float:left;">
                         <div style="margin-top:15px;">
-                            <h6 style="font-weight:600;">업체별 미수금 현황</h6>
+                            <h6 style="font-weight:600;">거래처별 매출 원장</h6>
                         </div>
                     </div>
                     <div class="btn_wr" style="float:right;">
@@ -140,18 +140,18 @@
                                 <col width="15%"/>
                             </colgroup>
                             <thead>
-                            <tr>
-                                <th class="text-center">거래처</th>
-                                <th class="text-center">차변</th>
-                                <th class="text-center">대변</th>
-                                <th class="text-center">잔액</th>
-                            </tr>
+	                            <tr>
+	                                <th class="text-center">거래처</th>
+	                                <th class="text-center">차변</th>
+	                                <th class="text-center">대변</th>
+	                                <th class="text-center">잔액</th>
+	                            </tr>
                             </thead>
                             <c:forEach items="${vatList}" var="vlist">
-                            	<c:if test="${vlist.vatAmountS > 0 || vlist.serialTotalS > 0 || vlist.custBalance > 0}">
+                               	<c:if test="${vlist.vatAmountS > 0}">
 	                                <tr>
 	                                    <td class="text-center">
-	                                   		<a href="${path}/acc/custVatListHtml/${vlist.compNo}/${vlist.custNo}/2022-01-01/2022-12-31" type="button" onClick='javascript:popupVat(this); return false;' style="cursor: pointer; text-decoration: underline;">
+	                                   		<a href="" data-id="${vlist.custNo}" id="custHtmlBtn" type="button" onClick='javascript:popupVat(this); return false;' style="cursor: pointer; text-decoration: underline;">
 	                                   			${vlist.vatBuyerName}
 	                                   		</a>
 	                                   	</td>
@@ -174,20 +174,44 @@
 	                                    	</c:choose>
 	                                    </td>
 	                                </tr>
-                               	</c:if>
+	                             </c:if>
                             </c:forEach>
                         </table>
                     </div>
                 </div>
+                <div class="modal fade " id="custVatList" tabindex="-1" role="dialog">
+					<div class="modal-dialog modal-80size" role="document">
+						<div class="modal-content modal-80size">
+							<div class="modal-header">
+								<h4 class="modal-title">목록</h4>
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+							</div>
+						<div class="modal-body">
+							<h5>연결문서(합계금액)</h5>
+							<p>Loading!!!</p>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
+						</div>
+						</div>
+					</div>
+				</div>
             </div>
         </div>
     </div>
     <script>
     	$(document).ready(function(){
         	var vatType = "${param.vatType}";
-    		
+        	var selectYear = "${param.selectYear}";
+        	
         	if(vatType !== ""){
         		$("#vatType").val(vatType);
+        	}
+        	
+        	if(selectYear !== ""){
+        		$("#searchYear").val(selectYear);
         	}
         	
 	    	$("#searchYear").change(function(){
@@ -325,6 +349,22 @@
         });
         
         function popupVat(e){
+        	var paramDateFrom = "${param.vatIssueDateFrom}";
+        	var paramDateTo = "${param.vatIssueDateTo}";
+        	var compNo = "${sessionScope.compNo}";
+        	var selectYear = 0;
+        	var href = "";
+        	
+        	if($("#searchYear").val() !== ""){
+        		selectYear = $("#searchYear").val();
+        	}
+        	
+        	if(paramDateFrom === "" || paramDateTo === ""){
+        		href = "${path}/acc/custVatListHtmlS/"+compNo+"/"+$(e).attr("data-id")+"/0/0/"+selectYear+"/S";
+        	}else{
+        		href = "${path}/acc/custVatListHtmlS/"+compNo+"/"+$(e).attr("data-id")+"/"+paramDateFrom+"/"+paramDateTo+"/"+selectYear+"/S";
+        	}
+        	
             var nWidth = "1500";
             var nHeight = "1500";
 
@@ -344,7 +384,7 @@
             strOption += "toolbar=no,menubar=no,location=no,";
             strOption += "resizable=yes,status=yes";
 
-            var winObj = window.open($(e).attr("href"), '', strOption);
+            var winObj = window.open(href, '', strOption);
 
             if (winObj == null) {
                 alert("팝업 차단을 해제해주세요.");
@@ -354,6 +394,7 @@
         
         function fnListcon() {
     		var vatData = {};
+    		var compNo = "${sessionScope.compNo}";
     		vatData.vatBuyerCustNo = $("#vatBuyerCustNo").val() ? Number($("#vatBuyerCustNo").val()) : 0;
     		vatData.vatBuyerName = $("#vatBuyerName").val();
     		vatData.vatIssueDateFrom = $("#vatIssueDateFrom").val() ? $("#vatIssueDateFrom").val() : null;
@@ -377,8 +418,8 @@
     		if(param == "?"){
     			param = "";
     		}
-
-    		var url = '${path}/acc/sumSvatlist.do'+param;
+			
+    		var url = '${path}/acc/custVatListS.do'+param;
     		
     		if(document.querySelector('#acordian').style.cssText == "display: none;"){
 	            var testAco1 = document.querySelector('#acordian').style.cssText;

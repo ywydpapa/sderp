@@ -14,9 +14,10 @@
 		<div style="text-align:center;">
 			<h3>거래처 원장</h3>
 		</div>
+		<c:set var="balanceB" value="${custVatList[0].settleDRbalance}" scope="request"/>
 		<div id="tableDiv" style="padding: 20px;">
 			<c:set var="dateArray" value="${fn:split('01,02,03,04,05,06,07,08,09,10,11,12', ',')}" />
-			<c:forEach var="dateValue" items="${dateArray}">
+			<c:forEach var="dateValue" items="${dateArray}" varStatus="status">
 				<c:choose>
 					<c:when test="${dateValue < 10 }">
 						<div style="border:1px solid #ccc;">${fn:substring(dateValue, 1, 2)}월</div>
@@ -36,15 +37,25 @@
 						</tr>
 					</thead>
 					<tbody>
-						<c:forEach var="row" items="${custVatList}">
+						<c:if test="${status.index == 0}">
+							<tr>
+								<td></td>
+								<td style="text-align: center;">전기이월</td>
+								<td></td>
+								<td style="text-align: right;"><fmt:formatNumber type="number" maxFractionDigits="3" value="${balanceB}" /></td>
+								<td style="text-align: right;"><fmt:formatNumber type="number" maxFractionDigits="3" value="${balanceB}" /></td>
+							</tr>
+						</c:if>
+						<c:forEach var="row" items="${custVatList}" varStatus="status">
 							<c:set var="dateMonth" value="${fn:substring(row.vatIssueDate, 5, 7)}" />
 							<c:if test="${(dateValue eq dateMonth)}">
+								<c:set var="balanceB" value="${balanceB - row.vatTotal}" scope="request"/>
 								<tr id="divisionTrVat">
 									<td style="text-align:center;">${row.vatIssueDate}</td>
 									<td style="text-align:center;">${row.vatProductName}</td>
 									<td style="text-align:right;"><fmt:formatNumber type="number" maxFractionDigits="3" value="${row.vatTotal}" /></td>
 									<td style="text-align:right;"></td>
-									<td style="text-align:right;"><fmt:formatNumber type="number" maxFractionDigits="3" value="${row.vatTotal}" /></td>	
+									<td style="text-align:right;"><fmt:formatNumber type="number" maxFractionDigits="3" value="${balanceB}" /></td>	
 								</tr>
 								<c:set var="calTotal" value="${calTotal + row.vatTotal}" />
 							</c:if>
@@ -52,21 +63,25 @@
 						<c:forEach var="row" items="${ledgerList}">
 							<c:set var="dateMonth" value="${fn:substring(row.baclogTime, 5, 7)}" />
 							<c:if test="${(dateValue eq dateMonth)}">
+								<c:set var="balanceB" value="${balanceB + row.receive_data}" scope="request"/>
 								<tr id="divisionTrVat">
 									<td style="text-align:center;">${fn:substring(row.baclogTime, 0, 10)}</td>
 									<td style="text-align:center;">${row.vatProductName}</td>
 									<td style="text-align:right;"></td>
 									<td style="text-align:right;"><fmt:formatNumber type="number" maxFractionDigits="3" value="${row.receive_data}" /></td>
-									<td style="text-align:right;"><fmt:formatNumber type="number" maxFractionDigits="3" value="${row.vatTotal}" /></td>	
+									<td style="text-align:right;"><fmt:formatNumber type="number" maxFractionDigits="3" value="${balanceB}" /></td>	
 								</tr>
-								<c:set var="calTotal" value="${calTotal + row.receive_data}" />
+								<c:set var="calTotalReceive" value="${calTotalReceive + row.receive_data}" />
 							</c:if>
 						</c:forEach>
 						<tr>
-							<th colspan="4" style="text-align:center;">월 계</th>
+							<th colspan="2" style="text-align:center;">월 계</th>
 							<th style="text-align:right;"><fmt:formatNumber type="number" maxFractionDigits="3" value="${calTotal}" /></th>
+							<th style="text-align:right;"><fmt:formatNumber type="number" maxFractionDigits="3" value="${calTotalReceive}" /></th>
+							<th></th>
 						</tr>
 						<c:remove var="calTotal"/>
+						<c:remove var="calTotalReceive"/>
 					</tbody>
 				</table>
 			</c:forEach>

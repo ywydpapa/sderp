@@ -212,5 +212,8 @@ public class AccountDTO {
 	private String mouth;
 	private String last_mouth;
 	private BigDecimal month_target;
+
+	private BigDecimal settleCRbalance;
+	private BigDecimal settleDRbalance;
 }
 

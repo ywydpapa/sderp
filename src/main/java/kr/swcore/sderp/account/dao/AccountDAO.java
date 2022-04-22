@@ -9,6 +9,7 @@ public interface AccountDAO {
 	List<AccountDTO> sumBvat(AccountDTO dto);
 	List<AccountDTO> custVatListB(AccountDTO dto);
 	List<AccountDTO> ledgerListS(AccountDTO dto);
+	List<AccountDTO> ledgerListB(AccountDTO dto);
 	List<AccountDTO> sumSvat(AccountDTO dto);
 	List<AccountDTO> custVatListS(AccountDTO dto);
 	List<AccountDTO> sumBvatSearch(AccountDTO dto);
@@ -113,7 +114,8 @@ public interface AccountDAO {
 	List<AccountDTO> check_lincked_last(AccountDTO dto);
 	List<AccountDTO> custSelectVatList(AccountDTO dto);
 	List<AccountDTO> custVatListCount(AccountDTO dto);
-	List<AccountDTO> custVatListHtml(AccountDTO dto);
+	List<AccountDTO> custVatListHtmlS(AccountDTO dto);
+	List<AccountDTO> custVatListHtmlB(AccountDTO dto);
 	int productUpdate(AccountDTO dto);
 	AccountDTO modalVatBCnt(AccountDTO dto);
 	AccountDTO modalVatSCnt(AccountDTO dto);

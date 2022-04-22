@@ -449,7 +449,6 @@ public class AccountDAOImpl implements AccountDAO {
 	public List<AccountDTO> checktotalprice_vat_and_detail_out(AccountDTO dto) {
 		// TODO Auto-generated method stub
 		return sqlSession.selectList("account.checktotalprice_vat_and_detail_out", dto);
-
 	}
 
 	@Override

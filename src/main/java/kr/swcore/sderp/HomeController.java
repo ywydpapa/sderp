@@ -336,14 +336,9 @@ public class HomeController {
 			dto.setCompNo(compNo);
 			dto.setVatType(vatType);
 			
-			if(params.get("modalType").equals("cust")) {
+			if(params.get("modalType").equals("cust") && !params.get("modalFlag").equals("0")) {
 				String vatIssueDateFrom = String.valueOf(params.get("vatIssueDateFrom")) != "" ? String.valueOf(params.get("vatIssueDateFrom")) : now.getYear() + "-01-01";
 				String vatIssueDateTo = String.valueOf(params.get("vatIssueDateTo")) != "" ? String.valueOf(params.get("vatIssueDateTo")) : now.getYear() + "-12-31";
-				dto.setVatIssueDateFrom(vatIssueDateFrom);
-				dto.setVatIssueDateTo(vatIssueDateTo);
-			} else {
-				String vatIssueDateFrom = String.valueOf(params.get("vatIssueDateFrom")) != "" ? Integer.parseInt(String.valueOf(params.get("vatIssueDateFrom")).substring(0, 4)) - 1 + "-01-01" : now.getYear()-1 + "-01-01";
-				String vatIssueDateTo = String.valueOf(params.get("vatIssueDateTo")) != "" ? Integer.parseInt(String.valueOf(params.get("vatIssueDateTo")).substring(0, 4)) - 1 + "-12-31" : now.getYear()-1 + "-12-31";
 				dto.setVatIssueDateFrom(vatIssueDateFrom);
 				dto.setVatIssueDateTo(vatIssueDateTo);
 			}

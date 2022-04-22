@@ -31,11 +31,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<select id="sumBvat_sub" resultType="accountDto">		
-		SELECT a.custNo, a.custName, sum(b.modal_receive_data) AS modal_receive_data FROM swc_cust a
-		LEFT JOIN swc_vat b ON a.custNo = b.vatSellerCustNo AND (b.vatStatus = 'B3' OR b.vatStatus = 'B5')
-		LEFT JOIN(SELECT * FROM swc_bacledger_detail group BY linkDocno) c ON b.vatSerial = c.linkDocno 
-		LEFT JOIN swc_bacledger d ON d.baclogId = c.baclogId
-		WHERE d.linkDoc = 'y' and d.baclogTime LIKE CONCAT('%', #{selectYear}, '%') GROUP BY a.custName;
+		SELECT a.custNo, a.custName, sum(b.modal_receive_data) AS modal_receive_data FROM swc_cust 
+		a LEFT JOIN swc_vat b ON a.custNo = b.vatSellerCustNo AND (b.vatStatus = 'B3' OR b.vatStatus 
+		= 'B5') LEFT JOIN(SELECT * FROM swc_bacledger_detail group BY linkDocno) c ON b.vatSerial = 
+		c.linkDocno LEFT JOIN swc_bacledger d ON d.baclogId = c.baclogId WHERE d.linkDoc = 'y' and 
+		d.baclogTime LIKE CONCAT('%', 2022, '%') AND b.attrib NOT LIKE 'XXX%' GROUP BY a.custName;
 	</select>
 
 	<select id="sumBVatSearch" resultType="accountDto">

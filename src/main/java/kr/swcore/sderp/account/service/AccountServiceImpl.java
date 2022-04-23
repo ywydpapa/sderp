@@ -681,4 +681,16 @@ public class AccountServiceImpl implements AccountService {
 		int compNo = SessionInfoGet.getCompNo(session);
         return accountDAO.modalVatS(compNo);
 	}
+
+	@Override
+	public AccountDTO custBalanceS(AccountDTO dto) {
+		// TODO Auto-generated method stub
+		return accountDAO.custBalanceS(dto);
+	}
+	
+	@Override
+	public AccountDTO custBalanceB(AccountDTO dto) {
+		// TODO Auto-generated method stub
+		return accountDAO.custBalanceB(dto);
+	}
 }

@@ -121,4 +121,6 @@ public interface AccountDAO {
 	AccountDTO modalVatSCnt(AccountDTO dto);
 	List<AccountDTO> modalVatB(int compNo);
 	List<AccountDTO> modalVatS(int compNo);
+	AccountDTO custBalanceS(AccountDTO dto);
+	AccountDTO custBalanceB(AccountDTO dto);
 }

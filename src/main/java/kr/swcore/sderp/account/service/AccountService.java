@@ -122,4 +122,7 @@ public interface AccountService {
 	AccountDTO modalVatSCnt(AccountDTO dto);
 	List<AccountDTO> modalVatB(HttpSession session);
 	List<AccountDTO> modalVatS(HttpSession session);
+	
+	AccountDTO custBalanceS(AccountDTO dto);
+	AccountDTO custBalanceB(AccountDTO dto);
 }

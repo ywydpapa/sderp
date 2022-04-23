@@ -620,4 +620,16 @@ public class AccountDAOImpl implements AccountDAO {
 	public List<AccountDTO> modalVatS(int compNo) {
 		return sqlSession.selectList("account.modalVatS_main",compNo);
 	}
+
+	@Override
+	public AccountDTO custBalanceS(AccountDTO dto) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("account.custBalanceS", dto);
+	}
+	
+	@Override
+	public AccountDTO custBalanceB(AccountDTO dto) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("account.custBalanceB", dto);
+	}
 }

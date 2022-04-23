@@ -1045,6 +1045,7 @@ public class AccountController {
     	
 		mav.addObject("ledgerList", accountService.ledgerListS(session, dto));
 		mav.addObject("custVatList", accountService.custVatListHtmlS(dto));
+		mav.addObject("custBalance", accountService.custBalanceS(dto));
     	mav.setViewName("form/custVatListHtmlS");
     	return mav;
     }
@@ -1079,6 +1080,7 @@ public class AccountController {
     	
 		mav.addObject("ledgerList", accountService.ledgerListB(session, dto));
 		mav.addObject("custVatList", accountService.custVatListHtmlB(dto));
+		mav.addObject("custBalance", accountService.custBalanceB(dto));
     	mav.setViewName("form/custVatListHtmlB");
     	return mav;
     }

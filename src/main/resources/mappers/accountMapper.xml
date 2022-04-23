@@ -452,6 +452,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		GROUP BY a.vatBuyerCustNo order by b.custName asc limit #{betFirstNum}, #{betLastNum}
 	</select>
 	
+	<select id="custBalanceS" resultType="accountDto">
+		select * from swc_cust_balance where compNo = #{compNo} and settleYear = #{selectYear} and custNo = #{vatBuyerCustNo} and settleCRbalance IS NOT NULL
+	</select>
+	
+	<select id="custBalanceB" resultType="accountDto">
+		select * from swc_cust_balance where compNo = #{compNo} and settleYear = #{selectYear} and custNo = #{vatSellerCustNo} and settleDRbalance IS NOT NULL
+	</select>
+	
 	<select id="custVatListCount" resultType="accountDto">
 		SELECT a.* FROM swc_vat a
 		LEFT JOIN swc_cust b ON a.vatBuyerCustNo = b.custNo

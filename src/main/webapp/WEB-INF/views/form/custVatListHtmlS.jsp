@@ -26,7 +26,7 @@
 						<div style="border:1px solid #ccc;">${dateValue}월</div>
 					</c:otherwise>
 				</c:choose>
-				<table id="vatTable_${dateValue}" class="table table-striped table-bordered nowrap">
+				<table id="vatTable_${dateValue}" class="table table-bordered">
 					<thead>
 						<tr>
 							<th style="text-align:center;">일자</th>
@@ -39,7 +39,7 @@
 					<tbody>
 						<c:forEach var="row" items="${custVatList}" >
 							<c:set var="dateMonth" value="${fn:substring(row.vatIssueDate, 5, 7)}" />
-							<tr id="hiddenTr">
+							<tr id="hiddenTr" style="background-color: #e9ecef;">
 								<td></td>
 								<td style="text-align: center;">전기이월</td>
 								<td style="text-align: right;"><fmt:formatNumber type="number" maxFractionDigits="3" value="${balanceS}" /></td>

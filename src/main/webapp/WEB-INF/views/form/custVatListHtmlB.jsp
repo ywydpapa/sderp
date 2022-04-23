@@ -8,7 +8,6 @@
 <html>
 <script type="text/javascript" src="${path}/js/jquery.min.js"></script>
 <link rel="stylesheet" type="text/css" href="${path}/assets/css/bootstrap/css/bootstrap.min.css">
-<script type="text/javascript" src="${path}/js/jquery.tablesorter.js"></script>
 
 <body>
 	<div>
@@ -40,6 +39,13 @@
 					<tbody>
 						<c:forEach var="row" items="${custVatList}" varStatus="status">
 							<c:set var="dateMonth" value="${fn:substring(row.vatIssueDate, 5, 7)}" />
+							<tr id="hiddenTr">
+								<td></td>
+								<td style="text-align: center;">전기이월</td>
+								<td></td>
+								<td style="text-align: right;"><fmt:formatNumber type="number" maxFractionDigits="3" value="${balanceB}" /></td>
+								<td style="text-align: right;"><fmt:formatNumber type="number" maxFractionDigits="3" value="${balanceB}" /></td>
+							</tr>
 							<c:if test="${(dateValue eq dateMonth)}">
 								<c:set var="balanceB" value="${balanceB - row.vatTotal}" scope="request"/>
 								<tr id="divisionTrVat">
@@ -88,16 +94,12 @@
 				$(item).prev().remove();
 				$(item).remove();
 			}
-		});
-		
-		$("[id^='vatTable_']").each(function(num, ele){
-			$(ele).tablesorter({
-				sortList: [[0,2]] 
-			});
 			
-			if(num == 0){
-				$(ele).find("tbody").prepend("<tr id='hiddenTr'><td></td><td style='text-align: center;'>전기이월</td><td style='text-align: right;'><fmt:formatNumber type='number' maxFractionDigits='3' value='${custBalance.settleDRbalance}' /></td><td></td><td style='text-align: right;'><fmt:formatNumber type='number' maxFractionDigits='3' value='${custBalance.settleDRbalance}' /></td></tr>");
-			}
+			$("[id^='vatTable_']").each(function(num, ele){
+				if(num == 0){
+					$(ele).find("tbody #hiddenTr:first").show();
+				}
+			});
 		});
 	});
 </script>

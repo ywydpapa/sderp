@@ -8,7 +8,6 @@
 <html>
 <script type="text/javascript" src="${path}/js/jquery.min.js"></script>
 <link rel="stylesheet" type="text/css" href="${path}/assets/css/bootstrap/css/bootstrap.min.css">
-<script type="text/javascript" src="${path}/js/jquery.tablesorter.js"></script>
 
 <body>
 	<div>
@@ -40,6 +39,13 @@
 					<tbody>
 						<c:forEach var="row" items="${custVatList}" >
 							<c:set var="dateMonth" value="${fn:substring(row.vatIssueDate, 5, 7)}" />
+							<tr id="hiddenTr">
+								<td></td>
+								<td style="text-align: center;">전기이월</td>
+								<td style="text-align: right;"><fmt:formatNumber type="number" maxFractionDigits="3" value="${balanceS}" /></td>
+								<td></td>
+								<td style="text-align: right;"><fmt:formatNumber type="number" maxFractionDigits="3" value="${balanceS}" /></td>
+							</tr>
 							<c:if test="${dateValue eq dateMonth}">
 								<c:set var="balanceS" value="${balanceS + row.vatTotal}" scope="request"/>
 								<tr id="divisionTrVat">
@@ -83,20 +89,17 @@
 <script>
 	$(document).ready(function(){
 		$("[id^='vatTable_']").each(function(index, item){
+			$(item).find("tbody #hiddenTr").hide();
 			if($(item).find("tbody #divisionTrVat").length == 0 && $(item).find("tbody #divisionTrLedger").length == 0){
 				$(item).prev().remove();
 				$(item).remove();
 			}
-		});
-		
-		$("[id^='vatTable_']").each(function(num, ele){
-			$(ele).tablesorter({
-				sortList: [[0,2]] 
-			});
 			
-			if(num == 0){
-				$(ele).find("tbody").prepend("<tr id='hiddenTr'><td></td><td style='text-align: center;'>전기이월</td><td style='text-align: right;'><fmt:formatNumber type='number' maxFractionDigits='3' value='${custBalance.settleCRbalance}' /></td><td></td><td style='text-align: right;'><fmt:formatNumber type='number' maxFractionDigits='3' value='${custBalance.settleCRbalance}' /></td></tr>");
-			}
+			$("[id^='vatTable_']").each(function(num, ele){
+				if(num == 0){
+					$(ele).find("tbody #hiddenTr:first").show();
+				}
+			});
 		});
 	});
 </script>

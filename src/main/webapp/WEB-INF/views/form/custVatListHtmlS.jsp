@@ -9,6 +9,13 @@
 <script type="text/javascript" src="${path}/js/jquery.min.js"></script>
 <link rel="stylesheet" type="text/css" href="${path}/assets/css/bootstrap/css/bootstrap.min.css">
 
+<style>
+	table {
+		table-layout: fixed;
+		word-break: break-all;
+	}
+</style>
+
 <body>
 	<div>
 		<div style="text-align:center;">

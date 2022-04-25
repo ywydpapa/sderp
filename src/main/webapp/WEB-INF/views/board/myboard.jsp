@@ -11,6 +11,7 @@
 
 <div id="main_content">
 	<input type="hidden" value="${sessionScope.compNo}" id="demo_graph"/>
+	<input type="hidden" value="${userRole}" id="demo_userRole">
 	<script type="text/javascript" src="${path}/assets/echart/echarts-5.0.2.js"></script>
 	<%
 		Calendar calendar = Calendar.getInstance();
@@ -525,7 +526,7 @@
 	</style>
 	<script>
 	$(document).ready(function(){
-		if($('#demo_graph').val() == 100002){
+		if($('#demo_graph').val() == 100002 && $('#demo_userRole').val() == "ADMIN"){
 			$.LoadingOverlay("show", true);
 				//해당 월별 목표 매출액
 				var sum01 = 0;

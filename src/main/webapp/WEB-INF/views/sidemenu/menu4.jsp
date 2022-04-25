@@ -121,6 +121,7 @@
 	                                    </ul>
                                 	 </li>
                                 	 <!-- 영업 분석 -->
+                                	<c:if test="${sessionScope.compNo == 100002}">
                                 	  <li class="pcoded-hasmenu">
 	                                    <a href="javascript:void(0)">
 	                                        <span class="pcoded-micon"><i class="icon-folder-alt"></i></span>
@@ -144,6 +145,7 @@
 	                                        </li>
 	                                    </ul>
                                     </li>  
+                                    </c:if>
                                 	 <!-- 영업 분석 -->
                                 	 
                                 	 

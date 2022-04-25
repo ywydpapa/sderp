@@ -48,9 +48,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</where>
 </select>
 
-<insert id="insertSalesTarget">
- </insert>
-
  <update id="updateSalesTarget">
  	update swc_sales_target 
  	set mm01 = #{mm01},

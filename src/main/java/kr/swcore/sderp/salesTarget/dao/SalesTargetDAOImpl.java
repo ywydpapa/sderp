@@ -172,13 +172,12 @@ public class SalesTargetDAOImpl implements SalesTargetDAO{
 		// TODO Auto-generated method stub
 		return sqlSession.selectList("account.user_now_graph", dto);
 	}
-	
 	/*
 	@Override
 	public SalesTargetDTO listSalesTargetYearTotalSalesIndividual(SalesTargetDTO salesTargetDTO) {
 		return sqlSession.selectOne("salesTarget.listSalesTargetYearTotalSalesIndividual", salesTargetDTO);
 	}
-
+	
 	@Override
 	public SalesTargetDTO listSalesTargetYearTotalProfitIndividual(SalesTargetDTO salesTargetDTO) {
 		return sqlSession.selectOne("salesTarget.listSalesTargetYearTotalProfitIndividual", salesTargetDTO);

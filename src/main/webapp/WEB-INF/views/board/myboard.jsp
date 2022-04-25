@@ -10,6 +10,7 @@
 <jsp:include page="../body-top.jsp"/>
 
 <div id="main_content">
+	<input type="hidden" value="${sessionScope.compNo}" id="demo_graph"/>
 	<script type="text/javascript" src="${path}/assets/echart/echarts-5.0.2.js"></script>
 	<%
 		Calendar calendar = Calendar.getInstance();
@@ -24,6 +25,27 @@
 
 	<div class="row" >
 		<c:if test="${userRole ne 'CUSER'}">
+			<!-- 4번째 그래프 -->
+			<div class="col-md-12" style="width: 100%; min-height: auto;">
+				<div class="card" style="width: 100%; height: auto;">
+					<div class="card-header">
+							<div style="display: inline-block;">
+								<h5>매출 추이</h5>
+								<span style="vertical-align: bottom;">2022년</span>
+							</div>
+							<select class="custom-select mr-sm-2" name="graph1TargetYear1" id="graph1TargetYear1" style="float:right;">
+							<option value = "2022" selected>2022</option>
+								<!-- <option value = "2021">2021</option>
+								<option value = "2020">2020</option> -->
+							</select>
+						</div>
+					<div class="defalut_gra">
+						<canvas id="myChart" width="1600" height="400"></canvas>
+					</div>
+				</div>
+			</div>
+		<!-- 4번째 그래프 -->
+			<%-- 
 			<div class="col-md-12 col-lg-5" style="min-width: 697.08px; min-height: 545px;">
 				<div class="card">
 					<div class="card-header">
@@ -39,10 +61,10 @@
 						</select>
 						<select class="custom-select mr-sm-2" name="graph1TargetDepartment" id="graph1TargetDepartment" style="float:right;">
 							<option value = "all" selected>전체</option>
-							<%--
+							
 							<option value = "dept" disabled>부서</option>
 							<option value = "individual" disabled>개인</option>
-							--%>
+							
 						</select>
 					</div>
 					<div class="card-block">
@@ -72,10 +94,10 @@
 						</select>
 						<select class="custom-select mr-sm-1" name="graph2TargetDepartment" id="graph2TargetDepartment" style="float:right;">
 							<option value = "all" selected>전체</option>
-							<%--
+							
 							<option value = "dept" disabled>부서</option>
 							<option value = "individual" disabled>개인</option>
-							--%>
+							
 
 						</select>
 						<div style="display: inline-block;">
@@ -91,7 +113,7 @@
 					</div>
 					<div class="chart2">
 						<div class="mbo-title ky-box ky-box-default">
-							<%--<div class="col-sm-2"><div class="icon"><i class="fa fa-tags fa-5x" aria-hidden="true"></i></div></div>--%>
+							<div class="col-sm-2"><div class="icon"><i class="fa fa-tags fa-5x" aria-hidden="true"></i></div></div>
 							<div class="col-sm-12">
 								<div class="ky-box-content text-right">
 									<small>목표</small>
@@ -119,10 +141,10 @@
 						</select>
 						<select class="custom-select mr-sm-1" name="graph3TargetDepartment" id="graph3TargetDepartment" style="float:right;">
 							<option value = "all" selected>전체</option>
-							<%--
+							
 							<option value = "dept" disabled>부서</option>
 							<option value = "individual" disabled>개인</option>
-							--%>
+							
 						</select>
 						<div style="display: inline-block;">
 							<h5>누적 계획대비 실적</h5>
@@ -137,7 +159,7 @@
 					</div>
 					<div class="chart3">
 						<div class="mbo-title ky-box ky-box-default">
-							<%--<div class="col-sm-2"><div class="icon"><i class="fa fa-tags fa-5x" aria-hidden="true"></i></div></div>--%>
+							<div class="col-sm-2"><div class="icon"><i class="fa fa-tags fa-5x" aria-hidden="true"></i></div></div>
 							<div class="col-sm-12">
 								<div class="ky-box-content text-right">
 									<small>목표</small>
@@ -165,10 +187,10 @@
 						</select>
 						<select class="custom-select mr-sm-1" name="graph4TargetDepartment" id="graph4TargetDepartment" style="float:right;">
 							<option value = "all" selected>전체</option>
-							<%--
+							
 							<option value = "dept" disabled>부서</option>
 							<option value = "individual" disabled>개인</option>
-							--%>
+							
 						</select>
 						<div style="display: inline-block;">
 							<h5>누적 판매방식별 실적</h5>
@@ -179,7 +201,7 @@
 						<div id="myChart04" style="width:350px; height:400px;"></div>
 					</div>
 				</div>
-			</div>
+			</div> --%>
 		</c:if>
 		<div class="col-md-12 col-lg-6">
 			<div class="card">
@@ -502,824 +524,1207 @@
 		.pull-right{float:right!important;}
 	</style>
 	<script>
-	// data	
-	var salesJson = {
-		'0' : ${graph1.sales[0]},
-		'1' : ${graph1.sales[1]},
-		'2' : ${graph1.sales[2]},
-		'3' : ${graph1.sales[3]},
-		'4' : ${graph1.sales[4]},
-		'5' : ${graph1.sales[5]},
-		'6' : ${graph1.sales[6]},
-		'7' : ${graph1.sales[7]},
-		'8' : ${graph1.sales[8]},
-		'9' : ${graph1.sales[9]},
-		'10' : ${graph1.sales[10]},
-		'11' : ${graph1.sales[11]}
-	}
-	var salesOrginJson = {
-		'0' : Math.floor(${graph1.salesOrgin[0]}),
-		'1' : Math.floor(${graph1.salesOrgin[1]}),
-		'2' : Math.floor(${graph1.salesOrgin[2]}),
-		'3' : Math.floor(${graph1.salesOrgin[3]}),
-		'4' : Math.floor(${graph1.salesOrgin[4]}),
-		'5' : Math.floor(${graph1.salesOrgin[5]}),
-		'6' : Math.floor(${graph1.salesOrgin[6]}),
-		'7' : Math.floor(${graph1.salesOrgin[7]}),
-		'8' : Math.floor(${graph1.salesOrgin[8]}),
-		'9' : Math.floor(${graph1.salesOrgin[9]}),
-		'10' : Math.floor(${graph1.salesOrgin[10]}),
-		'11' : Math.floor(${graph1.salesOrgin[11]}),
-	}
-
-	var salesOrginStackJson = {
-		'0' : Math.floor(salesOrginJson[0]),
-		'1' : Math.floor(salesOrginJson[0] + salesOrginJson[1]),
-		'2' : Math.floor(salesOrginJson[0] + salesOrginJson[1] + salesOrginJson[2]),
-		'3' : Math.floor(salesOrginJson[0] + salesOrginJson[1] + salesOrginJson[2] + salesOrginJson[3]),
-		'4' : Math.floor(salesOrginJson[0] + salesOrginJson[1] + salesOrginJson[2] + salesOrginJson[3] + salesOrginJson[4]),
-		'5' : Math.floor(salesOrginJson[0] + salesOrginJson[1] + salesOrginJson[2] + salesOrginJson[3] + salesOrginJson[4] + salesOrginJson[5]),
-		'6' : Math.floor(salesOrginJson[0] + salesOrginJson[1] + salesOrginJson[2] + salesOrginJson[3] + salesOrginJson[4] + salesOrginJson[5] + salesOrginJson[6]),
-		'7' : Math.floor(salesOrginJson[0] + salesOrginJson[1] + salesOrginJson[2] + salesOrginJson[3] + salesOrginJson[4] + salesOrginJson[5] + salesOrginJson[6] + salesOrginJson[7]),
-		'8' : Math.floor(salesOrginJson[0] + salesOrginJson[1] + salesOrginJson[2] + salesOrginJson[3] + salesOrginJson[4] + salesOrginJson[5] + salesOrginJson[6] + salesOrginJson[7] + salesOrginJson[8]),
-		'9' : Math.floor(salesOrginJson[0] + salesOrginJson[1] + salesOrginJson[2] + salesOrginJson[3] + salesOrginJson[4] + salesOrginJson[5] + salesOrginJson[6] + salesOrginJson[7] + salesOrginJson[8] + salesOrginJson[9]),
-		'10' : Math.floor(salesOrginJson[0] + salesOrginJson[1] + salesOrginJson[2] + salesOrginJson[3] + salesOrginJson[4] + salesOrginJson[5] + salesOrginJson[6] + salesOrginJson[7] + salesOrginJson[8] + salesOrginJson[9] + salesOrginJson[10]),
-		'11' : Math.floor(salesOrginJson[0] + salesOrginJson[1] + salesOrginJson[2] + salesOrginJson[3] + salesOrginJson[4] + salesOrginJson[5] + salesOrginJson[6] + salesOrginJson[7] + salesOrginJson[8] + salesOrginJson[9] + salesOrginJson[10] + salesOrginJson[11])
-	}
-
-	var salesOrginYearJson = {
-		'0' : salesOrginJson[0] + salesOrginJson[1] + salesOrginJson[2] + salesOrginJson[3] + salesOrginJson[4] + salesOrginJson[5] + salesOrginJson[6]
-				+ salesOrginJson[7] + salesOrginJson[8] + salesOrginJson[9] + salesOrginJson[10] + salesOrginJson[11]
-	}
-	var profitJson = {
-		'0' : ${graph1.profit[0]},
-		'1' : ${graph1.profit[1]},
-		'2' : ${graph1.profit[2]},
-		'3' : ${graph1.profit[3]},
-		'4' : ${graph1.profit[4]},
-		'5' : ${graph1.profit[5]},
-		'6' : ${graph1.profit[6]},
-		'7' : ${graph1.profit[7]},
-		'8' : ${graph1.profit[8]},
-		'9' : ${graph1.profit[9]},
-		'10' : ${graph1.profit[10]},
-		'11' : ${graph1.profit[11]}
-	}
-	//그래프1의 정의 그리고 그 옆에 profitOrgin 이 친구는 어디서 정의되어진 놈인가?
-			
-	var profitOrginJson = {
-		'0' : ${graph1.profitOrgin[0]},
-		'1' : ${graph1.profitOrgin[1]},
-		'2' : ${graph1.profitOrgin[2]},
-		'3' : ${graph1.profitOrgin[3]},
-		'4' : ${graph1.profitOrgin[4]},
-		'5' : ${graph1.profitOrgin[5]},
-		'6' : ${graph1.profitOrgin[6]},
-		'7' : ${graph1.profitOrgin[7]},
-		'8' : ${graph1.profitOrgin[8]},
-		'9' : ${graph1.profitOrgin[9]},
-		'10' : ${graph1.profitOrgin[10]},
-		'11' : ${graph1.profitOrgin[11]}
-	}
-	var profitOrginStackJson = {
-		'0' : profitOrginJson[0],
-		'1' : profitOrginJson[0] + profitOrginJson[1],
-		'2' : profitOrginJson[0] + profitOrginJson[1] + profitOrginJson[2],
-		'3' : profitOrginJson[0] + profitOrginJson[1] + profitOrginJson[2] + profitOrginJson[3],
-		'4' : profitOrginJson[0] + profitOrginJson[1] + profitOrginJson[2] + profitOrginJson[3] + profitOrginJson[4],
-		'5' : profitOrginJson[0] + profitOrginJson[1] + profitOrginJson[2] + profitOrginJson[3] + profitOrginJson[4] + profitOrginJson[5],
-		'6' : profitOrginJson[0] + profitOrginJson[1] + profitOrginJson[2] + profitOrginJson[3] + profitOrginJson[4] + profitOrginJson[5] + profitOrginJson[6],
-		'7' : profitOrginJson[0] + profitOrginJson[1] + profitOrginJson[2] + profitOrginJson[3] + profitOrginJson[4] + profitOrginJson[5] + profitOrginJson[6] + profitOrginJson[7],
-		'8' : profitOrginJson[0] + profitOrginJson[1] + profitOrginJson[2] + profitOrginJson[3] + profitOrginJson[4] + profitOrginJson[5] + profitOrginJson[6] + profitOrginJson[7] + profitOrginJson[8],
-		'9' : profitOrginJson[0] + profitOrginJson[1] + profitOrginJson[2] + profitOrginJson[3] + profitOrginJson[4] + profitOrginJson[5] + profitOrginJson[6] + profitOrginJson[7] + profitOrginJson[8] + profitOrginJson[9],
-		'10' : profitOrginJson[0] + profitOrginJson[1] + profitOrginJson[2] + profitOrginJson[3] + profitOrginJson[4] + profitOrginJson[5] + profitOrginJson[6] + profitOrginJson[7] + profitOrginJson[8] + profitOrginJson[9] + profitOrginJson[10],
-		'11' : profitOrginJson[0] + profitOrginJson[1] + profitOrginJson[2] + profitOrginJson[3] + profitOrginJson[4] + profitOrginJson[5] + profitOrginJson[6] + profitOrginJson[7] + profitOrginJson[8] + profitOrginJson[9] + profitOrginJson[10] + profitOrginJson[11]
-	}
-
-	var profitOrginYearJson = {
-		'0' : profitOrginJson[0] + profitOrginJson[1] + profitOrginJson[2] + profitOrginJson[3] + profitOrginJson[4] + profitOrginJson[5] + profitOrginJson[6]
-				+ profitOrginJson[7] + profitOrginJson[8] + profitOrginJson[9] + profitOrginJson[10] + profitOrginJson[11]
-	}
-
-	var percentJson = {
-		'0' : ${graph1.percent[0]},
-		'1' : ${graph1.percent[1]},
-		'2' : ${graph1.percent[2]},
-		'3' : ${graph1.percent[3]},
-		'4' : ${graph1.percent[4]},
-		'5' : ${graph1.percent[5]},
-		'6' : ${graph1.percent[6]},
-		'7' : ${graph1.percent[7]},
-		'8' : ${graph1.percent[8]},
-		'9' : ${graph1.percent[9]},
-		'10' : ${graph1.percent[10]},
-		'11' : ${graph1.percent[11]}
-	}
-
-	var overJson = {
-		'0' : ${graph1.over[0]},
-		'1' : ${graph1.over[1]},
-		'2' : ${graph1.over[2]},
-		'3' : ${graph1.over[3]},
-		'4' : ${graph1.over[4]},
-		'5' : ${graph1.over[5]},
-		'6' : ${graph1.over[6]},
-		'7' : ${graph1.over[7]},
-		'8' : ${graph1.over[8]},
-		'9' : ${graph1.over[9]},
-		'10' : ${graph1.over[10]},
-		'11' : ${graph1.over[11]}
-	}
-
-	var overOrginJson = {
-		'0' : ${graph1.overOrgin[0]},
-		'1' : ${graph1.overOrgin[1]},
-		'2' : ${graph1.overOrgin[2]},
-		'3' : ${graph1.overOrgin[3]},
-		'4' : ${graph1.overOrgin[4]},
-		'5' : ${graph1.overOrgin[5]},
-		'6' : ${graph1.overOrgin[6]},
-		'7' : ${graph1.overOrgin[7]},
-		'8' : ${graph1.overOrgin[8]},
-		'9' : ${graph1.overOrgin[9]},
-		'10' : ${graph1.overOrgin[10]},
-		'11' : ${graph1.overOrgin[11]}
-	}
-	var cnt01_OrginJson = {
-		'0' : ${graph1.cnt01[0]},
-		'1' : ${graph1.cnt01[1]},
-		'2' : ${graph1.cnt01[2]},
-		'3' : ${graph1.cnt01[3]},
-		'4' : ${graph1.cnt01[4]},
-		'5' : ${graph1.cnt01[5]},
-		'6' : ${graph1.cnt01[6]},
-		'7' : ${graph1.cnt01[7]},
-		'8' : ${graph1.cnt01[8]},
-		'9' : ${graph1.cnt01[9]},
-		'10' : ${graph1.cnt01[10]},
-		'11' : ${graph1.cnt01[11]}
-	}
-	var cnt01Sum_OrginJson = {
-		'0' : ${graph1.cnt01Sum[0]},
-		'1' : ${graph1.cnt01Sum[1]},
-		'2' : ${graph1.cnt01Sum[2]},
-		'3' : ${graph1.cnt01Sum[3]},
-		'4' : ${graph1.cnt01Sum[4]},
-		'5' : ${graph1.cnt01Sum[5]},
-		'6' : ${graph1.cnt01Sum[6]},
-		'7' : ${graph1.cnt01Sum[7]},
-		'8' : ${graph1.cnt01Sum[8]},
-		'9' : ${graph1.cnt01Sum[9]},
-		'10' : ${graph1.cnt01Sum[10]},
-		'11' : ${graph1.cnt01Sum[11]}
-	}
-	var cnt02_OrginJson = {
-		'0' : ${graph1.cnt02[0]},
-		'1' : ${graph1.cnt02[1]},
-		'2' : ${graph1.cnt02[2]},
-		'3' : ${graph1.cnt02[3]},
-		'4' : ${graph1.cnt02[4]},
-		'5' : ${graph1.cnt02[5]},
-		'6' : ${graph1.cnt02[6]},
-		'7' : ${graph1.cnt02[7]},
-		'8' : ${graph1.cnt02[8]},
-		'9' : ${graph1.cnt02[9]},
-		'10' : ${graph1.cnt02[10]},
-		'11' : ${graph1.cnt02[11]}
-	}
-	var cnt02Sum_OrginJson = {
-		'0' : ${graph1.cnt02Sum[0]},
-		'1' : ${graph1.cnt02Sum[1]},
-		'2' : ${graph1.cnt02Sum[2]},
-		'3' : ${graph1.cnt02Sum[3]},
-		'4' : ${graph1.cnt02Sum[4]},
-		'5' : ${graph1.cnt02Sum[5]},
-		'6' : ${graph1.cnt02Sum[6]},
-		'7' : ${graph1.cnt02Sum[7]},
-		'8' : ${graph1.cnt02Sum[8]},
-		'9' : ${graph1.cnt02Sum[9]},
-		'10' : ${graph1.cnt02Sum[10]},
-		'11' : ${graph1.cnt02Sum[11]}
-	}
-
-	var cnt03_OrginJson = {
-		'0' : ${graph1.cnt03[0]},
-		'1' : ${graph1.cnt03[1]},
-		'2' : ${graph1.cnt03[2]},
-		'3' : ${graph1.cnt03[3]},
-		'4' : ${graph1.cnt03[4]},
-		'5' : ${graph1.cnt03[5]},
-		'6' : ${graph1.cnt03[6]},
-		'7' : ${graph1.cnt03[7]},
-		'8' : ${graph1.cnt03[8]},
-		'9' : ${graph1.cnt03[9]},
-		'10' : ${graph1.cnt03[10]},
-		'11' : ${graph1.cnt03[11]}
-	}
-	var cnt03Sum_OrginJson = {
-		'0' : ${graph1.cnt03Sum[0]},
-		'1' : ${graph1.cnt03Sum[1]},
-		'2' : ${graph1.cnt03Sum[2]},
-		'3' : ${graph1.cnt03Sum[3]},
-		'4' : ${graph1.cnt03Sum[4]},
-		'5' : ${graph1.cnt03Sum[5]},
-		'6' : ${graph1.cnt03Sum[6]},
-		'7' : ${graph1.cnt03Sum[7]},
-		'8' : ${graph1.cnt03Sum[8]},
-		'9' : ${graph1.cnt03Sum[9]},
-		'10' : ${graph1.cnt03Sum[10]},
-		'11' : ${graph1.cnt03Sum[11]}
-	}
-
-	var cnt04_OrginJson = {
-		'0' : ${graph1.cnt04[0]},
-		'1' : ${graph1.cnt04[1]},
-		'2' : ${graph1.cnt04[2]},
-		'3' : ${graph1.cnt04[3]},
-		'4' : ${graph1.cnt04[4]},
-		'5' : ${graph1.cnt04[5]},
-		'6' : ${graph1.cnt04[6]},
-		'7' : ${graph1.cnt04[7]},
-		'8' : ${graph1.cnt04[8]},
-		'9' : ${graph1.cnt04[9]},
-		'10' : ${graph1.cnt04[10]},
-		'11' : ${graph1.cnt04[11]}
-	}
-	var cnt04Sum_OrginJson = {
-		'0' : ${graph1.cnt04Sum[0]},
-		'1' : ${graph1.cnt04Sum[1]},
-		'2' : ${graph1.cnt04Sum[2]},
-		'3' : ${graph1.cnt04Sum[3]},
-		'4' : ${graph1.cnt04Sum[4]},
-		'5' : ${graph1.cnt04Sum[5]},
-		'6' : ${graph1.cnt04Sum[6]},
-		'7' : ${graph1.cnt04Sum[7]},
-		'8' : ${graph1.cnt04Sum[8]},
-		'9' : ${graph1.cnt04Sum[9]},
-		'10' : ${graph1.cnt04Sum[10]},
-		'11' : ${graph1.cnt04Sum[11]}
-	}
-
-	var cnt05_OrginJson = {
-		'0' : ${graph1.cnt05[0]},
-		'1' : ${graph1.cnt05[1]},
-		'2' : ${graph1.cnt05[2]},
-		'3' : ${graph1.cnt05[3]},
-		'4' : ${graph1.cnt05[4]},
-		'5' : ${graph1.cnt05[5]},
-		'6' : ${graph1.cnt05[6]},
-		'7' : ${graph1.cnt05[7]},
-		'8' : ${graph1.cnt05[8]},
-		'9' : ${graph1.cnt05[9]},
-		'10' : ${graph1.cnt05[10]},
-		'11' : ${graph1.cnt05[11]}
-	}
-	var cnt05Sum_OrginJson = {
-		'0' : ${graph1.cnt05Sum[0]},
-		'1' : ${graph1.cnt05Sum[1]},
-		'2' : ${graph1.cnt05Sum[2]},
-		'3' : ${graph1.cnt05Sum[3]},
-		'4' : ${graph1.cnt05Sum[4]},
-		'5' : ${graph1.cnt05Sum[5]},
-		'6' : ${graph1.cnt05Sum[6]},
-		'7' : ${graph1.cnt05Sum[7]},
-		'8' : ${graph1.cnt05Sum[8]},
-		'9' : ${graph1.cnt05Sum[9]},
-		'10' : ${graph1.cnt05Sum[10]},
-		'11' : ${graph1.cnt05Sum[11]}
-	}
-
-	var cnt06_OrginJson = {
-		'0' : ${graph1.cnt06[0]},
-		'1' : ${graph1.cnt06[1]},
-		'2' : ${graph1.cnt06[2]},
-		'3' : ${graph1.cnt06[3]},
-		'4' : ${graph1.cnt06[4]},
-		'5' : ${graph1.cnt06[5]},
-		'6' : ${graph1.cnt06[6]},
-		'7' : ${graph1.cnt06[7]},
-		'8' : ${graph1.cnt06[8]},
-		'9' : ${graph1.cnt06[9]},
-		'10' : ${graph1.cnt06[10]},
-		'11' : ${graph1.cnt06[11]}
-	}
-	var cnt06Sum_OrginJson = {
-		'0' : ${graph1.cnt06Sum[0]},
-		'1' : ${graph1.cnt06Sum[1]},
-		'2' : ${graph1.cnt06Sum[2]},
-		'3' : ${graph1.cnt06Sum[3]},
-		'4' : ${graph1.cnt06Sum[4]},
-		'5' : ${graph1.cnt06Sum[5]},
-		'6' : ${graph1.cnt06Sum[6]},
-		'7' : ${graph1.cnt06Sum[7]},
-		'8' : ${graph1.cnt06Sum[8]},
-		'9' : ${graph1.cnt06Sum[9]},
-		'10' : ${graph1.cnt06Sum[10]},
-		'11' : ${graph1.cnt06Sum[11]}
-	}
-
-	var globaloption1, globaloption2, globaloption3, globaloption4;
-	var globalmyChart1, globalmyChartGauge2, globalmyChartGauge3, globalmyChartGauge4;
-	var now = new Date();
-	var colors = ['#5470C6', '#91CC75', '#EE6666'];
-
-	function chartReady(){
-		// 1번째 그래프 ===================================================
-		var myChart1 = echarts.init(document.getElementById('myChart01'));
-		globalmyChart1 = myChart1;
-		// 차트 속성과 데이터를 지정합니다.
-		option1 = {
-			tooltip : {
-				trigger: 'axis',
-				axisPointer:{
-					type:'cross',
-					crossStyle: {
-						color: '#999'
+	$(document).ready(function(){
+		if($('#demo_graph').val() == 100002){
+			$.LoadingOverlay("show", true);
+				//해당 월별 목표 매출액
+				var sum01 = 0;
+				var sum02 = 0;
+				var sum03 = 0;
+				var sum04 = 0;
+				var sum05 = 0;
+				var sum06 = 0;
+				var sum07 = 0;
+				var sum08 = 0;
+				var sum09 = 0;
+				var sum10 = 0;
+				var sum11 = 0;
+				var sum12 = 0;
+				//해당 월 누적 매출액
+				var stacksum01 = 0;
+				var stacksum02 = 0;
+				var stacksum03 = 0;
+				var stacksum04 = 0;
+				var stacksum05 = 0;
+				var stacksum06 = 0;
+				var stacksum07 = 0;
+				var stacksum08 = 0;
+				var stacksum09 = 0;
+				var stacksum10 = 0;
+				var stacksum11 = 0;
+				//계산서 발행번호가 나왔고 완료건 데이터(완료가 된건만 나오게.(B5)) => 매출건
+				var conpletevaclist01 = 0;
+				var conpletevaclist02 = 0;
+				var conpletevaclist03 = 0;
+				var conpletevaclist04 = 0;
+				var conpletevaclist05 = 0;
+				var conpletevaclist06 = 0;
+				var conpletevaclist07 = 0;
+				var conpletevaclist08 = 0;
+				var conpletevaclist09 = 0;
+				var conpletevaclist10 = 0;
+				var conpletevaclist11 = 0;
+				var conpletevaclist12 = 0;
+				//위 건 누적 매출 데이터
+				var convacstack01 =0;
+				var convacstack02 =0;
+				var convacstack03 =0;
+				var convacstack04 =0;
+				var convacstack05 =0;
+				var convacstack06 =0;
+				var convacstack07 =0;
+				var convacstack08 =0;
+				var convacstack09 =0;
+				var convacstack10 =0;
+				var convacstack11 =0;
+				
+				// 실시간 데이터 반영 그래프 4번 데이터
+				$.ajax({
+					url: "${path}/salesTarget/gradata.do", 
+					method: "POST",
+					dataType: "json",
+				})
+				.done(function(result){
+					var janlength = result.data.length;
+					var janlength01 = result.data01.length;
+					var janlength02 = result.data02.length;
+					var janlength03 = result.data03.length;
+					var janlength04 = result.data04.length;
+					var janlength05 = result.data05.length;
+					var janlength06 = result.data06.length;
+					var janlength07 = result.data07.length;
+					var janlength08 = result.data08.length;
+					var janlength09 = result.data09.length;
+					var janlength10 = result.data10.length;
+					var janlength11 = result.data11.length;
+					var janlength12 = result.data12.length;
+							
+					for(var i=0;i<janlength;i++){
+						sum01 += result.data[i].mm01;
 					}
-				}
-			},
-			legend: {
-				data:["월별목표", "월별매출", "누적목표", "누적매출"]
-			},
-			xAxis : [
-				{
-					type : 'category',
-					splitLine : {
-						show:true
-					},
-					axisPointer: {
-						type: 'shadow'
-					},
-					data : ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"]
-				},
-				{
-					type : 'category',
-					axisLine : {
-						show:true
-					},
-					axisLabel : {
-						show:false
-					},
-					data : ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"]
-				}
-			],
-			yAxis : [
-				{
-					type: 'value',
-					name: '월별(억원)',
-					position: 'left',
-					axisLine: {
-						show: true,
-						lineStyle: {
-							color: colors[0]
-						}
-					},
-					axisLabel: {
-						formatter: function (data) {
-							return Math.floor(data/10000000)
-						}
+					for(var i=0;i<janlength;i++){
+						sum02 += result.data[i].mm02;
 					}
-				},
-				{
-					type: 'value',
-					name: '누적(억원)',
-					position: 'right',
-					axisLine: {
-						show: true,
-						lineStyle: {
-							color: colors[0]
-						}
-					},
-					axisLabel: {
-						formatter: function (data) {
-							return Math.floor(data/10000000)
-						}
+					for(var i=0;i<janlength;i++){
+						sum03 += result.data[i].mm03;
 					}
-				}
-			],
-			series : [
-				{
-					name: '월별목표',
-					type: 'bar',
-					data: [profitOrginJson[0], profitOrginJson[1], profitOrginJson[2], profitOrginJson[3], profitOrginJson[4], profitOrginJson[5], profitOrginJson[6], profitOrginJson[7], profitOrginJson[8], profitOrginJson[9], profitOrginJson[10], profitOrginJson[11]]
-				},
-				{
-					name: '월별매출',
-					type: 'bar',
-					data: [salesOrginJson[0], salesOrginJson[1], salesOrginJson[2], salesOrginJson[3], salesOrginJson[4], salesOrginJson[5], salesOrginJson[6], salesOrginJson[7], salesOrginJson[8], salesOrginJson[9], salesOrginJson[10], salesOrginJson[11]]
-				},
-				{
-					name: '누적목표',
-					type: 'line',
-					yAxisIndex: 1,
-					data: [profitOrginStackJson[0], profitOrginStackJson[1], profitOrginStackJson[2], profitOrginStackJson[3], profitOrginStackJson[4], profitOrginStackJson[5], profitOrginStackJson[6], profitOrginStackJson[7], profitOrginStackJson[8], profitOrginStackJson[9], profitOrginStackJson[10], profitOrginStackJson[11]]
-				},
-				{
-					name: '누적매출',
-					type: 'line',
-					yAxisIndex: 1,
-					data: [salesOrginStackJson[0], salesOrginStackJson[1], salesOrginStackJson[2], salesOrginStackJson[3], salesOrginStackJson[4], salesOrginStackJson[5], salesOrginStackJson[6], salesOrginStackJson[7], salesOrginStackJson[8], salesOrginStackJson[9], salesOrginStackJson[10], salesOrginStackJson[11]]
-				}
-			]
-		}
-		myChart1.setOption(option1);
-		globaloption1 = option1;
-		// 위에서 설정한 속성을 차트에 반영합니다.
+					for(var i=0;i<janlength;i++){
+						sum04 += result.data[i].mm04;
+					}
+					for(var i=0;i<janlength;i++){
+						sum05 += result.data[i].mm05;
+					}
+					for(var i=0;i<janlength;i++){
+						sum06 += result.data[i].mm06;
+					}
+					for(var i=0;i<janlength;i++){
+						sum07 += result.data[i].mm07;
+					}
+					for(var i=0;i<janlength;i++){
+						sum08 += result.data[i].mm08;
+					}
+					for(var i=0;i<janlength;i++){
+						sum09 += result.data[i].mm09;
+					}
+					for(var i=0;i<janlength;i++){
+						sum10 += result.data[i].mm10;
+					}
+					for(var i=0;i<janlength;i++){
+						sum11 += result.data[i].mm11;
+					}
+					for(var i=0;i<janlength;i++){
+						sum12 += result.data[i].mm12;
+					}
+					stacksum01 = sum01 + sum02;
+					stacksum02 = stacksum01 + sum03;
+					stacksum03 = stacksum02 + sum04;
+					stacksum04 = stacksum03 + sum05;
+					stacksum05 = stacksum04 + sum06;
+					stacksum06 = stacksum05 + sum07;
+					stacksum07 = stacksum06 + sum08;
+					stacksum08 = stacksum07 + sum09;
+					stacksum09 = stacksum08 + sum10;
+					stacksum10 = stacksum09 + sum11;
+					stacksum11 = stacksum10 + sum12;
+									
+					for(var i=0;i<janlength01;i++){
+						conpletevaclist01 += (result.data01[i].vatTax + result.data01[i].vatAmount);
+					}
+					for(var i=0;i<janlength02;i++){
+						conpletevaclist02 += (result.data02[i].vatTax + result.data02[i].vatAmount);
+					}
+					for(var i=0;i<janlength03;i++){
+						conpletevaclist03 += (result.data03[i].vatTax + result.data03[i].vatAmount);
+					}
+					for(var i=0;i<janlength04;i++){
+						conpletevaclist04 += (result.data04[i].vatTax + result.data04[i].vatAmount);
+					}
+					for(var i=0;i<janlength05;i++){
+						conpletevaclist05 += (result.data05[i].vatTax + result.data05[i].vatAmount);
+					}
+					for(var i=0;i<janlength06;i++){
+						conpletevaclist06 += (result.data06[i].vatTax + result.data06[i].vatAmount);
+					}
+					for(var i=0;i<janlength07;i++){
+						conpletevaclist07 += (result.data07[i].vatTax + result.data07[i].vatAmount);
+					}
+					for(var i=0;i<janlength08;i++){
+						conpletevaclist08 += (result.data08[i].vatTax + result.data08[i].vatAmount);
+					}
+					for(var i=0;i<janlength09;i++){
+						conpletevaclist09 += (result.data09[i].vatTax + result.data09[i].vatAmount);
+					}
+					for(var i=0;i<janlength10;i++){
+						conpletevaclist10 += (result.data10[i].vatTax + result.data10[i].vatAmount);
+					}
+					for(var i=0;i<janlength11;i++){
+						conpletevaclist11 += (result.data11[i].vatTax + result.data11[i].vatAmount);
+					}
+					for(var i=0;i<janlength12;i++){
+						conpletevaclist12 += (result.data12[i].vatTax + result.data12[i].vatAmount);
+					}
+									
+					//계산서 완료건에 대한 누적 매출 data
+					convacstack01 = conpletevaclist01 + conpletevaclist02; 
+					convacstack02 = convacstack01 + conpletevaclist03;
+					convacstack03 = convacstack02 + conpletevaclist04;
+					convacstack04 = convacstack03 + conpletevaclist05;
+					convacstack05 = convacstack04 + conpletevaclist06;
+					convacstack06 = convacstack05 + conpletevaclist07;
+					convacstack07 = convacstack06 + conpletevaclist08;
+					convacstack08 = convacstack07 + conpletevaclist09;
+					convacstack09 = convacstack08 + conpletevaclist10;
+					convacstack10 = convacstack09 + conpletevaclist11;
+					convacstack11 = convacstack10 + conpletevaclist12;
+							
+							//4번 그래프(연간 계획대비 실적)
+							var myChart1 = echarts.init(document.getElementById('myChart'));
+							globalmyChart1 = myChart1;
+							option1 = {
+								tooltip : {
+									trigger: 'axis',
+									axisPointer:{
+										type:'cross',
+										crossStyle: {
+											color: '#999'
+										}
+									}
+								},
+								legend: {
+									data:["월별목표", "월별매출", "누적목표", "누적매출"]
+								},
+								xAxis : [
+									{
+										type : 'category',
+										splitLine : {
+											show:true
+										},
+										axisPointer: {
+											type: 'shadow'
+										},
+										data : ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"]
+									},
+									{
+										type : 'category',
+										axisLine : {
+											show:true
+										},
+										axisLabel : {
+											show:false
+										},
+										data : ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"]
+									}
+								],
+								yAxis : [
+									{
+										type: 'value',
+										name: '월별(억원)',
+										position: 'left',
+										axisLine: {
+											show: true,
+											lineStyle: {
+												color: '#999'
+											}
+										},
+										axisLabel: {
+											formatter: function (data) {
+												return Math.floor(data/10000000)
+											}
+										}
+									},
+									{
+										type: 'value',
+										name: '누적(억원)',
+										position: 'right',
+										axisLine: {
+											show: true,
+											lineStyle: {
+												color: '#999'
+											}
+										},
+										axisLabel: {
+											formatter: function (data) {
+												return Math.floor(data/10000000)
+											}
+										}
+									}
+								],
+								series : [
+									{
+										name: '월별목표',
+										type: 'bar',
+										data: [sum01, sum02, sum03, sum04, sum05, sum06, sum07, sum08, sum09, sum10, sum11, sum12]
+									},
+									{
+										name: '월별매출',
+										type: 'bar',
+										data: [conpletevaclist01, conpletevaclist02, conpletevaclist03, conpletevaclist04, conpletevaclist05, conpletevaclist06, conpletevaclist07, conpletevaclist08, conpletevaclist09, conpletevaclist10, conpletevaclist11, conpletevaclist12]
+									},
+									{
+										name: '누적목표',
+										type: 'line',
+										yAxisIndex: 1,
+										data: [sum01, stacksum01, stacksum02, stacksum03, stacksum04, stacksum05, stacksum06, stacksum07, stacksum08, stacksum09, stacksum10, stacksum11]
+									},
+									{
+										name: '누적매출',
+										type: 'line',
+										yAxisIndex: 1,
+										data: [conpletevaclist01, convacstack01, convacstack02, convacstack03, convacstack04, convacstack05, convacstack06, convacstack07, convacstack08, convacstack09, convacstack10, convacstack11]
+									}
+								]
+							}
+							myChart1.setOption(option1);
+							globaloption1 = option1;
+							//4번 그래프(얀간 계획대비 실적)
 
-		// 2번째 그래프 ===================================================
-
-		var myChartGauge2 = echarts.init(document.getElementById('myChart02'));
-		globalmyChartGauge2 = myChartGauge2;
-		var option2 = {
-			series: [{
-				type: 'gauge',
-				center: ['39%', '30%'],
-				startAngle: 225,
-				endAngle: -45,
-				min: 0,
-				max: 100,
-				splitNumber: 10,
-				axisLine: {
-					lineStyle: {
-						width: 3,
-						color: [
-							[0.4,'#FC6180'],
-							[0.7,'#4680ff'],
-							[1,'#93BE52']
+							setTimeout(function(){
+								$.LoadingOverlay("hide", true);
+							}, 2000);
+		})
+	}else{
+					var myChart1 = echarts.init(document.getElementById('myChart'));
+					globalmyChart1 = myChart1;
+					option1 = {
+						tooltip : {
+							trigger: 'axis',
+							axisPointer:{
+								type:'cross',
+								crossStyle: {
+									color: '#999'
+								}
+							}
+						},
+						legend: {
+							data:["월별목표", "월별매출", "누적목표", "누적매출"]
+						},
+						xAxis : [
+							{
+								type : 'category',
+								splitLine : {
+									show:true
+								},
+								axisPointer: {
+									type: 'shadow'
+								},
+								data : ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"]
+							},
+							{
+								type : 'category',
+								axisLine : {
+									show:true
+								},
+								axisLabel : {
+									show:false
+								},
+								data : ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"]
+							}
+						],
+						yAxis : [
+							{
+								type: 'value',
+								name: '월별(억원)',
+								position: 'left',
+								axisLine: {
+									show: true,
+									lineStyle: {
+										color: '#999'
+									}
+								},
+								axisLabel: {
+									formatter: function (data) {
+										return Math.floor(data/10000000)
+									}
+								}
+							},
+							{
+								type: 'value',
+								name: '누적(억원)',
+								position: 'right',
+								axisLine: {
+									show: true,
+									lineStyle: {
+										color: '#999'
+									}
+								},
+								axisLabel: {
+									formatter: function (data) {
+										return Math.floor(data/10000000)
+									}
+								}
+							}
+						],
+						series : [
+							{
+								name: '월별목표',
+								type: 'bar',
+								data: ['1000000', '1000000', '1000000', '1000000', '1000000', '1000000', '1000000', '1000000', '1000000', '1000000', '1000000', '1000000']
+							},
+							{
+								name: '월별매출',
+								type: 'bar',
+								data: ['200000', '200000', '200000', '200000', '0', '0', '0', '0', '0', '0', '0', '0']
+							},
+							{
+								name: '누적목표',
+								type: 'line',
+								yAxisIndex: 1,
+								data: ['1000000', '2000000', '3000000', '4000000', '5000000', '6000000', '7000000', '8000000', '9000000', '10000000', '11000000', '12000000']
+							},
+							{
+								name: '누적매출',
+								type: 'line',
+								yAxisIndex: 1,
+								data: ['200000', '400000', '600000', '800000', '800000', '800000', '800000', '800000', '800000', '800000', '800000', '800000']
+							}
 						]
 					}
-				},
-				pointer: {
-					itemStyle: {
-						color: 'auto'
-					}
-				},
-				axisTick: {
-					length: 3,
-					lineStyle: {
-						color: 'auto',
-						width: 1
-					}
-				},
-				splitLine: {
-					length: 7,
-					lineStyle: {
-						color: 'auto',
-						width: 3
-					}
-				},
-				axisLabel: {
-					show : true,
-				},
-				title: {
-					offsetCenter: [0, '-20%'],
-					fontSize: 30
-				},
-				detail: {
-					show : true,
-					backgroundColor: 'rgba(0,0,0,0)',
-					borderWidth: 0,
-					borderColor: '#ccc',
-					fontSize: 20,
-					offsetCenter: [0, '70%'],
-					valueAnimation: true,
-					formatter: function (value) {
-						return value + '%';
-					},
-					color: 'auto'
-				},
-				data: [{
-					value: percentJson[now.getMonth()]
-				}]
-			}]
-		};
+					myChart1.setOption(option1);
+					globaloption1 = option1;
+					//4번 그래프(얀간 계획대비 실적)
 
-		function gauge_load_chart2(option2){
-			myChartGauge2.setOption(option2,true);
+					setTimeout(function(){
+						$.LoadingOverlay("hide", true);
+					}, 500);
 		}
-		gauge_load_chart2(option2);
-		globaloption2 = option2;
+		
+	});
+	<%-- var salesJson = {
+					'0' : ${graph1.sales[0]},
+					'1' : ${graph1.sales[1]},
+					'2' : ${graph1.sales[2]},
+					'3' : ${graph1.sales[3]},
+					'4' : ${graph1.sales[4]},
+					'5' : ${graph1.sales[5]},
+					'6' : ${graph1.sales[6]},
+					'7' : ${graph1.sales[7]},
+					'8' : ${graph1.sales[8]},
+					'9' : ${graph1.sales[9]},
+					'10' : ${graph1.sales[10]},
+					'11' : ${graph1.sales[11]}
+				}
+				var salesOrginJson = {
+					'0' : Math.floor(${graph1.salesOrgin[0]}),
+					'1' : Math.floor(${graph1.salesOrgin[1]}),
+					'2' : Math.floor(${graph1.salesOrgin[2]}),
+					'3' : Math.floor(${graph1.salesOrgin[3]}),
+					'4' : Math.floor(${graph1.salesOrgin[4]}),
+					'5' : Math.floor(${graph1.salesOrgin[5]}),
+					'6' : Math.floor(${graph1.salesOrgin[6]}),
+					'7' : Math.floor(${graph1.salesOrgin[7]}),
+					'8' : Math.floor(${graph1.salesOrgin[8]}),
+					'9' : Math.floor(${graph1.salesOrgin[9]}),
+					'10' : Math.floor(${graph1.salesOrgin[10]}),
+					'11' : Math.floor(${graph1.salesOrgin[11]}),
+				}
 
-		/*
-		var timeTicket = setInterval(function (){
-			gauge_load_chart(optionGauge);
-		},2000000);
-		*/
+				var salesOrginStackJson = {
+					'0' : Math.floor(salesOrginJson[0]),
+					'1' : Math.floor(salesOrginJson[0] + salesOrginJson[1]),
+					'2' : Math.floor(salesOrginJson[0] + salesOrginJson[1] + salesOrginJson[2]),
+					'3' : Math.floor(salesOrginJson[0] + salesOrginJson[1] + salesOrginJson[2] + salesOrginJson[3]),
+					'4' : Math.floor(salesOrginJson[0] + salesOrginJson[1] + salesOrginJson[2] + salesOrginJson[3] + salesOrginJson[4]),
+					'5' : Math.floor(salesOrginJson[0] + salesOrginJson[1] + salesOrginJson[2] + salesOrginJson[3] + salesOrginJson[4] + salesOrginJson[5]),
+					'6' : Math.floor(salesOrginJson[0] + salesOrginJson[1] + salesOrginJson[2] + salesOrginJson[3] + salesOrginJson[4] + salesOrginJson[5] + salesOrginJson[6]),
+					'7' : Math.floor(salesOrginJson[0] + salesOrginJson[1] + salesOrginJson[2] + salesOrginJson[3] + salesOrginJson[4] + salesOrginJson[5] + salesOrginJson[6] + salesOrginJson[7]),
+					'8' : Math.floor(salesOrginJson[0] + salesOrginJson[1] + salesOrginJson[2] + salesOrginJson[3] + salesOrginJson[4] + salesOrginJson[5] + salesOrginJson[6] + salesOrginJson[7] + salesOrginJson[8]),
+					'9' : Math.floor(salesOrginJson[0] + salesOrginJson[1] + salesOrginJson[2] + salesOrginJson[3] + salesOrginJson[4] + salesOrginJson[5] + salesOrginJson[6] + salesOrginJson[7] + salesOrginJson[8] + salesOrginJson[9]),
+					'10' : Math.floor(salesOrginJson[0] + salesOrginJson[1] + salesOrginJson[2] + salesOrginJson[3] + salesOrginJson[4] + salesOrginJson[5] + salesOrginJson[6] + salesOrginJson[7] + salesOrginJson[8] + salesOrginJson[9] + salesOrginJson[10]),
+					'11' : Math.floor(salesOrginJson[0] + salesOrginJson[1] + salesOrginJson[2] + salesOrginJson[3] + salesOrginJson[4] + salesOrginJson[5] + salesOrginJson[6] + salesOrginJson[7] + salesOrginJson[8] + salesOrginJson[9] + salesOrginJson[10] + salesOrginJson[11])
+				}
 
-		// 3번째 그래프 ===================================================
+				var salesOrginYearJson = {
+					'0' : salesOrginJson[0] + salesOrginJson[1] + salesOrginJson[2] + salesOrginJson[3] + salesOrginJson[4] + salesOrginJson[5] + salesOrginJson[6]
+							+ salesOrginJson[7] + salesOrginJson[8] + salesOrginJson[9] + salesOrginJson[10] + salesOrginJson[11]
+				}
+				var profitJson = {
+					'0' : ${graph1.profit[0]},
+					'1' : ${graph1.profit[1]},
+					'2' : ${graph1.profit[2]},
+					'3' : ${graph1.profit[3]},
+					'4' : ${graph1.profit[4]},
+					'5' : ${graph1.profit[5]},
+					'6' : ${graph1.profit[6]},
+					'7' : ${graph1.profit[7]},
+					'8' : ${graph1.profit[8]},
+					'9' : ${graph1.profit[9]},
+					'10' : ${graph1.profit[10]},
+					'11' : ${graph1.profit[11]}
+				}
+				//그래프1의 정의 그리고 그 옆에 profitOrgin 이 친구는 어디서 정의되어진 놈인가?
+						
+				var profitOrginJson = {
+					'0' : ${graph1.profitOrgin[0]},
+					'1' : ${graph1.profitOrgin[1]},
+					'2' : ${graph1.profitOrgin[2]},
+					'3' : ${graph1.profitOrgin[3]},
+					'4' : ${graph1.profitOrgin[4]},
+					'5' : ${graph1.profitOrgin[5]},
+					'6' : ${graph1.profitOrgin[6]},
+					'7' : ${graph1.profitOrgin[7]},
+					'8' : ${graph1.profitOrgin[8]},
+					'9' : ${graph1.profitOrgin[9]},
+					'10' : ${graph1.profitOrgin[10]},
+					'11' : ${graph1.profitOrgin[11]}
+				}
+				var profitOrginStackJson = {
+					'0' : profitOrginJson[0],
+					'1' : profitOrginJson[0] + profitOrginJson[1],
+					'2' : profitOrginJson[0] + profitOrginJson[1] + profitOrginJson[2],
+					'3' : profitOrginJson[0] + profitOrginJson[1] + profitOrginJson[2] + profitOrginJson[3],
+					'4' : profitOrginJson[0] + profitOrginJson[1] + profitOrginJson[2] + profitOrginJson[3] + profitOrginJson[4],
+					'5' : profitOrginJson[0] + profitOrginJson[1] + profitOrginJson[2] + profitOrginJson[3] + profitOrginJson[4] + profitOrginJson[5],
+					'6' : profitOrginJson[0] + profitOrginJson[1] + profitOrginJson[2] + profitOrginJson[3] + profitOrginJson[4] + profitOrginJson[5] + profitOrginJson[6],
+					'7' : profitOrginJson[0] + profitOrginJson[1] + profitOrginJson[2] + profitOrginJson[3] + profitOrginJson[4] + profitOrginJson[5] + profitOrginJson[6] + profitOrginJson[7],
+					'8' : profitOrginJson[0] + profitOrginJson[1] + profitOrginJson[2] + profitOrginJson[3] + profitOrginJson[4] + profitOrginJson[5] + profitOrginJson[6] + profitOrginJson[7] + profitOrginJson[8],
+					'9' : profitOrginJson[0] + profitOrginJson[1] + profitOrginJson[2] + profitOrginJson[3] + profitOrginJson[4] + profitOrginJson[5] + profitOrginJson[6] + profitOrginJson[7] + profitOrginJson[8] + profitOrginJson[9],
+					'10' : profitOrginJson[0] + profitOrginJson[1] + profitOrginJson[2] + profitOrginJson[3] + profitOrginJson[4] + profitOrginJson[5] + profitOrginJson[6] + profitOrginJson[7] + profitOrginJson[8] + profitOrginJson[9] + profitOrginJson[10],
+					'11' : profitOrginJson[0] + profitOrginJson[1] + profitOrginJson[2] + profitOrginJson[3] + profitOrginJson[4] + profitOrginJson[5] + profitOrginJson[6] + profitOrginJson[7] + profitOrginJson[8] + profitOrginJson[9] + profitOrginJson[10] + profitOrginJson[11]
+				}
 
-		var myChartGauge3 = echarts.init(document.getElementById('myChart03'));
-		globalmyChartGauge3 = myChartGauge3;
-		var option3 = {
-			series: [{
-				type: 'gauge',
-				center: ['39%', '30%'],
-				startAngle: 225,
-				endAngle: -45,
-				min: 0,
-				max: 100,
-				splitNumber: 10,
-				axisLine: {
-					lineStyle: {
-						width: 3,
-						color: [
-							[0.4,'#FC6180'],
-							[0.7,'#4680ff'],
-							[1,'#93BE52']
+				var profitOrginYearJson = {
+					'0' : profitOrginJson[0] + profitOrginJson[1] + profitOrginJson[2] + profitOrginJson[3] + profitOrginJson[4] + profitOrginJson[5] + profitOrginJson[6]
+							+ profitOrginJson[7] + profitOrginJson[8] + profitOrginJson[9] + profitOrginJson[10] + profitOrginJson[11]
+				}
+
+				var percentJson = {
+					'0' : ${graph1.percent[0]},
+					'1' : ${graph1.percent[1]},
+					'2' : ${graph1.percent[2]},
+					'3' : ${graph1.percent[3]},
+					'4' : ${graph1.percent[4]},
+					'5' : ${graph1.percent[5]},
+					'6' : ${graph1.percent[6]},
+					'7' : ${graph1.percent[7]},
+					'8' : ${graph1.percent[8]},
+					'9' : ${graph1.percent[9]},
+					'10' : ${graph1.percent[10]},
+					'11' : ${graph1.percent[11]}
+				}
+
+				var overJson = {
+					'0' : ${graph1.over[0]},
+					'1' : ${graph1.over[1]},
+					'2' : ${graph1.over[2]},
+					'3' : ${graph1.over[3]},
+					'4' : ${graph1.over[4]},
+					'5' : ${graph1.over[5]},
+					'6' : ${graph1.over[6]},
+					'7' : ${graph1.over[7]},
+					'8' : ${graph1.over[8]},
+					'9' : ${graph1.over[9]},
+					'10' : ${graph1.over[10]},
+					'11' : ${graph1.over[11]}
+				}
+
+				var overOrginJson = {
+					'0' : ${graph1.overOrgin[0]},
+					'1' : ${graph1.overOrgin[1]},
+					'2' : ${graph1.overOrgin[2]},
+					'3' : ${graph1.overOrgin[3]},
+					'4' : ${graph1.overOrgin[4]},
+					'5' : ${graph1.overOrgin[5]},
+					'6' : ${graph1.overOrgin[6]},
+					'7' : ${graph1.overOrgin[7]},
+					'8' : ${graph1.overOrgin[8]},
+					'9' : ${graph1.overOrgin[9]},
+					'10' : ${graph1.overOrgin[10]},
+					'11' : ${graph1.overOrgin[11]}
+				}
+				var cnt01_OrginJson = {
+					'0' : ${graph1.cnt01[0]},
+					'1' : ${graph1.cnt01[1]},
+					'2' : ${graph1.cnt01[2]},
+					'3' : ${graph1.cnt01[3]},
+					'4' : ${graph1.cnt01[4]},
+					'5' : ${graph1.cnt01[5]},
+					'6' : ${graph1.cnt01[6]},
+					'7' : ${graph1.cnt01[7]},
+					'8' : ${graph1.cnt01[8]},
+					'9' : ${graph1.cnt01[9]},
+					'10' : ${graph1.cnt01[10]},
+					'11' : ${graph1.cnt01[11]}
+				}
+				var cnt01Sum_OrginJson = {
+					'0' : ${graph1.cnt01Sum[0]},
+					'1' : ${graph1.cnt01Sum[1]},
+					'2' : ${graph1.cnt01Sum[2]},
+					'3' : ${graph1.cnt01Sum[3]},
+					'4' : ${graph1.cnt01Sum[4]},
+					'5' : ${graph1.cnt01Sum[5]},
+					'6' : ${graph1.cnt01Sum[6]},
+					'7' : ${graph1.cnt01Sum[7]},
+					'8' : ${graph1.cnt01Sum[8]},
+					'9' : ${graph1.cnt01Sum[9]},
+					'10' : ${graph1.cnt01Sum[10]},
+					'11' : ${graph1.cnt01Sum[11]}
+				}
+				var cnt02_OrginJson = {
+					'0' : ${graph1.cnt02[0]},
+					'1' : ${graph1.cnt02[1]},
+					'2' : ${graph1.cnt02[2]},
+					'3' : ${graph1.cnt02[3]},
+					'4' : ${graph1.cnt02[4]},
+					'5' : ${graph1.cnt02[5]},
+					'6' : ${graph1.cnt02[6]},
+					'7' : ${graph1.cnt02[7]},
+					'8' : ${graph1.cnt02[8]},
+					'9' : ${graph1.cnt02[9]},
+					'10' : ${graph1.cnt02[10]},
+					'11' : ${graph1.cnt02[11]}
+				}
+				var cnt02Sum_OrginJson = {
+					'0' : ${graph1.cnt02Sum[0]},
+					'1' : ${graph1.cnt02Sum[1]},
+					'2' : ${graph1.cnt02Sum[2]},
+					'3' : ${graph1.cnt02Sum[3]},
+					'4' : ${graph1.cnt02Sum[4]},
+					'5' : ${graph1.cnt02Sum[5]},
+					'6' : ${graph1.cnt02Sum[6]},
+					'7' : ${graph1.cnt02Sum[7]},
+					'8' : ${graph1.cnt02Sum[8]},
+					'9' : ${graph1.cnt02Sum[9]},
+					'10' : ${graph1.cnt02Sum[10]},
+					'11' : ${graph1.cnt02Sum[11]}
+				}
+
+				var cnt03_OrginJson = {
+					'0' : ${graph1.cnt03[0]},
+					'1' : ${graph1.cnt03[1]},
+					'2' : ${graph1.cnt03[2]},
+					'3' : ${graph1.cnt03[3]},
+					'4' : ${graph1.cnt03[4]},
+					'5' : ${graph1.cnt03[5]},
+					'6' : ${graph1.cnt03[6]},
+					'7' : ${graph1.cnt03[7]},
+					'8' : ${graph1.cnt03[8]},
+					'9' : ${graph1.cnt03[9]},
+					'10' : ${graph1.cnt03[10]},
+					'11' : ${graph1.cnt03[11]}
+				}
+				var cnt03Sum_OrginJson = {
+					'0' : ${graph1.cnt03Sum[0]},
+					'1' : ${graph1.cnt03Sum[1]},
+					'2' : ${graph1.cnt03Sum[2]},
+					'3' : ${graph1.cnt03Sum[3]},
+					'4' : ${graph1.cnt03Sum[4]},
+					'5' : ${graph1.cnt03Sum[5]},
+					'6' : ${graph1.cnt03Sum[6]},
+					'7' : ${graph1.cnt03Sum[7]},
+					'8' : ${graph1.cnt03Sum[8]},
+					'9' : ${graph1.cnt03Sum[9]},
+					'10' : ${graph1.cnt03Sum[10]},
+					'11' : ${graph1.cnt03Sum[11]}
+				}
+
+				var cnt04_OrginJson = {
+					'0' : ${graph1.cnt04[0]},
+					'1' : ${graph1.cnt04[1]},
+					'2' : ${graph1.cnt04[2]},
+					'3' : ${graph1.cnt04[3]},
+					'4' : ${graph1.cnt04[4]},
+					'5' : ${graph1.cnt04[5]},
+					'6' : ${graph1.cnt04[6]},
+					'7' : ${graph1.cnt04[7]},
+					'8' : ${graph1.cnt04[8]},
+					'9' : ${graph1.cnt04[9]},
+					'10' : ${graph1.cnt04[10]},
+					'11' : ${graph1.cnt04[11]}
+				}
+				var cnt04Sum_OrginJson = {
+					'0' : ${graph1.cnt04Sum[0]},
+					'1' : ${graph1.cnt04Sum[1]},
+					'2' : ${graph1.cnt04Sum[2]},
+					'3' : ${graph1.cnt04Sum[3]},
+					'4' : ${graph1.cnt04Sum[4]},
+					'5' : ${graph1.cnt04Sum[5]},
+					'6' : ${graph1.cnt04Sum[6]},
+					'7' : ${graph1.cnt04Sum[7]},
+					'8' : ${graph1.cnt04Sum[8]},
+					'9' : ${graph1.cnt04Sum[9]},
+					'10' : ${graph1.cnt04Sum[10]},
+					'11' : ${graph1.cnt04Sum[11]}
+				}
+
+				var cnt05_OrginJson = {
+					'0' : ${graph1.cnt05[0]},
+					'1' : ${graph1.cnt05[1]},
+					'2' : ${graph1.cnt05[2]},
+					'3' : ${graph1.cnt05[3]},
+					'4' : ${graph1.cnt05[4]},
+					'5' : ${graph1.cnt05[5]},
+					'6' : ${graph1.cnt05[6]},
+					'7' : ${graph1.cnt05[7]},
+					'8' : ${graph1.cnt05[8]},
+					'9' : ${graph1.cnt05[9]},
+					'10' : ${graph1.cnt05[10]},
+					'11' : ${graph1.cnt05[11]}
+				}
+				var cnt05Sum_OrginJson = {
+					'0' : ${graph1.cnt05Sum[0]},
+					'1' : ${graph1.cnt05Sum[1]},
+					'2' : ${graph1.cnt05Sum[2]},
+					'3' : ${graph1.cnt05Sum[3]},
+					'4' : ${graph1.cnt05Sum[4]},
+					'5' : ${graph1.cnt05Sum[5]},
+					'6' : ${graph1.cnt05Sum[6]},
+					'7' : ${graph1.cnt05Sum[7]},
+					'8' : ${graph1.cnt05Sum[8]},
+					'9' : ${graph1.cnt05Sum[9]},
+					'10' : ${graph1.cnt05Sum[10]},
+					'11' : ${graph1.cnt05Sum[11]}
+				}
+
+				var cnt06_OrginJson = {
+					'0' : ${graph1.cnt06[0]},
+					'1' : ${graph1.cnt06[1]},
+					'2' : ${graph1.cnt06[2]},
+					'3' : ${graph1.cnt06[3]},
+					'4' : ${graph1.cnt06[4]},
+					'5' : ${graph1.cnt06[5]},
+					'6' : ${graph1.cnt06[6]},
+					'7' : ${graph1.cnt06[7]},
+					'8' : ${graph1.cnt06[8]},
+					'9' : ${graph1.cnt06[9]},
+					'10' : ${graph1.cnt06[10]},
+					'11' : ${graph1.cnt06[11]}
+				}
+				var cnt06Sum_OrginJson = {
+					'0' : ${graph1.cnt06Sum[0]},
+					'1' : ${graph1.cnt06Sum[1]},
+					'2' : ${graph1.cnt06Sum[2]},
+					'3' : ${graph1.cnt06Sum[3]},
+					'4' : ${graph1.cnt06Sum[4]},
+					'5' : ${graph1.cnt06Sum[5]},
+					'6' : ${graph1.cnt06Sum[6]},
+					'7' : ${graph1.cnt06Sum[7]},
+					'8' : ${graph1.cnt06Sum[8]},
+					'9' : ${graph1.cnt06Sum[9]},
+					'10' : ${graph1.cnt06Sum[10]},
+					'11' : ${graph1.cnt06Sum[11]}
+				}
+
+				var globaloption1, globaloption2, globaloption3, globaloption4;
+				var globalmyChart1, globalmyChartGauge2, globalmyChartGauge3, globalmyChartGauge4;
+				var now = new Date();
+				var colors = ['#5470C6', '#91CC75', '#EE6666'];
+
+				function chartReady(){
+					// 1번째 그래프 ===================================================
+					var myChart1 = echarts.init(document.getElementById('myChart01'));
+					globalmyChart1 = myChart1;
+					// 차트 속성과 데이터를 지정합니다.
+					option1 = {
+						tooltip : {
+							trigger: 'axis',
+							axisPointer:{
+								type:'cross',
+								crossStyle: {
+									color: '#999'
+								}
+							}
+						},
+						legend: {
+							data:["월별목표", "월별매출", "누적목표", "누적매출"]
+						},
+						xAxis : [
+							{
+								type : 'category',
+								splitLine : {
+									show:true
+								},
+								axisPointer: {
+									type: 'shadow'
+								},
+								data : ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"]
+							},
+							{
+								type : 'category',
+								axisLine : {
+									show:true
+								},
+								axisLabel : {
+									show:false
+								},
+								data : ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"]
+							}
+						],
+						yAxis : [
+							{
+								type: 'value',
+								name: '월별(억원)',
+								position: 'left',
+								axisLine: {
+									show: true,
+									lineStyle: {
+										color: colors[0]
+									}
+								},
+								axisLabel: {
+									formatter: function (data) {
+										return Math.floor(data/10000000)
+									}
+								}
+							},
+							{
+								type: 'value',
+								name: '누적(억원)',
+								position: 'right',
+								axisLine: {
+									show: true,
+									lineStyle: {
+										color: colors[0]
+									}
+								},
+								axisLabel: {
+									formatter: function (data) {
+										return Math.floor(data/10000000)
+									}
+								}
+							}
+						],
+						series : [
+							{
+								name: '월별목표',
+								type: 'bar',
+								data: [profitOrginJson[0], profitOrginJson[1], profitOrginJson[2], profitOrginJson[3], profitOrginJson[4], profitOrginJson[5], profitOrginJson[6], profitOrginJson[7], profitOrginJson[8], profitOrginJson[9], profitOrginJson[10], profitOrginJson[11]]
+							},
+							{
+								name: '월별매출',
+								type: 'bar',
+								data: [salesOrginJson[0], salesOrginJson[1], salesOrginJson[2], salesOrginJson[3], salesOrginJson[4], salesOrginJson[5], salesOrginJson[6], salesOrginJson[7], salesOrginJson[8], salesOrginJson[9], salesOrginJson[10], salesOrginJson[11]]
+							},
+							{
+								name: '누적목표',
+								type: 'line',
+								yAxisIndex: 1,
+								data: [profitOrginStackJson[0], profitOrginStackJson[1], profitOrginStackJson[2], profitOrginStackJson[3], profitOrginStackJson[4], profitOrginStackJson[5], profitOrginStackJson[6], profitOrginStackJson[7], profitOrginStackJson[8], profitOrginStackJson[9], profitOrginStackJson[10], profitOrginStackJson[11]]
+							},
+							{
+								name: '누적매출',
+								type: 'line',
+								yAxisIndex: 1,
+								data: [salesOrginStackJson[0], salesOrginStackJson[1], salesOrginStackJson[2], salesOrginStackJson[3], salesOrginStackJson[4], salesOrginStackJson[5], salesOrginStackJson[6], salesOrginStackJson[7], salesOrginStackJson[8], salesOrginStackJson[9], salesOrginStackJson[10], salesOrginStackJson[11]]
+							}
 						]
 					}
-				},
-				pointer: {
+					myChart1.setOption(option1);
+					globaloption1 = option1;
+					// 위에서 설정한 속성을 차트에 반영합니다.
 
-					itemStyle: {
-						color: 'auto'
-					}
-				},
-				axisTick: {
-					length: 3,
-					lineStyle: {
-						color: 'auto',
-						width: 1
-					}
-				},
-				splitLine: {
-					length: 7,
-					lineStyle: {
-						color: 'auto',
-						width: 3
-					}
-				},
-				axisLabel: {
-					show : true,
-				},
-				title: {
-					offsetCenter: [0, '-20%'],
-					fontSize: 30
-				},
-				detail: {
-					show : true,
-					backgroundColor: 'rgba(0,0,0,0)',
-					borderWidth: 0,
-					borderColor: '#ccc',
-					fontSize: 20,
-					offsetCenter: [0, '70%'],
-					valueAnimation: true,
-					formatter: function (value) {
-						return value + '%';
-					},
-					color: 'auto'
-				},
-				data: [{
-					value: ((salesOrginYearJson[0] / profitOrginYearJson[0])*100).toFixed(2)
-				}]
-			}]
-		};
+					// 2번째 그래프 ===================================================
 
-		function gauge_load_chart3(option3){
-			myChartGauge3.setOption(option3, true);
-		}
-		gauge_load_chart3(option3);
-		globaloption3 = option3;
+					var myChartGauge2 = echarts.init(document.getElementById('myChart02'));
+					globalmyChartGauge2 = myChartGauge2;
+					var option2 = {
+						series: [{
+							type: 'gauge',
+							center: ['39%', '30%'],
+							startAngle: 225,
+							endAngle: -45,
+							min: 0,
+							max: 100,
+							splitNumber: 10,
+							axisLine: {
+								lineStyle: {
+									width: 3,
+									color: [
+										[0.4,'#FC6180'],
+										[0.7,'#4680ff'],
+										[1,'#93BE52']
+									]
+								}
+							},
+							pointer: {
+								itemStyle: {
+									color: 'auto'
+								}
+							},
+							axisTick: {
+								length: 3,
+								lineStyle: {
+									color: 'auto',
+									width: 1
+								}
+							},
+							splitLine: {
+								length: 7,
+								lineStyle: {
+									color: 'auto',
+									width: 3
+								}
+							},
+							axisLabel: {
+								show : true,
+							},
+							title: {
+								offsetCenter: [0, '-20%'],
+								fontSize: 30
+							},
+							detail: {
+								show : true,
+								backgroundColor: 'rgba(0,0,0,0)',
+								borderWidth: 0,
+								borderColor: '#ccc',
+								fontSize: 20,
+								offsetCenter: [0, '70%'],
+								valueAnimation: true,
+								formatter: function (value) {
+									return value + '%';
+								},
+								color: 'auto'
+							},
+							data: [{
+								value: percentJson[now.getMonth()]
+							}]
+						}]
+					};
 
-		/*
-		var timeTicket = setInterval(function (){
-			gauge_load_chart(optionGauge);
-		},2000000);
-		*/
+					function gauge_load_chart2(option2){
+						myChartGauge2.setOption(option2,true);
+					}
+					gauge_load_chart2(option2);
+					globaloption2 = option2;
 
-		// 4번째 그래프 ===================================================
+					/*
+					var timeTicket = setInterval(function (){
+						gauge_load_chart(optionGauge);
+					},2000000);
+					*/
 
-		var myChartGauge4 = echarts.init(document.getElementById('myChart04'));
-		globalmyChartGauge4 = myChartGauge4;
-		var option4 = {
-			legend: {},
-			tooltip: {
-				trigger: 'axis',
-				showContent: false
-			},
-			dataset: {
-				source: [
-					['product', '판매방식(억원)'],
-					['조달직판', Math.floor(cnt01Sum_OrginJson[0]+cnt01Sum_OrginJson[1]+cnt01Sum_OrginJson[2]+cnt01Sum_OrginJson[3]+cnt01Sum_OrginJson[4]+cnt01Sum_OrginJson[5]+cnt01Sum_OrginJson[6]+cnt01Sum_OrginJson[7]+cnt01Sum_OrginJson[8]+cnt01Sum_OrginJson[9]+cnt01Sum_OrginJson[10]+cnt01Sum_OrginJson[11])],
-					['조달간판', Math.floor(cnt02Sum_OrginJson[0]+cnt02Sum_OrginJson[1]+cnt02Sum_OrginJson[2]+cnt02Sum_OrginJson[3]+cnt02Sum_OrginJson[4]+cnt02Sum_OrginJson[5]+cnt02Sum_OrginJson[6]+cnt02Sum_OrginJson[7]+cnt02Sum_OrginJson[8]+cnt02Sum_OrginJson[9]+cnt02Sum_OrginJson[10]+cnt02Sum_OrginJson[11])],
-					['조달대행', Math.floor(cnt03Sum_OrginJson[0]+cnt03Sum_OrginJson[1]+cnt03Sum_OrginJson[2]+cnt03Sum_OrginJson[3]+cnt03Sum_OrginJson[4]+cnt03Sum_OrginJson[5]+cnt03Sum_OrginJson[6]+cnt03Sum_OrginJson[7]+cnt03Sum_OrginJson[8]+cnt03Sum_OrginJson[9]+cnt03Sum_OrginJson[10]+cnt03Sum_OrginJson[11])],
-					['직접판매', Math.floor(cnt04Sum_OrginJson[0]+cnt04Sum_OrginJson[1]+cnt04Sum_OrginJson[2]+cnt04Sum_OrginJson[3]+cnt04Sum_OrginJson[4]+cnt04Sum_OrginJson[5]+cnt04Sum_OrginJson[6]+cnt04Sum_OrginJson[7]+cnt04Sum_OrginJson[8]+cnt04Sum_OrginJson[9]+cnt04Sum_OrginJson[10]+cnt04Sum_OrginJson[11])],
-					['간접판매', Math.floor(cnt05Sum_OrginJson[0]+cnt05Sum_OrginJson[1]+cnt05Sum_OrginJson[2]+cnt05Sum_OrginJson[3]+cnt05Sum_OrginJson[4]+cnt05Sum_OrginJson[5]+cnt05Sum_OrginJson[6]+cnt05Sum_OrginJson[7]+cnt05Sum_OrginJson[8]+cnt05Sum_OrginJson[9]+cnt05Sum_OrginJson[10]+cnt05Sum_OrginJson[11])],
-					['기타', Math.floor(cnt06Sum_OrginJson[0]+cnt06Sum_OrginJson[1]+cnt06Sum_OrginJson[2]+cnt06Sum_OrginJson[3]+cnt06Sum_OrginJson[4]+cnt06Sum_OrginJson[5]+cnt06Sum_OrginJson[6]+cnt06Sum_OrginJson[7]+cnt06Sum_OrginJson[8]+cnt06Sum_OrginJson[9]+cnt06Sum_OrginJson[10]+cnt06Sum_OrginJson[11])],
-				]
-			},
-			xAxis: {type: 'category'},
-			yAxis: {
-				type: 'value',
-				show : false
-			},
-			grid: {top: '55%'},
-			series: [
-				{
-					type: 'bar', smooth: true, seriesLayoutBy: 'row', emphasis: {focus: 'series'},
-					label: {
-						show: true,
-						color:'black',
-						formatter: function (params){
-							return (params.data[1]/100000000).toFixed(2);
-						}
+					// 3번째 그래프 ===================================================
+
+					var myChartGauge3 = echarts.init(document.getElementById('myChart03'));
+					globalmyChartGauge3 = myChartGauge3;
+					var option3 = {
+						series: [{
+							type: 'gauge',
+							center: ['39%', '30%'],
+							startAngle: 225,
+							endAngle: -45,
+							min: 0,
+							max: 100,
+							splitNumber: 10,
+							axisLine: {
+								lineStyle: {
+									width: 3,
+									color: [
+										[0.4,'#FC6180'],
+										[0.7,'#4680ff'],
+										[1,'#93BE52']
+									]
+								}
+							},
+							pointer: {
+
+								itemStyle: {
+									color: 'auto'
+								}
+							},
+							axisTick: {
+								length: 3,
+								lineStyle: {
+									color: 'auto',
+									width: 1
+								}
+							},
+							splitLine: {
+								length: 7,
+								lineStyle: {
+									color: 'auto',
+									width: 3
+								}
+							},
+							axisLabel: {
+								show : true,
+							},
+							title: {
+								offsetCenter: [0, '-20%'],
+								fontSize: 30
+							},
+							detail: {
+								show : true,
+								backgroundColor: 'rgba(0,0,0,0)',
+								borderWidth: 0,
+								borderColor: '#ccc',
+								fontSize: 20,
+								offsetCenter: [0, '70%'],
+								valueAnimation: true,
+								formatter: function (value) {
+									return value + '%';
+								},
+								color: 'auto'
+							},
+							data: [{
+								value: ((salesOrginYearJson[0] / profitOrginYearJson[0])*100).toFixed(2)
+							}]
+						}]
+					};
+
+					function gauge_load_chart3(option3){
+						myChartGauge3.setOption(option3, true);
 					}
-				},
-				{
-					type: 'bar', smooth: true, seriesLayoutBy: 'row', emphasis: {focus: 'series'},
-					label: {
-						show: true,
-						color:'black',
-						formatter: function (params){
-							return (params.data[2]/100000000).toFixed(2);
-						}
-					}
-				},
-				{
-					type: 'bar', smooth: true, seriesLayoutBy: 'row', emphasis: {focus: 'series'},
-					label: {
-						show: true,
-						color:'black',
-						formatter: function (params){
-							return (params.data[3]/100000000).toFixed(2);
-						}
-					}
-				},
-				{
-					type: 'bar', smooth: true, seriesLayoutBy: 'row', emphasis: {focus: 'series'},
-					label: {
-						show: true,
-						color:'black',
-						formatter: function (params){
-							return (params.data[4]/100000000).toFixed(2);
-						}
-					}
-				},
-				{
-					type: 'bar', smooth: true, seriesLayoutBy: 'row', emphasis: {focus: 'series'},
-					label: {
-						show: true,
-						color:'black',
-						formatter: function (params){
-							return (params.data[5]/100000000).toFixed(2);
-						}
-					}
-				},
-				{
-					type: 'bar', smooth: true, seriesLayoutBy: 'row', emphasis: {focus: 'series'},
-					label: {
-						show: true,
-						color:'black',
-						formatter: function (params){
-							return (params.data[6]/100000000).toFixed(2);
-						}
-					}
-				},
-				{
-					type: 'pie',
-					id: 'pie',
-					radius: '30%',
-					center: ['50%', '35%'],
-					emphasis: {focus: 'data'},
-					label: {
-						formatter: '{d}%'
-					},
-					encode: {
-						itemName: 'product',
-						value: '판매방식(억원)'
-					}
+					gauge_load_chart3(option3);
+					globaloption3 = option3;
+
+					/*
+					var timeTicket = setInterval(function (){
+						gauge_load_chart(optionGauge);
+					},2000000);
+					*/
+
+					// 4번째 그래프 ===================================================
+
+					var myChartGauge4 = echarts.init(document.getElementById('myChart04'));
+					globalmyChartGauge4 = myChartGauge4;
+					var option4 = {
+						legend: {},
+						tooltip: {
+							trigger: 'axis',
+							showContent: false
+						},
+						dataset: {
+							source: [
+								['product', '판매방식(억원)'],
+								['조달직판', Math.floor(cnt01Sum_OrginJson[0]+cnt01Sum_OrginJson[1]+cnt01Sum_OrginJson[2]+cnt01Sum_OrginJson[3]+cnt01Sum_OrginJson[4]+cnt01Sum_OrginJson[5]+cnt01Sum_OrginJson[6]+cnt01Sum_OrginJson[7]+cnt01Sum_OrginJson[8]+cnt01Sum_OrginJson[9]+cnt01Sum_OrginJson[10]+cnt01Sum_OrginJson[11])],
+								['조달간판', Math.floor(cnt02Sum_OrginJson[0]+cnt02Sum_OrginJson[1]+cnt02Sum_OrginJson[2]+cnt02Sum_OrginJson[3]+cnt02Sum_OrginJson[4]+cnt02Sum_OrginJson[5]+cnt02Sum_OrginJson[6]+cnt02Sum_OrginJson[7]+cnt02Sum_OrginJson[8]+cnt02Sum_OrginJson[9]+cnt02Sum_OrginJson[10]+cnt02Sum_OrginJson[11])],
+								['조달대행', Math.floor(cnt03Sum_OrginJson[0]+cnt03Sum_OrginJson[1]+cnt03Sum_OrginJson[2]+cnt03Sum_OrginJson[3]+cnt03Sum_OrginJson[4]+cnt03Sum_OrginJson[5]+cnt03Sum_OrginJson[6]+cnt03Sum_OrginJson[7]+cnt03Sum_OrginJson[8]+cnt03Sum_OrginJson[9]+cnt03Sum_OrginJson[10]+cnt03Sum_OrginJson[11])],
+								['직접판매', Math.floor(cnt04Sum_OrginJson[0]+cnt04Sum_OrginJson[1]+cnt04Sum_OrginJson[2]+cnt04Sum_OrginJson[3]+cnt04Sum_OrginJson[4]+cnt04Sum_OrginJson[5]+cnt04Sum_OrginJson[6]+cnt04Sum_OrginJson[7]+cnt04Sum_OrginJson[8]+cnt04Sum_OrginJson[9]+cnt04Sum_OrginJson[10]+cnt04Sum_OrginJson[11])],
+								['간접판매', Math.floor(cnt05Sum_OrginJson[0]+cnt05Sum_OrginJson[1]+cnt05Sum_OrginJson[2]+cnt05Sum_OrginJson[3]+cnt05Sum_OrginJson[4]+cnt05Sum_OrginJson[5]+cnt05Sum_OrginJson[6]+cnt05Sum_OrginJson[7]+cnt05Sum_OrginJson[8]+cnt05Sum_OrginJson[9]+cnt05Sum_OrginJson[10]+cnt05Sum_OrginJson[11])],
+								['기타', Math.floor(cnt06Sum_OrginJson[0]+cnt06Sum_OrginJson[1]+cnt06Sum_OrginJson[2]+cnt06Sum_OrginJson[3]+cnt06Sum_OrginJson[4]+cnt06Sum_OrginJson[5]+cnt06Sum_OrginJson[6]+cnt06Sum_OrginJson[7]+cnt06Sum_OrginJson[8]+cnt06Sum_OrginJson[9]+cnt06Sum_OrginJson[10]+cnt06Sum_OrginJson[11])],
+							]
+						},
+						xAxis: {type: 'category'},
+						yAxis: {
+							type: 'value',
+							show : false
+						},
+						grid: {top: '55%'},
+						series: [
+							{
+								type: 'bar', smooth: true, seriesLayoutBy: 'row', emphasis: {focus: 'series'},
+								label: {
+									show: true,
+									color:'black',
+									formatter: function (params){
+										return (params.data[1]/100000000).toFixed(2);
+									}
+								}
+							},
+							{
+								type: 'bar', smooth: true, seriesLayoutBy: 'row', emphasis: {focus: 'series'},
+								label: {
+									show: true,
+									color:'black',
+									formatter: function (params){
+										return (params.data[2]/100000000).toFixed(2);
+									}
+								}
+							},
+							{
+								type: 'bar', smooth: true, seriesLayoutBy: 'row', emphasis: {focus: 'series'},
+								label: {
+									show: true,
+									color:'black',
+									formatter: function (params){
+										return (params.data[3]/100000000).toFixed(2);
+									}
+								}
+							},
+							{
+								type: 'bar', smooth: true, seriesLayoutBy: 'row', emphasis: {focus: 'series'},
+								label: {
+									show: true,
+									color:'black',
+									formatter: function (params){
+										return (params.data[4]/100000000).toFixed(2);
+									}
+								}
+							},
+							{
+								type: 'bar', smooth: true, seriesLayoutBy: 'row', emphasis: {focus: 'series'},
+								label: {
+									show: true,
+									color:'black',
+									formatter: function (params){
+										return (params.data[5]/100000000).toFixed(2);
+									}
+								}
+							},
+							{
+								type: 'bar', smooth: true, seriesLayoutBy: 'row', emphasis: {focus: 'series'},
+								label: {
+									show: true,
+									color:'black',
+									formatter: function (params){
+										return (params.data[6]/100000000).toFixed(2);
+									}
+								}
+							},
+							{
+								type: 'pie',
+								id: 'pie',
+								radius: '30%',
+								center: ['50%', '35%'],
+								emphasis: {focus: 'data'},
+								label: {
+									formatter: '{d}%'
+								},
+								encode: {
+									itemName: 'product',
+									value: '판매방식(억원)'
+								}
+							}
+						]
+					};
+
+					myChartGauge4.setOption(option4);
+					globaloption4 = option4;
 				}
-			]
-		};
 
-		myChartGauge4.setOption(option4);
-		globaloption4 = option4;
-	}
+					$(document).ready(function(){
+						<c:if test="${saleslist != null}">
+							$('#salesTable').DataTable({
+								info : false,
+								filter : false,
+								lengthChange : false,
+								order: [[ 0, "desc" ]],
+								//dom: '<"pull-right"f><"pull-right"l>tip'
+								pageLength: 20, // 한 페이지에 기본으로 보열줄 항목 수
+							});
+						</c:if>
+						<c:if test="${techdlist != null}">
+							$('#techdTable').DataTable({
+								info : false,
+								filter : false,
+								lengthChange : false,
+								order: [[ 0, "desc" ]],
+								//dom: '<"pull-right"f><"pull-right"l>tip'
+								pageLength: 20, // 한 페이지에 기본으로 보열줄 항목 수
+							});
+						</c:if>
 
-		$(document).ready(function(){
-			<c:if test="${saleslist != null}">
-				$('#salesTable').DataTable({
-					info : false,
-					filter : false,
-					lengthChange : false,
-					order: [[ 0, "desc" ]],
-					//dom: '<"pull-right"f><"pull-right"l>tip'
-					pageLength: 20, // 한 페이지에 기본으로 보열줄 항목 수
-				});
-			</c:if>
-			<c:if test="${techdlist != null}">
-				$('#techdTable').DataTable({
-					info : false,
-					filter : false,
-					lengthChange : false,
-					order: [[ 0, "desc" ]],
-					//dom: '<"pull-right"f><"pull-right"l>tip'
-					pageLength: 20, // 한 페이지에 기본으로 보열줄 항목 수
-				});
-			</c:if>
+						$('#contTable').DataTable({
+							info : false,
+							filter : false,
+							lengthChange : false,
+							order: [[ 0, "desc" ]],
+							//dom: '<"pull-right"f><"pull-right"l>tip'
+							pageLength: 20, // 한 페이지에 기본으로 보열줄 항목 수
+						});
+						$('#soppTable').DataTable({
+							info : false,
+							filter : false,
+							lengthChange : false,
+							pageLength: 20, // 한 페이지에 기본으로 보열줄 항목 수
+						});
 
-			$('#contTable').DataTable({
-				info : false,
-				filter : false,
-				lengthChange : false,
-				order: [[ 0, "desc" ]],
-				//dom: '<"pull-right"f><"pull-right"l>tip'
-				pageLength: 20, // 한 페이지에 기본으로 보열줄 항목 수
-			});
-			$('#soppTable').DataTable({
-				info : false,
-				filter : false,
-				lengthChange : false,
-				pageLength: 20, // 한 페이지에 기본으로 보열줄 항목 수
-			});
+						chartReady();
 
-			chartReady();
+						// 그래프2 관련 아래 테이블 정보
 
-			// 그래프2 관련 아래 테이블 정보
+						var chart2_month_profitTarget = profitOrginJson[now.getMonth()] != '' ? profitOrginJson[now.getMonth()] : 0;
+						if(chart2_month_profitTarget != 0){
+							chart2_month_profitTarget = '₩'+chart2_month_profitTarget.toLocaleString("en-US");
+						}
+						var chart2_month_salesTarget = salesOrginJson[now.getMonth()] != '' ? salesOrginJson[now.getMonth()] : 0;
+						if(chart2_month_salesTarget != 0){
+							chart2_month_salesTarget = Math.floor(chart2_month_salesTarget);
+							chart2_month_salesTarget = '₩'+chart2_month_salesTarget.toLocaleString("en-US");
+						}
+						var chart2_month_percent = percentJson[now.getMonth()] != '' ? percentJson[now.getMonth()]+'%' : '0%';
 
-			var chart2_month_profitTarget = profitOrginJson[now.getMonth()] != '' ? profitOrginJson[now.getMonth()] : 0;
-			if(chart2_month_profitTarget != 0){
-				chart2_month_profitTarget = '₩'+chart2_month_profitTarget.toLocaleString("en-US");
-			}
-			var chart2_month_salesTarget = salesOrginJson[now.getMonth()] != '' ? salesOrginJson[now.getMonth()] : 0;
-			if(chart2_month_salesTarget != 0){
-				chart2_month_salesTarget = Math.floor(chart2_month_salesTarget);
-				chart2_month_salesTarget = '₩'+chart2_month_salesTarget.toLocaleString("en-US");
-			}
-			var chart2_month_percent = percentJson[now.getMonth()] != '' ? percentJson[now.getMonth()]+'%' : '0%';
+						var chart2_month_overTarget = salesOrginJson[now.getMonth()] - profitOrginJson[now.getMonth()];
+						chart2_month_overTarget = Math.floor(chart2_month_overTarget);
+						if(chart2_month_overTarget > 0){
+							chart2_month_overTarget = '+₩' + chart2_month_overTarget.toLocaleString("en-US");
+							$("#chart2_month_overTarget").removeClass("text-danger");
+							$("#chart2_month_overTarget").addClass("text-success");
+						} if(chart2_month_overTarget < 0){
+							chart2_month_overTarget = '-₩' + (chart2_month_overTarget*-1).toLocaleString("en-US");
+							$("#chart2_month_overTarget").removeClass("text-success");
+							$("#chart2_month_overTarget").addClass("text-danger");
+						}
 
-			var chart2_month_overTarget = salesOrginJson[now.getMonth()] - profitOrginJson[now.getMonth()];
-			chart2_month_overTarget = Math.floor(chart2_month_overTarget);
-			if(chart2_month_overTarget > 0){
-				chart2_month_overTarget = '+₩' + chart2_month_overTarget.toLocaleString("en-US");
-				$("#chart2_month_overTarget").removeClass("text-danger");
-				$("#chart2_month_overTarget").addClass("text-success");
-			} if(chart2_month_overTarget < 0){
-				chart2_month_overTarget = '-₩' + (chart2_month_overTarget*-1).toLocaleString("en-US");
-				$("#chart2_month_overTarget").removeClass("text-success");
-				$("#chart2_month_overTarget").addClass("text-danger");
-			}
-
-			$("#chart2_month_profitTarget").html(chart2_month_profitTarget);
-			$("#chart2_month_salesTarget").html(chart2_month_salesTarget);
-			$("#chart2_month_overTarget").html(chart2_month_overTarget);
-			$("#chart2_month_percent").html(chart2_month_percent);
+						$("#chart2_month_profitTarget").html(chart2_month_profitTarget);
+						$("#chart2_month_salesTarget").html(chart2_month_salesTarget);
+						$("#chart2_month_overTarget").html(chart2_month_overTarget);
+						$("#chart2_month_percent").html(chart2_month_percent);
 
 
-			// 그래프3 관련 아래 테이블 정보
+						// 그래프3 관련 아래 테이블 정보
 
-			var chart3_month_profitTarget = profitOrginYearJson[0];
-			chart3_month_profitTarget = '₩'+chart3_month_profitTarget.toLocaleString("en-US");
+						var chart3_month_profitTarget = profitOrginYearJson[0];
+						chart3_month_profitTarget = '₩'+chart3_month_profitTarget.toLocaleString("en-US");
 
-			var chart3_month_salesTarget = salesOrginYearJson[0];
-			chart3_month_salesTarget = Math.floor(chart3_month_salesTarget);
-			chart3_month_salesTarget = '₩'+chart3_month_salesTarget.toLocaleString("en-US");
+						var chart3_month_salesTarget = salesOrginYearJson[0];
+						chart3_month_salesTarget = Math.floor(chart3_month_salesTarget);
+						chart3_month_salesTarget = '₩'+chart3_month_salesTarget.toLocaleString("en-US");
 
-			var chart3_month_percent = ((salesOrginYearJson[0] / profitOrginYearJson[0])*100).toFixed(2);
-			chart3_month_percent = chart3_month_percent+'%';
-			var chart3_month_overTarget = salesOrginYearJson[0] - profitOrginYearJson[0];
-			chart3_month_overTarget = Math.floor(chart3_month_overTarget);
-			if(chart3_month_overTarget > 0){
-				chart3_month_overTarget = '+₩' + chart3_month_overTarget.toLocaleString("en-US");
-				$("#chart3_month_overTarget").removeClass("text-danger");
-				$("#chart3_month_overTarget").addClass("text-success");
-			} else if(chart3_month_overTarget < 0){
-				chart3_month_overTarget = '-₩' + (chart3_month_overTarget*-1).toLocaleString("en-US");
-				$("#chart3_month_overTarget").removeClass("text-success");
-				$("#chart3_month_overTarget").addClass("text-danger");
-			}
+						var chart3_month_percent = ((salesOrginYearJson[0] / profitOrginYearJson[0])*100).toFixed(2);
+						chart3_month_percent = chart3_month_percent+'%';
+						var chart3_month_overTarget = salesOrginYearJson[0] - profitOrginYearJson[0];
+						chart3_month_overTarget = Math.floor(chart3_month_overTarget);
+						if(chart3_month_overTarget > 0){
+							chart3_month_overTarget = '+₩' + chart3_month_overTarget.toLocaleString("en-US");
+							$("#chart3_month_overTarget").removeClass("text-danger");
+							$("#chart3_month_overTarget").addClass("text-success");
+						} else if(chart3_month_overTarget < 0){
+							chart3_month_overTarget = '-₩' + (chart3_month_overTarget*-1).toLocaleString("en-US");
+							$("#chart3_month_overTarget").removeClass("text-success");
+							$("#chart3_month_overTarget").addClass("text-danger");
+						}
 
 
-			$("#chart3_month_profitTarget").html(chart3_month_profitTarget);
-			$("#chart3_month_salesTarget").html(chart3_month_salesTarget);
-			$("#chart3_month_overTarget").html(chart3_month_overTarget);
-			$("#chart3_month_percent").html(chart3_month_percent);
+						$("#chart3_month_profitTarget").html(chart3_month_profitTarget);
+						$("#chart3_month_salesTarget").html(chart3_month_salesTarget);
+						$("#chart3_month_overTarget").html(chart3_month_overTarget);
+						$("#chart3_month_percent").html(chart3_month_percent);
 
-			// change 이벤트 시작
-			$("#graph2TargetMonth").on("change", function(){
-				var graph2TargetMonth = Number($("#graph2TargetMonth").val());
-				globaloption2.series[0].data[0].value = percentJson[graph2TargetMonth-1];
-				globalmyChartGauge2.setOption(globaloption2,true);
+						// change 이벤트 시작
+						$("#graph2TargetMonth").on("change", function(){
+							var graph2TargetMonth = Number($("#graph2TargetMonth").val());
+							globaloption2.series[0].data[0].value = percentJson[graph2TargetMonth-1];
+							globalmyChartGauge2.setOption(globaloption2,true);
 
-				$("#chart2_month_profitTarget").html('₩'+Math.floor(profitOrginJson[graph2TargetMonth-1]).toLocaleString("en-US"));
-				$("#chart2_month_salesTarget").html('₩'+Math.floor(salesOrginJson[graph2TargetMonth-1]).toLocaleString("en-US"));
-				$("#chart2_month_percent").html(percentJson[graph2TargetMonth-1]+'%');
-				var overOrgin =  salesOrginJson[graph2TargetMonth-1] - profitOrginJson[graph2TargetMonth-1];
-				if(overOrgin >= 0) {
-					overOrgin = '+₩' + Math.floor(overOrgin).toLocaleString("en-US");
-					$("#chart2_month_overTarget").removeClass("text-danger");
-					$("#chart2_month_overTarget").addClass("text-success");
-				} else {
-					overOrgin = '-₩' + Math.floor(overOrgin*-1).toLocaleString("en-US");
-					$("#chart2_month_overTarget").removeClass("text-success");
-					$("#chart2_month_overTarget").addClass("text-danger");
-				}
-				$("#chart2_month_overTarget").html(overOrgin);
-			});
+							$("#chart2_month_profitTarget").html('₩'+Math.floor(profitOrginJson[graph2TargetMonth-1]).toLocaleString("en-US"));
+							$("#chart2_month_salesTarget").html('₩'+Math.floor(salesOrginJson[graph2TargetMonth-1]).toLocaleString("en-US"));
+							$("#chart2_month_percent").html(percentJson[graph2TargetMonth-1]+'%');
+							var overOrgin =  salesOrginJson[graph2TargetMonth-1] - profitOrginJson[graph2TargetMonth-1];
+							if(overOrgin >= 0) {
+								overOrgin = '+₩' + Math.floor(overOrgin).toLocaleString("en-US");
+								$("#chart2_month_overTarget").removeClass("text-danger");
+								$("#chart2_month_overTarget").addClass("text-success");
+							} else {
+								overOrgin = '-₩' + Math.floor(overOrgin*-1).toLocaleString("en-US");
+								$("#chart2_month_overTarget").removeClass("text-success");
+								$("#chart2_month_overTarget").addClass("text-danger");
+							}
+							$("#chart2_month_overTarget").html(overOrgin);
+						});
 
-			 $("#graph2TargetMonth").val('<%=monthStr%>');
-		});
-
+						 $("#graph2TargetMonth").val('<%=monthStr%>');
+					}); --%>
 	</script>
 </div>
 <jsp:include page="../body-bottom.jsp"/>

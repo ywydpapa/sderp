@@ -376,4 +376,13 @@ public class GwServiceImpl implements GwService{
 		return gwDao.docDrawDelete(dto);
 	}
 
+	@Override
+	public int hrListApp(GwDTO dto) {
+		return gwDao.hrListApp(dto);
+	}
+	
+	@Override
+	public int hrListCom(GwDTO dto) {
+		return gwDao.hrListCom(dto);
+	}
 }

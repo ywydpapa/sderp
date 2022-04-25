@@ -37,6 +37,14 @@
             max-width: 220px;
             white-space: nowrap;
         }
+        
+        #contTable thead tr th{
+        	vertical-align: middle;
+        }
+        
+        #contTable tbody tr td{
+        	vertical-align: middle;
+        }
     </style>
    <!--리스트 table-->
     <div class="cnt_wr" id="list-container">
@@ -45,17 +53,38 @@
                 <div class="card-block table-border-style">
                     <div class="table-responsive">
                         <table id="contTable" class="table table-striped table-bordered nowrap ">
-                            <colgroup>
-                                <col width="10%"/>
-                                <col width="10%"/>
-                                <col width="10%"/>
-                                <col width="20%"/>
-                                <col width="15%"/>
-                                <col width="15%"/>
-                                <col width="20%"/>
-                            </colgroup>
+                        	<c:choose>
+                               	<c:when test="${sessionScope.userRole eq 'ADMIN'}">
+                               		<colgroup>
+                               			<col width="5%"/>
+		                                <col width="10%"/>
+		                                <col width="5%"/>
+		                                <col width="7%"/>
+		                                <col width="38%"/>
+		                                <col width="15%"/>
+		                                <col width="15%"/>
+		                                <col width="5%"/>
+		                            </colgroup>
+                               	</c:when>
+                               	<c:otherwise>
+                               		<colgroup>
+		                                <col width="10%"/>
+		                                <col width="10%"/>
+		                                <col width="10%"/>
+		                                <col width="35%"/>
+		                                <col width="15%"/>
+		                                <col width="15%"/>
+		                                <col width="5%"/>
+		                            </colgroup>
+                               	</c:otherwise>
+                           	</c:choose>
                             <thead>
                             <tr>
+                            	<c:if test="${sessionScope.userRole eq 'ADMIN'}">
+                            		<th>
+                            			<input type="checkbox" class="form-control" onclick="hrAllCheck(this);">
+                            		</th>
+                            	</c:if>
                                 <th class="text-center">작성일자</th>
                                 <th class="text-center">근태종류</th>
                                 <th class="text-center">신청자</th>
@@ -66,27 +95,48 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <c:forEach var="row" items="${list}">
-                                <tr>
-                                    <td class="text-center">${row.regDate}</td>
-                                    <td class="text-center">
-                                        <a href="${path}/gw/attdetail/${row.attendId}"><c:if test="${row.attType eq 1}">월차</c:if>
-                                            <c:if test="${row.attType eq 2}">연차</c:if>
-                                            <c:if test="${row.attType eq 3}">연장근무</c:if>
-                                            <c:if test="${row.attType eq 4}">휴일근무</c:if>
-                                            <c:if test="${row.attType eq 5}">경조휴가</c:if></a>
-                                    </td>
-                                    <td class="text-center">${row.userName}</td>
-                                    <td class="text-left"><a href="${path}/gw/attdetail/${row.attendId}">${row.attDesc}</a></td>
-                                    <td class="text-center">${row.attStart}</td>
-                                    <td class="text-center">${row.attEnd}</td>
-                                    <td class="text-center"><c:if test="${row.attStatus eq 1}">신청중</c:if>
-                                        <c:if test="${row.attStatus eq 3}">반려/보류</c:if>
-                                        <c:if test="${row.attStatus eq 5}">승인완료</c:if></td>
-                                </tr>
-                            </c:forEach>
+	                            <c:forEach var="row" items="${list}">
+	                                <tr>
+	                                	<c:if test="${sessionScope.userRole eq 'ADMIN'}">
+		                                	<c:choose>
+			                                	<c:when test="${row.attStatus eq 1}">
+			                                		<td>
+				                                		<input type="checkbox" class="form-control" data-id="${row.attendId}" id="hrCheck" onclick="hrCheck(this);">
+			                                		</td>
+			                                	</c:when>
+			                                	<c:otherwise>
+			                                		<td>
+				                                		<input type="checkbox" class="form-control" id="hrCheck" disabled>
+			                                		</td>
+			                                	</c:otherwise>
+		                                	</c:choose>
+	                                	</c:if>
+	                                    <td class="text-center">${row.regDate}</td>
+	                                    <td class="text-center">
+	                                        <a href="${path}/gw/attdetail/${row.attendId}"><c:if test="${row.attType eq 1}">월차</c:if>
+	                                            <c:if test="${row.attType eq 2}">연차</c:if>
+	                                            <c:if test="${row.attType eq 3}">연장근무</c:if>
+	                                            <c:if test="${row.attType eq 4}">휴일근무</c:if>
+	                                            <c:if test="${row.attType eq 5}">경조휴가</c:if>
+	                                        </a>
+	                                    </td>
+	                                    <td class="text-center">${row.userName}</td>
+	                                    <td class="text-left"><a href="${path}/gw/attdetail/${row.attendId}">${fn:replace(row.attDesc, '&nbsp;', '')}</a></td>
+	                                    <td class="text-center">${row.attStart}</td>
+	                                    <td class="text-center">${row.attEnd}</td>
+	                                    <td class="text-center"><c:if test="${row.attStatus eq 1}">신청중</c:if>
+	                                        <c:if test="${row.attStatus eq 3}">반려/보류</c:if>
+	                                        <c:if test="${row.attStatus eq 5}">승인완료</c:if></td>
+	                                </tr>
+	                            </c:forEach>
                             </tbody>
                         </table>
+                        <c:if test="${sessionScope.userRole eq 'ADMIN'}">
+	                        <div style="float:left;">
+	                        	<button type="button" class="btn btn-success" onclick="hrListApp();">승인</button>
+	                        	<button type="button" class="btn btn-danger" onclick="hrListCom();">반려</button>
+	                        </div>
+                        </c:if>
                     </div>
                 </div>
             </div>
@@ -94,9 +144,79 @@
     </div>
     <!--//리스트 table-->
     <script>
-
         $(document).ready(function() {
+			     	
         });
+        
+        function hrAllCheck(e){
+        	if($(e).is(":checked") == true){
+        		$("#contTable tbody tr #hrCheck").not(":disabled").prop("checked", true);
+        	}else{
+        		$("#contTable tbody tr #hrCheck").not(":disabled").prop("checked", false);
+        	}
+        }
+        
+        function hrListApp(){
+        	if(confirm("승인하시겠습니까??")){
+        		var compNo = "${sessionScope.compNo}";
+        		var pathName = $(location).attr("pathname");
+        		
+        		$("#contTable tbody tr #hrCheck").each(function(index, item){
+        			if($(item).is(":checked") == true){
+		        		var updateData = {};
+        				updateData.attendId = $(item).attr("data-id");
+						updateData.compNo = compNo;
+        				
+						$.ajax({
+							url: "${path}/gw/hrListApp.do",
+							method: "post",
+							data: updateData,
+							dataType: "json",
+							error:function(){
+								alert("승인을 완료하지 못했습니다.\n다시 시도해주십시오.");
+								return false;
+							}
+						});						
+        			}
+        		});
+        		
+        		alert("승인이 완료되었습니다.");
+        		location.href = pathName;
+        	}else{
+        		return false;
+        	}
+        }
+        
+        function hrListCom(){
+        	if(confirm("반려하시겠습니까??")){
+        		var compNo = "${sessionScope.compNo}";
+        		var pathName = $(location).attr("pathname");
+        		
+        		$("#contTable tbody tr #hrCheck").each(function(index, item){
+        			if($(item).is(":checked") == true){
+		        		var updateData = {};
+        				updateData.attendId = $(item).attr("data-id");
+						updateData.compNo = compNo;
+        				
+						$.ajax({
+							url: "${path}/gw/hrListCom.do",
+							method: "post",
+							data: updateData,
+							dataType: "json",
+							error:function(){
+								alert("반려 완료하지 못했습니다.\n다시 시도해주십시오.");
+								return false;
+							}
+						});						
+        			}
+        		});
+        		
+        		alert("반려가 완료되었습니다.");
+        		location.href = pathName;
+        	}else{
+        		return false;
+        	}
+        }
     </script>
 </div>
 <jsp:include page="../body-bottom.jsp"/>

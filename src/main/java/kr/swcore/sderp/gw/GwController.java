@@ -581,4 +581,28 @@ public class GwController {
          }
          return ResponseEntity.ok(param);
     }
+    
+    @RequestMapping("hrListApp.do")
+    public ResponseEntity<?> hrListApp(@ModelAttribute GwDTO dto) {
+        Map<String, Object> param = new HashMap<>();
+        int itemUpdate = gwService.hrListApp(dto);
+        if (itemUpdate >0) {
+            param.put("code","10001");
+        }
+        else {param.put("code","20001");
+        }
+        return ResponseEntity.ok(param);
+    }
+    
+    @RequestMapping("hrListCom.do")
+    public ResponseEntity<?> hrListCom(@ModelAttribute GwDTO dto) {
+        Map<String, Object> param = new HashMap<>();
+        int itemUpdate = gwService.hrListCom(dto);
+        if (itemUpdate >0) {
+            param.put("code","10001");
+        }
+        else {param.put("code","20001");
+        }
+        return ResponseEntity.ok(param);
+    }
 }

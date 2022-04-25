@@ -60,7 +60,7 @@
 									<td style="text-align:center;">${row.vatProductName}</td>
 									<td style="text-align:right;"><fmt:formatNumber type="number" maxFractionDigits="3" value="${row.vatTotal}" /></td>
 									<td style="text-align:right;"></td>
-									<td style="text-align:right;"><fmt:formatNumber type="number" maxFractionDigits="3" value="${balanceS}" /></td>	
+									<td style="text-align:right;"><fmt:formatNumber type="number" maxFractionDigits="3" value="${balanceS}" /></td>
 								</tr>
 								<c:set var="calTotal" value="${calTotal + row.vatTotal}" />
 							</c:if>

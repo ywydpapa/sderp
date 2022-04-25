@@ -721,8 +721,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<update id="Attallow">
 		update swc_userattend set
-								  modDate = now(),
-		                          attStatus = '5'
+	  	modDate = now(),
+        attStatus = '5'
 		where attendId = #{attendId};
 	</update>
 
@@ -735,12 +735,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</update>
 
 	<update id="deleteUserAtt">
-
 		update swc_userattend set
 			modDate = now(),
 		    attrib = 'XXXUP'
 		where attendId = #{attendId};
+	</update>
+	
+	<update id="hrListApp">
+		update swc_userattend set attStatus = 5, modDate = now() where compNo = #{compNo} and attendId = #{attendId};
+	</update>
 
+	<update id="hrListCom">
+		update swc_userattend set attStatus = 3, modDate = now() where compNo = #{compNo} and attendId = #{attendId};
 	</update>
 
 	<select id="listdocApp" resultType="gwDto">

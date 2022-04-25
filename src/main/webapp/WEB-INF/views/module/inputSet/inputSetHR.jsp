@@ -81,6 +81,7 @@
     }
 
    function dataSave(){
+	   	var now = new Date();
     	var temp = {};
        var qutylist = $("#qutylist tbody");
     	var attType = $("#hrType").val();
@@ -89,6 +90,8 @@
         var attEnd = $("#hrTo").val() + "T"+$("#hrToTm").val();
     	var attDesc = tinyMCE.get("hrDesc").getContent();
         
+    	now = now.toISOString().slice(0, 10);
+    	
     	if (attDesc == ""){
             alert("신청내용을 기입해 주십시오.");
             $("#hrDesc").focus();
@@ -109,8 +112,8 @@
     	temp.attDesc = attDesc;
     	dataArray.push(temp);
         $("#hrType").val("");
-        $("#hrFrom").val("");
-        $("#hrTo").val("");
+        $("#hrFrom").val(now);
+        $("#hrTo").val(now);
         tinyMCE.get("hrDesc").setContent("");
         qutylist.append("<tr><td id='hrType1' style='text-align:center;'><input type='hidden' id='hrTypeN' value ='"+attType+"'/> "+attTypeN+"</td><td id='sttFromN' style='text-align:center;'>"+attStart+"</td><td id='attEndN' style='text-align: center'>"+attEnd+"</td><td id='attDescN' style='text-align: center; vertical-align: middle;'>"+attDesc+"</td><td style='text-align:center;'><button class='btn btn-sm btn-danger' data-index="+dataIndex+" id='dataDelBtn'>삭제</button></td></tr>");
     	console.log(dataArray);

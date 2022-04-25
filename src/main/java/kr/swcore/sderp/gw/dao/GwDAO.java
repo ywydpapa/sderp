@@ -62,4 +62,7 @@ public interface GwDAO {
 	void uploadFile2(GwFileDataDTO dto);
 	int docDrawUpdate(GwDTO dto);
 	int docDrawDelete(GwDTO dto);
+	
+	int hrListApp(GwDTO dto);
+	int hrListCom(GwDTO dto);
 }

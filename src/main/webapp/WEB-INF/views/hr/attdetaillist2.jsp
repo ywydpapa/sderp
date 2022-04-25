@@ -40,7 +40,6 @@
 <input type="hidden" id="attendId" value="${list.attendId}">
 <br/>
 <script>
-
     function fn_AttApp(){
         var msg = "근태 신청을 승인하시겠습니까?";
         if( confirm(msg) ){
@@ -95,6 +94,8 @@
                 .fail(function(xhr, status, errorThrown) {
                     alert("통신 실패");
                 });
+        }else{
+        	return false;	
         }
     }
 
@@ -105,7 +106,7 @@
         schedData.schedTo = "${list.attEnd}";
         var typ = ${list.attType};
         if ( typ ==1){
-            schedData.schedTitle 		= "근태 (월차)자동등록";
+            schedData.schedTitle = "근태 (월차)자동등록";
         }else if (typ == 2) {
             schedData.schedTitle = "근태 (연차)자동등록";
         }else if (typ == 3) {

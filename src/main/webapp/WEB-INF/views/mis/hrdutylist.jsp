@@ -47,7 +47,7 @@
                             <tbody>
                             <c:forEach var="row" items="${dutyList}">
                                 <tr>
-                                    <td class="text-center">${row.userName}</td>
+                                    <td class="text-center"><a data-remote="${path}/modal/popup.do?popId=user_data&userName=${row.userName}" data-toggle='modal' data-target='#user_data' data-id="">${row.userName}</a></td>
                                     <td class="text-right"><fmt:formatNumber type="number" maxFractionDigits="3" value="${row.mdays}" /></td>
                                     <td class="text-right"><fmt:formatNumber type="number" maxFractionDigits="3" value="${row.ydays}" /></td>
                                     <td class="text-right"><fmt:formatNumber type="number" maxFractionDigits="3" value="${row.edays}" /></td>
@@ -63,4 +63,27 @@
         </div>
     </div>
 </div>
+<div class="modal fade " id="user_data" tabindex="-1" role="dialog">
+	 <div class="modal-dialog modal-80size" role="document">
+		<div class="modal-content modal-80size">
+			<div class="modal-header">
+				<h4 class="modal-title">개인별 근태 정보</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                	<span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+			<div class="modal-body"></div>
+			<div class="modal-footer">
+            	<button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>
 <jsp:include page="../body-bottom.jsp"/>
+<script>
+$('#user_data').on('show.bs.modal', function(e) {
+    var button = $(e.relatedTarget);
+    var modal = $(this);
+    modal.find('.modal-body').load(button.data("remote"));
+});
+</script>

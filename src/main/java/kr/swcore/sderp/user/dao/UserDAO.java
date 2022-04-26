@@ -22,4 +22,5 @@ public interface UserDAO {
 	public UserDTO userSessionCheck(UserDTO dto);
 	public int updateUserPass(UserDTO dto);
 	List<UserDTO> allList();
+	List<UserDTO> listuser_data(String userName);
 }

@@ -27,4 +27,9 @@ public class UserDTO {
 	private String userEmail;
 	
 	private String listDateFrom;
+	
+	private String attStart;
+	private String attEnd;
+	private String attDesc;
+	private int attType;
 }

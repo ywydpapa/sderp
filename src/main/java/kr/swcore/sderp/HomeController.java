@@ -194,6 +194,12 @@ public class HomeController {
 			model.addAttribute("list",list);
 			rtn = "modal/custList";
 		}
+		else if("user_data".equals(popId)) {
+			String userName = String.valueOf(params.get("userName")); 
+			List<UserDTO> list = userService.listuser_data(userName);
+			model.addAttribute("list",list);
+			rtn = "modal/user_attendance";
+		}
 		else if("billCust".equals(popId)) {
 			List<CustDTO> list=custService.listCust(session);
 			model.addAttribute("list",list);

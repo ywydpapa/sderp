@@ -112,4 +112,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	select * from swc_user
 	where attrib not like 'XXX' and compNo = #{compNo}
 </select>
+<select id="listuser_data" resultType="userDto">
+	SELECT b.attStart, b.attEnd, b.attDesc, b.attType FROM swc_user a
+	LEFT JOIN swc_userattend b ON a.userNo = b.userNo
+	WHERE a.userName = #{userName} AND b.attStatus = 5 AND b.attrib NOT LIKE "XXX%"
+</select>
 </mapper>

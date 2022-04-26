@@ -36,4 +36,6 @@ public interface UserService {
 		public int updateUser(UserDTO dto);
 
 		public List<UserDTO> allList();
+
+		public List<UserDTO> listuser_data(String userName);
 }

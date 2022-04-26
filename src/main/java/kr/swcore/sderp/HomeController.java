@@ -252,6 +252,8 @@ public class HomeController {
 			rtn = "modal/bacVatListB";
 		}
 		else if("bacVatB_spending_resolution".equals(popId)) {
+            List<AccountDTO> list = accountService.modalVatB(session);
+            model.addAttribute("list",list);
 			rtn = "modal/bacVatList_spending_resolution";
 		}
 

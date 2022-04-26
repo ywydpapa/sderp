@@ -1338,10 +1338,10 @@ attrib) values (#{vatId},
 			</choose>
 			GROUP BY c.userNo;
  		</select>
- 		<select id="modalVatB_main">
+ 		<select id="modalVatB_main" resultType="AccountDTO">
  			select a.*, b.custName from swc_vat a left join swc_cust b on a.vatSellerCustNo = b.custNo where a.vatStatus in ('B1','B3') and a.attrib not like 'XXX%' AND a.linkedcheck = 1 and a.compNo = #{compNo} order by a.vatIssueDate desc
  		</select>
- 		<select id="modalVatS_main">
+ 		<select id="modalVatS_main" resultType="AccountDTO">
  			select a.*, b.custName from swc_vat a left join swc_cust b on a.vatBuyerCustNo = b.custNo where a.vatStatus in ('S1','S3') and a.attrib not like 'XXX%' AND a.linkedcheck = 1 and a.compNo = #{compNo} order by a.vatIssueDate desc
  		</select>
 </mapper>

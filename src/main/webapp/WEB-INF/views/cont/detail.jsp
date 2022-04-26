@@ -50,6 +50,7 @@
 					<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#tab05" role="tab">기술지원 내역(${fn:length(techdinsopp)})</a></li>
 					<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#tab06" role="tab">영업활동 내역(${fn:length(salesinsopp)})</a></li>
 					<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#tab07" role="tab">계산서 발행</a></li>
+					<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#tab08" role="tab">기여도 설정</a></li>
 				</ul>
 				<!-- Tab panes -->
 				<div class="tab-content tabs m-t-20">
@@ -583,6 +584,15 @@
 							</div>
 						</div> --%>
 					</div>
+					
+					<div class="tab-pane " id="tab08" role="tabpanel">
+						<div class="card-block table-border-style">
+							<div class="table-responsive" style="overflow-x: hidden;">
+								<jsp:include page="/WEB-INF/views/module/inputSet/inputSetContribution.jsp"/>
+							</div>
+						</div>
+					</div>
+					
 				</div>
 				<div class="btn_wr text-right mt-3" id="tab_common_bottom">
 					<button class="btn btn-md btn-success f-left" onClick="javascript:location='${path}/cont/list.do'">계약목록</button>

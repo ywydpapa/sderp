@@ -632,4 +632,22 @@ public class AccountDAOImpl implements AccountDAO {
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne("account.custBalanceB", dto);
 	}
+
+	@Override
+	public List<AccountDTO> listusercontribution(AccountDTO dto) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("account.listusercontribution", dto);
+	}
+
+	@Override
+	public List<AccountDTO> listusercontributionCnt(AccountDTO dto) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("account.listusercontributionCnt", dto);
+	}
+
+	@Override
+	public void insert_contribution_percent(AccountDTO dto) {
+		// TODO Auto-generated method stub
+		sqlSession.insert("account.insert_contribution_percent", dto);
+	}
 }

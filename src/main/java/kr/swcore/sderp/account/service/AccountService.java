@@ -125,4 +125,7 @@ public interface AccountService {
 	
 	AccountDTO custBalanceS(AccountDTO dto);
 	AccountDTO custBalanceB(AccountDTO dto);
+	List<AccountDTO> listusercontribution(AccountDTO dto);
+	List<AccountDTO> listusercontributionCnt(AccountDTO dto);
+	void insert_contribution_percent(AccountDTO dto);
 }

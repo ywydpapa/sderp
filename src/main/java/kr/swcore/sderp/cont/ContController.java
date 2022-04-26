@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
+import kr.swcore.sderp.account.dto.AccountDTO;
 import kr.swcore.sderp.account.service.AccountService;
 import kr.swcore.sderp.code.service.CodeService;
 import kr.swcore.sderp.cont.dto.ContDTO;
@@ -118,7 +119,7 @@ public class ContController {
 	}
 
 	@RequestMapping("/detail/{soppNo}/{contNo}")
-	public ModelAndView detail(HttpSession session, @PathVariable("contNo") int contNo, @PathVariable("soppNo") int soppNo, SoppDTO data, ModelAndView mav) {
+	public ModelAndView detail(HttpSession session, @PathVariable("contNo") int contNo, @PathVariable("soppNo") int soppNo, SoppDTO data, ModelAndView mav, AccountDTO dto) {
 		mav.setViewName("cont/detail");
 		ContDTO contDTO = new ContDTO();
 		contDTO = contService.detailCont(contNo);
@@ -137,6 +138,14 @@ public class ContController {
 		mav.addObject("soppFiles",soppService.listFile(soppNo));
 		mav.addObject("sessionCust", custService.sessionSelectCust(session));
 		mav.addObject("vatData01", accountService.vatSelectList(contNo));
+		Integer compNo = Integer.valueOf((String) session.getAttribute("compNo"));
+		dto.setCompNo(compNo);
+		dto.setContNo(contNo);
+		
+		List <AccountDTO> listusercontribution = accountService.listusercontribution(dto);
+		List <AccountDTO> listusercontributionCnt = accountService.listusercontributionCnt(dto);
+		mav.addObject("listusercontribution", listusercontribution);
+		mav.addObject("listusercontributionCnt", listusercontributionCnt.get(0).getCount());
 		data.setContNo(contNo);
 		data.setSoppNo(soppNo);
 		mav.addObject("dtodata01", soppdataService.listSoppdata01_08(data));
@@ -391,4 +400,11 @@ public class ContController {
 		}
 		return ResponseEntity.ok(param);
 	}
+	@RequestMapping("insert_contribution_percent.do")
+	public ResponseEntity<?> insert_contribution_percent(@ModelAttribute AccountDTO dto) {
+		Map<String, Object> param = new HashMap<>();
+		accountService.insert_contribution_percent(dto);
+		return ResponseEntity.ok(param);
+	}
+
 }

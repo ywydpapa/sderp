@@ -1344,4 +1344,32 @@ attrib) values (#{vatId},
  		<select id="modalVatS_main" resultType="AccountDTO">
  			select a.*, b.custName from swc_vat a left join swc_cust b on a.vatBuyerCustNo = b.custNo where a.vatStatus in ('S1','S3') and a.attrib not like 'XXX%' AND a.linkedcheck = 1 and a.compNo = #{compNo} order by a.vatIssueDate desc
  		</select>
+ 		<select id="listusercontribution" resultType="accountDTO">
+			SELECT a.userNo AS main_userNo, a.userName, b.contribution_percent, c.userNo FROM swc_user a
+			LEFT JOIN swc_cont_contribution b ON a.userNo = b.userNo AND b.contNo = #{contNo}
+			LEFT JOIN swc_cont c ON c.contNo = #{contNo} AND c.userNo = a.userNo
+			WHERE a.compNo = #{compNo} AND a.attrib NOT LIKE "XXX%" order by main_userNo desc;
+ 		</select>
+ 		<select id="listusercontributionCnt" resultType="accountDTO">
+			SELECT count(*) as count FROM swc_user a
+			LEFT JOIN swc_cont_contribution b ON a.userNo = b.userNo AND b.contNo = #{contNo}
+			LEFT JOIN swc_cont c ON c.contNo = #{contNo} AND c.userNo = a.userNo
+			WHERE a.compNo = #{compNo} AND a.attrib NOT LIKE "XXX%"
+		</select>
+		<insert id="insert_contribution_percent">
+				insert into swc_cont_contribution 
+			(
+				contNo,
+				userNo,
+				contribution_percent,
+				atrrib
+			)
+				values
+			(
+				#{contNo},
+				#{userNo},
+				#{contribution_percent},
+				'10001'
+			);
+		</insert>
 </mapper>

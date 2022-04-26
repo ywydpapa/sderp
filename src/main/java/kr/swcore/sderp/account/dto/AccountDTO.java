@@ -215,5 +215,7 @@ public class AccountDTO {
 
 	private BigDecimal settleCRbalance;
 	private BigDecimal settleDRbalance;
+	private int contribution_percent;
+	private int main_userNo;
 }
 

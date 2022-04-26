@@ -693,4 +693,22 @@ public class AccountServiceImpl implements AccountService {
 		// TODO Auto-generated method stub
 		return accountDAO.custBalanceB(dto);
 	}
+
+	@Override
+	public List<AccountDTO> listusercontribution(AccountDTO dto) {
+		// TODO Auto-generated method stub
+		return accountDAO.listusercontribution(dto);
+	}
+
+	@Override
+	public List<AccountDTO> listusercontributionCnt(AccountDTO dto) {
+		// TODO Auto-generated method stub
+		return accountDAO.listusercontributionCnt(dto);
+	}
+
+	@Override
+	public void insert_contribution_percent(AccountDTO dto) {
+		// TODO Auto-generated method stub
+		accountDAO.insert_contribution_percent(dto);
+	}
 }

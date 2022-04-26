@@ -163,8 +163,9 @@
                     <div class="table-responsive">
                         <table id="myTable" class="table table-striped table-bordered nowrap ">
                             <colgroup>
+                            	<col width="5%"/>
                                 <col width="10%"/>
-                                <col width="10%"/>
+                                <col width="5%"/>
                                 <col width="10%"/>
                                 <col width="10%"/>
                                 <col width="30%"/>
@@ -174,6 +175,7 @@
                             </colgroup>
                             <thead>
                             <tr>
+                            	<th class="text-center">출금여부</th>
                                 <th class="text-center">작성일자</th>
                                 <th class="text-center">문서번호</th>
                                 <th class="text-center">문서종류</th>
@@ -187,6 +189,16 @@
                             <tbody>
                             <c:forEach var="row" items="${mylist}">
                                 <tr>
+                                	<td class="text-center">
+                                		<c:choose>
+                                			<c:when test="${row.docDrawStatus eq 1}">
+                                				Y
+                                			</c:when>
+                                			<c:otherwise>
+                                				N
+                                			</c:otherwise>
+                                		</c:choose>	
+                                	</td>
                                     <td class="text-center">${row.regDate}</td>
                                     <td class="text-center">
                                 		<a href="${path}/gw/detail/${row.docNo}">VTEK_2022${row.docNo}</a>

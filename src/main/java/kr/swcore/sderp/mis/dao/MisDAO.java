@@ -1,6 +1,9 @@
 package kr.swcore.sderp.mis.dao;
 
 import kr.swcore.sderp.account.dto.AccountDTO;
+
+import kr.swcore.sderp.cont.dto.ContDTO;
+
 import kr.swcore.sderp.mis.dto.MisDTO;
 import kr.swcore.sderp.sopp.dto.SoppdataDTO;
 
@@ -11,7 +14,7 @@ public interface MisDAO {
     List<MisDTO> listHRcost(MisDTO dto);
     List<MisDTO> listSopp(MisDTO dto);
     List<MisDTO> listSoppcost(MisDTO dto);
-    List<MisDTO> listSoppmargin(MisDTO dto);
+    List<MisDTO> listSoppmargin(ContDTO dto);
     List<MisDTO> listBacinout(MisDTO dto);
     List<MisDTO> listBacstatus(MisDTO dto);
     

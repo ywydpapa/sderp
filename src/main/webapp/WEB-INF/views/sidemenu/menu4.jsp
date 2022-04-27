@@ -98,7 +98,7 @@
                                         <li class="pcoded-hasmenu">
                                             <a href="${path}/mis/soppmarginlist.do">
                                                 <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                                <span class="pcoded-mtext" data-i18n="nav.menu-levels.menu-level-23">프로젝트별 원가분석</span>
+                                                <span class="pcoded-mtext" data-i18n="nav.menu-levels.menu-level-23">계약별 수익분석</span>
                                                 <span class="pcoded-mcaret"></span>
                                             </a>
                                         </li>

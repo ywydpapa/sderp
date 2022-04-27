@@ -1,6 +1,7 @@
 package kr.swcore.sderp.mis.service;
 
 import kr.swcore.sderp.account.dto.AccountDTO;
+import kr.swcore.sderp.cont.dto.ContDTO;
 import kr.swcore.sderp.mis.dto.MisDTO;
 import kr.swcore.sderp.sopp.dto.SoppdataDTO;
 
@@ -12,7 +13,7 @@ public interface MisService {
     List<MisDTO> listHRcost(HttpSession session, MisDTO dto);
     List<MisDTO> listSopp(HttpSession session, MisDTO dto);
     List<MisDTO> listSoppcost(HttpSession session, MisDTO dto);
-    List<MisDTO> listSoppmargin(HttpSession session, MisDTO dto);
+    List<MisDTO> listSoppmargin(HttpSession session, ContDTO dto);
     List<MisDTO> listBacinout(HttpSession session, MisDTO dto);
     List<MisDTO> listBacstatus(HttpSession session, MisDTO dto);
     

@@ -47,7 +47,7 @@
                             <tbody>
                             <c:forEach var="row" items="${dutyList}">
                                 <tr>
-                                    <td class="text-center"><a data-remote="${path}/modal/popup.do?popId=user_data&userName=${row.userName}" data-toggle='modal' data-target='#user_data' data-id="">${row.userName}</a></td>
+                                    <td class="text-center"><a data-remote="${path}/modal/popup.do?popId=user_data&userName=${row.userName}" data-toggle='modal' data-target='#user_data' style="cursor:pointer;">${row.userName}</a></td>
                                     <td class="text-right"><fmt:formatNumber type="number" maxFractionDigits="3" value="${row.mdays}" /></td>
                                     <td class="text-right"><fmt:formatNumber type="number" maxFractionDigits="3" value="${row.ydays}" /></td>
                                     <td class="text-right"><fmt:formatNumber type="number" maxFractionDigits="3" value="${row.edays}" /></td>

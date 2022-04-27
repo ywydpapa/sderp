@@ -1,6 +1,7 @@
 package kr.swcore.sderp.mis.service;
 
 import kr.swcore.sderp.account.dto.AccountDTO;
+import kr.swcore.sderp.cont.dto.ContDTO;
 import kr.swcore.sderp.mis.dao.MisDAO;
 import kr.swcore.sderp.mis.dto.MisDTO;
 import kr.swcore.sderp.sopp.dto.SoppdataDTO;
@@ -44,7 +45,7 @@ public class MisServiceImpl implements MisService{
     }
 
     @Override
-    public List<MisDTO> listSoppmargin(HttpSession session, MisDTO dto) {
+    public List<MisDTO> listSoppmargin(HttpSession session, ContDTO dto) {
         int compNo = SessionInfoGet.getCompNo(session);
         dto.setCompNo(compNo);
         return misDAO.listSoppmargin(dto);

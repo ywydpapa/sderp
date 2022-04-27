@@ -1,6 +1,7 @@
 package kr.swcore.sderp.mis.dao;
 
 import kr.swcore.sderp.account.dto.AccountDTO;
+import kr.swcore.sderp.cont.dto.ContDTO;
 import kr.swcore.sderp.mis.dto.MisDTO;
 import kr.swcore.sderp.sopp.dto.SoppdataDTO;
 
@@ -37,7 +38,7 @@ public class MisDAOImpl implements MisDAO {
     }
 
     @Override
-    public List<MisDTO> listSoppmargin(MisDTO dto) {
+    public List<MisDTO> listSoppmargin(ContDTO dto) {
         return sqlSession.selectList("mis.soppMargin", dto);
     }
 

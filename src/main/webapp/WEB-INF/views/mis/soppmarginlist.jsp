@@ -18,7 +18,7 @@
 <jsp:include page="../head.jsp"/>
 <jsp:include page="../body-top4.jsp"/>
 <div id="main_content">
-    <h6 style="font-weight:600;">영업기회 원가 현황</h6>
+    <h6 style="font-weight:600;">계약별 수익분석</h6>
     <hr>
     <div class="cnt_wr" id="list-container">
         <div class="row">
@@ -36,21 +36,25 @@
                             </colgroup>
                             <thead>
                             <tr>
-                                <th class="text-center">기회명</th>
-                                <th class="text-center">담당</th>
-                                <th class="text-center">매입금액</th>
-                                <th class="text-center">매출금액</th>
-                                <th class="text-center">연결계약</th>
+                                <th class="text-center">등록일</th>
+                                <th class="text-center">계약명</th>
+                                <th class="text-center">계약방식</th>
+                                <th class="text-center">계약금액</th>
+                                <th class="text-center">매출이익</th>
+                                <th class="text-center">계약상세</th>
                             </tr>
                             </thead>
                             <tbody>
                             <c:forEach var="row" items="${marginList}">
                                 <tr>
-                                    <td class="text-center">${row.soppTitle}</td>
-                                    <td class="text-center">${row.userName}</td>
-                                    <td class="text-right"><fmt:formatNumber type="number" maxFractionDigits="3" value="${row.cost}" /></td>
-                                    <td class="text-right"><fmt:formatNumber type="number" maxFractionDigits="3" value="${row.income}" /></td>
-                                    <td class="text-right"></td>
+                                    <td class="text-center">${row.regDatetime}</td>
+                                    <td class="text-center">${row.contTitle}</td>
+                                    
+                                    <td class="text-center">${row.cntrctMthN}</td>
+                                    
+                                    <td class="text-right"><fmt:formatNumber type="number" maxFractionDigits="3" value="${row.contAmt}" /></td>
+									<td class="text-right"><fmt:formatNumber type="number" maxFractionDigits="3" value="${row.net_profit}" /></td>
+                                    <td class="text-center"><button class="btn btn-sm btn-primary sch-company" onclick="location.href='${path}/cont/detail/${row.soppNo}/${row.contNo}.do'"/>상세</button></td>
                                 </tr>
                             </c:forEach>
                             </tbody>
@@ -62,3 +66,12 @@
     </div>
 </div>
 <jsp:include page="../body-bottom.jsp"/>
+<script>
+	$(function(){
+		$('#estTable').DataTable({
+			info:false,
+			searching: true,
+			order: [[ 0, "desc" ]],
+		});
+	});
+	</script>

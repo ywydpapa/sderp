@@ -56,20 +56,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         group by ss.soppNo
     </select>
 
-    <select id="soppMargin" resultType="misDto">
-        select ss.soppNo , ss.soppTitle,su.userName, sum(case when ss2.dataType = '1101' then ss2.dataAmt else 0 end) cost , sum(case when ss2.dataType = '1102' then ss2.dataAmt else 0 end) income  from swc_sopp ss
-        left join swc_soppdata01 ss2 on ss2.soppNo = ss.soppNo
-        left join swc_user su on ss.userNo = su.userNo
-        where ss.compNo = #{compNo} and ss.attrib not like 'XXX%'
-        <choose>
-            <when test="sYear == null ">
-                and date_format(ss.soppTargetDate,'%Y') = date_format(now(),'%Y')
-            </when>
-            <when test = "sYear != null">
-                and date_format(ss.soppTargetDate,'%Y') = #{sYear}
-            </when>
-        </choose>
-        group by ss.soppNo
+    <select id="soppMargin" resultType="contDto">   
+		SELECT a.*, b.desc03 contTypeN, c.desc03 cntrctMthN FROM swc_cont a
+		LEFT JOIN swc_code b on a.contType = b.codeNo 
+		left join swc_code c on a.cntrctMth = c.codeNo
+		WHERE a.compNo = #{compNo} ORDER BY a.regDatetime desc
     </select>
 
     <select id="bacinout" resultType="misDto">

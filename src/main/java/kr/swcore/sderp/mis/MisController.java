@@ -2,6 +2,7 @@ package kr.swcore.sderp.mis;
 
 import kr.swcore.sderp.account.dto.AccountDTO;
 import kr.swcore.sderp.code.service.CodeService;
+import kr.swcore.sderp.cont.dto.ContDTO;
 import kr.swcore.sderp.mis.dto.MisDTO;
 import kr.swcore.sderp.mis.service.MisService;
 import kr.swcore.sderp.sopp.dto.SoppdataDTO;
@@ -55,7 +56,7 @@ public class MisController {
         return mav;
     }
     @RequestMapping("/soppmarginlist.do")
-    public ModelAndView soppmarginlist(HttpSession session,MisDTO dto, ModelAndView mav) {
+    public ModelAndView soppmarginlist(HttpSession session, ContDTO dto, ModelAndView mav) {
         mav.addObject("marginList", misService.listSoppmargin(session, dto));
         mav.setViewName("mis/soppmarginlist");
         return mav;

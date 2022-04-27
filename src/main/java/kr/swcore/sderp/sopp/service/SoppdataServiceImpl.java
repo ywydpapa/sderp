@@ -1,9 +1,7 @@
 package kr.swcore.sderp.sopp.service;
 
 import java.util.List;
-
 import javax.inject.Inject;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import kr.swcore.sderp.util.SessionInfoGet;

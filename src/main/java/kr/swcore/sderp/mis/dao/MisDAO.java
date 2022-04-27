@@ -1,6 +1,8 @@
 package kr.swcore.sderp.mis.dao;
 
+import kr.swcore.sderp.account.dto.AccountDTO;
 import kr.swcore.sderp.mis.dto.MisDTO;
+import kr.swcore.sderp.sopp.dto.SoppdataDTO;
 
 import java.util.List;
 
@@ -12,4 +14,17 @@ public interface MisDAO {
     List<MisDTO> listSoppmargin(MisDTO dto);
     List<MisDTO> listBacinout(MisDTO dto);
     List<MisDTO> listBacstatus(MisDTO dto);
+    
+    List<AccountDTO> sumSvat(AccountDTO dto);
+    List<AccountDTO> sumSvat_sub(AccountDTO dto);
+    List<AccountDTO> sumSvatSearch(AccountDTO dto);
+    
+    List<AccountDTO> sumBvat(AccountDTO dto);
+    List<AccountDTO> sumBvat_sub(AccountDTO dto);
+    List<AccountDTO> sumBvatSearch(AccountDTO dto);
+    
+    List<SoppdataDTO> listIOsum(SoppdataDTO dto);
+	List<SoppdataDTO> listSearchIO(SoppdataDTO dto);
+	
+	List<AccountDTO> listbac(int compNo);
 }

@@ -1,6 +1,9 @@
 package kr.swcore.sderp.mis.dao;
 
+import kr.swcore.sderp.account.dto.AccountDTO;
 import kr.swcore.sderp.mis.dto.MisDTO;
+import kr.swcore.sderp.sopp.dto.SoppdataDTO;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
@@ -47,4 +50,58 @@ public class MisDAOImpl implements MisDAO {
     public List<MisDTO> listBacstatus(MisDTO dto) {
         return sqlSession.selectList("mis.bacstatus",dto);
     }
+
+	@Override
+	public List<AccountDTO> sumSvat(AccountDTO dto) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("mis.sumSVat",dto);
+	}
+
+	@Override
+	public List<AccountDTO> sumSvat_sub(AccountDTO dto) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("mis.sumSvat_sub",dto);
+	}
+
+	@Override
+	public List<AccountDTO> sumSvatSearch(AccountDTO dto) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("mis.sumSVatSearch",dto);
+	}
+
+	@Override
+	public List<AccountDTO> sumBvat(AccountDTO dto) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("mis.sumBVat",dto);
+	}
+
+	@Override
+	public List<AccountDTO> sumBvat_sub(AccountDTO dto) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("mis.sumBvat_sub",dto);
+	}
+
+	@Override
+	public List<AccountDTO> sumBvatSearch(AccountDTO dto) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("mis.sumBVatSearch",dto);
+	}
+
+	@Override
+	public List<SoppdataDTO> listIOsum(SoppdataDTO dto) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("mis.listIOsum",dto);
+	}
+
+	@Override
+	public List<SoppdataDTO> listSearchIO(SoppdataDTO dto) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("mis.listSearchIO",dto);
+	}
+
+	@Override
+	public List<AccountDTO> listbac(int compNo) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("mis.baclist", compNo);
+	}
 }

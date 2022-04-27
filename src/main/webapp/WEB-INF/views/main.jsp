@@ -421,9 +421,7 @@
 									</div>
 								</div>
 								<!-- main_contents Start -->
-								<div id="main_content">
-
-								</div>
+								<div id="main_content"></div>
 							<!-- main_contents end -->
 							</div>
 							<!-- Page-body end -->

@@ -21,7 +21,7 @@
                                         <span class="pcoded-mcaret"></span>
                                     </a>
                                 </li>
-                                <li class="pcoded-hasmenu">
+                                <li class="pcoded-hasmenu pcoded <c:if test="${fn:startsWith(path2, '/mis/sumSvatlist.do') || fn:startsWith(path2, '/mis/sumBvatlist.do') || path2 eq '/mis/iolist.do'}">pcoded-trigger</c:if>">
                                     <a href="javascript:void(0)">
                                         <span class="pcoded-micon"><i class="icon-calculator"></i></span>
                                         <span class="pcoded-mtext"  data-i18n="nav.basic-components.main">매입매출현황</span>
@@ -29,28 +29,35 @@
                                     </a>
                                     <ul class="pcoded-submenu">
                                         <li class="pcoded-hasmenu ">
-                                            <a href="${path}/mis/saleslist.do">
+                                            <a href="${path}/mis/iolist.do">
                                                 <span class="pcoded-micon"><i class="ti-direction-alt"></i></span>
                                                 <span class="pcoded-mtext" data-i18n="nav.menu-levels.menu-level-21">매입매출현황</span>
                                                 <span class="pcoded-mcaret"></span>
                                             </a>
                                         </li>
                                         <li class="pcoded-hasmenu">
-                                            <a href="${path}/mis/legerlist.do">
+                                            <a href="${path}/mis/sumBvatlist.do">
                                                 <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                                <span class="pcoded-mtext" data-i18n="nav.menu-levels.menu-level-22">미수/미지급현황</span>
+                                                <span class="pcoded-mtext" data-i18n="nav.menu-levels.menu-level-22">미지급 현황</span>
+                                                <span class="pcoded-mcaret"></span>
+                                            </a>
+                                        </li>
+                                        <li class="pcoded-hasmenu">
+                                            <a href="${path}/mis/sumSvatlist.do">
+                                                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                                                <span class="pcoded-mtext" data-i18n="nav.menu-levels.menu-level-22">미수금 현황</span>
                                                 <span class="pcoded-mcaret"></span>
                                             </a>
                                         </li>
                                     </ul>
-                                    </li>
+                                 </li>
                                     <li class="pcoded-hasmenu">
                                     <a href="javascript:void(0)">
                                         <span class="pcoded-micon"><i class="fa fa-krw"></i></span>
                                         <span class="pcoded-mtext"  data-i18n="nav.form-select.main">자금현황</span>
                                         <span class="pcoded-mcaret"></span>
                                     </a>
-                                                                        <ul class="pcoded-submenu">
+                                    <ul class="pcoded-submenu">
                                         <li class="pcoded-hasmenu ">
                                             <a href="${path}/mis/bacinoutlist.do">
                                                 <span class="pcoded-micon"><i class="ti-direction-alt"></i></span>

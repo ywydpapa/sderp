@@ -313,12 +313,16 @@ public class AccountController {
     public ModelAndView vatListB(HttpSession session, ModelAndView mav, 
             @RequestParam(value = "vatSellerCustNo", required = false) Integer vatSellerCustNo,
             @RequestParam(value = "vatIssueDateFrom", required = false) String vatIssueDateFrom,
-            @RequestParam(value = "vatIssueDateTo", required = false) String vatIssueDateTo) {
-    	if(vatSellerCustNo != null || vatIssueDateFrom != null || vatIssueDateTo != null){
+            @RequestParam(value = "vatIssueDateTo", required = false) String vatIssueDateTo,
+            @RequestParam(value = "vatTotalFrom", required = false) BigDecimal vatTotalFrom,
+            @RequestParam(value = "vatTotalTo", required = false) BigDecimal vatTotalTo) {
+    	if(vatSellerCustNo != null || vatIssueDateFrom != null || vatIssueDateTo != null || vatTotalFrom != null || vatTotalTo != null){
 			AccountDTO dto = new AccountDTO();
 			if(vatSellerCustNo != null) dto.setVatSellerCustNo(vatSellerCustNo);
 			if(vatIssueDateFrom != null) dto.setVatIssueDateFrom(vatIssueDateFrom);
 			if(vatIssueDateTo != null) dto.setVatIssueDateTo(vatIssueDateTo);
+			if(vatTotalFrom != null) dto.setVatTotalFrom(vatTotalFrom);
+			if(vatTotalTo != null) dto.setVatTotalTo(vatTotalTo);
 			mav.addObject("vatList", accountService.listvatSearchB(session, dto));
 		} else {
 			AccountDTO dto = new AccountDTO();
@@ -336,12 +340,16 @@ public class AccountController {
     public ModelAndView vatListS(HttpSession session, ModelAndView mav, 
             @RequestParam(value = "vatBuyerCustNo", required = false) Integer vatBuyerCustNo,
             @RequestParam(value = "vatIssueDateFrom", required = false) String vatIssueDateFrom,
-            @RequestParam(value = "vatIssueDateTo", required = false) String vatIssueDateTo) {
-    	if(vatBuyerCustNo != null || vatIssueDateFrom != null || vatIssueDateTo != null){
+            @RequestParam(value = "vatIssueDateTo", required = false) String vatIssueDateTo,
+            @RequestParam(value = "vatTotalFrom", required = false) BigDecimal vatTotalFrom,
+            @RequestParam(value = "vatTotalTo", required = false) BigDecimal vatTotalTo) {
+    	if(vatBuyerCustNo != null || vatIssueDateFrom != null || vatIssueDateTo != null || vatTotalFrom != null || vatTotalTo != null){
 			AccountDTO dto = new AccountDTO();
 			if(vatBuyerCustNo != null) dto.setVatBuyerCustNo(vatBuyerCustNo);
 			if(vatIssueDateFrom != null) dto.setVatIssueDateFrom(vatIssueDateFrom);
 			if(vatIssueDateTo != null) dto.setVatIssueDateTo(vatIssueDateTo);
+			if(vatTotalFrom != null) dto.setVatTotalFrom(vatTotalFrom);
+			if(vatTotalTo != null) dto.setVatTotalTo(vatTotalTo);
 			mav.addObject("vatList", accountService.listvatSearchS(session, dto));
 		} else {
 			AccountDTO dto = new AccountDTO();

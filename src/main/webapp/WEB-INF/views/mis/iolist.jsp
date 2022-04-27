@@ -17,7 +17,6 @@
 		$('#ioTable').DataTable({
 			info:false,
 			searching: true,
-			ordering: true,
 			order: [[ 0, "desc" ]],
 		});
 	});
@@ -173,7 +172,7 @@
 								<col width="15%"/>
 								<col width="15%"/>
 								<col width="15%"/>
-							</colgroup>							
+							</colgroup>
 							<thead>
 								<tr>
 									<th class="text-center">영업기회일자</th>

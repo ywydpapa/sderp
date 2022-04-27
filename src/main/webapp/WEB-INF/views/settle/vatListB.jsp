@@ -17,13 +17,13 @@
 </style>
 <div id="main_content">
 	<script>
-	$(function(){
-		$('#vatTable').DataTable({
-			info:false,
-			searching: true,
-			order: [[ 0, "desc" ]],
+		$(function(){
+			$('#vatTable').DataTable({
+				info:false,
+				searching: true,
+				order: [[ 0, "desc" ]],
+			});
 		});
-	});
 	</script>
 	
     <c:if test="${preserveSearchCondition != 'Y'}">
@@ -122,8 +122,16 @@
                                     		<option value="12">4/4분기</option>
                                     	</select>
                                     	<input class="form-control form-control-sm col-xl-6" type="date" max="9999-12-30" id="vatIssueDateFrom" value="${param.vatIssueDateFrom}"/>
-                                    		~ 
+                                    		&nbsp;~&nbsp;
                                     	<input class="form-control form-control-sm col-xl-6" type="date" max="9999-12-31" id="vatIssueDateTo" value="${param.vatIssueDateTo}"/>
+                                    </p>
+                                </div>
+                                <div class="col-sm-12 col-xl-5">
+                                	<label class="col-form-label">금액</label>
+                                    <p class="input-group">
+                                    	<input class="form-control form-control-sm" type="text" id="vatTotalFrom" value="<fmt:formatNumber type="number" maxFractionDigits="3" value="${param.vatTotalFrom}" />" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"/>
+                                    		&nbsp;~&nbsp; 
+                                    	<input class="form-control form-control-sm" type="text" id="vatTotalTo" value="<fmt:formatNumber type="number" maxFractionDigits="3" value="${param.vatTotalTo}" />" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"/>
                                     </p>
                                 </div>
                             </div>
@@ -161,7 +169,6 @@
                         <table id="vatTable" class="table table-striped table-bordered nowrap ">
                             <colgroup>
                                 <col width="10%"/>
-                                <col width="10%"/>
                                 <col width="12%"/>
                                 <col width="7%"/>
                                 <col width="10%"/>
@@ -169,12 +176,13 @@
                                 <col width="5%"/>
                                 <col width="5%"/>
                                 <%-- <col width="15%"/> --%>
-                                <col width="35%"/>
+                                <col width="15%"/>
+                                <col width="15%"/>
+                                <col width="15%"/>
                             </colgroup>
                             <thead>
                             <tr>
                                 <th class="text-center">등록일</th>
-                                <th class="text-center">매입/매출</th>
                                 <th class="text-center">거래처</th>
                                 <th class="text-center">발행번호</th>
                                 <th class="text-center">상태</th>
@@ -185,15 +193,14 @@
                                 <!-- 연결문서 지워라해서 일단 주석처리(2022.04.05) --> 
                                 <!-- <th class="text-center">연결문서(합계금액)</th> -->
                                 
-                                <th class="text-center">품목/비고</th>
+                                <th class="text-center">품목</th>
+                                <th class="text-center">규격</th>
+                                <th class="text-center">비고</th>
                             </tr>
                             </thead>
                             <c:forEach items="${vatList}" var="vlist">
                                 <tr>
                                 	<td class="text-center">${vlist.vatIssueDate}</td>
-                                    <td class="text-center vatTyp">
-                                    	매입
-                                    </td>
                                     <td class="text-center">
                                     	${vlist.vatSellerName}
                                    	</td>
@@ -211,21 +218,16 @@
                                     	<fmt:formatNumber type="number" maxFractionDigits="3" value="${vlist.vatTax}" />
                                     </td>
                                     <td class="text-right">
-                                    	<fmt:formatNumber type="number" maxFractionDigits="3" value="${vlist.vatAmount + vlist.vatTax}" />
+                                    	<fmt:formatNumber type="number" maxFractionDigits="3" value="${vlist.vatTotal}" />
                                     </td>
                                     <%-- <td class="text-right">
                                     	<a data-remote="${path}/modal/popup1.do?popId=${vlist.vatSerial}" type="button" data-toggle="modal" data-target="#userModal1" style="cursor: pointer; text-decoration: underline;">
                                     		<fmt:formatNumber type="number" maxFractionDigits="3" value="${vlist.vatSum}" />
                                     	</a>
                                     </td> --%>
-                                    <c:choose>
-                                    	<c:when test="${empty vlist.vatRemark}">
-		                                    <td style="white-space:normal;">${vlist.vatProductName}</td>
-                                    	</c:when>
-                                    	<c:otherwise>
-                                    		<td style="white-space:normal;">${vlist.vatProductName}(${vlist.vatRemark})</td>
-                                    	</c:otherwise>
-                                    </c:choose>
+                                    <td style="white-space:normal;">${vlist.vatProductName}</td>
+                                    <td style="white-space:normal;">${vlist.vatStandard}</td>
+                                    <td style="white-space:normal;">${vlist.vatRemark}</td>
                                 </tr>
                             </c:forEach>
                         </table>
@@ -374,6 +376,11 @@
 	             $("#acordian").css("display", "block");
 		        localStorage.clear();
 	        }
+	        
+	        $('#vatTotalFrom, #vatTotalTo').on('keyup',function(){
+	        	var str = addCommas($(this).val().replace(/[^0-9]/g, ""));
+	        	$(this).val(str);
+	        });
     	});
     
         $('#custModal').on('show.bs.modal', function(e) {
@@ -396,6 +403,10 @@
             var modal = $(this);
             modal.find('.modal-body').load(button.data("remote"));
         });
+        
+        function addCommas(com){
+        	return com.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        }
         
         function popupVat(e){
             var nWidth = "800";
@@ -431,6 +442,8 @@
     		vatData.vatSellerName = $("#vatSellerName").val();
     		vatData.vatIssueDateFrom = $("#vatIssueDateFrom").val() ? $("#vatIssueDateFrom").val() : null;
     		vatData.vatIssueDateTo = $("#vatIssueDateTo").val() ? $("#vatIssueDateTo").val() : null;
+    		vatData.vatTotalFrom = $("#vatTotalFrom").val() ? $("#vatTotalFrom").val().replace(/[\D\s\._\-]+/g, "") : null;
+    		vatData.vatTotalTo = $("#vatTotalTo").val() ? $("#vatTotalTo").val().replace(/[\D\s\._\-]+/g, "") : null;
     		
     		var param = "?";
     		var paramFirst = true;

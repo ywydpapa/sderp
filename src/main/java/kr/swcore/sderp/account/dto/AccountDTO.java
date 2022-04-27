@@ -217,5 +217,9 @@ public class AccountDTO {
 	private BigDecimal settleDRbalance;
 	private int contribution_percent;
 	private int main_userNo;
+	
+	//금액 검색
+	private BigDecimal vatTotalFrom;
+	private BigDecimal vatTotalTo;
 }
 

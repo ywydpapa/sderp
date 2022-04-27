@@ -10,11 +10,7 @@
 <html>
 <jsp:include page="../head.jsp"/>
 <jsp:include page="../body-top3.jsp"/>
-<style>
-	#vatTable tbody tr td{
-		vertical-align: middle;
-	}
-</style>
+
 <div id="main_content">
 	
 	<script>
@@ -22,7 +18,8 @@
 		$('#vatTable').DataTable({
 			info:false,
 			searching: true,
-			order: [[ 0, "desc" ]],
+			order: [[ 3, "desc" ]],
+			ordering: true
 		});
 	});
 	</script>
@@ -34,11 +31,10 @@
                 <div class="col-lg-12">
                     <div class="page-header-title" style="float:left;">
                         <div style="margin-top:15px;">
-                            <h6 style="font-weight:600;">매출 계산서 조회</h6>
+                            <h6 style="font-weight:600;">미지급 현황</h6>
                         </div>
                     </div>
                     <div class="btn_wr" style="float:right;">
-                        <!-- hide and show -->
 						<button class="btn btn-sm btn-success" id="fold" onclick="acordian_action()">펼치기</button>
 						<button class="btn btn-sm btn-success" id="fold2" onclick="acordian_action1()" style="display:none;">접기</button>
                         <button class="btn btn-sm btn-inverse" onClick="javascript:fnClearall()">
@@ -46,12 +42,6 @@
                         </button>
                         <button class="btn btn-sm btn-primary" onClick="javascript:fnListcon()">
                         	<i class="icofont icofont-search"></i>검색
-                        </button>
-                        <button class="btn btn-sm btn-inverse"  onClick="javascript:fnChgStatus3()">
-                        	부분수금
-                        </button>
-                        <button class="btn btn-sm btn-danger"  onClick="javascript:fnChgStatus5()">
-                        	수금완료
                         </button>
                         <button class="btn btn-sm btn-outline"onClick="javascript:location='${path}/acc/vatupload.do'">
                         	<i class="icofont icofont-pencil-alt-2"></i>계산서 등록
@@ -71,8 +61,8 @@
                             	<div class="col-sm-12 col-xl-3">
 									<label class="col-form-label">거래처</label>
 									<div class="input-group input-group-sm mb-0">
-										<input type="text" class="form-control" name="vatBuyerName" id="vatBuyerName" value="${param.vatBuyerName}" readonly />
-										<input type="hidden" name="vatBuyerCustNo" id="vatBuyerCustNo" value="${param.vatBuyerCustNo}" />
+										<input type="text" class="form-control" name="vatSellerName" id="vatSellerName" value="${param.vatSellerName}" readonly />
+										<input type="hidden" name="vatSellerCustNo" id="vatSellerCustNo" value="${param.vatSellerCustNo}" />
 										<span class="input-group-btn">
 											<button class="btn btn-primary sch-company"
 												data-remote="${path}/modal/popup.do?popId=cust"
@@ -127,14 +117,6 @@
                                     	<input class="form-control form-control-sm col-xl-6" type="date" max="9999-12-31" id="vatIssueDateTo" value="${param.vatIssueDateTo}"/>
                                     </p>
                                 </div>
-                                <div class="col-sm-12 col-xl-5">
-                                	<label class="col-form-label">금액</label>
-                                    <p class="input-group">
-                                    	<input class="form-control form-control-sm" type="text" id="vatTotalFrom" value="<fmt:formatNumber type="number" maxFractionDigits="3" value="${param.vatTotalFrom}" />" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"/>
-                                    		&nbsp;~&nbsp; 
-                                    	<input class="form-control form-control-sm" type="text" id="vatTotalTo" value="<fmt:formatNumber type="number" maxFractionDigits="3" value="${param.vatTotalTo}" />" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"/>
-                                    </p>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -144,104 +126,105 @@
         <!--//영업활동조회-->
     </c:if>
 
-    <!--리스트 table-->
+    <!--리스트 table--> 
     <div class="cnt_wr" id="list-container">
         <div class="row">
             <div class="col-sm-12">
                 <div class="card-block table-border-style">
-                    <div class="table-responsive"  style="overflow:hidden;">
+                    <div class="table-responsive">
                     	<span style="font-weight:600;">※총합계</span>
                     	<table class="table table-striped table-bordered nowrap" style="margin-bottom: 1%;">
                     		<c:forEach items="${vatList}" var="vlist">
-                    			<c:set var="totalSum" value="${totalSum + (vlist.vatAmount + vlist.vatTax)}" />
+                    			<c:set var="baseSum" value="${baseSum + vlist.custBalance}" />
+                            	<c:set var="amountSum" value="${amountSum + vlist.vatAmountB}" />
+                            	<c:set var="totalSum" value="${totalSum + vlist.serialTotalB}" />
+                            	<c:set var="balanceSum" value="${balanceSum + ((vlist.custBalance + vlist.vatAmountB) - vlist.serialTotalB)}" />
                     		</c:forEach>
-                   			<tr>
-                   				<th class="text-center">매출합계</th>
-                   				<c:choose>
+                    		<thead>
+                    			<tr>
+                    				<th class="text-center">금년도 매입합계</th>
+                    				<th class="text-center">금년도 지불완료합계</th>
+                    				<th class="text-center">잔액</th>
+                    			</tr>
+                    		</thead>
+                    		<tbody>
+                    			<c:choose>
                     				<c:when test="${empty vatList}">
-		                            	<th class="text-right">0</th>
+		                    			<tr>
+			                            	<th class="text-right">0</th>
+			                            	<th class="text-right">0</th>
+			                            	<th class="text-right">0</th> 
+			                            </tr>
                     				</c:when>
                     				<c:otherwise>
-	                    				<th class="text-center"><fmt:formatNumber type="number" maxFractionDigits="3" value="${totalSum}" /></th>
+                    					<tr>
+			                            	<th class="text-right"><fmt:formatNumber type="number" maxFractionDigits="3" value="${amountSum}" /></th>
+			                            	<th class="text-right"><fmt:formatNumber type="number" maxFractionDigits="3" value="${totalSum}" /></th>
+			                            	<th class="text-right"><fmt:formatNumber type="number" maxFractionDigits="3" value="${balanceSum}" /></th> 
+			                            </tr>
                     				</c:otherwise>
-                   				</c:choose>
-                   			</tr>
+                    			</c:choose>
+                    		</tbody>
                     	</table>
                         <table id="vatTable" class="table table-striped table-bordered nowrap ">
                             <colgroup>
-                                <col width="10%"/>
-                                <col width="12%"/>
-                                <col width="7%"/>
-                                <col width="10%"/>
-                                <col width="5%"/>
-                                <col width="5%"/>
-                                <col width="5%"/>
-                                <%-- <col width="15%"/> --%>
+                                <col width="55%"/>
                                 <col width="15%"/>
                                 <col width="15%"/>
                                 <col width="15%"/>
                             </colgroup>
                             <thead>
                             <tr>
-                                <th class="text-center">등록일</th>
                                 <th class="text-center">거래처</th>
-                                <th class="text-center">발행번호</th>
-                                <th class="text-center">상태</th>
-                                <th class="text-center">공급가</th>
-                                <th class="text-center">세액</th>
-                                <th class="text-center">합계금액</th>
-                                
-                                <!-- 연결문서 지워라해서 일단 주석처리(2022.04.05) --> 
-                                <!-- <th class="text-center">연결문서(합계금액)</th> -->
-                                
-                                <th class="text-center">품목</th>
-                                <th class="text-center">규격</th>
-                                <th class="text-center">비고</th>
+                                <th class="text-center">금년도 매입합계</th>
+                                <th class="text-center">금년도 지불완료합계</th>
+                                <th class="text-center">잔액</th>
                             </tr>
                             </thead>
                             <tbody>
 	                            <c:forEach items="${vatList}" var="vlist">
-	                                <tr>
-	                                	<td class="text-center">${vlist.vatIssueDate}</td>
-	                                    <td class="text-center">
-	                                    	${vlist.vatBuyerName}
-	                                   	</td>
-	                                    <td class="text-center vatSno"><a href="${path}/acc/vatHtml/${vlist.vatSerial}/${vlist.vatType}" onClick="javascript:popupVat(this); return false;">${vlist.vatSerial}</a></td>
-	                                    <td class="text-center">
-	                                        <c:if test = "${vlist.vatStatus eq 'S1'}">매출발행</c:if>
-	                                        <c:if test = "${vlist.vatStatus eq 'S3'}">수금처리중</c:if>
-	                                        <c:if test = "${vlist.vatStatus eq 'S5'}">수금완료</c:if>
-	                                        <input type="checkbox" class="vatStchg" data-id="${vlist.vatSerial}">
-	                                    </td>
-	                                    <td class="text-right">
-	                                    	<fmt:formatNumber type="number" maxFractionDigits="3" value="${vlist.vatAmount}" />
-	                                    </td>
-	                                    <td class="text-right">
-	                                    	<fmt:formatNumber type="number" maxFractionDigits="3" value="${vlist.vatTax}" />
-	                                    </td>
-	                                    <td class="text-right">
-	                                    	<fmt:formatNumber type="number" maxFractionDigits="3" value="${vlist.vatTotal}" />
-	                                    </td>
-	                                    <%-- <td class="text-right">
-	                                    	<a data-remote="${path}/modal/popup1.do?popId=${vlist.vatSerial}" type="button" data-toggle="modal" data-target="#userModal1" style="cursor: pointer; text-decoration: underline;">
-	                                    		<fmt:formatNumber type="number" maxFractionDigits="3" value="${vlist.vatSum}" />
-	                                    	</a>
-	                                    </td> --%>
-	                                    <td style="white-space:normal;">${vlist.vatProductName}</td>
-	                                    <td style="white-space:normal;">${vlist.vatStandard}</td>
-	                                    <td style="white-space:normal;">${vlist.vatRemark}</td>
-	                                </tr>
+	                            	<c:if test="${vlist.vatAmountB > 0 || vlist.serialTotalB > 0 || vlist.custBalance > 0}">
+		                                <tr>
+		                                    <td class="text-center">
+	                                    		<a data-remote="${path}/modal/popup.do?popId=custVatListModal&modalType=cust&custNo=${vlist.custNo}&compNo=${sessionScope.compNo}&vatIssueDateFrom=${param.vatIssueDateFrom}&vatIssueDateTo=${param.vatIssueDateTo}&modalFlag=1&vatType=B" type="button" data-toggle="modal" data-target="#custVatList" style="cursor: pointer; text-decoration: underline;">
+	                                    			${vlist.vatSellerName}
+	                                    		</a>
+		                                   	</td>
+		                                    <td class="text-right">
+		                                    	<c:choose>
+		                                    		<c:when test="${vlist.vatAmountB > 0}"><fmt:formatNumber type="number" maxFractionDigits="3" value="${vlist.vatAmountB}" /></c:when>
+		                                    		<c:otherwise>0</c:otherwise>
+		                                    	</c:choose>
+		                                    </td>
+		                                    <td class="text-right">
+		                                    	<c:choose>
+		                                    		<c:when test="${vlist.serialTotalB > 0}"><fmt:formatNumber type="number" maxFractionDigits="3" value="${vlist.serialTotalB}" /></c:when>
+		                                    		<c:otherwise>0</c:otherwise>
+		                                    	</c:choose>
+		                                    </td>
+		                                    <td class="text-right">
+                                    			<a data-remote="${path}/modal/popup.do?popId=custVatListModal&modalType=balance&custNo=${vlist.custNo}&compNo=${sessionScope.compNo}&modalFlag=0&vatType=B" type="button" data-toggle="modal" data-target="#custVatList" style="cursor: pointer; text-decoration: underline;">
+			                                    	<c:choose>
+			                                    		<c:when test="${(vlist.custBalance + vlist.vatAmountB) - vlist.serialTotalB ne ''}">
+			                                    				<fmt:formatNumber type="number" maxFractionDigits="3" value="${(vlist.custBalance + vlist.vatAmountB) - vlist.serialTotalB}" />
+			                                    		</c:when>
+			                                    		<c:otherwise>0</c:otherwise>
+			                                    	</c:choose>
+                                    			</a>
+		                                    </td>
+		                                </tr>
+	                                </c:if>
 	                            </c:forEach>
                             </tbody>
                         </table>
                     </div>
                 </div>
                 <!-- model -->
-                <div class="modal fade " id="userModal1" tabindex="-1" role="dialog">
+                <div class="modal fade " id="custVatList" tabindex="-1" role="dialog">
 					<div class="modal-dialog modal-80size" role="document">
 						<div class="modal-content modal-80size">
 							<div class="modal-header">
-								<h4 class="modal-title">연결문서(합계금액)</h4>
+								<h4 class="modal-title">목록</h4>
 								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 									<span aria-hidden="true">&times;</span>
 								</button>
@@ -267,7 +250,7 @@
 	    	if(vatType !== ""){
 	    		$("#vatType").val(vatType);
 	    	}
-    		
+	    	
 	    	$("#searchYear").change(function(){
 	    		var dateFrom = $("#vatIssueDateFrom");
 	    		var dateTo = $("#vatIssueDateTo");
@@ -379,12 +362,8 @@
 	             $("#acordian").css("display", "block");
 		        localStorage.clear();
 	        }
-	        
-	        $('#vatTotalFrom, #vatTotalTo').on('keyup',function(){
-	        	var str = addCommas($(this).val().replace(/[^0-9]/g, ""));
-	        	$(this).val(str);
-	        });
     	});
+    	
     
         $('#custModal').on('show.bs.modal', function(e) {
             var button = $(e.relatedTarget);
@@ -401,104 +380,19 @@
             var modal = $(this);
             modal.find('.modal-body').load(button.data("remote"));
         });
-        $('#userModal1').on('show.bs.modal', function(e) {
+        $('#custVatList').on('show.bs.modal', function(e) {
             var button = $(e.relatedTarget);
             var modal = $(this);
             modal.find('.modal-body').load(button.data("remote"));
         });
         
-        function addCommas(com){
-        	return com.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-        }
-        
-        function fnChgStatus3(){
-        	var tableBody = $("#vatTable tbody tr td .vatStchg");
-        	var compNo = "${sessionScope.compNo}";
-        	
-        	tableBody.each(function(index, item){
-        		if($(item).is(":checked") === true){
-		        	var vatSerial = $(this).attr("data-id");
-	        		var vatData = {};
-	        		vatData.compNo = compNo;
-	        		vatData.vatSerial = vatSerial;
-	        		vatData.vatStatus = 'S3';
-	        		
-	        		$.ajax({
-	                    url : "${path}/acc/vatStatuschg.do",
-	                    data : vatData,
-	                    async: false,
-	                    method : "POST",
-	                    dataType: "json"
-	                });
-        		}
-        	});
-        	
-            alert("변경 처리 완료");
-            location.href = location.href;
-        }
-
-        function fnChgStatus5(){
-        	var tableBody = $("#vatTable tbody tr td .vatStchg");
-        	var compNo = "${sessionScope.compNo}";
-        	
-        	tableBody.each(function(index, item){
-        		if($(item).is(":checked") === true){
-		        	var vatSerial = $(this).attr("data-id");
-	        		var vatData = {};
-	        		vatData.compNo = compNo;
-	        		vatData.vatSerial = vatSerial;
-	        		vatData.vatStatus = 'S5';
-	        		
-	        		$.ajax({
-	                    url : "${path}/acc/vatStatuschg.do",
-	                    data : vatData,
-	                    async: false,
-	                    method : "POST",
-	                    dataType: "json"
-	                });
-        		}
-        	});
-        	
-            alert("변경 처리 완료");
-            location.href = location.href;
-        }
-        
-        function popupVat(e){
-            var nWidth = "800";
-            var nHeight = "800";
-
-            var curX = window.screenLeft;
-            var curY = window.screenTop;
-            var curWidth = document.body.clientWidth;
-            var curHeight = document.body.clientHeight;
-
-            var nLeft = curX + (curWidth / 2) - (nWidth / 2);
-            var nTop = curY + (curHeight / 2) - (nHeight / 2);
-
-            var strOption = "";
-            strOption += "left=" + nLeft + "px,";
-            strOption += "top=" + nTop + "px,";
-            strOption += "width=" + nWidth + "px,";
-            strOption += "height=" + nHeight + "px,";
-            strOption += "toolbar=no,menubar=no,location=no,";
-            strOption += "resizable=yes,status=yes";
-
-            var winObj = window.open($(e).attr("href"), '', strOption);
-
-            if (winObj == null) {
-                alert("팝업 차단을 해제해주세요.");
-                return false;
-            }
-        }
-        
         function fnListcon() {
     		var vatData = {};
-    		vatData.vatBuyerCustNo = $("#vatBuyerCustNo").val() ? Number($("#vatBuyerCustNo").val()) : 0;
-    		vatData.vatBuyerName = $("#vatBuyerName").val();
+    		vatData.vatSellerCustNo = $("#vatSellerCustNo").val() ? Number($("#vatSellerCustNo").val()) : 0;
+    		vatData.vatSellerName = $("#vatSellerName").val();
     		vatData.vatIssueDateFrom = $("#vatIssueDateFrom").val() ? $("#vatIssueDateFrom").val() : null;
     		vatData.vatIssueDateTo = $("#vatIssueDateTo").val() ? $("#vatIssueDateTo").val() : null;
-    		vatData.vatTotalFrom = $("#vatTotalFrom").val() ? $("#vatTotalFrom").val().replace(/[\D\s\._\-]+/g, "") : null;
-    		vatData.vatTotalTo = $("#vatTotalTo").val() ? $("#vatTotalTo").val().replace(/[\D\s\._\-]+/g, "") : null;
+    		vatData.selectYear = $("#searchYear").val();
     		
     		var param = "?";
     		var paramFirst = true;
@@ -517,16 +411,17 @@
     		if(param == "?"){
     			param = "";
     		}
-			
-    		if(document.querySelector('#acordian').style.cssText == "display: none;"){
-    			var testAco1 = document.querySelector('#acordian').style.cssText;
-    			localStorage.setItem('lastAco1', testAco1);	
-    		}else {
-    			var testAco2 = document.querySelector('#acordian').style.cssText;
-    			localStorage.setItem('lastAco2', testAco2);
-    		}
+
+    		var url = '${path}/acc/sumBvatlist.do'+param;
     		
-    		var url = '${path}/acc/vatlistS.do'+param;
+    		if(document.querySelector('#acordian').style.cssText == "display: none;"){
+	            var testAco1 = document.querySelector('#acordian').style.cssText;
+	            localStorage.setItem('lastAco1', testAco1);    
+	        }else {
+	            var testAco2 = document.querySelector('#acordian').style.cssText;
+	            localStorage.setItem('lastAco2', testAco2);
+	        }
+    		
     		location.href = url;
     	}
     	
@@ -554,8 +449,8 @@
     	}
 
         function fnSetCustData(a, b) {
-            $("#vatBuyerCustNo").val(b);
-            $("#vatBuyerName").val(a);
+            $("#vatSellerCustNo").val(b);
+            $("#vatSellerName").val(a);
             $(".modal-backdrop").remove();
             $("#custModal").modal("hide");
         }
@@ -572,6 +467,33 @@
             $("#soppTitle").val(a);
             $(".modal-backdrop").remove();
             $("#soppModal").modal("hide");
+        }
+
+        function fnChgStatus(){
+            $Aarr=$(".vatSno");
+            $Barr=$(".vatStchg");
+            $Carr=$(".vatTyp");
+            for (var i=0; i<$Barr.length; i++) {
+                if ($($Barr[i]).is(":checked") == true) {
+                    var vatData = {};
+                    vatData.vatSerial = $Aarr[i].innerText;
+                    if ($Carr[i].innerText == '매입'){
+                        vatData.vatStatus = 'B5';
+                    }else{
+                        vatData.vatStatus = 'S5';
+                    }
+                    $.ajax({
+                        url : "${path}/acc/vatStatuschg.do",
+                        data : vatData,
+                        method : "POST",
+                        dataType: "json"
+                    })
+                        .done(function(){
+                        });
+                }
+            }
+            alert("변경 처리 완료");
+            location.href = location.href;
         }
 
     </script>

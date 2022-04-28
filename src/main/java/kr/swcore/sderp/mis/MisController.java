@@ -8,8 +8,10 @@ import kr.swcore.sderp.mis.service.MisService;
 import kr.swcore.sderp.sopp.dto.SoppdataDTO;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.time.LocalDate;
@@ -224,9 +226,27 @@ public class MisController {
     
     @RequestMapping("bacinoutlist.do")
     public ModelAndView bacinoutlist(HttpSession session, ModelAndView mav) {
-        mav.addObject("bacList", misService.listbac(session));
+    	List<AccountDTO> listBac = misService.listbac(session);
+    	
+    	System.out.println(listBac);
+    	
+        mav.addObject("bacList", listBac);
         mav.setViewName("mis/bacinoutlist");
         return mav;
+    }
+    
+    @ResponseBody
+    @RequestMapping("bacSelectList.do")
+    public List<AccountDTO> bacSelectList(@ModelAttribute AccountDTO dto){
+    	List<AccountDTO> accList = misService.bacSelectList(dto);
+    	List<AccountDTO> inOutList = misService.bacInOutList(dto);
+    	
+    	for(int i = 0; i < accList.size(); i++) {
+    		accList.get(i).setInAmt(inOutList.get(i).getInListAmt());
+    		accList.get(i).setOutAmt(inOutList.get(i).getOutListAmt());
+    	}
+    	
+    	return accList;
     }
 /*
     @RequestMapping("/saleslist.do")

@@ -29,4 +29,6 @@ public interface MisService {
 	List<SoppdataDTO> listSearchIO(HttpSession session, SoppdataDTO dto);
 	
 	List<AccountDTO> listbac(HttpSession session);
+	List<AccountDTO> bacSelectList(AccountDTO dto);
+	List<AccountDTO> bacInOutList(AccountDTO dto);
 }

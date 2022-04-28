@@ -30,4 +30,6 @@ public interface MisDAO {
 	List<SoppdataDTO> listSearchIO(SoppdataDTO dto);
 	
 	List<AccountDTO> listbac(int compNo);
+	List<AccountDTO> bacSelectList(AccountDTO dto);
+	List<AccountDTO> bacInOutList(AccountDTO dto);
 }

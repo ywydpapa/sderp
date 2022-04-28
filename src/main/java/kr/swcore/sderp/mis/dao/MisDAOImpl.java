@@ -105,4 +105,14 @@ public class MisDAOImpl implements MisDAO {
 		// TODO Auto-generated method stub
 		return sqlSession.selectList("mis.baclist", compNo);
 	}
+
+	@Override
+	public List<AccountDTO> bacSelectList(AccountDTO dto) {
+		return sqlSession.selectList("mis.bacSelectList", dto);
+	}
+
+	@Override
+	public List<AccountDTO> bacInOutList(AccountDTO dto) {
+		return sqlSession.selectList("mis.bacInOutList", dto);
+	}
 }

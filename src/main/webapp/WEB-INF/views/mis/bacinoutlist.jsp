@@ -126,7 +126,6 @@
                             <thead>
                             <tr>
                                 <th class="text-center">일자</th>
-                                <th class="text-center">기재내용</th>
                                 <th class="text-center">입금</th>
                                 <th class="text-center">출금</th>
                                 <th class="text-center">잔액</th>
@@ -241,7 +240,7 @@
 				pageCheck.bacSerial = localStorage.getItem("lastTab");
 				
 				$.ajax({
-					url: "${path}/acc/bacSelectList.do",
+					url: "${path}/mis/bacSelectList.do",
 					method: "get",
 					data: selectData,
 					dataType: "json",
@@ -253,7 +252,6 @@
 								}
 								
 								tableHtml += "<tr><td style='text-align:center;vertical-align:middle;'>" + data[i].baclogTime + "</td><td style='text-align:center;vertical-align:middle;'>" 
-								+ data[i].bacDesc + "</td><td style='text-align:right;vertical-align:middle;'>" 
 								+ parseInt(data[i].inAmt).toLocaleString("en-US") + "</td><td style='text-align:right;vertical-align:middle;'>"
 							 	+ parseInt(data[i].outAmt).toLocaleString("en-US") + "</td><td style='text-align:right;vertical-align:middle;'>"
 							 	+ parseInt(data[i].balanceAmt).toLocaleString("en-US") + "</td></tr>";
@@ -427,7 +425,7 @@
 		}
 		
 		$.ajax({
-			url: "${path}/acc/bacSelectList.do",
+			url: "${path}/mis/bacSelectList.do",
 			method: "get",
 			data: selectData,
 			dataType: "json",
@@ -441,7 +439,6 @@
 						}
 						
 						tableHtml += "<tr><td style='text-align:center;vertical-align:middle;'>" + data[i].baclogTime + "</td><td style='text-align:center;vertical-align:middle;'>" 
-						+ data[i].bacDesc + "</td><td style='text-align:right;vertical-align:middle;'>" 
 						+ parseInt(data[i].inAmt).toLocaleString("en-US") + "</td><td style='text-align:right;vertical-align:middle;'>"
 					 	+ parseInt(data[i].outAmt).toLocaleString("en-US") + "</td><td style='text-align:right;vertical-align:middle;'>"
 					 	+ parseInt(data[i].balanceAmt).toLocaleString("en-US") + "</td></tr>";
@@ -539,7 +536,7 @@
 			}
 			
 			$.ajax({
-				url: "${path}/acc/bacSelectList.do",
+				url: "${path}/mis/bacSelectList.do",
 				method: "get",
 				data: selectData,
 				dataType: "json",
@@ -550,7 +547,6 @@
 								data[i].bacUpdateMemo = "";
 							}
 							tableHtml += "<tr><td style='text-align:center;vertical-align:middle;'>" + data[i].baclogTime + "</td><td style='text-align:center;vertical-align:middle;'>" 
-							+ data[i].bacDesc + "</td><td style='text-align:right;vertical-align:middle;'>" 
 							+ parseInt(data[i].inAmt).toLocaleString("en-US") + "</td><td style='text-align:right;vertical-align:middle;'>"
 						 	+ parseInt(data[i].outAmt).toLocaleString("en-US") + "</td><td style='text-align:right;vertical-align:middle;'>"
 						 	+ parseInt(data[i].balanceAmt).toLocaleString("en-US") + "</td></tr>";
@@ -652,7 +648,7 @@
 			}
 			
 			$.ajax({
-				url: "${path}/acc/bacSelectList.do",
+				url: "${path}/mis/bacSelectList.do",
 				method: "get",
 				data: selectData,
 				dataType: "json",
@@ -665,7 +661,6 @@
 								data[i].bacUpdateMemo = "";
 							}
 							tableHtml += "<tr><td style='text-align:center;vertical-align:middle;'>" + data[i].baclogTime + "</td><td style='text-align:center;vertical-align:middle;'>" 
-							+ data[i].bacDesc + "</td><td style='text-align:right;vertical-align:middle;'>" 
 							+ parseInt(data[i].inAmt).toLocaleString("en-US") + "</td><td style='text-align:right;vertical-align:middle;'>"
 						 	+ parseInt(data[i].outAmt).toLocaleString("en-US") + "</td><td style='text-align:right;vertical-align:middle;'>"
 						 	+ parseInt(data[i].balanceAmt).toLocaleString("en-US") + "</td></tr>";
@@ -761,7 +756,7 @@
 			}
 			
 			$.ajax({
-				url: "${path}/acc/bacSelectList.do",
+				url: "${path}/mis/bacSelectList.do",
 				method: "get",
 				data: selectData,
 				dataType: "json",
@@ -774,7 +769,6 @@
 								data[i].bacUpdateMemo = "";
 							}
 							tableHtml += "<tr><td style='text-align:center;vertical-align:middle;'>" + data[i].baclogTime + "</td><td style='text-align:center;vertical-align:middle;'>" 
-							+ data[i].bacDesc + "</td><td style='text-align:right;vertical-align:middle;'>" 
 							+ parseInt(data[i].inAmt).toLocaleString("en-US") + "</td><td style='text-align:right;vertical-align:middle;'>"
 						 	+ parseInt(data[i].outAmt).toLocaleString("en-US") + "</td><td style='text-align:right;vertical-align:middle;'>"
 						 	+ parseInt(data[i].balanceAmt).toLocaleString("en-US") + "</td></tr>";
@@ -914,7 +908,7 @@
 			});
 			
 			$.ajax({
-				url: "${path}/acc/bacSelectList.do",
+				url: "${path}/mis/bacSelectList.do",
 				method: "get",
 				data: selectData,
 				dataType: "json",
@@ -927,7 +921,6 @@
 								data[i].bacUpdateMemo = "";
 							}
 							tableHtml += "<tr><td style='text-align:center;vertical-align:middle;'>" + data[i].baclogTime + "</td><td style='text-align:center;vertical-align:middle;'>" 
-							+ data[i].bacDesc + "</td><td style='text-align:right;vertical-align:middle;'>" 
 							+ parseInt(data[i].inAmt).toLocaleString("en-US") + "</td><td style='text-align:right;vertical-align:middle;'>"
 						 	+ parseInt(data[i].outAmt).toLocaleString("en-US") + "</td><td style='text-align:right;vertical-align:middle;'>"
 						 	+ parseInt(data[i].balanceAmt).toLocaleString("en-US") + "</td><td style='text-align:center;vertical-align:middle;'></td></tr>";

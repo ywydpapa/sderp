@@ -208,4 +208,34 @@ select a.soppNo, dataType ,b.soppTitle, c.custName as custName, sum(case when a.
 		GROUP BY t.bacSerial) d ON a.bacSerial = d.bacSerial
 				where a.compNo = #{compNo} and a.attrib not like 'XXX%';
 	</select>
+	
+	<select id="bacSelectList" resultType="accountDto">
+		select * from swc_bacledger 
+		WHERE (baclogTime) IN ( SELECT MAX(baclogTime) FROM swc_bacledger where bacSerial = #{bacSerial} and attrib not like 'XXX%' GROUP BY DATE_FORMAT(baclogTime, '%Y-%m-%d'))
+		<if test="bacDesc != null and bacDesc != ''">
+			and bacDesc like CONCAT('%', #{bacDesc}, '%')
+		</if>
+		<if test="baclogTimeFrom != null and baclogTimeFrom != ''">
+			and baclogTime Between #{baclogTimeFrom} and #{baclogTimeTo}
+		</if>
+		<if test="linkDoc != null and linkDoc != ''">
+			and linkDoc = #{linkDoc}
+		</if>
+		GROUP BY DATE_FORMAT(baclogTime, '%Y-%m-%d') order by baclogTime desc limit #{betFirstNum}, #{betLastNum};
+	</select>
+	
+	<select id="bacInOutList" resultType="accountDto">
+		select *, SUM(inAmt) as inListAmt, SUM(outAmt) as outListAmt from swc_bacledger 
+		where bacSerial = #{bacSerial} and attrib not like 'XXX%' 
+		<if test="bacDesc != null and bacDesc != ''">
+			and bacDesc like CONCAT('%', #{bacDesc}, '%')
+		</if>
+		<if test="baclogTimeFrom != null and baclogTimeFrom != ''">
+			and baclogTime Between #{baclogTimeFrom} and #{baclogTimeTo}
+		</if>
+		<if test="linkDoc != null and linkDoc != ''">
+			and linkDoc = #{linkDoc}
+		</if>
+		group by DATE_FORMAT(baclogTime, '%Y-%m-%d') order by baclogTime desc limit #{betFirstNum}, #{betLastNum};
+	</select>
 </mapper>

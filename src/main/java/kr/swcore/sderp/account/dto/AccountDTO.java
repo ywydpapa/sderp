@@ -221,5 +221,8 @@ public class AccountDTO {
 	//금액 검색
 	private BigDecimal vatTotalFrom;
 	private BigDecimal vatTotalTo;
+	
+	private BigDecimal inListAmt;
+    private BigDecimal outListAmt;
 }
 

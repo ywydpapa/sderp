@@ -137,4 +137,14 @@ public class MisServiceImpl implements MisService{
 		int compNo = SessionInfoGet.getCompNo(session);
         return misDAO.listbac(compNo);
 	}
+
+	@Override
+	public List<AccountDTO> bacSelectList(AccountDTO dto) {
+		return misDAO.bacSelectList(dto);
+	}
+
+	@Override
+	public List<AccountDTO> bacInOutList(AccountDTO dto) {
+		return misDAO.bacInOutList(dto);
+	}
 }

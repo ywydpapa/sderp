@@ -14,6 +14,14 @@
 		table-layout: fixed;
 		word-break: break-all;
 	}
+	
+	table thead tr{
+		line-height: 1px;
+	}
+	
+	table tbody tr{
+		line-height: 1px;
+	}
 </style>
 
 <body>

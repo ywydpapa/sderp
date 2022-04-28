@@ -461,7 +461,7 @@
 	                        }
 	                        vatData.vatAmount = Number($(".vatlst29")[i].innerText);
 	                        vatData.vatStandard = $(".vatlst26")[i].innerText;
-	                        vatData.vatQuan = Number($(".vatlst27")[i].innerText);
+	                        vatData.vatQuan = Number($(".vatlst27")[i].innerText.replace(/[\D\s\._\-]+/g, ""));
 	                        vatData.vatNet = isNaN(Number($(".vatlst28")[i].innerText)) ? 0 : Number($(".vatlst28")[i].innerText);
 	                        vatData.modal_vatmemo = parseInt($(".vatlst29")[i].innerText).toLocaleString("en-US");
 	                        vatData.test = parseInt($(".vatlst29")[i].innerText);
@@ -485,7 +485,7 @@
 	                        }
 	                        vatData.vatAmount = Number($Farr[i].innerText);
 	                        vatData.vatStandard = $Narr[i].innerText;
-	                        vatData.vatQuan = Number($Oarr[i].innerText);
+	                        vatData.vatQuan = Number($Oarr[i].innerText.replace(/[\D\s\._\-]+/g, ""));
 	                        vatData.vatNet = isNaN(Number($Parr[i].innerText)) ? 0 : Number($Parr[i].innerText);
 	                        vatData.modal_vatmemo = parseInt(vatData.vatAmount + vatData.vatTax).toLocaleString("en-US");
 	                        vatData.test = parseInt(vatData.vatAmount + vatData.vatTax);
@@ -523,7 +523,8 @@
                         		if(data.count > 0){
     	                    		vatData.vatSellerCustNo = data.getNo;
                         		}else{
-                        			vatData.vatSellerCustNo = 0;
+                        			alert("사업자번호 : " + vatData.vatNo + "\n거래처를 등록해주세요.");
+                        			return false;
                         		}
                         	}
                         });
@@ -536,7 +537,8 @@
                          		if(result.count > 0){
      	                    		vatData.vatBuyerCustNo = result.getNo;
                          		}else{
-                         			vatData.vatBuyerCustNo = 0;
+                         			alert("사업자번호 : " + $Larr[i].innerText + "\n거래처를 등록해주세요.");
+                        			return false;
                          		}
                          		
 			                    $.ajax({
@@ -616,7 +618,7 @@
 	                        }
 	                        vatData.vatAmount = Number($(".vatlst14")[i].innerText);
 	                        vatData.vatStandard = $(".vatlst26")[i].innerText;
-	                        vatData.vatQuan = Number($(".vatlst27")[i].innerText);
+	                        vatData.vatQuan = Number($(".vatlst27")[i].innerText.replace(/[\D\s\._\-]+/g, ""));
 	                        vatData.vatNet = isNaN(Number($(".vatlst28")[i].innerText)) ? 0 : Number($(".vatlst28")[i].innerText);
 	                        vatData.modal_vatmemo = parseInt($(".vatlst14")[i].innerText).toLocaleString("en-US");
 	                        vatData.test = parseInt($(".vatlst14")[i].innerText);
@@ -640,7 +642,7 @@
 	                        }
 	                        vatData.vatAmount = Number($Farr[i].innerText);
 	                        vatData.vatStandard = $Narr[i].innerText;
-	                        vatData.vatQuan = Number($Oarr[i].innerText);
+	                        vatData.vatQuan = Number($Oarr[i].innerText.replace(/[\D\s\._\-]+/g, ""));
 	                        vatData.vatNet = isNaN(Number($Parr[i].innerText)) ? 0 : Number($Parr[i].innerText);
 	                        vatData.modal_vatmemo = parseInt(vatData.vatAmount + vatData.vatTax).toLocaleString("en-US");
 	                        vatData.test =  parseInt(vatData.vatAmount + vatData.vatTax);
@@ -681,7 +683,8 @@
                         		if(data.count > 0){
     	                    		vatData.vatSellerCustNo = data.getNo;
                         		}else{
-                        			vatData.vatSellerCustNo = 0;
+                        			alert("사업자번호 : " + vatData.vatNo + "\n거래처를 등록해주세요.");
+                        			return false;
                         		}
                         	}
                         });
@@ -695,7 +698,8 @@
                            		if(result.count > 0){
        	                    		vatData.vatBuyerCustNo = result.getNo;
                            		}else{
-                           			vatData.vatBuyerCustNo = 0;
+                           			alert("사업자번호 : " + $Larr[i].innerText + "\n거래처를 등록해주세요.");
+                        			return false;
                            		}
                            		
 			                    $.ajax({

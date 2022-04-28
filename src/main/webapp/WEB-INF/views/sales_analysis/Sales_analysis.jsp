@@ -7,7 +7,7 @@
 <!DOCTYPE html>
 <html>
 <jsp:include page="../head.jsp"/>
-<jsp:include page="../body-top.jsp"/>
+<jsp:include page="../body-top4.jsp"/>
 <head>
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js"></script>
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>

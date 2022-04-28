@@ -21,7 +21,7 @@
                                         <span class="pcoded-mcaret"></span>
                                     </a>
                                 </li>
-                                <li class="pcoded-hasmenu pcoded <c:if test="${fn:startsWith(path2, '/mis/sumSvatlist.do') || fn:startsWith(path2, '/mis/sumBvatlist.do') || path2 eq '/mis/iolist.do'}">pcoded-trigger</c:if>">
+                                <li class="pcoded-hasmenu pcoded <c:if test="${path2 eq '/mis/sumSvatlist.do' || path2 eq '/mis/sumBvatlist.do' || path2 eq '/mis/iolist.do'}">pcoded-trigger</c:if>">
                                     <a href="javascript:void(0)">
                                         <span class="pcoded-micon"><i class="icon-calculator"></i></span>
                                         <span class="pcoded-mtext"  data-i18n="nav.basic-components.main">매입매출현황</span>
@@ -51,7 +51,7 @@
                                         </li>
                                     </ul>
                                  </li>
-                                    <li class="pcoded-hasmenu">
+                                 <li class="pcoded-hasmenu pcoded <c:if test="${path2 eq '/mis/bacinoutlist.do'}">pcoded-trigger</c:if>">
                                     <a href="javascript:void(0)">
                                         <span class="pcoded-micon"><i class="fa fa-krw"></i></span>
                                         <span class="pcoded-mtext"  data-i18n="nav.form-select.main">자금현황</span>
@@ -129,7 +129,7 @@
                                 	 </li>
                                 	 <!-- 영업 분석 -->
                                 	<c:if test="${sessionScope.compNo == 100002}">
-                                	  <li class="pcoded-hasmenu">
+                                	  <li class="pcoded-hasmenu pcoded <c:if test="${path2 eq '/salesTarget/sales_analysis.do'}">pcoded-trigger</c:if>">
 	                                    <a href="javascript:void(0)">
 	                                        <span class="pcoded-micon"><i class="icon-folder-alt"></i></span>
 	                                        <span class="pcoded-mtext"  data-i18n="nav.basic-components.main">영업 분석</span>

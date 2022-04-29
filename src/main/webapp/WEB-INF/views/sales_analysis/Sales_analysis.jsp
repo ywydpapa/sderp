@@ -30,14 +30,14 @@
 
 	<div class="row">
 		<!-- 그래프 타입 3가지 -->
-			<div class="col-md-12 col-lg-12" style="text-align:left; display:none">
+			<!-- <div class="col-md-12 col-lg-12" style="text-align:left; display:none">
 			선택 옵션 : 
 				<select class="custom-select mr-sm-2" id="controlAllgraph">
 					<option value="2" selected>계산서 발행 기준</option>
 					<option value="1">-</option>
 					<option value="3">-</option>
 				</select>
-			</div>
+			</div> -->
 			<!-- 그래프 타입 3가지 -->
 			
 			<!-- 1번째 그래프 -->
@@ -1237,7 +1237,7 @@
 					stacksum09 = stacksum08 + sum10;
 					stacksum10 = stacksum09 + sum11;
 					stacksum11 = stacksum10 + sum12;
-									
+
 					for(var i=0;i<janlength01;i++){
 						conpletevaclist01 += (result.data01[i].vatTax + result.data01[i].vatAmount);
 					}

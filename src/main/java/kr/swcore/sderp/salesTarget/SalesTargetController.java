@@ -86,9 +86,11 @@ public class SalesTargetController {
 	 */
 	@RequestMapping(value = "gradata.do", method = RequestMethod.POST)
 	@ResponseBody
-	public ResponseEntity<?> gradata(SalesTargetDTO dto, AccountDTO datato) {
+	public ResponseEntity<?> gradata(HttpSession session, SalesTargetDTO dto, AccountDTO datato) {
  		Map<String, Object> param = new HashMap<>();
-		List <SalesTargetDTO> gradatadata = salesTargetService.gradata(dto);
+		dto.setCompNo(Integer.valueOf((String) session.getAttribute("compNo")));
+ 		datato.setCompNo(Integer.valueOf((String) session.getAttribute("compNo")));
+ 		List <SalesTargetDTO> gradatadata = salesTargetService.gradata(dto);
 		param.put("data", gradatadata); 
 		List <SalesTargetDTO> gradatadata01= salesTargetService.gradata01(datato);
 		List <SalesTargetDTO> gradatadata02= salesTargetService.gradata02(datato);
@@ -118,9 +120,13 @@ public class SalesTargetController {
 	}
 	@RequestMapping(value = "gradata.do/{selectNum}", method = RequestMethod.POST)
 	@ResponseBody
-	public ResponseEntity<?> gradata(@PathVariable("selectNum") int selectNum, SalesTargetDTO dto, AccountDTO datato) {
+	public ResponseEntity<?> gradata(HttpSession session, @PathVariable("selectNum") int selectNum, SalesTargetDTO dto, AccountDTO datato) {
  		Map<String, Object> param = new HashMap<>();
  		dto.setNum(selectNum);
+ 		
+ 		dto.setCompNo(Integer.valueOf((String) session.getAttribute("compNo")));
+ 		datato.setCompNo(Integer.valueOf((String) session.getAttribute("compNo")));
+ 		
  		List <SalesTargetDTO> nomalgradatadata = salesTargetService.nomalgradata(dto);
  		param.put("datanomal", nomalgradatadata); 
  		

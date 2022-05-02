@@ -318,7 +318,7 @@
 			localStorage.setItem('lastAco2', testAco2);
 		}
 		
-		var url = '${path}/cont/iolist.do'+param;
+		var url = '${path}/mis/iolist.do'+param;
 		location.href = url;
 	}
 	

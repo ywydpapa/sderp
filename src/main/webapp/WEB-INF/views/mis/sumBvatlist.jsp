@@ -412,7 +412,7 @@
     			param = "";
     		}
 
-    		var url = '${path}/acc/sumBvatlist.do'+param;
+    		var url = '${path}/mis/sumBvatlist.do'+param;
     		
     		if(document.querySelector('#acordian').style.cssText == "display: none;"){
 	            var testAco1 = document.querySelector('#acordian').style.cssText;

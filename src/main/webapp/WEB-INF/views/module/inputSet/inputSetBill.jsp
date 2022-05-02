@@ -5,11 +5,12 @@
 <form name="form2" method="post" onsubmit="return false;">
 	<div style="width:100%;">
 		<div style="float:right; margin-bottom:10px;">
-			<button type="button" class="btn btn-primary" id="bodyAddBtn">설정</button>
+			<!-- <button type="button" class="btn btn-primary" id="bodyAddBtn">설정</button> -->
+			<button class="btn btn-primary sch-company" data-remote="${path}/modal/popup.do?popId=contVatSetModal" type="button" data-toggle="modal" data-target="#contVatSetModal">설정</button>
 		</div>
-		<div style="float:right; margin-right:10px; margin-top:5px;">
+		<!-- <div style="float:right; margin-right:10px; margin-top:5px;">
 			<input type="text" class="form-control" id="addNum" placeholder="만들 갯수 입력(ex:5)" value="1" maxlength="2" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
-		</div>
+		</div> -->
 	</div>
 	<div style="clear:both;">
 		<div style="float:left; width:50%;">
@@ -28,7 +29,7 @@
 						<td><input type="text" class="form-control" id="sessionVatNo" value="${sessionCust.custVatno}" readonly></td>
 						<td><input type="text" class="form-control" id="sessionCustName" value="${sessionCust.custName}"></td>
 						<td><input type="text" class="form-control" id="sessionCustBossname" value="${sessionCust.custBossname}"></td>
-					</tr>			
+					</tr>
 				</tbody>
 			</table>
 		</div>
@@ -49,7 +50,7 @@
 						<td><input type="text" class="form-control" id="custVatNo" value="${contDto.custVatno}" readonly></td>
 						<td><input type="text" class="form-control" id="custName" value="${contDto.custName}" readonly></td>
 						<td><input type="text" class="form-control" id="custBossname" value="${contDto.custBossname}" readonly></td>
-					</tr>			
+					</tr>
 				</tbody>
 			</table>
 		</div>
@@ -168,14 +169,30 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <div class="modal-body">
-                </div>
+                <div class="modal-body"></div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>
     </div>
+    <div class="modal fade " id="contVatSetModal" tabindex="-1" role="dialog">
+		<div class="modal-dialog modal-80size" role="document">
+			<div class="modal-content modal-80size">
+				<div class="modal-header">
+					<h4 class="modal-title">입력</h4>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body"></div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary" id="bodyAddBtn">설정</button>
+					<button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
 </form>
 
 <script>
@@ -194,6 +211,8 @@
     	$("#bodyAddBtn").click(function(){
     		var contAmt = parseInt($("#contAmt").val().replace(/[\D\s\._\-]+/g, ""));
     		var number = parseInt($("#addNum").val());
+    		var contVatProduct = $("#contVatProduct").val();
+    		var contVatStandard = $("#contVatStandard").val();
     		var avgTotal = Math.round(contAmt/number);
 			var totalAmt = Math.round(avgTotal/11*10);
 			var totalTax = Math.round(avgTotal/11);
@@ -208,8 +227,8 @@
 	    		
 	    		for(var i = 1; i <= number; i++) {
 	    			bodyHtml += "<tr><td><input type='date' class='form-control' max='9999-12-30' id='vatTradeDate_" + i + "' name='vatTradeDate_" + i + "' value='" + nowDate + "'></td>"
-	    			+ "<td><input type='text' class='form-control form-control-sm' id='vatProductName_" + i + "' style='min-width: 80px;' /></td>"
-	    			+ "<td><input type='text' class='form-control form-control-sm' id='vatStandard_" + i + "' style='min-width: 80px;' /></td>"
+	    			+ "<td><input type='text' class='form-control form-control-sm' id='vatProductName_" + i + "' style='min-width: 80px;' value='"+contVatProduct+"'/></td>"
+	    			+ "<td><input type='text' class='form-control form-control-sm' id='vatStandard_" + i + "' style='min-width: 80px;' value='"+contVatStandard+"'/></td>"
 	    			+ "<td><input type='text' class='form-control form-control-sm vatQuan' id='vatQuan_" + i + "' style='min-width: 80px;' value='1' /></td>"
 	    			+ "<td><input type='text' class='form-control form-control-sm vatNet' id='vatNet_" + i + "' data-index='" + i + "' onchange='calReplace(this)' style='min-width: 80px;' value='"+parseInt(totalNet).toLocaleString("en-US")+"' /></td>"
 	    			+ "<td><input type='text' class='form-control form-control-sm vatAmount' id='vatAmount_" + i + "' style='min-width: 80px;' value='"+parseInt(totalAmt).toLocaleString("en-US")+"' readonly/></td>"
@@ -219,6 +238,8 @@
 	    		}
 	    		
 	    		tableBody.html(bodyHtml);
+	    		$(".modal-backdrop").remove();
+	            $("#contVatSetModal").modal("hide");
     		}
     	});
     });
@@ -229,6 +250,12 @@
 		var modal = $(this);
 		modal.find('.modal-body').load(button.data("remote"));
 	});
+    
+    $('#contVatSetModal').on('show.bs.modal', function(e) {
+        var button = $(e.relatedTarget);
+        var modal = $(this);
+        modal.find('.modal-body').load(button.data("remote"));
+    });
     
     function billItemDelBtn(event){
     	var tableBody = $("#billItemTable tbody tr");

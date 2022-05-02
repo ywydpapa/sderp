@@ -74,7 +74,7 @@
                                         </li>
                                     </ul>
                                     </li>
-                                    <li class="pcoded-hasmenu">
+                                    <li class="pcoded-hasmenu pcoded <c:if test="${path2 eq '/mis/soppstatuslist.do' || path2 eq '/mis/soppcostlist.do' || path2 eq '/mis/soppmarginlist.do'}">pcoded-trigger</c:if>">
                                     <a href="javascript:void(0)">
                                         <span class="pcoded-micon"><i class="icon-folder-alt"></i></span>
                                         <span class="pcoded-mtext"  data-i18n="nav.basic-components.main">프로젝트 현황</span>

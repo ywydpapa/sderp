@@ -368,6 +368,11 @@ public class HomeController {
 			model.addAttribute("list", list);
 			rtn = "modal/docDrawModal";
 		}
+		else if("contVatSetModal".equals(popId)) {
+			//Integer compNo = Integer.valueOf((String) params.get("compNo"));
+			rtn = "modal/contVatSetModal";
+		}
+		
 		logger.debug(rtn);
 		
 		mav.setViewName(rtn);

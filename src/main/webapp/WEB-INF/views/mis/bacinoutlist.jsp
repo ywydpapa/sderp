@@ -60,23 +60,9 @@
                     <div class="col-sm-12">
                         <div class="card_box sch_it">
                             <div class="form-group row">
-                                <div class="col-sm-12 col-xl-3">
-                                    <label class="col-form-label">기재내용</label>
-                                    <input type="text" class="form-control" id="bacDesc">
-                                </div>
 	                            <div class="col-sm-12 col-xl-3">
 	                                <label class="col-form-label">일자별</label>
 	                                <p class="input_inline"><input class="form-control form-control-sm col-xl-6" type="date" max="9999-12-30" id="baclogTimeFrom"> ~ <input class="form-control form-control-sm col-xl-6" type="date" max="9999-12-31" id="baclogTimeTo">
-	                                </p>
-	                            </div>
-	                            <div class="col-sm-12 col-xl-3">
-	                                <label class="col-form-label">연결여부</label>
-	                                <p class="input_inline">
-	                                	<select id="linkDoc" class="form-control">
-	                                		<option value="">선택</option>
-	                                		<option value="y">Y</option>
-	                                		<option value="n">N</option>
-	                                	</select>
 	                                </p>
 	                            </div>
                             </div>

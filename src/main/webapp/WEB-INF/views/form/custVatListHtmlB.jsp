@@ -123,15 +123,11 @@
 		
 		$("[id^='vatTable_'] tbody #divisionTrVat").each(function(index, item){
 			if(index == 0){
-				$(item).parents("tbody").prepend("<tr id='hiddenTr' style='background-color: #e9ecef;'><td></td><td style='text-align: center;'>전기이월</td><td style='text-align: right;'>"+parseInt(temp[0]).toLocaleString("en-US")+"</td><td></td><td style='text-align: right;'>"+parseInt(temp[0]).toLocaleString("en-US")+"</td></tr>");
+				$(item).parents("tbody").prepend("<tr id='hiddenTr' style='background-color: #e9ecef;'><td></td><td style='text-align: center;'>전기이월</td></td><td><td style='text-align: right;'>"+parseInt(temp[0]).toLocaleString("en-US")+"</td><td style='text-align: right;'>"+parseInt(temp[0]).toLocaleString("en-US")+"</td></tr>");
 			}
 			
 			var totalTd = isNaN(parseInt($(item).find("#totalTd").html().replaceAll(",", ""))) ? 0 : parseInt($(item).find("#totalTd").html().replaceAll(",", ""));
 			var receiveTd = isNaN(parseInt($(item).find("#receiveTd").html().replaceAll(",", ""))) ? 0 : parseInt($(item).find("#receiveTd").html().replaceAll(",", ""));
-			
-			console.log("temp: " + temp[0]);
-			console.log("totalTd: " + totalTd);
-			console.log("receiveTd: " + receiveTd);
 			
 			temp[0] = parseInt(temp[0]) - totalTd + receiveTd;
 			

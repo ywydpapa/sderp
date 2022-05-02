@@ -129,10 +129,6 @@
 			var totalTd = isNaN(parseInt($(item).find("#totalTd").html().replaceAll(",", ""))) ? 0 : parseInt($(item).find("#totalTd").html().replaceAll(",", ""));
 			var receiveTd = isNaN(parseInt($(item).find("#receiveTd").html().replaceAll(",", ""))) ? 0 : parseInt($(item).find("#receiveTd").html().replaceAll(",", ""));
 			
-			console.log("temp: " + temp[0]);
-			console.log("totalTd: " + totalTd);
-			console.log("receiveTd: " + receiveTd);
-			
 			temp[0] = parseInt(temp[0]) + totalTd - receiveTd;
 			
 			$(item).find("#balanceTd").html(parseInt(temp[0]).toLocaleString("en-US"));

@@ -36,21 +36,23 @@
                             </colgroup>
                             <thead>
                             <tr>
+                                <th class="text-center">작성날짜</th>
                                 <th class="text-center">기회명</th>
-                                <th class="text-center">담당</th>
-                                <th class="text-center">매입금액</th>
-                                <th class="text-center">매출금액</th>
-                                <th class="text-center">연결계약</th>
+                                <th class="text-center">판매 방식</th>
+								<th class="text-center">예상매출</th>
+                                <th class="text-center">최근 계약</th>
+                                <th class="text-center">매출이익</th>
                             </tr>
                             </thead>
                             <tbody>
                             <c:forEach var="row" items="${costList}">
                                 <tr>
+                                    <td class="text-center">${row.regDatetime}</td>
                                     <td class="text-center">${row.soppTitle}</td>
-                                    <td class="text-center">${row.userName}</td>
-                                    <td class="text-right"><fmt:formatNumber type="number" maxFractionDigits="3" value="${row.cost}" /></td>
-                                    <td class="text-right"><fmt:formatNumber type="number" maxFractionDigits="3" value="${row.income}" /></td>
-                                    <td class="text-right"></td>
+                                    <td class="text-right">${row.desc03}</td>
+                                    <td class="text-right"><fmt:formatNumber type="number" maxFractionDigits="3" value="${row.soppTargetAmt}" /></td>
+                                    <td class="text-center"><a href="${path}/cont/detail/${row.soppNo}/${row.contNo}">${row.contTitle}</a></td>
+                                    <td class="text-right"><fmt:formatNumber type="number" maxFractionDigits="3" value="${row.soppTargetAmt}" /></td>
                                 </tr>
                             </c:forEach>
                             </tbody>
@@ -62,3 +64,12 @@
     </div>
 </div>
 <jsp:include page="../body-bottom.jsp"/>
+<script>
+    $(function(){
+        $('#estTable').DataTable({
+            info:false,
+            searching: true,
+            order: [[ 0, "desc" ]],
+        });
+    });
+</script>

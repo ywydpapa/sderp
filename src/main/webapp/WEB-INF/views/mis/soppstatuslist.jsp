@@ -49,10 +49,20 @@
                                 <tr>
                                     <td class="text-center">${row.soppTitle}</td>
                                     <td class="text-center">${row.userName}</td>
-                                    <td class="text-center">${row.soppTargetDate}</td>
+                                    <c:if test="${row.soppTargetDate eq null}">
+                                    	<td class="text-center">미정</td>
+                                    </c:if>
+                                    <c:if test="${row.soppTargetDate ne null}">
+                                    	<td class="text-center">${row.soppTargetDate}</td>
+                                    </c:if>
                                     <td class="text-right"><fmt:formatNumber type="number" maxFractionDigits="3" value="${row.soppTargetAmt}" /></td>
-                                    <td class="text-right"><fmt:formatNumber type="number" maxFractionDigits="3" value="${row.soppStatus}" /></td>
-                                    <td class="text-right"><fmt:formatNumber type="number" maxFractionDigits="3" value="${row.contNo}" /></td>
+                                    <c:if test="${row.desc03 eq null}">
+                                    	<td class="test-right">미정</td>
+                                    </c:if>
+                                    <c:if test="${row.desc03 ne null}">
+                                    	<td class="test-right">${row.desc03}</td>
+                                    </c:if>
+                                    <td class="text-center"><a href="${path}/cont/detail/${row.soppNo}/${row.contNo}">${row.contTitle}</a></td>
                                 </tr>
                             </c:forEach>
                             </tbody>
@@ -64,3 +74,12 @@
     </div>
 </div>
 <jsp:include page="../body-bottom.jsp"/>
+<script>
+    $(function(){
+        $('#estTable').DataTable({
+            info:false,
+            searching: true,
+            order: [[ 0, "desc" ]],
+        });
+    });
+</script>

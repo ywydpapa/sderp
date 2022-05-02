@@ -25,35 +25,32 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         select userNo, userName from swc_user where compNo = #{compNo} and attrib not like "XXX%"
     </select>
 
-    <select id="soppList" resultType="misDto">
-        select ss.*, su.userName  from swc_sopp ss
-        left join swc_user su on su.userNo = ss.userNo
-        where ss.compNo = #{compNo}
-        <choose>
-            <when test="sYear == null ">
-                and date_format(ss.soppTargetDate,'%Y') = date_format(now(),'%Y')
-            </when>
-            <when test = "sYear != null">
-                and date_format(ss.soppTargetDate,'%Y') = #{sYear}
-            </when>
-        </choose>
-        and ss.attrib not like 'XXX%'
+    <select id="soppList" resultType="misDto"> 
+		SELECT b.soppNo, b.soppTitle, b.soppTargetDate, b.soppTargetAmt, e.desc03, a.contNo, a.contTitle, d.userName FROM swc_cont a 
+		LEFT JOIN swc_sopp b ON a.soppNo = b.soppNo
+		LEFT JOIN swc_code c ON b.soppType = c.codeNo
+		LEFT JOIN swc_user d ON b.userNo = d.userNo
+		LEFT JOIN swc_code e ON b.soppStatus = e.codeNo
+		WHERE (a.soppNo, a.regDatetime) IN (
+		SELECT a.soppNo, MAX(a.regDatetime)
+		FROM swc_cont a
+		WHERE a.compNo = #{compNo} AND a.attrib NOT LIKE "XXX%"
+		GROUP BY a.soppNo
+		) 
+		order BY a.regDatetime DESC
     </select>
 
     <select id="soppCost" resultType="misDto">
-        select ss.soppNo , ss.soppTitle,su.userName, sum(case when ss2.dataType = '1101' then ss2.dataAmt else 0 end) cost , sum(case when ss2.dataType = '1102' then ss2.dataAmt else 0 end) income  from swc_sopp ss
-            left join swc_soppdata01 ss2 on ss2.soppNo = ss.soppNo
-            left join swc_user su on ss.userNo = su.userNo
-        where ss.compNo = #{compNo} and ss.attrib not like 'XXX%'
-        <choose>
-            <when test="sYear == null ">
-                and date_format(ss.soppTargetDate,'%Y') = date_format(now(),'%Y')
-            </when>
-            <when test = "sYear != null">
-                and date_format(ss.soppTargetDate,'%Y') = #{sYear}
-            </when>
-        </choose>
-        group by ss.soppNo
+      	SELECT b.soppNo, b.regDatetime, b.soppTitle, c.desc03, b.soppTargetAmt, a.contNo, a.net_profit, a.contTitle FROM swc_cont a 
+		LEFT JOIN swc_sopp b ON a.soppNo = b.soppNo
+		LEFT JOIN swc_code c ON b.soppType = c.codeNo
+		WHERE (a.soppNo, a.regDatetime) IN (
+		SELECT a.soppNo, MAX(a.regDatetime)
+		FROM swc_cont a
+		WHERE a.compNo = #{compNo} AND a.attrib NOT LIKE "XXX%"
+		GROUP BY a.soppNo
+		) 
+		order BY a.regDatetime DESC
     </select>
 
     <select id="soppMargin" resultType="contDto">   

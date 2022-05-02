@@ -1240,62 +1240,62 @@ attrib) values (#{vatId},
 				<when test="mouth == 1">
 					SELECT b.userNo, b.userName, a.mm01 AS month_target, a.mm01 AS test FROM swc_sales_target a
 					LEFT JOIN swc_user b ON a.userNo = b.userNo
-					WHERE a.targetYear = "2022" AND a.attrib NOT LIKE "XXX%" AND a.mm01 != 0
+					WHERE a.targetYear = "2022" AND a.attrib NOT LIKE "XXX%" AND a.mm01 != 0 and a.compNo = #{compNo}
 				</when>
 				<when test="mouth == 2">
 					SELECT b.userNo, b.userName, a.mm02 AS month_target, a.mm01 AS test FROM swc_sales_target a
 					LEFT JOIN swc_user b ON a.userNo = b.userNo
-					WHERE a.targetYear = "2022" AND a.attrib NOT LIKE "XXX%" AND a.mm01 != 0
+					WHERE a.targetYear = "2022" AND a.attrib NOT LIKE "XXX%" AND a.mm01 != 0 and a.compNo = #{compNo}
 				</when>
 				<when test="mouth == 3">
 					SELECT b.userNo, b.userName, a.mm03 AS month_target, a.mm01 AS test FROM swc_sales_target a
 					LEFT JOIN swc_user b ON a.userNo = b.userNo
-					WHERE a.targetYear = "2022" AND a.attrib NOT LIKE "XXX%" AND a.mm01 != 0
+					WHERE a.targetYear = "2022" AND a.attrib NOT LIKE "XXX%" AND a.mm01 != 0 and a.compNo = #{compNo}
 				</when>
 				<when test="mouth == 4">
 					SELECT b.userNo, b.userName, a.mm04 AS month_target, a.mm01 AS test FROM swc_sales_target a
 					LEFT JOIN swc_user b ON a.userNo = b.userNo
-					WHERE a.targetYear = "2022" AND a.attrib NOT LIKE "XXX%" AND a.mm01 != 0
+					WHERE a.targetYear = "2022" AND a.attrib NOT LIKE "XXX%" AND a.mm01 != 0 and a.compNo = #{compNo}
 				</when>
 				<when test="mouth == 5">
 					SELECT b.userNo, b.userName, a.mm05 AS month_target, a.mm01 AS test FROM swc_sales_target a
 					LEFT JOIN swc_user b ON a.userNo = b.userNo
-					WHERE a.targetYear = "2022" AND a.attrib NOT LIKE "XXX%" AND a.mm01 != 0
+					WHERE a.targetYear = "2022" AND a.attrib NOT LIKE "XXX%" AND a.mm01 != 0 and a.compNo = #{compNo}
 				</when>
 				<when test="mouth == 6">
 					SELECT b.userNo, b.userName, a.mm06 AS month_target, a.mm01 AS test FROM swc_sales_target a
 					LEFT JOIN swc_user b ON a.userNo = b.userNo
-					WHERE a.targetYear = "2022" AND a.attrib NOT LIKE "XXX%" AND a.mm01 != 0
+					WHERE a.targetYear = "2022" AND a.attrib NOT LIKE "XXX%" AND a.mm01 != 0 and a.compNo = #{compNo}
 				</when>
 				<when test="mouth == 7">
 					SELECT b.userNo, b.userName, a.mm07 AS month_target, a.mm01 AS test FROM swc_sales_target a
 					LEFT JOIN swc_user b ON a.userNo = b.userNo
-					WHERE a.targetYear = "2022" AND a.attrib NOT LIKE "XXX%" AND a.mm01 != 0
+					WHERE a.targetYear = "2022" AND a.attrib NOT LIKE "XXX%" AND a.mm01 != 0 and a.compNo = #{compNo}
 				</when>
 				<when test="mouth == 8">
 					SELECT b.userNo, b.userName, a.mm08 AS month_target, a.mm01 AS test FROM swc_sales_target a
 					LEFT JOIN swc_user b ON a.userNo = b.userNo
-					WHERE a.targetYear = "2022" AND a.attrib NOT LIKE "XXX%" AND a.mm01 != 0
+					WHERE a.targetYear = "2022" AND a.attrib NOT LIKE "XXX%" AND a.mm01 != 0 and a.compNo = #{compNo}
 				</when>
 				<when test="mouth == 9">
 					SELECT b.userNo, b.userName, a.mm09 AS month_target, a.mm01 AS test FROM swc_sales_target a
 					LEFT JOIN swc_user b ON a.userNo = b.userNo
-					WHERE a.targetYear = "2022" AND a.attrib NOT LIKE "XXX%" AND a.mm01 != 0
+					WHERE a.targetYear = "2022" AND a.attrib NOT LIKE "XXX%" AND a.mm01 != 0 and a.compNo = #{compNo}
 				</when>
 				<when test="mouth == 10">
 					SELECT b.userNo, b.userName, a.mm10 AS month_target, a.mm01 AS test FROM swc_sales_target a
 					LEFT JOIN swc_user b ON a.userNo = b.userNo
-					WHERE a.targetYear = "2022" AND a.attrib NOT LIKE "XXX%" AND a.mm01 != 0
+					WHERE a.targetYear = "2022" AND a.attrib NOT LIKE "XXX%" AND a.mm01 != 0 and a.compNo = #{compNo}
 				</when>
 				<when test="mouth == 11">
 					SELECT b.userNo, b.userName, a.mm11 AS month_target, a.mm01 AS test FROM swc_sales_target a
 					LEFT JOIN swc_user b ON a.userNo = b.userNo
-					WHERE a.targetYear = "2022" AND a.attrib NOT LIKE "XXX%" AND a.mm01 != 0
+					WHERE a.targetYear = "2022" AND a.attrib NOT LIKE "XXX%" AND a.mm01 != 0 and a.compNo = #{compNo}
 				</when>
 				<when test="mouth == 12">
 					SELECT b.userNo, b.userName, a.mm12 AS month_target, a.mm01 AS test FROM swc_sales_target a
 					LEFT JOIN swc_user b ON a.userNo = b.userNo
-					WHERE a.targetYear = "2022" AND a.attrib NOT LIKE "XXX%" AND a.mm01 != 0
+					WHERE a.targetYear = "2022" AND a.attrib NOT LIKE "XXX%" AND a.mm01 != 0 and a.compNo = #{compNo}
 				</when>
 			</choose>
  		</select>
@@ -1303,7 +1303,7 @@ attrib) values (#{vatId},
  			SELECT c.userNo, c.userName , SUM(a.test) AS test from swc_vat a
 			JOIN swc_cont b ON a.contNo = b.contNo
 			LEFT JOIN swc_user c ON b.userNo = c.userNo
-			WHERE a.attrib NOT LIKE "XXX%" AND (a.vatStatus = "S5" OR a.vatStatus = "S3")
+			WHERE a.attrib NOT LIKE "XXX%" AND (a.vatStatus = "S5" OR a.vatStatus = "S3") and a.compNo = #{compNo}
 			<choose>
 				<when test="mouth == 1">
 					and a.vatIssueDate BETWEEN "2022-01-01" and "2022-01-31"

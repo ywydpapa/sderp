@@ -200,9 +200,11 @@ public class SalesTargetController {
 	}
 	@RequestMapping(value = "user_chart.do/{month}", method = RequestMethod.POST)
 	@ResponseBody
-	public ResponseEntity<?> user_chart(@PathVariable("month") String month, @ModelAttribute AccountDTO dto) {
+	public ResponseEntity<?> user_chart(HttpSession session, @PathVariable("month") String month, @ModelAttribute AccountDTO dto) {
 		Map<String, Object> param = new HashMap<>();
 		dto.setMouth(month);
+		dto.setCompNo(Integer.valueOf((String) session.getAttribute("compNo")));
+		
 		BigDecimal zeroBigDec = new BigDecimal("0");
 		List <AccountDTO> user_chart_target = salesTargetService.user_chart_target(dto);
 		List <AccountDTO> user_now_graph = salesTargetService.user_now_graph(dto);

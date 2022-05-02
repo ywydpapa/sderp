@@ -48,6 +48,9 @@ public class MisDTO {
     private String modDatetime;
     private String attrib;
 
+    private String desc03;
+    private String contTitle;
+    
     //bac inout
 
 

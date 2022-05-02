@@ -46,6 +46,7 @@ public class MisController {
 
     @RequestMapping("/soppstatuslist.do")
     public ModelAndView soppstatuslist(HttpSession session, MisDTO dto, ModelAndView mav) {
+    	mav.addObject("sstatuslist", codeService.listSstatus(session));
         mav.addObject("soppList", misService.listSopp(session, dto));
         mav.setViewName("mis/soppstatuslist");
         return mav;

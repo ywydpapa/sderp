@@ -314,7 +314,6 @@
 						}
 					}
 				}); 
-				 
 			}
 			$('#reloadpage_num').val(localStorage.getItem("lastpageNum"));
 			$('#baclist_num').val(localStorage.getItem("lastTab"));

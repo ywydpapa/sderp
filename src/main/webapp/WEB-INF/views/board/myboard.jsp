@@ -58,10 +58,11 @@
 					<div class="card-header" style="padding: 25px 12px;">
 						<select class="custom-select mr-sm-1" name="graph2TargetMonth1"
 							id="graph2TargetMonth1" style="float: right;">
+							<option value="<%=monthStr%>"><%=monthStr%></option>
 							<option value="01">01</option>
 							<option value="02">02</option>
 							<option value="03">03</option>
-							<option value="04" selected>04</option>
+							<option value="04">04</option>
 							<option value="05">05</option>
 							<option value="06">06</option>
 							<option value="07">07</option>
@@ -875,8 +876,10 @@
 				//+2번째 관련 아래 테이블 정보
 
 					//1번 그래프(월 계획대비 실적)
+					var month = date.getMonth() + 1;
+				
 			 		$.ajax({
-						url: "${path}/salesTarget/gradata.do/" + "4", 
+						url: "${path}/salesTarget/gradata.do/" + month, 
 						method: "POST",
 						dataType: "json",
 					})

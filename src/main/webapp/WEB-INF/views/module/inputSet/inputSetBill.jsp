@@ -192,7 +192,12 @@
     	$("#vatIssueDate").val(nowDate);
     	
     	$("#bodyAddBtn").click(function(){
-    		var number = $("#addNum").val();
+    		var contAmt = parseInt($("#contAmt").val().replace(/[\D\s\._\-]+/g, ""));
+    		var number = parseInt($("#addNum").val());
+    		var avgTotal = Math.round(contAmt/number);
+			var totalAmt = Math.round(avgTotal/11*10);
+			var totalTax = Math.round(avgTotal/11);
+			var totalNet = Math.round((avgTotal - totalTax)/1);
     		var bodyHtml = "";
 
     		if(number < 1){
@@ -206,9 +211,9 @@
 	    			+ "<td><input type='text' class='form-control form-control-sm' id='vatProductName_" + i + "' style='min-width: 80px;' /></td>"
 	    			+ "<td><input type='text' class='form-control form-control-sm' id='vatStandard_" + i + "' style='min-width: 80px;' /></td>"
 	    			+ "<td><input type='text' class='form-control form-control-sm vatQuan' id='vatQuan_" + i + "' style='min-width: 80px;' value='1' /></td>"
-	    			+ "<td><input type='text' class='form-control form-control-sm vatNet' id='vatNet_" + i + "' data-index='" + i + "' onchange='calReplace(this)' style='min-width: 80px;' value='0' /></td>"
-	    			+ "<td><input type='text' class='form-control form-control-sm vatAmount' id='vatAmount_" + i + "' style='min-width: 80px;' value='0' readonly/></td>"
-	    			+ "<td><input type='text' class='form-control form-control-sm vatTax' id='vatTax_" + i + "' style='min-width: 80px;' value='0' readonly/></td>"
+	    			+ "<td><input type='text' class='form-control form-control-sm vatNet' id='vatNet_" + i + "' data-index='" + i + "' onchange='calReplace(this)' style='min-width: 80px;' value='"+parseInt(totalNet).toLocaleString("en-US")+"' /></td>"
+	    			+ "<td><input type='text' class='form-control form-control-sm vatAmount' id='vatAmount_" + i + "' style='min-width: 80px;' value='"+parseInt(totalAmt).toLocaleString("en-US")+"' readonly/></td>"
+	    			+ "<td><input type='text' class='form-control form-control-sm vatTax' id='vatTax_" + i + "' style='min-width: 80px;' value='"+parseInt(totalTax).toLocaleString("en-US")+"' readonly/></td>"
 	    			+ "<td><input type='text' class='form-control form-control-sm' id='vatMemo_" + i + "' style='min-width: 80px;' /></td>"
 	    			+ "<td><button type='button' class='btn btn-sm btn-danger' data-index='" + i + "' onClick='billItemDelBtn(this);'>삭제</button></td></tr>";
 	    		}

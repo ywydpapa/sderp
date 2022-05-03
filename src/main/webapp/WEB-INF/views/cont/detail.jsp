@@ -49,7 +49,9 @@
 					<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#tab04" role="tab">파일첨부(${fn:length(soppFiles)})</a></li>
 					<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#tab05" role="tab">기술지원 내역(${fn:length(techdinsopp)})</a></li>
 					<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#tab06" role="tab">영업활동 내역(${fn:length(salesinsopp)})</a></li>
-					<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#tab07" role="tab">계산서 발행</a></li>
+					<c:if test="${sessionScope.userRole eq 'ADMIN'}">
+						<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#tab07" role="tab">계산서 발행</a></li>
+					</c:if>
 					<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#tab08" role="tab">기여도 설정</a></li>
 				</ul>
 				<!-- Tab panes -->

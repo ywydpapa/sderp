@@ -414,7 +414,7 @@
                 var $Carr = $(".vatlst2");          //발급일자
                 var $Darr = $(".vatlst3");           // 전송일자
                 var $Earr = $(".vatlst4");           // 사업자 번호
-                var $Farr = $(".vatlst30");           // 공급금액
+                var $Farr = $(".vatlst15");           // 공급금액
                 var $Garr = $(".vatlst31");           // 세액
                 var $Harr = $(".vatlst18");           // 세금계산서 종류
                 var $Iarr = $(".vatlst19");           // 발급유형
@@ -459,7 +459,7 @@
 	                        }else if($(".vatlst20")[i].innerText == '청구'){
 	                        	vatData.vatRecType = '02';
 	                        }
-	                        vatData.vatAmount = Number($(".vatlst29")[i].innerText);
+	                        vatData.vatAmount = Number($(".vatlst14")[i].innerText);
 	                        vatData.vatStandard = $(".vatlst26")[i].innerText;
 	                        vatData.vatQuan = Number($(".vatlst27")[i].innerText.replace(/[\D\s\._\-]+/g, ""));
 	                        vatData.vatNet = isNaN(Number($(".vatlst28")[i].innerText)) ? 0 : Number($(".vatlst28")[i].innerText);
@@ -467,7 +467,7 @@
 	                        vatData.test = parseInt($(".vatlst29")[i].innerText);
 	                        
                     	}else {
-                    		vatData.vatTax = isNaN(Number($Garr[i].innerText)) ? 0 : Number($Garr[i].innerText);
+                    		vatData.vatTax = isNaN(Number($Sarr[i].innerText)) ? 0 : Number($Sarr[i].innerText);
                     		vatData.vatProductName = $Marr[i].innerText;
 	                        vatData.vatEmail = $Karr[i].innerText;
 	                        vatData.vatRemark = $Jarr[i].innerText;
@@ -571,7 +571,7 @@
                 var $Carr = $(".vatlst2");          //발급일자
                 var $Darr = $(".vatlst3");           // 전송일자
                 var $Earr = $(".vatlst4");           // 사업자 번호
-                var $Farr = $(".vatlst30");           // 공급금액
+                var $Farr = $(".vatlst15");           // 공급금액
                 var $Garr = $(".vatlst31");           // 세액
                 var $Harr = $(".vatlst18");           // 세금계산서 종류
                 var $Iarr = $(".vatlst19");           // 발급유형
@@ -624,7 +624,7 @@
 	                        vatData.test = parseInt($(".vatlst14")[i].innerText);
 	                        
                     	}else {
-                    		vatData.vatTax = isNaN(Number($Garr[i].innerText)) ? 0 : Number($Garr[i].innerText);
+                    		vatData.vatTax = isNaN(Number($Sarr[i].innerText)) ? 0 : Number($Sarr[i].innerText);
                     		vatData.vatProductName = $Marr[i].innerText;
 	                        vatData.vatEmail = $Karr[i].innerText;
 	                        vatData.vatRemark = $Jarr[i].innerText;

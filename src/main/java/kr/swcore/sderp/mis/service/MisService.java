@@ -31,4 +31,5 @@ public interface MisService {
 	List<AccountDTO> listbac(HttpSession session);
 	List<AccountDTO> bacSelectList(AccountDTO dto);
 	List<AccountDTO> bacInOutList(AccountDTO dto);
+	List<MisDTO> listBacstatus_select(HttpSession session, MisDTO dto);
 }

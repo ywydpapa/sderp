@@ -147,4 +147,11 @@ public class MisServiceImpl implements MisService{
 	public List<AccountDTO> bacInOutList(AccountDTO dto) {
 		return misDAO.bacInOutList(dto);
 	}
+
+	@Override
+	public List<MisDTO> listBacstatus_select(HttpSession session, MisDTO dto) {
+		 int compNo = SessionInfoGet.getCompNo(session);
+	     dto.setCompNo(compNo);
+	     return misDAO.listBacstatus_select(dto);
+	}
 }

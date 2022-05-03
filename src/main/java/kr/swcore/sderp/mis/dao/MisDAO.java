@@ -32,4 +32,5 @@ public interface MisDAO {
 	List<AccountDTO> listbac(int compNo);
 	List<AccountDTO> bacSelectList(AccountDTO dto);
 	List<AccountDTO> bacInOutList(AccountDTO dto);
+	List<MisDTO> listBacstatus_select(MisDTO dto);
 }

@@ -50,7 +50,10 @@ public class MisDTO {
 
     private String desc03;
     private String contTitle;
-    
+    private String bacNo;
+    private String baclogTime;
+    private BigDecimal balanceAmt;
+    private String select_regDate;
     //bac inout
 
 

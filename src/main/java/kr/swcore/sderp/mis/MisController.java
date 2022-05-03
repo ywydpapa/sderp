@@ -7,8 +7,10 @@ import kr.swcore.sderp.mis.dto.MisDTO;
 import kr.swcore.sderp.mis.service.MisService;
 import kr.swcore.sderp.sopp.dto.SoppdataDTO;
 
+import org.springframework.context.weaving.DefaultContextLoadTimeWeaver;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -78,6 +80,15 @@ public class MisController {
         mav.setViewName("mis/bacstatuslist");
         return mav;
     }
+    @RequestMapping("/bacstatuslist.do/{select_regDate}")
+    public ModelAndView bacstatuslist_select(@PathVariable("select_regDate") String select_regDate, HttpSession session, MisDTO dto,  ModelAndView mav) {
+    	dto.setSelect_regDate(select_regDate);
+        mav.addObject("statusList", misService.listBacstatus_select(session,dto));
+        mav.addObject("select_regDate", select_regDate);
+        mav.setViewName("mis/bacstatuslist");
+        return mav;
+    }
+    
     
     @RequestMapping("/sumSvatlist.do")
     public ModelAndView sumSvatlist(HttpSession session, ModelAndView mav,

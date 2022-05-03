@@ -115,4 +115,9 @@ public class MisDAOImpl implements MisDAO {
 	public List<AccountDTO> bacInOutList(AccountDTO dto) {
 		return sqlSession.selectList("mis.bacInOutList", dto);
 	}
+
+	@Override
+	public List<MisDTO> listBacstatus_select(MisDTO dto) {
+		return sqlSession.selectList("mis.bacstatus_select",dto);
+	}
 }

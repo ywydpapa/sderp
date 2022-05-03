@@ -292,6 +292,11 @@
 	    	var compNo = "${sessionScope.compNo}";
 	    	var tableBody = $("#billItemTable tbody tr");
 	    	
+	    	if(tableBody.length == 0){
+	    		alert("계산서 데이터를 추가해주십시오.");
+	    		return false;
+	    	}
+	    	
 	    	for(var i = 1; i <= tableBody.length; i++){
 		    	var insertData = {};
 				

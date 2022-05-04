@@ -354,6 +354,10 @@
         	<button class="btn btn-md btn-primary" onClick="fn_data02Update()">수정</button>
         	<button class="btn btn-md btn-danger" onClick="fn_data02delete()">삭제</button>
         </c:if>
+        <c:if test="${sessionScope.userNo eq detailListApp.userNoCR && detailListApp.appStatus == 2}">
+        	<button class="btn btn-md btn-danger" onClick="fn_data02Com()">검토취소</button>
+        	<input type="hidden" value="${detailListApp.appStatus}" id="user_cancel">
+        </c:if>
         <button class="btn btn-md btn-inverse" onClick="javascript:location='${path}/gw/mylist.do'">취소</button>
     </div><!-- list.do -->
     <!--//계약등록-->

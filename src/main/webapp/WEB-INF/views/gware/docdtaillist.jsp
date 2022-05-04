@@ -10,7 +10,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <c:set var="path" value ="${pageContext.request.contextPath}"/>
-<table class="table table-sm bst02" id="qutylist">
+<script type="text/javascript" src="../js/jquery.tablesorter.js"></script>
+<table class="table table-sm bst02 tablesorter" id="qutylist">
     <colgroup>
         <col width="3%" />
         <col width="15%" />

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<script type="text/javascript" src="../js/jquery.tablesorter.js"></script>
 <c:set var="path" value ="${pageContext.request.contextPath}"/>
 <form name="form2" method="post" onsubmit="return false;">
     <table class="table table-sm bst02">
@@ -480,6 +481,7 @@
 	}
 	
 	function cardDataSave(){
+		
 		//if($("#cardlistTable tbody tr td #cardCheckSerial") != '' && $("#cardlistTable tbody tr td #cardCheckSerial") != null){
 			var cardChecks = $("#cardlistTable tbody tr td #cardCheckSerial");
 		//}else if($("#vatlistTable tbody tr td #checkSerial") != '' && $("#vatlistTable tbody tr td #checkSerial") != null){
@@ -497,6 +499,7 @@
 				var temp = {};
 				
 				if($(item).is(":checked") === true){
+					
 					var cardSerial = $(item).parent().next().next().html();
 					var cardProductName = $(item).parent().next().next().next().next().html();
 					var cardTotal = parseInt($(item).parent().next().next().next().next().next().html().replace(/[\D\s\._\-]+/g, ""));
@@ -546,11 +549,16 @@
 			    	
 			        qutylist.append("<tr><input type='hidden' id='docAppSerial' value='"+cardSerial+"'><td id='dataDate' style='text-align:center;'>"+productDate+"</td><td id='salesCustNoN' style='text-align:center;'>"+productSalesEstimateCustName+"</td><td id='dataTitle' style='text-align:center;'>"+productName+"</td><td id='dataNetprice' style='text-align: right'>"+"￦"+parseInt(productNetprice).toLocaleString("en-US")+"</td><td id='dataQuanty' style='text-align: right'>"+productQty+"</td><td id='dataAmt' style='text-align: right'>"+"￦"+parseInt(productAmount).toLocaleString("en-US")+"</td><td id='dataVat' style='text-align: right'>"+"￦"+parseInt(productVat).toLocaleString("en-US")+"</td><td id='dataTotal' style='text-align: right'>"+"￦"+parseInt(productTotal).toLocaleString("en-US")+"</td><td id='dataRemark'>"+productRemark+"</td><td style='text-align:center;'><button class='btn btn-sm btn-inverse' id='dataUpBtn' data-index="+dataIndex+" data-number='0' style='margin-right:4%;'>수정</button><button class='btn btn-sm btn-danger text-center' data-index="+dataIndex+" id='dataDelBtn'>삭제</button></td></tr>");    	
 			        
+			        $(function() {
+			        	  $("#qutylist").tablesorter({ sortList: [[0,0], [1,0]] });
+			        	});
+			        
 			        dataIndex++;
 			        
 			        $("#cardAddModal").hide();
+			        
+			        count_array_NUM++;
 				}
-			});
 		}
 	}
 	
@@ -567,8 +575,8 @@
 		}else{
 			cardChecks.each(function(index, item){
 				var temp = {};
-				
 				if($(item).is(":checked") === true){
+					
 					var cardProductName = $(item).parent().next().next().next().next().html();
 					var write_data = $(item).parent().next().find("#cardDate_bacB").val();//작성일자.//작성일자
 					var deal_location = $(item).parent().next().next().html();//거래처
@@ -622,8 +630,11 @@
 			        dataIndex++;
 			        
 			        $("#cardAddModal").hide();
+			        
+			        count_array_NUM++;
 				}
 			});
+
 		}
 	}
 	
@@ -1393,107 +1404,215 @@
     	var data02Data = {};
     	var data02App = {};
 		var showDocType = "";
-    	
-		if($("#docSelect1").is(":visible") === true){
-    		showDocType = $("#docSelect1").find("#docType").val();	
-    	}else if($("#docSelect2").is(":visible") === true){
-    		showDocType = $("#docSelect2").find("#docType").val();
-    	}else{
-    		showDocType = $("#docSelect3").find("#docType").val();
-    	}
-    	
-    	if($("#docTitle").val() === ""){
-    		alert("문서 제목을 작성하십시오.");
-    		$("#docTitle").focus();
-    		return false;
-    	}else if(showDocType === ""){
-    		alert("문서 종류를 선택해주십시오.");
-    		return false;
-    	}else if($("#docDate").val() === ""){
-    		alert("작성일자를 선택해주십시오.");
-    		return false;
-    	}else if($("#userName").val() === ""){
-    		alert("결재자를 선택해주십시오.");
-    		return false;
-    	}else{
-    		if(confirm("정말 반려하시겠습니까??")){
-    			$.LoadingOverlay("show", true);
-	    		data02Data.docCrUserNo = userNoCR;
-	    		data02Data.docType = showDocType;
-	    		data02Data.docTitle = $("#docTitle").val();
-	    		data02Data.linkSoppNo = $("#soppNo").val();
-	    		data02Data.linkCustNo = $("#custNo").val();
-	    		data02Data.docDesc = tinyMCE.get("docDesc").getContent();
-	    		data02Data.docAmount = parseInt($("#product02InSum_table").html().replace(/[\D\s\._\-]+/g, ""));
-	    		data02Data.linkMasterdocNo = docNo;
-	    		data02Data.docStatus = 2;
-	    		data02Data.docFormNo = $("[name='contractType']:checked").val();
-	    		data02Data.docDate = $("#docDate").val();
-	    		
-	    		$.ajax({
-					url: "${path}/gw/delete/" + docNo,
-					method: "post",
-					success:function(){
-						$.ajax({
-			    			url: "${path}/gw/insert.do",
-			    			method: "post",
-			    			async: false,
-			    			data: data02Data,
-			    			dataType: "json",
-			    			success: function(data){
-			    				data02App.compNo = $("#compNo").val();
-			    				data02App.docNo = data.getId;
-			    				data02App.userNoCR = userNoCR;
-			    				data02App.userNoIS = docUserNo;
-			    				data02App.userNoAPP = userNoCR;
-			   					data02App.appStatus = 3;
-			   					data02App.issueDate = $("#issueDate").val();
-			   					data02App.appDate = $("#appDate").val();
-			    				data02App.appComment = tinyMCE.get("appComment").getContent();
-			    				updateFile.docNo = docNo;
-			    				updateFile.updateNo = data.getId;
-			    				
-			    				$.ajax({
-			    					url : "${path}/gw/updateFile.do/",
-			    					method : "POST",
-			    					async: false,
-			    					data : updateFile,
-			    					dataType: "json",
-			    				});
-			    				
-			    				$.ajax({
-			    					url: "${path}/gw/insertApp.do",
-			    					method: "post",
-			    					async: false,
-			    					data: data02App,
-			    					dataType: "json",
-			    				});
-			    				
-								for(var i = 0; i < dataArray.length; i++){
-									dataArray[i].docNo = data.getId;
-									var JsonArray = JSON.stringify(dataArray[i]);
-					  				$.ajax({
-					  					url: "${path}/gw/insertData.do",
-					  					method: "post",
-					  					async: false,
-					  					data: JSON.parse(JsonArray),
-					  					dataType: "json"
-					  				});
-					 			}
-					 			alert("반려되었습니다.");
-					 			location.href = "${path}/gw/mylist.do";
+		
+		//user 반려
+		if($("#user_cancel").val() == 2){
+			if($("#docSelect1").is(":visible") === true){
+	    		showDocType = $("#docSelect1").find("#docType").val();	
+	    	}else if($("#docSelect2").is(":visible") === true){
+	    		showDocType = $("#docSelect2").find("#docType").val();
+	    	}else{
+	    		showDocType = $("#docSelect3").find("#docType").val();
+	    	}
+	    	
+	    	if($("#docTitle").val() === ""){
+	    		alert("문서 제목을 작성하십시오.");
+	    		$("#docTitle").focus();
+	    		return false;
+	    	}else if(showDocType === ""){
+	    		alert("문서 종류를 선택해주십시오.");
+	    		return false;
+	    	}else if($("#docDate").val() === ""){
+	    		alert("작성일자를 선택해주십시오.");
+	    		return false;
+	    	}else if($("#userName").val() === ""){
+	    		alert("결재자를 선택해주십시오.");
+	    		return false;
+	    	}else{
+	    		if(confirm("정말 검토요청을 취소하시겠습니까??")){
+	    			$.LoadingOverlay("show", true);
+		    		data02Data.docCrUserNo = userNoCR;
+		    		data02Data.docType = showDocType;
+		    		data02Data.docTitle = $("#docTitle").val();
+		    		data02Data.linkSoppNo = $("#soppNo").val();
+		    		data02Data.linkCustNo = $("#custNo").val();
+		    		data02Data.docDesc = tinyMCE.get("docDesc").getContent();
+		    		data02Data.docAmount = parseInt($("#product02InSum_table").html().replace(/[\D\s\._\-]+/g, ""));
+		    		data02Data.linkMasterdocNo = docNo;
+		    		data02Data.docStatus = 2;
+		    		data02Data.docFormNo = $("[name='contractType']:checked").val();
+		    		data02Data.docDate = $("#docDate").val();
+		    		
+		    		$.ajax({
+						url: "${path}/gw/delete/" + docNo,
+						method: "post",
+						success:function(){
+							$.ajax({
+				    			url: "${path}/gw/insert.do",
+				    			method: "post",
+				    			async: false,
+				    			data: data02Data,
+				    			dataType: "json",
+				    			success: function(data){
+				    				data02App.compNo = $("#compNo").val();
+				    				data02App.docNo = data.getId;
+				    				data02App.userNoCR = userNoCR;
+				    				data02App.userNoIS = docUserNo;
+				    				data02App.userNoAPP = userNoCR;
+				   					data02App.appStatus = 1;
+				   					data02App.issueDate = $("#issueDate").val();
+				   					data02App.appDate = $("#appDate").val();
+				    				data02App.appComment = tinyMCE.get("appComment").getContent();
+				    				updateFile.docNo = docNo;
+				    				updateFile.updateNo = data.getId;
+				    				
+				    				$.ajax({
+				    					url : "${path}/gw/updateFile.do/",
+				    					method : "POST",
+				    					async: false,
+				    					data : updateFile,
+				    					dataType: "json",
+				    				});
+				    				
+				    				$.ajax({
+				    					url: "${path}/gw/insertApp.do",
+				    					method: "post",
+				    					async: false,
+				    					data: data02App,
+				    					dataType: "json",
+				    				});
+				    				
+									for(var i = 0; i < dataArray.length; i++){
+										dataArray[i].docNo = data.getId;
+										var JsonArray = JSON.stringify(dataArray[i]);
+						  				$.ajax({
+						  					url: "${path}/gw/insertData.do",
+						  					method: "post",
+						  					async: false,
+						  					data: JSON.parse(JsonArray),
+						  					dataType: "json"
+						  				});
+						 			}
+						 			alert("요청 취소되었습니다. 해당 파일은 임시저장으로 이동됩니다.");
+						 			location.href = "${path}/gw/mylist.do";
 
-					 			setTimeout(function(){
-								    $.LoadingOverlay("hide", true);
-								}, 5000);
-			    			}//mydoclist.do -> 기존 링크
-			    		});
-					}
-				});
-    		}else{
-    			return false;
-    		}
-    	}
+						 			setTimeout(function(){
+									    $.LoadingOverlay("hide", true);
+									}, 5000);
+				    			}//mydoclist.do -> 기존 링크
+				    		});
+						}
+					});
+	    		}else{
+	    			return false;
+	    		}
+	    	}
+	    	//user 반려
+			
+		}else{
+			//admin 반려
+			if($("#docSelect1").is(":visible") === true){
+	    		showDocType = $("#docSelect1").find("#docType").val();	
+	    	}else if($("#docSelect2").is(":visible") === true){
+	    		showDocType = $("#docSelect2").find("#docType").val();
+	    	}else{
+	    		showDocType = $("#docSelect3").find("#docType").val();
+	    	}
+	    	
+	    	if($("#docTitle").val() === ""){
+	    		alert("문서 제목을 작성하십시오.");
+	    		$("#docTitle").focus();
+	    		return false;
+	    	}else if(showDocType === ""){
+	    		alert("문서 종류를 선택해주십시오.");
+	    		return false;
+	    	}else if($("#docDate").val() === ""){
+	    		alert("작성일자를 선택해주십시오.");
+	    		return false;
+	    	}else if($("#userName").val() === ""){
+	    		alert("결재자를 선택해주십시오.");
+	    		return false;
+	    	}else{
+	    		if(confirm("정말 반려하시겠습니까??")){
+	    			$.LoadingOverlay("show", true);
+		    		data02Data.docCrUserNo = userNoCR;
+		    		data02Data.docType = showDocType;
+		    		data02Data.docTitle = $("#docTitle").val();
+		    		data02Data.linkSoppNo = $("#soppNo").val();
+		    		data02Data.linkCustNo = $("#custNo").val();
+		    		data02Data.docDesc = tinyMCE.get("docDesc").getContent();
+		    		data02Data.docAmount = parseInt($("#product02InSum_table").html().replace(/[\D\s\._\-]+/g, ""));
+		    		data02Data.linkMasterdocNo = docNo;
+		    		data02Data.docStatus = 2;
+		    		data02Data.docFormNo = $("[name='contractType']:checked").val();
+		    		data02Data.docDate = $("#docDate").val();
+		    		
+		    		$.ajax({
+						url: "${path}/gw/delete/" + docNo,
+						method: "post",
+						success:function(){
+							$.ajax({
+				    			url: "${path}/gw/insert.do",
+				    			method: "post",
+				    			async: false,
+				    			data: data02Data,
+				    			dataType: "json",
+				    			success: function(data){
+				    				data02App.compNo = $("#compNo").val();
+				    				data02App.docNo = data.getId;
+				    				data02App.userNoCR = userNoCR;
+				    				data02App.userNoIS = docUserNo;
+				    				data02App.userNoAPP = userNoCR;
+				   					data02App.appStatus = 3;
+				   					data02App.issueDate = $("#issueDate").val();
+				   					data02App.appDate = $("#appDate").val();
+				    				data02App.appComment = tinyMCE.get("appComment").getContent();
+				    				updateFile.docNo = docNo;
+				    				updateFile.updateNo = data.getId;
+				    				
+				    				$.ajax({
+				    					url : "${path}/gw/updateFile.do/",
+				    					method : "POST",
+				    					async: false,
+				    					data : updateFile,
+				    					dataType: "json",
+				    				});
+				    				
+				    				$.ajax({
+				    					url: "${path}/gw/insertApp.do",
+				    					method: "post",
+				    					async: false,
+				    					data: data02App,
+				    					dataType: "json",
+				    				});
+				    				
+									for(var i = 0; i < dataArray.length; i++){
+										dataArray[i].docNo = data.getId;
+										var JsonArray = JSON.stringify(dataArray[i]);
+						  				$.ajax({
+						  					url: "${path}/gw/insertData.do",
+						  					method: "post",
+						  					async: false,
+						  					data: JSON.parse(JsonArray),
+						  					dataType: "json"
+						  				});
+						 			}
+						 			alert("반려되었습니다.");
+						 			location.href = "${path}/gw/mylist.do";
+
+						 			setTimeout(function(){
+									    $.LoadingOverlay("hide", true);
+									}, 5000);
+				    			}//mydoclist.do -> 기존 링크
+				    		});
+						}
+					});
+	    		}else{
+	    			return false;
+	    		}
+	    	}
+		}
+		//admin 반려
     }
 	
     function recall02(){

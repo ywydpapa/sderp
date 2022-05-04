@@ -61,20 +61,6 @@
 						</tr>
 					</thead>
 					<tbody>
-						<c:forEach var="row" items="${custVatList}" varStatus="status">
-							<c:set var="dateMonth" value="${fn:substring(row.vatIssueDate, 5, 7)}" />
-							<c:if test="${(dateValue eq dateMonth)}">
-								<c:set var="balanceB" value="${balanceB - row.vatTotal}" scope="request"/>
-								<tr id="divisionTrVat">
-									<td style="text-align:center;">${row.vatIssueDate}</td>
-									<td style="text-align:center;">${row.vatProductName}</td>
-									<td style="text-align:right;" id="totalTd"><fmt:formatNumber type="number" maxFractionDigits="3" value="${row.vatTotal}" /></td>
-									<td style="text-align:right;" id="receiveTd"></td>
-									<td style="text-align:right;" id="balanceTd"></td>	
-								</tr>
-								<c:set var="calTotal" value="${calTotal + row.vatTotal}" />
-							</c:if>
-						</c:forEach>
 						<c:forEach var="row" items="${ledgerList}">
 							<c:set var="dateMonth" value="${fn:substring(row.baclogTime, 5, 7)}" />
 							<c:if test="${(dateValue eq dateMonth)}">
@@ -82,11 +68,25 @@
 								<tr id="divisionTrVat">
 									<td style="text-align:center;">${fn:substring(row.baclogTime, 0, 10)}</td>
 									<td style="text-align:center;">${row.vatProductName}</td>
-									<td style="text-align:right;" id="totalTd"></td>
-									<td style="text-align:right;" id="receiveTd"><fmt:formatNumber type="number" maxFractionDigits="3" value="${row.receive_data}" /></td>
+									<td style="text-align:right;" id="totalTd"><fmt:formatNumber type="number" maxFractionDigits="3" value="${row.receive_data}" /></td>
+									<td style="text-align:right;" id="receiveTd"></td>
 									<td style="text-align:right;" id="balanceTd"></td>	
 								</tr>
 								<c:set var="calTotalReceive" value="${calTotalReceive + row.receive_data}" />
+							</c:if>
+						</c:forEach>
+						<c:forEach var="row" items="${custVatList}" varStatus="status">
+							<c:set var="dateMonth" value="${fn:substring(row.vatIssueDate, 5, 7)}" />
+							<c:if test="${(dateValue eq dateMonth)}">
+								<c:set var="balanceB" value="${balanceB - row.vatTotal}" scope="request"/>
+								<tr id="divisionTrVat">
+									<td style="text-align:center;">${row.vatIssueDate}</td>
+									<td style="text-align:center;">${row.vatProductName}</td>
+									<td style="text-align:right;" id="totalTd"></td>
+									<td style="text-align:right;" id="receiveTd"><fmt:formatNumber type="number" maxFractionDigits="3" value="${row.vatTotal}" /></td>
+									<td style="text-align:right;" id="balanceTd"></td>	
+								</tr>
+								<c:set var="calTotal" value="${calTotal + row.vatTotal}" />
 							</c:if>
 						</c:forEach>
 						<tr>

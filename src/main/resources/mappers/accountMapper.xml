@@ -482,7 +482,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="custVatListHtmlS" resultType="accountDto">
 		SELECT a.*, b.vatIssueDate, b.vatSerial, b.vatTax, b.vatAmount, (b.vatTax + b.vatAmount) AS vatTotal, b.vatProductName, c.settleCRbalance 
 		FROM swc_cust a
-		LEFT JOIN swc_vat b ON a.custNo = b.vatBuyerCustNo AND b.vatIssueDate BETWEEN #{vatIssueDateFrom} and #{vatIssueDateTo}
+		LEFT JOIN swc_vat b ON a.custNo = b.vatBuyerCustNo AND b.vatIssueDate BETWEEN #{vatIssueDateFrom} and #{vatIssueDateTo} AND b.attrib NOT LIKE 'XXX%'
 		LEFT JOIN swc_cust_balance c ON a.custNo = c.custNo AND c.settleYear = #{selectYear}
 		WHERE a.compNo = #{compNo} and a.custNo = #{vatBuyerCustNo} and b.vatType = #{vatType} GROUP BY b.vatSerial ORDER BY b.vatIssueDate ASC 
 	</select>
@@ -490,7 +490,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="custVatListHtmlB" resultType="accountDto">
 		SELECT a.*, b.vatIssueDate, b.vatSerial, b.vatTax, b.vatAmount, (b.vatTax + b.vatAmount) AS vatTotal, b.vatProductName, c.settleDRbalance 
 		FROM swc_cust a
-		LEFT JOIN swc_vat b ON a.custNo = b.vatSellerCustNo AND b.vatIssueDate BETWEEN #{vatIssueDateFrom} and #{vatIssueDateTo}
+		LEFT JOIN swc_vat b ON a.custNo = b.vatSellerCustNo AND b.vatIssueDate BETWEEN #{vatIssueDateFrom} and #{vatIssueDateTo} AND b.attrib NOT LIKE 'XXX%'
 		LEFT JOIN swc_cust_balance c ON a.custNo = c.custNo AND c.settleYear = #{selectYear}
 		WHERE a.compNo = #{compNo} and a.custNo = #{vatSellerCustNo} and b.vatType = #{vatType} GROUP BY b.vatSerial ORDER BY b.vatIssueDate ASC 
 	</select>

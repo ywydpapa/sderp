@@ -170,7 +170,7 @@
 		                                    </td>
 		                                    <td class="text-right">
 		                                    	<c:choose>
-		                                    		<c:when test="${(vlist.custBalance + vlist.serialTotalB) - vlist.vatAmountB > 0}"><fmt:formatNumber type="number" maxFractionDigits="3" value="${(vlist.custBalance + vlist.serialTotalB) - vlist.vatAmountB}" /></c:when>
+		                                    		<c:when test="${(vlist.custBalance - vlist.serialTotalB) + vlist.vatAmountB > 0}"><fmt:formatNumber type="number" maxFractionDigits="3" value="${(vlist.custBalance - vlist.serialTotalB) + vlist.vatAmountB}" /></c:when>
 		                                    		<c:otherwise>0</c:otherwise>
 		                                    	</c:choose>
 		                                    </td>

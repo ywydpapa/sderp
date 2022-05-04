@@ -491,7 +491,7 @@ public class AccountController {
     
     @RequestMapping("cardUpload.do")
     public ModelAndView cardUpload(HttpSession session, ModelAndView mav, @ModelAttribute AccountDTO dto) {
-        mav.addObject("vatList", accountService.listvat(session, dto));
+//        mav.addObject("vatList", accountService.listvat(session, dto));
         mav.setViewName("settle/cardupload");
         return mav;
     }

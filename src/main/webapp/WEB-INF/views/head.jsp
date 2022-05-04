@@ -393,14 +393,14 @@
 		$("#pageDiv").html(pageHtml);
 	}
 	
-	function pageClick(e){
+	/* function pageClick(e){
 		var page = $(e).attr("data-number");
 		var setFirstPage = $(e).parents("ul").find("li:first").next().children().attr("data-number");
 		
 		localStorage.setItem("activePage", page);
 		localStorage.setItem("setFirstPage", setFirstPage);
 		pageNation(page, DEFAULT_NUM, null);
-	}
+	} */
 	
 	function pagePrevious(e){
 		var preFirstNum = $(e).parent().next().children().attr("data-number");

@@ -556,9 +556,8 @@
 			        dataIndex++;
 			        
 			        $("#cardAddModal").hide();
-			        
-			        count_array_NUM++;
 				}
+			});		
 		}
 	}
 	
@@ -630,8 +629,6 @@
 			        dataIndex++;
 			        
 			        $("#cardAddModal").hide();
-			        
-			        count_array_NUM++;
 				}
 			});
 

@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-<script type="text/javascript" src="../js/jquery.tablesorter.js"></script>
 <c:set var="path" value ="${pageContext.request.contextPath}"/>
+<script type="text/javascript" src="${path}/js/jquery.tablesorter.js"></script>
 <form name="form2" method="post" onsubmit="return false;">
     <table class="table table-sm bst02">
         <tbody>
@@ -549,13 +549,16 @@
 			    	
 			        qutylist.append("<tr><input type='hidden' id='docAppSerial' value='"+cardSerial+"'><td id='dataDate' style='text-align:center;'>"+productDate+"</td><td id='salesCustNoN' style='text-align:center;'>"+productSalesEstimateCustName+"</td><td id='dataTitle' style='text-align:center;'>"+productName+"</td><td id='dataNetprice' style='text-align: right'>"+"￦"+parseInt(productNetprice).toLocaleString("en-US")+"</td><td id='dataQuanty' style='text-align: right'>"+productQty+"</td><td id='dataAmt' style='text-align: right'>"+"￦"+parseInt(productAmount).toLocaleString("en-US")+"</td><td id='dataVat' style='text-align: right'>"+"￦"+parseInt(productVat).toLocaleString("en-US")+"</td><td id='dataTotal' style='text-align: right'>"+"￦"+parseInt(productTotal).toLocaleString("en-US")+"</td><td id='dataRemark'>"+productRemark+"</td><td style='text-align:center;'><button class='btn btn-sm btn-inverse' id='dataUpBtn' data-index="+dataIndex+" data-number='0' style='margin-right:4%;'>수정</button><button class='btn btn-sm btn-danger text-center' data-index="+dataIndex+" id='dataDelBtn'>삭제</button></td></tr>");    	
 			        
-			        $(function() {
-			        	  $("#qutylist").tablesorter({ sortList: [[0,0], [1,0]] });
-			        	});
 			        
 			        dataIndex++;
 			        
 			        $("#cardAddModal").hide();
+			        
+			        $("#qutylist").trigger('destroy');
+		        	
+		        	$("#qutylist").tablesorter({
+		    			sortList: [[0,1]]
+		    		});
 				}
 			});		
 		}
@@ -629,6 +632,12 @@
 			        dataIndex++;
 			        
 			        $("#cardAddModal").hide();
+			        
+			        $("#qutylist").trigger('destroy');
+		        	
+		        	$("#qutylist").tablesorter({
+		    			sortList: [[0,1]]
+		    		});
 				}
 			});
 
@@ -701,6 +710,12 @@
 	        
 	        dataIndex++;
 	        console.log(dataArray);
+	        
+	        $("#qutylist").trigger('destroy');
+        	
+        	$("#qutylist").tablesorter({
+    			sortList: [[0,1]]
+    		});
     	//}
     }
     

@@ -644,8 +644,6 @@
 		}
 	}
 	
-	
-	
     function dataSave(){
     //	if($('#productSalesEstimateCustName').val() === ""){
     	//	alert("거래처를 선택해주십시오.");

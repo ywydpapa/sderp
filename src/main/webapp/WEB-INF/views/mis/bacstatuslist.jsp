@@ -85,7 +85,7 @@
                                 <tr>
                                    <td class="text-center">${row.bacNo}</td>
                                    <td class="text-center">${row.baclogTime}</td>
-                                   <td class="text-center"><fmt:formatNumber type="number" maxFractionDigits="3" value="${row.balanceAmt}" /></td>
+                                   <td class="text-right"><fmt:formatNumber type="number" maxFractionDigits="3" value="${row.balanceAmt}" /></td>
                                 </tr>
                             </c:forEach>
                             </tbody>

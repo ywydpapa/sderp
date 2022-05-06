@@ -553,12 +553,12 @@
 			        dataIndex++;
 			        
 			        $("#cardAddModal").hide();
-			        
-			        $("#qutylist").trigger('destroy');
 		        	
 		        	$("#qutylist").tablesorter({
 		    			sortList: [[0,1]]
 		    		});
+		        	
+			        $("#qutylist").trigger('destroy');
 				}
 			});		
 		}
@@ -633,11 +633,11 @@
 			        
 			        $("#cardAddModal").hide();
 			        
-			        $("#qutylist").trigger('destroy');
-		        	
-		        	$("#qutylist").tablesorter({
+			        $("#qutylist").tablesorter({
 		    			sortList: [[0,1]]
 		    		});
+		        	
+			        $("#qutylist").trigger('destroy');
 				}
 			});
 
@@ -711,11 +711,11 @@
 	        dataIndex++;
 	        console.log(dataArray);
 	        
-	        $("#qutylist").trigger('destroy');
-        	
-        	$("#qutylist").tablesorter({
+	        $("#qutylist").tablesorter({
     			sortList: [[0,1]]
     		});
+        	
+	        $("#qutylist").trigger('destroy');
     	//}
     }
     

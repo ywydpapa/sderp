@@ -120,6 +120,8 @@
 		$("[id^='vatTable_']").tablesorter({
 			sortList: [[0,0]]
 		});
+    	
+        $("[id^='vatTable_']").trigger('destroy');
 		
 		$("[id^='vatTable_'] tbody #divisionTrVat").each(function(index, item){
 			if(index == 0){

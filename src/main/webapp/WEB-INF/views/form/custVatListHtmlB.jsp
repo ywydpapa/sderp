@@ -121,6 +121,8 @@
 			sortList: [[0,0]]
 		});
 		
+		$("[id^='vatTable_']").trigger('destroy');
+		
 		$("[id^='vatTable_'] tbody #divisionTrVat").each(function(index, item){
 			if(index == 0){
 				$(item).parents("tbody").prepend("<tr id='hiddenTr' style='background-color: #e9ecef;'><td></td><td style='text-align: center;'>전기이월</td></td><td><td style='text-align: right;'>"+parseInt(temp[0]).toLocaleString("en-US")+"</td><td style='text-align: right;'>"+parseInt(temp[0]).toLocaleString("en-US")+"</td></tr>");

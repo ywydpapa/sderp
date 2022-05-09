@@ -1057,7 +1057,7 @@ attrib) values (#{vatId},
 		LEFT JOIN swc_bacledger_detail b ON a.vatSerial = b.linkDocno
 		LEFT JOIN swc_bacledger c ON b.baclogId = c.baclogId
 		LEFT JOIN swc_bac d ON c.bacSerial = d.bacSerial
-		where a.compNo = #{compNo} limit #{betFirstNum}, #{betLastNum};
+		where a.compNo = #{compNo} order by d.bacNo desc limit #{betFirstNum}, #{betLastNum};
 	</select>
 	<select id="check_link_vatandbacCnt" resultType="accountDto">
 		SELECT count(*) as resultCount

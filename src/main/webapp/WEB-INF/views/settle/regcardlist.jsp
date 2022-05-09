@@ -281,7 +281,9 @@
                                 <th class="text-center">최종확인 일자</th>
                                 <th class="text-center">은행</th>
                                 <th class="text-center">상태</th>
+                                <th class="text-center">현재 사용인원</th>
                                 <th class="text-center">메모</th>
+                                <th class="text-center">수정</th>
                             </tr>
                             </thead>
                             <c:forEach items="${cardList}" var="cardList">
@@ -292,7 +294,28 @@
                                     <td class="text-right">${cardList.lastUpdTime}</td>
                                     <td class="text-center">${cardList.bankCodeN}</td>
                                     <td class="text-center">${cardList.cardStatus}</td>
+                                    <td class="text-center">
+                                    	<c:if test="${cardList.user_card ne 0}">
+                                    		<select id="select_user_card" class="form-control">
+                                    			<option value="${cardList.user_card}">${cardList.userName}</option>
+                                    			<c:forEach items="${userList}" var="var">
+	                                    			<option value="${var.userNo}">${var.userName}</option>
+    	                                		</c:forEach>
+    	                                		<option value="0">=========초기화=========</option>
+                                    		</select>
+                                    	</c:if>
+                                    	
+                                    	<c:if test="${cardList.user_card eq 0}">
+                                    		<select id="select_user_card" class="form-control">
+                                    		<option value="0">선택해주세요</option>
+	                                    		<c:forEach items="${userList}" var="var">
+		                                    		<option value="${var.userNo}">${var.userName}</option>
+	    	                                	</c:forEach>
+                                    		</select>
+                                    	</c:if>
+                                    </td>
                                     <td class="text-left">${cardList.cardMemo}</td>
+                                    <td class="text-center"><button class="btn btn-primary btn-sm" onClick="update_card_data(this)" data-id="${cardList.cardSerial}" >수정</button></td>
                                 </tr>
                             </c:forEach>
                         </table>
@@ -454,6 +477,31 @@
 
         function fnChgStatus(){
             alert("기능 미구현 상태 입니다.");
+        }
+        
+        function update_card_data(e){
+        	if(confirm("업데이트 하시겠습니까??")){
+        		var selectData = {};
+        		var user_card = $(e).parent().prev().prev().children().val();
+        		var cardSerial = $(e).attr("data-id");
+        		
+        		selectData.cardSerial = cardSerial;
+        		selectData.user_card = user_card;
+        		
+        		 $.ajax({
+                 	url: "${path}/acc/update_card_data.do",
+                     data: selectData,
+                     method: "POST",
+                     dataType: "json",
+                     success:function(){
+                     	alert("저장 성공");
+                     	var url = '${path}/acc/regCard.do';
+                         location.href = url;
+                     } 
+                 })
+        	}else{
+        		return false;
+        	}
         }
 
     </script>

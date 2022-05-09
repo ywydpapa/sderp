@@ -5,6 +5,8 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpSession;
+
 import java.util.List;
 
 @Repository
@@ -649,5 +651,17 @@ public class AccountDAOImpl implements AccountDAO {
 	public void insert_contribution_percent(AccountDTO dto) {
 		// TODO Auto-generated method stub
 		sqlSession.insert("account.insert_contribution_percent", dto);
+	}
+
+	@Override
+	public List<AccountDTO> userList(int compNo) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("account.userList", compNo);
+	}
+
+	@Override
+	public void update_card_data(AccountDTO dto) {
+		// TODO Auto-generated method stub
+		sqlSession.update("account.update_card_data", dto);
 	}
 }

@@ -224,5 +224,6 @@ public class AccountDTO {
 	
 	private BigDecimal inListAmt;
     private BigDecimal outListAmt;
+    private int user_card;
 }
 

@@ -31,7 +31,7 @@
 	%>
 
 	<div class="row" >
-		<c:if test="${userRole ne 'CUSER'}">
+		<c:if test="${userRole ne 'CUSER' && userRole ne 'PUSER'}">
 			<!-- 4번째 그래프 -->
 			<div class="col-md-6">
 				<div class="card" style="width: 100%; height: auto;">

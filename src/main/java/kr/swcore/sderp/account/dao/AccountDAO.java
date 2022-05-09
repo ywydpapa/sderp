@@ -4,6 +4,8 @@ import kr.swcore.sderp.account.dto.AccountDTO;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 public interface AccountDAO {
     List<AccountDTO> listvat(AccountDTO dto);
 	List<AccountDTO> sumBvat(AccountDTO dto);
@@ -126,4 +128,6 @@ public interface AccountDAO {
 	List<AccountDTO> listusercontribution(AccountDTO dto);
 	List<AccountDTO> listusercontributionCnt(AccountDTO dto);
 	void insert_contribution_percent(AccountDTO dto);
+	List<AccountDTO> userList(int compNo);
+	void update_card_data(AccountDTO dto);
 }

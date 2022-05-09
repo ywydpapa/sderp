@@ -40,6 +40,7 @@ import kr.swcore.sderp.sopp.dto.SoppDTO;
 import kr.swcore.sderp.sopp.service.SoppService;
 import kr.swcore.sderp.user.dto.UserDTO;
 import kr.swcore.sderp.user.service.UserService;
+import kr.swcore.sderp.util.SessionInfoGet;
 
 /**
  * Handles requests for the application home page.
@@ -357,7 +358,11 @@ public class HomeController {
 		}
 		else if("cardAddModal".equals(popId)) {
 			//Integer compNo = Integer.valueOf((String) params.get("compNo"));
+			int compNo = SessionInfoGet.getCompNo(session);
+			Integer userNo = Integer.valueOf((String) params.get("userNo"));
 			AccountDTO dto = new AccountDTO();
+			dto.setCompNo(compNo);
+			dto.setUserNo(userNo);
 			List<AccountDTO> list = accountService.treqCardList(dto);
 			model.addAttribute("list", list);
 			rtn = "modal/treqCardList";

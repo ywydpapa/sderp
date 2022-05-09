@@ -457,6 +457,7 @@ public class AccountController {
     @RequestMapping("regCard.do")
     public ModelAndView regCard(HttpSession session, ModelAndView mav) {
         mav.addObject("cardList", accountService.listCard(session));
+        mav.addObject("userList", accountService.userList(session));
         mav.addObject("bnkcd", codeService.listCode003("BANKCD"));
         mav.addObject("baccd", codeService.listCode003("BACTYPE"));
         mav.setViewName("settle/regcardlist");
@@ -1222,5 +1223,14 @@ public class AccountController {
     	AccountDTO count = accountService.modalVatSCnt(dto);
     	
     	return count;
+    }
+    //update_card_data
+    @RequestMapping("update_card_data.do")
+    public ResponseEntity<Object> update_card_data(HttpSession session, @ModelAttribute AccountDTO dto){
+        Map<String,Object> param = new HashMap<>();
+        
+        accountService.update_card_data(session, dto);
+
+        return ResponseEntity.ok(param);
     }
 }

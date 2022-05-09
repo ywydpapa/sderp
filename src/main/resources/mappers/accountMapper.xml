@@ -398,8 +398,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 
 	<select id="listCard" resultType="accountDto">
-		select a.*, b.desc03 bankCodeN from swc_card a
+		select a.*, b.desc03 bankCodeN, c.userName from swc_card a
 	   	left join swc_code b on b.code03 = a.cardBank
+	   	LEFT JOIN swc_user c ON a.user_card = c.userNo
 		where a.compNo = #{compNo} and a.attrib not like 'XXX%';
 	</select>
 
@@ -412,7 +413,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 
 	<select id="treqCardList" resultType="accountDto">
-		select * from swc_cardledger
+		select * from swc_card a
+		LEFT JOIN swc_cardledger b ON a.cardDisNum = b.cardDisNum
+		WHERE a.user_card = #{userNo} AND a.compNo = #{compNo} AND a.attrib NOT LIKE "XXX%"
+		ORDER BY b.appDate DESC
 	</select>
 	
 	<select id="vatSelectList" resultType="accountDto">
@@ -1377,4 +1381,12 @@ attrib) values (#{vatId},
 				'10001'
 			);
 		</insert>
+		<select id="userList" resultType="AccountDTO">
+			select userNo, userName from swc_user
+			where compNo = #{compNo} and attrib not like 'XXX%';
+		</select>
+		<update id="update_card_data">
+			update swc_card set user_card = #{user_card}
+			where cardSerial = #{cardSerial} and compNo = #{compNo};
+		</update>
 </mapper>

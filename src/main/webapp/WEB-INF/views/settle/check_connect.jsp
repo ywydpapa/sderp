@@ -69,419 +69,131 @@
     </div>
 </div>
  <script>
- 		var pageListNum = 15;
-		var counter = 0;
 	    <!--//리스트 table-->
 		$(document).ready(function(){
-			var selectData = {};
-			var pageCheck = {};
-			var bacTable = $("#bacTable tbody");
-			var pageDiv = $("#pageDiv");
-			var tableHtml = "";
-			var pageHtml = "";
-			var pageNation = 10;
-			var pageFirstBetween = 0;
+			const BAC_TABLE = $("#bacTable tbody");
+			const DEFAULT_NUM = 15;
 			
-			bacTable.empty();
-			pageDiv.empty();
+			BAC_TABLE.empty();
+			$("#pageDiv").empty();
 			
-			selectData.betFirstNum = pageFirstBetween;
-			selectData.betLastNum = pageListNum;
-			selectData.compNo = $('#compNo_hidden').val();
-			$.ajax({
-				url: "${path}/acc/check_link_vatandbac.do",
-				method: "get",
-				dataType: "json",
-				data: selectData,
-			})
-			.done(function(result){
-				for(var i = 0; i < result.data.length; i++){
-						tableHtml += "<tr>"
-						if(result.data[i].bacNo != null && result.data[i].bacNo != ''){
-							tableHtml += "<td style='text-align:center;vertical-align:middle;'>"+result.data[i].bacNo+"</td><td style='text-align:center;vertical-align:middle;'>"
-						}else if(result.data[i].bacNo == null || result.data[i].bacNo == ''){
-							tableHtml += "<td style='text-align:center;vertical-align:middle;'>미연결</td><td style='text-align:center;vertical-align:middle;'>"
-						}
-						if(result.data[i].vatProductName != null && result.data[i].vatProductName != ''){
-							tableHtml += ""+result.data[i].vatProductName+"</td><td style='text-align:right;vertical-align:middle;'>"
-						}else if(result.data[i].vatProductName == null || result.data[i].vatProductName == ''){
-							tableHtml += "</td><td style='text-align:right;vertical-align:middle;'>"
-						}
-						tableHtml += ""+result.data[i].modal_receive_data.toLocaleString("en-US")+"</td><td style='text-align:right;vertical-align:middle;'>"
-					 	+ ""+result.data[i].modal_vatmemo+"</td><td style='text-align:right;vertical-align:middle;'>"
-					 	if(result.data[i].regDate != null && result.data[i].regDate != ''){
-					 		tableHtml += ""+result.data[i].regDate+"</td><td style='text-align:center;vertical-align:middle;'>"
-					 	}else if(result.data[i].regDate == null || result.data[i].regDate == ''){
-					 		tableHtml += "</td><td style='text-align:center;vertical-align:middle;'>"
-					 	}
-					 	tableHtml += ""+result.data[i].vatSerial+"</td><td style='text-align:center;vertical-align:middle;'>"
-					 	+ ""+result.data[i].vatRemark+"</td>";
-				}
-				
-				bacTable.html(tableHtml);
-			})
-			var origin_page_Num = (localStorage.getItem("lastpageNum")+1)/100;
-			var endpageNum = Math.ceil(origin_page_Num)*10;
-			var startpageNum = Math.floor(origin_page_Num)*10;
-			counter = Math.floor(origin_page_Num);
-
-			$.ajax({
-				url: "${path}/acc/check_link_vatandbacCnt.do",
-				method: "post",
-				data: selectData,
-				dataType: "json",
-				success:function(data){
-					console.log(data.resultCount);
-					if(data.resultCount > 0){
-						var count = parseInt(data.resultCount/pageListNum);
-						var countRe = parseInt(data.resultCount/pageListNum);
-
-						pageHtml = "";
-						pageHtml += "<ul class='pagination'><li class='page-item'><a class='page-link' href='#' onClick='pagePrevious(this);'>Previous</a></li>";
-						
-						if(count > pageNation){
-							for(var j = startpageNum+1; j <= endpageNum; j++){
-								if(j <= count+1){
-									if(j-1 == $('#reloadpage_num').val()){
-										pageHtml += "<li class='page-item active' id='"+ j +"'><a class='page-link' href='#' onClick='pageClick(this);'>" + j + "</a></li>";	
-									}else{
-										pageHtml += "<li class='page-item' id='"+ j +"'><a class='page-link' href='#' onClick='pageClick(this);'>" + j + "</a></li>";	
-									}
-								}
-							}
-							pageHtml += "<li class='page-item'><a class='page-link' href='#' onClick='pageNext(this);'>Next</a></li></ul>";
-						}else{
-							if(countRe > 0){
-								countRe = countRe + 1;
-							}else{
-								countRe = 0;
-							}
-							
-							for(var j = 1; j <= countRe; j++){
-								if(j-1 == $('#reloadpage_num').val()){
-									pageHtml += "<li class='page-item active'><a class='page-link' href='#' onClick='pageClick(this);'>" + j + "</a></li>";
-								}else {
-									pageHtml += "<li class='page-item'><a class='page-link' href='#' onClick='pageClick(this);'>" + j + "</a></li>";
-								}
-							}
-						}
-						
-						pageDiv.html(pageHtml);
-					}else{
-						pageDiv.empty();
-					}
-				}
-			}); 
-			$('#reloadpage_num').val(localStorage.getItem("lastpageNum"));
+			pageNation(1, DEFAULT_NUM, null);
 		});
-		//===================================================================================================클릭
-		function pageClick(e){
-			var selectData = {};
-			var pageCheck = {};
-			var bacTable = $("#bacTable tbody");
-			var pageDiv = $("#pageDiv");
-			var tableHtml = "";
-			var pageNation = 10;
-			var pageSetNum = pageListNum * (parseInt($(e).html()) - 1);
-			var pagememoryNum = (pageSetNum/15)
-			$('#reloadpage_num').val(pagememoryNum);
-			bacTable.html("");
-
-			selectData.betFirstNum = pageSetNum;
-			selectData.betLastNum = pageListNum;
-			selectData.compNo = $('#compNo_hidden').val();
-			
-			$.ajax({
-				url: "${path}/acc/check_link_vatandbac.do",
-				method: "get",
-				dataType: "json",
-				data: selectData,
-			})
-			.done(function(result){
-				for(var i = 0; i < result.data.length; i++){
-						tableHtml += "<tr>"
-						if(result.data[i].bacNo != null && result.data[i].bacNo != ''){
-							tableHtml += "<td style='text-align:center;vertical-align:middle;'>"+result.data[i].bacNo+"</td><td style='text-align:center;vertical-align:middle;'>"
-						}else if(result.data[i].bacNo == null || result.data[i].bacNo == ''){
-							tableHtml += "<td style='text-align:center;vertical-align:middle;'>미연결</td><td style='text-align:center;vertical-align:middle;'>"
-						}
-						if(result.data[i].vatProductName != null && result.data[i].vatProductName != ''){
-							tableHtml += ""+result.data[i].vatProductName+"</td><td style='text-align:right;vertical-align:middle;'>"
-						}else if(result.data[i].vatProductName == null || result.data[i].vatProductName == ''){
-							tableHtml += "</td><td style='text-align:right;vertical-align:middle;'>"
-						}
-						tableHtml += ""+result.data[i].modal_receive_data.toLocaleString("en-US")+"</td><td style='text-align:right;vertical-align:middle;'>"
-					 	+ ""+result.data[i].modal_vatmemo+"</td><td style='text-align:right;vertical-align:middle;'>"
-					 	if(result.data[i].regDate != null && result.data[i].regDate != ''){
-					 		tableHtml += ""+result.data[i].regDate+"</td><td style='text-align:center;vertical-align:middle;'>"
-					 	}else if(result.data[i].regDate == null || result.data[i].regDate == ''){
-					 		tableHtml += "</td><td style='text-align:center;vertical-align:middle;'>"
-					 	}
-					 	tableHtml += ""+result.data[i].vatSerial+"</td><td style='text-align:center;vertical-align:middle;'>"
-					 	+ ""+result.data[i].vatRemark+"</td>";
-				}
-				
-				bacTable.html(tableHtml);
-			})
-			
-			//수정 진횅중입니다.
-			$.ajax({
-				url: "${path}/acc/check_link_vatandbacCnt.do",
-				method: "post",
-				dataType: "json",
-				data: selectData,
-				
-				success:function(data){
-					console.log(data.resultCount);
-					if(data.resultCount > 0){
-						var count = parseInt(data.resultCount/pageListNum);
-						var countRe = parseInt(data.resultCount/pageListNum);
-						var hide_next_button = counter*10;
-						pageHtml = "";
-						pageHtml += "<ul class='pagination'><li class='page-item'><a class='page-link' href='#' onClick='pagePrevious(this);'>Previous</a></li>";
-						
-						if(count > pageNation){
-							for(var j = 1+counter*10; j <= pageNation*(counter+1); j++){
-								if(j <= count+1){
-									if(j-1 == $('#reloadpage_num').val()){
-										pageHtml += "<li class='page-item active' id='"+ j +"'><a class='page-link' href='#' onClick='pageClick(this);'>" + j + "</a></li>";
-									}else{
-										pageHtml += "<li class='page-item' id='"+ j +"'><a class='page-link' href='#' onClick='pageClick(this);'>" + j + "</a></li>";	
-									}
-								}
-							}
-							if(hide_next_button+10 < count){
-								pageHtml += "<li class='page-item'><a class='page-link' href='#' onClick='pageNext(this);'>Next</a></li></ul>";
-							}
-						}else{
-							if(countRe > 0){
-								countRe = countRe + 1;
-							}else{
-								countRe = 0;
-							}
-							
-							for(var j = 1; j <= countRe; j++){
-								if(j-1 == $('#reloadpage_num').val()){
-									pageHtml += "<li class='page-item active'><a class='page-link' href='#' onClick='pageClick(this);'>" + j + "</a></li>";
-								}else{
-									pageHtml += "<li class='page-item'><a class='page-link' href='#' onClick='pageClick(this);'>" + j + "</a></li>";
-								}
-							} 
-						}
-						
-						pageDiv.html(pageHtml);
-					}else{
-						pageDiv.empty();
-					}
-				}
-			}); 
-			//수정 진횅중입니다.
-		}	
-		//===================================================================================================이전
-		function pagePrevious(e){
-			if(counter != 0){
-			counter--;
-			var selectData = {};
-			var pageCheck = {};
-			var bacTable = $("#bacTable tbody");
-			var pageDiv = $("#pageDiv");
-			var tableHtml = "";
-			var pageHtml = "";
-			var pageNation = 10;
-			var pageFirstBetween = 0;
-			bacTable.empty();
-			pageDiv.empty();
-			
-			selectData.betFirstNum = counter*150;
-			selectData.betLastNum = pageListNum;
-			selectData.compNo = $('#compNo_hidden').val();
-			
-			$.ajax({
-				url: "${path}/acc/check_link_vatandbac.do",
-				method: "get",
-				dataType: "json",
-				data: selectData,
-			})
-			.done(function(result){
-				for(var i = 0; i < result.data.length; i++){
-						tableHtml += "<tr>"
-						if(result.data[i].bacNo != null && result.data[i].bacNo != ''){
-							tableHtml += "<td style='text-align:center;vertical-align:middle;'>"+result.data[i].bacNo+"</td><td style='text-align:center;vertical-align:middle;'>"
-						}else if(result.data[i].bacNo == null || result.data[i].bacNo == ''){
-							tableHtml += "<td style='text-align:center;vertical-align:middle;'>미연결</td><td style='text-align:center;vertical-align:middle;'>"
-						}
-						if(result.data[i].vatProductName != null && result.data[i].vatProductName != ''){
-							tableHtml += ""+result.data[i].vatProductName+"</td><td style='text-align:right;vertical-align:middle;'>"
-						}else if(result.data[i].vatProductName == null || result.data[i].vatProductName == ''){
-							tableHtml += "</td><td style='text-align:right;vertical-align:middle;'>"
-						}
-						tableHtml += ""+result.data[i].modal_receive_data.toLocaleString("en-US")+"</td><td style='text-align:right;vertical-align:middle;'>"
-					 	+ ""+result.data[i].modal_vatmemo+"</td><td style='text-align:right;vertical-align:middle;'>"
-					 	if(result.data[i].regDate != null && result.data[i].regDate != ''){
-					 		tableHtml += ""+result.data[i].regDate+"</td><td style='text-align:center;vertical-align:middle;'>"
-					 	}else if(result.data[i].regDate == null || result.data[i].regDate == ''){
-					 		tableHtml += "</td><td style='text-align:center;vertical-align:middle;'>"
-					 	}
-					 	tableHtml += ""+result.data[i].vatSerial+"</td><td style='text-align:center;vertical-align:middle;'>"
-					 	+ ""+result.data[i].vatRemark+"</td>";
-				}
-				
-				bacTable.html(tableHtml);
-			})
-			
-			$.ajax({
-				url: "${path}/acc/check_link_vatandbacCnt.do",
-				method: "post",
-				data: selectData,
-				dataType: "json",
-				success:function(data){
-					console.log(data.resultCount);
-					if(data.resultCount > 0){
-						var count = parseInt(data.resultCount/pageListNum);
-						var countRe = parseInt(data.resultCount/pageListNum);
-						pageHtml = "";
-						pageHtml += "<ul class='pagination'><li class='page-item'><a class='page-link' href='#' onClick='pagePrevious(this);'>Previous</a></li>";
-						
-						if(count > pageNation){
-							for(var j = 1+counter*10; j <= pageNation*(counter+1); j++){
-								if(j == 1+counter*10){
-									pageHtml += "<li class='page-item active' id='"+ j +"'><a class='page-link' href='#' onClick='pageClick(this);'>" + j + "</a></li>";
-								}else{
-									pageHtml += "<li class='page-item' id='"+ j +"'><a class='page-link' href='#' onClick='pageClick(this);'>" + j + "</a></li>";
-								}
-							}
-							pageHtml += "<li class='page-item'><a class='page-link' href='#' onClick='pageNext(this);'>Next</a></li></ul>";
-						}else{
-							if(countRe > 0){
-								countRe = countRe + 1;
-							}else{
-								countRe = 0;
-							}
-							
-							for(var j = 1; j <= countRe; j++){
-								pageHtml += "<li class='page-item'><a class='page-link' href='#' onClick='pageClick(this);'>" + j + "</a></li>";
-							}
-						}
-						
-						pageDiv.html(pageHtml);
-					}else{
-						pageDiv.empty();
-					}
-				}
-			}); 
-			
-			setTimeout(function(){
-				$.LoadingOverlay("hide", true);
-			}, 1000);
-			}
-		}
-		//===========================================================================================다음
-		function pageNext(e){
-			counter++;
-			var selectData = {};
-			var pageCheck = {};
-			var bacTable = $("#bacTable tbody");
-			var pageDiv = $("#pageDiv");
-			var tableHtml = "";
-			var pageHtml = "";
-			var pageNation = 10;
-			var pageFirstBetween = 0;
-			bacTable.empty();
-			pageDiv.empty();
-			
-			selectData.betFirstNum = counter*150;
-			selectData.betLastNum = pageListNum;		
-			selectData.compNo = $('#compNo_hidden').val();
-			
-			$.ajax({
-				url: "${path}/acc/check_link_vatandbac.do",
-				method: "get",
-				dataType: "json",
-				data: selectData
-			})
-			.done(function(result){
-				for(var i = 0; i < result.data.length; i++){
-						tableHtml += "<tr>"
-						if(result.data[i].bacNo != null && result.data[i].bacNo != ''){
-							tableHtml += "<td style='text-align:center;vertical-align:middle;'>"+result.data[i].bacNo+"</td><td style='text-align:center;vertical-align:middle;'>"
-						}else if(result.data[i].bacNo == null || result.data[i].bacNo == ''){
-							tableHtml += "<td style='text-align:center;vertical-align:middle;'>미연결</td><td style='text-align:center;vertical-align:middle;'>"
-						}
-						if(result.data[i].vatProductName != null && result.data[i].vatProductName != ''){
-							tableHtml += ""+result.data[i].vatProductName+"</td><td style='text-align:right;vertical-align:middle;'>"
-						}else if(result.data[i].vatProductName == null || result.data[i].vatProductName == ''){
-							tableHtml += "</td><td style='text-align:right;vertical-align:middle;'>"
-						}
-						tableHtml += ""+result.data[i].modal_receive_data.toLocaleString("en-US")+"</td><td style='text-align:right;vertical-align:middle;'>"
-					 	+ ""+result.data[i].modal_vatmemo+"</td><td style='text-align:right;vertical-align:middle;'>"
-					 	if(result.data[i].regDate != null && result.data[i].regDate != ''){
-					 		tableHtml += ""+result.data[i].regDate+"</td><td style='text-align:center;vertical-align:middle;'>"
-					 	}else if(result.data[i].regDate == null || result.data[i].regDate == ''){
-					 		tableHtml += "</td><td style='text-align:center;vertical-align:middle;'>"
-					 	}
-					 	tableHtml += ""+result.data[i].vatSerial+"</td><td style='text-align:center;vertical-align:middle;'>"
-					 	+ ""+result.data[i].vatRemark+"</td>";
-				}
-				
-				bacTable.html(tableHtml);
-			})
-			
-			$.ajax({
-				url: "${path}/acc/check_link_vatandbacCnt.do",
-				method: "post",
-				data: selectData,
-				dataType: "json",
-				success:function(data){
-					console.log(data.resultCount);
-					if(data.resultCount > 0){
-						var count = parseInt(data.resultCount/pageListNum);
-						var countRe = parseInt(data.resultCount/pageListNum);
-						var hide_next_button = counter*10
-						pageHtml = "";
-						pageHtml += "<ul class='pagination'><li class='page-item'><a class='page-link' href='#' onClick='pagePrevious(this);'>Previous</a></li>";
-						
-						if(count > pageNation){
-							for(var j = 1+counter*10; j <= pageNation*(counter+1); j++){
-								if(j <= count+1){
-									if(j == 1+counter*10){
-										pageHtml += "<li class='page-item active' id='"+ j +"'><a class='page-link' href='#' onClick='pageClick(this);'>" + j + "</a></li>";
-									}else{
-										pageHtml += "<li class='page-item' id='"+ j +"'><a class='page-link' href='#' onClick='pageClick(this);'>" + j + "</a></li>";	
-									}
-								}
-							}
-							if(hide_next_button+10 < count){
-								pageHtml += "<li class='page-item'><a class='page-link' href='#' onClick='pageNext(this);'>Next</a></li></ul>";
-							}
-						}else{
-							if(countRe > 0){
-								countRe = countRe + 1;
-							}else{
-								countRe = 0;
-							}
-							
-							for(var j = 1; j <= countRe; j++){
-								pageHtml += "<li class='page-item'><a class='page-link' href='#' onClick='pageClick(this);'>" + j + "</a></li>";
-							}
-						}
-						
-						pageDiv.html(pageHtml);
-					}else{
-						pageDiv.empty();
-					}
-				}
-			}); 
-			
-			setTimeout(function(){
-				$.LoadingOverlay("hide", true);
-			}, 1000);
-		};
 		
-		var lastTab = localStorage.getItem('lastTab');
-		var lastpageNum = localStorage.getItem('lastpageNum');
-	        
-		if (lastTab) {
-			$('[href="'+ lastTab + lastpageNum +'"]').tab('show');
+		function pageNation(page, DEFAULT_NUM, reData){
+			var bacTable = $("#bacTable tbody");
+			var compNo = "${sessionScope.compNo}";
+			var countData = {};
+			var selectData = {};
+			var tableHtml = "";
+			var pageHtml = "";
+			
+			bacTable.empty();
+			
+			selectData.compNo = compNo;
+			
+			$.ajax({
+				url: "${path}/acc/check_link_vatandbacCnt.do",
+				method: "get",
+				data: selectData,
+				dataType: "json",
+				success:function(countResult){
+					var count = countResult.resultCount;
+					var start = (page - 1) * DEFAULT_NUM;
+					var last = DEFAULT_NUM;
+					var lastPage = count % DEFAULT_NUM;
+					var pageNum = Math.floor(count / DEFAULT_NUM);
+					var lastPageNum = (lastPage > 0) ? pageNum + 1 : pageNum;
+					var activePage = localStorage.getItem("activePage");
+					
+					if(localStorage.getItem("setFirstPage") != null){
+						var setFirstPage = localStorage.getItem("setFirstPage");
+						localStorage.removeItem("setFirstPage");
+					}else{
+						var setFirstPage = 1;
+					}
+					
+					var setLastPage = parseInt(setFirstPage) + 9;
+					
+					if(setLastPage > lastPageNum){
+						setLastPage = lastPageNum;
+					}
+					
+					selectData.betFirstNum = isNaN(start) ? 0 : start;
+					selectData.betLastNum = last;
+					
+					pageHtml += "<ul class='pagination'><li class='page-item'><a class='page-link' href='#' onClick='pagePrevious(this);'>Previous</a></li>";
+					
+					for(var i = setFirstPage; i <= setLastPage; i++){
+						if(i == activePage){
+							pageHtml += "<li class='page-item active' id='page_"+ i +"'><a class='page-link' href='#' data-number='"+ i +"' onClick='pageClick(this);'>" + i + "</a></li>"
+						}else{
+							pageHtml += "<li class='page-item' id='page_"+ i +"'><a class='page-link' href='#' data-number='"+ i +"' onClick='pageClick(this);'>" + i + "</a></li>"
+						}
+					}
+					
+					pageHtml += "<li class='page-item'><a class='page-link' id='pageNextBtn' href='#' onClick='pageNext(this);'>Next</a></li></ul>";
+					
+					$("#pageDiv").html(pageHtml);
+					
+					localStorage.setItem("lastPageNum", lastPageNum);
+					localStorage.removeItem("activePage");
+					
+					$.ajax({
+						url:"${path}/acc/check_link_vatandbac.do",
+						method: "get",
+						data: selectData,
+						dataType: "json",
+						success:function(data){
+							if(data.length > 0){
+								for(var i = 0; i < data.length; i++){
+									tableHtml += "<tr>"
+									if(data[i].bacNo != null && data[i].bacNo != ''){
+										tableHtml += "<td style='text-align:center;vertical-align:middle;'>"+data[i].bacNo+"</td><td style='text-align:center;vertical-align:middle;'>"
+									}else if(data[i].bacNo == null || data[i].bacNo == ''){
+										tableHtml += "<td style='text-align:center;vertical-align:middle;'>미연결</td><td style='text-align:center;vertical-align:middle;'>"
+									}
+									if(data[i].vatProductName != null && data[i].vatProductName != ''){
+										tableHtml += ""+data[i].vatProductName+"</td><td style='text-align:right;vertical-align:middle;'>"
+									}else if(data[i].vatProductName == null || data[i].vatProductName == ''){
+										tableHtml += "</td><td style='text-align:right;vertical-align:middle;'>"
+									}
+									tableHtml += ""+data[i].modal_receive_data.toLocaleString("en-US")+"</td><td style='text-align:right;vertical-align:middle;'>"
+								 	+ ""+data[i].modal_vatmemo+"</td><td style='text-align:right;vertical-align:middle;'>"
+								 	if(data[i].regDate != null && data[i].regDate != ''){
+								 		tableHtml += ""+data[i].regDate+"</td><td style='text-align:center;vertical-align:middle;'>"
+								 	}else if(data[i].regDate == null || data[i].regDate == ''){
+								 		tableHtml += "</td><td style='text-align:center;vertical-align:middle;'>"
+								 	}
+								 	tableHtml += ""+data[i].vatSerial+"</td><td style='text-align:center;vertical-align:middle;'>"
+								 	+ ""+data[i].vatRemark+"</td>";
+								}
+								bacTable.html(tableHtml);
+							}else{
+								bacTable.html("");
+							}
+						},
+						error:function(){
+							alert("데이터가 없습니다.");
+							return false;
+						}
+					});
+				},
+				error:function(){
+					alert("카운트에 실패했습니다.");
+					return false;
+				}
+			}); 
+		}
+		
+		function pageClick(e){
+			var page = $(e).attr("data-number");
+			var setFirstPage = $(e).parents("ul").find("li:first").next().children().attr("data-number");
+			
+			localStorage.setItem("activePage", page);
+			localStorage.setItem("setFirstPage", setFirstPage);
+			
+			pageNation(page, DEFAULT_NUM, null);
 		}
     </script>
 <jsp:include page="../body-bottom.jsp"/>

@@ -1151,16 +1151,16 @@ public class AccountController {
     public AccountDTO selectExcelData(ModelAndView mav, @ModelAttribute AccountDTO dto)
     {
         AccountDTO vatDataList = accountService.selectExcelData(dto);
+        
         return vatDataList;
     }
     
+    @ResponseBody
     @RequestMapping("check_link_vatandbac.do")
-    public ResponseEntity<Object> check_link_vatandbac(HttpSession session, @ModelAttribute AccountDTO dto){
-    	Map<String,Object> param = new HashMap<>();
-        List <AccountDTO> check_link_vatandbac = accountService.check_link_vatandbac(dto);
-        System.out.println(check_link_vatandbac.get(0).getModal_receive_data());
-        param.put("data", check_link_vatandbac);
-        return ResponseEntity.ok(param);
+    public List<AccountDTO> check_link_vatandbac(@ModelAttribute AccountDTO dto){
+    	List<AccountDTO> check_link_vatandbac = accountService.check_link_vatandbac(dto);
+    	
+    	return check_link_vatandbac;
     }
     
     @ResponseBody

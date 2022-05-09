@@ -355,36 +355,39 @@
         	}
             var chk = $(".bacchecked");
             var chkLength = $(".bacchecked").length;
+       		
+            $.LoadingOverlay("show", true);
             
-        	chk.each(function(index, item){
-        		if(index == 0){
-	        		$.LoadingOverlay("show", true);
-        		}
-	        	var bacData = {};
-	        	bacData.bacSerial = localStorage.getItem("bacSerial");
-	        	bacData.baclogTime = $(item).parent().next().next().next().html();
-                
-                $.ajax({
-                    url : "${path}/acc/baccheck.do",
-                    data : bacData,
-                    method : "POST",
-                    dataType : "json",
-                    success:function(data){
-                    	if(data.resultCount > 0){
-                    		$(item).attr("checked", false);
-                    	}else{
-                    		$(item).attr("checked", true);
-                    	}
-                   	 	
-                        $("#regBBtn").removeAttr("disabled");
-                        $("#regSBtn").removeAttr("disabled");
-                        if(index == chkLength-1){
+            setTimeout(() => {
+	        	chk.each(function(index, item){
+		        	var bacData = {};
+		        	bacData.bacSerial = localStorage.getItem("bacSerial");
+		        	bacData.baclogTime = $(item).parent().next().next().next().html();
+	                
+	                $.ajax({
+	                    url : "${path}/acc/baccheck.do",
+	                    data : bacData,
+	                    method : "post",
+	                    async: false,
+	                    dataType : "json",
+	                    success:function(data){
+	                    	if(data.resultCount > 0){
+	                    		$(item).prop("checked", false);
+	                    	}else{
+	                    		$(item).prop("checked", true);
+	                    	}
+	                   	 	
+	                        $("#regBBtn").removeAttr("disabled");
+	                        $("#regSBtn").removeAttr("disabled");
+	                    },
+	                    complete:function(){
 			                $.LoadingOverlay("hide", true);
-			                alert("내역 검토가 완료되었습니다.");
-                    	}
-                    }
-                });
-            });
+	                    }
+	                });
+	            });
+			}, 500);
+            
+	        alert("내역 검토가 완료되었습니다.");
         	$('#regBtn').show();
         }
 

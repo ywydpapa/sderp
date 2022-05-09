@@ -374,33 +374,36 @@
             var chk = $(".vatchecked");
             var chkLength = $(".vatchecked").length;
             
-            chk.each(function(index, item){
-            	if(index == 0){
-	        		$.LoadingOverlay("show", true);
-        		}
-            	var vatdata = {};
-                vatdata.vatSerial = $(item).parent().next().next().html();
-            	
-                $.ajax({
-                    url : "${path}/acc/vatcheck.do",
-                    data : vatdata,
-                    method : "POST",
-                    dataType : "json",
-                    success:function(data){
-                    	if(data.resultCount > 0){
-                    		$(item).attr("checked", false);
-                    	}else{
-                    		$(item).attr("checked", true);
-                    	}
-                        $("#regBBtn").removeAttr("disabled");
-                        $("#regSBtn").removeAttr("disabled");
-                        if(index == chkLength-1){
+            $.LoadingOverlay("show", true);
+            
+            setTimeout(() => {
+	            chk.each(function(index, item){
+	            	var vatdata = {};
+	                vatdata.vatSerial = $(item).parent().next().next().html();
+	            	
+	                $.ajax({
+	                    url : "${path}/acc/vatcheck.do",
+	                    data : vatdata,
+	                    method : "POST",
+	                    async: false,
+	                    dataType : "json",
+	                    success:function(data){
+	                    	if(data.resultCount > 0){
+	                    		$(item).prop("checked", false);
+	                    	}else{
+	                    		$(item).prop("checked", true);
+	                    	}
+	                        $("#regBBtn").removeAttr("disabled");
+	                        $("#regSBtn").removeAttr("disabled");
+	                    },
+	                    complete:function(){
 			                $.LoadingOverlay("hide", true);
-			                alert("내역 검토가 완료되었습니다.");
-                    	}
-                    }
-                });
-            });
+	                    }
+	                });
+	            });
+            }, 500);
+            
+            alert("내역 검토가 완료되었습니다.");
             $("#regBBtn").show();
             $("#regSBtn").show();
         }

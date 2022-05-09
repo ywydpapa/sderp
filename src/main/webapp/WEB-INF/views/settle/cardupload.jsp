@@ -339,32 +339,35 @@
             var chk = $(".cardchecked");
             var chkLength = $(".cardchecked").length;
             var appSerial = $(".cardlst11");
-        	
-        	chk.each(function(index, item){
-        		if(index == 0){
-	        		$.LoadingOverlay("show", true);
-        		}
-	        	var cardData = {};
-	        	cardData.appSerial = $(appSerial[index]).html();
-               
-                $.ajax({
-                    url : "${path}/acc/cardCheck.do",
-                    data : cardData,
-                    method : "POST",
-                    dataType : "json",
-                    success:function(data){
-                    	if(data.resultCount > 0){
-                    		$(item).attr("checked", false);
-                    	}else{
-                    		$(item).attr("checked", true);
-                    	}
-                    	
-                    	if(index == chkLength-1){
+
+            $.LoadingOverlay("show", true);
+            
+            setTimeout(() => {
+	        	chk.each(function(index, item){
+		        	var cardData = {};
+		        	cardData.appSerial = $(appSerial[index]).html();
+	               
+	                $.ajax({
+	                    url : "${path}/acc/cardCheck.do",
+	                    data : cardData,
+	                    method : "POST",
+	                    async: false,
+	                    dataType : "json",
+	                    success:function(data){
+	                    	if(data.resultCount > 0){
+	                    		$(item).prop("checked", false);
+	                    	}else{
+	                    		$(item).prop("checked", true);
+	                    	}
+	                    },
+	                    complete:function(){
 			                $.LoadingOverlay("hide", true);
-                    	}
-                    }
-                });
-            });
+	                    }
+	                });
+	            });
+			}, 500);
+            
+            alert("내역 검토가 완료되었습니다.");
         }
 
         function fnRegCardlist(){

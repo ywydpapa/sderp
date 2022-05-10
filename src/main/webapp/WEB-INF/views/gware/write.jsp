@@ -265,15 +265,18 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <div class="col-xs-12 col-sm-12 col-sm-12 col-md-6">
-					<small style="color: red;">※개별 등록된 카드 내역만 리스트업 됩니다.</small>
-				</div>
                 <div class="modal-body">
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
                     <button type="button" class="btn btn-success waves-effect" data-dismiss="modal" onclick="cardDataSave();">선택추가</button>
                 </div>
+                <div class="col-sm-12">
+            		<small style="color: red;">※개별 등록된 카드 내역만 리스트업 됩니다.</small>
+				</div>
+				<div class="col-sm-12">
+					<small style="color: red;">※기간 검색 시 해당 기간의 모든 데이터가 출력됩니다.</small>
+				</div>
             </div>
         </div>
     </div>

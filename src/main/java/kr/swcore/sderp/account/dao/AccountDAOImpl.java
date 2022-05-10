@@ -664,4 +664,9 @@ public class AccountDAOImpl implements AccountDAO {
 		// TODO Auto-generated method stub
 		sqlSession.update("account.update_card_data", dto);
 	}
+
+	@Override
+	public List<AccountDTO> Search_treqCardList(AccountDTO dto) {
+		return sqlSession.selectList("account.Search_treqCardList", dto);
+	}
 }

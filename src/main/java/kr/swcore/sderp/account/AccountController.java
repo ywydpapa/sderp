@@ -1224,13 +1224,23 @@ public class AccountController {
     	
     	return count;
     }
-    //update_card_data
     @RequestMapping("update_card_data.do")
     public ResponseEntity<Object> update_card_data(HttpSession session, @ModelAttribute AccountDTO dto){
         Map<String,Object> param = new HashMap<>();
         
         accountService.update_card_data(session, dto);
 
+        return ResponseEntity.ok(param);
+    }
+    
+    @RequestMapping("Search_treqCardList.do")
+    public ResponseEntity<Object> Search_treqCardList(HttpSession session, @ModelAttribute AccountDTO dto){
+    	System.out.println("========================================test");
+        Map<String,Object> param = new HashMap<>();
+        
+        List <AccountDTO> Search_treqCardList = accountService.Search_treqCardList(session, dto);
+        param.put("data", Search_treqCardList);
+        
         return ResponseEntity.ok(param);
     }
 }

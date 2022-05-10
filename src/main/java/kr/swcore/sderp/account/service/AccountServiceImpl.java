@@ -725,4 +725,9 @@ public class AccountServiceImpl implements AccountService {
 		accountDAO.update_card_data(dto);
 
 	}
+
+	@Override
+	public List<AccountDTO> Search_treqCardList(HttpSession session, AccountDTO dto) {		
+		return accountDAO.Search_treqCardList(dto);
+	}
 }

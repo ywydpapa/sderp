@@ -174,8 +174,7 @@ function uncomma(str) {
 			 	alert("연결되었습니다.");
   			 }
   		  });
-  		  localStorage.setItem('lastTab', $('#baclist_num').val());
-		  localStorage.setItem('lastpageNum', $('#reloadpage_num').val());
+		  openModalLocalStorage();
 		  location.href="${path}/acc/bacdetail.do";
   	  }else{
   		  return false;
@@ -238,6 +237,7 @@ function uncomma(str) {
 		  		});
 		  		  
 		  		alert("연결되었습니다.");
+		  		openModalLocalStorage();
 				location.href="${path}/acc/bacdetail.do";
 		  	}
     }
@@ -253,589 +253,183 @@ function uncomma(str) {
   	  }
     }
     
-    //test===========================================================================================================================================================================================
-    	
-    	//document.ready pagenation
-  		var pageListNum = 15;
-   		var counter = 0;
 	    <!--//리스트 table-->
 		$(document).ready(function(){
+			const VAT_TABLE = $("#vatlistTable tbody");
+			const DEFAULT_NUM = 15;
 			
-			var selectData = {};
-			var pageCheck = {};
-			var vatlistTable = $("#vatlistTable tbody");
-			var table_test = $("#table_test tbody");
-			var pageDiv_modal = $("#pageDiv_modal");
-			var tableHtml = "";
-			var table_sub_Html = "";
-			var pageHtml = "";
-			var pageNation = 10;
-			var pageFirstBetween = 0;
-
-				selectData.betFirstNum = pageFirstBetween;
-				selectData.betLastNum = pageListNum;
-				selectData.baclogId = $('#baclogId_NUM').val();
+			VAT_TABLE.empty();
+			$("#pageDiv_modal").empty();
+			
+			if(localStorage.getItem("activePageModal") !== null){
+				var page = localStorage.getItem("activePageModal");
 				
-				$.ajax({
-					url: "${path}/acc/modalVatS.do",
-					method: "get",
-					data: selectData,
-					dataType: "json",
-				})
-				.done(function(result){
-					if(result.data.length > 0){
-						for(var i = 0; i < result.data.length; i++){
-							
-							tableHtml += "<tr><td style='text-align:center;vertical-align:middle;'><input type='checkbox' class='form-control' id='checkSerial' data-number='" + result.data[i].vatSerial + "' data-code='" + result.data[i].modal_vatmemo + "'></td><td style='text-align:center;vertical-align:middle;'>" 
-							+ result.data[i].vatIssueDate + "</td>";
-							
-							if(result.data[i].custName == '' || result.data[i].custName == null || result.data[i].custName == 'null'){
-								tableHtml += "<td style='text-align:right;vertical-align:middle;'>미등록업체</td>"
-							}else {
-								tableHtml += "<td style='text-align:right;vertical-align:middle;'>" + result.data[i].custName + "</td>"
-							}
-							tableHtml += "<td style='text-align:right;vertical-align:middle;'>"
-						 	+ result.data[i].test.toLocaleString("en-US") + "</td><td style='text-align:right;vertical-align:middle;'>"
-						 	+ result.data[i].vatProductName + "</td><td style='text-align:center;vertical-align:middle;'>"
-						 	+ result.data[i].vatRemark + "</td><td style='text-align:center;vertical-align:middle;'><input type='text' class='form-control-sm' id='' style='border: 1px solid #ccc;' onkeyup='inputNumberFormat(this)' value='"
-						 	+ result.data[i].modal_receive_data.toLocaleString("en-US") + "'></td><td style='text-align:center;vertical-align:middle;'><input type='text' class='form-control-sm' id='' style='border: 1px solid #ccc;' onkeyup='inputNumberFormat(this)' value='"
-						 	+ result.data[i].modal_vatmemo + "'></td><td style='text-align:center;vertical-align:middle;'><input type='text' class='form-control-sm' id='modal_vatmemo' style='border: 1px solid #ccc;' onkeyup='inputNumberFormat(this)' value='"
-						 	+ result.data[i].modal_vatmemo + "' disabled></td><td style='text-align:right;vertical-align:middle;'>"
-						 	+ result.data[i].vatSerial + "</td></tr>";
-							
-						}
-						vatlistTable.html(tableHtml);
+				pageNationModal(page, DEFAULT_NUM, $('#baclogId_NUM').val());
+			}else{
+				pageNationModal(1, DEFAULT_NUM, $('#baclogId_NUM').val());
+			}
+		});
+		function pageNationModal(page, DEFAULT_NUM, reData){
+			var vatlistTable = $("#vatlistTable tbody");
+			var compNo = "${sessionScope.compNo}";
+			var countData = {};
+			var selectData = {};
+			var tableHtml = "";
+			var pageHtml = "";
+            var table_test = $("#table_test tbody");
+            var table_sub_Html = "";
+			
+			vatlistTable.empty();
+			
+			if(reData.bacSerial != null){
+				selectData.bacSerial = reData.bacSerial;
+				selectData.baclogId = reData.bacSerial;
+			}else{
+				selectData.bacSerial = reData;
+				selectData.baclogId = reData;
+			}
+			
+			selectData.custName_modal = $('#custName_modal').val() ? $('#custName_modal').val() : "";
+			selectData.regSDate_modal = $('#regSDate_modal').val() ? $('#regSDate_modal').val() : "";
+			selectData.regEDate_modal = $('#regEDate_modal').val() ? $('#regEDate_modal').val() : "";
+			
+			$.ajax({
+				url: "${path}/acc/modalVatSCnt.do",
+				method: "post",
+				data: selectData,
+				dataType: "json",
+				success:function(countResult){
+					var count = countResult.resultCount;
+					var start = (page - 1) * DEFAULT_NUM;
+					var last = DEFAULT_NUM;
+					var lastPage = count % DEFAULT_NUM;
+					var pageNum = Math.floor(count / DEFAULT_NUM);
+					var lastPageNum = (lastPage > 0) ? pageNum + 1 : pageNum;
+					var activePage = localStorage.getItem("activePageModal");
+					
+					if(localStorage.getItem("setFirstPageModal") != null){
+						var setFirstPage = localStorage.getItem("setFirstPageModal");
+						localStorage.removeItem("setFirstPageModal");
 					}else{
-						vatlistTable.html("");
-					}
-					if(result.data_secound.length > 0){
-						for(var i = 0; i < result.data_secound.length; i++){
-							table_sub_Html += "<input id='difference_price_sub' class='form-control-sm' style='border: 1px solid #ccc;' type='hidden' value='" + result.data_secound[i].difference_price.toLocaleString("en-US") + "'>"
-							+ "<tr><td><input id='original_price' class='form-control' style='border: 1px solid #ccc;' type='text' value='" + result.data_secound[i].inAmt.toLocaleString("en-US") + "'></td>";
-							if(result.data_secound[i].received_price == '' || result.data_secound[i].received_price == null || result.data_secound[i].received_price == 'null'){
-								table_sub_Html += "<td id='test'><input id='received_price' class='form-control' style='border: 1px solid #ccc;' type='text' value='0'></td>"
-							}else {
-								table_sub_Html += "<td id='test'><input id='received_price' class='form-control' style='border: 1px solid #ccc;' type='text' value='" + result.data_secound[i].received_price + "'></td>"
-							}
-							table_sub_Html += "<td id='test2'><input id='difference_price' class='form-control' style='border: 1px solid #ccc;' type='text' value='" + result.data_secound[i].difference_price.toLocaleString("en-US") + "'></td>"
-							if(result.data_secound[i].difference_memo == '' || result.data_secound[i].difference_memo == null || result.data_secound[i].difference_memo == 'null'){
-								table_sub_Html += "<td><input id='received_price_detail' class='form-control' style='border: 1px solid #ccc; display: none;' type='text' value=''></td></tr>";
-							}else {
-								table_sub_Html += "<td><input id='received_price_detail' class='form-control' style='border: 1px solid #ccc; display: none;' type='text' value='" + result.data_secound[i].difference_memo + "'></td></tr>";
-							}
-						}
-						table_test.html(table_sub_Html);
-					}else{
-						table_test.html("");
+						var setFirstPage = 1;
 					}
 					
-				})
-				var origin_page_Num = (localStorage.getItem("lastpageNum")+1)/100;
-				var endpageNum = Math.ceil(origin_page_Num)*10;
-				var startpageNum = Math.floor(origin_page_Num)*10;
-				counter = Math.floor(origin_page_Num);
-				
-				$.ajax({
-					url: "${path}/acc/modalVatSCnt.do",
-					method: "post",
-					dataType: "json",
-					success:function(data){
-						if(data.resultCount > 0){
-							var count = parseInt(data.resultCount/pageListNum);
-							var countRe = parseInt(data.resultCount/pageListNum);
-
-							pageHtml = "";
-							pageHtml += "<ul class='pagination'><li class='page-item'><a class='page-link' href='#' onClick='pagePrevious_sub(this);'>Previous</a></li>";
-							
-							 if(count > pageNation){
-								for(var j = startpageNum+1; j <= endpageNum; j++){
-									if(j <= count+1){
-										pageHtml += "<li class='page-item' id='"+ j +"'><a class='page-link' href='#' onClick='pageClick_sub(this);'>" + j + "</a></li>";	
+					var setLastPage = parseInt(setFirstPage) + 9;
+					
+					if(setLastPage > lastPageNum){
+						setLastPage = lastPageNum;
+					}
+					
+					selectData.betFirstNum = isNaN(start) ? 0 : start;
+					selectData.betLastNum = last;
+					
+					pageHtml += "<ul class='pagination'><li class='page-item'><a class='page-link' href='#' onClick='pagePreviousModal(this);'>Previous</a></li>";
+					
+					for(var i = setFirstPage; i <= setLastPage; i++){
+						if(i == activePage){
+							pageHtml += "<li class='page-item active' id='page_"+ i +"'><a class='page-link' href='#' data-number='"+ i +"' onClick='pageClickModal(this);'>" + i + "</a></li>"
+						}else{
+							pageHtml += "<li class='page-item' id='page_"+ i +"'><a class='page-link' href='#' data-number='"+ i +"' onClick='pageClickModal(this);'>" + i + "</a></li>"
+						}
+					}
+					
+					pageHtml += "<li class='page-item'><a class='page-link' id='pageNextBtn' href='#' onClick='pageNextModal(this);'>Next</a></li></ul>";
+					
+					$("#pageDiv_modal").html(pageHtml);
+					
+					localStorage.setItem("lastPageNumModal", lastPageNum);
+					localStorage.removeItem("activePageModal");
+					
+					$.ajax({
+						url:"${path}/acc/modalVatS.do",
+						method: "get",
+						data: selectData,
+						dataType: "json",
+						success:function(result){
+							if(result.data.length > 0){
+								for(var i = 0; i < result.data.length; i++){
+									
+									tableHtml += "<tr><td style='text-align:center;vertical-align:middle;'><input type='checkbox' class='form-control' id='checkSerial' data-number='" + result.data[i].vatSerial + "' data-code='" + result.data[i].modal_vatmemo + "'></td><td style='text-align:center;vertical-align:middle;'>" 
+									+ result.data[i].vatIssueDate + "</td>";
+									
+									if(result.data[i].custName == '' || result.data[i].custName == null || result.data[i].custName == 'null'){
+										tableHtml += "<td style='text-align:right;vertical-align:middle;'>미등록업체</td>"
+									}else {
+										tableHtml += "<td style='text-align:right;vertical-align:middle;'>" + result.data[i].custName + "</td>"
+									}
+									tableHtml += "<td style='text-align:right;vertical-align:middle;'>"
+								 	+ result.data[i].test.toLocaleString("en-US") + "</td><td style='text-align:right;vertical-align:middle;'>"
+								 	+ result.data[i].vatProductName + "</td><td style='text-align:center;vertical-align:middle;'>"
+								 	+ result.data[i].vatRemark + "</td><td style='text-align:center;vertical-align:middle;'><input type='text' class='form-control-sm' id='' style='border: 1px solid #ccc;' onkeyup='inputNumberFormat(this)' value='"
+								 	+ result.data[i].modal_receive_data.toLocaleString("en-US") + "'></td><td style='text-align:center;vertical-align:middle;'><input type='text' class='form-control-sm' id='' style='border: 1px solid #ccc;' onkeyup='inputNumberFormat(this)' value='"
+								 	+ result.data[i].modal_vatmemo + "'></td><td style='text-align:center;vertical-align:middle;'><input type='text' class='form-control-sm' id='modal_vatmemo' style='border: 1px solid #ccc;' onkeyup='inputNumberFormat(this)' value='"
+								 	+ result.data[i].modal_vatmemo + "' disabled></td><td style='text-align:right;vertical-align:middle;'>"
+								 	+ result.data[i].vatSerial + "</td></tr>";
+									
+								}
+								vatlistTable.html(tableHtml);
+							}else{
+								vatlistTable.html("");
+							}
+							if(result.data_secound.length > 0){
+								for(var i = 0; i < result.data_secound.length; i++){
+									table_sub_Html += "<input id='difference_price_sub' class='form-control-sm' style='border: 1px solid #ccc;' type='hidden' value='" + result.data_secound[i].difference_price.toLocaleString("en-US") + "'>"
+									+ "<tr><td><input id='original_price' class='form-control' style='border: 1px solid #ccc;' type='text' value='" + result.data_secound[i].outAmt.toLocaleString("en-US") + "'></td>";
+									if(result.data_secound[i].received_price == '' || result.data_secound[i].received_price == null || result.data_secound[i].received_price == 'null'){
+										table_sub_Html += "<td id='test'><input id='received_price' class='form-control' style='border: 1px solid #ccc;' type='text' value='0'></td>"
+									}else {
+										table_sub_Html += "<td id='test'><input id='received_price' class='form-control' style='border: 1px solid #ccc;' type='text' value='" + result.data_secound[i].received_price + "'></td>"
+									}
+									table_sub_Html += "<td id='test2'><input id='difference_price' class='form-control' style='border: 1px solid #ccc;' type='text' value='" + result.data_secound[i].difference_price.toLocaleString("en-US") + "'></td>"
+									if(result.data_secound[i].difference_memo == '' || result.data_secound[i].difference_memo == null || result.data_secound[i].difference_memo == 'null'){
+										table_sub_Html += "<td><input id='received_price_detail' class='form-control' style='border: 1px solid #ccc; display: none;' type='text' value=''></td></tr>";
+									}else {
+										table_sub_Html += "<td><input id='received_price_detail' class='form-control' style='border: 1px solid #ccc; display: none;' type='text' value='" + result.data_secound[i].difference_memo + "'></td></tr>";
 									}
 								}
-								pageHtml += "<li class='page-item'><a class='page-link' href='#' onClick='pageNext_sub(this);'>Next</a></li></ul>";
+								table_test.html(table_sub_Html);
 							}else{
-								if(countRe > 0){
-									countRe = countRe + 1;
-								}else{
-									countRe = 0;
-								}
-								
-								for(var j = 1; j <= countRe; j++){
-									pageHtml += "<li class='page-item'><a class='page-link' href='#' onClick='pageClick_sub(this);'>" + j + "</a></li>";
-								}
-							} 
-							
-							pageDiv_modal.html(pageHtml);
-						}else{
-							pageDiv_modal.empty();
+								table_test.html("");
+							}
+						},
+						error:function(){
+							alert("데이터가 없습니다.");
+							return false;
 						}
-					}
-				}); 
-			});
-			//document.ready pagenation	
+					});
+				},
+				error:function(){
+					alert("카운트에 실패했습니다.");
+					return false;
+				}
+			}); 
+		}
 		
-  			//페이지 클릭이벤트
-  			function pageClick_sub(e){
-			var selectData = {};
-			var pageCheck = {};
-			var vatlistTable = $("#vatlistTable tbody");
-			var pageDiv_modal = $("#pageDiv_modal");
-			var tableHtml = "";
-			var pageNation = 10;
-			var pageSetNum = pageListNum * (parseInt($(e).html()) - 1);
-			var pagememoryNum = (pageSetNum/15)
-			vatlistTable.html("");
-
-			if($('#custName_modal').val() != '' || $('#custName_modal').val() != null){
-				selectData.custName_modal = $('#custName_modal').val();
-			}
-			if($('#regSDate_modal').val() != '' || $('#regSDate_modal').val() != null){
-				selectData.regSDate_modal = $('#regSDate_modal').val();
-			}
-			if($('#regEDate_modal').val() != '' || $('#regEDate_modal').val() != null){
-				selectData.regEDate_modal = $('#regEDate_modal').val();
-			}
+		function pageClickModal(e){
+			var page = $(e).attr("data-number");
+			var setFirstPage = $(e).parents("ul").find("li:first").next().children().attr("data-number");
 			
-			selectData.betFirstNum = pageSetNum;
-			selectData.betLastNum = pageListNum;
-			selectData.compNo = $('#compNo_hidden').val();
+			localStorage.setItem("activePageModal", page);
+			localStorage.setItem("setFirstPageModal", setFirstPage);
 			
-			$.ajax({
-				url: "${path}/acc/modalVatS.do",
-				method: "get",
-				dataType: "json",
-				data: selectData,
-			})
-			.done(function(result){
-				if(result.data.length > 0){
-					for(var i = 0; i < result.data.length; i++){
-						
-						tableHtml += "<tr><td style='text-align:center;vertical-align:middle;'><input type='checkbox' class='form-control' id='checkSerial' data-number='" + result.data[i].vatSerial + "' data-code='" + result.data[i].modal_vatmemo + "'></td><td style='text-align:center;vertical-align:middle;'>" 
-						+ result.data[i].vatIssueDate + "</td>";
-						
-						if(result.data[i].custName == '' || result.data[i].custName == null || result.data[i].custName == 'null'){
-							tableHtml += "<td style='text-align:right;vertical-align:middle;'>미등록업체</td>"
-						}else {
-							tableHtml += "<td style='text-align:right;vertical-align:middle;'>" + result.data[i].custName + "</td>"
-						}
-						tableHtml += "<td style='text-align:right;vertical-align:middle;'>"
-					 	+ result.data[i].test.toLocaleString("en-US") + "</td><td style='text-align:right;vertical-align:middle;'>"
-					 	+ result.data[i].vatProductName + "</td><td style='text-align:center;vertical-align:middle;'>"
-					 	+ result.data[i].vatRemark + "</td><td style='text-align:center;vertical-align:middle;'><input type='text' class='form-control-sm' id='' style='border: 1px solid #ccc;' onkeyup='inputNumberFormat(this)' value='"
-					 	+ result.data[i].modal_receive_data.toLocaleString("en-US") + "'></td><td style='text-align:center;vertical-align:middle;'><input type='text' class='form-control-sm' id='' style='border: 1px solid #ccc;' onkeyup='inputNumberFormat(this)' value='"
-					 	+ result.data[i].modal_vatmemo + "'></td><td style='text-align:center;vertical-align:middle;'><input type='text' class='form-control-sm' id='modal_vatmemo' style='border: 1px solid #ccc;' onkeyup='inputNumberFormat(this)' value='"
-					 	+ result.data[i].modal_vatmemo + "' disabled></td><td style='text-align:right;vertical-align:middle;'>"
-					 	+ result.data[i].vatSerial + "</td></tr>";
-						
-					}
-					vatlistTable.html(tableHtml);
-				}else{
-					vatlistTable.html("");
-				}
-				
-				vatlistTable.html(tableHtml);
-			})
-			
-			$.ajax({
-				url: "${path}/acc/modalVatSCnt.do",
-				method: "post",
-				data: selectData,
-				dataType: "json",
-				
-				success:function(data){
-					console.log(data.resultCount);
-					if(data.resultCount > 0){
-						var count = parseInt(data.resultCount/pageListNum);
-						var countRe = parseInt(data.resultCount/pageListNum);
-						var hide_next_button = counter*10;
-						pageHtml = "";
-						pageHtml += "<ul class='pagination'><li class='page-item'><a class='page-link' href='#' onClick='pagePrevious_sub(this);'>Previous</a></li>";
-						
-						if(count > pageNation){
-							for(var j = 1+counter*10; j <= pageNation*(counter+1); j++){
-								if(j <= count+1){
-									pageHtml += "<li class='page-item' id='"+ j +"'><a class='page-link' href='#' onClick='pageClick_sub(this);'>" + j + "</a></li>";	
-								}
-							}
-							if(hide_next_button+10 < count){
-								pageHtml += "<li class='page-item'><a class='page-link' href='#' onClick='pageNext_sub(this);'>Next</a></li></ul>";
-							}
-						}else{
-							if(countRe > 0){
-								countRe = countRe + 1;
-							}else{
-								countRe = 0;
-							}
-							
-							for(var j = 1; j <= countRe; j++){
-								pageHtml += "<li class='page-item'><a class='page-link' href='#' onClick='pageClick_sub(this);'>" + j + "</a></li>";
-							} 
-						}
-						
-						pageDiv_modal.html(pageHtml);
-					}else{
-						pageDiv_modal.empty();
-					}
-				}
-			}); 
-		}	
-  		//페이지 클릭이벤트
-  			
-		//페이지 pre 이벤트
-  		function pagePrevious_sub(e){
-			if(counter != 0){
-			counter--;
-			var selectData = {};
-			var pageCheck = {};
-			var vatlistTable = $("#vatlistTable tbody");
-			var pageDiv_modal = $("#pageDiv_modal");
-			var tableHtml = "";
-			var pageHtml = "";
-			var pageNation = 10;
-			var pageFirstBetween = 0;
-			vatlistTable.empty();
-			pageDiv_modal.empty();
-			
-			if($('#custName_modal').val() != '' || $('#custName_modal').val() != null){
-				selectData.custName_modal = $('#custName_modal').val();
-			}
-			if($('#regSDate_modal').val() != '' || $('#regSDate_modal').val() != null){
-				selectData.regSDate_modal = $('#regSDate_modal').val();
-			}
-			if($('#regEDate_modal').val() != '' || $('#regEDate_modal').val() != null){
-				selectData.regEDate_modal = $('#regEDate_modal').val();
-			}
-			
-			selectData.betFirstNum = counter*150;
-			selectData.betLastNum = pageListNum;
-			selectData.compNo = $('#compNo_hidden').val();
-			
-			$.ajax({
-				url: "${path}/acc/modalVatS.do",
-				method: "get",
-				dataType: "json",
-				data: selectData,
-			})
-			.done(function(result){
-				if(result.data.length > 0){
-					for(var i = 0; i < result.data.length; i++){
-						
-						tableHtml += "<tr><td style='text-align:center;vertical-align:middle;'><input type='checkbox' class='form-control' id='checkSerial' data-number='" + result.data[i].vatSerial + "' data-code='" + result.data[i].modal_vatmemo + "'></td><td style='text-align:center;vertical-align:middle;'>" 
-						+ result.data[i].vatIssueDate + "</td>";
-						
-						if(result.data[i].custName == '' || result.data[i].custName == null || result.data[i].custName == 'null'){
-							tableHtml += "<td style='text-align:right;vertical-align:middle;'>미등록업체</td>"
-						}else {
-							tableHtml += "<td style='text-align:right;vertical-align:middle;'>" + result.data[i].custName + "</td>"
-						}
-						tableHtml += "<td style='text-align:right;vertical-align:middle;'>"
-					 	+ result.data[i].test.toLocaleString("en-US") + "</td><td style='text-align:right;vertical-align:middle;'>"
-					 	+ result.data[i].vatProductName + "</td><td style='text-align:center;vertical-align:middle;'>"
-					 	+ result.data[i].vatRemark + "</td><td style='text-align:center;vertical-align:middle;'><input type='text' class='form-control-sm' id='' style='border: 1px solid #ccc;' onkeyup='inputNumberFormat(this)' value='"
-					 	+ result.data[i].modal_receive_data.toLocaleString("en-US") + "'></td><td style='text-align:center;vertical-align:middle;'><input type='text' class='form-control-sm' id='' style='border: 1px solid #ccc;' onkeyup='inputNumberFormat(this)' value='"
-					 	+ result.data[i].modal_vatmemo + "'></td><td style='text-align:center;vertical-align:middle;'><input type='text' class='form-control-sm' id='modal_vatmemo' style='border: 1px solid #ccc;' onkeyup='inputNumberFormat(this)' value='"
-					 	+ result.data[i].modal_vatmemo + "' disabled></td><td style='text-align:right;vertical-align:middle;'>"
-					 	+ result.data[i].vatSerial + "</td></tr>";
-						
-					}
-					vatlistTable.html(tableHtml);
-				}else{
-					vatlistTable.html("");
-				}
-				
-			})
-			
-			$.ajax({
-				url: "${path}/acc/modalVatSCnt.do",
-				method: "post",
-				data: selectData,
-				dataType: "json",
-				success:function(data){
-					console.log(data.resultCount);
-					if(data.resultCount > 0){
-						var count = parseInt(data.resultCount/pageListNum);
-						var countRe = parseInt(data.resultCount/pageListNum);
-						pageHtml = "";
-						pageHtml += "<ul class='pagination'><li class='page-item'><a class='page-link' href='#' onClick='pagePrevious_sub(this);'>Previous</a></li>";
-						
-						if(count > pageNation){
-							for(var j = 1+counter*10; j <= pageNation*(counter+1); j++){
-								if(j == 1+counter*10){
-									pageHtml += "<li class='page-item active' id='"+ j +"'><a class='page-link' href='#' onClick='pageClick_sub(this);'>" + j + "</a></li>";
-								}else{
-									pageHtml += "<li class='page-item' id='"+ j +"'><a class='page-link' href='#' onClick='pageClick_sub(this);'>" + j + "</a></li>";
-								}
-							}
-							pageHtml += "<li class='page-item'><a class='page-link' href='#' onClick='pageNext_sub(this);'>Next</a></li></ul>";
-						}else{
-							if(countRe > 0){
-								countRe = countRe + 1;
-							}else{
-								countRe = 0;
-							}
-							
-							for(var j = 1; j <= countRe; j++){
-								pageHtml += "<li class='page-item'><a class='page-link' href='#' onClick='pageClick_sub(this);'>" + j + "</a></li>";
-							}
-						}
-						
-						pageDiv_modal.html(pageHtml);
-					}else{
-						pageDiv_modal.empty();
-					}
-				}
-			}); 
-			
-			setTimeout(function(){
-				$.LoadingOverlay("hide", true);
-			}, 1000);
-			}
-		}	
-		//페이지 pre 이벤트
-  		
-		
-		//페이지 next 이벤트
-		function pageNext_sub(e){
-			counter++;
-			var selectData = {};
-			var pageCheck = {};
-			var vatlistTable = $("#vatlistTable tbody");
-			var pageDiv_modal = $("#pageDiv_modal");
-			var tableHtml = "";
-			var pageHtml = "";
-			var pageNation = 10;
-			var pageFirstBetween = 0;
-			vatlistTable.empty();
-			pageDiv_modal.empty();
-			
-			if($('#custName_modal').val() != '' || $('#custName_modal').val() != null){
-				selectData.custName_modal = $('#custName_modal').val();
-			}
-			if($('#regSDate_modal').val() != '' || $('#regSDate_modal').val() != null){
-				selectData.regSDate_modal = $('#regSDate_modal').val();
-			}
-			if($('#regEDate_modal').val() != '' || $('#regEDate_modal').val() != null){
-				selectData.regEDate_modal = $('#regEDate_modal').val();
-			}
-			
-			selectData.betFirstNum = counter*150;
-			selectData.betLastNum = pageListNum;		
-			selectData.compNo = $('#compNo_hidden').val();
-			
-			$.ajax({
-				url: "${path}/acc/modalVatS.do",
-				method: "get",
-				dataType: "json",
-				data: selectData
-			})
-			.done(function(result){
-				if(result.data.length > 0){
-					for(var i = 0; i < result.data.length; i++){
-						
-						tableHtml += "<tr><td style='text-align:center;vertical-align:middle;'><input type='checkbox' class='form-control' id='checkSerial' data-number='" + result.data[i].vatSerial + "' data-code='" + result.data[i].modal_vatmemo + "'></td><td style='text-align:center;vertical-align:middle;'>" 
-						+ result.data[i].vatIssueDate + "</td>";
-						
-						if(result.data[i].custName == '' || result.data[i].custName == null || result.data[i].custName == 'null'){
-							tableHtml += "<td style='text-align:right;vertical-align:middle;'>미등록업체</td>"
-						}else {
-							tableHtml += "<td style='text-align:right;vertical-align:middle;'>" + result.data[i].custName + "</td>"
-						}
-						tableHtml += "<td style='text-align:right;vertical-align:middle;'>"
-					 	+ result.data[i].test.toLocaleString("en-US") + "</td><td style='text-align:right;vertical-align:middle;'>"
-					 	+ result.data[i].vatProductName + "</td><td style='text-align:center;vertical-align:middle;'>"
-					 	+ result.data[i].vatRemark + "</td><td style='text-align:center;vertical-align:middle;'><input type='text' class='form-control-sm' id='' style='border: 1px solid #ccc;' onkeyup='inputNumberFormat(this)' value='"
-					 	+ result.data[i].modal_receive_data.toLocaleString("en-US") + "'></td><td style='text-align:center;vertical-align:middle;'><input type='text' class='form-control-sm' id='' style='border: 1px solid #ccc;' onkeyup='inputNumberFormat(this)' value='"
-					 	+ result.data[i].modal_vatmemo + "'></td><td style='text-align:center;vertical-align:middle;'><input type='text' class='form-control-sm' id='modal_vatmemo' style='border: 1px solid #ccc;' onkeyup='inputNumberFormat(this)' value='"
-					 	+ result.data[i].modal_vatmemo + "' disabled></td><td style='text-align:right;vertical-align:middle;'>"
-					 	+ result.data[i].vatSerial + "</td></tr>";
-						
-					}
-					vatlistTable.html(tableHtml);
-				}else{
-					vatlistTable.html("");
-				}
-			})
-			
-			$.ajax({
-				url: "${path}/acc/modalVatSCnt.do",
-				method: "post",
-				data: selectData,
-				dataType: "json",
-				success:function(data){
-					console.log(data.resultCount);
-					if(data.resultCount > 0){
-						var count = parseInt(data.resultCount/pageListNum);
-						var countRe = parseInt(data.resultCount/pageListNum);
-						var hide_next_button = counter*10
-						pageHtml = "";
-						pageHtml += "<ul class='pagination'><li class='page-item'><a class='page-link' href='#' onClick='pagePrevious_sub(this);'>Previous</a></li>";
-						
-						if(count > pageNation){
-							for(var j = 1+counter*10; j <= pageNation*(counter+1); j++){
-								if(j <= count+1){
-									if(j == 1+counter*10){
-										pageHtml += "<li class='page-item active' id='"+ j +"'><a class='page-link' href='#' onClick='pageClick_sub(this);'>" + j + "</a></li>";
-									}else{
-										pageHtml += "<li class='page-item' id='"+ j +"'><a class='page-link' href='#' onClick='pageClick_sub(this);'>" + j + "</a></li>";	
-									}
-								}
-							}
-							if(hide_next_button+10 < count){
-								pageHtml += "<li class='page-item'><a class='page-link' href='#' onClick='pageNext_sub(this);'>Next</a></li></ul>";
-							}
-						}else{
-							if(countRe > 0){
-								countRe = countRe + 1;
-							}else{
-								countRe = 0;
-							}
-							
-							for(var j = 1; j <= countRe; j++){
-								pageHtml += "<li class='page-item'><a class='page-link' href='#' onClick='pageClick(this);'>" + j + "</a></li>";
-							}
-						}
-						
-						pageDiv_modal.html(pageHtml);
-					}else{
-						pageDiv_modal.empty();
-					}
-				}
-			}); 
-			
-			setTimeout(function(){
-				$.LoadingOverlay("hide", true);
-			}, 1000);
-		};
-		//페이지 next 이벤트
+			pageNationModal(page, DEFAULT_NUM, $('#baclogId_NUM').val());
+		}
 		
 		//검색 시 페이지네이션
 		function fnListcon_modal(){
-			counter = 0;
 			var selectData = {};
-			var pageCheck = {};
 			var vatlistTable = $("#vatlistTable tbody");
 			var table_test = $("#table_test tbody");
-			var pageDiv_modal = $("#pageDiv_modal");
-			var tableHtml = "";
-			var table_sub_Html = "";
-			var pageHtml = "";
-			var pageNation = 10;
-			var pageFirstBetween = 0;
-				
-				if($('#custName_modal').val() != '' || $('#custName_modal').val() != null){
-					selectData.custName_modal = $('#custName_modal').val();
-				}
-				if($('#regSDate_modal').val() != '' || $('#regSDate_modal').val() != null){
-					selectData.regSDate_modal = $('#regSDate_modal').val();
-				}
-				if($('#regEDate_modal').val() != '' || $('#regEDate_modal').val() != null){
-					selectData.regEDate_modal = $('#regEDate_modal').val();
-				}
-				
-				selectData.betFirstNum = pageFirstBetween;
-				selectData.betLastNum = pageListNum;
-				selectData.baclogId = $('#baclogId_NUM').val();
-				
-				$.ajax({
-					url: "${path}/acc/modalVatS.do",
-					method: "get",
-					data: selectData,
-					dataType: "json",
-				})
-				.done(function(result){
-					if(result.data.length > 0){
-						for(var i = 0; i < result.data.length; i++){
-							
-							tableHtml += "<tr><td style='text-align:center;vertical-align:middle;'><input type='checkbox' class='form-control' id='checkSerial' data-number='" + result.data[i].vatSerial + "' data-code='" + result.data[i].modal_vatmemo + "'></td><td style='text-align:center;vertical-align:middle;'>" 
-							+ result.data[i].vatIssueDate + "</td>";
-							
-							if(result.data[i].custName == '' || result.data[i].custName == null || result.data[i].custName == 'null'){
-								tableHtml += "<td style='text-align:right;vertical-align:middle;'>미등록업체</td>"
-							}else {
-								tableHtml += "<td style='text-align:right;vertical-align:middle;'>" + result.data[i].custName + "</td>"
-							}
-							tableHtml += "<td style='text-align:right;vertical-align:middle;'>"
-						 	+ result.data[i].test.toLocaleString("en-US") + "</td><td style='text-align:right;vertical-align:middle;'>"
-						 	+ result.data[i].vatProductName + "</td><td style='text-align:center;vertical-align:middle;'>"
-						 	+ result.data[i].vatRemark + "</td><td style='text-align:center;vertical-align:middle;'><input type='text' class='form-control-sm' id='' style='border: 1px solid #ccc;' onkeyup='inputNumberFormat(this)' value='"
-						 	+ result.data[i].modal_receive_data.toLocaleString("en-US") + "'></td><td style='text-align:center;vertical-align:middle;'><input type='text' class='form-control-sm' id='' style='border: 1px solid #ccc;' onkeyup='inputNumberFormat(this)' value='"
-						 	+ result.data[i].modal_vatmemo + "'></td><td style='text-align:center;vertical-align:middle;'><input type='text' class='form-control-sm' id='modal_vatmemo' style='border: 1px solid #ccc;' onkeyup='inputNumberFormat(this)' value='"
-						 	+ result.data[i].modal_vatmemo + "' disabled></td><td style='text-align:right;vertical-align:middle;'>"
-						 	+ result.data[i].vatSerial + "</td></tr>";
-							
-						}
-						vatlistTable.html(tableHtml);
-					}else{
-						vatlistTable.html("");
-					}
-					if(result.data_secound.length > 0){
-						for(var i = 0; i < result.data_secound.length; i++){
-							table_sub_Html += "<input id='difference_price_sub' class='form-control-sm' style='border: 1px solid #ccc;' type='hidden' value='" + result.data_secound[i].difference_price.toLocaleString("en-US") + "'>"
-							+ "<tr><td><input id='original_price' class='form-control' style='border: 1px solid #ccc;' type='text' value='" + result.data_secound[i].outAmt.toLocaleString("en-US") + "'></td>";
-							if(result.data_secound[i].received_price == '' || result.data_secound[i].received_price == null || result.data_secound[i].received_price == 'null'){
-								table_sub_Html += "<td id='test'><input id='received_price' class='form-control' style='border: 1px solid #ccc;' type='text' value='0'></td>"
-							}else {
-								table_sub_Html += "<td id='test'><input id='received_price' class='form-control' style='border: 1px solid #ccc;' type='text' value='" + result.data_secound[i].received_price + "'></td>"
-							}
-							table_sub_Html += "<td id='test2'><input id='difference_price' class='form-control' style='border: 1px solid #ccc;' type='text' value='" + result.data_secound[i].difference_price.toLocaleString("en-US") + "'></td>"
-							if(result.data_secound[i].difference_memo == '' || result.data_secound[i].difference_memo == null || result.data_secound[i].difference_memo == 'null'){
-								table_sub_Html += "<td><input id='received_price_detail' class='form-control' style='border: 1px solid #ccc; display: none;' type='text' value=''></td></tr>";
-							}else {
-								table_sub_Html += "<td><input id='received_price_detail' class='form-control' style='border: 1px solid #ccc; display: none;' type='text' value='" + result.data_secound[i].difference_memo + "'></td></tr>";
-							}
-						}
-						table_test.html(table_sub_Html);
-					}else{
-						table_test.html("");
-					}
-					
-				})
-				var origin_page_Num = (localStorage.getItem("lastpageNum")+1)/100;
-				var endpageNum = Math.ceil(origin_page_Num)*10;
-				var startpageNum = Math.floor(origin_page_Num)*10;
-				counter = Math.floor(origin_page_Num);
-				
-				$.ajax({
-					url: "${path}/acc/modalVatSCnt.do",
-					method: "post",
-					data: selectData,
-					dataType: "json",
-					success:function(data){
-						if(data.resultCount > 0){
-							var count = parseInt(data.resultCount/pageListNum);
-							var countRe = parseInt(data.resultCount/pageListNum);
+			vatlistTable.empty();
+			table_test.empty();
+			$("#pageDiv_modal").empty();
 
-							pageHtml = "";
-							pageHtml += "<ul class='pagination'><li class='page-item'><a class='page-link' href='#' onClick='pagePrevious_sub(this);'>Previous</a></li>";
-							
-							 if(count > pageNation){
-								for(var j = startpageNum+1; j <= endpageNum; j++){
-									if(j <= count+1){
-										pageHtml += "<li class='page-item' id='"+ j +"'><a class='page-link' href='#' onClick='pageClick_sub(this);'>" + j + "</a></li>";	
-									}
-								}
-								pageHtml += "<li class='page-item'><a class='page-link' href='#' onClick='pageNext_sub(this);'>Next</a></li></ul>";
-							}else{
-								if(countRe > 0){
-									countRe = countRe + 1;
-								}else{
-									countRe = 0;
-								}
-								
-								for(var j = 1; j <= countRe; j++){
-									pageHtml += "<li class='page-item'><a class='page-link' href='#' onClick='pageClick_sub(this);'>" + j + "</a></li>";
-								}
-							} 
-							
-							pageDiv_modal.html(pageHtml);
-						}else{
-							pageDiv_modal.empty();
-						}
-					}
-				}); 
+			selectData.bacSerial = $('#baclogId_NUM').val();
+			selectData.betFirstNum = 0;
+			selectData.betLastNum = DEFAULT_NUM;
+			
+			pageNationModal(1, DEFAULT_NUM, selectData);
 		}
-		//검색 시 페이지네이션
 		
 		//모달 검색 아코디언
   		function acordian_action_modal(){
@@ -927,15 +521,6 @@ function uncomma(str) {
 			
 			$("#regSDate_modal").val(year + "-" + month + "-" + day);
 		});
-		//모달 date 세팅
-		
-		var lastTab = localStorage.getItem('lastTab');
-		var lastpageNum = localStorage.getItem('lastpageNum');
-	        
-		if (lastTab) {
-			$('[href="'+ lastTab + lastpageNum +'"]').tab('show');
-		}
-    
 </script>
 <style>
 	.modal-content {

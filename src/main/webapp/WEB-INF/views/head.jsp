@@ -49,6 +49,11 @@
             overflow-x: scroll;
         }
     }
+    
+    modal{
+    	width:100px;
+    	height:100px;
+    }
 </style>
 
     
@@ -377,6 +382,15 @@
 		timer = setTimeout("timeAllimUpdate()", 180000);
 	}
 	
+	/* function pageClick(e){
+		var page = $(e).attr("data-number");
+		var setFirstPage = $(e).parents("ul").find("li:first").next().children().attr("data-number");
+		
+		localStorage.setItem("activePage", page);
+		localStorage.setItem("setFirstPage", setFirstPage);
+		pageNation(page, DEFAULT_NUM, null);
+	} */
+	
 	function pageHtml(start, last){
 		var pageHtml = "";
 		
@@ -392,15 +406,6 @@
 		
 		$("#pageDiv").html(pageHtml);
 	}
-	
-	/* function pageClick(e){
-		var page = $(e).attr("data-number");
-		var setFirstPage = $(e).parents("ul").find("li:first").next().children().attr("data-number");
-		
-		localStorage.setItem("activePage", page);
-		localStorage.setItem("setFirstPage", setFirstPage);
-		pageNation(page, DEFAULT_NUM, null);
-	} */
 	
 	function pagePrevious(e){
 		var preFirstNum = $(e).parent().next().children().attr("data-number");
@@ -434,6 +439,56 @@
 		}
 		
 		pageHtml(calFirstNum, calLastNum);
+	}
+	
+	function pageHtmlModal(start, last){
+		var pageHtml = "";
+		
+		$("#pageDiv_modal").empty();
+		
+		pageHtml += "<ul class='pagination'><li class='page-item'><a class='page-link' href='#' onClick='pagePreviousModal(this);'>Previous</a></li>";
+		
+		for(var i = start; i <= last; i++){
+			pageHtml += "<li class='page-item' id='page_"+ i +"'><a class='page-link' href='#' data-number='"+ i +"' onClick='pageClickModal(this);'>" + i + "</a></li>"
+		}
+		
+		pageHtml += "<li class='page-item'><a class='page-link' href='#' onClick='pageNextModal(this);'>Next</a></li></ul>";
+		
+		$("#pageDiv_modal").html(pageHtml);
+	}
+	
+	function pagePreviousModal(e){
+		var preFirstNum = $(e).parent().next().children().attr("data-number");
+		var calFirstNum = parseInt(preFirstNum) - CLICK_PAGE_NUM;
+		var calLastNum = 0;
+		
+		if(calFirstNum < 1){
+			calFirstNum = 1;
+		}
+
+		calLastNum = calFirstNum + 9;
+		
+		if(calLastNum > localStorage.getItem("lastPageNumModal")){
+			calLastNum = localStorage.getItem("lastPageNumModal");
+		}
+			
+		pageHtmlModal(calFirstNum, calLastNum);
+	}
+	
+	function pageNextModal(e){
+		var preFirstNum = $(e).parents("ul").find("li:first").next().children().attr("data-number");
+		var calFirstNum = parseInt(preFirstNum) + CLICK_PAGE_NUM;
+		var calLastNum = calFirstNum + 9;
+		
+		if(calFirstNum > localStorage.getItem("lastPageNumModal")){
+			calFirstNum = preFirstNum;
+		}
+		
+		if(calLastNum > localStorage.getItem("lastPageNumModal")){
+			calLastNum = localStorage.getItem("lastPageNumModal");	
+		}
+		
+		pageHtmlModal(calFirstNum, calLastNum);
 	}
 	
 	$(document).ready(function(){

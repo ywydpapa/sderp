@@ -21,7 +21,7 @@
                 <div class="col-sm-12">
                     <div class="card_box sch_it">
                         <div class="form-group row" style="clear:both;">
-                            <div class="col-sm-12 col-xl-3">
+                            <div class="col-sm-12 col-xl-6">
                                 <label class="col-form-label">기간 검색</label>
                                 <p class="input_inline"><input class="form-control form-control-sm col-xl-6" type="date" id="vatSdate"> ~ <input class="form-control form-control-sm col-xl-6" type="date" id="vatEdate"></p>
                             </div>

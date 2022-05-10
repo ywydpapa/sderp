@@ -10,7 +10,27 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <c:set var="path" value ="${pageContext.request.contextPath}"/>
-
+ <!--계약조회-->
+        <div class="cnt_wr">
+            <div class="row">
+            	<div class="col-sm-12">
+					<div class="btn_wr" style="float:right;" >
+		                <button class="btn btn-sm btn-primary" onClick="javascript:fnListcon()"><i class="icofont icofont-search" id="search"></i>검색</button>
+					</div>
+				</div>
+                <div class="col-sm-12">
+                    <div class="card_box sch_it">
+                        <div class="form-group row" style="clear:both;">
+                            <div class="col-sm-12 col-xl-3">
+                                <label class="col-form-label">기간 검색</label>
+                                <p class="input_inline"><input class="form-control form-control-sm col-xl-6" type="date" id="vatSdate"> ~ <input class="form-control form-control-sm col-xl-6" type="date" id="vatEdate"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <!--//계약조회-->
 <div class="dt-responsive table-responsive">
   <table id="cardlistTable" class="table table-striped table-bordered nowrap" style="width:100%; overflow:hidden;">
     <thead>
@@ -69,4 +89,111 @@
 		  });
 	  }
   }
+  
+  //날짜 관련 자동
+	$("#vatSdate").change(function(){
+			var dateValue = $(this).val();
+            var dateValueArr = dateValue.split("-");
+            var dateValueCom = new Date(dateValueArr[0], parseInt(dateValueArr[1])-1, dateValueArr[2]);
+            var EdateValue = $("#vatEdate").val();
+            var EdateDateArr = EdateValue.split("-");
+            var EdateDateCom = new Date(EdateDateArr[0], parseInt(EdateDateArr[1])-1, EdateDateArr[2]);
+
+            if(EdateValue == ""){
+                dateValueCom.setDate(dateValueCom.getDate()+1);
+            }else if(dateValueCom.getTime() > EdateDateCom.getTime()){
+                alert("시작일이 종료일보다 클 수 없습니다.");
+                dateValueCom.setDate(dateValueCom.getDate()+1);
+            }else{
+                return null;
+            }
+
+            var year = dateValueCom.getFullYear();
+            var month = dateValueCom.getMonth()+1;
+            var day = dateValueCom.getDate();
+
+            if(day < 10){
+                day = "0" + day;
+            }
+
+            $("#vatEdate").val(year + "-" + month + "-" + day);
+	});
+
+	$("#vatEdate").change(function(){
+            var SdateValue = $("#vatSdate").val();
+            var SdateValueArr = SdateValue.split("-");
+            var SdateValueCom = new Date(SdateValueArr[0], parseInt(SdateValueArr[1])-1, SdateValueArr[2]);
+            var thisDateValue = $(this).val();
+            var thisDateArr = thisDateValue.split("-");
+            var thisDateCom = new Date(thisDateArr[0], parseInt(thisDateArr[1])-1, thisDateArr[2]);
+
+            if(SdateValue == ""){
+                thisDateCom.setDate(thisDateCom.getDate()-1);
+            }else if(SdateValueCom.getTime() > thisDateCom.getTime()){
+                alert("종료일이 시작일보다 작을 수 없습니다.");
+                thisDateCom.setDate(thisDateCom.getDate()-1);
+            }else{
+                return null;
+            }
+
+            var year = thisDateCom.getFullYear();
+            var month = thisDateCom.getMonth()+1;
+            var day = thisDateCom.getDate();
+
+            if(day < 10){
+                day = "0" + day;
+            }
+
+            $("#vatSdate").val(year + "-" + month + "-" + day);
+	});
+	//날짜 관련 자동
+	
+	//검색 기능
+	function fnListcon() {
+		if($("#vatSdate").val() != null && $("#vatSdate").val() != ''){
+			if($("#vatEdate").val() != null && $("#vatEdate").val() != ''){
+				var tableHtml = "";
+	            var searchData = {};
+	            var cardlistTable = $("#cardlistTable tbody");
+	            var table = $("#cardlistTable").DataTable();
+	            
+	            searchData.vatSdate = $("#vatSdate").val();
+	            searchData.vatEdate = $("#vatEdate").val();
+	            searchData.compNo = $('#compNo').val();
+	            searchData.docUserNo = $('#docUserNo').val();
+	            
+	            cardlistTable.empty();
+	           	table.clear().draw();
+	           	
+	              $.ajax({
+					url: "${path}/acc/Search_treqCardList.do",
+					method: "post",
+					data: searchData,
+					dataType: "json",
+				})
+				.done(function(result){
+					if(result.data.length > 0){
+						for(var i = 0; i < result.data.length; i++){
+							tableHtml += "<tr><td style='text-align:center;vertical-align:middle;'><input type='checkbox' class='form-control' id='cardCheckSerial' name='cardCheckSerial' data-id='" + result.data[i].appSerial + "'></td><td style='text-align:center;vertical-align:middle;'>" 
+							+ "<input type='date' class='form-control' value='" + result.data[i].appDate + "' max='9999-12-31' id='cardDate' style='width: auto;'></td>"
+							+ "<td style='text-align: center; vertical-align: middle;'>"
+						 	+ result.data[i].appSerial + "</td><td style='text-align: center; vertical-align: middle;'>"
+						 	+ result.data[i].cardSerial + "</td><td style='text-align: center; vertical-align: middle;'>"
+						 	+ result.data[i].appContents + "</td><td style='text-align: center; vertical-align: middle;'>"
+						 	+ result.data[i].appAmount.toLocaleString("en-US") + "</td><td style='text-align: center;'>"
+						 	+ result.data[i].appExchange + "</td><td style='text-align: center; vertical-align: middle;'><input type='text' class='form-control' id='cardRemarks' style='width: auto;'></td>";
+						}
+						cardlistTable.html(tableHtml);
+					}
+				});  
+			}else{
+				alert('검색 일자 중 마감일을 확인하세요.');
+				return false;
+			}
+		}else{
+			alert('검색 일자 중 시작일을 확인하세요.');
+			return false;
+		}
+	}
+	//검색 기능
 </script>

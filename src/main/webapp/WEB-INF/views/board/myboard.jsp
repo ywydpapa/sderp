@@ -216,7 +216,6 @@
 					</div>
 					<div class="chart2">
 						<div class="mbo-title ky-box ky-box-default">
-							<div class="col-sm-2"><div class="icon"><i class="fa fa-tags fa-5x" aria-hidden="true"></i></div></div>
 							<div class="col-sm-12">
 								<div class="ky-box-content text-right">
 									<small>목표</small>
@@ -262,7 +261,6 @@
 					</div>
 					<div class="chart3">
 						<div class="mbo-title ky-box ky-box-default">
-							<div class="col-sm-2"><div class="icon"><i class="fa fa-tags fa-5x" aria-hidden="true"></i></div></div>
 							<div class="col-sm-12">
 								<div class="ky-box-content text-right">
 									<small>목표</small>
@@ -667,9 +665,6 @@
 		.defalut_gra {
 			width: 95%;
 			margin-left: 2.5%;
-		}
-		.fa-5x{
-			font-size: 1em;
 		}
 	</style>
 	<script>

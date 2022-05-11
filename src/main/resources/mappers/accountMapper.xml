@@ -422,7 +422,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="Search_treqCardList" resultType="accountDto">
 		select * from swc_card a
 		LEFT JOIN swc_cardledger b ON a.cardDisNum = b.cardDisNum
-		WHERE a.user_card = #{userNo} AND a.compNo = #{compNo} AND a.attrib NOT LIKE "XXX%" AND b.appDate BETWEEN #{vatSdate} and #{vatEdate}
+		WHERE a.user_card = #{docUserNo} AND a.compNo = #{compNo} AND a.attrib NOT LIKE "XXX%" AND b.appDate BETWEEN #{vatSdate} and #{vatEdate}
 		ORDER BY b.appDate DESC
 	</select>
 	

@@ -227,5 +227,6 @@ public class AccountDTO {
     private int user_card;
     private String vatSdate;
     private String vatEdate;
+    private Integer docUserNo;
 }
 

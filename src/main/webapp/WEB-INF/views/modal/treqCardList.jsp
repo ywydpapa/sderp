@@ -174,7 +174,7 @@
 				.done(function(result){
 					if(result.data.length > 0){
 						for(var i = 0; i < result.data.length; i++){
-							tableHtml += "<tr><td style='text-align:center;vertical-align:middle;'><input type='checkbox' class='form-control' id='cardCheckSerial' name='cardCheckSerial' data-id='" + result.data[i].appSerial + "'></td><td style='text-align:center;vertical-align:middle;'>" 
+							tableHtml += "<tr><td style='text-align:center;vertical-align:middle;'><input type='checkbox' style='margin-top: 3px; width: 45px'  class='form-control' id='cardCheckSerial' name='cardCheckSerial' data-id='" + result.data[i].appSerial + "'></td><td style='text-align:center;vertical-align:middle;'>" 
 							+ "<input type='date' class='form-control' value='" + result.data[i].appDate + "' max='9999-12-31' id='cardDate' style='width: auto;'></td>"
 							+ "<td style='text-align: center; vertical-align: middle;'>"
 						 	+ result.data[i].appSerial + "</td><td style='text-align: center; vertical-align: middle;'>"

@@ -491,19 +491,47 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 
 	<select id="custVatListHtmlS" resultType="accountDto">
-		SELECT a.*, b.vatIssueDate, b.vatSerial, b.vatTax, b.vatAmount, (b.vatTax + b.vatAmount) AS vatTotal, b.vatProductName, c.settleCRbalance 
-		FROM swc_cust a
-		LEFT JOIN swc_vat b ON a.custNo = b.vatBuyerCustNo AND b.vatIssueDate BETWEEN #{vatIssueDateFrom} and #{vatIssueDateTo} AND b.attrib NOT LIKE 'XXX%'
-		LEFT JOIN swc_cust_balance c ON a.custNo = c.custNo AND c.settleYear = #{selectYear}
-		WHERE a.compNo = #{compNo} and a.custNo = #{vatBuyerCustNo} and b.vatType = #{vatType} GROUP BY b.vatSerial ORDER BY b.vatIssueDate ASC 
+		SELECT * FROM(
+
+			SELECT a.detailId, a.compNo, a.linkDocno, b.vatProductName, c.baclogTime AS vatIssueDate, a.receive_data AS vatTotal, e.settleCRbalance FROM swc_bacledger_detail a 
+			LEFT JOIN swc_vat b ON a.linkDocno = b.vatSerial 
+			LEFT JOIN swc_bacledger c ON a.baclogId = c.baclogId AND c.baclogTime BETWEEN #{vatIssueDateFrom} and #{vatIssueDateTo} 
+			LEFT JOIN swc_cust d ON b.vatBuyerCustNo = d.custNo 
+			LEFT JOIN swc_cust_balance e ON e.custNo = #{custNo} AND e.settleYear = #{selectYear}
+			WHERE d.custNo = #{custNo} GROUP BY a.detailId
+			
+			UNION ALL
+			
+			SELECT "0" as detailId, a.compNo, b.vatSerial, b.vatProductName, b.vatIssueDate, b.test AS 
+			vatTotal, c.settleCRbalance FROM swc_cust a 
+			LEFT JOIN swc_vat b ON a.custNo = b.vatBuyerCustNo AND b.vatIssueDate BETWEEN #{vatIssueDateFrom} and #{vatIssueDateTo} AND b.attrib NOT LIKE 'XXX%' 
+			LEFT JOIN swc_cust_balance c ON a.custNo = c.custNo AND c.settleYear = #{selectYear}
+			WHERE a.compNo = #{compNo} and a.custNo = #{custNo} and b.vatType = 'S' GROUP BY b.vatSerial
+			
+		) AS a
+		ORDER BY a.vatIssueDate
 	</select>
 	
 	<select id="custVatListHtmlB" resultType="accountDto">
-		SELECT a.*, b.vatIssueDate, b.vatSerial, b.vatTax, b.vatAmount, (b.vatTax + b.vatAmount) AS vatTotal, b.vatProductName, c.settleDRbalance 
-		FROM swc_cust a
-		LEFT JOIN swc_vat b ON a.custNo = b.vatSellerCustNo AND b.vatIssueDate BETWEEN #{vatIssueDateFrom} and #{vatIssueDateTo} AND b.attrib NOT LIKE 'XXX%'
-		LEFT JOIN swc_cust_balance c ON a.custNo = c.custNo AND c.settleYear = #{selectYear}
-		WHERE a.compNo = #{compNo} and a.custNo = #{vatSellerCustNo} and b.vatType = #{vatType} GROUP BY b.vatSerial ORDER BY b.vatIssueDate ASC 
+		SELECT * FROM(
+		
+			SELECT a.detailId, a.compNo, a.linkDocno, b.vatProductName, c.baclogTime AS vatIssueDate, a.receive_data AS vatTotal, e.settleDRbalance FROM swc_bacledger_detail a 
+			LEFT JOIN swc_vat b ON a.linkDocno = b.vatSerial 
+			LEFT JOIN swc_bacledger c ON a.baclogId = c.baclogId AND c.baclogTime BETWEEN #{vatIssueDateFrom} and #{vatIssueDateTo} 
+			LEFT JOIN swc_cust d ON b.vatSellerCustNo = d.custNo 
+			LEFT JOIN swc_cust_balance e ON e.custNo = #{custNo} AND e.settleYear = #{selectYear}
+			WHERE d.custNo = #{custNo} GROUP BY a.detailId
+			
+			UNION ALL
+			
+			SELECT "0" as detailId, a.compNo, b.vatSerial, b.vatProductName, b.vatIssueDate, b.test AS 
+			vatTotal, c.settleDRbalance FROM swc_cust a 
+			LEFT JOIN swc_vat b ON a.custNo = b.vatSellerCustNo AND b.vatIssueDate BETWEEN #{vatIssueDateFrom} and #{vatIssueDateTo} AND b.attrib NOT LIKE 'XXX%' 
+			LEFT JOIN swc_cust_balance c ON a.custNo = c.custNo AND c.settleYear = #{selectYear} 
+			WHERE a.compNo = #{compNo} and a.custNo = #{custNo} and b.vatType = 'B' GROUP BY b.vatSerial
+		
+		) AS a
+		ORDER BY a.vatIssueDate
 	</select>
 
 	<insert id="insertbacledger">

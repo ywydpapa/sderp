@@ -1235,7 +1235,6 @@ public class AccountController {
     
     @RequestMapping("Search_treqCardList.do")
     public ResponseEntity<Object> Search_treqCardList(HttpSession session, @ModelAttribute AccountDTO dto){
-    	System.out.println("========================================test");
         Map<String,Object> param = new HashMap<>();
         
         List <AccountDTO> Search_treqCardList = accountService.Search_treqCardList(session, dto);

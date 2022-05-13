@@ -502,7 +502,12 @@
 					
 					var cardSerial = $(item).parent().next().next().html();
 					var cardProductName = $(item).parent().next().next().next().next().html();
-					var cardTotal = parseInt($(item).parent().next().next().next().next().next().html().replace(/[\D\s\._\-]+/g, ""));
+					var division_cardTotal = parseInt($(item).parent().next().next().next().next().next().html());
+					if(division_cardTotal < 0){
+						var cardTotal = -parseInt($(item).parent().next().next().next().next().next().html().replace(/[\D\s\._\-]+/g, ""));
+					}else{
+						var cardTotal = parseInt($(item).parent().next().next().next().next().next().html().replace(/[\D\s\._\-]+/g, ""));
+					}
 					var cardRemarks = $(item).parent().next().next().next().next().next().next().next().find("#cardRemarks").val();
 					var cardAmount = 0;
 					var cardNetprice = 0;
@@ -548,7 +553,6 @@
 			    	dataArray.push(temp);
 			    	
 			        qutylist.append("<tr><input type='hidden' id='docAppSerial' value='"+cardSerial+"'><td id='dataDate' style='text-align:center;'>"+productDate+"</td><td id='salesCustNoN' style='text-align:center;'>"+productSalesEstimateCustName+"</td><td id='dataTitle' style='text-align:center;'>"+productName+"</td><td id='dataNetprice' style='text-align: right'>"+"￦"+parseInt(productNetprice).toLocaleString("en-US")+"</td><td id='dataQuanty' style='text-align: right'>"+productQty+"</td><td id='dataAmt' style='text-align: right'>"+"￦"+parseInt(productAmount).toLocaleString("en-US")+"</td><td id='dataVat' style='text-align: right'>"+"￦"+parseInt(productVat).toLocaleString("en-US")+"</td><td id='dataTotal' style='text-align: right'>"+"￦"+parseInt(productTotal).toLocaleString("en-US")+"</td><td id='dataRemark'>"+productRemark+"</td><td style='text-align:center;'><button class='btn btn-sm btn-inverse' id='dataUpBtn' data-index="+dataIndex+" data-number='0' style='margin-right:4%;'>수정</button><button class='btn btn-sm btn-danger text-center' data-index="+dataIndex+" id='dataDelBtn'>삭제</button></td></tr>");    	
-			        
 			        
 			        dataIndex++;
 			        

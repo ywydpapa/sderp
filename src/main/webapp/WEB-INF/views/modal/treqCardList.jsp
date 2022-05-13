@@ -47,16 +47,18 @@
     </thead>
     <tbody>
 	    <c:forEach var="row" items="${list}">
-	      	<tr>
-	      		<td align="center" style="vertical-align:middle;"><input type="checkbox" class="form-control" id="cardCheckSerial" name="cardCheckSerial" data-id="${row.appSerial}" style="margin-top:3px;width:30px;"></td>
-	        	<td align="center" style="vertical-align:middle;"><input type="date" class="form-control" value="${row.appDate}" max="9999-12-31" id="cardDate" style="width:auto;"></td>
-	        	<td align="center" style="vertical-align:middle;">${row.appSerial}</td>
-	        	<td align="center" style="vertical-align:middle;">${row.cardSerial}</td>
-	        	<td align="left" style="vertical-align:middle;">${row.appContents}</td>
-	        	<td align="right" style="vertical-align:middle;"><fmt:formatNumber value="${row.appAmount}" pattern="#,###" /></td>
-	        	<td align="right" style="vertical-align:middle;">${row.appExchange}</td>
-	        	<td align="center"><input type="text" class="form-control" id="cardRemarks" style="width:auto;"></td>
-	      	</tr>
+	    	<c:if test="${row.appAmount ne 0}">
+		      	<tr>
+		      		<td align="center" style="vertical-align:middle;"><input type="checkbox" class="form-control" id="cardCheckSerial" name="cardCheckSerial" data-id="${row.appSerial}" style="margin-top:3px;width:30px;"></td>
+		        	<td align="center" style="vertical-align:middle;"><input type="date" class="form-control" value="${row.appDate}" max="9999-12-31" id="cardDate" style="width:auto;"></td>
+		        	<td align="center" style="vertical-align:middle;">${row.appSerial}</td>
+		        	<td align="center" style="vertical-align:middle;">${row.cardSerial}</td>
+		        	<td align="left" style="vertical-align:middle;">${row.appContents}</td>
+		        	<td align="right" style="vertical-align:middle;"><fmt:formatNumber value="${row.appAmount}" pattern="#,###" /></td>
+		        	<td align="right" style="vertical-align:middle;">${row.appExchange}</td>
+		        	<td align="center"><input type="text" class="form-control" id="cardRemarks" style="width:auto;"></td>
+		      	</tr>
+	      	</c:if>
 	    </c:forEach>
     </tbody>
   </table>
@@ -174,14 +176,16 @@
 				.done(function(result){
 					if(result.data.length > 0){
 						for(var i = 0; i < result.data.length; i++){
-							tableHtml += "<tr><td style='text-align:center;vertical-align:middle;'><input type='checkbox' style='margin-top: 3px; width: 45px'  class='form-control' id='cardCheckSerial' name='cardCheckSerial' data-id='" + result.data[i].appSerial + "'></td><td style='text-align:center;vertical-align:middle;'>" 
-							+ "<input type='date' class='form-control' value='" + result.data[i].appDate + "' max='9999-12-31' id='cardDate' style='width: auto;'></td>"
-							+ "<td style='text-align: center; vertical-align: middle;'>"
-						 	+ result.data[i].appSerial + "</td><td style='text-align: center; vertical-align: middle;'>"
-						 	+ result.data[i].cardSerial + "</td><td style='text-align: center; vertical-align: middle;'>"
-						 	+ result.data[i].appContents + "</td><td style='text-align: center; vertical-align: middle;'>"
-						 	+ result.data[i].appAmount.toLocaleString("en-US") + "</td><td style='text-align: center;'>"
-						 	+ result.data[i].appExchange + "</td><td style='text-align: center; vertical-align: middle;'><input type='text' class='form-control' id='cardRemarks' style='width: auto;'></td>";
+							if(result.data[i].appAmount != 0){
+								tableHtml += "<tr><td style='text-align:center;vertical-align:middle;'><input type='checkbox' style='margin-top: 3px; width: 45px'  class='form-control' id='cardCheckSerial' name='cardCheckSerial' data-id='" + result.data[i].appSerial + "'></td><td style='text-align:center;vertical-align:middle;'>" 
+								+ "<input type='date' class='form-control' value='" + result.data[i].appDate + "' max='9999-12-31' id='cardDate' style='width: auto;'></td>"
+								+ "<td style='text-align: center; vertical-align: middle;'>"
+							 	+ result.data[i].appSerial + "</td><td style='text-align: center; vertical-align: middle;'>"
+							 	+ result.data[i].cardSerial + "</td><td style='text-align: center; vertical-align: middle;'>"
+							 	+ result.data[i].appContents + "</td><td style='text-align: center; vertical-align: middle;'>"
+							 	+ result.data[i].appAmount.toLocaleString("en-US") + "</td><td style='text-align: center;'>"
+							 	+ result.data[i].appExchange + "</td><td style='text-align: center; vertical-align: middle;'><input type='text' class='form-control' id='cardRemarks' style='width: auto;'></td>";	
+							}
 						}
 						cardlistTable.html(tableHtml);
 					}

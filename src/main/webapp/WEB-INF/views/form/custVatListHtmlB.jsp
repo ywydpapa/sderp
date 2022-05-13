@@ -184,9 +184,6 @@
 				calTotal[0] = isNaN(calTotal[0]) ? 0 : parseInt(calTotal[0]) + totalTd;
 				calTotal[1] = isNaN(calTotal[1]) ? 0 : parseInt(calTotal[1]) + receiveTd;
 				
-				calYearTotal[0] = isNaN(calYearTotal[0]) ? 0 : parseInt(calYearTotal[0]) + calTotal[0];
-				calYearTotal[1] = isNaN(calYearTotal[1]) ? 0 : parseInt(calYearTotal[1]) + calTotal[1];
-				
 				$(item).find("#balanceTd").html(parseInt(temp[0]).toLocaleString("en-US"));
 				
 				if(typeof $(item).next().find("#vatIssueDate").html() === "undefined"){
@@ -204,6 +201,8 @@
 				if($(item).find("#vatIssueDate").html().substring(5, 7) !== nextHtml){
 					$(item).after("<tr><th></th><th style='text-align: center;'>" + $(item).find("#vatIssueDate").html().substring(0, 4)+"년 " + $(item).find("#vatIssueDate").html().substring(5, 7).replaceAll(/^0/g, "") + "월 계</th><th id='totalTd' style='text-align: right;'>"+parseInt(calTotal[0]).toLocaleString("en-US")+"</th><th id='receiveTd' style='text-align: right;'>"+parseInt(calTotal[1]).toLocaleString("en-US")+"</th><th style='text-align: right;'>"+parseInt(temp[0]).toLocaleString("en-US")+"</th></tr>");
 					$(item).next().attr("style", "background-color: #e9ecef;");
+					calYearTotal[0] = calTotal[0] > 0 ? calYearTotal[0] + calTotal[0] : 0;
+					calYearTotal[1] = calTotal[1] > 0 ? calYearTotal[1] + calTotal[1] : 0;
 					calTotal[0] = 0;
 					calTotal[1] = 0;
 				}
@@ -215,7 +214,7 @@
 					calYearTotal[1] = 0;
 				}
 			});
-		}, 300);
+		}, 100);
 	});
 </script>
 </html>

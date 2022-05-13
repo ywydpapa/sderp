@@ -174,13 +174,13 @@
 		setTimeout(() => {
 			$("#vatTable tbody #divisionTrVat").each(function(index, item){
 				if(index == 0){
-					$(item).parents("tbody").prepend("<tr id='hiddenTr' style='background-color: #e9ecef;'><th></th><th style='text-align: center;'>전기이월</th></th><th><th style='text-align: right;'>"+parseInt(temp[0]).toLocaleString("en-US")+"</th><th style='text-align: right;'>"+parseInt(temp[0]).toLocaleString("en-US")+"</th></tr>");
+	                $(item).parents("tbody").prepend("<tr id='hiddenTr' style='background-color: #e9ecef;'><th></th><th style='text-align: center;'>전기이월</th><th style='text-align: right;'>"+parseInt(temp[0]).toLocaleString("en-US")+"</th><th></th><th style='text-align: right;'>"+parseInt(temp[0]).toLocaleString("en-US")+"</th></tr>");
 				}
 				
 				var totalTd = isNaN(parseInt($(item).find("#totalTd").html().replaceAll(",", ""))) ? 0 : parseInt($(item).find("#totalTd").html().replaceAll(",", ""));
 				var receiveTd = isNaN(parseInt($(item).find("#receiveTd").html().replaceAll(",", ""))) ? 0 : parseInt($(item).find("#receiveTd").html().replaceAll(",", ""));
 				
-				temp[0] = parseInt(temp[0]) + totalTd - receiveTd;
+	            temp[0] = parseInt(temp[0]) + totalTd - receiveTd;
 				calTotal[0] = isNaN(calTotal[0]) ? 0 : parseInt(calTotal[0]) + totalTd;
 				calTotal[1] = isNaN(calTotal[1]) ? 0 : parseInt(calTotal[1]) + receiveTd;
 				
@@ -214,7 +214,7 @@
 					calYearTotal[1] = 0;
 				}
 			});
-		}, 300);
+		}, 100);
 	});
 </script>
 </html>

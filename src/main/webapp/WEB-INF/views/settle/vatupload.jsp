@@ -433,6 +433,7 @@
                 var $Qarr = $(".vatlst18"); 			  //전자세금계산서종류
                 var $Rarr = $(".vatlst21"); 			  //영수/청구 구분
                 var $Sarr =  $(".vatlst16"); //test 
+                var $Tarr = $(".vatlst32");                
                 
                 for (var i=0; i<$Barr.length; i++){
                     if ($($Chkarr[i]).is(":checked")==true){
@@ -469,6 +470,7 @@
 	                        vatData.vatNet = isNaN(Number($(".vatlst28")[i].innerText)) ? 0 : Number($(".vatlst28")[i].innerText);
 	                        vatData.modal_vatmemo = parseInt($(".vatlst29")[i].innerText).toLocaleString("en-US");
 	                        vatData.test = parseInt($(".vatlst29")[i].innerText);
+	                        vatData.vatMemo = $(".vatlst30")[i].innerText;
 	                        
                     	}else {
                     		vatData.vatTax = isNaN(Number($Sarr[i].innerText)) ? 0 : Number($Sarr[i].innerText);
@@ -493,6 +495,7 @@
 	                        vatData.vatNet = isNaN(Number($Parr[i].innerText)) ? 0 : Number($Parr[i].innerText);
 	                        vatData.modal_vatmemo = parseInt(vatData.vatAmount + vatData.vatTax).toLocaleString("en-US");
 	                        vatData.test = parseInt(vatData.vatAmount + vatData.vatTax);
+	                        vatData.vatMemo = $(".vatlst32")[i].innerText;
                     	}
                         
                         /* if(isNaN(Number($Garr[i].innerText))){
@@ -589,6 +592,7 @@
                 var $Qarr = $(".vatlst18"); 			  //전자세금계산서종류
                 var $Rarr = $(".vatlst21"); 			  //영수/청구 구분
                 var $Sarr =  $(".vatlst16");
+                var $Tarr = $(".vatlst32");
 
                 for (var i=0; i<$Barr.length; i++){
                     if ($($Chkarr[i]).is(":checked")==true){
@@ -626,6 +630,7 @@
 	                        vatData.vatNet = isNaN(Number($(".vatlst28")[i].innerText)) ? 0 : Number($(".vatlst28")[i].innerText);
 	                        vatData.modal_vatmemo = parseInt($(".vatlst14")[i].innerText).toLocaleString("en-US");
 	                        vatData.test = parseInt($(".vatlst14")[i].innerText);
+	                        vatData.vatMemo = $(".vatlst30")[i].innerText;
 	                        
                     	}else {
                     		vatData.vatTax = isNaN(Number($Sarr[i].innerText)) ? 0 : Number($Sarr[i].innerText);
@@ -650,6 +655,7 @@
 	                        vatData.vatNet = isNaN(Number($Parr[i].innerText)) ? 0 : Number($Parr[i].innerText);
 	                        vatData.modal_vatmemo = parseInt(vatData.vatAmount + vatData.vatTax).toLocaleString("en-US");
 	                        vatData.test =  parseInt(vatData.vatAmount + vatData.vatTax);
+	                        vatData.vatMemo = $(".vatlst32")[i].innerText;
                     	}
                         
                         

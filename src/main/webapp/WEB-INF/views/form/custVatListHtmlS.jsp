@@ -32,7 +32,7 @@
 		</div>
 		<c:set var="balanceS" value="${custBalance.settleCRbalance}" scope="request"/>
 		<input type="hidden" id="hideBalance" value="${balanceS}" />
-		<div id="tableDiv" style="padding: 20px;">
+		<%-- <div id="tableDiv" style="padding: 20px;">
 			<c:set var="dateArray" value="${fn:split('01,02,03,04,05,06,07,08,09,10,11,12', ',')}" />
 			<c:forEach var="dateValue" items="${dateArray}" varStatus="status">
 				<c:choose>
@@ -84,7 +84,7 @@
 									<td style="text-align:center;">${row.vatProductName}</td>
 									<td style="text-align:right;" id="totalTd"></td>
 									<td style="text-align:right;" id="receiveTd"><fmt:formatNumber type="number" maxFractionDigits="3" value="${row.receive_data}" /></td>
-									<td style="text-align:right;" id="balanceTd"></td>	
+									<td style="text-align:right;" id="balanceTd"></td>
 								</tr>
 								<c:set var="calTotalReceive" value="${calTotalReceive + row.receive_data}" />
 							</c:if>
@@ -100,6 +100,52 @@
 					</tbody>
 				</table>
 			</c:forEach>
+		</div> --%>
+		<div id="tableDiv" style="padding: 20px;">
+			<table id="vatTable" class="table table-bordered">
+				<colgroup>
+                       <col width="10%"/>
+                       <col width="60%"/>
+                       <col width="10%"/>
+                       <col width="10%"/>
+                       <col width="10%"/>
+                   </colgroup>
+				<thead>
+					<tr>
+						<th style="text-align:center;">일자</th>
+						<th style="text-align:center;">적요</th>
+						<th style="text-align:center;">차변</th>
+						<th style="text-align:center;">대변</th>
+						<th style="text-align:center;">잔액</th>
+					</tr>
+				</thead>
+				<tbody>
+					<c:forEach var="row" items="${custVatList}" varStatus="status">
+						<c:set var="dateMonth" value="${fn:substring(row.vatIssueDate, 5, 7)}" />
+						<c:set var="balanceB" value="${balanceB - row.vatTotal}" scope="request"/>
+						<c:choose>
+							<c:when test="${row.detailId > 0}">
+								<tr id="divisionTrVat">
+									<td style="text-align:center;" id="vatIssueDate">${fn:substring(row.vatIssueDate, 0, 10)}</td>
+									<td style="text-align:center;">${row.vatProductName}</td>
+									<td style="text-align:right;" id="totalTd"></td>
+									<td style="text-align:right;" id="receiveTd"><fmt:formatNumber type="number" maxFractionDigits="3" value="${row.vatTotal}" /></td>
+									<td style="text-align:right;" id="balanceTd"></td>
+								</tr>
+							</c:when>
+							<c:otherwise>
+								<tr id="divisionTrVat">
+									<td style="text-align:center;" id="vatIssueDate">${fn:substring(row.vatIssueDate, 0, 10)}</td>
+									<td style="text-align:center;">${row.vatProductName}</td>
+									<td style="text-align:right;" id="totalTd"><fmt:formatNumber type="number" maxFractionDigits="3" value="${row.vatTotal}" /></td>
+									<td style="text-align:right;" id="receiveTd"></td>
+									<td style="text-align:right;" id="balanceTd"></td>
+								</tr>
+							</c:otherwise>
+						</c:choose>
+					</c:forEach>
+				</tbody>
+			</table>
 		</div>
 	</div>
 </body>
@@ -107,34 +153,68 @@
 	$(document).ready(function(){
 		var hideBalance = $("#hideBalance").val() ? $("#hideBalance").val() : 0;
 		var temp = [];
+		var calTotal = [0,0];
+		var calYearTotal = [0,0];
 		
 		temp[0] = parseInt(hideBalance);
 		
-		$("[id^='vatTable_']").each(function(index, item){
+		$("#vatTable").each(function(index, item){
 			if($(item).find("tbody #divisionTrVat").length == 0 && $(item).find("tbody #divisionTrLedger").length == 0){
 				$(item).prev().remove();
 				$(item).remove();
 			}
 		});
 		
-		$("[id^='vatTable_']").tablesorter({
+		$("#vatTable").tablesorter({
 			sortList: [[0,0]]
 		});
-    	
-        $("[id^='vatTable_']").trigger('destroy');
 		
-		$("[id^='vatTable_'] tbody #divisionTrVat").each(function(index, item){
-			if(index == 0){
-				$(item).parents("tbody").prepend("<tr id='hiddenTr' style='background-color: #e9ecef;'><td></td><td style='text-align: center;'>전기이월</td><td style='text-align: right;'>"+parseInt(temp[0]).toLocaleString("en-US")+"</td><td></td><td style='text-align: right;'>"+parseInt(temp[0]).toLocaleString("en-US")+"</td></tr>");
-			}
-			
-			var totalTd = isNaN(parseInt($(item).find("#totalTd").html().replaceAll(",", ""))) ? 0 : parseInt($(item).find("#totalTd").html().replaceAll(",", ""));
-			var receiveTd = isNaN(parseInt($(item).find("#receiveTd").html().replaceAll(",", ""))) ? 0 : parseInt($(item).find("#receiveTd").html().replaceAll(",", ""));
-			
-			temp[0] = parseInt(temp[0]) + totalTd - receiveTd;
-			
-			$(item).find("#balanceTd").html(parseInt(temp[0]).toLocaleString("en-US"));
-		});
+		$("#vatTable").trigger('destroy');
+		
+		setTimeout(() => {
+			$("#vatTable tbody #divisionTrVat").each(function(index, item){
+				if(index == 0){
+					$(item).parents("tbody").prepend("<tr id='hiddenTr' style='background-color: #e9ecef;'><th></th><th style='text-align: center;'>전기이월</th></th><th><th style='text-align: right;'>"+parseInt(temp[0]).toLocaleString("en-US")+"</th><th style='text-align: right;'>"+parseInt(temp[0]).toLocaleString("en-US")+"</th></tr>");
+				}
+				
+				var totalTd = isNaN(parseInt($(item).find("#totalTd").html().replaceAll(",", ""))) ? 0 : parseInt($(item).find("#totalTd").html().replaceAll(",", ""));
+				var receiveTd = isNaN(parseInt($(item).find("#receiveTd").html().replaceAll(",", ""))) ? 0 : parseInt($(item).find("#receiveTd").html().replaceAll(",", ""));
+				
+				temp[0] = parseInt(temp[0]) + totalTd - receiveTd;
+				calTotal[0] = isNaN(calTotal[0]) ? 0 : parseInt(calTotal[0]) + totalTd;
+				calTotal[1] = isNaN(calTotal[1]) ? 0 : parseInt(calTotal[1]) + receiveTd;
+				
+				$(item).find("#balanceTd").html(parseInt(temp[0]).toLocaleString("en-US"));
+				
+				if(typeof $(item).next().find("#vatIssueDate").html() === "undefined"){
+					var nextHtml = "00";
+				}else{
+					var nextHtml = $(item).next().find("#vatIssueDate").html().substring(5, 7);
+				}
+				
+				if(typeof $(item).next().find("#vatIssueDate").html() === "undefined"){
+					var nextYearHtml = "0000";
+				}else{
+					var nextYearHtml = $(item).next().find("#vatIssueDate").html().substring(0, 4);
+				}
+				
+				if($(item).find("#vatIssueDate").html().substring(5, 7) !== nextHtml){
+					$(item).after("<tr><th></th><th style='text-align: center;'>" + $(item).find("#vatIssueDate").html().substring(0, 4)+"년 " + $(item).find("#vatIssueDate").html().substring(5, 7).replaceAll(/^0/g, "") + "월 계</th><th id='totalTd' style='text-align: right;'>"+parseInt(calTotal[0]).toLocaleString("en-US")+"</th><th id='receiveTd' style='text-align: right;'>"+parseInt(calTotal[1]).toLocaleString("en-US")+"</th><th style='text-align: right;'>"+parseInt(temp[0]).toLocaleString("en-US")+"</th></tr>");
+					$(item).next().attr("style", "background-color: #e9ecef;");
+					calYearTotal[0] = calTotal[0] > 0 ? calYearTotal[0] + calTotal[0] : 0;
+					calYearTotal[1] = calTotal[1] > 0 ? calYearTotal[1] + calTotal[1] : 0;
+					calTotal[0] = 0;
+					calTotal[1] = 0;
+				}
+				
+				if($(item).find("#vatIssueDate").html().substring(0, 4) !== nextYearHtml){
+					$(item).next().after("<tr><th></th><th style='text-align: center;'>" + $(item).find("#vatIssueDate").html().substring(0, 4)+"년 총 계" + "</th><th id='totalTd' style='text-align: right;'>"+parseInt(calYearTotal[0]).toLocaleString("en-US")+"</th><th id='receiveTd' style='text-align: right;'>"+parseInt(calYearTotal[1]).toLocaleString("en-US")+"</th><th style='text-align: right;'>"+parseInt(temp[0]).toLocaleString("en-US")+"</th></tr>");
+					$(item).next().next().attr("style", "background-color: #e9ecef;");
+					calYearTotal[0] = 0;
+					calYearTotal[1] = 0;
+				}
+			});
+		}, 300);
 	});
 </script>
 </html>

@@ -495,10 +495,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 			SELECT a.detailId, a.compNo, a.linkDocno, b.vatProductName, c.baclogTime AS vatIssueDate, a.receive_data AS vatTotal, e.settleCRbalance FROM swc_bacledger_detail a 
 			LEFT JOIN swc_vat b ON a.linkDocno = b.vatSerial 
-			LEFT JOIN swc_bacledger c ON a.baclogId = c.baclogId AND c.baclogTime BETWEEN #{vatIssueDateFrom} and #{vatIssueDateTo} 
+			LEFT JOIN swc_bacledger c ON a.baclogId = c.baclogId 
 			LEFT JOIN swc_cust d ON b.vatBuyerCustNo = d.custNo 
 			LEFT JOIN swc_cust_balance e ON e.custNo = #{vatBuyerCustNo} AND e.settleYear = #{selectYear}
-			WHERE d.custNo = #{vatBuyerCustNo} GROUP BY a.detailId
+			WHERE d.custNo = #{vatBuyerCustNo} AND c.baclogTime BETWEEN #{vatIssueDateFrom} and #{vatIssueDateTo} GROUP BY a.detailId
 			
 			UNION ALL
 			
@@ -517,10 +517,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		
 			SELECT a.detailId, a.compNo, a.linkDocno, b.vatProductName, c.baclogTime AS vatIssueDate, a.receive_data AS vatTotal, e.settleDRbalance FROM swc_bacledger_detail a 
 			LEFT JOIN swc_vat b ON a.linkDocno = b.vatSerial 
-			LEFT JOIN swc_bacledger c ON a.baclogId = c.baclogId AND c.baclogTime BETWEEN #{vatIssueDateFrom} and #{vatIssueDateTo} 
+			LEFT JOIN swc_bacledger c ON a.baclogId = c.baclogId 
 			LEFT JOIN swc_cust d ON b.vatSellerCustNo = d.custNo 
 			LEFT JOIN swc_cust_balance e ON e.custNo = #{vatSellerCustNo} AND e.settleYear = #{selectYear}
-			WHERE d.custNo = #{vatSellerCustNo} GROUP BY a.detailId
+			WHERE d.custNo = #{vatSellerCustNo} AND c.baclogTime BETWEEN #{vatIssueDateFrom} and #{vatIssueDateTo} GROUP BY a.detailId
 			
 			UNION ALL
 			

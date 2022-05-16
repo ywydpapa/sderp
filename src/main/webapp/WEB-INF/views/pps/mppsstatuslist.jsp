@@ -216,6 +216,7 @@
                                     <th class="text-center">조달입금</th>
                                     <th class="text-center">매입일자</th>
                                     <th class="text-center">매입결제</th>
+                                    <th class="text-center">수수료</th>
 	                            </tr>
                             </thead>
                             <c:forEach items="${ppsList}" var="vlist">
@@ -226,18 +227,19 @@
                                     <td class="text-center ">${vlist.deliveryDate}</td>
                                     <td class="text-center ">${vlist.reqNo}</td>
                                     <td class="text-center ">${vlist.itemQty}</td>
-                                    <td class="text-right "><input type="text" value="${vlist.itemAmount}" /></td>
-                                    <td class="text-right "><input type="text" value="${vlist.storeAmount}" /></td>
-                                    <td class="text-right ">${vlist.ordAmount}</td>
-                                    <td class="text-center ">${vlist.makerName}</td>
-                                    <td class="text-center ">${vlist.sellerName}</td>
-                                    <td class="text-center ">${vlist.ordDate}</td>
-                                    <td class="text-center ">${vlist.confDate}</td>
-                                    <td class="text-center ">${vlist.vatDate}</td>
-                                    <td class="text-center ">${vlist.billingDate}</td>
-                                    <td class="text-center ">${vlist.ppsincomeDate}</td>
-                                    <td class="text-center ">${vlist.storeDate}</td>
-                                    <td class="text-center ">${vlist.payDate}</td>
+                                    <td class="text-right ">${vlist.itemAmount}</td>
+                                    <td class="text-right "><input type="text" style="border: 0px;text-align: right" value="${vlist.storeAmount}" \></td>
+                                    <td class="text-right "><input type="text" style="border: 0px;text-align: right" value="${vlist.ordAmount}" \></td>
+                                    <td class="text-center "><input type="text" style="border: 0px;text-align: center" value="${vlist.makerName}" \></td>
+                                    <td class="text-center "><input type="text" style="border: 0px;text-align: center" value="${vlist.sellerName}" \></td>
+                                    <td class="text-center "><input type="date" value="${vlist.ordDate}"\></td>
+                                    <td class="text-center "><input type="date" value="${vlist.confDate}"\></td>
+                                    <td class="text-center "><input type="date" value="${vlist.vatDate}"\></td>
+                                    <td class="text-center "><input type="date" value="${vlist.billingDate}"\></td>
+                                    <td class="text-center "><input type="date" value="${vlist.ppsincomeDate}"\></td>
+                                    <td class="text-center "><input type="date" value="${vlist.storeDate}"\></td>
+                                    <td class="text-center "><input type="date" value="${vlist.payDate}" \></td>
+                                    <td class="text-center"><button class="form-control-sm" >수수료</button></td>
                                 </tr>
                             </c:forEach>
                         </table>

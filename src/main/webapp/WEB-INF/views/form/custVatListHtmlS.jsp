@@ -198,16 +198,19 @@
 					var nextYearHtml = $(item).next().find("#vatIssueDate").html().substring(0, 4);
 				}
 				
+				
 				if($(item).find("#vatIssueDate").html().substring(5, 7) !== nextHtml){
+					console.log("cal: " + calTotal[1]);
 					$(item).after("<tr><th></th><th style='text-align: center;'>" + $(item).find("#vatIssueDate").html().substring(0, 4)+"년 " + $(item).find("#vatIssueDate").html().substring(5, 7).replaceAll(/^0/g, "") + "월 계</th><th id='totalTd' style='text-align: right;'>"+parseInt(calTotal[0]).toLocaleString("en-US")+"</th><th id='receiveTd' style='text-align: right;'>"+parseInt(calTotal[1]).toLocaleString("en-US")+"</th><th style='text-align: right;'>"+parseInt(temp[0]).toLocaleString("en-US")+"</th></tr>");
 					$(item).next().attr("style", "background-color: #e9ecef;");
-					calYearTotal[0] = calTotal[0] > 0 ? calYearTotal[0] + calTotal[0] : 0;
-					calYearTotal[1] = calTotal[1] > 0 ? calYearTotal[1] + calTotal[1] : 0;
+					calYearTotal[0] = calYearTotal[0] + calTotal[0];
+					calYearTotal[1] = calYearTotal[1] + calTotal[1];
 					calTotal[0] = 0;
 					calTotal[1] = 0;
 				}
 				
 				if($(item).find("#vatIssueDate").html().substring(0, 4) !== nextYearHtml){
+					console.log("total: " + calYearTotal[1]);
 					$(item).next().after("<tr><th></th><th style='text-align: center;'>" + $(item).find("#vatIssueDate").html().substring(0, 4)+"년 총 계" + "</th><th id='totalTd' style='text-align: right;'>"+parseInt(calYearTotal[0]).toLocaleString("en-US")+"</th><th id='receiveTd' style='text-align: right;'>"+parseInt(calYearTotal[1]).toLocaleString("en-US")+"</th><th style='text-align: right;'>"+parseInt(temp[0]).toLocaleString("en-US")+"</th></tr>");
 					$(item).next().next().attr("style", "background-color: #e9ecef;");
 					calYearTotal[0] = 0;

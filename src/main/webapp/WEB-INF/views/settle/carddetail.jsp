@@ -183,7 +183,7 @@
 			const DEFAULT_NUM = 15;
 			$("#cardlist").select2(); 
 			
-			$("#cardlist").change(function(){1
+			$("#cardlist").change(function(){
 				var page = 1;
 				
 				localStorage.setItem("cardDisNum", $(this).val());

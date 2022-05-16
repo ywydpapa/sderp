@@ -189,6 +189,10 @@
 						}
 						cardlistTable.html(tableHtml);
 					}
+					$('#cardlistTable_length').hide();
+					$('#cardlistTable_filter').hide();
+					$('#cardlistTable_previous').hide();
+					$('#cardlistTable_next').hide();
 				});  
 			}else{
 				alert('검색 일자 중 마감일을 확인하세요.');

@@ -30,9 +30,6 @@
                             <h6 style="font-weight:600;">조달 계약 관리 </h6>
                         </div>
                     </div>
-                    <div class="btn_wr" style="float:right;">
-                        <button class="btn btn-sm btn-outline"onClick="javascript:location='${path}/pps/ppsupload.do'"><i class="icofont icofont-pencil-alt-2"></i>조달자료 등록</button>
-                    </div>
                 </div>
             </div>
         </div>

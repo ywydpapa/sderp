@@ -42,172 +42,39 @@
                     </div>
                     <div class="btn_wr" style="float:right;">
                         <!-- hide and show -->
-						<!-- <button class="btn btn-sm btn-success" id="fold" onclick="acordian_action()">펼치기</button>
+						<button class="btn btn-sm btn-success" id="fold" onclick="acordian_action()">펼치기</button>
 						<button class="btn btn-sm btn-success" id="fold2" onclick="acordian_action1()" style="display:none;">접기</button>
-						hide and show
                         <button class="btn btn-sm btn-inverse" onClick="javascript:fnClearall()"><i class="icofont icofont-spinner-alt-3"></i>초기화</button>
                         <button class="btn btn-sm btn-primary" onClick="javascript:fnListcon()"><i class="icofont icofont-search"></i>검색</button>
-                        <button class="btn btn-sm btn-danger" onClick="javascript:fnChgStatus()">상태변경</button> -->
                         <button class="btn btn-sm btn-outline"onClick="javascript:location='${path}/acc/cardUpload.do'"><i class="icofont icofont-pencil-alt-2"></i>내역 등록</button>
                     </div>
                 </div>
             </div>
         </div>
-        <!--Page-header end 페이지 타이틀 -->
-        <!--영업활동조회-->
-        <%-- <div class="cnt_wr" id="acordian" style="display:none;">
+        <div class="cnt_wr" id="acordian" style="display:none;">
             <div class="row">
                 <form id="searchForm" method="post" onsubmit="return false;" class="col-sm-12">
                     <div class="col-sm-12">
                         <div class="card_box sch_it">
                             <div class="form-group row">
+	                            <div class="col-sm-12 col-xl-3">
+	                                <label class="col-form-label">일자별</label>
+	                                <p class="input_inline"><input class="form-control form-control-sm col-xl-6" type="date" max="9999-12-30" id="appDateFrom"> ~ <input class="form-control form-control-sm col-xl-6" type="date" max="9999-12-31" id="appDateTo"></p>
+	                            </div>
                                 <div class="col-sm-12 col-xl-3">
-                                    <label class="col-form-label" for="userName">담당사원</label>
-                                    <div class="input-group input-group-sm mb-0">
-                                        <input type="text" class="form-control" name="userName"
-                                               id="userName" value="" readonly /> <input type="hidden"
-                                                                                         name="userNo" id="userNo" value="" /> <span
-                                            class="input-group-btn">
-										<button class="btn btn-primary sch-company"
-                                                data-remote="${path}/modal/popup.do?popId=user" type="button"
-                                                data-toggle="modal" data-target="#userModal">
-											<i class="icofont icofont-search"></i>
-										</button>
-									</span>
-                                        <div class="modal fade " id="userModal" tabindex="-1"
-                                             role="dialog">
-                                            <div class="modal-dialog modal-80size" role="document">
-                                                <div class="modal-content modal-80size">
-                                                    <div class="modal-header">
-                                                        <h4 class="modal-title"></h4>
-                                                        <button type="button" class="close" data-dismiss="modal"
-                                                                aria-label="Close">
-                                                            <span aria-hidden="true">&times;</span>
-                                                        </button>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        <h5>사용자목록</h5>
-                                                        <p>Loading!!!</p>
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-default waves-effect "
-                                                                data-dismiss="modal">Close</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    <label class="col-form-label">가맹점명/국가명</label>
+                                    <input type="text" class="form-control" id="appContents">
                                 </div>
                                 <div class="col-sm-12 col-xl-3">
-                                    <label class="col-form-label" for="soppTitle">영업기회</label>
-                                    <div class="input-group input-group-sm mb-0">
-                                        <input type="text" class="form-control" name="soppTitle"
-                                               id="soppTitle" value="" readonly /> <input
-                                            type="hidden" name="soppNo" id="soppNo"
-                                            value="" /> <span class="input-group-btn">
-											<button class="btn btn-primary sch-company"
-                                                    data-remote="${path}/modal/popup.do?popId=sopp"
-                                                    type="button" data-toggle="modal"
-                                                    data-target="#soppModal">
-												<i class="icofont icofont-search"></i>
-											</button>
-										</span>
-                                        <div class="modal fade " id="soppModal" tabindex="-1"
-                                             role="dialog">
-                                            <div class="modal-dialog modal-80size" role="document">
-                                                <div class="modal-content modal-80size">
-                                                    <div class="modal-header">
-                                                        <h4 class="modal-title">영업기회 검색</h4>
-                                                        <button type="button" class="close"
-                                                                data-dismiss="modal" aria-label="Close">
-                                                            <span aria-hidden="true">&times;</span>
-                                                        </button>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        <h5>영업기회 목록</h5>
-                                                        <p>Loading!!!</p>
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button"
-                                                                class="btn btn-default waves-effect "
-                                                                data-dismiss="modal">Close</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-12 col-xl-3">
-                                    <label class="col-form-label" for="custName">매출처</label>
-                                    <div class="input-group input-group-sm mb-0">
-                                        <input type="text" class="form-control" name="custName"
-                                               id="custName" value="" readonly /> <input
-                                            type="hidden" name="custNo" id="custNo"
-                                            value="" /> <span class="input-group-btn">
-												<button class="btn btn-primary sch-company"
-                                                        data-remote="${path}/modal/popup.do?popId=cust"
-                                                        type="button" data-toggle="modal"
-                                                        data-target="#custModal">
-													<i class="icofont icofont-search"></i>
-												</button>
-											</span>
-                                        <div class="modal fade " id="custModal" tabindex="-1"
-                                             role="dialog">
-                                            <div class="modal-dialog modal-80size" role="document">
-                                                <div class="modal-content modal-80size">
-                                                    <div class="modal-header">
-                                                        <h4 class="modal-title">매출처검색</h4>
-                                                        <button type="button" class="close"
-                                                                data-dismiss="modal" aria-label="Close">
-                                                            <span aria-hidden="true">&times;</span>
-                                                        </button>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        <h5>매출처목록</h5>
-                                                        <p>Loading!!!</p>
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button"
-                                                                class="btn btn-default waves-effect "
-                                                                data-dismiss="modal">Close</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-12 col-xl-3">
-                                    <label class="col-form-label" for="salesType">처리 상태</label>
-                                    <select name="select" class="form-control form-control-sm" id="salesType">
-                                        <option value>선택</option>
-                                        <c:forEach var = "acttype" items="${acttype}">
-                                            <option value="${acttype.codeNo}">${acttype.desc03}</option>
-                                        </c:forEach>
-                                    </select>
-                                </div>
-
-                            </div>
-                            <div class="form-group row">
-                                <div class="col-sm-12 col-xl-3">
-                                    <label class="col-form-label">발행일</label>
-                                    <p class="input_inline">
-                                    	<input class="form-control form-control-sm col-xl-6" type="date" max="9999-12-30" id="salesFrdatetime"> ~ <input class="form-control form-control-sm col-xl-6" type="date" max="9999-12-31" id="salesTodatetime">
-                                    </p>
-                                </div>
-                                <div class="col-sm-12 col-xl-3">
-                                    <label class="col-form-label">거래일</label>
-                                    <p class="input_inline"><input class="form-control form-control-sm col-xl-6" type="date" max="9999-12-30" id="regSDate"> ~ <input class="form-control form-control-sm col-xl-6" type="date" max="9999-12-31" id="regEDate">
-                                    </p>
+                                    <label class="col-form-label">승인번호</label>
+                                    <input type="text" class="form-control" id="appSerial">
                                 </div>
                             </div>
-
                         </div>
                     </div>
-
                 </form>
             </div>
-        </div> --%>
-        <!--//영업활동조회-->
+        </div>
     </c:if>
 	<div class="row" style="margin-bottom: 10px;">
 		<div class="col-sm-12">
@@ -316,32 +183,104 @@
 			const DEFAULT_NUM = 15;
 			$("#cardlist").select2(); 
 			
-			$("#cardlist").change(function(){
+			$("#cardlist").change(function(){1
 				var page = 1;
 				
 				localStorage.setItem("cardDisNum", $(this).val());
 				
 				pageNation(page, DEFAULT_NUM, localStorage.getItem("cardDisNum"));
 			});
+			
+			$("#appDateFrom").change(function(){
+				var dateValue = $(this).val();
+				var dateValueArr = dateValue.split("-");
+				var dateValueCom = new Date(dateValueArr[0], parseInt(dateValueArr[1])-1, dateValueArr[2]);
+				var EdateValue = $("#appDateTo").val();
+				var EdateDateArr = EdateValue.split("-");
+				var EdateDateCom = new Date(EdateDateArr[0], parseInt(EdateDateArr[1])-1, EdateDateArr[2]);
+				
+				if(EdateValue == ""){
+					dateValueCom.setDate(dateValueCom.getDate()+1);
+				}else if(dateValueCom.getTime() > EdateDateCom.getTime()){
+					alert("시작일이 종료일보다 클 수 없습니다.");
+					dateValueCom.setDate(dateValueCom.getDate()+1);
+				}else{
+					return null;
+				}
+				
+				var year = dateValueCom.getFullYear();
+				var month = dateValueCom.getMonth()+1;
+				var day = dateValueCom.getDate();
+				
+				if(month < 10){
+					month = "0" + month;
+				}
+				
+				if(day < 10){
+					day = "0" + day;
+				}
+				
+				$("#appDateTo").val(year + "-" + month + "-" + day);
+			});
+			
+			$("#appDateTo").change(function(){
+				var SdateValue = $("#appDateFrom").val();
+				var SdateValueArr = SdateValue.split("-");
+				var SdateValueCom = new Date(SdateValueArr[0], parseInt(SdateValueArr[1])-1, SdateValueArr[2]);
+				var thisDateValue = $(this).val();
+				var thisDateArr = thisDateValue.split("-");
+				var thisDateCom = new Date(thisDateArr[0], parseInt(thisDateArr[1])-1, thisDateArr[2]);
+				
+				if(SdateValue == ""){
+					thisDateCom.setDate(thisDateCom.getDate()-1);
+				}else if(SdateValueCom.getTime() > thisDateCom.getTime()){
+					alert("종료일이 시작일보다 작을 수 없습니다.");
+					thisDateCom.setDate(thisDateCom.getDate()-1);
+				}else{
+					return null;
+				}
+				
+				var year = thisDateCom.getFullYear();
+				var month = thisDateCom.getMonth()+1;
+				var day = thisDateCom.getDate();
+				
+				if(month < 10){
+					month = "0" + month;
+				}
+				
+				if(day < 10){
+					day = "0" + day;
+				}
+				
+				$("#appDateFrom").val(year + "-" + month + "-" + day);
+			});
 		});	
 		
 		function pageNation(page, DEFAULT_NUM, reData){
 			var cardTable = $("#cardTable tbody");
 			var compNo = "${sessionScope.compNo}";
-			var countData = {};
 			var selectData = {};
 			var tableHtml = "";
 			var pageHtml = "";
 			
+			if(reData.cardDisNum != null){
+				selectData.cardDisNum = reData.cardDisNum;
+			}else{
+				selectData.cardDisNum = reData;
+			}
+			
 			cardTable.empty();
 			
-			countData.compNo = compNo;
-			countData.cardDisNum = reData;
+			selectData.compNo = compNo;
+			selectData.appContents = $("#appContents").val() ? $("#appContents").val() : "";
+			selectData.appDateFrom = $("#appDateFrom").val() ? $("#appDateFrom").val() : "";
+			selectData.appDateTo = $("#appDateTo").val() ? $("#appDateTo").val() : "";
+			selectData.appSerial = $("#appSerial").val() ? $("#appSerial").val() : "";
 			
 			$.ajax({
 				url: "${path}/acc/cardSelectListCount.do",
 				method: "post",
-				data: countData,
+				data: selectData,
 				dataType: "json",
 				success:function(countResult){
 					var count = countResult.resultCount;
@@ -364,8 +303,6 @@
 						setLastPage = lastPageNum;
 					}
 					
-					selectData.compNo = compNo;
-					selectData.cardDisNum = reData;
 					selectData.betFirstNum = start;
 					selectData.betLastNum = last;
 					
@@ -428,54 +365,16 @@
 			pageNation(page, DEFAULT_NUM, localStorage.getItem("cardDisNum"));
 		}
 		
-		function pagePrevious(e){
-			var preFirstNum = $(e).parent().next().children().attr("data-number");
-			var calFirstNum = parseInt(preFirstNum) - CLICK_PAGE_NUM;
-			var calLastNum = 0;
-			
-			if(calFirstNum < 1){
-				calFirstNum = 1;
-			}
-
-			calLastNum = calFirstNum + 9;
-			
-			if(calLastNum > localStorage.getItem("lastPageNum")){
-				calLastNum = localStorage.getItem("lastPageNum");
-			}
-				
-			pageHtml(calFirstNum, calLastNum);
-		}
-		
-		function pageNext(e){
-			var preFirstNum = $(e).parents("ul").find("li:first").next().children().attr("data-number");
-			var calFirstNum = parseInt(preFirstNum) + CLICK_PAGE_NUM;
-			var calLastNum = calFirstNum + 9;
-			
-			if(calFirstNum > localStorage.getItem("lastPageNum")){
-				calFirstNum = preFirstNum;
-			}
-			
-			if(calLastNum > localStorage.getItem("lastPageNum")){
-				calLastNum = localStorage.getItem("lastPageNum");	
-			}
-			
-			pageHtml(calFirstNum, calLastNum);
-		}
-		
-		function pageHtml(start, last){
-			var pageHtml = "";
-			
+		function fnListcon(){
+			var selectData = {};
+			var cardTable = $("#cardTable tbody");
+			var cardDisNum = localStorage.getItem("cardDisNum");
+			cardTable.empty();
 			$("#pageDiv").empty();
+
+			selectData.cardDisNum = cardDisNum;
 			
-			pageHtml += "<ul class='pagination'><li class='page-item'><a class='page-link' href='#' onClick='pagePrevious(this);'>Previous</a></li>";
-			
-			for(var i = start; i <= last; i++){
-				pageHtml += "<li class='page-item' id='page_"+ i +"'><a class='page-link' href='#' data-number='"+ i +"' onClick='pageClick(this);'>" + i + "</a></li>"
-			}
-			
-			pageHtml += "<li class='page-item'><a class='page-link' href='#' onClick='pageNext(this);'>Next</a></li></ul>";
-			
-			$("#pageDiv").html(pageHtml);
+			pageNation(1, DEFAULT_NUM, selectData);
 		}
 		
 		function acordian_action(){

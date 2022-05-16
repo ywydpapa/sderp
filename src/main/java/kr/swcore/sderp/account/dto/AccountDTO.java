@@ -228,5 +228,7 @@ public class AccountDTO {
     private String vatSdate;
     private String vatEdate;
     private Integer docUserNo;
+    private String appDateFrom;
+    private String appDateTo;
 }
 

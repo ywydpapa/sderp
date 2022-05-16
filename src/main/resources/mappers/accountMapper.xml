@@ -304,11 +304,33 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<select id="cardSelectList" resultType="accountDto">
-		select * from swc_cardledger where compNo = #{compNo} and cardDisNum = #{cardDisNum} order by appDate desc limit #{betFirstNum}, #{betLastNum};
+		select * from swc_cardledger
+		where compNo = #{compNo} and cardDisNum = #{cardDisNum} 
+		<if test="appDateFrom != null and appDateFrom != ''">
+			and appDate Between #{appDateFrom} and #{appDateTo}
+		</if>
+		<if test="appContents != null and appContents != ''">
+			and appContents like CONCAT('%', #{appContents}, '%')
+		</if>
+		<if test="appSerial != null and appSerial != ''">
+			and appSerial like CONCAT('%', #{appSerial}, '%')
+		</if>
+		order by appDate desc limit #{betFirstNum}, #{betLastNum};
 	</select>
 	
 	<select id="cardSelectListCount" resultType="accountDto">
-		select count(*) as resultCount from swc_cardledger where compNo = #{compNo} and cardDisNum = #{cardDisNum};
+		select count(*) as resultCount from swc_cardledger 
+		where compNo = #{compNo} and cardDisNum = #{cardDisNum}
+		<if test="appDateFrom != null and appDateFrom != ''">
+			and appDate Between #{appDateFrom} and #{appDateTo}
+		</if>
+		<if test="appContents != null and appContents != ''">
+			and appContents like CONCAT('%', #{appContents}, '%')
+		</if>
+		<if test="appSerial != null and appSerial != ''">
+			and appSerial like CONCAT('%', #{appSerial}, '%')
+		</if>
+		;
 	</select>
 	
 	<select id="detailVat" resultType="accountDto">

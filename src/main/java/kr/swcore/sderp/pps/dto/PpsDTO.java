@@ -39,8 +39,8 @@ public class PpsDTO {
     private Integer detailId;
     private BigDecimal storeAmount;
     private BigDecimal ordAmount;
-    private String Maker;
-    private String Seller;
+    private String makerName;
+    private String sellerName;
     private String ordDate;
     private String confDate;
     private String vatDate;

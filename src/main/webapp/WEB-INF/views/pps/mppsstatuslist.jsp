@@ -226,8 +226,8 @@
                                     <td class="text-center ">${vlist.deliveryDate}</td>
                                     <td class="text-center ">${vlist.reqNo}</td>
                                     <td class="text-center ">${vlist.itemQty}</td>
-                                    <td class="text-right ">${vlist.itemAmount}</td>
-                                    <td class="text-right ">${vlist.storeAmount}</td>
+                                    <td class="text-right "><input type="text" value="${vlist.itemAmount}" /></td>
+                                    <td class="text-right "><input type="text" value="${vlist.storeAmount}" /></td>
                                     <td class="text-right ">${vlist.ordAmount}</td>
                                     <td class="text-center ">${vlist.makerName}</td>
                                     <td class="text-center ">${vlist.sellerName}</td>

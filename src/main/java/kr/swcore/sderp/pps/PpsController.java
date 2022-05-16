@@ -33,12 +33,20 @@ public class PpsController {
         mav.setViewName("pps/ppslist");
         return mav;
     }
-    
+
     @RequestMapping("ppsStatusList.do")
     public ModelAndView ppsStatusList(HttpSession session, ModelAndView mav, @ModelAttribute PpsDTO dto){
         mav.addObject("ppsList", ppsService.ppsStatusList(session, dto));
         mav.addObject("userList", userService.userList(session));
         mav.setViewName("pps/ppsstatuslist");
+        return mav;
+    }
+
+    @RequestMapping("mppsStatusList.do")
+    public ModelAndView mppsStatusList(HttpSession session, ModelAndView mav, @ModelAttribute PpsDTO dto){
+        mav.addObject("ppsList", ppsService.ppsStatusList(session, dto));
+        mav.addObject("userList", userService.userList(session));
+        mav.setViewName("pps/mppsstatuslist");
         return mav;
     }
     

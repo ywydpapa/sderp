@@ -19,6 +19,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  		order by contractDate desc;
     </select>
 
+	<select id="mppsStatusList" resultType="PpsDTO">
+		select a.*,b.* from swc_pps a left join swc_pps_detail b on a.ppsId = b.ppsId and b.attrib not like 'XXX%'
+		where a.attrib not like 'XXX%' and a.compNo = #{compNo}
+		<if test="listDateFrom != null and listDateFrom != ''">
+			and contractDate Between #{listDateFrom} and now()
+		</if>
+		order by contractDate desc;
+	</select>
+
     <select id="ppsDetail" resultType="PpsDTO">
         select * from swc_pps where ppsID = #{ppsId};
     </select>

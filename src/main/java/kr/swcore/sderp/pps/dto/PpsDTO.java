@@ -34,7 +34,29 @@ public class PpsDTO {
     private String modDate;
     private String attrib;
     private Integer soppNo;
-    
     private int resultCount;
     private String listDateFrom;
+    private Integer detailId;
+    private BigDecimal storeAmount;
+    private BigDecimal ordAmount;
+    private String Maker;
+    private String Seller;
+    private String ordDate;
+    private String confDate;
+    private String vatDate;
+    private String billingDate;
+    private String ppsincomeDate;
+    private String storeDate;
+    private String payDate;
+    private String commiDate;
+    private String commiCust;
+    private BigDecimal commiAmount;
+    private String commipayDate;
+    private String feeDate;
+    private String feeCust;
+    private BigDecimal feeAmount;
+    private BigDecimal feevatAmount;
+    private String feeincomeDate;
+    private String remark1;
+    private String remark2;
 }

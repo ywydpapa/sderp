@@ -202,7 +202,6 @@
                             <thead>
 	                            <tr>
 	                                <th class="text-center">납품요구번호</th>
-	                                <th class="text-center">송신처</th>
 	                                <th class="text-center">수요기관명</th>
                                     <th class="text-center">납품요구일자</th>
                                     <th class="text-center">납품기한</th>
@@ -225,17 +224,16 @@
                             <c:forEach items="${ppsList}" var="vlist">
                                 <tr>
                                     <td class="text-center ">${vlist.reqNo}</td>
-                                    <td class="text-center ">${vlist.reqNo}</td>
                                     <td class="text-center ">${vlist.buyerName}</td>
                                     <td class="text-center ">${vlist.contractDate}</td>
                                     <td class="text-center ">${vlist.deliveryDate}</td>
                                     <td class="text-center ">${vlist.reqNo}</td>
                                     <td class="text-center ">${vlist.itemQty}</td>
-                                    <td class="text-center ">${vlist.itemAmount}</td>
-                                    <td class="text-center ">${vlist.storeAmount}</td>
-                                    <td class="text-center ">${vlist.ordAmount}</td>
-                                    <td class="text-center ">${vlist.Maker}</td>
-                                    <td class="text-center ">${vlist.Seller}</td>
+                                    <td class="text-right ">${vlist.itemAmount}</td>
+                                    <td class="text-right ">${vlist.storeAmount}</td>
+                                    <td class="text-right ">${vlist.ordAmount}</td>
+                                    <td class="text-center ">${vlist.makerName}</td>
+                                    <td class="text-center ">${vlist.sellerName}</td>
                                     <td class="text-center ">${vlist.ordDate}</td>
                                     <td class="text-center ">${vlist.confDate}</td>
                                     <td class="text-center ">${vlist.vatDate}</td>

@@ -540,7 +540,6 @@
 			    $("#acordian").show();
 			    $("#fold").hide();
 			    $("#fold2").show();
-	
 			} else {
 			    $("#acordian").hide();
 			    $("#fold").show();

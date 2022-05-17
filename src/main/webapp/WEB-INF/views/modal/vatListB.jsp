@@ -12,7 +12,7 @@
 <c:set var="path" value ="${pageContext.request.contextPath}"/>
 
 <div class="dt-responsive table-responsive">
-  <table id="vatlistTable" class="table table-striped table-bordered nowrap">
+  <table id="vatlistTableB" class="table table-striped table-bordered nowrap">
     <thead>
     <tr>
       <th>승인번호</th>
@@ -43,7 +43,7 @@
 
 <script>
   $(function(){
-    $('#vatlistTable').DataTable({
+    $('#vatlistTableB').DataTable({
       info:false,
       searching: true
     });

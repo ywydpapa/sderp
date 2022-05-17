@@ -154,11 +154,13 @@
                                 <col width="5%"/>
                                 <col width="10%"/>
                                 <col width="15%"/>
-                                <col width="10%"/>
-                                <col width="10%"/>
+                                <col width="5%"/>
+                                <col width="5%"/>
+                                <col width="5%"/>
                                 <col width="10%"/>
                                 <col width="20%"/>
-                                <col width="20%"/>
+                                <col width="10%"/>
+                                <col width="15%"/>
                             </colgroup>
                             <thead>
 	                            <tr>
@@ -170,6 +172,8 @@
 	                                <th class="text-center">합계금액</th>
 	                                <th class="text-center">내역</th>
 	                                <th class="text-center">메모</th>
+	                                <th class="text-center">계약번호</th>
+	                                <th class="text-center">계약명</th>
 	                            </tr>
                             </thead>
                             <tbody>
@@ -193,6 +197,8 @@
 	                                    </td>
 	                                    <td>${vlist.vatRemark}</td>
 	                                    <td>${vlist.vatMemo}</td>
+	                                    <td class="text-center">${vlist.contNo}</td>
+	                                    <td class="text-center">${vlist.contTitle}</td>
 	                                </tr>
 	                            </c:forEach>
                             </tbody>

@@ -146,6 +146,7 @@ public class AccountDTO {
     
     //계산서 추가 컬럼
     private int contNo;
+    private String contTitle;
     private String vatBillType;
     private String vatRecType;
     private String vatStandard;

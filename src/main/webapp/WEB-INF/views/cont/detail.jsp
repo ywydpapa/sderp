@@ -510,18 +510,18 @@
 											<col width="10%" />
 											<col width="30%" />
 											<col width="20%" />
-											<col width="10%" />
-											<col width="10%" />
 											<col width="20%" />
+											<col width="10%" />
+											<col width="10%" />
 										</colgroup>
 										<thead>
 										<tr>
 											<th class="text-center">일자</th>
 											<th class="text-center">활동종류</th>
 											<th class="text-center">내역</th>
+											<th class="text-center">비고</th>
 											<th class="text-center">담당자</th>
 											<th class="text-center">장소</th>
-											<th class="text-center">비용</th>
 										</tr>
 										</thead>
 										<tbody>
@@ -530,9 +530,9 @@
 												<td>${row2.salesFrdatetime}</td>
 												<td>${row2.salesTypeN}</td>
 												<td>${row2.salesDesc}</td>
+												<td>${row2.salesTitle}</td>
 												<td>${row2.userName}</td>
 												<td>${row2.salesPlace}</td>
-												<td>경비관련 연결예정</td>
 											</tr>
 										</c:forEach>
 										</tbody>

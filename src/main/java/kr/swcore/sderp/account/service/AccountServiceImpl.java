@@ -2,6 +2,7 @@ package kr.swcore.sderp.account.service;
 
 import kr.swcore.sderp.account.dao.AccountDAO;
 import kr.swcore.sderp.account.dto.AccountDTO;
+import kr.swcore.sderp.cont.dto.ContDTO;
 import kr.swcore.sderp.util.SessionInfoGet;
 import org.springframework.stereotype.Service;
 
@@ -729,5 +730,15 @@ public class AccountServiceImpl implements AccountService {
 	@Override
 	public List<AccountDTO> Search_treqCardList(HttpSession session, AccountDTO dto) {		
 		return accountDAO.Search_treqCardList(dto);
+	}
+
+	@Override
+	public List<AccountDTO> connect_cont_and_vat(HttpSession session, int contNo) {
+		// TODO Auto-generated method stub
+		int compNo = SessionInfoGet.getCompNo(session);
+		AccountDTO dto = new AccountDTO();
+		dto.setCompNo(compNo);
+		dto.setContNo(contNo);
+		return accountDAO.connect_cont_and_vat(dto);
 	}
 }

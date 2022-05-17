@@ -131,4 +131,5 @@ public interface AccountDAO {
 	List<AccountDTO> userList(int compNo);
 	void update_card_data(AccountDTO dto);
 	List<AccountDTO> Search_treqCardList(AccountDTO dto);
+	List<AccountDTO> connect_cont_and_vat(AccountDTO dto);
 }

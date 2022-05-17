@@ -246,7 +246,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  </update>
  
  <update id="contAmtUpdate">
- 	update swc_cont set contAmt = #{contAmt} where compNo = #{compNo} and contNo = #{contNo};
+ 	update swc_cont set contAmt = #{contAmt}, net_profit = #{net_profit} where compNo = #{compNo} and contNo = #{contNo};
  </update>
  
  <delete id="deleteCont">

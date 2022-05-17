@@ -131,4 +131,5 @@ public interface AccountService {
 	List<AccountDTO> userList(HttpSession session);
 	void update_card_data(HttpSession session, AccountDTO dto);
 	List<AccountDTO> Search_treqCardList(HttpSession session, AccountDTO dto);
+	List<AccountDTO> connect_cont_and_vat(HttpSession session, int contNo);
 }

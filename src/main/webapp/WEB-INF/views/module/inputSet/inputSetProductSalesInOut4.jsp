@@ -1017,6 +1017,7 @@
     		updateData.compNo = compNo;
     		updateData.contNo = $("#contNo").val();
     		updateData.contAmt = $("#product01OutSum").html().replace(/[\D\s\._\-]+/g, "");
+    		updateData.net_profit = $('#product01DiffSum').html().replace(/[\D\s\._\-]+/g, "");
     		
     		$.ajax({
     			url: "${path}/cont/contAmtUpdate.do",

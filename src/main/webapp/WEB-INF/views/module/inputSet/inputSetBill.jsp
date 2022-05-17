@@ -118,7 +118,7 @@
 	</table>
     <div class="text-right mt-3">
 		<button class="btn btn-md btn-success f-left" onClick="javascript:location='${path}/cont/list.do'">계약목록</button>
-		<button type="button" class="btn btn-md btn-primary" onclick="fn_billItemInsert();">생성하기</button>
+		<button type="button" class="btn btn-md btn-primary" onclick="fn_billItemInsert();">발행요청하기</button>
 	</div>
 	<div style="margin-top:1%; max-height: 300px; overflow-y: scroll;">
 		<table class="table table-sm bst02" id="billItemSelectTable">
@@ -287,7 +287,7 @@
     }
     
     function fn_billItemInsert() {
-    	if(confirm("생성하시겠습니까??")){
+    	if(confirm("발행 요청하시겠습니까??")){
 	    	var pathname = $(location).attr('pathname');
 	    	var compNo = "${sessionScope.compNo}";
 	    	var tableBody = $("#billItemTable tbody tr");

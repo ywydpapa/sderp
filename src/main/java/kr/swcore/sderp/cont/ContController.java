@@ -138,6 +138,7 @@ public class ContController {
 		mav.addObject("soppFiles",soppService.listFile(soppNo));
 		mav.addObject("sessionCust", custService.sessionSelectCust(session));
 		mav.addObject("vatData01", accountService.vatSelectList(contNo));
+		mav.addObject("data", accountService.connect_cont_and_vat(session, contNo));
 		Integer compNo = Integer.valueOf((String) session.getAttribute("compNo"));
 		dto.setCompNo(compNo);
 		dto.setContNo(contNo);

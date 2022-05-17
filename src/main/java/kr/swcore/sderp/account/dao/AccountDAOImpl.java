@@ -669,4 +669,10 @@ public class AccountDAOImpl implements AccountDAO {
 	public List<AccountDTO> Search_treqCardList(AccountDTO dto) {
 		return sqlSession.selectList("account.Search_treqCardList", dto);
 	}
+
+	@Override
+	public List<AccountDTO> connect_cont_and_vat(AccountDTO dto) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("account.connect_cont_and_vat", dto);
+	}
 }

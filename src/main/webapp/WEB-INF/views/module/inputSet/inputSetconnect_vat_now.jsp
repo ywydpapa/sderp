@@ -23,10 +23,10 @@
 				<tbody>
 					<c:forEach var="row" items="${data}">
 						<tr>
-							<td class="text-center">${row.vatIssuDate}</td>
+							<td class="text-center">${row.vatIssueDate}</td>
 			    			<td class="text-center">${row.vatSerial}</td>
 			    			<td class="text-center">${row.vatStandard}</td>
-			    			<td class="text-right">${row.vatTax + row.Amount}</td>
+			    			<td class="text-right">${row.vatTax + row.vatAmount}</td>
 			    			<c:if test="${row.vatStatus == S1}">
 			    				<td class="text-right">수금 진행중</td>
 			    			</c:if>

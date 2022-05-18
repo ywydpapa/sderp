@@ -2,7 +2,6 @@ package kr.swcore.sderp.account.service;
 
 import kr.swcore.sderp.account.dao.AccountDAO;
 import kr.swcore.sderp.account.dto.AccountDTO;
-import kr.swcore.sderp.cont.dto.ContDTO;
 import kr.swcore.sderp.util.SessionInfoGet;
 import org.springframework.stereotype.Service;
 
@@ -740,5 +739,10 @@ public class AccountServiceImpl implements AccountService {
 		dto.setCompNo(compNo);
 		dto.setContNo(contNo);
 		return accountDAO.connect_cont_and_vat(dto);
+	}
+
+	@Override
+	public int vatContUpdate(AccountDTO dto) {
+		return accountDAO.vatContUpdate(dto);
 	}
 }

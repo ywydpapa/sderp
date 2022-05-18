@@ -1242,4 +1242,18 @@ public class AccountController {
         
         return ResponseEntity.ok(param);
     }
+    
+    @RequestMapping("vatContUpdate.do")
+    public ResponseEntity<Object> vatContUpdate(HttpSession session, @ModelAttribute AccountDTO dto){
+        Map<String,Object> param = new HashMap<>();
+        int vatUp = accountService.vatContUpdate(dto);
+        if(vatUp > 0){
+            param.put("code","10001");
+        }
+        else {
+            param.put("code", "20001");
+        }
+        return ResponseEntity.ok(param);
+    }
+    
 }

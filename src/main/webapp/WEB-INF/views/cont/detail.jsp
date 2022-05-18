@@ -10,7 +10,6 @@
 <jsp:include page="../head.jsp"/>
 <jsp:include page="../body-top.jsp"/>
 
-<div id="main_content">
 	<script type="text/javascript">
 		$('input[name=contractType]').on('click', function() {
 			if ($(this).val() == 'NEW') {
@@ -34,12 +33,7 @@
 			</div>
 		</div>
 	</div>
-	<!--Page-header end 페이지 타이틀 -->
 
-	<!--Page-header end 페이지 타이틀 -->
-	<div class="cnt_wr">
-		<!-- Row start -->
-		<div class="row">
 			<div class="col-lg-12 col-xl-12">
 				<!-- Nav tabs -->
 				<ul class="nav nav-tabs  tabs" role="tablist" id="tablist">
@@ -138,7 +132,6 @@
 																</div>
 															</div>
 														</div>
-														
 													</td>
 													<th class="contDetailCont requiredTextCss">계약</th>
 													<td class="contDetailCont">
@@ -657,16 +650,6 @@
 			modal.find('.modal-body').load(button.data("remote"));
 		});
 		$('#contModal').on('show.bs.modal', function(e) {
-			var button = $(e.relatedTarget);
-			var modal = $(this);
-			modal.find('.modal-body').load(button.data("remote"));
-		});
-		$('#vatBModal').on('show.bs.modal', function(e) {
-			var button = $(e.relatedTarget);
-			var modal = $(this);
-			modal.find('.modal-body').load(button.data("remote"));
-		});
-		$('#vatSModal').on('show.bs.modal', function(e) {
 			var button = $(e.relatedTarget);
 			var modal = $(this);
 			modal.find('.modal-body').load(button.data("remote"));

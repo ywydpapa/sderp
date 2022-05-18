@@ -1453,4 +1453,8 @@ attrib) values (#{vatId},
 			select * from swc_vat a
 			WHERE a.contNo = #{contNo} AND a.attrib NOT LIKE "XXX%" AND a.compNo = #{compNo};
 		</select>
+		
+		<update id="vatContUpdate">
+			update swc_vat set contNo = #{contNo} where vatSerial = #{vatSerial} and compNo = #{compNo};
+		</update>
 </mapper>

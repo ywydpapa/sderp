@@ -1,10 +1,8 @@
 package kr.swcore.sderp.account.dao;
 
 import kr.swcore.sderp.account.dto.AccountDTO;
-
 import java.util.List;
 
-import javax.servlet.http.HttpSession;
 
 public interface AccountDAO {
     List<AccountDTO> listvat(AccountDTO dto);
@@ -132,4 +130,5 @@ public interface AccountDAO {
 	void update_card_data(AccountDTO dto);
 	List<AccountDTO> Search_treqCardList(AccountDTO dto);
 	List<AccountDTO> connect_cont_and_vat(AccountDTO dto);
+	int vatContUpdate(AccountDTO dto);
 }

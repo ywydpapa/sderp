@@ -659,6 +659,18 @@
                 alert("통신 실패");
             });
     });
+    
+    $('#vatBModal').on('show.bs.modal', function(e) {
+		var button = $(e.relatedTarget);
+		var modal = $(this);
+		modal.find('.modal-body').load(button.data("remote"));
+	});
+    
+	$('#vatSModal').on('show.bs.modal', function(e) {
+		var button = $(e.relatedTarget);
+		var modal = $(this);
+		modal.find('.modal-body').load(button.data("remote"));
+	});
 
     function fn_Reloaddata01(url, data){
 		$("#inoutlist").empty();
@@ -681,6 +693,7 @@
     function fn_dataDivisionInsert() {
     	if(confirm("분할추가 하시겠습니까??")){
 	   	 	var pathname = $(location).attr('pathname');
+	   	 	var updateData = {};
     		var divisionNum = $("#divisionNum").val();
         	var divisionContAmt = $("#divisionContAmt").val().replace(/[\D\s\._\-]+/g, "");
         	var path = $(location).attr("pathname");
@@ -727,10 +740,23 @@
     	        data01Data.dataTotal 		= divisionTotal;
     	        data01Data.dataRemark 	= $("#data01Remark").val();
     	        data01Data.vatDate = $("#ioDate").val();
+    	        
+    	        updateData.vatSerial = data01Data.vatSerial !== "" ? data01Data.vatSerial : 0;
+    	        updateData.contNo = $("#contNo").val();
+    	        updateData.compNo = "${sessionScope.compNo}";
     	
     	       	if (!data01Data.dataTitle){
     	            alert("상품명을 입력해주십시오.");
     	            return;
+    	        }
+    	       	
+    	       	if(data01Data.vatSerial !== "" && data01Data.vatSerial !== null){
+    		        $.ajax({
+    		        	url: "${path}/acc/vatContUpdate.do",
+    		        	method: "post",
+    		        	data: updateData,
+    		        	dataType: "json",
+    		        });
     	        }
     	
     	        $.ajax({
@@ -751,6 +777,7 @@
     
     function fn_data01Insert() {
     	var pathname = $(location).attr('pathname');
+    	var updateData = {};
     	 
     	if($("[name='contractType']:checked").val() === "NEW"){
 			localStorage.setItem("reloadSet", "1t");
@@ -783,6 +810,10 @@
         data01Data.dataTotal 		= $("#data01Total").val().replace(/[\D\s\._\-]+/g, "");
         data01Data.dataRemark 	= $("#data01Remark").val();
         data01Data.vatDate = $("#ioDate").val();
+        
+        updateData.vatSerial = data01Data.vatSerial !== "" ? data01Data.vatSerial : 0;
+        updateData.contNo = $("#contNo").val();
+        updateData.compNo = "${sessionScope.compNo}";
 
         if(!data01Data.dataQuanty){
             alert("단가를 입력해주십시오.");
@@ -793,6 +824,15 @@
         } else if (!data01Data.dataTitle){
             alert("상품명을 입력해주십시오.");
             return;
+        }
+        
+        if(data01Data.vatSerial !== "" && data01Data.vatSerial !== null){
+	        $.ajax({
+	        	url: "${path}/acc/vatContUpdate.do",
+	        	method: "post",
+	        	data: updateData,
+	        	dataType: "json",
+	        });
         }
 
         $.ajax({
@@ -834,6 +874,7 @@
 
     function fn_data01Update() {
    	 	var path = $(location).attr("pathname");	
+   	 	var updateData = {};
    	 	
     	if($("[name='contractType']:checked").val() === "NEW"){
 			localStorage.setItem("reloadSet", "1t");
@@ -867,7 +908,11 @@
         data01Data.dataTotal 	= $("#data01Total").val().replace(/[\D\s\._\-]+/g, "");
         data01Data.dataRemark 	= $("#data01Remark").val();
         data01Data.vatDate = $("#ioDate").val();
-
+        
+        updateData.vatSerial = data01Data.vatSerial !== "" ? data01Data.vatSerial : 0;
+        updateData.contNo = $("#contNo").val();
+        updateData.compNo = "${sessionScope.compNo}";
+		
         if(!data01Data.dataQuanty){
             alert("단가를 입력해주십시오.");
             return;
@@ -877,6 +922,38 @@
         } else if (!data01Data.dataTitle){
             alert("상품명을 입력해주십시오.");
             return;
+        }
+        
+        if(data01Data.vatSerial !== "" && data01Data.vatSerial !== null){
+	        $.ajax({
+	        	url: "${path}/acc/vatContUpdate.do",
+	        	method: "post",
+	        	data: {
+	        		vatSerial: localStorage.getItem("setSerial"),
+	        		contNo: 0,
+	        		compNo: updateData.compNo
+	        	},
+	        	dataType: "json",
+	        	success:function(){
+	        		$.ajax({
+	        			url: "${path}/acc/vatContUpdate.do",
+	        			method: "post",
+	        			data: updateData,
+	        			dataType: "json",
+	        			success:function(){
+	        				localStorage.removeItem("setSerial");
+	        			},
+	        			error:function(){
+	        				alert("데이터가 맞지 않습니다.\n다시 시도해주십시오.");
+	        				return false;
+	        			}
+	        		});
+	        	},
+	        	error:function(){
+	        		alert("업데이트에 실패했습니다.\n다시 시도해주십시오.");
+	        		return false;
+	        	}
+	        });
         }
 
         $.ajax({ url: "${path}/sopp/updatedata01.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소

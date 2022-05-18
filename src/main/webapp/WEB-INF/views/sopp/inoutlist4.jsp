@@ -62,7 +62,7 @@
 				<td>${row.dataRemark}</td>
 				<td>${row.vatSerial}</td>
 				<td><button class="btn btn-sm btn-dark" data-value="1101" onClick="javascript:fn_data01modify(this)">수정</button></td>
-				<td><button class="btn btn-sm btn-danger" onClick="javascript:fn_data01delete1(${row.soppdataNo})">삭제</button></td>
+				<td><button class="btn btn-sm btn-danger" data-id="${row.soppdataNo}" onClick="javascript:fn_data01delete1(this)">삭제</button></td>
 			</tr>
 		</c:if>
 	</c:forEach>
@@ -95,7 +95,7 @@
 				<td>${row.dataRemark}</td>
 				<td>${row.vatSerial}</td>
 				<td><button class="btn btn-sm btn-dark" data-value="1102" onClick="javascript:fn_data01modify(this)">수정</button></td>
-				<td><button class="btn btn-sm btn-danger" onClick="javascript:fn_data01delete1(${row.soppdataNo})">삭제</button></td>
+				<td><button class="btn btn-sm btn-danger" data-id="${row.soppdataNo}" onClick="javascript:fn_data01delete1(this)">삭제</button></td>
 			</tr>
 		</c:if>
 	</c:forEach>
@@ -189,11 +189,13 @@
 				$("#vatBdiv").show();
     			$("#vatSdiv").hide();
 				$("#vatBdiv").find("#vatSerial").val($(tr).children().eq(9)[0].innerText);
+				localStorage.setItem("setSerial", $("#vatBdiv").find("#vatSerial").val());
 			}else{
 				$("#data01Type").val("1102");
 				$("#vatBdiv").hide();
     			$("#vatSdiv").show();
 				$("#vatSdiv").find("#vatSerial").val($(tr).children().eq(9)[0].innerText);
+				localStorage.setItem("setSerial", $("#vatSdiv").find("#vatSerial").val());
 			}
 
 			var soppdataNo = Number(tr.attr("id"));
@@ -277,13 +279,29 @@
 			$("#product01Percent").html(product01Percent+'%');
 		}
 	});
-	function fn_data01delete1(soppdataNo) {
+	function fn_data01delete1(e) {
 		var pathname = $(location).attr('pathname');
 		var msg = "선택한 건을 삭제하시겠습니까?";
+		var updateData = {};
+		var vatSerial = $(e).parent().prev().prev().html();
+		
 		if( confirm(msg) ){
+			updateData.vatSerial = vatSerial;
+	        updateData.contNo = 0;
+	        updateData.compNo = "${sessionScope.compNo}";
+			
+	        if(vatSerial !== "" && vatSerial !== null){
+		        $.ajax({
+		        	url: "${path}/acc/vatContUpdate.do",
+		        	method: "post",
+		        	data: updateData,
+		        	dataType: "json",
+		        });
+	        }
+	        
 			$.ajax({
 				url: "${path}/sopp/deletedata01.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
-				data: {soppdataNo : soppdataNo}, // HTTP 요청과 함께 서버로 보낼 데이터
+				data: {soppdataNo : $(e).attr("data-id")}, // HTTP 요청과 함께 서버로 보낼 데이터
 				method: "POST", // HTTP 요청 메소드(GET, POST 등)
 			}) // HTTP 요청이 성공하면 요청한 데이터가 done() 메소드로 전달됨. .
 			.done(function(data) {

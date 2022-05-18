@@ -5,7 +5,6 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import javax.inject.Inject;
-import javax.servlet.http.HttpSession;
 
 import java.util.List;
 
@@ -674,5 +673,11 @@ public class AccountDAOImpl implements AccountDAO {
 	public List<AccountDTO> connect_cont_and_vat(AccountDTO dto) {
 		// TODO Auto-generated method stub
 		return sqlSession.selectList("account.connect_cont_and_vat", dto);
+	}
+
+	@Override
+	public int vatContUpdate(AccountDTO dto) {
+		// TODO Auto-generated method stub
+		return sqlSession.update("account.vatContUpdate", dto);
 	}
 }

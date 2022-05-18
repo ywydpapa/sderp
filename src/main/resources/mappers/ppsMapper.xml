@@ -85,6 +85,47 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	);
     </insert>
     
+    <insert id="mppsInsert">
+    	insert into swc_pps_detail
+    	(
+    		ppsId,
+    		compNo,
+    		storeAmount,
+    		ordAmount,
+    		makerName,
+    		sellerName,
+    		ordDate,
+    		confDate,
+    		vatDate,
+    		billingDate,
+    		ppsincomeDate,
+    		storeDate,
+    		payDate,
+    		regDate,
+    		attrib
+    	) values (
+    		#{ppsId},
+    		#{compNo},
+    		#{storeAmount},
+    		#{ordAmount},
+    		#{makerName},
+    		#{sellerName},
+    		#{ordDate},
+    		#{confDate},
+    		#{vatDate},
+    		#{billingDate},
+    		#{ppsincomeDate},
+    		#{storeDate},
+    		#{payDate},
+    		now(),
+    		'10000'
+    	);
+    </insert>
+    
+    <update id="mppsUpdate">
+    	update swc_pps set modDate = now(), attrib = 'XXXXX' where compNo = #{compNo} and ppsId = #{ppsId};
+    </update>
+    
     <update id="assignUpdate">
     	update swc_pps set	
     	soppNo = #{soppNo}

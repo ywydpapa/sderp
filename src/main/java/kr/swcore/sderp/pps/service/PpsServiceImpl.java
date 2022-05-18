@@ -66,4 +66,14 @@ public class PpsServiceImpl implements PpsService {
         dto.setListDateFrom(listDateFrom);
         return ppsDao.mppsStatusList(dto);
     }
+
+	@Override
+	public int mppsInsert(PpsDTO dto) {
+		return ppsDao.mppsInsert(dto);
+	}
+
+	@Override
+	public int mppsUpdate(PpsDTO dto) {
+		return ppsDao.mppsUpdate(dto);
+	}
 }

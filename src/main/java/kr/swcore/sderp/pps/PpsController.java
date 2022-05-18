@@ -91,4 +91,30 @@ public class PpsController {
         return ResponseEntity.ok(param);
     }
     
+    @RequestMapping("mppsInsert.do")
+    public ResponseEntity<Object> mppsInsert(HttpSession session, @ModelAttribute PpsDTO dto){
+        Map<String,Object> param = new HashMap<>();
+        int ppsIns = ppsService.mppsInsert(dto);
+        if(ppsIns > 0){
+            param.put("code","10001");
+        }
+        else {
+            param.put("code", "20001");
+        }
+        return ResponseEntity.ok(param);
+    }
+    
+    @RequestMapping("mppsUpdate.do")
+    public ResponseEntity<Object> mppsUpdate(HttpSession session, @ModelAttribute PpsDTO dto){
+        Map<String,Object> param = new HashMap<>();
+        int ppsUp = ppsService.mppsUpdate(dto);
+        if(ppsUp > 0){
+            param.put("code","10001");
+        }
+        else {
+            param.put("code", "20001");
+        }
+        return ResponseEntity.ok(param);
+    }
+    
 }

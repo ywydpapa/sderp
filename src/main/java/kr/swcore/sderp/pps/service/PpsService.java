@@ -14,4 +14,6 @@ public interface PpsService {
     int assignUpdate(PpsDTO dto);
     List<PpsDTO> ppsStatusList(HttpSession session, PpsDTO dto);
     List<PpsDTO> mppsStatusList(HttpSession session, PpsDTO dto);
+    int mppsInsert(PpsDTO dto);
+    int mppsUpdate(PpsDTO dto);
 }

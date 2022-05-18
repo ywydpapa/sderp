@@ -53,4 +53,16 @@ public class PpsDAOImpl implements PpsDAO{
     public List<PpsDTO> mppsStatusList(PpsDTO dto) {
         return sqlSession.selectList("pps.mppsStatusList", dto);
     }
+
+	@Override
+	public int mppsInsert(PpsDTO dto) {
+		// TODO Auto-generated method stub
+		return sqlSession.insert("pps.mppsInsert", dto);
+	}
+
+	@Override
+	public int mppsUpdate(PpsDTO dto) {
+		// TODO Auto-generated method stub
+		return sqlSession.update("pps.mppsUpdate", dto);
+	}
 }

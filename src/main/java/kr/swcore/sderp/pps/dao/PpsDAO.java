@@ -13,4 +13,6 @@ public interface PpsDAO {
     int assignUpdate(PpsDTO dto);
     List<PpsDTO> ppsStatusList(PpsDTO dto);
     List<PpsDTO> mppsStatusList(PpsDTO dto);
+    int mppsInsert(PpsDTO dto);
+    int mppsUpdate(PpsDTO dto);
 }

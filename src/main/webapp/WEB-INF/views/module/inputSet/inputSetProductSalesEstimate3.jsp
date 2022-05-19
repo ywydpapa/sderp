@@ -26,7 +26,7 @@
         <thead>
         <tr>
         	<th class="text-center">구분</th>
-        	<th class="text-center">제목</th>
+        	<th class="text-center">타이틀</th>
             <th class="text-center">거래처</th>
             <th class="text-center">항목</th>
             <th class="text-center">단가</th>
@@ -507,9 +507,9 @@
     		alert("제목을 입력해주십시오.");
     		$("#itemTitle").focus();
     		return false;
-    	}else if($("#productSalesEstimateCustName").val() === ""){
+    	/* }else if($("#productSalesEstimateCustName").val() === ""){
     		alert("거래처를 입력해주세요.");
-    		return false;
+    		return false; */
     	}else{
     		var temp = {};
         	var itemKinds = $("#itemKinds").val();

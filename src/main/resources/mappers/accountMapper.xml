@@ -1453,8 +1453,34 @@ attrib) values (#{vatId},
 			select * from swc_vat a
 			WHERE a.contNo = #{contNo} AND a.attrib NOT LIKE "XXX%" AND a.compNo = #{compNo};
 		</select>
-		
 		<update id="vatContUpdate">
 			update swc_vat set contNo = #{contNo} where vatSerial = #{vatSerial} and compNo = #{compNo};
 		</update>
+		<select id="request_vat" resultType="AccountDTO">
+			select * from swc_vat a
+			LEFT JOIN swc_cont b ON a.contNo = b.contNo AND b.attrib NOT LIKE "xxx%"
+			LEFT JOIN swc_user c ON b.userNo = c.userNo AND c.compNo = #{compNo}
+			where a.vatStatus = "T1" AND a.attrib NOT LIKE "xxx%" AND a.compNo = #{compNo}
+		</select>
+		<select id ="request_payment" resultType="AccountDTO">			
+			select a.docType, a.regDate, a.docAmount, b.appStatus, d.custName, e.userName as firstUser from swc_businessdoc a 
+			left join swc_businessdocapp b on a.docNo = b.docNo 
+			left join swc_user c on c.userNo = b.userNoIS 
+			left join swc_cust d on a.linkCustNo = d.custNo
+			left join swc_user e on a.docCrUserNo = e.userNo
+			where a.attrib not like 'XXX%' and b.compNo = #{compNo} and a.docStatus BETWEEN 2 and 3 and b.appStatus BETWEEN 2 and 5 and b.appStatus = 2 order by a.docNo desc;
+		</select>
+		<select id ="request_payment_boss" resultType="AccountDTO">			
+			select a.docType, a.regDate, a.docAmount, b.appStatus, d.custName, e.userName as firstUser from swc_businessdoc a 
+			left join swc_businessdocapp b on a.docNo = b.docNo 
+			left join swc_user c on c.userNo = b.userNoIS 
+			left join swc_cust d on a.linkCustNo = d.custNo
+			left join swc_user e on a.docCrUserNo = e.userNo
+			where a.attrib not like 'XXX%' and b.compNo = #{compNo} and a.docStatus BETWEEN 2 and 3 and b.appStatus BETWEEN 2 and 5 and b.appStatus = 4 order by a.docNo desc;
+		</select>
+		<select id="request_attlist" resultType="AccountDTO">
+			SELECT b.userName, a.attType, a.attStart, a.attEnd, a.regDate FROM swc_userattend a
+			LEFT JOIN swc_user b ON a.userNo = b.userNo
+			WHERE a.attStatus = 1 AND a.compNo = #{compNo} AND a.attrib NOT LIKE "xxx%";
+		</select>
 </mapper>

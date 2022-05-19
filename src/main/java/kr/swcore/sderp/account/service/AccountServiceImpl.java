@@ -743,6 +743,37 @@ public class AccountServiceImpl implements AccountService {
 
 	@Override
 	public int vatContUpdate(AccountDTO dto) {
+	
 		return accountDAO.vatContUpdate(dto);
+	}
+	public List<AccountDTO> request_vat(HttpSession session) {
+		AccountDTO dto = new AccountDTO();
+		int compNo = SessionInfoGet.getCompNo(session);
+		dto.setCompNo(compNo);
+		return accountDAO.request_vat(dto);
+	}
+
+	@Override
+	public List<AccountDTO> request_payment(HttpSession session) {
+		AccountDTO dto = new AccountDTO();
+		int compNo = SessionInfoGet.getCompNo(session);
+		dto.setCompNo(compNo);
+		return accountDAO.request_payment(dto);
+	}
+
+	@Override
+	public List<AccountDTO> request_attlist(HttpSession session) {
+		AccountDTO dto = new AccountDTO();
+		int compNo = SessionInfoGet.getCompNo(session);
+		dto.setCompNo(compNo);
+		return accountDAO.request_attlist(dto);
+	}
+
+	@Override
+	public List<AccountDTO> request_payment_boss(HttpSession session) {
+		AccountDTO dto = new AccountDTO();
+		int compNo = SessionInfoGet.getCompNo(session);
+		dto.setCompNo(compNo);
+		return accountDAO.request_payment_boss(dto);
 	}
 }

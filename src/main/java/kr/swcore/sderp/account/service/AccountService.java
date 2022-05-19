@@ -132,5 +132,10 @@ public interface AccountService {
 	void update_card_data(HttpSession session, AccountDTO dto);
 	List<AccountDTO> Search_treqCardList(HttpSession session, AccountDTO dto);
 	List<AccountDTO> connect_cont_and_vat(HttpSession session, int contNo);
+
 	int vatContUpdate(AccountDTO dto);
+	List<AccountDTO> request_vat(HttpSession session);
+	List<AccountDTO> request_payment(HttpSession session);
+	List<AccountDTO> request_attlist(HttpSession session);
+	List<AccountDTO> request_payment_boss(HttpSession session);
 }

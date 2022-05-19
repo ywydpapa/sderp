@@ -131,4 +131,8 @@ public interface AccountDAO {
 	List<AccountDTO> Search_treqCardList(AccountDTO dto);
 	List<AccountDTO> connect_cont_and_vat(AccountDTO dto);
 	int vatContUpdate(AccountDTO dto);
+	List<AccountDTO> request_vat(AccountDTO dto);
+	List<AccountDTO> request_payment(AccountDTO dto);
+	List<AccountDTO> request_attlist(AccountDTO dto);
+	List<AccountDTO> request_payment_boss(AccountDTO dto);
 }

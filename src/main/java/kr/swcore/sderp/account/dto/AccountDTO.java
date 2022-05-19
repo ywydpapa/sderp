@@ -231,5 +231,15 @@ public class AccountDTO {
     private Integer docUserNo;
     private String appDateFrom;
     private String appDateTo;
+    
+    //메인 대쉬보드 추가.
+    private String appStatus;
+    private String docType;
+    private BigDecimal docAmount;
+    private String firstUser;
+    private Integer attType;
+    private String attStart;
+    private String attEnd;
+    
 }
 

@@ -680,4 +680,26 @@ public class AccountDAOImpl implements AccountDAO {
 		// TODO Auto-generated method stub
 		return sqlSession.update("account.vatContUpdate", dto);
 	}
+	public List<AccountDTO> request_vat(AccountDTO dto) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("account.request_vat", dto);
+	}
+
+	@Override
+	public List<AccountDTO> request_payment(AccountDTO dto) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("account.request_payment", dto);
+	}
+	
+	@Override
+	public List<AccountDTO> request_attlist(AccountDTO dto) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("account.request_attlist", dto);
+	}
+
+	@Override
+	public List<AccountDTO> request_payment_boss(AccountDTO dto) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("account.request_payment_boss", dto);
+	}
 }

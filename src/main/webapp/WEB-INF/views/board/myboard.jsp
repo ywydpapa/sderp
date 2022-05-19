@@ -29,7 +29,6 @@
 			monthStr_minus_one = String.valueOf(month-1);
 		}
 	%>
-
 	<div class="row" >
 		<c:if test="${userRole ne 'CUSER' && userRole ne 'PUSER'}">
 			<%-- <!-- 4번째 그래프 -->
@@ -304,6 +303,204 @@
 				</div>
 			</div>
 		</c:if>
+		
+		<!-- 대표님 메인 -->
+		<c:if test="${sessionScope.userRole eq 'ADMIN' && sessionScope.docRole == 'S'}">
+			<div class="col-md-12 col-lg-6">
+				<div class="card">
+					<div class="card-header">
+						<h5>요청 알림</h5>
+						<c:forEach var="row" items="${request_payment_boss}" varStatus="status">
+							<h4 class="nav-counter">${status.count}</h4>
+						</c:forEach>
+						<!-- request_payment_cnt -->
+						<span>결제 검토내역</span>
+						<button class="btn btn-sm btn-primary" onClick='location.href="${path}/gw/mydoclist.do"' style="float:right">나의 결제 ⇀</button>
+						<div id="acodian_show_button3" style="text-align:center; font-size: 30px; cursor:pointer;">ˬ</div>
+						<div class="card-header-right">
+							<i class="icofont icofont-spinner-alt-5"></i>
+						</div>
+					</div>
+					<div class="card-block" id="acodian3" style="display:none">
+						<table id="request_payment" class="table table-striped table-bordered nowrap">
+							<thead>
+								<tr>
+									<th style="text-align: center">작성일자</th>
+									<th style="text-align: center">종류</th>
+									<th style="text-align: center">금액</th>
+									<th style="text-align: center">요청자</th>
+								</tr>
+							</thead>
+							<tbody>
+								<c:forEach var="row" items="${request_payment_boss}">
+				                		<tr>
+											<td class="text-center">${row.regDate}</td>
+											<td class="text-center">
+												<c:if test="${row.docType eq 'BUY'}">구매요청서</c:if>
+												<c:if test="${row.docType eq 'TRS'}">지출품의서</c:if>
+											 	<c:if test="${row.docType eq 'ODS'}">수주수</c:if>
+										      	<c:if test="${row.docType eq 'CKD'}">검토요청서</c:if>
+									          	<c:if test="${row.docType eq 'FMF'}">공문서 확인 요청서</c:if>
+								             	<c:if test="${row.docType eq 'COST'}">비용청구</c:if>
+							                  	<c:if test="${row.docType eq 'TAX'}">세금공과금</c:if>
+						                    	<c:if test="${row.docType eq 'CREDIT'}">외상매입금</c:if>
+					                         	<c:if test="${row.docType eq 'PAY'}">급여</c:if>
+				                             	<c:if test="${row.docType eq 'PUR'}">발주서</c:if>
+			                                	<c:if test="${row.docType eq 'DIP'}">공문서</c:if>
+			                                 </td>
+											 <td class="text-right">￦<fmt:formatNumber type="number" maxFractionDigits="3" value="${row.docAmount}" /></td>
+										  	 <td class="text-center">${row.firstUser}</td>
+				                     	</tr>
+								</c:forEach>
+							</tbody>
+						</table>
+					</div>
+					<div id="acodian_hide_button3" style="text-align:center; margin-bottom: 20px; font-size: 30px; display: none; cursor:pointer;">̭</div>
+				</div>
+			</div>
+			
+			<div class="col-md-12 col-lg-6">
+				<div class="card">
+					<div class="card-header">
+						<h5>요청 알림</h5>
+						<c:forEach var="row" items="${request_attlist}" varStatus="status">
+							<h4 class="nav-counter">${status.count}</h4>
+						</c:forEach>
+						<span>근퇴 요청내역</span>
+						<button class="btn btn-sm btn-primary" onClick='location.href="${path}/gw/attlist.do"' style="float:right">근퇴 관리 ⇀</button>
+						<div id="acodian_show_button4" style="text-align:center; font-size: 30px; cursor:pointer;">ˬ</div>
+						<div class="card-header-right">
+							<i class="icofont icofont-spinner-alt-5"></i>
+						</div>
+					</div>
+					<div class="card-block" id="acodian4" style="display:none">
+						<table id="request_attlist" class="table table-striped table-bordered nowrap">
+							<thead>
+								<tr>
+									<th style="text-align: center">요청자</th>
+									<th style="text-align: center">종류</th>
+									<th style="text-align: center">신청일 ~ 종료일</th>
+								</tr>
+							</thead>
+							<tbody>
+								<c:forEach var="row" items="${request_attlist}">
+									<tr align="center">
+										<td style="text-align: center">${row.userName}</td>
+										<td style="text-align: center">
+											<c:if test="${row.attType eq 1}">월차</c:if>
+											<c:if test="${row.attType eq 2}">연차</c:if>
+											<c:if test="${row.attType eq 3}">연장근무</c:if>
+											<c:if test="${row.attType eq 4}">휴일근무</c:if>
+											<c:if test="${row.attType eq 5}">경조휴가</c:if>
+										</td>
+										<td style="text-align: center">${row.attStart} ~ ${row.attEnd}</td>
+									</tr>
+								</c:forEach>
+							</tbody>
+						</table>
+					</div>
+					<div id="acodian_hide_button4" style="text-align:center; margin-bottom: 20px; font-size: 30px; display: none; cursor:pointer;">̭</div>
+				</div>
+			</div>
+		</c:if>
+		<!-- 대표님 메인 -->
+		
+		<!-- 과장님 메인 -->
+		<c:if test="${sessionScope.userRole eq 'ADMIN' && sessionScope.docRole == 'A'}">
+			<div class="col-md-12 col-lg-6">
+				<div class="card">
+					<div class="card-header">
+						<h5>요청 알림</h5>
+						<c:forEach var="row" items="${request_vat}" varStatus="status">
+							<h4 class="nav-counter">${status.count}</h4>
+						</c:forEach>
+						<span>계산서 발행 요청내역</span>
+						<button class="btn btn-sm btn-primary" onClick='location.href="${path}/acc/vatlistT.do"' style="float:right">계산서 발행 ⇀</button>
+						<div id="acodian_show_button" style="text-align:center; font-size: 30px; cursor:pointer;">ˬ</div>
+						<div class="card-header-right">
+							<i class="icofont icofont-spinner-alt-5"></i>
+						</div>
+					</div>
+					<div class="card-block" id="acodian" style="display:none">
+						<table id="request_vat" class="table table-striped table-bordered nowrap">
+							<thead>
+								<tr>
+									<th style="text-align: center">요청일자</th>
+									<th style="text-align: center">계약제목</th>
+									<th style="text-align: center">금액</th>
+									<th style="text-align: center">요청자</th>
+								</tr>
+							</thead>
+							<tbody>
+								<c:forEach var="row" items="${request_vat}">
+									<tr align="center">
+										<td style="text-align: center">${row.regDate}</td>
+										<td style="text-align: center">${row.contTitle}</td>
+										<td style="text-align: right">${row.vatTax + row.vatAmount}</td>
+										<td style="text-align: center">${row.userName}</td>
+									</tr>
+								</c:forEach>
+							</tbody>
+						</table>
+					</div>
+					<div id="acodian_hide_button" style="text-align:center; margin-bottom: 20px; font-size: 30px; display: none; cursor:pointer;">̭</div>
+				</div>
+			</div>
+			
+			<div class="col-md-12 col-lg-6">
+				<div class="card">
+					<div class="card-header">
+						<h5>요청 알림</h5>
+						<c:forEach var="row" items="${request_payment}" varStatus="status">
+							<h4 class="nav-counter">${status.count}</h4>
+						</c:forEach>
+						<!-- request_payment_cnt -->
+						<span>결제 검토내역</span>
+						<button class="btn btn-sm btn-primary" onClick='location.href="${path}/gw/mydoclist.do"' style="float:right">나의 결제 ⇀</button>
+						<div id="acodian_show_button2" style="text-align:center; font-size: 30px; cursor:pointer;">ˬ</div>
+						<div class="card-header-right">
+							<i class="icofont icofont-spinner-alt-5"></i>
+						</div>
+					</div>
+					<div class="card-block" id="acodian2" style="display:none">
+						<table id="request_payment" class="table table-striped table-bordered nowrap">
+							<thead>
+								<tr>
+									<th style="text-align: center">작성일자</th>
+									<th style="text-align: center">종류</th>
+									<th style="text-align: center">금액</th>
+									<th style="text-align: center">요청자</th>
+								</tr>
+							</thead>
+							<tbody>
+								<c:forEach var="row" items="${request_payment}">
+				                		<tr>
+											<td class="text-center">${row.regDate}</td>
+											<td class="text-center">
+												<c:if test="${row.docType eq 'BUY'}">구매요청서</c:if>
+												<c:if test="${row.docType eq 'TRS'}">지출품의서</c:if>
+											 	<c:if test="${row.docType eq 'ODS'}">수주수</c:if>
+										      	<c:if test="${row.docType eq 'CKD'}">검토요청서</c:if>
+									          	<c:if test="${row.docType eq 'FMF'}">공문서 확인 요청서</c:if>
+								             	<c:if test="${row.docType eq 'COST'}">비용청구</c:if>
+							                  	<c:if test="${row.docType eq 'TAX'}">세금공과금</c:if>
+						                    	<c:if test="${row.docType eq 'CREDIT'}">외상매입금</c:if>
+					                         	<c:if test="${row.docType eq 'PAY'}">급여</c:if>
+				                             	<c:if test="${row.docType eq 'PUR'}">발주서</c:if>
+			                                	<c:if test="${row.docType eq 'DIP'}">공문서</c:if>
+			                                 </td>
+											 <td class="text-right">￦<fmt:formatNumber type="number" maxFractionDigits="3" value="${row.docAmount}" /></td>
+										  	 <td class="text-center">${row.firstUser}</td>
+				                     	</tr>
+								</c:forEach>
+							</tbody>
+						</table>
+					</div>
+					<div id="acodian_hide_button2" style="text-align:center; margin-bottom: 20px; font-size: 30px; display: none; cursor:pointer;">̭</div>
+				</div>
+			</div>
+		</c:if>
+		<!-- 과장님 메인 -->
 		<div class="col-md-12 col-lg-6">
 			<div class="card">
 				<div class="card-header">
@@ -324,7 +521,7 @@
 							<col width="4%">
 						</colgroup>
 						<thead>
-							<tr >
+							<tr>
 								<th style="text-align: center">등록/수정일</th>
 								<th style="text-align: center">판매방식</th>
 								<th style="text-align: center">영업기회명</th>
@@ -629,6 +826,9 @@
 			max-width: 50px;
 			overflow: hidden;
 		}
+		
+		
+		
 		.pull-left{float:left!important;}
 		.pull-right{float:right!important;}
 		#text_overflow {
@@ -666,8 +866,101 @@
 			width: 95%;
 			margin-left: 2.5%;
 		}
+
+		.nav-counter {
+			 position:absolute;
+			 top: -1px;
+			 right: 1px;
+			 min-width: 8px;
+			 height: 20px;
+			 line-height: 20px;
+			 margin-top: -11px;
+			 padding: 0 6px;
+			 font-weight: normal;
+			 font-size: small;
+			 color: white;
+			 text-align: center;
+			 text-shadow: 0 1px rgba(0, 0, 0, 0.2);
+			 background: #e23442;
+			 border: 1px solid #911f28;
+			 border-radius: 11px;
+			 background-image: -webkit-linear-gradient(top, #e8616c, #dd202f);
+			 background-image: -moz-linear-gradient(top, #e8616c, #dd202f);
+			 background-image: -o-linear-gradient(top, #e8616c, #dd202f);
+			 background-image: linear-gradient(to bottom, #e8616c, #dd202f);
+			 -webkit-box-shadow: inset 0 0 1px 1px rgba(255, 255, 255, 0.1), 0 1px rgba(0, 0, 0, 0.12);
+			 box-shadow: inset 0 0 1px 1px rgba(255, 255, 255, 0.1), 0 1px rgba(0, 0, 0, 0.12);
+		}		
+	
+		.sign_count {
+			 box-shadow: inset 0px 1px 0px rgba(255, 255, 255, 0.5), 0px 1px 2px rgba(0, 0, 0, 0.15);
+			 background-color: #EEE;
+			 display: inline-block;
+			 vertical-align: middle;
+			 border: 1px solid #d4d4d4;
+			 height: 32px;
+			 line-height: 30px;
+			 padding: 0px 25.6px;
+			 font-weight: 300;
+			 font-size: 14px;
+			 font-family: "Helvetica Neue Light", "Helvetica Neue", "Helvetica", "Arial", "Lucida Grande", sans-serif;
+			 color: #666;
+			 text-shadow: 0 1px 1px white;
+			 margin: 0;
+			 text-decoration: none;
+			 text-align: center;
+		}
+		
 	</style>
 	<script>
+	
+	$('#acodian_show_button').on('click', function(){
+		$('#acodian_show_button').hide();
+		$('#acodian_hide_button').show();
+		$('#acodian').show();
+	})
+	
+	$('#acodian_hide_button').on('click', function(){
+		$('#acodian_hide_button').hide();
+		$('#acodian_show_button').show();
+		$('#acodian').hide();
+	})
+	
+	$('#acodian_show_button2').on('click', function(){
+		$('#acodian_show_button2').hide();
+		$('#acodian_hide_button2').show();
+		$('#acodian2').show();
+	})
+	
+	$('#acodian_hide_button2').on('click', function(){
+		$('#acodian_hide_button2').hide();
+		$('#acodian_show_button2').show();
+		$('#acodian2').hide();
+	})
+	
+	$('#acodian_show_button3').on('click', function(){
+		$('#acodian_show_button3').hide();
+		$('#acodian_hide_button3').show();
+		$('#acodian3').show();
+	})
+	
+	$('#acodian_hide_button3').on('click', function(){
+		$('#acodian_hide_button3').hide();
+		$('#acodian_show_button3').show();
+		$('#acodian3').hide();
+	})
+	
+	$('#acodian_show_button4').on('click', function(){
+		$('#acodian_show_button4').hide();
+		$('#acodian_hide_button4').show();
+		$('#acodian4').show();
+	})
+	
+	$('#acodian_hide_button4').on('click', function(){
+		$('#acodian_hide_button4').hide();
+		$('#acodian_show_button4').show();
+		$('#acodian4').hide();
+	})
 	
 	 var salesJson = {
 					'0' : ${graph1.sales[0]},
@@ -1373,6 +1666,31 @@
 								pageLength: 20, // 한 페이지에 기본으로 보열줄 항목 수
 							});
 						</c:if>
+						
+						$('#request_vat').DataTable({
+							info : false,
+							filter : false,
+							lengthChange : false,
+							order: [[ 0, "desc" ]],
+							pageLength: 5
+						});
+						
+						$('#request_payment').DataTable({
+							info : false,
+							filter : false,
+							lengthChange : false,
+							order: [[ 0, "desc" ]],
+							pageLength: 5
+						});
+						
+						$('#request_attlist').DataTable({
+							info : false,
+							filter : false,
+							lengthChange : false,
+							order: [[ 0, "desc" ]],
+							pageLength: 5
+						});
+						
 						<c:if test="${techdlist != null}">
 							$('#techdTable').DataTable({
 								info : false,

@@ -20,7 +20,6 @@
 
 <div id="main_content">
     <c:if test="${preserveSearchCondition != 'Y'}">
-        <!-- Page-header start 페이지 타이틀-->
         <div class="page-header2">
             <div class="row align-items-end">
                 <div class="col-lg-12">
@@ -32,8 +31,6 @@
                 </div>
             </div>
         </div>
-        <!--Page-header end 페이지 타이틀 -->
-        <!--영업활동조회-->
         <div class="cnt_wr" id="acordian" style="display:none;">
             <div class="row">
                  <div class="col-sm-12">

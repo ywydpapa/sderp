@@ -8,8 +8,7 @@
     <table id="custVatList_DataTable" class="table table-striped table-bordered nowrap">
         <colgroup>
             <col width="10%"/>
-            <col width="5%"/>
-            <col width="17%"/>
+            <col width="22%"/>
             <col width="7%"/>
             <col width="10%"/>
             <col width="10%"/>
@@ -20,7 +19,6 @@
         <thead>
         <tr>
             <th class="text-center">등록일</th>
-            <th class="text-center">매입/매출</th>
             <th class="text-center">거래처</th>
             <th class="text-center">품명</th>
             <th class="text-center">상태</th>
@@ -34,10 +32,6 @@
         <c:forEach items="${list}" var="list">
             <tr>
             	<td class="text-center">${list.vatIssueDate}</td>
-                <td class="text-center vatTyp">
-                	<c:if test = "${list.vatType eq 'S'}">매출</c:if> 
-                	<c:if test = "${list.vatType eq 'B'}">매입</c:if>
-                </td>
                 <td class="text-center">
                 	<c:if test = "${list.vatType eq 'S'}">${list.vatBuyerName}</c:if> 
                 	<c:if test = "${list.vatType eq 'B'}">${list.vatSellerName}</c:if>

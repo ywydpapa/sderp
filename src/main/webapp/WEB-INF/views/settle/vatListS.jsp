@@ -11,7 +11,7 @@
 <jsp:include page="../head.jsp"/>
 <jsp:include page="../body-top3.jsp"/>
 <style>
-	#vatTable tbody tr td{
+	#vatTableS tbody tr td{
 		vertical-align: middle;
 	}
 </style>
@@ -19,7 +19,7 @@
 	
 	<script>
 	$(function(){
-		$('#vatTable').DataTable({
+		$('#vatTableS').DataTable({
 			info:false,
 			searching: true,
 			order: [[ 0, "desc" ]],
@@ -167,7 +167,7 @@
                    				</c:choose>
                    			</tr>
                     	</table>
-                        <table id="vatTable" class="table table-striped table-bordered nowrap ">
+                        <table id="vatTableS" class="table table-striped table-bordered nowrap ">
                             <colgroup>
                                 <col width="10%"/>
                                 <col width="12%"/>
@@ -227,9 +227,16 @@
 	                                    		<fmt:formatNumber type="number" maxFractionDigits="3" value="${vlist.vatSum}" />
 	                                    	</a>
 	                                    </td> --%>
-	                                    <td style="white-space:normal;">${vlist.vatProductName}</td>
+	                                    <c:choose>
+	                                    	<c:when test="${empty vlist.vatMemo}">
+			                                    <td style="white-space:normal;">${vlist.vatProductName}</td>
+	                                    	</c:when>
+	                                    	<c:otherwise>
+	                                    		<td style="white-space:normal;">${vlist.vatProductName}(${vlist.vatMemo})</td>
+	                                    	</c:otherwise>
+	                                    </c:choose>
 	                                    <td style="white-space:normal;">${vlist.vatStandard}</td>
-	                                    <td style="white-space:normal;">${vlist.vatRemark}</td>
+                                   		<td style="white-space:normal;">${vlist.vatRemark}</td>
 	                                </tr>
 	                            </c:forEach>
                             </tbody>
@@ -412,7 +419,7 @@
         }
         
         function fnChgStatus3(){
-        	var tableBody = $("#vatTable tbody tr td .vatStchg");
+        	var tableBody = $("#vatTableS tbody tr td .vatStchg");
         	var compNo = "${sessionScope.compNo}";
         	
         	tableBody.each(function(index, item){
@@ -438,7 +445,7 @@
         }
 
         function fnChgStatus5(){
-        	var tableBody = $("#vatTable tbody tr td .vatStchg");
+        	var tableBody = $("#vatTableS tbody tr td .vatStchg");
         	var compNo = "${sessionScope.compNo}";
         	
         	tableBody.each(function(index, item){

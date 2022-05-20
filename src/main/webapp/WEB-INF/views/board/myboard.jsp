@@ -145,8 +145,6 @@
 				</div>
 			</div>
 			<!-- 2번째 그래프 --> --%>
-			
-			
 			 
 			<div class="col-md-12 col-lg-5" style="min-width: 697.08px; min-height: 545px;">
 				<div class="card">
@@ -366,7 +364,7 @@
 						<c:forEach var="row" items="${request_attlist}" varStatus="status">
 							<h4 class="nav-counter">${status.count}</h4>
 						</c:forEach>
-						<span>근퇴 요청내역</span>
+						<span>근태 요청내역</span>
 						<button class="btn btn-sm btn-primary" onClick='location.href="${path}/gw/attlist.do"' style="float:right">근퇴 관리 ⇀</button>
 						<div id="acodian_show_button4" style="text-align:center; font-size: 30px; cursor:pointer;">ˬ</div>
 						<div class="card-header-right">
@@ -455,7 +453,7 @@
 							<h4 class="nav-counter">${status.count}</h4>
 						</c:forEach>
 						<!-- request_payment_cnt -->
-						<span>결제 검토내역</span>
+						<span>결재 검토내역</span>
 						<button class="btn btn-sm btn-primary" onClick='location.href="${path}/gw/mydoclist.do"' style="float:right">나의 결제 ⇀</button>
 						<div id="acodian_show_button2" style="text-align:center; font-size: 30px; cursor:pointer;">ˬ</div>
 						<div class="card-header-right">

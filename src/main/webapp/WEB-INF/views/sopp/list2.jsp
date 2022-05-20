@@ -532,7 +532,9 @@
 							</colgroup>
 							<thead>
 							<tr>
-								<th>기능</th>
+								<th>
+									<input type="checkbox" class="form-control" id="allCheck" onclick="allCheck(this);" />
+								</th>
 								<th>등록/수정일</th>
 								<th>판매방식</th>
 								<th>계약구분</th>
@@ -749,6 +751,18 @@
 			$("#custmemberName").val(b);
 			$(".modal-backdrop").remove();
 			$("#custmemberModal").modal("hide");
+		}
+		
+		function allCheck(e){
+			if($(e).is(":checked") == true){
+				$("#soppTable tbody tr td").find("input[type='checkbox']").each(function(index, item){
+					$(item).prop("checked", true);
+				});
+			}else{
+				$("#soppTable tbody tr td").find("input[type='checkbox']").each(function(index, item){
+					$(item).prop("checked", false);
+				});
+			}
 		}
 		
 		function fn_soppListInsert(){

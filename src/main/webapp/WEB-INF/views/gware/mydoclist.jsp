@@ -194,7 +194,7 @@
                     	<c:if test="${sessionScope.docRole eq 'A'}">
                     		<div style="margin-bottom: 20px;">
 	                   			<button type="button" class="btn btn-primary" id="AbtnStatus2" onClick="fn_ABtnStatus2();" style="margin-right:10px;">검토요청</button>
-	                   			<button type="button" class="btn btn-secondary" id="AbtnStatus5" onClick="fn_ABtnStatus5();">승인완료</button>
+	                   			<button type="button" class="btn btn-secondary" id="AbtnStatus5" onClick="fn_ABtnStatus5();">결재완료</button>
 	                   			<div id="drawDiv" style="float:right;">
 	                   				<%-- <button type="button" class="btn btn-secondary" data-remote="${path}/modal/popup.do?popId=docDrawModal" data-toggle="modal" id="drawBtn" data-target="#docDrawModal" disabled>출금</button>
 	                   				<button type="button" class="btn btn-secondary" id="drawDelBtn" disabled>출금취소</button> --%>
@@ -451,7 +451,7 @@
 		                            </thead>
 		                            <tbody>
 			                            <c:forEach var="row" items="${mydoclist}">
-		                           			<c:if test="${row.appStatus == 5}">
+		                           			<c:if test="${row.appStatus == 5 || row.appStatus == 3}">
 		                           				<tr>
 				                                    <td class="text-center">${row.regDate}</td>
 				                                    <td class="text-center">
@@ -474,12 +474,10 @@
 				                                    <td>${row.docTitle}</td>
 				                                    <td class="text-right">￦<fmt:formatNumber type="number" maxFractionDigits="3" value="${row.docAmount}" /></td>
 				                                    <td class="text-center">${row.firstUser}</td>
-				                                    <td class="text-center">승인완료</td>
-				                                    <%-- <td class="text-center">
-				                                    	<c:if test="${row.appStatus == 2}">검토요청</c:if>
+				                                    <td class="text-center">
 				                                    	<c:if test="${row.appStatus == 3}">반려</c:if>
-				                                    	<c:if test="${row.appStatus == 4}">승인요청</c:if>
-				                                    </td> --%>
+				                                    	<c:if test="${row.appStatus == 5}">승인완료</c:if>
+				                                    </td>
 				                                </tr>
 		                           			</c:if>
 			                            </c:forEach>

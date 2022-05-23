@@ -156,21 +156,21 @@
 	                                    			${vlist.vatSellerName}
 	                                    		</a>
 		                                   	</td>
-		                                    <td class="text-right">
+		                                    <td class="text-right moneyTdHtml">
 		                                    	<c:choose>
-		                                    		<c:when test="${vlist.serialTotalB > 0}"><fmt:formatNumber type="number" maxFractionDigits="3" value="${vlist.serialTotalB}" /></c:when>
+		                                    		<c:when test="${vlist.serialTotalB > 0}">${vlist.serialTotalB}</c:when>
 		                                    		<c:otherwise>0</c:otherwise>
 		                                    	</c:choose>
 		                                    </td>
-		                                    <td class="text-right">
+		                                    <td class="text-right moneyTdHtml">
 		                                    	<c:choose>
-		                                    		<c:when test="${vlist.vatAmountB > 0}"><fmt:formatNumber type="number" maxFractionDigits="3" value="${vlist.vatAmountB}" /></c:when>
+		                                    		<c:when test="${vlist.vatAmountB > 0}">${vlist.vatAmountB}</c:when>
 		                                    		<c:otherwise>0</c:otherwise>
 		                                    	</c:choose>
 		                                    </td>
-		                                    <td class="text-right">
+		                                    <td class="text-right moneyTdHtml">
 		                                    	<c:choose>
-		                                    		<c:when test="${(vlist.custBalance - vlist.serialTotalB) + vlist.vatAmountB > 0}"><fmt:formatNumber type="number" maxFractionDigits="3" value="${(vlist.custBalance - vlist.serialTotalB) + vlist.vatAmountB}" /></c:when>
+		                                    		<c:when test="${(vlist.custBalance - vlist.serialTotalB) + vlist.vatAmountB > 0}">${(vlist.custBalance - vlist.serialTotalB) + vlist.vatAmountB}</c:when>
 		                                    		<c:otherwise>0</c:otherwise>
 		                                    	</c:choose>
 		                                    </td>

@@ -193,8 +193,8 @@
 										<a href="${path}/cont/iodetail/${row.soppNo}">${row.soppTitle}</a>
 									</td>
 									<td class="text-center">${row.custName}</td>
-									<td class="text-right"><fmt:formatNumber type="number" maxFractionDigits="3" value="${row.amount}" /></td>
-									<td class="text-right"><fmt:formatNumber type="number" maxFractionDigits="3" value="${row.take}" /></td>
+									<td class="text-right moneyTdHtml">${row.amount}</td>
+									<td class="text-right moneyTdHtml">${row.take}</td>
 									<td class="text-right" id="absSum"><fmt:formatNumber type="number" maxFractionDigits="3" value="${row.take-row.amount}" /></td>
 									<td></td>
 								</tr>

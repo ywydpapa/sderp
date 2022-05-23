@@ -18,6 +18,12 @@
 <jsp:include page="../head.jsp"/>
 <jsp:include page="../body-top.jsp"/>
 
+<style>
+	#vatTable tbody tr td{
+		vertical-align: middle;
+	}
+</style>
+
 <div id="main_content">
     <c:if test="${preserveSearchCondition != 'Y'}">
         <div class="page-header2">
@@ -221,8 +227,8 @@
 	                                    <td class="text-center " id="deliveryDate">${vlist.deliveryDate}</td>
 	                                    <td class="text-center " id="reqNo">${vlist.reqNo}</td>
 	                                    <td class="text-center " id="itemQty">${vlist.itemQty}</td>
-	                                    <td class="text-right " id="itemAmount">${vlist.itemAmount}</td>
-	                                    <td class="text-right "><input type="text" id="storeAmount" style="border: 0px;text-align: right" value="${vlist.storeAmount}" /></td>
+	                                    <td class="text-right moneyTdHtml" id="itemAmount">${vlist.itemAmount}</td>
+	                                    <td><input type="text" id="storeAmount" onkeyup="moneyFormatInput(this);" style="border: 0px;text-align: right" value="${vlist.storeAmount}" /></td>
 	                                    <td class="text-right "><input type="text" id="ordAmount" style="border: 0px;text-align: right" value="${vlist.ordAmount}" /></td>
 	                                    <td class="text-center "><input type="text" id="makerName" style="border: 0px;text-align: center" value="${vlist.makerName}" /></td>
 	                                    <td class="text-center "><input type="text" id="sellerName" style="border: 0px;text-align: center" value="${vlist.sellerName}" /></td>

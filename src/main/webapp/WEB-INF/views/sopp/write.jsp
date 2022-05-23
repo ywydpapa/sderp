@@ -216,7 +216,7 @@
 														<th scope="row">가능성</th>
 														<td class="text-right">
 															<span class="input_inline">
-																<input type="text" class="form-control form-control-sm" id="soppSrate" name="soppSrate" value="0">
+																<input type="text" class="form-control form-control-sm" id="soppSrate" name="soppSrate"  style="text-align:right;" value="0">
 															</span>
 															%
 														</td>
@@ -257,7 +257,7 @@
 														</td>
 														<th scope="row">예상매출</th>
 														<td class="text-right"><span class="input_inline">
-															<input type="text" class="form-control form-control-sm" id="soppTargetAmt" name="soppTargetAmt" value="0"></span>원</td>
+															<input type="text" class="form-control form-control-sm" id="soppTargetAmt" name="soppTargetAmt" onkeyup="moneyFormatInput(this);" style="text-align:right;" value="0"></span>원</td>
 															<th></th>
 															<td></td>
 													</tr>
@@ -434,7 +434,7 @@
 
 		// 이벤트 시작 ==========================================================================
 		// 이벤트시 동작
-		$("#soppTargetAmt").on("keyup", function (event) {
+		/* $("#soppTargetAmt").on("keyup", function (event) {
 			// 긁어와서 이벤트 체크
 			var selection = window.getSelection().toString();
 			if (selection !== '') return;
@@ -451,7 +451,7 @@
 			$this.val(function () {
 				return (input === 0) ? "0" : input.toLocaleString("en-US");
 			});
-		});
+		}); */
 	});
 	</script>
 </div>

@@ -155,21 +155,21 @@
 	                                   			${vlist.vatBuyerName}
 	                                   		</a>
 	                                   	</td>
-	                                    <td class="text-right">
+	                                    <td class="text-right moneyTdHtml">
 											<c:choose>
-	                                    		<c:when test="${vlist.vatAmountS > 0}"><fmt:formatNumber type="number" maxFractionDigits="3" value="${vlist.vatAmountS}" /></c:when>
+	                                    		<c:when test="${vlist.vatAmountS > 0}">${vlist.vatAmountS}</c:when>
 	                                    		<c:otherwise>0</c:otherwise>
 	                                    	</c:choose>
 										</td>
-	                                    <td class="text-right">
+	                                    <td class="text-right moneyTdHtml">
 	                                    	<c:choose>
-	                                    		<c:when test="${vlist.serialTotalS > 0}"><fmt:formatNumber type="number" maxFractionDigits="3" value="${vlist.serialTotalS}" /></c:when>
+	                                    		<c:when test="${vlist.serialTotalS > 0}">${vlist.serialTotalS}</c:when>
 	                                    		<c:otherwise>0</c:otherwise>
 	                                    	</c:choose>
 	                                    </td>
-	                                    <td class="text-right">
+	                                    <td class="text-right moneyTdHtml">
 											<c:choose>
-	                                    		<c:when test="${((vlist.custBalance + vlist.vatAmountS) - vlist.serialTotalS) > 0}"><fmt:formatNumber type="number" maxFractionDigits="3" value="${(vlist.custBalance + vlist.vatAmountS) - vlist.serialTotalS}" /></c:when>
+	                                    		<c:when test="${((vlist.custBalance + vlist.vatAmountS) - vlist.serialTotalS) > 0}">${(vlist.custBalance + vlist.vatAmountS) - vlist.serialTotalS}</c:when>
 	                                    		<c:otherwise>0</c:otherwise>
 	                                    	</c:choose>
 	                                    </td>

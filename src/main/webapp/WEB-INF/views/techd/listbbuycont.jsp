@@ -241,8 +241,8 @@
 									<td>${row.cntrctMthN}</td>
 									<td><a href="${path}/cont/detail/${row.soppNo}/${row.contNo}">${row.contTitle}</a></td>
 									<td>${row.custName}</td>
-									<td class="text-right"><fmt:formatNumber type="number" maxFractionDigits="3" value="${row.contAmt}" /></td>
-									<td class="text-right"><fmt:formatNumber type="number" maxFractionDigits="3" value="${row.net_profit}" /></td>
+									<td class="text-right moneyTdHtml">${row.contAmt}</td>
+									<td class="text-right moneyTdHtml">${row.net_profit}</td>
 									<td>${row.userName}</td>
 									<td>
 										<c:choose>

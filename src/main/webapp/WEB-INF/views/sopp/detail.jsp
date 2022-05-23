@@ -254,7 +254,7 @@
 														<td class="text-right"><span class="input_inline"><input
 																style="text-align: right" type="text"
 																class="form-control form-control-sm" id="soppTargetAmt"
-																name="soppTargetAmt"
+																name="soppTargetAmt" onkeyup="moneyFormatInput(this);"
 																value="<fmt:formatNumber value="${dto.soppTargetAmt}" pattern="#,###"/>"></span>원</td>
 																<th></th>
 																<td></td>
@@ -761,7 +761,7 @@
 			
 			// 이벤트 시작 ==========================================================================
 			// 이벤트시 동작
-			$input.on("keyup", function (event) {
+			/* $input.on("keyup", function (event) {
 				// 긁어와서 이벤트 체크
 				var selection = window.getSelection().toString();
 				if (selection !== '') return;
@@ -778,7 +778,7 @@
 				$this.val(function () {
 					return (input === 0) ? "0" : input.toLocaleString("en-US");
 				});
-			});
+			}); */
 			$("#tab_common_bottom").hide();
 			
 			var lastTab = localStorage.getItem('lastTab');

@@ -363,7 +363,7 @@
 													</td>
 													<th >계약금액</th>
 													<td>
-														<input style="text-align: right;" type="text" id="contAmt" name="contAmt" class="form-control" value="<fmt:formatNumber value="${contDto.contAmt}" pattern="#,###"/>">
+														<input style="text-align: right;" type="text" id="contAmt" name="contAmt" class="form-control" onkeyup="moneyFormatInput(this);" value="<fmt:formatNumber value="${contDto.contAmt}" pattern="#,###"/>">
 													</td>
 													<th >VAT 포함여부</th>
 													<td>
@@ -374,7 +374,7 @@
 													</td>
 													<th scope="row">매출이익</th>
 													<td class="text-right">
-														<input type="text" id="net_profit" name="net_profit" class="form-control" value="<fmt:formatNumber value="${contDto.net_profit}" pattern="#,###"/>">
+														<input style="text-align: right;" type="text" id="net_profit" name="net_profit" class="form-control" onkeyup="moneyFormatInput(this);" value="<fmt:formatNumber value="${contDto.net_profit}" pattern="#,###"/>">
 													</td>
 												</tr>
 												
@@ -1127,7 +1127,7 @@
 				}
 			});
 
-			var $input = $("#contAmt, #soppTargetAmt");
+			/* var $input = $("#contAmt, #soppTargetAmt");
 
 			// 이벤트 시작 ==========================================================================
 			// 이벤트시 동작
@@ -1149,7 +1149,7 @@
 					return (input === 0) ? "0" : input.toLocaleString("en-US");
 				});
 			});
-			
+			 */
 			
 			$("#vatIstype, #vatIsday").change(function(){
 				if($("#paymaintSdate").val() === "" || $("#paymaintEdate").val() === ""){
@@ -1237,7 +1237,7 @@
 			var dateValueArr = dateValue.split("-");
 			var dateValueCom = new Date(dateValueArr[0], parseInt(dateValueArr[1])-1, dateValueArr[2]);
 			var EdateValue = $("#paymaintEdate").val();
-			var EdateDateArr = EdateValue.split("-");
+			var EdateDateArr = EdateValue.split("-")
 			var EdateDateCom = new Date(EdateDateArr[0], parseInt(EdateDateArr[1])-1, EdateDateArr[2]);
 			
 			

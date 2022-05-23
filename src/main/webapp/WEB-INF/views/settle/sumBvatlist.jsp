@@ -160,10 +160,10 @@
                     				</c:when>
                     				<c:otherwise>
                     					<tr>
-			                            	<th class="text-right"><fmt:formatNumber type="number" maxFractionDigits="3" value="${baseSum}" /></th>
-			                            	<th class="text-right"><fmt:formatNumber type="number" maxFractionDigits="3" value="${amountSum}" /></th>
-			                            	<th class="text-right"><fmt:formatNumber type="number" maxFractionDigits="3" value="${totalSum}" /></th>
-			                            	<th class="text-right"><fmt:formatNumber type="number" maxFractionDigits="3" value="${balanceSum}" /></th> 
+			                            	<th class="text-right moneyTdHtml">${baseSum}</th>
+			                            	<th class="text-right moneyTdHtml">${amountSum}</th>
+			                            	<th class="text-right moneyTdHtml">${totalSum}</th>
+			                            	<th class="text-right moneyTdHtml">${balanceSum}</th> 
 			                            </tr>
                     				</c:otherwise>
                     			</c:choose>
@@ -195,23 +195,23 @@
 	                                    			${vlist.vatSellerName}
 	                                    		</a>
 		                                   	</td>
-		                                   	<td class="text-right">
+		                                   	<td class="text-right moneyTdHtml">
 		                                   		<c:choose>
 		                                    		<c:when test="${vlist.custBalance ne ''}">
-			                                    		<fmt:formatNumber type="number" maxFractionDigits="3" value="${vlist.custBalance}" />
+			                                    		${vlist.custBalance}
 		                                    		</c:when>
 		                                    		<c:otherwise>0</c:otherwise>
 		                                    	</c:choose>
 		                                   	</td>
-		                                    <td class="text-right">
+		                                    <td class="text-right moneyTdHtml">
 		                                    	<c:choose>
-		                                    		<c:when test="${vlist.vatAmountB > 0}"><fmt:formatNumber type="number" maxFractionDigits="3" value="${vlist.vatAmountB}" /></c:when>
+		                                    		<c:when test="${vlist.vatAmountB > 0}">${vlist.vatAmountB}</c:when>
 		                                    		<c:otherwise>0</c:otherwise>
 		                                    	</c:choose>
 		                                    </td>
-		                                    <td class="text-right">
+		                                    <td class="text-right moneyTdHtml">
 		                                    	<c:choose>
-		                                    		<c:when test="${vlist.serialTotalB > 0}"><fmt:formatNumber type="number" maxFractionDigits="3" value="${vlist.serialTotalB}" /></c:when>
+		                                    		<c:when test="${vlist.serialTotalB > 0}">${vlist.serialTotalB}</c:when>
 		                                    		<c:otherwise>0</c:otherwise>
 		                                    	</c:choose>
 		                                    </td>

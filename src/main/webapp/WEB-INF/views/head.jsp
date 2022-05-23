@@ -491,9 +491,28 @@
 		pageHtmlModal(calFirstNum, calLastNum);
 	}
 	
+	function moneyFormatHtml(){
+		$("table").find(".moneyTdHtml").each(function(index, item){
+			if(isNaN($(item).html()) === true || $(item).html() === ""){
+				$(item).html(0);
+			}else{
+				$(item).html(parseInt($(item).html()).toLocaleString("en-US"));
+			}
+		});
+	}
+	
+	function moneyFormatInput(e){
+		if(isNaN($(e).val().replaceAll(",", "")) === true || $(e).val().replaceAll(",", "") === ""){
+			$(e).val(0);
+		}else{
+			$(e).val(parseInt($(e).val().replaceAll(",", "").replace(/[^0-9]/g, "")).toLocaleString("en-US"));
+		}
+	}
+	
 	$(document).ready(function(){
 		timeAllimUpdate();
 		setTiny();
+		moneyFormatHtml();
 	});
 
 </script>

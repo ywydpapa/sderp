@@ -130,9 +130,9 @@
                                 <div class="col-sm-12 col-xl-5">
                                 	<label class="col-form-label">금액</label>
                                     <p class="input-group">
-                                    	<input class="form-control form-control-sm" type="text" id="vatTotalFrom" value="<fmt:formatNumber type="number" maxFractionDigits="3" value="${param.vatTotalFrom}" />" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"/>
+                                    	<input style="text-align:right;" class="form-control form-control-sm" type="text" id="vatTotalFrom" value="<fmt:formatNumber type="number" maxFractionDigits="3" value="${param.vatTotalFrom}" />"  onkeyup="moneyFormatInput(this);"/>
                                     		&nbsp;~&nbsp; 
-                                    	<input class="form-control form-control-sm" type="text" id="vatTotalTo" value="<fmt:formatNumber type="number" maxFractionDigits="3" value="${param.vatTotalTo}" />" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"/>
+                                    	<input style="text-align:right;" class="form-control form-control-sm" type="text" id="vatTotalTo" value="<fmt:formatNumber type="number" maxFractionDigits="3" value="${param.vatTotalTo}" />"  onkeyup="moneyFormatInput(this);"/>
                                     </p>
                                 </div>
                             </div>
@@ -162,7 +162,7 @@
 		                            	<th class="text-right">0</th>
                     				</c:when>
                     				<c:otherwise>
-	                    				<th class="text-center"><fmt:formatNumber type="number" maxFractionDigits="3" value="${totalSum}" /></th>
+	                    				<th class="text-center moneyTdHtml">${totalSum}</th>
                     				</c:otherwise>
                    				</c:choose>
                    			</tr>
@@ -213,14 +213,14 @@
 	                                        <c:if test = "${vlist.vatStatus eq 'S5'}">수금완료</c:if>
 	                                        <input type="checkbox" class="vatStchg" data-id="${vlist.vatSerial}">
 	                                    </td>
-	                                    <td class="text-right">
-	                                    	<fmt:formatNumber type="number" maxFractionDigits="3" value="${vlist.vatAmount}" />
+	                                    <td class="text-right moneyTdHtml">
+	                                    	${vlist.vatAmount}
 	                                    </td>
-	                                    <td class="text-right">
-	                                    	<fmt:formatNumber type="number" maxFractionDigits="3" value="${vlist.vatTax}" />
+	                                    <td class="text-right moneyTdHtml">
+	                                    	${vlist.vatTax}
 	                                    </td>
-	                                    <td class="text-right">
-	                                    	<fmt:formatNumber type="number" maxFractionDigits="3" value="${vlist.vatTotal}" />
+	                                    <td class="text-right moneyTdHtml">
+	                                    	${vlist.vatTotal}
 	                                    </td>
 	                                    <%-- <td class="text-right">
 	                                    	<a data-remote="${path}/modal/popup1.do?popId=${vlist.vatSerial}" type="button" data-toggle="modal" data-target="#userModal1" style="cursor: pointer; text-decoration: underline;">
@@ -386,11 +386,6 @@
 	             $("#acordian").css("display", "block");
 		        localStorage.clear();
 	        }
-	        
-	        $('#vatTotalFrom, #vatTotalTo').on('keyup',function(){
-	        	var str = addCommas($(this).val().replace(/[^0-9]/g, ""));
-	        	$(this).val(str);
-	        });
     	});
     
         $('#custModal').on('show.bs.modal', function(e) {
@@ -413,10 +408,6 @@
             var modal = $(this);
             modal.find('.modal-body').load(button.data("remote"));
         });
-        
-        function addCommas(com){
-        	return com.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-        }
         
         function fnChgStatus3(){
         	var tableBody = $("#vatTableS tbody tr td .vatStchg");

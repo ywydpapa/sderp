@@ -235,7 +235,7 @@
 									<th>유지보수 만료일</th>
 									<th>계산서 발행일</th>
 									<th>판매일</th>
-									<th>계산서 진행상황</th>
+									<!-- <th>계산서 진행상황</th> -->
 									<!-- <th>상세정보</th> -->
 								</tr>
 							</thead>
@@ -267,7 +267,7 @@
 									</td>
 									<td>-</td>
 									<td>${row.contOrddate}</td>
-									<c:if test="${row.vatStatus == null || row.vatStatus == ''}">
+									<%-- <c:if test="${row.vatStatus == null || row.vatStatus == ''}">
 										<td class="text-center">미연결</td>
 									</c:if>
 									<c:if test="${row.vatStatus == 'S1'}">
@@ -278,7 +278,7 @@
 									</c:if>
 									<c:if test="${row.vatStatus == 'S5'}">
 										<td class="text-center">지급 완료</td>
-									</c:if>
+									</c:if> --%>
 								</tr>
 							</c:forEach>								
 							</tbody>

@@ -47,7 +47,7 @@
 						<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#tab07" role="tab">계산서 발행요청</a></li>
 					</c:if>
 					<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#tab08" role="tab">기여도 설정</a></li>
-					<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#tab09" role="tab">계산서 연결현황</a></li>
+					<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#tab09" role="tab">계산서 연결현황(${fn:length(data)})</a></li>
 				</ul>
 				<!-- Tab panes -->
 				<div class="tab-content tabs m-t-20">

@@ -97,6 +97,8 @@ public class ContDTO implements Cloneable{
 	private String custBossname;
 	private String custEmail;
 	
+	private String vatStatus;
+	
 	public ContDTO() {
 		super();
 		// TODO Auto-generated constructor stub

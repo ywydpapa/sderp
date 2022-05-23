@@ -6,20 +6,28 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <select id="listCont"
  		resultType="contDto">
- 		select a.*, b.userName , c.custName, d.desc03 contTypeN, g.desc03 cntrctMthN
+		select a.*, b.userName , c.custName, d.desc03 contTypeN, g.desc03 cntrctMthN, t.vatStatus
  		from swc_cont a
 		left join swc_user b on a.userNo = b.userNo
 		left join swc_cust c on a.custNo = c.custNo
 		left join swc_code d on a.contType = d.codeNo
  		left join swc_code g on a.cntrctMth = g.codeNo
-		where a.attrib not like 'XXX%' and a.compNo = #{compNo}
+ 		LEFT JOIN
+		 (
+		 	SELECT * FROM swc_vat 
+		 	WHERE attrib NOT LIKE "XXX%" AND compNo = #{compNo} ORDER BY vatIssueDate DESC LIMIT 0, 1
+		 )AS t
+		 ON a.contNo = t.contNo
+		where a.attrib not like 'XXX%' and a.compNo = #{compNo} 
 		<if test="listDateFrom != null and listDateFrom != ''">
-			and a.regDatetime Between #{listDateFrom} and now()
+		and a.regDatetime BETWEEN #{listDateFrom} and now()
 		</if>
 		order by regDatetime desc
 		<if test="limit > 0">
 			limit  #{limit} offset #{offset}
 		</if>
+		
+		
  </select>
 
 	<select id="listcont3m" resultType="contDto">
@@ -50,7 +58,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  
  <select id="listconCont"
  		resultType="contDto">
- 		select a.*, b.userName , c.custName, d.desc03 contTypeN, g.desc03 cntrctMthN
+ 		select a.*, b.userName , c.custName, d.desc03 contTypeN, g.desc03 cntrctMthN, t.vatStatus
 		from
 			 <choose>
 				 <when test="freemaintSdate != null and freemaintSdate != '' and freemaintEdate != null and freemaintEdate != ''">
@@ -82,6 +90,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		left join swc_cust c on a.custNo = c.custNo
 		left join swc_code d on a.contType = d.codeNo
 		left join swc_code g on a.cntrctMth = g.codeNo
+		LEFT JOIN
+		 (
+		 	SELECT * FROM swc_vat 
+		 	WHERE attrib NOT LIKE "XXX%" AND compNo = #{compNo} ORDER BY vatIssueDate DESC LIMIT 0, 1
+		 )AS t
+		 ON a.contNo = t.contNo
 		where a.attrib not like 'XXX%' and a.compNo = #{compNo}
 		<choose>
 			<when test="soppNo != 0">and a.soppNo != 0</when>

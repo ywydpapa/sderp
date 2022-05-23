@@ -8,7 +8,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  		select u.userName 
  		from swc_user u
  		    left join swc_company c on u.compNo = c.compNo
- 		where u.userId=#{userId} and u.userPasswd=#{userPasswd} and c.compId=#{compId} and u.attrib not like 'XXX%'
+ 		where u.userId=#{userId} and u.userPasswd=PASSWORD(#{userPasswd}) and c.compId=#{compId} and u.attrib not like 'XXX%'
 </select>
 
 <select id="userSessionCheck" resultType="userDto">
@@ -43,10 +43,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  		<!-- userName=#{userName}, --> 
  		<choose>
  			<when test="userChangePasswd != '' and userChangePasswd != null">
- 				userPasswd=#{userChangePasswd}
+ 				userPasswd=PASSWORD(#{userChangePasswd})
  			</when>
  			<otherwise>
- 				userPasswd=#{userPasswd}
+ 				userPasswd=PASSWORD(#{userPasswd})
  			</otherwise>
  		</choose>
  		<if test="listDateFrom != '' and listDateFrom != null">
@@ -54,7 +54,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  		</if>
  		<!-- userRole=#{userRole} -->
  		where userId=#{userId}
- 		and userPasswd=#{userPasswd}
+ 		and userPasswd=PASSWORD(#{userPasswd})
  </update>
  
   <update id="updateUser">
@@ -67,7 +67,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  		org_id = #{org_id},
  		userKey = #{userKey},
 		<if test="userPasswd > 0"> 
-			userPasswd = '1234', 
+			userPasswd = PASSWORD('1234'), 
 		</if>
  		attrib = #{attrib}
  		where userNo=#{userNo}
@@ -78,7 +78,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  	insert into swc_user 
  	(compNo,userId,userName,userPasswd,userRole,org_id,attrib) 
  	values 
- 	(#{compId},#{userId},#{userName},#{userPasswd},#{userRole},#{org_id},'10000');
+ 	(#{compId},#{userId},#{userName},PASSWORD(#{userPasswd}),#{userRole},#{org_id},'10000');
  </insert>
  
  <insert id="insertUserdata">

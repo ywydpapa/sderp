@@ -1,6 +1,5 @@
 package kr.swcore.sderp.user.dao;
 
-import kr.swcore.sderp.common.dto.DeptToPlanTblDTO;
 import kr.swcore.sderp.sopp.dto.SoppDTO;
 import kr.swcore.sderp.user.dto.UserDTO;
 import org.apache.ibatis.session.SqlSession;

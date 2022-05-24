@@ -4,15 +4,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="pps">
     <select id="ppsList" resultType="PpsDTO">
-        select * from swc_pps where attrib not like 'XXX%' and compNo = #{compNo}
-        <if test="listDateFrom != null and listDateFrom != ''"> 
- 			and contractDate Between #{listDateFrom} and now()
- 		</if>  
- 		order by contractDate desc;
+        SELECT a.*, c.userName from swc_pps a
+		LEFT JOIN swc_sopp b ON a.soppNo = b.soppNo
+		LEFT JOIN swc_user c ON b.userNo = c.userNo
+        WHERE a.attrib not like 'XXX%' and a.compNo = #{compNo}
+        <if test="listDateFrom != null and listDateFrom != ''">
+ 			and a.contractDate Between #{listDateFrom} and now()
+ 		</if>
+ 		ORDER BY a.contractDate DESC;
     </select>
     
     <select id="ppsStatusList" resultType="PpsDTO">
-        select * from swc_pps where attrib not like 'XXX%' and compNo = #{compNo} and soppNo IS NOT NULL
+        select * from swc_pps where attrib not like 'XXX%' and compNo = #{compNo}
         <if test="listDateFrom != null and listDateFrom != ''"> 
  			and contractDate Between #{listDateFrom} and now()
  		</if>  
@@ -20,7 +23,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </select>
 
 	<select id="mppsStatusList" resultType="PpsDTO">
-		select a.*,b.* from swc_pps a left join swc_pps_detail b on a.ppsId = b.ppsId and b.attrib not like 'XXX%'
+		select a.*, b.* from swc_pps a left join swc_pps_detail b on a.ppsId = b.ppsId and b.attrib not like 'XXX%'
 		where a.attrib not like 'XXX%' and a.compNo = #{compNo}
 		<if test="listDateFrom != null and listDateFrom != ''">
 			and contractDate Between #{listDateFrom} and now()

@@ -59,4 +59,6 @@ public class PpsDTO {
     private String feeincomeDate;
     private String remark1;
     private String remark2;
+    
+    private String userName;
 }

@@ -218,11 +218,10 @@
                             <colgroup>
                                 <col width="2%">
                                 <col width="10%"/>
-                                <col width="5%"/>
+                                <col width="15%"/>
+                                <col width="10%"/>
                                 <col width="7%"/>
                                 <col width="7%"/>
-                                <col width="10%"/>
-                                <col width="10%"/>
                                 <col width="10%"/>
                                 <col width="10%"/>
                                 <col width="10%"/>
@@ -235,36 +234,41 @@
                             <tr>
                                 <th></th>
                                 <th class="text-center">계약일자</th>
+                                <th class="text-center">할당자명</th>
                                 <th class="text-center">수요기관(코드)</th>
                                 <th class="text-center">지역</th>
                                 <th class="text-center">계약번호</th>
                                 <th class="text-center">계약건명</th>
-                                <th class="text-center">계약품목(계약물품번호)</th>
                                 <th class="text-center">단가</th>
                                 <th class="text-center">수량</th>
                                 <th class="text-center">단위</th>
                                 <th class="text-center">금액</th>
                                 <th class="text-center">납품기한</th>
-                                <th class="text-center">납품장소</th>
                                 <th class="text-center">영업기회번호</th>
                             </tr>
                             </thead>
                             <c:forEach items="${ppsList}" var="vlist">
                                 <tr>
-                                    <td><input type="checkbox" class="Chkpps" data-id="${vlist.ppsId}" <c:if test="${not empty vlist.soppNo}">disabled</c:if>></td>
+                                    <td><input type="checkbox" class="Chkpps" data-id="${vlist.ppsId}" <c:if test="${vlist.soppNo > 0}">disabled</c:if>></td>
                                     <td class="text-center PpsItem01">${vlist.contractDate}</td>
+                                    <td class="text-center PpsItem14">${vlist.userName}</td>
                                     <td class="text-center PpsItem02">${vlist.buyerName}(${vlist.buyerCode})</td>
                                     <td class="text-center PpsItem03">${vlist.buyerArea}(${vlist.buyerAreacode})</td>
                                     <td class="text-center PpsItem04">${vlist.reqNo}</td>
                                     <td class="text-center PpsItem05">${vlist.contractTitle}</td>
-                                    <td class="text-left PpsItem06">${vlist.reqItem}(${vlist.reqItemcode})</td>
                                     <td class="text-right PpsItem07"><fmt:formatNumber type="number" maxFractionDigits="3" value="${vlist.itemNetprice}" /></td>
                                     <td class="text-right PpsItem08"><fmt:formatNumber type="number" maxFractionDigits="3" value="${vlist.itemQty}" /></td>
                                     <td class="text-center PpsItem09">${vlist.itemUnit}</td>
                                     <td class="text-right PpsItem10"><fmt:formatNumber type="number" maxFractionDigits="3" value="${vlist.itemAmount}" /></td>
                                     <td class="text-center PpsItem11">${vlist.deliveryDate}</td>
-                                    <td class="text-center PpsItem12">${vlist.deliveryPlace}</td>
-                                    <td class="text-center PpsItem13">${vlist.soppNo}</td>
+                                    <c:choose>
+	                                    <c:when test="${vlist.soppNo > 0}">
+		                                    <td class="text-center PpsItem13"><a href="${path}/sopp/detail/${vlist.soppNo}">${vlist.soppNo}</a></td>
+	                                    </c:when>
+	                                    <c:otherwise>
+	                                    	<td class="text-center PpsItem13">${vlist.soppNo}</td>
+	                                    </c:otherwise>
+                                    </c:choose>
                                 </tr>
                             </c:forEach>
                         </table>

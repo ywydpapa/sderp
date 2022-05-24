@@ -424,6 +424,7 @@ public class SoppController {
 	@RequestMapping("assignPps.do")
 	public ResponseEntity<?> assignPps(@ModelAttribute SoppDTO dto) {
 		Map<String, Object> param = new HashMap<>();
+		soppService.assignPps(dto);
 		param.put("getNo", dto.getGetNo());
 		return ResponseEntity.ok(param);
 	}

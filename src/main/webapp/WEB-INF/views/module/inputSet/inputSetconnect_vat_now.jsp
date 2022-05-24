@@ -26,15 +26,15 @@
 							<td class="text-center">${row.vatIssueDate}</td>
 			    			<td class="text-center">${row.vatSerial}</td>
 			    			<td class="text-center">${row.vatStandard}</td>
-			    			<td class="text-right">${row.vatTax + row.vatAmount}</td>
-			    			<c:if test="${row.vatStatus == S1}">
-			    				<td class="text-right">수금 진행중</td>
+			    			<td class="text-right moneyTdHtml">${row.vatTax + row.vatAmount}</td>
+			    			<c:if test="${row.vatStatus eq 'S1'}">
+			    				<td class="text-center">수금 진행중</td>
 			    			</c:if>
-							<c:if test="${row.vatStatus == S3}">
-			    				<td class="text-right">부분 수금</td>
+							<c:if test="${row.vatStatus eq 'S3'}">
+			    				<td class="text-center">부분 수금</td>
 			    			</c:if>
-			    			<c:if test="${row.vatStatus == S5}">
-			    				<td class="text-right">수금 완료</td>
+			    			<c:if test="${row.vatStatus eq 'S5'}">
+			    				<td class="text-center">수금 완료</td>
 			    			</c:if>
 						</tr>
 					</c:forEach>

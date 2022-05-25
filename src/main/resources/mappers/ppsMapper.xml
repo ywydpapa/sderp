@@ -15,11 +15,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </select>
     
     <select id="ppsStatusList" resultType="PpsDTO">
-        select * from swc_pps where attrib not like 'XXX%' and compNo = #{compNo}
+        SELECT a.*, b.* FROM swc_pps a
+        LEFT JOIN swc_pps_detail b ON a.ppsId = b.ppsId AND b.attrib not like 'XXX%'
+        WHERE a.attrib not like 'XXX%' and a.compNo = #{compNo}
         <if test="listDateFrom != null and listDateFrom != ''"> 
- 			and contractDate Between #{listDateFrom} and now()
+ 			and a.contractDate Between #{listDateFrom} and now()
  		</if>  
- 		order by contractDate desc;
+ 		order by a.contractDate desc;
     </select>
 
 	<select id="mppsStatusList" resultType="PpsDTO">
@@ -126,7 +128,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </insert>
     
     <update id="mppsUpdate">
-    	update swc_pps set modDate = now(), attrib = 'XXXXX' where compNo = #{compNo} and ppsId = #{ppsId};
+    	update swc_pps_detail set modDate = now(), attrib = 'XXXXX' where compNo = #{compNo} and ppsId = #{ppsId};
     </update>
     
     <update id="assignUpdate">

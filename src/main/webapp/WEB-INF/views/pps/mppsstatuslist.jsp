@@ -184,10 +184,8 @@
                  </div>
             </div>
         </div>
-        <!--//영업활동조회-->
     </c:if>
 
-    <!--리스트 table-->
     <div class="cnt_wr" id="list-container">
         <div class="row">
             <div class="col-sm-12">
@@ -228,8 +226,8 @@
 	                                    <td class="text-center " id="reqNo">${vlist.reqNo}</td>
 	                                    <td class="text-center " id="itemQty">${vlist.itemQty}</td>
 	                                    <td class="text-right moneyTdHtml" id="itemAmount">${vlist.itemAmount}</td>
-	                                    <td><input type="text" id="storeAmount" onkeyup="moneyFormatInput(this);" style="border: 0px;text-align: right" value="${vlist.storeAmount}" /></td>
-	                                    <td class="text-right "><input type="text" id="ordAmount" style="border: 0px;text-align: right" value="${vlist.ordAmount}" /></td>
+	                                    <td><input type="text" id="storeAmount" onkeyup="moneyFormatInput(this);" style="border: 0px;text-align: right" value="<fmt:formatNumber type="number" maxFractionDigits="3" value="${vlist.storeAmount}" />" /></td>
+	                                    <td class="text-right "><input type="text" onkeyup="moneyFormatInput(this);" id="ordAmount" style="border: 0px;text-align: right" value="<fmt:formatNumber type="number" maxFractionDigits="3" value="${vlist.ordAmount}" />" /></td>
 	                                    <td class="text-center "><input type="text" id="makerName" style="border: 0px;text-align: center" value="${vlist.makerName}" /></td>
 	                                    <td class="text-center "><input type="text" id="sellerName" style="border: 0px;text-align: center" value="${vlist.sellerName}" /></td>
 	                                    <td class="text-center "><input type="date" id="ordDate" value="${vlist.ordDate}" /></td>
@@ -261,17 +259,17 @@
 			
 			saveData.ppsId = $(e).attr("data-id");
 			saveData.compNo = "${sessionScope.compNo}";
-			saveData.storeAmount = $(e).parents("tr").find("td #storeAmount").val();
-			saveData.ordAmount = $(e).parents("tr").find("td #ordAmount").val();
+			saveData.storeAmount = $(e).parents("tr").find("td #storeAmount").val().replaceAll(",", "");
+			saveData.ordAmount = $(e).parents("tr").find("td #ordAmount").val().replaceAll(",", "");
 			saveData.makerName = $(e).parents("tr").find("td #makerName").val();
 			saveData.sellerName = $(e).parents("tr").find("td #sellerName").val();
-			saveData.ordDate = $(e).parents("tr").find("td #ordDate").val();
-			saveData.confDate = $(e).parents("tr").find("td #confDate").val();
-			saveData.vatDate = $(e).parents("tr").find("td #vatDate").val();
-			saveData.billingDate = $(e).parents("tr").find("td #billingDate").val();
-			saveData.ppsincomeDate = $(e).parents("tr").find("td #ppsincomeDate").val();
-			saveData.storeDate = $(e).parents("tr").find("td #storeDate").val();
-			saveData.payDate = $(e).parents("tr").find("td #payDate").val();
+			saveData.ordDate = $(e).parents("tr").find("td #ordDate").val() !== "" ? $(e).parents("tr").find("td #ordDate").val() : "0000-00-00";
+			saveData.confDate = $(e).parents("tr").find("td #confDate").val() !== "" ? $(e).parents("tr").find("td #confDate").val() : "0000-00-00";
+			saveData.vatDate = $(e).parents("tr").find("td #vatDate").val() !== "" ? $(e).parents("tr").find("td #vatDate").val() : "0000-00-00";
+			saveData.billingDate = $(e).parents("tr").find("td #billingDate").val() !== "" ? $(e).parents("tr").find("td #billingDate").val() : "0000-00-00";
+			saveData.ppsincomeDate = $(e).parents("tr").find("td #ppsincomeDate").val() !== "" ? $(e).parents("tr").find("td #ppsincomeDate").val() : "0000-00-00";
+			saveData.storeDate = $(e).parents("tr").find("td #storeDate").val() !== "" ? $(e).parents("tr").find("td #storeDate").val() : "0000-00-00";
+			saveData.payDate = $(e).parents("tr").find("td #payDate").val() !== "" ? $(e).parents("tr").find("td #payDate").val() : "0000-00-00";
 			
 			$.ajax({
 				url: "${path}/pps/mppsUpdate.do",

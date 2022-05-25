@@ -36,7 +36,14 @@
                 	<c:if test = "${list.vatType eq 'S'}">${list.vatBuyerName}</c:if> 
                 	<c:if test = "${list.vatType eq 'B'}">${list.vatSellerName}</c:if>
                	</td>
-                <td class="text-center">${list.vatProductName}</td>
+               	<c:choose>
+               		<c:when test="${empty list.vatMemo}">
+		                <td class="text-center">${list.vatProductName}</td>
+               		</c:when>
+               		<c:otherwise>
+               			<td class="text-center">${list.vatProductName}(${list.vatMemo})</td>
+               		</c:otherwise>
+               	</c:choose>
                 <td class="text-center">
                 	<c:if test = "${list.vatStatus eq 'B1'}">매입발행</c:if>
                 	<c:if test = "${list.vatStatus eq 'B3'}">지급처리중</c:if>

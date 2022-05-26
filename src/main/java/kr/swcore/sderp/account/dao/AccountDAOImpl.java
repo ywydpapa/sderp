@@ -702,4 +702,9 @@ public class AccountDAOImpl implements AccountDAO {
 		// TODO Auto-generated method stub
 		return sqlSession.selectList("account.request_payment_boss", dto);
 	}
+
+	@Override
+	public List<AccountDTO> reloadVatListB(AccountDTO dto) {
+		return sqlSession.selectList("account.reloadVatListB", dto);
+	}
 }

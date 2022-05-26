@@ -776,4 +776,9 @@ public class AccountServiceImpl implements AccountService {
 		dto.setCompNo(compNo);
 		return accountDAO.request_payment_boss(dto);
 	}
+
+	@Override
+	public List<AccountDTO> reloadVatListB(AccountDTO dto) {
+		return accountDAO.reloadVatListB(dto);
+	}
 }

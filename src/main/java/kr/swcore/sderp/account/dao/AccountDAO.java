@@ -135,4 +135,6 @@ public interface AccountDAO {
 	List<AccountDTO> request_payment(AccountDTO dto);
 	List<AccountDTO> request_attlist(AccountDTO dto);
 	List<AccountDTO> request_payment_boss(AccountDTO dto);
+	
+	List<AccountDTO> reloadVatListB(AccountDTO dto);
 }

@@ -1256,4 +1256,12 @@ public class AccountController {
         return ResponseEntity.ok(param);
     }
     
+    @ResponseBody
+    @RequestMapping("reloadVatListB.do")
+    public List<AccountDTO> reloadVatListB(@ModelAttribute AccountDTO dto){
+    	List<AccountDTO> list = accountService.reloadVatListB(dto);
+    	
+    	return list;
+    }
+    
 }

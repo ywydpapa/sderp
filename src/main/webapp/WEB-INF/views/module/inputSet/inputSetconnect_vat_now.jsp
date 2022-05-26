@@ -25,7 +25,7 @@
 						<tr>
 							<td class="text-center">${row.vatIssueDate}</td>
 			    			<td class="text-center">${row.vatSerial}</td>
-			    			<td class="text-center">${row.vatStandard}</td>
+			    			<td class="text-center">${row.vatProductName}</td>
 			    			<td class="text-right moneyTdHtml">${row.vatTax + row.vatAmount}</td>
 			    			<c:if test="${row.vatStatus eq 'S1'}">
 			    				<td class="text-center">수금 진행중</td>
@@ -35,6 +35,15 @@
 			    			</c:if>
 			    			<c:if test="${row.vatStatus eq 'S5'}">
 			    				<td class="text-center">수금 완료</td>
+			    			</c:if>
+			    			<c:if test="${row.vatStatus eq 'B1'}">
+			    				<td class="text-center">지급 진행중</td>
+			    			</c:if>
+							<c:if test="${row.vatStatus eq 'B3'}">
+			    				<td class="text-center">부분 지급</td>
+			    			</c:if>
+			    			<c:if test="${row.vatStatus eq 'B5'}">
+			    				<td class="text-center">지급 완료</td>
 			    			</c:if>
 						</tr>
 					</c:forEach>

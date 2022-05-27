@@ -105,6 +105,11 @@ public class HomeController {
 	public String testview() {
 		return "code/listview";
 	}
+	
+	@RequestMapping("/manager_book.do")
+	public String manager_book() {
+		return "/manager_book";
+	}
 
 	@RequestMapping("/myboard.do")
 	public ModelAndView refresh(HttpSession session, ModelAndView mav) {
@@ -181,6 +186,11 @@ public class HomeController {
 	@RequestMapping("/manual_detail/contract_menual.do")
 	public String contract_menual() {
 		return "manual_detail/contract_menual";
+	}
+	
+	@RequestMapping("/manual_detail/contract_menual2.do")
+	public String contract_menual2() {
+		return "manual_detail/contract_menual2";
 	}
 	
 	@RequestMapping("/manual.do")

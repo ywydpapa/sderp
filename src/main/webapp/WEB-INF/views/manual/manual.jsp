@@ -26,6 +26,7 @@
     	<li><a href="${path}/manual_detail/calendar_menual.do">일정</a></li>
     	<li><a href="${path}/manual_detail/sales_menual.do">영업</a></li>
     	<li><a href="${path}/manual_detail/contract_menual.do">계약</a></li>
+    	<li><a href="${path}/manual_detail/contract_menual2.do">계약서</a></li>
   	</ul>
 </body>
 <style>

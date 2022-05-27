@@ -327,15 +327,16 @@
 			</a>
 		</li>
 		<!-- 게시판 관련 -->
-		
-		<!--<li class="">
-			<a href="${path}/manual.do" target="_blank">
-				<span class="pcoded-micon">
-					<i class="ti-book"></i></span>
-				<span class="pcoded-mtext" >메뉴얼가이드</span>
-				<span class="pcoded-mcaret"></span>
-			</a>
-		</li>-->
+		<c:if test="${sessionScope.userRole eq 'ADMIN' && (sessionScope.docRole eq 'S' || sessionScope.docRole eq 'A')}">
+			<li class="">
+				<a href="${path}/manual.do" target="_blank">
+					<span class="pcoded-micon">
+						<i class="ti-book"></i></span>
+					<span class="pcoded-mtext" >메뉴얼가이드</span>
+					<span class="pcoded-mcaret"></span>
+				</a>
+			</li>
+		</c:if>
 	</ul>
 	
 	<c:if test="${fn:contains(userKey, '5') || fn:contains(userKey, '7') }">

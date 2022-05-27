@@ -25,7 +25,7 @@
         <tr>
             <th class="text-center">등록일</th>
             <th class="text-center">거래처</th>
-            <th class="text-center">계산서번호</th>
+            <th class="text-center">수금확인</th>
             <th class="text-center">품명</th>
             <th class="text-center">상태</th>
             <th class="text-center">공급가</th>
@@ -43,7 +43,7 @@
 	                	<c:if test = "${list.vatType eq 'S'}">${list.vatBuyerName}</c:if> 
 	                	<c:if test = "${list.vatType eq 'B'}">${list.vatSellerName}</c:if>
 	               	</td>
-	               	<td class="text-center"><a href="#" data-id="${list.contNo}" onclick="reloadVatListB(this);">${list.vatSerial}</a></td>
+	               	<td class="text-center"><a href="#" class="btn btn-sm btn-primary" data-id="${list.contNo}" onclick="reloadVatListB(this);">수금확인</a></td>
 	               	<c:choose>
 	               		<c:when test="${empty list.vatMemo}">
 			                <td class="text-center">${list.vatProductName}</td>

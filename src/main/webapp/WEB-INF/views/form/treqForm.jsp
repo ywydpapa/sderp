@@ -64,10 +64,10 @@
 		<table id="mainTable" style="margin-bottom: 0;">
 			<colgroup>
 		        <col width="10%">
-		        <col width="19%">
+		        <col width="39%">
 		        <col width="5%">
 		        <col width="5%">
-		        <col width="45%">
+		        <col width="25%">
 		    </colgroup>
 			<thead>
 				<tr>

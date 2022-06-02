@@ -133,7 +133,7 @@
 															</div>
 														</div>
 													</td>
-													<th class="contDetailCont requiredTextCss">계약</th>
+													<th class="contDetailCont">계약</th>
 													<td class="contDetailCont">
 														<div class="input-group input-group-sm mb-0">
 															<input type="text" class="form-control" name="oldContTitle" id="oldContTitle" value="${contDto.exContName}"readonly>
@@ -808,12 +808,12 @@
 						alert("영업기회을 입력하십시오.");
 						return;
 					}
-				} else if (contractType == 'OLD'){
+				} /* else if (contractType == 'OLD'){
 					if ($("#oldContTitle").val() == "" || $("#oldContTitle").val() == "0"){
 						alert("계약을 입력하십시오.");
 						return;
 					}
-				}
+				} */
 			}
 
 			$.ajax({

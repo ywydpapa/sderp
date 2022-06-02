@@ -156,6 +156,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	        '10000'
 	    );
     </insert>
+    
+    <update id="update_estitems_Data">
+    	update swc_estitems set estVer = #{estVer}
+    	where estId = #{estId} and attrib not like 'xxx%';
+    </update>
+
+	<update id="update_estitems_Data_x">
+		update swc_estitems set attrib = 'XXXXX'
+    	where estId = #{estId} and estVer = #{estVer}
+	</update>
 
 	<update id="deleteest">
 		update swc_est set
@@ -799,5 +809,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			docNo = #{docNo}
 		where docNo = #{lastdocNo};
 	</update>
+	<select id="userEmail" resultType="GwDTO">
+		select a.userEmail from swc_user a
+		where a.userNo = #{userNo};
+	</select>
 	
 </mapper>

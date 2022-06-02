@@ -322,4 +322,22 @@ public class GwDAOImpl implements GwDAO{
 		// TODO Auto-generated method stub
 		return sqlSession.update("gw.hrListCom", dto);
 	}
+
+	@Override
+	public List<GwDTO> userEmail(GwDTO dto) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("gw.userEmail", dto);
+	}
+
+	@Override
+	public void update_estitems_Data(GwDTO dto) {
+		// TODO Auto-generated method stub
+		sqlSession.update("gw.update_estitems_Data", dto);
+	}
+
+	@Override
+	public void update_estitems_Data_x(GwDTO dto) {
+		// TODO Auto-generated method stub
+		sqlSession.update("gw.update_estitems_Data_x", dto);
+	}
 }

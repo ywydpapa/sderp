@@ -65,4 +65,7 @@ public interface GwDAO {
 	
 	int hrListApp(GwDTO dto);
 	int hrListCom(GwDTO dto);
+	List<GwDTO> userEmail(GwDTO dto);
+	void update_estitems_Data(GwDTO dto);
+	void update_estitems_Data_x(GwDTO dto);
 }

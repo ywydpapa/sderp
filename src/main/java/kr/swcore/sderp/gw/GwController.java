@@ -24,6 +24,7 @@ import javax.servlet.http.HttpSession;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -435,6 +436,20 @@ public class GwController {
         return ResponseEntity.ok(param);
     }
     
+    @RequestMapping("update_estitems_Data.do")
+    public ResponseEntity<?> update_estitems_Data(@ModelAttribute GwDTO dto) {
+        Map<String, Object> param = new HashMap<>();
+        gwService.update_estitems_Data(dto);
+        return ResponseEntity.ok(param);
+    }
+    
+    @RequestMapping("update_estitems_Data_x.do")
+    public ResponseEntity<?> update_estitems_Data_x(@ModelAttribute GwDTO dto) {
+        Map<String, Object> param = new HashMap<>();
+        gwService.update_estitems_Data_x(dto);
+        return ResponseEntity.ok(param);
+    }
+    
     @RequestMapping("estInfoUpdate.do")
     public ResponseEntity<?> estInfoUpdate(@ModelAttribute GwDTO dto) {
         Map<String, Object> param = new HashMap<>();
@@ -603,6 +618,15 @@ public class GwController {
         }
         else {param.put("code","20001");
         }
+        return ResponseEntity.ok(param);
+    }
+    
+    @RequestMapping("user_email.do")
+    public ResponseEntity<?> user_email(HttpSession session, @ModelAttribute GwDTO dto) {
+        Map<String, Object> param = new HashMap<>();
+        List<GwDTO> userEmail = gwService.userEmail(dto);
+        param.put("data", userEmail);
+        
         return ResponseEntity.ok(param);
     }
 }

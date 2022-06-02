@@ -842,6 +842,7 @@
     	var updateData = {};
     	var dataInfoUpdate = {};
     	var dataInfoInsert = {};
+    	var dataestitems = {};
     	
     	if($("#estTitle").val() === ""){
     		alert("견적제목을 입력해주세요.");
@@ -921,7 +922,17 @@
    						  					dataType: "json",
    						  				});
    						 			}
-   									
+   									dataestitems.estId = updateData.estId;
+   		    						dataestitems.estVer = data.getVersion-1;
+   		    						
+   			    					$.ajax({
+   	   		    		    			url: "${path}/gw/update_estitems_Data_x.do",
+   	   		    		    			method: "post",
+   	   		    		    			data: dataestitems,
+   	   		    		    			async: false,
+   	   		    		    			dataType: "json"
+   	   		    		    		});		
+	    							
    		    					}
   		    				});
    		    				
@@ -969,12 +980,21 @@
    				    	    					method: "post",
    				    	    					data: dataInfoInsert,
    				    	    					async: false,
+   				    	    					dataType: "json"
+   				    	    				});
+   		    								
+   		    								$.ajax({
+   				    	    					url: "${path}/gw/update_estitems_Data.do",
+   				    	    					method: "post",
+   				    	    					data: dataInfoInsert,
+   				    	    					async: false,
    				    	    					dataType: "json",
    				    	    					success:function(){
    				    	    						alert("수정되었습니다.");
    				    						 		location.href = "${path}/gw/estwrite.do";
    				    	    					}
    				    	    				});
+   		    								
    		    							}
    		    						});
        							}

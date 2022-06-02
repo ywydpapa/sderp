@@ -385,4 +385,21 @@ public class GwServiceImpl implements GwService{
 	public int hrListCom(GwDTO dto) {
 		return gwDao.hrListCom(dto);
 	}
+
+	@Override
+	public List<GwDTO> userEmail(GwDTO dto) {
+		return gwDao.userEmail(dto);
+	}
+
+	@Override
+	public void update_estitems_Data(GwDTO dto) {
+		// TODO Auto-generated method stub
+		gwDao.update_estitems_Data(dto);
+	}
+
+	@Override
+	public void update_estitems_Data_x(GwDTO dto) {
+		// TODO Auto-generated method stub
+		gwDao.update_estitems_Data_x(dto);
+	}
 }

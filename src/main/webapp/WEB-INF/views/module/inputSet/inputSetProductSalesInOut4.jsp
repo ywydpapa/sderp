@@ -266,7 +266,7 @@
 		<div style="float:left; margin-top: 10px;">
 			<p style="font-weight: 600; color: red;">※ 추가는 분할횟수 및 계약금액에 상관없이 원래 방식대로 추가되고, 분할추가는 분할횟수 및 계약금액에 맞춰 다중으로 추가됩니다.</p>
 			<p style="font-weight: 600; color: red;">해당 계약에서 최종으로 발행 될 총 계산서 갯수를 "분할횟수"에 추가하여 주십시오.</p>
-			<p style="font-weight: 600; color: red;">ex) 계약금액이 2,000,000원이고 해당 계약에 대한 매출계산서가 최종적으로 2개가 나온다면 "분할횟수"에 2를 기입 후 "분할추가" 버튼을 클릭.</p>
+			<p style="font-weight: 600; color: red;">ex) 계약금액이 2,000,000원이고 해당 계약에 대해 발행 될 매출계산서가 최종적으로 2개가 나온다면 "분할횟수"에 2를 기입 후 "분할추가" 버튼을 클릭.</p>
 		</div>
 		<div id="contAmtUpBtn" style="float:right; margin-bottom: 15px;">
 			<button type="button" class="btn btn-success" onclick="contAmtUpdate();">계약금액 업데이트</button>

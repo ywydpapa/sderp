@@ -61,6 +61,9 @@ public class SoppDTO extends PageDTO {
 	private int getNo;
 	private String listDateFrom;
 
+	private String maintenance_S;
+	private String maintenance_E;
+	
 	public SoppDTO() {
 		super();
 		// TODO Auto-generated constructor stub

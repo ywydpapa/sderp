@@ -251,13 +251,17 @@
 																</c:forEach>
 														</select></td>
 														<th scope="row">예상매출</th>
-														<td class="text-right"><span class="input_inline"><input
-																style="text-align: right" type="text"
-																class="form-control form-control-sm" id="soppTargetAmt"
-																name="soppTargetAmt" onkeyup="moneyFormatInput(this);"
-																value="<fmt:formatNumber value="${dto.soppTargetAmt}" pattern="#,###"/>"></span>원</td>
-																<th></th>
-																<td></td>
+														<td class="text-right">
+															<span class="input_inline">
+																<input style="text-align: right" type="text" class="form-control form-control-sm" id="soppTargetAmt" name="soppTargetAmt" onkeyup="moneyFormatInput(this);" value="<fmt:formatNumber value="${dto.soppTargetAmt}" pattern="#,###"/>">
+															</span>원
+														</td>
+														<th class="requiredTextCss" id="Maintenance_name" style="display: none;">유지보수 기간</th>
+														<td id="Maintenance_input" style="display: none; line-height: 30px;">
+															<div class="input-group input-group-sm mb-0">
+																<input class="form-control form-control-sm col-sm-6 m-r-5" type="date" max="9999-12-30" id="maintenance_S" value="${dto.maintenance_S}"> ~ <input class="form-control form-control-sm col-sm-6 m-l-5" type="date" max="9999-12-31" id="maintenance_E" value="${dto.maintenance_E}">
+															</div>
+														</td>	
 													</tr>
 													<tr>
 														<th scope="row">설명</th>
@@ -403,6 +407,84 @@
 	</div>
 	<!--영업기회등록-->
 	<script>
+		if($("#cntrctMth").val() == '10248'){
+			$('#Maintenance_name').show();
+			$('#Maintenance_input').show();
+		};
+		$("#cntrctMth").on('change', function(){
+			if($("#cntrctMth").val() == '10248'){
+				$('#Maintenance_name').show();
+				$('#Maintenance_input').show();
+			}else{
+				$('#Maintenance_name').hide();
+				$('#Maintenance_input').hide();
+			}
+		});
+		
+		$("#maintenance_S").change(function(){
+			var dateValue = $(this).val();
+			var dateValueArr = dateValue.split("-");
+			var dateValueCom = new Date(dateValueArr[0], parseInt(dateValueArr[1])-1, dateValueArr[2]);
+			var EdateValue = $("#maintenance_E").val();
+			var EdateDateArr = EdateValue.split("-");
+			var EdateDateCom = new Date(EdateDateArr[0], parseInt(EdateDateArr[1])-1, EdateDateArr[2]);
+			
+			if(EdateValue == ""){
+				dateValueCom.setDate(dateValueCom.getDate()+1);
+			}else if(dateValueCom.getTime() > EdateDateCom.getTime()){
+				alert("시작일이 종료일보다 클 수 없습니다.");
+				dateValueCom.setDate(dateValueCom.getDate()+1);
+			}else{
+				return null;
+			}
+			
+			var year = dateValueCom.getFullYear();
+			var month = dateValueCom.getMonth()+1;
+			var day = dateValueCom.getDate();
+			
+			if(month < 10){
+				month = "0" + month;
+			}
+			
+			if(day < 10){
+				day = "0" + day;
+			}
+			
+			$("#maintenance_E").val(year + "-" + month + "-" + day);
+		});
+		
+		$("#maintenance_E").change(function(){
+			var SdateValue = $("#maintenance_S").val();
+			var SdateValueArr = SdateValue.split("-");
+			var SdateValueCom = new Date(SdateValueArr[0], parseInt(SdateValueArr[1])-1, SdateValueArr[2]);
+			var thisDateValue = $(this).val();
+			var thisDateArr = thisDateValue.split("-");
+			var thisDateCom = new Date(thisDateArr[0], parseInt(thisDateArr[1])-1, thisDateArr[2]);
+			
+			if(SdateValue == ""){
+				thisDateCom.setDate(thisDateCom.getDate()-1);
+			}else if(SdateValueCom.getTime() > thisDateCom.getTime()){
+				alert("종료일이 시작일보다 작을 수 없습니다.");
+				thisDateCom.setDate(thisDateCom.getDate()-1);
+			}else{
+				return null;
+			}
+			
+			var year = thisDateCom.getFullYear();
+			var month = thisDateCom.getMonth()+1;
+			var day = thisDateCom.getDate();
+			
+			if(month < 10){
+				month = "0" + month;
+			}
+			
+			if(day < 10){
+				day = "0" + day;
+			}
+			
+			$("#maintenance_S").val(year + "-" + month + "-" + day);
+		});
+	
 		$("#tablist > li:nth-child(1)").click(function (){
 			$("#tab01_bottom").show();
 			$("#tab_common_bottom").hide();
@@ -570,6 +652,11 @@
 				}else{
 					soppData.soppStatus  =  $("#soppStatus").val();
 				}
+			}
+			
+			if($("#cntrctMth").val() == '10248'){
+				soppData.maintenance_S = $('#maintenance_S').val();
+				soppData.maintenance_E = $('#maintenance_E').val();
 			}
 			
 			if($("#soppSource").val() != "") soppData.soppSource 	= $("#soppSource").val();

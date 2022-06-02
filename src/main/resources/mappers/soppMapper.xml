@@ -512,9 +512,9 @@ from
  
  <insert id="insertSopp">
  insert into swc_sopp (compNo, custNo,userNo, buyrNo, ptncNo, soppTitle, soppDesc, soppType, soppSrate, soppStatus
- , soppTargetDate, soppTargetAmt,attrib, cntrctMth, custMemberNo)
+ , soppTargetDate, soppTargetAmt,attrib, cntrctMth, custMemberNo, Maintenance_S, Maintenance_E)
  values (#{compNo}, #{custNo},#{userNo}, #{buyrNo},#{ptncNo}, #{soppTitle}, #{soppDesc}, #{soppType}, #{soppSrate}, #{soppStatus},
-         #{soppTargetDate}, #{soppTargetAmt},'10000',#{cntrctMth}, #{custMemberNo})
+         #{soppTargetDate}, #{soppTargetAmt},'10000',#{cntrctMth}, #{custMemberNo}, #{maintenance_S}, #{maintenance_E})
  </insert>
  
 <insert id="soppListApp" useGeneratedKeys="true" keyProperty="getNo">
@@ -595,6 +595,12 @@ from
 	,ptncNo=#{ptncNo}
 	,buyrNo=#{buyrNo}
 	,custMemberNo=#{custMemberNo}
+	<if test="maintenance_S != ''">
+		,maintenance_S=#{maintenance_S}
+	</if>
+	<if test="maintenance_E != ''">
+		,maintenance_E=#{maintenance_E}
+	</if>
 	where soppNo=#{soppNo}
  </update>
 

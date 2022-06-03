@@ -37,4 +37,5 @@ public interface SoppService {
 		int soppListApp(SoppDTO dto);
 		int beforeAppUpdate(int soppNo);
 		int assignPps(SoppDTO dto);
+		List<SoppDTO> selectSoppdetail(HttpSession session, SoppDTO dto);
 }

@@ -375,8 +375,19 @@ public class SoppController {
 }
 	
 	@RequestMapping("soppListApp.do")
-	public ResponseEntity<?> soppListApp(@ModelAttribute SoppDTO dto) {
+	public ResponseEntity<?> soppListApp(HttpSession session, @ModelAttribute SoppDTO dto) {
 		Map<String, Object> param = new HashMap<>();
+		
+		List<SoppDTO> selectSoppdetail = soppService.selectSoppdetail(session, dto);
+		
+		if(selectSoppdetail.get(0).getMaintenance_S() != null || !selectSoppdetail.get(0).getMaintenance_S().isEmpty()) {
+			dto.setMaintenance_S(selectSoppdetail.get(0).getMaintenance_S());
+			dto.setMaintenance_E(selectSoppdetail.get(0).getMaintenance_E());
+		}else {
+			dto.setMaintenance_S(null);
+			dto.setMaintenance_E(null);
+		}
+
 		int soppdataInsert = soppService.soppListApp(dto);
 		param.put("getNo", dto.getGetNo());
 		if (soppdataInsert >0) {

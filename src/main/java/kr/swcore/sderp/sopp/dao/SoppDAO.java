@@ -28,4 +28,5 @@ public interface SoppDAO {
 	int soppListApp(SoppDTO dto);
 	int beforeAppUpdate(int soppNo);
 	int assignPps(SoppDTO dto);
+	List<SoppDTO> selectSoppdetail(SoppDTO dto);
 }

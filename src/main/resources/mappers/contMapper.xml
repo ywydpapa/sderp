@@ -205,8 +205,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
                        )
  values (#{contTitle}, #{contDesc}, #{compNo}, #{soppNo}, #{exContNo}, #{userNo}, #{custNo}, #{custmemberNo}, #{ptncNo}, #{supplyNo}, #{contOrddate},
          #{supplyDate}, #{delivDate}, #{contAmt}, #{freemaintSdate}, #{freemaintEdate}, #{vatYn}, #{contArea}, #{cntrctMth},
-         #{contType}, #{net_profit},'100000', #{buyrNo}, #{buyrMemberNo}, NOW(), DATE_ADD(NOW(), INTERVAL 1 YEAR)
-         )
+         #{contType}, #{net_profit},'100000', #{buyrNo}, #{buyrMemberNo}, #{paymaintSdate}, #{paymaintEdate})
          <selectKey keyProperty="contNo" resultType="int" order="AFTER">
          	SELECT LAST_INSERT_ID()
          </selectKey>

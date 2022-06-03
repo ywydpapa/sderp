@@ -264,7 +264,7 @@
 													<td>
 														<div class="input-group input-group-sm mb-0">
 															<input type="text" class="form-control" id="endCustName" value="${contDto.buyrName}" readonly>
-															<input type="hidden" id="endCustNo" value="${contDto.custNo}" />
+                                                            <input type="hidden" id="endCustNo" value="${contDto.buyrNo}" />
 															<span class="input-group-btn">
 																<button class="btn btn-primary sch-partner" data-remote="${path}/modal/popup.do?popId=endCust" type="button" data-toggle="modal" data-target="#endCustModal">
 																	<i class="icofont icofont-search"></i>

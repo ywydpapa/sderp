@@ -139,4 +139,10 @@ public class SoppDAOImpl implements SoppDAO {
 	public int assignPps(SoppDTO dto) {
 		return sqlSession.insert("sopp.assignPps", dto);
 	}
+
+	@Override
+	public List<SoppDTO> selectSoppdetail(SoppDTO dto) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("sopp.selectSoppdetail", dto);
+	}
 }

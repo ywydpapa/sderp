@@ -253,8 +253,12 @@
 															value="<fmt:formatNumber value="${dto.soppTargetAmt}" pattern="#,###"/>">
 														</span>원
 													</td>
-													<th></th>
-													<td></td>
+													<th class="requiredTextCss" id="Maintenance_name" style="display: none;">유지보수 기간</th>
+													<td id="Maintenance_input" style="display: none; line-height: 30px;">
+														<div class="input-group input-group-sm mb-0">
+															<input class="form-control form-control-sm col-sm-6 m-r-5" type="date" max="9999-12-30" id="maintenance_S" value="${dto.maintenance_S}"> ~ <input class="form-control form-control-sm col-sm-6 m-l-5" type="date" max="9999-12-31" id="maintenance_E" value="${dto.maintenance_E}">
+														</div>
+													</td>	
 												</tr>
 												<tr>
 													<th scope="row">설명</th>
@@ -406,6 +410,12 @@
 	</div>
 	<!--영업기회등록-->
 	<script>
+	
+		if($("#cntrctMth").val() == '10248'){
+			$('#Maintenance_name').show();
+			$('#Maintenance_input').show();
+		};
+	
 		$("#tablist > li:nth-child(1)").click(function (){
 			$("#tab01_bottom").show();
 			$("#tab_common_bottom").hide();
@@ -551,7 +561,20 @@
 			if($("#soppTargetDate").val() != "") soppData.soppTargetDate	= $("#soppTargetDate").val();
 			if($("#soppTargetAmt").val() != "") soppData.soppTargetAmt 	= $("#soppTargetAmt").val().replace(/[\D\s\._\-]+/g, "");
 			if($("#soppDesc").val() != "") soppData.soppDesc 		= $("#soppDesc").val();
-
+			
+			if($("#cntrctMth").val() == '10248'){
+				if($('#maintenance_S').val() == '' || $('#maintenance_S').val() == null){
+					alert("유지보수 시작일을 확인하십시오.");
+					return;
+				}else if($('#maintenance_E').val() == '' || $('#maintenance_E').val() == null){
+					alert("유지보수 마감일을 확인하십시오.");
+					return;
+				}else{
+					if($("#maintenance_S").val() != "") soppData.maintenance_S 		= $("#maintenance_S").val();
+					if($("#maintenance_E").val() != "") soppData.maintenance_E 		= $("#maintenance_E").val();
+				}
+			}
+			
 			$.ajax({ url: "${path}/sopp/update.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
 				data: soppData , // HTTP 요청과 함께 서버로 보낼 데이터
 				method: "POST", // HTTP 요청 메소드(GET, POST 등)
@@ -665,6 +688,10 @@
 			
 			//유상 유지보수에 한하여 별개 쿼리
 			if($('#cntrctMth').val() == "10248"){
+				
+				contData.paymaintSdate = $('#maintenance_S').val();
+				contData.paymaintEdate = $('#maintenance_E').val();
+				
 				$.ajax({ url: "${path}/cont/insert_maintenance.do",
 					data: contData ,
 					method: "POST", 

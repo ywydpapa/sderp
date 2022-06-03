@@ -389,6 +389,13 @@ public class SoppServiceImpl implements SoppService {
 	public int assignPps(SoppDTO dto) {
 		return soppDao.assignPps(dto);
 	}
+
+	@Override
+	public List<SoppDTO> selectSoppdetail(HttpSession session, SoppDTO dto) {
+		Integer compNo = SessionInfoGet.getCompNo(session);
+		dto.setCompNo(compNo);
+		return soppDao.selectSoppdetail(dto);
+	}
 	
 
 }

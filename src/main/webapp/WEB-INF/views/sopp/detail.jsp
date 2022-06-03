@@ -655,8 +655,16 @@
 			}
 			
 			if($("#cntrctMth").val() == '10248'){
-				soppData.maintenance_S = $('#maintenance_S').val();
-				soppData.maintenance_E = $('#maintenance_E').val();
+				if($('#maintenance_S').val() == '' || $('#maintenance_S').val() == null){
+					alert("유지보수 시작일을 확인하십시오.");
+					return;
+				}else if($('#maintenance_E').val() == '' || $('#maintenance_E').val() == null){
+					alert("유지보수 마감일을 확인하십시오.");
+					return;
+				}else{
+					soppData.maintenance_S = $('#maintenance_S').val();
+					soppData.maintenance_E = $('#maintenance_E').val();	
+				}
 			}
 			
 			if($("#soppSource").val() != "") soppData.soppSource 	= $("#soppSource").val();

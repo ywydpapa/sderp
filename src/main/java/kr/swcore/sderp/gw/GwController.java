@@ -366,6 +366,9 @@ public class GwController {
     public ResponseEntity<?> insertData(@ModelAttribute GwDTO dto) {
         Map<String, Object> param = new HashMap<>();
         int docInsert = gwService.insertDocData(dto);
+        
+        gwService.update_amount(dto);
+        
         if (docInsert >0) {
             param.put("code","10001");
         }

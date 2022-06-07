@@ -809,6 +809,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			docNo = #{docNo}
 		where docNo = #{lastdocNo};
 	</update>
+	
 	<select id="userEmail" resultType="GwDTO">
 		select a.userEmail from swc_user a
 		where a.userNo = #{userNo};
@@ -818,6 +819,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		update swc_businessdoc set 
 			attrib = "XXXXX"
 		where docNo = #{docNo}
+	</update>
+	
+	<update id="update_amount">
+		update swc_businessdoc set
+			docAmount = #{productTotal}
+		where docNo = #{docNo} and attrib not like "xxx%"
 	</update>
 	
 </mapper>

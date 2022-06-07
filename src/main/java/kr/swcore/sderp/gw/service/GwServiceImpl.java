@@ -408,4 +408,10 @@ public class GwServiceImpl implements GwService{
 		// TODO Auto-generated method stub
 		gwDao.update_save_data(dto);
 	}
+
+	@Override
+	public void update_amount(GwDTO dto) {
+		// TODO Auto-generated method stub
+		gwDao.update_amount(dto);
+	}
 }

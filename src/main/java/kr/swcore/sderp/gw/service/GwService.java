@@ -73,4 +73,5 @@ public interface GwService {
 	List<GwDTO> userEmail(GwDTO dto);
 	void update_estitems_Data(GwDTO dto);
 	void update_estitems_Data_x(GwDTO dto);
+	void update_save_data(GwDTO dto);
 }

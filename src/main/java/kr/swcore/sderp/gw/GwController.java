@@ -629,4 +629,13 @@ public class GwController {
         
         return ResponseEntity.ok(param);
     }
+    //update_save_data
+    @RequestMapping("update_save_data.do")
+    public  ResponseEntity<?>  update_save_data(HttpSession session, @ModelAttribute GwDTO dto) {
+    	Map<String, Object> param = new HashMap<>();
+    	
+    	gwService.update_save_data(dto);
+    
+    	return ResponseEntity.ok(param);
+    }
 }

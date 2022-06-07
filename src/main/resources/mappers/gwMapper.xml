@@ -814,4 +814,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where a.userNo = #{userNo};
 	</select>
 	
+	<update id="update_save_data">
+		update swc_businessdoc set 
+			attrib = "XXXXX"
+		where docNo = #{docNo}
+	</update>
+	
 </mapper>

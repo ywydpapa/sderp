@@ -340,4 +340,10 @@ public class GwDAOImpl implements GwDAO{
 		// TODO Auto-generated method stub
 		sqlSession.update("gw.update_estitems_Data_x", dto);
 	}
+
+	@Override
+	public void update_save_data(GwDTO dto) {
+		// TODO Auto-generated method stub
+		sqlSession.update("gw.update_save_data", dto);
+	}
 }

@@ -1894,6 +1894,19 @@
 		  				});
 		 			}
 					
+					var selectData_save_data = {};
+					var docNo_substr = $('#estId').val().substr(-4);
+					selectData_save_data.docNo = docNo_substr;
+					
+					$.ajax({
+		  					url: "${path}/gw/update_save_data.do",
+		  					method: "post",
+		  					data: selectData_save_data,
+		  					async: false,
+		  					dataType: "json"
+		  				});
+					
+					
 					allimSetPath = "/gw/detail/" + data.getId;
 			    	fn_allimInsert(allimPath, userNo, compNo, msg, role, allimSetPath);
 					

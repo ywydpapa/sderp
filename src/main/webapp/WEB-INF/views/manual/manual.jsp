@@ -27,6 +27,7 @@
     	<li><a href="${path}/manual_detail/sales_menual.do">영업</a></li>
     	<li><a href="${path}/manual_detail/contract_menual.do">계약</a></li> dd--%>
     	<li><a href="${path}/manual_detail/contract_menual2.do">계약서</a></li>
+    	<li><a href="${path}/manual_detail/bill_account_sample_menual.do" class="nav-link">계산서&계좌 파일</a></li>
   	</ul>
 </body>
 <style>

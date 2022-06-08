@@ -20,6 +20,7 @@
                 <li><a href="${path}/manual_detail/sales_menual.do" class="nav-link">영업</a></li>
                 <li><a href="${path}/manual_detail/contract_menual.do" class="nav-link">계약</a></li> --%>
                 <li><a href="${path}/manual_detail/contract_menual2.do" class="nav-link">계약 - 계산서 연결</a></li>
+                <li><a href="${path}/manual_detail/bill_account_sample_menual.do" class="nav-link">계산서&계좌 파일</a></li>
             </ul>
             <div class="sidebar-separator"></div>
         </nav>

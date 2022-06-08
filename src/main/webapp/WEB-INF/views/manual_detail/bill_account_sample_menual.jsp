@@ -29,10 +29,13 @@
         	<p><b>1-3. 입금금액, 거래후잔액의 기본 텍스트는 ","가 들어가 있지 않고 숫자로만 표기되어 있어야 합니다.</b></p>
         	<p><b>1-4. 모든 엑셀 파일에서 동일한 양식을 준수함에도 불구하고 데이터가 들어가지 않는다면 문의 주시기 바랍니다.</b></p>
             <div>
-            	<a href="../assets/images/sample_bac.xls" style="width: 100%;" download>계좌 내역 등록 양식</a>
+            	<a href="../assets/images/sample_bac.xls" style="width: 100%;" download>≫계좌 내역 등록 양식</a>
             </div>
             <div>
-            	<a href="../assets/images/sample_card.xls" style="width: 100%;" download>카드 내역 등록 양식</a>
+            	<a href="../assets/images/sample_card.xls" style="width: 100%;" download>≫카드 내역 등록 양식</a>
+            </div>
+            <div>
+            	<a href="../assets/images/sample_vat.xls" style="width: 100%;" download>≫매입&매출 계산서 등록 양식</a>
             </div>
          	<p><b>해당 파일을 내려 받은 뒤 양식에 맞춰 기입한 뒤 등록을 진행 하여 주십시오.</b></p>
         </section>

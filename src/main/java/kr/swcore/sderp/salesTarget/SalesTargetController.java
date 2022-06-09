@@ -179,9 +179,9 @@ public class SalesTargetController {
 		mav.setViewName("sales_analysis/Sales_analysis");
 		return mav;
 	}
-	@RequestMapping("/goal_analysis.do")
+	@RequestMapping("/Maintenance_analysis.do")
 	public ModelAndView goal_analysis(HttpSession session, ModelAndView mav) {
-		mav.setViewName("sales_analysis/Sales_analysis");
+		mav.setViewName("sales_analysis/Maintenance_analysis");
 		return mav;
 	}
 	@RequestMapping(value = "cnt_mouth_data.do/{month}/{last_month}", method = RequestMethod.POST)

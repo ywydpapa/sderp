@@ -1158,10 +1158,14 @@
     					data: dataTemp,
     					dataType: "json",
     				});
-    				
+    		    	
+    		    	var total = 0;
     				setTimeout(() => {
 						for(var i = 0; i < dataArray.length; i++){
 							dataArray[i].docNo = docNo;
+							
+							total += parseInt(dataArray[i].productTotal);
+							
 							var JsonArray = JSON.stringify(dataArray[i]);
 			  				$.ajax({
 			  					url: "${path}/gw/insertData.do",
@@ -1171,6 +1175,18 @@
 			  					dataType: "json"
 			  				});
 			 			}
+						
+						var insert_data1 = {}
+						insert_data1.docNo = docNo;
+						insert_data1.docAmount = String(total);
+						
+						$.ajax({
+		  					url: "${path}/gw/insertData1.do",
+		  					method: "post",
+		  					async: false,
+		  					data: insert_data1,
+		  					dataType: "json"
+		  				});
 						
 			 			alert("수정되었습니다.");
 			 			location.href = "${path}/gw/detail/"+docNo;
@@ -1882,8 +1898,13 @@
     					dataType: "json",
     				});
     				
+    				
+    				var total = 0;
 					for(var i = 0; i < dataArray.length; i++){
 						dataArray[i].docNo = data.getId;
+						
+						total += parseInt(dataArray[i].productTotal);
+						
 						var JsonArray = JSON.stringify(dataArray[i]);
 		  				$.ajax({
 		  					url: "${path}/gw/insertData.do",
@@ -1893,6 +1914,20 @@
 		  					dataType: "json"
 		  				});
 		 			}
+					
+					
+					var insert_data1 = {}
+					insert_data1.docNo = data.getId;
+					insert_data1.docAmount = String(total);
+					
+					$.ajax({
+	  					url: "${path}/gw/insertData1.do",
+	  					method: "post",
+	  					async: false,
+	  					data: insert_data1,
+	  					dataType: "json"
+	  				});
+					
 					
 					var selectData_save_data = {};
 					var docNo_substr = $('#estId').val().substr(-4);

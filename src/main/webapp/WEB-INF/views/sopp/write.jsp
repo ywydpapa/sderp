@@ -463,9 +463,12 @@
 				alert("유지보수 마감일을 선택해주십시오.!!");
 				return;
 			}
+			soppData.maintenance_S = $('#maintenance_S').val();
+			soppData.maintenance_E = $('#maintenance_E').val();
+		}else {
+			soppData.maintenance_S = '0000-00-00';
+			soppData.maintenance_E = '0000-00-00';
 		}
-		soppData.maintenance_S = $('#maintenance_S').val();
-		soppData.maintenance_E = $('#maintenance_E').val();
 		
 		console.dir(soppData);
 		// 필수값 체크

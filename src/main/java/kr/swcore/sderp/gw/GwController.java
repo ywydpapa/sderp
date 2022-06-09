@@ -366,14 +366,23 @@ public class GwController {
     public ResponseEntity<?> insertData(@ModelAttribute GwDTO dto) {
         Map<String, Object> param = new HashMap<>();
         int docInsert = gwService.insertDocData(dto);
-        
-        gwService.update_amount(dto);
-        
         if (docInsert >0) {
             param.put("code","10001");
         }
         	else {param.put("code","20001");
         }
+        return ResponseEntity.ok(param);
+    }
+    
+    @RequestMapping("insertData1.do")
+    public ResponseEntity<?> insertData1(@ModelAttribute GwDTO dto) {
+        Map<String, Object> param = new HashMap<>();
+        System.out.println("        dto.getDocAmount()" +         dto.getDocAmount());
+        
+        gwService.update_amount(dto);
+        
+        
+        
         return ResponseEntity.ok(param);
     }
     

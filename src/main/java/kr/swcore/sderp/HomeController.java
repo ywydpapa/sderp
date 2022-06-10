@@ -30,12 +30,14 @@ import kr.swcore.sderp.cont.dto.ContDTO;
 import kr.swcore.sderp.cont.service.ContService;
 import kr.swcore.sderp.cust.dto.CustDTO;
 import kr.swcore.sderp.cust.service.CustService;
+import kr.swcore.sderp.gw.service.GwService;
 import kr.swcore.sderp.notice.service.NoticeService;
 import kr.swcore.sderp.product.dto.ProductDTO;
 import kr.swcore.sderp.product.service.ProductService;
 import kr.swcore.sderp.sales.dto.SalesDTO;
 import kr.swcore.sderp.sales.service.SalesService;
 import kr.swcore.sderp.salesTarget.service.SalesTargetService;
+import kr.swcore.sderp.sched.service.SchedService;
 import kr.swcore.sderp.sopp.dto.SoppDTO;
 import kr.swcore.sderp.sopp.service.SoppService;
 import kr.swcore.sderp.user.dto.UserDTO;
@@ -86,6 +88,12 @@ public class HomeController {
 	@Inject
 	DeptToPlanTblService deptToPlanTblService;
 	
+	@Inject
+	GwService gwService;
+	
+	@Inject
+	SchedService schedService;
+	
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
@@ -127,6 +135,7 @@ public class HomeController {
 		
 		Integer orgId = (Integer)session.getAttribute("orgId");
 		List<DeptToPlanTblDTO> deptToPlanTblDTOList = deptToPlanTblService.listWithOrgId(orgId);
+		
 		for(int i=0; i<deptToPlanTblDTOList.size(); i++){
 			String tableName = deptToPlanTblDTOList.get(i).getTableName();
 			if(tableName.equalsIgnoreCase("swc_sales")){
@@ -135,11 +144,17 @@ public class HomeController {
 				mav.addObject("techdlist", techdService.listTechd(session, pageDTO));
 			}
 		}
+		
 		if(deptToPlanTblDTOList == null || deptToPlanTblDTOList.size() <=0) {
 			mav.addObject("saleslist", salesService.listSales(session, pageDTO));
 		}
 		
 		mav.addObject("noticelist", noticeService.listNotice(session, pageDTO));
+		mav.addObject("myList", gwService.myList(session));
+		mav.addObject("myDocList", gwService.myDocList(session));
+		mav.addObject("attList",gwService.listUserAtt(session));
+		mav.addObject("contList", contService.listCont(session, null, null));
+		mav.addObject("schedList", schedService.mainSchedList(session));
 		mav.addObject("graph1",salesTargetService.listSalesTargetYearTotalSalesIndividual(session, null));
 		mav.setViewName("board/myboard");
 		long afterTime = System.currentTimeMillis();

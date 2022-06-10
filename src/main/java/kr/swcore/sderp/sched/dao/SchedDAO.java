@@ -27,4 +27,5 @@ public interface SchedDAO {
 	int updateSreport(SchedDTO dto);
 	int updateSreport1(SchedDTO dto);
 	int updateSreport2(SchedDTO dto);
+	List<SchedDTO> mainSchedList(SchedDTO dto);
 }

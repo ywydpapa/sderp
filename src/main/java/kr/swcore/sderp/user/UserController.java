@@ -103,7 +103,7 @@ public class UserController {
         return ResponseEntity.ok(param);
 	}
 
-	//사용자 정보등록 컨트롤러
+	//�궗�슜�옄 �젙蹂대벑濡� 而⑦듃濡ㅻ윭
 	@RequestMapping("insert.do")
 	public ResponseEntity<?> userInsert(@ModelAttribute UserDTO dto) {
 		Map<String, Object> param = new HashMap<>();
@@ -129,13 +129,13 @@ public class UserController {
 			//mav.addObject("userName", userInfo.getUserName());
 			session.setAttribute("userId", userInfo.getUserId());
 			session.setAttribute("userName", userInfo.getUserName());
-			session.setAttribute("userRole", userInfo.getUserRole()); // �����ڵ�
+			session.setAttribute("userRole", userInfo.getUserRole()); // 占쏙옙占쏙옙占쌘듸옙
 			session.setAttribute("docRole", userInfo.getDocRole());
-			session.setAttribute("userOtp", userInfo.getUserOtp()); // OTP - 1ȸ��
+			session.setAttribute("userOtp", userInfo.getUserOtp()); // OTP - 1회占쏙옙
 			session.setAttribute("userKey", userInfo.getUserKey());
-			session.setAttribute("compNo", userInfo.getCompNo()); // ȸ���ڵ�
-			session.setAttribute("userNo", Integer.toString(userInfo.getUserNo())); // ���� �Ϸù�ȣ
-			session.setAttribute("orgId", userInfo.getOrg_id()); // �μ� ��ȣ
+			session.setAttribute("compNo", userInfo.getCompNo()); // 회占쏙옙占쌘듸옙
+			session.setAttribute("userNo", Integer.toString(userInfo.getUserNo())); // 占쏙옙占쏙옙 占싹련뱄옙호
+			session.setAttribute("orgId", userInfo.getOrg_id()); // 占싸쇽옙 占쏙옙호
 			session.setAttribute("listDateFrom", userInfo.getListDateFrom());
 		}else{
 			mav.setViewName("user/login");

@@ -136,6 +136,12 @@ public class SchedDAOImpl implements SchedDAO {
 		return sqlSession.insert("sched.insertSreport2", dto);
 	}
 
+	@Override
+	public List<SchedDTO> mainSchedList(SchedDTO dto) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("sched.mainSchedList", dto);
+	}
+
 	
 
 }

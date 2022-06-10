@@ -270,4 +270,15 @@ public class SchedServiceImpl implements SchedService {
 		return schedDao.listMreport2(dto);
 	}
 
+	@Override
+	public List<SchedDTO> mainSchedList(HttpSession session) {
+		SchedDTO dto = new SchedDTO();
+		int userNo = SessionInfoGet.getUserNo(session);
+		int compNo = SessionInfoGet.getCompNo(session);
+		
+		dto.setUserNo(userNo);
+		dto.setCompNo(compNo);
+        return schedDao.mainSchedList(dto);
+	}
+
 }

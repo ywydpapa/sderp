@@ -380,6 +380,10 @@ from
 	</if>
 ) t
 </select>
+
+<select id="mainSchedList" resultType="schedDto">
+	select * from swc_sched where compNo = #{compNo} and userNo = #{userNo} order by regDatetime desc;
+</select>
 <!-- listSched 백업 -->
 <!--<select id="listSched"
 		resultType="schedDto">

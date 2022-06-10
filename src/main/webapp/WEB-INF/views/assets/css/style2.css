@@ -1,11 +1,10 @@
 @import url("https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700");
 @import url("https://fonts.googleapis.com/css?family=Roboto:400,300,500,700");
 
-/*--����--*/
-/*--���--*/
+/*--占쏙옙占쏙옙--*/
+/*--占쏙옙占�--*/
 
 /*.header-navbar .navbar-wrapper .navbar-container .nav-left a, .header-navbar .navbar-wrapper .navbar-container .nav-right a {padding:0;}*/
- html, body{height:100%; position:relative;}
 .pcoded-inner-content {padding:0;}
 
 .nav_menu {width: 100%; height:65px;}
@@ -44,10 +43,10 @@
 .step {color:#1ABC9C;}
 .table td, .table th {padding: .35rem;}
 
-/*--����¡--*/
+/*--占쏙옙占쏙옙징--*/
 .pagination {display:table; margin: 10px auto;}
 
-/*--��ư--*/
+/*--占쏙옙튼--*/
 .btn_wr {margin-bottom:5px;overflow: hidden; /*border:1px solid red;*/}
 .btn-outline {border:1px solid #d0d0d0; border-bottom:1px solid #818181; background:#efefef; }
 .btn-outline:hover {background-color: #6d717e; border-color: #303548;color: #fff;cursor: pointer;-webkit-transition: all ease-in 0.3s;transition: all ease-in 0.3s;}
@@ -64,11 +63,11 @@ select.form-control:not([size]):not([multiple]) {height: calc(3rem + -14px);}
 .dataTables_length select.form-control:not([size]):not([multiple]) {height: calc(2rem + 1px);}
 .form-control{padding: .3rem .75rem;}
 
-/*--Ÿ��Ʋ--*/
+/*--타占쏙옙틀--*/
 .cont_title {margin-bottom:5px;}
 .cont_title i{color:#4680ff;}
 
-/*--������ ����--*/
+/*--占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙--*/
 .main-body .page-wrapper {min-height: calc(100vh - 90px); padding: 10px 15px; margin-bottom:0.5rem; background:#fff;box-sizing:border-box;}
 .main-body .page-wrapper .page-body .cnt_wr {margin-bottom:20px;}
 .card_box {border:1px solid #ddd; padding:10px 1rem; background:#fcfcfc /*#f9fafd*/;}
@@ -84,11 +83,11 @@ select.form-control:not([size]):not([multiple]) {height: calc(3rem + -14px);}
 .price_sum dd  {float:left; text-align:right;margin-bottom:0;}
 .price {font-size:18px; font-weight: 700;}
 
-/*--�α���--*/
+/*--占싸깍옙占쏙옙--*/
 .login .container-fluid {margin: 0 auto;}
 .login .inwrap {width:80%; margin: 30px auto 20px auto; }
 
-/*--ī����--*/
+/*--카占쏙옙占쏙옙--*/
 .card-header.c-h2 {padding:0;}
 .present_list {clear:both;height: auto; overflow:hidden; }
 .present_list ul li {float:left;display:inline-block;}
@@ -99,7 +98,7 @@ select.form-control:not([size]):not([multiple]) {height: calc(3rem + -14px);}
 }
 
 
-/*--��� �˾�--*/
+/*--占쏙옙占� 占싯억옙--*/
 .modal-dialog {width:auto; display: table; min-width:700px;}
 .modal-content {border:none;}
 .modal-header {background:#4680ff;padding: 10px 15px; border-top-left-radius: 0.3rem;border-top-right-radius: 0.3rem; }

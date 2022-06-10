@@ -16,111 +16,49 @@
 <meta name="description" content="CodedThemes">
 <meta name="keywords" content=" Admin , Responsive, Landing, Bootstrap, App, Template, Mobile, iOS, Android, apple, creative app">
 <meta name="author" content="djkim in SWCORE">
-<!-- Favicon icon -->
 <link rel="icon" href="${path}/assets/images/favicon.ico" type="image/x-icon">
-<!-- Google font-->
-<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,800" rel="stylesheet">
-<!-- themify-icons line icon -->
 <link rel="stylesheet" type="text/css" href="${path}/assets/icon/themify-icons/themify-icons.css">
-<!-- ico font -->
 <link rel="stylesheet" type="text/css" href="${path}/assets/icon/icofont/css/icofont.css">
-<!-- simple-line-icons-->
 <link rel="stylesheet" type="text/css" href="${path}/assets/icon/simple-line-icons/css/simple-line-icons.css">
-<!-- font-awesome-->
 <link rel="stylesheet" type="text/css" href="${path}/assets/icon/font-awesome/css/font-awesome.min.css">
-<!-- Style.css -->
-<link rel="stylesheet" type="text/css" href="${path}/assets/css/bootstrap/css/bootstrap.min.css">
-<!-- CSS only -->
-<link rel="stylesheet" type="text/css" href="${path}/assets/css/jquery.mCustomScrollbar.css">
-<link type="text/css" href='${path}/assets/jstree/css/style.css' rel='stylesheet' />
-<link rel="stylesheet" type="text/css" href="${path}/assets/css/style.css">
 <link rel="stylesheet" type="text/css" href="${path}/assets/css/_pcmenu.css">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,500,600">
-<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-<!-- data tables css -->
-<link rel="stylesheet" href="${path}/assets/css/plugins/dataTables.bootstrap4.min.css">
-<!-- -->
+
 <style>
     .requiredTextCss{
         color: red !important;
     }
-    @media only screen and (min-width: 993px) and (max-width: 1672px) {
-        body{
-            overflow-x: scroll;
-        }
-    }
-    
-    modal{
-    	width:100px;
-    	height:100px;
-    }
 </style>
 
-    
-<!-- CUSTOM CSS -->
-<link rel="stylesheet" type="text/css" href="${path}/assets/css/style2.css"><!-- style2.css를 제일 마지막에 놓아주세요. -->
-
-<!-- Required Jquery -->
 <script type="text/javascript" src="${path}/js/jquery.min.js"></script>
-<script type="text/javascript" src="${path}/js/jquery-ui.min.js"></script>
 <script type="text/javascript" src="${path}/js/popper.min.js"></script>
-<script type="text/javascript" src="${path}/js/bootstrap.min.js"></script>
-
-<!-- jquery slimscroll js -->
 <script type="text/javascript" src="${path}/js/jquery.slimscroll.js"></script>
-    <script type="text/javascript" src="${path}/assets/js/common-pages.js"></script>
-<!-- modernizr js -->
+<script type="text/javascript" src="${path}/assets/js/common-pages.js"></script>
 <script type="text/javascript" src="${path}/js/modernizr.js"></script>
-<script type="text/javascript" src="${path}/js/css-scrollbars.js"></script>
-
-<!-- data-table js -->
-<script src="${path}/js/jquery.dataTables.min.js"></script>
-<script src="${path}/js/dataTables.buttons.min.js"></script>
-<script src="${path}/assets/pages/data-table/js/jszip.min.js"></script>
-<script src="${path}/assets/pages/data-table/js/pdfmake.min.js"></script>
-<script src="${path}/assets/pages/data-table/js/vfs_fonts.js"></script>
 <script src="${path}/js/buttons.print.min.js"></script>
 <script src="${path}/js/buttons.html5.min.js"></script>
-<script src="${path}/js/dataTables.bootstrap4.min.js"></script>
-<script src="${path}/js/dataTables.responsive.min.js"></script>
-<script src="${path}/js/responsive.bootstrap4.min.js"></script>
 <script src="${path}/js/html2pdf.bundle.min.js"></script>
-
-<!-- i18next.min.js -->
 <script type="text/javascript" src="${path}/js/i18next.min.js"></script>
 <script type="text/javascript" src="${path}/js/i18nextXHRBackend.min.js"></script>
 <script type="text/javascript" src="${path}/js/i18nextBrowserLanguageDetector.min.js"></script>
 <script type="text/javascript" src="${path}/js/jquery-i18next.min.js"></script>
-<!-- ChartJS css -->
-<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.js"></script> -->
-<!--EChart css -->
 <script type="text/javascript" src="${path}/assets/echart/echarts-all.js"></script>
-<!-- Custom js -->
-<script src="${path}/assets/pages/data-table/js/data-table-custom.js"></script>
 <script src="${path}/assets/js/pcoded.min.js"></script>
-<script src="${path}/assets/js/demo-12.js"></script>
-<script src="${path}/assets/js/jquery.mCustomScrollbar.concat.min.js"></script>
-<script type="text/javascript" src="${path}/assets/js/script.js"></script>
-<%-- <script type="text/javascript" src="${path}/js/print.min.js"></script> --%>
 <script src="https://cdn.tiny.cloud/1/kh4eirod6bgv8u2sxlaeikxy5hxfogh0edhzloljxh6zf046/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
-<script src="https://cdn.jsdelivr.net/npm/gasparesganga-jquery-loading-overlay@2.1.7/dist/loadingoverlay.min.js"></script>
+
+<!-- 변경중 -->
+<script type="text/javascript" src="${path}/js/jquery-ui.js"></script>
+<script type="text/javascript" src="${path}/js/jquery.easing.js"></script>
+
+<link rel="stylesheet" type="text/css" href="${path}/css/jquery-ui.css">
+<link rel="stylesheet" type="text/css" href="${path}/css/jquery-ui.structure.css">
+<link rel="stylesheet" type="text/css" href="${path}/css/jquery-ui.theme.css">
+
+<link rel="stylesheet" type="text/css" href="${path}/css/bodyContents.css">
 <script src="${path}/js/allim.js"></script>
-    <div class="theme-loader">
-        <div class="ball-scale">
-            <div class='contain'>
-                <div class="ring"><div class="frame"></div></div>
-                <div class="ring"><div class="frame"></div></div>
-                <div class="ring"><div class="frame"></div></div>
-                <div class="ring"><div class="frame"></div></div>
-                <div class="ring"><div class="frame"></div></div>
-                <div class="ring"><div class="frame"></div></div>
-                <div class="ring"><div class="frame"></div></div>
-                <div class="ring"><div class="frame"></div></div>
-                <div class="ring"><div class="frame"></div></div>
-                <div class="ring"><div class="frame"></div></div>
-            </div>
-        </div>
-    </div>
+
+<link rel="stylesheet" type="text/css" href="${path}/css/loading.css">
+<script src="${path}/js/loading.js"></script>
+
 <script>
 	var timer;
     const DEFAULT_NUM = 15;
@@ -532,5 +470,18 @@
 		height: 44%;		
 	}
 </style>
-
 </head>
+<div id="loadingDiv" style="width: 100%; height: 100%;"></div>
+
+<script>
+	setTimeout(() => {
+		$("#loadingDiv").loading({
+			onStart: function(loading) {
+				loading.overlay.slideDown(400);
+		  	},
+		 	onStop: function(loading) {
+		    	loading.overlay.slideUp(400);
+		  	}
+		});
+	}, 70);
+</script>

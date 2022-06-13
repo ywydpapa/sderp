@@ -24,24 +24,6 @@
 	text-decoration: none;
 }
 
-#sideMenu ul li a:not(.active):after{
-	content: '\02795';
-	font-size: 20px;
-	margin-right: 18px;
-	float: right;
-}
-
-#sideMenu ul li #panel li a:after{
-	content: "";
-}
-
-#sideMenu ul li a.active:after{
-	content: "\2796";
-	font-size: 20px;
-	margin-right: 18px;
-	float: right;
-}
-
 #sideMenu ul li a img{
 	width: 26px;
 	height: 27px;
@@ -49,11 +31,19 @@
 	vertical-align: sub;
 }
 
-#sideMenu ul li a span{
+#sideMenu ul li a span:not(#slideSpan){
 	margin-left: 10px;
 	font-weight: 500;
 	font-size: 16px;
 	color: #ffffff;
+}
+
+#sideMenu ul li a #slideSpan{
+	display: none;
+	float: right;
+	margin-right: 18px;
+	font-weight: 500;
+	font-size: 30px;
 }
 
 #sideMenu ul li #panel{

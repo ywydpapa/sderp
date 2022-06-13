@@ -1,6 +1,12 @@
 $(document).ready(function(){
 	$("#sideMenu ul").not("#work, #panel").hide();
 	
+	$("#sideMenu ul li a").find("#slideSpan").each(function(index, item){
+		if($(item).parent().next().attr("id") === "panel"){
+			$(item).show();
+		}		
+	});
+	
 	$("#mainTopMenu ul li button").mouseover(function(){
 		$(this).prop("style", "background: linear-gradient(to bottom, #ffffff 95%, #302D81 5%); cursor: pointer;");
 	}).mouseout(function(){
@@ -37,18 +43,35 @@ $(document).ready(function(){
 	});
 	
 	$("#sideMenu").find("ul li a").click(function(){
-		let panel = $(this).next();
-		
-		if($(this).parent().parent().attr("id") !== "panel"){
-			if(panel.css("display") === "block"){
-				$("#sideMenu").find("ul li a").removeAttr("class");
-				$(this).removeAttr("class");
-				panel.slideToggle(1000, "easeInOutElastic");
-			}else{
-				$("#sideMenu").find("ul li a").removeAttr("class");
-				$(this).attr("class", "active");
-				panel.slideToggle(1000, "easeInOutElastic");
+		if(!$(this).attr("disabled")){
+			let panel = $(this).next();
+			
+			$(this).attr("disabled", true);
+			
+			if($(this).parent().parent().attr("id") !== "panel"){
+				if(panel.css("display") === "block"){
+					$(this).removeAttr("class");
+					$(this).find("#slideSpan").text("+");
+					$(this).find("#slideSpan").css("font-size", "");
+					$(this).find("#slideSpan").css("font-size", "30px");
+					panel.slideToggle(1000, "easeInOutElastic");
+				}else{
+					$("#sideMenu ul").not("#panel").find("li a").removeAttr("class");
+					$("#sideMenu ul").not("#panel").find("li a #slideSpan").text("+");
+					$("#sideMenu ul").not("#panel").find("li a #slideSpan").css("font-size", "");
+					$("#sideMenu ul").not("#panel").find("li a #slideSpan").css("font-size", "30px");
+					$("#sideMenu ul #panel").not(this).slideUp(400);
+					$(this).attr("class", "active");
+					$(this).find("#slideSpan").text("-");
+					$(this).find("#slideSpan").css("font-size", "");
+					$(this).find("#slideSpan").css("font-size", "47px");
+					panel.slideToggle(1000, "easeInOutElastic");
+				}
 			}
+			
+			setTimeout(() => {
+				$(this).attr("disabled", false);
+			}, 1000)
 		}
 	});
 });

@@ -1264,4 +1264,31 @@ public class AccountController {
     	return list;
     }
     
+    @RequestMapping("count_maintenance.do")
+    public ResponseEntity<Object> count_maintenance(HttpSession session, @ModelAttribute AccountDTO dto){
+    	
+        Map<String,Object> param = new HashMap<>();
+        
+        List <AccountDTO> count1 = accountService.count1(session);
+        List <AccountDTO> count2 = accountService.count2(session);
+        List <AccountDTO> count3 = accountService.count3(session);
+        
+        BigDecimal sum = new BigDecimal("0");
+        for(int i=0; i < count2.size(); i++) {
+        	if(i == 0) {
+        		sum = count2.get(i).getTest();
+        	}else {
+        		sum.add(count2.get(i).getTest());
+        	}
+        }
+        
+        param.put("count1", count1);
+        param.put("count2", count2);
+        param.put("count3", count3);
+        param.put("sum", sum);
+        
+        return ResponseEntity.ok(param);
+    }
+    
+    
 }

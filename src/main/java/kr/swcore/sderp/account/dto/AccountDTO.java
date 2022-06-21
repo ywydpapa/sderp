@@ -240,6 +240,9 @@ public class AccountDTO {
     private Integer attType;
     private String attStart;
     private String attEnd;
+    private String maintenance_s;
+    private String maintenance_e;
+    private BigDecimal maintenance_sum;
     
 }
 

@@ -558,14 +558,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<select id="reloadVatListB" resultType="accountDto">
-		select a.*, b.custName from swc_vat a
+		select a.*, b.custName, c.regDate as baclogTime from swc_vat a
+		left join swc_bacledger_detail c on a.vatserial = c.linkDocno
 		<if test='vatType == "S"'>
 			left join swc_cust b on a.vatSellerCustNo = b.custNo
 		</if>
 		<if test='vatType == "B"'>
 			left join swc_cust b on a.vatBuyerCustNo = b.custNo
 		</if>
-		
 		where a.compNo = #{compNo} and a.contNo = #{contNo} and a.attrib not like 'XXX%' and a.contNo != 0
 		
 		<if test='vatType == "S"'>
@@ -1427,10 +1427,10 @@ attrib) values (#{vatId},
 			GROUP BY c.userNo;
  		</select>
  		<select id="modalVatB_main" resultType="AccountDTO">
- 			select a.*, b.custName from swc_vat a left join swc_cust b on a.vatSellerCustNo = b.custNo where a.vatStatus in ('B1','B3') and a.attrib not like 'XXX%' AND a.linkedcheck = 1 and a.compNo = #{compNo} order by a.vatIssueDate desc
+ 			select a.*, b.custName from swc_vat a left join swc_cust b on a.vatSellerCustNo = b.custNo where a.vatStatus in ('B1','B3','B5') and a.attrib not like 'XXX%' AND a.linkedcheck in (0, 1) and a.compNo = #{compNo} order by a.vatIssueDate desc
  		</select>
  		<select id="modalVatS_main" resultType="AccountDTO">
- 			select a.*, b.custName from swc_vat a left join swc_cust b on a.vatBuyerCustNo = b.custNo where a.vatStatus in ('S1','S3') and a.attrib not like 'XXX%' AND a.linkedcheck = 1 and a.compNo = #{compNo} order by a.vatIssueDate desc
+ 			select a.*, b.custName from swc_vat a left join swc_cust b on a.vatBuyerCustNo = b.custNo where a.vatStatus in ('S1','S3','S5') and a.attrib not like 'XXX%' AND a.linkedcheck in (0, 1) and a.compNo = #{compNo} order by a.vatIssueDate desc
  		</select>
  		<select id="listusercontribution" resultType="accountDTO">
 			SELECT a.userNo AS main_userNo, a.userName, b.contribution_percent, c.userNo FROM swc_user a
@@ -1501,5 +1501,29 @@ attrib) values (#{vatId},
 			SELECT b.userName, a.attType, a.attStart, a.attEnd, a.regDate FROM swc_userattend a
 			LEFT JOIN swc_user b ON a.userNo = b.userNo
 			WHERE a.attStatus = 1 AND a.compNo = #{compNo} AND a.attrib NOT LIKE "xxx%";
+		</select>
+		<select id="count1" resultType="AccountDTO">
+			SELECT a.soppNo, a.cntrctMth, a.maintenance_S, a.maintenance_E, b.contNo, d.userName, b.contTitle, f.vatId, e.vatDate, e.endvataDate, f.test FROM swc_sopp a 
+			LEFT JOIN swc_cont b ON a.soppNo = b.soppNo AND b.attrib NOT LIKE "xxx%" 
+			LEFT JOIN swc_user d ON b.userNo = d.userNo 
+			LEFT JOIN swc_soppdata01 e ON a.soppNo = e.soppNo AND e.attrib NOT LIKE "xxx%" AND e.dataType = "1102" AND NOW() BETWEEN e.vatDate AND e.endvataDate
+			LEFT JOIN swc_vat f ON e.vatSerial = f.vatSerial AND f.attrib NOT LIKE "xxx%" 
+			WHERE  a.compNo = 100002 AND b.contNo IS NOT NULL AND a.attrib NOT LIKE "xxx%" AND e.vatDate IS NOT NULL; 
+		</select>
+		<select id="count2" resultType="AccountDTO">
+			SELECT a.soppNo, a.cntrctMth, a.maintenance_S, a.maintenance_E, b.contNo, d.userName, b.contTitle, f.vatId, e.vatDate, e.endvataDate, f.test FROM swc_sopp a 
+			LEFT JOIN swc_cont b ON a.soppNo = b.soppNo AND b.attrib NOT LIKE "xxx%" 
+			LEFT JOIN swc_user d ON b.userNo = d.userNo 
+			LEFT JOIN swc_soppdata01 e ON a.soppNo = e.soppNo AND e.attrib NOT LIKE "xxx%" AND e.dataType = "1102" AND NOW() BETWEEN e.vatDate AND e.endvataDate
+			LEFT JOIN swc_vat f ON e.vatSerial = f.vatSerial AND f.attrib NOT LIKE "xxx%" 
+			WHERE  a.compNo = 100002 AND b.contNo IS NOT NULL AND a.attrib NOT LIKE "xxx%" AND e.vatDate IS NOT NULL AND f.vatId IS NOT null;
+		</select>
+		<select id="count3" resultType="AccountDTO">
+			SELECT a.soppNo, a.cntrctMth, a.maintenance_S, a.maintenance_E, b.contNo, d.userName, b.contTitle, f.vatId, e.vatDate, e.endvataDate, f.test FROM swc_sopp a 
+			LEFT JOIN swc_cont b ON a.soppNo = b.soppNo AND b.attrib NOT LIKE "xxx%" 
+			LEFT JOIN swc_user d ON b.userNo = d.userNo 
+			LEFT JOIN swc_soppdata01 e ON a.soppNo = e.soppNo AND e.attrib NOT LIKE "xxx%" AND e.dataType = "1102" AND NOW() BETWEEN e.vatDate AND e.endvataDate
+			LEFT JOIN swc_vat f ON e.vatSerial = f.vatSerial AND f.attrib NOT LIKE "xxx%" 
+			WHERE  a.compNo = 100002 AND b.contNo IS NOT NULL AND a.attrib NOT LIKE "xxx%" AND e.vatDate IS NOT NULL AND f.vatId IS null;
 		</select>
 </mapper>

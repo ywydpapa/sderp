@@ -140,4 +140,7 @@ public interface AccountService {
 	List<AccountDTO> request_payment_boss(HttpSession session);
 	
 	List<AccountDTO> reloadVatListB(AccountDTO dto);
+	List<AccountDTO> count1(HttpSession session);
+	List<AccountDTO> count2(HttpSession session);
+	List<AccountDTO> count3(HttpSession session);
 }

@@ -724,6 +724,55 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		linkNo,
 		issueDate,
 		vatDate,
+		endvataDate,
+		regDatetime)
+		values (
+		#{soppNo},
+		#{userNo},
+		#{catNo},
+		#{productNo},
+		#{salesCustNo},
+		#{dataTitle},
+		#{dataDesc},
+		#{dataType},
+		#{dataQuanty},
+		#{dataAmt},
+		#{dataNetprice},
+		#{dataVat},
+		#{dataTotal},
+		#{dataDiscount},
+		#{dataRemark},
+		#{vatSerial},
+		#{linkType},
+		#{linkNo},
+		#{issueDate},
+		#{vatDate},
+		DATE_SUB(DATE_ADD(#{vatDate}, interval #{divisionMonth} MONTH), interval 1 day),
+		now()
+		)
+	</insert>
+	<insert id="insertdata01_defalut">
+		insert into swc_soppdata01
+		(soppNo,
+		userNo,
+		catNo,
+		productNo,
+		salesCustNo,
+		dataTitle,
+		dataDesc,
+		dataType,
+		dataQuanty,
+		dataAmt,
+		dataNetprice,
+		dataVat,
+		dataTotal,
+		dataDiscount,
+		dataRemark,
+		vatSerial,
+		linkType,
+		linkNo,
+		issueDate,
+		vatDate,
 		regDatetime)
 		values (
 		#{soppNo},
@@ -749,7 +798,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		now()
 		)
 	</insert>
-
 	<delete id="deleteSoppdata01">
 		update swc_soppdata01
 		set attrib = 'XXXXX'

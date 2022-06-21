@@ -114,4 +114,11 @@ public class SoppdataServiceImpl implements SoppdataService {
 		return soppdataDao.listSoppdata01_showdetail(soppNo);
 	}
 
+	@Override
+	public int insertdata01_defalut(HttpSession session, SoppdataDTO dto) {
+		// TODO Auto-generated method stub
+		dto.setUserNo(SessionInfoGet.getUserNo(session));
+		return soppdataDao.insertdata01_defalut(dto);
+	}
+
 }

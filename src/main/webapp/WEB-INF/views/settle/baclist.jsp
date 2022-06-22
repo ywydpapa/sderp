@@ -231,8 +231,8 @@
                                     <td class="text-center">${vlist.bacNo}</td>
                                     <td class="text-right">${vlist.lastUpdTime}</td>
                                     <td class="text-right moneyTdHtml">${vlist.balanceAmt}</td>
-                                    <td class="text-left">${vlist.bacType}</td>
-                                    <td class="text-left"></td>
+                                    <td class="text-center">${vlist.bacType}</td>
+                                    <td class="text-center">${vlist.bacMemo}</td>
                                 </tr>
                             </c:forEach>
                         </table>

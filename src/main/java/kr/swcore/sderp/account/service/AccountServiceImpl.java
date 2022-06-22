@@ -781,4 +781,22 @@ public class AccountServiceImpl implements AccountService {
 	public List<AccountDTO> reloadVatListB(AccountDTO dto) {
 		return accountDAO.reloadVatListB(dto);
 	}
+
+	@Override
+	public List<AccountDTO> count1(HttpSession session) {
+		int compNo = SessionInfoGet.getCompNo(session);
+		return accountDAO.count1(compNo);
+	}
+
+	@Override
+	public List<AccountDTO> count2(HttpSession session) {
+		int compNo = SessionInfoGet.getCompNo(session);
+		return accountDAO.count2(compNo);
+	}
+
+	@Override
+	public List<AccountDTO> count3(HttpSession session) {
+		int compNo = SessionInfoGet.getCompNo(session);
+		return accountDAO.count3(compNo);
+	}
 }

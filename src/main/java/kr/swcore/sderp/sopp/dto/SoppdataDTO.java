@@ -38,6 +38,7 @@ public class SoppdataDTO {
 	private String regDatetime;
 	private String issueDate;
 	private String vatDate;
+	private String endvataDate;
 	private String vatDatefrom;
 	private String vatDateto;
 	private Boolean distMargin;
@@ -58,6 +59,7 @@ public class SoppdataDTO {
 	private String cntrctMth;
 	private String freemaintSdate;
 	private String freemaintEdate;
+	private int divisionMonth;
 	
 	public SoppdataDTO() {
 		super();

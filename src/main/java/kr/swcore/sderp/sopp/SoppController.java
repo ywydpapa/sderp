@@ -260,6 +260,7 @@ public class SoppController {
 	@RequestMapping("insertdata01.do")
 	public ResponseEntity<?> insertdata01(HttpSession session, @ModelAttribute SoppdataDTO dto) {
 		Map<String, Object> param = new HashMap<>();
+		
 		int soppdataInsert = soppdataService.insertSoppdata01(session, dto);
 		if (soppdataInsert >0) {
 			param.put("code","10001"); 
@@ -268,7 +269,19 @@ public class SoppController {
 		}
 		return ResponseEntity.ok(param);
 	}
-
+	
+	@RequestMapping("insertdata01_defalut.do")
+	public ResponseEntity<?> insertdata01_defalut(HttpSession session, @ModelAttribute SoppdataDTO dto) {
+		Map<String, Object> param = new HashMap<>();
+		
+		int soppdataInsert = soppdataService.insertdata01_defalut(session, dto);
+		if (soppdataInsert >0) {
+			param.put("code","10001"); 
+		}
+		else {param.put("code","20001");
+		}
+		return ResponseEntity.ok(param);
+	}
 	
 	@RequestMapping("insertdata02.do")
 	public ResponseEntity<?> insertdata02(HttpSession session,@ModelAttribute SoppdataDTO dto) {

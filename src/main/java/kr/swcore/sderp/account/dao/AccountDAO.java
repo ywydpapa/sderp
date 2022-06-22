@@ -137,4 +137,7 @@ public interface AccountDAO {
 	List<AccountDTO> request_payment_boss(AccountDTO dto);
 	
 	List<AccountDTO> reloadVatListB(AccountDTO dto);
+	List<AccountDTO> count1(int compNo);
+	List<AccountDTO> count2(int compNo);
+	List<AccountDTO> count3(int compNo);
 }

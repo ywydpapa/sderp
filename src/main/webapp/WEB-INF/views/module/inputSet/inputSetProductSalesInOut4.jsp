@@ -266,7 +266,8 @@
 		<div style="float:left; margin-top: 10px;">
 			<p style="font-weight: 600; color: red;">※ 추가는 분할횟수 및 계약금액에 상관없이 원래 방식대로 추가되고, 분할추가는 분할횟수 및 계약금액에 맞춰 다중으로 추가됩니다.</p>
 			<p style="font-weight: 600; color: red;">해당 계약에서 최종으로 발행 될 총 계산서 갯수를 "분할횟수"에 추가하여 주십시오.</p>
-			<p style="font-weight: 600; color: red;">ex) 계약금액이 2,000,000원이고 해당 계약에 대해 발행 될 매출계산서가 최종적으로 2개가 나온다면 "분할횟수"에 2를 기입 후 "분할추가" 버튼을 클릭.</p>
+			<p style="font-weight: 600; color: red;">단위는 몇개월 단위로 계산서를 발행 할것인가에 대한 항목입니다.</p>
+			<p style="font-weight: 600; color: red;">ex) 계약금액이 2,000,000원이고 해당 계약에 대해 발행 될 매출계산서가 최종적으로 2개가 나오고 6개월 마다 한번씩 계산서를 발행한다 하면 "분할횟수"에 2를 기입, "단위"에 6를 기입 후 "분할추가" 버튼을 클릭.</p>
 		</div>
 		<div id="contAmtUpBtn" style="float:right; margin-bottom: 15px;">
 			<button type="button" class="btn btn-success" onclick="contAmtUpdate();">계약금액 업데이트</button>
@@ -284,6 +285,7 @@
     		<th class="text-center">구분(매입/매출)</th>
             <th class="text-center">거래일자</th>
             <th class="text-center">분할횟수</th>
+            <th class="text-center">단위</th>
             <th class="text-center" colspan="2">계약금액</th>
             <!-- <th class="text-center">계약금액</th> -->
             <th class="text-center">거래처(매입/매출처)</th>
@@ -305,6 +307,9 @@
             <td>
             	<input type="text" class="form-control" id="divisionNum" maxlength="2" value="1" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
             </td>
+            <td>
+				<input type="text" class="form-control" id="divisionMonth" maxlength="2" value="1" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
+            </td>
             <!-- <td>
             	<div class="input-group" style="margin:0;">
 	           		<div class="input-group input-group-sm mb-0">
@@ -322,7 +327,7 @@
 		            	<input type="text" class="form-control" id="divisionContAmt" value="${contDto.contAmt}" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
 	            	</c:when>
 	            	<c:otherwise>
-	            		<input type="text" class="form-control" id="divisionContAmt" value="0" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
+	            		<input type="text" class="form-control" id="divisioncount" value="0" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
 	            	</c:otherwise>
             	</c:choose>
            	</td>
@@ -456,8 +461,8 @@
             <th class="text-center">부가세</th>
             <th class="text-center">합계금액</th>
             <th class="text-center">승인번호</th>
-            <th class="text-center">적요</th>
-            <td class="text-center" rowspan="2">
+            <th class="text-center" colspan="2">적요</th>
+            <td class="text-center" rowspan="3" colspan="1">
                 <button id="data01Addbtn" class="btn btn-success btn-sm" onClick="javascript:fn_data01Insert()">추가</button>
                 <button id="data01Modbtn" class="btn btn-instagram btn-sm" onClick="javascript:fn_data01Update()">수정</button>
             </td>
@@ -532,7 +537,7 @@
 	                    </div>
 					</div>
                 </td>
-                <td><input type="text" id="data01Remark" class="form-control form-control-sm" /></td>
+                <td colspan="2"><input type="text" id="data01Remark" class="form-control form-control-sm" /></td>
 	    	</tr>
 	    	<!-- <tr>
 	            <td colspan="8">
@@ -697,6 +702,7 @@
 	   	 	var pathname = $(location).attr('pathname');
 	   	 	var updateData = {};
     		var divisionNum = $("#divisionNum").val();
+    		var divisionMonth = $("#divisionMonth").val();
         	var divisionContAmt = $("#divisionContAmt").val().replace(/[\D\s\._\-]+/g, "");
         	var path = $(location).attr("pathname");
         	var divisionTotal = 0;
@@ -741,8 +747,39 @@
     	        data01Data.dataVat 		= divisionVat;
     	        data01Data.dataTotal 		= divisionTotal;
     	        data01Data.dataRemark 	= $("#data01Remark").val();
-    	        data01Data.vatDate = $("#ioDate").val();
+    	        data01Data.divisionMonth = divisionMonth;
     	        
+    	    	// 단위 월 추가 데이터
+    	        if(i == 0){
+    	        	data01Data.vatDate = $("#ioDate").val();
+    	        }else{
+    	        	const stair_data = $("#ioDate").val().split('-');
+    	        	const stair_data_array = new Date(stair_data[0], stair_data[1], stair_data[2]);
+    	        	
+    	        	const year = stair_data_array.getFullYear();
+    	        	const month = stair_data_array.getMonth() + parseInt(parseInt(i) * parseInt(divisionMonth));
+    	        	const day = stair_data_array.getDate();
+    	        	
+    	        	if(month > 12){
+    	        		const remain_month = ((stair_data_array.getMonth() + parseInt(parseInt(i) * parseInt(divisionMonth))) % 12);
+    	        		const remain_year = Math.floor(parseInt((stair_data_array.getMonth() + parseInt(parseInt(i) * parseInt(divisionMonth))) / 12));
+    	        		const year2 = parseInt(stair_data_array.getFullYear()) + parseInt(remain_year);
+    	        		const month2 = remain_month;
+    	        		if(remain_month < 10){
+    	        			data01Data.vatDate = year2 + "-" + "0" + month2 + "-" + stair_data_array.getDate();
+    	        		}else{
+    	        			data01Data.vatDate = year2 + "-" + month2 + "-" + stair_data_array.getDate();
+    	        		}
+    	        	}else{
+    	        		if(stair_data_array.getMonth() + parseInt(parseInt(i) * parseInt(divisionMonth)) < 10){
+        	        		data01Data.vatDate = stair_data_array.getFullYear() + "-" + "0" + month + "-" + stair_data_array.getDate();
+        	        	}else{
+        	        		data01Data.vatDate = stair_data_array.getFullYear() + "-" + month + "-" + stair_data_array.getDate();
+        	        	}	
+    	        	}
+    	        }
+    	     	// 단위 월 추가 데이터
+    	     	
     	        updateData.vatSerial = data01Data.vatSerial !== "" ? data01Data.vatSerial : 0;
     	        updateData.contNo = $("#contNo").val();
     	        updateData.compNo = "${sessionScope.compNo}";
@@ -838,7 +875,7 @@
         }
 
         $.ajax({
-            url: "${path}/sopp/insertdata01.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
+            url: "${path}/sopp/insertdata01_defalut.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
             data: data01Data , // HTTP 요청과 함께 서버로 보낼 데이터
             method: "POST", // HTTP 요청 메소드(GET, POST 등)
             dataType: "json" // 서버에서 보내줄 데이터의 타입
@@ -875,87 +912,89 @@
     }
 
     function fn_data01Update() {
-   	 	var path = $(location).attr("pathname");	
-   	 	var updateData = {};
-   	 	
-    	if($("[name='contractType']:checked").val() === "NEW"){
-			localStorage.setItem("reloadSet", "1t");
-    	}else{
-    		localStorage.setItem("oldContNo", $("#oldContNo").val());
-			localStorage.setItem("oldContTitle", $("#oldContTitle").val());
-			localStorage.setItem("reloadSet", "2t");
-    	}
-    	
-        var data01Data = {};
-        data01Data.soppNo 		= $("#soppNo").val();
-        data01Data.catNo	 	= '100001';
-        data01Data.soppdataNo   = $("#soppdataNo").val();
-        if($("#productSalesInOutCustName").val() != "") data01Data.salesCustNo = Number($("#productSalesInOutCustNo").val());
-        if($("#data01Title[data-flag='true']").val() != "") {
-            if($("#productNo1").val() != "") data01Data.productNo	= $("#productNo1").val();
-            data01Data.dataTitle 	= $("#data01Title[data-flag='true']").val();
-        }
-        
-        if($("#data01Type").val() === "1101"){
-			data01Data.vatSerial = $("#vatBdiv").find("#vatSerial").val();
-		}else{
-			data01Data.vatSerial = $("#vatSdiv").find("#vatSerial").val();
-		}
-        
-        data01Data.dataType		= $("#data01Type").val();
-        data01Data.dataNetprice	= $("#data01Netprice").val().replace(/[\D\s\._\-]+/g, "");
-        data01Data.dataQuanty	= $("#data01Quanty").val().replace(/[\D\s\._\-]+/g, "");
-        data01Data.dataAmt 		= $("#data01Amt").val().replace(/[\D\s\._\-]+/g, "");
-        data01Data.dataVat 		= $("#data01Vat").val().replace(/[\D\s\._\-]+/g, "");
-        data01Data.dataTotal 	= $("#data01Total").val().replace(/[\D\s\._\-]+/g, "");
-        data01Data.dataRemark 	= $("#data01Remark").val();
-        data01Data.vatDate = $("#ioDate").val();
-        
-        updateData.vatSerial = data01Data.vatSerial !== "" ? data01Data.vatSerial : 0;
-        updateData.contNo = $("#contNo").val();
-        updateData.compNo = "${sessionScope.compNo}";
-		
-        if(!data01Data.dataQuanty){
-            alert("단가를 입력해주십시오.");
-            return;
-        } else if(!data01Data.dataAmt){
-            alert("수량을 입력해주십시오.");
-            return;
-        } else if (!data01Data.dataTitle){
-            alert("상품명을 입력해주십시오.");
-            return;
-        }
-        
-        if(data01Data.vatSerial !== "" && data01Data.vatSerial !== null){
-	        $.ajax({
-	        	url: "${path}/acc/vatContUpdate.do",
-	        	method: "post",
-	        	data: {
-	        		vatSerial: localStorage.getItem("setSerial"),
-	        		contNo: 0,
-	        		compNo: updateData.compNo
-	        	},
-	        	dataType: "json",
-	        	success:function(){
-	        		$.ajax({
-	        			url: "${path}/acc/vatContUpdate.do",
-	        			method: "post",
-	        			data: updateData,
-	        			dataType: "json",
-	        			success:function(){
-	        				localStorage.removeItem("setSerial");
-	        			},
-	        			error:function(){
-	        				alert("데이터가 맞지 않습니다.\n다시 시도해주십시오.");
-	        				return false;
-	        			}
-	        		});
-	        	},
-	        	error:function(){
-	        		alert("업데이트에 실패했습니다.\n다시 시도해주십시오.");
-	        		return false;
-	        	}
-	        });
+    	if(confirm("거래 일자 = " + $('#ioDate').val() + "," + " 단위 = " + $('#divisionMonth').val() + '개월. 입력하신 것이 맞습니까?')){
+	   	 	var path = $(location).attr("pathname");	
+	   	 	var updateData = {};
+	   	 	
+	    	if($("[name='contractType']:checked").val() === "NEW"){
+				localStorage.setItem("reloadSet", "1t");
+	    	}else{
+	    		localStorage.setItem("oldContNo", $("#oldContNo").val());
+				localStorage.setItem("oldContTitle", $("#oldContTitle").val());
+				localStorage.setItem("reloadSet", "2t");
+	    	}
+	    	
+	        var data01Data = {};
+	        data01Data.soppNo 		= $("#soppNo").val();
+	        data01Data.catNo	 	= '100001';
+	        data01Data.soppdataNo   = $("#soppdataNo").val();
+	        data01Data.divisionMonth = $('#divisionMonth').val();
+	        if($("#productSalesInOutCustName").val() != "") data01Data.salesCustNo = Number($("#productSalesInOutCustNo").val());
+	        if($("#data01Title[data-flag='true']").val() != "") {
+	            if($("#productNo1").val() != "") data01Data.productNo	= $("#productNo1").val();
+	            data01Data.dataTitle 	= $("#data01Title[data-flag='true']").val();
+	        }
+	        
+	        if($("#data01Type").val() === "1101"){
+				data01Data.vatSerial = $("#vatBdiv").find("#vatSerial").val();
+			}else{
+				data01Data.vatSerial = $("#vatSdiv").find("#vatSerial").val();
+			}
+	        
+	        data01Data.dataType		= $("#data01Type").val();
+	        data01Data.dataNetprice	= $("#data01Netprice").val().replace(/[\D\s\._\-]+/g, "");
+	        data01Data.dataQuanty	= $("#data01Quanty").val().replace(/[\D\s\._\-]+/g, "");
+	        data01Data.dataAmt 		= $("#data01Amt").val().replace(/[\D\s\._\-]+/g, "");
+	        data01Data.dataVat 		= $("#data01Vat").val().replace(/[\D\s\._\-]+/g, "");
+	        data01Data.dataTotal 	= $("#data01Total").val().replace(/[\D\s\._\-]+/g, "");
+	        data01Data.dataRemark 	= $("#data01Remark").val();
+	        data01Data.vatDate = $("#ioDate").val();
+	        
+	        updateData.vatSerial = data01Data.vatSerial !== "" ? data01Data.vatSerial : 0;
+	        updateData.contNo = $("#contNo").val();
+	        updateData.compNo = "${sessionScope.compNo}";
+			
+	        if(!data01Data.dataQuanty){
+	            alert("단가를 입력해주십시오.");
+	            return;
+	        } else if(!data01Data.dataAmt){
+	            alert("수량을 입력해주십시오.");
+	            return;
+	        } else if (!data01Data.dataTitle){
+	            alert("상품명을 입력해주십시오.");
+	            return;
+	        }
+	        
+	        if(data01Data.vatSerial !== "" && data01Data.vatSerial !== null){
+		        $.ajax({
+		        	url: "${path}/acc/vatContUpdate.do",
+		        	method: "post",
+		        	data: {
+		        		vatSerial: localStorage.getItem("setSerial"),
+		        		contNo: 0,
+		        		compNo: updateData.compNo
+		        	},
+		        	dataType: "json",
+		        	success:function(){
+		        		$.ajax({
+		        			url: "${path}/acc/vatContUpdate.do",
+		        			method: "post",
+		        			data: updateData,
+		        			dataType: "json",
+		        			success:function(){
+		        				localStorage.removeItem("setSerial");
+		        			},
+		        			error:function(){
+		        				alert("데이터가 맞지 않습니다.\n다시 시도해주십시오.");
+		        				return false;
+		        			}
+		        		});
+		        	},
+		        	error:function(){
+		        		alert("업데이트에 실패했습니다.\n다시 시도해주십시오.");
+		        		return false;
+		        	}
+		        });
         }
 
         $.ajax({ url: "${path}/sopp/updatedata01.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
@@ -996,6 +1035,9 @@
             $("#data01Modbtn").hide();
             alert("통신 실패");
         });
+    	}else{
+        	return false;
+        }
     }
 
     function fn_data01delete(soppdataNo) {

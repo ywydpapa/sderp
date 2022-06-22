@@ -707,4 +707,23 @@ public class AccountDAOImpl implements AccountDAO {
 	public List<AccountDTO> reloadVatListB(AccountDTO dto) {
 		return sqlSession.selectList("account.reloadVatListB", dto);
 	}
+
+	@Override
+	public List<AccountDTO> count1(int compNo) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("account.count1", compNo);
+	}
+
+	@Override
+	public List<AccountDTO> count2(int compNo) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("account.count2", compNo);
+	}
+
+	@Override
+	public List<AccountDTO> count3(int compNo) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("account.count3", compNo);
+	}
+	
 }

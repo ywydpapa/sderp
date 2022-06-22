@@ -94,4 +94,10 @@ public class SoppdataDAOImpl implements SoppdataDAO {
 		return sqlSession.selectList("sopp.listSoppdata01_showdetail", soppNo);
 	}
 
+	@Override
+	public int insertdata01_defalut(SoppdataDTO dto) {
+		// TODO Auto-generated method stub
+		return sqlSession.insert("sopp.insertdata01_defalut",dto);
+	}
+
 }

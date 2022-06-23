@@ -190,7 +190,7 @@
 			} else if(dataType == 1102){
 				$("#data01Type").val("1102");
 			}
-			
+
 			if($(e).attr("data-value") === "1101"){
 				$("#data01Type").val("1101");
 				$("#vatBdiv").show();
@@ -207,7 +207,17 @@
 
 			var soppdataNo = Number(tr.attr("id"));
 			$("#soppdataNo").val(soppdataNo);
-
+			
+			const date_default = $(tr).children().eq(0)[0].innerText;
+			
+			if(date_default.length > 16){
+				const date_maintain = $(tr).children().eq(0)[0].innerText.substr(5, 10);
+				$('#ioDate').val(date_maintain);
+			}else {
+				const date_default_2 = $(tr).children().eq(0)[0].innerText.substr(3, 10);
+				$('#ioDate').val(date_default_2);
+			}
+			
 			var salesCustNoN = $(tr).children().eq(1)[0].innerText;
 			var salesCustNo = Number($(tr).children().eq(1)[0].children[0].value);
 			$("#productSalesInOutCustName").val(salesCustNoN);
@@ -238,7 +248,7 @@
 
 			var data01Remark = $(tr).children().eq(8)[0].innerText;
 			$("#data01Remark").val(data01Remark);
-
+			
 			$(e).removeClass("btn-dark");
 			$(e).addClass("btn-warning");
 			$(e).html('취소');
@@ -246,6 +256,13 @@
 			$("#data01Addbtn").hide();
 			$("#data01Modbtn").show();
 		} else if($(e).html() == "취소"){
+			
+			var today = new Date();
+			var year = today.getFullYear();
+			var month = ('0' + (today.getMonth() + 1)).slice(-2);
+			var day = ('0' + today.getDate()).slice(-2);
+			var dateString = year + '-' + month  + '-' + day;
+			
 			$("#data01Type option:eq(0)").attr("selected","selected");
 			$("#soppdataNo").val("");
 			$("#productSalesInOutCustName").val("");
@@ -260,7 +277,7 @@
 			$("#data01Remark").val("");
 			$("#vatBdiv").find("#vatSerial").val("");
 			$("#vatSdiv").find("#vatSerial").val("");
-
+			$('#ioDate').val(dateString);
 			$(e).addClass("btn-dark");
 			$(e).removeClass("btn-warning");
 			$(e).html('수정');

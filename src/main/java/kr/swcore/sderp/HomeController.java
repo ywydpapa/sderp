@@ -198,6 +198,11 @@ public class HomeController {
 		return "manual_detail/bill_account_sample_menual";
 	}
 	
+	@RequestMapping("/manual_detail/maintenance_menual.do")
+	public String maintenance_menual() {
+		return "manual_detail/maintenance_menual";
+	}
+	
 	@RequestMapping("/manual.do")
 	public String manual() {
 		return "manual/manual";

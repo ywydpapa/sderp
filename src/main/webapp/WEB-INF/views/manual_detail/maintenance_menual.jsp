@@ -30,18 +30,22 @@
             </div>
         	<p><b>3. 하단 매출/매입 란에 목적에 맞게 삽입 되었는지 확인.</b></p>
         	<div>
-            	<img src="../assets/images/menual_maintenance_3.png" style="width: 100%;">
+            	<img src="../assets/images/menual_maintenance_7.png" style="width: 100%;">
             </div>
         	<p><b>4. 만들어진 매출/매입 항목에 발행된 계산서 승인번호를 연결.</b></p>
         	<div>
-            	<img src="../assets/images/menual_maintenance_4.png" style="width: 100%;">
+            	<img src="../assets/images/menual_maintenance_8.png" style="width: 100%;">
             </div>
         	<p><b>5. 수정 완료 하면 해당 항목에 정상적으로 승인번호가 들어가있는지 확인.</b></p>
         	<div>
-            	<img src="../assets/images/menual_maintenance_5.png" style="width: 100%;">
+            	<img src="../assets/images/menual_maintenance_9.png" style="width: 100%;">
+            </div>
+            <div>
+            	<img src="../assets/images/menual_maintenance_10.png" style="width: 100%;">
             </div>
         	
-        	<p><b>ps. 매출/매입 금액에 변동이 존재할 경우 우상단 "계약금액 업데이트"를 클릭해 주십시오.<br>리스트에서 표기될때 금액이 업데이트 되어 표기 되어 집니다.</b></p>
+        	
+        	<p><b>ps. 해당 항목 수정 시 각 과정의 경고창을 확인하여 주십시오.<br>일반 매출의 경우와 유지보수 매출의 창은 다릅니다.<br>매출/매입 금액에 변동이 존재할 경우 우상단 "계약금액 업데이트"를 클릭해 주십시오.<br>리스트에서 표기될때 금액이 업데이트 되어 표기 되어 집니다.</b></p>
         </section>
     </main>
 	<jsp:include page="../manual/sidebar.jsp"/>

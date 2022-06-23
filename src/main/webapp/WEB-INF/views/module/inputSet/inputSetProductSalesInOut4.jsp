@@ -285,7 +285,7 @@
     		<th class="text-center">구분(매입/매출)</th>
             <th class="text-center">거래일자</th>
             <th class="text-center">분할횟수</th>
-            <th class="text-center">단위</th>
+            <th class="text-center">단위(개월)</th>
             <th class="text-center" colspan="2">계약금액</th>
             <!-- <th class="text-center">계약금액</th> -->
             <th class="text-center">거래처(매입/매출처)</th>
@@ -1035,7 +1035,7 @@
             alert("통신 실패");
         });
     	}else{
-    		if(confirm("유지보수 매출입니까?")){
+    		if(confirm("유지보수 매출건에 대한 수정입니까?")){
     			if(confirm("거래 일자 = " + $('#ioDate').val() + "," + " 단위 = " + $('#divisionMonth').val() + '개월. 입력하신 것이 맞습니까?')){
         	   	 	var path = $(location).attr("pathname");	
         	   	 	var updateData = {};
@@ -1163,7 +1163,7 @@
                 	return false;
                 }	
     		}else {
-    			if(confirm("일반 매출입니까?")){
+    			if(confirm("일반 매출건에 대한 수정입니까?")){
     				var path = $(location).attr("pathname");	
     		   	 	var updateData = {};
     		   	 	

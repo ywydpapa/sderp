@@ -824,8 +824,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		left join swc_cont d on a.soppNo = d.soppNo AND d.attrib LIKE '10000%'
 		where a.attrib not like 'XXX%'
 		AND a.soppNo=#{soppNo} and a.catNo=100001 and a.soppNo != 10005223
-		order
-		by dataType, regDatetime desc
+		order by a.vatDate ASC
 	</select>
 	<select id="listSoppdata01_showdetail" resultType="soppdataDto">
 		select a.*, b.soppTitle, d.contTitle, c.custName as salesCustNoN
@@ -847,7 +846,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where a.attrib not like 'XXX%'
 		AND a.soppNo=#{soppNo} AND d.contNo=#{contNo} and a.catNo=100001 and
 		a.soppNo != 10005223
-		order by dataType, regDatetime desc
+		order by a.vatDate ASC
 	</select>
 	<select id="listSoppdata011" resultType="soppdataDto">
 		select *

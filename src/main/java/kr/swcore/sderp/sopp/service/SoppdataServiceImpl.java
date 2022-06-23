@@ -40,7 +40,11 @@ public class SoppdataServiceImpl implements SoppdataService {
 		dto.setUserNo(SessionInfoGet.getUserNo(session));
 		System.out.println(dto.getSoppdataNo());
 		soppdataDao.deleteSoppdata01(dto.getSoppdataNo());
-		return soppdataDao.insertSoppdata01(dto);
+		if(dto.getDataType() == "1101") {
+			return soppdataDao.insertdata01_defalut(dto);
+		}else {
+			return soppdataDao.insertSoppdata01(dto);
+		}
 	}
 
 
@@ -116,7 +120,9 @@ public class SoppdataServiceImpl implements SoppdataService {
 
 	@Override
 	public int insertdata01_defalut(HttpSession session, SoppdataDTO dto) {
+		dto.setUserNo(SessionInfoGet.getUserNo(session));
 		// TODO Auto-generated method stub
+		soppdataDao.deleteSoppdata01(dto.getSoppdataNo());
 		dto.setUserNo(SessionInfoGet.getUserNo(session));
 		return soppdataDao.insertdata01_defalut(dto);
 	}

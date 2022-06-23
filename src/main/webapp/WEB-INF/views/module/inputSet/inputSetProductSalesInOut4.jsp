@@ -912,8 +912,8 @@
     }
 
     function fn_data01Update() {
-    	if(confirm("거래 일자 = " + $('#ioDate').val() + "," + " 단위 = " + $('#divisionMonth').val() + '개월. 입력하신 것이 맞습니까?')){
-	   	 	var path = $(location).attr("pathname");	
+    	if($("#data01Type").val() == "1101"){
+    		var path = $(location).attr("pathname");	
 	   	 	var updateData = {};
 	   	 	
 	    	if($("[name='contractType']:checked").val() === "NEW"){
@@ -928,7 +928,6 @@
 	        data01Data.soppNo 		= $("#soppNo").val();
 	        data01Data.catNo	 	= '100001';
 	        data01Data.soppdataNo   = $("#soppdataNo").val();
-	        data01Data.divisionMonth = $('#divisionMonth').val();
 	        if($("#productSalesInOutCustName").val() != "") data01Data.salesCustNo = Number($("#productSalesInOutCustNo").val());
 	        if($("#data01Title[data-flag='true']").val() != "") {
 	            if($("#productNo1").val() != "") data01Data.productNo	= $("#productNo1").val();
@@ -1036,8 +1035,261 @@
             alert("통신 실패");
         });
     	}else{
-        	return false;
-        }
+    		if(confirm("유지보수 매출입니까?")){
+    			if(confirm("거래 일자 = " + $('#ioDate').val() + "," + " 단위 = " + $('#divisionMonth').val() + '개월. 입력하신 것이 맞습니까?')){
+        	   	 	var path = $(location).attr("pathname");	
+        	   	 	var updateData = {};
+        	   	 	
+        	    	if($("[name='contractType']:checked").val() === "NEW"){
+        				localStorage.setItem("reloadSet", "1t");
+        	    	}else{
+        	    		localStorage.setItem("oldContNo", $("#oldContNo").val());
+        				localStorage.setItem("oldContTitle", $("#oldContTitle").val());
+        				localStorage.setItem("reloadSet", "2t");
+        	    	}
+        	    	
+        	        var data01Data = {};
+        	        data01Data.soppNo 		= $("#soppNo").val();
+        	        data01Data.catNo	 	= '100001';
+        	        data01Data.soppdataNo   = $("#soppdataNo").val();
+        	        data01Data.divisionMonth = $('#divisionMonth').val();
+        	        if($("#productSalesInOutCustName").val() != "") data01Data.salesCustNo = Number($("#productSalesInOutCustNo").val());
+        	        if($("#data01Title[data-flag='true']").val() != "") {
+        	            if($("#productNo1").val() != "") data01Data.productNo	= $("#productNo1").val();
+        	            data01Data.dataTitle 	= $("#data01Title[data-flag='true']").val();
+        	        }
+        	        
+        	        if($("#data01Type").val() === "1101"){
+        				data01Data.vatSerial = $("#vatBdiv").find("#vatSerial").val();
+        			}else{
+        				data01Data.vatSerial = $("#vatSdiv").find("#vatSerial").val();
+        			}
+        	        
+        	        data01Data.dataType		= $("#data01Type").val();
+        	        data01Data.dataNetprice	= $("#data01Netprice").val().replace(/[\D\s\._\-]+/g, "");
+        	        data01Data.dataQuanty	= $("#data01Quanty").val().replace(/[\D\s\._\-]+/g, "");
+        	        data01Data.dataAmt 		= $("#data01Amt").val().replace(/[\D\s\._\-]+/g, "");
+        	        data01Data.dataVat 		= $("#data01Vat").val().replace(/[\D\s\._\-]+/g, "");
+        	        data01Data.dataTotal 	= $("#data01Total").val().replace(/[\D\s\._\-]+/g, "");
+        	        data01Data.dataRemark 	= $("#data01Remark").val();
+        	        data01Data.vatDate = $("#ioDate").val();
+        	        
+        	        updateData.vatSerial = data01Data.vatSerial !== "" ? data01Data.vatSerial : 0;
+        	        updateData.contNo = $("#contNo").val();
+        	        updateData.compNo = "${sessionScope.compNo}";
+        			
+        	        if(!data01Data.dataQuanty){
+        	            alert("단가를 입력해주십시오.");
+        	            return;
+        	        } else if(!data01Data.dataAmt){
+        	            alert("수량을 입력해주십시오.");
+        	            return;
+        	        } else if (!data01Data.dataTitle){
+        	            alert("상품명을 입력해주십시오.");
+        	            return;
+        	        }
+        	        
+        	        if(data01Data.vatSerial !== "" && data01Data.vatSerial !== null){
+        		        $.ajax({
+        		        	url: "${path}/acc/vatContUpdate.do",
+        		        	method: "post",
+        		        	data: {
+        		        		vatSerial: localStorage.getItem("setSerial"),
+        		        		contNo: 0,
+        		        		compNo: updateData.compNo
+        		        	},
+        		        	dataType: "json",
+        		        	success:function(){
+        		        		$.ajax({
+        		        			url: "${path}/acc/vatContUpdate.do",
+        		        			method: "post",
+        		        			data: updateData,
+        		        			dataType: "json",
+        		        			success:function(){
+        		        				localStorage.removeItem("setSerial");
+        		        			},
+        		        			error:function(){
+        		        				alert("데이터가 맞지 않습니다.\n다시 시도해주십시오.");
+        		        				return false;
+        		        			}
+        		        		});
+        		        	},
+        		        	error:function(){
+        		        		alert("업데이트에 실패했습니다.\n다시 시도해주십시오.");
+        		        		return false;
+        		        	}
+        		        });
+                }
+
+                $.ajax({ url: "${path}/sopp/updatedata01.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
+                    data: data01Data , // HTTP 요청과 함께 서버로 보낼 데이터
+                    method: "POST", // HTTP 요청 메소드(GET, POST 등)
+                    dataType: "json" // 서버에서 보내줄 데이터의 타입
+                }) // HTTP 요청이 성공하면 요청한 데이터가 done() 메소드로 전달됨. .
+                .done(function(data) {
+                    if(data.code == 10001){
+                        alert("저장 성공");
+                        $("#data01Type option:eq(0)").attr("selected","selected");
+                        $("#soppdataNo").val("");
+                        $("#productSalesInOutCustName").val("");
+                        $("#productSalesInOutCustNo").val("");
+                        $("#productNo1").val("");
+                        $("#data01Title[data-flag='true']").val("");
+                        $("#data01Netprice").val("");
+                        $("#data01Quanty").val("");
+                        $("#data01Amt").val("");
+                        $("#data01Remark").val("");
+
+                        $("#data01Addbtn").show();
+                        $("#data01Modbtn").hide();
+                        
+                        localStorage.setItem('lastTab', "#tab02");
+                        //var url="${path}/sopp/detail/"+$("#soppNo").val() + "/#tab02";
+        				//fn_Reloaddata01(url);
+                        location.href = path;
+                    }else{
+                        alert("저장 실패");
+                    }
+                }) // HTTP 요청이 실패하면 오류와 상태에 관한 정보가 fail() 메소드로 전달됨.
+                .fail(function(xhr, status, errorThrown) {
+                    $(e).addClass("btn-dark");
+                    $(e).removeClass("btn-warning");
+                    $(e).html('수정');
+                    $("#data01Addbtn").show();
+                    $("#data01Modbtn").hide();
+                    alert("통신 실패");
+                });
+            	}else{
+                	return false;
+                }	
+    		}else {
+    			if(confirm("일반 매출입니까?")){
+    				var path = $(location).attr("pathname");	
+    		   	 	var updateData = {};
+    		   	 	
+    		    	if($("[name='contractType']:checked").val() === "NEW"){
+    					localStorage.setItem("reloadSet", "1t");
+    		    	}else{
+    		    		localStorage.setItem("oldContNo", $("#oldContNo").val());
+    					localStorage.setItem("oldContTitle", $("#oldContTitle").val());
+    					localStorage.setItem("reloadSet", "2t");
+    		    	}
+    		    	
+    		        var data01Data = {};
+    		        data01Data.soppNo 		= $("#soppNo").val();
+    		        data01Data.catNo	 	= '100001';
+    		        data01Data.soppdataNo   = $("#soppdataNo").val();
+    		        if($("#productSalesInOutCustName").val() != "") data01Data.salesCustNo = Number($("#productSalesInOutCustNo").val());
+    		        if($("#data01Title[data-flag='true']").val() != "") {
+    		            if($("#productNo1").val() != "") data01Data.productNo	= $("#productNo1").val();
+    		            data01Data.dataTitle 	= $("#data01Title[data-flag='true']").val();
+    		        }
+    		        
+    		        if($("#data01Type").val() === "1101"){
+    					data01Data.vatSerial = $("#vatBdiv").find("#vatSerial").val();
+    				}else{
+    					data01Data.vatSerial = $("#vatSdiv").find("#vatSerial").val();
+    				}
+    		        
+    		        data01Data.dataType		= $("#data01Type").val();
+    		        data01Data.dataNetprice	= $("#data01Netprice").val().replace(/[\D\s\._\-]+/g, "");
+    		        data01Data.dataQuanty	= $("#data01Quanty").val().replace(/[\D\s\._\-]+/g, "");
+    		        data01Data.dataAmt 		= $("#data01Amt").val().replace(/[\D\s\._\-]+/g, "");
+    		        data01Data.dataVat 		= $("#data01Vat").val().replace(/[\D\s\._\-]+/g, "");
+    		        data01Data.dataTotal 	= $("#data01Total").val().replace(/[\D\s\._\-]+/g, "");
+    		        data01Data.dataRemark 	= $("#data01Remark").val();
+    		        data01Data.vatDate = $("#ioDate").val();
+    		        
+    		        updateData.vatSerial = data01Data.vatSerial !== "" ? data01Data.vatSerial : 0;
+    		        updateData.contNo = $("#contNo").val();
+    		        updateData.compNo = "${sessionScope.compNo}";
+    				
+    		        if(!data01Data.dataQuanty){
+    		            alert("단가를 입력해주십시오.");
+    		            return;
+    		        } else if(!data01Data.dataAmt){
+    		            alert("수량을 입력해주십시오.");
+    		            return;
+    		        } else if (!data01Data.dataTitle){
+    		            alert("상품명을 입력해주십시오.");
+    		            return;
+    		        }
+    		        
+    		        if(data01Data.vatSerial !== "" && data01Data.vatSerial !== null){
+    			        $.ajax({
+    			        	url: "${path}/acc/vatContUpdate.do",
+    			        	method: "post",
+    			        	data: {
+    			        		vatSerial: localStorage.getItem("setSerial"),
+    			        		contNo: 0,
+    			        		compNo: updateData.compNo
+    			        	},
+    			        	dataType: "json",
+    			        	success:function(){
+    			        		$.ajax({
+    			        			url: "${path}/acc/vatContUpdate.do",
+    			        			method: "post",
+    			        			data: updateData,
+    			        			dataType: "json",
+    			        			success:function(){
+    			        				localStorage.removeItem("setSerial");
+    			        			},
+    			        			error:function(){
+    			        				alert("데이터가 맞지 않습니다.\n다시 시도해주십시오.");
+    			        				return false;
+    			        			}
+    			        		});
+    			        	},
+    			        	error:function(){
+    			        		alert("업데이트에 실패했습니다.\n다시 시도해주십시오.");
+    			        		return false;
+    			        	}
+    			        });
+    	        }
+
+    	        $.ajax({ url: "${path}/sopp/insertdata01_defalut.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
+    	            data: data01Data , // HTTP 요청과 함께 서버로 보낼 데이터
+    	            method: "POST", // HTTP 요청 메소드(GET, POST 등)
+    	            dataType: "json" // 서버에서 보내줄 데이터의 타입
+    	        }) // HTTP 요청이 성공하면 요청한 데이터가 done() 메소드로 전달됨. .
+    	        .done(function(data) {
+    	            if(data.code == 10001){
+    	                alert("저장 성공");
+    	                $("#data01Type option:eq(0)").attr("selected","selected");
+    	                $("#soppdataNo").val("");
+    	                $("#productSalesInOutCustName").val("");
+    	                $("#productSalesInOutCustNo").val("");
+    	                $("#productNo1").val("");
+    	                $("#data01Title[data-flag='true']").val("");
+    	                $("#data01Netprice").val("");
+    	                $("#data01Quanty").val("");
+    	                $("#data01Amt").val("");
+    	                $("#data01Remark").val("");
+
+    	                $("#data01Addbtn").show();
+    	                $("#data01Modbtn").hide();
+    	                
+    	                localStorage.setItem('lastTab', "#tab02");
+    	                //var url="${path}/sopp/detail/"+$("#soppNo").val() + "/#tab02";
+    					//fn_Reloaddata01(url);
+    	                location.href = path;
+    	            }else{
+    	                alert("저장 실패");
+    	            }
+    	        }) // HTTP 요청이 실패하면 오류와 상태에 관한 정보가 fail() 메소드로 전달됨.
+    	        .fail(function(xhr, status, errorThrown) {
+    	            $(e).addClass("btn-dark");
+    	            $(e).removeClass("btn-warning");
+    	            $(e).html('수정');
+    	            $("#data01Addbtn").show();
+    	            $("#data01Modbtn").hide();
+    	            alert("통신 실패");
+    	        });
+        		}else {
+        			return false;
+        		}
+    		}	
+    	} 
     }
 
     function fn_data01delete(soppdataNo) {

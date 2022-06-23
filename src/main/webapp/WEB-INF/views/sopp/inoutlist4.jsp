@@ -43,13 +43,13 @@
 			<tr class="item1" id="${row.soppdataNo}">
 				<c:choose>
 					<c:when test="${empty row.vatDate}">
-						<td data-type="${row.dataType}">
+						<td style="text-align: center;" data-type="${row.dataType}">
 							매입(<fmt:parseDate value="${row.regDatetime}" var="regDatetime" pattern="yyyy-MM-dd HH:mm:ss"/>
 							<fmt:formatDate value="${regDatetime}" pattern="yyyy-MM-dd"/>)
 						</td>
 					</c:when>
 					<c:otherwise>
-						<td>매입(${row.vatDate})</td>
+						<td style="text-align: center;">매입(${row.vatDate})</td>
 					</c:otherwise>
 				</c:choose>
 				<td>${row.salesCustNoN}<input type="hidden" value="${row.salesCustNo}"></td>
@@ -82,7 +82,14 @@
 						</td>
 					</c:when>
 					<c:otherwise>
-						<td>매출(${row.vatDate})</td>
+						<c:choose>
+							<c:when test="${!empty row.endvataDate}">
+								<td style="text-align: center;">유지보수(${row.vatDate} ~ ${row.endvataDate})</td>
+							</c:when>
+							<c:otherwise>
+								<td style="text-align: center;">매출(${row.vatDate})</td>
+							</c:otherwise>
+						</c:choose>
 					</c:otherwise>
 				</c:choose>
 				<td>${row.salesCustNoN}<input type="hidden" value="${row.salesCustNo}"></td>

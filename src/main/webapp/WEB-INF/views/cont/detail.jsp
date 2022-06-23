@@ -264,7 +264,7 @@
 													<td>
 														<div class="input-group input-group-sm mb-0">
 															<input type="text" class="form-control" id="endCustName" value="${contDto.buyrName}" readonly>
-                                                            <input type="hidden" id="endCustNo" value="${contDto.buyrNo}" />
+                                                            <input type="hidden" id="endCustNo" value="${contDto.buyrNo_second}" />
 															<span class="input-group-btn">
 																<button class="btn btn-primary sch-partner" data-remote="${path}/modal/popup.do?popId=endCust" type="button" data-toggle="modal" data-target="#endCustModal">
 																	<i class="icofont icofont-search"></i>
@@ -815,7 +815,7 @@
 					}
 				} */
 			}
-
+			
 			$.ajax({
 				url: "${path}/cont/update.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
 				data: contData , // HTTP 요청과 함께 서버로 보낼 데이터

@@ -99,6 +99,8 @@ public class ContDTO implements Cloneable{
 	
 	private String vatStatus;
 	
+	private Integer buyrNo_second;
+	
 	public ContDTO() {
 		super();
 		// TODO Auto-generated constructor stub

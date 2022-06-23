@@ -246,7 +246,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	where contNo=#{contNo}
 	
  </update>
- 
+ <update id="updateSopp_buyrno">
+ 	update swc_sopp a
+ 	set 
+ 	buyrNo=#{buyrNo}
+ 	where a.soppNo=#{soppNo} and a.attrib not like "xxx%";
+ </update>
  <update id="soppListUpdate">
 	update swc_cont 
 	set net_profit = #{net_profit}

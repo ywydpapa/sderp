@@ -266,4 +266,10 @@ public class ContServiceImpl implements ContService {
 		// TODO Auto-generated method stub
 		return contDao.contAmtUpdate(dto);
 	}
+
+	@Override
+	public void updateSopp_buyrno(ContDTO dto) {
+		// TODO Auto-generated method stub
+		contDao.updateSopp_buyrno(dto);
+	}
 }

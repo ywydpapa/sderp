@@ -35,4 +35,5 @@ public interface ContDAO {
 	int insert_maintenance(ContDTO dto);
 	int update_maintenance(ContDTO dto);
 	int contAmtUpdate(ContDTO dto);
+	void updateSopp_buyrno(ContDTO dto);
 }

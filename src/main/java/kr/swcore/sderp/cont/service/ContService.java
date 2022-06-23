@@ -41,4 +41,5 @@ public interface ContService {
 	int insert_maintenance(HttpSession session, ContDTO dto);
 	int update_maintenance(ContDTO dto);
 	int contAmtUpdate(ContDTO dto);
+	void updateSopp_buyrno(ContDTO dto);
 }

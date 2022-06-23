@@ -145,4 +145,10 @@ public class ContDAOImpl implements ContDAO {
 		// TODO Auto-generated method stub
 		return sqlSession.update("cont.contAmtUpdate", dto);
 	}
+
+	@Override
+	public void updateSopp_buyrno(ContDTO dto) {
+		// TODO Auto-generated method stub
+		sqlSession.update("cont.updateSopp_buyrno", dto);
+	}
 }

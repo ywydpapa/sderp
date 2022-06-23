@@ -292,6 +292,7 @@ public class ContController {
 	public ResponseEntity<?> update(@ModelAttribute ContDTO dto) {
 		Map<String, Object> param = new HashMap<>();
 		int contUpdate = contService.updateCont(dto);
+		contService.updateSopp_buyrno(dto);
 		if (contUpdate >0) {
 			param.put("code","10001"); 
 		}

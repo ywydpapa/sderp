@@ -252,6 +252,11 @@ public class HomeController {
 			model.addAttribute("list",list);
 			rtn = "modal/userList";
 		}
+		else if("secondUser".equals(popId)) {
+			List<UserDTO> list=userService.userList(session);
+			model.addAttribute("list",list);
+			rtn = "modal/secondUserList";
+		}
 		else if("sopp".equals(popId)) {
 			List<SoppDTO> list=soppService.listSopp(session, null);
 			model.addAttribute("list",list);

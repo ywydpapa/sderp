@@ -341,16 +341,47 @@
 											<input class="form-control form-control-sm " type="date" max="9999-12-31" id="contOrddate" name="contOrddate">
 										</div>
 									</td>
-									<th>공급일자</th>
-									<td>
-										<div class="input-group input-group-sm mb-0">
-											<input class="form-control form-control-sm col-sm-12" type="date" max="9999-12-31" id="supplyDate" name="supplyDate">
-										</div>
-									</td>
 									<th scope="row">검수일자</th>
 									<td>
 										<div class="input-group input-group-sm mb-0">
 											<input class="form-control form-control-sm col-sm-12" type="date" max="9999-12-31" id="delivDate" name="delivDate">
+										</div>
+									</td>
+									<th>(부)담당사원</th>
+									<td>
+										<div class="input-group input-group-sm mb-0">
+											<input type="text" class="form-control" name="secondUserName" id="secondUserName" value="${sessionScope.secondUserName}" readonly>
+											<input type="hidden" class="form-control" name="secondUserNo" id="secondUserNo" value="${sessionScope.secondUserNo}" />
+											 <span class="input-group-btn">
+												<button class="btn btn-primary sch-company"
+													data-remote="${path}/modal/popup.do?popId=secondUser"
+													type="button" data-toggle="modal" data-target="#secondUserModal">
+													<i class="icofont icofont-search"></i>
+												</button>
+											</span>
+											<div class="modal fade " id="secondUserModal" tabindex="-1"
+												role="dialog">
+												<div class="modal-dialog modal-80size" role="document">
+													<div class="modal-content modal-80size">
+														<div class="modal-header">
+															<h4 class="modal-title"></h4>
+															<button type="button" class="close" data-dismiss="modal"
+																aria-label="Close">
+																<span aria-hidden="true">&times;</span>
+															</button>
+														</div>
+														<div class="modal-body">
+															<h5>사용자목록</h5>
+															<p>Loading!!!</p>
+														</div>
+														<div class="modal-footer">
+															<button type="button"
+																class="btn btn-default waves-effect "
+																data-dismiss="modal">Close</button>
+														</div>
+													</div>
+												</div>
+											</div>
 										</div>
 									</td>
 								</tr>
@@ -456,6 +487,13 @@
 			var modal = $(this);
 			modal.find('.modal-body').load(button.data("remote"));
 		});
+		
+		$('#secondUserModal').on('show.bs.modal', function(e) {
+			var button = $(e.relatedTarget);
+			var modal = $(this);
+			modal.find('.modal-body').load(button.data("remote"));
+		});
+		
 		$('#ptncModal').on('show.bs.modal', function(e) {
 			var button = $(e.relatedTarget);
 			var modal = $(this);
@@ -517,6 +555,13 @@
 			$("#userName").val(b);
 			$(".modal-backdrop").remove();
 			$("#userModal").modal("hide");
+		}
+		
+		function fnSetSecondUserData(a, b) {
+			$("#secondUserNo").val(a);
+			$("#secondUserName").val(b);
+			$(".modal-backdrop").remove();
+			$("#secondUserModal").modal("hide");
 		}
 		
 		function fnSetPtncData(a, b) {
@@ -600,7 +645,8 @@
 			if($("#endCustName").val() != "") 		contData.buyrNo			= Number($("#endCustNo").val());		// 엔드유저
 			if($("#endCustmemberName").val() != "") contData.buyrMemberNo	= Number($("#endCustmemberNo").val());	// 엔드유저 담당자
 			if($("#contOrddate").val() != "")		contData.contOrddate 			= $("#contOrddate").val();		// 발주일자
-			if($("#supplyDate").val() != "") 		contData.supplyDate = $("#supplyDate").val();		// 공급일자
+			/* if($("#supplyDate").val() != "") 		contData.supplyDate = $("#supplyDate").val(); */		// 공급일자
+			if($("#secondUserNo").val() != "") 		contData.secondUserNo	= Number($("#secondUserNo").val());	//(부)담당사원
 			if($("#delivDate").val() != "")  		contData.delivDate	 = $("#delivDate").val();		// 검수일자
 
 			var contAmt = typeof $("#contAmt").val() === "undefined" ? 0 : Number($("#contAmt").val().replace(/[\D\s\._\-]+/g, ""));			// 계약금액
@@ -651,6 +697,31 @@
 		}
 
 		$(document).ready(function() {
+			$("#delivDate").change(function(){
+				var contractType = $("input[name='contractType']:checked").val();
+				
+				if(contractType === 'NEW'){
+					var date = new Date($(this).val());
+					var month = date.getMonth() + 1;
+					var day = date.getDate();
+					
+					date.setFullYear(date.getFullYear() + 1);
+					
+					if(month < 10){
+						month = "0" + month;
+					}
+					
+					if(day < 10){
+						day = "0" + day;
+					}
+					
+					var fullDate = date.getFullYear() + "-" + month + "-" + day;
+					
+					$("#freemaintSdate").val($(this).val());
+					$("#freemaintEdate").val(fullDate);
+				}
+			});
+			
 			$('input[name=contractType]').on('change', function() {
 				var contractType					= $("input[name='contractType']:checked").val();	// 신규 영업지원 or 기존계약
 				if(contractType == 'NEW'){

@@ -101,6 +101,10 @@ public class ContDTO implements Cloneable{
 	
 	private Integer buyrNo_second;
 	
+	//부 담당사원
+	private int secondUserNo;
+	private String secondUserName;
+	
 	public ContDTO() {
 		super();
 		// TODO Auto-generated constructor stub

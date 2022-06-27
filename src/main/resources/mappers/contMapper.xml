@@ -158,7 +158,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	       e.desc03 as cntrctMthN,
 	       (select custName from swc_cust where custNo = a.custNo) custName,
 		   (select q.custMname from swc_custData03 q where q.custData03no = a.custMemberNo) custMemberName,
-	       (select custName from swc_cust where custNo = c.buyrNo) buyrName,
+	       <!-- (select custName from swc_cust where custNo = c.buyrNo) buyrName, -->
 	       (select custNo from swc_cust where custNo = c.buyrNo) buyrNo_second,
 	       (select q.custMname from swc_custData03 q where q.custData03no = a.buyrMemberNo) buyrMemberName,
 		   (select custName from swc_cust where custNo = a.ptncNo) ptncName,
@@ -166,13 +166,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		   (select contTitle from swc_cont where contNo = a.exContNo) exContName,
 		   f.custVatno as custVatno,
 		   f.custBossname as custBossname,
-		   f.custEmail as custEmail
+		   f.custEmail as custEmail,
+		   g.userName as secondUserName,
+		   h.custName as buyrName
 	from swc_cont a
 			 left join swc_user b on a.userNo = b.userNo
 			 left join swc_sopp c on a.soppNo = c.soppNo
 			 left join swc_custData03 d on a.custmemberNo = d.custData03no
 			 left join swc_code e on a.cntrctMth = e.codeNo
 			 left join swc_cust f on a.custNo = f.custNo
+			 left join swc_user g on a.secondUserNo = g.userNo
+			 left join swc_cust h on a.buyrNo = h.custNo
 	where a.attrib not like 'XXX%' and a.contNo=#{contNo} order by a.contNo
 </select>
 
@@ -190,11 +194,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 </select>
  
  <insert id="insertCont">
- insert into swc_cont (contTitle, contDesc, compNo, soppNo, exContNo, userNo, custNo, custmemberNo, ptncNo, supplyNo, contOrddate,
+ insert into swc_cont (contTitle, contDesc, compNo, soppNo, exContNo, userNo, secondUserNo, custNo, custmemberNo, ptncNo, supplyNo, contOrddate,
                        supplyDate, delivDate, contAmt, freemaintSdate, freemaintEdate, vatYn, contArea, cntrctMth,
                        contType,net_profit ,attrib, buyrNo, buyrMemberNo, paymaintSdate, paymaintEdate
-                       )
- values (#{contTitle}, #{contDesc}, #{compNo}, #{soppNo}, #{exContNo}, #{userNo}, #{custNo}, #{custmemberNo}, #{ptncNo}, #{supplyNo}, #{contOrddate},
+                       ) 
+ values (#{contTitle}, #{contDesc}, #{compNo}, #{soppNo}, #{exContNo}, #{userNo}, #{secondUserNo}, #{custNo}, #{custmemberNo}, #{ptncNo}, #{supplyNo}, #{contOrddate},
          #{supplyDate}, #{delivDate}, #{contAmt}, #{freemaintSdate}, #{freemaintEdate}, #{vatYn}, #{contArea}, #{cntrctMth},
          #{contType}, #{net_profit},'100000', #{buyrNo}, #{buyrMemberNo}, #{paymaintSdate}, #{paymaintEdate}
          )

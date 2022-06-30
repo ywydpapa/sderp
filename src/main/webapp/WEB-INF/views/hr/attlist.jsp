@@ -54,7 +54,7 @@
                     <div class="table-responsive">
                         <table id="contTable" class="table table-striped table-bordered nowrap ">
                         	<c:choose>
-                               	<c:when test="${sessionScope.userRole eq 'ADMIN'}">
+                               	<c:when test="${sessionScope.docRole eq 'S'}">
                                		<colgroup>
                                			<col width="5%"/>
 		                                <col width="10%"/>
@@ -80,7 +80,7 @@
                            	</c:choose>
                             <thead>
                             <tr>
-                            	<c:if test="${sessionScope.userRole eq 'ADMIN'}">
+                            	<c:if test="${sessionScope.docRole eq 'S'}">
                             		<th>
                             			<input type="checkbox" class="form-control" onclick="hrAllCheck(this);">
                             		</th>
@@ -97,7 +97,7 @@
                             <tbody>
 	                            <c:forEach var="row" items="${list}">
 	                            	<!-- 계정 권한 ADMIN -->
-	                            	<c:if test="${sessionScope.userRole eq 'ADMIN'}">
+	                            	<c:if test="${sessionScope.docRole eq 'S'}">
 	                            		 <tr>
 			                                <c:choose>
 				                               	<c:when test="${row.attStatus eq 1}">
@@ -134,7 +134,7 @@
 									</c:if>
 									<!-- 계정 권한 ADMIN -->
 									<!-- 계정 권한 평사원 -->
-									<c:if test="${sessionScope.userRole ne 'ADMIN'}">
+									<c:if test="${sessionScope.docRole ne 'S'}">
 										<c:if test="${row.userNo eq sessionScope.userNo}">
 											<tr>
 												<td class="text-center">${row.regDate}</td>
@@ -163,7 +163,7 @@
 	                            </c:forEach>
                             </tbody>
                         </table>
-                        <c:if test="${sessionScope.userRole eq 'ADMIN'}">
+                        <c:if test="${sessionScope.docRole eq 'S'}">
 	                        <div style="float:left;">
 	                        	<button type="button" class="btn btn-success" onclick="hrListApp();">승인</button>
 	                        	<button type="button" class="btn btn-danger" onclick="hrListCom();">반려</button>

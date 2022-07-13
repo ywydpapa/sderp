@@ -135,7 +135,7 @@
 									<!-- 계정 권한 ADMIN -->
 									<!-- 계정 권한 평사원 -->
 									<c:if test="${sessionScope.docRole ne 'S'}">
-										<c:if test="${row.userNo eq sessionScope.userNo}">
+										<c:if test="${sessionScope.docRole ne 'A' && row.userNo eq sessionScope.userNo}">
 											<tr>
 												<td class="text-center">${row.regDate}</td>
 		                                    	<td class="text-center">

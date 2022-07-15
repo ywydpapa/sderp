@@ -566,14 +566,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<if test='vatType == "B"'>
 			left join swc_cust b on a.vatBuyerCustNo = b.custNo
 		</if>
-		where a.compNo = #{compNo} and a.contNo = #{contNo} and a.attrib not like 'XXX%' and a.contNo != 0
-		
-		<if test='vatType == "S"'>
-			and a.vatType = 'B'
-		</if>
-		<if test='vatType == "B"'>
-			and a.vatType = 'S'
-		</if>
+		where a.compNo = #{compNo} and a.contNo = #{contNo} and a.attrib not like 'XXX%' and a.contNo != 0 and a.vatType = #{vatType}
 	</select>
 
 	<insert id="insertbacledger">

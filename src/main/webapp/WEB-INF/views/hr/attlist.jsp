@@ -158,7 +158,7 @@
 		                                        
 		                                	</tr>
 										</c:if>
-										<c:if test="${sessionScope.docRole eq 'A' && (row.attType eq 4 || row.userNo eq sessionScope.userNo)}">
+										<c:if test="${sessionScope.docRole eq 'A' && row.userNo eq sessionScope.userNo}">
 											<tr>
 												<td class="text-center">${row.regDate}</td>
 		                                    	<td class="text-center">
@@ -178,8 +178,29 @@
 		                                        	<c:if test="${row.attStatus eq 3}">반려/보류</c:if>
 		                                        	<c:if test="${row.attStatus eq 5}">승인완료</c:if>
 												</td>
-		                                        
 		                                	</tr>
+										</c:if>
+										<c:if test="${sessionScope.docRole eq 'A' && row.userNo ne sessionScope.userNo && row.attStatus eq 5 && row.attType eq 4}">
+												<tr>
+													<td class="text-center">${row.regDate}</td>
+			                                    	<td class="text-center">
+			                                        	<a href="${path}/gw/attdetail/${row.attendId}"><c:if test="${row.attType eq 1}">월차</c:if>
+			                                            	<c:if test="${row.attType eq 2}">연차</c:if>
+			                                            	<c:if test="${row.attType eq 3}">연장근무</c:if>
+			                                            	<c:if test="${row.attType eq 4}">휴일근무</c:if>
+			                                            	<c:if test="${row.attType eq 5}">경조휴가</c:if>
+			                                        	</a>
+			                                    	</td>
+			                                    	<td class="text-center">${row.userName}</td>
+			                                    	<td class="text-left"><a href="${path}/gw/attdetail/${row.attendId}">${fn:replace(row.attDesc, '&nbsp;', '')}</a></td>
+			                                    	<td class="text-center">${row.attStart}</td>
+			                                    	<td class="text-center">${row.attEnd}</td>
+			                                    	<td class="text-center">
+			                                    		<c:if test="${row.attStatus eq 1}">신청중</c:if>
+			                                        	<c:if test="${row.attStatus eq 3}">반려/보류</c:if>
+			                                        	<c:if test="${row.attStatus eq 5}">승인완료</c:if>
+													</td>
+			                                	</tr>
 										</c:if>
 									</c:if>
 									<!-- 계정 권한 평사원 -->

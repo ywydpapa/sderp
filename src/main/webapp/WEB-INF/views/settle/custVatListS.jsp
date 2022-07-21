@@ -349,14 +349,19 @@
         });
         
         function popupVat(e){
+        	var nowDate = new Date();
+        	var nowYear = nowDate.getFullYear();
         	var paramDateFrom = "${param.vatIssueDateFrom}";
         	var paramDateTo = "${param.vatIssueDateTo}";
         	var compNo = "${sessionScope.compNo}";
-        	var selectYear = 0;
+        	var selectYear = nowYear;
         	var href = "";
         	
         	if($("#searchYear").val() !== ""){
         		selectYear = $("#searchYear").val();
+        	}else if($("#vatIssueDateFrom").val() !== ""){
+        		var vatIssueDateFrom = new Date($("#vatIssueDateFrom").val());
+        		selectYear = vatIssueDateFrom.getFullYear();
         	}
         	
         	if(paramDateFrom === "" || paramDateTo === ""){

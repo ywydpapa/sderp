@@ -171,6 +171,8 @@
                             <colgroup>
                                 <col width="10%"/>
                                 <col width="12%"/>
+                                <col width="7%"/>
+                                <col width="10%"/>
                                 <col width="5%"/>
                                 <col width="5%"/>
                                 <col width="5%"/>
@@ -178,12 +180,13 @@
                                 <col width="15%"/>
                                 <col width="15%"/>
                                 <col width="15%"/>
-                                <col width="17%"/>
                             </colgroup>
                             <thead>
                             <tr>
                                 <th class="text-center">등록일</th>
                                 <th class="text-center">거래처</th>
+                                <th class="text-center">발행번호</th>
+                                <th class="text-center">상태</th>
                                 <th class="text-center">공급가</th>
                                 <th class="text-center">세액</th>
                                 <th class="text-center">합계금액</th>
@@ -194,7 +197,6 @@
                                 <th class="text-center">품목</th>
                                 <th class="text-center">규격</th>
                                 <th class="text-center">비고</th>
-                                <th class="text-center">발행번호</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -204,6 +206,13 @@
 	                                    <td class="text-center">
 	                                    	${vlist.vatBuyerName}
 	                                   	</td>
+	                                    <td class="text-center vatSno"><a href="${path}/acc/vatHtml/${vlist.vatSerial}/${vlist.vatType}" onClick="javascript:popupVat(this); return false;">${vlist.vatSerial}</a></td>
+	                                    <td class="text-center">
+	                                        <c:if test = "${vlist.vatStatus eq 'S1'}">매출발행</c:if>
+	                                        <c:if test = "${vlist.vatStatus eq 'S3'}">수금처리중</c:if>
+	                                        <c:if test = "${vlist.vatStatus eq 'S5'}">수금완료</c:if>
+	                                        <input type="checkbox" class="vatStchg" data-id="${vlist.vatSerial}">
+	                                    </td>
 	                                    <td class="text-right moneyTdHtml">
 	                                    	${vlist.vatAmount}
 	                                    </td>
@@ -228,7 +237,6 @@
 	                                    </c:choose>
 	                                    <td style="white-space:normal;">${vlist.vatStandard}</td>
                                    		<td style="white-space:normal;">${vlist.vatRemark}</td>
-                                   		<td class="text-center vatSno"><a href="${path}/acc/vatHtml/${vlist.vatSerial}/${vlist.vatType}" onClick="javascript:popupVat(this); return false;">${vlist.vatSerial}</a></td>
 	                                </tr>
 	                            </c:forEach>
                             </tbody>

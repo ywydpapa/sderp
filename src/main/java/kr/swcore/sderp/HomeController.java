@@ -290,7 +290,15 @@ public class HomeController {
 			rtn = "modal/bacVatListB";
 		}
 		else if("bacVatB_spending_resolution".equals(popId)) {
-            List<AccountDTO> list = accountService.modalVatB(session);
+			AccountDTO dto = new AccountDTO();
+			LocalDate now = LocalDate.now();
+			int compNo = SessionInfoGet.getCompNo(session);
+			String regSDate_modal = String.valueOf(params.get("regSDate_modal")).equals("") || String.valueOf(params.get("regSDate_modal")).equals("null") ? now.getYear() + "-01-01" : String.valueOf(params.get("regSDate_modal"));
+			String regEDate_modal = String.valueOf(params.get("regEDate_modal")).equals("") || String.valueOf(params.get("regEDate_modal")).equals("null") ? now.getYear() + "-12-31" : String.valueOf(params.get("regEDate_modal"));
+			dto.setCompNo(compNo);
+			dto.setRegSDate_modal(regSDate_modal);
+			dto.setRegEDate_modal(regEDate_modal);
+            List<AccountDTO> list = accountService.modalVatListB(dto);
             model.addAttribute("list",list);
 			rtn = "modal/bacVatList_spending_resolution";
 		}

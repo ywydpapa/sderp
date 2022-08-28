@@ -140,6 +140,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		 group by (case when a.vatType='B' then a.vatSellerCustNo END), (case when a.vatType='S' then a.vatBuyerCustNo END) order by a.vatIssueDate desc
  	</select>
  	
+ 	<select id="listVatBCnt" resultType="accountDto">
+		select count(*), a.*, b.custName vatSellerName, c.custName vatBuyerName, sum(d.dataAmt) vatSum, (a.vatTax + a.vatAmount) as vatTotal from swc_vat a
+				   left join swc_cust b on a.vatSellerCustNo = b.custNo
+				   left join swc_cust c on a.vatBuyerCustNo = c.custNo
+				   left join swc_soppdata01 d on a.vatSerial = d.vatSerial and d.attrib not like 'XXX%'
+		where a.compNo = #{compNo} and a.attrib not like 'XXX%' and a.vatType = 'B'
+		<if test="vatIssueDateFrom != null and vatIssueDateFrom !=''">
+			and a.vatIssueDate Between #{vatIssueDateFrom} and #{vatIssueDateTo}
+		</if>
+		 group by a.vatSerial order by a.vatIssueDate desc
+	</select>
+ 	
  	<select id="listVatB" resultType="accountDto">
 		select a.*, b.custName vatSellerName, c.custName vatBuyerName, sum(d.dataAmt) vatSum, (a.vatTax + a.vatAmount) as vatTotal from swc_vat a
 				   left join swc_cust b on a.vatSellerCustNo = b.custNo
@@ -150,7 +162,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			and a.vatIssueDate Between #{vatIssueDateFrom} and #{vatIssueDateTo}
 		</if>
 		 group by a.vatSerial order by a.vatIssueDate desc
-	
 	</select>
 
 	<select id="listVatT" resultType="accountDto">
@@ -354,6 +365,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		</if>
 		order by a.vatIssueDate desc limit #{betFirstNum}, #{betLastNum};
 	</select>
+	
+	<select id="modalVatListB" resultType="accountDto">
+		select a.*, b.custName from swc_vat a 
+		left join swc_cust b on a.vatSellerCustNo = b.custNo 
+		WHERE a.vatStatus in ('B1','B3') and a.attrib not like 'XXX%' AND a.linkedcheck = 1 and a.compNo = #{compNo} 
+		and a.vatIssueDate Between #{regSDate_modal} and #{regEDate_modal}
+		order by a.vatIssueDate desc;
+	</select>
+	
 	<select id="modalVatBCnt" resultType="accountDto">
 		select count(*) as resultCount from swc_vat a 
 		left join swc_cust b on a.vatSellerCustNo = b.custNo 

@@ -36,6 +36,7 @@ public interface AccountService {
 	AccountDTO checkBac(AccountDTO dto);
 	List<AccountDTO> bacSelectList(AccountDTO dto);
 	AccountDTO bacSelectListCnt(AccountDTO dto);
+	AccountDTO listVatBCnt(AccountDTO dto);
 	List<AccountDTO> cardSelectList(AccountDTO dto);
 	int lastUpdate(AccountDTO dto);
 	int lastUpdateCard(AccountDTO dto);
@@ -122,6 +123,7 @@ public interface AccountService {
 	AccountDTO modalVatSCnt(AccountDTO dto);
 	List<AccountDTO> modalVatB(HttpSession session);
 	List<AccountDTO> modalVatS(HttpSession session);
+	List<AccountDTO> modalVatListB(AccountDTO dto);
 	
 	AccountDTO custBalanceS(AccountDTO dto);
 	AccountDTO custBalanceB(AccountDTO dto);

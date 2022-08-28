@@ -218,9 +218,7 @@
 						<!-- hide and show -->
 						<button class="btn btn-sm btn-inverse" onClick="javascript:fnClearall()"><i class="icofont icofont-spinner-alt-3"></i>초기화</button>
 						<button class="btn btn-sm btn-primary" onClick="javascript:fnListcon()" id="search"><i class="icofont icofont-search"></i>검색</button>	
-						<c:if test="${fn:contains(userKey, '5') || fn:contains(userKey, '7') }">
-	      					<button class="btn btn-sm btn-outline"onClick="javascript:location='${path}/notice/write.do'"><i class="icofont icofont-pencil-alt-2"></i>등록</button>
-						</c:if>
+      					<button class="btn btn-sm btn-outline"onClick="javascript:location='${path}/notice/write.do'"><i class="icofont icofont-pencil-alt-2"></i>등록</button>
 					</div>
 				</div>
 			</div>

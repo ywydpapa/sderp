@@ -19,6 +19,7 @@ public interface AccountDAO {
     List<AccountDTO> listvatitem(int vatId);
     List<AccountDTO> modalVatB(AccountDTO dto);
     List<AccountDTO> modalVatS(AccountDTO dto);
+    List<AccountDTO> modalVatListB(AccountDTO dto);
     AccountDTO checkVat(AccountDTO dto);
     AccountDTO cardCheck(AccountDTO dto);
     AccountDTO detailvat(int vatId);
@@ -35,6 +36,7 @@ public interface AccountDAO {
 	AccountDTO checkBac(AccountDTO dto);
 	List<AccountDTO> bacSelectList(AccountDTO dto);
 	AccountDTO bacSelectListCnt(AccountDTO dto);
+	AccountDTO listVatBCnt(AccountDTO dto);
 	List<AccountDTO> cardSelectList(AccountDTO dto);
 	int lastUpdate(AccountDTO dto);
 	int lastUpdateCard(AccountDTO dto);

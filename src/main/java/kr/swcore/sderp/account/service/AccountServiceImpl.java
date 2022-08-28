@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
+
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -659,6 +661,10 @@ public class AccountServiceImpl implements AccountService {
 		return accountDAO.ledgerListB(dto);
 	}
 	
+	public AccountDTO listVatBCnt(AccountDTO dto) {
+		return accountDAO.listVatBCnt(dto);
+	}
+	
 	public AccountDTO modalVatBCnt(AccountDTO dto) {
 		// TODO Auto-generated method stub
 		return accountDAO.modalVatBCnt(dto);
@@ -798,5 +804,15 @@ public class AccountServiceImpl implements AccountService {
 	public List<AccountDTO> count3(HttpSession session) {
 		int compNo = SessionInfoGet.getCompNo(session);
 		return accountDAO.count3(compNo);
+	}
+
+	@Override
+	public List<AccountDTO> modalVatListB(AccountDTO dto) {
+		LocalDate now = LocalDate.now();
+		if(dto.getRegSDate_modal().equals("")) {
+    		dto.setRegSDate_modal(now.getYear() + "-01-01");
+    		dto.setRegEDate_modal(now.getYear() + "-12-31");
+    	}
+		return accountDAO.modalVatListB(dto);
 	}
 }

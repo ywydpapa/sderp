@@ -406,7 +406,7 @@ public class AccountController {
     @RequestMapping("custSelectVatList.do")
     public List<AccountDTO> custSelectVatList(@ModelAttribute AccountDTO dto)
     {
-    	System.out.println("데이트 : " + dto.getVatIssueDateFrom());
+    	System.out.println("�뜲�씠�듃 : " + dto.getVatIssueDateFrom());
     	LocalDate now = LocalDate.now();
         int year = now.getYear();
         
@@ -495,6 +495,14 @@ public class AccountController {
 //        mav.addObject("vatList", accountService.listvat(session, dto));
         mav.setViewName("settle/cardupload");
         return mav;
+    }
+    
+    @ResponseBody
+    @RequestMapping("listVatBCnt.do")
+    public AccountDTO listVatBCnt(@ModelAttribute AccountDTO dto){
+    	AccountDTO count = accountService.listVatBCnt(dto);
+    	
+    	return count;
     }
     
     @ResponseBody
@@ -721,7 +729,7 @@ public class AccountController {
     public ResponseEntity<Object> bacCheckConnect(HttpSession session, @ModelAttribute AccountDTO dto){
     	
         Map<String,Object> param = new HashMap<>();
-        //swc_bacledger의 linkDoc 값이 y가 아니고 ''값이 아닐때
+        //swc_bacledger�쓽 linkDoc 媛믪씠 y媛� �븘�땲怨� ''媛믪씠 �븘�땺�븣
         String datalinkDocno = dto.getLinkDocno();
         String number_linkDoc = accountService.number_linkDoc(dto);
         
@@ -729,8 +737,8 @@ public class AccountController {
         	if(!number_linkDoc.equals("n")) {
         		dto.setLinkDocno(number_linkDoc);
         		accountService.change_originlinkDoc(dto);
-        		//연결하는 금액과 통장 금액이 일치하는 경우 s5로 변경
-        		//하지만 연결하는 금액운 있는데 통장 금액과 일치하지 않는다면 s3 (뷴할 입/출금이라 생각하면 된다.)
+        		//�뿰寃고븯�뒗 湲덉븸怨� �넻�옣 湲덉븸�씠 �씪移섑븯�뒗 寃쎌슦 s5濡� 蹂�寃�
+        		//�븯吏�留� �뿰寃고븯�뒗 湲덉븸�슫 �엳�뒗�뜲 �넻�옣 湲덉븸怨� �씪移섑븯吏� �븡�뒗�떎硫� s3 (酉댄븷 �엯/異쒓툑�씠�씪 �깮媛곹븯硫� �맂�떎.)
         	}
         }
         dto.setLinkDocno(datalinkDocno);
@@ -775,7 +783,7 @@ public class AccountController {
 						accountService.update_s3(dto);
 					}
 				}
-				//detail에 해당하는 시리어의 id값을 가진 swc_bacledger의 in금액을 합치고 swc_vat의 금액과 같다면 해당 시리어를 가진 swc_vat의 lincked는 0, s5로 변경.
+				//detail�뿉 �빐�떦�븯�뒗 �떆由ъ뼱�쓽 id媛믪쓣 媛�吏� swc_bacledger�쓽 in湲덉븸�쓣 �빀移섍퀬 swc_vat�쓽 湲덉븸怨� 媛숇떎硫� �빐�떦 �떆由ъ뼱瑜� 媛�吏� swc_vat�쓽 lincked�뒗 0, s5濡� 蹂�寃�.
 				List <AccountDTO> checktotalprice_vat_and_detail = accountService.checktotalprice_vat_and_detail(dto);
 				BigDecimal total_detail = checktotalprice_vat_and_detail.get(0).getTotal_Amt();
 				int finalcompare = sum.compareTo(total_detail);
@@ -794,7 +802,7 @@ public class AccountController {
 					accountService.update_s3(dto);
 					accountService.cancelconnect_linkedcheck(dto);
 				}
-				//detail에 해당하는 시리어의 id값을 가진 swc_bacledger의 in금액을 합치고 swc_vat의 금액과 같다면 해당 시리어를 가진 swc_vat의 lincked는 0, s5로 변경.
+				//detail�뿉 �빐�떦�븯�뒗 �떆由ъ뼱�쓽 id媛믪쓣 媛�吏� swc_bacledger�쓽 in湲덉븸�쓣 �빀移섍퀬 swc_vat�쓽 湲덉븸怨� 媛숇떎硫� �빐�떦 �떆由ъ뼱瑜� 媛�吏� swc_vat�쓽 lincked�뒗 0, s5濡� 蹂�寃�.
 				List <AccountDTO> checktotalprice_vat_and_detail = accountService.checktotalprice_vat_and_detail(dto);
 				BigDecimal total_detail = checktotalprice_vat_and_detail.get(0).getTotal_Amt();
 				int finalcompare = sum.compareTo(total_detail);
@@ -818,7 +826,7 @@ public class AccountController {
 						accountService.update_b3(dto);
 					}
 				}
-				//detail에 해당하는 시리어의 id값을 가진 swc_bacledger의 in금액을 합치고 swc_vat의 금액과 같다면 해당 시리어를 가진 swc_vat의 lincked는 0, s5로 변경.
+				//detail�뿉 �빐�떦�븯�뒗 �떆由ъ뼱�쓽 id媛믪쓣 媛�吏� swc_bacledger�쓽 in湲덉븸�쓣 �빀移섍퀬 swc_vat�쓽 湲덉븸怨� 媛숇떎硫� �빐�떦 �떆由ъ뼱瑜� 媛�吏� swc_vat�쓽 lincked�뒗 0, s5濡� 蹂�寃�.
 				List <AccountDTO> checktotalprice_vat_and_detail_out = accountService.checktotalprice_vat_and_detail_out(dto);
 				BigDecimal total_detail = checktotalprice_vat_and_detail_out.get(0).getTotal_Amt();
 				int finalcompare = sum.compareTo(total_detail);
@@ -832,7 +840,7 @@ public class AccountController {
 					accountService.update_b3(dto);
 					accountService.cancelconnect_linkedcheck(dto);
 				}
-				//detail에 해당하는 시리어의 id값을 가진 swc_bacledger의 in금액을 합치고 swc_vat의 금액과 같다면 해당 시리어를 가진 swc_vat의 lincked는 0, s5로 변경.
+				//detail�뿉 �빐�떦�븯�뒗 �떆由ъ뼱�쓽 id媛믪쓣 媛�吏� swc_bacledger�쓽 in湲덉븸�쓣 �빀移섍퀬 swc_vat�쓽 湲덉븸怨� 媛숇떎硫� �빐�떦 �떆由ъ뼱瑜� 媛�吏� swc_vat�쓽 lincked�뒗 0, s5濡� 蹂�寃�.
 				List <AccountDTO> checktotalprice_vat_and_detail_out = accountService.checktotalprice_vat_and_detail_out(dto);
 				BigDecimal total_detail = checktotalprice_vat_and_detail_out.get(0).getTotal_Amt();
 				int finalcompare = sum.compareTo(total_detail);
@@ -884,13 +892,13 @@ public class AccountController {
     public ResponseEntity<Object> connect_link_check_cancel(HttpSession session, @ModelAttribute AccountDTO dto){
         Map<String,Object> param = new HashMap<>();
         
-        //swc_bacledger_detail에 갯수
+        //swc_bacledger_detail�뿉 媛��닔
         int listNumber = accountService.connnectlist_Num(dto);
         int detail_Count_equal_baclogId = accountService.detail_Count_equal_baclogId(dto);
         List<AccountDTO> select_vatStatus = accountService.select_vatStatus(dto);
         if(listNumber != 0) {
         	if(detail_Count_equal_baclogId == 1) {
-	        	//swc_bacledger는 delete 되게 그리고 해당 serial를 가진 swc_vat은 1로 변경
+	        	//swc_bacledger�뒗 delete �릺寃� 洹몃━怨� �빐�떦 serial瑜� 媛�吏� swc_vat�� 1濡� 蹂�寃�
 	        	accountService.deleteconnectlist(dto);
 	        	accountService.cancelconnect_linkedcheck(dto);
 	        	if(select_vatStatus.get(0).getVatStatus().equals("S5")) {
@@ -903,7 +911,7 @@ public class AccountController {
 	        		accountService.update_vatStatus_B(dto);
 	        	}
         	}else if(detail_Count_equal_baclogId != 1) {
-        		//입금 일때
+        		//�엯湲� �씪�븣
         		if(select_vatStatus.get(0).getVatStatus().equals("S5") || select_vatStatus.get(0).getVatStatus().equals("S3")){
 	        		accountService.deleteconnectlist_sub(dto);
 	        		
@@ -927,7 +935,7 @@ public class AccountController {
 						accountService.update_s3(dto);
 						accountService.cancelconnect_linkedcheck(dto);
 					}
-				//출금일때
+				//異쒓툑�씪�븣
         		}else if(select_vatStatus.get(0).getVatStatus().equals("B5") || select_vatStatus.get(0).getVatStatus().equals("B3")) {
         			accountService.deleteconnectlist_sub(dto);
 	        		
@@ -954,14 +962,14 @@ public class AccountController {
         		}
         	}
         }
-        //0일 경우는 두가지 경우가 존재 (기존에 swc_bacledger의 컬럼으로 들어가 있는 경우, 진짜 아무 연결이 없는경우)
+        //0�씪 寃쎌슦�뒗 �몢媛�吏� 寃쎌슦媛� 議댁옱 (湲곗〈�뿉 swc_bacledger�쓽 而щ읆�쑝濡� �뱾�뼱媛� �엳�뒗 寃쎌슦, 吏꾩쭨 �븘臾� �뿰寃곗씠 �뾾�뒗寃쎌슦)
         else if (listNumber == 0) {
         	int searchserial = accountService.searchserial(dto);
-        	//swc_bacledger의 컬럼에 해당 serial이 없는경우 0을 반환, 그렇게 되면 기존에 연결된 문서도 없다는 소리
+        	//swc_bacledger�쓽 而щ읆�뿉 �빐�떦 serial�씠 �뾾�뒗寃쎌슦 0�쓣 諛섑솚, 洹몃젃寃� �릺硫� 湲곗〈�뿉 �뿰寃곕맂 臾몄꽌�룄 �뾾�떎�뒗 �냼由�
         	if(searchserial != 0) {
         		accountService.cancelconnect_linkDoc(dto);
         		accountService.cancelconnect_linkedcheck(dto);
-        		//swv_bacledger의 해당 컬럼 '' 그리고 해당 serial를 가진 swc_vat은 1로 변경
+        		//swv_bacledger�쓽 �빐�떦 而щ읆 '' 洹몃━怨� �빐�떦 serial瑜� 媛�吏� swc_vat�� 1濡� 蹂�寃�
         	}
         }
         int listNumber_secound_check = accountService.connnectlist_Num(dto);
@@ -971,7 +979,7 @@ public class AccountController {
         		accountService.cancel_connect_final(dto);
         	}
         }
-        //취소 시 남은 금액 최신화
+        //痍⑥냼 �떆 �궓�� 湲덉븸 理쒖떊�솕
         BigDecimal a = dto.getCancel_lincked_price();
         List <AccountDTO> getlicked_price = accountService.getlicked_price(dto);
         BigDecimal b = new BigDecimal(getlicked_price.get(0).getModal_vatmemo().replaceAll("\\,",""));
@@ -981,7 +989,7 @@ public class AccountController {
         dto.setModal_vatmemo(new java.text.DecimalFormat("#,###").format(d).toString());
         dto.setModal_receive_data(e);
         accountService.bacCheckConnect_modal_update(dto);
-        //계좌 잔여 금액
+        //怨꾩쥖 �옍�뿬 湲덉븸
         List <AccountDTO> getlicked_price_secound = accountService.getlicked_price_secound(dto);
         BigDecimal f = getlicked_price_secound.get(0).getDifference_price();
         BigDecimal g = a.add(f);
@@ -1189,12 +1197,24 @@ public class AccountController {
     	Map<String,Object> param = new HashMap<>();
     	Integer compNo = SessionInfoGet.getCompNo(session);
     	dto.setCompNo(compNo);
+    	
 	    List<AccountDTO> list = accountService.modalVatB(dto);
 		List<AccountDTO> list_secound = accountService.list_secound_modalVatB(dto);
 		param.put("data",list);
 		param.put("data_secound",list_secound);
 		return ResponseEntity.ok(param);
     }
+    
+    @ResponseBody
+    @RequestMapping("modalVatListB.do")
+    public List<AccountDTO> modalVatListB(HttpSession session, @ModelAttribute AccountDTO dto){
+    	Integer compNo = SessionInfoGet.getCompNo(session);
+    	dto.setCompNo(compNo);
+    	List<AccountDTO> list = accountService.modalVatListB(dto);
+    	
+    	return list;
+    }
+    
     @ResponseBody
     @RequestMapping("modalVatBCnt.do")
     public AccountDTO modalVatBCnt(HttpSession session, @ModelAttribute AccountDTO dto){

@@ -600,6 +600,10 @@ public class AccountDAOImpl implements AccountDAO {
 		return sqlSession.selectList("account.ledgerListB",dto);
 	}
 	
+	public AccountDTO listVatBCnt(AccountDTO dto) {
+		return sqlSession.selectOne("account.listVatBCnt", dto);
+	}
+	
 	@Override
 	public AccountDTO modalVatBCnt(AccountDTO dto) {
 		// TODO Auto-generated method stub
@@ -724,6 +728,12 @@ public class AccountDAOImpl implements AccountDAO {
 	public List<AccountDTO> count3(int compNo) {
 		// TODO Auto-generated method stub
 		return sqlSession.selectList("account.count3", compNo);
+	}
+
+	@Override
+	public List<AccountDTO> modalVatListB(AccountDTO dto) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("account.modalVatListB", dto);
 	}
 	
 }

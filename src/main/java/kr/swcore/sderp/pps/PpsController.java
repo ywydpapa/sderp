@@ -11,6 +11,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -117,4 +121,47 @@ public class PpsController {
         return ResponseEntity.ok(param);
     }
     
+    @ResponseBody
+    @RequestMapping("ppspy.do")
+    public String ppspy() throws InterruptedException{
+    	String result = null, path = "/root/ppsupdate.sh";
+    	String[] cmd = {"/bin/sh","-c", path};
+    	File file = new File(path);
+    	StringBuffer sb = null;
+    	Process process = null;
+    	BufferedReader reader = null;
+    	InputStreamReader isr = null;
+    	Runtime rt = null;
+    	if(file.exists()) {
+    		try {
+    			rt = Runtime.getRuntime();
+    			process = rt.exec(cmd);
+            	reader = new BufferedReader(
+            	isr = new InputStreamReader(process.getInputStream()));
+            	String line = null;
+            	sb = new StringBuffer();
+            	sb.append(cmd);
+            	while ((line = reader.readLine()) != null) {
+            	    sb.append(line);
+            	    sb.append("\n");
+            	}
+            	process.waitFor();
+            	result = sb == null ? "failure 1" : sb.toString();
+    		}catch(IOException e) {e.printStackTrace();}finally {
+    			try {
+    				if(isr != null)	isr.close();
+					if(reader != null)	reader.close();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+    		
+    		}
+        	
+    	}else {
+    		result = "failure 2";
+    	}
+    	
+    	return result;
+    }
 }

@@ -37,11 +37,11 @@
 						<!-- hide and show -->
                         <button class="btn btn-sm btn-inverse" style="display:none;" onClick="javascript:fnClearall()"><i class="icofont icofont-spinner-alt-3"></i>초기화</button>
                         <button class="btn btn-sm btn-primary" style="display:none;" onClick="javascript:fnListcon()"><i class="icofont icofont-search"></i>검색</button>
-                        <a href="/python3 pps.py" class="btn btn-sm btn-primary">조달데이터</a>
+                        <a href="${path}/pps/ppspy.do" class="btn btn-sm btn-primary">조달데이터</a>
                         <button class="btn btn-sm btn-danger"onClick="javascript:location='${path}/pps/ppsupload.do'"><i class="icofont icofont-pencil-alt-2"></i>조달자료 등록</button>
                     </div>
                 </div>
-            </div>
+            </div>	
         </div>
         <!--Page-header end 페이지 타이틀 -->
         <!--영업활동조회-->

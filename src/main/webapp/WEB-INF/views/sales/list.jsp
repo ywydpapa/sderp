@@ -302,10 +302,14 @@
 							<div class="col-sm-12 col-xl-2">
 							<label class="col-form-label" for="userName">담당사원</label>
 								<div class="input-group input-group-sm mb-0">
-									<input type="text" class="form-control" name="userName"
-										id="userName" value="" readonly /> <input type="hidden"
-										name="userNo" id="userNo" value="" /> <span
-										class="input-group-btn">
+									<input type="text" class="form-control" name="userName" id="userName" list="userName_list" onchange="dataListChange(this);" autocomplete="off"> 
+									<datalist id="userName_list">
+										<c:forEach var="listUser" items="${listUser}">
+											<option data-value="${listUser.userNo}" value="${listUser.userName}">${listUser.userName}</option>
+										</c:forEach>
+									</datalist>
+									<input type="hidden" name="userNo" id="userNo" value="" /> 
+									<%-- <span class="input-group-btn">
 										<button class="btn btn-primary sch-company"
 											data-remote="${path}/modal/popup.do?popId=user" type="button"
 											data-toggle="modal" data-target="#userModal">
@@ -333,16 +337,20 @@
 												</div>
 											</div>
 										</div>
-									</div>
+									</div> --%>
 								</div>
 							</div>
 							<div class="col-sm-12 col-xl-2">
 									<label class="col-form-label" for="soppTitle">영업기회</label>
 									<div class="input-group input-group-sm mb-0">
-										<input type="text" class="form-control" name="soppTitle"
-											id="soppTitle" value="" readonly /> <input
-											type="hidden" name="soppNo" id="soppNo"
-											value="" /> <span class="input-group-btn">
+										<input type="text" class="form-control" name="soppTitle" id="soppTitle"  list="soppTitle_list" onchange="dataListChange(this);" autocomplete="off"> 
+										<datalist id="soppTitle_list">
+											<c:forEach var="listSopp" items="${listSopp}">
+												<option data-value="${listSopp.soppNo}" value="${listSopp.soppTitle}">${listSopp.soppTitle}</option>
+											</c:forEach>
+										</datalist>
+										<input type="hidden" name="soppNo" id="soppNo" value="" /> 
+										<%-- <span class="input-group-btn">
 											<button class="btn btn-primary sch-company"
 												data-remote="${path}/modal/popup.do?popId=sopp"
 												type="button" data-toggle="modal"
@@ -372,16 +380,20 @@
 													</div>
 												</div>
 											</div>
-										</div>
+										</div> --%>
 									</div>
 								</div>
 								<div class="col-sm-12 col-xl-2">
 									<label class="col-form-label" for="custName">매출처</label>
 										<div class="input-group input-group-sm mb-0">
-											<input type="text" class="form-control" name="custName"
-												id="custName" value="" readonly /> <input
-												type="hidden" name="custNo" id="custNo"
-												value="" /> <span class="input-group-btn">
+											<input type="text" class="form-control" name="custName" id="custName" list="custName_list" onchange="dataListChange(this);" autocomplete="off">
+											<datalist id="custName_list">
+												<c:forEach var="listCust" items="${listCust}">
+													<option data-value="${listCust.custNo}" value="${listCust.custName}">${listCust.custName}</option>
+												</c:forEach>
+											</datalist>
+											<input type="hidden" name="custNo" id="custNo" value="" />
+											<%-- <span class="input-group-btn">
 												<button class="btn btn-primary sch-company"
 													data-remote="${path}/modal/popup.do?popId=cust"
 													type="button" data-toggle="modal"
@@ -411,7 +423,7 @@
 														</div>
 													</div>
 												</div>
-											</div>
+											</div> --%>
 											
 											
 										</div>

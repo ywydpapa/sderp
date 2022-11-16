@@ -107,6 +107,7 @@ public class ContController {
 		mav.addObject("contractType", codeService.listContractType(session));
 		mav.addObject("listSum", contService.listSumCont(session));
 		mav.addObject("contType", codeService.listContType(session));
+		mav.addObject("listCust", custService.listCust(session));
 		return mav;
 	}
 	

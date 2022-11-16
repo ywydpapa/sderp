@@ -338,15 +338,20 @@
 								<div class="col-sm-12 col-xl-2">
 									<label class="col-form-label" for="userName">담당자</label>
 									<div class="input-group input-group-sm mb-0">
-										<input type="text" class="form-control" name="userName" id="userName" value=""  readonly />
-										<input type="hidden" name="userNo" 	id="userNo" value="" />
-										<span class="input-group-btn">
-												<button class="btn btn-primary sch-company"
-														data-remote="${path}/modal/popup.do?popId=user"
-														type="button" data-toggle="modal" data-target="#userModal">
-													<i class="icofont icofont-search"></i>
-												</button>
-											</span>
+										<input type="text" class="form-control" name="userName" id="userName" list="userName_list" onchange="dataListChange(this);" autocomplete="off"> 
+										<datalist id="userName_list">
+											<c:forEach var="listUser" items="${listUser}">
+												<option data-value="${listUser.userNo}" value="${listUser.userName}">${listUser.userName}</option>
+											</c:forEach>
+										</datalist>
+										<input type="hidden" name="userNo" id="userNo" value="" /> 
+										<%-- <span class="input-group-btn">
+											<button class="btn btn-primary sch-company"
+													data-remote="${path}/modal/popup.do?popId=user"
+													type="button" data-toggle="modal" data-target="#userModal">
+												<i class="icofont icofont-search"></i>
+											</button>
+										</span>
 										<!--modal-->
 										<div class="modal fade " id="userModal" tabindex="-1" role="dialog">
 											<div class="modal-dialog modal-80size" role="document">
@@ -369,7 +374,7 @@
 													</div>
 												</div>
 											</div>
-										</div>
+										</div> --%>
 										<!--//modal-->
 									</div>
 								</div>
@@ -378,9 +383,14 @@
 								<div class="col-sm-12 col-xl-2">
 									<label class="col-form-label" for="custName">거래처</label>
 									<div class="input-group input-group-sm">
-										<input type="text" class="form-control" name="custName" id="custName" value="" readonly/>
+										<input type="text" class="form-control" name="custName" id="custName" list="custName_list" onchange="dataListChange(this);" autocomplete="off">
+										<datalist id="custName_list">
+											<c:forEach var="listCust" items="${listCust}">
+												<option data-value="${listCust.custNo}" value="${listCust.custName}">${listCust.custName}</option>
+											</c:forEach>
+										</datalist>
 										<input type="hidden" name="custNo" id="custNo" value="" />
-										<span class="input-group-btn">
+										<%-- <span class="input-group-btn">
 												<button class="btn btn-primary sch-company"
 														data-remote="${path}/modal/popup.do?popId=cust"
 														type="button" data-toggle="modal" data-target="#custModal">
@@ -410,7 +420,7 @@
 													</div>
 												</div>
 											</div>
-										</div>
+										</div> --%>
 										<!--//modal-->
 									</div>
 								</div>
@@ -418,35 +428,13 @@
 								<div class="col-sm-12 col-xl-2">
 									<label class="col-form-label" for="custmemberName">엔드유저</label>
 									<div class="input-group input-group-sm mb-0">
-										<input type="text" class="form-control" name="buyrName" id="custmemberName" value="" readonly />
+										<input type="text" class="form-control" name="buyrName" id="buyrName" list="buyrName_list" onchange="dataListChange(this);" autocomplete="off">
+										<datalist id="buyrName_list">
+											<c:forEach var="listCust" items="${listCust}">
+												<option data-value="${listCust.custNo}" value="${listCust.custName}">${listCust.custName}</option>
+											</c:forEach>
+										</datalist>
 										<input type="hidden" name="custmemberNo" id="buyrNo" value="" />
-										<span class="input-group-btn">
-											<button class="btn btn-dark sch-company" data-remote="${path}/modal/popup.do?popId=custmem&compNo=" type="button" data-toggle="modal" data-target="#custmemberModal" disabled>
-												<i class="icofont icofont-search"></i>
-											</button>
-										</span>
-										<div class="modal fade " id="custmemberModal" tabindex="-1"
-											 role="dialog">
-											<div class="modal-dialog modal-80size" role="document">
-												<div class="modal-content modal-80size">
-													<div class="modal-header">
-														<h4 class="modal-title"></h4>
-														<button type="button" class="close" data-dismiss="modal"
-																aria-label="Close">
-															<span aria-hidden="true">&times;</span>
-														</button>
-													</div>
-													<div class="modal-body">
-														<h5>고객목록</h5>
-														<p>거래처를 먼저 입력해주셔야 목록이 보입니다.</p>
-													</div>
-													<div class="modal-footer">
-														<button type="button" class="btn btn-default waves-effect "
-																data-dismiss="modal">Close</button>
-													</div>
-												</div>
-											</div>
-										</div>
 									</div>
 								</div>
 								<div class="col-sm-12 col-xl-3">

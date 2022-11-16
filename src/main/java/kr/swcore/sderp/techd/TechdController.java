@@ -12,6 +12,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import kr.swcore.sderp.cont.dto.ContDTO;
 import kr.swcore.sderp.cont.service.ContService;
+import kr.swcore.sderp.cust.service.CustService;
 import kr.swcore.sderp.sales.service.SalesService;
 import kr.swcore.sderp.sopp.dto.SoppDTO;
 import kr.swcore.sderp.sopp.service.SoppService;
@@ -25,6 +26,7 @@ import org.springframework.web.servlet.ModelAndView;
 import kr.swcore.sderp.code.service.CodeService;
 import kr.swcore.sderp.techd.dto.TechdDTO;
 import kr.swcore.sderp.techd.service.TechdService;
+import kr.swcore.sderp.user.service.UserService;
 
 @Controller
 
@@ -51,12 +53,20 @@ public class TechdController {
 	@Inject
 	SoppdataService soppdataService;
 	
+	@Inject
+	CustService custService;
+	
+	@Inject
+	UserService userService;
+	
 	@RequestMapping("list.do")
 	public ModelAndView list(HttpSession session, ModelAndView mav) {
 		mav.setViewName("techd/list");
 		mav.addObject("techdSteps", codeService.listTechdSteps(session));
 		mav.addObject("contractType",codeService.listContractType(session));
 		mav.addObject("list", techdService.listTechd(session, null));
+		mav.addObject("listUser", userService.userList(session));
+		mav.addObject("listCust", custService.listCust(session));
 		mav.addObject("first","Y");
 		return mav;
 	}

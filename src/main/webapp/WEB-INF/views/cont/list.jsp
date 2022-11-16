@@ -73,9 +73,14 @@
 								<div class="col-sm-12 col-xl-2">
 									<label class="col-form-label">매출처</label>
 									<div class="input-group input-group-sm mb-0">
-										<input type="text" class="form-control" name="custName" id="custName" value="${param.custName}" readonly />
-										<input type="hidden" name="custNo" id="custNo" value="${param.custNo}" />
-										<span class="input-group-btn">
+										<input type="text" class="form-control" name="custName" id="custName" list="custName_list" onchange="dataListChange(this);" autocomplete="off">
+										<datalist id="custName_list">
+											<c:forEach var="listCust" items="${listCust}">
+												<option data-value="${listCust.custNo}" value="${listCust.custName}">${listCust.custName}</option>
+											</c:forEach>
+										</datalist>
+										<input type="hidden" name="custNo" id="custNo" value="" />
+										<%-- <span class="input-group-btn">
 											<button class="btn btn-primary sch-company"
 												data-remote="${path}/modal/popup.do?popId=cust"
 												type="button" data-toggle="modal"
@@ -103,15 +108,20 @@
 													</div>
 												</div>
 											</div>
-										</div>
+										</div> --%>
 									</div>
 								</div>
 								<div class="col-sm-12 col-xl-2">
 									<label class="col-form-label">엔드유저</label>
 									<div class="input-group input-group-sm mb-0">
-										<input type="text" class="form-control" id="endCustName" value="${param.burName}" readonly/>
+										<input type="text" class="form-control" id="endCustName" value="${param.burName}" list="soppTitle_list" onchange="dataListChange(this);" autocomplete="off"> 
+										<datalist id="soppTitle_list">
+											<c:forEach var="listCust" items="${listCust}">
+												<option data-value="${listCust.custNo}" value="${listCust.custName}">${listCust.custName}</option>
+											</c:forEach>
+										</datalist>
 										<input type="hidden" id="endCustNo" value="${param.burNo}" />
-										<span class="input-group-btn">
+										<%-- <span class="input-group-btn">
 											<button class="btn btn-primary sch-partner" data-remote="${path}/modal/popup.do?popId=endCust" type="button" data-toggle="modal" data-target="#endCustModal">
 												<i class="icofont icofont-search"></i>
 											</button>
@@ -134,7 +144,7 @@
 													</div>
 												</div>
 											</div>
-										</div>
+										</div> --%>
 									</div>
 								</div>
 								<div class="col-sm-12 col-xl-2">

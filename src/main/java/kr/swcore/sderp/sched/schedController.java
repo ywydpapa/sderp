@@ -24,9 +24,12 @@ import org.springframework.web.servlet.ModelAndView;
 
 import kr.swcore.sderp.code.dto.CodeDTO;
 import kr.swcore.sderp.code.service.CodeService;
+import kr.swcore.sderp.cust.service.CustService;
 import kr.swcore.sderp.sched.dto.SchedDTO;
 import kr.swcore.sderp.sched.service.SchedService;
 import kr.swcore.sderp.sopp.SoppController;
+import kr.swcore.sderp.sopp.service.SoppService;
+import kr.swcore.sderp.user.service.UserService;
 
 @Controller
 @RequestMapping("/sched/*")
@@ -40,6 +43,15 @@ public class schedController {
 	@Inject
 	CodeService codeService;
 	
+	@Inject
+	CustService custService;
+	
+	@Inject
+	UserService userService;
+	
+	@Inject
+	SoppService soppService;
+	
 	@RequestMapping("list.do")
 	public ModelAndView list(HttpSession session, ModelAndView mav) {
 //		mav.addObject("list", schedService.listSched(session));
@@ -48,6 +60,9 @@ public class schedController {
 //		mav.addObject("acttype", codeService.listActtype(session));
 		mav.addObject("listSchdType", codeService.listSchdType(session));
 		mav.addObject("listschedcat", codeService.listActSprtScheduleDetailType(session));
+		mav.addObject("listUser", userService.userList(session));
+		mav.addObject("listCust", custService.listCust(session));
+		mav.addObject("listSopp", soppService.listSopp(session, null));
 		mav.addObject("listschedtype", listCodeDTO);
 		mav.addObject("first","Y");
 		mav.setViewName("sched/list");

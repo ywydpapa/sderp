@@ -6,6 +6,7 @@ import com.google.gson.GsonBuilder;
 import kr.swcore.sderp.code.service.CodeService;
 import kr.swcore.sderp.cont.dto.ContDTO;
 import kr.swcore.sderp.cont.service.ContService;
+import kr.swcore.sderp.cust.service.CustService;
 import kr.swcore.sderp.gw.service.GwService;
 import kr.swcore.sderp.sales.service.SalesService;
 import kr.swcore.sderp.sopp.dto.SoppDTO;
@@ -15,6 +16,8 @@ import kr.swcore.sderp.sopp.service.SoppService;
 import kr.swcore.sderp.sopp.service.SoppdataService;
 import kr.swcore.sderp.techd.service.TechdService;
 import kr.swcore.sderp.user.dto.UserDTO;
+import kr.swcore.sderp.user.service.UserService;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpHeaders;
@@ -64,12 +67,21 @@ public class SoppController {
 	@Inject
 	ContService contService;
 	
+	@Inject
+	CustService custService;
+	
+	@Inject
+	UserService userService;
+	
+	
 	@RequestMapping("list.do")
 	public ModelAndView list(HttpSession session, ModelAndView mav) {
 		mav.setViewName("sopp/list");
 		mav.addObject("saleslist", codeService.listSalestype(session));
 		mav.addObject("sstatuslist", codeService.listSstatus(session));
 		mav.addObject("contractType", codeService.listContractType(session));
+		mav.addObject("listUser", userService.userList(session));
+		mav.addObject("listCust", custService.listCust(session));
 		mav.addObject("list", soppService.listSopp(session, null));
 		mav.addObject("first","Y");
 		return mav;
@@ -96,6 +108,8 @@ public class SoppController {
 		mav.addObject("saleslist", codeService.listSalestype(session));
 		mav.addObject("sstatuslist", codeService.listSstatus(session));
 		mav.addObject("contractType", codeService.listContractType(session));
+		mav.addObject("listUser", userService.userList(session));
+		mav.addObject("listCust", custService.listCust(session));
 		mav.addObject("list", soppService.listSopp2(session));
 		mav.addObject("first","Y");
 		return mav;

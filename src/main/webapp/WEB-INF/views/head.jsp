@@ -507,6 +507,15 @@
 		}else{
 			$(e).val(parseInt($(e).val().replaceAll(",", "").replace(/[^0-9]/g, "")).toLocaleString("en-US"));
 		}
+	
+	}
+	function dataListChange(e){
+		let thisList = $(e);
+		let dataValue = thisList.next().children().filter((index, item) => {
+			return $(item).val() === thisList.val();
+		}).data("value");
+		
+		thisList.next().next().val(dataValue);
 	}
 	
 	$(document).ready(function(){

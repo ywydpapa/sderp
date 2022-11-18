@@ -165,7 +165,7 @@
 				</li>
 			</ul>
 		</li>
-		<li class="pcoded-hasmenu pcoded <c:if test="${path2 eq '/pps/ppslist.do' || path2 eq '/pps/ppsStatusList.do'|| path2 eq '/pps/mppsStatusList.do' || fn:startsWith(path2, '/pps/ppsdetail') || fn:startsWith(path2, '/pps/statusdetail')}">pcoded-trigger</c:if>">
+		<%-- <li class="pcoded-hasmenu pcoded <c:if test="${path2 eq '/pps/ppslist.do' || path2 eq '/pps/ppsStatusList.do'|| path2 eq '/pps/mppsStatusList.do' || fn:startsWith(path2, '/pps/ppsdetail') || fn:startsWith(path2, '/pps/statusdetail')}">pcoded-trigger</c:if>">
 			<a href="javascript:void(0)">
 					<span class="pcoded-micon">
 						<i class="ti-package"></i>
@@ -202,7 +202,7 @@
 					</a>
 				</li>
 			</ul>
-		</li>
+		</li> --%>
 		<c:if test="${sessionScope.userRole eq 'ADMIN'}">
 			<li class="pcoded-hasmenu pcoded <c:if test="${path2 eq '/sopp/list2.do' || path2 eq '/sopp/list2.do' || fn:startsWith(path2, '/sopp/detail2')}">pcoded-trigger</c:if>">
 				<a href="javascript:void(0)">

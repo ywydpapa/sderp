@@ -43,13 +43,13 @@ public class OrganizServiceImpl implements OrganizService {
 		JSONArray returnArray = new JSONArray();
 		List<OrganizDTO> rtn = organizDao.listDept(compNo);
 		if(rtn != null) {
-			JSONObject first = new JSONObject();
+			HashMap<String, Object> first = new JSONObject();
 			first.put("title", rtn.get(0).getParentTitle());
 			first.put("expanded", true);
 			first.put("folder", true);
 			JSONArray arr = new JSONArray();
 			for(OrganizDTO dto : rtn){
-				JSONObject jsonObject = new JSONObject();
+				HashMap<String, Object> jsonObject = new JSONObject();
 				jsonObject.put("title", dto.getOrg_title());
 				jsonObject.put("expanded", false);
 				jsonObject.put("folder", true);
@@ -61,7 +61,7 @@ public class OrganizServiceImpl implements OrganizService {
 					obj.put("title", userDTO.getUserName());
 					obj.put("userNo", userDTO.getUserNo());
 
-					JSONObject object = new JSONObject(obj);
+					HashMap<String, Object> object = new JSONObject(obj);
 					array.add(object);
 				}
 				jsonObject.put("children", array);

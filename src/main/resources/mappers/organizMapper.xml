@@ -7,9 +7,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <select id="listDept" resultType="organizDto">
 	select a.org_id parentId, a.org_code parentCode, a.org_title parentTitle,
 		   b.org_id, b.org_code, b.org_title, b.org_level, b.org_mcode, b.org_regdatetime, b.org_moddatetime, b.org_desc, b.org_rolemap, b.org_color, b.attrib,
-		   if((select count(*) from swc_organiz c where c.org_parentLv = b.org_id) > 0, true, false) childrenYN
-	from swc_organiz a
-			 left outer join swc_organiz b on a.org_id = b.org_parentLv
+		   if((select count(*) from swcore.swc_organiz c where c.org_parentLv = b.org_id) > 0, true, false) childrenYN
+	from swcore.swc_organiz a
+			 left outer join swcore.swc_organiz b on a.org_id = b.org_parentLv
 	where a.compNo = #{compNo} and b.org_id is not null and b.attrib not like 'XXX%'
 </select>
 

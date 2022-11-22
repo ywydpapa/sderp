@@ -13,6 +13,7 @@ public interface CustService {
 
 	public List<CustDTO>listCust();
 	public List<CustDTO>listCust(HttpSession session);
+	public List<CustDTO>listCustMember(HttpSession session);
 	public List<CustDTO>listBuyr();
 	public List<CustDTO>listBuyr(HttpSession session);
 	public List<CustDTO>listPtnc();

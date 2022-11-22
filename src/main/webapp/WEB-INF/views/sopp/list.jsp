@@ -338,12 +338,7 @@
 								<div class="col-sm-12 col-xl-2">
 									<label class="col-form-label" for="userName">담당자</label>
 									<div class="input-group input-group-sm mb-0">
-										<input type="text" class="form-control" name="userName" id="userName" list="userName_list" onchange="dataListChange(this);" autocomplete="off"> 
-										<datalist id="userName_list">
-											<c:forEach var="listUser" items="${listUser}">
-												<option data-value="${listUser.userNo}" value="${listUser.userName}">${listUser.userName}</option>
-											</c:forEach>
-										</datalist>
+										<input type="text" class="form-control" name="userName" id="userName" autocomplete="off"> 
 										<input type="hidden" name="userNo" id="userNo" value="" /> 
 										<%-- <span class="input-group-btn">
 											<button class="btn btn-primary sch-company"
@@ -383,12 +378,7 @@
 								<div class="col-sm-12 col-xl-2">
 									<label class="col-form-label" for="custName">거래처</label>
 									<div class="input-group input-group-sm">
-										<input type="text" class="form-control" name="custName" id="custName" list="custName_list" onchange="dataListChange(this);" autocomplete="off">
-										<datalist id="custName_list">
-											<c:forEach var="listCust" items="${listCust}">
-												<option data-value="${listCust.custNo}" value="${listCust.custName}">${listCust.custName}</option>
-											</c:forEach>
-										</datalist>
+										<input type="text" class="form-control" name="custName" id="custName" autocomplete="off">
 										<input type="hidden" name="custNo" id="custNo" value="" />
 										<%-- <span class="input-group-btn">
 												<button class="btn btn-primary sch-company"
@@ -428,19 +418,15 @@
 								<div class="col-sm-12 col-xl-2">
 									<label class="col-form-label" for="custmemberName">엔드유저</label>
 									<div class="input-group input-group-sm mb-0">
-										<input type="text" class="form-control" name="buyrName" id="buyrName" list="buyrName_list" onchange="dataListChange(this);" autocomplete="off">
-										<datalist id="buyrName_list">
-											<c:forEach var="listCust" items="${listCust}">
-												<option data-value="${listCust.custNo}" value="${listCust.custName}">${listCust.custName}</option>
-											</c:forEach>
-										</datalist>
+										<input type="text" class="form-control" name="buyrName" id="buyrName" autocomplete="off">
 										<input type="hidden" name="custmemberNo" id="buyrNo" value="" />
 									</div>
 								</div>
 								<div class="col-sm-12 col-xl-3">
 									<label class="col-form-label">영업기회명</label>
 									<p class="input_inline mb-0">
-										<input class="form-control form-control-sm col-xl-12" type="text" id="soppTitle" name="soppTitle" style="width:100%;">
+										<input type="text" class="form-control form-control-sm col-xl-12" name="soppTitle" id="soppTitle" style="width:100%;">
+										<input type="hidden" class="form-control" name="soppNo" id="soppNo" value="${dto.soppNo}" />
 									</p>
 								</div>
 								<!--매출예정일-->

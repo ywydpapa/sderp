@@ -41,7 +41,6 @@
 					}
 					data.push({"name":"soppNo", "value" : $("#soppNo").val()});
 					data.push({"name":"custNo", "value" : $("#custNo").val()});
-					data.push({"name":"endCustNo", "value" : $("#endCustNo").val()});
 					data.push({"name":"contNo", "value" : $("#contNo").val()});
 					data.push({"name":"schedType", "value" : $("#schedType").val()});
 					data.push({"name":"schedCat", "value" : $("#schedCat option:selected").val()});
@@ -229,7 +228,7 @@
 			white-space: nowrap;
 		}
 	</style>
-
+		
 		<c:if test="${preserveSearchCondition != 'Y'}">
 			<div class="page-header2">
 				<div class="row align-items-end">
@@ -253,7 +252,7 @@
 								<i class="icofont icofont-search"></i>검색
 							</button>
 							<button class="btn btn-sm btn-outline"
-								onClick="javascript:location='${path}/sales/write.do'">
+								onClick="javascript:location='${path}/sched/write.do'">
 								<i class="icofont icofont-pencil-alt-2"></i>등록
 							</button>
 						</div>
@@ -270,12 +269,7 @@
 							<div class="col-sm-12 col-xl-2">
 								<label class="col-form-label" for="userName">담당사원</label>
 								<div class="input-group input-group-sm mb-0">
-									<input type="text" class="form-control" name="userName" id="userName" list="userName_list" onchange="dataListChange(this);" autocomplete="off"> 
-									<datalist id="userName_list">
-										<c:forEach var="listUser" items="${listUser}">
-											<option data-value="${listUser.userNo}" value="${listUser.userName}">${listUser.userName}</option>
-										</c:forEach>
-									</datalist>
+									<input type="text" class="form-control" name="userName" id="userName" autocomplete="off"> 
 									<input type="hidden" name="userNo" id="userNo" value="" /> 
 									<%-- <span class="input-group-btn">
 										<button class="btn btn-primary sch-company"
@@ -311,12 +305,7 @@
 							<div class="col-sm-12 col-xl-2">
 								<label class="col-form-label" for="soppTitle">영업기회</label>
 								<div class="input-group input-group-sm mb-0">
-									<input type="text" class="form-control" name="soppTitle" id="soppTitle"  list="soppTitle_list" onchange="dataListChange(this);" autocomplete="off"> 
-									<datalist id="soppTitle_list">
-										<c:forEach var="listSopp" items="${listSopp}">
-											<option data-value="${listSopp.soppNo}" value="${listSopp.soppTitle}">${listSopp.soppTitle}</option>
-										</c:forEach>
-									</datalist>
+									<input type="text" class="form-control" name="soppTitle" id="soppTitle" autocomplete="off"> 
 									<input type="hidden" name="soppNo" id="soppNo" value="" /> 
 									<%-- <span class="input-group-btn">
 										<button class="btn btn-primary sch-company"
@@ -352,12 +341,7 @@
 							<div class="col-sm-12 col-xl-2">
 								<label class="col-form-label" for="custName">매출처</label>
 								<div class="input-group input-group-sm mb-0">
-									<input type="text" class="form-control" name="custName" id="custName" list="custName_list" onchange="dataListChange(this);" autocomplete="off">
-									<datalist id="custName_list">
-										<c:forEach var="listCust" items="${listCust}">
-											<option data-value="${listCust.custNo}" value="${listCust.custName}">${listCust.custName}</option>
-										</c:forEach>
-									</datalist>
+									<input type="text" class="form-control" name="custName" id="custName" autocomplete="off">
 									<input type="hidden" name="custNo" id="custNo" value="" />
 									<%-- <span class="input-group-btn">
 										<button class="btn btn-primary sch-company" data-remote="${path}/modal/popup.do?popId=cust" type="button" data-toggle="modal" data-target="#custModal">
@@ -386,38 +370,6 @@
 									</div> --%>
 								</div>
 							</div>
-							<div class="col-sm-12 col-xl-2">
-									<label class="col-form-label" for="endCustName">엔드유저</label>
-									<div class="input-group input-group-sm mb-0">
-										<input type="text" class="form-control" id="endCustName" value="" readonly />
-										<input type="hidden" id="endCustNo" value="" />
-										<span  class="input-group-btn">
-											<button class="btn btn-dark sch-company" data-remote="${path}/modal/popup.do?popId=custmem&compNo=" type="button" data-toggle="modal" data-target="#custmemberModal" disabled>
-												<i class="icofont icofont-search"></i>
-											</button>
-										</span>
-										<div class="modal fade " id="custmemberModal" tabindex="-1" role="dialog">
-											<div class="modal-dialog modal-80size" role="document">
-												<div class="modal-content modal-80size">
-													<div class="modal-header">
-														<h4 class="modal-title"></h4>
-														<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-															<span aria-hidden="true">&times;</span>
-														</button>
-													</div>
-													<div class="modal-body">
-														<h5>엔드유저 목록</h5>
-														<p>Loading!!!</p>
-													</div>
-													<div class="modal-footer">
-														<button type="button" class="btn btn-default waves-effect "
-															data-dismiss="modal">Close</button>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
 								<!-- 계약관련 일치되는 데이터가 일정상에 존재할수 없음. -->
 								<div class="col-sm-12 col-xl-2" style="display:none;">
 									<label class="col-form-label" for="custmemberName">계약</label>
@@ -531,30 +483,28 @@
 	</div>
 	<!--//table-->
 	<script>
-	function acordian_action(){
-		if($("#acordian").css("display") == "none"){
-		    $("#acordian").show();
-		    $("#fold").hide();
-		    $("#fold2").show();
-
-		} else {
-		    $("#acordian").hide();
-		    $("#fold").show();
+		function acordian_action(){
+			if($("#acordian").css("display") == "none"){
+			    $("#acordian").show();
+			    $("#fold").hide();
+			    $("#fold2").show();
+	
+			} else {
+			    $("#acordian").hide();
+			    $("#fold").show();
+			}
 		}
-	}
-	function acordian_action1(){
-		if($("#acordian").css("display") != "none"){
-		    $("#acordian").hide();
-		    $("#fold").show();
-		    $("#fold2").hide();
-
-		} else {
-		    $("#acordian").show();
-		    $("#fold").hide();
+		function acordian_action1(){
+			if($("#acordian").css("display") != "none"){
+			    $("#acordian").hide();
+			    $("#fold").show();
+			    $("#fold2").hide();
+	
+			} else {
+			    $("#acordian").show();
+			    $("#fold").hide();
+			}
 		}
-	}
-</script>
-	<script>
 		$("#schedFrom").change(function(){
 			var dateValue = $(this).val();
 			var dateValueArr = dateValue.split("-");

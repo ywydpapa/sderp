@@ -55,114 +55,28 @@
 													<tr>
 														<th scope="row" class="requiredTextCss">영업기회명</th>
 														<td>
-															<input type="text" class="form-control form-control-sm" id="soppTitle" name="soppTitle" value="">
+															<input type="text" class="form-control form-control-sm" id="soppTitle" name="soppTitle" data-completeSet="true" autocomplete="off" value="">
 															<input type="hidden" id="soppNo" name="soppNo" value="">
 														</td>
 														<th scope="row" class="requiredTextCss">담당사원</th>
 														<td>
 															<div class="input-group input-group-sm mb-0">
-																<input type="text" class="form-control" name="userName"	id="userName" value="${userInfo.userName}" readonly>
+																<input type="text" class="form-control" name="userName"	id="userName" value="${userInfo.userName}" autocomplete="off" readonly>
 																<input type="hidden" name="userNo" id="userNo" value="${userInfo.userNo}" />
-																<span class="input-group-btn">
-																	<button class="btn btn-primary sch-company"
-																		data-remote="${path}/modal/popup.do?popId=user"
-																		type="button" data-toggle="modal"
-																		data-target="#userModal">
-																		<i class="icofont icofont-search"></i>
-																	</button>
-																</span>
-																<div class="modal fade " id="userModal" tabindex="-1"
-																	role="dialog">
-																	<div class="modal-dialog modal-80size" role="document">
-																		<div class="modal-content modal-80size">
-																			<div class="modal-header">
-																				<h4 class="modal-title"></h4>
-																				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-																					<span aria-hidden="true">&times;</span>
-																				</button>
-																			</div>
-																			<div class="modal-body">
-																				<h5>사용자목록</h5>
-																				<p>Loading!!!</p>
-																			</div>
-																			<div class="modal-footer">
-																				<button type="button"
-																					class="btn btn-default waves-effect "
-																					data-dismiss="modal">Close</button>
-																			</div>
-																		</div>
-																	</div>
-																</div>
 															</div>
 														</td>
 														<th class="requiredTextCss" scope="row">매출처</th>
 														<td>
 															<div class="input-group input-group-sm mb-0">
-																<input type="text" class="form-control" name="custName" id="custName" value="" readonly>
+																<input type="text" class="form-control" name="custName" id="custName" autocomplete="off" value="">
 																<input type="hidden" name="custNo" id="custNo" value="" />
-																<span class="input-group-btn">
-																	<button class="btn btn-primary sch-company" data-remote="${path}/modal/popup.do?popId=cust" type="button" data-toggle="modal" data-target="#custModal">
-																		<i class="icofont icofont-search"></i>
-																	</button>
-																</span>
-																<div class="modal fade " id="custModal" tabindex="-1"
-																	role="dialog">
-																	<div class="modal-dialog modal-80size" role="document">
-																		<div class="modal-content modal-80size">
-																			<div class="modal-header">
-																				<h4 class="modal-title">매출처검색</h4>
-																				<button type="button" class="close"
-																					data-dismiss="modal" aria-label="Close">
-																					<span aria-hidden="true">&times;</span>
-																				</button>
-																			</div>
-																			<div class="modal-body">
-																				<h5>매출처목록</h5>
-																				<p>Loading!!!</p>
-																			</div>
-																			<div class="modal-footer">
-																				<button type="button"
-																					class="btn btn-default waves-effect "
-																					data-dismiss="modal">Close</button>
-																			</div>
-																		</div>
-																	</div>
-																</div>
 															</div>
 														</td>
 														<th scope="row">매출처 담당자</th>
 														<td>
 															<div class="input-group input-group-sm mb-0">
-																<input type="text" class="form-control" name="custmemberName"  id="custmemberName" value="" readonly>
+																<input type="text" class="form-control" name="custmemberName"  id="custmemberName" value="" autocomplete="off">
 																<input type="hidden" name="custmemberNo" id="custmemberNo" value="" />
-																<span class="input-group-btn">
-																	<button class="btn btn-primary sch-partner"
-																			data-remote="${path}/modal/popup.do?popId=custmem&compNo="
-																			type="button" data-toggle="modal" data-target="#custmemberModal"
-																			id="custmemberModalbtn">
-																		<i class="icofont icofont-search"></i>
-																	</button>
-																</span>
-																<div class="modal fade " id="custmemberModal" tabindex="-1"
-																	 role="dialog">
-																	<div class="modal-dialog modal-80size" role="document">
-																		<div class="modal-content modal-80size">
-																			<div class="modal-header">
-																				<h4 class="modal-title">매출처 담당자 검색</h4>
-																				<button type="button" class="close"	data-dismiss="modal" aria-label="Close">
-																					<span aria-hidden="true">&times;</span>
-																				</button>
-																			</div>
-																			<div class="modal-body">
-																				<h5>매출처 담당자 목록</h5>
-																				<p>매출처를 먼저 입력해주셔야 목록이 보입니다.</p>
-																			</div>
-																			<div class="modal-footer">
-																				<button type="button" class="close"	data-dismiss="modal" aria-label="Close"/>
-																			</div>
-																		</div>
-																	</div>
-																</div>
 															</div>
 														</td>
 													</tr>
@@ -171,32 +85,8 @@
 														<th class="requiredTextCss" scope="row">엔드유저</th>
 														<td>
 															<div class="input-group input-group-sm mb-0">
-																<input type="text" class="form-control" id="endCustName" value="" readonly>
+																<input type="text" class="form-control" id="endCustName" value="" autocomplete="off">
 																<input type="hidden" id="endCustNo" value="" />
-																<span class="input-group-btn">
-																	<button class="btn btn-primary sch-partner" data-remote="${path}/modal/popup.do?popId=endCust" type="button" data-toggle="modal" data-target="#endCustModal">
-																		<i class="icofont icofont-search"></i>
-																	</button>
-																</span>
-																<div class="modal fade " id="endCustModal" tabindex="-1" role="dialog">
-																	<div class="modal-dialog modal-80size" role="document">
-																		<div class="modal-content modal-80size">
-																			<div class="modal-header">
-																				<h4 class="modal-title">엔드유저검색</h4>
-																				<button type="button" class="close" onclick="$('#endCustModal').modal('hide');" aria-label="Close">
-																					<span aria-hidden="true">&times;</span>
-																				</button>
-																			</div>
-																			<div class="modal-body">
-																				<h5>엔드유저 목록</h5>
-																				<p>Loading!!!</p>
-																			</div>
-																			<div class="modal-footer">
-																				<button type="button" class="btn btn-default waves-effect" onclick="$('#endCustModal').modal('hide');">Close</button>
-																			</div>
-																		</div>
-																	</div>
-																</div>
 															</div>
 														</td>
 														<th scope="row" class="requiredTextCss">진행단계</th>

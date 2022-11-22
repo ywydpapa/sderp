@@ -163,7 +163,7 @@
 								id="schedTo" /></td>
 						</tr>
 						<tr>
-							<td><label class="col-xs-4">영업기회</label></td>
+							<td><label class="col-xs-4"></label></td>
 							<td>
 								<div class="input-group input-group-sm mb-0">
 									<input type="text" class="form-control" name="soppTitle"

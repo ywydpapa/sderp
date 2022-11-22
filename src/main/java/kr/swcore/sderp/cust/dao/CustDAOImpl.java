@@ -169,4 +169,9 @@ public class CustDAOImpl implements CustDAO {
 		// TODO Auto-generated method stub
 		return sqlSession.insert("cust.tempSelectCustInsert",dto);
 	}
+
+	@Override
+	public List<CustDTO> listCustMember(SoppDTO soppDto) {
+		return sqlSession.selectList("cust.listCustMember", soppDto);
+	}
 }

@@ -9,6 +9,7 @@ public interface CustDAO {
 	
 	List<CustDTO> listCust();
 	List<CustDTO> listCust(SoppDTO soppDto);	
+	List<CustDTO> listCustMember(SoppDTO soppDto);
 	List<CustDTO> listBuyr();
 	List<CustDTO> listBuyr(SoppDTO soppDto);
 	List<CustDTO> listPtnc();

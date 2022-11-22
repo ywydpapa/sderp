@@ -54,7 +54,7 @@
 								<tr>
 									<th scope="row">장소</th>
 									<td><input type="text" class="form-control form-control-sm" id="salesPlace" name="salesPlace" value="${dto.salesPlace}"></td>
-									<th>활동형태</th>
+									<th></th>
 									<td><select name="salesType" id="salesType" class="form-control form-control-sm">
 										<c:forEach var="acttype" items="${acttype}">
 										<option value="${acttype.codeNo}" <c:if test="${acttype.codeNo == dto.salesType}">selected</c:if>>${acttype.desc03}</option>

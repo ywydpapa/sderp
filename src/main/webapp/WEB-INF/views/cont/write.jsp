@@ -81,8 +81,8 @@
 									<td>
 										<input type="text" id="contNo" name="contNo" class="form-control" readonly placeholder="자동생성 됩니다..">
 									</td>
-									<th class="contDetailSopp requiredTextCss">영업기회</th>
-									<td class="contDetailSopp">
+									<th class="requiredTextCss">영업기회</th>
+									<td>
 										<div class="input-group input-group-sm mb-0">
 											<input type="text" class="form-control" name="soppDTO" id="soppTitle" value="" readonly>
 											<input type="hidden" class="form-control" name="soppDTO" id="soppNo" value="" />
@@ -118,7 +118,7 @@
 											</div>
 										</div>
 									</td>
-									<th class="contDetailCont requiredTextCss">계약</th>
+									<%-- <th class="contDetailCont requiredTextCss">계약</th>
 									<td class="contDetailCont">
 										<div class="input-group input-group-sm mb-0">
 											<input type="text" class="form-control" name="oldContTitle" id="oldContTitle" readonly>
@@ -151,7 +151,7 @@
 												</div>
 											</div>
 										</div>
-									</td>
+									</td> --%>
 									<th scope="row" class="requiredTextCss">담당사원</th>
 									<td>
 										<div class="input-group input-group-sm mb-0">
@@ -392,13 +392,13 @@
 											<input class="form-control form-control-sm col-sm-6 m-r-5" type="date" max="9999-12-30" id="freemaintSdate"> ~ <input class="form-control form-control-sm col-sm-6 m-l-5" type="date" max="9999-12-31" id="freemaintEdate">
 										</div>
 									</td>
-									<!-- <th scope="row" class="contDetailCont">유상유지보수일자</th>
+									<th scope="row" class="contDetailCont">유상유지보수일자</th>
 									<td class="contDetailCont">
 										<div class="input-group input-group-sm mb-0">
 											<input class="form-control form-control-sm col-sm-6 m-r-5" type="date" max="9999-12-30" id="paymaintSdate"> ~ <input class="form-control form-control-sm col-sm-6 m-l-5" type="date" max="9999-12-31" id="paymaintEdate">
 										</div>
 									</td>
-									<th >계약금액</th>
+									<!-- <th >계약금액</th>
 									<td>
 										<input type="text" id="contAmt" name="contAmt" class="form-control" style="text-align: right;" value="0">
 									</td>
@@ -611,9 +611,9 @@
 			if(contractType == 'NEW'){
 				var cntrctMth = "${contractType[0].codeNo}";
 				
-				contData.soppNo					= $("#soppNo").val();			// 영업기회
+				/* contData.soppNo					= $("#soppNo").val();			// 영업기회
 				contData.exContNo				= 0;							// 기존계약
-				contData.cntrctMth				= cntrctMth;
+				contData.cntrctMth				= cntrctMth; */
 				if($("#freemaintSdate").val() != "") contData.freemaintSdate = $("#freemaintSdate").val();	// 무상유지보수 시작일자
 				if($("#freemaintEdate").val() != "") contData.freemaintEdate = $("#freemaintEdate").val();	// 무상유지보수 마감일자
 				if(!contData.soppNo){
@@ -622,9 +622,9 @@
 				}
 			} else {
 				var cntrctMth = "${contractType[1].codeNo}";
-				contData.soppNo					= $("#oldSoppNo").val();							// 영업기회
+				/* contData.soppNo					= $("#oldSoppNo").val();							// 영업기회
 				contData.exContNo				= $("#oldContNo").val();		// 기존계약
-				contData.cntrctMth				= cntrctMth;
+				contData.cntrctMth				= cntrctMth; */
 				if($("#paymaintSdate").val() != "") contData.paymaintSdate = $("#paymaintSdate").val();		// 유상유지보수 시작일자
 				if($("#paymaintEdate").val() != "") contData.paymaintEdate = $("#paymaintEdate").val();		// 유상유지보수 마감일자
 				if(!contData.exContNo){
@@ -632,6 +632,9 @@
 					return;
 				}
 			}
+			contData.soppNo					= $("#soppNo").val();			// 영업기회
+			contData.exContNo				= 0;							// 기존계약
+			contData.cntrctMth				= cntrctMth;
 			contData.contTitle 				= $("#contTitle").val(); 		// 계약명
 			if($("#userName").val() != "")			contData.userNo		 	= Number($("#userNo").val());			// 담당사원
 			var net_profit = typeof $("#netprofit").val() === "undefined" ? 0 : Number($("#netprofit").val()).replace(/[\D\s\._\-]+/g, ""); // 매출이익
@@ -723,7 +726,7 @@
 			});
 			
 			$('input[name=contractType]').on('change', function() {
-				var contractType					= $("input[name='contractType']:checked").val();	// 신규 영업지원 or 기존계약
+				var contractType = $("input[name='contractType']:checked").val();	// 신규 영업지원 or 기존계약
 				if(contractType == 'NEW'){
 					$(".contDetailSopp").show();
 					$(".contDetailCont").hide();

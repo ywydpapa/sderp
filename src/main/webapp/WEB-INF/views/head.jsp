@@ -58,11 +58,15 @@
 
     
 <!-- CUSTOM CSS -->
+<link rel="stylesheet" type="text/css" href="${path}/css/jquery-ui.css">
+<link rel="stylesheet" type="text/css" href="${path}/css/jquery-ui.structure.css">
+<link rel="stylesheet" type="text/css" href="${path}/css/jquery-ui.theme.css">
 <link rel="stylesheet" type="text/css" href="${path}/assets/css/style2.css"><!-- style2.css를 제일 마지막에 놓아주세요. -->
+
 
 <!-- Required Jquery -->
 <script type="text/javascript" src="${path}/js/jquery.min.js"></script>
-<script type="text/javascript" src="${path}/js/jquery-ui.min.js"></script>
+<script type="text/javascript" src="${path}/js/jquery-ui.js"></script>
 <script type="text/javascript" src="${path}/js/popper.min.js"></script>
 <script type="text/javascript" src="${path}/js/bootstrap.min.js"></script>
 
@@ -125,6 +129,14 @@
 	var timer;
     const DEFAULT_NUM = 15;
 	const CLICK_PAGE_NUM = 10;
+	
+	let listSession = {
+		"listUser": ${sessionScope.listUser},
+		"listCust": ${sessionScope.listCust},
+		"listSopp": ${sessionScope.listSopp},
+		"listCont": ${sessionScope.listCont},
+		"listCustMember": ${sessionScope.listCustMember},
+	}
 	
 	$(function(){
 		$("#topMenu a").click(function(evt){
@@ -509,21 +521,106 @@
 		}
 	
 	}
-	function dataListChange(e){
-		let thisList = $(e);
-		let dataValue = thisList.next().children().filter((index, item) => {
-			return $(item).val() === thisList.val();
-		}).data("value");
+	
+	function autoCompleteSet(){
+		$("#userName").autocomplete({
+			source: listSession.listUser,
+		    select: function(event, ui) {
+		      $("#userNo").val(ui.item.no);
+		      $("#userName").val(ui.item.label);
+		      return false;
+		    },
+		    delay : 150,
+		    minLength: 0,
+		});
 		
-		thisList.next().next().val(dataValue);
+		if(!$("#soppTitle").attr("data-completeSet") || $("#soppTitle").attr("data-completeSet") === undefined){
+			$("#soppTitle").autocomplete({
+				source: listSession.listSopp,
+			    select: function(event, ui) {
+			      $("#soppNo").val(ui.item.no);
+			      $("#soppTitle").val(ui.item.label);
+			      return false;
+			    },
+			    delay : 150,
+			    minLength: 0,
+			});
+		}
+		
+		$("#contTitle").autocomplete({
+			source: listSession.listCont,
+		    select: function(event, ui) {
+		      $("#contNo").val(ui.item.no);
+		      $("#contTitle").val(ui.item.label);
+		      return false;
+		    },
+		    delay : 150,
+		    minLength: 0,
+		});
+		
+		$("#custName").autocomplete({
+			source: listSession.listCust,
+		    select: function(event, ui) {
+		      $("#custNo").val(ui.item.no);
+		      $("#custName").val(ui.item.label);
+		      return false;
+		    },
+		    delay : 150,
+		    minLength: 0,
+		});
+		
+		$("#ptncName").autocomplete({
+			source: listSession.listCust,
+		    select: function(event, ui) {
+		      $("#ptncNo").val(ui.item.no);
+		      $("#ptncName").val(ui.item.label);
+		      return false;
+		    },
+		    delay : 150,
+		    minLength: 0,
+		});
+		
+		$("#endCustName").autocomplete({
+			source: listSession.listCust,
+		    select: function(event, ui) {
+		      $("#endCustNo").val(ui.item.no);
+		      $("#endCustName").val(ui.item.label);
+		      return false;
+		    },
+		    delay : 150,
+		    minLength: 0,
+		});
+		
+		$("#buyrName").autocomplete({
+			source: listSession.listCust,
+		    select: function(event, ui) {
+		      $("#buyrNo").val(ui.item.no);
+		      $("#buyrName").val(ui.item.label);
+		      return false;
+		    },
+		    delay : 150,
+		    minLength: 0,
+		});
+		
+		$("#custmemberName").autocomplete({
+			source: listSession.listCustMember,
+		    select: function(event, ui) {
+		      $("#custmemberNo").val(ui.item.no);
+		      $("#custmemberName").val(ui.item.label);
+		      return false;
+		    },
+		    delay : 150,
+		    minLength: 0,
+		});
 	}
+	
 	
 	$(document).ready(function(){
 		timeAllimUpdate();
 		setTiny();
 		moneyFormatHtml();
+		autoCompleteSet();
 	});
-
 </script>
 <style>
 	.navbar-logo > .mobile-menu {

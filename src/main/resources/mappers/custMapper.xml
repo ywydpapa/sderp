@@ -7,7 +7,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <select id="listCust"
  		resultType="custDto">
  		select * from swc_cust where attrib not like 'XXX%' and compNo = #{compNo} order by custNo
- </select>
+</select>
+ 
+ <select id="listCustMember"
+ 		resultType="custDto">
+ 		select * from swc_custdata03 where attrib not like 'XXX%' and compNo = #{compNo} order by custData03no
+</select>
  
  <select id="listBuyr"
  		resultType="custDto">

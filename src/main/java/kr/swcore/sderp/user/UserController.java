@@ -2,10 +2,21 @@ package kr.swcore.sderp.user;
 
 import kr.swcore.sderp.code.dto.CodeDTO;
 import kr.swcore.sderp.code.service.CodeService;
+import kr.swcore.sderp.common.service.DeptToPlanTblServiceImpl;
+import kr.swcore.sderp.cont.dto.ContDTO;
+import kr.swcore.sderp.cont.service.ContService;
+import kr.swcore.sderp.cust.dto.CustDTO;
+import kr.swcore.sderp.cust.service.CustService;
 import kr.swcore.sderp.organiz.Service.OrganizService;
 import kr.swcore.sderp.organiz.dto.OrganizDTO;
+import kr.swcore.sderp.sopp.dto.SoppDTO;
+import kr.swcore.sderp.sopp.service.SoppService;
 import kr.swcore.sderp.user.dto.UserDTO;
 import kr.swcore.sderp.user.service.UserService;
+import kr.swcore.sderp.util.utilOthers;
+
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,8 +26,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
+
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -33,6 +49,15 @@ public class UserController {
 	
 	@Inject
 	OrganizService organizService;
+	
+	@Inject
+	CustService custService;
+	
+	@Inject
+	SoppService soppService;
+	
+	@Inject
+	ContService contService;
 	
 	@RequestMapping("login.do")
 	public String login() {
@@ -62,6 +87,8 @@ public class UserController {
 	@RequestMapping("view.do")
 	public ModelAndView userView(@ModelAttribute UserDTO dto, HttpSession session) {
 		ModelAndView mav = new ModelAndView();
+		String compNo = (String) session.getAttribute("compNo");
+		dto.setCompNo(compNo);
 		UserDTO userInfo = userService.viewUser(dto);
 		List<OrganizDTO> listdept = organizService.listDept(session);
 		mav.addObject("listDept",listdept);
@@ -118,8 +145,10 @@ public class UserController {
         return ResponseEntity.ok(param);
 	} 
 
+	@SuppressWarnings({ "unchecked", "null" })
 	@RequestMapping(value="/login_check.do")
-	public ModelAndView loginCheck(@ModelAttribute UserDTO dto, HttpSession session) {
+	public ModelAndView loginCheck(@ModelAttribute UserDTO dto, HttpSession session) throws JsonProcessingException {
+		JSONArray jsonArray = null;
 		boolean result = userService.loginCheck(dto, session);
 		ModelAndView mav = new ModelAndView();
 		if (result == true) {
@@ -136,6 +165,27 @@ public class UserController {
 			session.setAttribute("compNo", userInfo.getCompNo()); // ȸ���ڵ�
 			session.setAttribute("userNo", Integer.toString(userInfo.getUserNo())); // ���� �Ϸù�ȣ
 			session.setAttribute("orgId", userInfo.getOrg_id()); // �μ� ��ȣ
+			
+			List<UserDTO> userList = userService.userList(session);
+			jsonArray = utilOthers.jsonUser(userList);
+			session.setAttribute("listUser", jsonArray);
+			
+			List<CustDTO> custList = custService.listCust(session);
+			jsonArray = utilOthers.jsonCust(custList);
+			session.setAttribute("listCust", jsonArray);
+			
+			List<SoppDTO> soppList = soppService.listSopp(session, null);
+			jsonArray = utilOthers.jsonSopp(soppList);
+			session.setAttribute("listSopp", jsonArray);
+			
+			ContDTO contDto = new ContDTO();
+			List<ContDTO> contList = contService.listCont(session, null, contDto);
+			jsonArray = utilOthers.jsonCont(contList);
+			session.setAttribute("listCont", jsonArray);
+			
+			List<CustDTO> custMemberList = custService.listCustMember(session);
+			jsonArray = utilOthers.jsonCustMember(custMemberList);
+			session.setAttribute("listCustMember", jsonArray);
 			session.setAttribute("listDateFrom", userInfo.getListDateFrom());
 		}else{
 			mav.setViewName("user/login");

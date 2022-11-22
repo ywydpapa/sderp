@@ -62,10 +62,9 @@
 									<th scope="row" class="techdDetailSopp requiredTextCss">영업기회</th>
 									<td class="techdDetailSopp">
 										<div class="input-group input-group-sm mb-0">
-											<input type="text" class="form-control" name="soppTitle"
-												   id="soppTitle" value="${dto.soppTitle}" readonly /> <input type="hidden"
-																											  name="soppNo" id="soppNo" value="" /> <span
-												class="input-group-btn">
+											<input type="text" class="form-control" name="soppTitle" id="soppTitle" value="${dto.soppTitle}" autocomplete="off" /> 
+											<input type="hidden" name="soppNo" id="soppNo" value="" /> 
+											<%-- <span class="input-group-btn">
 												<button class="btn btn-primary sch-opportunity2"
 														data-remote="${path}/modal/popup.do?popId=sopp"
 														type="button" data-toggle="modal" data-target="#soppModal">
@@ -93,17 +92,16 @@
 														</div>
 													</div>
 												</div>
-											</div>
+											</div> --%>
 										</div>
 									</td>
 									<th scope="row" class="techdDetailCont requiredTextCss">계약</th>
 									<td class="techdDetailCont">
 										<div class="input-group input-group-sm mb-0">
-											<input type="text" class="form-control" name="contTitle"
-												   id="contTitle" value="${dto.contTitle}" readonly /> 
-												   <input type="hidden" id="contSoppNo" />
-												   <input type="hidden" name="contNo" id="contNo" value="" /> 
-												   <span class="input-group-btn">
+											<input type="text" class="form-control" name="contTitle" id="contTitle" value="${dto.contTitle}" autocomplete="off" /> 
+											<input type="hidden" id="contSoppNo" />
+											<input type="hidden" name="contNo" id="contNo" value="" /> 
+											<%-- <span class="input-group-btn">
 												<button class="btn btn-primary sch-opportunity2"
 														data-remote="${path}/modal/popup.do?popId=cont"
 														type="button" data-toggle="modal" data-target="#contModal">
@@ -132,14 +130,15 @@
 														</div>
 													</div>
 												</div>
-											</div>
+											</div> --%>
 										</div>
 									</td>
 									<th scope="row" class="requiredTextCss">엔드유저</th>
 									<td>
 										<div class="input-group input-group-sm mb-0">
-											<input type="text" class="form-control" name="endCustName" readonly id="endCustName" value="" />
-											<input type="hidden" name="endCustNo" id="endCustNo" value="" /> <span class="input-group-btn">
+											<input type="text" class="form-control" name="endCustName" id="endCustName" value="" autocomplete="off"/>
+											<input type="hidden" name="endCustNo" id="endCustNo" value="" /> 
+											<%-- <span class="input-group-btn">
 												<button class="btn btn-primary sch-company" data-remote="${path}/modal/popup.do?popId=endCust" type="button" data-toggle="modal" data-target="#endCustModal">
 													<i class="icofont icofont-search"></i>
 												</button>
@@ -188,16 +187,15 @@
 														</div>
 													</div>
 												</div>
-											</div>
+											</div> --%>
 										</div>
 									</td>
 									<th scope="row">엔드유저 담당자</th>
 									<td>
-
 										<div class="input-group input-group-sm mb-0">
-											<input type="text" class="form-control" name="custmemberName"  id="custmemberName" value="" readonly/>
+											<input type="text" class="form-control" name="custmemberName"  id="custmemberName" value="" autocomplete="off"/>
 											<input type="hidden" name="custmemberNo" id="custmemberNo" value="" />
-											<span class="input-group-btn">
+											<%-- <span class="input-group-btn">
 												<button class="btn btn-primary sch-partner"
 													data-remote="${path}/modal/popup.do?popId=custmem&compNo="
 													type="button" data-toggle="modal" data-target="#custmemberModal"
@@ -227,7 +225,7 @@
 														</div>
 													</div>
 												</div>
-											</div>
+											</div> --%>
 										</div>
 									</td>
 								</tr>
@@ -243,9 +241,9 @@
 									<th scope="row" class="requiredTextCss">담당사원</th>
 									<td>
 										<div class="input-group input-group-sm mb-0">
-											<input type="text" class="form-control" name="userName" readonly
-												   id="userName" value="${sessionScope.userName}" /> <input type="hidden" name="userNo"
-																											id="userNo" value="${sessionScope.userNo}" /> <span class="input-group-btn">
+											<input type="text" class="form-control" name="userName" readonly id="userName" value="${sessionScope.userName}" /> 
+											<input type="hidden" name="userNo" id="userNo" value="${sessionScope.userNo}" /> 
+											<%-- <span class="input-group-btn">
 												<button class="btn btn-primary sch-company"
 														data-remote="${path}/modal/popup.do?popId=user"
 														type="button" data-toggle="modal" data-target="#userModal">
@@ -274,7 +272,7 @@
 														</div>
 													</div>
 												</div>
-											</div>
+											</div> --%>
 										</div>
 									</td>
 								</tr>

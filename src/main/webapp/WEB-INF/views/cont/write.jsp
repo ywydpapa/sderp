@@ -75,7 +75,7 @@
 								<tr>
 									<th scope="row" class="requiredTextCss">계약명</th>
 									<td >
-										<input type="text" class="form-control form-control-sm" id="contTitle" name="contTitle" placeholder="계약명을 입력해 주세요.">
+										<input type="text" class="form-control form-control-sm" id="contTitle" name="contTitle" data-completeSet="true" placeholder="계약명을 입력해 주세요.">
 									</td>
 									<th scope="row">계약번호</th>
 									<td>
@@ -84,9 +84,9 @@
 									<th class="requiredTextCss">영업기회</th>
 									<td>
 										<div class="input-group input-group-sm mb-0">
-											<input type="text" class="form-control" name="soppDTO" id="soppTitle" value="" readonly>
+											<input type="text" class="form-control" name="soppDTO" id="soppTitle" value="" autocomplete="off">
 											<input type="hidden" class="form-control" name="soppDTO" id="soppNo" value="" />
-											<span class="input-group-btn">
+											<%-- <span class="input-group-btn">
 												<button class="btn btn-primary sch-opportunity2"
 													data-remote="${path}/modal/popup.do?popId=sopp"
 													type="button" data-toggle="modal" data-target="#soppModal">
@@ -115,7 +115,7 @@
 														</div>
 													</div>
 												</div>
-											</div>
+											</div> --%>
 										</div>
 									</td>
 									<%-- <th class="contDetailCont requiredTextCss">계약</th>
@@ -157,7 +157,7 @@
 										<div class="input-group input-group-sm mb-0">
 											<input type="text" class="form-control" name="userName" id="userName" value="${sessionScope.userName}" readonly>
 											<input type="hidden" class="form-control" name="userNo" id="userNo" value="${sessionScope.userNo}" />
-											 <span class="input-group-btn">
+											<%-- <span class="input-group-btn">
 												<button class="btn btn-primary sch-company"
 													data-remote="${path}/modal/popup.do?popId=user"
 													type="button" data-toggle="modal" data-target="#userModal">
@@ -186,7 +186,7 @@
 														</div>
 													</div>
 												</div>
-											</div>
+											</div> --%>
 										</div>
 									</td>
 								</tr>
@@ -203,8 +203,9 @@
 									<th class="requiredTextCss">매출처</th>
 									<td>
 										<div class="input-group input-group-sm mb-0">
-											<input type="text" class="form-control" name="custName" id="custName" value="" readonly>
-											<input type="hidden" name="custNo" id="custNo" value="" /> <span class="input-group-btn">
+											<input type="text" class="form-control" name="custName" id="custName" value="" autocomplete="off">
+											<input type="hidden" name="custNo" id="custNo" value="" /> 
+											<%-- <span class="input-group-btn">
 												<button class="btn btn-primary sch-company"
 														data-remote="${path}/modal/popup.do?popId=cust"
 														type="button" data-toggle="modal" data-target="#custModal">
@@ -233,15 +234,15 @@
 														</div>
 													</div>
 												</div>
-											</div>
+											</div> --%>
 										</div>
 									</td>
 									<th>매출처 담당자</th>
 									<td>
 										<div class="input-group input-group-sm mb-0">
-											<input type="text" id="custmemberName" name="custmemberName" class="form-control" readonly>
+											<input type="text" id="custmemberName" name="custmemberName" class="form-control" autocomplete="off">
 											<input type="hidden" id="custmemberNo" name="custmemberNo" class="form-control ">
-											<span class="input-group-btn">
+											<%-- <span class="input-group-btn">
 												<button class="btn btn-primary sch-company btn-sm"  data-remote="${path}/modal/popup.do?popId=custmem&compNo=" type="button" data-toggle="modal" data-target="#custmemberModal" id="custmemberModalbtn" data-whatever="">
 													<i class="icofont icofont-search"></i>
 												</button>
@@ -268,15 +269,15 @@
 														</div>
 													</div>
 												</div>
-											</div>
+											</div> --%>
 										</div>
 									</td>
 									<th scope="row" class="requiredTextCss">엔드유저</th>
 									<td>
 										<div class="input-group input-group-sm mb-0">
-											<input type="text" class="form-control " id="endCustName" value="" readonly>
+											<input type="text" class="form-control " id="endCustName" value="" autocomplete="off">
 											<input type="hidden" id="endCustNo" value="" />
-											<span class="input-group-btn">
+											<%-- <span class="input-group-btn">
 												<button class="btn btn-primary sch-partner" data-remote="${path}/modal/popup.do?popId=endCust" type="button" data-toggle="modal" data-target="#endCustModal">
 													<i class="icofont icofont-search"></i>
 												</button>
@@ -299,7 +300,7 @@
 														</div>
 													</div>
 												</div>
-											</div>
+											</div> --%>
 										</div>
 									</td>
 								</tr>
@@ -307,9 +308,9 @@
 									<th>엔드유저 담당자</th>
 									<td>
 										<div class="input-group input-group-sm mb-0">
-											<input type="text" id="endCustmemberName" name="endCustmemberName" class="form-control" readonly>
+											<input type="text" id="endCustmemberName" name="endCustmemberName" class="form-control" autocomplete="off">
 											<input type="hidden" id="endCustmemberNo" name="endCustmemberNo" class="form-control">
-											<span class="input-group-btn">
+											<%-- <span class="input-group-btn">
 												<button class="btn btn-primary sch-company btn-sm"  data-remote="${path}/modal/popup.do?popId=endCustmem&compNo=" type="button" data-toggle="modal" data-target="#endCustmemberModal" id="endCustmemberModalbtn" data-whatever="">
 													<i class="icofont icofont-search"></i>
 												</button>
@@ -332,7 +333,7 @@
 														</div>
 													</div>
 												</div>
-											</div>
+											</div> --%>
 										</div>
 									</td>
 									<th scope="row">발주일자</th>
@@ -350,9 +351,9 @@
 									<th>(부)담당사원</th>
 									<td>
 										<div class="input-group input-group-sm mb-0">
-											<input type="text" class="form-control" name="secondUserName" id="secondUserName" value="${sessionScope.secondUserName}" readonly>
+											<input type="text" class="form-control" name="secondUserName" id="secondUserName" value="${sessionScope.secondUserName}" autocomplete="off">
 											<input type="hidden" class="form-control" name="secondUserNo" id="secondUserNo" value="${sessionScope.secondUserNo}" />
-											 <span class="input-group-btn">
+											<%-- <span class="input-group-btn">
 												<button class="btn btn-primary sch-company"
 													data-remote="${path}/modal/popup.do?popId=secondUser"
 													type="button" data-toggle="modal" data-target="#secondUserModal">
@@ -381,7 +382,7 @@
 														</div>
 													</div>
 												</div>
-											</div>
+											</div> --%>
 										</div>
 									</td>
 								</tr>

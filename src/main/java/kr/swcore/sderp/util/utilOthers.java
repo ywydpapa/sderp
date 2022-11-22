@@ -7,6 +7,7 @@ import org.json.simple.JSONObject;
 
 import kr.swcore.sderp.cont.dto.ContDTO;
 import kr.swcore.sderp.cust.dto.CustDTO;
+import kr.swcore.sderp.product.dto.ProductDTO;
 import kr.swcore.sderp.sopp.dto.SoppDTO;
 import kr.swcore.sderp.user.dto.UserDTO;
 
@@ -85,6 +86,38 @@ public class utilOthers {
 			jsonObject.put("label", custMemberList.get(i).getCustMname());
 			jsonObject.put("value", custMemberList.get(i).getCustMname());
 			jsonObject.put("no", custMemberList.get(i).getCustData03no());
+			jsonArray.add(jsonObject);
+		}
+		
+		return jsonArray;
+	}
+	
+	@SuppressWarnings({ "unchecked", "null" })
+	public static JSONArray jsonProduct(List<ProductDTO> productList) {
+		JSONObject jsonObject = null;
+		JSONArray jsonArray = new JSONArray();
+		
+		for(int i = 0; i < productList.size(); i++) {
+			jsonObject = new JSONObject();
+			jsonObject.put("label", productList.get(i).getProductName());
+			jsonObject.put("value", productList.get(i).getProductName());
+			jsonObject.put("no", productList.get(i).getProductNo());
+			jsonArray.add(jsonObject);
+		}
+		
+		return jsonArray;
+	}
+	
+	@SuppressWarnings({ "unchecked", "null" })
+	public static JSONArray jsonCategory(List<ProductDTO> categoryList) {
+		JSONObject jsonObject = null;
+		JSONArray jsonArray = new JSONArray();
+		
+		for(int i = 0; i < categoryList.size(); i++) {
+			jsonObject = new JSONObject();
+			jsonObject.put("label", categoryList.get(i).getProductCategoryName());
+			jsonObject.put("value", categoryList.get(i).getProductCategoryName());
+			jsonObject.put("no", categoryList.get(i).getProductCategoryNo());
 			jsonArray.add(jsonObject);
 		}
 		

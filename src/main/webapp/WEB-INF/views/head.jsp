@@ -136,6 +136,8 @@
 		"listSopp": ${sessionScope.listSopp},
 		"listCont": ${sessionScope.listCont},
 		"listCustMember": ${sessionScope.listCustMember},
+		"listProduct": ${sessionScope.listProduct},
+		"listCategory": ${sessionScope.listCategory},
 	}
 	
 	$(function(){
@@ -533,6 +535,17 @@
 		    delay : 150,
 		    minLength: 0,
 		});
+
+		$("#secondUserName").autocomplete({
+			source: listSession.listUser,
+		    select: function(event, ui) {
+		      $("#secondUserNo").val(ui.item.no);
+		      $("#secondUserName").val(ui.item.label);
+		      return false;
+		    },
+		    delay : 150,
+		    minLength: 0,
+		});
 		
 		if(!$("#soppTitle").attr("data-completeSet") || $("#soppTitle").attr("data-completeSet") === undefined){
 			$("#soppTitle").autocomplete({
@@ -547,16 +560,18 @@
 			});
 		}
 		
-		$("#contTitle").autocomplete({
-			source: listSession.listCont,
-		    select: function(event, ui) {
-		      $("#contNo").val(ui.item.no);
-		      $("#contTitle").val(ui.item.label);
-		      return false;
-		    },
-		    delay : 150,
-		    minLength: 0,
-		});
+		if(!$("#contTitle").attr("data-completeSet") || $("#contTitle").attr("data-completeSet") === undefined){
+			$("#contTitle").autocomplete({
+				source: listSession.listCont,
+			    select: function(event, ui) {
+			      $("#contNo").val(ui.item.no);
+			      $("#contTitle").val(ui.item.label);
+			      return false;
+			    },
+			    delay : 150,
+			    minLength: 0,
+			});
+		}
 		
 		$("#custName").autocomplete({
 			source: listSession.listCust,
@@ -602,11 +617,57 @@
 		    minLength: 0,
 		});
 		
+		$("#productSalesEstimateCustName").autocomplete({
+			source: listSession.listCust,
+		    select: function(event, ui) {
+		      $("#productSalesEstimateCustNo").val(ui.item.no);
+		      $("#productSalesEstimateCustName").val(ui.item.label);
+		      return false;
+		    },
+		    delay : 150,
+		    minLength: 0,
+		});
+		
 		$("#custmemberName").autocomplete({
 			source: listSession.listCustMember,
 		    select: function(event, ui) {
 		      $("#custmemberNo").val(ui.item.no);
 		      $("#custmemberName").val(ui.item.label);
+		      return false;
+		    },
+		    delay : 150,
+		    minLength: 0,
+		});
+		
+		$("#endCustmemberName").autocomplete({
+			source: listSession.listCustMember,
+		    select: function(event, ui) {
+		      $("#endCustmemberNo").val(ui.item.no);
+		      $("#endCustmemberName").val(ui.item.label);
+		      return false;
+		    },
+		    delay : 150,
+		    minLength: 0,
+		});
+		
+		if(!$("#data02Title").attr("data-completeSet") || $("#data02Title").attr("data-completeSet") === undefined){
+			$("#data02Title").autocomplete({
+				source: listSession.listProduct,
+			    select: function(event, ui) {
+			      $("#productNo2").val(ui.item.no);
+			      $("#data02Title").val(ui.item.label);
+			      return false;
+			    },
+			    delay : 150,
+			    minLength: 0,
+			});
+		}
+		
+		$("#productCategoryName").autocomplete({
+			source: listSession.listCategory,
+		    select: function(event, ui) {
+		      $("#productCategoryNo").val(ui.item.no);
+		      $("#productCategoryName").val(ui.item.label);
 		      return false;
 		    },
 		    delay : 150,

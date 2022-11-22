@@ -9,6 +9,8 @@ import kr.swcore.sderp.cust.dto.CustDTO;
 import kr.swcore.sderp.cust.service.CustService;
 import kr.swcore.sderp.organiz.Service.OrganizService;
 import kr.swcore.sderp.organiz.dto.OrganizDTO;
+import kr.swcore.sderp.product.dto.ProductDTO;
+import kr.swcore.sderp.product.service.ProductService;
 import kr.swcore.sderp.sopp.dto.SoppDTO;
 import kr.swcore.sderp.sopp.service.SoppService;
 import kr.swcore.sderp.user.dto.UserDTO;
@@ -58,6 +60,9 @@ public class UserController {
 	
 	@Inject
 	ContService contService;
+	
+	@Inject
+	ProductService productService;
 	
 	@RequestMapping("login.do")
 	public String login() {
@@ -186,6 +191,15 @@ public class UserController {
 			List<CustDTO> custMemberList = custService.listCustMember(session);
 			jsonArray = utilOthers.jsonCustMember(custMemberList);
 			session.setAttribute("listCustMember", jsonArray);
+			
+			List<ProductDTO> productList = productService.listProduct(session);
+			jsonArray = utilOthers.jsonProduct(productList);
+			session.setAttribute("listProduct", jsonArray);
+			
+			List<ProductDTO> categoryList = productService.listProduct(session);
+			jsonArray = utilOthers.jsonCategory(categoryList);
+			session.setAttribute("listCategory", jsonArray);
+			
 			session.setAttribute("listDateFrom", userInfo.getListDateFrom());
 		}else{
 			mav.setViewName("user/login");

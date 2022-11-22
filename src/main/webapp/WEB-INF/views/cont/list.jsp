@@ -73,12 +73,7 @@
 								<div class="col-sm-12 col-xl-2">
 									<label class="col-form-label">매출처</label>
 									<div class="input-group input-group-sm mb-0">
-										<input type="text" class="form-control" name="custName" id="custName" list="custName_list" onchange="dataListChange(this);" autocomplete="off">
-										<datalist id="custName_list">
-											<c:forEach var="listCust" items="${listCust}">
-												<option data-value="${listCust.custNo}" value="${listCust.custName}">${listCust.custName}</option>
-											</c:forEach>
-										</datalist>
+										<input type="text" class="form-control" name="custName" id="custName" autocomplete="off">
 										<input type="hidden" name="custNo" id="custNo" value="" />
 										<%-- <span class="input-group-btn">
 											<button class="btn btn-primary sch-company"
@@ -114,12 +109,7 @@
 								<div class="col-sm-12 col-xl-2">
 									<label class="col-form-label">엔드유저</label>
 									<div class="input-group input-group-sm mb-0">
-										<input type="text" class="form-control" id="endCustName" value="${param.burName}" list="soppTitle_list" onchange="dataListChange(this);" autocomplete="off"> 
-										<datalist id="soppTitle_list">
-											<c:forEach var="listCust" items="${listCust}">
-												<option data-value="${listCust.custNo}" value="${listCust.custName}">${listCust.custName}</option>
-											</c:forEach>
-										</datalist>
+										<input type="text" class="form-control" id="endCustName" value="${param.burName}" autocomplete="off"> 
 										<input type="hidden" id="endCustNo" value="${param.burNo}" />
 										<%-- <span class="input-group-btn">
 											<button class="btn btn-primary sch-partner" data-remote="${path}/modal/popup.do?popId=endCust" type="button" data-toggle="modal" data-target="#endCustModal">

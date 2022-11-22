@@ -62,9 +62,9 @@
 									<th scope="row" class="techdDetailSopp requiredTextCss">영업기회</th>
 									<td class="techdDetailSopp">
 										<div class="input-group input-group-sm mb-0">
-											<input type="text" class="form-control" name="soppTitle" id="soppTitle" value="${dto.soppTitle}" readonly />
+											<input type="text" class="form-control" name="soppTitle" id="soppTitle" value="${dto.soppTitle}" autocomplete="off" />
 											<input type="hidden" name="soppNo" id="soppNo" value="${dto.soppNo}" />
-											<span class="input-group-btn">
+											<%-- <span class="input-group-btn">
 												<button class="btn btn-primary sch-opportunity2" data-remote="${path}/modal/popup.do?popId=sopp" type="button" data-toggle="modal" data-target="#soppModal">
 													<i class="icofont icofont-search"></i>
 												</button>
@@ -88,15 +88,15 @@
 														</div>
 													</div>
 												</div>
-											</div>
+											</div> --%>
 										</div>
 									</td>
 									<th scope="row" class="techdDetailCont requiredTextCss">계약</th>
 									<td class="techdDetailCont">
 										<div class="input-group input-group-sm mb-0">
-											<input type="text" class="form-control" name="contTitle" id="contTitle" value="${dto.contTitle}" readonly />
+											<input type="text" class="form-control" name="contTitle" id="contTitle" value="${dto.contTitle}" autocomplete="off" />
 											<input type="hidden" name="contNo" id="contNo" value="${dto.contNo}" />
-											<span class="input-group-btn">
+											<%-- <span class="input-group-btn">
 												<button class="btn btn-primary sch-opportunity2" data-remote="${path}/modal/popup.do?popId=cont" type="button" data-toggle="modal" data-target="#contModal">
 													<i class="icofont icofont-search"></i>
 												</button>
@@ -119,17 +119,17 @@
 														</div>
 													</div>
 												</div>
-											</div>
+											</div> --%>
 										</div>
 									</td>
 									
 									<th scope="row" class="requiredTextCss">엔드유저</th>
 									<td>
 										<div class="input-group input-group-sm mb-0">
-											<input type="text" class="form-control" name="custName" readonly id="custName" value="${dto.endCustName}" /> 
+											<input type="text" class="form-control" name="custName" id="custName" value="${dto.endCustName}" autocomplete="off"/> 
 											<!--<input type="text" class="form-control" name="custName" readonly id="custName" value="${dto.endCustName}" />-->
-												<input type="hidden" name="custNo" id="custNo" value="${dto.endCustNo}" />
-												<span class="input-group-btn">
+											<input type="hidden" name="custNo" id="custNo" value="${dto.endCustNo}" />
+											<%-- <span class="input-group-btn">
 												<button class="btn btn-primary sch-company" data-remote="${path}/modal/popup.do?popId=cust" type="button" data-toggle="modal" data-target="#custModal">
 													<i class="icofont icofont-search"></i>
 												</button>
@@ -152,16 +152,16 @@
 														</div>
 													</div>
 												</div>
-											</div>
+											</div> --%>
 										</div>
 									</td>
 									
 									<th scope="row">엔드유저 담당자</th>
 									<td>
 										<div class="input-group input-group-sm mb-0">
-											<input type="text" class="form-control" name="custmemberName"  id="custmemberName" value="${dto.custmemberName}" readonly/>
+											<input type="text" class="form-control" name="custmemberName"  id="custmemberName" value="${dto.custmemberName}" autocomplete="off"/>
 											<input type="hidden" name="custmemberNo" id="custmemberNo" value="${dto.custmemberNo}" />
-											<span class="input-group-btn">
+											<%-- <span class="input-group-btn">
 												<button class="btn btn-primary sch-partner"
 													data-remote="${path}/modal/popup.do?popId=custmem&compNo="
 													type="button" data-toggle="modal" data-target="#custmemberModal"
@@ -191,7 +191,7 @@
 														</div>
 													</div>
 												</div>
-											</div>
+											</div> --%>
 										</div>
 									</td>	
 								</tr>
@@ -214,7 +214,7 @@
 										<div class="input-group input-group-sm mb-0">
 											<input type="text" class="form-control" name="userName" readonly id="userName" value="${dto.userName}" />
 											<input type="hidden" name="userNo" id="userNo" value="${dto.userNo}" />
-											<span class="input-group-btn">
+											<%-- <span class="input-group-btn">
 												<button class="btn btn-primary sch-company"
 														data-remote="${path}/modal/popup.do?popId=user"
 														type="button" data-toggle="modal" data-target="#userModal">
@@ -240,7 +240,7 @@
 														</div>
 													</div>
 												</div>
-											</div>
+											</div> --%>
 										</div>
 									</td>
 								</tr>

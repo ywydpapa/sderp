@@ -290,25 +290,14 @@
 									<div class="col-sm-12 col-xl-2">
 										<label class="col-form-label" for="userName">담당사원</label>
 										<div class="input-group input-group-sm mb-0">
-										<input type="text" class="form-control" name="userName" id="userName" list="userName_list" onchange="dataListChange(this);" autocomplete="off"> 
-										<datalist id="userName_list">
-											<c:forEach var="listUser" items="${listUser}">
-												<option data-value="${listUser.userNo}" value="${listUser.userName}">${listUser.userName}</option>
-											</c:forEach>
-										</datalist>
+										<input type="text" class="form-control" name="userName" id="userName" autocomplete="off"> 
 										<input type="hidden" name="userNo" id="userNo" value="" /> 
-											
 										</div>
 									</div>
 									<div class="col-sm-12 col-xl-2">
 										<label class="col-form-label" for="custName">엔드유저</label>
 										<div class="input-group input-group-sm mb-0">
-										<input type="text" class="form-control" name="custName" id="custName" list="custName_list" onchange="dataListChange(this);" autocomplete="off">
-										<datalist id="custName_list">
-											<c:forEach var="listCust" items="${listCust}">
-												<option data-value="${listCust.custNo}" value="${listCust.custName}">${listCust.custName}</option>
-											</c:forEach>
-										</datalist>
+										<input type="text" class="form-control" name="custName" id="custName" autocomplete="off">
 										<input type="hidden" name="custNo" id="custNo" value="" />
 											
 										</div>

@@ -79,14 +79,14 @@
 												<th scope="row" class="requiredTextCss">공급사</th>
 												<td>
 													<div class="input-group input-group-sm mb-0">
-														<input name="product" id ="custName" value="${dto.custName}" class="form-control form-control-sm" readonly>
+														<input name="product" id ="custName" value="${dto.custName}" class="form-control form-control-sm" autocomplete="off">
 														<input type="hidden" id ="custNo" value="${dto.custNo}" class="form-control form-control-sm">
-														<span class="input-group-btn">
+														<%-- <span class="input-group-btn">
 															<button class="btn btn-primary sch-company" data-remote="${path}/modal/popup.do?popId=cust" type="button" data-toggle="modal" data-target="#custModal"><i class="icofont icofont-search"></i></button>
-														</span>
+														</span> --%>
 													</div>
 													<!--모달 팝업-->
-													<div class="modal fade" id="custModal" tabindex="-1" role="dialog">
+													<%-- <div class="modal fade" id="custModal" tabindex="-1" role="dialog">
 														<div class="modal-dialog modal-80size" role="document">
 															<div class="modal-content modal-80size">
 																<div class="modal-header">
@@ -126,7 +126,7 @@
 																</div>
 															</div>
 														</div>
-													</div>
+													</div> --%>
 													<!--//모달 팝업-->
 												</td>
 											</tr>
@@ -136,12 +136,12 @@
 													<div class="input-group input-group-sm mb-0">
 														<input name="product" id ="productCategoryName" value="${dto.productCategoryName}" class="form-control form-control-sm">
 														<input type="hidden" name="product" id ="productCategoryNo" value="${dto.productCategoryNo}" class="form-control form-control-sm">
-														<span class="input-group-btn">
+														<%-- <span class="input-group-btn">
 															<button class="btn btn-primary sch-company" data-remote="${path}/modal/popup.do?popId=productGoodsCategory" type="button" data-toggle="modal" data-target="#productCategoryModal"><i class="icofont icofont-search"></i></button>
-														</span>
+														</span> --%>
 													</div>
 													<!--모달 팝업-->
-													<div class="modal fade" id="productCategoryModal" tabindex="-1" role="dialog">
+													<!-- <div class="modal fade" id="productCategoryModal" tabindex="-1" role="dialog">
 														<div class="modal-dialog modal-80size" role="document">
 															<div class="modal-content modal-80size">
 																<div class="modal-header">
@@ -159,7 +159,7 @@
 																</div>
 															</div>
 														</div>
-													</div>
+													</div> -->
 													<!--//모달 팝업-->
 												</td>
 											</tr>

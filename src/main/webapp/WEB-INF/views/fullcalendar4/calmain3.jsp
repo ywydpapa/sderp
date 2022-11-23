@@ -207,6 +207,7 @@
 					});
 
 					fnSetCurrentDate();
+					autoCompleteSet();
 				});
 			}
 			

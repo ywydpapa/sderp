@@ -333,17 +333,17 @@
            	</td>
             <td>
                 <div class="input-group input-group-sm mb-0">
-                    <input type="text" class="form-control" name="product" id="productSalesInOutCustName" value="" readonly>
+                    <input type="text" class="form-control" name="product" id="productSalesInOutCustName" value="" autocomplete="off">
                     <input type="hidden" id="productSalesInOutCustNo" value="" />
                     <input type="hidden" id="soppdataNo" value="">
                     <input type="hidden" id="soppNo"value="${dto.soppNo}">
-                    <span class="input-group-btn">
+                    <%-- <span class="input-group-btn">
                         <button class="btn btn-primary sch-company" data-remote="${path}/modal/popup.do?popId=productdataListSalesInOutCust" type="button" data-toggle="modal" data-target="#productCustModal2">
                             <i class="icofont icofont-search"></i>
                         </button>
-                    </span>
+                    </span> --%>
                     <!--modal-->
-                    <div class="modal fade " id="productCustModal2" tabindex="-1" role="dialog">
+                    <%-- <div class="modal fade " id="productCustModal2" tabindex="-1" role="dialog">
                         <div class="modal-dialog modal-80size" role="document">
                             <div class="modal-content modal-80size">
                                 <div class="modal-header">
@@ -381,7 +381,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> --%>
                     <!--//modal-->
                 </div>
             </td>
@@ -396,15 +396,15 @@
 				  	<div id="select1" >
 	                    <div class="input-group input-group-sm mb-0">
 	                        <input type="hidden" id="productNo1" value="" />
-	                        <input type="text" class="form-control" name="product" id="data01Title" data-flag="true" value="" readonly>
-	                        <span class="input-group-btn">
+	                        <input type="text" class="form-control" name="product" id="data01Title" data-flag="true" value="" autocomplete="off">
+	                       <!--  <span class="input-group-btn">
 	                            <button class="btn btn-primary sch-company" onclick="fn_productdataTableReload()" type="button" data-toggle="modal" data-target="#productdataModal1">
 	                                <i class="icofont icofont-search"></i>
 	                            </button>
-	                        </span>
+	                        </span> -->
 	                    </div>
 	                    <!--모달 팝업-->
-	                    <div class="modal fade" id="productdataModal1" tabindex="-1" role="dialog">
+	                    <%-- <div class="modal fade" id="productdataModal1" tabindex="-1" role="dialog">
 	                        <div class="modal-dialog modal-80size" role="document">
 	                            <div class="modal-content modal-80size">
 	                                <div class="modal-header">
@@ -423,11 +423,11 @@
 	                                </div>
 	                            </div>
 	                        </div>
-	                    </div>
+	                    </div> --%>
                     </div>
                     <div id="select2" style="width:100%;">
                			<div class="input-group input-group-sm mb-0">
-                			<input type="text" class="form-control" name="product" id="data01Title" data-flag="false">
+                			<input type="text" class="form-control" name="product" id="data01Title" data-completeSet="true" data-flag="false" autocomplete="off">
                			</div>
                		</div>
                    </div>

@@ -232,6 +232,30 @@
 			else if (!salesData.salesTitle) {
 				alert("영업활동 제목을 입력해 주십시오.");		
 				return;
+			}else if($("#soppTitle").val() !== "" && !autoCompleteVali($("#soppTitle").val(), "sopp")){
+				alert("조회된 영업기회가 없습니다.\n다시 확인해 주세요.");
+				$("#soppTitle").focus();
+				return;
+			}else if($("#custName").val() !== "" && !autoCompleteVali($("#custName").val(), "cust")){
+				alert("조회된 거래처가 없습니다.\n다시 확인해주세요.");
+				$("#custName").focus();
+				return;
+			}else if($("#endCustName").val() !== "" && !autoCompleteVali($("#endCustName").val(), "cust")){
+				alert("조회된 엔드유저가 없습니다.\n다시 확인해주세요.");
+				$("#endCustName").focus();
+				return;
+			}else if($("#soppTitle").val() !== "" && ($("#soppNo").val() === "" || $("#soppNo").val() == 0)){
+				alert("영업기회를 제대로 선택해주세요.");
+				$("#soppTitle").focus();
+				return;
+			}else if($("#custName").val() !== "" && ($("#custNo").val() === "" || $("#custNo").val() == 0)){
+				alert("매출처를 제대로 선택해주세요.");
+				$("#custName").focus();
+				return;
+			}else if($("#endCustName").val() !== "" && ($("#endCustNo").val() === "" || $("#endCustNo").val() == 0)){
+				alert("엔드유저를 제대로 선택해주세요.");
+				$("#endCustName").focus();
+				return;
 			}
 			
 			$.ajax({

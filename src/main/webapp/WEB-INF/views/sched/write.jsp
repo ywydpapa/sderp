@@ -350,7 +350,39 @@
 			}else if(!schedData.schedTitle){
 				alert("제목을 입력하십시오.");
 				return;
-			}
+			}else if($("#contTitle").val() !== "" && !autoCompleteVali($("#contTitle").val(), "cont")){
+				alert("조회된 계약이 없습니다.\n다시 확인해 주세요.");
+				$("#contTitle").focus();
+				return;
+			}else if($("#soppTitle").val() !== "" && !autoCompleteVali($("#soppTitle").val(), "sopp")){
+				alert("조회된 영업기회가 없습니다.\n다시 확인해 주세요.");
+				$("#soppTitle").focus();
+				return;
+			}else if($("#custName").val() !== "" && !autoCompleteVali($("#custName").val(), "cust")){
+				alert("조회된 거래처가 없습니다.\n다시 확인해주세요.");
+				$("#custName").focus();
+				return;
+			}else if($("#ptncName").val() !== "" && !autoCompleteVali($("#ptncName").val(), "cust")){
+				alert("조회된 엔드유저가 없습니다.\n다시 확인해주세요.");
+				$("#ptncName").focus();
+				return;
+			}else if($("#contTitle").val() !== "" && ($("#contNo").val() === "" || $("#contNo").val() == 0)){
+				alert("계약을 제대로 선택해주세요.");
+				$("#contTitle").focus();
+				return;
+			}else if($("#soppTitle").val() !== "" && ($("#soppNo").val() === "" || $("#soppNo").val() == 0)){
+				alert("영업기회를 제대로 선택해주세요.");
+				$("#soppTitle").focus();
+				return;
+			}else if($("#custName").val() !== "" && ($("#custNo").val() === "" || $("#custNo").val() == 0)){
+				alert("매출처를 제대로 선택해주세요.");
+				$("#custName").focus();
+				return;
+			}else if($("#ptncName").val() !== "" && ($("#ptncNo").val() === "" || $("#ptncNo").val() == 0)){
+				alert("엔드유저를 제대로 선택해주세요.");
+				$("#ptncName").focus();
+				return;
+			} 
 			
 			$.ajax({ url: "${path}/sched/insert.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소 
 						data: schedData , // HTTP 요청과 함께 서버로 보낼 데이터 

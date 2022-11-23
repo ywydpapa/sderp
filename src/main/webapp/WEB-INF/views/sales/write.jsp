@@ -75,7 +75,7 @@
 									<th scope="row">영업기회</th>
 									<td>
 										<div class="input-group input-group-sm mb-0">
-											<input type="text" class="form-control " name="soppTitle" id="soppTitle" value="">
+											<input type="text" class="form-control " name="soppTitle" id="soppTitle" value="" autocomplete="off">
 											<input type="hidden" class="form-control" name="soppNo" id="soppNo" value="" />
 										</div>
 									</td>
@@ -85,14 +85,14 @@
 									<th scope="row">매출처</th>
 									<td>
 										<div class="input-group input-group-sm mb-0">
-											<input type="text" class="form-control" name="custName" id="custName" value="">
+											<input type="text" class="form-control" name="custName" id="custName" value="" autocomplete="off">
 											<input type="hidden" name="custNo" id="custNo" value="" />
 										</div>
 									</td>
 									<th scope="row">엔드유저</th>
 									<td>
 										<div class="input-group input-group-sm mb-0">
-											<input type="text" class="form-control" id="endCustName" value="">
+											<input type="text" class="form-control" id="endCustName" value="" autocomplete="off">
 											<input type="hidden" id="endCustNo" value="" />
 										</div>
 									</td>
@@ -314,6 +314,30 @@
 			}
 			else if (!salesData.salesTitle) {
 				alert("영업활동 제목을 입력해 주십시오.");		
+				return;
+			}else if($("#soppTitle").val() !== "" && !autoCompleteVali($("#soppTitle").val(), "sopp")){
+				alert("조회된 영업기회가 없습니다.\n다시 확인해 주세요.");
+				$("#soppTitle").focus();
+				return;
+			}else if($("#custName").val() !== "" && !autoCompleteVali($("#custName").val(), "cust")){
+				alert("조회된 거래처가 없습니다.\n다시 확인해주세요.");
+				$("#custName").focus();
+				return;
+			}else if($("#endCustName").val() !== "" && !autoCompleteVali($("#endCustName").val(), "cust")){
+				alert("조회된 엔드유저가 없습니다.\n다시 확인해주세요.");
+				$("#endCustName").focus();
+				return;
+			}else if($("#soppTitle").val() !== "" && ($("#soppNo").val() === "" || $("#soppNo").val() == 0)){
+				alert("영업기회를 제대로 선택해주세요.");
+				$("#soppTitle").focus();
+				return;
+			}else if($("#custName").val() !== "" && ($("#custNo").val() === "" || $("#custNo").val() == 0)){
+				alert("매출처를 제대로 선택해주세요.");
+				$("#custName").focus();
+				return;
+			}else if($("#endCustName").val() !== "" && ($("#endCustNo").val() === "" || $("#endCustNo").val() == 0)){
+				alert("엔드유저를 제대로 선택해주세요.");
+				$("#endCustName").focus();
 				return;
 			}
 

@@ -364,18 +364,45 @@
 		// 필수값 체크
 		if (!soppData.soppTitle) {
 			alert("영업기회명을 입력하십시오.!!");
+			$("#soppTitle").focus();
 			return;
 		} else if(!soppData.custNo){
 			alert("매출처를 선택해주십시오.");
+			$("#custName").focus();
 			return;
 		} else if(!soppData.buyrNo){
 			alert("엔드유저를 선택해주십시오.");
+			$("endCustName").focus();
 			return;
 		} else if(!soppData.cntrctMth){
 			alert("계약구분을 선택해주십시오.");
 			return;
 		} else if(!soppData.soppType){
 			alert("판매방식을 선택해주십시오.");
+			return;
+		} else if(!autoCompleteVali($("#custName").val(), "cust")){
+			alert("조회된 매출처가 없습니다.\n다시 확인해주세요.");
+			$("#custName").focus();
+			return;
+		} else if($("#custmemberName").val() !== "" && !autoCompleteVali($("#custmemberName").val(), "custMember")){
+			alert("조회된 매출처 담당자가 없습니다.\n다시 확인해주세요.");
+			$("#custmemberName").focus();
+			return;
+		} else if($("#endCustName").val() !== "" && !autoCompleteVali($("#endCustName").val(), "cust")){
+			alert("조회된 엔드유저가 없습니다.\n다시 확인해주세요.");
+			$("#endCustName").focus();
+			return;
+		} else if($("#custName").val() !== "" && ($("#custNo").val() === "" || $("#custNo").val() == 0)){
+			alert("매출처를 제대로 선택해주세요.");
+			$("#custName").focus();
+			return;
+		} else if($("#custmemberName").val() !== "" && ($("#custmemberNo").val() === "" || $("#custmemberNo").val() == 0)){
+			alert("매출처 담당자를 제대로 선택해주세요.");
+			$("#custemberName").focus();
+			return;
+		} else if($("#endCustName").val() !== "" && ($("#endCustNo").val() === "" || $("#endCustNo").val() == 0)){
+			alert("엔드유저를 제대로 선택해주세요.");
+			$("#endCustName").focus();
 			return;
 		}
 		

@@ -393,109 +393,125 @@
 	}	
 	
 	function dataItemUpdate(){
-		var addquty = $("#addquty tbody tr td");
-		var dataFlag = $("#qutylist tbody tr td").find("#dataUpdateBtn[data-flag='0']");
-		var FlagQutyList = dataFlag.parents("tr");
-		var flagIndex = dataFlag.attr("data-index");
-		
-		var calTotal = parseInt($("#product02InSum_table").html().replace(/[\D\s\._\-]+/g, "")) - parseInt(dataArray[flagIndex].productTotal);
-		var calAmount = parseInt($("#amountSum").val()) - parseInt(dataArray[flagIndex].productAmount);
-		var calVat = parseInt($("#vatSum").val()) - parseInt(dataArray[flagIndex].productVat);
-		
-		var itemKinds = $("#itemKinds").val();
-    	var itemTitle = $("#itemTitle").val();
-    	var productSalesEstimateCustName = $('#productSalesEstimateCustName').val();
-    	var productNo = $("#productNo2").val();
-    	var productName = $("#data02Title[data-flag='true']").val();
-    	var productNetprice = $("#data02Netprice").val().replace(/[\D\s\._\-]+/g, "");
-    	var productQty = $("#data02Quanty").val();
-    	var productAmount = $("#data02Amt").val().replace(/[\D\s\._\-]+/g, "");
-    	var productVat = $("#data02Vat").val().replace(/[\D\s\._\-]+/g, "");
-    	var productTotal = $("#data02Total").val().replace(/[\D\s\._\-]+/g, "");
-    	var productRemark = tinyMCE.get("data02Remark").getContent();
-    	var productSpec = tinyMCE.get("data02Spec").getContent();
-		
-        dataArray[flagIndex].custNo = $("#productSalesEstimateCustNo").val();
-        dataArray[flagIndex].compNo = $("#compNo").val();
-        dataArray[flagIndex].itemKinds = itemKinds;
-        dataArray[flagIndex].itemTitle = itemTitle;
-        dataArray[flagIndex].productNo = productNo;
-        dataArray[flagIndex].productName = productName;
-        dataArray[flagIndex].productNetprice = productNetprice;
-        dataArray[flagIndex].productQty = productQty;
-        dataArray[flagIndex].productAmount = productAmount;
-        dataArray[flagIndex].productVat = productVat;
-        dataArray[flagIndex].productTotal = productTotal;
-        dataArray[flagIndex].productRemark = productRemark;
-        dataArray[flagIndex].productSpec = productSpec;
+		if($("#itemKinds").val() === ""){
+    		alert("구분을 입력해주십시오.");
+    		$("#itemKinds").focus();
+    		return false;
+    	}else if($("#itemTitle").val() === ""){
+    		alert("제목을 입력해주십시오.");
+    		$("#itemTitle").focus();
+    		return false;
+    	}else if($("#productSalesEstimateCustName").val() !== "" && !autoCompleteVali($("#productSalesEstimateCustName").val(), "cust")){
+			alert("조회된 거래처가 없습니다.\n다시 확인해주세요.");
+			$("#productSalesEstimateCustName").focus();
+			return;
+		}else if($("#productSalesEstimateCustName").val() !== "" && ($("#productSalesEstimateCustNo").val() === "" || $("#productSalesEstimateCustNo").val() == 0)){
+			alert("거래처를 제대로 선택해주세요.");
+			$("#productSalesEstimateCustName").focus();
+			return;
+		}else{
+			var addquty = $("#addquty tbody tr td");
+			var dataFlag = $("#qutylist tbody tr td").find("#dataUpdateBtn[data-flag='0']");
+			var FlagQutyList = dataFlag.parents("tr");
+			var flagIndex = dataFlag.attr("data-index");
 			
-        var calTotalSum = parseInt(calTotal) + parseInt(productTotal);
-        var calAmountSum = parseInt(calAmount) + parseInt(productAmount);
-        var calVatSum = parseInt(calVat) + parseInt(productVat);
-        
-		$("#product02InSum_table").html("￦"+parseInt(calTotalSum).toLocaleString("en-US"));
-		$("#amountSum").val(calAmountSum);
-		$("#vatSum").val(calVatSum);
-		
-		FlagQutyList.find("#dataItemKinds").html(itemKinds);
-		FlagQutyList.find("#dataItemTitle").html(itemTitle);
-		FlagQutyList.find("#salesCustNoN").html(productSalesEstimateCustName);
-		FlagQutyList.find("#dataTitle").html(productName);
-		FlagQutyList.find("#dataNetprice").html("￦"+parseInt(productNetprice).toLocaleString("en-US"));
-		FlagQutyList.find("#dataQuanty").html(productQty);
-		FlagQutyList.find("#dataAmt").html("￦"+parseInt(productAmount).toLocaleString("en-US"));
-		FlagQutyList.find("#dataVat").html("￦"+parseInt(productVat).toLocaleString("en-US"));
-		FlagQutyList.find("#dataTotal").html("￦"+parseInt(productTotal).toLocaleString("en-US"));
-		FlagQutyList.find("#dataRemark").html(productRemark);
-		FlagQutyList.find("#dataSpec").val(productSpec);
-
-		dataFlag.removeClass();
-		dataFlag.prop("class", "btn btn-sm btn-inverse");
-		dataFlag.attr("data-flag", 1);
-		dataFlag.text("수정");
-		$("#data02Addbtn").removeClass();
-		$("#data02Addbtn").removeAttr("onClick");
-		$("#data02Addbtn").attr("data-id", 0);
-		$("#data02Addbtn").attr("onClick", "dataSave();");
-		$("#data02Addbtn").prop("class", "btn btn-sm btn-success");
-		$("#data02Addbtn").text("추가");
-		
-		addquty.find("#itemKinds").val("");
-		addquty.find("#itemTitle").val("");
-		addquty.find("#productSalesEstimateCustName").val("");
-		addquty.find("#productSalesEstimateCustNo").val("");
-		
-		$("#select1").show();
-   		$("#select1").find("#data02Title").attr("data-flag", true);
-   		$("#select2").hide();
-   		$("#select2").find("#data02Title").attr("data-flag", false);
-   		$("#select2").find("#data02Title").val("");
-   		
-   		setTimeout(() => {
-    		addquty.find("#productSelect").val("selectOn").trigger("change");
-    		addquty.find("#productNo2").val("");
-    		addquty.find("#data02Title").val("");
-		}, 100);
-		
-		addquty.find("#data02Netprice").val("");
-		addquty.find("#data02Quanty").val("");
-		addquty.find("#data02Amt").val("");
-		addquty.find("#data02Vat").val("");
-		addquty.find("#data02Total").val("");
-		tinyMCE.get("data02Spec").setContent("");
-		tinyMCE.get("data02Remark").setContent("");
-		
-		$("#qutylist tbody tr").find("#dataDelBtn").each(function(index, item){
-			$(item).attr("data-index", index);
-			dataIndex = index+1;
-		});
-		
-		$("#qutylist tbody tr").find("#dataUpdateBtn").each(function(index, item){
-			$(item).attr("data-index", index);
-			dataIndex = index+1;
-		});
-		
-		console.log(dataArray);
+			var calTotal = parseInt($("#product02InSum_table").html().replace(/[\D\s\._\-]+/g, "")) - parseInt(dataArray[flagIndex].productTotal);
+			var calAmount = parseInt($("#amountSum").val()) - parseInt(dataArray[flagIndex].productAmount);
+			var calVat = parseInt($("#vatSum").val()) - parseInt(dataArray[flagIndex].productVat);
+			
+			var itemKinds = $("#itemKinds").val();
+	    	var itemTitle = $("#itemTitle").val();
+	    	var productSalesEstimateCustName = $('#productSalesEstimateCustName').val();
+	    	var productNo = $("#productNo2").val();
+	    	var productName = $("#data02Title[data-flag='true']").val();
+	    	var productNetprice = $("#data02Netprice").val().replace(/[\D\s\._\-]+/g, "");
+	    	var productQty = $("#data02Quanty").val();
+	    	var productAmount = $("#data02Amt").val().replace(/[\D\s\._\-]+/g, "");
+	    	var productVat = $("#data02Vat").val().replace(/[\D\s\._\-]+/g, "");
+	    	var productTotal = $("#data02Total").val().replace(/[\D\s\._\-]+/g, "");
+	    	var productRemark = tinyMCE.get("data02Remark").getContent();
+	    	var productSpec = tinyMCE.get("data02Spec").getContent();
+			
+	        dataArray[flagIndex].custNo = $("#productSalesEstimateCustNo").val();
+	        dataArray[flagIndex].compNo = $("#compNo").val();
+	        dataArray[flagIndex].itemKinds = itemKinds;
+	        dataArray[flagIndex].itemTitle = itemTitle;
+	        dataArray[flagIndex].productNo = productNo;
+	        dataArray[flagIndex].productName = productName;
+	        dataArray[flagIndex].productNetprice = productNetprice;
+	        dataArray[flagIndex].productQty = productQty;
+	        dataArray[flagIndex].productAmount = productAmount;
+	        dataArray[flagIndex].productVat = productVat;
+	        dataArray[flagIndex].productTotal = productTotal;
+	        dataArray[flagIndex].productRemark = productRemark;
+	        dataArray[flagIndex].productSpec = productSpec;
+				
+	        var calTotalSum = parseInt(calTotal) + parseInt(productTotal);
+	        var calAmountSum = parseInt(calAmount) + parseInt(productAmount);
+	        var calVatSum = parseInt(calVat) + parseInt(productVat);
+	        
+			$("#product02InSum_table").html("￦"+parseInt(calTotalSum).toLocaleString("en-US"));
+			$("#amountSum").val(calAmountSum);
+			$("#vatSum").val(calVatSum);
+			
+			FlagQutyList.find("#dataItemKinds").html(itemKinds);
+			FlagQutyList.find("#dataItemTitle").html(itemTitle);
+			FlagQutyList.find("#salesCustNoN").html(productSalesEstimateCustName);
+			FlagQutyList.find("#dataTitle").html(productName);
+			FlagQutyList.find("#dataNetprice").html("￦"+parseInt(productNetprice).toLocaleString("en-US"));
+			FlagQutyList.find("#dataQuanty").html(productQty);
+			FlagQutyList.find("#dataAmt").html("￦"+parseInt(productAmount).toLocaleString("en-US"));
+			FlagQutyList.find("#dataVat").html("￦"+parseInt(productVat).toLocaleString("en-US"));
+			FlagQutyList.find("#dataTotal").html("￦"+parseInt(productTotal).toLocaleString("en-US"));
+			FlagQutyList.find("#dataRemark").html(productRemark);
+			FlagQutyList.find("#dataSpec").val(productSpec);
+	
+			dataFlag.removeClass();
+			dataFlag.prop("class", "btn btn-sm btn-inverse");
+			dataFlag.attr("data-flag", 1);
+			dataFlag.text("수정");
+			$("#data02Addbtn").removeClass();
+			$("#data02Addbtn").removeAttr("onClick");
+			$("#data02Addbtn").attr("data-id", 0);
+			$("#data02Addbtn").attr("onClick", "dataSave();");
+			$("#data02Addbtn").prop("class", "btn btn-sm btn-success");
+			$("#data02Addbtn").text("추가");
+			
+			addquty.find("#itemKinds").val("");
+			addquty.find("#itemTitle").val("");
+			addquty.find("#productSalesEstimateCustName").val("");
+			addquty.find("#productSalesEstimateCustNo").val("");
+			
+			$("#select1").show();
+	   		$("#select1").find("#data02Title").attr("data-flag", true);
+	   		$("#select2").hide();
+	   		$("#select2").find("#data02Title").attr("data-flag", false);
+	   		$("#select2").find("#data02Title").val("");
+	   		
+	   		setTimeout(() => {
+	    		addquty.find("#productSelect").val("selectOn").trigger("change");
+	    		addquty.find("#productNo2").val("");
+	    		addquty.find("#data02Title").val("");
+			}, 100);
+			
+			addquty.find("#data02Netprice").val("");
+			addquty.find("#data02Quanty").val("");
+			addquty.find("#data02Amt").val("");
+			addquty.find("#data02Vat").val("");
+			addquty.find("#data02Total").val("");
+			tinyMCE.get("data02Spec").setContent("");
+			tinyMCE.get("data02Remark").setContent("");
+			
+			$("#qutylist tbody tr").find("#dataDelBtn").each(function(index, item){
+				$(item).attr("data-index", index);
+				dataIndex = index+1;
+			});
+			
+			$("#qutylist tbody tr").find("#dataUpdateBtn").each(function(index, item){
+				$(item).attr("data-index", index);
+				dataIndex = index+1;
+			});
+		}
 	}
     
     function dataSave(){
@@ -507,10 +523,15 @@
     		alert("제목을 입력해주십시오.");
     		$("#itemTitle").focus();
     		return false;
-    	/* }else if($("#productSalesEstimateCustName").val() === ""){
-    		alert("거래처를 입력해주세요.");
-    		return false; */
-    	}else{
+    	}else if($("#productSalesEstimateCustName").val() !== "" && !autoCompleteVali($("#productSalesEstimateCustName").val(), "cust")){
+			alert("조회된 거래처가 없습니다.\n다시 확인해주세요.");
+			$("#productSalesEstimateCustName").focus();
+			return;
+		}else if($("#productSalesEstimateCustName").val() !== "" && ($("#productSalesEstimateCustNo").val() === "" || $("#productSalesEstimateCustNo").val() == 0)){
+			alert("거래처를 제대로 선택해주세요.");
+			$("#productSalesEstimateCustName").focus();
+			return;
+		}else{
     		var temp = {};
         	var itemKinds = $("#itemKinds").val();
         	var itemTitle = $("#itemTitle").val();
@@ -593,9 +614,11 @@
     	if($("#estTitle").val() === ""){
     		alert("견적제목을 입력해주세요.");
     		$("#estTitle").focus();
+    		return;
     	}else if($("#estDate").val() === ""){
     		alert("견적서 작성일자를 선택해주세요.");
     		$("#estDate").focus();
+    		return;
     	}else if($("#estComBoss").val() === ""){
 			alert("대표이사명을 입력해주십시오.");
 			$("#estComBoss").focus();
@@ -620,6 +643,22 @@
 			alert("Spec을 입력해주십시오.");
 			$("#estComSpec").focus();
 			return false;
+		}else if($("#custName").val() !== "" && !autoCompleteVali($("#custName").val(), "cust")){
+			alert("조회된 견적고객이 없습니다.\n다시 확인해주세요.");
+			$("#custName").focus();
+			return;
+		}else if($("#soppTitle").val() !== "" && !autoCompleteVali($("#soppTitle").val(), "sopp")){
+			alert("조회된 영업기회가 없습니다.\n다시 확인해주세요.");
+			$("#soppTitle").focus();
+			return;
+		}else if($("#custName").val() !== "" && ($("#custNo").val() === "" || $("#custNo").val() == 0)){
+			alert("견적고객을 제대로 선택해주세요.");
+			$("#custName").focus();
+			return;
+		}else if($("#soppTitle").val() !== "" && ($("#soppNo").val() === "" || $("#soppNo").val() == 0)){
+			alert("영업기회를 제대로 선택해주세요.");
+			$("#soppTitle").focus();
+			return;
 		}else{
     		data02Data.estTitle = $("#estTitle").val();
     		data02Data.estType = $("input[name='contractType']:checked").val();
@@ -721,9 +760,11 @@
 	    	if($("#estTitle").val() === ""){
 	    		alert("견적제목을 입력해주세요.");
 	    		$("#estTitle").focus();
+	    		return;
 	    	}else if($("#estDate").val() === ""){
 	    		alert("견적서 작성일자를 선택해주세요.");
 	    		$("#estDate").focus();
+	    		return;
 	    	}else if($("#estComBoss").val() === ""){
 				alert("대표이사명을 입력해주십시오.");
 				$("#estComBoss").focus();
@@ -748,6 +789,22 @@
 				alert("Spec을 입력해주십시오.");
 				$("#estComSpec").focus();
 				return false;
+			}else if($("#custName").val() !== "" && !autoCompleteVali($("#custName").val(), "cust")){
+				alert("조회된 견적고객이 없습니다.\n다시 확인해주세요.");
+				$("#custName").focus();
+				return;
+			}else if($("#soppTitle").val() !== "" && !autoCompleteVali($("#soppTitle").val(), "sopp")){
+				alert("조회된 영업기회가 없습니다.\n다시 확인해주세요.");
+				$("#soppTitle").focus();
+				return;
+			}else if($("#custName").val() !== "" && ($("#custNo").val() === "" || $("#custNo").val() == 0)){
+				alert("견적고객을 제대로 선택해주세요.");
+				$("#custName").focus();
+				return;
+			}else if($("#soppTitle").val() !== "" && ($("#soppNo").val() === "" || $("#soppNo").val() == 0)){
+				alert("영업기회를 제대로 선택해주세요.");
+				$("#soppTitle").focus();
+				return;
 			}else{
 	    		data02Data.estTitle = $("#estTitle").val();
 	    		data02Data.estType = $("input[name='contractType']:checked").val();
@@ -874,6 +931,14 @@
 			alert("Spec을 입력해주십시오.");
 			$("#estComSpec").focus();
 			return false;
+		}else if($("#custName").val() !== "" && !autoCompleteVali($("#custName").val(), "cust")){
+			alert("조회된 거래처가 없습니다.\n다시 확인해주세요.");
+			$("#custName").focus();
+			return;
+		}else if($("#soppTitle").val() !== "" && !autoCompleteVali($("#soppTitle").val(), "sopp")){
+			alert("조회된 영업기회가 없습니다.\n다시 확인해주세요.");
+			$("#soppTitle").focus();
+			return;
 		}else{
     		data02Data.estTitle = $("#estTitle").val();
     		data02Data.estType = $("input[name='contractType']:checked").val();

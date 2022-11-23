@@ -87,9 +87,9 @@
                                 <th class="contDetailSopp text-center">연결프로젝트(영업기회)</th>
                                 <td class="contDetailSopp">
                                     <div class="input-group input-group-sm mb-0">
-                                        <input type="text" class="form-control" name="soppDTO" id="soppTitle" value="${detailList.soppTitle}" readonly/>
+                                        <input type="text" class="form-control" name="soppDTO" id="soppTitle" value="${detailList.soppTitle}" autocomplete="off"/>
                                         <input type="hidden" class="form-control" name="soppDTO" id="soppNo" value="${detailList.linkSoppNo}" />
-                                        <span class="input-group-btn">
+                                        <%-- <span class="input-group-btn">
 												<button class="btn btn-primary sch-opportunity2"
                                                         data-remote="${path}/modal/popup.do?popId=sopp"
                                                         type="button" data-toggle="modal" data-target="#soppModal">
@@ -118,15 +118,15 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div> --%>
                                     </div>
                                 </td>
                                 <th class="text-center">거래처</th>
                                 <td>
                                     <div class="input-group input-group-sm mb-0">
-                                        <input type="text" class="form-control" name="custName"
-                                               id="custName" value="${detailList.custName}" readonly> <input
-                                            type="hidden" name="custNo" id="custNo" value="${detailList.linkCustNo}" /> <span class="input-group-btn">
+                                        <input type="text" class="form-control" name="custName" id="custName" value="${detailList.custName}" autocomplete="off"> 
+                                        <input type="hidden" name="custNo" id="custNo" value="${detailList.linkCustNo}" /> 
+                                        <%-- <span class="input-group-btn">
 												<button class="btn btn-primary sch-company"
                                                         data-remote="${path}/modal/popup.do?popId=cust"
                                                         type="button" data-toggle="modal"
@@ -154,7 +154,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div> --%>
                                     </div>
                                 </td>
                                  <th class="text-center">문서번호(자동 생성)</th>

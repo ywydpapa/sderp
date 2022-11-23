@@ -95,8 +95,8 @@
 													<td>
 														<input type="text" id="contNo" name="contNo" class="form-control" readonly value="${contDto.contNo}">
 													</td>
-													<th class="contDetailSopp requiredTextCss">영업기회</th>
-													<td class="contDetailSopp">
+													<th class="requiredTextCss">영업기회</th>
+													<td>
 														<div class="input-group input-group-sm mb-0">
 															<input type="text" class="form-control" name="soppTitle" id="soppTitle" value="${contDto.soppTitle}" autocomplete="off">
 															<input type="hidden" class="form-control" name="soppNo" id="soppNo" value="${contDto.soppNo}" />
@@ -829,35 +829,63 @@
 			if(tinyMCE.get("contDesc").getContent() != "")		contData.contDesc			= tinyMCE.get("contDesc").getContent();				// 계약내용
 
 			if (!contData.contTitle) {
-				alert("계약명 제목을 입력하십시오.");
+				alert("계약명 제목을 입력하십시오.");	
+				$("#contTitle").focus();
 				return;
 			} else if(!contData.userNo){
 				alert("담당자를 입력하십시오.");
 				return;
-			} else if (!contData.custNo){
+			} else if ($("#custName").val() === ""){
 				alert("매출처를 입력하십시오.");
+				$("#custName").focus();
 				return;
 			} else if(!contData.contType){
 				alert("판매방식을 선택해주십시오.");
 				return;
-			} else if(!contData.buyrNo){
+			} else if($("#endCustName").val() === ""){
 				alert("엔드유저를 선택해주십시오.");
+				$("#endCustName").focus();
 				return;
-			} else if (!contData.cntrctMth){
-				alert("영업기회(신규 영업지원) 및 계약을 입력하십시오.");
+			}else if($("#soppTitle").val() === ""){
+				alert("영업기회를 선택해주십시오.");
+				$("#soppTitle").focus();
 				return;
-			} else if(contractType != undefined) {
-				if(contractType == 'NEW'){
-					if ($("#soppTitle").val() == "" || $("#soppTitle").val() == "0"){
-						alert("영업기회을 입력하십시오.");
-						return;
-					}
-				} /* else if (contractType == 'OLD'){
-					if ($("#oldContTitle").val() == "" || $("#oldContTitle").val() == "0"){
-						alert("계약을 입력하십시오.");
-						return;
-					}
-				} */
+			}else if(!autoCompleteVali($("#soppTitle").val(), "sopp")){
+				alert("조회된 영업기회가 없습니다.\n다시 확인해주세요.");
+				$("#soppTitle").focus();
+				return;
+			}else if(!autoCompleteVali($("#custName").val(), "cust")){
+				alert("조회된 매출처가 없습니다.\n다시 확인해주세요.");
+				$("#custName").focus();
+				return;
+			}else if($("#custmemberName").val() !== "" && !autoCompleteVali($("#custmemberName").val(), "custMember")){
+				alert("조회된 매출처 담당자가 없습니다.\n다시 확인해주세요.");
+				$("#custmemberName").focus();
+				return;
+			}else if(!autoCompleteVali($("#endCustName").val(), "cust")){
+				alert("조회된 엔드유저가 없습니다.\n다시 확인해주세요.");
+				$("#endCustName").focus();
+				return;
+			}else if($("#endCustmemberName").val() !== "" && !autoCompleteVali($("#endCustmemberName").val(), "custMember")){
+				alert("조회된 엔드유저 담당자가 없습니다.\n다시 확인해주세요.");
+				$("#endCustmemberName").focus();
+				return;
+			}else if($("#secondUserName").val() !== "" && !autoCompleteVali($("#secondUserName").val(), "user")){
+				alert("조회된 (부)담당자가 없습니다.\n다시 확인해주세요.");
+				$("#secondUserName").focus();
+				return;
+			}else if($("#soppNo").val() === ""){
+				alert("영업기회를 제대로 선택해주세요.");
+				$("#soppNo").focus();
+				return;
+			}else if($("#custNo").val() === ""){
+				alert("거래처를 제대로 선택해주세요.");
+				$("#custNo").focus();
+				return;
+			}else if($("#endCustNo").val() === ""){
+				alert("엔드유저를 제대로 선택해주세요.");
+				$("#endCustNo").focus();
+				return;
 			}
 			
 			$.ajax({

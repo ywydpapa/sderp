@@ -63,10 +63,9 @@
 									<th scope="row">계약 관련</th>
 									<td>
 										<div class="input-group input-group-sm mb-0">
-											<input type="text" class="form-control" name="contTitle"
-												id="contTitle" value="" readonly /> <input type="hidden"
-												name="contNo" id="contNo" value="" /> <span
-												class="input-group-btn">
+											<input type="text" class="form-control" name="contTitle" id="contTitle" value="" autocomplete="off"/> 
+											<input type="hidden" name="contNo" id="contNo" value="" /> 
+											<%-- <span class="input-group-btn">
 												<button class="btn btn-primary sch-opportunity2"
 													data-remote="${path}/modal/popup.do?popId=cont"
 													type="button" data-toggle="modal" data-target="#contModal">
@@ -95,15 +94,15 @@
 														</div>
 													</div>
 												</div>
-											</div>
+											</div> --%>
 										</div>
 									</td>
 									<th scope="row">영업기회</th>
 									<td>
 										<div class="input-group input-group-sm mb-0">
-											<input type="text" class="form-control" name="soppTitle" id="soppTitle" readonly value="${dto.soppTitle}"/> <input type="hidden"
-												name="soppNo" id="soppNo" value="${dto.soppNo}" /> <span
-												class="input-group-btn">
+											<input type="text" class="form-control" name="soppTitle" id="soppTitle" value="${dto.soppTitle}" autocomplete="off"/> 
+											<input type="hidden" name="soppNo" id="soppNo" value="${dto.soppNo}" /> 
+											<%-- <span class="input-group-btn">
 												<button class="btn btn-primary sch-opportunity2"
 													data-remote="${path}/modal/popup.do?popId=sopp"
 													type="button" data-toggle="modal" data-target="#soppModal">
@@ -132,16 +131,15 @@
 														</div>
 													</div>
 												</div>
-											</div>
+											</div> --%>
 										</div>
 									</td>
 									<th scope="row" class="requiredTextCss">담당사원</th>
 									<td>
 										<div class="input-group input-group-sm mb-0">
-											<input type="text" class="form-control " name="userName"
-												id="userName" value="${dto.userName}" readonly /> <input type="hidden"
-												name="userNo" id="userNo" value="${dto.userNo}" /> <span
-												class="input-group-btn">
+											<input type="text" class="form-control " name="userName" id="userName" value="${dto.userName}" readonly/> 
+											<input type="hidden" name="userNo" id="userNo" value="${dto.userNo}" /> 
+											<%-- <span class="input-group-btn">
 												<button class="btn btn-primary sch-company"
 													data-remote="${path}/modal/popup.do?popId=user"
 													type="button" data-toggle="modal" data-target="#userModal">
@@ -170,7 +168,7 @@
 														</div>
 													</div>
 												</div>
-											</div>
+											</div> --%>
 										</div>
 									</td>
 								</tr>
@@ -179,10 +177,9 @@
 									<th scope="row">매출처</th>
 									<td>
 										<div class="input-group input-group-sm mb-0">
-											<input type="text" class="form-control " name="custName"
-												id="custName" value="${dto.custName}" readonly /> <input type="hidden"
-												name="custNo" id="custNo" value="${dto.custNo}" /> <span
-												class="input-group-btn">
+											<input type="text" class="form-control " name="custName" id="custName" value="${dto.custName}" autocomplete="off"/> 
+											<input type="hidden" name="custNo" id="custNo" value="${dto.custNo}" /> 
+											<%-- <span class="input-group-btn">
 												<button class="btn btn-primary sch-company"
 													data-remote="${path}/modal/popup.do?popId=cust"
 													type="button" data-toggle="modal" data-target="#custModal">
@@ -211,15 +208,15 @@
 														</div>
 													</div>
 												</div>
-											</div>
+											</div> --%>
 										</div>
 									</td>
 									<th scope="row">엔드유저</th>
 									<td>
 										<div class="input-group input-group-sm mb-0">
-											<input type="text" class="form-control" id="endCustName" value="" readonly/>
+											<input type="text" class="form-control" id="endCustName" value="" autocomplete="off"/>
 											<input type="hidden" id="endCustNo" value="" />
-											<span class="input-group-btn">
+											<%-- <span class="input-group-btn">
 												<button class="btn btn-dark sch-partner" data-remote="${path}/modal/popup.do?popId=endCust" type="button" data-toggle="modal" data-target="#endCustModal" disabled>
 													<i class="icofont icofont-search"></i>
 												</button>
@@ -242,7 +239,7 @@
 														</div>
 													</div>
 												</div>
-											</div>
+											</div> --%>
 										</div>
 									</td>
 									<th scope="row">활동형태</th>
@@ -371,10 +368,45 @@
 			schedData.schedCat 		= $("#schedCat").val();
 			if($("#custName").val() != "") schedData.contNo		= Number($("#contNo").val());
 			
-			if(!schedData.schedTitle){
+			if(!schedData.schedFrom || !schedData.schedTo){
+				alert("일정일자를 선택하십시오.");
+				return
+			}else if(!schedData.schedTitle){
 				alert("제목을 입력하십시오.");
 				return;
-			}
+			}else if($("#contTitle").val() !== "" && !autoCompleteVali($("#contTitle").val(), "cont")){
+				alert("조회된 계약이 없습니다.\n다시 확인해 주세요.");
+				$("#contTitle").focus();
+				return;
+			}else if($("#soppTitle").val() !== "" && !autoCompleteVali($("#soppTitle").val(), "sopp")){
+				alert("조회된 영업기회가 없습니다.\n다시 확인해 주세요.");
+				$("#soppTitle").focus();
+				return;
+			}else if($("#custName").val() !== "" && !autoCompleteVali($("#custName").val(), "cust")){
+				alert("조회된 거래처가 없습니다.\n다시 확인해주세요.");
+				$("#custName").focus();
+				return;
+			}else if($("#ptncName").val() !== "" && !autoCompleteVali($("#ptncName").val(), "cust")){
+				alert("조회된 엔드유저가 없습니다.\n다시 확인해주세요.");
+				$("#ptncName").focus();
+				return;
+			}else if($("#contTitle").val() !== "" && ($("#contNo").val() === "" || $("#contNo").val() == 0)){
+				alert("계약을 제대로 선택해주세요.");
+				$("#contTitle").focus();
+				return;
+			}else if($("#soppTitle").val() !== "" && ($("#soppNo").val() === "" || $("#soppNo").val() == 0)){
+				alert("영업기회를 제대로 선택해주세요.");
+				$("#soppTitle").focus();
+				return;
+			}else if($("#custName").val() !== "" && ($("#custNo").val() === "" || $("#custNo").val() == 0)){
+				alert("매출처를 제대로 선택해주세요.");
+				$("#custName").focus();
+				return;
+			}else if($("#ptncName").val() !== "" && ($("#ptncNo").val() === "" || $("#ptncNo").val() == 0)){
+				alert("엔드유저를 제대로 선택해주세요.");
+				$("#ptncName").focus();
+				return;
+			} 
 
 			$.ajax({
 				url: "${path}/sched/update.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소

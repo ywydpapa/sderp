@@ -618,14 +618,38 @@
 	}
 
 	function fn_productUpdate() {
-		if(fn_itemDuplicate()){
-			alert("항목은 중복으로 저장할수 없습니다.");
-			return false;
-		}
-
-		if(necessaryCheck()){
-			alert("기본정보 탭에 있는 필수값을 입력해주십시오. 가격은 양의 숫자만 가능합니다.(콤마가능)");
-			return false;
+		if($("#custName").val() === ""){
+			alert("공급사를 입력해주세요.");
+			$("#custName").focus();
+			return;
+		} else if(!autoCompleteVali($("#custName").val(), "cust")){
+			alert("조회된 공급사가 없습니다.\n다시 확인해주세요.");
+			$("#custName").focus();
+			return;
+		} else if($("#custNo").val() === "" || $("#custNo") == 0){
+			alert("공급사를 제대로 선택해주세요.");
+			$("#custName").focus();
+			return;
+		} else if($("#productCategoryName").val() === ""){
+			alert("제품그룹을 입력해주세요.");
+			$("#productCategoryName").focus();
+			return;
+		} else if(!autoCompleteVali($("#productCategoryName").val(), "category")){
+			alert("조회된 제품그룹이 없습니다.\n다시 확인해주세요.");
+			$("#productCategoryName").focus();
+			return;
+		} else if($("#productCategoryNo").val() === "" || $("#productCategoryNo") == 0){
+			alert("제품그룹을 제대로 선택해주세요.");
+			$("#productCategoryName").focus();
+			return;
+		} else if($("#productName").val() === ""){
+			alert("상품명을 입력해주세요.");
+			$("#productName").focus();
+			return;
+		} else if($("#productDefaultPrice").val() === ""){
+			alert("상품 가격을 입력해주세요.");
+			$("#productDefaultPrice").focus();
+			return;
 		}
 
 		var productData 				= new Object();

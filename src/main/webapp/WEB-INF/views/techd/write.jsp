@@ -484,24 +484,56 @@
 			return;
 		} else if($("#endCustName").val() === ""){
 			alert("엔드유저를 선택하십시오.");
-			return;
-		} else if(!contractType) {
-			alert("영업기회(신규 영업지원) 및 계약을 입력하십시오.");
+			$("#endCustName").focus();
 			return;
 		} else if(contractType != undefined) {
 			if(contractType == 'NEW'){
-				if ($("#soppTitle").val() == "" || $("#soppTitle").val() == "0"){
+				if ($("#soppTitle").val() === "" || $("#soppTitle").val() === "0"){
 					alert("영업기회을 입력하십시오.");
+					$("#soppTitle").focus();
 					return;
-				}
+				} else if(!autoCompleteVali($("#soppTitle").val(), "sopp")){
+					alert("조회된 영업기회가 없습니다.\n다시 확인해주세요.");
+					$("#soppTitle").focus();
+					return;
+				} else if($("#soppNo").val() === ""){
+					alert("영업기회를 제대로 선택해주세요.");
+					$("#soppTitle").focus();
+					return;
+				} 
 			} else if (contractType == 'ING'){
 				if ($("#contTitle").val() == "" || $("#contTitle").val() == "0"){
 					alert("계약을 입력하십시오.");
+					$("#contTitle").focus();
 					return;
-				}
+				} else if(!autoCompleteVali($("#contTitle").val(), "cont")){
+					alert("조회된 계약이 없습니다.\n다시 확인해주세요.");
+					$("#contTitle").focus();
+					return;
+				} else if($("#contTitle").val() === ""){
+					alert("계약을 제대로 선택해주세요.");
+					$("#contTitle").focus();
+					return;
+				} 
 			}
 		} else if(!sprtData.userNo){
 			alert("유저를 선택하십시오.");
+			return;
+		} else if(!autoCompleteVali($("#endCustName").val(), "cust")){
+			alert("조회된 엔드유저가 없습니다.\n다시 확인해주세요.");
+			$("#endCustName").focus();
+			return;
+		} else if($("#custmemberName").val() === "" && !autoCompleteVali($("#custmemberName").val(), "custMember")){
+			alert("조회된 엔드유저 담당자가 없습니다.\n다시 확인해주세요.");
+			$("#custmemberName").focus();
+			return;
+		} else if($("#endCustName").val() === "" && $("#endCustNo").val() === ""){
+			alert("엔드유저를 제대로 선택해주세요.");
+			$("#endCustName").focus();
+			return;
+		} else if($("#custmemberName").val() !== "" && $("#custmemberNo").val() === ""){
+			alert("엔드유저 담당자를 정확히 선택해주세요.");
+			$("#custmemberNo").focus();
 			return;
 		}
 		

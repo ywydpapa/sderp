@@ -25,6 +25,11 @@ public class CustDAOImpl implements CustDAO {
 	public List<CustDTO> listCust(SoppDTO soppdto) {
 		return sqlSession.selectList("cust.listCust", soppdto);
 	}
+	
+	@Override
+	public List<CustDTO> tempListCust(SoppDTO soppdto) {
+		return sqlSession.selectList("cust.tempListCust", soppdto);
+	}
 
 	@Override
 	public CustDTO detailCust(int custNo) {
@@ -48,6 +53,12 @@ public class CustDAOImpl implements CustDAO {
 	public int updateCust01(CustDTO dto) {
 		// TODO Auto-generated method stub
 		return sqlSession.update("cust.updateCust", dto);
+	}
+	
+	@Override
+	public int updateCustTemp(CustDTO dto) {
+		// TODO Auto-generated method stub
+		return sqlSession.update("cust.updateCustTemp", dto);
 	}
 
 	@Override

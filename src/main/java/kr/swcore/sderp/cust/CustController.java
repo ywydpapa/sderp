@@ -48,7 +48,9 @@ public class CustController {
 	@RequestMapping("list.do")
 	public String custList(HttpSession session, Model model) {
 		List<CustDTO> list=custService.listCust(session);
+		List<CustDTO> tempList=custService.tempListCust(session);
 		model.addAttribute("list",list);
+		model.addAttribute("tempList", tempList);
 		return "cust/list";
 	}
 
@@ -149,6 +151,19 @@ public class CustController {
 	public ResponseEntity<?> update(@ModelAttribute CustDTO dto) {
 		Map<String, Object> param = new HashMap<>();
 		int custUpdate = custService.updateCust01(dto);
+		if (custUpdate >0) {
+			param.put("code","10001"); 
+		}
+		else {
+			param.put("code","20001");
+		}
+		return ResponseEntity.ok(param);
+	}
+	
+	@RequestMapping("tempUpdate.do")
+	public ResponseEntity<?> tempUpdate(@ModelAttribute CustDTO dto) {
+		Map<String, Object> param = new HashMap<>();
+		int custUpdate = custService.updateCustTemp(dto);
 		if (custUpdate >0) {
 			param.put("code","10001"); 
 		}

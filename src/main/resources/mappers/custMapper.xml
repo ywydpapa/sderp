@@ -4,9 +4,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cust">
 
-<select id="listCust"
- 		resultType="custDto">
+<select id="listCust" resultType="custDto">
  		select * from swc_cust where attrib not like 'XXX%' and compNo = #{compNo} order by custNo
+</select>
+
+<select id="tempListCust" resultType="custDto">
+ 		select * from swc_cust where attrib = 'XXXX1' and compNo = #{compNo} order by custNo
 </select>
  
  <select id="listCustMember"
@@ -71,7 +74,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  
  <insert id="insertCust">
  insert into swc_cust (compNo, custName,custVatno, custEmail, custVatemail, custBossname,attrib)
- values (#{compNo},#{custName},#{custVatno}, #{custEmail}, #{custVatemail}, #{custBossname},'10000')
+ values (#{compNo},#{custName},#{custVatno}, #{custEmail}, #{custVatemail}, #{custBossname},'XXXX1')
 	 <selectKey keyProperty="custNo" resultType="integer"  order="AFTER">
 		 SELECT LAST_INSERT_ID()
 	 </selectKey>
@@ -116,7 +119,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	,custVatno=#{custVatno}
 	,custEmail=#{custEmail}
 	,custVatemail=#{custVatemail}
-	where custNo=#{custNo}
+	where custNo=#{custNo} AND compNo = #{compNo}
+ </update>
+ 
+  <update id="updateCustTemp">
+	update swc_cust 
+	set attrib = '10000'
+	where custNo=#{custNo} AND compNo = #{compNo}
  </update>
  
  <update id="updateCust01">
@@ -126,7 +135,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	,custVatno=#{custVatno}
 	,custEmail=#{custEmail}
 	,custVatemail=#{custVatemail}
-	where custNo=#{custNo}
+	where custNo=#{custNo} AND compNo = #{compNo}
  </update>
 
  <update id="updateCust05">

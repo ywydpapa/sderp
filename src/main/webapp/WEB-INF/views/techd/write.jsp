@@ -440,109 +440,98 @@
 	}
 
 	function fn_sprtInsert() {
-		var sprtData = {};
-		var contractType					= $("input[name='contractType']:checked").val();	// 신규 영업지원 or 기존계약
-		if(contractType == "NEW"){
-			sprtData.soppNo					= $("#soppNo").val();			// 영업기회
-			sprtData.exContNo				= 0;							// 기존계약
-			sprtData.cntrctMth				= ${contractType[0].codeNo};
-		} else {
-			console.log($("#contSoppNo").val());
-			sprtData.soppNo					= $("#contSoppNo").val();							// 영업기회
-			sprtData.exContNo				= $("#contNo").val();			// 기존계약
-			sprtData.cntrctMth				= ${contractType[1].codeNo};
-		}
-		sprtData.techdTitle			= $("#techdTitle").val();					// 기술지원 요청명
-		sprtData.userNo				= $("#userNo").val() ? $("#userNo").val() : 0;						// 담당사원
-		sprtData.custNo				= $("#custNo").val() ? $("#custNo").val() : 0;						// 거래처
-		sprtData.custmemberNo		= $("#custmemberNo").val() ? $("#custmemberNo").val() : 0;					// 고객
-		sprtData.techdItemmodel		= $("#techdItemmodel").val();				// 모델
-		sprtData.techdItemversion	= $("#techdItemversion").val();				// 버전
-		sprtData.techdPlace			= $("#techdPlace").val();					// 장소
-		sprtData.techdFrom			= setDateHourMinute($("#techdFrom").val(), $("#startTime").val());					// 지원일자 시작
-		sprtData.techdTo			= setDateHourMinute($("#techdTo").val(), $("#endTime").val());						// 지원일자 종료
-		sprtData.techdType			= $("#techdType").val();					// 지원형태
-		sprtData.techdSteps			= $("#techdSteps").val();					// 진행단계
-		sprtData.endCustNo 			= $("#endCustNo").val();
-		
-		if($("textarea").attr("style") === "display: none;"){
-			sprtData.techdDesc			= tinyMCE.get("techdDesc").getContent();
-		}else{
-			sprtData.techdDesc 		= $("#techdDesc").val();
-		}
-		
-		/* sprtData.soppNo				= $("#soppNo").val() ? $("#soppNo").val() : 0; // 영업기회번호 */
-		sprtData.contNo				= $("#contNo").val() ? $("#contNo").val() : 0; // 계약번호
-		
-		console.log(sprtData.techdFrom);
-		
-		if(!sprtData.techdTitle){
+		if($("#techTitle").val() === ""){
 			alert("기술지원 요청명을 입력하십시오.");
-			return;
-		} else if(sprtData.techdFrom === null || sprtData.techdTo === null){
+			$("#techTitle").focus();
+			return false;
+		} else if($("#techdFrom").val() === "" || $("#techdTo").val() === ""){
 			alert("지원일자를 선택하십시오.");
-			return;
+			return false;
 		} else if($("#endCustName").val() === ""){
 			alert("엔드유저를 선택하십시오.");
 			$("#endCustName").focus();
-			return;
-		} else if(contractType != undefined) {
-			if(contractType == 'NEW'){
-				if ($("#soppTitle").val() === "" || $("#soppTitle").val() === "0"){
-					alert("영업기회을 입력하십시오.");
-					$("#soppTitle").focus();
-					return;
-				} else if(!autoCompleteVali($("#soppTitle").val(), "sopp")){
-					alert("조회된 영업기회가 없습니다.\n다시 확인해주세요.");
-					$("#soppTitle").focus();
-					return;
-				} else if($("#soppNo").val() === ""){
-					alert("영업기회를 제대로 선택해주세요.");
-					$("#soppTitle").focus();
-					return;
-				} 
-			} else if (contractType == 'ING'){
-				if ($("#contTitle").val() == "" || $("#contTitle").val() == "0"){
-					alert("계약을 입력하십시오.");
-					$("#contTitle").focus();
-					return;
-				} else if(!autoCompleteVali($("#contTitle").val(), "cont")){
-					alert("조회된 계약이 없습니다.\n다시 확인해주세요.");
-					$("#contTitle").focus();
-					return;
-				} else if($("#contTitle").val() === ""){
-					alert("계약을 제대로 선택해주세요.");
-					$("#contTitle").focus();
-					return;
-				} 
-			}
-		} else if(!sprtData.userNo){
-			alert("유저를 선택하십시오.");
-			return;
+			return false;
+		} else if ($("[name=\"contractType\"]:checked").val() === "NEW" && $("#soppTitle").val() === ""){
+			alert("영업기회을 입력하십시오.");
+			$("#soppTitle").focus();
+			return false;
+		} else if($("[name=\"contractType\"]:checked").val() === "NEW" && !autoCompleteVali($("#soppTitle").val(), "sopp")){
+			alert("조회된 영업기회가 없습니다.\n다시 확인해주세요.");
+			$("#soppTitle").focus();
+			return false;
+		} else if($("[name=\"contractType\"]:checked").val() === "NEW" && $("#soppTitle").val() !== "" && ($("#soppNo").val() === "" || $("#soppNo").val() == 0)){
+			alert("영업기회를 제대로 선택해주세요.");
+			$("#soppTitle").focus();
+			return false;
+		} else if ($("[name=\"contractType\"]:checked").val() === "ING" && $("#contTitle").val() == ""){
+			alert("계약을 입력하십시오.");
+			$("#contTitle").focus();
+			return false;
+		} else if($("[name=\"contractType\"]:checked").val() === "ING" && !autoCompleteVali($("#contTitle").val(), "cont")){
+			alert("조회된 계약이 없습니다.\n다시 확인해주세요.");
+			$("#contTitle").focus();
+			return false;
+		} else if($("[name=\"contractType\"]:checked").val() === "ING" && $("#contTitle").val() !== "" && ($("#contNo").val() === "" || $("#contNo").val() == 0)){
+			alert("계약을 제대로 선택해주세요.");
+			$("#contTitle").focus();
+			return false;
 		} else if(!autoCompleteVali($("#endCustName").val(), "cust")){
 			alert("조회된 엔드유저가 없습니다.\n다시 확인해주세요.");
 			$("#endCustName").focus();
-			return;
-		} else if($("#custmemberName").val() === "" && !autoCompleteVali($("#custmemberName").val(), "custMember")){
+			return false;
+		} else if($("#custmemberName").val() !== "" && !autoCompleteVali($("#custmemberName").val(), "custMember")){
 			alert("조회된 엔드유저 담당자가 없습니다.\n다시 확인해주세요.");
 			$("#custmemberName").focus();
-			return;
-		} else if($("#endCustName").val() === "" && $("#endCustNo").val() === ""){
+			return false;
+		} else if($("#endCustName").val() !== "" && ($("#endCustNo").val() === "" || $("#endCustNo").val() == 0)){
 			alert("엔드유저를 제대로 선택해주세요.");
 			$("#endCustName").focus();
-			return;
-		} else if($("#custmemberName").val() !== "" && $("#custmemberNo").val() === ""){
+			return false;
+		} else if($("#custmemberName").val() !== "" && ($("#custmemberNo").val() === "" || $("#custmemberNo").val() == 0)){
 			alert("엔드유저 담당자를 정확히 선택해주세요.");
-			$("#custmemberNo").focus();
-			return;
-		}
-		
-		$.ajax({ url: "${path}/techd/insert.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
-					data: sprtData , // HTTP 요청과 함께 서버로 보낼 데이터
-					method: "POST", // HTTP 요청 메소드(GET, POST 등)
-					dataType: "json" // 서버에서 보내줄 데이터의 타입
-				}) // HTTP 요청이 성공하면 요청한 데이터가 done() 메소드로 전달됨. .
-				.done(function(data) {
+			$("#custmemberName").focus();
+			return false;
+		}else{
+			var sprtData = {};
+			var contractType					= $("input[name='contractType']:checked").val();	// 신규 영업지원 or 기존계약
+			if(contractType == "NEW"){
+				sprtData.soppNo					= $("#soppNo").val();			// 영업기회
+				sprtData.exContNo				= 0;							// 기존계약
+				sprtData.cntrctMth				= ${contractType[0].codeNo};
+			} else {
+				console.log($("#contSoppNo").val());
+				sprtData.soppNo					= $("#contSoppNo").val();							// 영업기회
+				sprtData.exContNo				= $("#contNo").val();			// 기존계약
+				sprtData.cntrctMth				= ${contractType[1].codeNo};
+			}
+			sprtData.techdTitle			= $("#techdTitle").val();					// 기술지원 요청명
+			sprtData.userNo				= $("#userNo").val() ? $("#userNo").val() : 0;						// 담당사원
+			sprtData.custNo				= $("#custNo").val() ? $("#custNo").val() : 0;						// 거래처
+			sprtData.custmemberNo		= $("#custmemberNo").val() ? $("#custmemberNo").val() : 0;					// 고객
+			sprtData.techdItemmodel		= $("#techdItemmodel").val();				// 모델
+			sprtData.techdItemversion	= $("#techdItemversion").val();				// 버전
+			sprtData.techdPlace			= $("#techdPlace").val();					// 장소
+			sprtData.techdFrom			= setDateHourMinute($("#techdFrom").val(), $("#startTime").val());					// 지원일자 시작
+			sprtData.techdTo			= setDateHourMinute($("#techdTo").val(), $("#endTime").val());						// 지원일자 종료
+			sprtData.techdType			= $("#techdType").val();					// 지원형태
+			sprtData.techdSteps			= $("#techdSteps").val();					// 진행단계
+			sprtData.endCustNo 			= $("#endCustNo").val();
+			
+			if($("textarea").attr("style") === "display: none;"){
+				sprtData.techdDesc			= tinyMCE.get("techdDesc").getContent();
+			}else{
+				sprtData.techdDesc 		= $("#techdDesc").val();
+			}
+			
+			/* sprtData.soppNo				= $("#soppNo").val() ? $("#soppNo").val() : 0; // 영업기회번호 */
+			sprtData.contNo				= $("#contNo").val() ? $("#contNo").val() : 0; // 계약번호
+			
+			$.ajax({ 
+				url: "${path}/techd/insert.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
+				data: sprtData , // HTTP 요청과 함께 서버로 보낼 데이터
+				method: "POST", // HTTP 요청 메소드(GET, POST 등)
+				dataType: "json", // 서버에서 보내줄 데이터의 타입
+				success: function(data) {
 					if(data.code == 10001){
 						alert("저장 성공");
 						var eventModal = $('#eventModal');
@@ -557,11 +546,14 @@
 					}else{
 						alert("저장 실패");
 					}
-				}) // HTTP 요청이 실패하면 오류와 상태에 관한 정보가 fail() 메소드로 전달됨.
-				.fail(function(xhr, status, errorThrown) {
+				}, // HTTP 요청이 실패하면 오류와 상태에 관한 정보가 fail() 메소드로 전달됨.
+				error: function() {
 					alert("통신 실패");
-				});
+				},
+			}) // HTTP 요청이 성공하면 요청한 데이터가 done() 메소드로 전달됨. .
+		}
 	}
+		
 
 	$(document).ready(function(){
 		$('.techdDetailCont').hide();

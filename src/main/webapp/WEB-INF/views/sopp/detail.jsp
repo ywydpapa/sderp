@@ -560,15 +560,15 @@
 			if($("#soppTargetAmt").val() != "") soppData.soppTargetAmt 	= $("#soppTargetAmt").val().replace(/[\D\s\._\-]+/g, "");
 			if(tinyMCE.get("soppDesc").getContent() != "") soppData.soppDesc 		= tinyMCE.get("soppDesc").getContent();
 
-			if (!soppData.soppTitle) {
-				alert("영업기회명을 입력하십시오.!!");
+			if ($("#soppTitle").val() === "") {
+				alert("영업기회명을 입력해주세요.");
 				$("#soppTitle").focus();
 				return;
-			} else if(!soppData.custNo){
-				alert("매출처를 선택해주십시오.");
+			} else if($("custName").val() === ""){
+				alert("매출처를 입력해주세요..");
 				$("#custName").focus();
 				return;
-			} else if(!soppData.buyrNo){
+			} else if($("#endCustName").val() === ""){
 				alert("엔드유저를 선택해주십시오.");
 				$("endCustName").focus();
 				return;
@@ -602,25 +602,25 @@
 				alert("엔드유저를 제대로 선택해주세요.");
 				$("#endCustName").focus();
 				return;
-			}
-			
-			$.ajax({ url: "${path}/sopp/update.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
-				data: soppData , // HTTP 요청과 함께 서버로 보낼 데이터
-				method: "POST", // HTTP 요청 메소드(GET, POST 등)
-				dataType: "json" // 서버에서 보내줄 데이터의 타입
-			}) // HTTP 요청이 성공하면 요청한 데이터가 done() 메소드로 전달됨. .
-			.done(function(data) {
-				if(data.code == 10001){
-					alert("저장 성공");
-					var url = '${path}/sopp/list.do';
-					location.href = url;
-				}else{
-					alert("저장 실패");
-				}
-			}) // HTTP 요청이 실패하면 오류와 상태에 관한 정보가 fail() 메소드로 전달됨.
-			.fail(function(xhr, status, errorThrown) {
-				alert("통신 실패");
-			});
+			}else{
+				$.ajax({ url: "${path}/sopp/update.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
+					data: soppData , // HTTP 요청과 함께 서버로 보낼 데이터
+					method: "POST", // HTTP 요청 메소드(GET, POST 등)
+					dataType: "json" // 서버에서 보내줄 데이터의 타입
+				}) // HTTP 요청이 성공하면 요청한 데이터가 done() 메소드로 전달됨. .
+				.done(function(data) {
+					if(data.code == 10001){
+						alert("저장 성공");
+						var url = '${path}/sopp/list.do';
+						location.href = url;
+					}else{
+						alert("저장 실패");
+					}
+				}) // HTTP 요청이 실패하면 오류와 상태에 관한 정보가 fail() 메소드로 전달됨.
+				.fail(function(xhr, status, errorThrown) {
+					alert("통신 실패");
+				});
+			}			
 		}
 
 		function fn_Contreq() {

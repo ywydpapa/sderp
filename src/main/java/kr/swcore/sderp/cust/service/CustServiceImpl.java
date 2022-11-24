@@ -32,6 +32,12 @@ public class CustServiceImpl implements CustService {
 		SoppDTO soppdto = SessionInfoGet.getCompNoDto(session);
 		return custDao.listCust(soppdto);
 	}
+	
+	@Override
+	public List<CustDTO> tempListCust(HttpSession session) {
+		SoppDTO soppdto = SessionInfoGet.getCompNoDto(session);
+		return custDao.tempListCust(soppdto);
+	}
 
 	@Override
 	public CustDTO detailCust(int custNo) {
@@ -43,6 +49,12 @@ public class CustServiceImpl implements CustService {
 	public int updateCust01(CustDTO dto) {
 		// TODO Auto-generated method stub
 		return custDao.updateCust01(dto);
+	}
+	
+	@Override
+	public int updateCustTemp(CustDTO dto) {
+		// TODO Auto-generated method stub
+		return custDao.updateCustTemp(dto);
 	}
 
 	@Override

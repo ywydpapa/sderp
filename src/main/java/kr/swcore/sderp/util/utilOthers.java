@@ -69,6 +69,7 @@ public class utilOthers {
 			jsonObject = new JSONObject();
 			jsonObject.put("label", contList.get(i).getContTitle());
 			jsonObject.put("value", contList.get(i).getContTitle());
+			jsonObject.put("soppNo", contList.get(i).getSoppNo());
 			jsonObject.put("no", contList.get(i).getContNo());
 			jsonArray.add(jsonObject);
 		}

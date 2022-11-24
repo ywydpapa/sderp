@@ -13,6 +13,7 @@ public interface CustService {
 
 	public List<CustDTO>listCust();
 	public List<CustDTO>listCust(HttpSession session);
+	public List<CustDTO>tempListCust(HttpSession session);
 	public List<CustDTO>listCustMember(HttpSession session);
 	public List<CustDTO>listBuyr();
 	public List<CustDTO>listBuyr(HttpSession session);
@@ -28,6 +29,7 @@ public interface CustService {
 	CustDTO detailCust04(int custNo);
 	CustDTO detailsCust(int custNo);
 	public int updateCust01(CustDTO dto);
+	public int updateCustTemp(CustDTO dto);
 	public int updateCust05(CustDTO dto);
 	public int deleteCust(int custNo);
 	public int insertCust(CustDTO dto);

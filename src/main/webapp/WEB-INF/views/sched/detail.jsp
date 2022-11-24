@@ -60,12 +60,12 @@
 									<td><input type="text"
 										class="form-control form-control-sm" id="schedPlace" 	name="schedPlace" value="${dto.schedPlace}"></td>
 
-									<th scope="row">계약 관련</th>
+									<%-- <th scope="row">계약 관련</th>
 									<td>
 										<div class="input-group input-group-sm mb-0">
 											<input type="text" class="form-control" name="contTitle" id="contTitle" value="" autocomplete="off"/> 
 											<input type="hidden" name="contNo" id="contNo" value="" /> 
-											<%-- <span class="input-group-btn">
+											<span class="input-group-btn">
 												<button class="btn btn-primary sch-opportunity2"
 													data-remote="${path}/modal/popup.do?popId=cont"
 													type="button" data-toggle="modal" data-target="#contModal">
@@ -94,9 +94,9 @@
 														</div>
 													</div>
 												</div>
-											</div> --%>
+											</div>
 										</div>
-									</td>
+									</td> --%>
 									<th scope="row">영업기회</th>
 									<td>
 										<div class="input-group input-group-sm mb-0">
@@ -135,7 +135,7 @@
 										</div>
 									</td>
 									<th scope="row" class="requiredTextCss">담당사원</th>
-									<td>
+									<td colspan="3">
 										<div class="input-group input-group-sm mb-0">
 											<input type="text" class="form-control " name="userName" id="userName" value="${dto.userName}" readonly/> 
 											<input type="hidden" name="userNo" id="userNo" value="${dto.userNo}" /> 
@@ -211,12 +211,12 @@
 											</div> --%>
 										</div>
 									</td>
-									<th scope="row">엔드유저</th>
+									<%-- <th scope="row">엔드유저</th>
 									<td>
 										<div class="input-group input-group-sm mb-0">
 											<input type="text" class="form-control" id="endCustName" value="" autocomplete="off"/>
 											<input type="hidden" id="endCustNo" value="" />
-											<%-- <span class="input-group-btn">
+											<span class="input-group-btn">
 												<button class="btn btn-dark sch-partner" data-remote="${path}/modal/popup.do?popId=endCust" type="button" data-toggle="modal" data-target="#endCustModal" disabled>
 													<i class="icofont icofont-search"></i>
 												</button>
@@ -239,9 +239,9 @@
 														</div>
 													</div>
 												</div>
-											</div> --%>
+											</div>
 										</div>
-									</td>
+									</td> --%>
 									<th scope="row">활동형태</th>
 									<td><select name="schedCat" id="schedCat" class="form-control form-control-sm ">
 										<c:forEach var="acttype" items="${acttype}">
@@ -249,8 +249,10 @@
 										</c:forEach>
 									</select>
 									</td>
+								</tr>
+								<tr>
 									<th scope="row" class="requiredTextCss">제목</th>
-									<td colspan="3"><input type="text" class="form-control form-control-sm " id="schedTitle" name="schedTitle" value="${dto.schedTitle}">
+									<td colspan="7"><input type="text" class="form-control form-control-sm " id="schedTitle" name="schedTitle" value="${dto.schedTitle}">
 									<input type="hidden" id="schedNo" name="schedNo" value="${dto.schedNo}">
 									</td>
 								</tr>
@@ -366,17 +368,12 @@
 			}
 			/* schedData.schedType 		= $("#schedType").val(); */
 			schedData.schedCat 		= $("#schedCat").val();
-			if($("#custName").val() != "") schedData.contNo		= Number($("#contNo").val());
-			
+
 			if(!schedData.schedFrom || !schedData.schedTo){
 				alert("일정일자를 선택하십시오.");
 				return
 			}else if(!schedData.schedTitle){
 				alert("제목을 입력하십시오.");
-				return;
-			}else if($("#contTitle").val() !== "" && !autoCompleteVali($("#contTitle").val(), "cont")){
-				alert("조회된 계약이 없습니다.\n다시 확인해 주세요.");
-				$("#contTitle").focus();
 				return;
 			}else if($("#soppTitle").val() !== "" && !autoCompleteVali($("#soppTitle").val(), "sopp")){
 				alert("조회된 영업기회가 없습니다.\n다시 확인해 주세요.");
@@ -386,14 +383,6 @@
 				alert("조회된 거래처가 없습니다.\n다시 확인해주세요.");
 				$("#custName").focus();
 				return;
-			}else if($("#ptncName").val() !== "" && !autoCompleteVali($("#ptncName").val(), "cust")){
-				alert("조회된 엔드유저가 없습니다.\n다시 확인해주세요.");
-				$("#ptncName").focus();
-				return;
-			}else if($("#contTitle").val() !== "" && ($("#contNo").val() === "" || $("#contNo").val() == 0)){
-				alert("계약을 제대로 선택해주세요.");
-				$("#contTitle").focus();
-				return;
 			}else if($("#soppTitle").val() !== "" && ($("#soppNo").val() === "" || $("#soppNo").val() == 0)){
 				alert("영업기회를 제대로 선택해주세요.");
 				$("#soppTitle").focus();
@@ -402,37 +391,33 @@
 				alert("매출처를 제대로 선택해주세요.");
 				$("#custName").focus();
 				return;
-			}else if($("#ptncName").val() !== "" && ($("#ptncNo").val() === "" || $("#ptncNo").val() == 0)){
-				alert("엔드유저를 제대로 선택해주세요.");
-				$("#ptncName").focus();
-				return;
-			} 
-
-			$.ajax({
-				url: "${path}/sched/update.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
-				data: schedData , // HTTP 요청과 함께 서버로 보낼 데이터
-				method: "POST", // HTTP 요청 메소드(GET, POST 등)
-				dataType: "json" // 서버에서 보내줄 데이터의 타입
-			}) // HTTP 요청이 성공하면 요청한 데이터가 done() 메소드로 전달됨..
-			.done(function(data) {
-				if(data.code == 10001){
-					alert("저장 성공");
-					var eventModal = $('#eventModal');
-					if(eventModal[0]) {
-						$(".modal-backdrop").remove();
-						var url ='${path}/calendar/calmain.do';
-						location.href = url;
-					}else {
-						var url = '${path}/sched/list.do';
-						location.href = url;
+			}else{
+				$.ajax({
+					url: "${path}/sched/update.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
+					data: schedData , // HTTP 요청과 함께 서버로 보낼 데이터
+					method: "POST", // HTTP 요청 메소드(GET, POST 등)
+					dataType: "json" // 서버에서 보내줄 데이터의 타입
+				}) // HTTP 요청이 성공하면 요청한 데이터가 done() 메소드로 전달됨..
+				.done(function(data) {
+					if(data.code == 10001){
+						alert("저장 성공");
+						var eventModal = $('#eventModal');
+						if(eventModal[0]) {
+							$(".modal-backdrop").remove();
+							var url ='${path}/calendar/calmain.do';
+							location.href = url;
+						}else {
+							var url = '${path}/sched/list.do';
+							location.href = url;
+						}
+					}else{
+						alert("저장 실패");
 					}
-				}else{
-					alert("저장 실패");
-				}
-			}) // HTTP 요청이 실패하면 오류와 상태에 관한 정보가 fail() 메소드로 전달됨.
-			.fail(function(xhr, status, errorThrown) {
-				alert("통신 실패");
-			});
+				}) // HTTP 요청이 실패하면 오류와 상태에 관한 정보가 fail() 메소드로 전달됨.
+				.fail(function(xhr, status, errorThrown) {
+					alert("통신 실패");
+				});
+			}
 		}
 
 		function fn_DeleteSched(){

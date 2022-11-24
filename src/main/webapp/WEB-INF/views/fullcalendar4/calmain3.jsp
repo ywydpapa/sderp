@@ -379,21 +379,24 @@
 				selectMode: 3,
 				select: function(event, data) {
 					// console.dir(data.node);
+					
 					var html = "";
-					if(data.node.children == null) {
+					if(data.node.children === null) {
 						var userNo = data.node.key.split("_")[1];
 						if(data.node.isSelected()) userNoSelected[userNo] = true;
 						else userNoSelected[userNo] = false;
 					} else {
-						if(data.node.extraClasses == "topElement"){
+						if(data.node.extraClasses === "topElement"){
 							data = data.node.children;
-							for(var i=0; i<data.length; i++){
+							for(var i=0; i < data.length; i++){
 								var data2 = data[i];
-								for(var j=0; j<data2.children.length; j++) {
-									var t = data2.children[j];
-									var userNo = t.key.split("_")[1];
-									if (t.isSelected()) userNoSelected[userNo] = true;
-									else userNoSelected[userNo] = false;
+								if(data2.children !== null){
+									for(var j=0; j < data2.children.length; j++) {
+										var t = data2.children[j];
+										var userNo = t.key.split("_")[1];
+										if (t.isSelected()) userNoSelected[userNo] = true;
+										else userNoSelected[userNo] = false;
+									}
 								}
 							}
 						} else {
@@ -413,9 +416,9 @@
 			$("#tree").fancytree("getTree").visit(function(node) {
 				// node.setExpanded(true);
 				node.setSelected(true);
-				/* if(node.key == ("li_"+${sessionScope.userNo})){
+				if(node.key == ("li_"+${sessionScope.userNo})){
 					node.setSelected(true);
-				} */
+				}
 			});
 
 			$(document).on("click",'.fc-prevYear-button, .fc-icon-chevron-left, .fc-next-button, .fc-nextYear-button',function () {

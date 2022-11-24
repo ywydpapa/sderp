@@ -731,7 +731,7 @@
 		    					
 		    				});
 				 			alert("등록되었습니다.");
-				 			location.href = "${path}/gw/estwrite.do";
+				 			location.href = "${path}/gw/estlist.do";
     					}
     				});
     			}
@@ -876,7 +876,7 @@
 			    					
 			    				});
 					 			alert("등록되었습니다.");
-					 			location.href = "${path}/gw/estwrite.do";
+					 			location.href = "${path}/gw/estlist.do";
 	    					}
 	    				});
 	    			}
@@ -1056,7 +1056,7 @@
    				    	    					dataType: "json",
    				    	    					success:function(){
    				    	    						alert("수정되었습니다.");
-   				    						 		location.href = "${path}/gw/estwrite.do";
+   				    						 		location.href = "${path}/gw/estlist.do";
    				    	    					}
    				    	    				});
    		    								

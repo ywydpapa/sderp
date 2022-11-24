@@ -45,10 +45,10 @@
 									<th scope="row" class="requiredTextCss">일정일자</th>
 									<td colspan="3">
 										<div class="input-group input-group-sm mb-0 mr-1">
-											<input class="form-control col-xl-2" style="width:400px" type="date" max="9999-12-30" id="schedSdate" value="" onChange="javascript:inputDate(setDateHourMinute($('#schedSdate').val(), $('#startTime').val()), setDateHourMinute($('#schedEdate').val(), $('#endTime').val()), this)">
+											<input class="form-control col-xl-2" style="width:400px" type="date" max="9999-12-30" id="schedSdate" name="schedSdate" onChange="javascript:inputDate(setDateHourMinute($('#schedSdate').val(), $('#startTime').val()), setDateHourMinute($('#schedEdate').val(), $('#endTime').val()), this)">
 											<select id="startTime" style="width:100px" onChange="javascript:inputDate(setDateHourMinute($('#schedSdate').val(), $('#startTime').val()), setDateHourMinute($('#schedEdate').val(), $('#endTime').val()), this)"></select>
 											<span style="line-height:30px;">&nbsp;~&nbsp;</span>
-											<input class="form-control col-xl-2" type="date" id="schedEdate" max="9999-12-31" value="" onChange="javascript:inputDate(setDateHourMinute($('#schedSdate').val(), $('#startTime').val()), setDateHourMinute($('#schedEdate').val(), $('#endTime').val()), this)">
+											<input class="form-control col-xl-2" type="date" id="schedEdate" name="schedEdate" max="9999-12-31" onChange="javascript:inputDate(setDateHourMinute($('#schedSdate').val(), $('#startTime').val()), setDateHourMinute($('#schedEdate').val(), $('#endTime').val()), this)">
 											<select id="endTime" style="width:100px" onChange="javascript:inputDate(setDateHourMinute($('#schedSdate').val(), $('#startTime').val()), setDateHourMinute($('#schedEdate').val(), $('#endTime').val()), this)"></select>
 										</div>
 									</td>
@@ -58,12 +58,12 @@
 									<td><input type="text" class="form-control"
 										id="schedPlace" name="schedPlace" placeholder="장소를 입력하세요">
 									</td>
-									<th scope="row">계약 관련</th>
+									<%-- <th scope="row">계약 관련</th>
 									<td>
 										<div class="input-group input-group-sm mb-0">
 											<input type="text" class="form-control" name="contTitle" id="contTitle" autocomplete="off"> 
 											<input type="hidden" name="contNo" id="contNo" value="" /> 
-											<%-- <span class="input-group-btn">
+											<span class="input-group-btn">
 												<button class="btn btn-primary sch-opportunity2"
 													data-remote="${path}/modal/popup.do?popId=cont"
 													type="button" data-toggle="modal" data-target="#contModal">
@@ -92,9 +92,9 @@
 														</div>
 													</div>
 												</div>
-											</div> --%>
+											</div>
 										</div>
-									</td>
+									</td> --%>
 									<th scope="row">영업기회</th>
 									<td>
 										<div class="input-group input-group-sm mb-0">
@@ -133,7 +133,7 @@
 										</div>
 									</td>
 									<th scope="row" class="requiredTextCss">담당사원</th>
-									<td>
+									<td colspan="3">
 										<div class="input-group input-group-sm mb-0">
 											<input type="text" class="form-control" name="userName" id="userName" value="${sessionScope.userName}" autocomplete="off" readonly /> 
 											<input type="hidden" name="userNo" id="userNo" value="${sessionScope.userNo}" /> 
@@ -178,13 +178,13 @@
 											</div> --%>
 										</div>
 									</td>
-									<th scope="row">엔드유저</th>
+									<%-- <th scope="row">엔드유저</th>
 									<td>
 										<div class="input-group input-group-sm mb-0">
 											<input type="text" class="form-control" name="ptncName" id="ptncName" autocomplete="off">
 											<input type="hidden" name="ptncNo" id="ptncNo" value="" />
 											
-											<%-- <input type="text" class="form-control" name="ptncName" id="ptncName" value="" readonly />
+											<input type="text" class="form-control" name="ptncName" id="ptncName" value="" readonly />
 											<input type="hidden" name="ptncNo" id="ptncNo" value="" />
 											<span class="input-group-btn">
 												<button class="btn btn-dark sch-partner"
@@ -215,17 +215,17 @@
 														</div>
 													</div>
 												</div>
-											</div> --%>
+											</div>
 										</div>
-									</td>
-									<th scope="row">일정구분</th>
+									</td> --%>
+									<%-- <th scope="row">일정구분</th>
 									<td><select name="schedType" id="schedType"
 										class="form-control">
 											<option value="">기타일정</option>
-											<%-- <c:forEach var="schedtype" items="${schedtype}">
+											<c:forEach var="schedtype" items="${schedtype}">
 												<option value="${schedtype.codeNo}">${schedtype.desc03}</option>
-											</c:forEach> --%>
-									</select></td>
+											</c:forEach>
+									</select></td> --%>
 									<th scope="row">활동형태</th>
 									<td><select name="schedCat" id="schedCat"
 										class="form-control">
@@ -237,15 +237,7 @@
 								</tr>
 								<tr>
 									<th scope="row" class="requiredTextCss">제목</th>
-									<td><input type="text"
-										class="form-control" id="schedTitle"
-										name="schedTitle" placeholder=""></td>
-									<th></th>
-									<td></td>
-									<th></th>
-									<td></td>
-									<th></th>
-									<td></td>
+									<td colspan="7"><input type="text" class="form-control" id="schedTitle" name="schedTitle" placeholder=""></td>
 								</tr>
 								<tr>
 									<th scope="row">내용</th>
@@ -350,10 +342,6 @@
 			}else if(!schedData.schedTitle){
 				alert("제목을 입력하십시오.");
 				return;
-			}else if($("#contTitle").val() !== "" && !autoCompleteVali($("#contTitle").val(), "cont")){
-				alert("조회된 계약이 없습니다.\n다시 확인해 주세요.");
-				$("#contTitle").focus();
-				return;
 			}else if($("#soppTitle").val() !== "" && !autoCompleteVali($("#soppTitle").val(), "sopp")){
 				alert("조회된 영업기회가 없습니다.\n다시 확인해 주세요.");
 				$("#soppTitle").focus();
@@ -361,14 +349,6 @@
 			}else if($("#custName").val() !== "" && !autoCompleteVali($("#custName").val(), "cust")){
 				alert("조회된 거래처가 없습니다.\n다시 확인해주세요.");
 				$("#custName").focus();
-				return;
-			}else if($("#ptncName").val() !== "" && !autoCompleteVali($("#ptncName").val(), "cust")){
-				alert("조회된 엔드유저가 없습니다.\n다시 확인해주세요.");
-				$("#ptncName").focus();
-				return;
-			}else if($("#contTitle").val() !== "" && ($("#contNo").val() === "" || $("#contNo").val() == 0)){
-				alert("계약을 제대로 선택해주세요.");
-				$("#contTitle").focus();
 				return;
 			}else if($("#soppTitle").val() !== "" && ($("#soppNo").val() === "" || $("#soppNo").val() == 0)){
 				alert("영업기회를 제대로 선택해주세요.");
@@ -378,40 +358,37 @@
 				alert("매출처를 제대로 선택해주세요.");
 				$("#custName").focus();
 				return;
-			}else if($("#ptncName").val() !== "" && ($("#ptncNo").val() === "" || $("#ptncNo").val() == 0)){
-				alert("엔드유저를 제대로 선택해주세요.");
-				$("#ptncName").focus();
-				return;
-			} 
-			
-			$.ajax({ url: "${path}/sched/insert.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소 
-						data: schedData , // HTTP 요청과 함께 서버로 보낼 데이터 
-						method: "POST", // HTTP 요청 메소드(GET, POST 등) 
-						dataType: "json" // 서버에서 보내줄 데이터의 타입 
-					}) // HTTP 요청이 성공하면 요청한 데이터가 done() 메소드로 전달됨. .
-					.done(function(data) {
-						if(data.code == 10001){
-							alert("저장 성공");
-							var eventModal = $('#eventModal');
-							if(eventModal[0]) {
-								$(".modal-backdrop").remove();
-								var url ='${path}/calendar/calmain.do';
-								location.href = url;
-							}else {
-								var url = '${path}/sched/list.do';
-								location.href = url;
-							}
-						}else{
-							alert("저장 실패");
+			}else{
+				$.ajax({ 
+					url: "${path}/sched/insert.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소 
+					data: schedData , // HTTP 요청과 함께 서버로 보낼 데이터 
+					method: "POST", // HTTP 요청 메소드(GET, POST 등) 
+					dataType: "json" // 서버에서 보내줄 데이터의 타입 
+				}) // HTTP 요청이 성공하면 요청한 데이터가 done() 메소드로 전달됨. .
+				.done(function(data) {
+					if(data.code == 10001){
+						alert("저장 성공");
+						var eventModal = $('#eventModal');
+						if(eventModal[0]) {
+							$(".modal-backdrop").remove();
+							var url ='${path}/calendar/calmain.do';
+							location.href = url;
+						}else {
+							var url = '${path}/sched/list.do';
+							location.href = url;
 						}
-					}) // HTTP 요청이 실패하면 오류와 상태에 관한 정보가 fail() 메소드로 전달됨. 
-					.fail(function(xhr, status, errorThrown) { 
-						alert("통신 실패");
-					});
+					}else{
+						alert("저장 실패");
+					}
+				}) // HTTP 요청이 실패하면 오류와 상태에 관한 정보가 fail() 메소드로 전달됨. 
+				.fail(function(xhr, status, errorThrown) { 
+					alert("통신 실패");
+				});
+				
+			}
 		}
 		
 		setTimeComboBox(['#startTime', '#endTime']);
-		
 	</script>
 <c:if test="${empty simple}">
 </div>

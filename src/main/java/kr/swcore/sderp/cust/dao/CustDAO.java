@@ -9,6 +9,7 @@ public interface CustDAO {
 	
 	List<CustDTO> listCust();
 	List<CustDTO> listCust(SoppDTO soppDto);	
+	List<CustDTO> tempListCust(SoppDTO soppDto);	
 	List<CustDTO> listCustMember(SoppDTO soppDto);
 	List<CustDTO> listBuyr();
 	List<CustDTO> listBuyr(SoppDTO soppDto);
@@ -27,6 +28,7 @@ public interface CustDAO {
 	int insertCust(CustDTO dto);
 	int deleteCust(int custNo);
 	int updateCust01(CustDTO dto);
+	int updateCustTemp(CustDTO dto);
 	int updateCust05(CustDTO dto);
 	String fileInfo(int custNo);
 	int custCheck(CustDTO dto);

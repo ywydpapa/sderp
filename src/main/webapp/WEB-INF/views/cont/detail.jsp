@@ -874,38 +874,46 @@
 				alert("조회된 (부)담당자가 없습니다.\n다시 확인해주세요.");
 				$("#secondUserName").focus();
 				return;
-			}else if($("#soppNo").val() === ""){
+			}else if($("#soppTitle").val() !== "" && ($("#soppNo").val() === "" || $("#soppNo").val() == 0)){
 				alert("영업기회를 제대로 선택해주세요.");
-				$("#soppNo").focus();
+				$("#soppTitle").focus();
 				return;
-			}else if($("#custNo").val() === ""){
+			}else if($("#custName").val() !== "" && ($("#custNo").val() === "" || $("#custNo").val() == 0)){
 				alert("거래처를 제대로 선택해주세요.");
-				$("#custNo").focus();
+				$("#custName").focus();
 				return;
-			}else if($("#endCustNo").val() === ""){
+			}else if($("#endCustName").val() !== "" && ($("#endCustNo").val() === "" || $("#endCustNo").val() == 0)){
 				alert("엔드유저를 제대로 선택해주세요.");
-				$("#endCustNo").focus();
+				$("#endCustName").focus();
 				return;
+			}else if($("#custmemberName").val() !== "" && ($("#custmemberNo").val() === "" || $("#custmemberNo").val() == 0)){
+				alert("매출처 담당자를 제대로 선택해주세요.");
+				$("#custmemberName").focus();
+				return;
+			}else if($("#endCustmemberName").val() !== "" && ($("#endCustmemberNo").val() === "" || $("#endCustmemberNo").val() == 0)){
+				alert("엔드유저 담당자를 제대로 선택해주세요.");
+				$("#endCustmemberName").focus();
+				return;
+			}else{
+				$.ajax({
+					url: "${path}/cont/update.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
+					data: contData , // HTTP 요청과 함께 서버로 보낼 데이터
+					method: "POST", // HTTP 요청 메소드(GET, POST 등)
+					dataType: "json" // 서버에서 보내줄 데이터의 타입
+				}) // HTTP 요청이 성공하면 요청한 데이터가 done() 메소드로 전달됨. .
+				.done(function(data) {
+					if(data.code == 10001){
+						alert("저장 성공");
+						var url = '${path}/cont/list.do';
+						location.href = url;
+					}else{
+						alert("저장 실패");
+					}
+				}) // HTTP 요청이 실패하면 오류와 상태에 관한 정보가 fail() 메소드로 전달됨.
+				.fail(function(xhr, status, errorThrown) {
+					alert("통신 실패");
+				});
 			}
-			
-			$.ajax({
-				url: "${path}/cont/update.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
-				data: contData , // HTTP 요청과 함께 서버로 보낼 데이터
-				method: "POST", // HTTP 요청 메소드(GET, POST 등)
-				dataType: "json" // 서버에서 보내줄 데이터의 타입
-			}) // HTTP 요청이 성공하면 요청한 데이터가 done() 메소드로 전달됨. .
-			.done(function(data) {
-				if(data.code == 10001){
-					alert("저장 성공");
-					var url = '${path}/cont/list.do';
-					location.href = url;
-				}else{
-					alert("저장 실패");
-				}
-			}) // HTTP 요청이 실패하면 오류와 상태에 관한 정보가 fail() 메소드로 전달됨.
-			.fail(function(xhr, status, errorThrown) {
-				alert("통신 실패");
-			});
 		}
 
 		function fn_ExtendCont() {

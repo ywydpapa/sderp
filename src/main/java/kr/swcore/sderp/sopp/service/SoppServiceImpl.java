@@ -66,6 +66,8 @@ public class SoppServiceImpl implements SoppService {
 		Integer userNo = userNostr.equals("") == true ? 0 : Integer.valueOf(userNostr);				// 담당자
 		String custNostr =  request.getParameter("custNo");
 		Integer custNo = custNostr.equals("") == true ? 0 : Integer.valueOf(custNostr);				// 거래처
+		String productNostr = request.getParameter("productNo");
+		Integer productNo = productNostr.equals("") == true ? 0 : Integer.valueOf(productNostr);	// 상품
 		String buyrNostr = request.getParameter("buyrNo");
 		Integer buyrNo = buyrNostr.equals("") == true ? 0 : Integer.valueOf(buyrNostr);				// 엔드유저
 		String soppTypestr = request.getParameter("soppType");
@@ -83,6 +85,7 @@ public class SoppServiceImpl implements SoppService {
 		dto.setUserNo(userNo);
 		dto.setCustNo(custNo);
 		dto.setBuyrNo(buyrNo);
+		dto.setProductNo(productNo);
 		dto.setSoppType(soppType);
 		dto.setSoppTitle(soppTitle);
 		dto.setCntrctMth(cntrctMth);

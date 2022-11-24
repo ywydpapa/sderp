@@ -64,6 +64,9 @@ public class SoppDTO extends PageDTO {
 	private String maintenance_S;
 	private String maintenance_E;
 	
+	private int productNo;
+	private String productName;
+	
 	public SoppDTO() {
 		super();
 		// TODO Auto-generated constructor stub

@@ -53,11 +53,6 @@
 												</colgroup>
 												<tbody>
 													<tr>
-														<th scope="row" class="requiredTextCss">영업기회명</th>
-														<td>
-															<input type="text" class="form-control form-control-sm" id="soppTitle" name="soppTitle" data-completeSet="true" autocomplete="off" value="">
-															<input type="hidden" id="soppNo" name="soppNo" value="">
-														</td>
 														<th scope="row" class="requiredTextCss">담당사원</th>
 														<td>
 															<div class="input-group input-group-sm mb-0">
@@ -78,6 +73,11 @@
 																<input type="text" class="form-control" name="custmemberName"  id="custmemberName" value="" autocomplete="off">
 																<input type="hidden" name="custmemberNo" id="custmemberNo" value="" />
 															</div>
+														</td>
+														<th scope="row" class="requiredTextCss">상품</th>
+														<td>
+															<input type="text" class="form-control form-control-sm" id="productName" name="productName" autocomplete="off">
+															<input type="hidden" id="productNo" name="productNo" value="">
 														</td>
 													</tr>
 													
@@ -154,6 +154,13 @@
 															<div class="input-group input-group-sm mb-0">
 																<input class="form-control form-control-sm col-sm-6 m-r-5" type="date" max="9999-12-30" id="maintenance_S"> ~ <input class="form-control form-control-sm col-sm-6 m-l-5" type="date" max="9999-12-31" id="maintenance_E">
 															</div>
+														</td>
+													</tr>
+													<tr>
+														<th scope="row" class="requiredTextCss">영업기회명</th>
+														<td colspan="7">
+															<input type="text" class="form-control form-control-sm" id="soppTitle" name="soppTitle" data-completeSet="true" autocomplete="off" value="">
+															<input type="hidden" id="soppNo" name="soppNo" value="">
 														</td>
 													</tr>
 													<tr>
@@ -332,17 +339,18 @@
 	function fn_soppInsert() {
 		var soppData = {};
 		soppData.soppTitle 		= $("#soppTitle").val();
-		if($("#userName").val() != "")  	soppData.userNo 		= Number($("#userNo").val());
-		if($("#custName").val() != "")	soppData.custNo 		= Number($("#custNo").val());
-		if($("#endCustName").val() != "")	soppData.buyrNo 		= Number($("#endCustNo").val());
-		if($("#soppSrate").val() != "")	soppData.soppSrate 		= Number($("#soppSrate").val());
-		if($("#soppType").val() != "")	soppData.soppType 		= Number($("#soppType").val());
-		if($("#cntrctMth").val() != "")	soppData.cntrctMth 		= Number($("#cntrctMth").val());
+		if($("#userName").val() != "")  	soppData.userNo = Number($("#userNo").val());
+		if($("#custName").val() != "")	soppData.custNo = Number($("#custNo").val());
+		if($("#endCustName").val() != "")	soppData.buyrNo = Number($("#endCustNo").val());
+		if($("#soppSrate").val() != "")	soppData.soppSrate = Number($("#soppSrate").val());
+		if($("#soppType").val() != "")	soppData.soppType = Number($("#soppType").val());
+		if($("#cntrctMth").val() != "")	soppData.cntrctMth = Number($("#cntrctMth").val());
 		if($("#custmemberName").val() != "") soppData.custMemberNo = Number($("#custmemberNo").val());
-		if($("#soppStatus").val() != "") soppData.soppStatus 	= $("#soppStatus").val();
-		if($("#soppTargetDate").val() != "") soppData.soppTargetDate	= $("#soppTargetDate").val();
-		if($("#soppTargetAmt").val() != "") soppData.soppTargetAmt 	= $("#soppTargetAmt").val().replace(/[\D\s\._\-]+/g, "");
-		if(tinyMCE.get("soppDesc").getContent() != "") soppData.soppDesc 		= tinyMCE.get("soppDesc").getContent();
+		if($("#soppStatus").val() != "") soppData.soppStatus = $("#soppStatus").val();
+		if($("#soppTargetDate").val() != "") soppData.soppTargetDate = $("#soppTargetDate").val();
+		if($("#soppTargetAmt").val() != "") soppData.soppTargetAmt = $("#soppTargetAmt").val().replace(/[\D\s\._\-]+/g, "");
+		if(tinyMCE.get("soppDesc").getContent() != "") soppData.soppDesc = tinyMCE.get("soppDesc").getContent();
+		if($("#productName").val() !== "")	soppData.productNo = Number($("#productNo").val());
 		
 		if($("#cntrctMth").val() == '10248'){
 			if($('#maintenance_S').val() == ''){
@@ -371,7 +379,11 @@
 			return;
 		} else if($("#endCustName").val() === ""){
 			alert("엔드유저를 선택해주십시오.");
-			$("endCustName").focus();
+			$("#endCustName").focus();
+			return;
+		} else if($("#productName").val() === ""){
+			alert("상품을 선택해주십시오.");
+			$("#productName").focus();
 			return;
 		} else if(!soppData.cntrctMth){
 			alert("계약구분을 선택해주십시오.");
@@ -382,6 +394,10 @@
 		} else if(!autoCompleteVali($("#custName").val(), "cust")){
 			alert("조회된 매출처가 없습니다.\n다시 확인해주세요.");
 			$("#custName").focus();
+			return;
+		} else if(!autoCompleteVali($("#productName").val(), "product")){
+			alert("조회된 상품이 없습니다.\n다시 확인해주세요.");
+			$("#productName").focus();
 			return;
 		} else if($("#custmemberName").val() !== "" && !autoCompleteVali($("#custmemberName").val(), "custMember")){
 			alert("조회된 매출처 담당자가 없습니다.\n다시 확인해주세요.");
@@ -403,7 +419,11 @@
 			alert("엔드유저를 제대로 선택해주세요.");
 			$("#endCustName").focus();
 			return;
-		}else{
+		} else if($("#productName").val() !== "" && ($("#productNo").val() === "" || $("#productNo").val() == 0)){
+			alert("상품을 제대로 선택해주세요.");
+			$("#productName").focus();
+			return;
+		} else{
 			$.ajax({ url: "${path}/sopp/insert.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
 				data: soppData, // HTTP 요청과 함께 서버로 보낼 데이터
 				method: "POST", // HTTP 요청 메소드(GET, POST 등)

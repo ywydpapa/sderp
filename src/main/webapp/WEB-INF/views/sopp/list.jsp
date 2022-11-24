@@ -52,6 +52,7 @@
 					}
 					data.push({"name":"custNo", "value" : $("#custNo").val()});							// 거래처
 					data.push({"name":"buyrNo", "value" : $("#buyrNo").val()});							// 엔드유저
+					data.push({"name":"productNo", "value" : $("#productNo").val()});					// 상품
 					data.push({"name":"soppType", "value" : $("#soppType option:selected").val()});		// 판매방식
 					data.push({"name":"cntrctMth", "value" : $("#cntrctMth option:selected").val()});	// 계약구분
 					data.push({"name":"soppStatus", "value" : $("#soppStatus option:selected").val()});	// 진행단계
@@ -151,6 +152,17 @@
 					{
 						data: "buyrName",
 						column : '엔드유저',
+						render : function ( data, type, row ) {
+							if(data == null || data == undefined) {
+								return '';
+							} else {
+								return '<span title="'+data+'">'+data+'</span>';
+							}
+						},
+					},
+					{
+						data: "productName",
+						column : '상품',
 						render : function ( data, type, row ) {
 							if(data == null || data == undefined) {
 								return '';
@@ -415,6 +427,15 @@
 									</div>
 								</div>
 								<!--//거래처-->
+								<!-- 상품 -->
+								<div class="col-sm-12 col-xl-2">
+									<label class="col-form-label" for="custmemberName">상품</label>
+									<div class="input-group input-group-sm mb-0">
+										<input type="text" class="form-control" name="productName" id="productName" autocomplete="off">
+										<input type="hidden" name="productNo" id="productNo" value="" />
+									</div>
+								</div>
+								<!-- //상품 -->
 								<div class="col-sm-12 col-xl-2">
 									<label class="col-form-label" for="custmemberName">엔드유저</label>
 									<div class="input-group input-group-sm mb-0">
@@ -429,15 +450,6 @@
 										<input type="hidden" class="form-control" name="soppNo" id="soppNo" value="${dto.soppNo}" />
 									</p>
 								</div>
-								<!--매출예정일-->
-								<div class="col-sm-12 col-xl-3">
-									<label class="col-form-label">매출예정일</label>
-									<p class="input_inline mb-0">
-										<input class="form-control form-control-sm col-xl-6" type="date" max="9999-12-30" id="targetDatefrom"> ~
-										<input class="form-control form-control-sm col-xl-6" type="date" max="9999-12-31" id="targetDateto">
-									</p>
-								</div>
-								<!--//매출예정일-->
 							</div>
 							<!--//row-->
 							<div class="form-group row">
@@ -477,6 +489,15 @@
 									</p>
 								</div>
 								<!--//등록/수정일-->
+								<!--매출예정일-->
+								<div class="col-sm-12 col-xl-3">
+									<label class="col-form-label">매출예정일</label>
+									<p class="input_inline mb-0">
+										<input class="form-control form-control-sm col-xl-6" type="date" max="9999-12-30" id="targetDatefrom"> ~
+										<input class="form-control form-control-sm col-xl-6" type="date" max="9999-12-31" id="targetDateto">
+									</p>
+								</div>
+								<!--//매출예정일-->
 							</div>
 						</div>
 					</div>
@@ -513,6 +534,7 @@
 								<th>영업기회명</th>
 								<th>매출처</th>
 								<th>엔드유저</th>
+								<th>상품</th>
 								<th>담당사원</th>
 								<th>예상매출액</th>
 								<th>진행단계</th>

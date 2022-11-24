@@ -9,7 +9,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		from
 		(
 		select a.*, b.userName , c.custName, d.desc03 soppTypeN, e.desc03
-		soppStatusN, f.desc03 cntrctMthN, g.custName buyrName
+		soppStatusN, f.desc03 cntrctMthN, g.custName buyrName, h.productName
 		from swc_sopp a
 		left join swc_user b on a.userNo = b.userNo
 		left join swc_cust c on a.custNo = c.custNo
@@ -17,6 +17,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		left join swc_code e on a.soppStatus = e.codeNo
 		left join swc_code f on a.cntrctMth = f.codeNo
 		left join swc_cust g on a.buyrNo = g.custNo
+		left join swc_product h on a.productNo = h.productNo
 		where a.attrib not like 'XXX%'
 		and b.compNo = #{compNo}
 		<if test="userNo != null and userNo != ''">
@@ -36,6 +37,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		</if>
 		<if test="buyrNo != null and buyrNo > 0">
 			and a.buyrNo = #{buyrNo}
+		</if>
+		<if test="productNo != null and productNo > 0">
+			and a.productNo = #{productNo}
 		</if>
 		<if test="buyrMemberNo != null and buyrMemberNo > 0">
 			and a.buyrMemberNo = #{buyrMemberNo}
@@ -92,6 +96,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			or subquery1.custName like concat('%',#{sSearch},'%')
 			or subquery1.buyrName like concat('%',#{sSearch},'%')
 			or subquery1.userName like concat('%',#{sSearch},'%')
+			or subquery1.productName like concat('%',#{sSearch},'%')
 			or subquery1.soppTargetAmt like concat('%',#{sSearch},'%')
 			or subquery1.soppStatusN like concat('%',#{sSearch},'%')
 			or subquery1.soppTargetDate like concat('%',#{sSearch},'%')
@@ -116,7 +121,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		from
 		(
 		select a.*, b.userName , c.custName, d.desc03 soppTypeN, e.desc03
-		soppStatusN, f.desc03 cntrctMthN, g.custName buyrName
+		soppStatusN, f.desc03 cntrctMthN, g.custName buyrName, h.productName
 		from swc_sopp a
 		left join swc_user b on a.userNo = b.userNo
 		left join swc_cust c on a.custNo = c.custNo
@@ -124,6 +129,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		left join swc_code e on a.soppStatus = e.codeNo
 		left join swc_code f on a.cntrctMth = f.codeNo
 		left join swc_cust g on a.buyrNo = g.custNo
+		left join swc_product h on a.productNo = h.productNo
 		where a.attrib not like 'XXX%'
 		and b.compNo = #{compNo}
 		<if test="userNo != null and userNo != ''">
@@ -143,6 +149,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		</if>
 		<if test="buyrNo != null and buyrNo > 0">
 			and a.buyrNo = #{buyrNo}
+		</if>
+		<if test="productNo != null and productNo > 0">
+			and a.productNo = #{productNo}
 		</if>
 		<if test="buyrMemberNo != null and buyrMemberNo > 0">
 			and a.buyrMemberNo = #{buyrMemberNo}
@@ -199,6 +208,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			or subquery1.custName like concat('%',#{sSearch},'%')
 			or subquery1.buyrName like concat('%',#{sSearch},'%')
 			or subquery1.userName like concat('%',#{sSearch},'%')
+			or subquery1.productName like concat('%',#{sSearch},'%')
 			or subquery1.soppTargetAmt like concat('%',#{sSearch},'%')
 			or subquery1.soppStatusN like concat('%',#{sSearch},'%')
 			or subquery1.soppTargetDate like concat('%',#{sSearch},'%')
@@ -536,14 +546,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 
 	<select id="detailSopp" resultType="soppDto">
-		select a.*, b.userName , c.custName, d.custName buyrName,
-		(select q.custMname from swc_custData03 q where q.custData03no =
-		a.custMemberNo) custMemberName
-		from swc_sopp a
-		left join swc_user b on
-		a.userNo = b.userNo
+		select a.*, b.userName , c.custName, d.custName buyrName, e.productName, (select q.custMname from swc_custData03 q where q.custData03no = a.custMemberNo) custMemberName from swc_sopp a
+		left join swc_user b on a.userNo = b.userNo
 		left join swc_cust c on a.custNo = c.custNo
 		left join swc_cust d on a.buyrNo = d.custNo
+		left join swc_product e on a.productNo = e.productNo
 		where a.attrib not like 'XXX%'
 		and soppNo=#{soppNo} order by soppNo
 	</select>
@@ -551,11 +558,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<insert id="insertSopp">
 		insert into swc_sopp (compNo, custNo,userNo, buyrNo, ptncNo, soppTitle,
 		soppDesc, soppType, soppSrate, soppStatus
-		, soppTargetDate, soppTargetAmt,attrib, cntrctMth, custMemberNo,
+		, soppTargetDate, soppTargetAmt, productNo, attrib, cntrctMth, custMemberNo,
 		Maintenance_S, Maintenance_E)
 		values (#{compNo}, #{custNo},#{userNo}, #{buyrNo},#{ptncNo}, #{soppTitle},
 		#{soppDesc}, #{soppType}, #{soppSrate}, #{soppStatus},
-		#{soppTargetDate}, #{soppTargetAmt},'10000',#{cntrctMth},
+		#{soppTargetDate}, #{soppTargetAmt}, #{productNo}, '10000',#{cntrctMth},
 		#{custMemberNo}, #{maintenance_S}, #{maintenance_E})
 	</insert>
 
@@ -648,6 +655,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		,custMemberNo=#{custMemberNo}
 		,maintenance_S=#{maintenance_S}
 		,maintenance_E=#{maintenance_E}
+		,productNo=#{productNo}
 		where soppNo=#{soppNo}
 	</update>
 

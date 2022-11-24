@@ -694,6 +694,17 @@
 			});
 		}
 		
+		$("#productName").autocomplete({
+			source: listSession.listProduct,
+		    select: function(event, ui) {
+		      $("#productNo").val(ui.item.no);
+		      $("#productName").val(ui.item.label);
+		      return false;
+		    },
+		    delay : 300,
+		    minLength: 0,
+		});
+		
 		$("#productCategoryName").autocomplete({
 			source: listSession.listCategory,
 		    select: function(event, ui) {

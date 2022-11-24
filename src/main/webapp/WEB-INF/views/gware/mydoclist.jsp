@@ -86,9 +86,9 @@
                             <div class="col-sm-12 col-xl-3">
                                 <label class="col-form-label">거래처</label>
                                 <div class="input-group input-group-sm mb-0">
-                                    <input type="text" class="form-control" name="custName" id="custName" value="${param.custName}" readonly />
+                                    <input type="text" class="form-control" name="custName" id="custName" value="${param.custName}" autocomplete="off" />
                                     <input type="hidden" name="custNo" id="custNo" value="${param.custNo}" />
-                                    <span class="input-group-btn">
+                                    <%-- <span class="input-group-btn">
 											<button class="btn btn-primary sch-company"
                                                     data-remote="${path}/modal/popup.do?popId=cust"
                                                     type="button" data-toggle="modal"
@@ -116,16 +116,15 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> --%>
                                 </div>
                             </div>
                             <div class="col-sm-12 col-xl-3">
                                 <label class="col-form-label" for="userName">담당사원</label>
                                 <div class="input-group input-group-sm mb-0">
-                                    <input type="text" class="form-control" name="userName"
-                                           id="userName" readonly /> <input type="hidden"
-                                                                            name="userNo" id="userNo" /> <span
-                                        class="input-group-btn">
+                                	<input type="text" class="form-control" name="userName" id="userName" autocomplete="off" /> 
+                                	<input type="hidden" name="userNo" id="userNo" /> 
+                                	<%-- <span class="input-group-btn">
 											<button class="btn btn-primary sch-company"
                                                     data-remote="${path}/modal/popup.do?popId=user" type="button"
                                                     data-toggle="modal" data-target="#userModal">
@@ -153,7 +152,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> --%>
                                 </div>
                             </div>
                             <div class="col-sm-12 col-xl-3">

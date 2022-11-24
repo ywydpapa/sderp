@@ -1120,7 +1120,7 @@
     	var productSum = parseInt($("#product02InSum_table").html().replace(/[\D\s\._\-]+/g, ""));
     	var amountSum = parseInt($("#amountSum").val());
     	var vatSum = parseInt($("#vatSum").val());
-    	var nowDate = new Date();    
+    	var nowDate = new Date();
     	var comName = "${detail.comName}";
 		
         $("#estDate").val(nowDate.getFullYear() + "-" + nowDate.getMonth()+1 + "-" + nowDate.getDate());

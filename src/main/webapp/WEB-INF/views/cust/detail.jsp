@@ -545,6 +545,7 @@
 
 		function fn_custUpdate01(){
 			var custData = {};
+			custData.compNo = "${sessionScope.compNo}";
 			custData.custNo 		= $("#custNo").val();
 			custData.custName 		= $("#custName").val();
 			custData.custBossname 	= $("#custBossname").val();

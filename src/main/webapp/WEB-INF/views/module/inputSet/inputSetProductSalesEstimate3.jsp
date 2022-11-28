@@ -45,9 +45,15 @@
             	</td>
                 <td>
                     <div class="input-group input-group-sm mb-0">
-                        <input type="text" class="form-control" name="product" id="productSalesEstimateCustName" value="">
+                    	<select class="form-control" id=productSalesEstimateCustName name="productSalesEstimateCustName" onchange="autoCompleteSelect(this);">
+							<option value="">선택</option>
+							<c:forEach var="row" items="${listCust}">
+								<option data-no="${row.custNo}" value="${row.custName}">${row.custName}</option>
+							</c:forEach>
+						</select>
                         <input type="hidden" id="productSalesEstimateCustNo" value="" />
                         <input type="hidden" id="soppdataNoEstimate" value="">
+                        <!-- <input type="text" class="form-control" name="product" id="productSalesEstimateCustName" value=""> -->
                         <%-- <span class="input-group-btn">
                             <button class="btn btn-primary sch-company" data-remote="${path}/modal/popup.do?popId=productdataListSalesEstimateCust" type="button" data-toggle="modal" data-target="#productCustModal3">
                                 <i class="icofont icofont-search"></i>
@@ -106,8 +112,14 @@
 					  	</div>
 					  	<div id="select1" style="width:100%;">
 		                    <div class="input-group input-group-sm mb-0">
+		                    	<select class="form-control" id="data02Title" name="data02Title" data-flag="true" onchange="autoCompleteSelect(this);">
+									<option value="">선택</option>
+									<c:forEach var="row" items="${listProduct}">
+										<option data-no="${row.productNo}" value="${row.productName}">${row.productName}</option>
+									</c:forEach>
+								</select>
 		                        <input type="hidden" id="productNo2" value="" />
-		                        <input type="text" class="form-control" name="product" id="data02Title" data-flag="true" value="">
+		                        <!-- <input type="text" class="form-control" name="product" id="data02Title" data-flag="true" value=""> -->
 		                        <!-- <span class="input-group-btn">
 		                            <button class="btn btn-primary sch-company" onclick="fn_productdataTableReload2()" type="button" data-toggle="modal" data-target="#productdataModal2">
 		                                <i class="icofont icofont-search"></i>
@@ -322,7 +334,7 @@
 			
 			addquty.find("#itemKinds").val($(event).parents("tr").find("#dataItemKinds").html());
 			addquty.find("#itemTitle").val($(event).parents("tr").find("#dataItemTitle").html());
-			addquty.find("#productSalesEstimateCustName").val($(event).parents("tr").find("#salesCustNoN").html());
+			addquty.find("#productSalesEstimateCustName").val($(event).parents("tr").find("#salesCustNoN").html()).trigger("change");
 			addquty.find("#productSalesEstimateCustNo").val($(event).parents("tr").find("#productCustNo").val());
 			
 			if($(event).parents("tr").find("#productNo").val() === ""){
@@ -367,7 +379,7 @@
 			
 			addquty.find("#itemKinds").val("");
 			addquty.find("#itemTitle").val("");
-			addquty.find("#productSalesEstimateCustName").val("");
+			addquty.find("#productSalesEstimateCustName").val("").trigger("change");
 			addquty.find("#productSalesEstimateCustNo").val("");
 			
 			$("#select1").show();
@@ -401,15 +413,7 @@
     		alert("제목을 입력해주십시오.");
     		$("#itemTitle").focus();
     		return false;
-    	}else if($("#productSalesEstimateCustName").val() !== "" && !autoCompleteVali($("#productSalesEstimateCustName").val(), "cust")){
-			alert("조회된 거래처가 없습니다.\n다시 확인해주세요.");
-			$("#productSalesEstimateCustName").focus();
-			return;
-		}else if($("#productSalesEstimateCustName").val() !== "" && ($("#productSalesEstimateCustNo").val() === "" || $("#productSalesEstimateCustNo").val() == 0)){
-			alert("거래처를 제대로 선택해주세요.");
-			$("#productSalesEstimateCustName").focus();
-			return;
-		}else{
+    	}else{
 			var addquty = $("#addquty tbody tr td");
 			var dataFlag = $("#qutylist tbody tr td").find("#dataUpdateBtn[data-flag='0']");
 			var FlagQutyList = dataFlag.parents("tr");
@@ -523,15 +527,7 @@
     		alert("제목을 입력해주십시오.");
     		$("#itemTitle").focus();
     		return false;
-    	}else if($("#productSalesEstimateCustName").val() !== "" && !autoCompleteVali($("#productSalesEstimateCustName").val(), "cust")){
-			alert("조회된 거래처가 없습니다.\n다시 확인해주세요.");
-			$("#productSalesEstimateCustName").focus();
-			return;
-		}else if($("#productSalesEstimateCustName").val() !== "" && ($("#productSalesEstimateCustNo").val() === "" || $("#productSalesEstimateCustNo").val() == 0)){
-			alert("거래처를 제대로 선택해주세요.");
-			$("#productSalesEstimateCustName").focus();
-			return;
-		}else{
+    	}else{
     		var temp = {};
         	var itemKinds = $("#itemKinds").val();
         	var itemTitle = $("#itemTitle").val();
@@ -579,7 +575,7 @@
             $("#productSalesEstimateCustName").val("");
             $("#productSalesEstimateCustNo").val("");
             $("#productNo2").val("");
-            $("#data02Title[data-flag='true']").val("");
+            $("#data02Title[data-flag='true']").val("").trigger("change");
             $("#data02Netprice").val("");
             $("#data02Quanty").val("");
             $("#data02Amt").val("");
@@ -643,22 +639,6 @@
 			alert("Spec을 입력해주십시오.");
 			$("#estComSpec").focus();
 			return false;
-		}else if($("#custName").val() !== "" && !autoCompleteVali($("#custName").val(), "cust")){
-			alert("조회된 견적고객이 없습니다.\n다시 확인해주세요.");
-			$("#custName").focus();
-			return;
-		}else if($("#soppTitle").val() !== "" && !autoCompleteVali($("#soppTitle").val(), "sopp")){
-			alert("조회된 영업기회가 없습니다.\n다시 확인해주세요.");
-			$("#soppTitle").focus();
-			return;
-		}else if($("#custName").val() !== "" && ($("#custNo").val() === "" || $("#custNo").val() == 0)){
-			alert("견적고객을 제대로 선택해주세요.");
-			$("#custName").focus();
-			return;
-		}else if($("#soppTitle").val() !== "" && ($("#soppNo").val() === "" || $("#soppNo").val() == 0)){
-			alert("영업기회를 제대로 선택해주세요.");
-			$("#soppTitle").focus();
-			return;
 		}else{
     		data02Data.estTitle = $("#estTitle").val();
     		data02Data.estType = $("input[name='contractType']:checked").val();
@@ -789,22 +769,6 @@
 				alert("Spec을 입력해주십시오.");
 				$("#estComSpec").focus();
 				return false;
-			}else if($("#custName").val() !== "" && !autoCompleteVali($("#custName").val(), "cust")){
-				alert("조회된 견적고객이 없습니다.\n다시 확인해주세요.");
-				$("#custName").focus();
-				return;
-			}else if($("#soppTitle").val() !== "" && !autoCompleteVali($("#soppTitle").val(), "sopp")){
-				alert("조회된 영업기회가 없습니다.\n다시 확인해주세요.");
-				$("#soppTitle").focus();
-				return;
-			}else if($("#custName").val() !== "" && ($("#custNo").val() === "" || $("#custNo").val() == 0)){
-				alert("견적고객을 제대로 선택해주세요.");
-				$("#custName").focus();
-				return;
-			}else if($("#soppTitle").val() !== "" && ($("#soppNo").val() === "" || $("#soppNo").val() == 0)){
-				alert("영업기회를 제대로 선택해주세요.");
-				$("#soppTitle").focus();
-				return;
 			}else{
 	    		data02Data.estTitle = $("#estTitle").val();
 	    		data02Data.estType = $("input[name='contractType']:checked").val();
@@ -931,14 +895,6 @@
 			alert("Spec을 입력해주십시오.");
 			$("#estComSpec").focus();
 			return false;
-		}else if($("#custName").val() !== "" && !autoCompleteVali($("#custName").val(), "cust")){
-			alert("조회된 거래처가 없습니다.\n다시 확인해주세요.");
-			$("#custName").focus();
-			return;
-		}else if($("#soppTitle").val() !== "" && !autoCompleteVali($("#soppTitle").val(), "sopp")){
-			alert("조회된 영업기회가 없습니다.\n다시 확인해주세요.");
-			$("#soppTitle").focus();
-			return;
 		}else{
     		data02Data.estTitle = $("#estTitle").val();
     		data02Data.estType = $("input[name='contractType']:checked").val();

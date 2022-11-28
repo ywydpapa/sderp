@@ -231,8 +231,14 @@
 									</td>-->
 									<td class="contDetailSopp" id="contDetailSopp_hide_motion">
 										<div class="input-group input-group-sm mb-0">
-											<input type="text" class="form-control" name="soppDTO" id="soppTitle" value="${detail.soppTitle}" autocomplete="off"/>
+											<select class="form-control" id="soppTitle" name="soppTitle" onchange="autoCompleteSelect(this);">
+												<option value="">선택</option>
+												<c:forEach var="row" items="${listSopp}">
+													<option data-no="${row.soppNo}" value="${row.soppTitle}" <c:if test="${row.soppTitle eq detail.soppTitle}">selected</c:if>>${row.soppTitle}</option>
+												</c:forEach>
+											</select>
 											<input type="hidden" class="form-control" name="soppDTO" id="soppNo" value="${detail.soppNo}" />
+											<%-- <input type="text" class="form-control" name="soppDTO" id="soppTitle" value="${detail.soppTitle}" autocomplete="off"/> --%>
 											<%-- <span class="input-group-btn">
 												<button class="btn btn-primary sch-opportunity2"
 													data-remote="${path}/modal/popup.do?popId=sopp"
@@ -268,8 +274,14 @@
 									<th class="text-center">견적고객</th>
 									<td>
 										<div class="input-group input-group-sm mb-0">
-											<input type="text" class="form-control" name="custName" id="custName" value="${detail.custName}" autocomplete="off"> 
+											<select class="form-control" id="custName" name="custName" onchange="autoCompleteSelect(this);">
+												<option value="">선택</option>
+												<c:forEach var="row" items="${listCust}">
+													<option data-no="${row.custNo}" value="${row.custName}" <c:if test="${row.custName eq detail.custName}">selected</c:if>>${row.custName}</option>
+												</c:forEach>
+											</select>
 											<input type="hidden" name="custNo" id="custNo" value="${detail.custNo}" /> 
+											<%-- <input type="text" class="form-control" name="custName" id="custName" value="${detail.custName}" autocomplete="off"> --%> 
 											<%-- <span class="input-group-btn">
 												<button class="btn btn-primary sch-company"
 													data-remote="${path}/modal/popup.do?popId=cust"

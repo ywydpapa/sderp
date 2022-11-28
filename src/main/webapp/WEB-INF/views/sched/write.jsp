@@ -95,11 +95,24 @@
 											</div>
 										</div>
 									</td> --%>
-									<th scope="row">영업기회</th>
+									<th scope="row" class="requiredTextCss">담당사원</th>
 									<td>
 										<div class="input-group input-group-sm mb-0">
-											<input type="text" class="form-control" name="soppTitle" id="soppTitle" autocomplete="off"> 
+											<input type="text" class="form-control" name="userName" id="userName" data-completeSet="true" value="${sessionScope.userName}" autocomplete="off" readonly /> 
+											<input type="hidden" name="userNo" id="userNo" value="${sessionScope.userNo}" /> 
+										</div>
+									</td>
+									<th scope="row">영업기회</th>
+									<td colspan="3">
+										<div class="input-group input-group-sm mb-0">
+											<select class="form-control" id="soppTitle" name="soppTitle" onchange="autoCompleteSelect(this);">
+												<option value="">선택</option>
+												<c:forEach var="row" items="${listSopp}">
+													<option data-no="${row.soppNo}" value="${row.soppTitle}">${row.soppTitle}</option>
+												</c:forEach>
+											</select>
 											<input type="hidden" name="soppNo" id="soppNo" value="" /> 
+											<!-- <input type="text" class="form-control" name="soppTitle" id="soppTitle" autocomplete="off"> --> 
 											<%-- <span class="input-group-btn">
 												<button class="btn btn-primary sch-opportunity2"
 													data-remote="${path}/modal/popup.do?popId=sopp"
@@ -132,20 +145,19 @@
 											</div> --%>
 										</div>
 									</td>
-									<th scope="row" class="requiredTextCss">담당사원</th>
-									<td colspan="3">
-										<div class="input-group input-group-sm mb-0">
-											<input type="text" class="form-control" name="userName" id="userName" value="${sessionScope.userName}" autocomplete="off" readonly /> 
-											<input type="hidden" name="userNo" id="userNo" value="${sessionScope.userNo}" /> 
-										</div>
-									</td>
 								</tr>
 								<tr>
 									<th scope="row">매출처</th>
 									<td>
 										<div class="input-group input-group-sm mb-0">
-											<input type="text" class="form-control" name="custName" id="custName" autocomplete="off">
+											<select class="form-control" id="custName" name="custName" onchange="autoCompleteSelect(this);">
+												<option value="">선택</option>
+												<c:forEach var="row" items="${listCust}">
+													<option data-no="${row.custNo}" value="${row.custName}">${row.custName}</option>
+												</c:forEach>
+											</select>
 											<input type="hidden" name="custNo" id="custNo" value="" />
+											<!-- <input type="text" class="form-control" name="custName" id="custName" autocomplete="off"> -->
 											<%-- <span class="input-group-btn">
 												<button class="btn btn-primary sch-company"
 													data-remote="${path}/modal/popup.do?popId=cust"
@@ -341,22 +353,6 @@
 				return
 			}else if(!schedData.schedTitle){
 				alert("제목을 입력하십시오.");
-				return;
-			}else if($("#soppTitle").val() !== "" && !autoCompleteVali($("#soppTitle").val(), "sopp")){
-				alert("조회된 영업기회가 없습니다.\n다시 확인해 주세요.");
-				$("#soppTitle").focus();
-				return;
-			}else if($("#custName").val() !== "" && !autoCompleteVali($("#custName").val(), "cust")){
-				alert("조회된 거래처가 없습니다.\n다시 확인해주세요.");
-				$("#custName").focus();
-				return;
-			}else if($("#soppTitle").val() !== "" && ($("#soppNo").val() === "" || $("#soppNo").val() == 0)){
-				alert("영업기회를 제대로 선택해주세요.");
-				$("#soppTitle").focus();
-				return;
-			}else if($("#custName").val() !== "" && ($("#custNo").val() === "" || $("#custNo").val() == 0)){
-				alert("매출처를 제대로 선택해주세요.");
-				$("#custName").focus();
 				return;
 			}else{
 				$.ajax({ 

@@ -1,9 +1,13 @@
 package kr.swcore.sderp.gw;
 
+import kr.swcore.sderp.cust.service.CustService;
 import kr.swcore.sderp.gw.dto.GwDTO;
 
 import kr.swcore.sderp.gw.dto.GwFileDataDTO;
 import kr.swcore.sderp.gw.service.GwService;
+import kr.swcore.sderp.product.service.ProductService;
+import kr.swcore.sderp.sopp.service.SoppService;
+import kr.swcore.sderp.user.service.UserService;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -31,8 +35,20 @@ import java.util.Map;
 @RequestMapping("/gw/*")
 public class GwController {
 
-@Inject
+	@Inject
     GwService gwService;
+	
+	@Inject
+    UserService userService;
+	
+	@Inject
+    CustService custService;
+	
+	@Inject
+    SoppService soppService;
+	
+	@Inject
+    ProductService productService;
 
     @RequestMapping("list.do")
     public ModelAndView docList(HttpSession session, ModelAndView mav) {
@@ -65,6 +81,8 @@ public class GwController {
     		mav.addObject("mylist", gwService.myList(session));
     	}
     	
+    	mav.addObject("listUser", userService.userList(session));
+    	mav.addObject("listCust", custService.listCust(session));
         mav.setViewName("gware/mylist");
         return mav;
     }
@@ -93,6 +111,8 @@ public class GwController {
     		mav.addObject("mydoclist", gwService.myDocList(session));
     	}
         
+    	mav.addObject("listUser", userService.userList(session));
+    	mav.addObject("listCust", custService.listCust(session));
         mav.setViewName("gware/mydoclist");
         return mav;
     }
@@ -100,15 +120,21 @@ public class GwController {
     @RequestMapping("write.do")
     public ModelAndView docWrite(HttpSession session, ModelAndView mav) {
         mav.setViewName("gware/write");
+        mav.addObject("listCust", custService.listCust(session));
+		mav.addObject("listSopp", soppService.listSopp(session, null));
+		mav.addObject("listProduct", productService.listProduct(session));
         return mav;
     }
     
     @RequestMapping("detail/{docNo}")
-    public ModelAndView docDetail(@PathVariable("docNo") int docNo, ModelAndView mav) {
+    public ModelAndView docDetail(HttpSession session, @PathVariable("docNo") int docNo, ModelAndView mav) {
     	mav.addObject("detailList", gwService.detailDoc(docNo));
     	mav.addObject("detailListApp", gwService.detailDocApp(docNo));
     	mav.addObject("detailListData", gwService.detailDocData(docNo));
     	mav.addObject("detailFile", gwService.listFile(docNo));
+    	mav.addObject("listCust", custService.listCust(session));
+		mav.addObject("listSopp", soppService.listSopp(session, null));
+		mav.addObject("listProduct", productService.listProduct(session));
         mav.setViewName("gware/detail");
         return mav;
     }
@@ -174,6 +200,8 @@ public class GwController {
     		GwDTO dto = new GwDTO();
     		mav.addObject("list", gwService.listEst(session, dto));
     	}
+    	mav.addObject("listUser", userService.userList(session));
+		mav.addObject("listCust", custService.listCust(session));
     	
         mav.setViewName("gware/estlist");
         return mav;
@@ -183,6 +211,9 @@ public class GwController {
     public ModelAndView estwrite(HttpSession session, ModelAndView mav) {
     	mav.addObject("comList", gwService.comList(session));
     	mav.addObject("allComList", gwService.allComList(session));
+        mav.addObject("listCust", custService.listCust(session));
+		mav.addObject("listSopp", soppService.listSopp(session, null));
+		mav.addObject("listProduct", productService.listProduct(session));
     	mav.setViewName("gware/estwrite");
         return mav;
     }
@@ -195,6 +226,9 @@ public class GwController {
         mav.addObject("infoItem", gwService.infoGetItem(dto));
         mav.addObject("comList", gwService.comList(session));
         mav.addObject("allComList", gwService.allComList(session));
+        mav.addObject("listCust", custService.listCust(session));
+		mav.addObject("listSopp", soppService.listSopp(session, null));
+		mav.addObject("listProduct", productService.listProduct(session));
         return mav;
     }
     

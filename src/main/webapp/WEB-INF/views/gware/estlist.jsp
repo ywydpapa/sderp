@@ -74,14 +74,26 @@
 								<div class="col-sm-12 col-xl-2">
 									<label class="col-form-label">거래처</label>
 									<div class="input-group input-group-sm mb-0">
-										<input type="text" class="form-control" name="custName" id="custName" autocomplete="off" value="${param.custName}" />
+										<select class="form-control" id="custName" name="custName" onchange="autoCompleteSelect(this);">
+											<option value="">선택</option>
+											<c:forEach var="row" items="${listCust}">
+												<option data-no="${row.custNo}" value="${row.custName}" <c:if test="${row.custName eq param.custName}">selected</c:if>>${row.custName}</option>
+											</c:forEach>
+										</select>
 										<input type="hidden" name="custNo" id="custNo" value="${param.custNo}" />
+										<%-- <input type="text" class="form-control" name="custName" id="custName" autocomplete="off" value="${param.custName}" /> --%>
 									</div>
 								</div>
 								<div class="col-sm-12 col-xl-2">
 									<label class="col-form-label" for="userName">담당사원</label>
 									<div class="input-group input-group-sm mb-0">
-										<input type="text" class="form-control" name="userName" id="userName" autocomplete="off"/> 
+										<select class="form-control" id="userName" name="userName" onchange="autoCompleteSelect(this);">
+											<option value="">선택</option>
+											<c:forEach var="row" items="${listUser}">
+												<option data-no="${row.userNo}" value="${row.userName}">${row.userName}</option>
+											</c:forEach>
+										</select>
+										<!-- <input type="text" class="form-control" name="userName" id="userName" autocomplete="off"/> --> 
 										<input type="hidden" name="userNo" id="userNo" /> 
 									</div>
 								</div>

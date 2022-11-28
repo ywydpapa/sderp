@@ -129,6 +129,8 @@ public class schedController {
 		mav.addObject("dto", schedService.detailSched(schedNo));
 		mav.addObject("schedtype", codeService.listSchedtype(session));
 		mav.addObject("acttype", codeService.listActtype(session));
+		mav.addObject("listCust", custService.listCust(session));
+		mav.addObject("listSopp", soppService.listSopp(session, null));
 		if(simple != null){
 			mav.addObject("simple","Y");
 		}
@@ -153,6 +155,8 @@ public class schedController {
 		mav.addObject("schedtype", codeService.listSchedtype(session));
 //		mav.addObject("acttype", codeService.listActtype(session));
 		mav.addObject("acttype", codeService.listActtype(session));
+		mav.addObject("listCust", custService.listCust(session));
+		mav.addObject("listSopp", soppService.listSopp(session, null));
 		if(simple != null){
 			mav.addObject("simple","Y");
 		}

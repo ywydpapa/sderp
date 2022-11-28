@@ -69,6 +69,8 @@
 <script type="text/javascript" src="${path}/js/jquery-ui.js"></script>
 <script type="text/javascript" src="${path}/js/popper.min.js"></script>
 <script type="text/javascript" src="${path}/js/bootstrap.min.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
 <!-- jquery slimscroll js -->
 <script type="text/javascript" src="${path}/js/jquery.slimscroll.js"></script>
@@ -525,7 +527,70 @@
 	}
 	
 	function autoCompleteSet(){
-		$("#userName").autocomplete({
+		if(!$("#userName").attr("data-completeSet") || $("#userName").attr("data-completeSet") === undefined){
+			$("#userName").select2();
+		}
+		
+		if(!$("#secondUserName").attr("data-completeSet") || $("#secondUserName").attr("data-completeSet") === undefined){
+			$("#secondUserName").select2();
+		}
+		
+		if(!$("#soppTitle").attr("data-completeSet") || $("#soppTitle").attr("data-completeSet") === undefined){
+			$("#soppTitle").select2();
+		}
+		
+		if(!$("#contTitle").attr("data-completeSet") || $("#contTitle").attr("data-completeSet") === undefined){
+			$("#contTitle").select2();
+		}
+		
+		if(!$("#custName").attr("data-completeSet") || $("#custName").attr("data-completeSet") === undefined){
+			$("#custName").select2();
+		}
+		
+		if(!$("#productSalesInOutCustName").attr("data-completeSet") || $("#productSalesInOutCustName").attr("data-completeSet") === undefined){
+			$("#productSalesInOutCustName").select2();
+		}
+		
+		if(!$("#ptncName").attr("data-completeSet") || $("#ptncName").attr("data-completeSet") === undefined){
+			$("#ptncName").select2();
+		}
+		
+		if(!$("#endCustName").attr("data-completeSet") || $("#endCustName").attr("data-completeSet") === undefined){
+			$("#endCustName").select2();
+		}
+		
+		if(!$("#buyrName").attr("data-completeSet") || $("#buyrName").attr("data-completeSet") === undefined){
+			$("#buyrName").select2();
+		}
+		
+		if(!$("#productSalesEstimateCustName").attr("data-completeSet") || $("#productSalesEstimateCustName").attr("data-completeSet") === undefined){
+			$("#productSalesEstimateCustName").select2();
+		}
+		
+		if(!$("#custmemberName").attr("data-completeSet") || $("#custmemberName").attr("data-completeSet") === undefined){
+			$("#custmemberName").select2();
+		}
+		
+		if(!$("#endCustmemberName").attr("data-completeSet") || $("#endCustmemberName").attr("data-completeSet") === undefined){
+			$("#endCustmemberName").select2();
+		}
+		
+		if(!$("#data02Title").attr("data-completeSet") || $("#data02Title").attr("data-completeSet") === undefined){
+			$("#data02Title").select2();
+		}
+		
+		if(!$("#data01Title").attr("data-completeSet") || $("#data01Title").attr("data-completeSet") === undefined){
+			$("#data01Title").select2();
+		}
+		
+		if(!$("#productName").attr("data-completeSet") || $("#productName").attr("data-completeSet") === undefined){
+			$("#productName").select2();
+		}
+		
+		if(!$("#productCategoryName").attr("data-completeSet") || $("#productCategoryName").attr("data-completeSet") === undefined){
+			$("#productCategoryName").select2();
+		}
+		/* $("#userName").autocomplete({
 			source: listSession.listUser,
 		    select: function(event, ui) {
 		      $("#userNo").val(ui.item.no);
@@ -714,7 +779,15 @@
 		    },
 		    delay : 300,
 		    minLength: 0,
-		});
+		}); */
+	}
+	
+	function autoCompleteSelect(e){
+		let thisEle = $(e);
+		thisEle.next().next().val(thisEle.find("option:selected").data("no"));
+		if(thisEle.find("option:selected").data("sopp") !== undefined){
+			thisEle.prev().val(thisEle.find("option:selected").data("sopp"));
+		}
 	}
 	
 	function autoCompleteVali(value, type){

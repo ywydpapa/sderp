@@ -5,7 +5,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="cust">
 
 <select id="listCust" resultType="custDto">
- 		select * from swc_cust where attrib not like 'XXX%' and compNo = #{compNo} order by custNo
+ 		select * from swc_cust where (attrib = '10000' or attrib = 'XXXX1') and compNo = #{compNo} order by custNo
 </select>
 
 <select id="tempListCust" resultType="custDto">

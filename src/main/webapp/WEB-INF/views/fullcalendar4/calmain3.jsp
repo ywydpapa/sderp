@@ -207,9 +207,13 @@
 					});
 
 					fnSetCurrentDate();
-					autoCompleteSet();
+					
+					setTimeout(() => {
+						autoCompleteSet();
+					}, 300);
 				});
 			}
+			
 			
 		}
 		var calendar;

@@ -170,36 +170,6 @@ public class UserController {
 			session.setAttribute("compNo", userInfo.getCompNo()); // ȸ���ڵ�
 			session.setAttribute("userNo", Integer.toString(userInfo.getUserNo())); // ���� �Ϸù�ȣ
 			session.setAttribute("orgId", userInfo.getOrg_id()); // �μ� ��ȣ
-			
-			List<UserDTO> userList = userService.userList(session);
-			jsonArray = utilOthers.jsonUser(userList);
-			session.setAttribute("listUser", jsonArray);
-			
-			List<CustDTO> custList = custService.listCust(session);
-			jsonArray = utilOthers.jsonCust(custList);
-			session.setAttribute("listCust", jsonArray);
-			
-			List<SoppDTO> soppList = soppService.listSopp(session, null);
-			jsonArray = utilOthers.jsonSopp(soppList);
-			session.setAttribute("listSopp", jsonArray);
-			
-			ContDTO contDto = new ContDTO();
-			List<ContDTO> contList = contService.listCont(session, null, contDto);
-			jsonArray = utilOthers.jsonCont(contList);
-			session.setAttribute("listCont", jsonArray);
-			
-			List<CustDTO> custMemberList = custService.listCustMember(session);
-			jsonArray = utilOthers.jsonCustMember(custMemberList);
-			session.setAttribute("listCustMember", jsonArray);
-			
-			List<ProductDTO> productList = productService.listProduct(session);
-			jsonArray = utilOthers.jsonProduct(productList);
-			session.setAttribute("listProduct", jsonArray);
-			
-			List<ProductDTO> categoryList = productService.listProduct(session);
-			jsonArray = utilOthers.jsonCategory(categoryList);
-			session.setAttribute("listCategory", jsonArray);
-			
 			session.setAttribute("listDateFrom", userInfo.getListDateFrom());
 		}else{
 			mav.setViewName("user/login");

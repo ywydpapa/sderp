@@ -350,8 +350,14 @@
 								<div class="col-sm-12 col-xl-2">
 									<label class="col-form-label" for="userName">담당자</label>
 									<div class="input-group input-group-sm mb-0">
-										<input type="text" class="form-control" name="userName" id="userName" autocomplete="off"> 
+										<select class="form-control" id="userName" name="userName" onchange="autoCompleteSelect(this);">
+											<option value="">선택</option>
+											<c:forEach var="row" items="${listUser}">
+												<option data-no="${row.userNo}" value="${row.userName}">${row.userName}</option>
+											</c:forEach>
+										</select>
 										<input type="hidden" name="userNo" id="userNo" value="" /> 
+										<!-- <input type="text" class="form-control" name="userName" id="userName" autocomplete="off"> --> 
 										<%-- <span class="input-group-btn">
 											<button class="btn btn-primary sch-company"
 													data-remote="${path}/modal/popup.do?popId=user"
@@ -390,8 +396,14 @@
 								<div class="col-sm-12 col-xl-2">
 									<label class="col-form-label" for="custName">거래처</label>
 									<div class="input-group input-group-sm">
-										<input type="text" class="form-control" name="custName" id="custName" autocomplete="off">
+										<select class="form-control" id="custName" name="custName" onchange="autoCompleteSelect(this);">
+											<option value="">선택</option>
+											<c:forEach var="row" items="${listCust}">
+												<option data-no="${row.custNo}" value="${row.custName}">${row.custName}</option>
+											</c:forEach>
+										</select>
 										<input type="hidden" name="custNo" id="custNo" value="" />
+										<!-- <input type="text" class="form-control" name="custName" id="custName" autocomplete="off"> -->
 										<%-- <span class="input-group-btn">
 												<button class="btn btn-primary sch-company"
 														data-remote="${path}/modal/popup.do?popId=cust"
@@ -431,23 +443,41 @@
 								<div class="col-sm-12 col-xl-2">
 									<label class="col-form-label" for="custmemberName">상품</label>
 									<div class="input-group input-group-sm mb-0">
-										<input type="text" class="form-control" name="productName" id="productName" autocomplete="off">
+										<select class="form-control" id="productName" name="productName" onchange="autoCompleteSelect(this);">
+											<option value="">선택</option>
+											<c:forEach var="row" items="${listProduct}">
+												<option data-no="${row.productNo}" value="${row.productName}">${row.productName}</option>
+											</c:forEach>
+										</select>
 										<input type="hidden" name="productNo" id="productNo" value="" />
+										<!-- <input type="text" class="form-control" name="productName" id="productName" autocomplete="off"> -->
 									</div>
 								</div>
 								<!-- //상품 -->
 								<div class="col-sm-12 col-xl-2">
 									<label class="col-form-label" for="custmemberName">엔드유저</label>
 									<div class="input-group input-group-sm mb-0">
-										<input type="text" class="form-control" name="buyrName" id="buyrName" autocomplete="off">
+										<select class="form-control" id="buyrName" name="buyrName" onchange="autoCompleteSelect(this);">
+											<option value="">선택</option>
+											<c:forEach var="row" items="${listCust}">
+												<option data-no="${row.custNo}" value="${row.custName}">${row.custName}</option>
+											</c:forEach>
+										</select>
 										<input type="hidden" name="custmemberNo" id="buyrNo" value="" />
+										<!-- <input type="text" class="form-control" name="buyrName" id="buyrName" autocomplete="off"> -->
 									</div>
 								</div>
 								<div class="col-sm-12 col-xl-3">
 									<label class="col-form-label">영업기회명</label>
 									<p class="input_inline mb-0">
-										<input type="text" class="form-control form-control-sm col-xl-12" name="soppTitle" id="soppTitle" style="width:100%;">
+										<select class="form-control form-control-sm col-xl-12" id="soppTitle" name="soppTitle" onchange="autoCompleteSelect(this);">
+											<option value="">선택</option>
+											<c:forEach var="row" items="${listSopp}">
+												<option data-no="${row.soppNo}" value="${row.soppTitle}">${row.soppTitle}</option>
+											</c:forEach>
+										</select>
 										<input type="hidden" class="form-control" name="soppNo" id="soppNo" value="${dto.soppNo}" />
+										<!-- <input type="text" class="form-control form-control-sm col-xl-12" name="soppTitle" id="soppTitle" style="width:100%;"> -->
 									</p>
 								</div>
 							</div>

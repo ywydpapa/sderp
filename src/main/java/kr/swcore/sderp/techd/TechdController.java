@@ -1,6 +1,7 @@
 package kr.swcore.sderp.techd;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
@@ -150,6 +151,11 @@ public class TechdController {
 		mav.addObject("sprttype", codeService.listSprttype(session));
 		mav.addObject("sprtstat", codeService.listSprtstat(session));
 		mav.addObject("contractType", codeService.listContractType(session));
+		mav.addObject("listCust", custService.listCust(session));
+		mav.addObject("listSopp", soppService.listSopp(session, null));
+		mav.addObject("listCustMember", custService.listCustMember(session));
+		ContDTO contDto = new ContDTO();
+		mav.addObject("listCont", contService.listCont(session, null, contDto));
 		if(simple != null){
 			mav.addObject("simple","Y");
 		}
@@ -191,6 +197,12 @@ public class TechdController {
 		mav.addObject("sprttype", codeService.listSprttype(session));
 		mav.addObject("sprtstat", codeService.listSprtstat(session));
 		mav.addObject("contractType", codeService.listContractType(session));
+		mav.addObject("listCust", custService.listCust(session));
+		mav.addObject("listSopp", soppService.listSopp(session, null));
+		mav.addObject("listCustMember", custService.listCustMember(session));
+		ContDTO contDto = new ContDTO();
+		mav.addObject("listCont", contService.listCont(session, null, contDto));
+		
 		if(simple != null){
 			mav.addObject("simple","Y");
 		}

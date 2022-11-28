@@ -17,18 +17,10 @@
 <html>
 <jsp:include page="../head.jsp"/>
 <jsp:include page="../body-top3.jsp"/>
-<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
 <div id="main_content">
 	<style>
-	.select2-container {
-		width: 13%!important;
-	}
-
-	.select2-container--default .select2-selection--single .select2-selection__rendered {
-		background-color: white;
-		line-height: 10px!important;
-	}
+	
 	</style>
     <c:if test="${preserveSearchCondition != 'Y'}">
         <!-- Page-header start 페이지 타이틀-->

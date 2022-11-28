@@ -8,6 +8,7 @@ import kr.swcore.sderp.cont.dto.ContDTO;
 import kr.swcore.sderp.cont.service.ContService;
 import kr.swcore.sderp.cust.service.CustService;
 import kr.swcore.sderp.gw.service.GwService;
+import kr.swcore.sderp.product.service.ProductService;
 import kr.swcore.sderp.sales.service.SalesService;
 import kr.swcore.sderp.sopp.dto.SoppDTO;
 import kr.swcore.sderp.sopp.dto.SoppFileDataDTO;
@@ -73,6 +74,8 @@ public class SoppController {
 	@Inject
 	UserService userService;
 	
+	@Inject
+	ProductService productService;
 	
 	@RequestMapping("list.do")
 	public ModelAndView list(HttpSession session, ModelAndView mav) {
@@ -81,7 +84,9 @@ public class SoppController {
 		mav.addObject("sstatuslist", codeService.listSstatus(session));
 		mav.addObject("contractType", codeService.listContractType(session));
 		mav.addObject("listUser", userService.userList(session));
+		mav.addObject("listSopp", soppService.listSopp(session, null));
 		mav.addObject("listCust", custService.listCust(session));
+		mav.addObject("listProduct", productService.listProduct(session));
 		mav.addObject("list", soppService.listSopp(session, null));
 		mav.addObject("first","Y");
 		return mav;
@@ -148,6 +153,9 @@ public class SoppController {
 		mav.addObject("soppFiles",soppService.listFile(soppNo));
 		mav.addObject("dtodata01", soppdataService.listSoppdata01(soppNo));
 		mav.addObject("estList", gwService.getEstSopp(session, soppNo));
+		mav.addObject("listCust", custService.listCust(session));
+		mav.addObject("listProduct", productService.listProduct(session));
+		mav.addObject("listCustMember", custService.listCustMember(session));
 		mav.setViewName("sopp/detail");
 		return mav;
 	}
@@ -235,6 +243,9 @@ public class SoppController {
 		userDTO.setUserNo(Integer.valueOf((String)session.getAttribute("userNo")));
 		mav.addObject("userInfo",userDTO);
 		mav.addObject("saleslist", codeService.listSalestype(session));
+		mav.addObject("listCust", custService.listCust(session));
+		mav.addObject("listProduct", productService.listProduct(session));
+		mav.addObject("listCustMember", custService.listCustMember(session));
 		mav.setViewName("sopp/write");
 		return mav;
 	}

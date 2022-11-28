@@ -133,4 +133,5 @@ select.form-control:not([size]):not([multiple]) {height: calc(3rem + -14px);}
 	}
 	.modal-content {
 		width: 120%;
+		max-width: 1500px;
 	}

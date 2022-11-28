@@ -290,16 +290,27 @@
 									<div class="col-sm-12 col-xl-2">
 										<label class="col-form-label" for="userName">담당사원</label>
 										<div class="input-group input-group-sm mb-0">
-										<input type="text" class="form-control" name="userName" id="userName" autocomplete="off"> 
-										<input type="hidden" name="userNo" id="userNo" value="" /> 
+											<select class="form-control" id="userName" name="userName" onchange="autoCompleteSelect(this);">
+												<option value="">선택</option>
+												<c:forEach var="row" items="${listUser}">
+													<option data-no="${row.userNo}" value="${row.userName}">${row.userName}</option>
+												</c:forEach>
+											</select>
+											<input type="hidden" name="userNo" id="userNo" value="" /> 
+											<!-- <input type="text" class="form-control" name="userName" id="userName" autocomplete="off"> --> 
 										</div>
 									</div>
 									<div class="col-sm-12 col-xl-2">
 										<label class="col-form-label" for="custName">엔드유저</label>
 										<div class="input-group input-group-sm mb-0">
-										<input type="text" class="form-control" name="custName" id="custName" autocomplete="off">
-										<input type="hidden" name="custNo" id="custNo" value="" />
-											
+											<select class="form-control" id="custName" name="custName" onchange="autoCompleteSelect(this);">
+												<option value="">선택</option>
+												<c:forEach var="row" items="${listCust}">
+													<option data-no="${row.custNo}" value="${row.custName}">${row.custName}</option>
+												</c:forEach>
+											</select>
+											<input type="hidden" name="custNo" id="custNo" value="" />
+											<!-- <input type="text" class="form-control" name="custName" id="custName" autocomplete="off"> -->
 										</div>
 									</div>
 									<%-- <div class="col-sm-12 col-xl-2">
@@ -342,7 +353,7 @@
 											</c:forEach>
 										</select>
 									</div>
-									<div class="col-sm-1.5" style="margin-left: 20px;">
+									<div class="col-sm-1.5">
 										<label class="col-form-label" for="co_name">등록구분</label>
 										<select name="select" class="form-control form-control-sm" id="cntrctMth">
 											<option value>선택</option>
@@ -351,15 +362,7 @@
 											</c:forEach>
 										</select>
 									</div>
-								</div>
-								<div class="form-group row">
-									<!-- <div class="col-sm-12 col-xl-3">
-										<label class="col-form-label">일정시작일</label>
-										<p class="input_inline">
-											<input class="form-control form-control-sm col-xl-6" type="date" max="9999-12-30" id="targetDatefrom" onChange="javascript:inputDate($('#targetDatefrom').val(), $('#targetDateto').val(),this)"> ~ <input class="form-control form-control-sm col-xl-6" type="date" max="9999-12-31" id="targetDateto" onChange="javascript:inputDate($('#targetDatefrom').val(), $('#targetDateto').val(),this)">
-										</p>
-									</div> -->
-									<div class="col-sm-12 col-xl-3 ex_reduce">
+									<div class="col-sm-2 ex_reduce">
 										<label class="col-form-label">등록일</label>
 										<p class="input_inline">
 											<input class="form-control form-control-sm col-xl-6" type="date" max="9999-12-30" id="regSDate" onChange="javascript:inputDate($('#regSDate').val(), $('#regEDate').val(),this)"> ~ <input class="form-control form-control-sm col-xl-6" type="date" max="9999-12-31" id="regEDate" onChange="javascript:inputDate($('#regSDate').val(), $('#regEDate').val(),this)">
@@ -370,6 +373,12 @@
 										<input type="text" class="form-control form-control-sm" id="techdDesc" name="techdDesc" placeholder="" onsubmit="return false">
 									</div>
 								</div>
+								<!-- <div class="col-sm-12 col-xl-3">
+									<label class="col-form-label">일정시작일</label>
+									<p class="input_inline">
+										<input class="form-control form-control-sm col-xl-6" type="date" max="9999-12-30" id="targetDatefrom" onChange="javascript:inputDate($('#targetDatefrom').val(), $('#targetDateto').val(),this)"> ~ <input class="form-control form-control-sm col-xl-6" type="date" max="9999-12-31" id="targetDateto" onChange="javascript:inputDate($('#targetDatefrom').val(), $('#targetDateto').val(),this)">
+									</p>
+								</div> -->
 							</div>
 						</div>
 					</form>

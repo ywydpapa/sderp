@@ -68,8 +68,14 @@
                                 <th class="contDetailSopp text-center">연결프로젝트(영업기회)</th>
                                 <td class="contDetailSopp">
                                     <div class="input-group input-group-sm mb-0">
-                                        <input type="text" class="form-control" name="soppDTO" id="soppTitle" value="" autocomplete="off"/>
+                                    	<select class="form-control" id="soppTitle" name="soppTitle" onchange="autoCompleteSelect(this);">
+											<option value="">선택</option>
+											<c:forEach var="row" items="${listSopp}">
+												<option data-no="${row.soppNo}" value="${row.soppTitle}">${row.soppTitle}</option>
+											</c:forEach>
+										</select>
                                         <input type="hidden" class="form-control" name="soppDTO" id="soppNo" value="" />
+                                        <!-- <input type="text" class="form-control" name="soppDTO" id="soppTitle" value="" autocomplete="off"/> -->
                                         <%-- <span class="input-group-btn">
 												<button class="btn btn-primary sch-opportunity2"
                                                         data-remote="${path}/modal/popup.do?popId=sopp"
@@ -105,8 +111,14 @@
                                 <th class="text-center">거래처</th>
                                 <td>
                                     <div class="input-group input-group-sm mb-0">
-                                        <input type="text" class="form-control" name="custName" id="custName" value="${dto.custName}" autocomplete="off"> 
+                                    	<select class="form-control" id="custName" name="custName" onchange="autoCompleteSelect(this);">
+											<option value="">선택</option>
+											<c:forEach var="row" items="${listCust}">
+												<option data-no="${row.custNo}" value="${row.custName}">${row.custName}</option>
+											</c:forEach>
+										</select>
                                         <input type="hidden" name="custNo" id="custNo" value="${dto.custNo}" /> 
+                                        <%-- <input type="text" class="form-control" name="custName" id="custName" value="${dto.custName}" autocomplete="off"> --%> 
                                         <%-- <span class="input-group-btn">
 												<button class="btn btn-primary sch-company"
                                                         data-remote="${path}/modal/popup.do?popId=cust"

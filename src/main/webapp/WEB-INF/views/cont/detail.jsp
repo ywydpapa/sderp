@@ -98,8 +98,14 @@
 													<th class="requiredTextCss">영업기회</th>
 													<td>
 														<div class="input-group input-group-sm mb-0">
-															<input type="text" class="form-control" name="soppTitle" id="soppTitle" value="${contDto.soppTitle}" autocomplete="off">
+															<select class="form-control" id="soppTitle" name="soppTitle" onchange="autoCompleteSelect(this);">
+																<option value="">선택</option>
+																<c:forEach var="row" items="${listSopp}">
+																	<option data-no="${row.soppNo}" value="${row.soppTitle}" <c:if test="${row.soppTitle eq contDto.soppTitle}">selected</c:if>>${row.soppTitle}</option>
+																</c:forEach>
+															</select>
 															<input type="hidden" class="form-control" name="soppNo" id="soppNo" value="${contDto.soppNo}" />
+															<%-- <input type="text" class="form-control" name="soppTitle" id="soppTitle" value="${contDto.soppTitle}" autocomplete="off"> --%>
 															<%-- <span class="input-group-btn">
 																<button class="btn btn-primary sch-opportunity2"
 																	data-remote="${path}/modal/popup.do?popId=sopp"
@@ -168,7 +174,7 @@
 													<th scope="row" class="requiredTextCss">담당사원</th>
 													<td>
 														<div class="input-group input-group-sm mb-0">
-															<input type="text" class="form-control" name="userName" id="userName" value="${contDto.userName}" readonly>
+															<input type="text" class="form-control" name="userName" id="userName" data-completeSet="true" value="${contDto.userName}" readonly>
 															<input type="hidden" class="form-control" name="userNo" id="userNo" value="${contDto.userNo}" />
 															<%-- <span class="input-group-btn">
 																<button class="btn btn-primary sch-company"
@@ -216,8 +222,14 @@
 													<th class="requiredTextCss">매출처</th>
 													<td>
 														<div class="input-group input-group-sm mb-0">
-															<input type="text" class="form-control" name="custName" id="custName" value="${contDto.custName}" autocomplete="off">
+															<select class="form-control" id="custName" name="custName" onchange="autoCompleteSelect(this);">
+																<option value="">선택</option>
+																<c:forEach var="row" items="${listCust}">
+																	<option data-no="${row.custNo}" value="${row.custName}" <c:if test="${row.custName eq contDto.custName}">selected</c:if>>${row.custName}</option>
+																</c:forEach>
+															</select>
 															<input type="hidden" name="custNo" id="custNo" value="${contDto.custNo}" /> 
+															<%-- <input type="text" class="form-control" name="custName" id="custName" value="${contDto.custName}" autocomplete="off"> --%>
 															<%-- <span class="input-group-btn">
 																<button class="btn btn-primary sch-company"
 																		data-remote="${path}/modal/popup.do?popId=cust"
@@ -253,8 +265,14 @@
 													<th>매출처 담당자</th>
 													<td>
 														<div class="input-group input-group-sm mb-0">
-															<input type="text" id="custmemberName" name="custmemberName" class="form-control" value="${contDto.custmemberName}" autocomplete="off">
+															<select class="form-control" id="custmemberName" name="custmemberName" onchange="autoCompleteSelect(this);">
+																<option value="">선택</option>
+																<c:forEach var="row" items="${listCustMember}">
+																	<option data-no="${row.custData03no}" value="${row.custMname}" <c:if test="${row.custMname eq contDto.custmemberName}">selected</c:if>>${row.custMname}</option>
+																</c:forEach>
+															</select>
 															<input type="hidden" id="custmemberNo" name="custmemberNo" class="form-control " value="${contDto.custmemberNo}">
+															<%-- <input type="text" id="custmemberName" name="custmemberName" class="form-control" value="${contDto.custmemberName}" autocomplete="off"> --%>
 															<!-- <span class="input-group-btn">
 																<button class="btn btn-primary sch-company btn-sm" type="button"><i class="icofont icofont-search"></i></button>
 															</span> -->
@@ -263,8 +281,14 @@
 													<th class="requiredTextCss" scope="row">엔드유저</th>
 													<td>
 														<div class="input-group input-group-sm mb-0">
-															<input type="text" class="form-control" id="endCustName" value="${contDto.buyrName}" autocomplete="off">
+															<select class="form-control" id="endCustName" name="endCustName" onchange="autoCompleteSelect(this);">
+																<option value="">선택</option>
+																<c:forEach var="row" items="${listCust}">
+																	<option data-no="${row.custNo}" value="${row.custName}" <c:if test="${row.custName eq contDto.buyrName}">selected</c:if>>${row.custName}</option>
+																</c:forEach>
+															</select>
                                                             <input type="hidden" id="endCustNo" value="${contDto.buyrNo}" />
+															<%-- <input type="text" class="form-control" id="endCustName" value="${contDto.buyrName}" autocomplete="off"> --%>
 															<%-- <span class="input-group-btn">
 																<button class="btn btn-primary sch-partner" data-remote="${path}/modal/popup.do?popId=endCust" type="button" data-toggle="modal" data-target="#endCustModal">
 																	<i class="icofont icofont-search"></i>
@@ -297,8 +321,14 @@
 													<th>엔드유저 담당자</th>
 													<td>
 														<div class="input-group input-group-sm mb-0">
-															<input type="text" id="endCustmemberName" name="endCustmemberName" class="form-control" value="${contDto.buyrMemberName}" autocomplete="off">
+															<select class="form-control" id="endCustmemberName" name="endCustmemberName" onchange="autoCompleteSelect(this);">
+																<option value="">선택</option>
+																<c:forEach var="row" items="${listCustMember}">
+																	<option data-no="${row.custData03no}" value="${row.custMname}" <c:if test="${row.custMname eq contDto.buyrMemberName}">selected</c:if>>${row.custMname}</option>
+																</c:forEach>
+															</select>
 															<input type="hidden" id="endCustmemberNo" name="endCustmemberNo" class="form-control " value="${contDto.buyrMemberNo}">
+															<%-- <input type="text" id="endCustmemberName" name="endCustmemberName" class="form-control" value="${contDto.buyrMemberName}" autocomplete="off"> --%>
 															<%-- <span class="input-group-btn">
 																<button class="btn btn-primary sch-company btn-sm"  data-remote="${path}/modal/popup.do?popId=endCustmem&compNo=" type="button" data-toggle="modal" data-target="#endCustmemberModal" id="endCustmemberModalbtn" data-whatever="">
 																	<i class="icofont icofont-search"></i>
@@ -340,8 +370,14 @@
 													<th>(부)담당사원</th>
 													<td>
 														<div class="input-group input-group-sm mb-0">
-															<input type="text" class="form-control" name="secondUserName" id="secondUserName" value="${contDto.secondUserName}" autocomplete="off">
+															<select class="form-control" id="secondUserName" name="secondUserName" onchange="autoCompleteSelect(this);">
+																<option value="">선택</option>
+																<c:forEach var="row" items="${listUser}">
+																	<option data-no="${row.userNo}" value="${row.userName}" <c:if test="${row.userName eq contDto.secondUserName}">selected</c:if>>${row.userName}</option>
+																</c:forEach>
+															</select>
 															<input type="hidden" class="form-control" name="secondUserNo" id="secondUserNo" value="${contDto.secondUserNo}" />
+															<%-- <input type="text" class="form-control" name="secondUserName" id="secondUserName" value="${contDto.secondUserName}" autocomplete="off"> --%>
 															<%-- <span class="input-group-btn">
 																<button class="btn btn-primary sch-company"
 																	data-remote="${path}/modal/popup.do?popId=secondUser"

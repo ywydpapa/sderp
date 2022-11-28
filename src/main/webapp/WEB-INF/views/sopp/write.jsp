@@ -56,28 +56,46 @@
 														<th scope="row" class="requiredTextCss">담당사원</th>
 														<td>
 															<div class="input-group input-group-sm mb-0">
-																<input type="text" class="form-control" name="userName"	id="userName" value="${userInfo.userName}" autocomplete="off" readonly>
+																<input type="text" class="form-control" name="userName"	id="userName" value="${userInfo.userName}" data-completeSet="true" autocomplete="off" readonly>
 																<input type="hidden" name="userNo" id="userNo" value="${userInfo.userNo}" />
 															</div>
 														</td>
 														<th class="requiredTextCss" scope="row">매출처</th>
 														<td>
 															<div class="input-group input-group-sm mb-0">
-																<input type="text" class="form-control" name="custName" id="custName" autocomplete="off" value="">
+																<select class="form-control" id="custName" name="custName" onchange="autoCompleteSelect(this);">
+																	<option value="">선택</option>
+																	<c:forEach var="row" items="${listCust}">
+																		<option data-no="${row.custNo}" value="${row.custName}">${row.custName}</option>
+																	</c:forEach>
+																</select>
 																<input type="hidden" name="custNo" id="custNo" value="" />
+																<!-- <input type="text" class="form-control" name="custName" id="custName" autocomplete="off" value=""> -->
 															</div>
 														</td>
 														<th scope="row">매출처 담당자</th>
 														<td>
 															<div class="input-group input-group-sm mb-0">
-																<input type="text" class="form-control" name="custmemberName"  id="custmemberName" value="" autocomplete="off">
+																<select class="form-control" id="custmemberName" name="custmemberName" onchange="autoCompleteSelect(this);">
+																	<option value="">선택</option>
+																	<c:forEach var="row" items="${listCustMember}">
+																		<option data-no="${row.custData03no}" value="${row.custMname}">${row.custMname}</option>
+																	</c:forEach>
+																</select>
 																<input type="hidden" name="custmemberNo" id="custmemberNo" value="" />
+																<!-- <input type="text" class="form-control" name="custmemberName"  id="custmemberName" value="" autocomplete="off"> -->
 															</div>
 														</td>
 														<th scope="row" class="requiredTextCss">상품</th>
 														<td>
-															<input type="text" class="form-control form-control-sm" id="productName" name="productName" autocomplete="off">
+															<select class="form-control" id="productName" name="productName" onchange="autoCompleteSelect(this);">
+																<option value="">선택</option>
+																<c:forEach var="row" items="${listProduct}">
+																	<option data-no="${row.productNo}" value="${row.productName}">${row.productName}</option>
+																</c:forEach>
+															</select>
 															<input type="hidden" id="productNo" name="productNo" value="">
+															<!-- <input type="text" class="form-control form-control-sm" id="productName" name="productName" autocomplete="off"> -->
 														</td>
 													</tr>
 													
@@ -85,8 +103,14 @@
 														<th class="requiredTextCss" scope="row">엔드유저</th>
 														<td>
 															<div class="input-group input-group-sm mb-0">
-																<input type="text" class="form-control" id="endCustName" value="" autocomplete="off">
+																<select class="form-control" id="endCustName" name="endCustName" onchange="autoCompleteSelect(this);">
+																	<option value="">선택</option>
+																	<c:forEach var="row" items="${listCust}">
+																		<option data-no="${row.custNo}" value="${row.custName}">${row.custName}</option>
+																	</c:forEach>
+																</select>
 																<input type="hidden" id="endCustNo" value="" />
+																<!-- <input type="text" class="form-control" id="endCustName" value="" autocomplete="off"> -->
 															</div>
 														</td>
 														<th scope="row" class="requiredTextCss">진행단계</th>
@@ -390,38 +414,6 @@
 			return;
 		} else if(!soppData.soppType){
 			alert("판매방식을 선택해주십시오.");
-			return;
-		} else if(!autoCompleteVali($("#custName").val(), "cust")){
-			alert("조회된 매출처가 없습니다.\n다시 확인해주세요.");
-			$("#custName").focus();
-			return;
-		} else if(!autoCompleteVali($("#productName").val(), "product")){
-			alert("조회된 상품이 없습니다.\n다시 확인해주세요.");
-			$("#productName").focus();
-			return;
-		} else if($("#custmemberName").val() !== "" && !autoCompleteVali($("#custmemberName").val(), "custMember")){
-			alert("조회된 매출처 담당자가 없습니다.\n다시 확인해주세요.");
-			$("#custmemberName").focus();
-			return;
-		} else if($("#endCustName").val() !== "" && !autoCompleteVali($("#endCustName").val(), "cust")){
-			alert("조회된 엔드유저가 없습니다.\n다시 확인해주세요.");
-			$("#endCustName").focus();
-			return;
-		} else if($("#custName").val() !== "" && ($("#custNo").val() === "" || $("#custNo").val() == 0)){
-			alert("매출처를 제대로 선택해주세요.");
-			$("#custName").focus();
-			return;
-		} else if($("#custmemberName").val() !== "" && ($("#custmemberNo").val() === "" || $("#custmemberNo").val() == 0)){
-			alert("매출처 담당자를 제대로 선택해주세요.");
-			$("#custemberName").focus();
-			return;
-		} else if($("#endCustName").val() !== "" && ($("#endCustNo").val() === "" || $("#endCustNo").val() == 0)){
-			alert("엔드유저를 제대로 선택해주세요.");
-			$("#endCustName").focus();
-			return;
-		} else if($("#productName").val() !== "" && ($("#productNo").val() === "" || $("#productNo").val() == 0)){
-			alert("상품을 제대로 선택해주세요.");
-			$("#productName").focus();
 			return;
 		} else{
 			$.ajax({ url: "${path}/sopp/insert.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소

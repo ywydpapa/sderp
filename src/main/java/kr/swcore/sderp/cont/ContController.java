@@ -18,6 +18,8 @@ import kr.swcore.sderp.sopp.dto.SoppdataDTO;
 import kr.swcore.sderp.sopp.service.SoppService;
 import kr.swcore.sderp.sopp.service.SoppdataService;
 import kr.swcore.sderp.techd.service.TechdService;
+import kr.swcore.sderp.user.service.UserService;
+
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -64,6 +66,9 @@ public class ContController {
 	@Inject
 	AccountService accountService;
 	
+	@Inject
+	UserService userService;
+	
 	@RequestMapping("list.do")
 	public ModelAndView list(HttpSession session, ModelAndView mav,
 							 @RequestParam(value = "custNo", required = false) Integer custNo,
@@ -108,6 +113,7 @@ public class ContController {
 		mav.addObject("listSum", contService.listSumCont(session));
 		mav.addObject("contType", codeService.listContType(session));
 		mav.addObject("listCust", custService.listCust(session));
+		mav.addObject("listUser", userService.userList(session));
 		return mav;
 	}
 	
@@ -151,6 +157,10 @@ public class ContController {
 		data.setContNo(contNo);
 		data.setSoppNo(soppNo);
 		mav.addObject("dtodata01", soppdataService.listSoppdata01_08(data));
+		mav.addObject("listCust", custService.listCust(session));
+		mav.addObject("listUser", userService.userList(session));
+		mav.addObject("listCustMember", custService.listCustMember(session));
+		mav.addObject("listSopp", soppService.listSopp(session, null));
 		return mav;
 	}
 
@@ -160,6 +170,10 @@ public class ContController {
 		mav.addObject("contractType", codeService.listContractType(session));
 		mav.addObject("contType", codeService.listContType(session));
 		mav.addObject("areaType", codeService.listAreaType(session));
+		mav.addObject("listCust", custService.listCust(session));
+		mav.addObject("listUser", userService.userList(session));
+		mav.addObject("listCustMember", custService.listCustMember(session));
+		mav.addObject("listSopp", soppService.listSopp(session, null));
 		return mav;
 	}
 	

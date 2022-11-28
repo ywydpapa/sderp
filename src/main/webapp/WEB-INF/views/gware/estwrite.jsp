@@ -171,21 +171,32 @@
 								</tr>
 								<tr>	
 									<th class="contDetailSopp text-center">영업기회</th>
-									
 									<!--<td class="radioLabel radio-inline" style="margin-left: -5px;margin-bottom: 2px;width: 80px; height: 30px; border: 1px solid white;">
 										<label style="color:red;">※ 표준견적 작성은 영업기회가 필요없습니다.</label>
 									</td>-->
 									<td class="contDetailSopp" id="contDetailSopp_hide_motion">
 										<div class="input-group input-group-sm mb-0">
-											<input type="text" class="form-control" name="soppDTO" id="soppTitle" autocomplete="off"/>
+											<select class="form-control" id="soppTitle" name="soppTitle" onchange="autoCompleteSelect(this);">
+												<option value="">선택</option>
+												<c:forEach var="row" items="${listSopp}">
+													<option data-no="${row.soppNo}" value="${row.soppTitle}">${row.soppTitle}</option>
+												</c:forEach>
+											</select>
 											<input type="hidden" class="form-control" name="soppDTO" id="soppNo" />
+											<!-- <input type="text" class="form-control" name="soppDTO" id="soppTitle" autocomplete="off"/> -->
 										</div>
 									</td>
 									<th class="text-center">견적고객</th>
 									<td>
 										<div class="input-group input-group-sm mb-0">
-											<input type="text" class="form-control" name="custName" id="custName" value="" autocomplete="off"> 
+											<select class="form-control" id="custName" name="custName" onchange="autoCompleteSelect(this);">
+												<option value="">선택</option>
+												<c:forEach var="row" items="${listCust}">
+													<option data-no="${row.custNo}" value="${row.custName}">${row.custName}</option>
+												</c:forEach>
+											</select>
 											<input type="hidden" name="custNo" id="custNo" value="${detail.custNo}" /> 
+											<!-- <input type="text" class="form-control" name="custName" id="custName" value="" autocomplete="off"> --> 
 										</div>
 									</td>
 									<th class="text-center requiredTextCss">견적번호(*)</th>

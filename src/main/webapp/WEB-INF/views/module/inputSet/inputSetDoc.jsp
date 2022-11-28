@@ -47,8 +47,14 @@
             	</td>
                 <td>
                     <div class="input-group input-group-sm mb-0">
-                        <input type="text" class="form-control" name="product" id="productSalesEstimateCustName" value="" autocomplete="off">
+                    	<select class="form-control" id=productSalesEstimateCustName name="productSalesEstimateCustName" onchange="autoCompleteSelect(this);">
+							<option value="">선택</option>
+							<c:forEach var="row" items="${listCust}">
+								<option data-no="${row.custNo}" value="${row.custName}">${row.custName}</option>
+							</c:forEach>
+						</select>
                         <input type="hidden" id="productSalesEstimateCustNo" value="" />
+                        <!-- <input type="text" class="form-control" name="product" id="productSalesEstimateCustName" value="" autocomplete="off"> -->
                         <input type="hidden" id="soppdataNoEstimate" value="">
                         <%-- <span class="input-group-btn">
                             <button class="btn btn-primary sch-company" data-remote="${path}/modal/popup.do?popId=productdataListSalesEstimateCust" type="button" data-toggle="modal" data-target="#productCustModal3">
@@ -108,8 +114,14 @@
 					  	</div>
 					  	<div id="select1" style="width:100%;">
 		                    <div class="input-group input-group-sm mb-0">
+		                    	<select class="form-control" id="data02Title" name="data02Title" data-flag="true" onchange="autoCompleteSelect(this);">
+									<option value="">선택</option>
+									<c:forEach var="row" items="${listProduct}">
+										<option data-no="${row.productNo}" value="${row.productName}">${row.productName}</option>
+									</c:forEach>
+								</select>
 		                        <input type="hidden" id="productNo2" value="" />
-		                        <input type="text" class="form-control" name="product" id="data02Title" data-flag="true" value="" autocomplete="off">
+		                        <!-- <input type="text" class="form-control" name="product" id="data02Title" data-flag="true" value="" autocomplete="off"> -->
 		                        <!-- <span class="input-group-btn">
 		                            <button class="btn btn-primary sch-company" onclick="fn_productdataTableReload2()" type="button" data-toggle="modal" data-target="#productdataModal2">
 		                                <i class="icofont icofont-search"></i>
@@ -337,7 +349,7 @@
     		
     		$("#data02ProductDate").val(now);
     		$("#productSalesEstimateCustName").val("");
-	    	$("#data02Title[data-flag='true']").val("");
+	    	$("#data02Title[data-flag='true']").val("").trigger("change");
     		$("#data02Netprice").val(0);
     		$("#data02Quanty").val(1);
     		$("#data02Amt").val(0);
@@ -370,7 +382,7 @@
     		
     		$("#data02ProductDate").val($(this).parents("tr").find("#dataDate").html());
     		$("#productSalesEstimateCustName").val($(this).parents("tr").find("#salesCustNoN").html());
-	    	$("#data02Title[data-flag='true']").val($(this).parents("tr").find("#dataTitle").html());
+	    	$("#data02Title[data-flag='true']").val($(this).parents("tr").find("#dataTitle").html()).trigger("change");
     		$("#data02Netprice").val(parseInt($(this).parents("tr").find("#dataNetprice").html().replace(/[\D\s\._\-]+/g, "")).toLocaleString("en-US"));
     		$("#data02Quanty").val($(this).parents("tr").find("#dataQuanty").html());
     		$("#data02Amt").val(parseInt($(this).parents("tr").find("#dataAmt").html().replace(/[\D\s\._\-]+/g, "")).toLocaleString("en-US"));

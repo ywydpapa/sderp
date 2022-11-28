@@ -73,8 +73,14 @@
 								<div class="col-sm-12 col-xl-2">
 									<label class="col-form-label">매출처</label>
 									<div class="input-group input-group-sm mb-0">
-										<input type="text" class="form-control" name="custName" id="custName" autocomplete="off">
+										<select class="form-control" id="custName" name="custName" onchange="autoCompleteSelect(this);">
+											<option value="">선택</option>
+											<c:forEach var="row" items="${listCust}">
+												<option data-no="${row.custNo}" value="${row.custName}">${row.custName}</option>
+											</c:forEach>
+										</select>
 										<input type="hidden" name="custNo" id="custNo" value="" />
+										<!-- <input type="text" class="form-control" name="custName" id="custName" autocomplete="off"> -->
 										<%-- <span class="input-group-btn">
 											<button class="btn btn-primary sch-company"
 												data-remote="${path}/modal/popup.do?popId=cust"
@@ -109,8 +115,14 @@
 								<div class="col-sm-12 col-xl-2">
 									<label class="col-form-label">엔드유저</label>
 									<div class="input-group input-group-sm mb-0">
-										<input type="text" class="form-control" id="endCustName" value="${param.burName}" autocomplete="off"> 
+										<select class="form-control" id="endCustName" name="endCustName" onchange="autoCompleteSelect(this);">
+											<option value="">선택</option>
+											<c:forEach var="row" items="${listCust}">
+												<option data-no="${row.custNo}" value="${row.custName}">${row.custName}</option>
+											</c:forEach>
+										</select>
 										<input type="hidden" id="endCustNo" value="${param.burNo}" />
+										<%-- <input type="text" class="form-control" id="endCustName" value="${param.burName}" autocomplete="off"> --%> 
 										<%-- <span class="input-group-btn">
 											<button class="btn btn-primary sch-partner" data-remote="${path}/modal/popup.do?popId=endCust" type="button" data-toggle="modal" data-target="#endCustModal">
 												<i class="icofont icofont-search"></i>
@@ -139,7 +151,7 @@
 								</div>
 								<div class="col-sm-12 col-xl-2">
 									<label class="col-form-label">계약명</label>
-									<input type="text" class="form-control form-control-sm" id="contTitle" name="" placeholder="" value="${param.contTitle}">
+									<input type="text" class="form-control form-control-sm" id="contTitle" data-completeSet="true" name="" placeholder="" value="${param.contTitle}">
 								</div>
 								<div class="col-sm-12 col-xl-2">
 									<label class="col-form-label">계약방식</label>
@@ -168,7 +180,13 @@
 								</div>
 								<div class="col-sm-12 col-xl-2 ex_reduce">
 									<label class="col-form-label">담당자</label>
-									<input type="text" class="form-control form-control-sm" id="userName" name="" placeholder="">
+									<select class="form-control" id="userName" name="userName">
+										<option value="">선택</option>
+										<c:forEach var="row" items="${listUser}">
+											<option data-no="${row.userNo}" value="${row.userName}" <c:if test="${row.userName eq param.userName}">selected</c:if>>${row.userName}</option>
+										</c:forEach>
+									</select>
+									<!-- <input type="text" class="form-control form-control-sm" id="userName" data-completeSet="true" name="" placeholder=""> -->
 								</div>
 								<div class="col-sm-12 col-xl-2">
 									<label class="col-form-label">판매방식</label>

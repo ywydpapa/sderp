@@ -39,8 +39,14 @@
 									<th scope="row" class="requiredTextCss">공급사</th>
 									<td>
 										<div class="input-group input-group-sm mb-0">
-											<input type="text" class="form-control" name="product" id="custName" value="" autocomplete=""/>
+											<select class="form-control" id="custName" name="custName" onchange="autoCompleteSelect(this);">
+												<option value="">선택</option>
+												<c:forEach var="row" items="${listCust}">
+													<option data-no="${row.custNo}" value="${row.custName}">${row.custName}</option>
+												</c:forEach>
+											</select>
 											<input type="hidden" name="product" id="custNo" value="" />
+											<!-- <input type="text" class="form-control" name="product" id="custName" value="" autocomplete=""/> -->
 											<%-- <span class="input-group-btn">
 												<button class="btn btn-primary sch-company" data-remote="${path}/modal/popup.do?popId=cust" type="button" data-toggle="modal" data-target="#custModal"><i class="icofont icofont-search"></i></button>
 											</span> --%>
@@ -94,8 +100,14 @@
 									<th scope="row" class="requiredTextCss">제품그룹</th>
 									<td>
 										<div class="input-group input-group-sm mb-0">
-											<input type="text" class="form-control" name="product" id="productCategoryName" value="" />
+											<select class="form-control" id="productCategoryName" name="productCategoryName" onchange="autoCompleteSelect(this);">
+												<option value="">선택</option>
+												<c:forEach var="row" items="${categoryList}">
+													<option data-no="${row.productNo}" value="${row.productCategoryName}">${row.productCategoryName}</option>
+												</c:forEach>
+											</select>
 											<input type="hidden" class="form-control" name="product" id="productCategoryNo" value="" />
+											<!-- <input type="text" class="form-control" name="product" id="productCategoryName" value="" /> -->
 											<%-- <span class="input-group-btn">
 												<button class="btn btn-primary sch-company" data-remote="${path}/modal/popup.do?popId=productGoodsCategory" type="button" data-toggle="modal" data-target="#productCategoryModal"><i class="icofont icofont-search"></i></button>
 											</span> --%>
@@ -126,7 +138,7 @@
 								<tr>
 									<th scope="row" class="requiredTextCss">상품명</th>
 									<td>
-										<input type="text" name="product" id ="productName" class="form-control form-control-sm" >
+										<input type="text" name="product" id ="productName" data-completeSet="true" class="form-control form-control-sm" >
 									</td>
 								</tr>
 								<tr>
@@ -234,24 +246,8 @@
 				alert("공급사를 입력해주세요.");
 				$("#custName").focus();
 				return;
-			} else if(!autoCompleteVali($("#custName").val(), "cust")){
-				alert("조회된 공급사가 없습니다.\n다시 확인해주세요.");
-				$("#custName").focus();
-				return;
-			} else if($("#custNo").val() === "" || $("#custNo") == 0){
-				alert("공급사를 제대로 선택해주세요.");
-				$("#custName").focus();
-				return;
 			} else if($("#productCategoryName").val() === ""){
 				alert("제품그룹을 입력해주세요.");
-				$("#productCategoryName").focus();
-				return;
-			} else if(!autoCompleteVali($("#productCategoryName").val(), "category")){
-				alert("조회된 제품그룹이 없습니다.\n다시 확인해주세요.");
-				$("#productCategoryName").focus();
-				return;
-			} else if($("#productCategoryNo").val() === "" || $("#productCategoryNo") == 0){
-				alert("제품그룹을 제대로 선택해주세요.");
 				$("#productCategoryName").focus();
 				return;
 			} else if($("#productName").val() === ""){

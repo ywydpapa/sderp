@@ -62,8 +62,14 @@
 									<th scope="row" class="techdDetailSopp requiredTextCss">영업기회</th>
 									<td class="techdDetailSopp">
 										<div class="input-group input-group-sm mb-0">
-											<input type="text" class="form-control" name="soppTitle" id="soppTitle" value="${dto.soppTitle}" autocomplete="off" /> 
+											<select class="form-control" id="soppTitle" name="soppTitle" onchange="autoCompleteSelect(this);">
+												<option value="">선택</option>
+												<c:forEach var="row" items="${listSopp}">
+													<option data-no="${row.soppNo}" value="${row.soppTitle}">${row.soppTitle}</option>
+												</c:forEach>
+											</select>
 											<input type="hidden" name="soppNo" id="soppNo" value="" /> 
+											<%-- <input type="text" class="form-control" name="soppTitle" id="soppTitle" value="${dto.soppTitle}" autocomplete="off" /> --%> 
 											<%-- <span class="input-group-btn">
 												<button class="btn btn-primary sch-opportunity2"
 														data-remote="${path}/modal/popup.do?popId=sopp"
@@ -98,9 +104,15 @@
 									<th scope="row" class="techdDetailCont requiredTextCss">계약</th>
 									<td class="techdDetailCont">
 										<div class="input-group input-group-sm mb-0">
-											<input type="text" class="form-control" name="contTitle" id="contTitle" value="${dto.contTitle}" autocomplete="off" /> 
 											<input type="hidden" id="contSoppNo" />
+											<select class="form-control" id="contTitle" name="contTitle" onchange="autoCompleteSelect(this);">
+												<option value="">선택</option>
+												<c:forEach var="row" items="${listCont}">
+													<option data-no="${row.contNo}" data-sopp="${row.soppNo}" value="${row.contTitle}">${row.contTitle}</option>
+												</c:forEach>
+											</select>
 											<input type="hidden" name="contNo" id="contNo" value="" /> 
+											<%-- <input type="text" class="form-control" name="contTitle" id="contTitle" value="${dto.contTitle}" autocomplete="off" /> --%> 
 											<%-- <span class="input-group-btn">
 												<button class="btn btn-primary sch-opportunity2"
 														data-remote="${path}/modal/popup.do?popId=cont"
@@ -136,8 +148,14 @@
 									<th scope="row" class="requiredTextCss">엔드유저</th>
 									<td>
 										<div class="input-group input-group-sm mb-0">
-											<input type="text" class="form-control" name="endCustName" id="endCustName" value="" autocomplete="off"/>
+											<select class="form-control" id="endCustName" name="endCustName" onchange="autoCompleteSelect(this);">
+												<option value="">선택</option>
+												<c:forEach var="row" items="${listCust}">
+													<option data-no="${row.custNo}" value="${row.custName}">${row.custName}</option>
+												</c:forEach>
+											</select>
 											<input type="hidden" name="endCustNo" id="endCustNo" value="" /> 
+											<!-- <input type="text" class="form-control" name="endCustName" id="endCustName" value="" autocomplete="off"/> -->
 											<%-- <span class="input-group-btn">
 												<button class="btn btn-primary sch-company" data-remote="${path}/modal/popup.do?popId=endCust" type="button" data-toggle="modal" data-target="#endCustModal">
 													<i class="icofont icofont-search"></i>
@@ -193,8 +211,14 @@
 									<th scope="row">엔드유저 담당자</th>
 									<td>
 										<div class="input-group input-group-sm mb-0">
-											<input type="text" class="form-control" name="custmemberName"  id="custmemberName" value="" autocomplete="off"/>
+											<select class="form-control" id="custmemberName" name="custmemberName" onchange="autoCompleteSelect(this);">
+												<option value="">선택</option>
+												<c:forEach var="row" items="${listCustMember}">
+													<option data-no="${row.custData03no}" value="${row.custMname}">${row.custMname}</option>
+												</c:forEach>
+											</select>
 											<input type="hidden" name="custmemberNo" id="custmemberNo" value="" />
+											<!-- <input type="text" class="form-control" name="custmemberName"  id="custmemberName" value="" autocomplete="off"/> -->
 											<%-- <span class="input-group-btn">
 												<button class="btn btn-primary sch-partner"
 													data-remote="${path}/modal/popup.do?popId=custmem&compNo="
@@ -241,7 +265,7 @@
 									<th scope="row" class="requiredTextCss">담당사원</th>
 									<td>
 										<div class="input-group input-group-sm mb-0">
-											<input type="text" class="form-control" name="userName" readonly id="userName" value="${sessionScope.userName}" /> 
+											<input type="text" class="form-control" name="userName" readonly id="userName" data-completeSet="true" value="${sessionScope.userName}" /> 
 											<input type="hidden" name="userNo" id="userNo" value="${sessionScope.userNo}" /> 
 											<%-- <span class="input-group-btn">
 												<button class="btn btn-primary sch-company"
@@ -440,9 +464,9 @@
 	}
 
 	function fn_sprtInsert() {
-		if($("#techTitle").val() === ""){
+		if($("#techdTitle").val() === ""){
 			alert("기술지원 요청명을 입력하십시오.");
-			$("#techTitle").focus();
+			$("#techdTitle").focus();
 			return false;
 		} else if($("#techdFrom").val() === "" || $("#techdTo").val() === ""){
 			alert("지원일자를 선택하십시오.");
@@ -455,43 +479,11 @@
 			alert("영업기회을 입력하십시오.");
 			$("#soppTitle").focus();
 			return false;
-		} else if($("[name=\"contractType\"]:checked").val() === "NEW" && !autoCompleteVali($("#soppTitle").val(), "sopp")){
-			alert("조회된 영업기회가 없습니다.\n다시 확인해주세요.");
-			$("#soppTitle").focus();
-			return false;
-		} else if($("[name=\"contractType\"]:checked").val() === "NEW" && $("#soppTitle").val() !== "" && ($("#soppNo").val() === "" || $("#soppNo").val() == 0)){
-			alert("영업기회를 제대로 선택해주세요.");
-			$("#soppTitle").focus();
-			return false;
 		} else if ($("[name=\"contractType\"]:checked").val() === "ING" && $("#contTitle").val() == ""){
 			alert("계약을 입력하십시오.");
 			$("#contTitle").focus();
 			return false;
-		} else if($("[name=\"contractType\"]:checked").val() === "ING" && !autoCompleteVali($("#contTitle").val(), "cont")){
-			alert("조회된 계약이 없습니다.\n다시 확인해주세요.");
-			$("#contTitle").focus();
-			return false;
-		} else if($("[name=\"contractType\"]:checked").val() === "ING" && $("#contTitle").val() !== "" && ($("#contNo").val() === "" || $("#contNo").val() == 0)){
-			alert("계약을 제대로 선택해주세요.");
-			$("#contTitle").focus();
-			return false;
-		} else if(!autoCompleteVali($("#endCustName").val(), "cust")){
-			alert("조회된 엔드유저가 없습니다.\n다시 확인해주세요.");
-			$("#endCustName").focus();
-			return false;
-		} else if($("#custmemberName").val() !== "" && !autoCompleteVali($("#custmemberName").val(), "custMember")){
-			alert("조회된 엔드유저 담당자가 없습니다.\n다시 확인해주세요.");
-			$("#custmemberName").focus();
-			return false;
-		} else if($("#endCustName").val() !== "" && ($("#endCustNo").val() === "" || $("#endCustNo").val() == 0)){
-			alert("엔드유저를 제대로 선택해주세요.");
-			$("#endCustName").focus();
-			return false;
-		} else if($("#custmemberName").val() !== "" && ($("#custmemberNo").val() === "" || $("#custmemberNo").val() == 0)){
-			alert("엔드유저 담당자를 정확히 선택해주세요.");
-			$("#custmemberName").focus();
-			return false;
-		}else{
+		} else {
 			var sprtData = {};
 			var contractType					= $("input[name='contractType']:checked").val();	// 신규 영업지원 or 기존계약
 			if(contractType == "NEW"){

@@ -15,7 +15,20 @@
 		</div>
 	</div>
 </div>
-
+<style>
+	.select2-container--default .select2-selection--single .select2-selection__rendered {
+		background-color: white;
+		line-height: 10px!important;
+	}
+	
+	.select2-container--open {
+	    z-index: 999999999999 !important;
+	}
+	
+	.form-control{
+		min-width: 100px !important;
+	}
+</style>
 <script>
 	$("#userInfoChangeModal").on('show.bs.modal', function(e){
 		$("#userInfoForm")[0].reset();

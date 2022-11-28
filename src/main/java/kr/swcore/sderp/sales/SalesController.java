@@ -94,6 +94,9 @@ public class SalesController {
 		mav.setViewName("sales/detail");
 		mav.addObject("dto", salesService.detailSales(salesNo));
 		mav.addObject("acttype", codeService.listActtype(session));
+		mav.addObject("listUser", userService.userList(session));
+		mav.addObject("listCust", custService.listCust(session));
+		mav.addObject("listSopp", soppService.listSopp(session, null));
 		if(simple != null){
 			mav.addObject("simple","Y");
 		}
@@ -114,6 +117,9 @@ public class SalesController {
 	@RequestMapping("write.do")
 	public ModelAndView write(@RequestParam(value = "simple", required = false) String simple, HttpSession session, ModelAndView mav) {
 		mav.addObject("salesType", codeService.listActtype(session));
+		mav.addObject("listUser", userService.userList(session));
+		mav.addObject("listCust", custService.listCust(session));
+		mav.addObject("listSopp", soppService.listSopp(session, null));
 		if(simple != null){
 			mav.addObject("simple","Y");
 		}

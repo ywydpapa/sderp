@@ -67,15 +67,21 @@
 									<th class="requiredTextCss">담당사원</th>
 									<td>
 										<div class="input-group input-group-sm mb-0">
-											<input type="text" class="form-control" name="userName" id="userName" value="${dto.userName}" readonly>
+											<input type="text" class="form-control" name="userName" id="userName" data-completeSet="true" value="${dto.userName}" readonly>
 											<input type="hidden" class="form-control" name="userNo" id="userNo" value="${dto.userNo}" />
 										</div>
 									</td>
 									<th scope="row">영업기회</th>
 									<td>
 										<div class="input-group input-group-sm mb-0">
-											<input type="text" class="form-control" name="soppTitle" id="soppTitle" value="${dto.soppTitle}">
+											<select class="form-control" id="soppTitle" name="soppTitle" onchange="autoCompleteSelect(this);">
+												<option value="">선택</option>
+												<c:forEach var="row" items="${listSopp}">
+													<option data-no="${row.soppNo}" value="${row.soppTitle}" <c:if test="${row.soppTitle eq dto.soppTitle}">selected</c:if>>${row.soppTitle}</option>
+												</c:forEach>
+											</select>
 											<input type="hidden" class="form-control" name="soppNo" id="soppNo" value="${dto.soppNo }" />
+											<%-- <input type="text" class="form-control" name="soppTitle" id="soppTitle" value="${dto.soppTitle}"> --%>
 										</div>
 									</td>
 								</tr>
@@ -86,15 +92,27 @@
 									<th scope="row">매출처</th>
 									<td>
 										<div class="input-group input-group-sm mb-0">
-											<input type="text" class="form-control" name="custName" id="custName" value="${dto.custName}">
+											<select class="form-control" id="custName" name="custName" onchange="autoCompleteSelect(this);">
+												<option value="">선택</option>
+												<c:forEach var="row" items="${listCust}">
+													<option data-no="${row.custNo}" value="${row.custName}" <c:if test="${row.custName eq dto.custName}">selected</c:if>>${row.custName}</option>
+												</c:forEach>
+											</select>
 											<input type="hidden" name="custNo" id="custNo" value="${dto.custNo}" />
+											<%-- <input type="text" class="form-control" name="custName" id="custName" value="${dto.custName}"> --%>
 										</div>
 									</td>
 									<th scope="row">엔드유저</th>
 									<td>
 										<div class="input-group input-group-sm mb-0">
-											<input type="text" class="form-control" id="endCustName" value="${dto.ptncName}">
+											<select class="form-control" id="endCustName" name="endCustName" onchange="autoCompleteSelect(this);">
+												<option value="">선택</option>
+												<c:forEach var="row" items="${listCust}">
+													<option data-no="${row.custNo}" value="${row.custName}" <c:if test="${row.custName eq dto.custName}">selected</c:if>>${row.custName}</option>
+												</c:forEach>
+											</select>
 											<input type="hidden" id="endCustNo" value="${dto.ptncNo}" />
+											<%-- <input type="text" class="form-control" id="endCustName" value="${dto.ptncName}"> --%>
 										</div>
 									</td>
 									<th scope="row" class="requiredTextCss">제목</th>
@@ -228,11 +246,11 @@
 			else if (!salesData.userNo){
 				alert("담당사원을 선택해 주십시오.");
 				return;
-			}
-			else if (!salesData.salesTitle) {
+			}else if (!salesData.salesTitle) {
 				alert("영업활동 제목을 입력해 주십시오.");		
 				return;
-			}else if($("#soppTitle").val() !== "" && !autoCompleteVali($("#soppTitle").val(), "sopp")){
+			}
+			/* else if($("#soppTitle").val() !== "" && !autoCompleteVali($("#soppTitle").val(), "sopp")){
 				alert("조회된 영업기회가 없습니다.\n다시 확인해 주세요.");
 				$("#soppTitle").focus();
 				return;
@@ -256,7 +274,7 @@
 				alert("엔드유저를 제대로 선택해주세요.");
 				$("#endCustName").focus();
 				return;
-			}
+			} */
 			
 			$.ajax({
 				url: "${path}/sales/update.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소

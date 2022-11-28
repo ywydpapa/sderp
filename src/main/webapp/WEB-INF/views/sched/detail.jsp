@@ -57,8 +57,7 @@
 								
 								<tr>
 									<th scope="row">장소</th>
-									<td><input type="text"
-										class="form-control form-control-sm" id="schedPlace" 	name="schedPlace" value="${dto.schedPlace}"></td>
+									<td><input type="text" class="form-control form-control-sm" id="schedPlace" name="schedPlace" value="${dto.schedPlace}"></td>
 
 									<%-- <th scope="row">계약 관련</th>
 									<td>
@@ -97,47 +96,10 @@
 											</div>
 										</div>
 									</td> --%>
-									<th scope="row">영업기회</th>
+									<th scope="row" class="requiredTextCss">담당사원</th>
 									<td>
 										<div class="input-group input-group-sm mb-0">
-											<input type="text" class="form-control" name="soppTitle" id="soppTitle" value="${dto.soppTitle}" autocomplete="off"/> 
-											<input type="hidden" name="soppNo" id="soppNo" value="${dto.soppNo}" /> 
-											<%-- <span class="input-group-btn">
-												<button class="btn btn-primary sch-opportunity2"
-													data-remote="${path}/modal/popup.do?popId=sopp"
-													type="button" data-toggle="modal" data-target="#soppModal">
-													<i class="icofont icofont-search"></i>
-												</button>
-											</span>
-											<div class="modal fade " id="soppModal" tabindex="-1"
-												role="dialog">
-												<div class="modal-dialog modal-80size" role="document">
-													<div class="modal-content modal-80size">
-														<div class="modal-header">
-															<h4 class="modal-title"></h4>
-															<button type="button" class="close" onclick="$('#soppModal').modal('hide');"
-																aria-label="Close">
-																<span aria-hidden="true">&times;</span>
-															</button>
-														</div>
-														<div class="modal-body">
-															<h5>영업기회목록</h5>
-															<p>Loading!!!</p>
-														</div>
-														<div class="modal-footer">
-															<button type="button"
-																class="btn btn-default waves-effect "
-																onclick="$('#soppModal').modal('hide');">Close</button>
-														</div>
-													</div>
-												</div>
-											</div> --%>
-										</div>
-									</td>
-									<th scope="row" class="requiredTextCss">담당사원</th>
-									<td colspan="3">
-										<div class="input-group input-group-sm mb-0">
-											<input type="text" class="form-control " name="userName" id="userName" value="${dto.userName}" readonly/> 
+											<input type="text" class="form-control " name="userName" id="userName" data-completeSet="true" value="${dto.userName}" readonly/> 
 											<input type="hidden" name="userNo" id="userNo" value="${dto.userNo}" /> 
 											<%-- <span class="input-group-btn">
 												<button class="btn btn-primary sch-company"
@@ -171,14 +133,63 @@
 											</div> --%>
 										</div>
 									</td>
+									<th scope="row">영업기회</th>
+									<td colspan="3">
+										<div class="input-group input-group-sm mb-0">
+											<select class="form-control" id="soppTitle" name="soppTitle" onchange="autoCompleteSelect(this);">
+												<option value="">선택</option>
+												<c:forEach var="row" items="${listSopp}">
+													<option data-no="${row.soppNo}" value="${row.soppTitle}" <c:if test="${row.soppTitle eq dto.soppTitle}">selected</c:if>>${row.soppTitle}</option>
+												</c:forEach>
+											</select>
+											<input type="hidden" name="soppNo" id="soppNo" value="${dto.soppNo}" /> 
+											<%-- <input type="text" class="form-control" name="soppTitle" id="soppTitle" value="${dto.soppTitle}" autocomplete="off"/>  --%>
+											<%-- <span class="input-group-btn">
+												<button class="btn btn-primary sch-opportunity2"
+													data-remote="${path}/modal/popup.do?popId=sopp"
+													type="button" data-toggle="modal" data-target="#soppModal">
+													<i class="icofont icofont-search"></i>
+												</button>
+											</span>
+											<div class="modal fade " id="soppModal" tabindex="-1"
+												role="dialog">
+												<div class="modal-dialog modal-80size" role="document">
+													<div class="modal-content modal-80size">
+														<div class="modal-header">
+															<h4 class="modal-title"></h4>
+															<button type="button" class="close" onclick="$('#soppModal').modal('hide');"
+																aria-label="Close">
+																<span aria-hidden="true">&times;</span>
+															</button>
+														</div>
+														<div class="modal-body">
+															<h5>영업기회목록</h5>
+															<p>Loading!!!</p>
+														</div>
+														<div class="modal-footer">
+															<button type="button"
+																class="btn btn-default waves-effect "
+																onclick="$('#soppModal').modal('hide');">Close</button>
+														</div>
+													</div>
+												</div>
+											</div> --%>
+										</div>
+									</td>
 								</tr>
 								
 								<tr>
 									<th scope="row">매출처</th>
 									<td>
 										<div class="input-group input-group-sm mb-0">
-											<input type="text" class="form-control " name="custName" id="custName" value="${dto.custName}" autocomplete="off"/> 
+											<select class="form-control" id="custName" name="custName" onchange="autoCompleteSelect(this);">
+												<option value="">선택</option>
+												<c:forEach var="row" items="${listCust}">
+													<option data-no="${row.custNo}" value="${row.custName}" <c:if test="${row.custName eq dto.custName}">selected</c:if>>${row.custName}</option>
+												</c:forEach>
+											</select>
 											<input type="hidden" name="custNo" id="custNo" value="${dto.custNo}" /> 
+											<%-- <input type="text" class="form-control " name="custName" id="custName" value="${dto.custName}" autocomplete="off"/>  --%>
 											<%-- <span class="input-group-btn">
 												<button class="btn btn-primary sch-company"
 													data-remote="${path}/modal/popup.do?popId=cust"
@@ -374,22 +385,6 @@
 				return
 			}else if(!schedData.schedTitle){
 				alert("제목을 입력하십시오.");
-				return;
-			}else if($("#soppTitle").val() !== "" && !autoCompleteVali($("#soppTitle").val(), "sopp")){
-				alert("조회된 영업기회가 없습니다.\n다시 확인해 주세요.");
-				$("#soppTitle").focus();
-				return;
-			}else if($("#custName").val() !== "" && !autoCompleteVali($("#custName").val(), "cust")){
-				alert("조회된 거래처가 없습니다.\n다시 확인해주세요.");
-				$("#custName").focus();
-				return;
-			}else if($("#soppTitle").val() !== "" && ($("#soppNo").val() === "" || $("#soppNo").val() == 0)){
-				alert("영업기회를 제대로 선택해주세요.");
-				$("#soppTitle").focus();
-				return;
-			}else if($("#custName").val() !== "" && ($("#custNo").val() === "" || $("#custNo").val() == 0)){
-				alert("매출처를 제대로 선택해주세요.");
-				$("#custName").focus();
 				return;
 			}else{
 				$.ajax({

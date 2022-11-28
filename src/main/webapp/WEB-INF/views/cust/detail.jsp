@@ -60,7 +60,7 @@
 											</tr>
 											<tr>
 												<th scope="row">거래처명</th>
-												<td><input type="text" name="custName" id="custName"
+												<td><input type="text" name="custName" id="custName" data-completeSet="true"
 													value="${dto.custName}" class="form-control form-control-sm">
 												</td>
 											</tr>

@@ -73,16 +73,22 @@
                             <div class="col-sm-12 col-xl-2">
                                 <label class="col-form-label">거래처</label>
                                 <div class="input-group input-group-sm mb-0">
-                                    <input type="text" class="form-control" name="custName" id="custName" value="${param.custName}" readonly />
+                                	<select class="form-control" id=custName name="custName" onchange="autoCompleteSelect(this);">
+										<option value="">선택</option>
+										<c:forEach var="row" items="${listCust}">
+											<option data-no="${row.custNo}" value="${row.custName}" <c:if test="${row.custName eq param.custName}">selected</c:if>>${row.custName}</option>
+										</c:forEach>
+									</select>
                                     <input type="hidden" name="custNo" id="custNo" value="${param.custNo}" />
-                                    <span class="input-group-btn">
-											<button class="btn btn-primary sch-company"
-                                                    data-remote="${path}/modal/popup.do?popId=cust"
-                                                    type="button" data-toggle="modal"
-                                                    data-target="#custModal">
-												<i class="icofont icofont-search"></i>
-											</button>
-										</span>
+                                    <%-- <input type="text" class="form-control" name="custName" id="custName" value="${param.custName}" readonly /> --%>
+                                    <%-- <span class="input-group-btn">
+										<button class="btn btn-primary sch-company"
+                                                   data-remote="${path}/modal/popup.do?popId=cust"
+                                                   type="button" data-toggle="modal"
+                                                   data-target="#custModal">
+											<i class="icofont icofont-search"></i>
+										</button>
+									</span>
                                     <div class="modal fade " id="custModal" tabindex="-1"
                                          role="dialog">
                                         <div class="modal-dialog modal-80size" role="document">
@@ -103,22 +109,27 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> --%>
                                 </div>
                             </div>
                             <div class="col-sm-12 col-xl-2">
                                 <label class="col-form-label" for="userName">담당사원</label>
                                 <div class="input-group input-group-sm mb-0">
-                                    <input type="text" class="form-control" name="userName"
-                                           id="userName" readonly /> <input type="hidden"
-                                                                            name="userNo" id="userNo" /> <span
-                                        class="input-group-btn">
-											<button class="btn btn-primary sch-company"
-                                                    data-remote="${path}/modal/popup.do?popId=user" type="button"
-                                                    data-toggle="modal" data-target="#userModal">
-												<i class="icofont icofont-search"></i>
-											</button>
-										</span>
+                                	<select class="form-control" id="userName" name="userName" onchange="autoCompleteSelect(this);">
+										<option value="">선택</option>
+										<c:forEach var="row" items="${listUser}">
+											<option data-no="${row.userNo}" value="${row.userName}">${row.userName}</option>
+										</c:forEach>
+									</select>
+                                    <input type="hidden" name="userNo" id="userNo" /> 
+                                    <!-- <input type="text" class="form-control" name="userName" id="userName" readonly /> --> 
+                                    <%-- <span class="input-group-btn">
+										<button class="btn btn-primary sch-company"
+                                                   data-remote="${path}/modal/popup.do?popId=user" type="button"
+                                                   data-toggle="modal" data-target="#userModal">
+											<i class="icofont icofont-search"></i>
+										</button>
+									</span>
                                     <div class="modal fade " id="userModal" tabindex="-1"
                                          role="dialog">
                                         <div class="modal-dialog modal-80size" role="document">
@@ -140,7 +151,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> --%>
                                 </div>
                             </div>
                             <div class="col-sm-12 col-xl-3">

@@ -84,8 +84,14 @@
 									<th class="requiredTextCss">영업기회</th>
 									<td>
 										<div class="input-group input-group-sm mb-0">
-											<input type="text" class="form-control" name="soppDTO" id="soppTitle" value="" autocomplete="off">
+											<select class="form-control" id="soppTitle" name="soppTitle" onchange="autoCompleteSelect(this);">
+												<option value="">선택</option>
+												<c:forEach var="row" items="${listSopp}">
+													<option data-no="${row.soppNo}" value="${row.soppTitle}">${row.soppTitle}</option>
+												</c:forEach>
+											</select>
 											<input type="hidden" class="form-control" name="soppDTO" id="soppNo" value="" />
+											<!-- <input type="text" class="form-control" name="soppDTO" id="soppTitle" value="" autocomplete="off"> -->
 											<%-- <span class="input-group-btn">
 												<button class="btn btn-primary sch-opportunity2"
 													data-remote="${path}/modal/popup.do?popId=sopp"
@@ -155,7 +161,7 @@
 									<th scope="row" class="requiredTextCss">담당사원</th>
 									<td>
 										<div class="input-group input-group-sm mb-0">
-											<input type="text" class="form-control" name="userName" id="userName" value="${sessionScope.userName}" readonly>
+											<input type="text" class="form-control" name="userName" id="userName" data-completeSet="true" value="${sessionScope.userName}" readonly>
 											<input type="hidden" class="form-control" name="userNo" id="userNo" value="${sessionScope.userNo}" />
 											<%-- <span class="input-group-btn">
 												<button class="btn btn-primary sch-company"
@@ -203,8 +209,14 @@
 									<th class="requiredTextCss">매출처</th>
 									<td>
 										<div class="input-group input-group-sm mb-0">
-											<input type="text" class="form-control" name="custName" id="custName" value="" autocomplete="off">
+											<select class="form-control" id="custName" name="custName" onchange="autoCompleteSelect(this);">
+												<option value="">선택</option>
+												<c:forEach var="row" items="${listCust}">
+													<option data-no="${row.custNo}" value="${row.custName}">${row.custName}</option>
+												</c:forEach>
+											</select>
 											<input type="hidden" name="custNo" id="custNo" value="" /> 
+											<!-- <input type="text" class="form-control" name="custName" id="custName" value="" autocomplete="off"> -->
 											<%-- <span class="input-group-btn">
 												<button class="btn btn-primary sch-company"
 														data-remote="${path}/modal/popup.do?popId=cust"
@@ -240,8 +252,14 @@
 									<th>매출처 담당자</th>
 									<td>
 										<div class="input-group input-group-sm mb-0">
-											<input type="text" id="custmemberName" name="custmemberName" class="form-control" autocomplete="off">
+											<select class="form-control" id="custmemberName" name="custmemberName" onchange="autoCompleteSelect(this);">
+												<option value="">선택</option>
+												<c:forEach var="row" items="${listCustMember}">
+													<option data-no="${row.custData03no}" value="${row.custMname}">${row.custMname}</option>
+												</c:forEach>
+											</select>
 											<input type="hidden" id="custmemberNo" name="custmemberNo" class="form-control ">
+											<!-- <input type="text" id="custmemberName" name="custmemberName" class="form-control" autocomplete="off"> -->
 											<%-- <span class="input-group-btn">
 												<button class="btn btn-primary sch-company btn-sm"  data-remote="${path}/modal/popup.do?popId=custmem&compNo=" type="button" data-toggle="modal" data-target="#custmemberModal" id="custmemberModalbtn" data-whatever="">
 													<i class="icofont icofont-search"></i>
@@ -275,8 +293,14 @@
 									<th scope="row" class="requiredTextCss">엔드유저</th>
 									<td>
 										<div class="input-group input-group-sm mb-0">
-											<input type="text" class="form-control " id="endCustName" value="" autocomplete="off">
+											<select class="form-control" id="endCustName" name="endCustName" onchange="autoCompleteSelect(this);">
+												<option value="">선택</option>
+												<c:forEach var="row" items="${listCust}">
+													<option data-no="${row.custNo}" value="${row.custName}">${row.custName}</option>
+												</c:forEach>
+											</select>
 											<input type="hidden" id="endCustNo" value="" />
+											<!-- <input type="text" class="form-control " id="endCustName" value="" autocomplete="off"> -->
 											<%-- <span class="input-group-btn">
 												<button class="btn btn-primary sch-partner" data-remote="${path}/modal/popup.do?popId=endCust" type="button" data-toggle="modal" data-target="#endCustModal">
 													<i class="icofont icofont-search"></i>
@@ -308,8 +332,14 @@
 									<th>엔드유저 담당자</th>
 									<td>
 										<div class="input-group input-group-sm mb-0">
-											<input type="text" id="endCustmemberName" name="endCustmemberName" class="form-control" autocomplete="off">
+											<select class="form-control" id="endCustmemberName" name="endCustmemberName" onchange="autoCompleteSelect(this);">
+												<option value="">선택</option>
+												<c:forEach var="row" items="${listCustMember}">
+													<option data-no="${row.custData03no}" value="${row.custMname}">${row.custMname}</option>
+												</c:forEach>
+											</select>
 											<input type="hidden" id="endCustmemberNo" name="endCustmemberNo" class="form-control">
+											<!-- <input type="text" id="endCustmemberName" name="endCustmemberName" class="form-control" autocomplete="off"> -->
 											<%-- <span class="input-group-btn">
 												<button class="btn btn-primary sch-company btn-sm"  data-remote="${path}/modal/popup.do?popId=endCustmem&compNo=" type="button" data-toggle="modal" data-target="#endCustmemberModal" id="endCustmemberModalbtn" data-whatever="">
 													<i class="icofont icofont-search"></i>
@@ -351,8 +381,14 @@
 									<th>(부)담당사원</th>
 									<td>
 										<div class="input-group input-group-sm mb-0">
-											<input type="text" class="form-control" name="secondUserName" id="secondUserName" value="${sessionScope.secondUserName}" autocomplete="off">
+											<select class="form-control" id="secondUserName" name="secondUserName" onchange="autoCompleteSelect(this);">
+												<option value="">선택</option>
+												<c:forEach var="row" items="${listUser}">
+													<option data-no="${row.userNo}" value="${row.userName}" <c:if test="${row.userName eq sessionScope.secondUserName}">selected</c:if>>${row.userName}</option>
+												</c:forEach>
+											</select>
 											<input type="hidden" class="form-control" name="secondUserNo" id="secondUserNo" value="${sessionScope.secondUserNo}" />
+											<%-- <input type="text" class="form-control" name="secondUserName" id="secondUserName" value="${sessionScope.secondUserName}" autocomplete="off"> --%>
 											<%-- <span class="input-group-btn">
 												<button class="btn btn-primary sch-company"
 													data-remote="${path}/modal/popup.do?popId=secondUser"
@@ -675,50 +711,6 @@
 			}else if($("#soppTitle").val() === ""){
 				alert("영업기회를 선택해주십시오.");
 				$("#soppTitle").focus();
-				return;
-			}else if(!autoCompleteVali($("#soppTitle").val(), "sopp")){
-				alert("조회된 영업기회가 없습니다.\n다시 확인해주세요.");
-				$("#soppTitle").focus();
-				return;
-			}else if(!autoCompleteVali($("#custName").val(), "cust")){
-				alert("조회된 매출처가 없습니다.\n다시 확인해주세요.");
-				$("#custName").focus();
-				return;
-			}else if($("#custmemberName").val() !== "" && !autoCompleteVali($("#custmemberName").val(), "custMember")){
-				alert("조회된 매출처 담당자가 없습니다.\n다시 확인해주세요.");
-				$("#custmemberName").focus();
-				return;
-			}else if(!autoCompleteVali($("#endCustName").val(), "cust")){
-				alert("조회된 엔드유저가 없습니다.\n다시 확인해주세요.");
-				$("#endCustName").focus();
-				return;
-			}else if($("#endCustmemberName").val() !== "" && !autoCompleteVali($("#endCustmemberName").val(), "custMember")){
-				alert("조회된 엔드유저 담당자가 없습니다.\n다시 확인해주세요.");
-				$("#endCustmemberName").focus();
-				return;
-			}else if($("#secondUserName").val() !== "" && !autoCompleteVali($("#secondUserName").val(), "user")){
-				alert("조회된 (부)담당자가 없습니다.\n다시 확인해주세요.");
-				$("#secondUserName").focus();
-				return;
-			}else if($("#soppTitle").val() !== "" && ($("#soppNo").val() === "" || $("#soppNo").val() == 0)){
-				alert("영업기회를 제대로 선택해주세요.");
-				$("#soppTitle").focus();
-				return;
-			}else if($("#custName").val() !== "" && ($("#custNo").val() === "" || $("#custNo").val() == 0)){
-				alert("거래처를 제대로 선택해주세요.");
-				$("#custName").focus();
-				return;
-			}else if($("#endCustName").val() !== "" && ($("#endCustNo").val() === "" || $("#endCustNo").val() == 0)){
-				alert("엔드유저를 제대로 선택해주세요.");
-				$("#endCustName").focus();
-				return;
-			}else if($("#custmemberName").val() !== "" && ($("#custmemberNo").val() === "" || $("#custmemberNo").val() == 0)){
-				alert("매출처 담당자를 제대로 선택해주세요.");
-				$("#custmemberName").focus();
-				return;
-			}else if($("#endCustmemberName").val() !== "" && ($("#endCustmemberNo").val() === "" || $("#endCustmemberNo").val() == 0)){
-				alert("엔드유저 담당자를 제대로 선택해주세요.");
-				$("#endCustmemberName").focus();
 				return;
 			}else{
 				$.ajax({ 

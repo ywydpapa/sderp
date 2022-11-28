@@ -132,16 +132,6 @@
     const DEFAULT_NUM = 15;
 	const CLICK_PAGE_NUM = 10;
 	
-	let listSession = {
-		"listUser": ${sessionScope.listUser},
-		"listCust": ${sessionScope.listCust},
-		"listSopp": ${sessionScope.listSopp},
-		"listCont": ${sessionScope.listCont},
-		"listCustMember": ${sessionScope.listCustMember},
-		"listProduct": ${sessionScope.listProduct},
-		"listCategory": ${sessionScope.listCategory},
-	}
-	
 	$(function(){
 		$("#topMenu a").click(function(evt){
 			var url = this.href;
@@ -790,7 +780,7 @@
 		}
 	}
 	
-	function autoCompleteVali(value, type){
+	/* function autoCompleteVali(value, type){
 		let listUser = listSession.listUser;
 		let listCust = listSession.listCust;
 		let listSopp = listSession.listSopp;
@@ -846,8 +836,7 @@
 		}
 		
 		return result;
-	}
-	
+	} */
 	
 	$(document).ready(function(){
 		timeAllimUpdate();

@@ -87,8 +87,14 @@
                                 <th class="contDetailSopp text-center">연결프로젝트(영업기회)</th>
                                 <td class="contDetailSopp">
                                     <div class="input-group input-group-sm mb-0">
-                                        <input type="text" class="form-control" name="soppDTO" id="soppTitle" value="${detailList.soppTitle}" autocomplete="off"/>
+                                    	<select class="form-control" id="soppTitle" name="soppTitle" onchange="autoCompleteSelect(this);">
+											<option value="">선택</option>
+											<c:forEach var="row" items="${listSopp}">
+												<option data-no="${row.soppNo}" value="${row.soppTitle}" <c:if test="${row.soppTitle eq detailList.soppTitle}">selected</c:if>>${row.soppTitle}</option>
+											</c:forEach>
+										</select>
                                         <input type="hidden" class="form-control" name="soppDTO" id="soppNo" value="${detailList.linkSoppNo}" />
+                                        <%-- <input type="text" class="form-control" name="soppDTO" id="soppTitle" value="${detailList.soppTitle}" autocomplete="off"/> --%>
                                         <%-- <span class="input-group-btn">
 												<button class="btn btn-primary sch-opportunity2"
                                                         data-remote="${path}/modal/popup.do?popId=sopp"
@@ -124,8 +130,14 @@
                                 <th class="text-center">거래처</th>
                                 <td>
                                     <div class="input-group input-group-sm mb-0">
-                                        <input type="text" class="form-control" name="custName" id="custName" value="${detailList.custName}" autocomplete="off"> 
+                                    	<select class="form-control" id="custName" name="custName" onchange="autoCompleteSelect(this);">
+											<option value="">선택</option>
+											<c:forEach var="row" items="${listCust}">
+												<option data-no="${row.custNo}" value="${row.custName}" <c:if test="${row.custName eq detailList.custName}">selected</c:if>>${row.custName}</option>
+											</c:forEach>
+										</select>
                                         <input type="hidden" name="custNo" id="custNo" value="${detailList.linkCustNo}" /> 
+                                        <%-- <input type="text" class="form-control" name="custName" id="custName" value="${detailList.custName}" autocomplete="off"> --%> 
                                         <%-- <span class="input-group-btn">
 												<button class="btn btn-primary sch-company"
                                                         data-remote="${path}/modal/popup.do?popId=cust"
@@ -222,7 +234,7 @@
 		                                </td>
 		                                <th class="text-center requiredTextCss">결제자(*)</th>
 		                                <td>
-											<input type="text" class="form-control" name="userName" id="userName" value="이승우" readonly> 
+											<input type="text" class="form-control" name="userName" id="userName" data-completeSet="true" value="이승우" readonly> 
 		                                	<input type="hidden" name="userNo" id="userNo" value="10002">
 		                                </td>
 		                    		</c:otherwise>
@@ -232,7 +244,7 @@
 		                    	<tr>
 		                       		<th class="text-center requiredTextCss">결제자(*)</th>
 		                        	<td>
-										<input type="text" class="form-control" name="userName" id="userName" value="이승우" readonly> 
+										<input type="text" class="form-control" name="userName" id="userName" data-completeSet="true" value="이승우" readonly> 
 		                            	<input type="hidden" name="userNo" id="userNo" value="10002">
 		                       		</td>
 		                       		<!-- 빈공간 -->

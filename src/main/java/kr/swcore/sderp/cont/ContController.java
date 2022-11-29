@@ -36,6 +36,7 @@ import kr.swcore.sderp.cont.dto.ContDTO;
 import kr.swcore.sderp.cont.dto.ContFileDataDTO;
 import kr.swcore.sderp.cont.service.ContService;
 import kr.swcore.sderp.cust.service.CustService;
+import kr.swcore.sderp.product.service.ProductService;
 
 @Controller
 @RequestMapping("/cont/*")
@@ -68,6 +69,9 @@ public class ContController {
 	
 	@Inject
 	UserService userService;
+	
+	@Inject
+	ProductService productService;
 	
 	@RequestMapping("list.do")
 	public ModelAndView list(HttpSession session, ModelAndView mav,
@@ -161,6 +165,7 @@ public class ContController {
 		mav.addObject("listUser", userService.userList(session));
 		mav.addObject("listCustMember", custService.listCustMember(session));
 		mav.addObject("listSopp", soppService.listSopp(session, null));
+		mav.addObject("listProduct", productService.listProduct(session));
 		return mav;
 	}
 
@@ -174,6 +179,8 @@ public class ContController {
 		mav.addObject("listUser", userService.userList(session));
 		mav.addObject("listCustMember", custService.listCustMember(session));
 		mav.addObject("listSopp", soppService.listSopp(session, null));
+		ContDTO contDto = new ContDTO();
+		mav.addObject("listCont", contService.listCont(session, null, contDto));
 		return mav;
 	}
 	
@@ -194,6 +201,11 @@ public class ContController {
 				}
 			}
 		System.out.println(mav);
+		mav.addObject("listSopp", soppService.listSopp(session, null));
+		mav.addObject("listCust", custService.listCust(session));
+		mav.addObject("listProduct", productService.listProduct(session));
+		ContDTO contDto = new ContDTO();
+		mav.addObject("listCont", contService.listCont(session, null, contDto));
 		mav.addObject("soppParam", soppNo);
 		return mav;
 	}
@@ -220,6 +232,11 @@ public class ContController {
 			}
 		}
 		System.out.println(mav);
+		mav.addObject("listSopp", soppService.listSopp(session, null));
+		mav.addObject("listCust", custService.listCust(session));
+		mav.addObject("listProduct", productService.listProduct(session));
+		ContDTO contDto = new ContDTO();
+		mav.addObject("listCont", contService.listCont(session, null, contDto));
 		mav.addObject("soppParam", soppNo);
 		return mav;
 	}
@@ -230,6 +247,11 @@ public class ContController {
 		mav.addObject("contractType", codeService.listContractType(session));
 		mav.addObject("dtodata01", soppdataService.listSoppdata01(soppNo));
 		mav.addObject("dtodata02", soppdataService.listSoppdata011(soppNo));
+		mav.addObject("listSopp", soppService.listSopp(session, null));
+		mav.addObject("listCust", custService.listCust(session));
+		mav.addObject("listProduct", productService.listProduct(session));
+		ContDTO contDto = new ContDTO();
+		mav.addObject("listCont", contService.listCont(session, null, contDto));
 		mav.addObject("soppParam", soppNo);
 		return mav;
 	}
@@ -249,6 +271,8 @@ public class ContController {
     		mav.addObject("listsum",soppdataService.listIOsum(session, dto));
     	}
 		
+		mav.addObject("listCust", custService.listCust(session));
+		mav.addObject("listUser", userService.userList(session));
 		mav.addObject("contractType", codeService.listContractType(session));
 		mav.setViewName("slip/iolist");
 		

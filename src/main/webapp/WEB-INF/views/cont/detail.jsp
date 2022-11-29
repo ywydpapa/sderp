@@ -886,50 +886,6 @@
 				alert("영업기회를 선택해주십시오.");
 				$("#soppTitle").focus();
 				return;
-			}else if(!autoCompleteVali($("#soppTitle").val(), "sopp")){
-				alert("조회된 영업기회가 없습니다.\n다시 확인해주세요.");
-				$("#soppTitle").focus();
-				return;
-			}else if(!autoCompleteVali($("#custName").val(), "cust")){
-				alert("조회된 매출처가 없습니다.\n다시 확인해주세요.");
-				$("#custName").focus();
-				return;
-			}else if($("#custmemberName").val() !== "" && !autoCompleteVali($("#custmemberName").val(), "custMember")){
-				alert("조회된 매출처 담당자가 없습니다.\n다시 확인해주세요.");
-				$("#custmemberName").focus();
-				return;
-			}else if(!autoCompleteVali($("#endCustName").val(), "cust")){
-				alert("조회된 엔드유저가 없습니다.\n다시 확인해주세요.");
-				$("#endCustName").focus();
-				return;
-			}else if($("#endCustmemberName").val() !== "" && !autoCompleteVali($("#endCustmemberName").val(), "custMember")){
-				alert("조회된 엔드유저 담당자가 없습니다.\n다시 확인해주세요.");
-				$("#endCustmemberName").focus();
-				return;
-			}else if($("#secondUserName").val() !== "" && !autoCompleteVali($("#secondUserName").val(), "user")){
-				alert("조회된 (부)담당자가 없습니다.\n다시 확인해주세요.");
-				$("#secondUserName").focus();
-				return;
-			}else if($("#soppTitle").val() !== "" && ($("#soppNo").val() === "" || $("#soppNo").val() == 0)){
-				alert("영업기회를 제대로 선택해주세요.");
-				$("#soppTitle").focus();
-				return;
-			}else if($("#custName").val() !== "" && ($("#custNo").val() === "" || $("#custNo").val() == 0)){
-				alert("거래처를 제대로 선택해주세요.");
-				$("#custName").focus();
-				return;
-			}else if($("#endCustName").val() !== "" && ($("#endCustNo").val() === "" || $("#endCustNo").val() == 0)){
-				alert("엔드유저를 제대로 선택해주세요.");
-				$("#endCustName").focus();
-				return;
-			}else if($("#custmemberName").val() !== "" && ($("#custmemberNo").val() === "" || $("#custmemberNo").val() == 0)){
-				alert("매출처 담당자를 제대로 선택해주세요.");
-				$("#custmemberName").focus();
-				return;
-			}else if($("#endCustmemberName").val() !== "" && ($("#endCustmemberNo").val() === "" || $("#endCustmemberNo").val() == 0)){
-				alert("엔드유저 담당자를 제대로 선택해주세요.");
-				$("#endCustmemberName").focus();
-				return;
 			}else{
 				$.ajax({
 					url: "${path}/cont/update.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소

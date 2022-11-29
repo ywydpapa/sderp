@@ -108,7 +108,7 @@
 											<select class="form-control" id="endCustName" name="endCustName" onchange="autoCompleteSelect(this);">
 												<option value="">선택</option>
 												<c:forEach var="row" items="${listCust}">
-													<option data-no="${row.custNo}" value="${row.custName}" <c:if test="${row.custName eq dto.custName}">selected</c:if>>${row.custName}</option>
+													<option data-no="${row.custNo}" value="${row.custName}" <c:if test="${row.custName eq dto.ptncName}">selected</c:if>>${row.custName}</option>
 												</c:forEach>
 											</select>
 											<input type="hidden" id="endCustNo" value="${dto.ptncNo}" />
@@ -116,11 +116,9 @@
 										</div>
 									</td>
 									<th scope="row" class="requiredTextCss">제목</th>
-									<td><input type="text"
+									<td colspan="3"><input type="text"
 										class="form-control form-control-sm" id="salesTitle" name="salesTitle"
 										value="${dto.salesTitle}"></td>
-									<th></th>
-									<td></td>
 								</tr>
 								<tr>
 									<th scope="row">

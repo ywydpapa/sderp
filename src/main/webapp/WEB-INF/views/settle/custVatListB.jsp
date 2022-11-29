@@ -61,9 +61,15 @@
                             	<div class="col-sm-12 col-xl-3">
 									<label class="col-form-label">거래처</label>
 									<div class="input-group input-group-sm mb-0">
-										<input type="text" class="form-control" name="vatSellerName" id="vatSellerName" value="${param.vatSellerName}" readonly />
+										<select class="form-control" id="vatSellerName" name="vatSellerName" onchange="autoCompleteSelect(this);">
+											<option value="">선택</option>
+											<c:forEach var="row" items="${listCust}">
+												<option data-no="${row.custNo}" value="${row.custName}" <c:if test="${row.custName eq param.vatSellerName}">selected</c:if>>${row.custName}</option>
+											</c:forEach>
+										</select>
 										<input type="hidden" name="vatSellerCustNo" id="vatSellerCustNo" value="${param.vatSellerCustNo}" />
-										<span class="input-group-btn">
+										<%-- <input type="text" class="form-control" name="vatSellerName" id="vatSellerName" value="${param.vatSellerName}" readonly /> --%>
+										<%-- <span class="input-group-btn">
 											<button class="btn btn-primary sch-company"
 												data-remote="${path}/modal/popup.do?popId=cust"
 												type="button" data-toggle="modal"
@@ -91,7 +97,7 @@
 													</div>
 												</div>
 											</div>
-										</div>
+										</div> --%>
 									</div>
 								</div>
                                 <div class="col-sm-12 col-xl-5">

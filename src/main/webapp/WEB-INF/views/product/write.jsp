@@ -36,7 +36,7 @@
 							</colgroup>
 							<tbody>
 								<tr>
-									<th scope="row" class="requiredTextCss">공급사</th>
+									<th scope="row" class="requiredTextCss">고객사</th>
 									<td>
 										<div class="input-group input-group-sm mb-0">
 											<select class="form-control" id="custName" name="custName" onchange="autoCompleteSelect(this);">
@@ -240,10 +240,10 @@
 			}
 			productData.productDefaultPrice = Number(productDefaultPrice);		// 상품 기본 가격
 			productData.productDesc	 		= $("#productDesc").val();				// 상품 설명
-			productData.custNo				= $("#custNo").val();					// 공급사(외래키)
+			productData.custNo				= $("#custNo").val();					// 고객사(외래키)
 
 			if($("#custName").val() === ""){
-				alert("공급사를 입력해주세요.");
+				alert("고객사를 입력해주세요.");
 				$("#custName").focus();
 				return;
 			} else if($("#productCategoryName").val() === ""){

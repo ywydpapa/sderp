@@ -470,14 +470,14 @@
 								<div class="col-sm-12 col-xl-3">
 									<label class="col-form-label">영업기회명</label>
 									<p class="input_inline mb-0">
-										<select class="form-control form-control-sm col-xl-12" id="soppTitle" name="soppTitle" onchange="autoCompleteSelect(this);">
+										<%-- <select class="form-control form-control-sm col-xl-12" id="soppTitle" name="soppTitle" onchange="autoCompleteSelect(this);">
 											<option value="">선택</option>
 											<c:forEach var="row" items="${listSopp}">
 												<option data-no="${row.soppNo}" value="${row.soppTitle}">${row.soppTitle}</option>
 											</c:forEach>
-										</select>
+										</select> --%>
+										<input type="text" class="form-control form-control-sm col-xl-12" name="soppTitle" id="soppTitle" data-completeSet="true" style="width:100%;">
 										<input type="hidden" class="form-control" name="soppNo" id="soppNo" value="${dto.soppNo}" />
-										<!-- <input type="text" class="form-control form-control-sm col-xl-12" name="soppTitle" id="soppTitle" style="width:100%;"> -->
 									</p>
 								</div>
 							</div>

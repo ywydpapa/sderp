@@ -39,7 +39,7 @@
 								<tr>
 									<th>작성자</th>
 									<td colspan="3">
-										<input type="text" class="form-control form-control-sm" id="userName" name="userName" value="${dto.userName}" readonly>
+										<input type="text" class="form-control form-control-sm" id="userName" data-completeSet="true" name="userName" value="${dto.userName}" readonly>
 										<input type="hidden" class="form-control" name="userNo" id="userNo" value="${dto.userNo}" />
 									</td>
 								</tr>

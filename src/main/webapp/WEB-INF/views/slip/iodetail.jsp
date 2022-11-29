@@ -76,9 +76,15 @@
 									<th class="contDetailSopp requiredTextCss text-center">영업기회</th>
 									<td class="contDetailSopp">
 										<div class="input-group input-group-sm mb-0">
-											<input type="text" class="form-control" name="soppDTO" id="soppTitle" value="" readonly/>
+											<select class="form-control" id="soppTitle" name="soppTitle" onchange="autoCompleteSelect(this);">
+												<option value="">선택</option>
+												<c:forEach var="row" items="${listSopp}">
+													<option data-no="${row.soppNo}" value="${row.soppTitle}">${row.soppTitle}</option>
+												</c:forEach>
+											</select>
 											<input type="hidden" class="form-control" name="soppDTO" id="soppNo" value="" />
-											<span class="input-group-btn">
+											<!-- <input type="text" class="form-control" name="soppDTO" id="soppTitle" value="" readonly/> -->
+											<%-- <span class="input-group-btn">
 												<button class="btn btn-primary sch-opportunity2"
 													data-remote="${path}/modal/popup.do?popId=sopp"
 													type="button" data-toggle="modal" data-target="#soppModal">
@@ -107,16 +113,22 @@
 														</div>
 													</div>
 												</div>
-											</div>
+											</div> --%>
 										</div>
 									</td>
 									<th class="contDetailCont requiredTextCss text-center">계약</th>
 									<td class="contDetailCont">
 										<div class="input-group input-group-sm mb-0">
-											<input type="text" class="form-control" name="oldContTitle" id="oldContTitle" readonly />
-											<input type="hidden" name="oldContNo" id="oldContNo" value="" />
 											<input type="hidden" name="oldSoppNo" id="oldSoppNo" value="" />
-											<span class="input-group-btn">
+											<select class="form-control" id="oldContTitle" name="oldContTitle" onchange="autoCompleteSelect(this);">
+												<option value="">선택</option>
+												<c:forEach var="row" items="${listCont}">
+													<option data-no="${row.contNo}" data-sopp="${row.soppNo}" value="${row.contTitle}">${row.contTitle}</option>
+												</c:forEach>
+											</select>
+											<input type="hidden" name="oldContNo" id="oldContNo" value="" />
+											<!-- <input type="text" class="form-control" name="oldContTitle" id="oldContTitle" readonly /> -->
+											<%-- <span class="input-group-btn">
 												<button class="btn btn-primary sch-opportunity2" data-remote="${path}/modal/popup.do?popId=cont"
 														type="button" data-toggle="modal" data-target="#contModal">
 													<i class="icofont icofont-search"></i>
@@ -141,7 +153,7 @@
 														</div>
 													</div>
 												</div>
-											</div>
+											</div> --%>
 										</div>
 									</td>
 									<th class="text-center">첨부파일</th>

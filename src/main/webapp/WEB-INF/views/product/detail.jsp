@@ -47,7 +47,7 @@
 								<p>
 									- 복제 순서<br/>
 									1) 복제버튼 클릭<br/>
-									2) 기본정보 탭 > <span style="color: red">공급사 / 제품그룹 / 상품명</span>중 1개 이상 변경<br/>
+									2) 기본정보 탭 > <span style="color: red">고객사 / 제품그룹 / 상품명</span>중 1개 이상 변경<br/>
 									3) 상세정보 탭 > 하위상품 수정 또는 삭제<br/>
 									4) 등록<br/>
 									<br/>
@@ -76,7 +76,7 @@
 												</td>
 											</tr>
 											<tr>
-												<th scope="row" class="requiredTextCss">공급사</th>
+												<th scope="row" class="requiredTextCss">고객사</th>
 												<td>
 													<div class="input-group input-group-sm mb-0">
 														<select class="form-control" id="custName" name="custName" onchange="autoCompleteSelect(this);">
@@ -208,7 +208,7 @@
 								<p>
 									- 복제 순서<br/>
 									1) 복제버튼 클릭<br/>
-									2) 기본정보 탭 > <span style="color: red">공급사 / 제품그룹 / 상품명</span>중 1개 이상 변경<br/>
+									2) 기본정보 탭 > <span style="color: red">고객사 / 제품그룹 / 상품명</span>중 1개 이상 변경<br/>
 									3) 상세정보 탭 > 하위상품 수정 또는 삭제<br/>
 									4) 등록<br/>
 									<br/>
@@ -554,7 +554,7 @@
 		}
 
 		if(fn_oldDiffNew()){
-			alert("기존 공급사 / 제품그룹 / 상품명과 동일합니다.");
+			alert("기존 고객사 / 제품그룹 / 상품명과 동일합니다.");
 			return false;
 		}
 
@@ -576,7 +576,7 @@
 		}
 		productData.productDefaultPrice = Number(productDefaultPrice);			// 상품 기본 가격
 		productData.productDesc	 		= $("#productDesc").val();				// 상품 설명
-		productData.custNo				= $("#custNo").val();					// 공급사(외래키)
+		productData.custNo				= $("#custNo").val();					// 고객사(외래키)
 
 		var productdataDTOList = new Array();
 		var tableData = $("#tab02").find("tbody tr");
@@ -631,11 +631,7 @@
 
 	function fn_productUpdate() {
 		if($("#custName").val() === ""){
-			alert("공급사를 입력해주세요.");
-			$("#custName").focus();
-			return;
-		} else if(!autoCompleteVali($("#custName").val(), "cust")){
-			alert("조회된 공급사가 없습니다.\n다시 확인해주세요.");
+			alert("고객사를 입력해주세요.");
 			$("#custName").focus();
 			return;
 		} else if($("#productName").val() === ""){
@@ -663,7 +659,7 @@
 		}
 		productData.productDefaultPrice = Number(productDefaultPrice);			// 상품 기본 가격
 		productData.productDesc	 		= $("#productDesc").val();				// 상품 설명
-		productData.custNo				= $("#custNo").val();					// 공급사(외래키)
+		productData.custNo				= $("#custNo").val();					// 고객사(외래키)
 
 		var productdataDTOList = new Array();
 		var tableData = $("#tab02").find("tbody tr");

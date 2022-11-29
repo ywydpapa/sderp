@@ -342,13 +342,14 @@
 								<div class="col-sm-12 col-xl-2">
 									<label class="col-form-label" for="userName">담당자</label>
 									<div class="input-group input-group-sm mb-0">
-										<input type="text" class="form-control" name="userName" id="userName" list="userName_list" onchange="dataListChange(this);" autocomplete="off"> 
-										<datalist id="userName_list">
-											<c:forEach var="listUser" items="${listUser}">
-												<option data-value="${listUser.userNo}" value="${listUser.userName}">${listUser.userName}</option>
+										<select class="form-control" id="userName" name="userName" onchange="autoCompleteSelect(this);">
+											<option value="">선택</option>
+											<c:forEach var="row" items="${listUser}">
+												<option data-no="${row.userNo}" value="${row.userName}">${row.userName}</option>
 											</c:forEach>
-										</datalist>
+										</select>
 										<input type="hidden" name="userNo" id="userNo" value="" /> 
+										<!-- <input type="text" class="form-control" name="userName" id="userName" autocomplete="off"> --> 
 										<%-- <span class="input-group-btn">
 												<button class="btn btn-primary sch-company"
 														data-remote="${path}/modal/popup.do?popId=user"
@@ -387,13 +388,14 @@
 								<div class="col-sm-12 col-xl-2">
 									<label class="col-form-label" for="custName">거래처</label>
 									<div class="input-group input-group-sm">
-										<input type="text" class="form-control" name="custName" id="custName" list="custName_list" onchange="dataListChange(this);" autocomplete="off">
-										<datalist id="custName_list">
-											<c:forEach var="listCust" items="${listCust}">
-												<option data-value="${listCust.custNo}" value="${listCust.custName}">${listCust.custName}</option>
+										<select class="form-control" id="custName" name="custName" onchange="autoCompleteSelect(this);">
+											<option value="">선택</option>
+											<c:forEach var="row" items="${listCust}">
+												<option data-no="${row.custNo}" value="${row.custName}">${row.custName}</option>
 											</c:forEach>
-										</datalist>
+										</select>
 										<input type="hidden" name="custNo" id="custNo" value="" />
+										<!-- <input type="text" class="form-control" name="custName" id="custName" autocomplete="off"> -->
 										<%-- <span class="input-group-btn">
 												<button class="btn btn-primary sch-company"
 														data-remote="${path}/modal/popup.do?popId=cust"
@@ -432,13 +434,14 @@
 								<div class="col-sm-12 col-xl-2">
 									<label class="col-form-label" for="custmemberName">엔드유저</label>
 									<div class="input-group input-group-sm mb-0">
-										<input type="text" class="form-control" name="buyrName" id="buyrName" list="buyrName_list" onchange="dataListChange(this);" autocomplete="off">
-										<datalist id="buyrName_list">
-											<c:forEach var="listCust" items="${listCust}">
-												<option data-value="${listCust.custNo}" value="${listCust.custName}">${listCust.custName}</option>
+										<select class="form-control" id="buyrName" name="buyrName" onchange="autoCompleteSelect(this);">
+											<option value="">선택</option>
+											<c:forEach var="row" items="${listCust}">
+												<option data-no="${row.custNo}" value="${row.custName}">${row.custName}</option>
 											</c:forEach>
-										</datalist>
+										</select>
 										<input type="hidden" name="custmemberNo" id="buyrNo" value="" />
+										<!-- <input type="text" class="form-control" name="buyrName" id="buyrName" autocomplete="off"> -->
 										<%-- <span class="input-group-btn">
 											<button class="btn btn-dark sch-company" data-remote="${path}/modal/popup.do?popId=custmem&compNo=" type="button" data-toggle="modal" data-target="#custmemberModal" disabled>
 												<i class="icofont icofont-search"></i>

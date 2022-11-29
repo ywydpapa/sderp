@@ -3,6 +3,7 @@ package kr.swcore.sderp.account;
 import kr.swcore.sderp.account.dto.AccountDTO;
 import kr.swcore.sderp.account.service.AccountService;
 import kr.swcore.sderp.code.service.CodeService;
+import kr.swcore.sderp.cust.service.CustService;
 import kr.swcore.sderp.util.SessionInfoGet;
 
 import org.springframework.http.ResponseEntity;
@@ -33,6 +34,9 @@ public class AccountController {
 
     @Inject
     CodeService codeService;
+    
+    @Inject
+    CustService custService;
 
     @RequestMapping("vatlist.do")
     public ModelAndView vatList(HttpSession session, ModelAndView mav, 
@@ -117,6 +121,7 @@ public class AccountController {
             
             mav.addObject("vatList", vatList);
         }
+        mav.addObject("listCust", custService.listCust(session));
         mav.setViewName("settle/sumBvatlist");
         return mav;
     }
@@ -180,6 +185,7 @@ public class AccountController {
 			mav.addObject("vatList", vatList);
 		}
 	
+		mav.addObject("listCust", custService.listCust(session));
 		mav.setViewName("settle/sumSvatlist");
 		return mav;
 	}
@@ -243,6 +249,7 @@ public class AccountController {
             mav.addObject("vatList", vatList);
         }
         
+        mav.addObject("listCust", custService.listCust(session));
         mav.setViewName("settle/custVatListS");
         return mav;
     }
@@ -305,6 +312,8 @@ public class AccountController {
             
             mav.addObject("vatList", vatList);
         }
+        
+        mav.addObject("listCust", custService.listCust(session));
         mav.setViewName("settle/custVatListB");
         return mav;
     }
@@ -332,6 +341,7 @@ public class AccountController {
             dto.setVatIssueDateTo(year + "-12-31");
 			mav.addObject("vatList", accountService.listvatB(session, dto));
 		}
+    	mav.addObject("listCust", custService.listCust(session));
         mav.setViewName("settle/vatListB");
         return mav;
     }
@@ -359,6 +369,7 @@ public class AccountController {
             dto.setVatIssueDateTo(year + "-12-31");
 			mav.addObject("vatList", accountService.listvatS(session, dto));
 		}
+    	mav.addObject("listCust", custService.listCust(session));
         mav.setViewName("settle/vatListS");
         return mav;
     }

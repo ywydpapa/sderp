@@ -236,7 +236,7 @@
 										</div>
 									</div>
                                 </td> --%>
-                                <input type="text" class="form-control" name="userName" id="userName" value="이승우" readonly> 
+                                <input type="text" class="form-control" name="userName" id="userName" data-completeSet="true" value="이승우" readonly> 
                                 <input type="hidden" name="userNo" id="userNo" value="10002">
                             </tr>
                             <tr>

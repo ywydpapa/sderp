@@ -115,9 +115,7 @@
 										</div>
 									</td>
 									<th scope="row" class="requiredTextCss">제목</th>
-									<td><input type="text" class="form-control form-control-sm" id="salesTitle" name="salesTitle" placeholder=""></td>
-									<th></th>
-									<td></td>
+									<td colspan="3"><input type="text" class="form-control form-control-sm" id="salesTitle" name="salesTitle" placeholder=""></td>
 								</tr>
 								
 								<tr>

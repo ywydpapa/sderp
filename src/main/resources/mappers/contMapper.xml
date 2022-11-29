@@ -246,6 +246,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	cntrctMth=#{cntrctMth},
 	contType=#{contType},
 	net_profit=#{net_profit},
+	secondUserNo=#{secondUserNo},
+	buyrMemberNo=#{buyrMemberNo},
 	modDatetime=now()
 	where contNo=#{contNo}
 	

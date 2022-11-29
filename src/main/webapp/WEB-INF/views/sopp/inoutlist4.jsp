@@ -220,12 +220,12 @@
 			
 			var salesCustNoN = $(tr).children().eq(1)[0].innerText;
 			var salesCustNo = Number($(tr).children().eq(1)[0].children[0].value);
-			$("#productSalesInOutCustName").val(salesCustNoN);
+			$("#productSalesInOutCustName").val(salesCustNoN).trigger("change");
 			$("#productSalesInOutCustNo").val(salesCustNo);
 
 			var data01Title = $(tr).children().eq(2)[0].innerText;
 			var productNo1 = Number($(tr).children().eq(2)[0].children[0].value);
-			$("#data01Title").val(data01Title);
+			$("#data01Title").val(data01Title).trigger("change");
 			$("#productNo1").val(productNo1);
 
 
@@ -265,10 +265,10 @@
 			
 			$("#data01Type option:eq(0)").attr("selected","selected");
 			$("#soppdataNo").val("");
-			$("#productSalesInOutCustName").val("");
+			$("#productSalesInOutCustName").val("").trigger("change");
 			$("#productSalesInOutCustNo").val("");
 			$("#productNo1").val("");
-			$("#data01Title").val("");
+			$("#data01Title").val("").trigger("change");
 			$("#data01Netprice").val("");
 			$("#data01Quanty").val("");
 			$("#data01Vat").val("");

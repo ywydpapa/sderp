@@ -65,7 +65,7 @@
 
 
 <!-- Required Jquery -->
-<script type="text/javascript" src="${path}/js/jquery.min.js"></script>
+<script type="text/javascript" src="${path}/js/jquery-3.5.1.min.js"></script>
 <script type="text/javascript" src="${path}/js/jquery-ui.js"></script>
 <script type="text/javascript" src="${path}/js/popper.min.js"></script>
 <script type="text/javascript" src="${path}/js/bootstrap.min.js"></script>
@@ -164,9 +164,9 @@
 	
 	function fnClearall(){
 		var parrentElement = $(this).closest("#searchForm");
-		var elements = $("#searchForm").find("input");
+		var elements = $("#searchForm").find("input, select");
 		for(var i = 0; i < elements.length; i++) {
-			elements[i].value = null;
+			$(elements[i]).val(null).trigger("change");
 		}
 	}
 
@@ -580,6 +580,19 @@
 		if(!$("#productCategoryName").attr("data-completeSet") || $("#productCategoryName").attr("data-completeSet") === undefined){
 			$("#productCategoryName").select2();
 		}
+		
+		if(!$("#oldContTitle").attr("data-completeSet") || $("#oldContTitle").attr("data-completeSet") === undefined){
+			$("#oldContTitle").select2();
+		}
+		
+		if(!$("#vatSellerName").attr("data-completeSet") || $("#vatSellerName").attr("data-completeSet") === undefined){
+			$("#vatSellerName").select2();
+		}
+		
+		if(!$("#vatBuyerName").attr("data-completeSet") || $("#vatBuyerName").attr("data-completeSet") === undefined){
+			$("#vatBuyerName").select2();
+		}
+		
 		/* $("#userName").autocomplete({
 			source: listSession.listUser,
 		    select: function(event, ui) {

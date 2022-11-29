@@ -75,7 +75,7 @@
 												<tr>
 													<th scope="row">제목</th>
 													<td colspan="3"><input type="text"
-														class="form-control form-control-sm" id="userName"
+														class="form-control form-control-sm" id="bf_Title"
 														name="bf_Title" value="" ></td>
 												</tr>
 												<tr>

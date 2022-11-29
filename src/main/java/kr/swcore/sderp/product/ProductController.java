@@ -74,7 +74,7 @@ public class ProductController {
 	public ModelAndView detail(HttpSession session, @PathVariable("productNo") int productNo, ModelAndView mav) {
 		mav.setViewName("product/detail");
 		mav.addObject("listCust", custService.listCust(session));
-		mav.addObject("categoryList", productService.listProduct(session));
+		mav.addObject("categoryList", productService.listProductGoodsCategory(session));
 		mav.addObject("dto", productService.detailProduct(session, productNo));
 		return mav;
 	}
@@ -82,7 +82,7 @@ public class ProductController {
 	@RequestMapping("write.do")
 	public ModelAndView write(HttpSession session, ModelAndView mav) {
 		mav.addObject("listCust", custService.listCust(session));
-		mav.addObject("categoryList", productService.listProduct(session));
+		mav.addObject("categoryList", productService.listProductGoodsCategory(session));
 		mav.setViewName("product/write");
 		return mav;
 	}

@@ -286,10 +286,10 @@
             <th class="text-center">거래일자</th>
             <th class="text-center">분할횟수</th>
             <th class="text-center">단위(개월)</th>
-            <th class="text-center" colspan="2">계약금액</th>
+            <th class="text-center">계약금액</th>
             <!-- <th class="text-center">계약금액</th> -->
             <th class="text-center">거래처(매입/매출처)</th>
-            <th class="text-center">항목</th>
+            <th class="text-center" colspan="2">항목</th>
             <td class="text-center" rowspan="2">
               	<button id="dataDivisionbtn" class="btn btn-primary btn-sm" onClick="javascript:fn_dataDivisionInsert()">분할추가</button>
       		</td>
@@ -321,7 +321,7 @@
            			</div>
                 </div>
             </td> -->
-            <td colspan="2">
+            <td>
             	<c:choose>
 	            	<c:when test="${contDto.contAmt > 0}">
 		            	<input type="text" class="form-control" id="divisionContAmt" value="${contDto.contAmt}" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
@@ -333,10 +333,16 @@
            	</td>
             <td>
                 <div class="input-group input-group-sm mb-0">
-                    <input type="text" class="form-control" name="product" id="productSalesInOutCustName" value="" autocomplete="off">
+                	<select class="form-control" id="productSalesInOutCustName" name="productSalesInOutCustName" onchange="autoCompleteSelect(this);">
+						<option value="">선택</option>
+						<c:forEach var="row" items="${listCust}">
+							<option data-no="${row.custNo}" value="${row.custName}">${row.custName}</option>
+						</c:forEach>
+					</select>
                     <input type="hidden" id="productSalesInOutCustNo" value="" />
                     <input type="hidden" id="soppdataNo" value="">
                     <input type="hidden" id="soppNo"value="${dto.soppNo}">
+                    <!-- <input type="text" class="form-control" name="product" id="productSalesInOutCustName" value="" autocomplete="off"> -->
                     <%-- <span class="input-group-btn">
                         <button class="btn btn-primary sch-company" data-remote="${path}/modal/popup.do?popId=productdataListSalesInOutCust" type="button" data-toggle="modal" data-target="#productCustModal2">
                             <i class="icofont icofont-search"></i>
@@ -385,18 +391,24 @@
                     <!--//modal-->
                 </div>
             </td>
-            <td>
+            <td colspan="2">
            		<div class="input-group" style="margin:0;">
                		<div class="input-group-prepend">
-				    	<select class="form-control" id="productSelect" style="width:130px; height: 31px;">
+				    	<select class="form-control" id="productSelect" style="width: 100%; height: 31px;">
                				<option value="selectOn">항목 선택</option>
                				<option value="selectOff">직접 입력</option>
                			</select>
 				  	</div>
 				  	<div id="select1" >
 	                    <div class="input-group input-group-sm mb-0">
+	                    	<select class="form-control" id="data01Title" name="data01Title" data-flag="true" onchange="autoCompleteSelect(this);">
+								<option value="">선택</option>
+								<c:forEach var="row" items="${listProduct}">
+									<option data-no="${row.productNo}" value="${row.productName}">${row.productName}</option>
+								</c:forEach>
+							</select>
 	                        <input type="hidden" id="productNo1" value="" />
-	                        <input type="text" class="form-control" name="product" id="data01Title" data-flag="true" value="" autocomplete="off">
+	                        <!-- <input type="text" class="form-control" name="product" id="data01Title" data-flag="true" value="" autocomplete="off"> -->
 	                       <!--  <span class="input-group-btn">
 	                            <button class="btn btn-primary sch-company" onclick="fn_productdataTableReload()" type="button" data-toggle="modal" data-target="#productdataModal1">
 	                                <i class="icofont icofont-search"></i>
@@ -451,8 +463,8 @@
                           </div>
                       </div>
                   </div>
--->                    <!--//모달 팝업-->
-               </td>
+-->               <!--//모달 팝업-->
+            </td>
     	</tr>
     	<tr>
     		<th class="text-center">단가</th>
@@ -886,10 +898,10 @@
 
                 $("#data01Type option:eq(0)").attr("selected","selected");
                 $("#soppdataNo").val("");
-                $("#productSalesInOutCustName").val("");
+                $("#productSalesInOutCustName").val("").trigger("change");
                 $("#productSalesInOutCustNo").val("");
                 $("#productNo1").val("");
-                $("#data01Title[data-flag='true']").val("");
+                $("#data01Title[data-flag='true']").val("").trigger("change");
                 $("#data01Netprice").val("");
                 $("#data01Quanty").val("");
                 $("#data01Amt").val("");
@@ -1006,10 +1018,10 @@
                 alert("저장 성공");
                 $("#data01Type option:eq(0)").attr("selected","selected");
                 $("#soppdataNo").val("");
-                $("#productSalesInOutCustName").val("");
+                $("#productSalesInOutCustName").val("").trigger("change");
                 $("#productSalesInOutCustNo").val("");
                 $("#productNo1").val("");
-                $("#data01Title[data-flag='true']").val("");
+                $("#data01Title[data-flag='true']").val("").trigger("change");
                 $("#data01Netprice").val("");
                 $("#data01Quanty").val("");
                 $("#data01Amt").val("");
@@ -1131,10 +1143,10 @@
                         alert("저장 성공");
                         $("#data01Type option:eq(0)").attr("selected","selected");
                         $("#soppdataNo").val("");
-                        $("#productSalesInOutCustName").val("");
+                        $("#productSalesInOutCustName").val("").trigger("change");
                         $("#productSalesInOutCustNo").val("");
                         $("#productNo1").val("");
-                        $("#data01Title[data-flag='true']").val("");
+                        $("#data01Title[data-flag='true']").val("").trigger("change");
                         $("#data01Netprice").val("");
                         $("#data01Quanty").val("");
                         $("#data01Amt").val("");
@@ -1257,10 +1269,10 @@
     	                alert("저장 성공");
     	                $("#data01Type option:eq(0)").attr("selected","selected");
     	                $("#soppdataNo").val("");
-    	                $("#productSalesInOutCustName").val("");
+    	                $("#productSalesInOutCustName").val("").trigger("change");
     	                $("#productSalesInOutCustNo").val("");
     	                $("#productNo1").val("");
-    	                $("#data01Title[data-flag='true']").val("");
+    	                $("#data01Title[data-flag='true']").val("").trigger("change");
     	                $("#data01Netprice").val("");
     	                $("#data01Quanty").val("");
     	                $("#data01Amt").val("");

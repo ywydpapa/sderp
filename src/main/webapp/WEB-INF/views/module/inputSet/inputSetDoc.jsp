@@ -112,7 +112,7 @@
                 				<option value="selectOff">직접 입력</option>
                 			</select>
 					  	</div>
-					  	<div id="select1" style="width:100%;">
+					  	<div id="select1" style="width:100%; max-width: 110px;">
 		                    <div class="input-group input-group-sm mb-0">
 		                    	<select class="form-control" id="data02Title" name="data02Title" data-flag="true" onchange="autoCompleteSelect(this);">
 									<option value="">선택</option>
@@ -165,7 +165,7 @@
                 </td>
                 <td><input type="text" class="form-control form-control-sm" id="data02Netprice" style="min-width: 80px;" value="0" /></td>
                 <td><input type="text" class="form-control form-control-sm" id="data02Quanty" style="min-width: 80px;" value="1"  /></td>
-                <td><input type="text" class="form-control form-control-sm" id="data02Amt" style="min-width: 80px;" readonly /></td>
+                <td><input type="text" class="form-control form-control-sm" id="data02Amt" style="min-width: 80px;" value="0" readonly /></td>
                 <td><input type="text" class="form-control form-control-sm" id="data02Vat" style="min-width: 80px;" value="0" /></td>
                 <td><input type="text" class="form-control form-control-sm" id="data02Total" style="min-width: 80px;" value="0" /></td>
                 <td><input type="text" class="form-control form-control-sm" id="data02Remark" style="min-width: 80px;"></td>
@@ -711,7 +711,7 @@
 	        //$("#productSalesEstimateCustName").val("");
 	        $("#productSalesEstimateCustNo").val("");
 	        $("#productNo2").val("");
-	        $("#data02Title[data-flag='true']").val("");
+	        $("#data02Title[data-flag='true']").val("").trigger("change");
 	        $("#data02Netprice").val(0);
 	        $("#data02Quanty").val(1);
 	        $("#data02Amt").val(0);
@@ -778,10 +778,10 @@
 	    	
 			$("#data02Type option:eq(0)").attr("selected","selected");
 	        $("#soppdataNoEstimate").val("");
-	        $("#productSalesEstimateCustName").val("");
+	        $("#productSalesEstimateCustName").val("").trigger("change");
 	        $("#productSalesEstimateCustNo").val("");
 	        $("#productNo2").val("");
-	        $("#data02Title[data-flag='true']").val("");
+	        $("#data02Title[data-flag='true']").val("").trigger("change");
 	        $("#data02Netprice").val(0);
 	        $("#data02Quanty").val(1);
 	        $("#data02Amt").val(0);

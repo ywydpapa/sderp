@@ -397,7 +397,7 @@
 			alert("영업기회명을 입력해주세요.");
 			$("#soppTitle").focus();
 			return;
-		} else if($("custName").val() === ""){
+		} else if($("#custName").val() === ""){
 			alert("매출처를 입력해주세요..");
 			$("#custName").focus();
 			return;

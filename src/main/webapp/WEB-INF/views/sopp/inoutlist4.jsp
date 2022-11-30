@@ -23,7 +23,7 @@
 		<tr>
 			<th class="text-center">구분(등록/수정일)</th>
 			<th class="text-center">거래처(매입/매출처)</th>
-			<th class="text-center">항목</th>
+			<th class="text-center">상품</th>
 			<th class="text-center">단가</th>
 			<th class="text-center">수량</th>
 			<th class="text-center">부가세액</th>
@@ -52,15 +52,15 @@
 						<td style="text-align: center;">매입(${row.vatDate})</td>
 					</c:otherwise>
 				</c:choose>
-				<td>${row.salesCustNoN}<input type="hidden" value="${row.salesCustNo}"></td>
-				<td>${row.dataTitle}<input type="hidden" value="${row.productNo}"></td>
+				<td style="text-align: center;">${row.salesCustNoN}<input type="hidden" value="${row.salesCustNo}"></td>
+				<td style="text-align: center;">${row.dataTitle}<input type="hidden" value="${row.productNo}"></td>
 				<td style="text-align: right">₩<fmt:formatNumber value="${row.dataNetprice}" pattern="#,###" /></td>
 				<td style="text-align: right"><fmt:formatNumber value="${row.dataQuanty}" pattern="#,###" /></td>
 				<td style="text-align: right">₩<fmt:formatNumber value="${row.dataVat}" pattern="#,###" /></td>
 				<td style="text-align: right">₩<fmt:formatNumber value="${row.dataAmt}" pattern="#,###" /></td>
 				<td style="text-align: right">₩<fmt:formatNumber value="${row.dataTotal}" pattern="#,###" /></td>
 				<td>${row.dataRemark}</td>
-				<td>${row.vatSerial}</td>
+				<td style="text-align: center;">${row.vatSerial}</td>
 				<td><button class="btn btn-sm btn-dark" data-value="1101" onClick="javascript:fn_data01modify(this)">수정</button></td>
 				<td><button class="btn btn-sm btn-danger" data-id="${row.soppdataNo}" onClick="javascript:fn_data01delete1(this)">삭제</button></td>
 			</tr>
@@ -92,15 +92,15 @@
 						</c:choose>
 					</c:otherwise>
 				</c:choose>
-				<td>${row.salesCustNoN}<input type="hidden" value="${row.salesCustNo}"></td>
-				<td>${row.dataTitle}<input type="hidden" value="${row.productNo}"></td>
+				<td style="text-align: center;">${row.salesCustNoN}<input type="hidden" value="${row.salesCustNo}"></td>
+				<td style="text-align: center;">${row.dataTitle}<input type="hidden" value="${row.productNo}"></td>
 				<td style="text-align: right">₩<fmt:formatNumber value="${row.dataNetprice}" pattern="#,###" /></td>
 				<td style="text-align: right"><fmt:formatNumber value="${row.dataQuanty}" pattern="#,###" /></td>
 				<td style="text-align: right">₩<fmt:formatNumber value="${row.dataVat}" pattern="#,###" /></td>
 				<td style="text-align: right">₩<fmt:formatNumber value="${row.dataAmt}" pattern="#,###" /></td>
 				<td style="text-align: right">₩<fmt:formatNumber value="${row.dataTotal}" pattern="#,###" /></td>
 				<td>${row.dataRemark}</td>
-				<td>${row.vatSerial}</td>
+				<td style="text-align: center;">${row.vatSerial}</td>
 				<td><button class="btn btn-sm btn-dark" data-value="1102" onClick="javascript:fn_data01modify(this)">수정</button></td>
 				<td><button class="btn btn-sm btn-danger" data-id="${row.soppdataNo}" onClick="javascript:fn_data01delete1(this)">삭제</button></td>
 			</tr>
@@ -195,14 +195,14 @@
 				$("#data01Type").val("1101");
 				$("#vatBdiv").show();
     			$("#vatSdiv").hide();
-				$("#vatBdiv").find("#vatSerial").val($(tr).children().eq(9)[0].innerText);
-				localStorage.setItem("setSerial", $("#vatBdiv").find("#vatSerial").val());
+				$("#vatBdiv").find("#vatSerialB").val($(tr).children().eq(9)[0].innerText).trigger("change");
+				localStorage.setItem("setSerial", $("#vatBdiv").find("#vatSerialB").val());
 			}else{
 				$("#data01Type").val("1102");
 				$("#vatBdiv").hide();
     			$("#vatSdiv").show();
-				$("#vatSdiv").find("#vatSerial").val($(tr).children().eq(9)[0].innerText);
-				localStorage.setItem("setSerial", $("#vatSdiv").find("#vatSerial").val());
+				$("#vatSdiv").find("#vatSerialS").val($(tr).children().eq(9)[0].innerText).trigger("change");
+				localStorage.setItem("setSerial", $("#vatSdiv").find("#vatSerialS").val());
 			}
 
 			var soppdataNo = Number(tr.attr("id"));
@@ -275,8 +275,8 @@
 			$("#data01Amt").val("");
 			$("#data01Total").val("");
 			$("#data01Remark").val("");
-			$("#vatBdiv").find("#vatSerial").val("");
-			$("#vatSdiv").find("#vatSerial").val("");
+			$("#vatBdiv").find("#vatSerialB").val("").trigger("change");
+			$("#vatSdiv").find("#vatSerialS").val("").trigger("change");
 			$('#ioDate').val(dateString);
 			$(e).addClass("btn-dark");
 			$(e).removeClass("btn-warning");

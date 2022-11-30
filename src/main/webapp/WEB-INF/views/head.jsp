@@ -593,6 +593,14 @@
 			$("#vatBuyerName").select2();
 		}
 		
+		if(!$("#vatSerialB").attr("data-completeSet") || $("#vatSerialB").attr("data-completeSet") === undefined){
+			$("#vatSerialB").select2();
+		}
+		
+		if(!$("#vatSerialS").attr("data-completeSet") || $("#vatSerialS").attr("data-completeSet") === undefined){
+			$("#vatSerialS").select2();
+		}
+		
 		/* $("#userName").autocomplete({
 			source: listSession.listUser,
 		    select: function(event, ui) {
@@ -788,8 +796,11 @@
 	function autoCompleteSelect(e){
 		let thisEle = $(e);
 		thisEle.next().next().val(thisEle.find("option:selected").data("no"));
+		
 		if(thisEle.find("option:selected").data("sopp") !== undefined){
 			thisEle.prev().val(thisEle.find("option:selected").data("sopp"));
+		}else if(thisEle.find("option:selected").data("amount") !== undefined){
+			thisEle.prev().val(thisEle.find("option:selected").data("amount"));
 		}
 	}
 	

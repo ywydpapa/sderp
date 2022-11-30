@@ -3,264 +3,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <c:set var="path" value ="${pageContext.request.contextPath}"/>
-<%-- <form name="form2" method="post" onsubmit="return false;">
-    <table class="table table-sm bst02">
-        <tbody>
-        <tr>
-            <th scope="row">매입/매출 목록</th>
-        </tr>
-        </tbody>
-    </table>
-    <table class="table table-sm bst02" id="addinout">
-        <colgroup>
-            <col width="3%" />
-            <col width="4%" />
-            <col width="10%" />
-            <col width="20%" />
-            <col width="10%" />
-            <col width="3%" />
-            <col width="10%" />
-            <col width="10%" />
-            <col width="10%" />
-            <col width="15%" />
-            <col width="7%" />
-            <col width="5%" />
-        </colgroup>
-        <thead>
-        <tr>
-            <th class="text-center">구분<br/>(매입/매출)</th>
-            <th class="text-center">거래일자</th>
-            <th class="text-center">거래처<br/>(매입/매출처)</th>
-            <th class="text-center">항목</th>
-            <th class="text-center">단가</th>
-            <th class="text-center">수량</th>
-            <th class="text-center">공급가</th>
-            <th class="text-center">부가세</th>
-            <th class="text-center">합계금액</th>
-            <th class="text-center">승인번호</th>
-            <th class="text-center">적요</th>
-            <th class="text-center">기능</th>
-        </tr>
-        </thead>
-        <tbody>
-            <tr class="item1">
-                <td>
-                    <select id="data01Type" name="data01Type">
-                        <option value="1101">매입</option>
-                        <option value="1102">매출</option>
-                    </select>
-                </td>
-                <td>
-                    <input type="date" id="ioDate" name="inDate">
-                </td>
-                <td>
-                    <div class="input-group input-group-sm mb-0">
-                        <input type="text" class="form-control" name="product" id="productSalesInOutCustName" value="" readonly>
-                        <input type="hidden" id="productSalesInOutCustNo" value="" />
-                        <input type="hidden" id="soppdataNo" value="">
-                        <input type="hidden" id="soppNo"value="${dto.soppNo}">
-                        <span class="input-group-btn">
-                            <button class="btn btn-primary sch-company" data-remote="${path}/modal/popup.do?popId=productdataListSalesInOutCust" type="button" data-toggle="modal" data-target="#productCustModal2">
-                                <i class="icofont icofont-search"></i>
-                            </button>
-                        </span>
-                        <!--modal-->
-                        <div class="modal fade " id="productCustModal2" tabindex="-1" role="dialog">
-                            <div class="modal-dialog modal-80size" role="document">
-                                <div class="modal-content modal-80size">
-                                    <div class="modal-header">
-                                        <h4 class="modal-title">매입/매출 거래처 선택</h4>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                    <div class="modal-body">
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
-                                        <button type="button" class="btn btn-success waves-effect" id="custRegSimple1">간편추가</button>
-                                    </div>
-                                    <div style="display: none; border: solid; width: 80%; margin: auto; margin-bottom: 5px;" id="custRegSimple_div1">
-                                        <table>
-                                            <colgroup>
-                                                <col width="10%">
-                                                <col width="75%">
-                                                <col width="15%">
-                                            </colgroup>
-                                            <tbody>
-                                            <tr>
-                                                <th>매출처명*</th>
-                                                <td><input type="text" value="" id="custRegSimple_custName1" style="width: 100%;"> </td>
-                                                <td><button type="button" class="btn-sm btn-dark" id="custRegSimple_custName_check1">중복확인</button></td>
-                                            </tr>
-                                            <tr>
-                                                <th>담당자</th>
-                                                <td><input type="text" value="" id="custRegSimple_custMemerName1" style="width: 100%;" placeholder="미입력시 미정으로 세팅됩니다."></td>
-                                                <td><button type="button" class="btn-sm btn-success" id="custRegSimple_custName_register1">등록</button></td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!--//modal-->
-                    </div>
-                </td>
-                <td>
-                	<div class="input-group" style="margin:0;">
-                		<div class="input-group-prepend">
-					    	<select class="form-control" id="productSelect" style="width:130px; height: 31px;">
-                				<option value="selectOn">항목 선택</option>
-                				<option value="selectOff">직접 입력</option>
-                			</select>
-					  	</div>
-					  	<div id="select1" >
-		                    <div class="input-group input-group-sm mb-0">
-		                        <input type="hidden" id="productNo1" value="" />
-		                        <input type="text" class="form-control" name="product" id="data01Title" data-flag="true" value="" readonly>
-		                        <span class="input-group-btn">
-		                            <button class="btn btn-primary sch-company" onclick="fn_productdataTableReload()" type="button" data-toggle="modal" data-target="#productdataModal1">
-		                                <i class="icofont icofont-search"></i>
-		                            </button>
-		                        </span>
-		                    </div>
-		                    <!--모달 팝업-->
-		                    <div class="modal fade" id="productdataModal1" tabindex="-1" role="dialog">
-		                        <div class="modal-dialog modal-80size" role="document">
-		                            <div class="modal-content modal-80size">
-		                                <div class="modal-header">
-		                                    <h4 class="modal-title">상품목록</h4>
-		                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-		                                        <span aria-hidden="true">&times;</span>
-		                                    </button>
-		                                </div>
-		                                <div class="modal-body">
-		                                    <jsp:include page="/WEB-INF/views/modal/productdataListSalesInOut.jsp" />
-		                                </div>
-		                                <div class="modal-footer">
-		                                    <button type="button" class="btn btn-default waves-effect " data-dismiss="modal">Close</button>
-		                                   <button type="button" class="btn btn-success waves-effect" id="productReg">상품추가</button>
-		                                   <button type="button" class="btn btn-success waves-effect" id="productRegSimple1">직접기입</button>
-		                                </div>
-		                            </div>
-		                        </div>
-		                    </div>
-	                    </div>
-	                    <div id="select2" style="width:100%;">
-                			<div class="input-group input-group-sm mb-0">
-	                			<input type="text" class="form-control" name="product" id="data01Title" data-flag="false">
-                			</div>
-                		</div>
-                    </div>
-                    <!--//모달 팝업-->
-                    <!--모달 팝업-->
-                   <div class="modal fade" id="productRegModal1" tabindex="-1" role="dialog">
-                       <div class="modal-dialog modal-80size" role="document">
-                           <div class="modal-content modal-80size">
-                               <div class="modal-header">
-                                   <h4 class="modal-title">상품등록</h4>
-                                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                       <span aria-hidden="true">&times;</span>
-                                   </button>
-                               </div>
-                               <div class="modal-body">
-
-                               </div>
-                               <div class="modal-footer">
-                                   <button type="button" class="btn btn-default waves-effect " data-dismiss="modal">Close</button>
-                               </div>
-                           </div>
-                       </div>
-                   </div>
-                    <!--//모달 팝업-->
-                </td>
-                <td><input type="text" id="data01Netprice" required class="form-control form-control-sm" style="min-width: 80px;" /></td>
-                <td><input type="text" id="data01Quanty" required class="form-control form-control-sm" style="min-width: 80px;" value="1" min="1" /></td>
-                <td><input type="text" id="data01Amt" class="form-control form-control-sm" readonly placeholder="자동계산됩니다." style="min-width: 80px;" /></td>
-				<td><input type="text" id="data01Vat" required class="form-control form-control-sm" style="min-width: 80px;" /></td>
-				<td><input type="text" id="data01Total" class="form-control form-control-sm" placeholder="부가세 포함 금액 자동계산." style="min-width: 80px;" /></td>
-				<td>
-					<div id="vatBdiv">
-	                    <div class="input-group input-group-sm mb-0">
-	                        <input type="text" class="form-control" name="vatSerial" id="vatSerial" value="" readonly>
-	                        <input type="hidden" id="vatSellerCustNo" value="" />
-	                        <input type="hidden" id="vatAmount" value="">
-	                        <span class="input-group-btn">
-	                            <button class="btn btn-primary sch-company" data-remote="${path}/modal/popup.do?popId=vatB" type="button" data-toggle="modal" data-target="#vatBModal">
-	                                <i class="icofont icofont-search"></i>
-	                            </button>
-	                        </span>
-	                        <!--modal-->
-	                        <div class="modal fade " id="vatBModal" tabindex="-1" role="dialog">
-	                            <div class="modal-dialog modal-80size" role="document">
-	                                <div class="modal-content modal-80size">
-	                                    <div class="modal-header">
-	                                        <h4 class="modal-title">매입/매출 거래처 선택</h4>
-	                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-	                                            <span aria-hidden="true">&times;</span>
-	                                        </button>
-	                                    </div>
-	                                    <div class="modal-body">
-	                                    </div>
-	                                    <div class="modal-footer">
-	                                        <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
-	                                    </div>
-	                                </div>
-	                            </div>
-	                        </div>
-	                        <!--//modal-->
-	                    </div>
-					</div>
-					<div id="vatSdiv">
-	                    <div class="input-group input-group-sm mb-0">
-	                        <input type="text" class="form-control" name="vatSerial" id="vatSerial" value="" readonly>
-	                        <input type="hidden" id="vatSellerCustNo" value="" />
-	                        <input type="hidden" id="vatAmount" value="">
-	                        <span class="input-group-btn">
-	                            <button class="btn btn-primary sch-company" data-remote="${path}/modal/popup.do?popId=vatS" type="button" data-toggle="modal" data-target="#vatSModal">
-	                                <i class="icofont icofont-search"></i>
-	                            </button>
-	                        </span>
-	                        <!--modal-->
-	                        <div class="modal fade " id="vatSModal" tabindex="-1" role="dialog">
-	                            <div class="modal-dialog modal-80size" role="document">
-	                                <div class="modal-content modal-80size">
-	                                    <div class="modal-header">
-	                                        <h4 class="modal-title">매입/매출 거래처 선택</h4>
-	                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-	                                            <span aria-hidden="true">&times;</span>
-	                                        </button>
-	                                    </div>
-	                                    <div class="modal-body">
-	                                    </div>
-	                                    <div class="modal-footer">
-	                                        <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
-	                                    </div>
-	                                </div>
-	                            </div>
-	                        </div>
-	                        <!--//modal-->
-	                    </div>
-					</div>
-                </td>
-                <td><input type="text" id="data01Remark" class="form-control form-control-sm" /></td>
-                <td>
-                    <button id="data01Addbtn" class="btn btn-success btn-sm" onClick="javascript:fn_data01Insert()">추가</button>
-                    <button id="data01Modbtn" class="btn btn-instagram btn-sm" onClick="javascript:fn_data01Update()">수정</button>
-                </td>
-            </tr>
-            <tr>
-                <td colspan="8">
-                    <details>
-                        <summary><span style="color: red">등록시 주의사항</span></summary>
-                        <p>매입/매출처(거래처)는 모달창을 통해 추가하셔야 됩니다. 삭제는 직접 지우시면 됩니다.</p>
-                    </details>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-</form> --%>
 <form name="form2" method="post" onsubmit="return false;">
 	<div style="width:100%;">
 		<div style="float:left; margin-top: 10px;">
@@ -281,16 +23,16 @@
         </tbody>
     </table>
     <table class="table table-sm bst02" id="addinout">
-    	<tr>
-    		<th class="text-center">구분(매입/매출)</th>
-            <th class="text-center">거래일자</th>
-            <th class="text-center">분할횟수</th>
-            <th class="text-center">단위(개월)</th>
-            <th class="text-center">계약금액</th>
+    	<tr style="width: 100px;">
+    		<th class="text-center" style="width: 10%;">구분(매입/매출)</th>
+            <th class="text-center" style="width: 10%;">거래일자</th>
+            <th class="text-center" style="width: 10%;">분할횟수</th>
+            <th class="text-center" style="width: 10%;">단위(개월)</th>
+            <th class="text-center" style="width: 10%;">계약금액</th>
             <!-- <th class="text-center">계약금액</th> -->
-            <th class="text-center">거래처(매입/매출처)</th>
-            <th class="text-center" colspan="2">항목</th>
-            <td class="text-center" rowspan="2">
+            <th class="text-center" colspan="2" style="width: 25%;">상품</th>
+            <th class="text-center" style="width: 20%;">거래처(매입/매출처)</th>
+            <td class="text-center" rowspan="2" style="width: 5%;">
               	<button id="dataDivisionbtn" class="btn btn-primary btn-sm" onClick="javascript:fn_dataDivisionInsert()">분할추가</button>
       		</td>
     	</tr>
@@ -331,6 +73,67 @@
 	            	</c:otherwise>
             	</c:choose>
            	</td>
+            <td colspan="2">
+           		<div class="input-group" style="margin:0;">
+                    <div class="input-group input-group-sm mb-0">
+                    	<select class="form-control" id="data01Title" name="data01Title" onchange="autoCompleteSelect(this);">
+							<option value="">선택</option>
+							<c:forEach var="row" items="${listProduct}">
+								<option data-no="${row.productNo}" value="${row.productName}">${row.productName}</option>
+							</c:forEach>
+						</select>
+                        <input type="hidden" id="productNo1" value="" />
+                        <!-- <input type="text" class="form-control" name="product" id="data01Title" data-flag="true" value="" autocomplete="off"> -->
+                       <!--  <span class="input-group-btn">
+                            <button class="btn btn-primary sch-company" onclick="fn_productdataTableReload()" type="button" data-toggle="modal" data-target="#productdataModal1">
+                                <i class="icofont icofont-search"></i>
+                            </button>
+                        </span> -->
+                    </div>
+                    <!--모달 팝업-->
+                    <%-- <div class="modal fade" id="productdataModal1" tabindex="-1" role="dialog">
+                        <div class="modal-dialog modal-80size" role="document">
+                            <div class="modal-content modal-80size">
+                                <div class="modal-header">
+                                    <h4 class="modal-title">상품목록</h4>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <jsp:include page="/WEB-INF/views/modal/productdataListSalesInOut.jsp" />
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default waves-effect " data-dismiss="modal">Close</button>
+                                   <button type="button" class="btn btn-success waves-effect" id="productReg">상품추가</button>
+                                   <button type="button" class="btn btn-success waves-effect" id="productRegSimple1">직접기입</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div> --%>
+      				</div>
+                   <!--//모달 팝업-->
+                   <!--모달 팝업-->
+                  <!-- <div class="modal fade" id="productRegModal1" tabindex="-1" role="dialog">
+                      <div class="modal-dialog modal-80size" role="document">
+                          <div class="modal-content modal-80size">
+                              <div class="modal-header">
+                                  <h4 class="modal-title">상품등록</h4>
+                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                      <span aria-hidden="true">&times;</span>
+                                  </button>
+                              </div>
+                              <div class="modal-body">
+
+                              </div>
+                              <div class="modal-footer">
+                                  <button type="button" class="btn btn-default waves-effect " data-dismiss="modal">Close</button>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+-->               <!--//모달 팝업-->
+            </td>
             <td>
                 <div class="input-group input-group-sm mb-0">
                 	<select class="form-control" id="productSalesInOutCustName" name="productSalesInOutCustName" onchange="autoCompleteSelect(this);">
@@ -391,80 +194,6 @@
                     <!--//modal-->
                 </div>
             </td>
-            <td colspan="2">
-           		<div class="input-group" style="margin:0;">
-               		<div class="input-group-prepend">
-				    	<select class="form-control" id="productSelect" style="width: 100%; height: 31px;">
-               				<option value="selectOn">항목 선택</option>
-               				<option value="selectOff">직접 입력</option>
-               			</select>
-				  	</div>
-				  	<div id="select1" >
-	                    <div class="input-group input-group-sm mb-0">
-	                    	<select class="form-control" id="data01Title" name="data01Title" data-flag="true" onchange="autoCompleteSelect(this);">
-								<option value="">선택</option>
-								<c:forEach var="row" items="${listProduct}">
-									<option data-no="${row.productNo}" value="${row.productName}">${row.productName}</option>
-								</c:forEach>
-							</select>
-	                        <input type="hidden" id="productNo1" value="" />
-	                        <!-- <input type="text" class="form-control" name="product" id="data01Title" data-flag="true" value="" autocomplete="off"> -->
-	                       <!--  <span class="input-group-btn">
-	                            <button class="btn btn-primary sch-company" onclick="fn_productdataTableReload()" type="button" data-toggle="modal" data-target="#productdataModal1">
-	                                <i class="icofont icofont-search"></i>
-	                            </button>
-	                        </span> -->
-	                    </div>
-	                    <!--모달 팝업-->
-	                    <%-- <div class="modal fade" id="productdataModal1" tabindex="-1" role="dialog">
-	                        <div class="modal-dialog modal-80size" role="document">
-	                            <div class="modal-content modal-80size">
-	                                <div class="modal-header">
-	                                    <h4 class="modal-title">상품목록</h4>
-	                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-	                                        <span aria-hidden="true">&times;</span>
-	                                    </button>
-	                                </div>
-	                                <div class="modal-body">
-	                                    <jsp:include page="/WEB-INF/views/modal/productdataListSalesInOut.jsp" />
-	                                </div>
-	                                <div class="modal-footer">
-	                                    <button type="button" class="btn btn-default waves-effect " data-dismiss="modal">Close</button>
-	                                   <button type="button" class="btn btn-success waves-effect" id="productReg">상품추가</button>
-	                                   <button type="button" class="btn btn-success waves-effect" id="productRegSimple1">직접기입</button>
-	                                </div>
-	                            </div>
-	                        </div>
-	                    </div> --%>
-                    </div>
-                    <div id="select2" style="width:100%;">
-               			<div class="input-group input-group-sm mb-0">
-                			<input type="text" class="form-control" name="product" id="data01Title" data-completeSet="true" data-flag="false" autocomplete="off">
-               			</div>
-               		</div>
-                   </div>
-                   <!--//모달 팝업-->
-                   <!--모달 팝업-->
-                  <!-- <div class="modal fade" id="productRegModal1" tabindex="-1" role="dialog">
-                      <div class="modal-dialog modal-80size" role="document">
-                          <div class="modal-content modal-80size">
-                              <div class="modal-header">
-                                  <h4 class="modal-title">상품등록</h4>
-                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                      <span aria-hidden="true">&times;</span>
-                                  </button>
-                              </div>
-                              <div class="modal-body">
-
-                              </div>
-                              <div class="modal-footer">
-                                  <button type="button" class="btn btn-default waves-effect " data-dismiss="modal">Close</button>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
--->               <!--//모달 팝업-->
-            </td>
     	</tr>
     	<tr>
     		<th class="text-center">단가</th>
@@ -488,10 +217,16 @@
 				<td>
 					<div id="vatBdiv">
 	                    <div class="input-group input-group-sm mb-0">
-	                        <input type="text" class="form-control" name="vatSerial" id="vatSerial" value="" readonly>
-	                        <input type="hidden" id="vatSellerCustNo" value="" />
 	                        <input type="hidden" id="vatAmount" value="">
-	                        <span class="input-group-btn">
+	                    	<select class="form-control" id="vatSerialB" name="vatSerialB" onchange="autoCompleteSelect(this);">
+								<option value="">선택</option>
+								<c:forEach var="row" items="${listVatB}">
+									<option data-no="${row.vatId}" data-amount="${row.vatAmount}" value="${row.vatSerial}">${row.custName} (${row.vatSerial}, ￦<fmt:formatNumber value="${row.vatAmount}" pattern="#,###" />)</option>
+								</c:forEach>
+							</select>
+	                        <input type="hidden" id="vatSellerCustNo" value="" />
+	                        <!-- <input type="text" class="form-control" name="vatSerial" id="vatSerial" value="" readonly> -->
+	                        <%-- <span class="input-group-btn">
 	                            <button class="btn btn-primary sch-company" data-remote="${path}/modal/popup.do?popId=vatB" type="button" data-toggle="modal" data-target="#vatBModal">
 	                                <i class="icofont icofont-search"></i>
 	                            </button>
@@ -513,16 +248,22 @@
 	                                    </div>
 	                                </div>
 	                            </div>
-	                        </div>
+	                        </div> --%>
 	                        <!--//modal-->
 	                    </div>
 					</div>
 					<div id="vatSdiv">
 	                    <div class="input-group input-group-sm mb-0">
-	                        <input type="text" class="form-control" name="vatSerial" id="vatSerial" value="" readonly>
-	                        <input type="hidden" id="vatSellerCustNo" value="" />
 	                        <input type="hidden" id="vatAmount" value="">
-	                        <span class="input-group-btn">
+	                    	<select class="form-control" id="vatSerialS" name="vatSerialS" onchange="autoCompleteSelect(this);">
+								<option value="">선택</option>
+								<c:forEach var="row" items="${listVatS}">
+									<option data-no="${row.vatId}" data-amount="${row.vatAmount}" value="${row.vatSerial}">${row.custName} (${row.vatSerial}, ￦<fmt:formatNumber value="${row.vatAmount}" pattern="#,###" />)</option>
+								</c:forEach>
+							</select>
+	                        <input type="hidden" id="vatSellerCustNo" value="" />
+	                        <!-- <input type="text" class="form-control" name="vatSerial" id="vatSerial" value="" readonly> -->
+	                        <%-- <span class="input-group-btn">
 	                            <button class="btn btn-primary sch-company" data-remote="${path}/modal/popup.do?popId=vatS" type="button" data-toggle="modal" data-target="#vatSModal">
 	                                <i class="icofont icofont-search"></i>
 	                            </button>
@@ -544,7 +285,7 @@
 	                                    </div>
 	                                </div>
 	                            </div>
-	                        </div>
+	                        </div> --%>
 	                        <!--//modal-->
 	                    </div>
 					</div>
@@ -563,7 +304,7 @@
 </form>
 
 <script>
-	$("#select2").hide();
+	/* $("#select2").hide();
 
 	$("#productSelect").change(function(){
     	if($(this).val() === "selectOn"){
@@ -579,7 +320,7 @@
     		$("#select2").show();
     		$("#select2").find("#data01Title").attr("data-flag", true);
     	}
-    });
+    }); */
 	
     $('#productCustModal2').on('show.bs.modal', function(e) {
         var button = $(e.relatedTarget);
@@ -741,15 +482,15 @@
     	        data01Data.soppNo 		= $("#soppNo").val();
     	        data01Data.catNo	 	= '100001';
     	        if($("#productSalesInOutCustName").val() != "") data01Data.salesCustNo = Number($("#productSalesInOutCustNo").val());
-    	        if($("#data01Title[data-flag='true']").val() != "") {
+    	        if($("#data01Title").val() != "") {
     	            if($("#productNo1").val() != "") data01Data.productNo	= $("#productNo1").val();
-    	            data01Data.dataTitle 	= $("#data01Title[data-flag='true']").val();
+    	            data01Data.dataTitle 	= $("#data01Title").val();
     	        }
     	        
     	        if($("#data01Type").val() === "1101"){
-    				data01Data.vatSerial = $("#vatBdiv").find("#vatSerial").val();
+    				data01Data.vatSerial = $("#vatBdiv").find("#vatSerialB").val();
     			}else{
-    				data01Data.vatSerial = $("#vatSdiv").find("#vatSerial").val();
+    				data01Data.vatSerial = $("#vatSdiv").find("#vatSerialS").val();
     			}
     	        
     	        data01Data.dataType		= $("#data01Type").val();
@@ -842,15 +583,15 @@
         data01Data.soppNo 		= $("#soppNo").val();
         data01Data.catNo	 	= '100001';
         if($("#productSalesInOutCustName").val() != "") data01Data.salesCustNo = Number($("#productSalesInOutCustNo").val());
-        if($("#data01Title[data-flag='true']").val() != "") {
+        if($("#data01Title").val() != "") {
             if($("#productNo1").val() != "") data01Data.productNo	= $("#productNo1").val();
-            data01Data.dataTitle 	= $("#data01Title[data-flag='true']").val();
+            data01Data.dataTitle 	= $("#data01Title").val();
         }
         
         if($("#data01Type").val() === "1101"){
-			data01Data.vatSerial = $("#vatBdiv").find("#vatSerial").val();
+			data01Data.vatSerial = $("#vatBdiv").find("#vatSerialB").val();
 		}else{
-			data01Data.vatSerial = $("#vatSdiv").find("#vatSerial").val();
+			data01Data.vatSerial = $("#vatSdiv").find("#vatSerialS").val();
 		}
         
         data01Data.dataType		= $("#data01Type").val();
@@ -901,13 +642,13 @@
                 $("#productSalesInOutCustName").val("").trigger("change");
                 $("#productSalesInOutCustNo").val("");
                 $("#productNo1").val("");
-                $("#data01Title[data-flag='true']").val("").trigger("change");
+                $("#data01Title").val("").trigger("change");
                 $("#data01Netprice").val("");
                 $("#data01Quanty").val("");
                 $("#data01Amt").val("");
                 $("#data01Remark").val("");
-                $("#vatBdiv").find("#vatSerial").val("");
-                $("#vatSdiv").find("#vatSerial").val("");
+                $("#vatBdiv").find("#vatSerialB").val("");
+                $("#vatSdiv").find("#vatSerialS").val("");
                 
                 localStorage.setItem('lastTab', "#tab02");
                 
@@ -941,15 +682,15 @@
 	        data01Data.catNo	 	= '100001';
 	        data01Data.soppdataNo   = $("#soppdataNo").val();
 	        if($("#productSalesInOutCustName").val() != "") data01Data.salesCustNo = Number($("#productSalesInOutCustNo").val());
-	        if($("#data01Title[data-flag='true']").val() != "") {
+	        if($("#data01Title").val() != "") {
 	            if($("#productNo1").val() != "") data01Data.productNo	= $("#productNo1").val();
-	            data01Data.dataTitle 	= $("#data01Title[data-flag='true']").val();
+	            data01Data.dataTitle 	= $("#data01Title").val();
 	        }
 	        
 	        if($("#data01Type").val() === "1101"){
-				data01Data.vatSerial = $("#vatBdiv").find("#vatSerial").val();
+				data01Data.vatSerial = $("#vatBdiv").find("#vatSerialB").val();
 			}else{
-				data01Data.vatSerial = $("#vatSdiv").find("#vatSerial").val();
+				data01Data.vatSerial = $("#vatSdiv").find("#vatSerialS").val();
 			}
 	        
 	        data01Data.dataType		= $("#data01Type").val();
@@ -1021,7 +762,7 @@
                 $("#productSalesInOutCustName").val("").trigger("change");
                 $("#productSalesInOutCustNo").val("");
                 $("#productNo1").val("");
-                $("#data01Title[data-flag='true']").val("").trigger("change");
+                $("#data01Title").val("").trigger("change");
                 $("#data01Netprice").val("");
                 $("#data01Quanty").val("");
                 $("#data01Amt").val("");
@@ -1066,15 +807,15 @@
         	        data01Data.soppdataNo   = $("#soppdataNo").val();
         	        data01Data.divisionMonth = $('#divisionMonth').val();
         	        if($("#productSalesInOutCustName").val() != "") data01Data.salesCustNo = Number($("#productSalesInOutCustNo").val());
-        	        if($("#data01Title[data-flag='true']").val() != "") {
+        	        if($("#data01Title").val() != "") {
         	            if($("#productNo1").val() != "") data01Data.productNo	= $("#productNo1").val();
-        	            data01Data.dataTitle 	= $("#data01Title[data-flag='true']").val();
+        	            data01Data.dataTitle 	= $("#data01Title").val();
         	        }
         	        
         	        if($("#data01Type").val() === "1101"){
-        				data01Data.vatSerial = $("#vatBdiv").find("#vatSerial").val();
+        				data01Data.vatSerial = $("#vatBdiv").find("#vatSerialB").val();
         			}else{
-        				data01Data.vatSerial = $("#vatSdiv").find("#vatSerial").val();
+        				data01Data.vatSerial = $("#vatSdiv").find("#vatSerialS").val();
         			}
         	        
         	        data01Data.dataType		= $("#data01Type").val();
@@ -1146,7 +887,7 @@
                         $("#productSalesInOutCustName").val("").trigger("change");
                         $("#productSalesInOutCustNo").val("");
                         $("#productNo1").val("");
-                        $("#data01Title[data-flag='true']").val("").trigger("change");
+                        $("#data01Title").val("").trigger("change");
                         $("#data01Netprice").val("");
                         $("#data01Quanty").val("");
                         $("#data01Amt").val("");
@@ -1192,15 +933,15 @@
     		        data01Data.catNo	 	= '100001';
     		        data01Data.soppdataNo   = $("#soppdataNo").val();
     		        if($("#productSalesInOutCustName").val() != "") data01Data.salesCustNo = Number($("#productSalesInOutCustNo").val());
-    		        if($("#data01Title[data-flag='true']").val() != "") {
+    		        if($("#data01Title").val() != "") {
     		            if($("#productNo1").val() != "") data01Data.productNo	= $("#productNo1").val();
-    		            data01Data.dataTitle 	= $("#data01Title[data-flag='true']").val();
+    		            data01Data.dataTitle 	= $("#data01Title").val();
     		        }
     		        
     		        if($("#data01Type").val() === "1101"){
-    					data01Data.vatSerial = $("#vatBdiv").find("#vatSerial").val();
+    					data01Data.vatSerial = $("#vatBdiv").find("#vatSerialB").val();
     				}else{
-    					data01Data.vatSerial = $("#vatSdiv").find("#vatSerial").val();
+    					data01Data.vatSerial = $("#vatSdiv").find("#vatSerialS").val();
     				}
     		        
     		        data01Data.dataType		= $("#data01Type").val();
@@ -1272,7 +1013,7 @@
     	                $("#productSalesInOutCustName").val("").trigger("change");
     	                $("#productSalesInOutCustNo").val("");
     	                $("#productNo1").val("");
-    	                $("#data01Title[data-flag='true']").val("").trigger("change");
+    	                $("#data01Title").val("").trigger("change");
     	                $("#data01Netprice").val("");
     	                $("#data01Quanty").val("");
     	                $("#data01Amt").val("");

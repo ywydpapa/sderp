@@ -166,6 +166,8 @@ public class ContController {
 		mav.addObject("listCustMember", custService.listCustMember(session));
 		mav.addObject("listSopp", soppService.listSopp(session, null));
 		mav.addObject("listProduct", productService.listProduct(session));
+		mav.addObject("listVatB", accountService.modalVatB(session));
+		mav.addObject("listVatS", accountService.modalVatS(session));
 		return mav;
 	}
 
@@ -206,6 +208,8 @@ public class ContController {
 		mav.addObject("listProduct", productService.listProduct(session));
 		ContDTO contDto = new ContDTO();
 		mav.addObject("listCont", contService.listCont(session, null, contDto));
+		mav.addObject("listVatB", accountService.modalVatB(session));
+		mav.addObject("listVatS", accountService.modalVatS(session));
 		mav.addObject("soppParam", soppNo);
 		return mav;
 	}
@@ -237,6 +241,8 @@ public class ContController {
 		mav.addObject("listProduct", productService.listProduct(session));
 		ContDTO contDto = new ContDTO();
 		mav.addObject("listCont", contService.listCont(session, null, contDto));
+		mav.addObject("listVatB", accountService.modalVatB(session));
+		mav.addObject("listVatS", accountService.modalVatS(session));
 		mav.addObject("soppParam", soppNo);
 		return mav;
 	}
@@ -252,6 +258,8 @@ public class ContController {
 		mav.addObject("listProduct", productService.listProduct(session));
 		ContDTO contDto = new ContDTO();
 		mav.addObject("listCont", contService.listCont(session, null, contDto));
+		mav.addObject("listVatB", accountService.modalVatB(session));
+		mav.addObject("listVatS", accountService.modalVatS(session));
 		mav.addObject("soppParam", soppNo);
 		return mav;
 	}

@@ -396,8 +396,8 @@
 	                    cardData.useDivision = $Carr[i].innerText;
 	                    cardData.salesType = $Darr[i].innerText;
 	                    cardData.instPeriod = Number($Earr[i].innerText);
-	                    cardData.appAmount = Number($Farr[i].innerText);
-	                    cardData.appExchange = $Garr[i].innerText;
+	                    cardData.appAmount = Number($Farr[i].innerText.replace(/,/g, ""));
+	                    cardData.appExchange = $Garr[i].innerText === "" ? "0" : $Garr[i].innerText;
 	                    cardData.appDate = $Iarr[i].innerText;
 	                    cardData.appTime = $Harr[i].innerText;
 	                    cardData.cardSerial = $Jarr[i].innerText;

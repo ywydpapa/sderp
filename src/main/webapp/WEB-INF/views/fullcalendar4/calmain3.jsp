@@ -21,6 +21,7 @@
     <script src='${path}/fullcalendar4/interaction/main.js'></script>
     <script src='${path}/fullcalendar4/list/main.js'></script>
     <script src='${path}/fullcalendar4/timegrid/main.js'></script>
+    <script src='${path}/fullcalendar4/google-calendar/main.js'></script>
 <%--    <script src='${path}/fullcalendar4/moment/main.js'></script>--%>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js" integrity="sha512-qTXRIMyZIFb8iQcfjXWCO8+M5Tbc38Qi5WzdPOYZHIlZpzBHG3L3by84BBBOiRGiEb7KKtAOAs5qYdUiZiQNNQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 	<script src='${path}/fancytree/jquery.fancytree-all-deps.js'></script>
@@ -225,6 +226,34 @@
 
 			var calendarEl = document.getElementById('calendar');
 			calendar = new FullCalendar.Calendar(calendarEl, {
+				googleCalendarApiKey : "AIzaSyCT99xh7Q94gDNmRYh64g0J3-dGYCkisNo",
+				eventSources: [
+					{ 
+						googleCalendarId : 'suffix912@gmail.com' 
+					}, 
+	            	{ 
+	            		googleCalendarId : 'ko.south_korea#holiday@group.v.calendar.google.com', 
+	            		color: 'red', 
+	            		textColor: 'white',
+	            	}, 
+					{
+						url: '${path}/calendar/listEvent.do',
+						method: 'POST',
+						extraParams: {
+							userNoList : userNoList
+						},
+						success : function(rawData, response) {
+							return rawData;
+						},
+						failure: function(error) {
+							// console.dir(error);
+							alert('캘린더 데이터 요청 실패');
+						},
+						color: 'yellow',    // an option!
+						textColor: 'black',  // an option!
+					},
+				],
+				
 				header : {
 					left:   '',
 					center: 'title',
@@ -253,22 +282,6 @@
 					$('#eventModal').modal('show');
 				},
 
-				eventSources: [{
-					url: '${path}/calendar/listEvent.do',
-					method: 'POST',
-					extraParams: {
-						userNoList : userNoList
-					},
-					success : function(rawData, response) {
-						return rawData;
-					},
-					failure: function(error) {
-						// console.dir(error);
-						alert('캘린더 데이터 요청 실패');
-					},
-					color: 'yellow',    // an option!
-					textColor: 'black',  // an option!
-				}],
 
 				eventClick: function(info) {
 					$('#detail-content').empty();

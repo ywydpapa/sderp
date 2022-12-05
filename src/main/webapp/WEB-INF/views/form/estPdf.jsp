@@ -223,28 +223,19 @@ function solPdf(){
 	var dateMonth = estDate.substring(5,7);
 	var dateDay = estDate.substring(9,11);
 	
-	var now = new Date();
-	var year = now.getFullYear();
-	var month = parseInt(now.getMonth())+1;
-	
-	if(month < 10){
-		month = "0" + month;
-	}else{
-		month = month;
+	if(dateMonth < 10){
+		dateMonth = "0" + dateMonth;
 	}
 	
-	if(now.getDate() < 10){
-		var date = "0" + now.getDate();
-	}else{
-		var date = now.getDate();
+	if(dateDay < 10){
+		dateDay = "0" + dateDay;
 	}
 	
-	var nowDate = year + "-" + month + "-" + date;
 	var element = document.getElementById("mainPdf");
 	
 	html2pdf().from(element).set({
 	  margin: 5,
-      filename: dateYear + dateMonth + dateMonth + "_" + estTitle + '.pdf',
+      filename: dateYear + dateMonth + dateDay + "_" + estTitle + '.pdf',
       html2canvas: { scale: 10 },
       jsPDF: {orientation: 'portrait', unit: 'mm', format: 'a4', compressPDF: true}
 	}).save();

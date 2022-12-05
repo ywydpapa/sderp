@@ -76,6 +76,7 @@
 			</thead>
 			<tbody>
 				<c:forEach var="row" items="${detailListData}" varStatus="status">
+					<c:set var="total" value="${total + row.productTotal}" />
 			    	<tr id="mainTr">
 			    		<td style="text-align: center;">${status.index+1}</td>
 			    		<td style='text-align: center;'>${row.productName}</td>
@@ -87,6 +88,11 @@
 			    		<td></td>
 			    	</tr>
 			    </c:forEach>
+			    <tr>
+			    	<td colspan="6" style="text-align: center;">합 계</td>
+			    	<td style="text-align: right;"><fmt:formatNumber value="${total}" pattern="#,###" /></td>
+			    	<td></td>
+			    </tr>
 				<%-- <tr style="border-top:1px solid #000;">
 					<th colspan="6" style="border-right:1px solid #000;">공&ensp;급&ensp;가&ensp;합&ensp;계</th>
 					<td style="text-align:right;"><fmt:formatNumber value="${amountTotal}" pattern="#,###" /></td>

@@ -214,8 +214,6 @@
 					}, 300);
 				});
 			}
-			
-			
 		}
 		var calendar;
 		function setCalendar(event, userNoList) {
@@ -226,75 +224,65 @@
 
 			var calendarEl = document.getElementById('calendar');
 			calendar = new FullCalendar.Calendar(calendarEl, {
-				googleCalendarApiKey : "AIzaSyCT99xh7Q94gDNmRYh64g0J3-dGYCkisNo",
-				eventSources: [
-					{ 
-						googleCalendarId : 'suffix912@gmail.com' 
-					}, 
-	            	{ 
-	            		googleCalendarId : 'ko.south_korea#holiday@group.v.calendar.google.com', 
-	            		color: 'red', 
-	            		textColor: 'white',
-	            	}, 
-					{
-						url: '${path}/calendar/listEvent.do',
-						method: 'POST',
-						extraParams: {
-							userNoList : userNoList
-						},
-						success : function(rawData, response) {
-							return rawData;
-						},
-						failure: function(error) {
-							// console.dir(error);
-							alert('캘린더 데이터 요청 실패');
-						},
-						color: 'yellow',    // an option!
-						textColor: 'black',  // an option!
-					},
-				],
+				 eventSources: [
+					 {
+						 url: '${path}/calendar/listEvent.do',
+						 method: 'POST',
+						 extraParams: {
+							 userNoList : userNoList
+						 },
+						 success : function(rawData, response) {
+							 return rawData;
+						 },
+						 failure: function(error) {
+							 // console.dir(error);
+							 alert('캘린더 데이터 요청 실패');
+						 },
+						 color: 'yellow',    // an option!
+						 textColor: 'black',  // an option!
+					 },
+				 ],
 				
-				header : {
-					left:   '',
-					center: 'title',
-					right:  'prevYear prev today next nextYear'
-				},
-				plugins: [ 'dayGrid','interaction','timeGrid','list' ],
-				locale                    : 'ko',
-				timezone                  : "local",
-				firstDay                  : 0,
-				weekNumbers               : false,
-				selectable                : true,
-				weekNumberCalculation     : "ISO",
-				nextDayThreshold          : "09:00:00",
-				allDaySlot                : true,
-				displayEventTime          : false,
-				displayEventEnd           : true,
-				eventLimit                : true,
-				views                     : {
+				 header : {
+					 left:   '',
+					 center: 'title',
+					 right:  'prevYear prev today next nextYear'
+				 },
+				 plugins: [ 'dayGrid','interaction','timeGrid','list' ],
+				 locale                    : 'ko',
+				 timezone                  : "local",
+				 firstDay                  : 0,
+				 weekNumbers               : false,
+				 selectable                : true,
+				 weekNumberCalculation     : "ISO",
+				 nextDayThreshold          : "09:00:00",
+				 allDaySlot                : true,
+				 displayEventTime          : false,
+				 displayEventEnd           : true,
+				 eventLimit                : true,
+				 views                     : {
 												month : { eventLimit : 3 }
-											},
-				dateClick:function (info) {
-					$('#detail-content').empty();
-					$('#detail-content')[0].selectedDate = info.dateStr;
-					fnInitializeRadio();
-					$('.eventModalRadioGroup').show();
-					$('#eventModal').modal('show');
-				},
+											 },
+				 dateClick:function (info) {
+					 $('#detail-content').empty();
+					 $('#detail-content')[0].selectedDate = info.dateStr;
+					 fnInitializeRadio();
+					 $('.eventModalRadioGroup').show();
+					 $('#eventModal').modal('show');
+				 },
 
-
-				eventClick: function(info) {
-					$('#detail-content').empty();
-					$('.eventModalRadioGroup').hide();
-					$('#eventModal').modal('show');
-					fnSetDetail('modify', info);
-				},
-				eventRender : function(info) {
-					info.el.style.backgroundColor = info.event.extendedProps.color;
-					info.el.style.borderColor = info.event.extendedProps.color;
-				}
-			});
-			calendar.render();
+				 eventClick: function(info) {
+					 $('#detail-content').empty();
+					 $('.eventModalRadioGroup').hide();
+					 $('#eventModal').modal('show');
+					 fnSetDetail('modify', info);
+				 },
+				 eventRender : function(info) {
+					 info.el.style.backgroundColor = info.event.extendedProps.color;
+					 info.el.style.borderColor = info.event.extendedProps.color;
+				 }
+			 });
+			 calendar.render();
 
 			if(event == 'search'){
 			}

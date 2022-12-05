@@ -7,7 +7,7 @@
 <!DOCTYPE html>
 <html>
 <jsp:include page="../head.jsp"/>
-<jsp:include page="../body-top3.jsp"/>
+<jsp:include page="../body-top.jsp"/>
 
 <div id="main_content">
 	<script type="text/javascript">

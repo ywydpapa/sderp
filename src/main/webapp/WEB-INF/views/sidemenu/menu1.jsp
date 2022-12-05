@@ -225,7 +225,7 @@
 				</ul>
 			</li>
 		</c:if>
-		<li class="pcoded-hasmenu pcoded <c:if test="${path2 eq '/cont/list.do' || path2 eq '/cont/list.do' || path2 eq '/cont/write.do' || fn:startsWith(path2, '/cont/detail')}">pcoded-trigger</c:if>">
+		<li class="pcoded-hasmenu pcoded <c:if test="${path2 eq '/cont/list.do' || path2 eq '/cont/list.do' || path2 eq '/cont/write.do' || fn:startsWith(path2, '/cont/detail') || path2 eq '/cont/iolist.do' || path2 eq '/cont/iowrite.do' || path2 eq '/cont/iowrite.do/0' || fn:startsWith(path2, '/cont/iowrite.do') || fn:startsWith(path2, '/cont/iodetail')}">pcoded-trigger</c:if>">
 			<a href="javascript:void(0)">
 				<span class="pcoded-micon">
 					<i class="ti-pencil-alt"></i>
@@ -259,14 +259,28 @@
 						<span class="pcoded-mcaret"></span>
 					</a>
 				</li>
-				<li class="pcoded-hasmenu">
+				<li class="pcoded-hasmenu ">
+                    <a href="${path}/cont/iolist.do">
+                        <span class="pcoded-micon"><i class="ti-direction-alt"></i></span>
+                        <span class="pcoded-mtext" data-i18n="nav.menu-levels.menu-level-21">매입매출조회</span>
+                        <span class="pcoded-mcaret"></span>
+                    </a>
+                </li>
+                <li class="pcoded-hasmenu">
+                    <a href="${path}/cont/iowrite.do/0/0">
+                        <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                        <span class="pcoded-mtext" data-i18n="nav.menu-levels.menu-level-22">매입매출등록</span>
+                        <span class="pcoded-mcaret"></span>
+                    </a>
+                </li>
+				<%-- <li class="pcoded-hasmenu">
 					<a href="${path}/cont/iowrite.do/0">
 						<span class="pcoded-micon">
 							<i class="ti-angle-right"></i></span>
 						<span class="pcoded-mtext" data-i18n="nav.menu-levels.menu-level-23">매입/매출 자료등록</span>
 						<span class="pcoded-mcaret"></span>
 					</a>
-				</li>
+				</li> --%>
 			</ul>
 		</li>
 		<li class="pcoded-hasmenu pcoded <c:if test="${path2 eq '/techd/list.do' || path2 eq '/techd/list.do' || path2 eq '/techd/write.do' || path2 eq '/techd/contlist.do' || path2 eq '/techd/bbuycontlist.do' || fn:startsWith(path2, '/techd/detail') || fn:startsWith(path2, '/techd/contextdetail')}">pcoded-trigger</c:if>">

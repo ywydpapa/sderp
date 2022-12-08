@@ -1333,7 +1333,7 @@
 								},
 								axisLabel: {
 									formatter: function (data) {
-										return Math.floor(data/10000000)
+										return Math.floor(data/100000000)
 									}
 								}
 							},
@@ -1349,7 +1349,7 @@
 								},
 								axisLabel: {
 									formatter: function (data) {
-										return Math.floor(data/10000000)
+										return Math.floor(data/100000000)
 									}
 								}
 							}

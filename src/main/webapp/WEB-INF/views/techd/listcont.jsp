@@ -18,6 +18,13 @@
 			info:false,
 			searching: true,
 			order: [[ 0, "desc" ]],
+			dom: 'Bfrtip',
+			buttons: [
+				{
+					extend: 'excel',
+					filename: '유지보수 계약 리스트',
+				},
+			],
 		});
 	});
 	</script>
@@ -598,6 +605,7 @@
 			var userName = '${sessionScope.userName}';
 			$("#userName").val(userName);
 		} */
+		dtButtonSet();
 	});
 	function fnClearall() {
 		/* document.getElementById("contTitle").value ='';

@@ -829,7 +829,7 @@
 				contData.cntrctMth				= Number(${contractType[0].codeNo});
 			} else if(contractType == 'OLD'){
 				contData.soppNo					= Number($("#soppNo").val());			// 영업기회
-				contData.exContNo				= Number($("#oldContNo").val());		// 기존계약
+				contData.exContNo				= $("#oldContNo").val() ? Number($("#oldContNo").val()) : 0;		// 기존계약
 				contData.cntrctMth				= Number(${contractType[1].codeNo});
 			}
 			contData.contTitle 					= $("#contTitle").val(); 		// 계약명

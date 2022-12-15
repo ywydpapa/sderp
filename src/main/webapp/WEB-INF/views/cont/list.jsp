@@ -18,6 +18,13 @@
 			info:false,
 			searching: true,
 			order: [[ 0, "desc" ]],
+			dom: 'Bfrtip',
+			buttons: [
+				{
+					extend: 'excel',
+					filename: '계약 리스트',
+				},
+			],
 		});
 	});
 	</script>
@@ -641,7 +648,9 @@
 		if(lastAco1 == null && lastAco2 != null) {
 			 $("#acordian").css("display", "block");
 		}
+		
 		localStorage.clear();
+		dtButtonSet();
 	});
 	function fnClearall() {
 		/* document.getElementById("contTitle").value ='';

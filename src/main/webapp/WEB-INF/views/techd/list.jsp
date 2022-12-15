@@ -197,6 +197,13 @@
 					}
 				},
 				// docs : https://legacy.datatables.net/usage/i18n
+				dom: 'Bfrtip',
+				buttons: [
+					{
+						extend: 'excel',
+						filename: '기술지원 리스트',
+					},
+				],
 
 			});
 
@@ -446,6 +453,9 @@
 		</div>
 		<!--//리스트 table-->
 	<script>
+	$(document).ready(function(){
+		dtButtonSet();
+	})
 	
 	function acordian_action(){
 		if($("#acordian").css("display") == "none"){

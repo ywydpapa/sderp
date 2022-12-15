@@ -39,6 +39,7 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 <!-- data tables css -->
 <link rel="stylesheet" href="${path}/assets/css/plugins/dataTables.bootstrap4.min.css">
+<link rel="stylesheet" href="${path}/css/buttons.dataTables.scss">
 <!-- -->
 <style>
     .requiredTextCss{
@@ -804,63 +805,11 @@
 		}
 	}
 	
-	/* function autoCompleteVali(value, type){
-		let listUser = listSession.listUser;
-		let listCust = listSession.listCust;
-		let listSopp = listSession.listSopp;
-		let listCont = listSession.listCont;
-		let listCustMember = listSession.listCustMember;
-		let listProduct = listSession.listProduct;
-		let listCategory = listSession.listCategory;
-		let result = false;
-		
-		if(type === "sopp"){
-			for(let i = 0; i < listSopp.length; i++){
-				if(listSopp[i].value.indexOf(value) > -1){
-					result = true;
-				}
-			}
-		}else if(type === "user"){
-			for(let i = 0; i < listUser.length; i++){
-				if(listUser[i].value.indexOf(value) > -1){
-					result = true;
-				}
-			}
-		}else if(type === "cust"){
-			for(let i = 0; i < listCust.length; i++){
-				if(listCust[i].value.indexOf(value) > -1){
-					result = true;
-				}
-			}
-		}else if(type === "cont"){
-			for(let i = 0; i < listCont.length; i++){
-				console.log(listCont[i].contTitle);
-				if(listCont[i].value.indexOf(value) > -1){
-					result = true;
-				}
-			}
-		}else if(type === "custMember"){
-			for(let i = 0; i < listCustMember.length; i++){
-				if(listCustMember[i].value.indexOf(value) > -1){
-					result = true;
-				}
-			}
-		}else if(type === "product"){
-			for(let i = 0; i < listProduct.length; i++){
-				if(listProduct[i].value.indexOf(value) > -1){
-					result = true;
-				}
-			}
-		}else if(type === "category"){
-			for(let i = 0; i < listCategory.length; i++){
-				if(listCategory[i].value.indexOf(value) > -1){
-					result = true;
-				}
-			}
-		}
-		
-		return result;
-	} */
+	function dtButtonSet(){
+		$(".dt-button").addClass("btn btn-sm btn-primary");
+		$(".dt-button").css("text-decoration", "none");
+		$(".dt-button").css("float", "left");
+	}
 	
 	$(document).ready(function(){
 		timeAllimUpdate();

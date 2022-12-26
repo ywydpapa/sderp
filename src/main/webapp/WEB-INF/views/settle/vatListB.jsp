@@ -158,7 +158,7 @@
                     	<span style="font-weight:600;">※총합계</span>
                     	<table class="table table-striped table-bordered nowrap" style="margin-bottom: 1%;">
                     		<c:forEach items="${vatList}" var="vlist">
-                    			<c:set var="totalSum" value="${totalSum + (vlist.vatAmount + vlist.vatTax)}" />
+                    			<c:set var="totalSum" value="${totalSum + vlist.vatAmount}" />
                     		</c:forEach>
                    			<tr>
                    				<th class="text-center">매입합계</th>

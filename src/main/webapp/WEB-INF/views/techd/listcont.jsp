@@ -601,10 +601,8 @@
 				var userName = '${param.userName}';
 				$("#userName").val(userName);
 			}
-		} /* else {
-			var userName = '${sessionScope.userName}';
-			$("#userName").val(userName);
-		} */
+		}
+		
 		dtButtonSet();
 	});
 	function fnClearall() {

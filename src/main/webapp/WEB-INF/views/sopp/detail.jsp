@@ -175,8 +175,15 @@
 														</td>	
 													</tr>
 													<tr>
+														<th class="requiredTextCss" scope="row">유지보수대상</th>
+														<td>
+															<select class="form-control form-control-sm" name="maintenanceTarget" id="maintenanceTarget">
+																<option value="N">No</option>
+																<option value="Y">Yes</option>
+															</select>
+														</td>
 														<th scope="row" class="requiredTextCss">영업기회명</th>
-														<td colspan="7">
+														<td colspan="6">
 															<input type="text" class="form-control form-control-sm" id="soppTitle" data-completeSet="true" name="soppTitle" value="${dto.soppTitle}"> 
 															<input type="hidden" id="soppNo" name="soppNo" value="${dto.soppNo}">
 														</td>
@@ -590,6 +597,7 @@
 			if($("#soppTargetAmt").val() != "") soppData.soppTargetAmt 	= $("#soppTargetAmt").val().replace(/[\D\s\._\-]+/g, "");
 			if(tinyMCE.get("soppDesc").getContent() != "") soppData.soppDesc 		= tinyMCE.get("soppDesc").getContent();
 			if($("#productName").val() != "")	soppData.productNo 	= Number($("#productNo").val());
+			if($("#maintenanceTarget").val() != "") soppData.maintenanceTarget = $("#maintenanceTarget").val();
 
 			if ($("#soppTitle").val() === "") {
 				alert("영업기회명을 입력해주세요.");
@@ -777,8 +785,10 @@
 		$(document).ready(function(){
 			var $input = $("#soppTargetAmt");
 			var soppStatus = "${dto.soppStatus}";
-
+			var maintenanceTarget = "${dto.maintenanceTarget}";
+			
 			$("#soppStatus").val(soppStatus);
+			$("#maintenanceTarget").val(maintenanceTarget);
 			
 			// 이벤트 시작 ==========================================================================
 			// 이벤트시 동작

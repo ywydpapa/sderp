@@ -181,8 +181,15 @@
 														</td>
 													</tr>
 													<tr>
+														<th class="requiredTextCss" scope="row">유지보수대상</th>
+														<td>
+															<select class="form-control form-control-sm" name="maintenanceTarget" id="maintenanceTarget">
+																<option value="N">No</option>
+																<option value="Y">Yes</option>
+															</select>
+														</td>
 														<th scope="row" class="requiredTextCss">영업기회명</th>
-														<td colspan="7">
+														<td colspan="6">
 															<input type="text" class="form-control form-control-sm" id="soppTitle" name="soppTitle" data-completeSet="true" autocomplete="off" value="">
 															<input type="hidden" id="soppNo" name="soppNo" value="">
 														</td>
@@ -375,6 +382,7 @@
 		if($("#soppTargetAmt").val() != "") soppData.soppTargetAmt = $("#soppTargetAmt").val().replace(/[\D\s\._\-]+/g, "");
 		if(tinyMCE.get("soppDesc").getContent() != "") soppData.soppDesc = tinyMCE.get("soppDesc").getContent();
 		if($("#productName").val() !== "")	soppData.productNo = Number($("#productNo").val());
+		if($("#maintenanceTarget").val() !== "") soppData.maintenanceTarget = $("#maintenanceTarget").val();
 		
 		if($("#cntrctMth").val() == '10248'){
 			if($('#maintenance_S').val() == ''){

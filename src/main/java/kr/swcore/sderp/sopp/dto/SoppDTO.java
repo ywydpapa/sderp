@@ -66,6 +66,7 @@ public class SoppDTO extends PageDTO {
 	
 	private int productNo;
 	private String productName;
+	private String maintenanceTarget;
 	
 	public SoppDTO() {
 		super();

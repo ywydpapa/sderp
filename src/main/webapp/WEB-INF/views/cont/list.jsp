@@ -237,12 +237,13 @@
 								<col width="5%"/>
 								<col width="5%"/>
 								<col width="30%"/>
-								<col width="15%"/>
-								<col width="7.5%"/>
-								<col width="7.5%"/>
+								<col width="16%"/>
+								<col width="6.5%"/>
+								<col width="6.5%"/>
 								<col width="5%"/>
-								<col width="7%"/>
-								<col width="7%"/>
+								<col width="5%"/>
+								<col width="5%"/>
+								<col width="5%"/>
 								<col width="5%"/>
 								<col width="5%"/>
 							</colgroup>							
@@ -258,6 +259,7 @@
 									<th>담당자</th>
 									<th>유지보수 시작일</th>
 									<th>유지보수 만료일</th>
+									<th>유지보수대상</th>
 									<th>계산서 발행일</th>
 									<th>판매일</th>
 									<!-- <th>계산서 진행상황</th> -->
@@ -267,31 +269,32 @@
 							<tbody>
 							<c:forEach var="row" items="${list}">
 								<tr>
-									<td>
+									<td class="text-center">
 										<fmt:parseDate value="${row.regDatetime}" var="regDatetime" pattern="yyyy-MM-dd HH:mm:ss"/>
 										<fmt:formatDate value="${regDatetime}" pattern="yyyy-MM-dd"/>
 									</td>
-									<td>${row.contTypeN}</td>
-									<td>${row.cntrctMthN}</td>
+									<td class="text-center">${row.contTypeN}</td>
+									<td class="text-center">${row.cntrctMthN}</td>
 									<td><a href="${path}/cont/detail/${row.soppNo}/${row.contNo}">${row.contTitle}</a></td>
-									<td>${row.custName}</td>
+									<td class="text-center">${row.custName}</td>
 									<td class="text-right moneyTdHtml">${row.contAmt}</td>
 									<td class="text-right moneyTdHtml">${row.net_profit}</td>
-									<td>${row.userName}</td>
-									<td>
+									<td class="text-center">${row.userName}</td>
+									<td class="text-center">
 										<c:choose>
 											<c:when test="${row.freemaintSdate != null && row.freemaintSdate != ''}">${row.freemaintSdate}</c:when>
 											<c:when test="${row.paymaintSdate != null && row.paymaintSdate != ''}">${row.paymaintSdate}</c:when>
 										</c:choose>
 									</td>
-									<td>
+									<td class="text-center">
 										<c:choose>
 											<c:when test="${row.freemaintEdate != null && row.freemaintEdate != ''}">${row.freemaintEdate}</c:when>
 											<c:when test="${row.paymaintEdate != null && row.paymaintEdate != ''}">${row.paymaintEdate}</c:when>
 										</c:choose>
 									</td>
+									<td class="text-center">${row.maintenanceTarget}</td>
 									<td>-</td>
-									<td>${row.contOrddate}</td>
+									<td class="text-center">${row.contOrddate}</td>
 									<%-- <c:if test="${row.vatStatus == null || row.vatStatus == ''}">
 										<td class="text-center">미연결</td>
 									</c:if>

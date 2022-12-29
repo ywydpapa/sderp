@@ -559,11 +559,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		insert into swc_sopp (compNo, custNo,userNo, buyrNo, ptncNo, soppTitle,
 		soppDesc, soppType, soppSrate, soppStatus
 		, soppTargetDate, soppTargetAmt, productNo, attrib, cntrctMth, custMemberNo,
-		Maintenance_S, Maintenance_E)
+		Maintenance_S, Maintenance_E, maintenanceTarget)
 		values (#{compNo}, #{custNo},#{userNo}, #{buyrNo},#{ptncNo}, #{soppTitle},
 		#{soppDesc}, #{soppType}, #{soppSrate}, #{soppStatus},
 		#{soppTargetDate}, #{soppTargetAmt}, #{productNo}, '10000',#{cntrctMth},
-		#{custMemberNo}, #{maintenance_S}, #{maintenance_E})
+		#{custMemberNo}, #{maintenance_S}, #{maintenance_E}, #{maintenanceTarget})
 	</insert>
 
 	<insert id="soppListApp" useGeneratedKeys="true"
@@ -656,6 +656,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		,maintenance_S=#{maintenance_S}
 		,maintenance_E=#{maintenance_E}
 		,productNo=#{productNo}
+		,maintenanceTarget=#{maintenanceTarget}
 		where soppNo=#{soppNo}
 	</update>
 

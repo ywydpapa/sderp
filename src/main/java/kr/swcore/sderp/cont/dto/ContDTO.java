@@ -104,6 +104,7 @@ public class ContDTO implements Cloneable{
 	//부 담당사원
 	private int secondUserNo;
 	private String secondUserName;
+	private String maintenanceTarget;
 	
 	public ContDTO() {
 		super();

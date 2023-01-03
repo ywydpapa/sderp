@@ -148,6 +148,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  		<if test="listDateFrom != null and listDateFrom != '' and regSDate == null or regSDate == '' and regEDate == null or regEDate == ''">
 			and a.regDatetime Between #{listDateFrom} and now()
 		</if>
+		<if test="maintenanceTarget != null and maintenanceTarget != ''">
+ 		 	and e.maintenanceTarget = #{maintenanceTarget}
+ 		</if>
 		 order by regDatetime desc
  </select>
 

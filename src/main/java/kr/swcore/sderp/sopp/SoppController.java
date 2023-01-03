@@ -424,7 +424,7 @@ public class SoppController {
 		
 		List<SoppDTO> selectSoppdetail = soppService.selectSoppdetail(session, dto);
 		
-		if(selectSoppdetail.get(0).getMaintenance_S() != null || !selectSoppdetail.get(0).getMaintenance_S().isEmpty()) {
+		if(selectSoppdetail.get(0).getMaintenance_S() != null) {
 			dto.setMaintenance_S(selectSoppdetail.get(0).getMaintenance_S());
 			dto.setMaintenance_E(selectSoppdetail.get(0).getMaintenance_E());
 		}else {

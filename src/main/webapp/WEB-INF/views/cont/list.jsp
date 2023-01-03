@@ -204,6 +204,14 @@
 										</c:forEach>
 									</select>
 								</div>
+								<div class="col-sm-12 col-xl-2">
+									<label class="col-form-label">유지보수대상</label>
+									<select name="select" class="form-control form-control-sm" id="maintenanceTarget">
+										<option value="">선택</option>
+										<option value="Y" <c:if test="${param.maintenanceTarget eq 'Y'}">selected</c:if>>Yes</option>
+										<option value="N" <c:if test="${param.maintenanceTarget eq 'N'}">selected</c:if>>No</option>
+									</select>
+								</div>
 								<div class="col-sm-12 col-xl-3">
 									<label class="col-form-label">등록일</label>
 									<p class="input_inline">
@@ -584,6 +592,7 @@
 		contData.freemaintEdate = $("#freemaintEdate").val() ? $("#freemaintEdate").val() : null;
 		contData.regSDate = $("#regSDate").val() ? $("#regSDate").val() : null;
 		contData.regEDate = $("#regEDate").val() ? $("#regEDate").val() : null;
+		contData.maintenanceTarget = $("#maintenanceTarget").val() ? $("#maintenanceTarget").val() : null;
 
 		var param = "?";
 		var paramFirst = true;

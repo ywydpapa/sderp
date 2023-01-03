@@ -88,9 +88,10 @@ public class ContController {
 							 @RequestParam(value = "freemaintSdate", required = false) String freemaintSdate,
 							 @RequestParam(value = "freemaintEdate", required = false) String freemaintEdate,
 							 @RequestParam(value = "regSDate", required = false) String regSDate,
-							 @RequestParam(value = "regEDate", required = false) String regEDate) {
+							 @RequestParam(value = "regEDate", required = false) String regEDate,
+							 @RequestParam(value = "maintenanceTarget", required = false) String maintenanceTarget) {
 		if(custNo != null || ptncNo != null || supplyNo != null || buyrNo != null || contTitle != null || contType != null || targetDatefrom != null || targetDateto != null
-				|| cntrctMth != null || userName != null || freemaintSdate != null || freemaintEdate != null || regSDate != null || regEDate != null){
+				|| cntrctMth != null || userName != null || freemaintSdate != null || freemaintEdate != null || regSDate != null || regEDate != null || maintenanceTarget != null){
 			ContDTO dto = new ContDTO();
 			if(custNo != null) dto.setCustNo(custNo);
 			if(ptncNo != null) dto.setPtncNo(ptncNo);
@@ -106,6 +107,8 @@ public class ContController {
 			if(freemaintEdate != null) dto.setFreemaintEdate(freemaintEdate);
 			if(regSDate != null) dto.setRegSDate(regSDate);
 			if(regEDate != null) dto.setRegEDate(regEDate);
+			if(maintenanceTarget != null) dto.setMaintenanceTarget(maintenanceTarget);
+			
 			mav.addObject("list", contService.listconCont(session, dto));
 		} else {
 			ContDTO dto = new ContDTO();

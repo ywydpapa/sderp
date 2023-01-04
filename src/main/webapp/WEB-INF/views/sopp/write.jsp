@@ -53,12 +53,22 @@
 												</colgroup>
 												<tbody>
 													<tr>
-														<th scope="row" class="requiredTextCss">담당사원</th>
+														<th scope="row" class="requiredTextCss">담당자</th>
 														<td>
 															<div class="input-group input-group-sm mb-0">
 																<input type="text" class="form-control" name="userName"	id="userName" value="${userInfo.userName}" data-completeSet="true" autocomplete="off" readonly>
 																<input type="hidden" name="userNo" id="userNo" value="${userInfo.userNo}" />
 															</div>
+														</td>
+														<th scope="row" class="requiredTextCss">(부)담당자</th>
+														<td>
+															<select class="form-control" id="secondUserName" name="secondUserName" onchange="autoCompleteSelect(this);">
+																<option value="">선택</option>
+																<c:forEach var="row" items="${listUser}">
+																	<option data-no="${row.userNo}" value="${row.userName}" <c:if test="${row.userName eq sessionScope.secondUserName}">selected</c:if>>${row.userName}</option>
+																</c:forEach>
+															</select>
+															<input type="hidden" class="form-control" name="secondUserNo" id="secondUserNo" value="${sessionScope.secondUserNo}" />
 														</td>
 														<th class="requiredTextCss" scope="row">매출처</th>
 														<td>
@@ -85,17 +95,6 @@
 																<input type="hidden" name="custmemberNo" id="custmemberNo" value="" />
 																<!-- <input type="text" class="form-control" name="custmemberName"  id="custmemberName" value="" autocomplete="off"> -->
 															</div>
-														</td>
-														<th scope="row" class="requiredTextCss">상품</th>
-														<td>
-															<select class="form-control" id="productName" name="productName" onchange="autoCompleteSelect(this);">
-																<option value="">선택</option>
-																<c:forEach var="row" items="${listProduct}">
-																	<option data-no="${row.productNo}" value="${row.productName}">${row.productName}</option>
-																</c:forEach>
-															</select>
-															<input type="hidden" id="productNo" name="productNo" value="">
-															<!-- <input type="text" class="form-control form-control-sm" id="productName" name="productName" autocomplete="off"> -->
 														</td>
 													</tr>
 													
@@ -179,6 +178,18 @@
 																<input class="form-control form-control-sm col-sm-6 m-r-5" type="date" max="9999-12-30" id="maintenance_S"> ~ <input class="form-control form-control-sm col-sm-6 m-l-5" type="date" max="9999-12-31" id="maintenance_E">
 															</div>
 														</td>
+													</tr>
+													<tr>
+                                                       	<th scope="row" class="requiredTextCss">상품</th>
+                                                        <td>
+                                                            <select class="form-control" id="productName" name="productName" onchange="autoCompleteSelect(this);">
+                                                                <option value="">선택</option>
+                                                                <c:forEach var="row" items="${listProduct}">
+                                                                    <option data-no="${row.productNo}" value="${row.productName}">${row.productName}</option>
+                                                                </c:forEach>
+                                                            </select>
+                                                            <input type="hidden" id="productNo" name="productNo" value="">
+                                                        </td>
 													</tr>
 													<tr>
 														<th class="requiredTextCss" scope="row">유지보수대상</th>
@@ -381,8 +392,9 @@
 		if($("#soppTargetDate").val() != "") soppData.soppTargetDate = $("#soppTargetDate").val();
 		if($("#soppTargetAmt").val() != "") soppData.soppTargetAmt = $("#soppTargetAmt").val().replace(/[\D\s\._\-]+/g, "");
 		if(tinyMCE.get("soppDesc").getContent() != "") soppData.soppDesc = tinyMCE.get("soppDesc").getContent();
-		if($("#productName").val() !== "")	soppData.productNo = Number($("#productNo").val());
 		if($("#maintenanceTarget").val() !== "") soppData.maintenanceTarget = $("#maintenanceTarget").val();
+		if($("#secondUserName").val() !== "") soppData.secondUserNo = $("#secondUserNo").val();
+		if($("#productName").val() !== "") soppData.productNo = $("#productNo").val();
 		
 		if($("#cntrctMth").val() == '10248'){
 			if($('#maintenance_S').val() == ''){
@@ -422,6 +434,10 @@
 			return;
 		} else if(!soppData.soppType){
 			alert("판매방식을 선택해주십시오.");
+			return;
+		} else if($("#secondUserName").val() === ""){
+			alert("부(담당자) 입력해주세요.");
+			$("#secondUserName").focus();
 			return;
 		} else{
 			$.ajax({ url: "${path}/sopp/insert.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소

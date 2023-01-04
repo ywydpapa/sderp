@@ -370,44 +370,20 @@
 													<th>(부)담당사원</th>
 													<td>
 														<div class="input-group input-group-sm mb-0">
-															<select class="form-control" id="secondUserName" name="secondUserName" onchange="autoCompleteSelect(this);">
+															<c:forEach var="row" items="${listUser}">
+																<c:if test="${row.userNo eq contDto.secondUserNo}">
+																	<c:set var="secondUserName" value="${row.userName}" />
+																</c:if>
+															</c:forEach>
+															<input type="text" class="form-control" name="secondUserName" id="secondUserName" data-completeSet="true" value="${secondUserName}" readonly>
+															<input type="hidden" class="form-control" name="secondUserNo" id="secondUserNo" value="${contDto.secondUserNo}" />
+															<%-- <select class="form-control" id="secondUserName" name="secondUserName" onchange="autoCompleteSelect(this);" disabled>
 																<option value="">선택</option>
 																<c:forEach var="row" items="${listUser}">
-																	<option data-no="${row.userNo}" value="${row.userName}" <c:if test="${row.userName eq contDto.secondUserName}">selected</c:if>>${row.userName}</option>
+																	<option data-no="${row.userNo}" value="${row.userName}" <c:if test="${row.userNo eq contDto.secondUserNo}">selected</c:if>>${row.userName}</option>
 																</c:forEach>
 															</select>
-															<input type="hidden" class="form-control" name="secondUserNo" id="secondUserNo" value="${contDto.secondUserNo}" />
-															<%-- <input type="text" class="form-control" name="secondUserName" id="secondUserName" value="${contDto.secondUserName}" autocomplete="off"> --%>
-															<%-- <span class="input-group-btn">
-																<button class="btn btn-primary sch-company"
-																	data-remote="${path}/modal/popup.do?popId=secondUser"
-																	type="button" data-toggle="modal" data-target="#secondUserModal">
-																	<i class="icofont icofont-search"></i>
-																</button>
-															</span>
-															<div class="modal fade " id="secondUserModal" tabindex="-1"
-																role="dialog">
-																<div class="modal-dialog modal-80size" role="document">
-																	<div class="modal-content modal-80size">
-																		<div class="modal-header">
-																			<h4 class="modal-title"></h4>
-																			<button type="button" class="close" data-dismiss="modal"
-																				aria-label="Close">
-																				<span aria-hidden="true">&times;</span>
-																			</button>
-																		</div>
-																		<div class="modal-body">
-																			<h5>사용자목록</h5>
-																			<p>Loading!!!</p>
-																		</div>
-																		<div class="modal-footer">
-																			<button type="button"
-																				class="btn btn-default waves-effect "
-																				data-dismiss="modal">Close</button>
-																		</div>
-																	</div>
-																</div>
-															</div> --%>
+															<input type="hidden" class="form-control" name="secondUserNo" id="secondUserNo" value="${contDto.secondUserNo}" /> --%>
 														</div>
 													</td>
 												</tr>

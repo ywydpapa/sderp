@@ -378,51 +378,6 @@
 											<input class="form-control form-control-sm col-sm-12" type="date" max="9999-12-31" id="delivDate" name="delivDate">
 										</div>
 									</td>
-									<th>(부)담당사원</th>
-									<td>
-										<div class="input-group input-group-sm mb-0">
-											<select class="form-control" id="secondUserName" name="secondUserName" onchange="autoCompleteSelect(this);">
-												<option value="">선택</option>
-												<c:forEach var="row" items="${listUser}">
-													<option data-no="${row.userNo}" value="${row.userName}" <c:if test="${row.userName eq sessionScope.secondUserName}">selected</c:if>>${row.userName}</option>
-												</c:forEach>
-											</select>
-											<input type="hidden" class="form-control" name="secondUserNo" id="secondUserNo" value="${sessionScope.secondUserNo}" />
-											<%-- <input type="text" class="form-control" name="secondUserName" id="secondUserName" value="${sessionScope.secondUserName}" autocomplete="off"> --%>
-											<%-- <span class="input-group-btn">
-												<button class="btn btn-primary sch-company"
-													data-remote="${path}/modal/popup.do?popId=secondUser"
-													type="button" data-toggle="modal" data-target="#secondUserModal">
-													<i class="icofont icofont-search"></i>
-												</button>
-											</span>
-											<div class="modal fade " id="secondUserModal" tabindex="-1"
-												role="dialog">
-												<div class="modal-dialog modal-80size" role="document">
-													<div class="modal-content modal-80size">
-														<div class="modal-header">
-															<h4 class="modal-title"></h4>
-															<button type="button" class="close" data-dismiss="modal"
-																aria-label="Close">
-																<span aria-hidden="true">&times;</span>
-															</button>
-														</div>
-														<div class="modal-body">
-															<h5>사용자목록</h5>
-															<p>Loading!!!</p>
-														</div>
-														<div class="modal-footer">
-															<button type="button"
-																class="btn btn-default waves-effect "
-																data-dismiss="modal">Close</button>
-														</div>
-													</div>
-												</div>
-											</div> --%>
-										</div>
-									</td>
-								</tr>
-								<tr>
 									<th scope="row" class="contDetailSopp">무상유지보수일자</th>
 									<td class="contDetailSopp">
 										<div class="input-group input-group-sm mb-0">
@@ -435,6 +390,8 @@
 											<input class="form-control form-control-sm col-sm-6 m-r-5" type="date" max="9999-12-30" id="paymaintSdate"> ~ <input class="form-control form-control-sm col-sm-6 m-l-5" type="date" max="9999-12-31" id="paymaintEdate">
 										</div>
 									</td>
+								</tr>
+								<tr>
 									<!-- <th >계약금액</th>
 									<td>
 										<input type="text" id="contAmt" name="contAmt" class="form-control" style="text-align: right;" value="0">
@@ -676,7 +633,6 @@
 			if($("#endCustmemberName").val() != "") contData.buyrMemberNo	= Number($("#endCustmemberNo").val());	// 엔드유저 담당자
 			if($("#contOrddate").val() != "")		contData.contOrddate 			= $("#contOrddate").val();		// 발주일자
 			/* if($("#supplyDate").val() != "") 		contData.supplyDate = $("#supplyDate").val(); */		// 공급일자
-			if($("#secondUserNo").val() != "") 		contData.secondUserNo	= Number($("#secondUserNo").val());	//(부)담당사원
 			if($("#delivDate").val() != "")  		contData.delivDate	 = $("#delivDate").val();		// 검수일자
 
 			var contAmt = typeof $("#contAmt").val() === "undefined" ? 0 : Number($("#contAmt").val().replace(/[\D\s\._\-]+/g, ""));			// 계약금액

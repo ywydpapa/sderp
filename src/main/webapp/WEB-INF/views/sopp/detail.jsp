@@ -64,6 +64,16 @@
 																<input type="hidden" name="userNo" id="userNo" value="${dto.userNo}" /> 
 															</div>
 														</td>
+														<th scope="row" class="requiredTextCss">(부)담당자</th>
+														<td>
+															<select class="form-control" id="secondUserName" name="secondUserName" onchange="autoCompleteSelect(this);">
+																<option value="">선택</option>
+																<c:forEach var="row" items="${listUser}">
+																	<option data-no="${row.userNo}" value="${row.userName}" <c:if test="${row.userNo eq dto.secondUserNo}">selected</c:if>>${row.userName}</option>
+																</c:forEach>
+															</select>
+															<input type="hidden" class="form-control" name="secondUserNo" id="secondUserNo" value="${dto.secondUserNo}" />
+														</td>
 														<th class="requiredTextCss" scope="row">매출처</th>
 														<td>
 															<div class="input-group input-group-sm mb-0">
@@ -89,17 +99,6 @@
 																<input type="hidden" name="custmemberNo" id="custmemberNo" value="${cto.custMemberNo}" />
 																<%-- <input type="text" class="form-control" name="custmemberName" id="custmemberName" autocomplete="off" value="${dto.custMemberName}"> --%>
 															</div>
-														</td>
-														<th scope="row" class="requiredTextCss">상품</th>
-														<td>
-															<select class="form-control" id="productName" name="productName" onchange="autoCompleteSelect(this);">
-																<option value="">선택</option>
-																<c:forEach var="row" items="${listProduct}">
-																	<option data-no="${row.productNo}" value="${row.productName}" <c:if test="${row.productName eq dto.productName}">selected</c:if>>${row.productName}</option>
-																</c:forEach>
-															</select>
-															<input type="hidden" id="productNo" name="productNo" value="${dto.productNo}">
-															<%-- <input type="text" class="form-control form-control-sm" id="productName" name="productName" value="${dto.productName}"> --%> 
 														</td>
 													</tr>
 													
@@ -175,6 +174,19 @@
 														</td>	
 													</tr>
 													<tr>
+												 		<th scope="row" class="requiredTextCss">상품</th>
+														<td>
+															<select class="form-control" id="productName" name="productName" onchange="autoCompleteSelect(this);">
+																<option value="">선택</option>
+																<c:forEach var="row" items="${listProduct}">
+																	<option data-no="${row.productNo}" value="${row.productName}" <c:if test="${row.productName eq dto.productName}">selected</c:if>>${row.productName}</option>
+																</c:forEach>
+															</select>
+															<input type="hidden" id="productNo" name="productNo" value="${dto.productNo}">
+														</td>
+														
+													</tr>
+													<tr>
 														<th class="requiredTextCss" scope="row">유지보수대상</th>
 														<td>
 															<select class="form-control form-control-sm" name="maintenanceTarget" id="maintenanceTarget">
@@ -209,14 +221,14 @@
 									</div>
 									<div class="btn_wr text-right mt-3" id="tab01_bottom">
 										<button class="btn btn-md btn-success f-left" onClick="javascript:location='${path}/sopp/list.do'">목록</button>
-										<c:if test="${dto.userNo eq sessionScope.userNo && dto.soppStatus < 10182 && dto.cntrctMth ne 10248}">
+										<c:if test="${dto.userNo eq sessionScope.userNo && dto.soppStatus < 10182 && dto.cntrctMth ne 10248 || dto.secondUserNo eq sessionScope.userNo}">
 											<button class="btn btn-md btn-danger" onClick="fn_Contreq()">계약요청</button>
 											<button class="btn btn-md btn-danger" onClick="fn_Contfail()">계약실패</button>
 										</c:if>
-										<c:if test="${dto.userNo eq sessionScope.userNo}">
+										<c:if test="${dto.userNo eq sessionScope.userNo || dto.secondUserNo eq sessionScope.userNo}">
 											<button class="btn btn-md btn-danger" onClick="fn_soppDelete()">삭제</button>
 										</c:if>
-										<c:if test="${dto.userNo eq sessionScope.userNo || sessionScope.userRole eq 'ADMIN'}">
+										<c:if test="${dto.userNo eq sessionScope.userNo || sessionScope.userRole eq 'ADMIN' || dto.secondUserNo eq sessionScope.userNo}">
 											<button class="btn btn-md btn-primary" onClick="fn_soppUpdate()">수정</button>
 											<button class="btn btn-md btn-inverse" onClick="javascript:location='${path}/sopp/list.do'">취소</button>
 										</c:if>
@@ -570,6 +582,7 @@
 			if($("#soppType").val() != "")	soppData.soppType 		= Number($("#soppType").val());
 			if($("#cntrctMth").val() != "")	soppData.cntrctMth 		= Number($("#cntrctMth").val());
 			if($("#custmemberName").val() != "") soppData.custMemberNo = Number($("#custmemberNo").val());
+			if($("#secondUserName").val() !== "") soppData.secondUserNo = $("#secondUserNo").val();
 			
 			if($("#soppStatus").val() != ""){
 				if($("#soppStatus").val() === "10292"){
@@ -596,8 +609,8 @@
 			if($("#soppTargetDate").val() != "") soppData.soppTargetDate	= $("#soppTargetDate").val();
 			if($("#soppTargetAmt").val() != "") soppData.soppTargetAmt 	= $("#soppTargetAmt").val().replace(/[\D\s\._\-]+/g, "");
 			if(tinyMCE.get("soppDesc").getContent() != "") soppData.soppDesc 		= tinyMCE.get("soppDesc").getContent();
-			if($("#productName").val() != "")	soppData.productNo 	= Number($("#productNo").val());
 			if($("#maintenanceTarget").val() != "") soppData.maintenanceTarget = $("#maintenanceTarget").val();
+			if($("#productName").val() !== "") soppData.productNo = $("#productNo").val();
 
 			if ($("#soppTitle").val() === "") {
 				alert("영업기회명을 입력해주세요.");
@@ -620,6 +633,10 @@
 				return;
 			} else if(!soppData.soppType){
 				alert("판매방식을 선택해주십시오.");
+				return;
+			} else if($("#secondUserName").val() === ""){
+				alert("부(담당자) 입력해주세요.");
+				$("#secondUserName").focus();
 				return;
 			} else{
 				$.ajax({ url: "${path}/sopp/update.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소

@@ -157,6 +157,7 @@ public class SoppController {
 		mav.addObject("soppFiles",soppService.listFile(soppNo));
 		mav.addObject("dtodata01", soppdataService.listSoppdata01(soppNo));
 		mav.addObject("estList", gwService.getEstSopp(session, soppNo));
+		mav.addObject("listUser", userService.userList(session));
 		mav.addObject("listCust", custService.listCust(session));
 		mav.addObject("listProduct", productService.listProduct(session));
 		mav.addObject("listCustMember", custService.listCustMember(session));
@@ -249,6 +250,7 @@ public class SoppController {
 		userDTO.setUserNo(Integer.valueOf((String)session.getAttribute("userNo")));
 		mav.addObject("userInfo",userDTO);
 		mav.addObject("saleslist", codeService.listSalestype(session));
+		mav.addObject("listUser", userService.userList(session));
 		mav.addObject("listCust", custService.listCust(session));
 		mav.addObject("listProduct", productService.listProduct(session));
 		mav.addObject("listCustMember", custService.listCustMember(session));

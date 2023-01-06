@@ -8,6 +8,16 @@
 <jsp:include page="../head.jsp"/>
 <jsp:include page="../body-top.jsp"/>
 
+<style>
+	table > tbody > tr > td > .productInputDiv > .select2-container{
+		width: 20% !important;
+	}
+	
+	.select2-container .select2-selection--single{
+		height: 100% !important;
+	}
+</style>
+
 <div id="main_content">
 	<!-- Page-header start 페이지 타이틀-->
 	<div class="page-header2">
@@ -96,6 +106,18 @@
 																<!-- <input type="text" class="form-control" name="custmemberName"  id="custmemberName" value="" autocomplete="off"> -->
 															</div>
 														</td>
+														<%-- <th scope="row" class="requiredTextCss">상품</th>
+														<td>
+															<select class="form-control" id="productName" name="productName" onchange="productSelect(this);">
+																<option value="">선택</option>
+																<c:forEach var="row" items="${listProduct}">
+																	<option data-no="${row.productNo}" value="${row.productName}">${row.productName}</option>
+																</c:forEach>
+															</select>
+															<div class="form-control"></div>
+															<input type="hidden" id="productNo" name="productNo" value="">
+															<input type="text" class="form-control form-control-sm" id="productName" name="productName" autocomplete="off">
+														</td> --%>
 													</tr>
 													
 													<tr>
@@ -113,7 +135,8 @@
 															</div>
 														</td>
 														<th scope="row" class="requiredTextCss">진행단계</th>
-														<td><select name="soppStatus" id="soppStatus" class="form-control form-control-sm">
+														<td>
+															<select name="soppStatus" id="soppStatus" class="form-control form-control-sm">
 																<option value="10178">영업정보파악</option>
 																<option value="10179">초기접촉</option>
 																<option value="10180">제안서제출 및 PT</option>
@@ -125,7 +148,8 @@
 																<option value="10193">계약진행보류</option>
 																<option value="">발주서입수</option>
 																<option value="">협력사요청</option>--%>
-														</select></td>
+															</select>
+														</td>
 														<th scope="row">가능성</th>
 														<td class="text-right">
 															<span class="input_inline">
@@ -180,16 +204,28 @@
 														</td>
 													</tr>
 													<tr>
-                                                       	<th scope="row" class="requiredTextCss">상품</th>
-                                                        <td>
-                                                            <select class="form-control" id="productName" name="productName" onchange="autoCompleteSelect(this);">
-                                                                <option value="">선택</option>
-                                                                <c:forEach var="row" items="${listProduct}">
-                                                                    <option data-no="${row.productNo}" value="${row.productName}">${row.productName}</option>
-                                                                </c:forEach>
-                                                            </select>
-                                                            <input type="hidden" id="productNo" name="productNo" value="">
-                                                        </td>
+                                                       	<th scope="row" class="requiredTextCss">카테고리</th>
+														<td colspan="7">
+															<div class="input-group m-0 productInputDiv">
+																<select onchange="changeSelect(this);">
+																	<option value="productName">항목선택</option>
+																	<option value="inputText">직접입력</option>
+																</select>
+																<select id="productName" name="productName" onchange="productSelect(this);">
+																	<option value="">선택</option>
+																	<c:forEach var="row" items="${listProduct}">
+																		<option data-no="${row.productNo}" value="${row.productName}">${row.productName}</option>
+																	</c:forEach>
+																</select>
+																<div class="input-group m-0" style="display:none; width: 20%;">
+																	<input type="text" class="form-control" id="inputText">
+																	<button type="button" class="btn btn-sm btn-primary" onclick="inputSelect(this);">추가</button>
+																</div>
+																<div class="form-control text-break w-100" style="display: block; word-break: break-all; white-space: normal;"></div>
+															</div>
+															<!-- <input type="hidden" id="productNo" name="productNo" value=""> -->
+															<!-- <input type="text" class="form-control form-control-sm" id="productName" name="productName" autocomplete="off"> -->
+														</td>
 													</tr>
 													<tr>
 														<th class="requiredTextCss" scope="row">유지보수대상</th>
@@ -199,8 +235,10 @@
 																<option value="Y">Yes</option>
 															</select>
 														</td>
+													</tr>
+													<tr>
 														<th scope="row" class="requiredTextCss">영업기회명</th>
-														<td colspan="6">
+														<td colspan="7">
 															<input type="text" class="form-control form-control-sm" id="soppTitle" name="soppTitle" data-completeSet="true" autocomplete="off" value="">
 															<input type="hidden" id="soppNo" name="soppNo" value="">
 														</td>
@@ -211,7 +249,6 @@
 													</tr>
 												</tbody>
 											</table>
-
 										</div>
 									</div>
 									<div class="btn_wr text-right mt-3">
@@ -231,152 +268,152 @@
 	</div>
 		<!--영업기회등록-->
 	<script>
-			function test(){
-				if($('#cntrctMth').val() == '10248'){
-					$('#Maintenance_name').show();
-					$('#Maintenance_input').show();
-				}else{
-					$('#Maintenance_name').hide();
-					$('#Maintenance_input').hide();
-				}
-			}
+	function test(){
+		if($('#cntrctMth').val() == '10248'){
+			$('#Maintenance_name').show();
+			$('#Maintenance_input').show();
+		}else{
+			$('#Maintenance_name').hide();
+			$('#Maintenance_input').hide();
+		}
+	}
+
+	$("#maintenance_S").change(function(){
+		var dateValue = $(this).val();
+		var dateValueArr = dateValue.split("-");
+		var dateValueCom = new Date(dateValueArr[0], parseInt(dateValueArr[1])-1, dateValueArr[2]);
+		var EdateValue = $("#maintenance_E").val();
+		var EdateDateArr = EdateValue.split("-");
+		var EdateDateCom = new Date(EdateDateArr[0], parseInt(EdateDateArr[1])-1, EdateDateArr[2]);
 		
-			$("#maintenance_S").change(function(){
-				var dateValue = $(this).val();
-				var dateValueArr = dateValue.split("-");
-				var dateValueCom = new Date(dateValueArr[0], parseInt(dateValueArr[1])-1, dateValueArr[2]);
-				var EdateValue = $("#maintenance_E").val();
-				var EdateDateArr = EdateValue.split("-");
-				var EdateDateCom = new Date(EdateDateArr[0], parseInt(EdateDateArr[1])-1, EdateDateArr[2]);
-				
-				if(EdateValue == ""){
-					dateValueCom.setDate(dateValueCom.getDate()+1);
-				}else if(dateValueCom.getTime() > EdateDateCom.getTime()){
-					alert("시작일이 종료일보다 클 수 없습니다.");
-					dateValueCom.setDate(dateValueCom.getDate()+1);
-				}else{
-					return null;
-				}
-				
-				var year = dateValueCom.getFullYear();
-				var month = dateValueCom.getMonth()+1;
-				var day = dateValueCom.getDate();
-				
-				if(month < 10){
-					month = "0" + month;
-				}
-				
-				if(day < 10){
-					day = "0" + day;
-				}
-				
-				$("#maintenance_E").val(year + "-" + month + "-" + day);
-			});
-			
-			$("#maintenance_E").change(function(){
-				var SdateValue = $("#maintenance_S").val();
-				var SdateValueArr = SdateValue.split("-");
-				var SdateValueCom = new Date(SdateValueArr[0], parseInt(SdateValueArr[1])-1, SdateValueArr[2]);
-				var thisDateValue = $(this).val();
-				var thisDateArr = thisDateValue.split("-");
-				var thisDateCom = new Date(thisDateArr[0], parseInt(thisDateArr[1])-1, thisDateArr[2]);
-				
-				if(SdateValue == ""){
-					thisDateCom.setDate(thisDateCom.getDate()-1);
-				}else if(SdateValueCom.getTime() > thisDateCom.getTime()){
-					alert("종료일이 시작일보다 작을 수 없습니다.");
-					thisDateCom.setDate(thisDateCom.getDate()-1);
-				}else{
-					return null;
-				}
-				
-				var year = thisDateCom.getFullYear();
-				var month = thisDateCom.getMonth()+1;
-				var day = thisDateCom.getDate();
-				
-				if(month < 10){
-					month = "0" + month;
-				}
-				
-				if(day < 10){
-					day = "0" + day;
-				}
-				
-				$("#maintenance_S").val(year + "-" + month + "-" + day);
-			});
+		if(EdateValue == ""){
+			dateValueCom.setDate(dateValueCom.getDate()+1);
+		}else if(dateValueCom.getTime() > EdateDateCom.getTime()){
+			alert("시작일이 종료일보다 클 수 없습니다.");
+			dateValueCom.setDate(dateValueCom.getDate()+1);
+		}else{
+			return null;
+		}
+		
+		var year = dateValueCom.getFullYear();
+		var month = dateValueCom.getMonth()+1;
+		var day = dateValueCom.getDate();
+		
+		if(month < 10){
+			month = "0" + month;
+		}
+		
+		if(day < 10){
+			day = "0" + day;
+		}
+		
+		$("#maintenance_E").val(year + "-" + month + "-" + day);
+	});
 	
-			$('#custModal').on('show.bs.modal', function(e) {
-				var button = $(e.relatedTarget);
-				var modal = $(this);
-				modal.find('.modal-body').load(button.data("remote"));
-			});
-			$('#userModal').on('show.bs.modal', function(e) {
-				var button = $(e.relatedTarget);
-				var modal = $(this);
-				modal.find('.modal-body').load(button.data("remote"));
-			});
-			$('#buyrModal').on('show.bs.modal', function(e) {
-				var button = $(e.relatedTarget);
-				var modal = $(this);
-				modal.find('.modal-body').load(button.data("remote"));
-			});
-			$('#ptncModal').on('show.bs.modal', function(e) {
-				var button = $(e.relatedTarget);
-				var modal = $(this);
-				modal.find('.modal-body').load(button.data("remote"));
-			});
-			$('#custmemberModal').on('show.bs.modal', function(e) {
-				var custNo = $("#custNo").val();
-				var url = '${path}/modal/popup.do?popId=custmem&compNo=' + custNo;
-				$("#custmemberModalbtn").data("remote",url);
+	$("#maintenance_E").change(function(){
+		var SdateValue = $("#maintenance_S").val();
+		var SdateValueArr = SdateValue.split("-");
+		var SdateValueCom = new Date(SdateValueArr[0], parseInt(SdateValueArr[1])-1, SdateValueArr[2]);
+		var thisDateValue = $(this).val();
+		var thisDateArr = thisDateValue.split("-");
+		var thisDateCom = new Date(thisDateArr[0], parseInt(thisDateArr[1])-1, thisDateArr[2]);
+		
+		if(SdateValue == ""){
+			thisDateCom.setDate(thisDateCom.getDate()-1);
+		}else if(SdateValueCom.getTime() > thisDateCom.getTime()){
+			alert("종료일이 시작일보다 작을 수 없습니다.");
+			thisDateCom.setDate(thisDateCom.getDate()-1);
+		}else{
+			return null;
+		}
+		
+		var year = thisDateCom.getFullYear();
+		var month = thisDateCom.getMonth()+1;
+		var day = thisDateCom.getDate();
+		
+		if(month < 10){
+			month = "0" + month;
+		}
+		
+		if(day < 10){
+			day = "0" + day;
+		}
+		
+		$("#maintenance_S").val(year + "-" + month + "-" + day);
+	});
 
-				var button = $(e.relatedTarget);
-				var modal = $(this);
-				modal.find('.modal-body').load(button.data("remote"));
-			});
-			$('#endCustModal').on('show.bs.modal', function(e) {
-				var button = $(e.relatedTarget);
-				var modal = $(this);
-				modal.find('.modal-body').load(button.data("remote"));
-			});
+	$('#custModal').on('show.bs.modal', function(e) {
+		var button = $(e.relatedTarget);
+		var modal = $(this);
+		modal.find('.modal-body').load(button.data("remote"));
+	});
+	$('#userModal').on('show.bs.modal', function(e) {
+		var button = $(e.relatedTarget);
+		var modal = $(this);
+		modal.find('.modal-body').load(button.data("remote"));
+	});
+	$('#buyrModal').on('show.bs.modal', function(e) {
+		var button = $(e.relatedTarget);
+		var modal = $(this);
+		modal.find('.modal-body').load(button.data("remote"));
+	});
+	$('#ptncModal').on('show.bs.modal', function(e) {
+		var button = $(e.relatedTarget);
+		var modal = $(this);
+		modal.find('.modal-body').load(button.data("remote"));
+	});
+	$('#custmemberModal').on('show.bs.modal', function(e) {
+		var custNo = $("#custNo").val();
+		var url = '${path}/modal/popup.do?popId=custmem&compNo=' + custNo;
+		$("#custmemberModalbtn").data("remote",url);
 
-			function fnSetCustmereData(a, b) {
-				$("#custmemberNo").val(a);
-				$("#custmemberName").val(b);
-				$(".modal-backdrop").remove();
-				$("#custmemberModal").modal("hide");
-			}
-			function fnSetCustData(a, b) {
-				$("#custNo").val(b);
-				$("#custName").val(a);
-				$(".modal-backdrop").remove();
-				$("#custModal").modal("hide");
-			}
-			function fnSetUserData(a, b) {
-				$("#userName").val(b);
-				$("#userNo").val(a);
-				$(".modal-backdrop").remove();
-				$("#userModal").modal("hide");
-			}
-			function fnSetBuyrData(a, b) {
-				$("#buyrNo").val(b);
-				$("#buyrName").val(a);
-				$(".modal-backdrop").remove();
-				$("#buyrModal").modal("hide");
-			}
-			function fnSetPtncData(a, b) {
-				$("#ptncNo").val(b);
-				$("#ptncName").val(a);
-				$(".modal-backdrop").remove();
-				$("#ptncModal").modal("hide");
-			}
-			function fnSetEndCustData(a, b) {
-				$("#endCustNo").val(b);
-				$("#endCustName").val(a);
-				$("#endCustmemberModalbtn").data('whatever', b);
-				$(".modal-backdrop").remove();
-				$("#endCustModal").modal("hide");
-			}
+		var button = $(e.relatedTarget);
+		var modal = $(this);
+		modal.find('.modal-body').load(button.data("remote"));
+	});
+	$('#endCustModal').on('show.bs.modal', function(e) {
+		var button = $(e.relatedTarget);
+		var modal = $(this);
+		modal.find('.modal-body').load(button.data("remote"));
+	});
+
+	function fnSetCustmereData(a, b) {
+		$("#custmemberNo").val(a);
+		$("#custmemberName").val(b);
+		$(".modal-backdrop").remove();
+		$("#custmemberModal").modal("hide");
+	}
+	function fnSetCustData(a, b) {
+		$("#custNo").val(b);
+		$("#custName").val(a);
+		$(".modal-backdrop").remove();
+		$("#custModal").modal("hide");
+	}
+	function fnSetUserData(a, b) {
+		$("#userName").val(b);
+		$("#userNo").val(a);
+		$(".modal-backdrop").remove();
+		$("#userModal").modal("hide");
+	}
+	function fnSetBuyrData(a, b) {
+		$("#buyrNo").val(b);
+		$("#buyrName").val(a);
+		$(".modal-backdrop").remove();
+		$("#buyrModal").modal("hide");
+	}
+	function fnSetPtncData(a, b) {
+		$("#ptncNo").val(b);
+		$("#ptncName").val(a);
+		$(".modal-backdrop").remove();
+		$("#ptncModal").modal("hide");
+	}
+	function fnSetEndCustData(a, b) {
+		$("#endCustNo").val(b);
+		$("#endCustName").val(a);
+		$("#endCustmemberModalbtn").data('whatever', b);
+		$(".modal-backdrop").remove();
+		$("#endCustModal").modal("hide");
+	}
 
 	function fn_soppInsert() {
 		var soppData = {};
@@ -394,7 +431,7 @@
 		if(tinyMCE.get("soppDesc").getContent() != "") soppData.soppDesc = tinyMCE.get("soppDesc").getContent();
 		if($("#maintenanceTarget").val() !== "") soppData.maintenanceTarget = $("#maintenanceTarget").val();
 		if($("#secondUserName").val() !== "") soppData.secondUserNo = $("#secondUserNo").val();
-		if($("#productName").val() !== "") soppData.productNo = $("#productNo").val();
+		if(saved.categories.length > 0) soppData.categories = saved.categories.toString();
 		
 		if($("#cntrctMth").val() == '10248'){
 			if($('#maintenance_S').val() == ''){
@@ -425,9 +462,8 @@
 			alert("엔드유저를 선택해주십시오.");
 			$("#endCustName").focus();
 			return;
-		} else if($("#productName").val() === ""){
-			alert("상품을 선택해주십시오.");
-			$("#productName").focus();
+		} else if(saved.categories.length < 1){
+			alert("카테고리를 추가해주십시오.");
 			return;
 		} else if(!soppData.cntrctMth){
 			alert("계약구분을 선택해주십시오.");
@@ -464,6 +500,7 @@
 
 	<script>
 	$(document).ready(function(){
+		saved.categories = [];
 		// 옵션추가 버튼 클릭시
 		$("#AdditemBtn").click(function(){
 			// item 의 최대번호 구하기

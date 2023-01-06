@@ -130,6 +130,7 @@
     </div>
 <script>
 	var timer;
+	var saved = [];
     const DEFAULT_NUM = 15;
 	const CLICK_PAGE_NUM = 10;
 	
@@ -601,197 +602,6 @@
 		if(!$("#vatSerialS").attr("data-completeSet") || $("#vatSerialS").attr("data-completeSet") === undefined){
 			$("#vatSerialS").select2();
 		}
-		
-		/* $("#userName").autocomplete({
-			source: listSession.listUser,
-		    select: function(event, ui) {
-		      $("#userNo").val(ui.item.no);
-		      $("#userName").val(ui.item.label);
-		      return false;
-		    },
-		    delay : 300,
-		    minLength: 0,
-		});
-
-		$("#secondUserName").autocomplete({
-			source: listSession.listUser,
-		    select: function(event, ui) {
-		      $("#secondUserNo").val(ui.item.no);
-		      $("#secondUserName").val(ui.item.label);
-		      return false;
-		    },
-		    delay : 300,
-		    minLength: 0,
-		});
-		
-		if(!$("#soppTitle").attr("data-completeSet") || $("#soppTitle").attr("data-completeSet") === undefined){
-			$("#soppTitle").autocomplete({
-				source: listSession.listSopp,
-			    select: function(event, ui) {
-			      $("#soppNo").val(ui.item.no);
-			      $("#soppTitle").val(ui.item.label);
-			      return false;
-			    },
-			    delay : 300,
-			    minLength: 0,
-			});
-		}
-		
-		if(!$("#contTitle").attr("data-completeSet") || $("#contTitle").attr("data-completeSet") === undefined){
-			$("#contTitle").autocomplete({
-				source: listSession.listCont,
-			    select: function(event, ui) {
-			      $("#contNo").val(ui.item.no);
-			      $("#contTitle").val(ui.item.label);
-			      
-			      if($("#contSoppNo") !== undefined){
-			    	  $("#contSoppNo").val(ui.item.soppNo);
-			      }
-			      
-			      return false;
-			    },
-			    delay : 300,
-			    minLength: 0,
-			});
-		}
-		
-		if(!$("#custName").attr("data-completeSet") || $("#custName").attr("data-completeSet") === undefined){
-			$("#custName").autocomplete({
-				source: listSession.listCust,
-			    select: function(event, ui) {
-			      $("#custNo").val(ui.item.no);
-			      $("#custName").val(ui.item.label);
-			      return false;
-			    },
-			    delay : 300,
-			    minLength: 0,
-			});
-		}
-		
-		$("#productSalesInOutCustName").autocomplete({
-			source: listSession.listCust,
-		    select: function(event, ui) {
-		      $("#productSalesInOutCustNo").val(ui.item.no);
-		      $("#productSalesInOutCustName").val(ui.item.label);
-		      return false;
-		    },
-		    delay : 300,
-		    minLength: 0,
-		});
-		
-		$("#ptncName").autocomplete({
-			source: listSession.listCust,
-		    select: function(event, ui) {
-		      $("#ptncNo").val(ui.item.no);
-		      $("#ptncName").val(ui.item.label);
-		      return false;
-		    },
-		    delay : 300,
-		    minLength: 0,
-		});
-		
-		$("#endCustName").autocomplete({
-			source: listSession.listCust,
-		    select: function(event, ui) {
-		      $("#endCustNo").val(ui.item.no);
-		      $("#endCustName").val(ui.item.label);
-		      return false;
-		    },
-		    delay : 300,
-		    minLength: 0,
-		});
-		
-		$("#buyrName").autocomplete({
-			source: listSession.listCust,
-		    select: function(event, ui) {
-		      $("#buyrNo").val(ui.item.no);
-		      $("#buyrName").val(ui.item.label);
-		      return false;
-		    },
-		    delay : 300,
-		    minLength: 0,
-		});
-		
-		$("#productSalesEstimateCustName").autocomplete({
-			source: listSession.listCust,
-		    select: function(event, ui) {
-		      $("#productSalesEstimateCustNo").val(ui.item.no);
-		      $("#productSalesEstimateCustName").val(ui.item.label);
-		      return false;
-		    },
-		    delay : 300,
-		    minLength: 0,
-		});
-		
-		$("#custmemberName").autocomplete({
-			source: listSession.listCustMember,
-		    select: function(event, ui) {
-		      $("#custmemberNo").val(ui.item.no);
-		      $("#custmemberName").val(ui.item.label);
-		      return false;
-		    },
-		    delay : 300,
-		    minLength: 0,
-		});
-		
-		$("#endCustmemberName").autocomplete({
-			source: listSession.listCustMember,
-		    select: function(event, ui) {
-		      $("#endCustmemberNo").val(ui.item.no);
-		      $("#endCustmemberName").val(ui.item.label);
-		      return false;
-		    },
-		    delay : 300,
-		    minLength: 0,
-		});
-		
-		if(!$("#data02Title").attr("data-completeSet") || $("#data02Title").attr("data-completeSet") === undefined){
-			$("#data02Title").autocomplete({
-				source: listSession.listProduct,
-			    select: function(event, ui) {
-			      $("#productNo2").val(ui.item.no);
-			      $("#data02Title").val(ui.item.label);
-			      return false;
-			    },
-			    delay : 300,
-			    minLength: 0,
-			});
-		}
-		
-		if(!$("#data01Title").attr("data-completeSet") || $("#data02Title").attr("data-completeSet") === undefined){
-			$("#data01Title").autocomplete({
-				source: listSession.listProduct,
-			    select: function(event, ui) {
-			      $("#productNo1").val(ui.item.no);
-			      $("#data01Title").val(ui.item.label);
-			      return false;
-			    },
-			    delay : 300,
-			    minLength: 0,
-			});
-		}
-		
-		$("#productName").autocomplete({
-			source: listSession.listProduct,
-		    select: function(event, ui) {
-		      $("#productNo").val(ui.item.no);
-		      $("#productName").val(ui.item.label);
-		      return false;
-		    },
-		    delay : 300,
-		    minLength: 0,
-		});
-		
-		$("#productCategoryName").autocomplete({
-			source: listSession.listCategory,
-		    select: function(event, ui) {
-		      $("#productCategoryNo").val(ui.item.no);
-		      $("#productCategoryName").val(ui.item.label);
-		      return false;
-		    },
-		    delay : 300,
-		    minLength: 0,
-		}); */
 	}
 	
 	function autoCompleteSelect(e){
@@ -809,6 +619,86 @@
 		$(".dt-button").addClass("btn btn-sm btn-primary");
 		$(".dt-button").css("text-decoration", "none");
 		$(".dt-button").css("float", "left");
+	}
+	
+	function arrayTextFilter(textValue, array){
+		if(array.includes(textValue)){
+			return true;
+		}else{
+			return false;
+		}
+	}
+	
+	function changeSelect(e){
+		let thisEle = $(e);
+		let nextSelect = thisEle.next().next();
+		let inputDiv = thisEle.next().next().next();
+		
+		if(thisEle.val() === "productName"){
+			nextSelect.show();
+			inputDiv.hide();
+		}else{
+			nextSelect.hide();
+			inputDiv.show();
+		}
+	}
+	
+	function productSelect(e){
+		let thisEle = $(e);
+		let resultInput = thisEle.next().next().next();
+		
+		if(arrayTextFilter(thisEle.val(), saved.categories)){
+			alert("이미 추가된 카테고리 입니다.");
+			return false;
+		}else{
+			saved.categories.push(thisEle.val());
+			inputHtmlSet(resultInput);
+			thisEle.val("");
+		}
+	}
+	
+	function inputSelect(e){
+		let thisEle = $(e);
+		let inputText = thisEle.prev();
+		let resultInput = thisEle.parent().next();
+		
+		if(arrayTextFilter(inputText.val(), saved.categories)){
+			alert("이미 추가된 카테고리 입니다.");
+			return false;
+		}else{
+			saved.categories.push(inputText.val());
+			inputHtmlSet(resultInput);
+			inputText.val("");
+		}
+	}
+	
+	function selectDelete(e){
+		let thisEle = $(e);
+		if(confirm(thisEle.text() + "을(를) 삭제하시겠습니까??")){
+			let resultInput = thisEle.parent();
+			resultInput.html("");
+			
+			for(let i = 0; i < saved.categories.length; i++){
+				if(saved.categories[i] === thisEle.text()){
+					saved.categories.splice(i, 1);
+				}
+			}
+			
+			inputHtmlSet(resultInput);
+		}else{
+			return false;
+		}
+	}
+	
+	function inputHtmlSet(resultInput){
+		let html = "";
+		
+		for(let i = 0; i < saved.categories.length; i++){
+			let item = saved.categories[i];
+			html += "<button class=\"btn btn-sm btn-secondary mr-1\" onclick=\"selectDelete(this)\" style=\"line-height: 0;\">" + item + "</button>";
+		}
+		
+		resultInput.html(html);
 	}
 	
 	$(document).ready(function(){

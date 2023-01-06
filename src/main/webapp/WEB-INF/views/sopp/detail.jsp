@@ -9,6 +9,16 @@
 <jsp:include page="../head.jsp"/>
 <jsp:include page="../body-top.jsp"/>
 
+<style>
+	table > tbody > tr > td > .productInputDiv > .select2-container{
+		width: 20% !important;
+	}
+	
+	.select2-container .select2-selection--single{
+		height: 100% !important;
+	}
+</style>
+
 <div id="main_content">
 	<!-- Page-header start 페이지 타이틀-->
 	<div class="page-header2">
@@ -174,17 +184,26 @@
 														</td>	
 													</tr>
 													<tr>
-												 		<th scope="row" class="requiredTextCss">상품</th>
-														<td>
-															<select class="form-control" id="productName" name="productName" onchange="autoCompleteSelect(this);">
-																<option value="">선택</option>
-																<c:forEach var="row" items="${listProduct}">
-																	<option data-no="${row.productNo}" value="${row.productName}" <c:if test="${row.productName eq dto.productName}">selected</c:if>>${row.productName}</option>
-																</c:forEach>
-															</select>
-															<input type="hidden" id="productNo" name="productNo" value="${dto.productNo}">
+												 		<th scope="row" class="requiredTextCss">카테고리</th>
+														<td colspan="7">
+															<div class="input-group m-0 productInputDiv">
+																<select onchange="changeSelect(this);">
+																	<option value="productName">항목선택</option>
+																	<option value="inputText">직접입력</option>
+																</select>
+																<select id="productName" name="productName" onchange="productSelect(this);">
+																	<option value="">선택</option>
+																	<c:forEach var="row" items="${listProduct}">
+																		<option data-no="${row.productNo}" value="${row.productName}">${row.productName}</option>
+																	</c:forEach>
+																</select>
+																<div class="input-group m-0" style="display:none; width: 20%;">
+																	<input type="text" class="form-control" id="inputText">
+																	<button type="button" class="btn btn-sm btn-primary" onclick="inputSelect(this);">추가</button>
+																</div>
+																<div class="form-control text-break w-100 categories" style="display: block; word-break: break-all; white-space: normal;"></div>
+															</div>
 														</td>
-														
 													</tr>
 													<tr>
 														<th class="requiredTextCss" scope="row">유지보수대상</th>
@@ -344,6 +363,21 @@
 	</div>
 	<!--영업기회등록-->
 	<script>
+		function categorySet(){
+			let html = "";
+			let categories = "${dto.categories}";
+			let categoryArray = categories.split(",");
+			
+			if(categoryArray[0] !== ""){
+				for(let i = 0; i < categoryArray.length; i++){
+					html += "<button class=\"btn btn-sm btn-secondary mr-1\" onclick=\"selectDelete(this)\" style=\"line-height: 0;\">" + categoryArray[i] + "</button>";
+					saved.categories.push(categoryArray[i]);
+				}
+			}
+			
+			$(".categories").html(html);
+		}
+		
 		if($("#cntrctMth").val() == '10248'){
 			$('#Maintenance_name').show();
 			$('#Maintenance_input').show();
@@ -610,7 +644,7 @@
 			if($("#soppTargetAmt").val() != "") soppData.soppTargetAmt 	= $("#soppTargetAmt").val().replace(/[\D\s\._\-]+/g, "");
 			if(tinyMCE.get("soppDesc").getContent() != "") soppData.soppDesc 		= tinyMCE.get("soppDesc").getContent();
 			if($("#maintenanceTarget").val() != "") soppData.maintenanceTarget = $("#maintenanceTarget").val();
-			if($("#productName").val() !== "") soppData.productNo = $("#productNo").val();
+			if(saved.categories.length > 0) soppData.categories = saved.categories.toString();
 
 			if ($("#soppTitle").val() === "") {
 				alert("영업기회명을 입력해주세요.");
@@ -624,9 +658,8 @@
 				alert("엔드유저를 선택해주십시오.");
 				$("#endCustName").focus();
 				return;
-			} else if($("#productName").val() === ""){
-				alert("상품을 선택해주십시오.");
-				$("#productName").focus();
+			} else if(saved.categories.length < 1){
+				alert("카테고리를 선택해주세요.");
 				return;
 			} else if(!soppData.cntrctMth){
 				alert("계약구분을 선택해주십시오.");
@@ -803,6 +836,7 @@
 			var $input = $("#soppTargetAmt");
 			var soppStatus = "${dto.soppStatus}";
 			var maintenanceTarget = "${dto.maintenanceTarget}";
+			saved.categories = [];
 			
 			$("#soppStatus").val(soppStatus);
 			$("#maintenanceTarget").val(maintenanceTarget);
@@ -835,6 +869,8 @@
 			  	$('[href="' + lastTab + '"]').tab('show');
 			  	localStorage.clear();
 			}
+			
+			categorySet();
 		});
 	</script>
 </div>

@@ -52,10 +52,10 @@
 					}
 					data.push({"name":"custNo", "value" : $("#custNo").val()});							// 거래처
 					data.push({"name":"buyrNo", "value" : $("#buyrNo").val()});							// 엔드유저
-					data.push({"name":"productNo", "value" : $("#productNo").val()});					// 상품
 					data.push({"name":"soppType", "value" : $("#soppType option:selected").val()});		// 판매방식
 					data.push({"name":"cntrctMth", "value" : $("#cntrctMth option:selected").val()});	// 계약구분
 					data.push({"name":"soppStatus", "value" : $("#soppStatus option:selected").val()});	// 진행단계
+					data.push({"name":"categories", "value" : $("#categories").val()});					// 카테고리
 					data.push({"name":"soppTitle", "value" : $("#soppTitle").val()});	//영업기회명
 					if($("#targetDatefrom").val() != ""){
 						data.push({"name":"targetDatefrom", "value" : $("#targetDatefrom").val()});
@@ -161,8 +161,8 @@
 						},
 					},
 					{
-						data: "productName",
-						column : '상품',
+						data: "categories",
+						column : '카테고리',
 						render : function ( data, type, row ) {
 							if(data == null || data == undefined) {
 								return '';
@@ -290,19 +290,10 @@
 		.numberComa {
 			float: right;
 		}
-		#soppTable > tbody > tr > td:nth-child(4) {
-			overflow: hidden;
-			text-overflow: ellipsis;
-			max-width: 230px;
-			white-space: nowrap;
-		}
-		#soppTable > tbody > tr > td:nth-child(5) {
-			overflow: hidden;
-			text-overflow: ellipsis;
-			max-width: 230px;
-			white-space: nowrap;
-		}
-		#soppTable > tbody > tr > td:nth-child(6) {
+		#soppTable > tbody > tr > td:nth-child(4),
+		#soppTable > tbody > tr > td:nth-child(5),
+		#soppTable > tbody > tr > td:nth-child(6),
+		#soppTable > tbody > tr > td:nth-child(7) {
 			overflow: hidden;
 			text-overflow: ellipsis;
 			max-width: 230px;
@@ -441,16 +432,9 @@
 								<!--//거래처-->
 								<!-- 상품 -->
 								<div class="col-sm-12 col-xl-2">
-									<label class="col-form-label" for="custmemberName">상품</label>
+									<label class="col-form-label" for="custmemberName">카테고리</label>
 									<div class="input-group input-group-sm mb-0">
-										<select class="form-control" id="productName" name="productName" onchange="autoCompleteSelect(this);">
-											<option value="">선택</option>
-											<c:forEach var="row" items="${listProduct}">
-												<option data-no="${row.productNo}" value="${row.productName}">${row.productName}</option>
-											</c:forEach>
-										</select>
-										<input type="hidden" name="productNo" id="productNo" value="" />
-										<!-- <input type="text" class="form-control" name="productName" id="productName" autocomplete="off"> -->
+										<input type="text" class="form-control form-control-sm col-xl-12" name="categories" id="categories" data-completeSet="true" style="width:100%;">
 									</div>
 								</div>
 								<!-- //상품 -->
@@ -564,7 +548,7 @@
 								<th>영업기회명</th>
 								<th>매출처</th>
 								<th>엔드유저</th>
-								<th>상품</th>
+								<th>카테고리</th>
 								<th>담당사원</th>
 								<th>예상매출액</th>
 								<th>진행단계</th>

@@ -69,6 +69,7 @@ public class SoppDTO extends PageDTO {
 	private String maintenanceTarget;
 	private String secondUserName;
 	private int secondUserNo;
+	private String categories;
 	
 	public SoppDTO() {
 		super();

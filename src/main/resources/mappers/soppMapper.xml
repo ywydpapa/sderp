@@ -207,7 +207,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			or subquery1.custName like concat('%',#{sSearch},'%')
 			or subquery1.buyrName like concat('%',#{sSearch},'%')
 			or subquery1.userName like concat('%',#{sSearch},'%')
-			or subquery1.productName like concat('%',#{sSearch},'%')
 			or subquery1.soppTargetAmt like concat('%',#{sSearch},'%')
 			or subquery1.soppStatusN like concat('%',#{sSearch},'%')
 			or subquery1.soppTargetDate like concat('%',#{sSearch},'%')

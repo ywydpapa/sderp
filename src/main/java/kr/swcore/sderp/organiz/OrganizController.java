@@ -1,7 +1,6 @@
 package kr.swcore.sderp.organiz;
 
 import javax.inject.Inject;
-import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,10 +25,5 @@ public class OrganizController {
 	@Inject
 	OrganizService organizService;
 
-	@RequestMapping("list.do")
-	public ModelAndView list(HttpSession session, ModelAndView mav) {
-		mav.setViewName("organiz/list");
-		mav.addObject("organizationArrList", organizService.listDeptForCalendarArrList(session));
-		return mav;
-	}
+
 }

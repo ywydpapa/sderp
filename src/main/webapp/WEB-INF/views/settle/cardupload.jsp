@@ -19,6 +19,13 @@
 <jsp:include page="../body-top3.jsp"/>
 <script src="${path}/js/jquery.table2excel.js"></script>
 <script type="text/javascript" src="https://unpkg.com/xlsx@0.15.1/dist/xlsx.full.min.js"></script>
+<style>
+	#cardTable > thead > tr > th,
+	#cardTable > tbody > tr > td{
+		text-align: center;
+	}
+	
+</style>
 
 <div id="main_content">
 
@@ -46,12 +53,12 @@
 									</div>
 									<div class="modal-body">
 										<form id="uploadForm">
-											<input type="file" name="file" id="fileUpload" />
+											<input type="file" name="file" id="fileUpload" accept=".xls,.xlsx,.xlsm" onchange="readFile(this)"/>
 										</form>
 										<br> 파일 설명<input type="text" class="form-control" id="fileDesc" />
 									</div>
 									<div class="modal-footer">
-										<button type="button" class="btn btn-default waves-effect" onclick="uploadFile()">등록</button>
+										<!-- <button type="button" class="btn btn-default waves-effect" onclick="uploadFile()">등록</button> -->
 										<button type="button" class="btn btn-default waves-effect" data-dismiss="modal">닫기</button>
 									</div>
 								</div>
@@ -228,6 +235,20 @@
             <div class="col-sm-12">
                 <div class="card-block table-border-style">
                     <div class="table-responsive" id="excel_data">
+                    	<table id="cardTable" class="w-100 table table-striped table-bordered">
+                    		<thead>
+                    			<tr>
+                    				<th>카드번호</th>
+                    				<th>승인일자</th>
+                    				<th>승인번호</th>
+                    				<th>가맹점명</th>
+                    				<th>승인금액</th>
+                    				<th><input type="checkbox" id="allCheck" onclick="allCheck(this);"></th>
+                    			</tr>
+                    		</thead>
+                    		<tbody>
+                    		</tbody>
+                    	</table>
                         <!-- <table id="cardTable" class="table table-striped table-bordered nowrap ">
                         </table> -->
                     </div>
@@ -239,6 +260,152 @@
 
     <!-- hide and show -->
     <script>
+    	let bnkXls = {};
+    	
+    	function allCheck(e){
+    		let thisEle = $(e);
+    		let checks = thisEle.parents("thead").next().find("tr td input");
+    		
+    		if(thisEle.is(":checked")){
+	    		for(let i = 0; i < checks.length; i++){
+	    			let item = $(checks[i]);
+					item.attr("checked", true);	    			
+	    		}
+    		}else{
+    			for(let i = 0; i < checks.length; i++){
+	    			let item = $(checks[i]);
+					item.attr("checked", false);	    			
+	    		}
+    		}
+    	}
+    	
+	    function readFile(el) {
+	    	let file = el.files[0];
+	    	console.log("STEP 1 : Read xls file");
+	    	if (file === null) return null;
+	    	else bnkXls.readXlsFile(file);
+	    }	
+	    
+	    function processAccData(data) {
+	    	let cardTable = $("#cardTable tbody");
+	    	let html = "";
+	    	
+	    	for(let i = 0; i < data.detail.length; i++){
+	    		html += "<tr><td class=\"cardSerial\">" + data.detail[i][1] + "</td>";
+	    		html += "<td class=\"appDate\">" + data.detail[i][0] + "</td>";
+	    		html += "<td class=\"appSerial\">" + data.detail[i][2] + "</td>";
+	    		html += "<td class=\"appContents\">" + data.detail[i][3] + "</td>";
+	    		html += "<td class=\"appAmount\">" + data.detail[i][4] + "</td>";
+	    		html += "<td><input class=\"cardchecked\" type=\"checkbox\"></td></tr>";
+	    	}
+	    	
+	    	cardTable.html(html);
+	    }
+	    
+	    bnkXls.readXlsFile = function (file) {
+	    	let reader, evfn;
+	    	reader = new FileReader();
+	    	console.log("STEP 2 : Read xls file second stage");
+	    	evfn = function () {
+	    		let data, wrkBook;
+	    		data = this.result;
+	    		wrkBook = XLSX.read(data, { "type": "binary" });
+	    		bnkXls.parseXlsFile(wrkBook);
+	    	} // End of Anonymous Function in readExcel()
+
+	    	reader.readAsBinaryString(file);
+	    	// 읽기 동작이 성공적으로 완료되었을 때 발생 
+	    	reader.onload = evfn;
+	    }
+	    
+	    bnkXls.parseXlsFile = function (wb) {
+	    	let r, c, x, y, z, t, spLine, data = [], data1, data2, result;
+	    	console.log("STEP 3 : data arrange with parsed data");
+	    	// A1 타입 셀 이름 추출
+	    	t = [];
+	    	for (x in wb.Sheets[wb.SheetNames[0]]) if (x.substring(0, 1) !== "!") t.push(x);
+	    	t.sort();
+
+	    	// 2차원 배열로 변환
+	    	for (x in t) {
+	    		r = t[x].substring(0, 1).charCodeAt() - 65;
+	    		c = t[x].substring(1) * 1 - 1;
+	    		if (data[c] === undefined) data[c] = [];
+	    		data[c][r] = wb.Sheets[wb.SheetNames[0]][t[x]].v;
+	    	}
+
+	    	// 헤더부분과 본문 부분 구분하기
+	    	// 1차 시도 / 빈 줄 찾기
+	    	for (x = 0; x < data.length; x++)  if (data[x] === undefined) spLine = x;
+
+	    	// 1차 시도 성공여부 검증 / 실패시 2차 시도 / row 중 숫자가 없는 row 찾기
+	    	t = undefined;
+	    	if (spLine === undefined) {
+	    		for (x = 0; x < data.length; x++) {
+	    			if (data[x] !== undefined && !bnkXls.haveNumeric(data[x])) spLine = x;
+	    		}
+	    	}
+	    	console.log(spLine);
+	    	data1 = data.slice(0, spLine);
+	    	data2 = data.slice(spLine);
+
+
+	    	// ================ 거래내역 정리하기 ===================      
+	    	// 헤더 정리
+	    	r = [-1, -1, -1, -1, -1]; // 0-거래일자 1-카드번호 2-승인번호 3-가맹점명 4-승인금액(청구금액) 
+	    	for (z in data2) {
+	    		t = data2[z];
+	    		break;
+	    	}
+	    	z = z * 1;
+	    	console.log(t + "전체 확인");
+
+	    	for (x = 0; x < t.length; x++) {
+	    		if (t[x].includes("일자")) r[0] = x;
+	    		else if (t[x].includes("카드번호")) r[1] = x;
+	    		else if (t[x].includes("승인번호")) r[2] = x;
+	    		else if (t[x].includes("가맹점명")) r[3] = x;
+	    		else if (t[x].includes("승인금액") || t[x].includes("청구금액")) r[4] = x;
+	    	}
+
+	    	t = [];
+	    	for (x = z + 1; x < data2.length; x++) {
+	    		if (r[0] >= 0 && data2[x][r[0]] === undefined) break;
+	    		if (r[1] >= 0 && data2[x][r[1]] === undefined) break;
+	    		if (r[2] >= 0 && data2[x][r[2]] === undefined) break;
+	    		if (r[3] >= 0 && data2[x][r[3]] === undefined) break;
+	    		if (r[4] >= 0 && data2[x][r[4]] === undefined) break;
+	    		y = [data2[x][r[0]].replaceAll("(", "").replaceAll(")", ""), data2[x][r[1]], data2[x][r[2]], data2[x][r[3]], data2[x][r[4]] + ""];
+	    		t.push(y);
+	    	}
+	    	t.sort(function (a, b) { let x, y; x = new Date(a[0]); y = new Date(b[0]); return x.getTime() - y.getTime(); })
+	    	result = { "detail": t };
+	    	console.log("STEP 4 : End of data arrange");
+	    	console.log(result);
+	    	processAccData(result);
+	    }
+	    
+	    bnkXls.haveNumeric = function (arr) {
+	    	let x, y, z;
+	    	if (arr === undefined) return false;
+	    	if (typeof arr === "string") {
+	    		for (x = 0; x < arr.length; x++) {
+	    			z = arr.substring(x, x + 1);
+	    			z = z.charCodeAt();
+	    			if (z > 47 && z < 58) return true;
+	    		}
+	    	} else if (typeof arr === "object") {
+	    		for (x = 0; x < arr.length; x++) {
+	    			if (arr[x] !== undefined) for (y = 0; y < arr[x].length; y++) {
+	    				z = arr[x].substring(y, y + 1);
+	    				z = z.charCodeAt();
+	    				if (z > 47 && z < 58) return true;
+	    			}
+	    		}
+	    	}
+	    	return false;
+	    }
+    
 	    function reverse(str) {
 	        var reverse = str.split('');
 	        reverse = reverse.reverse();
@@ -374,8 +541,15 @@
         	$.LoadingOverlay("show", true);
             
         	setTimeout(() => {
-	        	var $Chkarr = $(".cardchecked");  //체크여부
-	            var $Aarr = $(".cardlst12");         //가맹점명/국가명
+        		var $cardSerial = $(".cardSerial");
+        		var $appDate = $(".appDate");
+        		var $appSerial = $(".appSerial");
+        		var $appContents = $(".appContents");
+        		var $appAmount = $(".appAmount");
+	        	var $cardchecked = $(".cardchecked");  //체크여부
+	        	var compNo = "${sessionScope.compNo}";
+	        	
+	            /* var $Aarr = $(".cardlst12");         //가맹점명/국가명
 	            var $Barr = $(".cardlst11");           // 승인번호
 	            var $Carr = $(".cardlst6");          // 사용구분
 	            var $Darr = $(".cardlst7");           // 매출종류
@@ -385,23 +559,23 @@
 	            var $Harr = $(".cardlst10");			// 승인시간
 	            var $Iarr = $(".cardlst9");			// 승인일자
 	            var $Jarr = $(".cardlst2");			// 카드번호
-	            var compNo = "${sessionScope.compNo}";
+	            var compNo = "${sessionScope.compNo}"; */
 				
-	            for (var i = 0; i < $Aarr.length; i++){
-	                if ($($Chkarr[i]).is(":checked")==true){
+	            for (var i = 0; i < $appSerial.length; i++){
+	                if ($($cardchecked[i]).is(":checked")==true){
  	                    var cardData = {};
 	                    cardData.compNo = compNo;
-	                    cardData.appContents = $Aarr[i].innerText;
-	                    cardData.appSerial = $Barr[i].innerText;
-	                    cardData.useDivision = $Carr[i].innerText;
-	                    cardData.salesType = $Darr[i].innerText;
-	                    cardData.instPeriod = Number($Earr[i].innerText);
-	                    cardData.appAmount = Number($Farr[i].innerText.replace(/,/g, ""));
-	                    cardData.appExchange = $Garr[i].innerText === "" ? "0" : $Garr[i].innerText;
-	                    cardData.appDate = $Iarr[i].innerText;
-	                    cardData.appTime = $Harr[i].innerText;
-	                    cardData.cardSerial = $Jarr[i].innerText;
-	                    cardData.cardDisNum = $($Jarr[i]).text().substring(1, $($Jarr[i]).text().length);
+	                    cardData.appContents = $appContents[i].innerText;
+	                    cardData.appSerial = $appSerial[i].innerText;
+	                    cardData.useDivision = "국내";
+	                    cardData.salesType = "일시불";
+	                    cardData.instPeriod = 0;
+	                    cardData.appAmount = Number($appAmount[i].innerText.replace(/,/g, ""));
+	                    /* cardData.appExchange = $Garr[i].innerText === "" ? "0" : $Garr[i].innerText; */
+	                    cardData.appDate = $appDate[i].innerText;
+	                    /* cardData.appTime = $Harr[i].innerText; */
+	                    cardData.cardSerial = "D" + $($cardSerial[i]).text().substring(10, $($cardSerial[i]).text().length);
+	                    cardData.cardDisNum = $($cardSerial[i]).text().substring(10, $($cardSerial[i]).text().length);
 	                    console.log(cardData);
 	                    
 	                    $.ajax({
@@ -412,7 +586,7 @@
 	                        dataType: "json",
 	                        success:function(){
 	                        	var updateData = {};
-	                        	updateData.cardSerial = $Jarr[i].innerText;
+	                        	updateData.cardSerial = $($cardSerial[i]).text().substring(10, $($cardSerial[i]).text().length);
 	                        	
 	                        	$.ajax({
 	                        		url: "${path}/acc/lastUpdateCard.do",
@@ -421,7 +595,7 @@
 	                        		dataType: "json"
 	                        	});
 	                        	
-	                        	if(i == $Aarr.length-1){
+	                        	if(i == $appSerial.length-1){
 	    			                $.LoadingOverlay("hide", true);
 	                        	}
 	                        }
@@ -430,7 +604,7 @@
 	            }
 	        	setTimeout(() => {
 		            alert("카드 내역 등록 완료");
-		            fnCheckCardlist();
+		            /* fnCheckCardlist(); */
 				}, 300);
 			}, 300);
         }

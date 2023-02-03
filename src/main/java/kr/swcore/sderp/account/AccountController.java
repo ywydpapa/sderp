@@ -1321,5 +1321,69 @@ public class AccountController {
         return ResponseEntity.ok(param);
     }
     
+    @ResponseBody
+    @RequestMapping("drCustCheck")
+    public AccountDTO drCustCheck(HttpSession session, @ModelAttribute AccountDTO dto) {
+    	AccountDTO count = accountService.drCustCheck(dto);
+    	return count;
+    }
     
+    @RequestMapping("drCustInsert.do")
+    public ResponseEntity<Object> drCustInsert(HttpSession session, @ModelAttribute AccountDTO dto){
+        Map<String,Object> param = new HashMap<>();
+        int insert = accountService.drCustInsert(dto);
+        if(insert > 0){
+            param.put("code","10001");
+        }
+        else {
+            param.put("code", "20001");
+        }
+        return ResponseEntity.ok(param);
+    }
+    
+    @RequestMapping("drCustUpdate.do")
+    public ResponseEntity<Object> drCustUpdate(HttpSession session, @ModelAttribute AccountDTO dto){
+        Map<String,Object> param = new HashMap<>();
+        int update = accountService.drCustUpdate(dto);
+        if(update > 0){
+            param.put("code","10001");
+        }
+        else {
+            param.put("code", "20001");
+        }
+        return ResponseEntity.ok(param);
+    }
+    
+    @ResponseBody
+    @RequestMapping("crCustCheck")
+    public AccountDTO crCustCheck(HttpSession session, @ModelAttribute AccountDTO dto) {
+    	AccountDTO count = accountService.crCustCheck(dto);
+    	return count;
+    }
+    
+    @RequestMapping("crCustInsert.do")
+    public ResponseEntity<Object> crCustInsert(HttpSession session, @ModelAttribute AccountDTO dto){
+        Map<String,Object> param = new HashMap<>();
+        int insert = accountService.crCustInsert(dto);
+        if(insert > 0){
+            param.put("code","10001");
+        }
+        else {
+            param.put("code", "20001");
+        }
+        return ResponseEntity.ok(param);
+    }
+    
+    @RequestMapping("crCustUpdate.do")
+    public ResponseEntity<Object> crCustUpdate(HttpSession session, @ModelAttribute AccountDTO dto){
+        Map<String,Object> param = new HashMap<>();
+        int update = accountService.crCustUpdate(dto);
+        if(update > 0){
+            param.put("code","10001");
+        }
+        else {
+            param.put("code", "20001");
+        }
+        return ResponseEntity.ok(param);
+    }
 }

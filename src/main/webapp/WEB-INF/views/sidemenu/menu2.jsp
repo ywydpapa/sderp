@@ -21,13 +21,20 @@
                <span class="pcoded-mcaret"></span>
            </a>
        </li>
-       <li class="pcoded-hasmenu pcoded <c:if test="${path2 eq '/gw/list.do' || path2 eq '/gw/write.do' || path2 eq '/gw/mylist.do' || path2 eq '/gw/mydoclist.do' || fn:startsWith(path2, '/gw/detail')}">pcoded-trigger</c:if>">
+       <li class="pcoded-hasmenu pcoded <c:if test="${path2 eq '/gw/list.do' || path2 eq '/gw/purlist.do' || path2 eq '/gw/write.do' || path2 eq '/gw/mylist.do' || path2 eq '/gw/mydoclist.do' || fn:startsWith(path2, '/gw/detail')}">pcoded-trigger</c:if>">
            <a href="javascript:void(0)">
                <span class="pcoded-micon"><i class="ti-stamp"></i></span>
                <span class="pcoded-mtext"  data-i18n="nav.basic-components.main">전자결재</span>
                <span class="pcoded-mcaret"></span>
            </a>
            <ul class="pcoded-submenu">
+       			<li class="pcoded-hasmenu ">
+                   <a href="${path}/gw/purlist.do">
+                       <span class="pcoded-micon"><i class="ti-direction-alt"></i></span>
+                       <span class="pcoded-mtext" data-i18n="nav.menu-levels.menu-level-21">발주서</span>
+                       <span class="pcoded-mcaret"></span>
+                   </a>
+               </li>
                <li class="pcoded-hasmenu ">
                    <a href="${path}/gw/mylist.do">
                        <span class="pcoded-micon"><i class="ti-direction-alt"></i></span>

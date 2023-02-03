@@ -815,4 +815,36 @@ public class AccountServiceImpl implements AccountService {
     	}
 		return accountDAO.modalVatListB(dto);
 	}
+	
+	@Override
+	public AccountDTO drCustCheck(AccountDTO dto) {
+		return accountDAO.drCustCheck(dto);
+	}
+
+	@Override
+	public int drCustInsert(AccountDTO dto) {
+		return accountDAO.drCustInsert(dto);
+	}
+	
+	@Override
+	public int drCustUpdate(AccountDTO dto) {
+		// TODO Auto-generated method stub
+		return accountDAO.drCustUpdate(dto);
+	}
+	
+	@Override
+	public AccountDTO crCustCheck(AccountDTO dto) {
+		return accountDAO.crCustCheck(dto);
+	}
+
+	@Override
+	public int crCustInsert(AccountDTO dto) {
+		return accountDAO.crCustInsert(dto);
+	}
+	
+	@Override
+	public int crCustUpdate(AccountDTO dto) {
+		// TODO Auto-generated method stub
+		return accountDAO.crCustUpdate(dto);
+	}
 }

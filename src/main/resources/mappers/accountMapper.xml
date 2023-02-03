@@ -24,24 +24,24 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="sumBVat" resultType="accountDto">
 		SELECT a.*, b.settleDRbalance as custBalance, a.custName AS vatSellerName, SUM(c.vatTax + c.vatAmount) 
 		AS vatAmountB, sum(case when c.vatStatus='B5' then c.vatAmount + c.vatTax end) AS serialTotalB FROM swc_cust a
-		LEFT JOIN swc_cust_balance b on a.custNo = b.custNo AND b.settleYear = #{selectYear} AND b.compNo = #{compNo} AND b.attrib NOT LIKE 'XXX%' AND b.settleDRbalance IS NOT NULL
+		LEFT JOIN test_cust_balance b on a.custNo = b.custNo AND b.settleYear = #{selectYear} AND b.compNo = #{compNo} AND b.attrib NOT LIKE 'XXX%' AND b.settleDRbalance IS NOT NULL
 		LEFT JOIN swc_vat c ON a.custNo = c.vatSellerCustNo AND c.vatIssueDate BETWEEN #{vatIssueDateFrom} and #{vatIssueDateTo} and c.attrib NOT LIKE 'XXX%' AND c.vatType != 'T'
 		WHERE a.compNo = #{compNo} AND a.custCompNo != #{compNo}
 		GROUP BY a.custNo
 	</select>
 	
-	<select id="sumBvat_sub" resultType="accountDto">		
+	<select id="sumBvat_sub" resultType="accountDto">
 		SELECT a.custNo, a.custName, sum(b.modal_receive_data) AS modal_receive_data FROM swc_cust a
-		LEFT JOIN swc_vat b ON a.custNo = b.vatSellerCustNo AND (b.vatStatus = 'B3' OR b.vatStatus = 'B5')
+		LEFT JOIN swc_vat b ON a.custNo = b.vatSellerCustNo AND (b.vatStatus = 'B3' OR b.vatStatus = 'B5') AND b.vatIssueDate BETWEEN #{vatIssueDateFrom} and #{vatIssueDateTo}
 		LEFT JOIN(SELECT * FROM swc_bacledger_detail group BY linkDocno) c ON b.vatSerial = c.linkDocno
 		LEFT JOIN swc_bacledger d ON d.baclogId = c.baclogId
 		WHERE d.linkDoc = 'y' and d.baclogTime LIKE CONCAT('%', #{selectYear}, '%') and b.attrib not like 'XXX%' GROUP BY a.custName;
 	</select>
 
 	<select id="sumBVatSearch" resultType="accountDto">
-		SELECT a.*, b.settleDRbalance as custBalance, a.custName AS vatSellerName, SUM(c.vatTax + c.vatAmount) 
+		SELECT a.*, b.settleDRbalance as custBalance, a.custName AS vatSellerName, SUM(c.vatTax + c.vatAmount)
 		AS vatAmountB, sum(case when c.vatStatus='B5' then c.vatAmount + c.vatTax end) AS serialTotalB FROM swc_cust a
-		LEFT JOIN swc_cust_balance b on a.custNo = b.custNo AND b.settleYear = #{selectYear} AND b.compNo = #{compNo} AND b.attrib NOT LIKE 'XXX%' AND b.settleDRbalance IS NOT NULL
+		LEFT JOIN test_cust_balance b on a.custNo = b.custNo AND b.settleYear = #{selectYear} AND b.compNo = #{compNo} AND b.attrib NOT LIKE 'XXX%' AND b.settleDRbalance IS NOT NULL
 		LEFT JOIN swc_vat c ON a.custNo = c.vatSellerCustNo AND c.vatIssueDate BETWEEN #{vatIssueDateFrom} and #{vatIssueDateTo} and c.attrib NOT LIKE 'XXX%' AND c.vatType != 'T'
 		WHERE a.compNo = #{compNo} AND a.custCompNo != #{compNo}
 		<if test="vatSellerCustNo != null and vatSellerCustNo != ''">
@@ -53,14 +53,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="sumSVat" resultType="accountDto">
 		SELECT a.*, b.settleCRbalance as custBalance, a.custName AS vatBuyerName, SUM(c.vatTax + c.vatAmount) 
 		AS vatAmountS, sum(case when c.vatStatus='S5' then c.vatAmount + c.vatTax end) AS serialTotalS FROM swc_cust a
-		LEFT JOIN swc_cust_balance b on a.custNo = b.custNo AND b.settleYear = #{selectYear} AND b.compNo = #{compNo} AND b.attrib NOT LIKE 'XXX%' AND b.settleCRbalance IS NOT NULL
+		LEFT JOIN test_cust_balance b on a.custNo = b.custNo AND b.settleYear = #{selectYear} AND b.compNo = #{compNo} AND b.attrib NOT LIKE 'XXX%' AND b.settleCRbalance IS NOT NULL
 		LEFT JOIN swc_vat c ON a.custNo = c.vatBuyerCustNo AND c.vatIssueDate BETWEEN #{vatIssueDateFrom} and #{vatIssueDateTo} and c.attrib NOT LIKE 'XXX%' AND c.vatType != 'T'
 		WHERE a.compNo = #{compNo} AND a.custCompNo != #{compNo}
 		GROUP BY a.custNo
 	</select>
 	<select id="sumSvat_sub" resultType="accountDto">
 		SELECT a.custNo, a.custName, sum(b.modal_receive_data) AS modal_receive_data  FROM swc_cust a
-		LEFT JOIN swc_vat b ON a.custNo = b.vatBuyerCustNo AND (b.vatStatus = 'S3' OR b.vatStatus = 'S5')
+		LEFT JOIN swc_vat b ON a.custNo = b.vatBuyerCustNo AND (b.vatStatus = 'S3' OR b.vatStatus = 'S5') AND b.vatIssueDate BETWEEN #{vatIssueDateFrom} and #{vatIssueDateTo}
 		LEFT JOIN(SELECT * FROM swc_bacledger_detail group BY linkDocno) c ON b.vatSerial = c.linkDocno 
 		LEFT JOIN swc_bacledger d ON d.baclogId = c.baclogId
 		WHERE d.linkDoc = 'y' and d.baclogTime LIKE CONCAT('%', #{selectYear}, '%') and b.attrib not like 'XXX%' GROUP BY a.custName;
@@ -68,7 +68,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="sumSVatSearch" resultType="accountDto">
 		SELECT a.*, b.settleCRbalance as custBalance, a.custName AS vatBuyerName, SUM(c.vatTax + c.vatAmount) 
 		AS vatAmountS, sum(case when c.vatStatus='S5' then c.vatAmount + c.vatTax end) AS serialTotalS FROM swc_cust a
-		LEFT JOIN swc_cust_balance b on a.custNo = b.custNo AND b.settleYear = #{selectYear} AND b.compNo = #{compNo} AND b.attrib NOT LIKE 'XXX%' AND b.settleCRbalance IS NOT NULL
+		LEFT JOIN test_cust_balance b on a.custNo = b.custNo AND b.settleYear = #{selectYear} AND b.compNo = #{compNo} AND b.attrib NOT LIKE 'XXX%' AND b.settleCRbalance IS NOT NULL
 		LEFT JOIN swc_vat c ON a.custNo = c.vatBuyerCustNo AND c.vatIssueDate BETWEEN #{vatIssueDateFrom} and #{vatIssueDateTo} and c.attrib NOT LIKE 'XXX%' AND c.vatType != 'T'
 		WHERE a.compNo = #{compNo} AND a.custCompNo != #{compNo}
 		<if test="vatBuyerCustNo != null and vatBuyerCustNo != ''">
@@ -419,7 +419,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<select id="cardCheck" resultType="accountDto">
-		select count(*) as resultCount from swc_cardledger where appSerial = #{appSerial} and attrib not like 'XXX%'
+		select count(*) as resultCount from swc_cardledger where appSerial = #{appSerial} and appContents = #{appContents} and cardDisNum = #{cardDisNum} and attrib not like 'XXX%'
 	</select>
 	
 	<select id="baclist" resultType="accountDto">
@@ -1541,4 +1541,66 @@ attrib) values (#{vatId},
 			LEFT JOIN swc_vat f ON e.vatSerial = f.vatSerial AND f.attrib NOT LIKE "xxx%" 
 			WHERE  a.compNo = 100002 AND b.contNo IS NOT NULL AND a.attrib NOT LIKE "xxx%" AND e.vatDate IS NOT NULL AND f.vatId IS null;
 		</select>
+		
+		<select id="drCustCheck" resultType="AccountDTO">
+			SELECT count(*) as resultCount from swcore.test_cust_balance where compNo = #{compNo} and custNo = #{custNo} and settleYear = #{settleYear} and settleDRbalance is not null and attrib not like 'XXX%';
+		</select>
+		
+		<insert id="drCustInsert">
+			insert into swcore.test_cust_balance
+			(
+				compNo,
+				custNo,
+				settleYear,
+				settleMon,
+				settleDRbalance,
+				regDate,
+				attrib
+		 	)
+				values 
+			(
+				#{compNo},
+				#{custNo},
+				#{settleYear},
+				#{settleMon},
+				#{settleDRbalance},
+				now(),
+				'10000'
+			);
+		</insert>
+		
+		<update id="drCustUpdate">
+			update swcore.test_cust_balance set settleDRbalance = #{settleDRbalance} where compNo = #{compNo} and custNo = #{custNo} and settleYear = #{settleYear} and settleDRbalance is not null and attrib not like 'XXX%';
+		</update>
+		
+		<select id="crCustCheck" resultType="AccountDTO">
+			SELECT count(*) as resultCount from swcore.test_cust_balance where compNo = #{compNo} and custNo = #{custNo} and settleYear = #{settleYear} and settleCRbalance is not null and attrib not like 'XXX%';
+		</select>
+		
+		<insert id="crCustInsert">
+			insert into swcore.test_cust_balance
+			(
+				compNo,
+				custNo,
+				settleYear,
+				settleMon,
+				settleCRbalance,
+				regDate,
+				attrib
+		 	)
+				values 
+			(
+				#{compNo},
+				#{custNo},
+				#{settleYear},
+				#{settleMon},
+				#{settleCRbalance},
+				now(),
+				'10000'
+			);
+		</insert>
+		
+		<update id="crCustUpdate">
+			update swcore.test_cust_balance set settleCRbalance = #{settleCRbalance} where compNo = #{compNo} and custNo = #{custNo} and settleYear = #{settleYear} and settleCRbalance is not null and attrib not like 'XXX%';
+		</update>
 </mapper>

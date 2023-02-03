@@ -70,4 +70,7 @@ public interface GwDAO {
 	void update_estitems_Data_x(GwDTO dto);
 	void update_save_data(GwDTO dto);
 	void update_amount(GwDTO dto);
+	
+	List<GwDTO> purList(int compNo);
+    List<GwDTO> purList(GwDTO dto);
 }

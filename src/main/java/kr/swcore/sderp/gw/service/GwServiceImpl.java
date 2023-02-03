@@ -414,4 +414,17 @@ public class GwServiceImpl implements GwService{
 		// TODO Auto-generated method stub
 		gwDao.update_amount(dto);
 	}
+	
+	@Override
+    public List<GwDTO> purList(HttpSession session) {
+    	int compNo = SessionInfoGet.getCompNo(session);
+        return gwDao.purList(compNo);
+    }
+    
+    @Override
+    public List<GwDTO> purList(HttpSession session, GwDTO dto) {
+    	int compNo = SessionInfoGet.getCompNo(session);
+    	dto.setCompNo(compNo);
+        return gwDao.purList(dto);
+    }
 }

@@ -142,4 +142,10 @@ public interface AccountDAO {
 	List<AccountDTO> count1(int compNo);
 	List<AccountDTO> count2(int compNo);
 	List<AccountDTO> count3(int compNo);
+	AccountDTO drCustCheck(AccountDTO dto);
+	int drCustInsert(AccountDTO dto);
+	int drCustUpdate(AccountDTO dto);
+	AccountDTO crCustCheck(AccountDTO dto);
+	int crCustInsert(AccountDTO dto);
+	int crCustUpdate(AccountDTO dto);
 }

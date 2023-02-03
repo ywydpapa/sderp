@@ -65,8 +65,8 @@
 							</div>
 						</div>
                         <!-- hide and show -->
-                        <button id="chkBtn" class="btn btn-sm btn-secondary" onClick="javascript:fnCheckCardlist()" disabled>내역 검토</button>
-                        <button id="regBtn" class="btn btn-sm btn-primary" onClick="javascript:fnRegCardlist()">카드내역 등록</button>
+                        <button id="chkBtn" class="btn btn-sm btn-success" onClick="javascript:fnCheckCardlist()">내역 검토</button>
+                        <button id="regBtn" class="btn btn-sm btn-primary submitBtn" onClick="javascript:fnRegCardlist()" style="display:none;">카드내역 등록</button>
                     </div>
                 </div>
             </div>
@@ -243,7 +243,7 @@
                     				<th>승인번호</th>
                     				<th>가맹점명</th>
                     				<th>승인금액</th>
-                    				<th><input type="checkbox" id="allCheck" onclick="allCheck(this);"></th>
+                    				<th><input type="checkbox" id="allCheck" onclick="allCheck(this);" disabled></th>
                     			</tr>
                     		</thead>
                     		<tbody>
@@ -296,7 +296,7 @@
 	    		html += "<td class=\"appSerial\">" + data.detail[i][2] + "</td>";
 	    		html += "<td class=\"appContents\">" + data.detail[i][3] + "</td>";
 	    		html += "<td class=\"appAmount\">" + data.detail[i][4] + "</td>";
-	    		html += "<td><input class=\"cardchecked\" type=\"checkbox\"></td></tr>";
+	    		html += "<td><input class=\"cardchecked\" type=\"checkbox\" disabled></td></tr>";
 	    	}
 	    	
 	    	cardTable.html(html);
@@ -499,42 +499,47 @@
 	    }
 
         function fnCheckCardlist(){
-        	if($(this).attr("data-value") == 0){
-        		$(this).attr("data-value", 1);	
-        	}
-        	
-            var chk = $(".cardchecked");
-            var chkLength = $(".cardchecked").length;
-            var appSerial = $(".cardlst11");
-
             $.LoadingOverlay("show", true);
             
             setTimeout(() => {
-	        	chk.each(function(index, item){
-		        	var cardData = {};
-		        	cardData.appSerial = $(appSerial[index]).html();
-	               
-	                $.ajax({
+	        	if($(this).attr("data-value") == 0){
+	        		$(this).attr("data-value", 1);	
+	        	}
+	        	
+	            var chk = $(".cardchecked");
+	            for(let i = 0; i < chk.length-1; i++){
+	            	var appSerial = $(".appSerial")[i];
+	            	var appContents = $(".appContents")[i];
+	            	var cardSerial = $(".cardSerial")[i];
+	            	var cardDisNum = $(cardSerial).text().substring($(cardSerial).text().length-6, $(cardSerial).text().length);
+						
+	            	$.ajax({
 	                    url : "${path}/acc/cardCheck.do",
-	                    data : cardData,
+	                    data : {
+	                    	"appSerial": appSerial.innerText,
+	                    	"appContents": appContents.innerText,
+	                    	"cardDisNum": cardDisNum
+	                    },
 	                    method : "POST",
 	                    async: false,
 	                    dataType : "json",
 	                    success:function(data){
 	                    	if(data.resultCount > 0){
-	                    		$(item).prop("checked", false);
+	                    		$(chk[i]).prop("checked", false);
 	                    	}else{
-	                    		$(item).prop("checked", true);
+	                    		$(chk[i]).prop("checked", true);
 	                    	}
 	                    },
-	                    complete:function(){
-			                $.LoadingOverlay("hide", true);
-	                    }
 	                });
-	            });
-	        	
-	            alert("내역 검토가 완료되었습니다.");
-			}, 500);
+	            	
+	            	if(i == chk.length-2){
+	            		$.LoadingOverlay("hide", true);
+	            	}
+	            }
+	            
+	           	alert("내역 검토가 완료되었습니다.");
+	           	$(".submitBtn").show();
+            }, 300);
         }
 
         function fnRegCardlist(){
@@ -561,9 +566,10 @@
 	            var $Jarr = $(".cardlst2");			// 카드번호
 	            var compNo = "${sessionScope.compNo}"; */
 				
-	            for (var i = 0; i < $appSerial.length; i++){
-	                if ($($cardchecked[i]).is(":checked")==true){
+	            for (var i = 0; i < $appSerial.length-1; i++){
+	                if ($($cardchecked[i]).is(":checked")){
  	                    var cardData = {};
+ 	                    var randomStr = "";
 	                    cardData.compNo = compNo;
 	                    cardData.appContents = $appContents[i].innerText;
 	                    cardData.appSerial = $appSerial[i].innerText;
@@ -574,9 +580,9 @@
 	                    /* cardData.appExchange = $Garr[i].innerText === "" ? "0" : $Garr[i].innerText; */
 	                    cardData.appDate = $appDate[i].innerText;
 	                    /* cardData.appTime = $Harr[i].innerText; */
-	                    cardData.cardSerial = "D" + $($cardSerial[i]).text().substring(10, $($cardSerial[i]).text().length);
-	                    cardData.cardDisNum = $($cardSerial[i]).text().substring(10, $($cardSerial[i]).text().length);
-	                    console.log(cardData);
+	                    randomStr = generateRandomString(1);	                    
+	                    cardData.cardSerial = randomStr + $($cardSerial[i]).text().substring($($cardSerial[i]).text().length-6, $($cardSerial[i]).text().length);
+	                    cardData.cardDisNum = $($cardSerial[i]).text().substring($($cardSerial[i]).text().length-6, $($cardSerial[i]).text().length);
 	                    
 	                    $.ajax({
 	                        url : "${path}/acc/insertCardLedger.do",
@@ -586,7 +592,7 @@
 	                        dataType: "json",
 	                        success:function(){
 	                        	var updateData = {};
-	                        	updateData.cardSerial = $($cardSerial[i]).text().substring(10, $($cardSerial[i]).text().length);
+	                        	updateData.cardSerial = $($cardSerial[i]).text().substring($($cardSerial[i]).text().length-6, $($cardSerial[i]).text().length);
 	                        	
 	                        	$.ajax({
 	                        		url: "${path}/acc/lastUpdateCard.do",
@@ -595,7 +601,7 @@
 	                        		dataType: "json"
 	                        	});
 	                        	
-	                        	if(i == $appSerial.length-1){
+	                        	if(i == $appSerial.length-2){
 	    			                $.LoadingOverlay("hide", true);
 	                        	}
 	                        }
@@ -604,7 +610,7 @@
 	            }
 	        	setTimeout(() => {
 		            alert("카드 내역 등록 완료");
-		            /* fnCheckCardlist(); */
+		            fnCheckCardlist();
 				}, 300);
 			}, 300);
         }

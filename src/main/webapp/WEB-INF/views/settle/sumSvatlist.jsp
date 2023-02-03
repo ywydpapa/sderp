@@ -46,6 +46,7 @@
                         <button class="btn btn-sm btn-outline"onClick="javascript:location='${path}/acc/vatupload.do'">
                         	<i class="icofont icofont-pencil-alt-2"></i>계산서 등록
                         </button>
+                        <!-- <button class="btn btn-sm btn-primary" onclick="custTotal();">기초잔액 컨버팅</button> -->
                     </div>
                 </div>
             </div>
@@ -108,7 +109,7 @@
                                     	<select class="form-control form-control-sm" id="searchYear">
                                     		<option value="">년도 선택</option>
                                     		<c:forEach var="i" begin="0" end="100" step="1">
-                                    			<option value="${start - i}">${start - i}</option>
+                                    			<option value="${start - i}" <c:if test="${(start - i) eq param.selectYear}">selected</c:if>>${start - i}</option>
                                     		</c:forEach>
                                     	</select>
                                     	<select class="form-control form-control-sm" id="searchChoice" disabled="disabled">
@@ -220,7 +221,7 @@
 	                                    		<c:otherwise>0</c:otherwise>
 	                                    	</c:choose>
 	                                    </td>
-	                                    <td class="text-right">
+	                                    <td class="text-right custTotal" data-custNo="${vlist.custNo}">
                                    			<a data-remote="${path}/modal/popup.do?popId=custVatListModal&modalType=balance&custNo=${vlist.custNo}&compNo=${sessionScope.compNo}&modalFlag=0&vatType=S" type="button" data-toggle="modal" data-target="#custVatList" style="cursor: pointer; text-decoration: underline;">
 												<c:choose>
 		                                    		<c:when test="${((vlist.custBalance + vlist.vatAmountS) - vlist.serialTotalS) ne ''}">
@@ -261,11 +262,72 @@
         </div>
     </div>
     <script>
+	    function custTotal(){
+	    	let updateDatas = {};
+			let tdTarget = $("#vatTable tbody tr").find(".custTotal");
+			let compNo = "${sessionScope.compNo}";
+			let settleYear = parseInt($("#searchYear").val()) + 1;
+			let getCount = 0;
+		
+			for(let i = 0; i < tdTarget.length; i++){
+				let item = $(tdTarget[i]);
+				let custNo = item.attr("data-custNo");
+				
+				$.ajax({
+					url: "${path}/acc/crCustCheck",
+					method: "get",
+					async: false,
+					data: {
+						"settleYear": settleYear,
+						"compNo": compNo,
+						"custNo": custNo
+					},
+					success: function(count){
+						getCount = count.resultCount;
+					},
+				});
+				
+				if(getCount > 0){
+					$.ajax({
+						url: "${path}/acc/crCustUpdate.do",
+						method: "post",
+						async: false,
+						data: {
+							"compNo": compNo,
+							"custNo": custNo,
+							"settleYear": settleYear,
+							"settleMon": 0,
+							"settleCRbalance": parseInt(item.text().replace(/,/g, "")),
+						},
+					});
+				}else{
+					$.ajax({
+						url: "${path}/acc/crCustInsert.do",
+						method: "post",
+						async: false,
+						data: {
+							"compNo": compNo,
+							"custNo": custNo,
+							"settleYear": settleYear,
+							"settleMon": 0,
+							"settleCRbalance": parseInt(item.text().replace(/,/g, "")),
+						},
+					});
+				}
+			}
+			
+			alert("컨버팅 성공!");
+		}
+	    
     	$(document).ready(function(){
         	var vatType = "${param.vatType}";
     		
         	if(vatType !== ""){
         		$("#vatType").val(vatType);
+        	}
+        	
+        	if($("#searchYear").val() !== ""){
+        		$("#searchChoice").attr("disabled", false);
         	}
         	
 	    	$("#searchYear").change(function(){

@@ -243,6 +243,8 @@ public class AccountDTO {
     private String maintenance_s;
     private String maintenance_e;
     private BigDecimal maintenance_sum;
+    private int settleYear;
+    private int settleMon;
     
 }
 

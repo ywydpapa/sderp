@@ -352,4 +352,14 @@ public class GwDAOImpl implements GwDAO{
 		// TODO Auto-generated method stub
 		sqlSession.update("gw.update_amount", dto);
 	}
+	
+	@Override
+    public List<GwDTO> purList(int compNo) {
+        return sqlSession.selectList("gw.purList", compNo);
+    }
+    
+    @Override
+    public List<GwDTO> purList(GwDTO dto) {
+        return sqlSession.selectList("gw.purSearchList", dto);
+    }
 }

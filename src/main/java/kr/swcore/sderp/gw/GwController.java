@@ -87,6 +87,36 @@ public class GwController {
         return mav;
     }
     
+    @RequestMapping("purlist.do")
+    public ModelAndView purlist(HttpSession session, ModelAndView mav,
+    		@RequestParam(value = "custNo", required = false) Integer custNo,
+			@RequestParam(value = "userName", required = false) String userName,
+			@RequestParam(value = "vatSdate", required = false) String vatSdate,
+			@RequestParam(value = "vatEdate", required = false) String vatEdate,
+			@RequestParam(value = "selectoption", required = false) Integer selectoption,
+			@RequestParam(value = "withdraw_status", required = false) Integer withdraw_status
+			) 
+    {
+    	if(custNo != null || userName != null || vatSdate != null || vatEdate != null || selectoption != null || withdraw_status != null){
+			GwDTO dto = new GwDTO();
+    		if(custNo != null) dto.setCustNo(custNo);
+    		if(userName != null) dto.setUserName(userName);
+    		if(vatSdate != null) dto.setVatSdate(vatSdate);
+    		if(vatEdate != null) dto.setVatEdate(vatEdate);
+    		if(selectoption != null) dto.setSelectoption(selectoption);
+    		if(withdraw_status != null) dto.setWithdraw_status(withdraw_status);
+    		
+    		mav.addObject("purList", gwService.purList(session, dto));
+    	}else {
+    		mav.addObject("purList", gwService.purList(session));
+    	}
+        
+    	mav.addObject("listUser", userService.userList(session));
+    	mav.addObject("listCust", custService.listCust(session));
+        mav.setViewName("gware/purlist");
+        return mav;
+    }
+    
     @RequestMapping("mydoclist.do")
     public ModelAndView myDocList(HttpSession session, ModelAndView mav,
     		@RequestParam(value = "custNo", required = false) Integer custNo,
@@ -136,6 +166,19 @@ public class GwController {
 		mav.addObject("listSopp", soppService.listSopp(session, null));
 		mav.addObject("listProduct", productService.listProduct(session));
         mav.setViewName("gware/detail");
+        return mav;
+    }
+    
+    @RequestMapping("purDetail/{docNo}")
+    public ModelAndView purDetail(HttpSession session, @PathVariable("docNo") int docNo, ModelAndView mav) {
+    	mav.addObject("detailList", gwService.detailDoc(docNo));
+    	mav.addObject("detailListApp", gwService.detailDocApp(docNo));
+    	mav.addObject("detailListData", gwService.detailDocData(docNo));
+    	mav.addObject("detailFile", gwService.listFile(docNo));
+    	mav.addObject("listCust", custService.listCust(session));
+		mav.addObject("listSopp", soppService.listSopp(session, null));
+		mav.addObject("listProduct", productService.listProduct(session));
+        mav.setViewName("gware/purDetail");
         return mav;
     }
 

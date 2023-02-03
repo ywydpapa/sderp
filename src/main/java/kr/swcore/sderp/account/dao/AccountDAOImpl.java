@@ -736,4 +736,40 @@ public class AccountDAOImpl implements AccountDAO {
 		return sqlSession.selectList("account.modalVatListB", dto);
 	}
 	
+	@Override
+	public AccountDTO drCustCheck(AccountDTO dto) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("account.drCustCheck", dto);
+	}
+	
+	@Override
+	public int drCustInsert(AccountDTO dto) {
+		// TODO Auto-generated method stub
+		return sqlSession.insert("account.drCustInsert", dto);
+	}
+	
+	@Override
+	public int drCustUpdate(AccountDTO dto) {
+		// TODO Auto-generated method stub
+		return sqlSession.update("account.drCustUpdate", dto);
+	}
+	
+	@Override
+	public AccountDTO crCustCheck(AccountDTO dto) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("account.crCustCheck", dto);
+	}
+	
+	@Override
+	public int crCustInsert(AccountDTO dto) {
+		// TODO Auto-generated method stub
+		return sqlSession.insert("account.crCustInsert", dto);
+	}
+	
+	@Override
+	public int crCustUpdate(AccountDTO dto) {
+		// TODO Auto-generated method stub
+		return sqlSession.update("account.crCustUpdate", dto);
+	}
+	
 }

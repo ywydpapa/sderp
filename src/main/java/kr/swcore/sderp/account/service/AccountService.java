@@ -145,4 +145,10 @@ public interface AccountService {
 	List<AccountDTO> count1(HttpSession session);
 	List<AccountDTO> count2(HttpSession session);
 	List<AccountDTO> count3(HttpSession session);
+	AccountDTO drCustCheck(AccountDTO dto);
+	int drCustInsert(AccountDTO dto);
+	int drCustUpdate(AccountDTO dto);
+	AccountDTO crCustCheck(AccountDTO dto);
+	int crCustInsert(AccountDTO dto);
+	int crCustUpdate(AccountDTO dto);
 }

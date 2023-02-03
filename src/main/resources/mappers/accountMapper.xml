@@ -54,7 +54,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		SELECT a.*, b.settleCRbalance as custBalance, a.custName AS vatBuyerName, SUM(c.vatTax + c.vatAmount) 
 		AS vatAmountS, sum(case when c.vatStatus='S5' then c.vatAmount + c.vatTax end) AS serialTotalS FROM swc_cust a
 		LEFT JOIN swc_cust_balance b on a.custNo = b.custNo AND b.settleYear = #{selectYear} AND b.compNo = #{compNo} AND b.attrib NOT LIKE 'XXX%' AND b.settleCRbalance IS NOT NULL
-		LEFT JOIN swc_vat c ON a.custNo = c.vatBuyerCustNo AND c.vatIssueDate BETWsEEN #{vatIssueDateFrom} and #{vatIssueDateTo} and c.attrib NOT LIKE 'XXX%' AND c.vatType != 'T'
+		LEFT JOIN swc_vat c ON a.custNo = c.vatBuyerCustNo AND c.vatIssueDate BETWEEN #{vatIssueDateFrom} and #{vatIssueDateTo} and c.attrib NOT LIKE 'XXX%' AND c.vatType != 'T'
 		WHERE a.compNo = #{compNo} AND a.custCompNo != #{compNo}
 		GROUP BY a.custNo
 	</select>

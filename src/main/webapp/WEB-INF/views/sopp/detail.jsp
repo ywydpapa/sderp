@@ -247,10 +247,10 @@
 										<c:if test="${dto.userNo eq sessionScope.userNo || dto.secondUserNo eq sessionScope.userNo}">
 											<button class="btn btn-md btn-danger" onClick="fn_soppDelete()">삭제</button>
 										</c:if>
-										<c:if test="${dto.userNo eq sessionScope.userNo || sessionScope.userRole eq 'ADMIN' || dto.secondUserNo eq sessionScope.userNo}">
+										<%-- <c:if test="${dto.userNo eq sessionScope.userNo || sessionScope.userRole eq 'ADMIN' || dto.secondUserNo eq sessionScope.userNo}"> --%>
 											<button class="btn btn-md btn-primary" onClick="fn_soppUpdate()">수정</button>
 											<button class="btn btn-md btn-inverse" onClick="javascript:location='${path}/sopp/list.do'">취소</button>
-										</c:if>
+										<%-- </c:if> --%>
 									</div>
 								</div>
 							</div>

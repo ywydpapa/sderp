@@ -1543,11 +1543,11 @@ attrib) values (#{vatId},
 		</select>
 		
 		<select id="drCustCheck" resultType="AccountDTO">
-			SELECT count(*) as resultCount from swcore.test_cust_balance where compNo = #{compNo} and custNo = #{custNo} and settleYear = #{settleYear} and settleDRbalance is not null and attrib not like 'XXX%';
+			SELECT count(*) as resultCount from swcore.swc_cust_balance where compNo = #{compNo} and custNo = #{custNo} and settleYear = #{settleYear} and settleDRbalance is not null and attrib not like 'XXX%';
 		</select>
 		
 		<insert id="drCustInsert">
-			insert into swcore.test_cust_balance
+			insert into swcore.swc_cust_balance
 			(
 				compNo,
 				custNo,
@@ -1570,15 +1570,15 @@ attrib) values (#{vatId},
 		</insert>
 		
 		<update id="drCustUpdate">
-			update swcore.test_cust_balance set settleDRbalance = #{settleDRbalance} where compNo = #{compNo} and custNo = #{custNo} and settleYear = #{settleYear} and settleDRbalance is not null and attrib not like 'XXX%';
+			update swcore.swc_cust_balance set settleDRbalance = #{settleDRbalance} where compNo = #{compNo} and custNo = #{custNo} and settleYear = #{settleYear} and settleDRbalance is not null and attrib not like 'XXX%';
 		</update>
 		
 		<select id="crCustCheck" resultType="AccountDTO">
-			SELECT count(*) as resultCount from swcore.test_cust_balance where compNo = #{compNo} and custNo = #{custNo} and settleYear = #{settleYear} and settleCRbalance is not null and attrib not like 'XXX%';
+			SELECT count(*) as resultCount from swcore.swc_cust_balance where compNo = #{compNo} and custNo = #{custNo} and settleYear = #{settleYear} and settleCRbalance is not null and attrib not like 'XXX%';
 		</select>
 		
 		<insert id="crCustInsert">
-			insert into swcore.test_cust_balance
+			insert into swcore.swc_cust_balance
 			(
 				compNo,
 				custNo,
@@ -1601,6 +1601,6 @@ attrib) values (#{vatId},
 		</insert>
 		
 		<update id="crCustUpdate">
-			update swcore.test_cust_balance set settleCRbalance = #{settleCRbalance} where compNo = #{compNo} and custNo = #{custNo} and settleYear = #{settleYear} and settleCRbalance is not null and attrib not like 'XXX%';
+			update swcore.swc_cust_balance set settleCRbalance = #{settleCRbalance} where compNo = #{compNo} and custNo = #{custNo} and settleYear = #{settleYear} and settleCRbalance is not null and attrib not like 'XXX%';
 		</update>
 </mapper>

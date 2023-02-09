@@ -105,7 +105,7 @@
 								<tr>
 									<th scope="row">이름</th>
 									<td>
-										<input name="userName" id="userName"  value="${userInfo.userName}" class="form-control form-control-sm">
+										<input name="userName" id="userName" data-completeSet="true" value="${userInfo.userName}" class="form-control form-control-sm">
 									</td>
 								</tr>
 								<tr>

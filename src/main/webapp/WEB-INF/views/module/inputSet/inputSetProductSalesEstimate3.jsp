@@ -53,53 +53,6 @@
 						</select>
                         <input type="hidden" id="productSalesEstimateCustNo" value="" />
                         <input type="hidden" id="soppdataNoEstimate" value="">
-                        <!-- <input type="text" class="form-control" name="product" id="productSalesEstimateCustName" value=""> -->
-                        <%-- <span class="input-group-btn">
-                            <button class="btn btn-primary sch-company" data-remote="${path}/modal/popup.do?popId=productdataListSalesEstimateCust" type="button" data-toggle="modal" data-target="#productCustModal3">
-                                <i class="icofont icofont-search"></i>
-                            </button>
-                        </span>
-                        <!--modal-->
-                        <div class="modal fade " id="productCustModal3" tabindex="-1" role="dialog">
-                            <div class="modal-dialog modal-80size" role="document">
-                                <div class="modal-content modal-80size">
-                                    <div class="modal-header">
-                                        <h4 class="modal-title">매입/매출 거래처 목록</h4>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                    <div class="modal-body">
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
-                                        <button type="button" class="btn btn-success waves-effect" id="custRegSimple2">간편추가</button>
-                                    </div>
-                                    <div style="display: none; border: solid; width: 80%; margin: auto; margin-bottom: 5px;" id="custRegSimple_div2">
-                                        <table>
-                                            <colgroup>
-                                                <col width="10%">
-                                                <col width="75%">
-                                                <col width="15%">
-                                            </colgroup>
-                                            <tbody>
-                                            <tr>
-                                                <th>매출처명*</th>
-                                                <td><input type="text" value="" id="custRegSimple_custName2" style="width: 100%;"> </td>
-                                                <td><button type="button" class="btn-sm btn-dark" id="custRegSimple_custName_check2">중복확인</button></td>
-                                            </tr>
-                                            <tr>
-                                                <th>담당자</th>
-                                                <td><input type="text" value="" id="custRegSimple_custMemerName2" style="width: 100%;" placeholder="미입력시 미정으로 세팅됩니다."></td>
-                                                <td><button type="button" class="btn-sm btn-success" id="custRegSimple_custName_register2">등록</button></td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                        </div> --%>
-                        <!--//modal-->
                     </div>
                 </td>
                 <td>
@@ -119,34 +72,7 @@
 									</c:forEach>
 								</select>
 		                        <input type="hidden" id="productNo2" value="" />
-		                        <!-- <input type="text" class="form-control" name="product" id="data02Title" data-flag="true" value=""> -->
-		                        <!-- <span class="input-group-btn">
-		                            <button class="btn btn-primary sch-company" onclick="fn_productdataTableReload2()" type="button" data-toggle="modal" data-target="#productdataModal2">
-		                                <i class="icofont icofont-search"></i>
-		                            </button>
-		                        </span> -->
 		                    </div>
-		                    <!--모달 팝업-->
-		                    <%-- <div class="modal fade" id="productdataModal2" tabindex="-1" role="dialog">
-		                        <div class="modal-dialog modal-80size" role="document">
-		                            <div class="modal-content modal-80size">
-		                                <div class="modal-header">
-		                                    <h4 class="modal-title">상품목록</h4>
-		                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-		                                        <span aria-hidden="true">&times;</span>
-		                                    </button>
-		                                </div>
-		                                <div class="modal-body">
-		                                    <%@ include file="/WEB-INF/views/modal/productdataList.jsp" %>
-		                                    <jsp:include page="/WEB-INF/views/modal/productdataListSalesEstimate.jsp" />
-		                                </div>
-		                                <div class="modal-footer">
-		                                    <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
-		                                </div>
-		                            </div>
-		                        </div>
-		                    </div> --%>
-		                    <!--//모달 팝업-->
                 		</div>
                 		<div id="select2" style="width:100%;">
                 			<div class="input-group input-group-sm mb-0">
@@ -433,8 +359,8 @@
 	    	var productAmount = $("#data02Amt").val().replace(/[\D\s\._\-]+/g, "");
 	    	var productVat = $("#data02Vat").val().replace(/[\D\s\._\-]+/g, "");
 	    	var productTotal = $("#data02Total").val().replace(/[\D\s\._\-]+/g, "");
-	    	var productRemark = tinyMCE.get("data02Remark").getContent();
-	    	var productSpec = tinyMCE.get("data02Spec").getContent();
+	    	var productRemark = tinyMCE.get("data02Remark").getContent().replaceAll("\"", "\'");
+	    	var productSpec = tinyMCE.get("data02Spec").getContent().replaceAll("\"", "\'");
 			
 	        dataArray[flagIndex].custNo = $("#productSalesEstimateCustNo").val();
 	        dataArray[flagIndex].compNo = $("#compNo").val();
@@ -539,8 +465,8 @@
         	var productAmount = $("#data02Amt").val().replace(/[\D\s\._\-]+/g, "");
         	var productVat = $("#data02Vat").val().replace(/[\D\s\._\-]+/g, "");
         	var productTotal = $("#data02Total").val().replace(/[\D\s\._\-]+/g, "");
-        	var productRemark = tinyMCE.get("data02Remark").getContent();
-        	var productSpec = tinyMCE.get("data02Spec").getContent();
+        	var productRemark = tinyMCE.get("data02Remark").getContent().replaceAll("\"", "\'");
+        	var productSpec = tinyMCE.get("data02Spec").getContent().replaceAll("\"", "\'");
         	var qutylist = $("#qutylist tbody");
     		
             temp.estId = "";
@@ -670,7 +596,7 @@
     				dataInfo.estComPhone = $("#estComPhone").val();
     				dataInfo.estComFax = $("#estComFax").val();
     				dataInfo.estComTerm = $("#estComTerm").val();
-    				dataInfo.estComSpec = tinyMCE.get("estComSpec").getContent();
+    				dataInfo.estComSpec = tinyMCE.get("estComSpec").getContent().replaceAll("\"", "\'");
     				
     				$.ajax({
     					url: "${path}/gw/estInfoInsert.do",
@@ -800,7 +726,7 @@
 	    				dataInfo.estComPhone = $("#estComPhone").val();
 	    				dataInfo.estComFax = $("#estComFax").val();
 	    				dataInfo.estComTerm = $("#estComTerm").val();
-	    				dataInfo.estComSpec = tinyMCE.get("estComSpec").getContent();
+	    				dataInfo.estComSpec = tinyMCE.get("estComSpec").getContent().replaceAll("\"", "\'");
 	    				
 	    				$.ajax({
 	    					url: "${path}/gw/estInfoInsert.do",
@@ -976,7 +902,7 @@
        								dataInfoUpdate.estComPhone = $("#estComPhone").val();
        								dataInfoUpdate.estComFax = $("#estComFax").val();
        								dataInfoUpdate.estComTerm = $("#estComTerm").val();
-       								dataInfoUpdate.estComSpec = tinyMCE.get("estComSpec").getContent();
+       								dataInfoUpdate.estComSpec = tinyMCE.get("estComSpec").getContent().replaceAll("\"", "\'");
    		    	    				
    		    	    				$.ajax({
    		    							url: "${path}/gw/estInfoUpdate.do",
@@ -994,7 +920,7 @@
    		    								dataInfoInsert.estComPhone = $("#estComPhone").val();
    		    								dataInfoInsert.estComFax = $("#estComFax").val();
    		    								dataInfoInsert.estComTerm = $("#estComTerm").val();
-   		    								dataInfoInsert.estComSpec = tinyMCE.get("estComSpec").getContent();
+   		    								dataInfoInsert.estComSpec = tinyMCE.get("estComSpec").getContent().replaceAll("\"", "\'");
    		    								
    		    								$.ajax({
    				    	    					url: "${path}/gw/estInfoInsert.do",

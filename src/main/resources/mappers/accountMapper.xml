@@ -32,7 +32,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<select id="sumBvat_sub" resultType="accountDto">
 		SELECT a.custNo, a.custName, sum(b.modal_receive_data) AS modal_receive_data FROM swc_cust a
-		LEFT JOIN swc_vat b ON a.custNo = b.vatSellerCustNo AND (b.vatStatus = 'B3' OR b.vatStatus = 'B5') AND b.vatIssueDate BETWEEN #{vatIssueDateFrom} and #{vatIssueDateTo}
+		LEFT JOIN swc_vat b ON a.custNo = b.vatSellerCustNo AND (b.vatStatus = 'B3' OR b.vatStatus = 'B5')
 		LEFT JOIN(SELECT * FROM swc_bacledger_detail group BY linkDocno) c ON b.vatSerial = c.linkDocno
 		LEFT JOIN swc_bacledger d ON d.baclogId = c.baclogId
 		WHERE d.linkDoc = 'y' and d.baclogTime LIKE CONCAT('%', #{selectYear}, '%') and b.attrib not like 'XXX%' GROUP BY a.custName;
@@ -60,7 +60,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	<select id="sumSvat_sub" resultType="accountDto">
 		SELECT a.custNo, a.custName, sum(b.modal_receive_data) AS modal_receive_data  FROM swc_cust a
-		LEFT JOIN swc_vat b ON a.custNo = b.vatBuyerCustNo AND (b.vatStatus = 'S3' OR b.vatStatus = 'S5') AND b.vatIssueDate BETWEEN #{vatIssueDateFrom} and #{vatIssueDateTo}
+		LEFT JOIN swc_vat b ON a.custNo = b.vatBuyerCustNo AND (b.vatStatus = 'S3' OR b.vatStatus = 'S5')
 		LEFT JOIN(SELECT * FROM swc_bacledger_detail group BY linkDocno) c ON b.vatSerial = c.linkDocno 
 		LEFT JOIN swc_bacledger d ON d.baclogId = c.baclogId
 		WHERE d.linkDoc = 'y' and d.baclogTime LIKE CONCAT('%', #{selectYear}, '%') and b.attrib not like 'XXX%' GROUP BY a.custName;

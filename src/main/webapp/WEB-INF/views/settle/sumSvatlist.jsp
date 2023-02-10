@@ -14,14 +14,14 @@
 <div id="main_content">
 	
 	<script>
-	$(function(){
-		$('#vatTable').DataTable({
-			info:false,
-			searching: true,
-			order: [[ 4, "desc" ]],
-			ordering: true
+		$(function(){
+			$('#vatTable').DataTable({
+				info:false,
+				searching: true,
+				order: [[ 4, "desc" ]],
+				ordering: true
+			});
 		});
-	});
 	</script>
 	
     <c:if test="${preserveSearchCondition != 'Y'}">

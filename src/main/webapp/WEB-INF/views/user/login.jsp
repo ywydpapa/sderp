@@ -52,11 +52,11 @@ $(document).ready(function(){
 			$("#userId").focus();
 			return;
 		}
-		if(compId==""){
+		/* if(compId==""){
 				alert("회사 아이디를 입력해 주세요.");
 				$("#compId").focus();
 				return;
-			}
+			} */
 		if(userPasswd==""){
 				alert("암호를 입력해 주세요.");
 				$("#userPasswd").focus();
@@ -128,10 +128,10 @@ $(document).ready(function(){
 								 </div> -->
 								<div class="inwrap">
 									<p class="text-inverse b-b-default text-center p-b-10">로그인 하십시오.</p>
-									<div class="input-group">
+									<!-- <div class="input-group">
 										<input type="text" id="compId" name="compId" class="form-control" placeholder="회사 아이디" required>
 										<span class="md-line"></span>
-									</div>
+									</div> -->
 									<div class="input-group">
 										<input type="text" id="userId" autocomplete="off" name="userId" class="form-control" placeholder="사용자 아이디" required>
 										<span class="md-line"></span>

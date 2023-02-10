@@ -154,6 +154,7 @@ public class UserController {
 	@RequestMapping(value="/login_check.do")
 	public ModelAndView loginCheck(@ModelAttribute UserDTO dto, HttpSession session) throws JsonProcessingException {
 		JSONArray jsonArray = null;
+		dto.setCompId("vtek");
 		boolean result = userService.loginCheck(dto, session);
 		ModelAndView mav = new ModelAndView();
 		if (result == true) {

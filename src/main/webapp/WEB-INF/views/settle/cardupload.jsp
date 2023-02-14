@@ -361,13 +361,13 @@
 	    	console.log(t + "전체 확인");
 
 	    	for (x = 0; x < t.length; x++) {
-	    		if (t[x].includes("일자")) r[0] = x;
-	    		else if (t[x].includes("카드번호")) r[1] = x;
+	    		if (t[x].includes("일자") || t[x].includes("일시")) r[0] = x;
+	    		else if (t[x].includes("카드번호") || t[x].includes("이용카드")) r[1] = x;
 	    		else if (t[x].includes("승인번호")) r[2] = x;
 	    		else if (t[x].includes("가맹점명")) r[3] = x;
-	    		else if (t[x].includes("승인금액") || t[x].includes("청구금액")) r[4] = x;
+	    		else if (t[x].includes("승인금액") || t[x].includes("청구금액") || t[x].includes("이용금액")) r[4] = x;
 	    	}
-
+			
 	    	t = [];
 	    	for (x = z + 1; x < data2.length; x++) {
 	    		if (r[0] >= 0 && data2[x][r[0]] === undefined) break;
@@ -375,7 +375,8 @@
 	    		if (r[2] >= 0 && data2[x][r[2]] === undefined) break;
 	    		if (r[3] >= 0 && data2[x][r[3]] === undefined) break;
 	    		if (r[4] >= 0 && data2[x][r[4]] === undefined) break;
-	    		y = [data2[x][r[0]].replaceAll("(", "").replaceAll(")", ""), data2[x][r[1]], data2[x][r[2]], data2[x][r[3]], data2[x][r[4]] + ""];
+					    			
+	    		y = [data2[x][r[0]].replaceAll("(", "").replaceAll(")", "").replaceAll("-", ""), data2[x][r[1]], data2[x][r[2]], data2[x][r[3]], data2[x][r[4]] + ""];
 	    		t.push(y);
 	    	}
 	    	t.sort(function (a, b) { let x, y; x = new Date(a[0]); y = new Date(b[0]); return x.getTime() - y.getTime(); })
@@ -507,11 +508,20 @@
 	        	}
 	        	
 	            var chk = $(".cardchecked");
-	            for(let i = 0; i < chk.length-1; i++){
+	            for(let i = 0; i < chk.length; i++){
+	            	var cardDisNum;
 	            	var appSerial = $(".appSerial")[i];
 	            	var appContents = $(".appContents")[i];
 	            	var cardSerial = $(".cardSerial")[i];
-	            	var cardDisNum = $(cardSerial).text().substring($(cardSerial).text().length-6, $(cardSerial).text().length);
+	            	if($(cardSerial).text().indexOf("****-6093") > -1){
+	            		cardSerial = "826093";
+	            		cardDisNum = cardSerial;
+	            	}else if($(cardSerial).text().indexOf("****-0907") > -1){
+	            		cardSerial = "820907";
+	            		cardDisNum = cardSerial;
+	            	}else{
+						cardDisNum = $(cardSerial).text().replaceAll("-").substring($(cardSerial).text().replaceAll("-").length-6, $(cardSerial).text().replaceAll("-").length);
+	            	}
 						
 	            	$.ajax({
 	                    url : "${path}/acc/cardCheck.do",
@@ -566,7 +576,7 @@
 	            var $Jarr = $(".cardlst2");			// 카드번호
 	            var compNo = "${sessionScope.compNo}"; */
 				
-	            for (var i = 0; i < $appSerial.length-1; i++){
+	            for (var i = 0; i < $appSerial.length; i++){
 	                if ($($cardchecked[i]).is(":checked")){
  	                    var cardData = {};
  	                    var randomStr = "";
@@ -580,11 +590,19 @@
 	                    /* cardData.appExchange = $Garr[i].innerText === "" ? "0" : $Garr[i].innerText; */
 	                    cardData.appDate = $appDate[i].innerText;
 	                    /* cardData.appTime = $Harr[i].innerText; */
-	                    randomStr = generateRandomString(1);	                    
-	                    cardData.cardSerial = randomStr + $($cardSerial[i]).text().substring($($cardSerial[i]).text().length-6, $($cardSerial[i]).text().length);
-	                    cardData.cardDisNum = $($cardSerial[i]).text().substring($($cardSerial[i]).text().length-6, $($cardSerial[i]).text().length);
+	                    randomStr = generateRandomString(1);	   
+	                    if($($cardSerial[i]).text().indexOf("****-6093") > -1){
+		                    cardData.cardSerial = randomStr + "826093";
+		            	}else if($($cardSerial[i]).text().indexOf("****-0907") > -1){
+		            		cardData.cardSerial = randomStr + "820907";
+		            	}else{
+		            		cardData.cardSerial = randomStr + $($cardSerial[i]).text().replaceAll("-", "").substring($($cardSerial[i]).text().length-6, $($cardSerial[i]).text().replaceAll("-", "").length);
+		            	}
 	                    
-	                    $.ajax({
+	            		cardData.cardDisNum = cardData.cardSerial.substring(cardData.cardSerial.length-6, cardData.cardSerial.length);
+	            		console.log(cardData);
+	                    
+	                   	$.ajax({
 	                        url : "${path}/acc/insertCardLedger.do",
 	                        data : cardData,
 	                        method : "POST",

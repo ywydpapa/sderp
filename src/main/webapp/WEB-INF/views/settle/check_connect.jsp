@@ -17,8 +17,6 @@
 <html>
 <jsp:include page="../head.jsp"/>
 <jsp:include page="../body-top3.jsp"/>
-<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <div id="main_content">
     <c:if test="${preserveSearchCondition != 'Y'}">
         <!-- Page-header start 페이지 타이틀-->
@@ -38,36 +36,25 @@
     </c:if>
 	
 	<!--리스트 table-->
-    <div class="cnt_wr" id="list-container">
-        <div class="row">
-            <div class="col-sm-12">
-                <div class="card-block table-border-style">
-                    <div id="testcreatebactable" class="table-responsive">
-                    <input id="reloadpage_num" type="hidden" value="0">
-                        <table id="bacTable" class="table table-striped table-bordered nowrap">
-                            <thead>
-                            <tr>
-                                <th class="text-center">계좌번호</th>
-                                <th class="text-center">계산서 항목</th>
-                                <th class="text-center">계산서 받은금액</th>
-                                <th class="text-center">계산서 남은금액</th>
-                                <th class="text-center">연결날짜</th>
-                                <th class="text-center">계산서 승인번호</th>
-                                <th class="text-center">계산서 비고</th>
-                            </tr>
-                            </thead>
-                            
-                            <tbody> 	                         
-                          	</tbody>
-                        
-                        </table>
-                        <div id="pageDiv" style="float: right;"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    
 </div>
+<table id="bacTable" class="table table-striped table-bordered">
+       <thead>
+        <tr>
+            <th class="text-center">계좌번호</th>
+            <th class="text-center">계산서 항목</th>
+            <th class="text-center">계산서 받은금액</th>
+            <th class="text-center">계산서 남은금액</th>
+            <th class="text-center">연결날짜</th>
+            <th class="text-center">계산서 승인번호</th>
+            <th class="text-center">계산서 비고</th>
+        </tr>
+       </thead>
+       
+       <tbody> 	                         
+     	</tbody>
+   
+   </table>
  <script>
 	    <!--//리스트 table-->
 		$(document).ready(function(){
@@ -149,16 +136,16 @@
 								for(var i = 0; i < data.length; i++){
 									tableHtml += "<tr>"
 									if(data[i].bacNo != null && data[i].bacNo != ''){
-										tableHtml += "<td style='text-align:center;vertical-align:middle;'>"+data[i].bacNo+"</td><td style='text-align:center;vertical-align:middle;'>"
+										tableHtml += "<td style='text-align:center;vertical-align:middle;'>"+data[i].bacNo+"</td><td style='text-align:center;vertical-align:middle;white-space: break-spaces;'>"
 									}else if(data[i].bacNo == null || data[i].bacNo == ''){
 										tableHtml += "<td style='text-align:center;vertical-align:middle;'>미연결</td><td style='text-align:center;vertical-align:middle;'>"
 									}
 									if(data[i].vatProductName != null && data[i].vatProductName != ''){
-										tableHtml += ""+data[i].vatProductName+"</td><td style='text-align:right;vertical-align:middle;'>"
+										tableHtml += ""+data[i].vatProductName+"</td><td style='text-align:right;vertical-align:middle;white-space: break-spaces;'>"
 									}else if(data[i].vatProductName == null || data[i].vatProductName == ''){
-										tableHtml += "</td><td style='text-align:right;vertical-align:middle;'>"
+										tableHtml += "</td><td style='text-align:right;vertical-align:middle;white-space: break-spaces;'>"
 									}
-									tableHtml += ""+data[i].modal_receive_data.toLocaleString("en-US")+"</td><td style='text-align:right;vertical-align:middle;'>"
+									tableHtml += ""+data[i].modal_receive_data.toLocaleString("en-US")+"</td><td style='text-align:right;vertical-align:middle;white-space: break-spaces;'>"
 								 	+ ""+data[i].modal_vatmemo+"</td><td style='text-align:right;vertical-align:middle;'>"
 								 	if(data[i].regDate != null && data[i].regDate != ''){
 								 		tableHtml += ""+data[i].regDate+"</td><td style='text-align:center;vertical-align:middle;'>"

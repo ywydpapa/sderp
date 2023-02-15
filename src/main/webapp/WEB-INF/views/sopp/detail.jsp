@@ -240,7 +240,7 @@
 									</div>
 									<div class="btn_wr text-right mt-3" id="tab01_bottom">
 										<button class="btn btn-md btn-success f-left" onClick="javascript:location='${path}/sopp/list.do'">목록</button>
-										<c:if test="${dto.userNo eq sessionScope.userNo && dto.soppStatus < 10182 && dto.cntrctMth ne 10248 || dto.secondUserNo eq sessionScope.userNo}">
+										<c:if test="${(dto.userNo eq sessionScope.userNo || dto.secondUserNo eq sessionScope.userNo) && dto.soppStatus < 10182 && dto.cntrctMth ne 10248}">
 											<button class="btn btn-md btn-danger" onClick="fn_Contreq()">계약요청</button>
 											<button class="btn btn-md btn-danger" onClick="fn_Contfail()">계약실패</button>
 										</c:if>

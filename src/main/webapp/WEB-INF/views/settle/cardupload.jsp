@@ -24,7 +24,6 @@
 	#cardTable > tbody > tr > td{
 		text-align: center;
 	}
-	
 </style>
 
 <div id="main_content">
@@ -514,7 +513,7 @@
 	            	var appContents = $(".appContents")[i];
 	            	var cardSerial = $(".cardSerial")[i];
 	            	if($(cardSerial).text().indexOf("****-6093") > -1){
-	            		cardSerial = "826093";
+	            		cardSerial = "386093";
 	            		cardDisNum = cardSerial;
 	            	}else if($(cardSerial).text().indexOf("****-0907") > -1){
 	            		cardSerial = "820907";
@@ -592,7 +591,7 @@
 	                    /* cardData.appTime = $Harr[i].innerText; */
 	                    randomStr = generateRandomString(1);	   
 	                    if($($cardSerial[i]).text().indexOf("****-6093") > -1){
-		                    cardData.cardSerial = randomStr + "826093";
+		                    cardData.cardSerial = randomStr + "386093";
 		            	}else if($($cardSerial[i]).text().indexOf("****-0907") > -1){
 		            		cardData.cardSerial = randomStr + "820907";
 		            	}else{

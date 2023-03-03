@@ -245,6 +245,10 @@ public class AccountDTO {
     private BigDecimal maintenance_sum;
     private int settleYear;
     private int settleMon;
-    
+    private int firstLimit;
+    private int lastLimit;
+    private String regDateFrom;
+    private String regDateTo;
+    private String linkRegDate;
 }
 

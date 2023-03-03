@@ -1,8 +1,10 @@
 package kr.swcore.sderp.account;
 
 import kr.swcore.sderp.account.dto.AccountDTO;
+
 import kr.swcore.sderp.account.service.AccountService;
 import kr.swcore.sderp.code.service.CodeService;
+import kr.swcore.sderp.cust.dto.CustDTO;
 import kr.swcore.sderp.cust.service.CustService;
 import kr.swcore.sderp.util.SessionInfoGet;
 
@@ -17,10 +19,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -37,7 +42,7 @@ public class AccountController {
     
     @Inject
     CustService custService;
-
+    
     @RequestMapping("vatlist.do")
     public ModelAndView vatList(HttpSession session, ModelAndView mav, 
     							@RequestParam(value = "vatSellerCustNo", required = false) Integer vatSellerCustNo,
@@ -484,8 +489,33 @@ public class AccountController {
     
     @RequestMapping("check_connect.do")
     public ModelAndView check_connect(HttpSession session, ModelAndView mav) {
+//    	AccountDTO dto = new AccountDTO();
+//    	Integer compNo = SessionInfoGet.getCompNo(session);
+//    	dto.setCompNo(compNo);
+//    	mav.addObject("list", accountService.check_link_vatandbac(dto));
+    	mav.addObject("listCust", custService.listCust(session));
         mav.setViewName("settle/check_connect");
         return mav;
+    }
+    
+    @ResponseBody
+    @RequestMapping("check_connect_json.do")
+    public Map<String, Object> check_connect_json(HttpSession session, HttpServletRequest request, @ModelAttribute AccountDTO dto) {
+    	int firstLimit = 0;
+    	int pageLength = 0;
+    	firstLimit = Integer.parseInt(request.getParameter("start"));
+    	pageLength = Integer.parseInt(request.getParameter("length"));
+    	Integer compNo = SessionInfoGet.getCompNo(session);
+    	dto.setCompNo(compNo);
+    	dto.setFirstLimit(firstLimit);
+    	dto.setLastLimit(pageLength);
+    	List<AccountDTO> list = accountService.check_link_vatandbac(dto);
+    	AccountDTO listLength = accountService.check_link_vatandbacCnt(dto);
+    	Map<String, Object> mapList = new HashMap<String, Object>();
+    	mapList.put("data", list);
+    	mapList.put("recordsTotal", listLength.getResultCount());
+    	mapList.put("recordsFiltered", listLength.getResultCount());
+        return mapList;
     }
     
     @RequestMapping("cardDetail.do")
@@ -1385,5 +1415,12 @@ public class AccountController {
             param.put("code", "20001");
         }
         return ResponseEntity.ok(param);
+    }
+    
+    @ResponseBody
+    @RequestMapping("getCustList.do")
+    public List<CustDTO> getCustList(HttpSession session){
+    	List<CustDTO> list = custService.listCust(session);
+    	return list;
     }
 }

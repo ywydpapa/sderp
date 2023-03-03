@@ -85,7 +85,7 @@
 			    		<td style='text-align: right;'><fmt:formatNumber value="${row.productAmount}" pattern="#,###" /></td>
 			    		<td style="text-align: right;"><fmt:formatNumber value="${row.productVat}" pattern="#,###" /></td>
 			    		<td style='text-align: right;'><fmt:formatNumber value="${row.productTotal}" pattern="#,###" /></td>
-			    		<td></td>
+			    		<td>${row.productRemark}</td>
 			    	</tr>
 			    </c:forEach>
 			    <tr>

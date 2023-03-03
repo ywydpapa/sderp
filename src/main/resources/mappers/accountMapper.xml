@@ -1146,12 +1146,31 @@ attrib) values (#{vatId},
 		where baclogId = #{baclogId}
 	</update>
 	<select id="check_link_vatandbac" resultType="accountDto">
-		SELECT d.bacNo, a.vatProductName, a.modal_receive_data, a.modal_vatmemo, b.regDate, a.vatSerial, a.vatRemark
-		FROM swc_vat a
-		LEFT JOIN swc_bacledger_detail b ON a.vatSerial = b.linkDocno
-		LEFT JOIN swc_bacledger c ON b.baclogId = c.baclogId
-		LEFT JOIN swc_bac d ON c.bacSerial = d.bacSerial
-		where a.compNo = #{compNo} order by d.bacNo desc limit #{betFirstNum}, #{betLastNum};
+		SELECT a.*, d.bacNo, b.regDate as linkRegDate, (select custName from swcore.swc_cust where case a.vatType when 'B' then a.vatSellerCustNo = custNo else a.vatBuyerCustNo = custNo end) as custName
+		FROM swcore.swc_vat a
+		LEFT JOIN swcore.swc_bacledger_detail b ON a.vatSerial = b.linkDocno
+		LEFT JOIN swcore.swc_bacledger c ON b.baclogId = c.baclogId
+		LEFT JOIN swcore.swc_bac d ON c.bacSerial = d.bacSerial
+		where a.compNo = #{compNo} and b.regDate is not NULL
+		<if test="bacNo != null and bacNo != ''">
+			and d.bacNo like concat('%', #{bacNo}, '%')
+		</if>
+		<if test="custNo != null and custNo != ''">
+			and (a.vatBuyerCustNo = #{custNo} or a.vatSellerCustNo = #{custNo})
+		</if>
+		<if test="vatProductName != null and vatProductName != ''">
+			and a.vatProductName like concat('%', #{vatProductName}, '%')
+		</if>
+		<if test="regDateFrom != null and regDateFrom != ''">
+			and b.regDate BETWEEN #{regDateFrom} and #{regDateTo}
+		</if>
+		<if test="vatSerial != null and vatSerial != ''">
+			and a.vatSerial like concat('%', #{vatSerial}, '%')
+		</if>
+		<if test="vatRemark != null and vatRemark != ''">
+			and a.vatRemark like concat('%', #{vatRemark}, '%')
+		</if>
+		order by d.bacNo desc limit #{firstLimit}, #{lastLimit};
 	</select>
 	<select id="check_link_vatandbacCnt" resultType="accountDto">
 		SELECT count(*) as resultCount
@@ -1159,7 +1178,25 @@ attrib) values (#{vatId},
 		LEFT JOIN swc_bacledger_detail b ON a.vatSerial = b.linkDocno
 		LEFT JOIN swc_bacledger c ON b.baclogId = c.baclogId
 		LEFT JOIN swc_bac d ON c.bacSerial = d.bacSerial
-		where a.compNo = #{compNo};
+		where a.compNo = #{compNo} and b.regDate is not NULL
+		<if test="bacNo != null and bacNo != ''">
+			and d.bacNo like concat('%', #{bacNo}, '%')
+		</if>
+		<if test="custNo != null and custNo != ''">
+			and (a.vatBuyerCustNo = #{custNo} or a.vatSellerCustNo = #{custNo})
+		</if>
+		<if test="vatProductName != null and vatProductName != ''">
+			and a.vatProductName like concat('%', #{vatProductName}, '%')
+		</if>
+		<if test="regDateFrom != null and regDateFrom != ''">
+			and b.regDate BETWEEN #{regDateFrom} and #{regDateTo}
+		</if>
+		<if test="vatSerial != null and vatSerial != ''">
+			and a.vatSerial like concat('%', #{vatSerial}, '%')
+		</if>
+		<if test="vatRemark != null and vatRemark != ''">
+			and a.vatRemark like concat('%', #{vatRemark}, '%')
+		</if>
 	</select>
 	<select id="check_remain_money_from_swc_vat" resultType="accountDto">
 		SELECT * FROM swc_vat 

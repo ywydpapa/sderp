@@ -255,11 +255,17 @@
 								</tr>
 								<tr>
 									<th scope="row">모델</th>
-									<td><input type="text" class="form-control form-control-sm"
-										id="techdItemmodel" name="techdItemmodel" placeholder=""></td>
+									<td colspan="7">
+										<input type="text" class="form-control form-control-sm"	id="techdItemmodel" name="techdItemmodel" placeholder="" value="${dto.techdItemmodel}">
+									</td>
+								</tr>
+								<tr>
 									<th>버전</th>
-									<td><input type="text" class="form-control form-control-sm"
-										id="techdItemversion" name="techdItemversion" placeholder=""></td>
+									<td colspan="7">
+										<input type="text" class="form-control form-control-sm"	id="techdItemversion" name="techdItemversion" placeholder="" value="${dto.techdItemversion}">
+									</td>
+								</tr>
+								<tr>
 									<th scope="row">장소</th>
 									<td><input type="text" class="form-control form-control-sm" id="techdPlace" name="techdPlace" placeholder=""></td>
 									<th scope="row" class="requiredTextCss">담당사원</th>

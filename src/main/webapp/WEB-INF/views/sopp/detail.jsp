@@ -38,7 +38,7 @@
 				<!-- Nav tabs -->
 				<ul class="nav nav-tabs  tabs" role="tablist" id="tablist">
 					<li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#tab01" role="tab">기본정보</a></li>
-					<c:if test="${sessionScope.userNo eq  dto.userNo || sessionScope.userRole eq 'ADMIN'}">
+					<c:if test="${sessionScope.userNo eq  dto.userNo || sessionScope.userNo eq dto.secondUserNo || sessionScope.userRole eq 'ADMIN'}">
 						<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#tab02" role="tab" id="dataType01_tab02">매입매출 내역(${fn:length(dtodata01)})</a></li>
 					</c:if>
 					<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#tab03" role="tab" id="dataType01_tab03">견적 내역(${fn:length(estList)})</a></li>

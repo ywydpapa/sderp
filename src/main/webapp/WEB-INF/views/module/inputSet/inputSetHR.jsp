@@ -29,11 +29,11 @@
             <tr class="item1">
                 <td><select class="form-control form-control-sm" id="hrType" style="min-width: 80px;">
                     <option value="">선택</option>
-                    <option value="1">월차</option>
-                    <option value="2">연차</option>
-                    <option value="3">연장근무</option>
-                    <option value="4">휴일근무</option>
-                    <option value="5">경조휴가</option>
+                    <option value="1" <c:if test="${list.attType eq 1}">selected</c:if>>월차</option>
+                    <option value="2" <c:if test="${list.attType eq 2}">selected</c:if>>연차</option>
+                    <option value="3" <c:if test="${list.attType eq 3}">selected</c:if>>연장근무</option>
+                    <option value="4" <c:if test="${list.attType eq 4}">selected</c:if>>휴일근무</option>
+                    <option value="5" <c:if test="${list.attType eq 5}">selected</c:if>>경조휴가</option>
                 </select></td>
                 <td class="text-center">
                 	<div style="width:100%">
@@ -61,13 +61,23 @@
             </tr>
             <tr>
             	<td colspan="4">
-	            	<textarea rows="5" id="hrDesc" class="form-control form-control-sm" placeholder="추가기재사항을 입력해주세요."></textarea>
+	            	<textarea rows="5" id="hrDesc" class="form-control form-control-sm" placeholder="추가기재사항을 입력해주세요.">${list.attDesc}</textarea>
             	</td>
             </tr>
         </tbody>
     </table>
 </form>
-
+<%-- <tbody>
+	    	<tr>
+	            <td class="text-center" id='hrType'><c:if test="${list.attType eq 1}">월차</c:if><c:if test="${list.attType eq 2}">연차</c:if><c:if test="${list.attType eq 3}">연장근무</c:if><c:if test="${list.attType eq 4}">휴일근무</c:if><c:if test="${list.attType eq 5}">경조휴가</c:if></td>
+                <td class="text-center" id='hrUser'>${list.userName}</td>
+                <td class="text-center" id='hrStart'>${list.attStart}</td>
+	            <td class="text-center" id='hrEnd'>${list.attEnd}</td>
+	            <td class="text-center" id='hrDesc'>${list.attDesc}</td>
+	    	</tr>
+    </tbody>
+</table>
+<input type="hidden" id="attendId" value="${list.attendId}"> --%>
 <script>
     var dataArray = [];
     var dataIndex = 0;
@@ -162,11 +172,45 @@
 	});
     
     $(document).ready(function(){
-        var d= new Date();
-        var today = new Date(d.getTime() - (d.getTimezoneOffset() * 60000)).toISOString();
-        $("#hrFrom").val(today.substr(0,10));
-        $("#hrTo").val(today.substr(0,10));
-        $("#hrFromTm").val("09:00");
-        $("#hrToTm").val("18:00");
+    	let detailList = "${list}";
+    	let attStart = "${list.attStart}";
+    	let attEnd = "${list.attEnd}";
+    	let attStatus = "${list.attStatus}";
+    	let addquty = $("#addquty");
+    	let date, d, today;
+    	
+    	if(detailList !== ""){
+    		date = new Date(attStart);
+    		$("#hrFrom").val(date.getFullYear() + "-" + (date.getMonth()+1).toString().padStart(2, "0") + "-" + date.getDate().toString().padStart(2, "0"));
+	        $("#hrFromTm").val(date.getHours().toString().padStart(2, "0") + ":" + date.getMinutes().toString().padStart(2, "0"));
+    		
+    		date = new Date(attEnd);
+    		$("#hrTo").val(date.getFullYear() + "-" + (date.getMonth()+1).toString().padStart(2, "0") + "-" + date.getDate().toString().padStart(2, "0"));
+	        $("#hrToTm").val(date.getHours().toString().padStart(2, "0") + ":" + date.getMinutes().toString().padStart(2, "0"));
+
+	        setTimeout(() => {
+	    		dataSave();
+	    		
+		    	if(attStatus == 5){
+		    		$("#HRAddbtn").attr("disabled", true);
+		    		$("#dataDelBtn").attr("disabled", true);
+		    	}else{
+		    		$("#HRAddbtn").attr("disabled", false);
+		    		$("#dataDelBtn").attr("disabled", false);
+		    	}
+	    	}, 600);
+	        
+    	}else {
+	    	d = new Date();
+    		today = new Date(d.getTime() - (d.getTimezoneOffset() * 60000)).toISOString();
+	        $("#hrFrom").val(today.substr(0,10));
+	        $("#hrFromTm").val("09:00");
+    		
+    		d = new Date();
+    		today = new Date(d.getTime() - (d.getTimezoneOffset() * 60000)).toISOString();
+	        $("#hrTo").val(today.substr(0,10));
+	        $("#hrToTm").val("18:00");
+    	}
+    	
     });
 </script>

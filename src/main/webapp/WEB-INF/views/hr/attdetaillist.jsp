@@ -32,6 +32,10 @@
 </table>
 <br/>
 <script>
+	function dataCheck(){
+		
+	}
+	
     function fn_data02modify(e) {
         if($(e).html() == "수정"){
             if($("#data02Modbtn").is(':visible') == true){

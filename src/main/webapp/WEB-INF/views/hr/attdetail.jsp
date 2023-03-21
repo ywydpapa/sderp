@@ -34,7 +34,9 @@
                         <input type="hidden" id="compNo" value="${sessionScope.compNo}" />
                         <input type="hidden" id="userNo" value="${sessionScope.userNo}" />
                         <div class="table-responsive" style="overflow-x: hidden;">
-                            <jsp:include page="/WEB-INF/views/hr/attdetaillist2.jsp"/>
+                        	<jsp:include page="/WEB-INF/views/module/inputSet/inputSetHR.jsp"/>
+                            <jsp:include page="/WEB-INF/views/hr/attdetaillist.jsp"/>
+                            <%-- <jsp:include page="/WEB-INF/views/hr/attdetaillist2.jsp"/> --%>
                         </div>
                     </div>
                 </div>
@@ -43,10 +45,13 @@
     </div>
     <div class="btn_wr text-right mt-3">
         <button class="btn btn-md btn-success f-left" onClick="javascript:location='${path}/gw/attlist.do'">근태목록</button>
-<c:if test="${list.attStatus eq 1}">
-        <button class="btn btn-md btn-primary" onClick="fn_AttRtn()">근태반려</button>
-        <button class="btn btn-md btn-primary" onClick="fn_AttApp()">근태승인</button>
-</c:if>
+		<c:if test="${list.attStatus eq 1 && sessionScope.docRole eq 'S'}">
+        	<button class="btn btn-md btn-primary" onClick="fn_AttRtn()">근태반려</button>
+        	<button class="btn btn-md btn-primary" onClick="fn_AttApp()">근태승인</button>
+		</c:if>
+		<c:if test="${list.attStatus eq 3}">
+			<button class="btn btn-md btn-primary" onClick="fn_AttInsert()">근태수정</button>
+		</c:if>
         <button class="btn btn-md btn-inverse" onClick="javascript:location='${path}/gw/attlist.do'">취소</button>
     </div>
     <!--//계약등록-->

@@ -49,7 +49,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		LEFT JOIN swc_bacledger e ON e.baclogId = d.baclogId
 		WHERE a.compNo = #{compNo} AND a.custCompNo != #{compNo}
 		<if test="vatSellerCustNo != null and vatSellerCustNo != ''">
-			and c.vatSellerCustNo = #{vatSellerCustNo}
+			and a.custNo = #{vatSellerCustNo}
 		</if>
 		GROUP BY a.custNo
 	</select>
@@ -80,7 +80,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		LEFT JOIN swc_bacledger e ON e.baclogId = d.baclogId
 		WHERE a.compNo = #{compNo} AND a.custCompNo != #{compNo}
 		<if test="vatBuyerCustNo != null and vatBuyerCustNo != ''">
-			and c.vatBuyerCustNo = #{vatBuyerCustNo}
+			and a.custNo = #{vatBuyerCustNo}
 		</if>
 		GROUP BY a.custNo
 	</select>
@@ -941,6 +941,10 @@ attrib) values (#{vatId},
 
 	<update id="updVatStatus">
 		update swc_vat set vatStatus = #{vatStatus} where vatSerial = #{vatSerial} and compNo = #{compNo} and attrib not like 'XXX%';
+	</update>
+	
+	<update id="vatDeductionUpdate">
+		update swc_vat set vatDeduction = #{vatDeduction} where vatId = #{vatId} and compNo = #{compNo} and attrib not like 'XXX%';
 	</update>
 	
 	<update id="lastUpdate">

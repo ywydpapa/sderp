@@ -175,10 +175,10 @@
                     	</table>
                         <table id="vatTableS" class="table table-striped table-bordered nowrap ">
                             <colgroup>
-                                <col width="10%"/>
+                                <col width="8%"/>
                                 <col width="12%"/>
                                 <col width="7%"/>
-                                <col width="10%"/>
+                                <col width="8%"/>
                                 <col width="5%"/>
                                 <col width="5%"/>
                                 <col width="5%"/>
@@ -186,6 +186,7 @@
                                 <col width="15%"/>
                                 <col width="15%"/>
                                 <col width="15%"/>
+                                <col width="4%"/>
                             </colgroup>
                             <thead>
                             <tr>
@@ -203,6 +204,7 @@
                                 <th class="text-center">품목</th>
                                 <th class="text-center">규격</th>
                                 <th class="text-center">비고</th>
+                                <th class="text-center">공제여부결정</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -243,6 +245,12 @@
 	                                    </c:choose>
 	                                    <td style="white-space:normal;">${vlist.vatStandard}</td>
                                    		<td style="white-space:normal;">${vlist.vatRemark}</td>
+                                   		<td class="text-center">
+		                               		<select id="vatDeduction" data-id="${vlist.vatId}" onchange="vatDeductionUpdate(this);">
+	                               				<option value="Y" <c:if test="${vlist.vatDeduction eq 'Y'}">selected</c:if>>공제</option>
+	                               				<option value="N" <c:if test="${vlist.vatDeduction eq 'N'}">selected</c:if>>불공제</option>
+	                               			</select>
+	                               		</td>
 	                                </tr>
 	                            </c:forEach>
                             </tbody>

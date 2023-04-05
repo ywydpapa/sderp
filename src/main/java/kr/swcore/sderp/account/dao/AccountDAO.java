@@ -38,6 +38,7 @@ public interface AccountDAO {
 	AccountDTO bacSelectListCnt(AccountDTO dto);
 	AccountDTO listVatBCnt(AccountDTO dto);
 	List<AccountDTO> cardSelectList(AccountDTO dto);
+	int vatDeductionUpdate(AccountDTO dto);
 	int lastUpdate(AccountDTO dto);
 	int lastUpdateCard(AccountDTO dto);
 	int bacSerialUpdate(AccountDTO dto);

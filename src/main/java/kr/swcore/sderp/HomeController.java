@@ -119,7 +119,6 @@ public class HomeController {
 		pageDTO.setOffset(0);
 		mav.addObject("sopplist", soppService.listSopp(session, pageDTO));
 		mav.addObject("contlist", contService.listCont(session, pageDTO, null));
-		
 		mav.addObject("request_vat", accountService.request_vat(session));
 		mav.addObject("request_payment", accountService.request_payment(session));
 		mav.addObject("request_payment_boss", accountService.request_payment_boss(session));

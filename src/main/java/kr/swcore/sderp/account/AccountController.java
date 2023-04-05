@@ -323,6 +323,159 @@ public class AccountController {
         return mav;
     }
     
+    @RequestMapping("vatDeduction.do")
+    public ModelAndView vatDeduction(HttpSession session, ModelAndView mav, 
+            @RequestParam(value = "searchYear", required = false) Integer searchYear,
+            @RequestParam(value = "searchChoice", required = false) Integer searchChoice) {
+    	if(searchYear != null || searchChoice != null){
+    		AccountDTO dto = new AccountDTO();
+			
+    		if(searchYear == 0) {
+    			LocalDate now = LocalDate.now();
+    			int year = now.getYear();
+    			searchYear = year;
+    		}
+    		
+    		if(searchChoice == 0) {
+    			for(int i = 1; i <= 12; i++) {
+    				if(i < 10) {
+    					dto.setVatIssueDateFrom(searchYear + "-" + "0" + i + "-01");
+    					dto.setVatIssueDateTo(searchYear + "-" + "0" + i + "-31");
+    				}else {
+    					dto.setVatIssueDateFrom(searchYear + "-" + i + "-01");
+    					dto.setVatIssueDateTo(searchYear + "-" + i + "-31");
+    				}
+    				
+    				mav.addObject("vatListB" + i, accountService.listvatB(session, dto));
+    				mav.addObject("vatListS" + i, accountService.listvatS(session, dto));
+    			}
+    			
+    			dto.setVatIssueDateFrom(searchYear + "-01-01");
+    			dto.setVatIssueDateTo(searchYear + "-12-31");
+    			mav.addObject("vatListB", accountService.listvatB(session, dto));
+    			mav.addObject("vatListS", accountService.listvatS(session, dto));
+    		}else if(searchChoice == 3) {
+    			for(int i = 1; i <= 3; i++) {
+					dto.setVatIssueDateFrom(searchYear + "-" + "0" + i + "-01");
+					dto.setVatIssueDateTo(searchYear + "-" + "0" + i + "-31");
+    				mav.addObject("vatListB" + i, accountService.listvatB(session, dto));
+    				mav.addObject("vatListS" + i, accountService.listvatS(session, dto));
+    			}
+    			
+    			dto.setVatIssueDateFrom(searchYear + "-01-01");
+    			dto.setVatIssueDateTo(searchYear + "-03-31");
+    			mav.addObject("vatListB", accountService.listvatB(session, dto));
+    			mav.addObject("vatListS", accountService.listvatS(session, dto));
+    		}else if(searchChoice == 6) {
+    			for(int i = 4; i <= 6; i++) {
+					dto.setVatIssueDateFrom(searchYear + "-" + "0" + i + "-01");
+					dto.setVatIssueDateTo(searchYear + "-" + "0" + i + "-31");
+    				mav.addObject("vatListB" + i, accountService.listvatB(session, dto));
+    				mav.addObject("vatListS" + i, accountService.listvatS(session, dto));
+    			}
+    			
+    			dto.setVatIssueDateFrom(searchYear + "-04-01");
+    			dto.setVatIssueDateTo(searchYear + "-06-30");
+    			mav.addObject("vatListB", accountService.listvatB(session, dto));
+    			mav.addObject("vatListS", accountService.listvatS(session, dto));
+    		}else if(searchChoice == 9) {
+    			for(int i = 7; i <= 9; i++) {
+					dto.setVatIssueDateFrom(searchYear + "-" + "0" + i + "-01");
+					dto.setVatIssueDateTo(searchYear + "-" + "0" + i + "-31");
+    				mav.addObject("vatListB" + i, accountService.listvatB(session, dto));
+    				mav.addObject("vatListS" + i, accountService.listvatS(session, dto));
+    			}
+    			
+    			dto.setVatIssueDateFrom(searchYear + "-07-01");
+    			dto.setVatIssueDateTo(searchYear + "-09-30");
+    			mav.addObject("vatListB", accountService.listvatB(session, dto));
+    			mav.addObject("vatListS", accountService.listvatS(session, dto));
+    		}else if(searchChoice == 12) {
+    			for(int i = 10; i <= 12; i++) {
+					dto.setVatIssueDateFrom(searchYear + "-" + i + "-01");
+					dto.setVatIssueDateTo(searchYear + "-" + i + "-31");
+    				mav.addObject("vatListB" + i, accountService.listvatB(session, dto));
+    				mav.addObject("vatListS" + i, accountService.listvatS(session, dto));
+    			}
+    			
+    			dto.setVatIssueDateFrom(searchYear + "-10-01");
+    			dto.setVatIssueDateTo(searchYear + "-12-31");
+    			mav.addObject("vatListB", accountService.listvatB(session, dto));
+    			mav.addObject("vatListS", accountService.listvatS(session, dto));
+    		}else if(searchChoice == 1) {
+    			for(int i = 1; i <= 6; i++) {
+					dto.setVatIssueDateFrom(searchYear + "-" + "0" + i + "-01");
+					dto.setVatIssueDateTo(searchYear + "-" + "0" + i + "-31");
+    				mav.addObject("vatListB" + i, accountService.listvatB(session, dto));
+    				mav.addObject("vatListS" + i, accountService.listvatS(session, dto));
+    			}
+    			
+    			dto.setVatIssueDateFrom(searchYear + "-01-01");
+    			dto.setVatIssueDateTo(searchYear + "-06-30");
+    			mav.addObject("vatListB", accountService.listvatB(session, dto));
+    			mav.addObject("vatListS", accountService.listvatS(session, dto));
+    		}else if(searchChoice == 2) {
+    			for(int i = 7; i <= 12; i++) {
+    				if(i < 10) {
+    					dto.setVatIssueDateFrom(searchYear + "-" + "0" + i + "-01");
+    					dto.setVatIssueDateTo(searchYear + "-" + "0" + i + "-31");
+    				}else {
+    					dto.setVatIssueDateFrom(searchYear + "-" + i + "-01");
+    					dto.setVatIssueDateTo(searchYear + "-" + i + "-31");
+    				}
+    				
+    				mav.addObject("vatListB" + i, accountService.listvatB(session, dto));
+    				mav.addObject("vatListS" + i, accountService.listvatS(session, dto));
+    			}
+    			
+    			dto.setVatIssueDateFrom(searchYear + "-07-01");
+    			dto.setVatIssueDateTo(searchYear + "-12-31");
+    			mav.addObject("vatListB", accountService.listvatB(session, dto));
+    			mav.addObject("vatListS", accountService.listvatS(session, dto));
+    		}
+			
+		}else {
+			AccountDTO dto = new AccountDTO();
+			LocalDate now = LocalDate.now();
+			int year = now.getYear();
+			
+			for(int i = 1; i <= 12; i++) {
+				if(i < 10) {
+					dto.setVatIssueDateFrom(year + "-" + "0" + i + "-01");
+					dto.setVatIssueDateTo(year + "-" + "0" + i + "-31");
+				}else {
+					dto.setVatIssueDateFrom(year + "-" + i + "-01");
+					dto.setVatIssueDateTo(year + "-" + i + "-31");
+				}
+				
+				mav.addObject("vatListB" + i, accountService.listvatB(session, dto));
+				mav.addObject("vatListS" + i, accountService.listvatS(session, dto));
+			}
+			
+			dto.setVatIssueDateFrom(year + "-01-01");
+			dto.setVatIssueDateTo(year + "-12-31");
+			mav.addObject("vatListB", accountService.listvatB(session, dto));
+			mav.addObject("vatListS", accountService.listvatS(session, dto));
+		}
+    	mav.addObject("listCust", custService.listCust(session));
+        mav.setViewName("settle/vatDeduction");
+        return mav;
+    }
+    
+    @ResponseBody
+    @RequestMapping("vatDeductionUpdate.do")
+    public ResponseEntity<Object> vatDeductionUpdate(HttpSession session, @ModelAttribute AccountDTO dto){
+        Map<String,Object> param = new HashMap<>();
+        int bacIns = accountService.vatDeductionUpdate(dto);
+        if(bacIns > 0){
+            param.put("code","10001");
+        }
+        else {
+            param.put("code", "20001");
+        }
+        return ResponseEntity.ok(param);
+    }
+    
     @RequestMapping("vatlistB.do")
     public ModelAndView vatListB(HttpSession session, ModelAndView mav, 
             @RequestParam(value = "vatSellerCustNo", required = false) Integer vatSellerCustNo,

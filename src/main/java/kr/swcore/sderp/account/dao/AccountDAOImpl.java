@@ -771,5 +771,10 @@ public class AccountDAOImpl implements AccountDAO {
 		// TODO Auto-generated method stub
 		return sqlSession.update("account.crCustUpdate", dto);
 	}
+
+	@Override
+	public int vatDeductionUpdate(AccountDTO dto) {
+		return sqlSession.update("account.vatDeductionUpdate", dto);
+	}
 	
 }

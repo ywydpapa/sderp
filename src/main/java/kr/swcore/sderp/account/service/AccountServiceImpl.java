@@ -847,4 +847,9 @@ public class AccountServiceImpl implements AccountService {
 		// TODO Auto-generated method stub
 		return accountDAO.crCustUpdate(dto);
 	}
+
+	@Override
+	public int vatDeductionUpdate(AccountDTO dto) {
+		return accountDAO.vatDeductionUpdate(dto);
+	}
 }

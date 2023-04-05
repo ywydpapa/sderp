@@ -152,6 +152,7 @@
                                                 <span class="pcoded-mcaret"></span>
                                             </a>
                                         </li>
+                                        
                                         <li class="pcoded-hasmenu">
                                             <a href="${path}/acc/vatupload.do">
                                                 <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
@@ -189,7 +190,24 @@
                                     	</li>
                                     </ul>
                                  </li>
+	                             <li class="pcoded-hasmenu pcoded <c:if test="${path2 eq '/acc/vatDeduction.do'}">pcoded-trigger</c:if>">
+                                    <a href="javascript:void(0)">
+                                        <span class="pcoded-micon"><i class="ti-stats-up"></i></span>
+                                        <span class="pcoded-mtext"  data-i18n="nav.basic-components.main">부가가치세</span>
+                                        <span class="pcoded-mcaret"></span>
+                                    </a>
+                                   	<ul class="pcoded-submenu">
+                                        <li class="pcoded-hasmenu ">
+                                            <a href="${path}/acc/vatDeduction.do">
+                                                <span class="pcoded-micon"><i class="ti-direction-alt"></i></span>
+                                                <span class="pcoded-mtext" data-i18n="nav.menu-levels.menu-level-21">부가가치세</span>
+                                                <span class="pcoded-mcaret"></span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                 </li>
                             </ul>
+                            
                          
                          <div class="pcoded-navigatio-lavel" data-i18n="nav.category.other">설정</div>
                             <ul class="pcoded-item pcoded-left-item">

@@ -151,13 +151,13 @@
 					<div class="card-header">
 						<div style="display: inline-block;">
 							<h5>연간 계획대비 실적</h5>
-							<span style="vertical-align: bottom;">2022년</span>
+							<span style="vertical-align: bottom;">2023년</span>
 						</div>
 						<!-- <div class="card-header-right">
 							<i class="icofont icofont-spinner-alt-5"></i>
 						</div> -->
 						<select class="custom-select mr-sm-2" name="graph1TargetYear" id="graph1TargetYear" style="float:right;">
-							<option value = "2022" <c:if test="${graph1.targetYear == 2022}">selected</c:if> >2022</option>
+							<option value = "2023" <c:if test="${graph1.targetYear == 2023}">selected</c:if> >2023</option>
 						</select>
 						<select class="custom-select mr-sm-2" name="graph1TargetDepartment" id="graph1TargetDepartment" style="float:right;">
 							<option value = "all" selected>전체</option>
@@ -190,7 +190,7 @@
 							<option value = "12" <c:if test="${graph2.targetMonth == 12}">selected</c:if> >12</option>
 						</select>
 						<select class="custom-select mr-sm-1" name="graph2TargetYear" id="graph2TargetYear" style="float:right;">
-							<option value = "2022" <c:if test="${graph2.targetYear == 2022}">selected</c:if> >2022</option>
+							<option value = "2023" <c:if test="${graph2.targetYear == 2023}">selected</c:if> >2023</option>
 						</select>
 						<select class="custom-select mr-sm-1" name="graph2TargetDepartment" id="graph2TargetDepartment" style="float:right;">
 							<option value = "all" selected>전체</option>
@@ -202,7 +202,7 @@
 						</select>
 						<div style="display: inline-block;">
 							<h5>월 계획대비 실적</h5>
-							<span style="vertical-align: bottom;" id="graph2TargetMiniTitle">2022년 <%=monthStr%>월</span>
+							<span style="vertical-align: bottom;" id="graph2TargetMiniTitle">2023년 <%=monthStr%>월</span>
 						</div>
 						<!-- <div class="card-header-right">
 							<i class="icofont icofont-spinner-alt-5"></i>
@@ -236,7 +236,7 @@
 				<div class="card">
 					<div class="card-header">
 						<select class="custom-select mr-sm-1" name="graph3TargetYear" id="graph3TargetYear" style="float:right;">
-							<option value = "2022" <c:if test="${graph3.targetYear == 2022}">selected</c:if> >2022</option>
+							<option value = "2023" <c:if test="${graph3.targetYear == 2023}">selected</c:if> >2023</option>
 						</select>
 						<select class="custom-select mr-sm-1" name="graph3TargetDepartment" id="graph3TargetDepartment" style="float:right;">
 							<option value = "all" selected>전체</option>
@@ -247,7 +247,7 @@
 						</select>
 						<div style="display: inline-block;">
 							<h5>누적 계획대비 실적</h5>
-							<span style="vertical-align: bottom;" id="graph3TargetMiniTitle">2022년</span>
+							<span style="vertical-align: bottom;" id="graph3TargetMiniTitle">2023년</span>
 						</div>
 						<!-- <div class="card-header-right">
 							<i class="icofont icofont-spinner-alt-5"></i>
@@ -281,7 +281,7 @@
 				<div class="card">
 					<div class="card-header">
 						<select class="custom-select mr-sm-1" name="graph4TargetYear" id="graph4TargetYear" style="float:right;">
-							<option value = "2022" <c:if test="${graph4.targetYear == 2022}">selected</c:if> >2022</option>
+							<option value = "2023" <c:if test="${graph4.targetYear == 2023}">selected</c:if> >2023</option>
 						</select>
 						<select class="custom-select mr-sm-1" name="graph4TargetDepartment" id="graph4TargetDepartment" style="float:right;">
 							<option value = "all" selected>전체</option>
@@ -292,7 +292,7 @@
 						</select>
 						<div style="display: inline-block;">
 							<h5>누적 판매방식별 실적</h5>
-							<span style="vertical-align: bottom;" id="graph4TargetMiniTitle">2022년</span>
+							<span style="vertical-align: bottom;" id="graph4TargetMiniTitle">2023년</span>
 						</div>
 					</div>
 					<div class="card-block">
@@ -1382,9 +1382,7 @@
 					myChart1.setOption(option1);
 					globaloption1 = option1;
 					// 위에서 설정한 속성을 차트에 반영합니다.
-
 					// 2번째 그래프 ===================================================
-
 					var myChartGauge2 = echarts.init(document.getElementById('myChart02'));
 					globalmyChartGauge2 = myChartGauge2;
 					var option2 = {

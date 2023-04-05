@@ -712,6 +712,26 @@
 		  return result;
 	}
 	
+	function vatDeductionUpdate(thisEle){
+		var datas = {};
+		var compNo = "${sessionScope.compNo}";
+		var vatId = $(thisEle).data("id");
+		var vatDeduction = $(thisEle).val();
+		
+		datas.compNo = compNo;
+		datas.vatId = vatId;
+		datas.vatDeduction = vatDeduction;
+		
+		console.log(datas);
+		
+		$.ajax({
+			url: "${path}/acc/vatDeductionUpdate.do",
+			method: "post",
+			data: datas,
+			dataType: "json",
+		});
+	}
+	
 	$(document).ready(function(){
 		timeAllimUpdate();
 		setTiny();

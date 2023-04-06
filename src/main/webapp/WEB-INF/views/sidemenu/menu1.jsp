@@ -183,7 +183,7 @@
 						<span class="pcoded-mcaret"></span>
 					</a>
 				</li>
-				<li class="pcoded-hasmenu">
+				<%-- <li class="pcoded-hasmenu">
 					<a href="${path}/pps/ppsStatusList.do">
 						<span class="pcoded-micon">
 							<i class="ti-angle-right"></i>
@@ -191,7 +191,7 @@
 						<span class="pcoded-mtext" data-i18n="nav.menu-levels.menu-level-22">조달 진행 상황</span>
 						<span class="pcoded-mcaret"></span>
 					</a>
-				</li>
+				</li> --%>
 				<li class="pcoded-hasmenu">
 					<a href="${path}/pps/mppsStatusList.do">
 						<span class="pcoded-micon">

@@ -22,9 +22,36 @@
 	#vatTable tbody tr td{
 		vertical-align: middle;
 	}
+	
+	input[type="date"]{
+		width:100%;
+	}
+	
+	input[type="date"]::before {
+		content:attr(data-placeholder);
+		width:100%;
+	}
+	
+	input[type="date"]:focus::before,
+	input[type="date"]:valid::before {
+		display:none;
+	}
 </style>
 
 <div id="main_content">
+	<script>
+		$(function(){
+			$('#vatTable').DataTable({
+				"info":false,
+				"searching": true,
+				"order": [[ 0, "desc" ]],
+				"scrollX": true,
+				"lengthChange" : true, 
+                "lengthMenu" : [10, 20, 30, 40, 50, 100],
+                "pageLength": 100,
+			});
+		});
+	</script>
     <c:if test="${preserveSearchCondition != 'Y'}">
         <div class="page-header2">
             <div class="row align-items-end">
@@ -223,20 +250,20 @@
 	                                    <td class="text-center " id="buyerName">${vlist.buyerName}</td>
 	                                    <td class="text-center " id="contractDate">${vlist.contractDate}</td>
 	                                    <td class="text-center " id="deliveryDate">${vlist.deliveryDate}</td>
-	                                    <td class="text-center " id="reqNo">${vlist.reqNo}</td>
+	                                    <td class="text-center " id="reqNo">${vlist.reqItem}</td>
 	                                    <td class="text-center " id="itemQty">${vlist.itemQty}</td>
 	                                    <td class="text-right moneyTdHtml" id="itemAmount">${vlist.itemAmount}</td>
 	                                    <td><input type="text" id="storeAmount" onkeyup="moneyFormatInput(this);" style="border: 0px;text-align: right" value="<fmt:formatNumber type="number" maxFractionDigits="3" value="${vlist.storeAmount}" />" /></td>
 	                                    <td class="text-right "><input type="text" onkeyup="moneyFormatInput(this);" id="ordAmount" style="border: 0px;text-align: right" value="<fmt:formatNumber type="number" maxFractionDigits="3" value="${vlist.ordAmount}" />" /></td>
 	                                    <td class="text-center "><input type="text" id="makerName" style="border: 0px;text-align: center" value="${vlist.makerName}" /></td>
 	                                    <td class="text-center "><input type="text" id="sellerName" style="border: 0px;text-align: center" value="${vlist.sellerName}" /></td>
-	                                    <td class="text-center "><input type="date" id="ordDate" value="${vlist.ordDate}" /></td>
-	                                    <td class="text-center "><input type="date" id="confDate" value="${vlist.confDate}" /></td>
-	                                    <td class="text-center "><input type="date" id="vatDate" value="${vlist.vatDate}" /></td>
-	                                    <td class="text-center "><input type="date" id="billingDate" value="${vlist.billingDate}" /></td>
-	                                    <td class="text-center "><input type="date" id="ppsincomeDate" value="${vlist.ppsincomeDate}" /></td>
-	                                    <td class="text-center "><input type="date" id="storeDate" value="${vlist.storeDate}" /></td>
-	                                    <td class="text-center "><input type="date" id="payDate" value="${vlist.payDate}"  /></td>
+	                                    <td class="text-center "><input type="date" id="ordDate" value="${vlist.ordDate}" data-placeholder="" required/></td>
+	                                    <td class="text-center "><input type="date" id="confDate" value="${vlist.confDate}" data-placeholder="" required/></td>
+	                                    <td class="text-center "><input type="date" id="vatDate" value="${vlist.vatDate}" data-placeholder="" required/></td>
+	                                    <td class="text-center "><input type="date" id="billingDate" value="${vlist.billingDate}" data-placeholder="" required/></td>
+	                                    <td class="text-center "><input type="date" id="ppsincomeDate" value="${vlist.ppsincomeDate}" data-placeholder="" required/></td>
+	                                    <td class="text-center "><input type="date" id="storeDate" value="${vlist.storeDate}" data-placeholder="" required/></td>
+	                                    <td class="text-center "><input type="date" id="payDate" value="${vlist.payDate}" data-placeholder="" required/></td>
 	                                    <td class="text-center"><button class="form-control-sm" >수수료</button></td>
 	                                    <td class="text-center"><button type="button" class="btn btn-sm btn-primary" data-id="${vlist.ppsId}" onClick="ppsDetailSave(this);">저장</button></td>
 	                                </tr>

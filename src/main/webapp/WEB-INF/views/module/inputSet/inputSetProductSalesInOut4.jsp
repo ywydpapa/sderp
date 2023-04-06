@@ -218,10 +218,10 @@
 					<div id="vatBdiv">
 	                    <div class="input-group input-group-sm mb-0">
 	                        <input type="hidden" id="vatAmount" value="">
-	                    	<select class="form-control" id="vatSerialB" name="vatSerialB" onchange="autoCompleteSelect(this);">
+	                    	<select class="form-control" id="vatSerialB" name="vatSerialB" onchange="vatSoppChange(this);">
 								<option value="">선택</option>
 								<c:forEach var="row" items="${listVatB}">
-									<option data-no="${row.vatId}" data-amount="${row.vatAmount}" value="${row.vatSerial}">${row.custName} (${row.vatSerial}, ￦<fmt:formatNumber value="${row.vatAmount}" pattern="#,###" />)</option>
+									<option data-no="${row.vatId}" data-amount="${row.vatAmount}" data-tax="${row.vatTax}" data-vatType="${row.vatType}" data-issueDate="${row.vatIssueDate}" data-buyer="${row.vatBuyerCustNo}" data-seller="${row.vatSellerCustNo}" data-product="row.vatProductName"  value="${row.vatSerial}">${row.custName} (${row.vatSerial}, ￦<fmt:formatNumber value="${row.vatAmount + row.vatTax}" pattern="#,###" />)</option>
 								</c:forEach>
 							</select>
 	                        <input type="hidden" id="vatSellerCustNo" value="" />
@@ -255,10 +255,10 @@
 					<div id="vatSdiv">
 	                    <div class="input-group input-group-sm mb-0">
 	                        <input type="hidden" id="vatAmount" value="">
-	                    	<select class="form-control" id="vatSerialS" name="vatSerialS" onchange="autoCompleteSelect(this);">
+	                    	<select class="form-control" id="vatSerialS" name="vatSerialS" onchange="vatSoppChange(this);">
 								<option value="">선택</option>
 								<c:forEach var="row" items="${listVatS}">
-									<option data-no="${row.vatId}" data-amount="${row.vatAmount}" value="${row.vatSerial}">${row.custName} (${row.vatSerial}, ￦<fmt:formatNumber value="${row.vatAmount}" pattern="#,###" />)</option>
+									<option data-no="${row.vatId}" data-amount="${row.vatAmount}" data-tax="${row.vatTax}" data-vatType="${row.vatType}" data-issueDate="${row.vatIssueDate}" data-buyer="${row.vatBuyerCustNo}" data-seller="${row.vatSellerCustNo}" data-product="${row.vatProductName}" value="${row.vatSerial}">${row.custName} (${row.vatSerial}, ￦<fmt:formatNumber value="${row.vatAmount + row.vatTax}" pattern="#,###" />)</option>
 								</c:forEach>
 							</select>
 	                        <input type="hidden" id="vatSellerCustNo" value="" />
@@ -431,6 +431,36 @@
 		var modal = $(this);
 		modal.find('.modal-body').load(button.data("remote"));
 	});
+	
+	function vatSoppChange(e){
+		let thisEle = $(e);
+		thisEle.next().next().val(thisEle.find("option:selected").data("no"));
+		
+		if(thisEle.find("option:selected").data("sopp") !== undefined){
+			thisEle.prev().val(thisEle.find("option:selected").data("sopp"));
+		}else if(thisEle.find("option:selected").data("amount") !== undefined){
+			thisEle.prev().val(thisEle.find("option:selected").data("amount"));
+		}
+		
+		setTimeout(() => {
+			$("#ioDate").val(thisEle.find("option:selected").data("issuedate"));
+			
+			if($("#data01Title").find("option[value=\"" + thisEle.find("option:selected").data("product") + "\"]").length > 0){
+				$("#data01Title").find("option[value=\"" + thisEle.find("option:selected").data("product") + "\"]").attr("selected", true).trigger("change");
+			}
+
+			if($("#productSalesInOutCustName").find("option[data-no=\"" + thisEle.find("option:selected").data("seller") + "\"]").length > 0){
+				if(thisEle.find("option:selected").data("vattype") === "B"){
+					$("#productSalesInOutCustName").find("option[data-no=\"" + thisEle.find("option:selected").data("seller") + "\"]").attr("selected", true).trigger("change");
+				}else{
+					$("#productSalesInOutCustName").find("option[data-no=\"" + thisEle.find("option:selected").data("buyer") + "\"]").attr("selected", true).trigger("change");
+				}
+			}
+			
+			$("#data01Total").val(thisEle.find("option:selected").data("amount") + thisEle.find("option:selected").data("tax"))
+			recall2();
+		});
+	}
 
     function fn_Reloaddata01(url, data){
 		$("#inoutlist").empty();

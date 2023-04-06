@@ -824,11 +824,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 
 	<select id="listSoppdata01" resultType="soppdataDto">
-		select a.*, b.soppTitle, d.contTitle, c.custName as salesCustNoN
+		select a.*, b.soppTitle, d.contTitle, c.custName as salesCustNoN, e.vatStatus
 		from swc_soppdata01 a
 		left join swc_sopp b on a.soppNo = b.soppNo
 		left join swc_cust c on a.salesCustNo = c.custNo
 		left join swc_cont d on a.soppNo = d.soppNo AND d.attrib LIKE '10000%'
+		left join swc_vat e on a.vatSerial = e.vatSerial
 		where a.attrib not like 'XXX%'
 		AND a.soppNo=#{soppNo} and a.catNo=100001 and a.soppNo != 10005223
 		order by a.vatDate ASC

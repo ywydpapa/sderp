@@ -113,10 +113,10 @@
                         	</tr>
                         	<tr>
                         		<th></th>
-                        		<th class="text-center" style="background-color: #EDEDED;">공급가액</th>
-                        		<th class="text-center" style="background-color: #EDEDED;">총세액</th>
-                        		<th class="text-center" style="background-color: #EDEDED;">공급가액</th>
-                        		<th class="text-center" style="background-color: #EDEDED;">총세액</th>
+                        		<th class="text-center" style="background-color: #EAEAEA;">공급가액</th>
+                        		<th class="text-center" style="background-color: #EAEAEA;">총세액</th>
+                        		<th class="text-center" style="background-color: #EAEAEA;">공급가액</th>
+                        		<th class="text-center" style="background-color: #EAEAEA;">총세액</th>
                         	</tr>
                         	
                         	<c:forEach var="list" items="${vatListB1}">
@@ -138,7 +138,7 @@
                         	</c:forEach>
                         	
                         	<c:if test="${totalBA1 > 0}">
-	                        	<tr>
+	                        	<tr style="background-color: #F6F6F6;">
 	                        		<td class="text-center">1월</td>
 	                        		<td class="text-right"><fmt:formatNumber value="${totalSA1}" pattern="#,###" /></td>
 	                        		<td class="text-right"><fmt:formatNumber value="${totalST1}" pattern="#,###" /></td>
@@ -166,7 +166,7 @@
                         	</c:forEach>
                         	
                         	<c:if test="${totalBA2 > 0}">
-	                        	<tr>
+	                        	<tr style="background-color: #F6F6F6;">
 	                        		<td class="text-center">2월</td>
 	                        		<td class="text-right"><fmt:formatNumber value="${totalSA2}" pattern="#,###" /></td>
 	                        		<td class="text-right"><fmt:formatNumber value="${totalST2}" pattern="#,###" /></td>
@@ -194,7 +194,7 @@
                         	</c:forEach>
                         	
                         	<c:if test="${totalBA3 > 0}">
-	                        	<tr>
+	                        	<tr style="background-color: #F6F6F6;">
 	                        		<td class="text-center">3월</td>
 	                        		<td class="text-right"><fmt:formatNumber value="${totalSA3}" pattern="#,###" /></td>
 	                        		<td class="text-right"><fmt:formatNumber value="${totalST3}" pattern="#,###" /></td>
@@ -222,7 +222,7 @@
                         	</c:forEach>
                         	
                         	<c:if test="${totalBA4 > 0}">
-	                        	<tr>
+	                        	<tr style="background-color: #F6F6F6;">
 	                        		<td class="text-center">4월</td>
 	                        		<td class="text-right"><fmt:formatNumber value="${totalSA4}" pattern="#,###" /></td>
 	                        		<td class="text-right"><fmt:formatNumber value="${totalST4}" pattern="#,###" /></td>
@@ -250,7 +250,7 @@
                         	</c:forEach>
                         	
                         	<c:if test="${totalBA5 > 0}">
-	                        	<tr>
+	                        	<tr style="background-color: #F6F6F6;">
 	                        		<td class="text-center">5월</td>
 	                        		<td class="text-right"><fmt:formatNumber value="${totalSA5}" pattern="#,###" /></td>
 	                        		<td class="text-right"><fmt:formatNumber value="${totalST5}" pattern="#,###" /></td>
@@ -278,7 +278,7 @@
                         	</c:forEach>
                         	
                         	<c:if test="${totalBA6 > 0}">
-	                        	<tr>
+	                        	<tr style="background-color: #F6F6F6;">
 	                        		<td class="text-center">6월</td>
 	                        		<td class="text-right"><fmt:formatNumber value="${totalSA6}" pattern="#,###" /></td>
 	                        		<td class="text-right"><fmt:formatNumber value="${totalST6}" pattern="#,###" /></td>
@@ -306,7 +306,7 @@
                         	</c:forEach>
                         	
                         	<c:if test="${totalBA7 > 0}">
-	                        	<tr>
+	                        	<tr style="background-color: #F6F6F6;">
 	                        		<td class="text-center">7월</td>
 	                        		<td class="text-right"><fmt:formatNumber value="${totalSA7}" pattern="#,###" /></td>
 	                        		<td class="text-right"><fmt:formatNumber value="${totalST7}" pattern="#,###" /></td>
@@ -334,7 +334,7 @@
                         	</c:forEach>
                         	
                         	<c:if test="${totalBA8 > 0}">
-	                        	<tr>
+	                        	<tr style="background-color: #F6F6F6;">
 	                        		<td class="text-center">8월</td>
 	                        		<td class="text-right"><fmt:formatNumber value="${totalSA8}" pattern="#,###" /></td>
 	                        		<td class="text-right"><fmt:formatNumber value="${totalST8}" pattern="#,###" /></td>
@@ -362,7 +362,7 @@
                         	</c:forEach>
                         	
                         	<c:if test="${totalBA9 > 0}">
-	                        	<tr>
+	                        	<tr style="background-color: #F6F6F6;">
 	                        		<td class="text-center">9월</td>
 	                        		<td class="text-right"><fmt:formatNumber value="${totalSA9}" pattern="#,###" /></td>
 	                        		<td class="text-right"><fmt:formatNumber value="${totalST9}" pattern="#,###" /></td>
@@ -390,7 +390,7 @@
                         	</c:forEach>
                         	
                         	<c:if test="${totalBA10 > 0}">
-	                        	<tr>
+	                        	<tr style="background-color: #F6F6F6;">
 	                        		<td class="text-center">10월</td>
 	                        		<td class="text-right"><fmt:formatNumber value="${totalSA10}" pattern="#,###" /></td>
 	                        		<td class="text-right"><fmt:formatNumber value="${totalST10}" pattern="#,###" /></td>
@@ -418,7 +418,7 @@
                         	</c:forEach>
                         	
                         	<c:if test="${totalBA11 > 0}">
-	                        	<tr>
+	                        	<tr style="background-color: #F6F6F6;">
 	                        		<td class="text-center">11월</td>
 	                        		<td class="text-right"><fmt:formatNumber value="${totalSA11}" pattern="#,###" /></td>
 	                        		<td class="text-right"><fmt:formatNumber value="${totalST11}" pattern="#,###" /></td>
@@ -446,7 +446,7 @@
                         	</c:forEach>
                         	
                         	<c:if test="${totalBA12 > 0}">
-	                        	<tr>
+	                        	<tr style="background-color: #F6F6F6;">
 	                        		<td class="text-center">12월</td>
 	                        		<td class="text-right"><fmt:formatNumber value="${totalSA12}" pattern="#,###" /></td>
 	                        		<td class="text-right"><fmt:formatNumber value="${totalST12}" pattern="#,###" /></td>

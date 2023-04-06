@@ -6,6 +6,7 @@
 <c:set var="path" value ="${pageContext.request.contextPath}"/>
 <table class="table table-sm bst02" id="inoutlist">
 	<colgroup>
+		<col width="5%" />
 		<col width="10%" />
 		<col width="13%" />
 		<col width="13%" />
@@ -17,10 +18,10 @@
 		<col width="8%" />
 		<col width="18%" />
 		<col width="5%" />
-		<col width="5%" />
 	</colgroup>
 	<thead>
 		<tr>
+			<th class="text-center">계산서상태</th>
 			<th class="text-center">구분(등록/수정일)</th>
 			<th class="text-center">거래처(매입/매출처)</th>
 			<th class="text-center">상품</th>
@@ -41,6 +42,17 @@
 		<c:if test="${row.dataType eq '1101'}">
 			<c:set var="totalSum1" value="${totalSum1 + row.dataTotal}" />
 			<tr class="item1" id="${row.soppdataNo}">
+				<td style="text-align: center;">
+					<c:if test="${row.vatStatus eq 'B1'}">
+						매입발행
+					</c:if>
+					<c:if test="${row.vatStatus eq 'B3'}">
+						지급처리중
+					</c:if>
+					<c:if test="${row.vatStatus eq 'B5'}">
+						지급완료
+					</c:if>
+				</td>
 				<c:choose>
 					<c:when test="${empty row.vatDate}">
 						<td style="text-align: center;" data-type="${row.dataType}">
@@ -68,12 +80,23 @@
 	</c:forEach>
 	<tr class="item1">
 		<td colspan="1" style="text-align: center; background: #80808030;">매입합계</td>
-		<td colspan="11" style="text-align: right; background: #80808030;" id="product01InSum_table">₩<fmt:formatNumber value="${totalSum1}" pattern="#,###" /></td>
+		<td colspan="12" style="text-align: right; background: #80808030;" id="product01InSum_table">₩<fmt:formatNumber value="${totalSum1}" pattern="#,###" /></td>
 	</tr>
 	<c:forEach var="row" items="${dtodata01}">
 		<c:if test="${row.dataType eq '1102'}">
 			<c:set var="totalSum2" value="${totalSum2 + row.dataTotal}" />
 			<tr class="item1" id="${row.soppdataNo}">
+				<td style="text-align: center;">
+					<c:if test="${row.vatStatus eq 'S1'}">
+						매출발행
+					</c:if>
+					<c:if test="${row.vatStatus eq 'S3'}">
+						수금처리중
+					</c:if>
+					<c:if test="${row.vatStatus eq 'S5'}">
+						수금완료
+					</c:if>
+				</td>
 				<c:choose>
 					<c:when test="${empty row.vatDate}">
 						<td data-type="${row.dataType}">
@@ -108,7 +131,7 @@
 	</c:forEach>
 	<tr class="item1" style="text-align: right">
 		<td colspan="1" style="text-align: center; background: #80808030;">매출합계</td>
-		<td colspan="11" style="text-align: right; background: #80808030;" id="product01OutSum_table">₩<fmt:formatNumber value="${totalSum2}" pattern="#,###" /></td>
+		<td colspan="12" style="text-align: right; background: #80808030;" id="product01OutSum_table">₩<fmt:formatNumber value="${totalSum2}" pattern="#,###" /></td>
 	</tr>
 	</tbody>
 </table>

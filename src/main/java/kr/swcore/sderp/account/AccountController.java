@@ -531,6 +531,62 @@ public class AccountController {
         mav.setViewName("settle/vatListS");
         return mav;
     }
+    
+    @RequestMapping("vatlistDocB.do")
+    public ModelAndView vatlistDocB(HttpSession session, ModelAndView mav, 
+            @RequestParam(value = "vatSellerCustNo", required = false) Integer vatSellerCustNo,
+            @RequestParam(value = "vatIssueDateFrom", required = false) String vatIssueDateFrom,
+            @RequestParam(value = "vatIssueDateTo", required = false) String vatIssueDateTo,
+            @RequestParam(value = "vatTotalFrom", required = false) BigDecimal vatTotalFrom,
+            @RequestParam(value = "vatTotalTo", required = false) BigDecimal vatTotalTo) {
+    	if(vatSellerCustNo != null || vatIssueDateFrom != null || vatIssueDateTo != null || vatTotalFrom != null || vatTotalTo != null){
+			AccountDTO dto = new AccountDTO();
+			if(vatSellerCustNo != null) dto.setVatSellerCustNo(vatSellerCustNo);
+			if(vatIssueDateFrom != null) dto.setVatIssueDateFrom(vatIssueDateFrom);
+			if(vatIssueDateTo != null) dto.setVatIssueDateTo(vatIssueDateTo);
+			if(vatTotalFrom != null) dto.setVatTotalFrom(vatTotalFrom);
+			if(vatTotalTo != null) dto.setVatTotalTo(vatTotalTo);
+			mav.addObject("vatList", accountService.listvatSearchB(session, dto));
+		} else {
+			AccountDTO dto = new AccountDTO();
+            LocalDate now = LocalDate.now();
+            int year = now.getYear();
+            dto.setVatIssueDateFrom(year + "-01-01");
+            dto.setVatIssueDateTo(year + "-12-31");
+			mav.addObject("vatList", accountService.listvatB(session, dto));
+		}
+    	mav.addObject("listCust", custService.listCust(session));
+        mav.setViewName("settle/vatListDocB");
+        return mav;
+    }
+    
+    @RequestMapping("vatlistDocS.do")
+    public ModelAndView vatlistDocS(HttpSession session, ModelAndView mav, 
+            @RequestParam(value = "vatBuyerCustNo", required = false) Integer vatBuyerCustNo,
+            @RequestParam(value = "vatIssueDateFrom", required = false) String vatIssueDateFrom,
+            @RequestParam(value = "vatIssueDateTo", required = false) String vatIssueDateTo,
+            @RequestParam(value = "vatTotalFrom", required = false) BigDecimal vatTotalFrom,
+            @RequestParam(value = "vatTotalTo", required = false) BigDecimal vatTotalTo) {
+    	if(vatBuyerCustNo != null || vatIssueDateFrom != null || vatIssueDateTo != null || vatTotalFrom != null || vatTotalTo != null){
+			AccountDTO dto = new AccountDTO();
+			if(vatBuyerCustNo != null) dto.setVatBuyerCustNo(vatBuyerCustNo);
+			if(vatIssueDateFrom != null) dto.setVatIssueDateFrom(vatIssueDateFrom);
+			if(vatIssueDateTo != null) dto.setVatIssueDateTo(vatIssueDateTo);
+			if(vatTotalFrom != null) dto.setVatTotalFrom(vatTotalFrom);
+			if(vatTotalTo != null) dto.setVatTotalTo(vatTotalTo);
+			mav.addObject("vatList", accountService.listvatSearchS(session, dto));
+		} else {
+			AccountDTO dto = new AccountDTO();
+            LocalDate now = LocalDate.now();
+            int year = now.getYear();
+            dto.setVatIssueDateFrom(year + "-01-01");
+            dto.setVatIssueDateTo(year + "-12-31");
+			mav.addObject("vatList", accountService.listvatS(session, dto));
+		}
+    	mav.addObject("listCust", custService.listCust(session));
+        mav.setViewName("settle/vatListDocS");
+        return mav;
+    }
 
     @RequestMapping("vatlistT.do")
     public ModelAndView vatListT(HttpSession session, ModelAndView mav,

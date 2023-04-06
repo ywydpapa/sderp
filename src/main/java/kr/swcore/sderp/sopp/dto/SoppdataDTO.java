@@ -60,6 +60,7 @@ public class SoppdataDTO {
 	private String freemaintSdate;
 	private String freemaintEdate;
 	private int divisionMonth;
+	private String vatStatus;
 	
 	public SoppdataDTO() {
 		super();

@@ -159,10 +159,30 @@
                     	<span style="font-weight:600;">※총합계</span>
                     	<table class="table table-striped table-bordered nowrap" style="margin-bottom: 1%;">
                     		<c:forEach items="${vatList}" var="vlist">
-                    			<c:set var="totalSum" value="${totalSum + vlist.vatAmount}" />
+                    			<c:set var="totalAmountSum" value="${totalAmountSum + vlist.vatAmount}" />
+                    			<c:set var="totalTaxSum" value="${totalTaxSum + vlist.vatTax}" />
+                    			<c:set var="totalSum" value="${totalSum + (vlist.vatAmount + vlist.vatTax)}" />
                     		</c:forEach>
                    			<tr>
-                   				<th class="text-center">매출합계</th>
+                   				<th class="text-center">공급가합계</th>
+                   				<c:choose>
+                    				<c:when test="${empty vatList}">
+		                            	<th class="text-right">0</th>
+                    				</c:when>
+                    				<c:otherwise>
+	                    				<th class="text-center moneyTdHtml">${totalAmountSum}</th>
+                    				</c:otherwise>
+                   				</c:choose>
+                   				<th class="text-center">세액합계</th>
+                   				<c:choose>
+                    				<c:when test="${empty vatList}">
+		                            	<th class="text-right">0</th>
+                    				</c:when>
+                    				<c:otherwise>
+	                    				<th class="text-center moneyTdHtml">${totalTaxSum}</th>
+                    				</c:otherwise>
+                   				</c:choose>
+                   				<th class="text-center">총매출합계</th>
                    				<c:choose>
                     				<c:when test="${empty vatList}">
 		                            	<th class="text-right">0</th>
@@ -176,24 +196,22 @@
                         <table id="vatTableS" class="table table-striped table-bordered nowrap ">
                             <colgroup>
                                 <col width="8%"/>
-                                <col width="12%"/>
-                                <col width="7%"/>
-                                <col width="8%"/>
+                                <col width="13%"/>
+                                <col width="17%"/>
+                                <col width="35%"/>
                                 <col width="5%"/>
                                 <col width="5%"/>
                                 <col width="5%"/>
                                 <%-- <col width="15%"/> --%>
-                                <col width="15%"/>
-                                <col width="15%"/>
-                                <col width="15%"/>
+                                <col width="7%"/>
                                 <col width="4%"/>
                             </colgroup>
                             <thead>
                             <tr>
+                                <th class="text-center">상태</th>
                                 <th class="text-center">등록일</th>
                                 <th class="text-center">거래처</th>
-                                <th class="text-center">발행번호</th>
-                                <th class="text-center">상태</th>
+                                <th class="text-center">품목</th>
                                 <th class="text-center">공급가</th>
                                 <th class="text-center">세액</th>
                                 <th class="text-center">합계금액</th>
@@ -201,26 +219,31 @@
                                 <!-- 연결문서 지워라해서 일단 주석처리(2022.04.05) --> 
                                 <!-- <th class="text-center">연결문서(합계금액)</th> -->
                                 
-                                <th class="text-center">품목</th>
-                                <th class="text-center">규격</th>
-                                <th class="text-center">비고</th>
+                                <th class="text-center">발행번호</th>
                                 <th class="text-center">공제여부결정</th>
                             </tr>
                             </thead>
                             <tbody>
 	                            <c:forEach items="${vatList}" var="vlist">
 	                                <tr>
-	                                	<td class="text-center">${vlist.vatIssueDate}</td>
-	                                    <td class="text-center">
-	                                    	${vlist.vatBuyerName}
-	                                   	</td>
-	                                    <td class="text-center vatSno"><a href="${path}/acc/vatHtml/${vlist.vatSerial}/${vlist.vatType}" onClick="javascript:popupVat(this); return false;">${vlist.vatSerial}</a></td>
 	                                    <td class="text-center">
 	                                        <c:if test = "${vlist.vatStatus eq 'S1'}">매출발행</c:if>
 	                                        <c:if test = "${vlist.vatStatus eq 'S3'}">수금처리중</c:if>
 	                                        <c:if test = "${vlist.vatStatus eq 'S5'}">수금완료</c:if>
 	                                        <input type="checkbox" class="vatStchg" data-id="${vlist.vatSerial}">
 	                                    </td>
+	                                	<td class="text-center">${vlist.vatIssueDate}</td>
+	                                    <td class="text-center">
+	                                    	<a href="${path}/acc/vatHtml/${vlist.vatSerial}/${vlist.vatType}" onClick="javascript:popupVat(this); return false;">${vlist.vatBuyerName}</a>
+	                                   	</td>
+	                                   	<c:choose>
+	                                    	<c:when test="${empty vlist.vatMemo}">
+			                                    <td style="white-space:normal;">${vlist.vatProductName}</td>
+	                                    	</c:when>
+	                                    	<c:otherwise>
+	                                    		<td style="white-space:normal;">${vlist.vatProductName}(${vlist.vatMemo})</td>
+	                                    	</c:otherwise>
+	                                    </c:choose>
 	                                    <td class="text-right moneyTdHtml">
 	                                    	${vlist.vatAmount}
 	                                    </td>
@@ -235,16 +258,7 @@
 	                                    		<fmt:formatNumber type="number" maxFractionDigits="3" value="${vlist.vatSum}" />
 	                                    	</a>
 	                                    </td> --%>
-	                                    <c:choose>
-	                                    	<c:when test="${empty vlist.vatMemo}">
-			                                    <td style="white-space:normal;">${vlist.vatProductName}</td>
-	                                    	</c:when>
-	                                    	<c:otherwise>
-	                                    		<td style="white-space:normal;">${vlist.vatProductName}(${vlist.vatMemo})</td>
-	                                    	</c:otherwise>
-	                                    </c:choose>
-	                                    <td style="white-space:normal;">${vlist.vatStandard}</td>
-                                   		<td style="white-space:normal;">${vlist.vatRemark}</td>
+	                                    <td class="text-center vatSno">${vlist.vatSerial}</td>
                                    		<td class="text-center">
 		                               		<select id="vatDeduction" data-id="${vlist.vatId}" onchange="vatDeductionUpdate(this);">
 	                               				<option value="Y" <c:if test="${vlist.vatDeduction eq 'Y'}">selected</c:if>>공제</option>

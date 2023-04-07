@@ -45,10 +45,11 @@
 				"info":false,
 				"searching": true,
 				"order": [[ 0, "desc" ]],
+				"scrollY": ($(window).height() - 300),
 				"scrollX": true,
 				"lengthChange" : true, 
                 "lengthMenu" : [10, 20, 30, 40, 50, 100],
-                "pageLength": 100,
+                "pageLength": 50,
 			});
 		});
 	</script>
@@ -239,7 +240,7 @@
                                     <th class="text-center">조달입금</th>
                                     <th class="text-center">매입일자</th>
                                     <th class="text-center">매입결제</th>
-                                    <th class="text-center">수수료</th>
+                                    <!-- <th class="text-center">수수료</th> -->
                                     <th class="text-center">저장</th>
 	                            </tr>
                             </thead>
@@ -264,7 +265,7 @@
 	                                    <td class="text-center "><input type="date" id="ppsincomeDate" value="${vlist.ppsincomeDate}" data-placeholder="" required/></td>
 	                                    <td class="text-center "><input type="date" id="storeDate" value="${vlist.storeDate}" data-placeholder="" required/></td>
 	                                    <td class="text-center "><input type="date" id="payDate" value="${vlist.payDate}" data-placeholder="" required/></td>
-	                                    <td class="text-center"><button class="form-control-sm" >수수료</button></td>
+	                                    <!-- <td class="text-center"><button class="form-control-sm" >수수료</button></td> -->
 	                                    <td class="text-center"><button type="button" class="btn btn-sm btn-primary" data-id="${vlist.ppsId}" onClick="ppsDetailSave(this);">저장</button></td>
 	                                </tr>
 	                            </c:forEach>

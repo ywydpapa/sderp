@@ -42,7 +42,7 @@
 		<c:if test="${row.dataType eq '1101'}">
 			<c:set var="totalSum1" value="${totalSum1 + row.dataTotal}" />
 			<tr class="item1" id="${row.soppdataNo}">
-				<td style="text-align: center;">
+				<td style="text-align: center; color: #0054FF;">
 					<c:if test="${row.vatStatus eq 'B1'}">
 						매입발행
 					</c:if>
@@ -86,7 +86,7 @@
 		<c:if test="${row.dataType eq '1102'}">
 			<c:set var="totalSum2" value="${totalSum2 + row.dataTotal}" />
 			<tr class="item1" id="${row.soppdataNo}">
-				<td style="text-align: center;">
+				<td style="text-align: center; color: #0054FF;">
 					<c:if test="${row.vatStatus eq 'S1'}">
 						매출발행
 					</c:if>

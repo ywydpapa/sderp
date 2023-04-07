@@ -69,7 +69,7 @@
 		            	<input type="text" class="form-control" id="divisionContAmt" value="${contDto.contAmt}" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
 	            	</c:when>
 	            	<c:otherwise>
-	            		<input type="text" class="form-control" id="divisioncount" value="0" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
+	            		<input type="text" class="form-control" id="divisionContAmt" value="0" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
 	            	</c:otherwise>
             	</c:choose>
            	</td>

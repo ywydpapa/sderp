@@ -201,75 +201,65 @@
 	var product02Percent = 0;
 
 	function fn_data01modify(e) {
-		if($(e).html() == "수정"){
+		if($(e).text() === "수정"){
 			if($("#data01Modbtn").is(':visible') == true){
 				alert("수정은 1개만 가능합니다. 먼저 수정하고 있는것을 마무리하시거나 취소버튼을 클릭해주세요.")
 				return;
 			}
 			var tr = $(e).closest("tr");
-			var dataType = $(tr).children().eq(0).data('type');
+			var dataType = $(tr).children().eq(1).data('type');
+			
 			if(dataType == 1101){
 				$("#data01Type").val("1101");
 			} else if(dataType == 1102){
 				$("#data01Type").val("1102");
 			}
 
-			if($(e).attr("data-value") === "1101"){
-				$("#data01Type").val("1101");
-				$("#vatBdiv").show();
-    			$("#vatSdiv").hide();
-				$("#vatBdiv").find("#vatSerialB").val($(tr).children().eq(9)[0].innerText).trigger("change");
-				localStorage.setItem("setSerial", $("#vatBdiv").find("#vatSerialB").val());
-			}else{
-				$("#data01Type").val("1102");
-				$("#vatBdiv").hide();
-    			$("#vatSdiv").show();
-				$("#vatSdiv").find("#vatSerialS").val($(tr).children().eq(9)[0].innerText).trigger("change");
-				localStorage.setItem("setSerial", $("#vatSdiv").find("#vatSerialS").val());
-			}
+			
 
 			var soppdataNo = Number(tr.attr("id"));
+			
 			$("#soppdataNo").val(soppdataNo);
 			
-			const date_default = $(tr).children().eq(0)[0].innerText;
+			const date_default = $(tr).children().eq(1)[0].innerText;
 			
 			if(date_default.length > 16){
-				const date_maintain = $(tr).children().eq(0)[0].innerText.substr(5, 10);
+				const date_maintain = $(tr).children().eq(1)[0].innerText.substr(5, 10);
 				$('#ioDate').val(date_maintain);
 			}else {
-				const date_default_2 = $(tr).children().eq(0)[0].innerText.substr(3, 10);
+				const date_default_2 = $(tr).children().eq(1)[0].innerText.substr(3, 10);
 				$('#ioDate').val(date_default_2);
 			}
 			
-			var salesCustNoN = $(tr).children().eq(1)[0].innerText;
-			var salesCustNo = Number($(tr).children().eq(1)[0].children[0].value);
+			var salesCustNoN = $(tr).children().eq(2)[0].innerText;
+			var salesCustNo = Number($(tr).children().eq(2)[0].children[0].value);
 			$("#productSalesInOutCustName").val(salesCustNoN).trigger("change");
 			$("#productSalesInOutCustNo").val(salesCustNo);
 
-			var data01Title = $(tr).children().eq(2)[0].innerText;
-			var productNo1 = Number($(tr).children().eq(2)[0].children[0].value);
+			var data01Title = $(tr).children().eq(3)[0].innerText;
+			var productNo1 = Number($(tr).children().eq(3)[0].children[0].value);
 			$("#data01Title").val(data01Title).trigger("change");
 			$("#productNo1").val(productNo1);
 
 
-			var data01Netprice = $(tr).children().eq(3)[0].innerText.replace('₩','');
+			var data01Netprice = $(tr).children().eq(4)[0].innerText.replace('₩','');
 			// var data01NetpriceNum = Number(data01Netprice.replace(',',''));
 			$("#data01Netprice").val(data01Netprice);
 
-			var data01Quanty = $(tr).children().eq(4)[0].innerText;
+			var data01Quanty = $(tr).children().eq(5)[0].innerText;
 			// var data01QuantyNum = Number(data01Quanty.replace(',',''));
 			$("#data01Quanty").val(data01Quanty);
 
-			var data01Vat = $(tr).children().eq(5)[0].innerText.replace('₩','');
+			var data01Vat = $(tr).children().eq(6)[0].innerText.replace('₩','');
 			$("#data01Vat").val(data01Vat);
 			
-			var data01Amt = $(tr).children().eq(6)[0].innerText.replace('₩','');
+			var data01Amt = $(tr).children().eq(7)[0].innerText.replace('₩','');
 			$("#data01Amt").val(data01Amt);
 			
-			var data01Total = $(tr).children().eq(7)[0].innerText.replace('₩','');
+			var data01Total = $(tr).children().eq(8)[0].innerText.replace('₩','');
 			$("#data01Total").val(data01Total);
 
-			var data01Remark = $(tr).children().eq(8)[0].innerText;
+			var data01Remark = $(tr).children().eq(9)[0].innerText;
 			$("#data01Remark").val(data01Remark);
 			
 			$(e).removeClass("btn-dark");
@@ -278,8 +268,25 @@
 
 			$("#data01Addbtn").hide();
 			$("#data01Modbtn").show();
-		} else if($(e).html() == "취소"){
 			
+			if($(e).attr("data-value") === "1101"){
+				$("#data01Type").val("1101");
+				$("#vatBdiv").show();
+    			$("#vatSdiv").hide();
+    			if($(tr).children().eq(10)[0].innerText !== ""){
+					$("#vatBdiv").find("#vatSerialB").val($(tr).children().eq(10)[0].innerText).trigger("change");
+					localStorage.setItem("setSerial", $("#vatBdiv").find("#vatSerialB").val());
+    			}
+			}else{
+				$("#data01Type").val("1102");
+				$("#vatBdiv").hide();
+    			$("#vatSdiv").show();
+    			if($(tr).children().eq(10)[0].innerText !== ""){
+					$("#vatSdiv").find("#vatSerialS").val($(tr).children().eq(10)[0].innerText).trigger("change");
+					localStorage.setItem("setSerial", $("#vatSdiv").find("#vatSerialS").val());
+    			}
+			}
+		} else if($(e).text() === "취소"){
 			var today = new Date();
 			var year = today.getFullYear();
 			var month = ('0' + (today.getMonth() + 1)).slice(-2);
@@ -292,11 +299,11 @@
 			$("#productSalesInOutCustNo").val("");
 			$("#productNo1").val("");
 			$("#data01Title").val("").trigger("change");
-			$("#data01Netprice").val("");
-			$("#data01Quanty").val("");
-			$("#data01Vat").val("");
-			$("#data01Amt").val("");
-			$("#data01Total").val("");
+			$("#data01Netprice").val(0);
+			$("#data01Quanty").val(1);
+			$("#data01Vat").val(0);
+			$("#data01Amt").val(0);
+			$("#data01Total").val(0);
 			$("#data01Remark").val("");
 			$("#vatBdiv").find("#vatSerialB").val("").trigger("change");
 			$("#vatSdiv").find("#vatSerialS").val("").trigger("change");

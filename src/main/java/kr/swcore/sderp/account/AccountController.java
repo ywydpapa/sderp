@@ -547,14 +547,15 @@ public class AccountController {
 			if(vatTotalFrom != null) dto.setVatTotalFrom(vatTotalFrom);
 			if(vatTotalTo != null) dto.setVatTotalTo(vatTotalTo);
 			mav.addObject("vatList", accountService.listvatSearchB(session, dto));
-		} else {
-			AccountDTO dto = new AccountDTO();
-            LocalDate now = LocalDate.now();
-            int year = now.getYear();
-            dto.setVatIssueDateFrom(year + "-01-01");
-            dto.setVatIssueDateTo(year + "-12-31");
-			mav.addObject("vatList", accountService.listvatB(session, dto));
-		}
+		} 
+//    	else {
+//			AccountDTO dto = new AccountDTO();
+//            LocalDate now = LocalDate.now();
+//            int year = now.getYear();
+//            dto.setVatIssueDateFrom(year + "-01-01");
+//            dto.setVatIssueDateTo(year + "-12-31");
+//			mav.addObject("vatList", accountService.listvatB(session, dto));
+//		}
     	mav.addObject("listCust", custService.listCust(session));
         mav.setViewName("settle/vatListDocB");
         return mav;
@@ -575,14 +576,15 @@ public class AccountController {
 			if(vatTotalFrom != null) dto.setVatTotalFrom(vatTotalFrom);
 			if(vatTotalTo != null) dto.setVatTotalTo(vatTotalTo);
 			mav.addObject("vatList", accountService.listvatSearchS(session, dto));
-		} else {
-			AccountDTO dto = new AccountDTO();
-            LocalDate now = LocalDate.now();
-            int year = now.getYear();
-            dto.setVatIssueDateFrom(year + "-01-01");
-            dto.setVatIssueDateTo(year + "-12-31");
-			mav.addObject("vatList", accountService.listvatS(session, dto));
-		}
+		} 
+//    	else {
+//			AccountDTO dto = new AccountDTO();
+//            LocalDate now = LocalDate.now();
+//            int year = now.getYear();
+//            dto.setVatIssueDateFrom(year + "-01-01");
+//            dto.setVatIssueDateTo(year + "-12-31");
+//			mav.addObject("vatList", accountService.listvatS(session, dto));
+//		}
     	mav.addObject("listCust", custService.listCust(session));
         mav.setViewName("settle/vatListDocS");
         return mav;

@@ -54,7 +54,7 @@
     		<td id='salesCustNoN' style='text-align:center;'>${row.custName}</td>
     		<td id='dataTitle' style='text-align:center;'>${row.productName}</td>
     		<td id='dataNetprice' style='text-align: right;'>₩<fmt:formatNumber value="${row.productNetprice}" pattern="#,###" /></td>
-    		<td id='dataQuanty' style='text-align: right;'>${row.productQty}</td>
+    		<td id='dataQuanty' style='text-align: right;'><fmt:formatNumber value="${row.productQty}" pattern="#,###" /></td>
     		<td id='dataAmt' style='text-align: right;'>₩<fmt:formatNumber value="${row.productAmount}" pattern="#,###" /></td>
     		<td id='dataVat' style='text-align: right;'>₩<fmt:formatNumber value="${row.productVat}" pattern="#,###" /></td>
     		<td id='dataTotal' style='text-align: right;'>₩<fmt:formatNumber value="${row.productTotal}" pattern="#,###" /></td>

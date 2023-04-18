@@ -812,13 +812,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</delete>
 
 	<select id="listContdata" resultType="soppdataDto">
-		select a.*, b.soppTitle, d.contTitle, c.custName as salesCustNoN
+		select a.*, b.soppTitle, d.contTitle, c.custName as salesCustNoN, e.vatStatus
 		from swc_soppdata01 a
 		left join swc_sopp b on a.soppNo = b.soppNo
 		left join swc_cust c on a.salesCustNo = c.custNo
 		left join swc_cont d on a.soppNo = d.soppNo
+		left join swc_vat e on a.vatSerial = e.vatSerial
 		where a.attrib not like 'XXX%'
-		AND a.soppNo= 10005223 AND a.catNo=100001 AND d.contNo=#{contNo}
+		AND a.soppNo= 10005223 AND a.catNo=100001 AND d.contNo=#{contNo} group by a.soppdataNo
 		order
 		by dataType, regDatetime desc
 	</select>
@@ -831,7 +832,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		left join swc_cont d on a.soppNo = d.soppNo AND d.attrib LIKE '10000%'
 		left join swc_vat e on a.vatSerial = e.vatSerial
 		where a.attrib not like 'XXX%'
-		AND a.soppNo=#{soppNo} and a.catNo=100001 and a.soppNo != 10005223
+		AND a.soppNo=#{soppNo} and a.catNo=100001 and a.soppNo != 10005223 group by a.soppdataNo 
 		order by a.vatDate ASC
 	</select>
 	<select id="listSoppdata01_showdetail" resultType="soppdataDto">
@@ -846,14 +847,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		order by dataType, regDatetime desc
 	</select>
 	<select id="listSoppdata01_08" resultType="soppdataDto">
-		select a.*, b.soppTitle, d.contTitle, c.custName as salesCustNoN
+		select a.*, b.soppTitle, d.contTitle, c.custName as salesCustNoN, e.vatStatus
 		from swc_soppdata01 a
 		left join swc_sopp b on a.soppNo = b.soppNo
 		left join swc_cust c on a.salesCustNo = c.custNo
 		left join swc_cont d on a.soppNo = d.soppNo
+		left join swc_vat e on a.vatSerial = e.vatSerial
 		where a.attrib not like 'XXX%'
 		AND a.soppNo=#{soppNo} AND d.contNo=#{contNo} and a.catNo=100001 and
-		a.soppNo != 10005223
+		a.soppNo != 10005223 group by a.soppdataNo
 		order by a.vatDate ASC
 	</select>
 	<select id="listSoppdata011" resultType="soppdataDto">

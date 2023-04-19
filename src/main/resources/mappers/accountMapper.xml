@@ -491,7 +491,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		LEFT JOIN swc_cust pb on a.vatBuyerCustNo = pb.custNo
 		LEFT JOIN swc_custdata02 pc ON a.vatBuyerCustNo = pc.custNo
 		LEFT JOIN swc_custdata pd ON a.vatBuyerCustNo = pd.custNo and pd.attrib not like 'XXX%'
-		where a.vatSerial = #{vatSerial} and a.vatType = #{vatType} and a.attrib not like 'XXX%'
+		where a.vatSerial = #{vatSerial} and a.vatType = #{vatType} and a.attrib not like 'XXX%' group by vatId
 	</select>
 	
 	<select id="vatHtmlListS" resultType="accountDto">
@@ -504,7 +504,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		LEFT JOIN swc_cust pb on a.vatSellerCustNo = pb.custNo
 		LEFT JOIN swc_custdata02 pc ON a.vatSellerCustNo = pc.custNo
 		LEFT JOIN swc_custdata pd ON a.vatSellerCustNo = pd.custNo and pd.attrib not like 'XXX%'
-		where a.vatSerial = #{vatSerial} and a.vatType = #{vatType} and a.attrib not like 'XXX%'
+		where a.vatSerial = #{vatSerial} and a.vatType = #{vatType} and a.attrib not like 'XXX%' group by vatId
 	</select>
 	
 	<select id="custSelectVatList" resultType="accountDto">

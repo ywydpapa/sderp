@@ -536,30 +536,10 @@
     	        if(i == 0){
     	        	data01Data.vatDate = $("#ioDate").val();
     	        }else{
-    	        	const stair_data = $("#ioDate").val().split('-');
-    	        	const stair_data_array = new Date(stair_data[0], stair_data[1], stair_data[2]);
-    	        	
-    	        	const year = stair_data_array.getFullYear();
-    	        	const month = stair_data_array.getMonth() + parseInt(parseInt(i) * parseInt(divisionMonth));
-    	        	const day = stair_data_array.getDate();
-    	        	
-    	        	if(month > 12){
-    	        		const remain_month = ((stair_data_array.getMonth() + parseInt(parseInt(i) * parseInt(divisionMonth))) % 12);
-    	        		const remain_year = Math.floor(parseInt((stair_data_array.getMonth() + parseInt(parseInt(i) * parseInt(divisionMonth))) / 12));
-    	        		const year2 = parseInt(stair_data_array.getFullYear()) + parseInt(remain_year);
-    	        		const month2 = remain_month;
-    	        		if(remain_month < 10){
-    	        			data01Data.vatDate = year2 + "-" + "0" + month2 + "-" + stair_data_array.getDate();
-    	        		}else{
-    	        			data01Data.vatDate = year2 + "-" + month2 + "-" + stair_data_array.getDate();
-    	        		}
-    	        	}else{
-    	        		if(stair_data_array.getMonth() + parseInt(parseInt(i) * parseInt(divisionMonth)) < 10){
-        	        		data01Data.vatDate = stair_data_array.getFullYear() + "-" + "0" + month + "-" + stair_data_array.getDate();
-        	        	}else{
-        	        		data01Data.vatDate = stair_data_array.getFullYear() + "-" + month + "-" + stair_data_array.getDate();
-        	        	}	
-    	        	}
+    	        	let dateSet = new Date($("#ioDate").val());
+    	        	dateSet.setMonth(dateSet.getMonth() + parseInt(parseInt(i) * parseInt(divisionMonth)));
+    	        	let getDate = dateSet.toISOString();
+    	        	data01Data.vatDate = getDate.substring(0, 10);
     	        }
     	     	// 단위 월 추가 데이터
     	     	
@@ -580,7 +560,7 @@
     		        	dataType: "json",
     		        });
     	        }
-    	
+    			
     	        $.ajax({
     	            url: "${path}/sopp/insertdata01.do",
     	            data: data01Data,
@@ -590,7 +570,6 @@
         	}
         	localStorage.setItem('lastTab', "#tab02");
             alert("저장 성공");
-            /* location.href="${path}/sopp/detail/"+$("#soppNo").val(); */
             location.href = pathname;
     	}else{
     		return false;

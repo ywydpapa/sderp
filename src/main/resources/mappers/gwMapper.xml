@@ -877,4 +877,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where docNo = #{docNo} and attrib not like "xxx%"
 	</update>
 	
+	<update id="attDelete">
+		delete from swc_userattend where attendId = #{attendId}
+	</update>
 </mapper>

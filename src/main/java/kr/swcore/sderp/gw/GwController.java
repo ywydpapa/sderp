@@ -1,5 +1,6 @@
 package kr.swcore.sderp.gw;
 
+import kr.swcore.sderp.cust.dto.CustDTO;
 import kr.swcore.sderp.cust.service.CustService;
 import kr.swcore.sderp.gw.dto.GwDTO;
 
@@ -726,5 +727,18 @@ public class GwController {
     	gwService.update_save_data(dto);
     
     	return ResponseEntity.ok(param);
+    }
+    
+    @ResponseBody
+    @RequestMapping("attDelete.do")
+    public ResponseEntity<?> attDelete(@ModelAttribute GwDTO dto) {
+        Map<String, Object> param = new HashMap<>();
+        int itemUpdate = gwService.attDelete(dto);
+        if (itemUpdate >0) {
+            param.put("code","10001");
+        }
+        else {param.put("code","20001");
+        }
+        return ResponseEntity.ok(param);
     }
 }

@@ -78,4 +78,5 @@ public interface GwService {
 	
 	List<GwDTO> purList(HttpSession session);
     List<GwDTO> purList(HttpSession session, GwDTO dto);
+    int attDelete(GwDTO dto);
 }

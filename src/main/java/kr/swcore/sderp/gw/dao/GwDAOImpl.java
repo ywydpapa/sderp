@@ -362,4 +362,10 @@ public class GwDAOImpl implements GwDAO{
     public List<GwDTO> purList(GwDTO dto) {
         return sqlSession.selectList("gw.purSearchList", dto);
     }
+
+	@Override
+	public int attDelete(GwDTO dto) {
+		// TODO Auto-generated method stub
+		return sqlSession.update("gw.attDelete", dto);
+	}
 }

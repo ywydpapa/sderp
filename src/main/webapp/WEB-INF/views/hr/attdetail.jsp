@@ -49,8 +49,11 @@
         	<button class="btn btn-md btn-primary" onClick="fn_AttRtn()">근태반려</button>
         	<button class="btn btn-md btn-primary" onClick="fn_AttApp()">근태승인</button>
 		</c:if>
-		<c:if test="${list.attStatus eq 3}">
+		<c:if test="${(list.attStatus eq 3 && list.userNo eq sessionScope.userNo) || sessionScope.docRole eq 'S'}">
 			<button class="btn btn-md btn-primary" onClick="fn_AttInsert()">근태수정</button>
+		</c:if>
+		<c:if test="${list.attStatus eq 1 && list.userNo eq sessionScope.userNo}">
+			<button class="btn btn-md btn-danger" onClick="fn_AttDelete();">근태삭제</button>
 		</c:if>
         <button class="btn btn-md btn-inverse" onClick="javascript:location='${path}/gw/attlist.do'">취소</button>
     </div>

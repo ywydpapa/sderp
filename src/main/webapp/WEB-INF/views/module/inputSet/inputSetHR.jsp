@@ -129,6 +129,65 @@
     	console.log(dataArray);
         dataIndex++;
     }
+   
+   function fn_AttApp(){
+       var msg = "근태 신청을 승인하시겠습니까?";
+       if( confirm(msg) ){
+           var attData={};
+           attData.attendId = "${list.attendId}";
+           $.ajax({
+               url: "${path}/gw/attallow.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
+               data: attData, // HTTP 요청과 함께 서버로 보낼 데이터
+               method: "POST", // HTTP 요청 메소드(GET, POST 등)
+           }) // HTTP 요청이 성공하면 요청한 데이터가 done() 메소드로 전달됨. .
+           .done(function(data) {
+               if(data.code == 10001){
+                   var msg2 = "승인된 근태를 일정표에 반영하시겠습니까?";
+                   if (confirm(msg2)){
+                       fn_SaveSched();
+                   }
+                    location.href="${path}/gw/attlist.do";
+                   }else{
+	                   alert("저장 실패");
+	               }
+           }) // HTTP 요청이 실패하면 오류와 상태에 관한 정보가 fail() 메소드로 전달됨.
+           .fail(function(xhr, status, errorThrown) {
+               alert("통신 실패");
+           });
+       }
+   }
+
+   function fn_AttRtn(){
+       var msg = "근태 신청을 반려 하시겠습니까?";
+       var attDesc = $("#hrDesc").html();
+       
+       if( confirm(msg) ){
+           var rej = prompt("반려사유를 입력해 주십시오.");
+           var attData={};
+           attData.attendId = "${list.attendId}";
+           var addDesc = attDesc + " : "+ "<span style='color:red'>"+rej+"</span>";
+           attData.attDesc = addDesc;
+           console.log(attData);
+           $.ajax({
+               url: "${path}/gw/attreject.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
+               data: attData, // HTTP 요청과 함께 서버로 보낼 데이터
+               method: "POST", // HTTP 요청 메소드(GET, POST 등)
+           }) // HTTP 요청이 성공하면 요청한 데이터가 done() 메소드로 전달됨. .
+               .done(function(data) {
+                   if(data.code == 10001){
+                       alert("저장 성공");
+                       location.href="${path}/gw/attlist.do";
+                   }else{
+                       alert("저장 실패");
+                   }
+               }) // HTTP 요청이 실패하면 오류와 상태에 관한 정보가 fail() 메소드로 전달됨.
+               .fail(function(xhr, status, errorThrown) {
+                   alert("통신 실패");
+               });
+       }else{
+       	return false;	
+       }
+   }
 
     function fn_AttInsert() {
     	var dataHr = {};
@@ -153,7 +212,28 @@
   				});
  			}
  			alert("등록되었습니다.");
- 			location.href = "${path}/gw/attwrite.do";
+ 			location.href = "${path}/gw/attlist.do";
+    	}
+    }
+    
+    function fn_AttDelete() {
+    	if(confirm("정말 삭제하시겠습니까??")){
+	    	let attendId = "${list.attendId}";
+	    	
+	    	$.ajax({
+	    		url: "${path}/gw/attDelete.do",
+	    		method: "post",
+	    		data: {
+	    			"attendId": attendId,
+	    		},
+	    		dataType: "json",
+	    		success: function(){
+	    			alert("삭제되었습니다.");
+	    			location.href = "${path}/gw/attlist.do";
+	    		}
+	    	});
+    	}else{
+    		return false;
     	}
     }
 

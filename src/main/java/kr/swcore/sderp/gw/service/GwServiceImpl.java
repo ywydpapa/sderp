@@ -427,4 +427,9 @@ public class GwServiceImpl implements GwService{
     	dto.setCompNo(compNo);
         return gwDao.purList(dto);
     }
+
+	@Override
+	public int attDelete(GwDTO dto) {
+		return gwDao.attDelete(dto);
+	}
 }

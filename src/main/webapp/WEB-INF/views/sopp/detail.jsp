@@ -259,7 +259,7 @@
 					</div>
 					<div class="tab-pane " id="tab02" role="tabpanel">
 						<div class="card-block table-border-style">
-							<div class="table-responsive" style="overflow-x: hidden;">
+							<div class="table-responsive">
 								<jsp:include page="/WEB-INF/views/module/inputSet/inputSetProductSalesInOut4.jsp"/>
 								<jsp:include page="/WEB-INF/views/sopp/inoutlist4.jsp"/>
 							</div>

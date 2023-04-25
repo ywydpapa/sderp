@@ -38,7 +38,7 @@
 				<!-- Nav tabs -->
 				<ul class="nav nav-tabs  tabs" role="tablist" id="tablist">
 					<li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#tab01" role="tab">기본정보</a></li>
-					<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#tab02" role="tab" id="dataType01_tab02">매입매출 내역(${fn:length(dtodata01)})</a></li>
+					<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#tab02" role="tab" id="dataType01_tab02">매입매출 내역(${fn:length(dtoContdata01)})</a></li>
 					<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#tab03" role="tab" id="dataType01_tab03">견적 내역</a></li>
 					<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#tab04" role="tab">파일첨부(${fn:length(contFiles)})</a></li>
 					<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#tab05" role="tab">기술지원 내역(${fn:length(techdinsopp)})</a></li>
@@ -49,6 +49,7 @@
 					<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#tab08" role="tab">기여도 설정</a></li>
 					<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#tab09" role="tab">계산서 연결현황(${fn:length(data)})</a></li>
 				</ul>
+				<input type="hidden" id="tempSoppNo" value="${contDto.soppNo}" />
 				<!-- Tab panes -->
 				<div class="tab-content tabs m-t-20">
 					<div class="tab-pane active" id="tab01" role="tabpanel">
@@ -865,6 +866,22 @@
 				$("#soppTitle").focus();
 				return;
 			}else{
+				$.ajax({
+					url: "${path}/sopp/contSoppNoUpdate.do",
+					method: "post",
+					data: {
+						"tempSoppNo": $("#tempSoppNo").val(),
+						"soppNo": $("#soppNo").val(),
+						"contNo": $("#contNo").val()
+					},
+					dataType: "json",
+					error: function(error){
+						alert("soppdata 업데이트 중 에러가 발생했습니다." + error);
+						console.log(error);
+						return false;
+					}
+				});
+				
 				$.ajax({
 					url: "${path}/cont/update.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
 					data: contData , // HTTP 요청과 함께 서버로 보낼 데이터

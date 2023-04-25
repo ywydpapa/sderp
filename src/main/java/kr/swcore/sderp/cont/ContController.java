@@ -137,9 +137,11 @@ public class ContController {
 		mav.setViewName("cont/detail");
 		ContDTO contDTO = new ContDTO();
 		contDTO = contService.detailCont(contNo);
+		contDTO.setSoppNo(soppNo);
+		contDTO.setContNo(contNo);
 		mav.addObject("contDto", contDTO);
 		mav.addObject("dto", soppService.detailSopp(soppNo));
-		mav.addObject("dtodata01", soppdataService.listSoppdata01(soppNo));
+		mav.addObject("dtoContdata01", soppdataService.listSoppdata01Cont(contDTO));
 		mav.addObject("dtodata02", soppdataService.listSoppdata011(soppNo));
 		mav.addObject("dtodata02", soppdataService.listSoppdata02(soppNo));
 		mav.addObject("contType", codeService.listContType(session));
@@ -161,9 +163,9 @@ public class ContController {
 		List <AccountDTO> listusercontributionCnt = accountService.listusercontributionCnt(dto);
 		mav.addObject("listusercontribution", listusercontribution);
 		mav.addObject("listusercontributionCnt", listusercontributionCnt.get(0).getCount());
-		data.setContNo(contNo);
-		data.setSoppNo(soppNo);
-		mav.addObject("dtodata01", soppdataService.listSoppdata01_08(data));
+//		data.setContNo(contNo);
+//		data.setSoppNo(soppNo);
+//		mav.addObject("dtodata01", soppdataService.listSoppdata01_08(data));
 		mav.addObject("listCust", custService.listCust(session));
 		mav.addObject("listUser", userService.userList(session));
 		mav.addObject("listCustMember", custService.listCustMember(session));

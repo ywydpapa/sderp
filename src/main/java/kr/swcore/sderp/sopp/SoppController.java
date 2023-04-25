@@ -156,6 +156,7 @@ public class SoppController {
 		mav.addObject("techdinsopp",techdService.listTechdinsopp(session, soppNo, 0));
 		mav.addObject("soppFiles",soppService.listFile(soppNo));
 		mav.addObject("dtodata01", soppdataService.listSoppdata01(soppNo));
+		mav.addObject("dtoContdata01", soppdataService.listContdata01(soppNo));
 		mav.addObject("estList", gwService.getEstSopp(session, soppNo));
 		mav.addObject("listUser", userService.userList(session));
 		mav.addObject("listCust", custService.listCust(session));
@@ -349,6 +350,30 @@ public class SoppController {
 		//int soppUpdate = soppService.updateSopp(dto);
 		int soppUpdate = 1;
 		if (soppUpdate >0) {
+			param.put("code","10001"); 
+		}
+		else {param.put("code","20001");
+		}
+		return ResponseEntity.ok(param);
+	}
+	
+	@RequestMapping("contSoppNoUpdate.do")
+	public ResponseEntity<?> contSoppNoUpdate(@ModelAttribute ContDTO dto) {
+		Map<String, Object> param = new HashMap<>();
+		int contUpdate = soppdataService.contSoppNoUpdate(dto);
+		if (contUpdate > 0) {
+			param.put("code","10001"); 
+		}
+		else {param.put("code","20001");
+		}
+		return ResponseEntity.ok(param);
+	}
+	
+	@RequestMapping("contAssign.do")
+	public ResponseEntity<?> contAssign(@ModelAttribute SoppdataDTO dto) {
+		Map<String, Object> param = new HashMap<>();
+		int contUpdate = soppdataService.contAssign(dto);
+		if (contUpdate > 0) {
 			param.put("code","10001"); 
 		}
 		else {param.put("code","20001");

@@ -714,6 +714,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		(soppNo,
 		userNo,
 		catNo,
+		contNo,
 		productNo,
 		salesCustNo,
 		dataTitle,
@@ -737,6 +738,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		#{soppNo},
 		#{userNo},
 		#{catNo},
+		#{contNo},
 		#{productNo},
 		#{salesCustNo},
 		#{dataTitle},
@@ -763,6 +765,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		(soppNo,
 		userNo,
 		catNo,
+		contNo,
 		productNo,
 		salesCustNo,
 		dataTitle,
@@ -785,6 +788,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		#{soppNo},
 		#{userNo},
 		#{catNo},
+		#{contNo},
 		#{productNo},
 		#{salesCustNo},
 		#{dataTitle},
@@ -829,11 +833,35 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		from swc_soppdata01 a
 		left join swc_sopp b on a.soppNo = b.soppNo
 		left join swc_cust c on a.salesCustNo = c.custNo
+		left join swc_cont d on a.contNo = d.contNo AND d.attrib LIKE '10000%'
+		left join swc_vat e on a.vatSerial = e.vatSerial
+		where a.attrib not like 'XXX%'
+		AND a.soppNo=#{soppNo} and a.catNo=100001 and a.soppNo != 10005223 group by a.soppdataNo
+		order by a.dataType ASC
+	</select>
+	
+	<select id="listContdata01" resultType="soppdataDto">
+		select a.*, b.soppTitle, d.contTitle, c.custName as salesCustNoN, e.vatStatus
+		from swc_soppdata01 a
+		left join swc_sopp b on a.soppNo = b.soppNo
+		left join swc_cust c on a.salesCustNo = c.custNo
+		left join swc_cont d on a.contNo = d.contNo AND d.attrib LIKE '10000%'
+		left join swc_vat e on a.vatSerial = e.vatSerial
+		where a.attrib not like 'XXX%'
+		AND a.soppNo=#{soppNo} and a.catNo=100001 and a.soppNo != 10005223 and a.contNo != 100 group by a.soppdataNo
+		order by d.contTitle asc, a.dataType asc
+	</select>
+	
+	<select id="listSoppdata01Cont" resultType="soppdataDto">
+		select a.*, b.soppTitle, d.contTitle, c.custName as salesCustNoN, e.vatStatus
+		from swc_soppdata01 a
+		left join swc_sopp b on a.soppNo = b.soppNo
+		left join swc_cust c on a.salesCustNo = c.custNo
 		left join swc_cont d on a.soppNo = d.soppNo AND d.attrib LIKE '10000%'
 		left join swc_vat e on a.vatSerial = e.vatSerial
 		where a.attrib not like 'XXX%'
-		AND a.soppNo=#{soppNo} and a.catNo=100001 and a.soppNo != 10005223 group by a.soppdataNo 
-		order by a.vatDate ASC
+		AND a.soppNo=#{soppNo} and a.contNo = #{contNo} and a.catNo=100001 and a.soppNo != 10005223 group by a.soppdataNo
+		order by d.contTitle asc, a.dataType asc
 	</select>
 	<select id="listSoppdata01_showdetail" resultType="soppdataDto">
 		select a.*, b.soppTitle, d.contTitle, c.custName as salesCustNoN
@@ -1071,6 +1099,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		modDatetime = now()
 		where soppNo = #{soppNo}
 	</update>
+	
+	<update id="contSoppNoUpdate">
+		update swcore.swc_soppdata01 set soppNo=#{soppNo} where soppNo=#{tempSoppNo} and contNo=#{contNo}
+	 </update>
+	 
+	 <update id="contAssign">
+		update swcore.swc_soppdata01 set contNo=#{contNo} where soppdataNo=#{soppdataNo}
+	 </update>
 
 	<select id="selectSoppdetail" resultType="soppDto">
 		select * from swc_sopp

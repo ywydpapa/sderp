@@ -5,12 +5,12 @@
 <c:set var="path" value ="${pageContext.request.contextPath}"/>
 <form name="form2" method="post" onsubmit="return false;">
 	<div style="width:100%;">
-		<div style="float:left; margin-top: 10px;">
+		<!-- <div style="float:left; margin-top: 10px;">
 			<p style="font-weight: 600; color: red;">※ 추가는 분할횟수 및 계약금액에 상관없이 원래 방식대로 추가되고, 분할추가는 분할횟수 및 계약금액에 맞춰 다중으로 추가됩니다.</p>
 			<p style="font-weight: 600; color: red;">해당 계약에서 최종으로 발행 될 총 계산서 갯수를 "분할횟수"에 추가하여 주십시오.</p>
 			<p style="font-weight: 600; color: red;">단위는 몇개월 단위로 계산서를 발행 할것인가에 대한 항목입니다.</p>
 			<p style="font-weight: 600; color: red;">ex) 계약금액이 2,000,000원이고 해당 계약에 대해 발행 될 매출계산서가 최종적으로 2개가 나오고 6개월 마다 한번씩 계산서를 발행한다 하면 "분할횟수"에 2를 기입, "단위"에 6를 기입 후 "분할추가" 버튼을 클릭.</p>
-		</div>
+		</div> -->
 		<div id="contAmtUpBtn" style="float:right; margin-bottom: 15px;">
 			<button type="button" class="btn btn-success" onclick="contAmtUpdate();">계약금액 업데이트</button>
 		</div>
@@ -532,6 +532,12 @@
     	        data01Data.dataRemark 	= $("#data01Remark").val();
     	        data01Data.divisionMonth = divisionMonth;
     	        
+    	        if($("#contNo").val() === undefined){
+    	    	    data01Data.contNo = 100;
+    	        }else{
+    	        	data01Data.contNo = $("#contNo").val();
+    	        }
+    	        
     	    	// 단위 월 추가 데이터
     	        if(i == 0){
     	        	data01Data.vatDate = $("#ioDate").val();
@@ -544,7 +550,7 @@
     	     	// 단위 월 추가 데이터
     	     	
     	        updateData.vatSerial = data01Data.vatSerial !== "" ? data01Data.vatSerial : 0;
-    	        updateData.contNo = $("#contNo").val();
+    	        updateData.contNo = data01Data.contNo;
     	        updateData.compNo = "${sessionScope.compNo}";
     	
     	       	if (!data01Data.dataTitle){
@@ -612,8 +618,14 @@
         data01Data.dataRemark 	= $("#data01Remark").val();
         data01Data.vatDate = $("#ioDate").val();
         
+        if($("#contNo").val() === undefined){
+    	    data01Data.contNo = 100;
+        }else{
+        	data01Data.contNo = $("#contNo").val();
+        }
+        
         updateData.vatSerial = data01Data.vatSerial !== "" ? data01Data.vatSerial : 0;
-        updateData.contNo = $("#contNo").val();
+        updateData.contNo = data01Data.contNo;
         updateData.compNo = "${sessionScope.compNo}";
 
         if(!data01Data.dataQuanty){
@@ -627,16 +639,16 @@
             return;
         }
         
-        if(data01Data.vatSerial !== "" && data01Data.vatSerial !== null){
+       if(data01Data.vatSerial !== "" && data01Data.vatSerial !== null){
 	        $.ajax({
 	        	url: "${path}/acc/vatContUpdate.do",
 	        	method: "post",
 	        	data: updateData,
 	        	dataType: "json",
 	        });
-        }
+       }
 
-        $.ajax({
+       $.ajax({
             url: "${path}/sopp/insertdata01_defalut.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
             data: data01Data , // HTTP 요청과 함께 서버로 보낼 데이터
             method: "POST", // HTTP 요청 메소드(GET, POST 등)
@@ -732,7 +744,7 @@
 		        	method: "post",
 		        	data: {
 		        		vatSerial: localStorage.getItem("setSerial"),
-		        		contNo: 0,
+		        		contNo: 100,
 		        		compNo: updateData.compNo
 		        	},
 		        	dataType: "json",
@@ -857,7 +869,7 @@
         		        	method: "post",
         		        	data: {
         		        		vatSerial: localStorage.getItem("setSerial"),
-        		        		contNo: 0,
+        		        		contNo: 100,
         		        		compNo: updateData.compNo
         		        	},
         		        	dataType: "json",
@@ -983,7 +995,7 @@
     			        	method: "post",
     			        	data: {
     			        		vatSerial: localStorage.getItem("setSerial"),
-    			        		contNo: 0,
+    			        		contNo: 100,
     			        		compNo: updateData.compNo
     			        	},
     			        	dataType: "json",

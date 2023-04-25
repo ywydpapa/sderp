@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 import kr.swcore.sderp.util.SessionInfoGet;
 import org.springframework.stereotype.Service;
 
+import kr.swcore.sderp.cont.dto.ContDTO;
 import kr.swcore.sderp.sopp.dao.SoppdataDAO;
 import kr.swcore.sderp.sopp.dto.SoppDTO;
 import kr.swcore.sderp.sopp.dto.SoppdataDTO;
@@ -20,6 +21,12 @@ public class SoppdataServiceImpl implements SoppdataService {
 	public List<SoppdataDTO> listSoppdata01(int soppNo) {
 		// TODO Auto-generated method stub
 		return soppdataDao.listSoppdata01(soppNo);
+	}
+	
+	@Override
+	public List<SoppdataDTO> listContdata01(int soppNo) {
+		// TODO Auto-generated method stub
+		return soppdataDao.listContdata01(soppNo);
 	}
 
 	@Override
@@ -46,7 +53,18 @@ public class SoppdataServiceImpl implements SoppdataService {
 			return soppdataDao.insertSoppdata01(dto);
 		}
 	}
-
+	
+	@Override
+	public int contSoppNoUpdate(ContDTO dto) {
+		// TODO Auto-generated method stub
+		return soppdataDao.contSoppNoUpdate(dto);
+	}
+	
+	@Override
+	public int contAssign(SoppdataDTO dto) {
+		// TODO Auto-generated method stub
+		return soppdataDao.contAssign(dto);
+	}
 
 	@Override
 	public List<SoppdataDTO> listSoppdata02(int soppNo) {
@@ -125,6 +143,12 @@ public class SoppdataServiceImpl implements SoppdataService {
 		soppdataDao.deleteSoppdata01(dto.getSoppdataNo());
 		dto.setUserNo(SessionInfoGet.getUserNo(session));
 		return soppdataDao.insertdata01_defalut(dto);
+	}
+
+	@Override
+	public List<SoppdataDTO> listSoppdata01Cont(ContDTO dto) {
+		// TODO Auto-generated method stub
+		return soppdataDao.listSoppdata01Cont(dto);
 	}
 
 }

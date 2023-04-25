@@ -2,7 +2,7 @@ package kr.swcore.sderp.sopp.service;
 
 import java.util.List;
 
-
+import kr.swcore.sderp.cont.dto.ContDTO;
 import kr.swcore.sderp.sopp.dto.SoppDTO;
 import kr.swcore.sderp.sopp.dto.SoppdataDTO;
 
@@ -11,6 +11,7 @@ import javax.servlet.http.HttpSession;
 public interface SoppdataService {
 
 	List<SoppdataDTO> listSoppdata01(int soppNo);
+	List<SoppdataDTO> listContdata01(int soppNo);
 	List<SoppdataDTO> listSoppdata02(int soppNo);
 	List<SoppdataDTO> listIOsum(HttpSession session, SoppdataDTO dto);
 	List<SoppdataDTO> listSearchIO(HttpSession session, SoppdataDTO dto);
@@ -27,5 +28,8 @@ public interface SoppdataService {
 	
 	List<SoppdataDTO> listSoppdata01_08(SoppDTO data);
 	List<SoppdataDTO> listSoppdata01_showdetail(int soppNo);
-
+	List<SoppdataDTO> listSoppdata01Cont(ContDTO dto);
+	
+	int contSoppNoUpdate(ContDTO dto);
+	int contAssign(SoppdataDTO dto);
 }

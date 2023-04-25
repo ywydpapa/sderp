@@ -2,12 +2,14 @@ package kr.swcore.sderp.sopp.dao;
 
 import java.util.List;
 
+import kr.swcore.sderp.cont.dto.ContDTO;
 import kr.swcore.sderp.sopp.dto.SoppDTO;
 import kr.swcore.sderp.sopp.dto.SoppdataDTO;
 
 public interface SoppdataDAO {
 
 	List<SoppdataDTO> listSoppdata01(int soppNo);
+	List<SoppdataDTO> listContdata01(int soppNo);
 	List<SoppdataDTO> listSoppdata02(int soppNo);
 	List<SoppdataDTO> listIOsum(SoppdataDTO dto);
 	List<SoppdataDTO> listSearchIO(SoppdataDTO dto);
@@ -23,5 +25,8 @@ public interface SoppdataDAO {
 	
 	List<SoppdataDTO> listSoppdata01_08(SoppDTO data);
 	List<SoppdataDTO> listSoppdata01_showdetail(int soppNo);
-
+	List<SoppdataDTO> listSoppdata01Cont(ContDTO dto);
+	
+	int contSoppNoUpdate(ContDTO dto);
+	int contAssign(SoppdataDTO dto);
 }

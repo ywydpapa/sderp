@@ -7,6 +7,7 @@ import javax.inject.Inject;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
+import kr.swcore.sderp.cont.dto.ContDTO;
 import kr.swcore.sderp.sopp.dto.SoppDTO;
 import kr.swcore.sderp.sopp.dto.SoppdataDTO;
 
@@ -21,11 +22,29 @@ public class SoppdataDAOImpl implements SoppdataDAO {
 		// TODO Auto-generated method stub
 		return sqlSession.selectList("sopp.listSoppdata01", soppNo);
 	}
+	
+	@Override
+	public List<SoppdataDTO> listContdata01(int soppNo) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("sopp.listContdata01", soppNo);
+	}
 
 	@Override
 	public int deleteSoppdata01(int soppdataNo) {
 		// TODO Auto-generated method stub
 		return sqlSession.delete("sopp.deleteSoppdata01", soppdataNo);
+	}
+	
+	@Override
+	public int contSoppNoUpdate(ContDTO dto) {
+		// TODO Auto-generated method stub
+		return sqlSession.update("sopp.contSoppNoUpdate",dto);
+	}
+	
+	@Override
+	public int contAssign(SoppdataDTO dto) {
+		// TODO Auto-generated method stub
+		return sqlSession.update("sopp.contAssign", dto);
 	}
 
 	@Override
@@ -98,6 +117,12 @@ public class SoppdataDAOImpl implements SoppdataDAO {
 	public int insertdata01_defalut(SoppdataDTO dto) {
 		// TODO Auto-generated method stub
 		return sqlSession.insert("sopp.insertdata01_defalut",dto);
+	}
+
+	@Override
+	public List<SoppdataDTO> listSoppdata01Cont(ContDTO dto) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("sopp.listSoppdata01Cont", dto);
 	}
 
 }

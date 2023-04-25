@@ -751,9 +751,6 @@
 	.ex_reduce {
 			margin-left: -10px;
 		}
-	.form-control-sm {
-		height: 44%;		
-	}
 	.ui-autocomplete {
 		cursor:default;
 		z-index:999999999999 !important;

@@ -417,8 +417,6 @@
 				$("#data01Type").val("1102");
 			}
 
-			
-
 			var soppdataNo = Number(tr.attr("id"));
 			
 			$("#soppdataNo").val(soppdataNo);
@@ -484,9 +482,9 @@
 				$("#vatBdiv").hide();
     			$("#vatSdiv").show();
     			if($(tr).children().eq(10)[0].innerText !== ""){
+    				$("#vatSdiv").find("#vatSerialS").val($(tr).children().eq(10)[0].innerText).trigger("change");
+					localStorage.setItem("setSerial", $("#vatSdiv").find("#vatSerialS").val());
     			}
-				$("#vatSdiv").find("#vatSerialS").val($(tr).children().eq(10)[0].innerText).trigger("change");
-				localStorage.setItem("setSerial", $("#vatSdiv").find("#vatSerialS").val());
 			}
 		} else if($(e).text() === "취소"){
 			var today = new Date();

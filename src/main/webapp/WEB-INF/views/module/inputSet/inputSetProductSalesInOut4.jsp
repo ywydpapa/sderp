@@ -721,10 +721,17 @@
 	        data01Data.dataVat 		= $("#data01Vat").val().replace(/[\D\s\._\-]+/g, "");
 	        data01Data.dataTotal 	= $("#data01Total").val().replace(/[\D\s\._\-]+/g, "");
 	        data01Data.dataRemark 	= $("#data01Remark").val();
+	        
+	        if($("#contNo").val() === undefined){
+	    	    data01Data.contNo = 100;
+	        }else{
+	        	data01Data.contNo = $("#contNo").val();
+	        }
+	        
 	        data01Data.vatDate = $("#ioDate").val();
 	        
 	        updateData.vatSerial = data01Data.vatSerial !== "" ? data01Data.vatSerial : 0;
-	        updateData.contNo = $("#contNo").val();
+	        updateData.contNo = data01Data.contNo;
 	        updateData.compNo = "${sessionScope.compNo}";
 			
 	        if(!data01Data.dataQuanty){
@@ -744,7 +751,7 @@
 		        	method: "post",
 		        	data: {
 		        		vatSerial: localStorage.getItem("setSerial"),
-		        		contNo: 100,
+		        		contNo: updateData.contNo,
 		        		compNo: updateData.compNo
 		        	},
 		        	dataType: "json",
@@ -846,10 +853,17 @@
         	        data01Data.dataVat 		= $("#data01Vat").val().replace(/[\D\s\._\-]+/g, "");
         	        data01Data.dataTotal 	= $("#data01Total").val().replace(/[\D\s\._\-]+/g, "");
         	        data01Data.dataRemark 	= $("#data01Remark").val();
+        	        
+        	        if($("#contNo").val() === undefined){
+        	    	    data01Data.contNo = 100;
+        	        }else{
+        	        	data01Data.contNo = $("#contNo").val();
+        	        }
+        	        
         	        data01Data.vatDate = $("#ioDate").val();
         	        
         	        updateData.vatSerial = data01Data.vatSerial !== "" ? data01Data.vatSerial : 0;
-        	        updateData.contNo = $("#contNo").val();
+        	        updateData.contNo = data01Data.contNo;
         	        updateData.compNo = "${sessionScope.compNo}";
         			
         	        if(!data01Data.dataQuanty){
@@ -869,7 +883,7 @@
         		        	method: "post",
         		        	data: {
         		        		vatSerial: localStorage.getItem("setSerial"),
-        		        		contNo: 100,
+        		        		contNo: updateData.contNo,
         		        		compNo: updateData.compNo
         		        	},
         		        	dataType: "json",
@@ -972,10 +986,17 @@
     		        data01Data.dataVat 		= $("#data01Vat").val().replace(/[\D\s\._\-]+/g, "");
     		        data01Data.dataTotal 	= $("#data01Total").val().replace(/[\D\s\._\-]+/g, "");
     		        data01Data.dataRemark 	= $("#data01Remark").val();
+    		        
+    		        if($("#contNo").val() === undefined){
+        	    	    data01Data.contNo = 100;
+        	        }else{
+        	        	data01Data.contNo = $("#contNo").val();
+        	        }
+    		        
     		        data01Data.vatDate = $("#ioDate").val();
     		        
     		        updateData.vatSerial = data01Data.vatSerial !== "" ? data01Data.vatSerial : 0;
-    		        updateData.contNo = $("#contNo").val();
+    		        updateData.contNo = data01Data.contNo;
     		        updateData.compNo = "${sessionScope.compNo}";
     				
     		        if(!data01Data.dataQuanty){
@@ -995,7 +1016,7 @@
     			        	method: "post",
     			        	data: {
     			        		vatSerial: localStorage.getItem("setSerial"),
-    			        		contNo: 100,
+    			        		contNo: updateData.contNo,
     			        		compNo: updateData.compNo
     			        	},
     			        	dataType: "json",

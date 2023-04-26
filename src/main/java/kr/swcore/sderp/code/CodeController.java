@@ -170,8 +170,16 @@ public class CodeController {
 		return ResponseEntity.ok(param);
 	}
 
+	@RequestMapping("writeLoc.do")
+	public ModelAndView writeLoc(HttpSession session,CodeDTO dto, ModelAndView mav) {
+		String compNo = (String) session.getAttribute("compNo");
+		dto.setCompNo(Integer.valueOf(compNo));
+		dto.setCode01("LOCT01");
+		mav.setViewName("store/location");
+		mav.addObject("listLoc", codeService.listLoc(dto));
+		return mav;
+	}
 	
-
 	@RequestMapping("delete.do")
 			public ResponseEntity<?> delete(@ModelAttribute CodeDTO dto) {
 			Map<String, Object> param = new HashMap<>();

@@ -203,5 +203,9 @@ compNo
 	set attrib = 'XXXXX'
 	where codeNo=#{codeNo}
  </delete>
+ 
+ <select id="listLoc" resultType="codeDto">
+ select b.* from swc_code a inner join swc_code b on a.code02 = b.code02 where a.code01 = #{code01} and b.compno = #{compNo};
+ </select>
  		
 </mapper>

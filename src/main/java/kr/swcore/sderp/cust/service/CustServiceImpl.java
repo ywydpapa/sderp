@@ -247,4 +247,10 @@ public class CustServiceImpl implements CustService {
 		SoppDTO custDto = SessionInfoGet.getCompNoDto(session);
 		return custDao.listCustMember(custDto);
 	}
+	
+	@Override
+	public List<CustDTO> getAllDataList(HttpSession session) {
+		int compNo = SessionInfoGet.getCompNo(session);
+		return custDao.getAllDataList(compNo);
+	}
 }

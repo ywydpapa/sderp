@@ -296,5 +296,11 @@ public class CodeServiceImpl implements CodeService {
 		Integer compNo = SessionInfoGet.getCompNo(session);
 		return codeDao.listAreaType(compNo);
 	}
+	
+	@Override
+	public List<CodeDTO> listLoc(CodeDTO dto) {
+		return codeDao.listLoc(dto);
+	
+	}
 
 }

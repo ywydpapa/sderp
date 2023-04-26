@@ -185,4 +185,10 @@ public class CustDAOImpl implements CustDAO {
 	public List<CustDTO> listCustMember(SoppDTO soppDto) {
 		return sqlSession.selectList("cust.listCustMember", soppDto);
 	}
+	
+	@Override
+	public List<CustDTO> getAllDataList(int compNo) {
+		return sqlSession.selectList("cust.getAllCustDataList",compNo);
+		
+	}
 }

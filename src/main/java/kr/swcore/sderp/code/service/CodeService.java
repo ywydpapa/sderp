@@ -53,4 +53,5 @@ public interface CodeService {
 	List<CodeDTO> listContType(HttpSession session);
 	List<CodeDTO> listSchdType(HttpSession session);
 	List<CodeDTO> listAreaType(HttpSession session);
+	List<CodeDTO> listLoc(CodeDTO dto);
 }

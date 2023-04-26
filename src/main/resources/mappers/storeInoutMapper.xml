@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="storeInout">
+
+<select id="inoutList" resultType="storeInoutDto"> 
+
+select a.*, b.serialNo, c.productName, d.soppTitle as soppTitle  from swc_store_inout a 
+left join swc_store b on a.storeNo = b.storeNo 
+left join swc_product c on c.productNo = b.productNo
+left join swc_sopp d on d.soppNo = a.soppNo
+where a.storeNo = #{inoutNo} and a.attrib not like "%XXX%" order by regDate Desc; 
+
+</select>
+
+<select id="inoutAllList" resultType="storeInoutDto"> 
+
+SELECT a.*,b.serialNo as serialNo, b.productNo as productNo, c.productName as productName, d.soppTitle as soppTitle from swc_store_inout a  
+	left join swc_store b on a.storeNo = b.storeNo  
+	left join swc_product c on b.productNo = c.productNo  
+	left join swc_sopp d on d.soppNo = a.soppNo 
+	WHERE a.compNo = #{compNo}
+    order by a.regDate desc; 
+
+</select>
+
+<select id="calcStoreQty">
+SELECT (-inoutQty + #{inoutQty}) as inoutQty FROM swc_store_inout  WHERE inoutNo =#{inoutNo};
+</select>
+
+<update id="updateInout">
+UPDATE swc_store_inout SET inoutQty = (inoutQty + #{inoutQty}) WHERE inoutNo = #{inoutNo};
+</update>
+
+<!-- 검색 관련 쿼리 -->
+<select id="search" resultType="storeInoutDto">
+SELECT a.* ,b.serialNo , b.productNo, c.productName as productName, d.soppTitle as soppTitle FROM swc_store_inout a 
+left join swc_store b on a.storeNo = b.storeNo 
+left join swc_product c on c.productNo = b.productNo 
+left join swc_sopp d on d.soppNo = a.soppNo 
+WHERE b.compNo = #{compNo}
+<if test="inoutType != null and inoutType != ''">
+AND a.inoutType = #{inoutType}
+</if>
+<if test="soppTitle != null and soppTitle != ''">
+AND d.soppTitle like CONCAT('%', #{soppTitle}, '%')
+</if>
+<if test="productName != null and productName != ''">
+AND c.productName like CONCAT('%', #{productName}, '%')
+</if>
+<if test="storeNo != null and storeNo != ''">
+AND a.storeNo = #{storeNo}
+</if>
+<if test="serialNo != null and serialNo != ''">
+ AND b.serialNo like  CONCAT('%', #{serialNo}, '%')
+</if>
+<if test="from != null and from != ''">
+AND a.regDate between CONCAT(#{from},' ','00:00:00') AND CONCAT(#{to},' ', '23:59:59')
+</if>
+<if test="locationNo != null and locationNo !=''">
+AND a.locationNo in 
+(select distinct a.locationNo from swc_store_inout a 
+left join swc_code b on substring_index(a.locationNo,"-",-1) = b.code03
+left join swc_code c on b.code02 = c.code02 
+left join swc_cust d on d.custNo = a.locationNo 
+where c.desc02 like CONCAT('%', #{locationNo}, '%') or b.desc03 like CONCAT('%', #{locationNo}, '%') or
+d.custName like CONCAT('%', #{locationNo}, '%'))
+</if>
+order by a.inoutNo desc;
+</select>
+
+<select id="getInOut" resultType="storeInoutDto">
+SELECT a.*,b.serialNo as serialNo, b.productNo as productNo, c.productName as productName, d.soppTitle as soppTitle from swc_store_inout a  
+left join swc_store b on a.storeNo = b.storeNo  
+left join swc_product c on b.productNo = c.productNo
+left join swc_sopp d on d.soppNo = a.soppNo
+WHERE a.inoutNo = #{inoutNo} 
+</select>
+
+<update id="updateEtc">
+UPDATE swc_store_inout SET soppNo = #{soppNo}, locationNo = #{locationNo} , inoutAmount = #{inoutAmount},  comment =#{comment} WHERE inoutNo = #{inoutNo};
+</update>
+
+
+</mapper> 

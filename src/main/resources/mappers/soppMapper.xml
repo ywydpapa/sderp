@@ -836,7 +836,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		left join swc_cont d on a.contNo = d.contNo AND d.attrib LIKE '10000%'
 		left join swc_vat e on a.vatSerial = e.vatSerial
 		where a.attrib not like 'XXX%'
-		AND a.soppNo=#{soppNo} and a.catNo=100001 and a.soppNo != 10005223 group by a.soppdataNo
+		AND a.soppNo=#{soppNo} and a.catNo=100001 group by a.soppdataNo
 		order by a.dataType ASC
 	</select>
 	
@@ -848,8 +848,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		left join swc_cont d on a.contNo = d.contNo AND d.attrib LIKE '10000%'
 		left join swc_vat e on a.vatSerial = e.vatSerial
 		where a.attrib not like 'XXX%'
-		AND a.soppNo=#{soppNo} and a.catNo=100001 and a.soppNo != 10005223 and a.contNo != 100 group by a.soppdataNo
-		order by d.contTitle asc, a.dataType asc
+		AND a.soppNo=#{soppNo} and a.catNo=100001 and a.contNo != 100 group by a.soppdataNo
+		order by d.contTitle asc, a.dataType asc, a.vatDate asc
 	</select>
 	
 	<select id="listSoppdata01Cont" resultType="soppdataDto">
@@ -860,8 +860,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		left join swc_cont d on a.soppNo = d.soppNo AND d.attrib LIKE '10000%'
 		left join swc_vat e on a.vatSerial = e.vatSerial
 		where a.attrib not like 'XXX%'
-		AND a.soppNo=#{soppNo} and a.contNo = #{contNo} and a.catNo=100001 and a.soppNo != 10005223 group by a.soppdataNo
-		order by d.contTitle asc, a.dataType asc
+		AND a.soppNo=#{soppNo} and a.contNo = #{contNo} and a.catNo=100001 group by a.soppdataNo
+		order by d.contTitle asc, a.dataType asc, a.vatDate asc
 	</select>
 	<select id="listSoppdata01_showdetail" resultType="soppdataDto">
 		select a.*, b.soppTitle, d.contTitle, c.custName as salesCustNoN

@@ -232,7 +232,7 @@
 					</tr>
 					<tr class="trCont_${row.contNo}" style="display: none;">
 						<td class="totalTdTitle" colspan="1" style="text-align: center; background: #80808030;">매입합계</td>
-						<td colspan="14" style="text-align: right; background: #80808030;" id="totalInCont" data-cont="${row.contNo}"></td>
+						<td colspan="14" style="text-align: right; background: #80808030;" id="totalInCont" data-cont="${row.contNo}">₩<fmt:formatNumber value="${totalSum3}" pattern="#,###" /></td>
 					</tr>
 				</c:when>
 				<c:otherwise>
@@ -281,7 +281,7 @@
 					</tr>
 					<tr class="trCont_${row.contNo}" style="text-align: right; display: none;">
 						<td class="totalTdTitle" colspan="1" style="text-align: center; background: #80808030;">매출합계</td>
-						<td colspan="14" style="text-align: right; background: #80808030;" id="totalOutCont" data-cont="${row.contNo}"></td>
+						<td colspan="14" style="text-align: right; background: #80808030;" id="totalOutCont" data-cont="${row.contNo}">₩<fmt:formatNumber value="${totalSum4}" pattern="#,###" /></td>
 					</tr>
 				</c:otherwise>
 			</c:choose>

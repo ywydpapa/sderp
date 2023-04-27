@@ -206,4 +206,25 @@ public class CodeController {
 		return mav;
 	}
 	
+	@RequestMapping("codeAutoInsert.do")
+	public ResponseEntity<?> codAutoInsert(HttpSession session,CodeDTO dto) {
+		Map<String, Object> param = new HashMap<>();
+		String compNo = (String) session.getAttribute("compNo");
+		dto.setCompNo(Integer.valueOf(compNo));
+		dto.setCode01("LOCT01");
+		int codeAuto = 0;
+		if(dto.getCode02() != null){
+			codeAuto = codeService.autoInsert3(dto);
+		}
+		else {
+		codeAuto =  codeService.autoInsert(dto);
+		}
+		if (codeAuto >0) {
+			param.put("code","10001"); 
+		}
+		else {param.put("code","20001");
+		}
+		return ResponseEntity.ok(param);
+	}
+	
 }

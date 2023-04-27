@@ -302,5 +302,16 @@ public class CodeServiceImpl implements CodeService {
 		return codeDao.listLoc(dto);
 	
 	}
+	
+	@Override
+	public int autoInsert(CodeDTO dto) {
+	
+		return codeDao.autoInsert(dto);
+	}
+
+	@Override
+	public int autoInsert3(CodeDTO dto) {
+		return codeDao.autoInsert3(dto);
+	}
 
 }

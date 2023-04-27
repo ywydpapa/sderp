@@ -90,7 +90,7 @@ tr.shown td.details-control {
 								<td>
 								<div class="input-group input-group-sm mb-0">
 									<input type="text" class="form-control" name="soppTitle"
-										id="soppTitle" value="" readonly /> <input type="hidden"
+										id="soppTitle" value="" data-completeSet="true" readonly /> <input type="hidden"
 										name="soppNo" id="soppNo" value="" /> <span class="input-group-btn">
 										<button class="btn btn-primary sch-opportunity2"
 											data-remote="${path}/modal/popup.do?popId=sopp" type="button"
@@ -126,7 +126,7 @@ tr.shown td.details-control {
 											<div class="input-group input-group-sm mb-0">
 												<input type="hidden" id="productNo" value=""> <input
 													type="text" class="form-control" name="product"
-													id="data02Title" data-flag="true" value="" readonly="">
+													id="data02Title" data-flag="true" value="" data-completeSet="true" readonly="">
 												<span class="input-group-btn">
 													<button class="btn btn-primary sch-company"
 														onclick="fn_productdataTableReload2()" type="button"

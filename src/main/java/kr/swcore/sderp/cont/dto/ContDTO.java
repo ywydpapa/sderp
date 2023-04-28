@@ -107,6 +107,7 @@ public class ContDTO implements Cloneable{
 	private String maintenanceTarget;
 	
 	private int tempSoppNo;
+	private String categories;
 	
 	public ContDTO() {
 		super();

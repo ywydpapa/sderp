@@ -9,6 +9,15 @@
 <html>
 <jsp:include page="../head.jsp"/>
 <jsp:include page="../body-top.jsp"/>
+<style>
+	table > tbody > tr > td > .productInputDiv > .select2-container{
+		width: 20% !important;
+	}
+	
+	.select2-container .select2-selection--single{
+		height: 100% !important;
+	}
+</style>
 
 	<script type="text/javascript">
 		$('input[name=contractType]').on('click', function() {
@@ -461,6 +470,28 @@
 													</td>
 												</tr> --%>
 												<tr>
+											 		<th scope="row" class="requiredTextCss">카테고리</th>
+													<td colspan="7">
+														<div class="input-group m-0 productInputDiv">
+															<select onchange="changeSelect(this);">
+																<option value="productName">항목선택</option>
+																<option value="inputText">직접입력</option>
+															</select>
+															<select id="productName" name="productName" onchange="productSelect(this);">
+																<option value="">선택</option>
+																<c:forEach var="row" items="${listProduct}">
+																	<option data-no="${row.productNo}" value="${row.custName} : ${row.productName}">${row.productName}(${row.custName})</option>
+																</c:forEach>
+															</select>
+															<div class="input-group m-0" style="display:none; width: 20%;">
+																<input type="text" class="form-control" id="inputText">
+																<button type="button" class="btn btn-sm btn-primary" onclick="inputSelect(this);">추가</button>
+															</div>
+															<div class="form-control text-break w-100 categories" style="display: block; word-break: break-all; white-space: normal;"></div>
+														</div>
+													</td>
+												</tr>
+												<tr>
 													<th scope="row">내용</th>
 													<td colspan="7">
 														<textarea name="contDesc" id="contDesc" rows="8" class="form-control ">${contDto.contDesc}</textarea>
@@ -650,6 +681,21 @@
 	<!--//계약등록-->
 
 	<script>
+		function categorySet(){
+			let html = "";
+			let categories = "${contDto.categories}";
+			let categoryArray = categories.split(",");
+			
+			if(categoryArray[0] !== ""){
+				for(let i = 0; i < categoryArray.length; i++){
+					html += "<button class=\"btn btn-sm btn-secondary mr-1\" onclick=\"selectDelete(this)\" style=\"line-height: 0;\">" + categoryArray[i] + "</button>";
+					saved.categories.push(categoryArray[i]);
+				}
+			}
+			
+			$(".categories").html(html);
+		}
+		
 		$("#tablist > li:nth-child(1)").click(function (){
 			$("#tab01_bottom").show();
 			$("#tab_common_bottom").hide();
@@ -842,7 +888,8 @@
 			if($("#contArea").val() != "") 		contData.contArea 			= $("#contArea").val();				// 지역
 			if($("#contType").val() != "")		contData.contType 			= $("#contType").val();				// 판매방식
 			if(tinyMCE.get("contDesc").getContent() != "")		contData.contDesc			= tinyMCE.get("contDesc").getContent();				// 계약내용
-
+			if(saved.categories.length > 0) contData.categories = saved.categories.toString();
+			
 			if (!contData.contTitle) {
 				alert("계약명 제목을 입력하십시오.");	
 				$("#contTitle").focus();
@@ -865,7 +912,10 @@
 				alert("영업기회를 선택해주십시오.");
 				$("#soppTitle").focus();
 				return;
-			}else{
+			}else if(saved.categories.length < 1){
+				alert("카테고리를 추가해주십시오.");
+				return;
+			} else{
 				$.ajax({
 					url: "${path}/sopp/contSoppNoUpdate.do",
 					method: "post",
@@ -1176,6 +1226,7 @@
 		} */
 
 		$(document).ready(function() {
+			saved.categories = [];
 			$("#delivDate").change(function(){
 				var contractType = $("input[name='contractType']:checked").val();
 				var date = new Date($(this).val());
@@ -1324,6 +1375,8 @@
 			  	$('[href="' + lastTab + '"]').tab('show');
 			  	localStorage.clear();
 			}
+			
+			categorySet();
 		});
 
 		$("#paymaintSdate").change(function(){

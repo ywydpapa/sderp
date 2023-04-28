@@ -44,6 +44,13 @@
 			max-width: 220px;
 			white-space: nowrap;
 		}
+		
+		#contTable > tbody > tr > td:nth-child(9){
+			overflow: hidden;
+			text-overflow: ellipsis;
+			max-width: 220px;
+			white-space: nowrap;
+		}
 	</style>
 	<c:if test="${preserveSearchCondition != 'Y'}">
 		<!-- Page-header start 페이지 타이틀-->
@@ -161,6 +168,12 @@
 									<input type="text" class="form-control form-control-sm" id="contTitle" data-completeSet="true" name="" placeholder="" value="${param.contTitle}">
 								</div>
 								<div class="col-sm-12 col-xl-2">
+									<label class="col-form-label" for="custmemberName">카테고리</label>
+									<div class="input-group input-group-sm mb-0">
+										<input type="text" class="form-control form-control-sm col-xl-12" name="categories" id="categories" data-completeSet="true" value="${param.categories}">
+									</div>
+								</div>
+								<div class="col-sm-12 col-xl-2">
 									<label class="col-form-label">계약방식</label>
 									<select name="select" class="form-control form-control-sm" id="cntrctMth">
 										<option value="">선택</option>
@@ -169,6 +182,8 @@
 										</c:forEach>
 									</select>
 								</div>
+							</div>
+							<div class="form-group row">
 								<div class="col-sm-12 col-xl-3">
 									<label class="col-form-label">판매일자</label>
 									<div class="ms-selectable sales_date">
@@ -176,9 +191,6 @@
 										<input class="form-control form-control-sm col-xl-6" type="date" max="9999-12-30" id="targetDatefrom" > ~ <input class="form-control form-control-sm col-xl-6" type="date" max="9999-12-31" id="targetDateto" >
 									</div>
 								</div>
-							</div>
-							<div class="form-group row">
-								
 								<div class="col-sm-12 col-xl-3">
 									<label class="col-form-label">유지보수기간</label>
 									<p class="input_inline">
@@ -241,13 +253,14 @@
 						</table> --%>
 						<table id="contTable" class="table table-striped table-bordered nowrap ">
 							<colgroup>
-								<col width="1%"/>
+								<col width="5%"/>
 								<col width="5%"/>
 								<col width="5%"/>
 								<col width="30%"/>
-								<col width="16%"/>
-								<col width="6.5%"/>
-								<col width="6.5%"/>
+								<col width="10%"/>
+								<col width="5%"/>
+								<col width="5%"/>
+								<col width="5%"/>
 								<col width="5%"/>
 								<col width="5%"/>
 								<col width="5%"/>
@@ -257,19 +270,20 @@
 							</colgroup>							
 							<thead>
 								<tr>
-									<th>등록일</th>
-									<th>판매방식</th>
-									<th>계약방식</th>
-									<th>계약명</th>
-									<th>매출처</th>
-									<th>계약금액</th>
-									<th>매출이익</th>
-									<th>담당자</th>
-									<th>유지보수 시작일</th>
-									<th>유지보수 만료일</th>
-									<th>유지보수대상</th>
-									<th>계산서 발행일</th>
-									<th>판매일</th>
+									<th class="text-center">등록일</th>
+									<th class="text-center">판매방식</th>
+									<th class="text-center">계약방식</th>
+									<th class="text-center">계약명</th>
+									<th class="text-center">매출처</th>
+									<th class="text-center">계약금액</th>
+									<th class="text-center">매출이익</th>
+									<th class="text-center">담당자</th>
+									<th class="text-center">카테고리</th>
+									<th class="text-center">유지보수 시작일</th>
+									<th class="text-center">유지보수 만료일</th>
+									<th class="text-center">유지보수대상</th>
+									<th class="text-center">계산서 발행일</th>
+									<th class="text-center">판매일</th>
 									<!-- <th>계산서 진행상황</th> -->
 									<!-- <th>상세정보</th> -->
 								</tr>
@@ -288,6 +302,7 @@
 									<td class="text-right moneyTdHtml">${row.contAmt}</td>
 									<td class="text-right moneyTdHtml">${row.net_profit}</td>
 									<td class="text-center">${row.userName}</td>
+									<td class="text-left">${row.categories}</td>
 									<td class="text-center">
 										<c:choose>
 											<c:when test="${row.freemaintSdate != null && row.freemaintSdate != ''}">${row.freemaintSdate}</c:when>
@@ -593,6 +608,7 @@
 		contData.regSDate = $("#regSDate").val() ? $("#regSDate").val() : null;
 		contData.regEDate = $("#regEDate").val() ? $("#regEDate").val() : null;
 		contData.maintenanceTarget = $("#maintenanceTarget").val() ? $("#maintenanceTarget").val() : null;
+		contData.categories = $("#categories").val() ? $("#categories").val(): null;
 
 		var param = "?";
 		var paramFirst = true;

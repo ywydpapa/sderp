@@ -8,6 +8,15 @@
 <html>
 <jsp:include page="../head.jsp"/>
 <jsp:include page="../body-top.jsp"/>
+<style>
+	table > tbody > tr > td > .productInputDiv > .select2-container{
+		width: 20% !important;
+	}
+	
+	.select2-container .select2-selection--single{
+		height: 100% !important;
+	}
+</style>
 
 <div id="main_content">
 	<script type="text/javascript">
@@ -392,6 +401,28 @@
 									</td>
 								</tr>
 								<tr>
+							 		<th scope="row" class="requiredTextCss">카테고리</th>
+									<td colspan="7">
+										<div class="input-group m-0 productInputDiv">
+											<select onchange="changeSelect(this);">
+												<option value="productName">항목선택</option>
+												<option value="inputText">직접입력</option>
+											</select>
+											<select id="productName" name="productName" onchange="productSelect(this);">
+												<option value="">선택</option>
+												<c:forEach var="row" items="${listProduct}">
+													<option data-no="${row.productNo}" value="${row.custName} : ${row.productName}">${row.productName}(${row.custName})</option>
+												</c:forEach>
+											</select>
+											<div class="input-group m-0" style="display:none; width: 20%;">
+												<input type="text" class="form-control" id="inputText">
+												<button type="button" class="btn btn-sm btn-primary" onclick="inputSelect(this);">추가</button>
+											</div>
+											<div class="form-control text-break w-100 categories" style="display: block; word-break: break-all; white-space: normal;"></div>
+										</div>
+									</td>
+								</tr>
+								<tr>
 									<!-- <th >계약금액</th>
 									<td>
 										<input type="text" id="contAmt" name="contAmt" class="form-control" style="text-align: right;" value="0">
@@ -645,6 +676,7 @@
 			if($("#contArea").val() != "") 		contData.contArea 				= $("#contArea").val();			// 지역
 			if($("#contType").val() != "")		contData.contType 				= $("#contType").val();			// 판매방식
 			if(tinyMCE.get("contDesc").getContent() != "")		contData.contDesc			 	= tinyMCE.get("contDesc").getContent();			// 계약내용
+			if(saved.categories.length > 0) contData.categories = saved.categories.toString();
 			
 			if (!contData.contTitle) {
 				alert("계약명 제목을 입력하십시오.");	
@@ -652,6 +684,9 @@
 				return;
 			} else if(!contData.userNo){
 				alert("담당자를 입력하십시오.");
+				return;
+			} else if(saved.categories.length < 1){
+				alert("카테고리를 추가해주십시오.");
 				return;
 			} else if ($("#custName").val() === ""){
 				alert("매출처를 입력하십시오.");
@@ -668,7 +703,10 @@
 				alert("영업기회를 선택해주십시오.");
 				$("#soppTitle").focus();
 				return;
-			}else{
+			}else if(saved.categories.length < 1){
+				alert("카테고리를 추가해주십시오.");
+				return;
+			} else{
 				$.ajax({ 
 					url: "${path}/cont/insert.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소 
 					data: contData , // HTTP 요청과 함께 서버로 보낼 데이터 
@@ -691,6 +729,7 @@
 		}
 
 		$(document).ready(function() {
+			saved.categories = [];
 			$("#delivDate").change(function(){
 				var contractType = $("input[name='contractType']:checked").val();
 				

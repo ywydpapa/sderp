@@ -151,6 +151,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<if test="maintenanceTarget != null and maintenanceTarget != ''">
  		 	and e.maintenanceTarget = #{maintenanceTarget}
  		</if>
+ 		<if test="categories != null and categories != ''">
+			and a.categories like CONCAT('%', #{categories}, '%')
+		</if>
 		 order by regDatetime desc
  </select>
 
@@ -200,11 +203,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  <insert id="insertCont">
  insert into swc_cont (contTitle, contDesc, compNo, soppNo, exContNo, userNo, custNo, custmemberNo, ptncNo, supplyNo, contOrddate,
                        supplyDate, delivDate, contAmt, freemaintSdate, freemaintEdate, vatYn, contArea, cntrctMth,
-                       contType,net_profit ,attrib, buyrNo, buyrMemberNo, paymaintSdate, paymaintEdate
+                       contType,net_profit ,attrib, buyrNo, buyrMemberNo, paymaintSdate, paymaintEdate, categories
                        ) 
  values (#{contTitle}, #{contDesc}, #{compNo}, #{soppNo}, #{exContNo}, #{userNo}, #{custNo}, #{custmemberNo}, #{ptncNo}, #{supplyNo}, #{contOrddate},
          #{supplyDate}, #{delivDate}, #{contAmt}, #{freemaintSdate}, #{freemaintEdate}, #{vatYn}, #{contArea}, #{cntrctMth},
-         #{contType}, #{net_profit},'100000', #{buyrNo}, #{buyrMemberNo}, #{paymaintSdate}, #{paymaintEdate}
+         #{contType}, #{net_profit},'100000', #{buyrNo}, #{buyrMemberNo}, #{paymaintSdate}, #{paymaintEdate}, #{categories}
          )
  </insert>
 <insert id="insert_maintenance">
@@ -251,6 +254,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	contType=#{contType},
 	net_profit=#{net_profit},
 	buyrMemberNo=#{buyrMemberNo},
+	categories=#{categories},
 	modDatetime=now()
 	where contNo=#{contNo}
 	

@@ -242,7 +242,7 @@ tr.shown td.details-control {
 											<select onchange="setlist3Options(this)" id="storeLoc1">
 												<c:forEach var="list2" items="${list2}">
 													<c:if test="${list2.code01 eq 'LOCT01'}">
-														<option value="${list2.code02}">${list2.desc02}</option>
+														<option data-value="${list2.code01}" value="${list2.code02}">${list2.desc02}</option>
 													</c:if>
 												</c:forEach>
 											</select>

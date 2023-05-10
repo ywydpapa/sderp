@@ -16,6 +16,7 @@ import kr.swcore.sderp.sopp.dto.SoppFileDataDTO;
 import kr.swcore.sderp.sopp.dto.SoppdataDTO;
 import kr.swcore.sderp.sopp.service.SoppService;
 import kr.swcore.sderp.sopp.service.SoppdataService;
+import kr.swcore.sderp.store.service.StoreInoutService;
 import kr.swcore.sderp.techd.service.TechdService;
 import kr.swcore.sderp.user.dto.UserDTO;
 import kr.swcore.sderp.user.service.UserService;
@@ -80,6 +81,9 @@ public class SoppController {
 	
 	@Inject
 	AccountService accountService;
+
+	@Inject
+	StoreInoutService storeInoutService;
 	
 	@RequestMapping("list.do")
 	public ModelAndView list(HttpSession session, ModelAndView mav) {
@@ -154,6 +158,7 @@ public class SoppController {
 		mav.addObject("sstatuslist", codeService.listSstatus(session));
 		mav.addObject("salesinsopp",salesService.listSalesinsopp(session, soppNo, 0));
 		mav.addObject("techdinsopp",techdService.listTechdinsopp(session, soppNo, 0));
+		mav.addObject("soppInoutList",storeInoutService.getSoppInout(soppNo));
 		mav.addObject("soppFiles",soppService.listFile(soppNo));
 		mav.addObject("dtodata01", soppdataService.listSoppdata01(soppNo));
 		mav.addObject("dtoContdata01", soppdataService.listContdata01(soppNo));

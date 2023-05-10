@@ -79,8 +79,10 @@ public class StoreInoutServiceImpl implements StoreInoutService{
 		return storeInoutDao.updateEtc(idto);
 	}
 
-    
+	@Override
+	public List<StoreInoutDTO> getSoppInout(int soppNo) {
+		return storeInoutDao.getSoppInout(soppNo);
+	}
 
-	
-	
+
 }

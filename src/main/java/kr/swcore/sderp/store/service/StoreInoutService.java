@@ -25,7 +25,7 @@ public interface StoreInoutService {
 	StoreInoutDTO getInout(StoreInoutDTO dto);
 
 	int updateEtc(HttpSession session, StoreInoutDTO idto);
-
+	List<StoreInoutDTO> getSoppInout(int soppNo);
 
 }
  

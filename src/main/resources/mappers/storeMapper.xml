@@ -86,10 +86,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</delete>
 
 	<insert id="insertInoutStore">
-		insert into swc_store_inout (soppNo, compNo,inoutType, inoutQty, storeNo,locationNo,inoutAmount,
-		comment ,regDate,attrib)
+		insert into swc_store_inout (contNo, compNo,inoutType, inoutQty, storeNo,locationNo,inoutAmount,
+		comment, regDate,attrib)
 		values
-		(#{soppNo},#{compNo},#{inoutType},#{inoutQty},#{storeNo},#{locationNo},#{inoutAmount},#{comment},now(),'10000');
+		(#{contNo},#{compNo},#{inoutType},#{inoutQty},#{storeNo},#{locationNo},#{inoutAmount},#{comment},now(),'10000');
 	</insert>
 
 	<update id="plusStoreQty">

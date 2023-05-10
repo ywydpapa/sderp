@@ -79,4 +79,8 @@ public class StoreInoutDAOImpl implements StoreInoutDAO {
 		return sqlSession.update("storeInout.updateEtc", idto);
 	}
 
+	@Override
+	public List<StoreInoutDTO> getSoppInout(int soppNo) {
+		return sqlSession.selectList("storeInout.getSoppInout", soppNo);
+	}
 }

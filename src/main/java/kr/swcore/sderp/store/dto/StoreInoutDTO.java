@@ -22,15 +22,15 @@ public class StoreInoutDTO {
     private int compNo;
     
     
-    /* 23-02-14 Ãß°¡ */ 
+    /* 23-02-14 ï¿½ß°ï¿½ */ 
     private int productNo;
     private String productName;
     private String serialNo;
     private BigDecimal inoutAmount;
     private String from;
     private String to;
-    private int soppNo;
-    private String soppTitle;
+    private int contNo;
+    private String contTitle;
     
   
     public StoreInoutDTO(){

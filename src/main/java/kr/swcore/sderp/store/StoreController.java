@@ -177,7 +177,7 @@ public class StoreController {
 		for (int i = 0; i < jarr.length(); i++) {
 			lastStoreNo = -1;
 			json = jarr.getJSONObject(i);
-			dto.setSoppNo(json.getInt("soppNo"));
+			dto.setContNo(json.getInt("contNo"));
 			dto.setInoutQty(json.getInt("inoutQty"));
 			dto.setInoutAmount(BigDecimal.valueOf(json.getInt("inoutAmount")));
 			dto.setComment(json.getString("comment"));
@@ -252,7 +252,7 @@ public class StoreController {
 
 	@RequestMapping("/inOutList.do")
 	public ModelAndView storeInOutList(HttpSession session, StoreInoutDTO dto, ModelAndView mav,
-			@RequestParam(value = "soppTitle", required = false) String soppTitle,
+			@RequestParam(value = "contTitle", required = false) String contTitle,
 			@RequestParam(value = "inoutType", required = false) String inoutType,
 			@RequestParam(value = "productName", required = false) String productName,
 			@RequestParam(value = "storeNo", required = false) Integer storeNo,
@@ -265,9 +265,9 @@ public class StoreController {
 		dto.setCompNo(Integer.valueOf(compNo));
 
 		if (inoutType != null || productName != null || storeNo != null || serialNo != null || locationNo != null
-				|| from != null || to != null || soppTitle != null ) {
-			if(soppTitle != null) {
-				dto.setSoppTitle(soppTitle);
+				|| from != null || to != null || contTitle != null ) {
+			if(contTitle != null) {
+				dto.setContTitle(contTitle);
 			}
 			if (inoutType != null) {
 				dto.setInoutType(inoutType);

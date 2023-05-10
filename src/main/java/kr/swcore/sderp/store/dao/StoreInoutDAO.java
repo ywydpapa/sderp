@@ -26,5 +26,6 @@ public interface StoreInoutDAO {
 
 	int updateEtc(StoreInoutDTO idto);
 
+	List<StoreInoutDTO> getSoppInout(int soppNo);
 
 }

@@ -74,7 +74,7 @@ tr.shown td.details-control {
 							</colgroup>
 							<tbody>
 								<tr>
-								    <th class="text-center">영업기회명</th>
+								    <th class="text-center">계약명</th>
 									<th class="text-center">상품명</th>
 									<th class="text-center inOutInput">시리얼 번호</th>
 									<th class="text-center minQty">수량</th>
@@ -89,16 +89,16 @@ tr.shown td.details-control {
 								<tr>
 								<td>
 								<div class="input-group input-group-sm mb-0">
-									<input type="text" class="form-control" name="soppTitle"
-										id="soppTitle" value="" data-completeSet="true" readonly /> <input type="hidden"
-										name="soppNo" id="soppNo" value="" /> <span class="input-group-btn">
+									<input type="text" class="form-control" name="contTitle"
+										id="contTitle" value="" data-completeSet="true" readonly /> <input type="hidden"
+										name="contNo" id="contNo" value="" /> <span class="input-group-btn">
 										<button class="btn btn-primary sch-opportunity2"
-											data-remote="${path}/modal/popup.do?popId=sopp" type="button"
-											data-toggle="modal" data-target="#soppModal">
+											data-remote="${path}/modal/popup.do?popId=cont" type="button"
+											data-toggle="modal" data-target="#contModal">
 											<i class="icofont icofont-search"></i>
 										</button>
 									</span>
-									<div class="modal fade " id="soppModal" tabindex="-1"
+									<div class="modal fade " id="contModal" tabindex="-1"
 										role="dialog">
 										<div class="modal-dialog modal-80size" role="document">
 											<div class="modal-content modal-80size">
@@ -110,7 +110,7 @@ tr.shown td.details-control {
 													</button>
 												</div>
 												<div class="modal-body">
-													<h5>영업기회목록</h5>
+													<h5>계약목록</h5>
 													<p>Loading!!!</p>
 												</div>
 												<div class="modal-footer">
@@ -263,7 +263,7 @@ tr.shown td.details-control {
 										<div class="input-group input-group-sm mb-0 outLocationSelect"
 											style="display: none;">
 											<input type="text" class="form-control" name="custName"
-												id="custName" value="" readonly> <input
+												id="custName" value="" data-completeSet="true" readonly> <input
 												type="hidden" name="custNo" id="custNo" value="" /> <span
 												class="input-group-btn">
 												<button class="btn btn-primary sch-company"
@@ -361,7 +361,7 @@ tr.shown td.details-control {
 			modal.find('.modal-body').load(button.data("remote"));
 		});
 		
-		$('#soppModal').on('show.bs.modal', function(e) {
+		$('#contModal').on('show.bs.modal', function(e) {
 			var button = $(e.relatedTarget);
 			var modal = $(this);
 			modal.find('.modal-body').load(button.data("remote"));
@@ -386,11 +386,11 @@ tr.shown td.details-control {
 		}
 		
 		
-		function fnSetSoppData(a, b) {
-			$("#soppNo").val(b);
-			$("#soppTitle").val(a);
+		function fnSetContData(a, b) {
+			$("#contNo").val(b);
+			$("#contTitle").val(a);
 			$(".modal-backdrop").remove();
-			$("#soppModal").modal("hide");
+			$("#contModal").modal("hide");
 		}
 		
 
@@ -639,9 +639,9 @@ tr.shown td.details-control {
 
 		// 입고 출고 데이터 추가버튼 이벤트 
 		function inoutTablePlus() {
-			let soppNo, soppTitle, productName, storeNo, storeType, storeQty, location, locationNo, comment, locationName, storeAmount, productNo;
-			soppNo = $("#soppNo").val();
-			soppTitle = $("#soppTitle").val();
+			let contNo, contTitle, productName, storeNo, storeType, storeQty, location, locationNo, comment, locationName, storeAmount, productNo;
+			contNo = $("#contNo").val();
+			contTitle = $("#contTitle").val();
 			productName = $("#data02Title").val();
 			productNo = $("#productNo").val();
 			storeQty = $("#storeQty").val();
@@ -666,8 +666,8 @@ tr.shown td.details-control {
 			}
 
 			comment = $("#comment").val();
-   			if(soppNo == "") {
-	 		alert("영업기회를 선택하세요");
+   			if(contNo == "") {
+	 		alert("계약을 선택하세요");
    			}
 			else if (productName == "") {
 				alert("상품명을 선택하세요");
@@ -704,7 +704,7 @@ tr.shown td.details-control {
 							    }  else {
 							    	
 							    	let html = "";
-									html += "<td data-no='"+soppNo+"'>" + soppTitle + "</td>";
+									html += "<td data-no='"+contNo+"'>" + contTitle + "</td>";
 									html += "<td>" + storeType + "</td>";
 									html += "<td data-no='"+productNo+"''>" + productName + "</td>";
 									if (storeType == "출고") {
@@ -733,8 +733,8 @@ tr.shown td.details-control {
 									target.after(tr);
 									
 									// 초기화 
-									$("#soppNo").val("");
-									$("#soppTitle").val("");
+									$("#contNo").val("");
+									$("#contTitle").val("");
 									$("#productNo").val("");
 									$("#data02Title").val("");
 									$(".storeOptions").hide();
@@ -760,7 +760,7 @@ tr.shown td.details-control {
 					
 			} else {
 				let html = "";
-				html += "<td data-no='"+soppNo+"'>" + soppTitle + "</td>";
+				html += "<td data-no='"+contNo+"'>" + contTitle + "</td>";
 				html += "<td>" + storeType + "</td>";
 				html += "<td data-no='"+productNo+"''>" + productName + "</td>";
 				if (storeType == "출고") {
@@ -789,8 +789,8 @@ tr.shown td.details-control {
 				target.after(tr);
 
 				// 초기화 
-				$("#soppNo").val("");
-				$("#soppTitle").val("");
+				$("#contNo").val("");
+				$("#contTitle").val("");
 				$("#productNo").val("");
 				$("#data02Title").val("");
 				$(".storeOptions").hide();
@@ -824,7 +824,7 @@ tr.shown td.details-control {
 			for (let i = 1; i < $(".itemIn").length; i++) {
 				eachData = {};
 				eachData.inoutType = "IN";
-				eachData.soppNo = $(".itemIn")[i].children[0].dataset.no;
+				eachData.contNo = $(".itemIn")[i].children[0].dataset.no;
 				eachData.productNo = $(".itemIn")[i].children[2].dataset.no;
 				eachData.serialNo = $(".itemIn")[i].children[3].innerHTML;
 				eachData.inoutQty = $(".itemIn")[i].children[4].innerHTML;
@@ -837,7 +837,7 @@ tr.shown td.details-control {
 			for (let i = 1; i < $(".itemOut").length; i++) {
 				eachData = {};
 				eachData.inoutType = "OUT"
-				eachData.soppNo = $(".itemOut")[i].children[0].dataset.no;
+				eachData.contNo = $(".itemOut")[i].children[0].dataset.no;
 				eachData.productNo = $(".itemOut")[i].children[2].dataset.no;
 				eachData.storeNo = $(".itemOut")[i].children[3].dataset.no.split("-")[1];
 				eachData.inoutQty = $(".itemOut")[i].children[4].innerHTML;
@@ -876,8 +876,8 @@ tr.shown td.details-control {
 			let inItem = $(".itemIn");
 			let outItem = $(".itemOut");
 			// 초기화 
-			$("#soppNo").val("");
-			$("#soppTitle").val("");
+			$("#contNo").val("");
+			$("#contTitle").val("");
 			$("#productNo").val("");
 			$("#data02Title").val("");
 			$(".storeOptions").hide();

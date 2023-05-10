@@ -561,8 +561,8 @@
 					.done(function(data) {
 						if(data.code == 10001){
 							alert("저장 성공");
-							var url = '${path}/cust/list.do';
-							location.href = url;
+							/*var url = '${path}/cust/list.do';
+							location.href = url;*/
 						}else{
 							alert("저장 실패");
 						}

@@ -82,10 +82,8 @@ th {
 											<td>
 												<div id="select1" style="width: 100%;">
 													<div class="input-group input-group-sm mb-0">
-														<input type="hidden" id="productNo" value=""> <input
-															type="text" class="form-control" name="product"
-															id="data02Title" data-flag="true"
-															value="${inoutList[0].productName}" readonly="">
+														<input type="hidden" id="productNo" value="">
+														<input type="text" class="form-control" name="product" id="data02Title" data-flag="true" data-completeSet="true" value="${inoutList[0].productName}" readonly="">
 													</div>
 												</div>
 											</td>
@@ -109,7 +107,7 @@ th {
 										<tr>
 											<th scope="row">비고</th>
 											<td colspan=5><textarea name="comment" id="comment"
-													rows="8" class="form-control">${dtoList[0].comment}</textarea></td>
+													rows="8" class="form-control">${inoutList[0].comment}</textarea></td>
 										</tr>
 									</tbody>
 								</table>
@@ -159,7 +157,7 @@ th {
 										<c:forEach var="row" items="${inoutList}">
 											<tr align="center" class="storeList"
 												<c:if test="${row.inoutType eq 'OUT'}"> style="background-color:#f6d3cb38;"</c:if>>
-												<td>${row.soppTitle}</td>
+												<td>${row.contTitle}</td>
 												<c:choose>
 													<c:when test="${row.inoutType eq 'IN'}">
 														<td style="color: blue; font-weight: 600;">입고</td>

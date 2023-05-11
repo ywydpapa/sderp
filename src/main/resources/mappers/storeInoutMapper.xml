@@ -20,7 +20,7 @@ SELECT a.*,b.serialNo as serialNo, b.productNo as productNo, c.productName as pr
 	left join swc_store b on a.storeNo = b.storeNo  
 	left join swc_product c on b.productNo = c.productNo  
 	left join swc_cont d on d.contNo = a.contNo 
-	WHERE a.compNo = #{compNo}
+	WHERE a.compNo = #{compNo} and a.attrib not like "%XXX%"
     order by a.regDate desc; 
 
 </select>

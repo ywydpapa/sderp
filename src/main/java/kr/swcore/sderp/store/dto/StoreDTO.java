@@ -24,12 +24,13 @@ public class StoreDTO {
     private String comment;
     private BigDecimal storeAmount;
     private String serialNo;
-    /* 23-02-09 Ãß°¡ÇÔ */  
+    /* 23-02-09 ï¿½ß°ï¿½ï¿½ï¿½ */  
     private String productName;
     private int custNo;
     private String custName;
     private String productCategoryNo; 
-    private String productCategoryName; 
+    private String productCategoryName;
+    private int soppNo;
     
     
     

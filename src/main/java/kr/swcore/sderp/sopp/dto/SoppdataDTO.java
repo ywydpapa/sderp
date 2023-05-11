@@ -63,6 +63,7 @@ public class SoppdataDTO {
 	private String vatStatus;
 	private int contNo;
 	private int tempSoppNo;
+	private int inoutNo;
 	
 	public SoppdataDTO() {
 		super();

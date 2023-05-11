@@ -158,7 +158,7 @@ public class SoppController {
 		mav.addObject("sstatuslist", codeService.listSstatus(session));
 		mav.addObject("salesinsopp",salesService.listSalesinsopp(session, soppNo, 0));
 		mav.addObject("techdinsopp",techdService.listTechdinsopp(session, soppNo, 0));
-		mav.addObject("soppInoutList",storeInoutService.getSoppInout(soppNo));
+//		mav.addObject("soppInoutList",storeInoutService.getSoppInout(soppNo));
 		mav.addObject("soppFiles",soppService.listFile(soppNo));
 		mav.addObject("dtodata01", soppdataService.listSoppdata01(soppNo));
 		mav.addObject("dtoContdata01", soppdataService.listContdata01(soppNo));

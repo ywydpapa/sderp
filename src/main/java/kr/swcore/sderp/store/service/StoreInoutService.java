@@ -9,6 +9,7 @@ public interface StoreInoutService {
     List<StoreInoutDTO> listStore(HttpSession session,StoreInoutDTO dto);
 
     int insertInoutStore(HttpSession session,StoreInoutDTO dto);
+	int outSoppInsert(HttpSession session,StoreInoutDTO dto);
 
     List<StoreInoutDTO> storeDetail(int prodcutNo);
 
@@ -25,7 +26,5 @@ public interface StoreInoutService {
 	StoreInoutDTO getInout(StoreInoutDTO dto);
 
 	int updateEtc(HttpSession session, StoreInoutDTO idto);
-	List<StoreInoutDTO> getSoppInout(int soppNo);
-
 }
  

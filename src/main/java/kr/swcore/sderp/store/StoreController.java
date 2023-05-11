@@ -169,6 +169,7 @@ public class StoreController {
 		StoreInoutDTO dto = new StoreInoutDTO();
 		StoreDTO storeDto = new StoreDTO();
 		int storeInoutInsert = 0;
+		int storeOutSoppInsert = 0;
 		int process1 = 0;
 		int lastStoreNo = 0;
 		int firstCount =  -1; 
@@ -177,9 +178,16 @@ public class StoreController {
 		for (int i = 0; i < jarr.length(); i++) {
 			lastStoreNo = -1;
 			json = jarr.getJSONObject(i);
+			dto.setSoppNo(json.getInt("soppNo"));
+			dto.setUserNo(json.getInt("userNo"));
 			dto.setContNo(json.getInt("contNo"));
 			dto.setInoutQty(json.getInt("inoutQty"));
 			dto.setInoutAmount(BigDecimal.valueOf(json.getInt("inoutAmount")));
+			dto.setInoutVat(BigDecimal.valueOf(json.getInt("inoutVat")));
+			dto.setInoutNet(BigDecimal.valueOf(json.getInt("inoutNet")));
+			dto.setInoutTotal(BigDecimal.valueOf(json.getInt("inoutTotal")));
+			dto.setProductNo(json.getInt("productNo"));
+			dto.setProductName(json.getString("productName"));
 			dto.setComment(json.getString("comment"));
 			dto.setInoutType(json.getString("inoutType"));
 			dto.setLocationNo(json.getString("locationNo"));
@@ -223,7 +231,7 @@ public class StoreController {
 				if (process1 > 0) {
 					if (lastStoreNo != -1) {
 						dto.setStoreNo(lastStoreNo);
-						storeInoutInsert = storeInoutService.insertInoutStore(session, dto); 
+						storeInoutInsert = storeInoutService.insertInoutStore(session, dto);
 						storeDto.setStoreQty(json.getInt("inoutQty"));
 						storeDto.setStoreNo(lastStoreNo);
 					}
@@ -235,6 +243,8 @@ public class StoreController {
 			} else {
 				dto.setStoreNo(Integer.valueOf(json.getString("storeNo")));
 				storeInoutInsert = storeInoutService.insertInoutStore(session, dto);
+				System.out.println(dto.toString());
+				storeInoutService.outSoppInsert(session, dto);
 				storeDto.setStoreQty(json.getInt("inoutQty") * -1);
 				storeDto.setStoreNo(dto.getStoreNo());
 			}

@@ -70,6 +70,7 @@ public class SoppDTO extends PageDTO {
 	private String secondUserName;
 	private int secondUserNo;
 	private String categories;
+	private int inoutNo;
 	
 	public SoppDTO() {
 		super();

@@ -27,11 +27,17 @@ public class StoreInoutDTO {
     private String productName;
     private String serialNo;
     private BigDecimal inoutAmount;
+    private BigDecimal inoutVat;
+    private BigDecimal inoutNet;
+    private BigDecimal inoutTotal;
     private String from;
     private String to;
     private int contNo;
     private String contTitle;
-    
+    private int getNo;
+    private int soppNo;
+    private int userNo;
+
   
     public StoreInoutDTO(){
         super();

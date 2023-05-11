@@ -40,10 +40,10 @@
 	<div class="col-sm-12">
 		<div class="card_box sch_it">
 			<div class="form-group row">
-			<div class="col-sm-12 col-xl-2">
-					<label class="col-form-label" for="soppTitle_Sch">영업기회명</label>
+				<div class="col-sm-12 col-xl-2">
+					<label class="col-form-label" for="contTitle_Sch">계약명</label>
 					<div class="input-group input-group-sm">
-						<input type="text" class="form-control" id="soppTitle_Sch">
+						<input type="text" class="form-control" id="contTitle_Sch">
 					</div>
 				</div>
 				<div class="col-sm-12 col-xl-2">
@@ -104,7 +104,7 @@
 			</div>
 		</div>
 	</div>
-	</br>
+	<br />
 	<div class="cnt_wr">
 		<div class="row">
 			<div class="col-sm-12">
@@ -148,7 +148,7 @@
 										<c:when test="${item.inoutType eq 'IN'}"> style="background-color:#f0f8ff2e;"</c:when>
 										</c:choose>
 										>
-									
+
 										<td style="text-align: center">${item.regDate}</td>
 										<c:choose>
 											<c:when test="${item.inoutType eq 'IN'}">
@@ -160,7 +160,7 @@
 													style="text-align: center; color: red; font-weight: 600;">출고</td>
 											</c:otherwise>
 										</c:choose>
-										<td style="text-align: center">${item.soppTitle}</td>
+										<td style="text-align: center">${item.contTitle}</td>
 										<td>
 										<a style="text-decoration: underline;"href="${path}/store/inOutDetail/${item.inoutNo}" >${item.productName}</a>
 										</td>
@@ -174,7 +174,7 @@
 											<c:when test="${item.inoutType eq 'OUT'}">
 												<td><c:forEach var="custList" items="${custDataList}">
 														<c:if test="${item.locationNo eq custList.custNo}">
-												${custList.custName}	
+												${custList.custName}
 											</c:if>
 													</c:forEach></td>
 											</c:when>
@@ -232,9 +232,9 @@
 
 		// 검색한 경우 검색 INPUT 창에 검색 키워드 세팅 
 		$(document).ready(function() {
-			let soppTitle, inOutType, productName, storeNo, serialNo, locationNo, from, to;
+			let contTitle, inOutType, productName, storeNo, serialNo, locationNo, from, to;
 			
-			soppTitle = '${param.soppTitle}';
+			contTitle = '${param.contTitle}';
 			inOutType = '${param.inoutType}';
 			productName = '${param.productName}';
 			storeNo = '${param.storeNo}';
@@ -242,7 +242,7 @@
 			locationNo ='${param.locationNo}';
 			from = '${param.from}';
 			to = '${param.to}';
-			if(soppTitle != '') $("#soppTitle_Sch").val(soppTitle); 
+			if(contTitle != '') $("#contTitle_Sch").val(contTitle); 
 			if(inOutType != '') $("#inOutType_Sch").val(inOutType);
 			if(productName != '')$("#productName_Sch").val(productName);
 			if(storeNo != '') $("#storeNo_Sch").val(storeNo);
@@ -350,9 +350,9 @@
 	
     // 검색 함수 
 	function multiSearch() {
-		let soppTitle , inOutType, productName, storeNo, serialNo, locationNo, from, to;
+		let contTitle , inOutType, productName, storeNo, serialNo, locationNo, from, to;
 		
-        soppTitle = $("#soppTitle_Sch").val();
+        contTitle = $("#contTitle_Sch").val();
 		inOutType = $("#inOutType_Sch").val();
 		productName = $("#productName_Sch").val();
 		storeNo = $("#storeNo_Sch").val();
@@ -363,7 +363,7 @@
 
 		let inOutData = {};
 		
-		inOutData.soppTitle = soppTitle == "" ? null : soppTitle;
+		inOutData.contTitle = contTitle == "" ? null : contTitle;
 		inOutData.inoutType = inOutType == "" ? null : inOutType;
 		inOutData.productName = productName == "" ? null : productName;
 		inOutData.storeNo = storeNo == "" ? null : storeNo;

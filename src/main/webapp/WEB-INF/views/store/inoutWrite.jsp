@@ -89,9 +89,10 @@ tr.shown td.details-control {
 								<tr>
 								<td>
 								<div class="input-group input-group-sm mb-0">
-									<input type="text" class="form-control" name="contTitle"
-										id="contTitle" value="" data-completeSet="true" readonly /> <input type="hidden"
-										name="contNo" id="contNo" value="" /> <span class="input-group-btn">
+									<input type="text" class="form-control" name="contTitle" id="contTitle" value="" data-completeSet="true" readonly />
+									<input type="hidden" name="contNo" id="contNo" value="" />
+									<input type="hidden" name="soppNo" id="soppNo" value="" />
+									<span class="input-group-btn">
 										<button class="btn btn-primary sch-opportunity2"
 											data-remote="${path}/modal/popup.do?popId=cont" type="button"
 											data-toggle="modal" data-target="#contModal">
@@ -386,9 +387,10 @@ tr.shown td.details-control {
 		}
 		
 		
-		function fnSetContData(a, b) {
+		function fnSetContData(a, b, c, d, e) {
 			$("#contNo").val(b);
 			$("#contTitle").val(a);
+			$("#soppNo").val(e);
 			$(".modal-backdrop").remove();
 			$("#contModal").modal("hide");
 		}
@@ -838,14 +840,22 @@ tr.shown td.details-control {
 				eachData = {};
 				eachData.inoutType = "OUT"
 				eachData.contNo = $(".itemOut")[i].children[0].dataset.no;
+				eachData.soppNo = $("#soppNo").val();
+				eachData.userNo = "${sessionScope.userNo}";
 				eachData.productNo = $(".itemOut")[i].children[2].dataset.no;
+				eachData.productName = $(".itemOut")[i].children[2].innerText;
 				eachData.storeNo = $(".itemOut")[i].children[3].dataset.no.split("-")[1];
 				eachData.inoutQty = $(".itemOut")[i].children[4].innerHTML;
 				eachData.inoutAmount = $(".itemOut")[i].children[5].innerHTML.replaceAll(",", "") * 1;
+				eachData.inoutVat = eachData.inoutAmount * 0.1;
+				eachData.inoutNet = eachData.inoutAmount / eachData.inoutQty;
+				eachData.inoutTotal = eachData.inoutAmount + eachData.inoutVat;
 				eachData.locationNo = $(".itemOut")[i].children[6].dataset.no;
 				eachData.comment = $(".itemOut")[i].children[7].innerHTML;
 				storeDatas.push(eachData);
 			}
+
+			console.log(storeDatas);
 
 			if (pass != -1) {
 				storeDatas = JSON.stringify(storeDatas);
@@ -863,7 +873,7 @@ tr.shown td.details-control {
 					} else {
 						alert("등록 실패");
 					}
-				}) 
+				})
 				.fail(function(xhr, status, errorThrown) {
 					alert("통신 실패");
 				});

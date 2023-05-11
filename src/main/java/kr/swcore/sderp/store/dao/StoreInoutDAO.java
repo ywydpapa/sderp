@@ -7,6 +7,7 @@ public interface StoreInoutDAO {
     List<StoreInoutDTO> listStore(StoreInoutDTO dto);
 
     int insertInoutStore(StoreInoutDTO dto);
+	int outSoppInsert(StoreInoutDTO dto);
 
     int updateStore(StoreInoutDTO dto);
 
@@ -25,7 +26,5 @@ public interface StoreInoutDAO {
 	StoreInoutDTO getInOut(StoreInoutDTO dto);
 
 	int updateEtc(StoreInoutDTO idto);
-
-	List<StoreInoutDTO> getSoppInout(int soppNo);
 
 }

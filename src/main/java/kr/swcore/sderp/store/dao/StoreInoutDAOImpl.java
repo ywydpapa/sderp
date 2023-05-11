@@ -27,6 +27,11 @@ public class StoreInoutDAOImpl implements StoreInoutDAO {
 	}
 
 	@Override
+	public int outSoppInsert(StoreInoutDTO dto) {
+		return sqlSession.insert("store.outSoppInsert", dto);
+	}
+
+	@Override
 	public int deleteStore(StoreInoutDTO dto) {
 		// TODO Auto-generated method stub
 		return 0;
@@ -77,10 +82,5 @@ public class StoreInoutDAOImpl implements StoreInoutDAO {
 	@Override
 	public int updateEtc(StoreInoutDTO idto) {
 		return sqlSession.update("storeInout.updateEtc", idto);
-	}
-
-	@Override
-	public List<StoreInoutDTO> getSoppInout(int soppNo) {
-		return sqlSession.selectList("storeInout.getSoppInout", soppNo);
 	}
 }

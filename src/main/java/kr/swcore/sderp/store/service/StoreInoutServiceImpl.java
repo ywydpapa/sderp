@@ -33,6 +33,13 @@ public class StoreInoutServiceImpl implements StoreInoutService{
 	}
 
 	@Override
+	public int outSoppInsert(HttpSession session, StoreInoutDTO dto) {
+		Integer compNo = SessionInfoGet.getCompNo(session);
+		dto.setCompNo(compNo);
+		return storeInoutDao.outSoppInsert(dto);
+	}
+
+	@Override
 	public List<StoreInoutDTO> storeDetail(int prodcutNo) {
 		// TODO Auto-generated method stub
 		return null;
@@ -78,11 +85,5 @@ public class StoreInoutServiceImpl implements StoreInoutService{
 		// TODO Auto-generated method stub
 		return storeInoutDao.updateEtc(idto);
 	}
-
-	@Override
-	public List<StoreInoutDTO> getSoppInout(int soppNo) {
-		return storeInoutDao.getSoppInout(soppNo);
-	}
-
 
 }

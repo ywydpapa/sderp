@@ -99,10 +99,8 @@
 					<td class="activeBox">
 						<select class="form-control" id="contSelect" name="contSelect" onchange="vatSoppChange(this);">
 							<option value="">계약선택</option>
-							<c:forEach var="item" items="${dtoContdata01}" varStatus="status">
-								<c:if test="${item.contTitle ne dtoContdata01[status.index + 1].contTitle}">
-									<option value="${item.contNo}">${item.contTitle}</option>
-								</c:if>
+							<c:forEach var="item" items="${soppContList}" varStatus="status">
+								<option value="${item.contNo}">${item.contTitle}</option>
 							</c:forEach>
 						</select>
 					</td>
@@ -161,10 +159,8 @@
 					<td class="activeBox">
 						<select class="form-control" id="contSelect" name="contSelect" onchange="vatSoppChange(this);">
 							<option value="">계약선택</option>
-							<c:forEach var="item" items="${dtoContdata01}" varStatus="status">
-								<c:if test="${item.contTitle ne dtoContdata01[status.index + 1].contTitle}">
-									<option value="${item.contNo}">${item.contTitle}</option>
-								</c:if>
+							<c:forEach var="item" items="${soppContList}" varStatus="status">
+								<option value="${item.contNo}">${item.contTitle}</option>
 							</c:forEach>
 						</select>
 					</td>

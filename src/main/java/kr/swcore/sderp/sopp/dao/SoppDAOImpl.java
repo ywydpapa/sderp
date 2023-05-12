@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import kr.swcore.sderp.cont.dto.ContDTO;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
@@ -144,5 +145,10 @@ public class SoppDAOImpl implements SoppDAO {
 	public List<SoppDTO> selectSoppdetail(SoppDTO dto) {
 		// TODO Auto-generated method stub
 		return sqlSession.selectList("sopp.selectSoppdetail", dto);
+	}
+
+	@Override
+	public List<ContDTO> soppContList(int soppNo) {
+		return sqlSession.selectList("sopp.soppContList", soppNo);
 	}
 }

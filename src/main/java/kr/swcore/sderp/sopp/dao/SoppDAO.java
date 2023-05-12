@@ -1,5 +1,6 @@
 package kr.swcore.sderp.sopp.dao;
 
+import kr.swcore.sderp.cont.dto.ContDTO;
 import kr.swcore.sderp.sopp.dto.SoppDTO;
 import kr.swcore.sderp.sopp.dto.SoppFileDataDTO;
 
@@ -29,4 +30,5 @@ public interface SoppDAO {
 	int beforeAppUpdate(int soppNo);
 	int assignPps(SoppDTO dto);
 	List<SoppDTO> selectSoppdetail(SoppDTO dto);
+	List<ContDTO> soppContList(int soppNo);
 }

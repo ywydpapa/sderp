@@ -552,6 +552,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		and soppNo=#{soppNo} order by soppNo
 	</select>
 
+	<select id="soppContList" resultType="contDto">
+		select * from swc_cont where soppNo = #{soppNo} and attrib not like "XXX%"
+	</select>
+
 	<insert id="insertSopp">
 		insert into swc_sopp (compNo, custNo,userNo, buyrNo, ptncNo, soppTitle,
 		soppDesc, soppType, soppSrate, soppStatus

@@ -1,6 +1,7 @@
 package kr.swcore.sderp.sopp.service;
 
 import kr.swcore.sderp.common.dto.PageDTO;
+import kr.swcore.sderp.cont.dto.ContDTO;
 import kr.swcore.sderp.sopp.dto.SoppDTO;
 import kr.swcore.sderp.sopp.dto.SoppFileDataDTO;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -38,4 +39,5 @@ public interface SoppService {
 		int beforeAppUpdate(int soppNo);
 		int assignPps(SoppDTO dto);
 		List<SoppDTO> selectSoppdetail(HttpSession session, SoppDTO dto);
+		List<ContDTO> soppContList(int soppNo);
 }

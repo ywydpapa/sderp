@@ -2,6 +2,7 @@ package kr.swcore.sderp.sopp.service;
 
 import kr.swcore.sderp.common.dto.PageDTO;
 import kr.swcore.sderp.common.dto.WrapperDTO;
+import kr.swcore.sderp.cont.dto.ContDTO;
 import kr.swcore.sderp.sopp.dao.SoppDAO;
 import kr.swcore.sderp.sopp.dto.SoppDTO;
 import kr.swcore.sderp.sopp.dto.SoppFileDataDTO;
@@ -398,6 +399,9 @@ public class SoppServiceImpl implements SoppService {
 		dto.setCompNo(compNo);
 		return soppDao.selectSoppdetail(dto);
 	}
-	
 
+	@Override
+	public List<ContDTO> soppContList(int soppNo) {
+		return soppDao.soppContList(soppNo);
+	}
 }

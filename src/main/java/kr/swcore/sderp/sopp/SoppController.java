@@ -162,6 +162,7 @@ public class SoppController {
 		mav.addObject("soppFiles",soppService.listFile(soppNo));
 		mav.addObject("dtodata01", soppdataService.listSoppdata01(soppNo));
 		mav.addObject("dtoContdata01", soppdataService.listContdata01(soppNo));
+		mav.addObject("soppContList", soppService.soppContList(soppNo));
 		mav.addObject("estList", gwService.getEstSopp(session, soppNo));
 		mav.addObject("listUser", userService.userList(session));
 		mav.addObject("listCust", custService.listCust(session));

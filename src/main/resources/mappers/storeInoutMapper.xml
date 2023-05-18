@@ -6,10 +6,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <select id="inoutList" resultType="storeInoutDto"> 
 
-select a.*, b.serialNo, c.productName, d.contTitle as contTitle  from swc_store_inout a 
+select a.*, b.serialNo, c.productName, d.contTitle as contTitle, e.soppNo as soppNo, c.productNo as productNo, c.productDefaultPrice as productDefaultPrice from swc_store_inout a 
 left join swc_store b on a.storeNo = b.storeNo 
 left join swc_product c on c.productNo = b.productNo
 left join swc_cont d on d.contNo = a.contNo
+left join swc_sopp e on d.soppNo = e.soppNo
 where a.storeNo = #{inoutNo} and a.attrib not like "%XXX%" order by regDate Desc; 
 
 </select>
@@ -90,5 +91,8 @@ WHERE a.inoutNo = #{inoutNo}
 UPDATE swc_store_inout SET contNo = #{contNo}, locationNo = #{locationNo} , inoutAmount = #{inoutAmount},  comment =#{comment} WHERE inoutNo = #{inoutNo};
 </update>
 
+	<update id="contInoutDelete">
+		update swc_store_inout set attrib = "XXXXX" where inoutNo = #{inoutNo}
+	</update>
 
 </mapper> 

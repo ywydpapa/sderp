@@ -26,5 +26,6 @@ public interface StoreInoutDAO {
 	StoreInoutDTO getInOut(StoreInoutDTO dto);
 
 	int updateEtc(StoreInoutDTO idto);
+	int contInoutDelete(int inoutNo);
 
 }

@@ -115,24 +115,64 @@ th {
 						</div>
 					</div>
 				
-					<div style="margin: 10px 0; display: flex">
-						<h6 class="cont_title"
-							style="line-height: 2.5; margin-right: 5px;">
+					<div>
+						<h6 class="cont_title" style="line-height: 2.5; margin-right: 5px;">
 							<i class="icofont icofont-square-right"></i> 입/출고 내역
 						</h6>
+					</div>
+					<div style="margin-bottom: 10px; display: flex; align-items: center;">
+						<div class="input-group input-group-sm mb-0 outLocationSelect" style="margin-right: 5px; width: 15%;">
+							<input type="text" class="form-control" name="custName"
+								id="custName" value="" data-completeSet="true" readonly> <input
+								type="hidden" name="custNo" id="custNo" value="" />
+							<span
+								class="input-group-btn">
+								<button class="btn btn-primary sch-company"
+									data-remote="${path}/modal/popup.do?popId=cust"
+									type="button" data-toggle="modal" data-target="#custModal">
+									<i class="icofont icofont-search"></i>
+								</button>
+							</span>
+							<div class="modal fade " id="custModal" tabindex="-1"
+								role="dialog">
+								<div class="modal-dialog modal-80size" role="document">
+									<div class="modal-content modal-80size">
+										<div class="modal-header">
+											<h4 class="modal-title">출고 위치</h4>
+											<button type="button" class="close" data-dismiss="modal"
+												aria-label="Close">
+												<span aria-hidden="true">&times;</span>
+											</button>
+										</div>
+										<div class="modal-body">
+											<h5>위치목록</h5>
+											<p>Loading!!!</p>
+										</div>
+										<div class="modal-footer">
+											<button type="button"
+												class="btn btn-default waves-effect "
+												data-dismiss="modal">Close</button>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<input type="number" class="form-control" id="outNumber" min="1" value="1" style="text-align: right; width: 10%;"/>
+						<button type="button" onclick="outSubmit();">출고</button>
 					</div>
 					<div class="tab-pane active" id="tab03" role="tabpanel">
 						<div class="card-block table-border-style">
 							<div class="table-responsive" style="overflow-x: hidden;">
 								<table id="inoutDataTable" class="table table-sm bst02">
 									<colgroup>
-									   <col width="15%" />
+										<col width="5%" />
+									   	<col width="15%" />
 										<col width="5%" />
 										<col width="10%" />
 										<col width="10%" />
 										<col width="5%" />
 										<col width="10%" />
-										<col width="15%" />
+										<col width="10%" />
 										<col width="5%" />
 										<col width="5%" />
 										<col width="10%" />
@@ -140,6 +180,7 @@ th {
 									</colgroup>
 									<thead>
 										<tr>
+											<th class="text-center">출고선택</th>
 											<th class="text-center">영업기회명</th>
 											<th class="text-center">구분</th>
 											<th class="text-center">일자</th>
@@ -154,9 +195,17 @@ th {
 										</tr>
 									</thead>
 									<tbody>
-										<c:forEach var="row" items="${inoutList}">
+										<c:forEach var="row" items="${inoutList}" varStatus="status">
 											<tr align="center" class="storeList"
 												<c:if test="${row.inoutType eq 'OUT'}"> style="background-color:#f6d3cb38;"</c:if>>
+												<td>
+													<c:if test="${row.inoutType eq 'OUT'}">
+														<input type="radio" name="outRadio" value="${row.inoutNo}" disabled/>
+													</c:if>
+													<c:if test="${row.inoutType eq 'IN'}">
+														<input type="radio" name="outRadio" data-qty="${row.inoutQty}" data-cont="${row.contNo}" data-sopp="${row.soppNo}" data-productno="${row.productNo}" data-productname="${row.productName}" data-productamount="${row.productDefaultPrice}" data-storeno="${row.storeNo}" data-comment="${row.comment}" value="${row.inoutNo}" <c:if test="${status.index == 0}">checked</c:if>/>
+													</c:if>
+												</td>
 												<td>${row.contTitle}</td>
 												<c:choose>
 													<c:when test="${row.inoutType eq 'IN'}">
@@ -217,7 +266,7 @@ th {
 										<tr align="center" class="storeList"
 											style="background-color: cornsilk; font-weight: 600;">
 											<td colspan="7">재고 수량</td>
-											<td colspan="2">${total}</td>
+											<td colspan="3">${total}</td>
 											<td colspan="2"></td>
 										</tr>
 									</tbody>
@@ -232,6 +281,84 @@ th {
 				</div>
 			</div>
 		</div>
+		<script>
+			$('#custModal').on('show.bs.modal', function(e) {
+				var button = $(e.relatedTarget);
+				var modal = $(this);
+				modal.find('.modal-body').load(button.data("remote"));
+			});
+			
+			function fnSetCustData(a, b) {
+				$("#custName").val(a);
+				$("#custNo").val(b);
+				$(".modal-backdrop").remove();
+				$("#custModal").modal("hide");
+			}
+			
+			function outSubmit(){
+				if(confirm("정말 출고하시겠습니까??")){
+					if($("#custName").val() === "" || $("#custNo").val() === ""){
+						alert("공급처를 선택해주세요.");
+						return false;
+					}else{
+						let outRadio = $("[name=\"outRadio\"]:checked");
+						let outNumber = $("#outNumber");
+						
+						if(outRadio.data("qty") < outNumber.val()){
+							alert("최대 출고 가능한 수량은 " + outRadio.data("qty") + " 입니다.\n다시 시도해주세요.");
+							return false;
+						}else if(outNumber.val() == 0 || outNumber.val() < 0){
+							alert("최소 출고 가능한 수량은 0보다 커야합니다.");
+							outNumber.focus();
+							return false;
+						}else if(outRadio.length == 0){
+							alert("출고하실 항목을 선택해주세요.");
+							return false;
+						}else{
+							let datas = [];
+							let eachData = {};
+							eachData.inoutType = "OUT"
+							eachData.contNo = outRadio.data("cont");
+							eachData.soppNo = outRadio.data("sopp");
+							eachData.userNo = "${sessionScope.userNo}";
+							eachData.productNo = outRadio.data("productno");
+							eachData.productName = outRadio.data("productname");
+							eachData.storeNo = outRadio.data("storeno").toString();
+							eachData.inoutQty = outNumber.val();
+							eachData.inoutAmount = outRadio.data("productamount") * eachData.inoutQty;
+							eachData.inoutVat = eachData.inoutAmount * 0.1;
+							eachData.inoutNet = eachData.inoutAmount / eachData.inoutQty;
+							eachData.inoutTotal = eachData.inoutAmount + eachData.inoutVat;
+							eachData.locationNo = $("#custNo").val();
+							eachData.comment = outRadio.data("comment").toString();
+							datas.push(eachData);
+							
+							datas = JSON.stringify(datas);
+							$.ajax({
+								url : "${path}/store/inOutInsert.do",
+								method : "POST",
+								data : datas,
+								dataType : "json",
+								traditional : true,
+								contentType : "text/plain",
+							}).done(function(result) {
+								if (result.code == 10001) {
+									alert("등록 성공");
+									location.href = "${path}/store/listStore.do";
+								} else {
+									alert("등록 실패");
+								}
+							})
+							.fail(function(xhr, status, errorThrown) {
+								alert("통신 실패");
+							});
+						}
+					}
+				}else{
+					return false;
+				}
+			}
+		</script>
 	
 
 <jsp:include page="../body-bottom.jsp" />

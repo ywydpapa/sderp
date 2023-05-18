@@ -46,7 +46,7 @@ public class StoreDAOImpl implements StoreDAO{
 	}
 	
 	
-	//////// ¼öÁ¤ÄÚµå =================================================================
+	//////// ï¿½ï¿½ï¿½ï¿½ï¿½Úµï¿½ =================================================================
 
 	@Override
 	public int insertStore2(StoreDTO storeDto) {
@@ -73,5 +73,15 @@ public class StoreDAOImpl implements StoreDAO{
 	@Override
 	public int checkSerial(StoreDTO dto) {
 		return sqlSession.selectOne("store.checkSerial", dto);
+	}
+
+	@Override
+	public StoreDTO getStoreOneList(StoreDTO dto) {
+		return sqlSession.selectOne("store.getStoreOneList", dto);
+	}
+
+	@Override
+	public int storeUpdateQty(StoreDTO dto) {
+		return sqlSession.update("store.storeUpdateQty", dto);
 	}
 }

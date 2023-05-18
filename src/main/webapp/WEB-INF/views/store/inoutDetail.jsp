@@ -87,7 +87,7 @@ tr.shown td.details-control {
 									<td><input style="background-color: white; border: none;"
 										type="text" id="productName" readonly=""
 										class="form-control form-control-sm"
-										value="${detail.productName}"></td>
+										value="${detail.productName}" data-completeSet="true"></td>
 									<th>재고번호</th>
 									<td><input style="background-color: white; border: none;"
 										type="text" id="storeNo" readonly=""
@@ -103,17 +103,17 @@ tr.shown td.details-control {
 									<th scope="row">영업기회</th>
 									<td>
 										<div class="input-group input-group-sm mb-0">
-											<input type="text" class="form-control" name="soppTitle"
-												id="soppTitle" value="${detail.soppTitle}" readonly /> <input
-												type="hidden" name="soppNo" id="soppNo"
-												value="${detail.soppNo}" /> <span class="input-group-btn">
+											<input type="text" class="form-control" name="contTitle"
+												id="contTitle" value="${detail.contTitle}" data-completeSet="true" readonly /> <input
+												type="hidden" name="contNo" id="contNo"
+												value="${detail.contNo}" /> <span class="input-group-btn">
 												<button class="btn btn-primary sch-opportunity2"
-													data-remote="${path}/modal/popup.do?popId=sopp"
-													type="button" data-toggle="modal" data-target="#soppModal">
+													data-remote="${path}/modal/popup.do?popId=cont"
+													type="button" data-toggle="modal" data-target="#contModal">
 													<i class="icofont icofont-search"></i>
 												</button>
 											</span>
-											<div class="modal fade " id="soppModal" tabindex="-1"
+											<div class="modal fade " id="contModal" tabindex="-1"
 												role="dialog">
 												<div class="modal-dialog modal-80size" role="document">
 													<div class="modal-content modal-80size">
@@ -256,7 +256,7 @@ tr.shown td.details-control {
 			modal.find('.modal-body').load(button.data("remote"));
 		});
 		
-		$('#soppModal').on('show.bs.modal', function(e) {
+		$('#contModal').on('show.bs.modal', function(e) {
 			var button = $(e.relatedTarget);
 			var modal = $(this);
 			modal.find('.modal-body').load(button.data("remote"));
@@ -270,11 +270,11 @@ tr.shown td.details-control {
 			$("#custModal").modal("hide");
 		}
 		
-		function fnSetSoppData(a, b) {
-			$("#soppNo").val(b);
-			$("#soppTitle").val(a);
+		function fnSetcontData(a, b) {
+			$("#contNo").val(b);
+			$("#contTitle").val(a);
 			$(".modal-backdrop").remove();
-			$("#soppModal").modal("hide");
+			$("#contModal").modal("hide");
 		} 
 		
 		function setNum(obj) {
@@ -363,7 +363,7 @@ tr.shown td.details-control {
 				inoutData.inoutQty = ((placeholder * 1) + (inoutQty * -1)) * -1;
 				inoutData.locationNo = $("#custNo").val();
 			}
-			inoutData.soppNo = $("#soppNo").val();
+			inoutData.contNo = $("#contNo").val();
 			inoutData.serialNo = $("#serialNo").val();
 			inoutData.inoutAmount = $("#inoutAmount").val().replaceAll(",", "");
 			inoutData.storeNo = storeNo;

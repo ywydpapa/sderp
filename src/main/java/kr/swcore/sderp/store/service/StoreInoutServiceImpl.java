@@ -86,4 +86,8 @@ public class StoreInoutServiceImpl implements StoreInoutService{
 		return storeInoutDao.updateEtc(idto);
 	}
 
+	@Override
+	public int contInoutDelete(int inoutNo) {
+		return storeInoutDao.contInoutDelete(inoutNo);
+	}
 }

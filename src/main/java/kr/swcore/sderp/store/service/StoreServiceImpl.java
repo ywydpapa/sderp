@@ -92,6 +92,13 @@ public class StoreServiceImpl implements StoreService{
 		return storeDao.checkSerial(dto);
 	}
 
-	
-	
+	@Override
+	public StoreDTO getStoreOneList(StoreDTO dto) {
+		return storeDao.getStoreOneList(dto);
+	}
+
+	@Override
+	public int storeUpdateQty(StoreDTO dto) {
+		return storeDao.storeUpdateQty(dto);
+	}
 }

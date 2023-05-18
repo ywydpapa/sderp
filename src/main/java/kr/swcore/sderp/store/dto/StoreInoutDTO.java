@@ -37,6 +37,7 @@ public class StoreInoutDTO {
     private int getNo;
     private int soppNo;
     private int userNo;
+    private BigDecimal productDefaultPrice;
 
   
     public StoreInoutDTO(){

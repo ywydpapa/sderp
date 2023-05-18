@@ -28,6 +28,8 @@ public interface StoreService {
 
 	int checkSerial(StoreDTO dto);
 
+	StoreDTO getStoreOneList(StoreDTO dto);
+	int storeUpdateQty(StoreDTO dto);
 
 }
  

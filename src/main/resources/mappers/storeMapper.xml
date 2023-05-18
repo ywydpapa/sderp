@@ -40,6 +40,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		order by a.storeNo desc; 
 	</select>
 
+	<select id="getStoreOneList" resultType="storeDto">
+		select * from swc_store where storeNo = #{storeNo} and attrib not like 'XXX%';
+	</select>
+
 	<select id="storeList" resultType="storeDto">
 		select a.*, b.productName from swc_store a left join swc_product b on
 		a.productNo = b.productNo where a.compNo = #{compNo} and a.attrib not
@@ -159,4 +163,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			now()
 			)
 	</insert>
+
+	<update id="storeUpdateQty">
+		update swc_store set storeQty = #{storeQty} where storeNo = #{storeNo}
+	</update>
 </mapper>

@@ -131,17 +131,19 @@
 							</thead>
 							<tbody>
 								<c:forEach var="row" items="${store}">
-									<tr align="center"
-										onclick="location.href='${path}/store/detail/${row.storeNo}'"
-										class="storeList">
-										<td>${row.storeNo}</td>
-										<td>${row.productNo}</td>
-										<td>${row.custName}</td>
-										<td>${row.productCategoryName}</td>
-										<td>${row.productName}</td>
-										<td>${row.serialNo}</td>
-										<td>${row.storeQty}</td>
-									</tr>
+									<c:if test="${row.storeQty > 0}">
+										<tr align="center"
+											onclick="location.href='${path}/store/detail/${row.storeNo}'"
+											class="storeList">
+											<td>${row.storeNo}</td>
+											<td>${row.productNo}</td>
+											<td>${row.custName}</td>
+											<td>${row.productCategoryName}</td>
+											<td>${row.productName}</td>
+											<td>${row.serialNo}</td>
+											<td>${row.storeQty}</td>
+										</tr>
+									</c:if>
 								</c:forEach>
 							</tbody>
 						</table>

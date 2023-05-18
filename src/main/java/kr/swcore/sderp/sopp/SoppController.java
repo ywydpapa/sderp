@@ -16,7 +16,10 @@ import kr.swcore.sderp.sopp.dto.SoppFileDataDTO;
 import kr.swcore.sderp.sopp.dto.SoppdataDTO;
 import kr.swcore.sderp.sopp.service.SoppService;
 import kr.swcore.sderp.sopp.service.SoppdataService;
+import kr.swcore.sderp.store.dto.StoreDTO;
+import kr.swcore.sderp.store.dto.StoreInoutDTO;
 import kr.swcore.sderp.store.service.StoreInoutService;
+import kr.swcore.sderp.store.service.StoreService;
 import kr.swcore.sderp.techd.service.TechdService;
 import kr.swcore.sderp.user.dto.UserDTO;
 import kr.swcore.sderp.user.service.UserService;
@@ -84,6 +87,9 @@ public class SoppController {
 
 	@Inject
 	StoreInoutService storeInoutService;
+
+	@Inject
+	StoreService storeService;
 	
 	@RequestMapping("list.do")
 	public ModelAndView list(HttpSession session, ModelAndView mav) {
@@ -429,9 +435,22 @@ public class SoppController {
 	@RequestMapping("deletedata01.do")
 	public ResponseEntity<?> delete(@ModelAttribute SoppdataDTO dto) {
 	Map<String, Object> param = new HashMap<>();
+
+	if(dto.getInoutNo() > 0){
+		StoreDTO storeDto = new StoreDTO();
+		StoreInoutDTO inoutDto = new StoreInoutDTO();
+		inoutDto.setInoutNo(dto.getInoutNo());
+		inoutDto = storeInoutService.getInout(inoutDto);
+		storeDto.setStoreNo(inoutDto.getStoreNo());
+		storeDto = storeService.getStoreOneList(storeDto);
+		storeDto.setStoreQty(inoutDto.getInoutQty() + storeDto.getStoreQty());
+		int storeResult = storeService.storeUpdateQty(storeDto);
+		int inoutResult = storeInoutService.contInoutDelete(inoutDto.getInoutNo());
+	}
+
 	int soppdataUpdate = soppdataService.deleteSoppdata01(dto.getSoppdataNo());
 	if (soppdataUpdate >0) {
-		param.put("code","10001"); 
+		param.put("code","10001");
 	}
 	else {param.put("code","20001");
 	}

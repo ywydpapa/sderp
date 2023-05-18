@@ -26,5 +26,6 @@ public interface StoreInoutService {
 	StoreInoutDTO getInout(StoreInoutDTO dto);
 
 	int updateEtc(HttpSession session, StoreInoutDTO idto);
+	int contInoutDelete(int inoutNo);
 }
  

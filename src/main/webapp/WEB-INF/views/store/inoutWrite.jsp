@@ -46,14 +46,20 @@ tr.shown td.details-control {
 		</div>
 	</div>
 	<div style="margin: 10px 0; display: flex">
-		<h6 class="cont_title" style="line-height: 2.5; margin-right: 5px;">
+		<h6 class="cont_title" style="margin-top: 3px;">
 			<i class="icofont icofont-square-right"></i> 입/출고 선택 :
 		</h6>
-		<select id="storeType" class="form-control form-control-sm"
+		<div style="margin-left: 10px;">
+			<input type="radio" name="storeType" id="storeTypeIn" class="form-control-sm" value="IN" onchange="inoutChange(this)" checked>
+			<label for="storeTypeIn" style="margin-bottom:0;">입고</label>
+			<input type="radio" name="storeType" id="storeTypeOut" class="form-control-sm" value="OUT" onchange="inoutChange(this)">
+			<label for="storeTypeOut" style="margin-bottom:0;">출고</label>
+		</div>
+		<!-- <select id="storeType" class="form-control form-control-sm"
 			style="width: 80px;" onchange="inoutChange(this)">
 			<option value="IN">입고</option>
 			<option value="OUT">출고</option>
-		</select>
+		</select> -->
 	</div>
 	<!--Page-header end 페이지 타이틀 -->
 	<div class="cnt_wr">
@@ -854,8 +860,6 @@ tr.shown td.details-control {
 				eachData.comment = $(".itemOut")[i].children[7].innerHTML;
 				storeDatas.push(eachData);
 			}
-
-			console.log(storeDatas);
 
 			if (pass != -1) {
 				storeDatas = JSON.stringify(storeDatas);

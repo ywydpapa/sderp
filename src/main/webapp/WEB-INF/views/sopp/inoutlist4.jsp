@@ -106,7 +106,7 @@
 					</td>
 					<td class="activeBox" style="text-align: center;"><button type="button" class="btn btn-sm btn-success" data-no="${row.soppdataNo}" onclick="contAssign(this);">할당</button></td>
 					<td style="text-align: center;"><button class="btn btn-sm btn-dark" data-value="1101" onClick="javascript:fn_data01modify(this)">수정</button></td>
-					<td style="text-align: center;"><button class="btn btn-sm btn-danger" data-id="${row.soppdataNo}" onClick="javascript:fn_data01delete1(this)">삭제</button></td>
+					<td style="text-align: center;"><button class="btn btn-sm btn-danger" data-id="${row.soppdataNo}" data-inoutNo="${row.inoutNo}" onClick="javascript:fn_data01delete1(this)">삭제</button></td>
 				</tr>
 			</c:if>
 		</c:forEach>
@@ -166,7 +166,7 @@
 					</td>
 					<td class="activeBox" style="text-align: center;"><button type="button" class="btn btn-sm btn-success" data-no="${row.soppdataNo}" onclick="contAssign(this);">할당</button></td>
 					<td style="text-align: center;"><button class="btn btn-sm btn-dark" data-value="1102" onClick="javascript:fn_data01modify(this)">수정</button></td>
-					<td style="text-align: center;"><button class="btn btn-sm btn-danger" data-id="${row.soppdataNo}" onClick="javascript:fn_data01delete1(this)">삭제</button></td>
+					<td style="text-align: center;"><button class="btn btn-sm btn-danger" data-id="${row.soppdataNo}" data-inoutNo="${row.inoutNo}" onClick="javascript:fn_data01delete1(this)">삭제</button></td>
 				</tr>
 			</c:if>
 		</c:forEach>
@@ -224,7 +224,7 @@
 						<td>${row.dataRemark}</td>
 						<td style="text-align: center;">${row.vatSerial}</td>
 						<td style="text-align: center;"><button class="btn btn-sm btn-dark contUpBtn" data-value="1101" onClick="javascript:fn_data01modify(this)">계약에서 진행</button></td>
-						<td style="text-align: center;"><button class="btn btn-sm btn-danger contDelBtn" data-id="${row.soppdataNo}" onClick="javascript:fn_data01delete1(this)">계약에서 진행</button></td>
+						<td style="text-align: center;"><button class="btn btn-sm btn-danger contDelBtn" data-id="${row.soppdataNo}" data-inoutNo="${row.inoutNo}" onClick="javascript:fn_data01delete1(this)">계약에서 진행</button></td>
 					</tr>
 					<tr class="trCont_${row.contNo}" style="display: none;">
 						<td class="totalTdTitle" colspan="1" style="text-align: center; background: #80808030;">매입합계</td>
@@ -273,7 +273,7 @@
 						<td>${row.dataRemark}</td>
 						<td style="text-align: center;">${row.vatSerial}</td>
 						<td style="text-align: center;"><button class="btn btn-sm btn-dark contUpBtn" data-value="1102" onClick="javascript:fn_data01modify(this)">계약에서 진행</button></td>
-						<td style="text-align: center;"><button class="btn btn-sm btn-danger contDelBtn" data-id="${row.soppdataNo}" onClick="javascript:fn_data01delete1(this)">계약에서 진행</button></td>
+						<td style="text-align: center;"><button class="btn btn-sm btn-danger contDelBtn" data-id="${row.soppdataNo}" data-inoutNo="${row.inoutNo}" onClick="javascript:fn_data01delete1(this)">계약에서 진행</button></td>
 					</tr>
 					<tr class="trCont_${row.contNo}" style="text-align: right; display: none;">
 						<td class="totalTdTitle" colspan="1" style="text-align: center; background: #80808030;">매출합계</td>
@@ -625,12 +625,11 @@
 		var msg = "선택한 건을 삭제하시겠습니까?";
 		var updateData = {};
 		var vatSerial = $(e).parent().prev().prev().html();
-		
+
 		if( confirm(msg) ){
 			updateData.vatSerial = vatSerial;
-	        updateData.contNo = 100;
 	        updateData.compNo = "${sessionScope.compNo}";
-			
+
 	        if(vatSerial !== "" && vatSerial !== null){
 		        $.ajax({
 		        	url: "${path}/acc/vatContUpdate.do",
@@ -642,7 +641,10 @@
 	        
 			$.ajax({
 				url: "${path}/sopp/deletedata01.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
-				data: {soppdataNo : $(e).attr("data-id")}, // HTTP 요청과 함께 서버로 보낼 데이터
+				data: {
+					"soppdataNo" : $(e).attr("data-id"),
+					"inoutNo": $(e).attr("data-inoutno")
+				}, // HTTP 요청과 함께 서버로 보낼 데이터
 				method: "POST", // HTTP 요청 메소드(GET, POST 등)
 			}) // HTTP 요청이 성공하면 요청한 데이터가 done() 메소드로 전달됨. .
 			.done(function(data) {

@@ -83,4 +83,9 @@ public class StoreInoutDAOImpl implements StoreInoutDAO {
 	public int updateEtc(StoreInoutDTO idto) {
 		return sqlSession.update("storeInout.updateEtc", idto);
 	}
+
+	@Override
+	public int contInoutDelete(int inoutNo) {
+		return sqlSession.update("storeInout.contInoutDelete", inoutNo);
+	}
 }

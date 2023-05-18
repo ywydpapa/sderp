@@ -6,6 +6,10 @@ import kr.swcore.sderp.account.service.AccountService;
 import kr.swcore.sderp.code.service.CodeService;
 import kr.swcore.sderp.cust.dto.CustDTO;
 import kr.swcore.sderp.cust.service.CustService;
+import kr.swcore.sderp.store.dto.StoreDTO;
+import kr.swcore.sderp.store.dto.StoreInoutDTO;
+import kr.swcore.sderp.store.service.StoreInoutService;
+import kr.swcore.sderp.store.service.StoreService;
 import kr.swcore.sderp.util.SessionInfoGet;
 
 import org.springframework.http.ResponseEntity;
@@ -42,7 +46,7 @@ public class AccountController {
     
     @Inject
     CustService custService;
-    
+
     @RequestMapping("vatlist.do")
     public ModelAndView vatList(HttpSession session, ModelAndView mav, 
     							@RequestParam(value = "vatSellerCustNo", required = false) Integer vatSellerCustNo,

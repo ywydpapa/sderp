@@ -129,7 +129,7 @@
 								<tr>
 									<th class="text-center">일자</th>
 									<th class="text-center">구분</th>
-									<th class="text-center">영업기회명</th>
+									<th class="text-center">계약명</th>
 									<th class="text-center">상품명</th>
 									<th class="text-center">재고번호</th>
 									<th class="text-center">시리얼 번호</th>

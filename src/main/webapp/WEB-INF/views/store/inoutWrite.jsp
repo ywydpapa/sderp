@@ -214,7 +214,7 @@ tr.shown td.details-control {
 											</div>
 										</div></td>
 									<td><input type="text"
-										class="form-control form-control-sm" id="inSerialNo" onkeyup="serialChange(this)" ></input>
+										class="form-control form-control-sm" id="inSerialNo" ></input>
 										<select id="outStoreNo" class="form-control form-control-sm"
 										style="min-width: 80px; display: none"
 										onchange="changeMinQty(this);">
@@ -324,7 +324,7 @@ tr.shown td.details-control {
 							</colgroup>
 							<thead>
 								<tr>
-								    <th class="text-center">영업기회명</th>
+								    <th class="text-center">계약명</th>
 									<th class="text-center">구분</th>
 									<th class="text-center">상품명</th>
 									<th class="text-center inOutInput">시리얼번호</th>
@@ -585,24 +585,24 @@ tr.shown td.details-control {
 		var productdataJson;
 		function fn_productdataTableReload2() {
 			$.ajax({
-								type : "get",
-								contentType : "application/x-www-form-urlencoded; charset=UTF-8",
-								url : '${path}/product/listAjax'
-							}).done(function(result) {
-						var newData = JSON.parse(result);
-						console.dir(newData);
-						if (newData.data != "") {
-							var arr = JSON.parse(newData.data);
-							// 글로벌 변수에 저장한다. 상세보기때 참고할 변수!!
-							productdataJson = arr;
-							productdataTable2.clear();
-							for (var i = 0; i < arr.length; i++) {
-								productdataTable2.row.add(arr[i]).draw();
-							}
-						} else {
-							productdataTable2.row.add("데이터 없음").draw();
-						}
-					})
+				type : "get",
+				contentType : "application/x-www-form-urlencoded; charset=UTF-8",
+				url : '${path}/product/listAjax'
+			}).done(function(result) {
+				var newData = JSON.parse(result);
+				console.dir(newData);
+				if (newData.data != "") {
+					var arr = JSON.parse(newData.data);
+					// 글로벌 변수에 저장한다. 상세보기때 참고할 변수!!
+					productdataJson = arr;
+					productdataTable2.clear();
+					for (var i = 0; i < arr.length; i++) {
+						productdataTable2.row.add(arr[i]).draw();
+					}
+				} else {
+					productdataTable2.row.add("데이터 없음").draw();
+				}
+			})
 		}
 
 		function fnSetproductdata2(a, b, c) {
@@ -654,7 +654,7 @@ tr.shown td.details-control {
 			productNo = $("#productNo").val();
 			storeQty = $("#storeQty").val();
 			storeAmount = $("#storeAmount").val();
-			storeType = $("#storeType").val() == "IN" ? "입고" : "출고";
+			storeType = $("[name=\"storeType\"]").val() == "IN" ? "입고" : "출고";
 			// 입고인 경우 재고 번호(시리얼 번호)와 위치번호 
 			if (storeType == "입고") {
 				storeNo = $("#inSerialNo").val();
@@ -833,10 +833,16 @@ tr.shown td.details-control {
 				eachData = {};
 				eachData.inoutType = "IN";
 				eachData.contNo = $(".itemIn")[i].children[0].dataset.no;
+				eachData.soppNo = $("#soppNo").val();
+				eachData.userNo = "${sessionScope.userNo}";
 				eachData.productNo = $(".itemIn")[i].children[2].dataset.no;
+				eachData.productName = $(".itemIn")[i].children[2].innerText;
 				eachData.serialNo = $(".itemIn")[i].children[3].innerHTML;
 				eachData.inoutQty = $(".itemIn")[i].children[4].innerHTML;
 				eachData.inoutAmount = $(".itemIn")[i].children[5].innerHTML.replaceAll(",", "") * 1;
+				eachData.inoutVat = eachData.inoutAmount * 0.1;
+				eachData.inoutNet = eachData.inoutAmount / eachData.inoutQty;
+				eachData.inoutTotal = eachData.inoutAmount + eachData.inoutVat;
 				eachData.locationNo = $(".itemIn")[i].children[6].dataset.no;
 				eachData.comment = $(".itemIn")[i].children[7].innerHTML;
 				storeDatas.push(eachData);
@@ -936,12 +942,11 @@ tr.shown td.details-control {
 			let arr = min.split("-").length; 
 			min = min.split("-")[arr-1];
 			$("#maxQty").val(min);
-
 		}
 
 		
 		// 시리얼 번호 온 체인지 이벤트 
-		function serialChange(obj) {
+		/* function serialChange(obj) {
 		 let serialNo = obj.value; 
 		 if(serialNo != "") {
 			 $("#storeQty").val("1"); 
@@ -949,12 +954,21 @@ tr.shown td.details-control {
 		 } else {
 			 $("#storeQty").prop("disabled",false);
 		 }
-		}
+		} */
 	   
+		function setQtyKeyup(){
+			let storeQty = $("#storeQty");
+			let storeAmount = $("#storeAmount");
+			let calResult = storeQty.val() * storeAmount.val().replace(/,/g, ""); 
+			
+			storeAmount.val(calResult.toLocaleString("en-US"));
+		}
+		
 		// 정규표현으로 숫자만 입력되게 제한함
 		function setNum(obj) {
 			obj.value = obj.value.replace(/[^0-9.]/g, "");
 			obj.value = Number(obj.value).toLocaleString();
+			/* setQtyKeyup(); */
 		} 
 		
 		

@@ -4,6 +4,7 @@ import java.util.List;
 
 import kr.swcore.sderp.sales.dto.SalesDTO;
 import kr.swcore.sderp.sopp.dto.SoppDTO;
+import kr.swcore.sderp.store.dto.StoreDTO;
 import kr.swcore.sderp.techd.dto.TechdDTO;
 
 public interface TechdDAO {
@@ -17,5 +18,8 @@ public interface TechdDAO {
 	int updateTechd(TechdDTO dto);
 	int deleteTechd(int techdNo);
 	int insertTechd(TechdDTO dto);
-
+	int techStoreWrite(StoreDTO dto);
+	List<StoreDTO> techStoreList(StoreDTO dto);
+	StoreDTO techStoreDetail(StoreDTO dto);
+	int techStoreUpdate(StoreDTO dto);
 }

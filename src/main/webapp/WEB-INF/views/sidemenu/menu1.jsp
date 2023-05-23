@@ -283,7 +283,7 @@
 				</li> --%>
 			</ul>
 		</li>
-		<li class="pcoded-hasmenu pcoded <c:if test="${path2 eq '/techd/list.do' || path2 eq '/techd/list.do' || path2 eq '/techd/write.do' || path2 eq '/techd/contlist.do' || path2 eq '/techd/bbuycontlist.do' || fn:startsWith(path2, '/techd/detail') || fn:startsWith(path2, '/techd/contextdetail')}">pcoded-trigger</c:if>">
+		<li class="pcoded-hasmenu pcoded <c:if test="${path2 eq '/techd/list.do' || path2 eq '/techd/list.do' || path2 eq '/techd/write.do' || path2 eq '/techd/contlist.do' || path2 eq '/techd/bbuycontlist.do' || path2 eq '/techd/techStoreList.do' || path2 eq '/techd/techStoreWriteForm.do' || fn:startsWith(path2, '/techd/detail') || fn:startsWith(path2, '/techd/contextdetail')}">pcoded-trigger</c:if>">
 			<a href="javascript:void(0)">
 				<span class="pcoded-micon">
 					<i class="ti-agenda"></i></span>
@@ -324,6 +324,24 @@
 							<i class="ti-angle-right"></i>
 						</span>
 						<span class="pcoded-mtext" data-i18n="nav.menu-levels.menu-level-22">유지보수 매입 관리</span>
+						<span class="pcoded-mcaret"></span>
+					</a>
+				</li>
+				<li class="pcoded-hasmenu">
+					<a href="${path}/techd/techStoreList.do">
+						<span class="pcoded-micon">
+							<i class="ti-angle-right"></i>
+						</span>
+						<span class="pcoded-mtext" data-i18n="nav.menu-levels.menu-level-22">재고조회</span>
+						<span class="pcoded-mcaret"></span>
+					</a>
+				</li>
+				<li class="pcoded-hasmenu">
+					<a href="${path}/techd/techStoreWriteForm.do">
+						<span class="pcoded-micon">
+							<i class="ti-angle-right"></i>
+						</span>
+						<span class="pcoded-mtext" data-i18n="nav.menu-levels.menu-level-22">재고등록</span>
 						<span class="pcoded-mcaret"></span>
 					</a>
 				</li>

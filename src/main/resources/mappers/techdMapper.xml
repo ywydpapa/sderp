@@ -219,6 +219,30 @@ from
 		left join swc_cust h on a.endCustNo = h.custNo
 		where a.attrib not like 'XXX%' and techdNo=#{techdNo} order by techdNo
  </select>
+
+	<select id="techStoreList" resultType="storeDto">
+		select a.*, b.contTitle, c.custName from swc_techstore a
+		left join swc_cont b on a.contNo = b.contNo
+		left join swc_cust c on a.custNo = c.custNo
+		where a.attrib not like 'XXX%'
+		<if test="productName != null and productName != ''">
+			and a.productName like CONCAT('%', #{productName}, '%')
+		</if>
+		<if test="contNo != null and contNo != ''">
+			and a.contNo = #{contNo}
+		</if>
+		<if test="custNo != null and custNo != ''">
+			and a.custNo = #{custNo}
+		</if>
+		order by a.storeNo desc;
+	</select>
+
+	<select id="techStoreDetail" resultType="storeDto">
+		select a.*, b.contTitle, c.custName from swc_techstore a
+		left join swc_cont b on a.contNo = b.contNo
+		left join swc_cust c on a.custNo = c.custNo
+		where a.storeNo = #{storeNo};
+	</select>
  
  <insert id="insertTechd">
  insert into swc_techd 
@@ -271,6 +295,51 @@ from
  )
  </insert>
 
+	<insert id="techStoreWrite">
+		insert into swc_techstore
+		(
+			storeType,
+			productName,
+			contNo,
+			custNo,
+		 	userNo,
+			locationName,
+			firstDetail,
+			inventoryQty,
+			purchaseNet,
+			serial,
+			authCode,
+			options,
+			secondDetail,
+			storeDate,
+			releaseDate,
+			orderDate,
+			bklnDate,
+			regDate
+		)
+		values
+		(
+			#{storeType},
+			#{productName},
+			#{contNo},
+			#{custNo},
+		 	#{userNo},
+			#{locationName},
+			#{firstDetail},
+			#{inventoryQty},
+			#{purchaseNet},
+			#{serial},
+			#{authCode},
+			#{options},
+			#{secondDetail},
+			#{storeDate},
+			#{releaseDate},
+			#{orderDate},
+			#{bklnDate},
+			now()
+		)
+	</insert>
+
  <update id="updateTechd">
 	update swc_techd 
 	set 
@@ -294,6 +363,30 @@ from
 	modDatetime	= NOW()
 	where techdNo=#{techdNo}
  </update>
+
+	<update id="techStoreUpdate">
+		update swc_techstore
+		set
+		storeType = #{storeType},
+		productName = #{productName},
+		contNo = #{contNo},
+		custNo = #{custNo},
+		userNo = #{userNo},
+		locationName = #{locationName},
+		firstDetail = #{firstDetail},
+		inventoryQty = #{inventoryQty},
+		purchaseNet = #{purchaseNet},
+		serial = #{serial},
+		authCode = #{authCode},
+		options = #{options},
+		secondDetail = #{secondDetail},
+		storeDate = #{storeDate},
+		releaseDate = #{releaseDate},
+		orderDate = #{orderDate},
+		bklnDate = #{bklnDate},
+		modDate = now()
+		where storeNo = #{storeNo}
+	</update>
  
  <delete id="deleteTechd">
 	update swc_techd 

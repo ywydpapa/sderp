@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 
 import kr.swcore.sderp.common.dto.PageDTO;
 import kr.swcore.sderp.common.dto.WrapperDTO;
+import kr.swcore.sderp.store.dto.StoreDTO;
 import org.springframework.stereotype.Service;
 
 import kr.swcore.sderp.code.dao.CodeDAO;
@@ -137,6 +138,26 @@ public class TechdServiceImpl implements TechdService {
 		wrapperDTO.setITotalDisplayRecords(cnt);
 
 		return wrapperDTO;
+	}
+
+	@Override
+	public List<StoreDTO> techStoreList(StoreDTO dto) {
+		return techdDao.techStoreList(dto);
+	}
+
+	@Override
+	public int techStoreWrite(HttpSession session, StoreDTO dto) {
+		return techdDao.techStoreWrite(dto);
+	}
+
+	@Override
+	public int techStoreUpdate(HttpSession session, StoreDTO dto) {
+		return techdDao.techStoreUpdate(dto);
+	}
+
+	@Override
+	public StoreDTO techStoreDetail(StoreDTO dto) {
+		return techdDao.techStoreDetail(dto);
 	}
 
 	@Override

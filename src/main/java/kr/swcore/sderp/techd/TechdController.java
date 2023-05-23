@@ -14,10 +14,13 @@ import com.google.gson.GsonBuilder;
 import kr.swcore.sderp.cont.dto.ContDTO;
 import kr.swcore.sderp.cont.service.ContService;
 import kr.swcore.sderp.cust.service.CustService;
+import kr.swcore.sderp.gw.dto.GwDTO;
+import kr.swcore.sderp.product.service.ProductService;
 import kr.swcore.sderp.sales.service.SalesService;
 import kr.swcore.sderp.sopp.dto.SoppDTO;
 import kr.swcore.sderp.sopp.service.SoppService;
 import kr.swcore.sderp.sopp.service.SoppdataService;
+import kr.swcore.sderp.store.dto.StoreDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
@@ -59,6 +62,9 @@ public class TechdController {
 	
 	@Inject
 	UserService userService;
+
+	@Inject
+	ProductService productService;
 	
 	@RequestMapping("list.do")
 	public ModelAndView list(HttpSession session, ModelAndView mav) {
@@ -77,6 +83,56 @@ public class TechdController {
 		mav.setViewName("techd/listcont");
 		mav.addObject("list", contService.listCont3m());
 		mav.addObject("first","Y");
+		return mav;
+	}
+
+	@RequestMapping("techStoreList.do")
+	public ModelAndView techStoreList(HttpSession session, ModelAndView mav,
+							  @RequestParam(value = "productName", required = false) String productName,
+							  @RequestParam(value = "custNo", required = false) Integer custNo,
+							  @RequestParam(value = "custName", required = false) String custName,
+							  @RequestParam(value = "contNo", required = false) Integer contNo,
+							  @RequestParam(value = "contTitle", required = false) String contTitle){
+		ContDTO contDto = new ContDTO();
+		StoreDTO dto = new StoreDTO();
+		if(productName != null || custNo != null || custName != null || contNo != null || contTitle != null){
+			if(productName != null) dto.setProductName(productName);
+			if(custNo != null) dto.setCustNo(custNo);
+			if(custName != null) dto.setCustName(custName);
+			if(contNo != null) dto.setContNo(contNo);
+			if(contTitle != null) dto.setContTitle(contTitle);
+			mav.addObject("listStore", techdService.techStoreList(dto));
+		}else {
+			mav.addObject("listStore", techdService.techStoreList(dto));
+		}
+		mav.addObject("listCust", custService.listCust(session));
+		mav.addObject("listCont", contService.listCont(session, null, contDto));
+
+		mav.setViewName("techd/techStoreList");
+		return mav;
+	}
+
+	@RequestMapping("techStoreWriteForm.do")
+	public ModelAndView techStoreWriteForm(HttpSession session, ModelAndView mav){
+		ContDTO contDto = new ContDTO();
+		mav.addObject("listCust", custService.listCust(session));
+		mav.addObject("listProduct", productService.listProduct(session));
+		mav.addObject("listCont", contService.listCont(session, null, contDto));
+		mav.setViewName("techd/techStoreWriteForm");
+		return mav;
+	}
+
+	@RequestMapping("/techStoreDetail.do/{storeNo}")
+	public ModelAndView detail(HttpSession session, @PathVariable("storeNo") int storeNo, ModelAndView mav) {
+		ContDTO contDto = new ContDTO();
+		StoreDTO storeDto = new StoreDTO();
+		storeDto.setStoreNo(storeNo);
+		storeDto = techdService.techStoreDetail(storeDto);
+		mav.addObject("listCust", custService.listCust(session));
+		mav.addObject("listProduct", productService.listProduct(session));
+		mav.addObject("listCont", contService.listCont(session, null, contDto));
+		mav.addObject("dto", storeDto);
+		mav.setViewName("techd/techStoreDetail");
 		return mav;
 	}
 
@@ -191,6 +247,17 @@ public class TechdController {
 		return mav;
 	}
 
+	@ResponseBody
+	@RequestMapping("techStoreWrite.do")
+	public int techStoreWrite(HttpSession session, @ModelAttribute StoreDTO dto) {
+		return techdService.techStoreWrite(session, dto);
+	}
+
+	@ResponseBody
+	@RequestMapping("techStoreUpdate.do")
+	public int techStoreUpdate(HttpSession session, @ModelAttribute StoreDTO dto) {
+		return techdService.techStoreUpdate(session, dto);
+	}
 
 	@RequestMapping("write.do")
 	public ModelAndView write(@RequestParam(value = "simple", required = false) String simple, HttpSession session, ModelAndView mav) {

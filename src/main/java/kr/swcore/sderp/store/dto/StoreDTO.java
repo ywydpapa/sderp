@@ -12,6 +12,8 @@ import java.math.BigDecimal;
 public class StoreDTO {
     private int storeNo;
     private int compNo;
+    private int contNo;
+    private String contTitle;
     private int userNo;
     private String storeType;
     private int productNo;
@@ -31,9 +33,19 @@ public class StoreDTO {
     private String productCategoryNo; 
     private String productCategoryName;
     private int soppNo;
-    
-    
-    
+    private String locationName;
+    private String storeDate;
+    private String releaseDate;
+    private String orderDate;
+    private String bklnDate;
+    private String firstDetail;
+    private String inventoryQty;
+    private BigDecimal purchaseNet;
+    private String serial;
+    private String authCode;
+    private String options;
+    private String secondDetail;
+
     public StoreDTO(){
         super();
     }

@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 
 import kr.swcore.sderp.common.dto.PageDTO;
 import kr.swcore.sderp.sales.dto.SalesDTO;
+import kr.swcore.sderp.store.dto.StoreDTO;
 import kr.swcore.sderp.techd.dto.TechdDTO;
 
 public interface TechdService {
@@ -23,5 +24,8 @@ public interface TechdService {
 	int deleteTechd(int techdNo);
 	int insertTechd(TechdDTO dto);
 	int insertTechd(HttpSession session, TechdDTO dto);
-
+	int techStoreWrite(HttpSession session, StoreDTO dto);
+	List<StoreDTO> techStoreList(StoreDTO dto);
+	StoreDTO techStoreDetail(StoreDTO dto);
+	int techStoreUpdate(HttpSession session, StoreDTO dto);
 }

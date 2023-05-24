@@ -460,7 +460,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<select id="selectVatCust" resultType="accountDto">
-		select count(*) as count, custNo as getNo from swc_cust where custVatno = #{vatNo}
+		select count(*) as count, custNo as getNo from swc_cust where custVatno = #{vatNo} and attrib not like 'XXX%'
 	</select>
 
 	<select id="treqCardList" resultType="accountDto">

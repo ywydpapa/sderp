@@ -370,41 +370,39 @@
         	if($(this).attr("data-value") == 0){
         		$(this).attr("data-value", 1);	
         	}
-        	
             var chk = $(".vatchecked");
             var chkLength = $(".vatchecked").length;
-            
             $.LoadingOverlay("show", true);
-            
+
             setTimeout(() => {
-	            chk.each(function(index, item){
-	            	var vatdata = {};
-	                vatdata.vatSerial = $(item).parent().next().next().html();
-	            	
-	                $.ajax({
-	                    url : "${path}/acc/vatcheck.do",
-	                    data : vatdata,
-	                    method : "POST",
-	                    async: false,
-	                    dataType : "json",
-	                    success:function(data){
-	                    	if(data.resultCount > 0){
-	                    		$(item).prop("checked", false);
-	                    	}else{
-	                    		$(item).prop("checked", true);
-	                    	}
-	                        $("#regBBtn").removeAttr("disabled");
-	                        $("#regSBtn").removeAttr("disabled");
-	                    },
-	                    complete:function(){
-			                $.LoadingOverlay("hide", true);
-	                    }
-	                });
-	            });
-	            
-	            alert("내역 검토가 완료되었습니다.");
+                chk.each(function(index, item){
+                    var vatdata = {};
+                    vatdata.vatSerial = $(item).parent().next().next().html();
+
+                    $.ajax({
+                        url : "${path}/acc/vatcheck.do",
+                        data : vatdata,
+                        method : "POST",
+                        async: false,
+                        dataType : "json",
+                        success:function(data){
+                            if(data.resultCount > 0){
+                                $(item).prop("checked", false);
+                            }else{
+                                $(item).prop("checked", true);
+                            }
+                            $("#regBBtn").removeAttr("disabled");
+                            $("#regSBtn").removeAttr("disabled");
+                        },
+                    });
+
+                    if(index == chkLength - 1){
+                        $.LoadingOverlay("hide", true);
+                        alert("내역 검토가 완료되었습니다.");
+                    }
+                });
             }, 500);
-            
+
             $("#regBBtn").show();
             $("#regSBtn").show();
         }
@@ -433,7 +431,10 @@
                 var $Qarr = $(".vatlst18"); 			  //전자세금계산서종류
                 var $Rarr = $(".vatlst21"); 			  //영수/청구 구분
                 var $Sarr =  $(".vatlst16"); //test 
-                var $Tarr = $(".vatlst32");                
+                var $Tarr = $(".vatlst32");
+                var $cust1 = $(".vatlst6");
+                var $cust2 = $(".vatlst11");
+                var forFlag = true;
                 
                 for (var i=0; i<$Barr.length; i++){
                     if ($($Chkarr[i]).is(":checked")==true){
@@ -497,40 +498,26 @@
 	                        vatData.test = parseInt(vatData.vatAmount + vatData.vatTax);
 	                        vatData.vatMemo = $(".vatlst32")[i].innerText;
                     	}
-                        
-                        /* if(isNaN(Number($Garr[i].innerText))){
-							vatData.vatProductName = $(".vatlst25")[i].innerText;
-	                        vatData.vatEmail = $(".vatlst21")[i].innerText;
-	                        vatData.vatRemark = $(".vatlst19")[i].innerText;
-	                        vatData.vatIssueType = $(".vatlst18")[i].innerText;
-						}else{
-	                        vatData.vatProductName = $Marr[i].innerText;
-	                        vatData.vatEmail = $Karr[i].innerText;
-	                        vatData.vatRemark = $Jarr[i].innerText;
-	                        vatData.vatIssueType = $Iarr[i].innerText;
-						}       */
-                        /* if($Qarr[i].innerText == '일반' || $Qarr[i].innerText == '일반(수정)'){
-                        	vatData.vatBillType = '01';
-                        }else if($Qarr[i].innerText == '영세율'){
-                        	vatData.vatBillType = '02';
-                        } */
-                        
-                        /* if($Rarr[i].innerText == '영수'){
-                        	vatData.vatRecType = '01';
-                        }else if($Rarr[i].innerText == '청구'){
-                        	vatData.vatRecType = '02';
-                        } */
-                        
+
                         $.ajax({
-                        	url: "${path}/acc/selectVatCust/" + vatData.vatNo,
+                        	url: "${path}/acc/selectVatCust/" + $Earr[i].innerText,
                         	method: "post",
                         	async: false,
                         	dataType: "json",
                         	success:function(data){
                         		if(data.count > 0){
     	                    		vatData.vatSellerCustNo = data.getNo;
+
+                                    $.ajax({
+                                        url : "${path}/acc/insertvat.do",
+                                        data : vatData,
+                                        method : "POST",
+                                        async: false,
+                                        dataType: "json"
+                                    });
                         		}else{
-                        			alert("사업자번호 : " + vatData.vatNo + "\n거래처를 등록해주세요.");
+                        			alert("사업자번호 : " + $Earr[i].innerText + ", 상호명 : " + $cust1[i].innerText + "\n거래처를 등록해주세요.");
+                                    forFlag = false;
                         			return false;
                         		}
                         	}
@@ -544,26 +531,22 @@
                          		if(result.count > 0){
      	                    		vatData.vatBuyerCustNo = result.getNo;
                          		}else{
-                         			alert("사업자번호 : " + $Larr[i].innerText + "\n거래처를 등록해주세요.");
+                         			alert("사업자번호 : " + $Larr[i].innerText + ", 상호명 : " + $cust2[i].innerText + "\n거래처를 등록해주세요.");
+                                    forFlag = false;
                         			return false;
                          		}
-                         		
-			                    $.ajax({
-			                        url : "${path}/acc/insertvat.do",
-			                        data : vatData,
-			                        method : "POST",
-			                        async: false,
-			                        dataType: "json"
-			                    });
                          	}
                        });
                     }
                 }
-                alert("매입자료 등록 완료");
-                setTimeout(function(){
-    				$.LoadingOverlay("hide", true);
-    				fnCheckVatlist();
-    			}, 1000);
+
+                if(forFlag){
+                    alert("매입자료 등록 완료");
+                    fnCheckVatlist();
+                }else{
+                    alert("작업이 중지되었습니다.");
+                    $.LoadingOverlay("hide", true);
+                }
         	}else{
         		return false;
         	}
@@ -593,6 +576,9 @@
                 var $Rarr = $(".vatlst21"); 			  //영수/청구 구분
                 var $Sarr =  $(".vatlst16");
                 var $Tarr = $(".vatlst32");
+                var $cust1 = $(".vatlst6");
+                var $cust2 = $(".vatlst11");
+                var forFlag = true;
 
                 for (var i=0; i<$Barr.length; i++){
                     if ($($Chkarr[i]).is(":checked")==true){
@@ -605,20 +591,20 @@
                         vatData.vatIssueDate = $Aarr[i].innerText;
                         vatData.vatTradeDate = $Carr[i].innerText;
                         vatData.vatTransDate = $Darr[i].innerText;
-                        
+
                         if(isNaN($Sarr[i].innerText)){
                         	vatData.vatTax = 0;
                         	vatData.vatProductName = $(".vatlst25")[i].innerText;
 	                        vatData.vatEmail = $(".vatlst22")[i].innerText;
 	                        vatData.vatRemark = $(".vatlst19")[i].innerText;
 	                        vatData.vatIssueType = $(".vatlst18")[i].innerText;
-	                        
+
 	                        if($(".vatlst17")[i].innerText == '일반' || $(".vatlst17")[i].innerText == '일반(수정)'){
 	                        	vatData.vatBillType = '01';
 	                        }else if($(".vatlst17")[i].innerText == '영세율'){
 	                        	vatData.vatBillType = '02';
 	                        }
-	                        
+
 	                        if($(".vatlst20")[i].innerText == '영수'){
 	                        	vatData.vatRecType = '01';
 	                        }else if($(".vatlst20")[i].innerText == '청구'){
@@ -631,14 +617,14 @@
 	                        vatData.modal_vatmemo = parseInt($(".vatlst14")[i].innerText).toLocaleString("en-US");
 	                        vatData.test = parseInt($(".vatlst14")[i].innerText);
 	                        vatData.vatMemo = $(".vatlst30")[i].innerText;
-	                        
+
                     	}else {
                     		vatData.vatTax = isNaN(Number($Sarr[i].innerText)) ? 0 : Number($Sarr[i].innerText);
                     		vatData.vatProductName = $Marr[i].innerText;
 	                        vatData.vatEmail = $Karr[i].innerText;
 	                        vatData.vatRemark = $Jarr[i].innerText;
 	                        vatData.vatIssueType = $Iarr[i].innerText;
-	                        
+
 	                        if($Qarr[i].innerText == '일반' || $Qarr[i].innerText == '일반(수정)'){
 	                        	vatData.vatBillType = '01';
 	                        }else if($Qarr[i].innerText == '영세율'){
@@ -657,33 +643,7 @@
 	                        vatData.test =  parseInt(vatData.vatAmount + vatData.vatTax);
 	                        vatData.vatMemo = $(".vatlst32")[i].innerText;
                     	}
-                        
-                        
-						/* if(isNaN(Number($Garr[i].innerText))){
-							vatData.vatProductName = $(".vatlst25")[i].innerText;
-	                        vatData.vatEmail = $(".vatlst22")[i].innerText;
-	                        vatData.vatRemark = $(".vatlst19")[i].innerText;
-	                        vatData.vatIssueType = $(".vatlst17")[i].innerText;
-						}else{
-	                        vatData.vatProductName = $Marr[i].innerText;
-	                        vatData.vatEmail = $Karr[i].innerText;
-	                        vatData.vatRemark = $Jarr[i].innerText;
-	                        vatData.vatIssueType = $Iarr[i].innerText;
-						}        */                 
-						/* if($Qarr[i].innerText == '일반' || $Qarr[i].innerText == '일반(수정)'){
-                        	vatData.vatBillType = '01';
-                        }else if($Qarr[i].innerText == '영세율'){
-                        	vatData.vatBillType = '02';
-                        }
-                        
-                        if($Rarr[i].innerText == '영수'){
-                        	vatData.vatRecType = '01';
-                        }else if($Rarr[i].innerText == '청구'){
-                        	vatData.vatRecType = '02';
-                        } */
-                        
-                       /*  vatData.modal_vatmemo = parseInt(vatData.vatAmount + vatData.vatTax).toLocaleString("en-US");     */
-                        
+
                         $.ajax({
                         	url: "${path}/acc/selectVatCust/" + $Earr[i].innerText,
                         	method: "post",
@@ -693,12 +653,13 @@
                         		if(data.count > 0){
     	                    		vatData.vatSellerCustNo = data.getNo;
                         		}else{
-                        			alert("사업자번호 : " + vatData.vatNo + "\n거래처를 등록해주세요.");
+                        			alert("사업자번호 : " + $Earr[i].innerText + ", 상호명 : " + $cust1[i].innerText + "\n거래처를 등록해주세요.");
+                                    forFlag = false;
                         			return false;
                         		}
                         	}
                         });
-                       
+
                    		$.ajax({
                            	url: "${path}/acc/selectVatCust/" + $Larr[i].innerText,
                            	method: "post",
@@ -707,27 +668,31 @@
                            	success:function(result){
                            		if(result.count > 0){
        	                    		vatData.vatBuyerCustNo = result.getNo;
+
+                                    $.ajax({
+                                        url : "${path}/acc/insertvat.do",
+                                        data : vatData,
+                                        method : "POST",
+                                        async: false,
+                                        dataType: "json"
+                                    });
                            		}else{
-                           			alert("사업자번호 : " + $Larr[i].innerText + "\n거래처를 등록해주세요.");
-                        			return false;
+                           			alert("사업자번호 : " + $Larr[i].innerText + ", 상호명 : " + $cust2[i].innerText + "\n거래처를 등록해주세요.");
+                                    forFlag = false;
+                                    return false;
                            		}
-                           		
-			                    $.ajax({
-			                        url : "${path}/acc/insertvat.do",
-			                        data : vatData,
-			                        method : "POST",
-			                        async: false,
-			                        dataType: "json"
-			                    });
                            	}
                         });
                     }
                 }
-                alert("매출자료 등록 완료");
-                setTimeout(function(){
-    				$.LoadingOverlay("hide", true);
-    				fnCheckVatlist();
-    			}, 1000);
+
+                if(forFlag){
+                    alert("매출자료 등록 완료");
+                    fnCheckVatlist();
+                }else{
+                    alert("작업이 중지되었습니다.");
+                    $.LoadingOverlay("hide", true);
+                }
         	}else{
         		return false;
         	}

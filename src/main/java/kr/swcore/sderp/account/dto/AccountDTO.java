@@ -251,5 +251,6 @@ public class AccountDTO {
     private String regDateTo;
     private String linkRegDate;
     private String vatDeduction;
+    private String bacDate;
 }
 

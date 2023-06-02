@@ -128,8 +128,8 @@ function select_total_price() {
 	$('#test2').empty();
 	var cal_price = original_price.replace(/,/g, "") - sum_modal;
 	var difference_price_sub = parseInt($('#difference_price_sub').val().replace(/,/g, "")) - sum_modal;
-	tableHtml += "<input id='received_price' class='form-control' style='border: 1px solid #ccc;' type='text' value='"+sum_modal.toLocaleString("en-US")+"'/>"
-	tableHtml2 += "<input id='difference_price' class='form-control' style='border: 1px solid #ccc;' type='text' value='"+difference_price_sub.toLocaleString("en-US")+"'/>"
+	tableHtml += "<input id='received_price' class='form-control' style='border: 1px solid #ccc;' type='text' value='"+sum_modal.toLocaleString("en-US")+"' onkeyup='receivePriceKeyup(this)' readonly/>"
+	tableHtml2 += "<input id='difference_price' class='form-control' style='border: 1px solid #ccc;' type='text' data-price='" + parseInt($('#difference_price_sub').val().replace(/,/g, "")) + "' value='"+difference_price_sub.toLocaleString("en-US")+"' readonly/>"
 	$('#test').html(tableHtml);
 	$('#test2').html(tableHtml2);
 	
@@ -137,11 +137,16 @@ function select_total_price() {
 		$('#received_price_detail').hide();
 		$('#received_price_col').hide();
 	}else if(cal_price != 0) {
-		$('#received_price_detail').show();
-		$('#received_price_col').show();
+		$('#received_price_detail').hide();
+		$('#received_price_col').hide();
 	}
 }
 
+function receivePriceKeyup(thisEle){
+	let difference_price = $(thisEle).parents("tr").find("td #difference_price");
+	inputNumberFormat(thisEle);
+	difference_price.val(parseInt(difference_price.data("price") - $(thisEle).val().replace(/,/g, "")).toLocaleString("en-US"));
+}
 
 function inputNumberFormat(obj) {
     obj.value = comma(uncomma(obj.value));
@@ -350,7 +355,7 @@ function uncomma(str) {
 							if(result.data.length > 0){
 								for(var i = 0; i < result.data.length; i++){
 									
-									tableHtml += "<tr><td style='text-align:center;vertical-align:middle;'><input type='checkbox' class='form-control' id='checkSerial' data-number='" + result.data[i].vatSerial + "' data-code='" + result.data[i].modal_vatmemo + "'></td><td style='text-align:center;vertical-align:middle;'>" 
+									tableHtml += "<tr><td style='text-align:center;vertical-align:middle;'><input type='checkbox' class='form-control' id='checkSerial' data-number='" + result.data[i].vatSerial + "' data-code='" + result.data[i].modal_vatmemo + "' onclick='checkChange(this)'></td><td style='text-align:center;vertical-align:middle;'>"
 									+ result.data[i].vatIssueDate + "</td>";
 									
 									if(result.data[i].custName == '' || result.data[i].custName == null || result.data[i].custName == 'null'){
@@ -361,10 +366,9 @@ function uncomma(str) {
 									tableHtml += "<td style='text-align:right;vertical-align:middle;'>"
 								 	+ result.data[i].test.toLocaleString("en-US") + "</td><td style='text-align:right;vertical-align:middle;'>"
 								 	+ result.data[i].vatProductName + "</td><td style='text-align:center;vertical-align:middle;'>"
-								 	+ result.data[i].vatRemark + "</td><td style='text-align:center;vertical-align:middle;'><input type='text' class='form-control-sm' id='' style='border: 1px solid #ccc;' onkeyup='inputNumberFormat(this)' value='"
-								 	+ result.data[i].modal_receive_data.toLocaleString("en-US") + "'></td><td style='text-align:center;vertical-align:middle;'><input type='text' class='form-control-sm' id='' style='border: 1px solid #ccc;' onkeyup='inputNumberFormat(this)' value='"
-								 	+ result.data[i].modal_vatmemo + "'></td><td style='text-align:center;vertical-align:middle;'><input type='text' class='form-control-sm' id='modal_vatmemo' style='border: 1px solid #ccc;' onkeyup='inputNumberFormat(this)' value='"
-								 	+ result.data[i].modal_vatmemo + "' disabled></td><td style='text-align:right;vertical-align:middle;'>"
+								 	+ result.data[i].vatRemark + "</td><td style='text-align:center;vertical-align:middle;'><input type='text' class='form-control-sm' id='modal_receive_data' style='border: 1px solid #ccc;' onkeyup='inputNumberFormat(this)' value='"
+								 	+ result.data[i].modal_receive_data.toLocaleString("en-US") + "' disabled></td><td style='text-align:center;vertical-align:middle;'><input type='text' class='form-control-sm' id='receive_money' style='border: 1px solid #ccc;'  onkeyup='vatKeyupCheck(this)' value='0'></td><td style='text-align:center;vertical-align:middle;'><input type='text' class='form-control-sm' id='modal_vatmemo' style='border: 1px solid #ccc;' onkeyup='inputNumberFormat(this)' value='"
+											+ result.data[i].modal_vatmemo + "' disabled></td><td style='text-align:right;vertical-align:middle;'>"
 								 	+ result.data[i].vatSerial + "</td></tr>";
 									
 								}
@@ -375,13 +379,13 @@ function uncomma(str) {
 							if(result.data_secound.length > 0){
 								for(var i = 0; i < result.data_secound.length; i++){
 									table_sub_Html += "<input id='difference_price_sub' class='form-control-sm' style='border: 1px solid #ccc;' type='hidden' value='" + result.data_secound[i].difference_price.toLocaleString("en-US") + "'>"
-									+ "<tr><td><input id='original_price' class='form-control' style='border: 1px solid #ccc;' type='text' value='" + result.data_secound[i].outAmt.toLocaleString("en-US") + "'></td>";
+									+ "<tr><td><input id='original_price' class='form-control' style='border: 1px solid #ccc;' type='text' value='" + result.data_secound[i].outAmt.toLocaleString("en-US") + "' readonly></td>";
 									if(result.data_secound[i].received_price == '' || result.data_secound[i].received_price == null || result.data_secound[i].received_price == 'null'){
 										table_sub_Html += "<td id='test'><input id='received_price' class='form-control' style='border: 1px solid #ccc;' type='text' value='0'></td>"
 									}else {
-										table_sub_Html += "<td id='test'><input id='received_price' class='form-control' style='border: 1px solid #ccc;' type='text' value='" + result.data_secound[i].received_price + "'></td>"
+										table_sub_Html += "<td id='test'><input id='received_price' class='form-control' style='border: 1px solid #ccc;' type='text' value='" + result.data_secound[i].received_price + "' readonly></td>"
 									}
-									table_sub_Html += "<td id='test2'><input id='difference_price' class='form-control' style='border: 1px solid #ccc;' type='text' value='" + result.data_secound[i].difference_price.toLocaleString("en-US") + "'></td>"
+									table_sub_Html += "<td id='test2'><input id='difference_price' class='form-control' style='border: 1px solid #ccc;' type='text' value='" + result.data_secound[i].difference_price.toLocaleString("en-US") + "' readonly></td>"
 									if(result.data_secound[i].difference_memo == '' || result.data_secound[i].difference_memo == null || result.data_secound[i].difference_memo == 'null'){
 										table_sub_Html += "<td><input id='received_price_detail' class='form-control' style='border: 1px solid #ccc; display: none;' type='text' value=''></td></tr>";
 									}else {
@@ -405,6 +409,31 @@ function uncomma(str) {
 				}
 			}); 
 		}
+
+	function vatKeyupCheck(thisEle){
+		let oriVat = $(thisEle).parent().next().children();
+
+		if(parseInt($(thisEle).val().replace(/,/g, "")) < 0){
+			alert("금액이 0보다 작을 수 없습니다.");
+			$(thisEle).val(oriVat.val().toLocaleString("en-US"));
+		}else if(parseInt($(thisEle).val().replace(/,/g, "")) > parseInt(oriVat.val().replace(/,/g, ""))){
+			alert("계산서 금액보다 클 수 없습니다.");
+			$(thisEle).val(oriVat.val().toLocaleString("en-US"));
+		}else{
+			inputNumberFormat(thisEle);
+		}
+	}
+
+	function checkChange(thisEle){
+		let modal_vatmemo = $(thisEle).parents("tr").find("td #modal_vatmemo");
+		let receive_money = $(thisEle).parents("tr").find("td #receive_money");
+
+		if($(thisEle).is(":checked")){
+			receive_money.val(modal_vatmemo.val());
+		}else{
+			receive_money.val(0);
+		}
+	}
 		
 		function pageClickModal(e){
 			var page = $(e).attr("data-number");

@@ -43,7 +43,7 @@
 	                	<c:if test = "${list.vatType eq 'S'}">${list.vatBuyerName}</c:if> 
 	                	<c:if test = "${list.vatType eq 'B'}">${list.vatSellerName}</c:if>
 	               	</td>
-	               	<td class="text-center"><a href="#" class="btn btn-sm btn-primary" data-id="${list.contNo}" onclick="reloadVatListB(this);">수금확인</a></td>
+	               	<td class="text-center"><a href="#" class="btn btn-sm btn-primary" data-id="${list.contNo}" data-serial="${list.vatSerial}" onclick="reloadVatListB(this);">수금확인</a></td>
 	               	<c:choose>
 	               		<c:when test="${empty list.vatMemo}">
 			                <td class="text-center">${list.vatProductName}</td>
@@ -70,7 +70,14 @@
 	                	<fmt:formatNumber type="number" maxFractionDigits="3" value="${list.vatAmount + list.vatTax}" />
 	                </td>
 	                <td class="text-center">${list.baclogTime}</td>
-	                <td class="text-right"><fmt:formatNumber type="number" maxFractionDigits="3" value="${list.remain_data}" /></td>
+                    <c:choose>
+                        <c:when test="${list.modal_receive_data > 0}">
+                            <td class="text-right">${list.modal_vatmemo}</td>
+                        </c:when>
+                        <c:otherwise>
+                            <td class="text-right"></td>
+                        </c:otherwise>
+                    </c:choose>
 	            </tr>
 	        </c:forEach>
         </tbody>
@@ -80,24 +87,20 @@
             <col width="10%"/>
             <col width="22%"/>
             <col width="10%"/>
-            <col width="7%"/>
-            <col width="10%"/>
-            <col width="10%"/>
+            <col width="20%"/>
             <col width="10%"/>
             <col width="10%"/>
             <col width="10%"/>
         </colgroup>
         <thead>
         <tr>
-            <th class="text-center">등록일</th>
+            <th class="text-center">계좌 입/출금 일시</th>
             <th class="text-center">거래처</th>
             <th class="text-center">계산서번호</th>
             <th class="text-center">품명</th>
             <th class="text-center">상태</th>
-            <th class="text-center">공급가</th>
-            <th class="text-center">세액</th>
-            <th class="text-center">합계금액</th>
-            <th class="text-center">입/출금 일시</th>
+            <th class="text-center">받은금액</th>
+            <th class="text-center">받은 일시</th>
             <th class="text-center">남은 금액(계산서)</th>
         </tr>
         </thead>
@@ -135,6 +138,7 @@
     	selectData.compNo = compNo;
     	selectData.contNo = contNo;
     	selectData.vatType = vatType;
+        selectData.vatSerial = $(e).attr("data-serial");
     	
     	$.ajax({
     		url: "${path}/acc/reloadVatListB.do",
@@ -144,7 +148,12 @@
     		success:function(data){
     			for(var i = 0; i < data.length; i++){
     				setHtml += "<tr>";
-    				setHtml += "<td class='text-center'>" + data[i].vatIssueDate + "</td>";
+                    if(data[i].baclogTime !== null && data[i].baclogTime !== ""){
+                        setHtml += "<td class='text-center'>" + data[i].baclogTime + "</td>";
+                    }else{
+                        setHtml += "<td class='text-center'></td>";
+                    }
+
     				setHtml += "<td class='text-center'>" + data[i].custName + "</td>";
     				setHtml += "<td class='text-center'>" + data[i].vatSerial + "</td>";
     				
@@ -162,20 +171,14 @@
     					setHtml += "<td class='text-center'>지급완료</td>";
     				}
     				
-    				setHtml += "<td class='text-right'>" + parseInt(data[i].vatAmount).toLocaleString("en-US") + "</td>";
-    				setHtml += "<td class='text-right'>" + parseInt(data[i].vatTax).toLocaleString("en-US") + "</td>";
-    				setHtml += "<td class='text-right'>" + parseInt(data[i].vatAmount + data[i].vatTax).toLocaleString("en-US") + "</td>";
-    				
-    				if(data[i].baclogTime !== null && data[i].baclogTime !== ""){
-    					setHtml += "<td class='text-center'>" + data[i].baclogTime + "</td>";
-    				}else{
-	    				setHtml += "<td class='text-center'></td>";
-    				}
+    				setHtml += "<td class='text-right'>" + parseInt(data[i].receive_data).toLocaleString("en-US") + "</td>";
+
+                    setHtml += "<td class='text-center'>" + data[i].bacDate.substring(0, 10) + "</td>";
     				
     				if(parseInt(data[i].remain_data) > 0){
 	    				setHtml += "<td class='text-right'>" + parseInt(data[i].remain_data).toLocaleString("en-US") + "</td>";
     				}else{
-    					setHtml += "<td class='text-right'></td>";
+    					setHtml += "<td class='text-right'>0</td>";
     				}
     				
     				setHtml += "</tr>";

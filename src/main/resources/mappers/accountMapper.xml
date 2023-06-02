@@ -33,7 +33,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<select id="sumBvat_sub" resultType="accountDto">
-		SELECT a.custNo, a.custName, sum(b.test) AS modal_receive_data FROM swc_cust a
+		SELECT a.custNo, a.custName, sum(b.modal_receive_data) AS modal_receive_data FROM swc_cust a
 		LEFT JOIN swc_vat b ON a.custNo = b.vatSellerCustNo AND (b.vatStatus = 'B3' OR b.vatStatus = 'B5')
 		LEFT JOIN(SELECT * FROM swc_bacledger_detail group BY linkDocno) c ON b.vatSerial = c.linkDocno
 		LEFT JOIN swc_bacledger d ON d.baclogId = c.baclogId
@@ -65,7 +65,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		GROUP BY a.custNo
 	</select>
 	<select id="sumSvat_sub" resultType="accountDto">
-		SELECT a.custNo, a.custName, sum(b.test) AS modal_receive_data  FROM swc_cust a
+		SELECT a.custNo, a.custName, sum(b.modal_receive_data) AS modal_receive_data  FROM swc_cust a
 		LEFT JOIN swc_vat b ON a.custNo = b.vatBuyerCustNo AND (b.vatStatus = 'S3' OR b.vatStatus = 'S5')
 		LEFT JOIN(SELECT * FROM swc_bacledger_detail group BY linkDocno) c ON b.vatSerial = c.linkDocno 
 		LEFT JOIN swc_bacledger d ON d.baclogId = c.baclogId
@@ -277,7 +277,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<if test="vatIssueDateFrom != null and vatIssueDateFrom !=''">
 			and a.vatIssueDate Between #{vatIssueDateFrom} and #{vatIssueDateTo}
 		</if>
- 		and (a.vatBuyerCustNo = #{custNo} or a.vatSellerCustNo = #{custNo}) order by a.vatIssueDate desc;
+ 		and (a.vatBuyerCustNo = #{custNo} or a.vatSellerCustNo = #{custNo}) group by a.vatSerial order by a.vatIssueDate desc;
  	</select>
  	
  	<select id="bacCalSelect" resultType="accountDto">
@@ -395,9 +395,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		order by a.vatIssueDate desc
 	</select>
 	<select id="modalVatS" resultType="accountDto">
-		select a.*, b.custName from swc_vat a 
-		left join swc_cust b on a.vatBuyerCustNo = b.custNo 
-		WHERE a.vatStatus in ('S1', 'S3') and a.attrib not like 'XXX%' AND a.linkedcheck = 1 and a.compNo = #{compNo} 
+		select a.*, b.custName from swc_vat a
+		left join swc_cust b on a.vatBuyerCustNo = b.custNo
+		WHERE a.vatStatus in ('S1', 'S3') and a.attrib not like 'XXX%' and a.modal_vatmemo > 0 and a.compNo = #{compNo}
 		<if test="custName_modal != '' and custName_modal != null">
 			and b.custName like CONCAT('%', #{custName_modal}, '%')
 		</if>
@@ -586,15 +586,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<select id="reloadVatListB" resultType="accountDto">
-		select a.*, b.custName, c.regDate as baclogTime from swc_vat a
-		left join swc_bacledger_detail c on a.vatserial = c.linkDocno
-		<if test='vatType == "S"'>
+		select a.*, b.custName, d.baclogTime, c.regDate as bacDate, c.receive_data, c.remain_data from swc_vat a
+		<if test='vatType == "B"'>
 			left join swc_cust b on a.vatSellerCustNo = b.custNo
 		</if>
-		<if test='vatType == "B"'>
+		<if test='vatType == "S"'>
 			left join swc_cust b on a.vatBuyerCustNo = b.custNo
 		</if>
-		where a.compNo = #{compNo} and a.contNo = #{contNo} and a.attrib not like 'XXX%' and a.contNo != 0 and a.vatType = #{vatType}
+		LEFT JOIN swc_bacledger_detail c ON a.vatSerial = c.linkDocno
+		LEFT JOIN swc_bacledger d ON c.baclogId = d.baclogId where a.compNo = #{compNo} and a.vatType = #{vatType} and a.attrib not like 'XXX%' and c.linkDocno = #{vatSerial} order by c.detailId desc;
 	</select>
 
 	<insert id="insertbacledger">

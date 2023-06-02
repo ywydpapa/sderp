@@ -199,7 +199,7 @@
 
 					insertData.modal_receive_data_sole = parseInt($(item).parent().next().next().next().next().next().next().next().children().first().val().replace(/,/g, ""))
 					//-> 남은 금액
-					insertData.modal_vatmemo = parseInt($(item).parent().next().next().next().next().next().next().next().next().children().first().val().replace(/,/g, "")) - parseInt($(item).parent().next().next().next().next().next().next().next().children().first().val().replace(/,/g, ""))
+					insertData.modal_vatmemo = (parseInt($(item).parent().next().next().next().next().next().next().next().next().children().first().val().replace(/,/g, "")) - parseInt($(item).parent().next().next().next().next().next().next().next().children().first().val().replace(/,/g, ""))).toLocaleString("en-US");
 					insertData.modal_vatmemo_secound = (parseInt($(item).parent().next().next().next().next().next().next().next().next().children().first().val().replace(/,/g, "")) - parseInt($(item).parent().next().next().next().next().next().next().next().children().first().val().replace(/,/g, "")));
 
 					//-> 받을 금액과 받은 금액 합
@@ -209,7 +209,7 @@
 					insertData.difference_price = parseInt($('#difference_price').val().replace(/,/g, ""))
 					insertData.difference_memo = $('#received_price_detail').val()
 
-					if(!$('#difference_price').val() < 1){
+					if(!$('#difference_price').val() < 0){
 						alert("차액이 0보다 작습니다.\n다시 확인해주세요.");
 						return false;
 					}else{
@@ -220,7 +220,6 @@
 							async: false,
 							dataType: "json"
 						});
-						//modal_vatmemo
 						$.ajax({
 							url: "${path}/acc/bacCheckConnect_modal_update.do",
 							method: "post",

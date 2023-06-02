@@ -205,7 +205,6 @@ function uncomma(str) {
 				  insertData.linkDocno = $(item).attr("data-number");
 				  //swc_vat의 modal_vatmemo modal_vatmemo - modal_receive_data
 				  //-> 받은 금액
-				  
 				  insertData.modal_receive_data_sole = parseInt($(item).parent().next().next().next().next().next().next().next().children().first().val().replace(/,/g, ""))
 				  //-> 남은 금액
 				  insertData.modal_vatmemo = (parseInt($(item).parent().next().next().next().next().next().next().next().next().children().first().val().replace(/,/g, "")) - parseInt($(item).parent().next().next().next().next().next().next().next().children().first().val().replace(/,/g, ""))).toLocaleString("en-US");
@@ -217,28 +216,33 @@ function uncomma(str) {
 				  //swc_bacledger의 차액, 차액에 대한 메모
 				  insertData.difference_price = parseInt($('#difference_price').val().replace(/,/g, ""))
 				  insertData.difference_memo = $('#received_price_detail').val()
-				  
-				  $.ajax({
-					 url: "${path}/acc/bacCheckConnect.do",
-					 method: "post",
-					 data: insertData,
-					 async: false,
-					 dataType: "json"
-				  });
-				  $.ajax({
-		  				url: "${path}/acc/bacCheckConnect_modal_update.do",
-		  				method: "post",
-		  				data: insertData,
-		  				async: false,
-		  				dataType: "json"
-		  			}); 
-				  $.ajax({
-		  				url: "${path}/acc/bacCheckConnect_modal_baclogId_memo.do",
-		  				method: "post",
-		  				data: insertData,
-		  				async: false,
-		  				dataType: "json"
-		  			}); 
+
+				  if(!$('#difference_price').val() < 0){
+					  alert("차액이 0보다 작습니다.\n다시 확인해주세요.");
+					  return false;
+				  }else{
+					  $.ajax({
+						  url: "${path}/acc/bacCheckConnect.do",
+						  method: "post",
+						  data: insertData,
+						  async: false,
+						  dataType: "json"
+					  });
+					  $.ajax({
+						  url: "${path}/acc/bacCheckConnect_modal_update.do",
+						  method: "post",
+						  data: insertData,
+						  async: false,
+						  dataType: "json"
+					  });
+					  $.ajax({
+						  url: "${path}/acc/bacCheckConnect_modal_baclogId_memo.do",
+						  method: "post",
+						  data: insertData,
+						  async: false,
+						  dataType: "json"
+					  });
+				  }
 			  }
 		  });
 		  
@@ -381,7 +385,7 @@ function uncomma(str) {
 									table_sub_Html += "<input id='difference_price_sub' class='form-control-sm' style='border: 1px solid #ccc;' type='hidden' value='" + result.data_secound[i].difference_price.toLocaleString("en-US") + "'>"
 									+ "<tr><td><input id='original_price' class='form-control' style='border: 1px solid #ccc;' type='text' value='" + result.data_secound[i].outAmt.toLocaleString("en-US") + "' readonly></td>";
 									if(result.data_secound[i].received_price == '' || result.data_secound[i].received_price == null || result.data_secound[i].received_price == 'null'){
-										table_sub_Html += "<td id='test'><input id='received_price' class='form-control' style='border: 1px solid #ccc;' type='text' value='0'></td>"
+										table_sub_Html += "<td id='test'><input id='received_price' class='form-control' style='border: 1px solid #ccc;' type='text' value='0' readonly></td>"
 									}else {
 										table_sub_Html += "<td id='test'><input id='received_price' class='form-control' style='border: 1px solid #ccc;' type='text' value='" + result.data_secound[i].received_price + "' readonly></td>"
 									}

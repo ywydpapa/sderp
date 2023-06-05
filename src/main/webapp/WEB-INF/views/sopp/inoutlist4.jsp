@@ -450,7 +450,7 @@
 				return;
 			}
 			var tr = $(e).closest("tr");
-			var dataType = $(tr).children().eq(1).data('type');
+			var dataType = $(tr).children().eq(2).data('type');
 			
 			if(dataType == 1101){
 				$("#data01Type").val("1101");
@@ -462,45 +462,45 @@
 			
 			$("#soppdataNo").val(soppdataNo);
 			
-			const date_default = $(tr).children().eq(1)[0].innerText;
+			const date_default = $(tr).children().eq(2)[0].innerText.replaceAll(" ", "");
 			
 			if(date_default.length > 16){
-				const date_maintain = $(tr).children().eq(1)[0].innerText.substr(5, 10);
+				const date_maintain = date_default.substr(5, 10);
 				$('#ioDate').val(date_maintain);
 			}else {
-				const date_default_2 = $(tr).children().eq(1)[0].innerText.substr(3, 10);
+				const date_default_2 = date_default.substr(3, 10);
 				$('#ioDate').val(date_default_2);
 			}
 			
-			var salesCustNoN = $(tr).children().eq(2)[0].innerText;
-			var salesCustNo = Number($(tr).children().eq(2)[0].children[0].value);
+			var salesCustNoN = $(tr).children().eq(3)[0].innerText;
+			var salesCustNo = Number($(tr).children().eq(3)[0].children[0].value);
 			$("#productSalesInOutCustName").val(salesCustNoN).trigger("change");
 			$("#productSalesInOutCustNo").val(salesCustNo);
 
-			var data01Title = $(tr).children().eq(3)[0].innerText;
-			var productNo1 = Number($(tr).children().eq(3)[0].children[0].value);
+			var data01Title = $(tr).children().eq(4)[0].innerText;
+			var productNo1 = Number($(tr).children().eq(4)[0].children[0].value);
 			$("#data01Title").val(data01Title).trigger("change");
 			$("#productNo1").val(productNo1);
 
 
-			var data01Netprice = $(tr).children().eq(4)[0].innerText.replace('₩','');
+			var data01Netprice = $(tr).children().eq(5)[0].innerText.replace('₩','');
 			// var data01NetpriceNum = Number(data01Netprice.replace(',',''));
 			$("#data01Netprice").val(data01Netprice);
 
-			var data01Quanty = $(tr).children().eq(5)[0].innerText;
+			var data01Quanty = $(tr).children().eq(6)[0].innerText;
 			// var data01QuantyNum = Number(data01Quanty.replace(',',''));
 			$("#data01Quanty").val(data01Quanty);
 
-			var data01Vat = $(tr).children().eq(6)[0].innerText.replace('₩','');
+			var data01Vat = $(tr).children().eq(7)[0].innerText.replace('₩','');
 			$("#data01Vat").val(data01Vat);
 			
-			var data01Amt = $(tr).children().eq(7)[0].innerText.replace('₩','');
+			var data01Amt = $(tr).children().eq(8)[0].innerText.replace('₩','');
 			$("#data01Amt").val(data01Amt);
 			
-			var data01Total = $(tr).children().eq(8)[0].innerText.replace('₩','');
+			var data01Total = $(tr).children().eq(9)[0].innerText.replace('₩','');
 			$("#data01Total").val(data01Total);
 
-			var data01Remark = $(tr).children().eq(9)[0].innerText;
+			var data01Remark = $(tr).children().eq(10)[0].innerText;
 			$("#data01Remark").val(data01Remark);
 			
 			$(e).removeClass("btn-dark");
@@ -514,16 +514,16 @@
 				$("#data01Type").val("1101");
 				$("#vatBdiv").show();
     			$("#vatSdiv").hide();
-    			if($(tr).children().eq(10)[0].innerText !== ""){
-					$("#vatBdiv").find("#vatSerialB").val($(tr).children().eq(10)[0].innerText).trigger("change");
+    			if($(tr).children().eq(11)[0].innerText !== ""){
+					$("#vatBdiv").find("#vatSerialB").val($(tr).children().eq(11)[0].innerText).trigger("change");
 					localStorage.setItem("setSerial", $("#vatBdiv").find("#vatSerialB").val());
     			}
 			}else{
 				$("#data01Type").val("1102");
 				$("#vatBdiv").hide();
     			$("#vatSdiv").show();
-    			if($(tr).children().eq(10)[0].innerText !== ""){
-    				$("#vatSdiv").find("#vatSerialS").val($(tr).children().eq(10)[0].innerText).trigger("change");
+    			if($(tr).children().eq(11)[0].innerText !== ""){
+    				$("#vatSdiv").find("#vatSerialS").val($(tr).children().eq(11)[0].innerText).trigger("change");
 					localStorage.setItem("setSerial", $("#vatSdiv").find("#vatSerialS").val());
     			}
 			}

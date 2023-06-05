@@ -677,9 +677,7 @@
 				</div>
 				<div class="btn_wr text-right mt-3" id="tab_common_bottom">
 					<button class="btn btn-md btn-success f-left" onClick="javascript:location='${path}/cont/list.do'">계약목록</button>
-					<c:if test="${dto.userNo eq sessionScope.userNo || dto.secondUserNo eq sessionScope.userNo}">
-						<button class="btn btn-md btn-danger activeDeleteBtn" onClick="fn_data01delete1()">선택 삭제</button>
-					</c:if>
+					<button class="btn btn-md btn-danger activeDeleteBtn" onClick="fn_data01delete1()">선택 삭제</button>
 				</div>
 	<!--//계약등록-->
 

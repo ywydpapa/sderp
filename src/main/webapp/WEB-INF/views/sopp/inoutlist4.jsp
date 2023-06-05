@@ -32,6 +32,7 @@
 <table class="table table-sm bst02" id="inoutlist">
 	<thead>
 		<tr>
+			<th class="text-center">선택</th>
 			<th class="text-center">계산서상태</th>
 			<th class="text-center">구분(등록/수정일)</th>
 			<th class="text-center">거래처(매입/매출처)</th>
@@ -46,7 +47,7 @@
 			<th class="text-center activeBox">계약선택</th>
 			<th class="text-center activeBox">할당</th>
 			<th class="text-center">수정</th>
-			<th class="text-center">삭제</th>
+			<%--<th class="text-center">삭제</th>--%>
 		</tr>
 	</thead>
 	<tbody>
@@ -65,6 +66,9 @@
 			<c:if test="${row.dataType eq '1101' && row.contNo eq '100'}">
 				<c:set var="totalSum1" value="${totalSum1 + row.dataTotal}" />
 				<tr class="item1 trSopp" id="${row.soppdataNo}">
+					<td style="text-align: center;">
+						<input type="checkbox" class="form-control deleteCheckBox" data-type="sopp" data-id="${row.soppdataNo}" data-inoutNo="${row.inoutNo}" />
+					</td>
 					<td style="text-align: center; color: #0054FF;">
 						<c:if test="${row.vatStatus eq 'B1'}">
 							매입발행
@@ -95,7 +99,7 @@
 					<td style="text-align: right">₩<fmt:formatNumber value="${row.dataAmt}" pattern="#,###" /></td>
 					<td style="text-align: right">₩<fmt:formatNumber value="${row.dataTotal}" pattern="#,###" /></td>
 					<td>${row.dataRemark}</td>
-					<td style="text-align: center;">${row.vatSerial}</td>
+					<td class="vatSerialTd" style="text-align: center;">${row.vatSerial}</td>
 					<td class="activeBox">
 						<select class="form-control" id="contSelect" name="contSelect" onchange="vatSoppChange(this);">
 							<option value="">계약선택</option>
@@ -106,7 +110,7 @@
 					</td>
 					<td class="activeBox" style="text-align: center;"><button type="button" class="btn btn-sm btn-success" data-no="${row.soppdataNo}" onclick="contAssign(this);">할당</button></td>
 					<td style="text-align: center;"><button class="btn btn-sm btn-dark" data-value="1101" onClick="javascript:fn_data01modify(this)">수정</button></td>
-					<td style="text-align: center;"><button class="btn btn-sm btn-danger" data-id="${row.soppdataNo}" data-inoutNo="${row.inoutNo}" onClick="javascript:fn_data01delete1(this)">삭제</button></td>
+					<%--<td style="text-align: center;"><button class="btn btn-sm btn-danger" data-id="${row.soppdataNo}" data-inoutNo="${row.inoutNo}" onClick="javascript:fn_data01delete1(this)">삭제</button></td>--%>
 				</tr>
 			</c:if>
 		</c:forEach>
@@ -118,6 +122,9 @@
 			<c:if test="${row.dataType eq '1102' && row.contNo eq '100'}">
 				<c:set var="totalSum2" value="${totalSum2 + row.dataTotal}" />
 				<tr class="item1 trSopp" id="${row.soppdataNo}">
+					<td style="text-align: center;">
+						<input type="checkbox" class="form-control deleteCheckBox" data-type="sopp" data-id="${row.soppdataNo}" data-inoutNo="${row.inoutNo}" />
+					</td>
 					<td style="text-align: center; color: #0054FF;">
 						<c:if test="${row.vatStatus eq 'S1'}">
 							매출발행
@@ -155,7 +162,7 @@
 					<td style="text-align: right">₩<fmt:formatNumber value="${row.dataAmt}" pattern="#,###" /></td>
 					<td style="text-align: right">₩<fmt:formatNumber value="${row.dataTotal}" pattern="#,###" /></td>
 					<td>${row.dataRemark}</td>
-					<td style="text-align: center;">${row.vatSerial}</td>
+					<td class="vatSerialTd" style="text-align: center;">${row.vatSerial}</td>
 					<td class="activeBox">
 						<select class="form-control" id="contSelect" name="contSelect" onchange="vatSoppChange(this);">
 							<option value="">계약선택</option>
@@ -166,7 +173,7 @@
 					</td>
 					<td class="activeBox" style="text-align: center;"><button type="button" class="btn btn-sm btn-success" data-no="${row.soppdataNo}" onclick="contAssign(this);">할당</button></td>
 					<td style="text-align: center;"><button class="btn btn-sm btn-dark" data-value="1102" onClick="javascript:fn_data01modify(this)">수정</button></td>
-					<td style="text-align: center;"><button class="btn btn-sm btn-danger" data-id="${row.soppdataNo}" data-inoutNo="${row.inoutNo}" onClick="javascript:fn_data01delete1(this)">삭제</button></td>
+					<%--<td style="text-align: center;"><button class="btn btn-sm btn-danger" data-id="${row.soppdataNo}" data-inoutNo="${row.inoutNo}" onClick="javascript:fn_data01delete1(this)">삭제</button></td>--%>
 				</tr>
 			</c:if>
 		</c:forEach>
@@ -192,6 +199,9 @@
 				<c:when test="${row.dataType eq '1101'}">
 					<c:set var="totalSum3" value="${totalSum3 + row.dataTotal}" />
 					<tr class="trCont_${row.contNo}" id="${row.soppdataNo}" style="display: none;">
+						<td style="text-align: center;">
+							<input type="checkbox" class="form-control deleteCheckBox" data-type="cont" data-id="${row.soppdataNo}" data-inoutNo="${row.inoutNo}" />
+						</td>
 						<td style="text-align: center; color: #0054FF;">
 							<c:if test="${row.vatStatus eq 'B1'}">
 								매입발행
@@ -222,9 +232,9 @@
 						<td style="text-align: right">₩<fmt:formatNumber value="${row.dataAmt}" pattern="#,###" /></td>
 						<td class="contInAmount" data-cont="${row.contNo}" style="text-align: right">₩<fmt:formatNumber value="${row.dataTotal}" pattern="#,###" /></td>
 						<td>${row.dataRemark}</td>
-						<td style="text-align: center;">${row.vatSerial}</td>
+						<td class="vatSerialTd" style="text-align: center;">${row.vatSerial}</td>
 						<td style="text-align: center;"><button class="btn btn-sm btn-dark contUpBtn" data-value="1101" onClick="javascript:fn_data01modify(this)">계약에서 진행</button></td>
-						<td style="text-align: center;"><button class="btn btn-sm btn-danger contDelBtn" data-id="${row.soppdataNo}" data-inoutNo="${row.inoutNo}" onClick="javascript:fn_data01delete1(this)">계약에서 진행</button></td>
+						<%--<td style="text-align: center;"><button class="btn btn-sm btn-danger contDelBtn" data-id="${row.soppdataNo}" data-inoutNo="${row.inoutNo}" onClick="javascript:fn_data01delete1(this)">계약에서 진행</button></td>--%>
 					</tr>
 					<tr class="trCont_${row.contNo}" style="display: none;">
 						<td class="totalTdTitle" colspan="1" style="text-align: center; background: #80808030;">매입합계</td>
@@ -234,6 +244,9 @@
 				<c:otherwise>
 					<c:set var="totalSum4" value="${totalSum4 + row.dataTotal}" />
 					<tr class="trCont_${row.contNo}" id="${row.soppdataNo}" style="display: none;">
+						<td style="text-align: center;">
+							<input type="checkbox" class="form-control deleteCheckBox" data-type="cont" data-id="${row.soppdataNo}" data-inoutNo="${row.inoutNo}" />
+						</td>
 						<td style="text-align: center; color: #0054FF;">
 							<c:if test="${row.vatStatus eq 'S1'}">
 								매출발행
@@ -271,9 +284,9 @@
 						<td style="text-align: right">₩<fmt:formatNumber value="${row.dataAmt}" pattern="#,###" /></td>
 						<td class="contOutAmount" data-cont="${row.contNo}" style="text-align: right">₩<fmt:formatNumber value="${row.dataTotal}" pattern="#,###" /></td>
 						<td>${row.dataRemark}</td>
-						<td style="text-align: center;">${row.vatSerial}</td>
+						<td class="vatSerialTd" style="text-align: center;">${row.vatSerial}</td>
 						<td style="text-align: center;"><button class="btn btn-sm btn-dark contUpBtn" data-value="1102" onClick="javascript:fn_data01modify(this)">계약에서 진행</button></td>
-						<td style="text-align: center;"><button class="btn btn-sm btn-danger contDelBtn" data-id="${row.soppdataNo}" data-inoutNo="${row.inoutNo}" onClick="javascript:fn_data01delete1(this)">계약에서 진행</button></td>
+						<%--<td style="text-align: center;"><button class="btn btn-sm btn-danger contDelBtn" data-id="${row.soppdataNo}" data-inoutNo="${row.inoutNo}" onClick="javascript:fn_data01delete1(this)">계약에서 진행</button></td>--%>
 					</tr>
 					<tr class="trCont_${row.contNo}" style="text-align: right; display: none;">
 						<td class="totalTdTitle" colspan="1" style="text-align: center; background: #80808030;">매출합계</td>
@@ -351,13 +364,45 @@
 	var product02Percent = 0;
 	
 	function clickTrViewSet(thisEle){
+		let deleteCheckBox = $("#inoutlist tbody tr td .deleteCheckBox");
 		$("#inoutlist tbody tr").not(".clickTr").not("." + $(thisEle).data("name")).css("display", "none");
 		$("#inoutlist tbody .clickTr").data("flag", true);
-		
+
+		for(let i = 0; i < deleteCheckBox.length; i++){
+			let item = $(deleteCheckBox[i]);
+			item.prop("checked", false);
+			item.attr("disabled", true);
+		}
+
+		for(let i = 0; i < $("#inoutlist tbody tr").length; i++){
+			let item = $("#inoutlist tbody tr");
+
+			
+			if(item.css("display") === "table-row"){
+				item.find("td .deleteCheckBox").prop("checked", false);
+				item.find("td .deleteCheckBox").attr("disabled", false);
+
+				if($("#contNo").val() === undefined){
+					item.find("td .deleteCheckBox[data-type=\"cont\"]").prop("checked", false);
+					item.find("td .deleteCheckBox[data-type=\"cont\"]").attr("disabled", true);
+				}
+			}
+		}
+
 		if($(thisEle).data("type") === "sopp"){
 			$(".activeBox").show();
+			$(".activeDeleteBtn").attr("disabled", false);
+			$(".activeDeleteBtn").text("선택 삭제");
 		}else{
 			$(".activeBox").hide();
+
+			if($("contNo").val() === undefined){
+				$(".activeDeleteBtn").attr("disabled", true);
+				$(".activeDeleteBtn").text("계약에서 진행");
+			}else{
+				$(".activeDeleteBtn").attr("disabled", false);
+				$(".activeDeleteBtn").text("선택 삭제");
+			}
 		}
 		
 		if(!$(thisEle).data("flag")){
@@ -620,49 +665,55 @@
 		/* contTitleTr.before("<tr class=\"clickTr\" style=\"border: 0; height: 20px;\"></tr>"); */
 	}
 	
-	function fn_data01delete1(e) {
+	function fn_data01delete1() {
 		var pathname = $(location).attr('pathname');
 		var msg = "선택한 건을 삭제하시겠습니까?";
-		var updateData = {};
-		var vatSerial = $(e).parent().prev().prev().html();
 
 		if( confirm(msg) ){
-			updateData.vatSerial = vatSerial;
-	        updateData.compNo = "${sessionScope.compNo}";
+			var deleteCheckBox = $("#inoutlist tbody tr td .deleteCheckBox");
+			var checkLength = $("#inoutlist tbody tr td .deleteCheckBox:checked").length;
 
-	        if(vatSerial !== "" && vatSerial !== null){
-		        $.ajax({
-		        	url: "${path}/acc/vatContUpdate.do",
-		        	method: "post",
-		        	data: updateData,
-		        	dataType: "json",
-		        });
-	        }
-	        
-			$.ajax({
-				url: "${path}/sopp/deletedata01.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
-				data: {
-					"soppdataNo" : $(e).attr("data-id"),
-					"inoutNo": $(e).attr("data-inoutno")
-				}, // HTTP 요청과 함께 서버로 보낼 데이터
-				method: "POST", // HTTP 요청 메소드(GET, POST 등)
-			}) // HTTP 요청이 성공하면 요청한 데이터가 done() 메소드로 전달됨. .
-			.done(function(data) {
-				if(data.code == 10001){
-					alert("삭제 성공");
-					
-					//location.href="${path}/sopp/detail/"+ $("#soppNo").val() + "/#tab02";
-					localStorage.setItem('lastTab', "#tab02");
-					/* location.href="${path}/cont/detail/"+ $("#soppNo").val() +"/"+ $("#contNo").val(); */
-					location.href = pathname;
-					
-				}else{
-					alert("삭제 실패");
+			if(checkLength > 0){
+				for(let i = 0; i < deleteCheckBox.length; i++){
+					var item = $(deleteCheckBox[i]);
+	
+					if(item.is(":checked")){
+						var vatSerial = item.parents("tr").find(".vatSerialTd").text();
+						var updateData = {};
+						updateData.vatSerial = vatSerial;
+						updateData.compNo = "${sessionScope.compNo}";
+	
+						if(vatSerial !== "" && vatSerial !== null){
+							$.ajax({
+								url: "${path}/acc/vatContUpdate.do",
+								method: "post",
+								data: updateData,
+								dataType: "json",
+							});
+						}
+	
+						$.ajax({
+							url: "${path}/sopp/deletedata01.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
+							data: {
+								"soppdataNo" : item.attr("data-id"),
+								"inoutNo": item.attr("data-inoutno")
+							}, // HTTP 요청과 함께 서버로 보낼 데이터
+							method: "POST", // HTTP 요청 메소드(GET, POST 등)
+						})
+						.fail(function(xhr, status, errorThrown) {
+							alert("통신 실패");
+						});
+					}
 				}
-			}) // HTTP 요청이 실패하면 오류와 상태에 관한 정보가 fail() 메소드로 전달됨.
-			.fail(function(xhr, status, errorThrown) {
-				alert("통신 실패");
-			});
+	
+				alert("삭제 성공");
+				localStorage.setItem('lastTab', "#tab02");
+				/* location.href="${path}/cont/detail/"+ $("#soppNo").val() +"/"+ $("#contNo").val(); */
+				location.href = pathname;
+			}else{
+				alert("체크된 항목이 없습니다.");
+				return false;
+			}
 		}
 	}
 </script>

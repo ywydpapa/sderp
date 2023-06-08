@@ -776,5 +776,10 @@ public class AccountDAOImpl implements AccountDAO {
 	public int vatDeductionUpdate(AccountDTO dto) {
 		return sqlSession.update("account.vatDeductionUpdate", dto);
 	}
+
+	@Override
+	public String checkCardNum(AccountDTO dto) {
+		return sqlSession.selectOne("account.checkCardNum", dto);
+	}
 	
 }

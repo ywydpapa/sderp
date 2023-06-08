@@ -637,7 +637,7 @@ public class AccountController {
     @RequestMapping("custSelectVatList.do")
     public List<AccountDTO> custSelectVatList(@ModelAttribute AccountDTO dto)
     {
-    	System.out.println("�뜲�씠�듃 : " + dto.getVatIssueDateFrom());
+    	System.out.println("占쎈쑓占쎌뵠占쎈뱜 : " + dto.getVatIssueDateFrom());
     	LocalDate now = LocalDate.now();
         int year = now.getYear();
         
@@ -985,7 +985,7 @@ public class AccountController {
     public ResponseEntity<Object> bacCheckConnect(HttpSession session, @ModelAttribute AccountDTO dto){
     	
         Map<String,Object> param = new HashMap<>();
-        //swc_bacledger�쓽 linkDoc 媛믪씠 y媛� �븘�땲怨� ''媛믪씠 �븘�땺�븣
+        //swc_bacledger占쎌벥 linkDoc 揶쏅�れ뵠 y揶쏉옙 占쎈툡占쎈빍�⑨옙 ''揶쏅�れ뵠 占쎈툡占쎈빜占쎈르
         String datalinkDocno = dto.getLinkDocno();
         String number_linkDoc = accountService.number_linkDoc(dto);
         
@@ -993,8 +993,8 @@ public class AccountController {
         	if(!number_linkDoc.equals("n")) {
         		dto.setLinkDocno(number_linkDoc);
         		accountService.change_originlinkDoc(dto);
-        		//�뿰寃고븯�뒗 湲덉븸怨� �넻�옣 湲덉븸�씠 �씪移섑븯�뒗 寃쎌슦 s5濡� 蹂�寃�
-        		//�븯吏�留� �뿰寃고븯�뒗 湲덉븸�슫 �엳�뒗�뜲 �넻�옣 湲덉븸怨� �씪移섑븯吏� �븡�뒗�떎硫� s3 (酉댄븷 �엯/異쒓툑�씠�씪 �깮媛곹븯硫� �맂�떎.)
+        		//占쎈염野껉퀬釉�占쎈뮉 疫뀀뜆釉멩�⑨옙 占쎈꽰占쎌삢 疫뀀뜆釉몌옙�뵠 占쎌뵬燁살꼹釉�占쎈뮉 野껋럩�뒭 s5嚥∽옙 癰귨옙野껓옙
+        		//占쎈릭筌욑옙筌랃옙 占쎈염野껉퀬釉�占쎈뮉 疫뀀뜆釉몌옙�뒲 占쎌뿳占쎈뮉占쎈쑓 占쎈꽰占쎌삢 疫뀀뜆釉멩�⑨옙 占쎌뵬燁살꼹釉�筌욑옙 占쎈륫占쎈뮉占쎈뼄筌롳옙 s3 (�뀎�똾釉� 占쎌뿯/�빊�뮄�닊占쎌뵠占쎌뵬 占쎄문揶쏄낱釉�筌롳옙 占쎈쭆占쎈뼄.)
         	}
         }
         dto.setLinkDocno(datalinkDocno);
@@ -1039,7 +1039,7 @@ public class AccountController {
 						accountService.update_s3(dto);
 					}
 				}
-				//detail�뿉 �빐�떦�븯�뒗 �떆由ъ뼱�쓽 id媛믪쓣 媛�吏� swc_bacledger�쓽 in湲덉븸�쓣 �빀移섍퀬 swc_vat�쓽 湲덉븸怨� 媛숇떎硫� �빐�떦 �떆由ъ뼱瑜� 媛�吏� swc_vat�쓽 lincked�뒗 0, s5濡� 蹂�寃�.
+				//detail占쎈퓠 占쎈퉸占쎈뼣占쎈릭占쎈뮉 占쎈뻻�뵳�딅선占쎌벥 id揶쏅�れ뱽 揶쏉옙筌욑옙 swc_bacledger占쎌벥 in疫뀀뜆釉몌옙�뱽 占쎈�燁살꼵�� swc_vat占쎌벥 疫뀀뜆釉멩�⑨옙 揶쏆늾�뼄筌롳옙 占쎈퉸占쎈뼣 占쎈뻻�뵳�딅선�몴占� 揶쏉옙筌욑옙 swc_vat占쎌벥 lincked占쎈뮉 0, s5嚥∽옙 癰귨옙野껓옙.
 				List <AccountDTO> checktotalprice_vat_and_detail = accountService.checktotalprice_vat_and_detail(dto);
 				BigDecimal total_detail = checktotalprice_vat_and_detail.get(0).getTotal_Amt();
 				int finalcompare = sum.compareTo(total_detail);
@@ -1058,7 +1058,7 @@ public class AccountController {
 					accountService.update_s3(dto);
 					accountService.cancelconnect_linkedcheck(dto);
 				}
-				//detail�뿉 �빐�떦�븯�뒗 �떆由ъ뼱�쓽 id媛믪쓣 媛�吏� swc_bacledger�쓽 in湲덉븸�쓣 �빀移섍퀬 swc_vat�쓽 湲덉븸怨� 媛숇떎硫� �빐�떦 �떆由ъ뼱瑜� 媛�吏� swc_vat�쓽 lincked�뒗 0, s5濡� 蹂�寃�.
+				//detail占쎈퓠 占쎈퉸占쎈뼣占쎈릭占쎈뮉 占쎈뻻�뵳�딅선占쎌벥 id揶쏅�れ뱽 揶쏉옙筌욑옙 swc_bacledger占쎌벥 in疫뀀뜆釉몌옙�뱽 占쎈�燁살꼵�� swc_vat占쎌벥 疫뀀뜆釉멩�⑨옙 揶쏆늾�뼄筌롳옙 占쎈퉸占쎈뼣 占쎈뻻�뵳�딅선�몴占� 揶쏉옙筌욑옙 swc_vat占쎌벥 lincked占쎈뮉 0, s5嚥∽옙 癰귨옙野껓옙.
 				List <AccountDTO> checktotalprice_vat_and_detail = accountService.checktotalprice_vat_and_detail(dto);
 				BigDecimal total_detail = checktotalprice_vat_and_detail.get(0).getTotal_Amt();
 				int finalcompare = sum.compareTo(total_detail);
@@ -1082,7 +1082,7 @@ public class AccountController {
 						accountService.update_b3(dto);
 					}
 				}
-				//detail�뿉 �빐�떦�븯�뒗 �떆由ъ뼱�쓽 id媛믪쓣 媛�吏� swc_bacledger�쓽 in湲덉븸�쓣 �빀移섍퀬 swc_vat�쓽 湲덉븸怨� 媛숇떎硫� �빐�떦 �떆由ъ뼱瑜� 媛�吏� swc_vat�쓽 lincked�뒗 0, s5濡� 蹂�寃�.
+				//detail占쎈퓠 占쎈퉸占쎈뼣占쎈릭占쎈뮉 占쎈뻻�뵳�딅선占쎌벥 id揶쏅�れ뱽 揶쏉옙筌욑옙 swc_bacledger占쎌벥 in疫뀀뜆釉몌옙�뱽 占쎈�燁살꼵�� swc_vat占쎌벥 疫뀀뜆釉멩�⑨옙 揶쏆늾�뼄筌롳옙 占쎈퉸占쎈뼣 占쎈뻻�뵳�딅선�몴占� 揶쏉옙筌욑옙 swc_vat占쎌벥 lincked占쎈뮉 0, s5嚥∽옙 癰귨옙野껓옙.
 				List <AccountDTO> checktotalprice_vat_and_detail_out = accountService.checktotalprice_vat_and_detail_out(dto);
 				BigDecimal total_detail = checktotalprice_vat_and_detail_out.get(0).getTotal_Amt();
 				int finalcompare = sum.compareTo(total_detail);
@@ -1096,7 +1096,7 @@ public class AccountController {
 					accountService.update_b3(dto);
 					accountService.cancelconnect_linkedcheck(dto);
 				}
-				//detail�뿉 �빐�떦�븯�뒗 �떆由ъ뼱�쓽 id媛믪쓣 媛�吏� swc_bacledger�쓽 in湲덉븸�쓣 �빀移섍퀬 swc_vat�쓽 湲덉븸怨� 媛숇떎硫� �빐�떦 �떆由ъ뼱瑜� 媛�吏� swc_vat�쓽 lincked�뒗 0, s5濡� 蹂�寃�.
+				//detail占쎈퓠 占쎈퉸占쎈뼣占쎈릭占쎈뮉 占쎈뻻�뵳�딅선占쎌벥 id揶쏅�れ뱽 揶쏉옙筌욑옙 swc_bacledger占쎌벥 in疫뀀뜆釉몌옙�뱽 占쎈�燁살꼵�� swc_vat占쎌벥 疫뀀뜆釉멩�⑨옙 揶쏆늾�뼄筌롳옙 占쎈퉸占쎈뼣 占쎈뻻�뵳�딅선�몴占� 揶쏉옙筌욑옙 swc_vat占쎌벥 lincked占쎈뮉 0, s5嚥∽옙 癰귨옙野껓옙.
 				List <AccountDTO> checktotalprice_vat_and_detail_out = accountService.checktotalprice_vat_and_detail_out(dto);
 				BigDecimal total_detail = checktotalprice_vat_and_detail_out.get(0).getTotal_Amt();
 				int finalcompare = sum.compareTo(total_detail);
@@ -1148,13 +1148,13 @@ public class AccountController {
     public ResponseEntity<Object> connect_link_check_cancel(HttpSession session, @ModelAttribute AccountDTO dto){
         Map<String,Object> param = new HashMap<>();
         
-        //swc_bacledger_detail�뿉 媛��닔
+        //swc_bacledger_detail占쎈퓠 揶쏉옙占쎈땾
         int listNumber = accountService.connnectlist_Num(dto);
         int detail_Count_equal_baclogId = accountService.detail_Count_equal_baclogId(dto);
         List<AccountDTO> select_vatStatus = accountService.select_vatStatus(dto);
         if(listNumber != 0) {
         	if(detail_Count_equal_baclogId == 1) {
-	        	//swc_bacledger�뒗 delete �릺寃� 洹몃━怨� �빐�떦 serial瑜� 媛�吏� swc_vat�� 1濡� 蹂�寃�
+	        	//swc_bacledger占쎈뮉 delete 占쎈┷野껓옙 域밸챶�봺�⑨옙 占쎈퉸占쎈뼣 serial�몴占� 揶쏉옙筌욑옙 swc_vat占쏙옙 1嚥∽옙 癰귨옙野껓옙
 	        	accountService.deleteconnectlist(dto);
 	        	accountService.cancelconnect_linkedcheck(dto);
 	        	if(select_vatStatus.get(0).getVatStatus().equals("S5")) {
@@ -1167,7 +1167,7 @@ public class AccountController {
 	        		accountService.update_vatStatus_B(dto);
 	        	}
         	}else if(detail_Count_equal_baclogId != 1) {
-        		//�엯湲� �씪�븣
+        		//占쎌뿯疫뀐옙 占쎌뵬占쎈르
         		if(select_vatStatus.get(0).getVatStatus().equals("S5") || select_vatStatus.get(0).getVatStatus().equals("S3")){
 	        		accountService.deleteconnectlist_sub(dto);
 	        		
@@ -1191,7 +1191,7 @@ public class AccountController {
 						accountService.update_s3(dto);
 						accountService.cancelconnect_linkedcheck(dto);
 					}
-				//異쒓툑�씪�븣
+				//�빊�뮄�닊占쎌뵬占쎈르
         		}else if(select_vatStatus.get(0).getVatStatus().equals("B5") || select_vatStatus.get(0).getVatStatus().equals("B3")) {
         			accountService.deleteconnectlist_sub(dto);
 	        		
@@ -1218,14 +1218,14 @@ public class AccountController {
         		}
         	}
         }
-        //0�씪 寃쎌슦�뒗 �몢媛�吏� 寃쎌슦媛� 議댁옱 (湲곗〈�뿉 swc_bacledger�쓽 而щ읆�쑝濡� �뱾�뼱媛� �엳�뒗 寃쎌슦, 吏꾩쭨 �븘臾� �뿰寃곗씠 �뾾�뒗寃쎌슦)
+        //0占쎌뵬 野껋럩�뒭占쎈뮉 占쎈あ揶쏉옙筌욑옙 野껋럩�뒭揶쏉옙 鈺곕똻�삺 (疫꿸퀣�덌옙肉� swc_bacledger占쎌벥 �뚎됱쓥占쎌몵嚥∽옙 占쎈굶占쎈선揶쏉옙 占쎌뿳占쎈뮉 野껋럩�뒭, 筌욊쑴彛� 占쎈툡�눧占� 占쎈염野껉퀣�뵠 占쎈씨占쎈뮉野껋럩�뒭)
         else if (listNumber == 0) {
         	int searchserial = accountService.searchserial(dto);
-        	//swc_bacledger�쓽 而щ읆�뿉 �빐�떦 serial�씠 �뾾�뒗寃쎌슦 0�쓣 諛섑솚, 洹몃젃寃� �릺硫� 湲곗〈�뿉 �뿰寃곕맂 臾몄꽌�룄 �뾾�떎�뒗 �냼由�
+        	//swc_bacledger占쎌벥 �뚎됱쓥占쎈퓠 占쎈퉸占쎈뼣 serial占쎌뵠 占쎈씨占쎈뮉野껋럩�뒭 0占쎌뱽 獄쏆꼹�넎, 域밸챶�쟽野껓옙 占쎈┷筌롳옙 疫꿸퀣�덌옙肉� 占쎈염野껉퀡留� �눧紐꾧퐣占쎈즲 占쎈씨占쎈뼄占쎈뮉 占쎈꺖�뵳占�
         	if(searchserial != 0) {
         		accountService.cancelconnect_linkDoc(dto);
         		accountService.cancelconnect_linkedcheck(dto);
-        		//swv_bacledger�쓽 �빐�떦 而щ읆 '' 洹몃━怨� �빐�떦 serial瑜� 媛�吏� swc_vat�� 1濡� 蹂�寃�
+        		//swv_bacledger占쎌벥 占쎈퉸占쎈뼣 �뚎됱쓥 '' 域밸챶�봺�⑨옙 占쎈퉸占쎈뼣 serial�몴占� 揶쏉옙筌욑옙 swc_vat占쏙옙 1嚥∽옙 癰귨옙野껓옙
         	}
         }
         int listNumber_secound_check = accountService.connnectlist_Num(dto);
@@ -1235,7 +1235,7 @@ public class AccountController {
         		accountService.cancel_connect_final(dto);
         	}
         }
-        //痍⑥냼 �떆 �궓�� 湲덉븸 理쒖떊�솕
+        //�뿆�뫁�꺖 占쎈뻻 占쎄텚占쏙옙 疫뀀뜆釉� 筌ㅼ뮇�뻿占쎌넅
         BigDecimal a = dto.getCancel_lincked_price();
         List <AccountDTO> getlicked_price = accountService.getlicked_price(dto);
         BigDecimal b = new BigDecimal(getlicked_price.get(0).getModal_vatmemo().replaceAll("\\,",""));
@@ -1245,7 +1245,7 @@ public class AccountController {
         dto.setModal_vatmemo(new java.text.DecimalFormat("#,###").format(d).toString());
         dto.setModal_receive_data(e);
         accountService.bacCheckConnect_modal_update(dto);
-        //怨꾩쥖 �옍�뿬 湲덉븸
+        //�④쑴伊� 占쎌삆占쎈연 疫뀀뜆釉�
         List <AccountDTO> getlicked_price_secound = accountService.getlicked_price_secound(dto);
         BigDecimal f = getlicked_price_secound.get(0).getDifference_price();
         BigDecimal g = a.add(f);
@@ -1637,5 +1637,12 @@ public class AccountController {
     public List<CustDTO> getCustList(HttpSession session){
     	List<CustDTO> list = custService.listCust(session);
     	return list;
+    }
+    
+    @ResponseBody
+    @RequestMapping("checkCardNum.do")
+    public String checkCardNum(@ModelAttribute AccountDTO dto) {
+    	String result = accountService.checkCardNum(dto);
+		return result;
     }
 }

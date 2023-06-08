@@ -852,4 +852,9 @@ public class AccountServiceImpl implements AccountService {
 	public int vatDeductionUpdate(AccountDTO dto) {
 		return accountDAO.vatDeductionUpdate(dto);
 	}
+
+	@Override
+	public String checkCardNum(AccountDTO dto) {
+		return accountDAO.checkCardNum(dto);
+	}
 }

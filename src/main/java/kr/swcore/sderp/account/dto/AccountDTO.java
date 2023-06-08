@@ -144,7 +144,7 @@ public class AccountDTO {
     private BigDecimal modal_receive_data_sole;
     private BigDecimal cancel_lincked_price;
     
-    //계산서 추가 컬럼
+    //怨꾩궛�꽌 異붽� 而щ읆
     private int contNo;
     private String contTitle;
     private String vatBillType;
@@ -175,24 +175,24 @@ public class AccountDTO {
     private String proCustVatBiz; 
     private String proCustVatNo;
     
-    //계좌내역 메모 기능
+    //怨꾩쥖�궡�뿭 硫붾え 湲곕뒫
     private String bacUpdateMemo;
     
-    //아이디 값 들고오기
+    //�븘�씠�뵒 媛� �뱾怨좎삤湲�
     private int getId;
     
-    //계좌내역검색
+    //怨꾩쥖�궡�뿭寃��깋
     private String baclogTimeFrom;
     private String baclogTimeTo;
     
-    //카드구별번호
+    //移대뱶援щ퀎踰덊샇
     private String cardDisNum;
     
-    //거래처별 계산서
+    //嫄곕옒泥섎퀎 怨꾩궛�꽌
     private BigDecimal sumVatTax;
     private BigDecimal sumVatAmount;
     
-    //원장
+    //�썝�옣
     private String custVatno;
     private String custBossname;
     private BigDecimal vatTotal;
@@ -219,7 +219,7 @@ public class AccountDTO {
 	private int contribution_percent;
 	private int main_userNo;
 	
-	//금액 검색
+	//湲덉븸 寃��깋
 	private BigDecimal vatTotalFrom;
 	private BigDecimal vatTotalTo;
 	
@@ -232,7 +232,7 @@ public class AccountDTO {
     private String appDateFrom;
     private String appDateTo;
     
-    //메인 대쉬보드 추가.
+    //硫붿씤 ���돩蹂대뱶 異붽�.
     private String appStatus;
     private String docType;
     private BigDecimal docAmount;
@@ -252,5 +252,8 @@ public class AccountDTO {
     private String linkRegDate;
     private String vatDeduction;
     private String bacDate;
+    
+    private String firstCardNum;
+    private String lastCardNum;
 }
 

@@ -512,34 +512,39 @@
 	            	var appSerial = $(".appSerial")[i];
 	            	var appContents = $(".appContents")[i];
 	            	var cardSerial = $(".cardSerial")[i];
-	            	if($(cardSerial).text().indexOf("****-6093") > -1){
-	            		cardSerial = "386093";
-	            		cardDisNum = cardSerial;
-	            	}else if($(cardSerial).text().indexOf("****-0907") > -1){
-	            		cardSerial = "820907";
-	            		cardDisNum = cardSerial;
-	            	}else{
-						cardDisNum = $(cardSerial).text().replaceAll("-").substring($(cardSerial).text().replaceAll("-").length-6, $(cardSerial).text().replaceAll("-").length);
-	            	}
-						
+	            	
 	            	$.ajax({
-	                    url : "${path}/acc/cardCheck.do",
-	                    data : {
-	                    	"appSerial": appSerial.innerText,
-	                    	"appContents": appContents.innerText,
-	                    	"cardDisNum": cardDisNum
-	                    },
-	                    method : "POST",
-	                    async: false,
-	                    dataType : "json",
-	                    success:function(data){
-	                    	if(data.resultCount > 0){
-	                    		$(chk[i]).prop("checked", false);
-	                    	}else{
-	                    		$(chk[i]).prop("checked", true);
-	                    	}
-	                    },
-	                });
+            			url: "${path}/acc/checkCardNum.do",
+            			method: "get",
+            			async: false,
+            			data: {
+            				"firstCardNum": $(cardSerial).text().substring(0, 7),
+            				"lastCardNum": $(cardSerial).text().substring($(cardSerial).text().length-4, $(cardSerial).text().length)
+            			},
+            			success: function(numDatas){
+            				cardSerial = numDatas.replaceAll("-", "").substring(numDatas.replaceAll("-", "").length - 6, numDatas.replaceAll("-", "").length);
+            				cardDisNum = cardSerial.substring(cardSerial.length-6, cardSerial.length);
+            				
+            				$.ajax({
+        	                    url : "${path}/acc/cardCheck.do",
+        	                    data : {
+        	                    	"appSerial": appSerial.innerText,
+        	                    	"appContents": appContents.innerText,
+        	                    	"cardDisNum": cardDisNum
+        	                    },
+        	                    method : "POST",
+        	                    async: false,
+        	                    dataType : "json",
+        	                    success:function(data){
+        	                    	if(data.resultCount > 0){
+        	                    		$(chk[i]).prop("checked", false);
+        	                    	}else{
+        	                    		$(chk[i]).prop("checked", true);
+        	                    	}
+        	                    },
+        	                });
+            			}
+            		});
 	            	
 	            	if(i == chk.length-2){
 	            		$.LoadingOverlay("hide", true);
@@ -590,18 +595,46 @@
 	                    cardData.appDate = $appDate[i].innerText;
 	                    /* cardData.appTime = $Harr[i].innerText; */
 	                    randomStr = generateRandomString(1);	   
-	                    if($($cardSerial[i]).text().indexOf("****-6093") > -1){
-		                    cardData.cardSerial = randomStr + "386093";
-		            	}else if($($cardSerial[i]).text().indexOf("****-0907") > -1){
-		            		cardData.cardSerial = randomStr + "820907";
-		            	}else{
-		            		cardData.cardSerial = randomStr + $($cardSerial[i]).text().replaceAll("-", "").substring($($cardSerial[i]).text().length-6, $($cardSerial[i]).text().replaceAll("-", "").length);
-		            	}
+	            		
+	            		$.ajax({
+	            			url: "${path}/acc/checkCardNum.do",
+	            			method: "get",
+	            			async: false,
+	            			data: {
+	            				"firstCardNum": $($cardSerial[i]).text().substring(0, 7),
+	            				"lastCardNum": $($cardSerial[i]).text().substring($($cardSerial[i]).text().length-4, $($cardSerial[i]).text().length)
+	            			},
+	            			success: function(numDatas){
+	            				cardData.cardSerial = randomStr + numDatas.replaceAll("-", "").substring(numDatas.replaceAll("-", "").length - 6, numDatas.replaceAll("-", "").length);
+	            				cardData.cardDisNum = cardData.cardSerial.substring(cardData.cardSerial.length-6, cardData.cardSerial.length);
+	            				
+	            				$.ajax({
+	    	                        url : "${path}/acc/insertCardLedger.do",
+	    	                        data : cardData,
+	    	                        method : "POST",
+	    	                        async: false,
+	    	                        dataType: "json",
+	    	                        success:function(){
+	    	                        	var updateData = {};
+	    	                        	updateData.cardSerial = cardData.cardSerial
+	    	                        	
+	    	                        	$.ajax({
+	    	                        		url: "${path}/acc/lastUpdateCard.do",
+	    	                        		method: "post",
+	    	                        		async: false,
+	    	                        		data: updateData,
+	    	                        		dataType: "json"
+	    	                        	});
+	    	                        	
+	    	                        	if(i == $appSerial.length-2){
+	    	    			                $.LoadingOverlay("hide", true);
+	    	                        	}
+	    	                        }
+	    	                    });
+	            			}
+	            		});
 	                    
-	            		cardData.cardDisNum = cardData.cardSerial.substring(cardData.cardSerial.length-6, cardData.cardSerial.length);
-	            		console.log(cardData);
-	                    
-	                   	$.ajax({
+	                   	/* $.ajax({
 	                        url : "${path}/acc/insertCardLedger.do",
 	                        data : cardData,
 	                        method : "POST",
@@ -622,7 +655,7 @@
 	    			                $.LoadingOverlay("hide", true);
 	                        	}
 	                        }
-	                    });
+	                    }); */
 	                }
 	            }
 	        	setTimeout(() => {

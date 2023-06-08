@@ -152,4 +152,6 @@ public interface AccountService {
 	AccountDTO crCustCheck(AccountDTO dto);
 	int crCustInsert(AccountDTO dto);
 	int crCustUpdate(AccountDTO dto);
+	
+	String checkCardNum(AccountDTO dto);
 }

@@ -149,4 +149,6 @@ public interface AccountDAO {
 	AccountDTO crCustCheck(AccountDTO dto);
 	int crCustInsert(AccountDTO dto);
 	int crCustUpdate(AccountDTO dto);
+	
+	String checkCardNum(AccountDTO dto);
 }

@@ -64,7 +64,7 @@
                                         <select class="form-control" id="productName" data-flag="true" name="productName" onchange="autoCompleteSelect(this);">
                                             <option value="">선택</option>
                                             <c:forEach var="row" items="${listProduct}">
-                                                <option data-no="${row.productNo}" value="${row.productName}">${row.productName}</option>
+                                                <option data-no="${row.productNo}" value="${row.custName} : ${row.productName}">${row.productName} (${row.custName})</option>
                                             </c:forEach>
                                         </select>
                                         <input type="hidden" name="productNo" id="productNo" value="" />

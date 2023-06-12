@@ -112,14 +112,14 @@
 							<tr>
 							<td colspan="2" style="text-align:center;">추가기재</td>
 							<td colspan=4>
-								<textarea id="praddtext" class="form-control" cols="50" rows="5">${myadd2.thComment}</textarea>
+								<textarea id="praddtext" class="form-control" cols="50" rows="5">${myadd.prComment}</textarea>
 							</td>
 							<c:choose>
-								<c:when test="${myadd2.prCheck eq '1' }">
-									<td style="text-align:center;vertical-align:middle;"><input type="checkbox" data-id="${myadd2.sreportNo}" data-check="1" data-name="add" class="praddchk" checked></td>
+								<c:when test="${myadd.prCheck eq '1' }">
+									<td style="text-align:center;vertical-align:middle;"><input type="checkbox" data-id="${myadd.sreportNo}" data-check="1" data-name="add" class="praddchk" checked></td>
 								</c:when>
 								<c:otherwise>
-									<td style="text-align:center;vertical-align:middle;"><input type="checkbox" data-id="${myadd2.sreportNo}" data-check="0" data-name="add" class="praddchk"></td>
+									<td style="text-align:center;vertical-align:middle;"><input type="checkbox" data-id="${myadd.sreportNo}" data-check="0" data-name="add" class="praddchk"></td>
 								</c:otherwise>
 							</c:choose>
 							</tr>
@@ -252,14 +252,14 @@
 							<tr>
 							<td colspan="2" style="text-align:center;">추가기재</td>
 							<td colspan=4>
-								<textarea id="nxaddtext" class="form-control" cols="50" rows="5"></textarea>
+								<textarea id="nxaddtext" class="form-control" cols="50" rows="5">${myadd2.thComment}</textarea>
 							</td>
 							<c:choose>
 								<c:when test="${myadd2.thCheck eq '1' }">
-									<td style="text-align:center; vertical-align:middle;"><input type="checkbox" data-id="" data-check="1" data-name="add" class="nxaddchk" checked></td>
+									<td style="text-align:center; vertical-align:middle;"><input type="checkbox" data-id="${myadd2.sreportNo }" data-check="1" data-name="add" class="nxaddchk" checked></td>
 								</c:when>
 								<c:otherwise>
-									<td style="text-align:center; vertical-align:middle;"><input type="checkbox" data-id="" data-check="0" data-name="add" class="nxaddchk"></td>
+									<td style="text-align:center; vertical-align:middle;"><input type="checkbox" data-id="${myadd2.sreportNo }" data-check="0" data-name="add" class="nxaddchk"></td>
 								</c:otherwise>
 							</c:choose>
 							</tr>

@@ -111,16 +111,13 @@
                             <thead>
                                 <tr>
                                     <th class="text-center">장비명</th>
-                                    <th class="text-center">재고수량</th>
                                     <th class="text-center">계약명</th>
                                     <th class="text-center">시리얼</th>
-                                    <th class="text-center">Auth Code</th>
                                     <th class="text-center">입고일</th>
                                     <th class="text-center">BKLN 시작일</th>
                                     <th class="text-center">출고일</th>
                                     <th class="text-center">납품처</th>
                                     <th class="text-center">발주일</th>
-                                    <th class="text-center">비고</th>
                                     <th class="text-center">장비위치</th>
                                     <th class="text-center">옵션사항</th>
                                     <th class="text-center">매입단가</th>
@@ -131,20 +128,17 @@
                                 <c:forEach var="row" items="${listStore}">
                                     <tr onclick="location.href='${path}/techd/techStoreDetail.do/${row.storeNo}'">
                                         <td class="text-center">${row.productName}</td>
-                                        <td class="text-center">${row.inventoryQty} </td>
                                         <td class="text-center">${row.contTitle}</td>
                                         <td class="text-center">${row.serial}</td>
-                                        <td class="text-center">${row.authCode}</td>
                                         <td class="text-center">${row.storeDate}</td>
                                         <td class="text-center">${row.bklnDate}</td>
                                         <td class="text-center">${row.releaseDate}</td>
                                         <td class="text-center">${row.custName}</td>
                                         <td class="text-center">${row.orderDate}</td>
-                                        <td>${row.firstDetail}</td>
                                         <td class="text-center">${row.locationName}</td>
                                         <td class="text-center">${row.options}</td>
                                         <td class="text-right"><fmt:formatNumber type="number" maxFractionDigits="3" value="${row.purchaseNet}" /></td>
-                                        <td class="text-center">${row.secondDetail}</td>
+                                        <td>${row.firstDetail}</td>
                                     </tr>
                                 </c:forEach>
                             </tbody>

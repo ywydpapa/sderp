@@ -598,7 +598,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<select id="checkCardNum" resultType="string">
-		select cardSerial from swc_card where cardSerial like concat(#{firstCardNum}, '%') and cardSerial like concat('%', #{lastCardNum}) limit 1
+		select cardSerial from swc_card where cardSerial like concat(#{firstCardNum}, '%') and cardSerial like concat('%', #{lastCardNum}) and attrib not like 'XXX%' limit 1
 	</select>
 
 	<insert id="insertbacledger">

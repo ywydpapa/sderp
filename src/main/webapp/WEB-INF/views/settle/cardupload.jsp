@@ -502,57 +502,69 @@
             $.LoadingOverlay("show", true);
             
             setTimeout(() => {
+            	let forFlag = true;
+            	
 	        	if($(this).attr("data-value") == 0){
 	        		$(this).attr("data-value", 1);	
 	        	}
 	        	
 	            var chk = $(".cardchecked");
 	            for(let i = 0; i < chk.length; i++){
-	            	var cardDisNum;
-	            	var appSerial = $(".appSerial")[i];
-	            	var appContents = $(".appContents")[i];
-	            	var cardSerial = $(".cardSerial")[i];
-	            	
-	            	$.ajax({
-            			url: "${path}/acc/checkCardNum.do",
-            			method: "get",
-            			async: false,
-            			data: {
-            				"firstCardNum": $(cardSerial).text().substring(0, 7),
-            				"lastCardNum": $(cardSerial).text().substring($(cardSerial).text().length-4, $(cardSerial).text().length)
-            			},
-            			success: function(numDatas){
-            				cardSerial = numDatas.replaceAll("-", "").substring(numDatas.replaceAll("-", "").length - 6, numDatas.replaceAll("-", "").length);
-            				cardDisNum = cardSerial.substring(cardSerial.length-6, cardSerial.length);
-            				
-            				$.ajax({
-        	                    url : "${path}/acc/cardCheck.do",
-        	                    data : {
-        	                    	"appSerial": appSerial.innerText,
-        	                    	"appContents": appContents.innerText,
-        	                    	"cardDisNum": cardDisNum
-        	                    },
-        	                    method : "POST",
-        	                    async: false,
-        	                    dataType : "json",
-        	                    success:function(data){
-        	                    	if(data.resultCount > 0){
-        	                    		$(chk[i]).prop("checked", false);
-        	                    	}else{
-        	                    		$(chk[i]).prop("checked", true);
-        	                    	}
-        	                    },
-        	                });
-            			}
-            		});
-	            	
-	            	if(i == chk.length-2){
-	            		$.LoadingOverlay("hide", true);
+	            	if(forFlag){
+		            	var cardDisNum;
+		            	var appSerial = $(".appSerial")[i];
+		            	var appContents = $(".appContents")[i];
+		            	var cardSerial = $(".cardSerial")[i];
+		            	
+		            	$.ajax({
+	            			url: "${path}/acc/checkCardNum.do",
+	            			method: "get",
+	            			async: false,
+	            			data: {
+	            				"firstCardNum": $(cardSerial).text().substring(0, 7),
+	            				"lastCardNum": $(cardSerial).text().substring($(cardSerial).text().length-4, $(cardSerial).text().length)
+	            			},
+	            			success: function(numDatas){
+	            				console.log(numDatas);
+	            				if(numDatas === ""){
+	            					forFlag = false;
+	            					alert("카드번호: " + $(cardSerial).text() + " 일치하는 카드가 없습니다.\n카드를 먼저 등록해주세요.");
+	            					return false;
+	            				}else{
+	            					cardSerial = numDatas.replaceAll("-", "").substring(numDatas.replaceAll("-", "").length - 6, numDatas.replaceAll("-", "").length);
+		            				cardDisNum = cardSerial.substring(cardSerial.length-6, cardSerial.length);
+		            				
+		            				$.ajax({
+		        	                    url : "${path}/acc/cardCheck.do",
+		        	                    data : {
+		        	                    	"appSerial": appSerial.innerText,
+		        	                    	"appContents": appContents.innerText,
+		        	                    	"cardDisNum": cardDisNum
+		        	                    },
+		        	                    method : "POST",
+		        	                    async: false,
+		        	                    dataType : "json",
+		        	                    success:function(data){
+		        	                    	if(data.resultCount > 0){
+		        	                    		$(chk[i]).prop("checked", false);
+		        	                    	}else{
+		        	                    		$(chk[i]).prop("checked", true);
+		        	                    	}
+		        	                    },
+		        	                });
+	            				}
+	            			}
+	            		});
 	            	}
 	            }
 	            
-	           	alert("내역 검토가 완료되었습니다.");
-	           	$(".submitBtn").show();
+	            if(forFlag){
+		           	alert("내역 검토가 완료되었습니다.");
+		           	$(".submitBtn").show();
+		           	$.LoadingOverlay("hide", true);
+	            }else{
+	            	$.LoadingOverlay("hide", true);
+	            }
             }, 300);
         }
 

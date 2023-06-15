@@ -462,17 +462,35 @@
                 return;
             }
             
-            $.ajax({ 
-            	url: "${path}/acc/insertCard.do",
-                data: cardData,
-                method: "POST",
-                dataType: "json",
-                success:function(){
-                	alert("저장 성공");
-                	var url = '${path}/acc/regCard.do';
-                    location.href = url;
-                }
-            });
+            $.ajax({
+    			url: "${path}/acc/checkCardNum.do",
+    			method: "get",
+    			async: false,
+    			data: {
+    				"firstCardNum": cardData.cardSerial.substring(0, 7),
+    				"lastCardNum": cardData.cardSerial.substring(cardData.cardSerial.length-4, cardData.cardSerial.length)
+    			},
+    			success: function(numDatas){
+    				if(numDatas === ""){
+    					$.ajax({ 
+        	            	url: "${path}/acc/insertCard.do",
+        	                data: cardData,
+        	                method: "POST",
+        	                dataType: "json",
+        	                success:function(){
+        	                	alert("저장 성공");
+        	                	var url = '${path}/acc/regCard.do';
+        	                    location.href = url;
+        	                }
+        	            });
+    				}else{
+    					alert("카드번호가 이미 등록되어 있습니다.");
+    					return false;
+    				}
+    			}
+    		});
+            
+            
         }
 
         function fnChgStatus(){

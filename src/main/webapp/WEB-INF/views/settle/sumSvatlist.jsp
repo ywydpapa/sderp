@@ -195,43 +195,40 @@
                             </thead>
                             <c:forEach items="${vatList}" var="vlist">
                             	<c:if test="${vlist.vatAmountS > 0 || vlist.serialTotalS > 0 || vlist.custBalance > 0}">
-	                                <tr>
-	                                    <td class="text-center">
-	                                   		<a data-remote="${path}/modal/popup.do?popId=custVatListModal&modalType=cust&custNo=${vlist.custNo}&compNo=${sessionScope.compNo}&vatIssueDateFrom=${param.vatIssueDateFrom}&vatIssueDateTo=${param.vatIssueDateTo}&modalFlag=1&vatType=S" type="button" data-toggle="modal" data-target="#custVatList" style="cursor: pointer; text-decoration: underline;">
-	                                   			${vlist.vatBuyerName}
-	                                   		</a>
-	                                   	</td>
-	                                   	<td class="text-right moneyTdHtml">
-	                                   		<c:choose>
-	                                    		<c:when test="${vlist.custBalance ne ''}">
-			                                   		${vlist.custBalance}
-	                                    		</c:when>
-	                                    		<c:otherwise>0</c:otherwise>
-	                                    	</c:choose>
-	                                   	</td>
-	                                    <td class="text-right moneyTdHtml">
-											<c:choose>
-	                                    		<c:when test="${vlist.vatAmountS > 0}">${vlist.vatAmountS}</c:when>
-	                                    		<c:otherwise>0</c:otherwise>
-	                                    	</c:choose>
-										</td>
-	                                    <td class="text-right moneyTdHtml">
-	                                    	<c:choose>
-	                                    		<c:when test="${vlist.serialTotalS > 0}">${vlist.serialTotalS}</c:when>
-	                                    		<c:otherwise>0</c:otherwise>
-	                                    	</c:choose>
-	                                    </td>
-	                                    <td class="text-right custTotal" data-custNo="${vlist.custNo}">
-                                   			<a data-remote="${path}/modal/popup.do?popId=custVatListModal&modalType=balance&custNo=${vlist.custNo}&compNo=${sessionScope.compNo}&modalFlag=0&vatType=S" type="button" data-toggle="modal" data-target="#custVatList" style="cursor: pointer; text-decoration: underline;">
-												<c:choose>
-		                                    		<c:when test="${((vlist.custBalance + vlist.vatAmountS) - vlist.serialTotalS) ne ''}">
-		                                    				<fmt:formatNumber type="number" maxFractionDigits="3" value="${(vlist.custBalance + vlist.vatAmountS) - vlist.serialTotalS}" />
+                            		<c:if test="${(vlist.custBalance + vlist.vatAmountS) - vlist.serialTotalS > 0 && (vlist.custBalance + vlist.vatAmountS) - vlist.serialTotalS ne ''}">
+		                                <tr>
+		                                    <td class="text-center">
+		                                   		<a data-remote="${path}/modal/popup.do?popId=custVatListModal&modalType=cust&custNo=${vlist.custNo}&compNo=${sessionScope.compNo}&vatIssueDateFrom=${param.vatIssueDateFrom}&vatIssueDateTo=${param.vatIssueDateTo}&modalFlag=1&vatType=S" type="button" data-toggle="modal" data-target="#custVatList" style="cursor: pointer; text-decoration: underline;">
+		                                   			${vlist.vatBuyerName}
+		                                   		</a>
+		                                   	</td>
+		                                   	<td class="text-right moneyTdHtml">
+		                                   		<c:choose>
+		                                    		<c:when test="${vlist.custBalance ne ''}">
+				                                   		${vlist.custBalance}
 		                                    		</c:when>
 		                                    		<c:otherwise>0</c:otherwise>
 		                                    	</c:choose>
-                                   			</a>
-	                                    </td>
-	                                </tr>
+		                                   	</td>
+		                                    <td class="text-right moneyTdHtml">
+												<c:choose>
+		                                    		<c:when test="${vlist.vatAmountS > 0}">${vlist.vatAmountS}</c:when>
+		                                    		<c:otherwise>0</c:otherwise>
+		                                    	</c:choose>
+											</td>
+		                                    <td class="text-right moneyTdHtml">
+		                                    	<c:choose>
+		                                    		<c:when test="${vlist.serialTotalS > 0}">${vlist.serialTotalS}</c:when>
+		                                    		<c:otherwise>0</c:otherwise>
+		                                    	</c:choose>
+		                                    </td>
+		                                    <td class="text-right custTotal" data-custNo="${vlist.custNo}">
+	                                   			<a data-remote="${path}/modal/popup.do?popId=custVatListModal&modalType=balance&custNo=${vlist.custNo}&compNo=${sessionScope.compNo}&modalFlag=0&vatType=S" type="button" data-toggle="modal" data-target="#custVatList" style="cursor: pointer; text-decoration: underline;">
+                                    				<fmt:formatNumber type="number" maxFractionDigits="3" value="${(vlist.custBalance + vlist.vatAmountS) - vlist.serialTotalS}" />
+	                                   			</a>
+		                                    </td>
+		                                </tr>
+                            		</c:if>
                                	</c:if>
                             </c:forEach>
                         </table>

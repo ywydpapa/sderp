@@ -141,7 +141,7 @@
 											<select class="form-control" id="endCustName" name="endCustName" onchange="autoCompleteSelect(this);">
 												<option value="">선택</option>
 												<c:forEach var="row" items="${listCust}">
-													<option data-no="${row.custNo}" value="${row.custName}" <c:if test="${row.custName eq dto.endCustName}">selected</c:if>>${row.custName}</option>
+													<option data-no="${row.custNo}" value="${row.custName}" <c:if test="${row.custNo eq dto.endCustNo}">selected</c:if>>${row.custName}</option>
 												</c:forEach>
 											</select>
 											<input type="hidden" name="endCustNo" id="endCustNo" value="${dto.endCustNo}" />
@@ -440,7 +440,7 @@
 			}
 			sprtData.techdTitle			= $("#techdTitle").val();					// 기술지원 요청명
 			sprtData.userNo				= $("#userNo").val() ? Number($("#userNo").val()) : 0;						// 담당사원
-			sprtData.custNo				= $("#endCustNo").val() ? Number($("#endCustNo").val()) : 0;						// 거래처
+			sprtData.custNo				= $("#custNo").val() ? Number($("#custNo").val()) : 0;						// 거래처
 			sprtData.custmemberNo		= $("#custmemberNo").val() ? Number($("#custmemberNo").val()) : 0;					// 고객
 			sprtData.techdItemmodel		= $("#techdItemmodel").val();				// 모델
 			sprtData.techdItemversion	= $("#techdItemversion").val();				// 버전
@@ -449,6 +449,7 @@
 			sprtData.techdTo			= setDateHourMinute($("#techdTo").val(), $("#endTime").val());						// 지원일자 종료
 			sprtData.techdType			= $("#techdType").val();					// 지원형태
 			sprtData.techdSteps			= $("#techdSteps").val();	 // 진행단계
+			sprtData.endCustNo 			= $("#endCustNo").val();
 			
 			if($("textarea").attr("style") === "display: none;"){
 				sprtData.techdDesc			= tinyMCE.get("techdDesc").getContent();

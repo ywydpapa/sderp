@@ -272,9 +272,9 @@ from
  values 
  (
 	#{compNo},
-	#{endCustNo},
+	#{custNo},
 	#{custmemberNo},
-	#{compNo},
+	#{endCustNo},
 	#{cntrctMth},
 	#{techdTitle},
 	#{techdDesc},
@@ -348,6 +348,7 @@ from
 	</if>
 	soppNo = #{soppNo},
 	contNo = #{contNo},
+	endCustNo = #{endCustNo},
 	custmemberNo = #{custmemberNo},
 	cntrctMth = #{cntrctMth},
 	techdTitle = #{techdTitle},

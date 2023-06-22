@@ -272,7 +272,7 @@ from
  values 
  (
 	#{compNo},
-	#{custNo},
+	#{endCustNo},
 	#{custmemberNo},
 	#{endCustNo},
 	#{cntrctMth},
@@ -344,7 +344,7 @@ from
 	update swc_techd 
 	set 
 	<if test="custNo != 100002">
-	custNo = #{custNo},
+	custNo = #{endCustNo},
 	</if>
 	soppNo = #{soppNo},
 	contNo = #{contNo},

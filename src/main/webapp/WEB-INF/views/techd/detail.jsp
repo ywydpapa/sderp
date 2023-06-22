@@ -440,7 +440,7 @@
 			}
 			sprtData.techdTitle			= $("#techdTitle").val();					// 기술지원 요청명
 			sprtData.userNo				= $("#userNo").val() ? Number($("#userNo").val()) : 0;						// 담당사원
-			sprtData.custNo				= $("#custNo").val() ? Number($("#custNo").val()) : 0;						// 거래처
+			sprtData.custNo				= $("#endCustNo").val() ? Number($("#endCustNo").val()) : 0;						// 거래처
 			sprtData.custmemberNo		= $("#custmemberNo").val() ? Number($("#custmemberNo").val()) : 0;					// 고객
 			sprtData.techdItemmodel		= $("#techdItemmodel").val();				// 모델
 			sprtData.techdItemversion	= $("#techdItemversion").val();				// 버전
@@ -449,7 +449,7 @@
 			sprtData.techdTo			= setDateHourMinute($("#techdTo").val(), $("#endTime").val());						// 지원일자 종료
 			sprtData.techdType			= $("#techdType").val();					// 지원형태
 			sprtData.techdSteps			= $("#techdSteps").val();	 // 진행단계
-			sprtData.endCustNo 			= $("#endCustNo").val();
+			sprtData.endCustNo 			= $("#endCustNo").val() ? Number($("#endCustNo").val()) : 0;	
 			
 			if($("textarea").attr("style") === "display: none;"){
 				sprtData.techdDesc			= tinyMCE.get("techdDesc").getContent();

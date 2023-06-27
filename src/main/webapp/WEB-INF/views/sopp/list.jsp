@@ -432,7 +432,7 @@
 								<!--//거래처-->
 								<!-- 상품 -->
 								<div class="col-sm-12 col-xl-2">
-									<label class="col-form-label" for="custmemberName">카테고리</label>
+									<label class="col-form-label" for="custmemberName">카테고리(제품회사명)</label>
 									<div class="input-group input-group-sm mb-0">
 										<input type="text" class="form-control form-control-sm col-xl-12" name="categories" id="categories" data-completeSet="true" style="width:100%;">
 									</div>
@@ -548,7 +548,7 @@
 								<th>영업기회명</th>
 								<th>매출처</th>
 								<th>엔드유저</th>
-								<th>카테고리</th>
+								<th>카테고리(제품회사명)</th>
 								<th>담당사원</th>
 								<th>예상매출액</th>
 								<th>진행단계</th>

@@ -470,7 +470,7 @@
 													</td>
 												</tr> --%>
 												<tr>
-											 		<th scope="row" class="requiredTextCss">카테고리</th>
+											 		<th scope="row" class="requiredTextCss">카테고리<br />(제품회사명)</th>
 													<td colspan="7">
 														<div class="input-group m-0 productInputDiv">
 															<select onchange="changeSelect(this);">
@@ -480,11 +480,11 @@
 															<select id="productName" name="productName" onchange="productSelect(this);">
 																<option value="">선택</option>
 																<c:forEach var="row" items="${listProduct}">
-																	<option data-no="${row.productNo}" value="${row.custName} : ${row.productName}">${row.productName}(${row.custName})</option>
+																	<option data-no="${row.productNo}" value="${row.custName}">${row.productName}(${row.custName})</option>
 																</c:forEach>
 															</select>
 															<div class="input-group m-0" style="display:none; width: 20%;">
-																<input type="text" class="form-control" id="inputText">
+																<input type="text" class="form-control" id="inputText" placeholder="제품에 대한 회사명을 입력해주세요.">
 																<button type="button" class="btn btn-sm btn-primary" onclick="inputSelect(this);">추가</button>
 															</div>
 															<div class="form-control text-break w-100 categories" style="display: block; word-break: break-all; white-space: normal;"></div>

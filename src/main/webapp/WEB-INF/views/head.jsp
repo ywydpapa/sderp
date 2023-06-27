@@ -650,7 +650,7 @@
 		let productArr = [];
 		
 		if(arrayTextFilter(thisEle.val(), saved.categories)){
-			alert("이미 추가된 카테고리 입니다.");
+			/* alert("이미 추가된 카테고리 입니다."); */
 			return false;
 		}else{
 			saved.categories.push(thisEle.val());

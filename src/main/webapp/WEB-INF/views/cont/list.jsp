@@ -168,7 +168,7 @@
 									<input type="text" class="form-control form-control-sm" id="contTitle" data-completeSet="true" name="" placeholder="" value="${param.contTitle}">
 								</div>
 								<div class="col-sm-12 col-xl-2">
-									<label class="col-form-label" for="custmemberName">카테고리</label>
+									<label class="col-form-label" for="custmemberName">카테고리(제품회사명)</label>
 									<div class="input-group input-group-sm mb-0">
 										<input type="text" class="form-control form-control-sm col-xl-12" name="categories" id="categories" data-completeSet="true" value="${param.categories}">
 									</div>
@@ -278,7 +278,7 @@
 									<th class="text-center">계약금액</th>
 									<th class="text-center">매출이익</th>
 									<th class="text-center">담당자</th>
-									<th class="text-center">카테고리</th>
+									<th class="text-center">카테고리(제품회사명)</th>
 									<th class="text-center">유지보수 시작일</th>
 									<th class="text-center">유지보수 만료일</th>
 									<th class="text-center">유지보수대상</th>

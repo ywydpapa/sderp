@@ -343,9 +343,7 @@ from
  <update id="updateTechd">
 	update swc_techd 
 	set 
-	<if test="custNo != 100002">
 	custNo = #{endCustNo},
-	</if>
 	soppNo = #{soppNo},
 	contNo = #{contNo},
 	endCustNo = #{endCustNo},

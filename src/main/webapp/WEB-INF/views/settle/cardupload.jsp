@@ -358,13 +358,14 @@
 	    	}
 	    	z = z * 1;
 	    	console.log(t + "전체 확인");
-
+			
 	    	for (x = 0; x < t.length; x++) {
 	    		if (t[x].includes("일자") || t[x].includes("일시")) r[0] = x;
 	    		else if (t[x].includes("카드번호") || t[x].includes("이용카드")) r[1] = x;
 	    		else if (t[x].includes("승인번호")) r[2] = x;
 	    		else if (t[x].includes("가맹점명")) r[3] = x;
 	    		else if (t[x].includes("승인금액") || t[x].includes("청구금액") || t[x].includes("이용금액")) r[4] = x;
+	    		else if (t[x].includes("거래은행")) r[5] = x;
 	    	}
 			
 	    	t = [];
@@ -375,10 +376,13 @@
 	    		if (r[3] >= 0 && data2[x][r[3]] === undefined) break;
 	    		if (r[4] >= 0 && data2[x][r[4]] === undefined) break;
 					    			
-	    		y = [data2[x][r[0]].replaceAll("(", "").replaceAll(")", "").replaceAll("-", ""), data2[x][r[1]], data2[x][r[2]], data2[x][r[3]], data2[x][r[4]] + ""];
+	    		y = [data2[x][r[0]].replaceAll("(", "").replaceAll(")", "").replaceAll("-", ""), data2[x][r[1]], data2[x][r[2]], data2[x][r[3]], data2[x][r[4]], data2[x][r[5]] + ""];
 	    		t.push(y);
 	    	}
 	    	t.sort(function (a, b) { let x, y; x = new Date(a[0]); y = new Date(b[0]); return x.getTime() - y.getTime(); })
+	    	if(t[0][5] !== "" || t[0][5] !== undefined){
+		    	localStorage.setItem("bankName", t[0][5])
+	    	}
 	    	result = { "detail": t };
 	    	console.log("STEP 4 : End of data arrange");
 	    	console.log(result);
@@ -516,45 +520,67 @@
 		            	var appContents = $(".appContents")[i];
 		            	var cardSerial = $(".cardSerial")[i];
 		            	
-		            	$.ajax({
-	            			url: "${path}/acc/checkCardNum.do",
-	            			method: "get",
-	            			async: false,
-	            			data: {
-	            				"firstCardNum": $(cardSerial).text().substring(0, 7),
-	            				"lastCardNum": $(cardSerial).text().substring($(cardSerial).text().length-4, $(cardSerial).text().length)
-	            			},
-	            			success: function(numDatas){
-	            				console.log(numDatas);
-	            				if(numDatas === ""){
-	            					forFlag = false;
-	            					alert("카드번호: " + $(cardSerial).text() + " 일치하는 카드가 없습니다.\n카드를 먼저 등록해주세요.");
-	            					return false;
-	            				}else{
-	            					cardSerial = numDatas.replaceAll("-", "").substring(numDatas.replaceAll("-", "").length - 6, numDatas.replaceAll("-", "").length);
-		            				cardDisNum = cardSerial.substring(cardSerial.length-6, cardSerial.length);
-		            				
-		            				$.ajax({
-		        	                    url : "${path}/acc/cardCheck.do",
-		        	                    data : {
-		        	                    	"appSerial": appSerial.innerText,
-		        	                    	"appContents": appContents.innerText,
-		        	                    	"cardDisNum": cardDisNum
-		        	                    },
-		        	                    method : "POST",
-		        	                    async: false,
-		        	                    dataType : "json",
-		        	                    success:function(data){
-		        	                    	if(data.resultCount > 0){
-		        	                    		$(chk[i]).prop("checked", false);
-		        	                    	}else{
-		        	                    		$(chk[i]).prop("checked", true);
-		        	                    	}
-		        	                    },
-		        	                });
-	            				}
-	            			}
-	            		});
+		            	if(localStorage.getItem("bankName") === "부산은행"){
+            				cardDisNum = $(cardSerial).text().substring($(cardSerial).text().length-6, $(cardSerial).text().length);
+            				
+		            		$.ajax({
+        	                    url : "${path}/acc/cardCheck.do",
+        	                    data : {
+        	                    	"appSerial": appSerial.innerText,
+        	                    	"appContents": appContents.innerText,
+        	                    	"cardDisNum": cardDisNum
+        	                    },
+        	                    method : "POST",
+        	                    async: false,
+        	                    dataType : "json",
+        	                    success:function(data){
+        	                    	if(data.resultCount > 0){
+        	                    		$(chk[i]).prop("checked", false);
+        	                    	}else{
+        	                    		$(chk[i]).prop("checked", true);
+        	                    	}
+        	                    },
+        	                });
+		            	}else{
+			            	$.ajax({
+		            			url: "${path}/acc/checkCardNum.do",
+		            			method: "get",
+		            			async: false,
+		            			data: {
+		            				"firstCardNum": $(cardSerial).text().replace(/-/g, "").substring(0, 4) + "-" + $(cardSerial).text().replace(/-/g, "").substring(4, 6),
+		            				"lastCardNum": $(cardSerial).text().substring($(cardSerial).text().length-4, $(cardSerial).text().length)
+		            			},
+		            			success: function(numDatas){
+		            				if(numDatas === ""){
+		            					forFlag = false;
+		            					alert("카드번호: " + $(cardSerial).text() + " 일치하는 카드가 없습니다.\n카드를 먼저 등록해주세요.");
+		            					return false;
+		            				}else{
+		            					cardSerial = numDatas.replaceAll("-", "").substring(numDatas.replaceAll("-", "").length - 6, numDatas.replaceAll("-", "").length);
+			            				cardDisNum = cardSerial.substring(cardSerial.length-6, cardSerial.length);
+			            				
+			            				$.ajax({
+			        	                    url : "${path}/acc/cardCheck.do",
+			        	                    data : {
+			        	                    	"appSerial": appSerial.innerText,
+			        	                    	"appContents": appContents.innerText,
+			        	                    	"cardDisNum": cardDisNum
+			        	                    },
+			        	                    method : "POST",
+			        	                    async: false,
+			        	                    dataType : "json",
+			        	                    success:function(data){
+			        	                    	if(data.resultCount > 0){
+			        	                    		$(chk[i]).prop("checked", false);
+			        	                    	}else{
+			        	                    		$(chk[i]).prop("checked", true);
+			        	                    	}
+			        	                    },
+			        	                });
+		            				}
+		            			}
+		            		});
+		            	}
 	            	}
 	            }
 	            
@@ -607,44 +633,73 @@
 	                    cardData.appDate = $appDate[i].innerText;
 	                    /* cardData.appTime = $Harr[i].innerText; */
 	                    randomStr = generateRandomString(1);	   
-	            		
-	            		$.ajax({
-	            			url: "${path}/acc/checkCardNum.do",
-	            			method: "get",
-	            			async: false,
-	            			data: {
-	            				"firstCardNum": $($cardSerial[i]).text().substring(0, 7),
-	            				"lastCardNum": $($cardSerial[i]).text().substring($($cardSerial[i]).text().length-4, $($cardSerial[i]).text().length)
-	            			},
-	            			success: function(numDatas){
-	            				cardData.cardSerial = randomStr + numDatas.replaceAll("-", "").substring(numDatas.replaceAll("-", "").length - 6, numDatas.replaceAll("-", "").length);
-	            				cardData.cardDisNum = cardData.cardSerial.substring(cardData.cardSerial.length-6, cardData.cardSerial.length);
-	            				
-	            				$.ajax({
-	    	                        url : "${path}/acc/insertCardLedger.do",
-	    	                        data : cardData,
-	    	                        method : "POST",
-	    	                        async: false,
-	    	                        dataType: "json",
-	    	                        success:function(){
-	    	                        	var updateData = {};
-	    	                        	updateData.cardSerial = cardData.cardSerial
-	    	                        	
-	    	                        	$.ajax({
-	    	                        		url: "${path}/acc/lastUpdateCard.do",
-	    	                        		method: "post",
-	    	                        		async: false,
-	    	                        		data: updateData,
-	    	                        		dataType: "json"
-	    	                        	});
-	    	                        	
-	    	                        	if(i == $appSerial.length-2){
-	    	    			                $.LoadingOverlay("hide", true);
-	    	                        	}
-	    	                        }
-	    	                    });
-	            			}
-	            		});
+	                    
+	                    if(localStorage.getItem("bankName") === "부산은행"){
+	                    	cardData.cardSerial = $cardSerial[i].innerText;
+            				cardData.cardDisNum = cardData.cardSerial.substring(cardData.cardSerial.length-6, cardData.cardSerial.length);
+            				
+	                    	$.ajax({
+    	                        url : "${path}/acc/insertCardLedger.do",
+    	                        data : cardData,
+    	                        method : "POST",
+    	                        async: false,
+    	                        dataType: "json",
+    	                        success:function(){
+    	                        	var updateData = {};
+    	                        	updateData.cardSerial = cardData.cardSerial
+    	                        	
+    	                        	$.ajax({
+    	                        		url: "${path}/acc/lastUpdateCard.do",
+    	                        		method: "post",
+    	                        		async: false,
+    	                        		data: updateData,
+    	                        		dataType: "json"
+    	                        	});
+    	                        	
+    	                        	if(i == $appSerial.length-2){
+    	    			                $.LoadingOverlay("hide", true);
+    	                        	}
+    	                        }
+    	                    });                   	
+	                    }else{
+		            		$.ajax({
+		            			url: "${path}/acc/checkCardNum.do",
+		            			method: "get",
+		            			async: false,
+		            			data: {
+		            				"firstCardNum": $(cardSerial).text().replace(/-/g, "").substring(0, 4) + "-" + $(cardSerial).text().replace(/-/g, "").substring(4, 6),
+		            				"lastCardNum": $($cardSerial[i]).text().substring($($cardSerial[i]).text().length-4, $($cardSerial[i]).text().length)
+		            			},
+		            			success: function(numDatas){
+		            				cardData.cardSerial = randomStr + numDatas.replaceAll("-", "").substring(numDatas.replaceAll("-", "").length - 6, numDatas.replaceAll("-", "").length);
+		            				cardData.cardDisNum = cardData.cardSerial.substring(cardData.cardSerial.length-6, cardData.cardSerial.length);
+		            				
+		            				$.ajax({
+		    	                        url : "${path}/acc/insertCardLedger.do",
+		    	                        data : cardData,
+		    	                        method : "POST",
+		    	                        async: false,
+		    	                        dataType: "json",
+		    	                        success:function(){
+		    	                        	var updateData = {};
+		    	                        	updateData.cardSerial = cardData.cardSerial
+		    	                        	
+		    	                        	$.ajax({
+		    	                        		url: "${path}/acc/lastUpdateCard.do",
+		    	                        		method: "post",
+		    	                        		async: false,
+		    	                        		data: updateData,
+		    	                        		dataType: "json"
+		    	                        	});
+		    	                        	
+		    	                        	if(i == $appSerial.length-2){
+		    	    			                $.LoadingOverlay("hide", true);
+		    	                        	}
+		    	                        }
+		    	                    });
+		            			}
+		            		});
+	                    }
 	                    
 	                   	/* $.ajax({
 	                        url : "${path}/acc/insertCardLedger.do",

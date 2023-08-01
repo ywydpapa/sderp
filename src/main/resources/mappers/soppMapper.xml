@@ -841,7 +841,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		left join swc_vat e on a.vatSerial = e.vatSerial
 		where a.attrib not like 'XXX%'
 		AND a.soppNo=#{soppNo} and a.catNo=100001 group by a.soppdataNo
-		order by a.dataType ASC
+		order by a.dataType ASC, a.vatDate ASC
 	</select>
 	
 	<select id="listContdata01" resultType="soppdataDto">

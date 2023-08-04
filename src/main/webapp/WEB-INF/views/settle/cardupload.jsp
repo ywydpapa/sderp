@@ -360,7 +360,7 @@
 	    	console.log(t + "전체 확인");
 			
 	    	for (x = 0; x < t.length; x++) {
-	    		if (t[x].includes("일자") || t[x].includes("일시")) r[0] = x;
+	    		if (t[x].includes("승인일자") || t[x].includes("이용일시")) r[0] = x;
 	    		else if (t[x].includes("카드번호") || t[x].includes("이용카드")) r[1] = x;
 	    		else if (t[x].includes("승인번호")) r[2] = x;
 	    		else if (t[x].includes("가맹점명")) r[3] = x;
@@ -667,7 +667,7 @@
 		            			method: "get",
 		            			async: false,
 		            			data: {
-		            				"firstCardNum": $(cardSerial).text().replace(/-/g, "").substring(0, 4) + "-" + $(cardSerial).text().replace(/-/g, "").substring(4, 6),
+		            				"firstCardNum": $($cardSerial[i]).text().replace(/-/g, "").substring(0, 4) + "-" + $($cardSerial[i]).text().replace(/-/g, "").substring(4, 6),
 		            				"lastCardNum": $($cardSerial[i]).text().substring($($cardSerial[i]).text().length-4, $($cardSerial[i]).text().length)
 		            			},
 		            			success: function(numDatas){

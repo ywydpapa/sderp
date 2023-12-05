@@ -203,10 +203,10 @@ public class ContController {
 				mav.addObject("dtodata01", soppdataService.listSoppdata011(soppNo));
 				if(soppdataService.listSoppdata011(soppNo).isEmpty()) {
 					mav.addObject("dtodata01", soppdataService.listSoppdata011_1(soppNo));
-					System.out.println("계약은 없고 영업기회만 있고 그 영업기회의 매입매출내역이 있을때");
+					System.out.println("怨꾩빟�� �뾾怨� �쁺�뾽湲고쉶留� �엳怨� 洹� �쁺�뾽湲고쉶�쓽 留ㅼ엯留ㅼ텧�궡�뿭�씠 �엳�쓣�븣");
 					if(soppdataService.listSoppdata011_1(soppNo).isEmpty())  {
 						mav.addObject("dtodata01", soppdataService.listSoppdata011_2(soppNo));
-						System.out.println("계약은 없고 영업기회만 있고 그 영업기회의 매입매출내역이 없을때");
+						System.out.println("怨꾩빟�� �뾾怨� �쁺�뾽湲고쉶留� �엳怨� 洹� �쁺�뾽湲고쉶�쓽 留ㅼ엯留ㅼ텧�궡�뿭�씠 �뾾�쓣�븣");
 					}
 				}
 			}
@@ -227,18 +227,18 @@ public class ContController {
 		mav.setViewName("slip/iowrite");
 		mav.addObject("contractType", codeService.listContractType(session));
 		mav.addObject("dtodata01", soppdataService.listContdata(contNo));
-		System.out.println("soppNo의 값이 10005223일 때");
+		System.out.println("soppNo�쓽 媛믪씠 10005223�씪 �븣");
 		if(soppdataService.listContdata(contNo).isEmpty()) {
 			mav.addObject("dtodata01", soppdataService.listSoppdata01(soppNo));
-			System.out.println("정상적인 select");
+			System.out.println("�젙�긽�쟻�씤 select");
 			if(soppdataService.listSoppdata01(soppNo).isEmpty()) {
 				mav.addObject("dtodata01", soppdataService.listSoppdata011(soppNo));
 				if(soppdataService.listSoppdata011(soppNo).isEmpty()) {
 					mav.addObject("dtodata01", soppdataService.listSoppdata011_1(soppNo));
-					System.out.println("계약은 없고 영업기회만 있고 그 영업기회의 매입매출내역이 있을때");
+					System.out.println("怨꾩빟�� �뾾怨� �쁺�뾽湲고쉶留� �엳怨� 洹� �쁺�뾽湲고쉶�쓽 留ㅼ엯留ㅼ텧�궡�뿭�씠 �엳�쓣�븣");
 					if(soppdataService.listSoppdata011_1(soppNo).isEmpty())  {
 						mav.addObject("dtodata01", soppdataService.listSoppdata011_2(soppNo));
-						System.out.println("계약은 없고 영업기회만 있고 그 영업기회의 매입매출내역이 없을때");
+						System.out.println("怨꾩빟�� �뾾怨� �쁺�뾽湲고쉶留� �엳怨� 洹� �쁺�뾽湲고쉶�쓽 留ㅼ엯留ㅼ텧�궡�뿭�씠 �뾾�쓣�븣");
 					}
 				}
 			}
@@ -408,7 +408,7 @@ public class ContController {
 	@RequestMapping("/downloadfile")
 	public ResponseEntity<?> downloadFile(HttpSession session, HttpServletResponse response, @ModelAttribute ContFileDataDTO dto) throws IOException {
 		ContFileDataDTO contFile = contService.downloadFile(dto);
-		String fileName = contFile.getFileName();
+		String fileName = "\"" + contFile.getFileName() + "\"";
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
 		headers.add("Content-Disposition", new String(fileName.getBytes("UTF-8"), "ISO-8859-1"));

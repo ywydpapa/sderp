@@ -559,8 +559,8 @@
 	}
 	
 	$(document).ready(function(){
-		var product01DiffSum = $("#product01DiffSum").html().replace(/[\D\s\._\-]+/g, "");
-		var product01OutSum = $("#product01OutSum").html().replace(/[\D\s\._\-]+/g, "");
+		var product01DiffSum = $("#product01DiffSum").html().replace(/,/g, "").replace(/₩/g, "");
+		var product01OutSum = $("#product01OutSum").html().replace(/,/g, "").replace(/₩/g, "");
 		var product01Percent = (product01DiffSum / product01OutSum * 100).toFixed(2);
 		
 		if(product01Percent == 'NaN'){

@@ -246,7 +246,7 @@ public class SoppController {
 	@RequestMapping("/downloadfile")
 	public ResponseEntity<?> downloadFile(HttpSession session, HttpServletResponse response, @ModelAttribute SoppFileDataDTO dto) throws IOException {
 		SoppFileDataDTO soppFile = soppService.downloadFile(dto);
-		String fileName = soppFile.getFileName();
+		String fileName = "\"" + soppFile.getFileName() + "\"";
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
 		headers.add("Content-Disposition", new String(fileName.getBytes("utf-8"), "ISO-8859-1"));

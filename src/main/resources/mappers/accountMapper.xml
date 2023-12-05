@@ -397,7 +397,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="modalVatS" resultType="accountDto">
 		select a.*, b.custName from swc_vat a
 		left join swc_cust b on a.vatBuyerCustNo = b.custNo
-		WHERE a.vatStatus in ('S1', 'S3') and a.attrib not like 'XXX%' and a.modal_vatmemo > 0 and a.compNo = #{compNo}
+		WHERE a.vatStatus in ('S1', 'S3') and a.attrib not like 'XXX%' AND a.linkedcheck = 1 AND a.compNo = #{compNo}
 		<if test="custName_modal != '' and custName_modal != null">
 			and b.custName like CONCAT('%', #{custName_modal}, '%')
 		</if>

@@ -49,7 +49,7 @@
 
 	<!--계약등록-->
 	<div class="cnt_wr">
-		<h5 class="cont_title"><i class="icofont icofont-square-right"></i>계약정보</h5>
+		<h5 class="cont_title"><i class="icofont icofont-square-right"></i>계약정보(※ 계약금액은 부가세 포함 기준으로 등록)</h5>
 		<div class="row">
 			<div class="col-sm-12">
 				<div class="card-block table-border-style">

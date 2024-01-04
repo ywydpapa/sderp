@@ -32,7 +32,7 @@
 <table class="table table-sm bst02" id="inoutlist">
 	<thead>
 		<tr>
-			<th class="text-center">선택</th>
+			<th class="text-center"><input type="checkbox" class="deleteAllCheck" onclick="deleteAllCheck(this);"/></th>
 			<th class="text-center">계산서상태</th>
 			<th class="text-center">구분(등록/수정일)</th>
 			<th class="text-center">거래처(매입/매출처)</th>
@@ -364,9 +364,11 @@
 	var product02Percent = 0;
 	
 	function clickTrViewSet(thisEle){
+		let deleteAllCheck = $(".deleteAllCheck");
 		let deleteCheckBox = $("#inoutlist tbody tr td .deleteCheckBox");
 		$("#inoutlist tbody tr").not(".clickTr").not("." + $(thisEle).data("name")).css("display", "none");
 		$("#inoutlist tbody .clickTr").data("flag", true);
+		deleteAllCheck.prop("checked", false);
 
 		for(let i = 0; i < deleteCheckBox.length; i++){
 			let item = $(deleteCheckBox[i]);
@@ -713,6 +715,43 @@
 			}else{
 				alert("체크된 항목이 없습니다.");
 				return false;
+			}
+		}
+	}
+	
+	function deleteAllCheck(e){
+		let deleteCheckBox;
+		let sopp_contents = $(".sopp_contents");
+		let trSopp = $(".trSopp");
+		let trCont = $("[class^='trCont_']");
+		
+		if(sopp_contents.length > 0) {
+			if(trSopp.css("display") !== "none"){
+				deleteCheckBox = trSopp.find("td .deleteCheckBox");
+				
+				for(let i = 0; i < deleteCheckBox.length; i++){
+					let item = $(deleteCheckBox[i]);
+					
+					if($(e).is(":checked")) item.prop("checked", true);
+					else item.prop("checked", false);
+				}
+			}
+		} else {
+			for(let i = 0; i < trCont.length; i++){
+				let item = $(trCont[i]);
+				
+				if(item.css("display") !== "none"){
+					deleteCheckBox = item.find("td .deleteCheckBox");
+					
+					for(let t = 0; t < deleteCheckBox.length; t++){
+						let secondItem = $(deleteCheckBox[t]);
+						
+						if(!secondItem.attr("disabled")){
+							if($(e).is(":checked")) secondItem.prop("checked", true);
+							else secondItem.prop("checked", false);
+						}
+					}
+				}
 			}
 		}
 	}

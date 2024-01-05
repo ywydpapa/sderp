@@ -46,7 +46,6 @@
     	<tr>
 	    	<input type="hidden" id="productCustNo" value="${row.custNo}" />
 			<input type="hidden" id="productNo" value="${row.productNo}" />
-			<input type="hidden" id="dataSpec" value="${row.productSpec}" />
     		<td id="dataItemKinds" style='text-align:center;'>${row.itemKinds}</td>
     		<td id="dataItemTitle" style='text-align:center;'>${row.itemTitle}</td>
     		<td id='salesCustNoN' style='text-align:center;'>${row.custName}</td>
@@ -57,6 +56,7 @@
     		<td id='dataVat' style='text-align: right'>₩<fmt:formatNumber value="${row.productVat}" pattern="#,###" /></td>
     		<td id='dataTotal' style='text-align: right'>₩<fmt:formatNumber value="${row.productTotal}" pattern="#,###" /></td>
     		<%-- <td id='dataDiscount' style='text-align: right'>${row.productDis}%</td> --%>
+    		<td id='dataSpec' style="display: none;">${row.productSpec}</td>
     		<td id='dataRemark'>${row.productRemark}</td>
     		<td style='text-align:center;'><button class='btn btn-sm btn-inverse' id="dataUpdateBtn" data-flag="1" data-id="${row.estItemNo}" onClick="dataUpdateBtn(this);">수정</button></td>
     		<td style='text-align:center;'><button class='btn btn-sm btn-danger' id="dataDelBtn">삭제</button></td>

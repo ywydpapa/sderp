@@ -289,7 +289,7 @@
 			addquty.find("#data02Amt").val(parseInt($(event).parents("tr").find("#dataAmt").html().replace(/[\D\s\._\-]+/g, "")).toLocaleString("en-US"));
 			addquty.find("#data02Vat").val(parseInt($(event).parents("tr").find("#dataVat").html().replace(/[\D\s\._\-]+/g, "")).toLocaleString("en-US"));
 			addquty.find("#data02Total").val(parseInt($(event).parents("tr").find("#dataTotal").html().replace(/[\D\s\._\-]+/g, "")).toLocaleString("en-US"));
-			tinyMCE.get("data02Spec").setContent($(event).parents("tr").find("#dataSpec").val());
+			tinyMCE.get("data02Spec").setContent($(event).parents("tr").find("#dataSpec").html());
 			tinyMCE.get("data02Remark").setContent($(event).parents("tr").find("#dataRemark").html());
 		}else{
 			$(event).removeClass();
@@ -361,7 +361,6 @@
 	    	var productTotal = $("#data02Total").val().replace(/[\D\s\._\-]+/g, "");
 	    	var productRemark = tinyMCE.get("data02Remark").getContent().replaceAll("\"", "\'");
 	    	var productSpec = tinyMCE.get("data02Spec").getContent().replaceAll("\"", "\'");
-			
 	        dataArray[flagIndex].custNo = $("#productSalesEstimateCustNo").val();
 	        dataArray[flagIndex].compNo = $("#compNo").val();
 	        dataArray[flagIndex].itemKinds = itemKinds;
@@ -394,7 +393,7 @@
 			FlagQutyList.find("#dataVat").html("￦"+parseInt(productVat).toLocaleString("en-US"));
 			FlagQutyList.find("#dataTotal").html("￦"+parseInt(productTotal).toLocaleString("en-US"));
 			FlagQutyList.find("#dataRemark").html(productRemark);
-			FlagQutyList.find("#dataSpec").val(productSpec);
+			FlagQutyList.find("#dataSpec").html(productSpec);
 	
 			dataFlag.removeClass();
 			dataFlag.prop("class", "btn btn-sm btn-inverse");
@@ -460,11 +459,11 @@
         	var productSalesEstimateCustName = $('#productSalesEstimateCustName').val();
         	var productNo = $("#productNo2").val();
         	var productName = $("#data02Title[data-flag='true']").val();
-        	var productNetprice = $("#data02Netprice").val().replace(/[\D\s\._\-]+/g, "");
+        	var productNetprice = isNaN(parseInt($("#data02Netprice").val().replace(/[\D\s\._\-]+/g, ""))) ? 0 : parseInt($("#data02Netprice").val().replace(/[\D\s\._\-]+/g, ""));
         	var productQty = $("#data02Quanty").val();
-        	var productAmount = $("#data02Amt").val().replace(/[\D\s\._\-]+/g, "");
-        	var productVat = $("#data02Vat").val().replace(/[\D\s\._\-]+/g, "");
-        	var productTotal = $("#data02Total").val().replace(/[\D\s\._\-]+/g, "");
+        	var productAmount = isNaN(parseInt($("#data02Amt").val().replace(/[\D\s\._\-]+/g, ""))) ? 0 : parseInt($("#data02Amt").val().replace(/[\D\s\._\-]+/g, ""));
+        	var productVat = isNaN(parseInt($("#data02Vat").val().replace(/[\D\s\._\-]+/g, ""))) ? 0 : parseInt($("#data02Vat").val().replace(/[\D\s\._\-]+/g, ""));
+        	var productTotal = isNaN(parseInt($("#data02Total").val().replace(/[\D\s\._\-]+/g, ""))) ? 0 : parseInt($("#data02Total").val().replace(/[\D\s\._\-]+/g, ""));
         	var productRemark = tinyMCE.get("data02Remark").getContent().replaceAll("\"", "\'");
         	var productSpec = tinyMCE.get("data02Spec").getContent().replaceAll("\"", "\'");
         	var qutylist = $("#qutylist tbody");
@@ -510,7 +509,7 @@
             tinyMCE.get("data02Remark").setContent("");
             tinyMCE.get("data02Spec").setContent("");
         	
-            qutylist.append("<tr><td id='dataItemKinds' style='text-align:center;'>"+itemKinds+"</td><td id='dataItemTitle' style='text-align:center;'>"+itemTitle+"</td><td id='salesCustNoN' style='text-align:center;'>"+productSalesEstimateCustName+"</td><td id='dataTitle' style='text-align:center;'>"+productName+"</td><td id='dataNetprice' style='text-align: right'>"+"￦"+parseInt(productNetprice).toLocaleString("en-US")+"</td><td id='dataQuanty' style='text-align: right'>"+productQty+"</td><td id='dataAmt' style='text-align: right'>"+"￦"+parseInt(productAmount).toLocaleString("en-US")+"</td><td id='dataVat' style='text-align: right'>"+"￦"+parseInt(productVat).toLocaleString("en-US")+"</td><td id='dataTotal' style='text-align: right'>"+"￦"+parseInt(productTotal).toLocaleString("en-US")+"</td><td id='dataRemark'>"+productRemark+"</td><td style='text-align:center;'><button class='btn btn-sm btn-inverse' id='dataUpdateBtn' data-flag='1' data-index="+dataIndex+" onClick='dataUpdateBtn(this);'>수정</button></td><td style='text-align:center;'><button class='btn btn-sm btn-danger' data-index="+dataIndex+" id='dataDelBtn'>삭제</button></td></tr>");    	
+            qutylist.append("<tr><td id='dataItemKinds' style='text-align:center;'>"+itemKinds+"</td><td id='dataItemTitle' style='text-align:center;'>"+itemTitle+"</td><td id='salesCustNoN' style='text-align:center;'>"+productSalesEstimateCustName+"</td><td id='dataTitle' style='text-align:center;'>"+productName+"</td><td id='dataNetprice' style='text-align: right'>"+"￦"+parseInt(productNetprice).toLocaleString("en-US")+"</td><td id='dataQuanty' style='text-align: right'>"+productQty+"</td><td id='dataAmt' style='text-align: right'>"+"￦"+parseInt(productAmount).toLocaleString("en-US")+"</td><td id='dataVat' style='text-align: right'>"+"￦"+parseInt(productVat).toLocaleString("en-US")+"</td><td id='dataTotal' style='text-align: right'>"+"￦"+parseInt(productTotal).toLocaleString("en-US")+"</td><td id='dataRemark'>"+productRemark+"</td><td id='dataSpec' style='display:none;'>"+productSpec+"</td><td style='text-align:center;'><button class='btn btn-sm btn-inverse' id='dataUpdateBtn' data-flag='1' data-index="+dataIndex+" onClick='dataUpdateBtn(this);'>수정</button></td><td style='text-align:center;'><button class='btn btn-sm btn-danger' data-index="+dataIndex+" id='dataDelBtn'>삭제</button></td></tr>");    	
             
         	console.log(dataArray);
         	

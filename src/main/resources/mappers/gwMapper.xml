@@ -880,4 +880,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<update id="attDelete">
 		delete from swc_userattend where attendId = #{attendId}
 	</update>
+	
+	<update id="hrAttendStatusUpdate">
+		update swc_userattend set attendDrawStatus = 1 where attendId = #{attendId};
+	</update>
+	
+	<update id="hrAttendStatusCancel">
+		update swc_userattend set attendDrawStatus = 0 where attendId = #{attendId};
+	</update>
 </mapper>

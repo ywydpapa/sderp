@@ -74,4 +74,7 @@ public interface GwDAO {
 	List<GwDTO> purList(int compNo);
     List<GwDTO> purList(GwDTO dto);
     int attDelete(GwDTO dto);
+    
+    int hrAttendStatusUpdate(GwDTO dto);
+	int hrAttendStatusCancel(GwDTO dto);
 }

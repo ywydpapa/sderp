@@ -432,4 +432,14 @@ public class GwServiceImpl implements GwService{
 	public int attDelete(GwDTO dto) {
 		return gwDao.attDelete(dto);
 	}
+	
+	@Override
+	public int hrAttendStatusUpdate(GwDTO dto) {
+		return gwDao.hrAttendStatusUpdate(dto);
+	}
+
+	@Override
+	public int hrAttendStatusCancel(GwDTO dto) {
+		return gwDao.hrAttendStatusCancel(dto);
+	}
 }

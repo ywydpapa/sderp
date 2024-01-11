@@ -265,7 +265,7 @@
                         </table>
                         <c:if test="${sessionScope.userNo eq detailListApp.userNoCR && detailListApp.appStatus == 3 || detailListApp.appStatus == 1}">
 	                        <div id="cardAddBtn" style="float:right; margin-top:20px; margin-bottom:20px;">
-	                       		<button class="btn btn-primary sch-company" data-remote="${path}/modal/popup.do?popId=cardAddModal" type="button" data-toggle="modal" data-target="#cardAddModal">
+	                       		<button class="btn btn-primary sch-company" data-remote="${path}/modal/popup.do?popId=cardAddModal&userNo=${sessionScope.userNo}" type="button" data-toggle="modal" data-target="#cardAddModal">
 	                                <i class="icofont icofont-search"></i>카드내역추가
 	                            </button>
 	                            <c:if test="${sessionScope.docRole eq 'A'}">

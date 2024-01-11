@@ -368,4 +368,16 @@ public class GwDAOImpl implements GwDAO{
 		// TODO Auto-generated method stub
 		return sqlSession.update("gw.attDelete", dto);
 	}
+	
+	@Override
+	public int hrAttendStatusUpdate(GwDTO dto) {
+		// TODO Auto-generated method stub
+		return sqlSession.update("gw.hrAttendStatusUpdate", dto);
+	}
+
+	@Override
+	public int hrAttendStatusCancel(GwDTO dto) {
+		// TODO Auto-generated method stub
+		return sqlSession.update("gw.hrAttendStatusCancel", dto);
+	}
 }

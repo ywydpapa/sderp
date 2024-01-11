@@ -741,4 +741,28 @@ public class GwController {
         }
         return ResponseEntity.ok(param);
     }
+    
+    @RequestMapping("hrAttendStatusUpdate.do")
+    public  ResponseEntity<?> hrAttendStatusUpdate(@ModelAttribute GwDTO dto) {
+         Map<String, Object> param = new HashMap<>();
+         int hrUpdate = gwService.hrAttendStatusUpdate(dto);
+         if (hrUpdate >0) {
+             param.put("code","10001");
+         } else {
+             param.put("code","20001");
+         }
+         return ResponseEntity.ok(param);
+    }
+    
+    @RequestMapping("hrAttendStatusCancel.do")
+    public  ResponseEntity<?> hrAttendStatusCancel(@ModelAttribute GwDTO dto) {
+         Map<String, Object> param = new HashMap<>();
+         int hrUpdate = gwService.hrAttendStatusCancel(dto);
+         if (hrUpdate >0) {
+             param.put("code","10001");
+         } else {
+             param.put("code","20001");
+         }
+         return ResponseEntity.ok(param);
+    }
 }

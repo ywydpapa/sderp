@@ -113,6 +113,7 @@ public class GwDTO {
     private Integer withdraw_status;
     
     private int selectoption;
+    private int attendDrawStatus;
     public GwDTO() {
         super();
     }

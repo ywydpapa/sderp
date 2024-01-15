@@ -130,7 +130,9 @@ public interface AccountService {
 	AccountDTO custBalanceB(AccountDTO dto);
 	List<AccountDTO> listusercontribution(AccountDTO dto);
 	List<AccountDTO> listusercontributionCnt(AccountDTO dto);
+	int select_contribution_percent(AccountDTO dto);
 	void insert_contribution_percent(AccountDTO dto);
+	void update_contribution_percent(AccountDTO dto);
 	List<AccountDTO> userList(HttpSession session);
 	void update_card_data(HttpSession session, AccountDTO dto);
 	List<AccountDTO> Search_treqCardList(HttpSession session, AccountDTO dto);

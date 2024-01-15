@@ -128,7 +128,9 @@ public interface AccountDAO {
 	AccountDTO custBalanceB(AccountDTO dto);
 	List<AccountDTO> listusercontribution(AccountDTO dto);
 	List<AccountDTO> listusercontributionCnt(AccountDTO dto);
+	int select_contribution_percent(AccountDTO dto);
 	void insert_contribution_percent(AccountDTO dto);
+	void update_contribution_percent(AccountDTO dto);
 	List<AccountDTO> userList(int compNo);
 	void update_card_data(AccountDTO dto);
 	List<AccountDTO> Search_treqCardList(AccountDTO dto);

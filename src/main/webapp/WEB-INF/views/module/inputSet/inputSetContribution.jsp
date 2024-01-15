@@ -8,7 +8,7 @@
 		<div>
 			<span style="font-weight: 600;">기여도 설정</span>
 			<div class="btn_wr text-right mt-3" id="insert_contribution_percent">
-				<span style="color : red; font-weight: bold; line-height: 45px;">기여도는 최초 1회만 설정이 가능합니다.&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</span>
+				<!-- <span style="color : red; font-weight: bold; line-height: 45px;">기여도는 최초 1회만 설정이 가능합니다.&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</span> -->
 				<button class="btn btn-md btn-primary f-right" id="insert_contribution_percent_button" onClick="insert_contribution_percent()">기여도 등록</button>
 			</div>
 			<input type="hidden" id="sessionCustNo" value="${sessionCust.custNo}" />
@@ -30,21 +30,31 @@
 									<c:when test="${row.contribution_percent eq 0}">
 										<c:if test="${row.userNo eq 0}">
 											<input type="hidden" value="${row.main_userNo}">
-											<input type="number" class="form-control-sm" style="border: 1px solid #ccc; text-align: right;" id="${c.count}" value="0">&nbsp%
+											<c:if test="${contDto.secondUserNo eq row.main_userNo}">
+												<input type="number" class="form-control-sm" style="border: 1px solid #ccc; text-align: right;" id="${c.count}" value="50">&nbsp%
+											</c:if>
+											<c:if test="${contDto.secondUserNo ne row.main_userNo}">
+												<input type="number" class="form-control-sm" style="border: 1px solid #ccc; text-align: right;" id="${c.count}" value="0">&nbsp%
+											</c:if>
 										</c:if>
 										<c:if test="${row.userNo ne 0}">
 											<input type="hidden" value="${row.main_userNo}">
-											<input type="number" class="form-control-sm" style="border: 1px solid #ccc; text-align: right;" id="${c.count}" value="100">&nbsp%
+											<c:if test="${contDto.secondUserNo ne row.userNo}">
+												<input type="number" class="form-control-sm" style="border: 1px solid #ccc; text-align: right;" id="${c.count}" value="50">&nbsp%
+											</c:if>
+											<c:if test="${contDto.secondUserNo eq row.userNo}">
+												<input type="number" class="form-control-sm" style="border: 1px solid #ccc; text-align: right;" id="${c.count}" value="100">&nbsp%
+											</c:if>
 										</c:if>
 									</c:when>
 									<c:when test="${row.contribution_percent ne 0}">
 										<c:if test="${row.userNo eq 0}">
 											<input type="hidden" value="${row.main_userNo}">
-											<input type="number" class="form-control-sm" style="border: 1px solid #ccc; text-align: right;" id="${c.count}" value="${row.contribution_percent}" readonly>&nbsp%
+											<input type="number" class="form-control-sm" style="border: 1px solid #ccc; text-align: right;" id="${c.count}" value="${row.contribution_percent}" >&nbsp%
 										</c:if>
 										<c:if test="${row.userNo ne 0}">
 											<input type="hidden" value="${row.main_userNo}">
-											<input type="number" class="form-control-sm" style="border: 1px solid #ccc; text-align: right;" id="${c.count}" value="${row.contribution_percent}" readonly>&nbsp%
+											<input type="number" class="form-control-sm" style="border: 1px solid #ccc; text-align: right;" id="${c.count}" value="${row.contribution_percent}" >&nbsp%
 										</c:if>
 									</c:when>
 								</c:choose>
@@ -66,9 +76,9 @@
 				arr.push(parseInt($("#"+ i +"").val()));
 			}
 		}
-		if(arr.includes(100) == false){
+		/* if(arr.includes(100) == false){
 			$('#insert_contribution_percent_button').hide();
-		}
+		} */
 	});
 	
 	function insert_contribution_percent(){

@@ -1500,6 +1500,9 @@ attrib) values (#{vatId},
  		<select id="modalVatS_main" resultType="AccountDTO">
  			select a.*, b.custName from swc_vat a left join swc_cust b on a.vatBuyerCustNo = b.custNo where a.vatStatus in ('S1','S3','S5') and a.attrib not like 'XXX%' AND a.linkedcheck in (0, 1) and a.compNo = #{compNo} order by a.vatIssueDate desc
  		</select>
+ 		<select id="select_contribution_percent" resultType="int">
+ 			select count(*) from swc_cont_contribution where userNo = #{userNo} AND contNo = #{contNo};
+ 		</select>
  		<select id="listusercontribution" resultType="accountDTO">
 			SELECT a.userNo AS main_userNo, a.userName, b.contribution_percent, c.userNo FROM swc_user a
 			LEFT JOIN swc_cont_contribution b ON a.userNo = b.userNo AND b.contNo = #{contNo}
@@ -1528,6 +1531,9 @@ attrib) values (#{vatId},
 				'10001'
 			);
 		</insert>
+		<update id="update_contribution_percent">
+			update swc_cont_contribution set contribution_percent = #{contribution_percent} where userNo = #{userNo} AND contNo = #{contNo};
+		</update>
 		<select id="userList" resultType="AccountDTO">
 			select userNo, userName from swc_user
 			where compNo = #{compNo} and attrib not like 'XXX%';

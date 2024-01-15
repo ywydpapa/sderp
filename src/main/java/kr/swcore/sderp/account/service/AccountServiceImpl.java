@@ -711,13 +711,25 @@ public class AccountServiceImpl implements AccountService {
 		// TODO Auto-generated method stub
 		return accountDAO.listusercontributionCnt(dto);
 	}
+	
+	@Override
+	public int select_contribution_percent(AccountDTO dto) {
+		// TODO Auto-generated method stub
+		return accountDAO.select_contribution_percent(dto);
+	}
 
 	@Override
 	public void insert_contribution_percent(AccountDTO dto) {
 		// TODO Auto-generated method stub
 		accountDAO.insert_contribution_percent(dto);
 	}
-
+	
+	@Override
+	public void update_contribution_percent(AccountDTO dto) {
+		// TODO Auto-generated method stub
+		accountDAO.update_contribution_percent(dto);
+	}
+	
 	@Override
 	public List<AccountDTO> userList(HttpSession session) {
 		int compNo = SessionInfoGet.getCompNo(session);

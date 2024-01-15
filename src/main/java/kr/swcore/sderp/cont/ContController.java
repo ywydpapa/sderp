@@ -459,7 +459,11 @@ public class ContController {
 	@RequestMapping("insert_contribution_percent.do")
 	public ResponseEntity<?> insert_contribution_percent(@ModelAttribute AccountDTO dto) {
 		Map<String, Object> param = new HashMap<>();
-		accountService.insert_contribution_percent(dto);
+		int count = accountService.select_contribution_percent(dto);
+		
+		if(count > 0) accountService.update_contribution_percent(dto);
+		else accountService.insert_contribution_percent(dto);
+		
 		return ResponseEntity.ok(param);
 	}
 

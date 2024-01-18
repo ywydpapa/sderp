@@ -1054,7 +1054,7 @@
         	var productVat = $(item).find("#dataVat").html().replace(/[\D\s\._\-]+/g, "");
         	var productTotal = $(item).find("#dataTotal").html().replace(/[\D\s\._\-]+/g, "");
         	var productRemark = $(item).find("#dataRemark").html();
-        	var dataSpec = $(item).find("#dataSpec").val();
+        	var dataSpec = $(item).find("#dataSpec").html();
         		
         	productSum = productSum + parseInt(productTotal);
         	amountSum = amountSum + parseInt(productAmount);

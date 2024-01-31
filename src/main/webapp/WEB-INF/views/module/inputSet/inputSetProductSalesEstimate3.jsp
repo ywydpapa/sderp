@@ -65,7 +65,7 @@
 					  	</div>
 					  	<div id="select1" style="width:100%;">
 		                    <div class="input-group input-group-sm mb-0">
-		                    	<select class="form-control" id="data02Title" name="data02Title" data-flag="true" onchange="autoCompleteSelect(this);">
+		                    	<select class="form-control" id="data02Title" name="data02Title" data-completeSet="true" data-flag="true" onchange="autoCompleteSelect(this);">
 									<option value="">선택</option>
 									<c:forEach var="row" items="${listProduct}">
 										<option data-no="${row.productNo}" value="${row.productName}">${row.productName}</option>
@@ -76,7 +76,7 @@
                 		</div>
                 		<div id="select2" style="width:100%;">
                 			<div class="input-group input-group-sm mb-0">
-	                			<input type="text" class="form-control" name="product" id="data02Title" data-completeSet="true" data-flag="false">
+	                			<input type="text" class="form-control" id="data02Title" name="product" data-completeSet="true" data-flag="false">
                 			</div>
                 		</div>
 					</div>

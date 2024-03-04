@@ -93,7 +93,7 @@
 														<p>Loading!!!</p>
 													</div>
 													<div class="modal-footer">
-														<button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
+														<button type="button" class="btn btn-default waves-effect" data-dismiss="modal">닫기</button>
 													</div>
 												</div>
 											</div>
@@ -199,7 +199,7 @@
 							<p>Loading!!!</p>
 						</div>
 						<div class="modal-footer">
-							<button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
+							<button type="button" class="btn btn-default waves-effect" data-dismiss="modal">닫기</button>
 						</div>
 						</div>
 					</div>

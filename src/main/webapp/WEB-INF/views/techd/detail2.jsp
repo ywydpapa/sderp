@@ -79,7 +79,7 @@
 															<p>Loading!!!</p>
 														</div>
 														<div class="modal-footer">
-															<button type="button" class="btn btn-default waves-effect"	onclick="$('#soppModal').modal('hide');">Close</button>
+															<button type="button" class="btn btn-default waves-effect"	onclick="$('#soppModal').modal('hide');">닫기</button>
 														</div>
 													</div>
 												</div>
@@ -110,7 +110,7 @@
 															<p>Loading!!!</p>
 														</div>
 														<div class="modal-footer">
-															<button type="button" class="btn btn-default waves-effect"	onclick="$('#contModal').modal('hide');">Close</button>
+															<button type="button" class="btn btn-default waves-effect"	onclick="$('#contModal').modal('hide');">닫기</button>
 														</div>
 													</div>
 												</div>
@@ -145,7 +145,7 @@
 															<p>Loading!!!</p>
 														</div>
 														<div class="modal-footer">
-															<button type="button" class="btn btn-default waves-effect"	onclick="$('#custModal').modal('hide');">Close</button>
+															<button type="button" class="btn btn-default waves-effect"	onclick="$('#custModal').modal('hide');">닫기</button>
 														</div>
 													</div>
 												</div>
@@ -183,7 +183,7 @@
 														<div class="modal-footer">
 															<button type="button"
 																class="btn btn-default waves-effect "
-																onclick="$('#custmemberModal').modal('hide');">Close</button>
+																onclick="$('#custmemberModal').modal('hide');">닫기</button>
 														</div>
 													</div>
 												</div>
@@ -233,7 +233,7 @@
 															<p>Loading!!!</p>
 														</div>
 														<div class="modal-footer">
-															<button type="button" class="btn btn-default waves-effect" onclick="$('#userModal').modal('hide');">Close</button>
+															<button type="button" class="btn btn-default waves-effect" onclick="$('#userModal').modal('hide');">닫기</button>
 														</div>
 													</div>
 												</div>

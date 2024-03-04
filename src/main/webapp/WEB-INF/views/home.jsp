@@ -166,7 +166,7 @@ margin-left:10px;
 	
 	}
 </script>
-<title>BizCore</title>
+<title>BizCore 2024.03.04</title>
  
 <script type="text/javaScript" language="javascript">
 

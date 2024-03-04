@@ -144,7 +144,7 @@
                                     <div class="modal-body">
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">닫기</button>
                                         <button type="button" class="btn btn-success waves-effect" data-dismiss="modal" id="checkConnect" onclick="checkConnect();">선택연결</button>
                                     </div>
                                 </div>
@@ -162,7 +162,7 @@
                                     <div class="modal-body">
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">닫기</button>
                                         <button type="button" class="btn btn-success waves-effect" data-dismiss="modal" id="checkConnect" onclick="checkConnect();">선택연결</button>
                                     </div>
                                 </div>
@@ -181,7 +181,7 @@
                                     <div class="modal-body">
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">닫기</button>
                                          <button type="button" class="btn btn-success waves-effect" data-dismiss="modal" onclick="cancelconnect();">선택취소</button>
                                     </div>
                                 </div>
@@ -265,7 +265,7 @@
 							var count = parseInt(data.resultCount/pageListNum);
 							var countRe = parseInt(data.resultCount/pageListNum);
 							pageHtml = "";
-							pageHtml += "<ul class='pagination'><li class='page-item'><a class='page-link' href='#' onClick='pagePrevious(this);'>Previous</a></li>";
+							pageHtml += "<ul class='pagination'><li class='page-item'><a class='page-link' href='#' onClick='pagePrevious(this);'>이전</a></li>";
 							
 							if(count > pageNation){
 								for(var j = startpageNum+1; j <= endpageNum; j++){
@@ -277,7 +277,7 @@
 										}
 									}
 								}
-								pageHtml += "<li class='page-item'><a class='page-link' href='#' onClick='pageNext(this);'>Next</a></li></ul>";
+								pageHtml += "<li class='page-item'><a class='page-link' href='#' onClick='pageNext(this);'>다음</a></li></ul>";
 							}else{
 								if(countRe > 0){
 									countRe = countRe + 1;
@@ -447,7 +447,7 @@
 						var countRe = parseInt(data.resultCount/pageListNum);
 						pageHtml = "";
 						
-						pageHtml += "<ul class='pagination'><li class='page-item'><a class='page-link' href='#' onClick='pagePrevious(this);'>Previous</a></li>";
+						pageHtml += "<ul class='pagination'><li class='page-item'><a class='page-link' href='#' onClick='pagePrevious(this);'>이전</a></li>";
 						
 						if(count > pageNation){
 							for(var j = 1; j <= pageNation; j++){
@@ -457,7 +457,7 @@
 									pageHtml += "<li class='page-item' id='"+ j +"'><a class='page-link' href='#' onClick='pageClick(this);'>" + j + "</a></li>";
 								}
 							}
-							pageHtml += "<li class='page-item'><a class='page-link' href='#' onClick='pageNext(this);'>Next</a></li></ul>";
+							pageHtml += "<li class='page-item'><a class='page-link' href='#' onClick='pageNext(this);'>다음</a></li></ul>";
 						}else{
 							if(countRe > 0){
 								countRe = countRe + 1;
@@ -556,7 +556,7 @@
 						var hide_next_button = counter*10;
 						pageHtml = "";
 						
-						pageHtml += "<ul class='pagination'><li class='page-item'><a class='page-link' href='#' onClick='pagePrevious(this);'>Previous</a></li>";
+						pageHtml += "<ul class='pagination'><li class='page-item'><a class='page-link' href='#' onClick='pagePrevious(this);'>이전</a></li>";
 
 						if(count > pageNation){
 							for(var j = 1+counter*10; j <= pageNation*(counter+1); j++){
@@ -569,7 +569,7 @@
 								}
 							}
 							if(hide_next_button+10 < count){
-								pageHtml += "<li class='page-item'><a class='page-link' href='#' onClick='pageNext(this);'>Next</a></li></ul>";
+								pageHtml += "<li class='page-item'><a class='page-link' href='#' onClick='pageNext(this);'>다음</a></li></ul>";
 							}
 						}else{
 							 if(countRe > 0){
@@ -669,7 +669,7 @@
 						var countRe = parseInt(data.resultCount/pageListNum);
 						pageHtml = "";
 						
-						pageHtml += "<ul class='pagination'><li class='page-item'><a class='page-link' href='#' onClick='pagePrevious(this);'>Previous</a></li>";
+						pageHtml += "<ul class='pagination'><li class='page-item'><a class='page-link' href='#' onClick='pagePrevious(this);'>이전</a></li>";
 						
 						if(count > pageNation){
 							for(var j = 1+counter*10; j <= pageNation*(counter+1); j++){
@@ -679,7 +679,7 @@
 									pageHtml += "<li class='page-item' id='"+ j +"'><a class='page-link' href='#' onClick='pageClick(this);'>" + j + "</a></li>";
 								}
 							}
-							pageHtml += "<li class='page-item'><a class='page-link' href='#' onClick='pageNext(this);'>Next</a></li></ul>";
+							pageHtml += "<li class='page-item'><a class='page-link' href='#' onClick='pageNext(this);'>다음</a></li></ul>";
 						}else{
 							if(countRe > 0){
 								countRe = countRe + 1;
@@ -777,7 +777,7 @@
 						var countRe = parseInt(data.resultCount/pageListNum);
 						var hide_next_button = counter*10
 						pageHtml = "";
-						pageHtml += "<ul class='pagination'><li class='page-item'><a class='page-link' href='#' onClick='pagePrevious(this);'>Previous</a></li>";
+						pageHtml += "<ul class='pagination'><li class='page-item'><a class='page-link' href='#' onClick='pagePrevious(this);'>이전</a></li>";
 						
 						if(count > pageNation){
 							for(var j = 1+counter*10; j <= pageNation*(counter+1); j++){
@@ -790,7 +790,7 @@
 								}
 							}
 							if(hide_next_button+10 < count){
-								pageHtml += "<li class='page-item'><a class='page-link' href='#' onClick='pageNext(this);'>Next</a></li></ul>";
+								pageHtml += "<li class='page-item'><a class='page-link' href='#' onClick='pageNext(this);'>다음</a></li></ul>";
 							}
 						}else{
 							if(countRe > 0){
@@ -929,7 +929,7 @@
 						var countRe = parseInt(data.resultCount/pageListNum);
 						var hide_next_button = counter*10
 						pageHtml = "";
-						pageHtml += "<ul class='pagination'><li class='page-item'><a class='page-link' href='#' onClick='pagePrevious(this);'>Previous</a></li>";
+						pageHtml += "<ul class='pagination'><li class='page-item'><a class='page-link' href='#' onClick='pagePrevious(this);'>이전</a></li>";
 						
 						if(count > pageNation){
 							for(var j = 1+counter*10; j <= pageNation*(counter+1); j++){
@@ -942,7 +942,7 @@
 								}
 							}
 							if(hide_next_button+10 < count){
-								pageHtml += "<li class='page-item'><a class='page-link' href='#' onClick='pageNext(this);'>Next</a></li></ul>";
+								pageHtml += "<li class='page-item'><a class='page-link' href='#' onClick='pageNext(this);'>다음</a></li></ul>";
 							}
 						}else{
 							if(countRe > 0){

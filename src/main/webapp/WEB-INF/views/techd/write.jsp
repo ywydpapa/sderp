@@ -94,7 +94,7 @@
 														<div class="modal-footer">
 															<button type="button"
 																	class="btn btn-default waves-effect "
-																	onclick="$('#soppModal').modal('hide');">Close</button>
+																	onclick="$('#soppModal').modal('hide');">닫기</button>
 														</div>
 													</div>
 												</div>
@@ -138,7 +138,7 @@
 														<div class="modal-footer">
 															<button type="button"
 																	class="btn btn-default waves-effect "
-																	onclick="$('#contModal').modal('hide');">Close</button>
+																	onclick="$('#contModal').modal('hide');">닫기</button>
 														</div>
 													</div>
 												</div>
@@ -179,7 +179,7 @@
 														<div class="modal-footer">
 															<button type="button"
 																class="btn btn-default waves-effect "
-																onclick="$('#endCustModal').modal('hide');">Close</button>
+																onclick="$('#endCustModal').modal('hide');">닫기</button>
 															<button type="button" class="btn btn-success waves-effect" id="custRegSimple">간편추가</button>
 														</div>
 														<div style="display: none; border: solid; width: 80%; margin: auto; margin-bottom: 5px;" id="custRegSimple_div">
@@ -245,7 +245,7 @@
 														<div class="modal-footer">
 															<button type="button"
 																class="btn btn-default waves-effect "
-																onclick="$('#custmemberModal').modal('hide');">Close</button>
+																onclick="$('#custmemberModal').modal('hide');">닫기</button>
 														</div>
 													</div>
 												</div>
@@ -298,7 +298,7 @@
 														<div class="modal-footer">
 															<button type="button"
 																	class="btn btn-default waves-effect "
-																	onclick="$('#userModal').modal('hide');">Close</button>
+																	onclick="$('#userModal').modal('hide');">닫기</button>
 														</div>
 													</div>
 												</div>

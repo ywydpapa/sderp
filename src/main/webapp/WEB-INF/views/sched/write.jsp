@@ -88,7 +88,7 @@
 														<div class="modal-footer">
 															<button type="button"
 																class="btn btn-default waves-effect "
-																onclick="$('#contModal').modal('hide');">Close</button>
+																onclick="$('#contModal').modal('hide');">닫기</button>
 														</div>
 													</div>
 												</div>
@@ -138,7 +138,7 @@
 														<div class="modal-footer">
 															<button type="button"
 																class="btn btn-default waves-effect "
-																onclick="$('#soppModal').modal('hide');">Close</button>
+																onclick="$('#soppModal').modal('hide');">닫기</button>
 														</div>
 													</div>
 												</div>
@@ -183,7 +183,7 @@
 														<div class="modal-footer">
 															<button type="button"
 																class="btn btn-default waves-effect "
-																onclick="$('#custModal').modal('hide');">Close</button>
+																onclick="$('#custModal').modal('hide');">닫기</button>
 														</div>
 													</div>
 												</div>
@@ -223,7 +223,7 @@
 														<div class="modal-footer">
 															<button type="button"
 																class="btn btn-default waves-effect "
-																onclick="$('#ptncModal').modal('hide');">Close</button>
+																onclick="$('#ptncModal').modal('hide');">닫기</button>
 														</div>
 													</div>
 												</div>

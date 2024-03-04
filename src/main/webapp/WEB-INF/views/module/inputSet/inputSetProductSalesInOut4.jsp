@@ -104,7 +104,7 @@
                                     <jsp:include page="/WEB-INF/views/modal/productdataListSalesInOut.jsp" />
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-default waves-effect " data-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-default waves-effect " data-dismiss="modal">닫기</button>
                                    <button type="button" class="btn btn-success waves-effect" id="productReg">상품추가</button>
                                    <button type="button" class="btn btn-success waves-effect" id="productRegSimple1">직접기입</button>
                                 </div>
@@ -127,7 +127,7 @@
 
                               </div>
                               <div class="modal-footer">
-                                  <button type="button" class="btn btn-default waves-effect " data-dismiss="modal">Close</button>
+                                  <button type="button" class="btn btn-default waves-effect " data-dismiss="modal">닫기</button>
                               </div>
                           </div>
                       </div>
@@ -164,7 +164,7 @@
                                 <div class="modal-body">
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">닫기</button>
                                     <button type="button" class="btn btn-success waves-effect" id="custRegSimple1">간편추가</button>
                                 </div>
                                 <div style="display: none; border: solid; width: 80%; margin: auto; margin-bottom: 5px;" id="custRegSimple_div1">
@@ -244,7 +244,7 @@
 	                                    <div class="modal-body">
 	                                    </div>
 	                                    <div class="modal-footer">
-	                                        <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
+	                                        <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">닫기</button>
 	                                    </div>
 	                                </div>
 	                            </div>
@@ -281,7 +281,7 @@
 	                                    <div class="modal-body">
 	                                    </div>
 	                                    <div class="modal-footer">
-	                                        <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
+	                                        <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">닫기</button>
 	                                    </div>
 	                                </div>
 	                            </div>

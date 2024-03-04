@@ -168,7 +168,7 @@
                                     <div class="modal-body">
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">닫기</button>
                                         <button type="button" class="btn btn-success waves-effect" data-dismiss="modal" id="checkConnect" onclick="checkConnect();">선택연결</button>
                                     </div>
                                 </div>
@@ -186,7 +186,7 @@
                                     <div class="modal-body">
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">닫기</button>
                                         <button type="button" class="btn btn-success waves-effect" data-dismiss="modal" id="checkConnect" onclick="checkConnect();">선택연결</button>
                                     </div>
                                 </div>
@@ -205,7 +205,7 @@
                                     <div class="modal-body">
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">닫기</button>
                                          <button type="button" class="btn btn-success waves-effect" data-dismiss="modal" onclick="cancelconnect();">선택취소</button>
                                     </div>
                                 </div>
@@ -370,7 +370,7 @@
 					selectData.betFirstNum = isNaN(start) ? 0 : start;
 					selectData.betLastNum = last;
 					
-					pageHtml += "<ul class='pagination'><li class='page-item'><a class='page-link' href='#' onClick='pagePrevious(this);'>Previous</a></li>";
+					pageHtml += "<ul class='pagination'><li class='page-item'><a class='page-link' href='#' onClick='pagePrevious(this);'>이전</a></li>";
 					
 					for(var i = setFirstPage; i <= setLastPage; i++){
 						if(i == activePage){
@@ -380,7 +380,7 @@
 						}
 					}
 					
-					pageHtml += "<li class='page-item'><a class='page-link' id='pageNextBtn' href='#' onClick='pageNext(this);'>Next</a></li></ul>";
+					pageHtml += "<li class='page-item'><a class='page-link' id='pageNextBtn' href='#' onClick='pageNext(this);'>다음</a></li></ul>";
 					
 					$("#pageDiv").html(pageHtml);
 					

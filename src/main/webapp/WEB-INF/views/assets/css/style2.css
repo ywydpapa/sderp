@@ -163,7 +163,7 @@ body {
 }
 .btn-outline:hover {
   background-color: #6d717e;
-  border-color: #303548;
+  border-color: #df1d24;
   color: #fff;
   cursor: pointer;
   -webkit-transition: all ease-in 0.3s;
@@ -208,7 +208,7 @@ select.form-control:not([size]):not([multiple]) {
   margin-bottom: 5px;
 }
 .cont_title i {
-  color: #4680ff;
+  color: #312d85;
 }
 
 /*--������ ����--*/
@@ -313,7 +313,7 @@ select.form-control:not([size]):not([multiple]) {
   border: none;
 }
 .modal-header {
-  background: #4680ff;
+  background: #312d85;
   padding: 10px 15px;
   border-top-left-radius: 0.3rem;
   border-top-right-radius: 0.3rem;
@@ -342,8 +342,8 @@ select.form-control:not([size]):not([multiple]) {
   margin: 0 auto;
 }
 .modal-footer button.btn-default {
-  background-color: #303548;
-  border-color: #303548;
+  background-color: #df1d24;
+  border-color: #df1d24;
   color: #fff;
   cursor: pointer;
   -webkit-transition: all ease-in 0.3s;

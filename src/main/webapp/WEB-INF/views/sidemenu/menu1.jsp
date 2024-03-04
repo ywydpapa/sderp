@@ -468,7 +468,7 @@
 	<ul class="pcoded-item pcoded-left-item">
 		<li class="">
 			<a href="${path}/user/logout.do">
-				<span class="pcoded-micon" style="background-color: #000 !important;">
+				<span class="pcoded-micon">
 					<i class="ti-back-left"></i>
 					<b>D</b>
 				</span>

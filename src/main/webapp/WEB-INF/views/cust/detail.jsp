@@ -93,7 +93,7 @@
 								</form>
 								<div class="btn_wr text-right mt-3">
 									<button class="btn btn-md btn-success f-left" onClick="javascript:location='${path}/cust/list.do'">목록</button>
-									<button class="btn btn-md btn-primary" onClick="fn_custDelete01();">삭제</button>
+									<button class="btn btn-md btn-danger" onClick="fn_custDelete01();">삭제</button>
 									<button class="btn btn-md btn-primary" onClick="fn_custUpdate01();">수정</button>
 								</div>
 							</div>

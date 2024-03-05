@@ -120,7 +120,7 @@
                                                     <div class="modal-footer">
                                                         <button type="button"
                                                                 class="btn btn-default waves-effect "
-                                                                data-dismiss="modal">Close</button>
+                                                                data-dismiss="modal">닫기</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -162,7 +162,7 @@
                                                         <p>Loading!!!</p>
                                                     </div>
                                                     <div class="modal-footer">
-                                                        <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
+                                                        <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">닫기</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -320,7 +320,7 @@
                 <div class="modal-body">
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">닫기</button>
                     <button type="button" class="btn btn-success waves-effect" data-dismiss="modal" onclick="cardDataSave();">선택추가</button>
                 </div>
             </div>
@@ -338,7 +338,7 @@
                 <div class="modal-body">
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">닫기</button>
                     <button type="button" class="btn btn-success waves-effect" data-dismiss="modal" onclick="cardDataSave_purchase();">선택추가</button>
                 </div>
             </div>

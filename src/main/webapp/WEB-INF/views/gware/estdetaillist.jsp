@@ -58,7 +58,7 @@
     		<%-- <td id='dataDiscount' style='text-align: right'>${row.productDis}%</td> --%>
     		<td id='dataSpec' style="display: none;">${row.productSpec}</td>
     		<td id='dataRemark'>${row.productRemark}</td>
-    		<td style='text-align:center;'><button class='btn btn-sm btn-inverse' id="dataUpdateBtn" data-flag="1" data-id="${row.estItemNo}" onClick="dataUpdateBtn(this);">수정</button></td>
+    		<td style='text-align:center;'><button class='btn btn-sm btn-primary' id="dataUpdateBtn" data-flag="1" data-id="${row.estItemNo}" onClick="dataUpdateBtn(this);">수정</button></td>
     		<td style='text-align:center;'><button class='btn btn-sm btn-danger' id="dataDelBtn">삭제</button></td>
     	</tr>
     </c:forEach>

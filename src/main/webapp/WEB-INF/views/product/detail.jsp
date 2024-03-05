@@ -106,7 +106,7 @@
 																	<p>거래처 목록이 불러오는 중이거나 없습니다.</p>
 																</div>
 																<div class="modal-footer">
-																	<button type="button" class="btn btn-default waves-effect " data-dismiss="modal">Close</button>
+																	<button type="button" class="btn btn-default waves-effect " data-dismiss="modal">닫기</button>
 																	<button type="button" class="btn btn-success waves-effect" id="custRegSimple">간편추가</button>
 																</div>
 																<div style="display: none; border: solid; width: 80%; margin: auto; margin-bottom: 5px;" id="custRegSimple_div">
@@ -167,7 +167,7 @@
 																	<p>등록된 카테고리가 없거나 로딩중입니다.</p>
 																</div>
 																<div class="modal-footer">
-																	<button type="button" class="btn btn-default waves-effect " data-dismiss="modal">Close</button>
+																	<button type="button" class="btn btn-default waves-effect " data-dismiss="modal">닫기</button>
 																</div>
 															</div>
 														</div>

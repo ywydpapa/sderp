@@ -344,7 +344,7 @@
 															<p>거래처를 먼저 입력해주셔야 목록이 보입니다.</p>
 														</div>
 														<div class="modal-footer">
-															<button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
+															<button type="button" class="btn btn-default waves-effect" data-dismiss="modal">닫기</button>
 														</div>
 													</div>
 												</div>

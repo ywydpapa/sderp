@@ -130,7 +130,7 @@
 																		<div class="modal-footer">
 																			<button type="button"
 																				class="btn btn-default waves-effect "
-																				data-dismiss="modal">Close</button>
+																				data-dismiss="modal">닫기</button>
 																		</div>
 																	</div>
 																</div>
@@ -164,7 +164,7 @@
 																			<p>Loading!!!</p>
 																		</div>
 																		<div class="modal-footer">
-																			<button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
+																			<button type="button" class="btn btn-default waves-effect" data-dismiss="modal">닫기</button>
 																		</div>
 																	</div>
 																</div>
@@ -201,7 +201,7 @@
 																		<div class="modal-footer">
 																			<button type="button"
 																				class="btn btn-default waves-effect "
-																				data-dismiss="modal">Close</button>
+																				data-dismiss="modal">닫기</button>
 																		</div>
 																	</div>
 																</div>
@@ -250,7 +250,7 @@
 																		<div class="modal-footer">
 																			<button type="button"
 																					class="btn btn-default waves-effect "
-																					data-dismiss="modal">Close</button>
+																					data-dismiss="modal">닫기</button>
 																		</div>
 																	</div>
 																</div>
@@ -291,7 +291,7 @@
 																			<p>Loading!!!</p>
 																		</div>
 																		<div class="modal-footer">
-																			<button type="button" class="btn btn-default waves-effect" onclick="$('#endCustModal').modal('hide');">Close</button>
+																			<button type="button" class="btn btn-default waves-effect" onclick="$('#endCustModal').modal('hide');">닫기</button>
 																		</div>
 																	</div>
 																</div>
@@ -325,7 +325,7 @@
 																			<p>엔드유저를 먼저 입력해주셔야 목록이 보입니다.</p>
 																		</div>
 																		<div class="modal-footer">
-																			<button type="button" class="btn btn-default waves-effect" onclick="$('#endCustmemberModal').modal('hide');">Close</button>
+																			<button type="button" class="btn btn-default waves-effect" onclick="$('#endCustmemberModal').modal('hide');">닫기</button>
 																		</div>
 																	</div>
 																</div>
@@ -441,7 +441,6 @@
 								<!-- <button class="btn btn-md btn-danger" onClick="fn_ExtendCont()">유지보수 계약연장</button> -->
 								<button class="btn btn-md btn-danger" onClick="fn_DeleteCont()">삭제</button>
 								<button class="btn btn-md btn-primary" onClick="fn_SaveCont()">계약정보 수정</button>
-								<button class="btn btn-md btn-inverse" onClick="javascript:location='${path}/cont/list.do'">취소</button>
 							</c:if>
 						</div>
 					</div>

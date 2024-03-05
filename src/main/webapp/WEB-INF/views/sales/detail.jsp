@@ -136,9 +136,8 @@
 					<input type="hidden" id="salesNo" value ="${dto.salesNo}">
 					<button class="btn btn-md btn-success f-left modal-list-btn" onClick="javascript:location.href='${path}/sales/list.do'">목록</button>
 					<c:if test="${dto.userNo eq sessionScope.userNo || sessionScope.userRole eq 'ADMIN'}">
-						<button class="btn btn-md btn-danger" onClick="fn_DeleteSales()">삭제</button>
 						<button class="btn btn-md btn-primary" onClick="fn_UpdateSales()">수정</button>
-						<button class="btn btn-md btn-inverse modal-list-btn" onClick="javascript:location='${path}/sales/list.do'">취소</button>
+						<button class="btn btn-md btn-danger" onClick="fn_DeleteSales()">삭제</button>
 					</c:if>
 				</div>
 			</div>

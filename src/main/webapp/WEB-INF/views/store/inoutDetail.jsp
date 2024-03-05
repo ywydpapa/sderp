@@ -131,7 +131,7 @@ tr.shown td.details-control {
 														<div class="modal-footer">
 															<button type="button"
 																class="btn btn-default waves-effect "
-																data-dismiss="modal">Close</button>
+																data-dismiss="modal">닫기</button>
 														</div>
 													</div>
 												</div>
@@ -213,7 +213,7 @@ tr.shown td.details-control {
 																<div class="modal-footer">
 																	<button type="button"
 																		class="btn btn-default waves-effect "
-																		data-dismiss="modal">Close</button>
+																		data-dismiss="modal">닫기</button>
 																</div>
 															</div>
 														</div>

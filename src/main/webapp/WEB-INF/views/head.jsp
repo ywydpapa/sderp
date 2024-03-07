@@ -136,7 +136,7 @@ uri="http://java.sun.com/jsp/jstl/fmt" %>
   <script type="text/javascript" src="${path}/js/print.min.js"></script>
   --%>
   <script
-    src="https://cdn.tiny.cloud/1/kh4eirod6bgv8u2sxlaeikxy5hxfogh0edhzloljxh6zf046/tinymce/5/tinymce.min.js"
+    src="https://cdn.tiny.cloud/1/kh4eirod6bgv8u2sxlaeikxy5hxfogh0edhzloljxh6zf046/tinymce/6/tinymce.min.js"
     referrerpolicy="origin"
   ></script>
   <script src="https://cdn.jsdelivr.net/npm/gasparesganga-jquery-loading-overlay@2.1.7/dist/loadingoverlay.min.js"></script>
@@ -344,8 +344,41 @@ uri="http://java.sun.com/jsp/jstl/fmt" %>
     	    menubar: false,
     	    plugins: plugins,
     	    toolbar: edit_toolbar,
+			image_title: true,
+			automatic_uploads: true,
+			file_picker_types: 'image',
+			file_picker_callback: (cb, value, meta) => {
+			const input = document.createElement('input');
+			input.setAttribute('id', 'fileInput');
+			input.setAttribute('type', 'file');
+			input.setAttribute('accept', 'image/*');
+
+			input.addEventListener('change', (e) => {
+
+				if(!!e.target.files[0]){
+					console.log(e.target.files[0], "파일이 존재")
+				}else if(!e.target.files[0]){
+					console.log(e.target.files[0], "파일이 존재하지 않음")
+				}
+				const file = e.target.files[0];
+		  
+				const reader = new FileReader();
+				reader.addEventListener('load', () => {
+					const id = 'blobid' + (new Date()).getTime();
+					const blobCache =  tinymce.activeEditor.editorUpload.blobCache;
+					const base64 = reader.result.split(',')[1];
+					const blobInfo = blobCache.create(id, file, base64);
+					blobCache.add(blobInfo);
+		  
+				  cb(blobInfo.blobUri(), { title: file.name });
+				});
+				reader.readAsDataURL(file);
+			  });
+		  
+			  input.click();
+			},
     	  	selector: 'textarea',
-    	  	height : "200",
+    	  	height : "300",
     	});
     }
 

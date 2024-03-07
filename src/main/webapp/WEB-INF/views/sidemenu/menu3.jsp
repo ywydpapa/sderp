@@ -21,6 +21,7 @@
                                     </a>
                                 </li>
                                 <li class="pcoded-hasmenu  pcoded <c:if test="${path2 eq '/cont/sliplist.do' || path2 eq '/cont/slipwrite.do'}">pcoded-trigger</c:if>">
+                                    <%-- 
                                     <a href="javascript:void(0)">
                                         <span class="pcoded-micon"><i class="ti-receipt"></i></span>
                                         <span class="pcoded-mtext"  data-i18n="nav.basic-components.main">전표관리</span>
@@ -43,6 +44,7 @@
                                         </li>
                                     </ul>
                                     </li>
+                                    --%>
                                     <li class="pcoded-hasmenu pcoded <c:if test="${path2 eq '/acc/sumBvatlist.do' || path2 eq '/acc/sumSvatlist.do'}">pcoded-trigger</c:if>">
                                     <a href="javascript:void(0)">
                                         <span class="pcoded-micon"><i class="icon-calculator"></i></span>

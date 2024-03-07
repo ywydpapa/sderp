@@ -417,14 +417,14 @@
 					userNoSelected_ElementCreate();
 				}
 			});
-
-			$("#tree").fancytree("getTree").visit(function(node) {
-				// node.setExpanded(true);
-				node.setSelected(true);
-				if(node.key == ("li_"+${sessionScope.userNo})){
-					node.setSelected(true);
-				}
-			});
+      
+      $("#tree").fancytree("getTree").visit(function(node) {
+            // node.setExpanded(true);
+            node.setSelected(true);
+            if(node.key == ("li_"+${sessionScope.userNo})){
+               node.setSelected(true);
+            }
+         });
 
 			$(document).on("click",'.fc-prevYear-button, .fc-icon-chevron-left, .fc-next-button, .fc-nextYear-button',function () {
 				var moment = ($('#calendar')[0].firstChild.outerText.split('\n')[0]).replaceAll('년','').replaceAll('월','').split(' ');

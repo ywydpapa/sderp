@@ -28,7 +28,7 @@
                <span class="pcoded-mcaret"></span>
            </a>
            <ul class="pcoded-submenu">
-       			<li class="pcoded-hasmenu ">
+       			<%-- <li class="pcoded-hasmenu ">
                     <a href="${path}/acc/vatlistDocB.do">
                         <span class="pcoded-micon"><i class="ti-direction-alt"></i></span>
                         <span class="pcoded-mtext" data-i18n="nav.menu-levels.menu-level-21">매입 계산서 조회</span>
@@ -41,7 +41,7 @@
                         <span class="pcoded-mtext" data-i18n="nav.menu-levels.menu-level-21">매출 계산서 조회</span>
                         <span class="pcoded-mcaret"></span>
                     </a>
-                </li>
+                </li> --%>
        			<li class="pcoded-hasmenu ">
                    <a href="${path}/gw/purlist.do">
                        <span class="pcoded-micon"><i class="ti-direction-alt"></i></span>

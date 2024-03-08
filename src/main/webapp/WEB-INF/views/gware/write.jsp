@@ -238,9 +238,9 @@ uri="http://java.sun.com/jsp/jstl/functions"%>
     width: 100%;
     height: 100%;
     position: fixed;
-    z-index: 10000;
     top: 0;
     left: 0;
+    z-index: 10000;
   }
   .bottom_btn {
     position: absolute;
@@ -303,6 +303,11 @@ uri="http://java.sun.com/jsp/jstl/functions"%>
   .org_chart > div > input {
     border-radius: 10px;
     height: 40px;
+  }
+  .example_td {
+    display: flex;
+    align-items: center;
+    gap: 10px;
   }
 </style>
 
@@ -497,11 +502,11 @@ uri="http://java.sun.com/jsp/jstl/functions"%>
       <h5 class="cont_title"><i class="icofont icofont-square-right"></i>결재정보</h5>
       <!-- 조직도 -->
       <div class="org_wrap">
-        <div class="payment_line">
+        <!-- <div class="payment_line">
           <div class="payment_line_wrap">
             <span>결재라인관리</span>
           </div>
-        </div>
+        </div> -->
       </div>
       <div class="row">
         <div class="col-sm-12">
@@ -759,8 +764,20 @@ uri="http://java.sun.com/jsp/jstl/functions"%>
                       </form>
                     </td>
                     <th class="text-center requiredTextCss">결재자(*)</th>
-                    <td>
-                      <%--
+                    <td class="example_td">
+                      <select class="form-control" id="secondUserName" name="secondUserName" onchange="autoCompleteSelect(this);">
+                        <option value="">선택</option>
+                        <c:forEach var="row" items="${listUser}">
+                          <option data-no="${row.userNo}" value="${row.userName}" <c:if test="${row.userName eq sessionScope.secondUserName}">selected</c:if>>${row.userName}</option>
+                        </c:forEach>
+                      </select>
+                      <input type="hidden" class="form-control" name="secondUserNo" id="secondUserNo" value="${sessionScope.secondUserNo}" />
+                      <div class="payment_line">
+                        <div class="payment_line_wrap">
+                          <span>결재라인관리</span>
+                        </div>
+                      </div>
+                      <!-- <%--
                       <div class="input-group input-group-sm mb-0">
                         <input
                           type="text"
@@ -813,17 +830,19 @@ uri="http://java.sun.com/jsp/jstl/functions"%>
                         </div>
                       </div>
                     </td>
-                    --%>
-                    <input
-                      type="text"
-                      class="form-control"
-                      name="userName"
-                      id="userName"
-                      data-completeSet="true"
-                      value=""
-                    />
-                    <input type="hidden" name="userNo" id="userNo" value="10002" />
+                    --%> -->
+                      <!-- <input
+                        type="text"
+                        class="form-control"
+                        name="userName"
+                        id="userName"
+                        data-completeSet="true"
+                        value=""
+                      />
+                      <input type="hidden" name="userNo" id="userNo" value="10002" /> -->
+                    </td>
                   </tr>
+
                   <tr>
                     <th class="text-center">상세 내용</th>
                     <td colspan="7"><textarea class="form-control" id="docDesc"></textarea></td>

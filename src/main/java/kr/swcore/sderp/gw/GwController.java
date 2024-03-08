@@ -1,5 +1,6 @@
 package kr.swcore.sderp.gw;
 
+import kr.swcore.sderp.code.service.CodeService;
 import kr.swcore.sderp.cust.dto.CustDTO;
 import kr.swcore.sderp.cust.service.CustService;
 import kr.swcore.sderp.gw.dto.GwDTO;
@@ -9,6 +10,7 @@ import kr.swcore.sderp.gw.service.GwService;
 import kr.swcore.sderp.product.service.ProductService;
 import kr.swcore.sderp.sopp.service.SoppService;
 import kr.swcore.sderp.organiz.Service.OrganizService;
+import kr.swcore.sderp.user.dto.UserDTO;
 import kr.swcore.sderp.user.service.UserService;
 
 import org.springframework.http.HttpHeaders;
@@ -54,7 +56,10 @@ public class GwController {
 
     @Inject
     OrganizService organizService;
-
+    
+    @Inject 
+	CodeService codeService;
+    
     @RequestMapping("list.do")
     public ModelAndView docList(HttpSession session, ModelAndView mav) {
         mav.addObject("docList", gwService.listDoc(session));
@@ -67,7 +72,7 @@ public class GwController {
         mav.setViewName("gware/signPad");
         return mav;
     }
-
+    
     @RequestMapping("mylist.do")
     public ModelAndView myList(HttpSession session, ModelAndView mav,
             @RequestParam(value = "custNo", required = false) Integer custNo,

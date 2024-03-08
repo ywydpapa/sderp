@@ -136,6 +136,7 @@ uri="http://java.sun.com/jsp/jstl/functions"%>
   }
 
   .payment_modal_right {
+    display: none;
     width: 20%;
     height: 100%;
     position: relative;
@@ -236,8 +237,10 @@ uri="http://java.sun.com/jsp/jstl/functions"%>
     background-color: rgba(0, 0, 0, 0.5);
     width: 100%;
     height: 100%;
-    position: absolute;
-    z-index: 999;
+    position: fixed;
+    z-index: 10000;
+    top: 0;
+    left: 0;
   }
   .bottom_btn {
     position: absolute;

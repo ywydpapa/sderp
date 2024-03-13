@@ -1147,7 +1147,6 @@ public class AccountController {
         Map<String, Object> param = new HashMap<>();
         accountService.bacCheckConnect_modal_update(dto);
         List<AccountDTO> check_lincked_last = accountService.check_lincked_last(dto);
-        System.out.println(Integer.parseInt(check_lincked_last.get(0).getModal_vatmemo()));
         if (Integer.parseInt(check_lincked_last.get(0).getModal_vatmemo()) == 0) {
             if (check_lincked_last.get(0).getVatStatus().equals("S1")
                     || check_lincked_last.get(0).getVatStatus().equals("S3")

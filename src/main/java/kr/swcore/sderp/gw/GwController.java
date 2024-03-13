@@ -653,8 +653,6 @@ public class GwController {
             GwFileDataDTO dto) {
         dto.setDocNo(docNo);
         dto.setLastdocNo(lastdocNo);
-        System.out.println(dto.getDocNo());
-        System.out.println(dto.getLastdocNo());
         gwService.uploadFile2(dto);
     }
 

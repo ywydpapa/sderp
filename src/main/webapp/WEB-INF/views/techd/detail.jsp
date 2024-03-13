@@ -270,7 +270,6 @@
 										</div>
 									</td>
 								</tr>
-								
 								<tr>
 									<th scope="row" class="requiredTextCss">지원일자</th>
 									<td colspan="3">
@@ -307,8 +306,7 @@
 								<!-- table new  -->
 								<tr>
 									<th scope="row">설명</th>
-									<td colspan="7"><textarea name="techdDesc" id="techdDesc" rows="8"
-											class="form-control">${dto.techdDesc}</textarea></td>
+									<td colspan="7"><textarea name="techdDesc" id="techdDesc" class="form-control">${dto.techdDesc}</textarea></td>
 								</tr>
 								<!-- table new  -->
 								
@@ -321,13 +319,12 @@
 					<c:if test="${dto.userNo eq sessionScope.userNo || sessionScope.userRole eq 'ADMIN'}">
 						<button class="btn btn-md btn-danger" onClick="fn_sprtDelete()">삭제</button>
 						<button class="btn btn-md btn-primary" onClick="fn_sprtUpdate()">수정</button>
-						<button class="btn btn-md btn-inverse modal-cancel-btn" onClick="javascript:location='${path}/techd/list.do'">취소</button>
 					</c:if>
 				</div>
 			</div>
 		</div>
 	</div>
-	<!--//기술지원 대상등록-->
+	<!--기술지원 대상등록-->
 
 
 	<script>
@@ -406,7 +403,63 @@
 		$("#contModal").modal("hide");
 	}
 
-	function fn_sprtUpdate() {
+	async function uploadImageToServer(pngImage) {
+	var base64Data = {}
+	base64Data.userNo = "${dto.userNo}";
+	base64Data.base64 = pngImage;
+	base64Data.uuid = "";
+
+	var uploadedImageUrl = '';
+
+	try{
+		const response = await $.ajax({
+			url: "${path}/imageInsert.do",
+			data: base64Data ,
+			method: "POST",
+			dataType: "json",
+		});
+		if(response.code == 10001){
+			uploadedImageUrl = response.url;
+		}else{
+			alert("이미지 업로드 실패");
+		}
+	}catch(e){
+		console.log(e)
+		alert("통신 실패");
+	}
+    return uploadedImageUrl;
+}
+
+async function convertAndUploadBase64Image(base64String) {
+    var maxWidth = 1920;
+    var maxHeight = 1024;
+
+    var img = new Image();
+    img.src = 'data:image/png;base64,' + base64String;
+
+    var width = img.width;
+    var height = img.height;
+
+    if (width > maxWidth || height > maxHeight) {
+        var ratio = Math.min(maxWidth / width, maxHeight / height);
+
+        var newWidth = Math.floor(width * ratio);
+        var newHeight = Math.floor(height * ratio);
+
+        var canvas = document.createElement('canvas');
+        canvas.width = newWidth;
+        canvas.height = newHeight;
+        var context = canvas.getContext('2d');
+        context.drawImage(img, 0, 0, newWidth, newHeight);
+
+        var resizedBase64 = canvas.toDataURL('image/png').replace(/^data:image\/png;base64,/, '');
+        return await uploadImageToServer(resizedBase64);
+    } else {
+        return await uploadImageToServer(base64String);
+    }
+}
+
+	async function fn_sprtUpdate() {
 		if($("#techdTitle").val() === ""){
 			alert("기술지원 요청명을 입력하십시오.");
 			$("#techdTitle").focus();
@@ -451,12 +504,22 @@
 			sprtData.techdSteps			= $("#techdSteps").val();	 // 진행단계
 			sprtData.endCustNo 			= $("#endCustNo").val() ? Number($("#endCustNo").val()) : 0;	
 			
-			if($("textarea").attr("style") === "display: none;"){
-				sprtData.techdDesc			= tinyMCE.get("techdDesc").getContent();
-			}else{
-				sprtData.techdDesc 		= $("#techdDesc").val();
+			var content = tinyMCE.get("techdDesc").getContent();
+			if ($("textarea").attr("style") === "display: none;") {
+				var base64StartIndex = content.indexOf(' src="data:image/png;base64,');
+				while (base64StartIndex !== -1) {
+					var base64EndIndex = content.indexOf('">', base64StartIndex);
+					if (base64EndIndex !== -1) {
+						var base64String = content.substring(base64StartIndex + ' src="data:image/png;base64,'.length, base64EndIndex);
+						var newImageUrl = await convertAndUploadBase64Image(base64String);
+						content = content.substring(0, base64StartIndex) + '<img src="' + newImageUrl + content.substring(base64EndIndex);
+					}
+					base64StartIndex = content.indexOf(' src="data:image/png;base64,', base64StartIndex + 1);
+				}
+				sprtData.techdDesc = content;
+			} else {
+				sprtData.techdDesc = $("#techdDesc").val();
 			}
-			
 			sprtData.techdNo			= Number($("#techdNo").val());
 		
 			$.ajax({
@@ -487,6 +550,7 @@
 		}
 	}
 
+	//TODO: 해당 techdDesc에 이미지가 있는지 확인하여 있다면 해당 이미지를 DB에서 삭제하는 로직이 필요
 	function fn_sprtDelete() {
 		var sprtData = {};
 		sprtData.techdNo = $("#techdNo").val();

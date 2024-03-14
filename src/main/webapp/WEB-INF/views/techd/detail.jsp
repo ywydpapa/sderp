@@ -489,7 +489,7 @@
 					}
 				}, // HTTP 요청이 실패하면 오류와 상태에 관한 정보가 fail() 메소드로 전달됨.
 				error: function(xhr, status, errorThrown) {
-					alert("통신 실패");
+					alert("통신 실패", xhr, status, errorThrown);
 				},
 			});
 		}

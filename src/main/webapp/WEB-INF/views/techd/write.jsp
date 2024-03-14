@@ -356,6 +356,7 @@
 	<!--//기술지원 대상등록-->
 
 
+	<script type="text/javascript" src="${path}/js/image.js"></script>
 	<script>
 	$('#endCustModal').on('show.bs.modal', function(e) {
 		var button = $(e.relatedTarget);
@@ -469,7 +470,7 @@
 		$("#endCustModal").modal("hide");
 	}
 
-	function fn_sprtInsert() {
+	async function fn_sprtInsert() {
 		if($("#techdTitle").val() === ""){
 			alert("기술지원 요청명을 입력하십시오.");
 			$("#techdTitle").focus();
@@ -515,11 +516,21 @@
 			sprtData.techdSteps			= $("#techdSteps").val();					// 진행단계
 			sprtData.endCustNo 			= $("#endCustNo").val() ? $("#endCustNo").val() : 0
 			
+			var content = tinyMCE.get("techdDesc").getContent();
 			if($("textarea").attr("style") === "display: none;"){
-				sprtData.techdDesc			= tinyMCE.get("techdDesc").getContent();
-			}else{
-				sprtData.techdDesc 		= $("#techdDesc").val();
-			}
+				var base64StartIndex = content.indexOf(' src="data:image/png;base64,');
+				while (base64StartIndex !== -1) {
+					var base64EndIndex = content.indexOf('">', base64StartIndex);
+					if (base64EndIndex !== -1) {
+						var base64String = content.substring(base64StartIndex + ' src="data:image/png;base64,'.length, base64EndIndex);
+						var newImageUrl = await convertAndUploadBase64Image(base64String);
+						content = content.substring(0, base64StartIndex) + '<img src="' + newImageUrl + content.substring(base64EndIndex);
+					}
+					base64StartIndex = content.indexOf(' src="data:image/png;base64,', base64StartIndex + 1);
+				}
+				sprtData.techdDesc = content;			}else{
+					sprtData.techdDesc = $("#techdDesc").val();
+				}
 			
 			/* sprtData.soppNo				= $("#soppNo").val() ? $("#soppNo").val() : 0; // 영업기회번호 */
 			sprtData.contNo				= $("#contNo").val() ? $("#contNo").val() : 0; // 계약번호
@@ -545,8 +556,8 @@
 						alert("저장 실패");
 					}
 				}, // HTTP 요청이 실패하면 오류와 상태에 관한 정보가 fail() 메소드로 전달됨.
-				error: function() {
-					alert("통신 실패");
+				error: function(xhr, status, errorThrown) {
+					alert("통신 실패", xhr, status, errorThrown);
 				},
 			}) // HTTP 요청이 성공하면 요청한 데이터가 done() 메소드로 전달됨. .
 		}

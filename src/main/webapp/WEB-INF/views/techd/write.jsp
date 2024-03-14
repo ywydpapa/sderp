@@ -353,8 +353,7 @@
 			</div>
 		</div>
 	</div>
-	<!--//기술지원 대상등록-->
-
+	<!--기술지원 대상등록-->
 
 	<script type="text/javascript" src="${path}/js/image.js"></script>
 	<script>
@@ -368,8 +367,6 @@
 		var modal = $(this);
 		modal.find('.modal-body').load(button.data("remote"));
 	});
-
-	//
 
 
 	$('#custmemberModal').on('show.bs.modal', function(e) {
@@ -518,20 +515,11 @@
 			
 			var content = tinyMCE.get("techdDesc").getContent();
 			if($("textarea").attr("style") === "display: none;"){
-				var base64StartIndex = content.indexOf(' src="data:image/png;base64,');
-				while (base64StartIndex !== -1) {
-					var base64EndIndex = content.indexOf('">', base64StartIndex);
-					if (base64EndIndex !== -1) {
-						var base64String = content.substring(base64StartIndex + ' src="data:image/png;base64,'.length, base64EndIndex);
-						var newImageUrl = await convertAndUploadBase64Image(base64String);
-						content = content.substring(0, base64StartIndex) + '<img src="' + newImageUrl + content.substring(base64EndIndex);
-					}
-					base64StartIndex = content.indexOf(' src="data:image/png;base64,', base64StartIndex + 1);
-				}
-				sprtData.techdDesc = content;			}else{
-					sprtData.techdDesc = $("#techdDesc").val();
-				}
-			
+				sprtData.techdDesc = await uploadImage(content);
+			}else{
+				sprtData.techdDesc = $("#techdDesc").val();
+			}
+
 			/* sprtData.soppNo				= $("#soppNo").val() ? $("#soppNo").val() : 0; // 영업기회번호 */
 			sprtData.contNo				= $("#contNo").val() ? $("#contNo").val() : 0; // 계약번호
 			

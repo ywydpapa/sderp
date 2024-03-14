@@ -249,6 +249,7 @@ tr.shown td.details-control {
 		</div>
 	</div>
 	
+	<script type="text/javascript" src="${path}/js/image.js"></script>
 	<script>
 		$('#custModal').on('show.bs.modal', function(e) {
 			var button = $(e.relatedTarget);
@@ -298,7 +299,7 @@ tr.shown td.details-control {
 			}
 		}
 
-		function fn_storeInsert() {
+		async function fn_storeInsert() {
 			if ($("#productNo").val() == "") {
 				alert("상품을 선택하세요");
 			} else if ($("#storeQty").val() == 0) {
@@ -314,7 +315,12 @@ tr.shown td.details-control {
 				storeData.storeAmount = $("#storeAmount").val().replaceAll(",",
 						"") * 1;
 				storeData.locationNo = $("#storeLoc2").val();
-				storeData.comment = tinymce.get("comment").getContent();
+
+				var content = tinyMCE.get("comment").getContent();
+				if(content != ""){
+					storeData.comment = await uploadImage(content);
+				} 
+
 				storeData.storeUnit = $("#storeUnit").val() * 1;
 
 				$.ajax({
@@ -344,7 +350,7 @@ tr.shown td.details-control {
 
 	
 		// 수량 변경 함수 
-		function doChange() {
+		async function doChange() {
 			let storeNo, inoutNo, inoutType, serialNo, locationNo, placeholder, inoutQty, inoutAmount, comment;
 
 			let inoutData = {};
@@ -354,7 +360,12 @@ tr.shown td.details-control {
 			inoutQty = $("#inoutQty").val();
 			storeNo = $("#storeNo").val();
 			inoutNo = $("#inoutNo").val();
-			comment = tinymce.get("comment").getContent();
+
+			var content = tinyMCE.get("comment").getContent();
+			if(content != ""){
+				comment = await uploadImage(content);
+			} 
+
 
 			if (inoutType == "IN") {
 				inoutData.inoutQty = ((placeholder * -1) + (inoutQty * 1));

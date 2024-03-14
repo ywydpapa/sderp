@@ -367,8 +367,8 @@ uri="http://java.sun.com/jsp/jstl/fmt" %>
 					});
 				
 					input.click();
-				  },
-					selector: 'textarea',
+				},
+				selector: 'textarea',
 				height : "400",
 			});
     }

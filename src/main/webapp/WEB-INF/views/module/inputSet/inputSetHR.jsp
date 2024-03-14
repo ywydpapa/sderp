@@ -78,6 +78,7 @@
     </tbody>
 </table>
 <input type="hidden" id="attendId" value="${list.attendId}"> --%>
+<script type="text/javascript" src="${path}/js/image.js"></script>
 <script>
     var dataArray = [];
     var dataIndex = 0;
@@ -90,7 +91,7 @@
         }
     }
 
-   function dataSave(){
+    async function dataSave(){
 	   	var now = new Date();
     	var temp = {};
        var qutylist = $("#qutylist tbody");
@@ -98,15 +99,19 @@
        var attTypeN = $("#hrType option:selected").text();
     	var attStart = $("#hrFrom").val() +"T"+ $("#hrFromTm").val() ;
         var attEnd = $("#hrTo").val() + "T"+$("#hrToTm").val();
-    	var attDesc = tinyMCE.get("hrDesc").getContent();
-        
+  
     	now = now.toISOString().slice(0, 10);
-    	
-    	if (attDesc == ""){
+        
+        var content = tinyMCE.get("hrDesc").getContent();
+        if(content !== "")		{
+          temp.hrDesc = await uploadImage(content);
+        } else {
             alert("신청내용을 기입해 주십시오.");
             $("#hrDesc").focus();
-            return;
-        }else if($("#hrType").val() === ""){
+            return;        
+        }			// 계약내용
+
+        if($("#hrType").val() === ""){
         	alert("근태종류를 선택해주십시오.");
         	return false;
         }else if($("#hrFrom").val() === "" || $("#hrTo").val() === ""){
@@ -119,7 +124,6 @@
     	temp.attType = attType;
     	temp.attStart = attStart;
     	temp.attEnd = attEnd;
-    	temp.attDesc = attDesc;
     	dataArray.push(temp);
         $("#hrType").val("");
         $("#hrFrom").val(now);

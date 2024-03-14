@@ -91,17 +91,23 @@
 			</div>
 		</div>
 	</div>
-	<!--//영업활동등록-->
+	<!--영업활동등록-->
 
-
+	<script type="text/javascript" src="${path}/js/image.js"></script>
 	<script>
-		function fn_UpdateNotice() {
+		async function fn_UpdateNotice() {
 			var noticeData = {};
 			noticeData.notiTitle 		= $("#notiTitle").val();
-			noticeData.notiContents		= tinyMCE.get("notiContents").getContent();
 			noticeData.userNo 		= $("#userNo").val();
 			noticeData.notiNo		= $("#notiNo").val();
 			
+			var content = tinyMCE.get("notiContents").getContent();
+			if(content !== null && content !== undefined && content !== "") {
+				noticeData.notiContents = await uploadImage(content);
+			} else {
+				noticeData.notiContents = "";
+			}
+
 			$.ajax({
 				url: "${path}/notice/update.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
 				data: noticeData , // HTTP 요청과 함께 서버로 보낼 데이터

@@ -1,3 +1,24 @@
+async function uploadImage(content) {
+  var base64StartIndex = content.indexOf(' src="data:image/png;base64,');
+  while (base64StartIndex !== -1) {
+    var base64EndIndex = content.indexOf('">', base64StartIndex);
+    if (base64EndIndex !== -1) {
+      var base64String = content.substring(
+        base64StartIndex + ' src="data:image/png;base64,'.length,
+        base64EndIndex
+      );
+      var newImageUrl = await convertBase64Image(base64String);
+      content =
+        content.substring(0, base64StartIndex) +
+        '<img src="' +
+        newImageUrl +
+        content.substring(base64EndIndex);
+    }
+    base64StartIndex = content.indexOf(' src="data:image/png;base64,', base64StartIndex + 1);
+  }
+  return content;
+}
+
 async function uploadImageToServer(pngImage) {
   var base64Data = {};
   base64Data.userNo = "${dto.userNo}";
@@ -25,7 +46,7 @@ async function uploadImageToServer(pngImage) {
   return uploadedImageUrl;
 }
 
-async function convertAndUploadBase64Image(base64String) {
+async function convertBase64Image(base64String) {
   var maxWidth = 1920;
   var maxHeight = 1024;
 

@@ -228,7 +228,7 @@
 	</div>
 	<!--//영업활동등록-->
 
-
+	<script type="text/javascript" src="${path}/js/image.js"></script>
 	<script>
 		$('#custModal').on('show.bs.modal', function(e) {
 			var button = $(e.relatedTarget);
@@ -292,7 +292,7 @@
 			$("#endCustModal").modal("hide");
 		}
 
-		function fn_UpdateSales() {
+		async function fn_UpdateSales() {
 			var salesData = {};
 			salesData.salesNo = $("#salesNo").val();
 			salesData.salesFrdatetime = setDateHourMinute($("#salesFrdatetime").val(), $("#startTime").val()); 
@@ -304,8 +304,14 @@
 			salesData.soppNo 		= $("#soppName").val() != "" ? Number($("#soppNo").val()) : 0;
 			salesData.ptncNo 		= $("#endCustName").val() != "" ? Number($("#endCustNo").val()) : 0;
 			salesData.salesType 		= $("#salesType").val();
-			salesData.salesDesc 		= $("#salesDesc").val();
 			
+			if($("textarea").attr("style") === "display: none;"){
+				var content = tinyMCE.get("salesDesc").getContent();
+				salesData.salesDesc = await uploadImage(content);
+			} else {
+				salesData.salesDesc = $("#salesDesc").val();
+			}		
+
 			$.ajax({
 				url: "${path}/sales/update.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
 				data: salesData , // HTTP 요청과 함께 서버로 보낼 데이터

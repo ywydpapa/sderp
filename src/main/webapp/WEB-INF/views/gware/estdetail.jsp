@@ -395,7 +395,7 @@
 		</c:if>
 		<button class="btn btn-md btn-inverse" onClick="javascript:location='${path}/gw/estlist.do'">취소</button>
 	</div>
-	<!--//계약등록-->
+	<!--계약등록-->
 	<script>
 		function acordian_action(){
 			if($("#acordian").css("display") == "none"){

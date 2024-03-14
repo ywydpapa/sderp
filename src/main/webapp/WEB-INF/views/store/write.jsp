@@ -448,6 +448,7 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
       </div>
     </div>
 
+    <script type="text/javascript" src="${path}/js/image.js"></script>
     <script>
       // 이벤트 영역 시작
       $("#custModal").on("show.bs.modal", function (e) {
@@ -577,7 +578,7 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
       ////////////// store insert 함수
 
-      function fn_storeInsert() {
+      async function fn_storeInsert() {
         if ($("#productNo").val() == "") {
           alert("상품을 선택하세요");
         } else if ($("#storeQty").val() == 0) {
@@ -592,7 +593,12 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
           storeData.storeQty = $("#storeQty").val() * 1;
           storeData.storeAmount = $("#storeAmount").val().replaceAll(",", "") * 1;
           storeData.locationNo = $("#storeLoc2").val();
-          storeData.comment = tinymce.get("comment").getContent();
+
+          var content = tinyMCE.get("comment").getContent();
+          if(content != ""){
+            storeData.comment = await uploadImage(content);
+          } 
+
           storeData.storeUnit = $("#storeUnit").val() * 1;
 
           $.ajax({

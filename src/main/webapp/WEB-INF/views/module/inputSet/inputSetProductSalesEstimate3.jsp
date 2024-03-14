@@ -192,6 +192,7 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
   <input type="hidden" id="vatSum" value="0" />
 </form>
 
+<script type="text/javascript" src="${path}/js/image.js"></script>
 <script>
   var dataArray = [];
   var dataIndex = 0;
@@ -462,7 +463,7 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
     }
   }
 
-  function dataItemUpdate() {
+  async function dataItemUpdate() {
     if ($("#itemKinds").val() === "") {
       alert("구분을 입력해주십시오.");
       $("#itemKinds").focus();
@@ -505,8 +506,19 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
       var productTotal = $("#data02Total")
         .val()
         .replace(/[\D\s\._\-]+/g, "");
-      var productRemark = tinyMCE.get("data02Remark").getContent().replaceAll('"', "'");
-      var productSpec = tinyMCE.get("data02Spec").getContent().replaceAll('"', "'");
+
+      var productRemark = "";
+			if(content !== "")		{
+        var content = tinyMCE.get("data02Remark").getContent();
+				productRemark = await uploadImage(content).replaceAll('"', "'");;
+			} 
+
+      var productSpec = "";
+			if(content !== "")		{
+        var content = tinyMCE.get("data02Spec").getContent();
+				productSpec = await uploadImage(content).replaceAll('"', "'");;
+			} 
+
       dataArray[flagIndex].custNo = $("#productSalesEstimateCustNo").val();
       dataArray[flagIndex].compNo = $("#compNo").val();
       dataArray[flagIndex].itemKinds = itemKinds;
@@ -595,7 +607,7 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
     }
   }
 
-  function dataSave() {
+  async function dataSave() {
     if ($("#itemKinds").val() === "") {
       alert("구분을 입력해주십시오.");
       $("#itemKinds").focus();
@@ -664,8 +676,19 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
               .val()
               .replace(/[\D\s\._\-]+/g, "")
           );
-      var productRemark = tinyMCE.get("data02Remark").getContent().replaceAll('"', "'");
-      var productSpec = tinyMCE.get("data02Spec").getContent().replaceAll('"', "'");
+
+      var productRemark = "";
+			if(content !== "")		{
+        var content = tinyMCE.get("data02Remark").getContent();
+				productRemark = await uploadImage(content).replaceAll('"', "'");;
+			} 
+
+      var productSpec = "";
+			if(content !== "")		{
+        var content = tinyMCE.get("data02Spec").getContent();
+				productSpec = await uploadImage(content).replaceAll('"', "'");;
+			} 
+
       var qutylist = $("#qutylist tbody");
 
       temp.estId = "";
@@ -759,7 +782,7 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
     }
   }
 
-  function fn_data02Insert() {
+  async function fn_data02Insert() {
     var getDate = new Date();
 
     var year = getDate.getFullYear();
@@ -820,6 +843,12 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
         .replace(/[\D\s\._\-]+/g, "");
       data02Data.estDate = $("#estDate").val();
 
+      var estComSpec = "";
+			if(content !== "")		{
+        var content = tinyMCE.get("estComSpec").getContent();
+				estComSpec = await uploadImage(content).replaceAll('"', "'");;
+			} 
+
       $.ajax({
         url: "${path}/gw/insertEst.do",
         method: "post",
@@ -839,7 +868,7 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
           dataInfo.estComPhone = $("#estComPhone").val();
           dataInfo.estComFax = $("#estComFax").val();
           dataInfo.estComTerm = $("#estComTerm").val();
-          dataInfo.estComSpec = tinyMCE.get("estComSpec").getContent().replaceAll('"', "'");
+          dataInfo.estComSpec = estComSpec;
 
           $.ajax({
             url: "${path}/gw/estInfoInsert.do",
@@ -886,7 +915,7 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
     }
   }
 
-  function fn_data02ReInsert() {
+  async function fn_data02ReInsert() {
     if (confirm("견적번호는 새로 생성됩니다.")) {
       var getDate = new Date();
 
@@ -949,6 +978,13 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
           .replace(/[\D\s\._\-]+/g, "");
         data02Data.estDate = $("#estDate").val();
 
+
+        var estComSpec = "";
+        if(content !== "")		{
+          var content = tinyMCE.get("estComSpec").getContent();
+          estComSpec = await uploadImage(content).replaceAll('"', "'");;
+        } 
+
         $.ajax({
           url: "${path}/gw/insertEst.do",
           method: "post",
@@ -968,7 +1004,7 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
             dataInfo.estComPhone = $("#estComPhone").val();
             dataInfo.estComFax = $("#estComFax").val();
             dataInfo.estComTerm = $("#estComTerm").val();
-            dataInfo.estComSpec = tinyMCE.get("estComSpec").getContent().replaceAll('"', "'");
+            dataInfo.estComSpec = estComSpec;
 
             $.ajax({
               url: "${path}/gw/estInfoInsert.do",

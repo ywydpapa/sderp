@@ -449,19 +449,9 @@
 			sprtData.techdSteps			= $("#techdSteps").val();	 // 진행단계
 			sprtData.endCustNo 			= $("#endCustNo").val() ? Number($("#endCustNo").val()) : 0;	
 			
-			var content = tinyMCE.get("techdDesc").getContent();
 			if ($("textarea").attr("style") === "display: none;") {
-				var base64StartIndex = content.indexOf(' src="data:image/png;base64,');
-				while (base64StartIndex !== -1) {
-					var base64EndIndex = content.indexOf('">', base64StartIndex);
-					if (base64EndIndex !== -1) {
-						var base64String = content.substring(base64StartIndex + ' src="data:image/png;base64,'.length, base64EndIndex);
-						var newImageUrl = await convertAndUploadBase64Image(base64String);
-						content = content.substring(0, base64StartIndex) + '<img src="' + newImageUrl + content.substring(base64EndIndex);
-					}
-					base64StartIndex = content.indexOf(' src="data:image/png;base64,', base64StartIndex + 1);
-				}
-				sprtData.techdDesc = content;
+				var content = tinyMCE.get("techdDesc").getContent();
+				sprtData.techdDesc = await uploadImage(content);
 			} else {
 				sprtData.techdDesc = $("#techdDesc").val();
 			}

@@ -749,6 +749,7 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
     </div>
     <!--//계약등록-->
 
+    <script type="text/javascript" src="${path}/js/image.js"></script>
     <script>
       $("#custModal").on("show.bs.modal", function (e) {
         var button = $(e.relatedTarget);
@@ -900,7 +901,7 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
         $("#contModal").modal("hide");
       }
 
-      function fn_SaveCont() {
+      async function fn_SaveCont() {
         var contData = {};
         var contractType = $("input[name='contractType']:checked").val(); // 신규 영업지원 or 기존계약
         if (contractType == "NEW") {
@@ -961,8 +962,13 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
         if ($("#vatYn").val() != "") contData.vatYn = $("#vatYn").val(); // VAT 포함여부 (기본값 : Y)
         if ($("#contArea").val() != "") contData.contArea = $("#contArea").val(); // 지역
         if ($("#contType").val() != "") contData.contType = $("#contType").val(); // 판매방식
-        if (tinyMCE.get("contDesc").getContent() != "")
-          contData.contDesc = tinyMCE.get("contDesc").getContent(); // 계약내용
+
+        var content = tinyMCE.get("contDesc").getContent();
+        if(content !== "")		{
+          contData.contDesc = await uploadImage(content);
+        } else {
+          contData.contDesc = "";
+        }			// 계약내용
         if (saved.categories.length > 0) contData.categories = saved.categories.toString();
 
         if (!contData.contTitle) {

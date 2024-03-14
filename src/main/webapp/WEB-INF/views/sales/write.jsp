@@ -388,7 +388,8 @@
 					});
 			}
 		
-		setTimeComboBox(['#startTime', '#endTime']);	
+		setTimeComboBox(['#startTime', '#endTime']);
+		setTiny();	
 	</script>
 <c:if test="${empty simple}">
 </div>

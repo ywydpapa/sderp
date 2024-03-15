@@ -5,7 +5,6 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import kr.swcore.sderp.cont.dto.ContDTO;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
@@ -98,11 +97,6 @@ public class SoppDAOImpl implements SoppDAO {
 	}
 
 	@Override
-	public int updateSoppStatus(SoppDTO dto) {
-		return sqlSession.update("sopp.soppStatusChange", dto);
-	}
-
-	@Override
 	public List<SoppDTO> listWithSoppNoArray(List<SoppDTO> list) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("compNo", list.get(0).getCompNo());
@@ -123,32 +117,5 @@ public class SoppDAOImpl implements SoppDAO {
 	@Override
 	public SoppFileDataDTO downloadFile(SoppFileDataDTO dto) {
 		return sqlSession.selectOne("sopp.downloadFile", dto);
-	}
-
-	@Override
-	public int soppListApp(SoppDTO dto) {
-		return sqlSession.insert("sopp.soppListApp", dto);
-	}
-
-	@Override
-	public int beforeAppUpdate(int soppNo) {
-		// TODO Auto-generated method stub
-		return sqlSession.update("sopp.beforeAppUpdate", soppNo);
-	}
-
-	@Override
-	public int assignPps(SoppDTO dto) {
-		return sqlSession.insert("sopp.assignPps", dto);
-	}
-
-	@Override
-	public List<SoppDTO> selectSoppdetail(SoppDTO dto) {
-		// TODO Auto-generated method stub
-		return sqlSession.selectList("sopp.selectSoppdetail", dto);
-	}
-
-	@Override
-	public List<ContDTO> soppContList(int soppNo) {
-		return sqlSession.selectList("sopp.soppContList", soppNo);
 	}
 }

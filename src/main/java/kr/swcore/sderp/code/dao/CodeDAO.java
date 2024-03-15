@@ -51,7 +51,4 @@ public interface CodeDAO {
 	List<CodeDTO> listContType(SoppDTO soppdto);
 	List<CodeDTO> listSchdType(int compNo);
 	List<CodeDTO> listAreaType(int compNo);
-	List<CodeDTO> listLoc(CodeDTO dto);
-	int autoInsert(CodeDTO dto);
-	int autoInsert3(CodeDTO dto);
 }

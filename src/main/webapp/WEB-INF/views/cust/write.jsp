@@ -47,7 +47,8 @@
 											</tr>
 											<tr>
 												<th scope="row">거래처명</th>
-												<td><input type="text" name="custName" id="custName" data-completeSet="true" required value="" class="form-control form-control-sm">
+												<td><input type="text" name="custName" id="custName" required
+													value="" class="form-control form-control-sm">
 												</td>
 											</tr>
 											<tr>

@@ -353,9 +353,9 @@
 			</div>
 		</div>
 	</div>
-	<!--//기술지원 대상등록-->
+	<!--기술지원 대상등록-->
 
-
+	<script type="text/javascript" src="${path}/js/image.js"></script>
 	<script>
 	$('#endCustModal').on('show.bs.modal', function(e) {
 		var button = $(e.relatedTarget);
@@ -367,8 +367,6 @@
 		var modal = $(this);
 		modal.find('.modal-body').load(button.data("remote"));
 	});
-
-	//
 
 
 	$('#custmemberModal').on('show.bs.modal', function(e) {
@@ -469,7 +467,7 @@
 		$("#endCustModal").modal("hide");
 	}
 
-	function fn_sprtInsert() {
+	async function fn_sprtInsert() {
 		if($("#techdTitle").val() === ""){
 			alert("기술지원 요청명을 입력하십시오.");
 			$("#techdTitle").focus();
@@ -515,12 +513,13 @@
 			sprtData.techdSteps			= $("#techdSteps").val();					// 진행단계
 			sprtData.endCustNo 			= $("#endCustNo").val() ? $("#endCustNo").val() : 0
 			
+			var content = tinyMCE.get("techdDesc").getContent();
 			if($("textarea").attr("style") === "display: none;"){
-				sprtData.techdDesc			= tinyMCE.get("techdDesc").getContent();
+				sprtData.techdDesc = await uploadImage(content, "${path}");
 			}else{
-				sprtData.techdDesc 		= $("#techdDesc").val();
+				sprtData.techdDesc = $("#techdDesc").val();
 			}
-			
+
 			/* sprtData.soppNo				= $("#soppNo").val() ? $("#soppNo").val() : 0; // 영업기회번호 */
 			sprtData.contNo				= $("#contNo").val() ? $("#contNo").val() : 0; // 계약번호
 			
@@ -545,8 +544,8 @@
 						alert("저장 실패");
 					}
 				}, // HTTP 요청이 실패하면 오류와 상태에 관한 정보가 fail() 메소드로 전달됨.
-				error: function() {
-					alert("통신 실패");
+				error: function(xhr, status, errorThrown) {
+					alert("통신 실패", xhr, status, errorThrown);
 				},
 			}) // HTTP 요청이 성공하면 요청한 데이터가 done() 메소드로 전달됨. .
 		}

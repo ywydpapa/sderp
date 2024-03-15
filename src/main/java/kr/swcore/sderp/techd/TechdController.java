@@ -9,6 +9,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import java.util.ArrayList;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import kr.swcore.sderp.cont.dto.ContDTO;
@@ -31,17 +35,18 @@ import kr.swcore.sderp.code.service.CodeService;
 import kr.swcore.sderp.techd.dto.TechdDTO;
 import kr.swcore.sderp.techd.service.TechdService;
 import kr.swcore.sderp.user.service.UserService;
+import kr.swcore.sderp.util.service.UtilService;
 
 @Controller
 
 @RequestMapping("/techd/*")
 public class TechdController {
-	
+
 	private static final Logger logger = LoggerFactory.getLogger(TechdController.class);
-	
+
 	@Inject
 	TechdService techdService;
-	
+
 	@Inject
 	CodeService codeService;
 
@@ -56,25 +61,28 @@ public class TechdController {
 
 	@Inject
 	SoppdataService soppdataService;
-	
+
 	@Inject
 	CustService custService;
-	
+
 	@Inject
 	UserService userService;
 
 	@Inject
 	ProductService productService;
-	
+
+	@Inject
+	UtilService utilService;
+
 	@RequestMapping("list.do")
 	public ModelAndView list(HttpSession session, ModelAndView mav) {
 		mav.setViewName("techd/list");
 		mav.addObject("techdSteps", codeService.listTechdSteps(session));
-		mav.addObject("contractType",codeService.listContractType(session));
+		mav.addObject("contractType", codeService.listContractType(session));
 		mav.addObject("list", techdService.listTechd(session, null));
 		mav.addObject("listUser", userService.userList(session));
 		mav.addObject("listCust", custService.listCust(session));
-		mav.addObject("first","Y");
+		mav.addObject("first", "Y");
 		return mav;
 	}
 
@@ -82,27 +90,32 @@ public class TechdController {
 	public ModelAndView listcont3m(HttpSession session, ModelAndView mav) {
 		mav.setViewName("techd/listcont");
 		mav.addObject("list", contService.listCont3m());
-		mav.addObject("first","Y");
+		mav.addObject("first", "Y");
 		return mav;
 	}
 
 	@RequestMapping("techStoreList.do")
 	public ModelAndView techStoreList(HttpSession session, ModelAndView mav,
-							  @RequestParam(value = "productName", required = false) String productName,
-							  @RequestParam(value = "custNo", required = false) Integer custNo,
-							  @RequestParam(value = "custName", required = false) String custName,
-							  @RequestParam(value = "contNo", required = false) Integer contNo,
-							  @RequestParam(value = "contTitle", required = false) String contTitle){
+			@RequestParam(value = "productName", required = false) String productName,
+			@RequestParam(value = "custNo", required = false) Integer custNo,
+			@RequestParam(value = "custName", required = false) String custName,
+			@RequestParam(value = "contNo", required = false) Integer contNo,
+			@RequestParam(value = "contTitle", required = false) String contTitle) {
 		ContDTO contDto = new ContDTO();
 		StoreDTO dto = new StoreDTO();
-		if(productName != null || custNo != null || custName != null || contNo != null || contTitle != null){
-			if(productName != null) dto.setProductName(productName);
-			if(custNo != null) dto.setCustNo(custNo);
-			if(custName != null) dto.setCustName(custName);
-			if(contNo != null) dto.setContNo(contNo);
-			if(contTitle != null) dto.setContTitle(contTitle);
+		if (productName != null || custNo != null || custName != null || contNo != null || contTitle != null) {
+			if (productName != null)
+				dto.setProductName(productName);
+			if (custNo != null)
+				dto.setCustNo(custNo);
+			if (custName != null)
+				dto.setCustName(custName);
+			if (contNo != null)
+				dto.setContNo(contNo);
+			if (contTitle != null)
+				dto.setContTitle(contTitle);
 			mav.addObject("listStore", techdService.techStoreList(dto));
-		}else {
+		} else {
 			mav.addObject("listStore", techdService.techStoreList(dto));
 		}
 		mav.addObject("listCust", custService.listCust(session));
@@ -113,7 +126,7 @@ public class TechdController {
 	}
 
 	@RequestMapping("techStoreWriteForm.do")
-	public ModelAndView techStoreWriteForm(HttpSession session, ModelAndView mav){
+	public ModelAndView techStoreWriteForm(HttpSession session, ModelAndView mav) {
 		ContDTO contDto = new ContDTO();
 		mav.addObject("listCust", custService.listCust(session));
 		mav.addObject("listProduct", productService.listProduct(session));
@@ -137,7 +150,8 @@ public class TechdController {
 	}
 
 	@RequestMapping("/contextdetail/{soppNo}/{contNo}")
-	public ModelAndView detail(HttpSession session, @PathVariable("contNo") int contNo, @PathVariable("soppNo") int soppNo, SoppDTO data, ModelAndView mav) {
+	public ModelAndView detail(HttpSession session, @PathVariable("contNo") int contNo,
+			@PathVariable("soppNo") int soppNo, SoppDTO data, ModelAndView mav) {
 		mav.setViewName("techd/contextdetail");
 		ContDTO contDTO = new ContDTO();
 		contDTO = contService.detailCont(contNo);
@@ -150,8 +164,8 @@ public class TechdController {
 		mav.addObject("contractType", codeService.listContractType(session));
 		mav.addObject("saleslist", codeService.listSalestype(session));
 		mav.addObject("sstatuslist", codeService.listSstatus(session));
-		mav.addObject("salesinsopp",salesService.listSalesinsopp(session, soppNo, contNo));
-		mav.addObject("techdinsopp",techdService.listTechdinsopp(session, soppNo, contNo));
+		mav.addObject("salesinsopp", salesService.listSalesinsopp(session, soppNo, contNo));
+		mav.addObject("techdinsopp", techdService.listTechdinsopp(session, soppNo, contNo));
 		mav.addObject("contFiles", contService.listFile(contNo));
 		mav.addObject("dtodata01", soppdataService.listSoppdata01(soppNo));
 		mav.addObject("dtodata02", soppdataService.listSoppdata011(soppNo));
@@ -165,17 +179,17 @@ public class TechdController {
 	public ModelAndView bbuycont(HttpSession session, ModelAndView mav) {
 		mav.setViewName("techd/listbbuycont");
 		mav.addObject("list", contService.listCont3m());
-		mav.addObject("first","Y");
+		mav.addObject("first", "Y");
 		return mav;
 	}
 
 	@RequestMapping(value = "list/data", produces = "application/json;charset=UTF-8", method = RequestMethod.POST)
-	public @ResponseBody
-	String listData(HttpSession session, @RequestBody String param, HttpServletRequest request, HttpServletResponse response){
+	public @ResponseBody String listData(HttpSession session, @RequestBody String param, HttpServletRequest request,
+			HttpServletResponse response) {
 		Gson ojb = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
 		return ojb.toJson(techdService.listTechd(session, param, request, response));
 	}
-	
+
 	@RequestMapping("listcon.do")
 	public ModelAndView listcon(HttpSession session, ModelAndView mav, TechdDTO dto) {
 		mav.setViewName("techd/list");
@@ -186,24 +200,39 @@ public class TechdController {
 
 	@RequestMapping("/detail/{techdNo}")
 	public ModelAndView detail(@PathVariable("techdNo") int techdNo,
-							   ModelAndView mav,
-							   HttpSession session,
-							   @RequestParam(value = "simple", required = false) String simple,
-							   @RequestParam(value = "userNo", required = false) Integer userNo,
-							   @RequestParam(value = "userName", required = false) String userName,
-							   @RequestParam(value = "custNo", required = false) Integer custNo,
-							   @RequestParam(value = "custName", required = false) String custName,
-							   @RequestParam(value = "custmemberNo", required = false) Integer custmemberNo,
-							   @RequestParam(value = "custmemberName", required = false) String custmemberName,
-							   @RequestParam(value = "targetDatefrom", required = false) String targetDatefrom,
-							   @RequestParam(value = "targetDateto", required = false) String targetDateto,
-							   @RequestParam(value = "regSDate", required = false) String regSDate,
-							   @RequestParam(value = "regEDate", required = false) String regEDate,
-							   @RequestParam(value = "techdDesc", required = false) String techdDesc,
-							   @RequestParam(value = "search", required = false) String search
-							   ) {
+			ModelAndView mav,
+			HttpSession session,
+			@RequestParam(value = "simple", required = false) String simple,
+			@RequestParam(value = "userNo", required = false) Integer userNo,
+			@RequestParam(value = "userName", required = false) String userName,
+			@RequestParam(value = "custNo", required = false) Integer custNo,
+			@RequestParam(value = "custName", required = false) String custName,
+			@RequestParam(value = "custmemberNo", required = false) Integer custmemberNo,
+			@RequestParam(value = "custmemberName", required = false) String custmemberName,
+			@RequestParam(value = "targetDatefrom", required = false) String targetDatefrom,
+			@RequestParam(value = "targetDateto", required = false) String targetDateto,
+			@RequestParam(value = "regSDate", required = false) String regSDate,
+			@RequestParam(value = "regEDate", required = false) String regEDate,
+			@RequestParam(value = "techdDesc", required = false) String techdDesc,
+			@RequestParam(value = "search", required = false) String search) {
 		mav.setViewName("techd/detail");
-		mav.addObject("dto", techdService.detailTechd(techdNo));
+		TechdDTO techdDTO = techdService.detailTechd(techdNo);
+		techdDesc = techdDTO.getTechdDesc();
+
+		// HTML 코드에서 이미지 태그의 src 속성 값을 정규식으로 추출하여 UUID를 얻습니다.
+		List<String> uuids = extractUuidsFromHtml(techdDesc);
+
+		// 얻은 UUID를 서버에 전송하여 해당 이미지의 Base64 값을 요청하고, 받은 Base64 값을 HTML 코드에서 이미지 태그의 src
+		// 속성을 치환합니다.
+		for (String uuid : uuids) {
+			String base64 = getBase64FromServer(uuid); // 서버로부터 Base64 값 가져오기
+			if (techdDesc != null) {
+				techdDesc = techdDesc.replace(uuid, "data:image/png;base64," + base64); // 이미지 태그의 src 속성 치환
+			}
+		}
+		techdDTO.setTechdDesc(techdDesc);
+
+		mav.addObject("dto", techdDTO);
 		mav.addObject("sprttype", codeService.listSprttype(session));
 		mav.addObject("sprtstat", codeService.listSprtstat(session));
 		mav.addObject("contractType", codeService.listContractType(session));
@@ -212,37 +241,67 @@ public class TechdController {
 		mav.addObject("listCustMember", custService.listCustMember(session));
 		ContDTO contDto = new ContDTO();
 		mav.addObject("listCont", contService.listCont(session, null, contDto));
-		if(simple != null){
-			mav.addObject("simple","Y");
+		if (simple != null) {
+			mav.addObject("simple", "Y");
 		}
+
 		return mav;
 	}
-	
+
+	// HTML 코드에서 이미지 태그의 src 속성 값을 추출하여 UUID를 얻는 메서드
+	public List<String> extractUuidsFromHtml(String htmlCode) {
+		List<String> uuids = new ArrayList<>();
+		String regex = "<img\\s+src\\s*=\\s*\"([^\"]+)\"[^>]*>";
+		Pattern pattern = Pattern.compile(regex);
+		Matcher matcher = pattern.matcher(htmlCode);
+
+		while (matcher.find()) {
+			String src = matcher.group(1);
+			// src 속성 값에서 UUID 추출
+			String[] parts = src.split("/");
+			String uuid = parts[parts.length - 1]; // 이미지 경로에서 마지막 부분을 UUID로 가정합니다.
+			uuids.add(uuid);
+		}
+
+		return uuids;
+	}
+	// 서버에 UUID를 전송하여 해당 이미지의 Base64 값을 요청하는 메서드
+
+	public String getBase64FromServer(String uuid) {
+		// 여기에 uuid를 기반으로 이미지를 조회하고 base64 형식으로 변환하는 로직을 추가하세요
+		// 조회한 이미지를 base64 형식으로 변환한 후 param에 추가하세요
+		String base64Data = utilService.getBase64(uuid);
+		if (base64Data != null) {
+			return base64Data;
+		} else {
+			return "error";
+		}
+	}
+
 	@RequestMapping("/detail2/{techdNo}")
 	public ModelAndView detail2(@PathVariable("techdNo") int techdNo,
-							   ModelAndView mav,
-							   HttpSession session,
-							   @RequestParam(value = "simple", required = false) String simple,
-							   @RequestParam(value = "userNo", required = false) Integer userNo,
-							   @RequestParam(value = "userName", required = false) String userName,
-							   @RequestParam(value = "custNo", required = false) Integer custNo,
-							   @RequestParam(value = "custName", required = false) String custName,
-							   @RequestParam(value = "custmemberNo", required = false) Integer custmemberNo,
-							   @RequestParam(value = "custmemberName", required = false) String custmemberName,
-							   @RequestParam(value = "targetDatefrom", required = false) String targetDatefrom,
-							   @RequestParam(value = "targetDateto", required = false) String targetDateto,
-							   @RequestParam(value = "regSDate", required = false) String regSDate,
-							   @RequestParam(value = "regEDate", required = false) String regEDate,
-							   @RequestParam(value = "techdDesc", required = false) String techdDesc,
-							   @RequestParam(value = "search", required = false) String search
-							   ) {
+			ModelAndView mav,
+			HttpSession session,
+			@RequestParam(value = "simple", required = false) String simple,
+			@RequestParam(value = "userNo", required = false) Integer userNo,
+			@RequestParam(value = "userName", required = false) String userName,
+			@RequestParam(value = "custNo", required = false) Integer custNo,
+			@RequestParam(value = "custName", required = false) String custName,
+			@RequestParam(value = "custmemberNo", required = false) Integer custmemberNo,
+			@RequestParam(value = "custmemberName", required = false) String custmemberName,
+			@RequestParam(value = "targetDatefrom", required = false) String targetDatefrom,
+			@RequestParam(value = "targetDateto", required = false) String targetDateto,
+			@RequestParam(value = "regSDate", required = false) String regSDate,
+			@RequestParam(value = "regEDate", required = false) String regEDate,
+			@RequestParam(value = "techdDesc", required = false) String techdDesc,
+			@RequestParam(value = "search", required = false) String search) {
 		mav.setViewName("techd/detail2");
 		mav.addObject("dto", techdService.detailTechd(techdNo));
 		mav.addObject("sprttype", codeService.listSprttype(session));
 		mav.addObject("sprtstat", codeService.listSprtstat(session));
 		mav.addObject("contractType", codeService.listContractType(session));
-		if(simple != null){
-			mav.addObject("simple","Y");
+		if (simple != null) {
+			mav.addObject("simple", "Y");
 		}
 		return mav;
 	}
@@ -260,7 +319,8 @@ public class TechdController {
 	}
 
 	@RequestMapping("write.do")
-	public ModelAndView write(@RequestParam(value = "simple", required = false) String simple, HttpSession session, ModelAndView mav) {
+	public ModelAndView write(@RequestParam(value = "simple", required = false) String simple, HttpSession session,
+			ModelAndView mav) {
 		mav.addObject("sprttype", codeService.listSprttype(session));
 		mav.addObject("sprtstat", codeService.listSprtstat(session));
 		mav.addObject("contractType", codeService.listContractType(session));
@@ -269,9 +329,9 @@ public class TechdController {
 		mav.addObject("listCustMember", custService.listCustMember(session));
 		ContDTO contDto = new ContDTO();
 		mav.addObject("listCont", contService.listCont(session, null, contDto));
-		
-		if(simple != null){
-			mav.addObject("simple","Y");
+
+		if (simple != null) {
+			mav.addObject("simple", "Y");
 		}
 		mav.setViewName("techd/write");
 		return mav;
@@ -281,7 +341,7 @@ public class TechdController {
 	public ResponseEntity<?> insert(HttpSession session, @ModelAttribute TechdDTO dto) {
 		Map<String, Object> param = new HashMap<>();
 		int schedInsertResult = techdService.insertTechd(session, dto);
-		param.put("code", (String.valueOf(schedInsertResult))); 
+		param.put("code", (String.valueOf(schedInsertResult)));
 		return ResponseEntity.ok(param);
 	}
 
@@ -289,26 +349,24 @@ public class TechdController {
 	public ResponseEntity<?> update(@ModelAttribute TechdDTO dto) {
 		Map<String, Object> param = new HashMap<>();
 		int techdUpdate = techdService.updateTechd(dto);
-		if (techdUpdate >0) {
-			param.put("code","10001"); 
-		}
-		else {param.put("code","20001");
+		if (techdUpdate > 0) {
+			param.put("code", "10001");
+		} else {
+			param.put("code", "20001");
 		}
 		return ResponseEntity.ok(param);
 	}
 
-
 	@RequestMapping("delete.do")
-			public ResponseEntity<?> delete(@ModelAttribute TechdDTO dto) {
-			Map<String, Object> param = new HashMap<>();
-			int techdUpdate = techdService.deleteTechd(dto.getTechdNo());
-			if (techdUpdate >0) {
-				param.put("code","10001"); 
-			}
-			else {param.put("code","20001");
-			}
-			return ResponseEntity.ok(param);
+	public ResponseEntity<?> delete(@ModelAttribute TechdDTO dto) {
+		Map<String, Object> param = new HashMap<>();
+		int techdUpdate = techdService.deleteTechd(dto.getTechdNo());
+		if (techdUpdate > 0) {
+			param.put("code", "10001");
+		} else {
+			param.put("code", "20001");
 		}
-
+		return ResponseEntity.ok(param);
+	}
 
 }

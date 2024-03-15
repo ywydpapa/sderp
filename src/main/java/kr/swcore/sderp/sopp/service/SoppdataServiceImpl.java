@@ -11,18 +11,19 @@ import kr.swcore.sderp.cont.dto.ContDTO;
 import kr.swcore.sderp.sopp.dao.SoppdataDAO;
 import kr.swcore.sderp.sopp.dto.SoppDTO;
 import kr.swcore.sderp.sopp.dto.SoppdataDTO;
+
 @Service
 public class SoppdataServiceImpl implements SoppdataService {
 
 	@Inject
 	SoppdataDAO soppdataDao;
-	
+
 	@Override
 	public List<SoppdataDTO> listSoppdata01(int soppNo) {
 		// TODO Auto-generated method stub
 		return soppdataDao.listSoppdata01(soppNo);
 	}
-	
+
 	@Override
 	public List<SoppdataDTO> listContdata01(int soppNo) {
 		// TODO Auto-generated method stub
@@ -45,21 +46,20 @@ public class SoppdataServiceImpl implements SoppdataService {
 	@Override
 	public int updateSoppdata01(HttpSession session, SoppdataDTO dto) {
 		dto.setUserNo(SessionInfoGet.getUserNo(session));
-		System.out.println(dto.getSoppdataNo());
 		soppdataDao.deleteSoppdata01(dto.getSoppdataNo());
-		if(dto.getDataType() == "1101") {
+		if (dto.getDataType() == "1101") {
 			return soppdataDao.insertdata01_defalut(dto);
-		}else {
+		} else {
 			return soppdataDao.insertSoppdata01(dto);
 		}
 	}
-	
+
 	@Override
 	public int contSoppNoUpdate(ContDTO dto) {
 		// TODO Auto-generated method stub
 		return soppdataDao.contSoppNoUpdate(dto);
 	}
-	
+
 	@Override
 	public int contAssign(SoppdataDTO dto) {
 		// TODO Auto-generated method stub
@@ -73,7 +73,7 @@ public class SoppdataServiceImpl implements SoppdataService {
 	}
 
 	@Override
-	public List<SoppdataDTO> listIOsum(HttpSession session,SoppdataDTO dto) {
+	public List<SoppdataDTO> listIOsum(HttpSession session, SoppdataDTO dto) {
 		// TODO Auto-generated method stub
 		int compNo = SessionInfoGet.getCompNo(session);
 		String listDateFrom = SessionInfoGet.getlistDateFrom(session);
@@ -81,7 +81,7 @@ public class SoppdataServiceImpl implements SoppdataService {
 		dto.setCompNo(compNo);
 		return soppdataDao.listIOsum(dto);
 	}
-	
+
 	@Override
 	public List<SoppdataDTO> listSearchIO(HttpSession session, SoppdataDTO dto) {
 		// TODO Auto-generated method stub

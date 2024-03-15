@@ -328,6 +328,7 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
   <input type="hidden" id="vatSum" value="0" />
 </form>
 
+<script type="text/javascript" src="${path}/js/image.js"></script>
 <script>
   var dataArray = [];
   var resultArray = [];
@@ -1205,7 +1206,7 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
     }
   }
 
-  function fn_data02Insert() {
+  async function fn_data02Insert() {
     //var uploadForm = $('#uploadForm')[0];
     //var uploadData = new FormData(uploadForm);
     var uploadData = new FormData();
@@ -1264,7 +1265,13 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
       data02Data.docTitle = $("#docTitle").val();
       data02Data.linkSoppNo = $("#soppNo").val();
       data02Data.linkCustNo = $("#custNo").val();
-      data02Data.docDesc = tinyMCE.get("docDesc").getContent();
+
+      var content = tinyMCE.get("docDesc").getContent();
+			if(content !== "")		{
+				data02Data.docDesc = await uploadImage(content, "${path}");
+			} 
+
+
       data02Data.docAmount = parseInt(
         $("#product02InSum_table")
           .html()
@@ -1351,7 +1358,7 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
     }
   }
 
-  function fn_tempInsert() {
+  async function fn_tempInsert() {
     var uploadData = new FormData();
     var fileInput = document.getElementById("addFile");
     var files = fileInput.files;
@@ -1392,7 +1399,12 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
       data02Data.docTitle = $("#docTitle").val();
       data02Data.linkSoppNo = $("#soppNo").val();
       data02Data.linkCustNo = $("#custNo").val();
-      data02Data.docDesc = tinyMCE.get("docDesc").getContent();
+
+      var content = tinyMCE.get("docDesc").getContent();
+			if(content !== "")		{
+				data02Data.docDesc = await uploadImage(content, "${path}");
+			} 
+
       data02Data.docAmount = parseInt(
         $("#product02InSum_table")
           .html()
@@ -1458,7 +1470,7 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
     }
   }
 
-  function fn_data02Update() {
+  async function fn_data02Update() {
     //var uploadForm = $('#uploadForm')[0];
     var updateData = new FormData();
     var fileInput = document.getElementById("addFile");
@@ -1508,7 +1520,12 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
       data02Data.docTitle = $("#docTitle").val();
       data02Data.linkSoppNo = $("#soppNo").val();
       data02Data.linkCustNo = $("#custNo").val();
-      data02Data.docDesc = tinyMCE.get("docDesc").getContent();
+
+      var content = tinyMCE.get("docDesc").getContent();
+			if(content !== "")		{
+				data02Data.docDesc = await uploadImage(content, "${path}");
+			} 
+
       data02Data.docAmount = parseInt(
         $("#product02InSum_table")
           .html()
@@ -1542,7 +1559,10 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
           if ($("#appComment").val() === undefined) {
             data02App.appComment = "";
           } else {
-            data02App.appComment = tinyMCE.get("appComment").getContent();
+            var content = tinyMCE.get("appComment").getContent();
+            if(content !== "")		{
+              data02App.appComment = await uploadImage(content, "${path}");
+            } 
           }
 
           if (arr.length != 0) {
@@ -1626,7 +1646,7 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
     }
   }
 
-  function fn_tempUpdate() {
+  async function fn_tempUpdate() {
     var data02Data = {};
     var data02App = {};
     var dataTemp = {};
@@ -1657,7 +1677,12 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
       data02Data.docTitle = $("#docTitle").val();
       data02Data.linkSoppNo = $("#soppNo").val();
       data02Data.linkCustNo = $("#custNo").val();
-      data02Data.docDesc = tinyMCE.get("docDesc").getContent();
+
+      var content = tinyMCE.get("docDesc").getContent();
+			if(content !== "")		{
+				data02Data.docDesc = await uploadImage(content, "${path}");
+			} 
+
       data02Data.docAmount = parseInt(
         $("#product02InSum_table")
           .html()
@@ -1735,7 +1760,7 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
     }
   }
 
-  function fn_data02App() {
+  async function fn_data02App() {
     var updateFile = {};
     var docUserNo = $("#docUserNo").val();
     var userNo = $("#userNo").val();
@@ -1783,7 +1808,12 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
       data02Data.docTitle = $("#docTitle").val();
       data02Data.linkSoppNo = $("#soppNo").val();
       data02Data.linkCustNo = $("#custNo").val();
-      data02Data.docDesc = tinyMCE.get("docDesc").getContent();
+
+      var content = tinyMCE.get("docDesc").getContent();
+			if(content !== "")		{
+				data02Data.docDesc = await uploadImage(content, "${path}");
+			} 
+
       data02Data.docAmount = parseInt(
         $("#product02InSum_table")
           .html()
@@ -1813,7 +1843,12 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
               data02App.appStatus = appStatus;
               data02App.issueDate = $("#issueDate").val();
               data02App.appDate = $("#appDate").val();
-              data02App.appComment = tinyMCE.get("appComment").getContent();
+
+              var content = tinyMCE.get("appComment").getContent();
+              if(content !== "")		{
+                data02App.appComment = await uploadImage(content, "${path}");
+              } 
+  
               updateFile.docNo = docNo;
               updateFile.updateNo = data.getId;
 
@@ -1858,7 +1893,7 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
     }
   }
 
-  function fn_data02Com() {
+  async function fn_data02Com() {
     var updateFile = {};
     var docUserNo = $("#docUserNo").val();
     var userNoCR = $("#userNoCR").val();
@@ -1899,7 +1934,12 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
           data02Data.docTitle = $("#docTitle").val();
           data02Data.linkSoppNo = $("#soppNo").val();
           data02Data.linkCustNo = $("#custNo").val();
-          data02Data.docDesc = tinyMCE.get("docDesc").getContent();
+
+          var content = tinyMCE.get("docDesc").getContent();
+          if(content !== "")		{
+            data02Data.docDesc = await uploadImage(content, "${path}");
+          } 
+
           data02Data.docAmount = parseInt(
             $("#product02InSum_table")
               .html()
@@ -1929,7 +1969,12 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
                   data02App.appStatus = 1;
                   data02App.issueDate = $("#issueDate").val();
                   data02App.appDate = $("#appDate").val();
-                  data02App.appComment = tinyMCE.get("appComment").getContent();
+
+                  var content = tinyMCE.get("appComment").getContent();
+                  if(content !== "")		{
+                    data02App.appComment = await uploadImage(content, "${path}");
+                  } 
+
                   updateFile.docNo = docNo;
                   updateFile.updateNo = data.getId;
 
@@ -2006,7 +2051,12 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
           data02Data.docTitle = $("#docTitle").val();
           data02Data.linkSoppNo = $("#soppNo").val();
           data02Data.linkCustNo = $("#custNo").val();
-          data02Data.docDesc = tinyMCE.get("docDesc").getContent();
+
+          var content = tinyMCE.get("docDesc").getContent();
+          if(content !== "")		{
+            data02Data.docDesc = await uploadImage(content, "${path}");
+          } 
+
           data02Data.docAmount = parseInt(
             $("#product02InSum_table")
               .html()
@@ -2036,7 +2086,12 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
                   data02App.appStatus = 3;
                   data02App.issueDate = $("#issueDate").val();
                   data02App.appDate = $("#appDate").val();
-                  data02App.appComment = tinyMCE.get("appComment").getContent();
+
+                  var content = tinyMCE.get("appComment").getContent();
+                  if(content !== "")		{
+                    data02App.appComment = await uploadImage(content, "${path}");
+                  } 
+
                   updateFile.docNo = docNo;
                   updateFile.updateNo = data.getId;
 
@@ -2274,7 +2329,7 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
     $("#data02ProductDate").val(now);
   });
 
-  function fn_data02Insert1() {
+  async function fn_data02Insert1() {
     var uploadData = new FormData();
     var fileInput = document.getElementById("addFile");
     var files = fileInput.files;
@@ -2335,7 +2390,12 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
       data02Data.docTitle = $("#docTitle").val();
       data02Data.linkSoppNo = $("#soppNo").val();
       data02Data.linkCustNo = $("#custNo").val();
-      data02Data.docDesc = tinyMCE.get("docDesc").getContent();
+
+      var content = tinyMCE.get("docDesc").getContent();
+      if(content !== "")		{
+        data02Data.docDesc = await uploadImage(content, "${path}");
+      } 
+
       data02Data.docAmount = parseInt(
         $("#product02InSum_table")
           .html()

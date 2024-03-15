@@ -268,8 +268,9 @@
 			</div>
 		</div>
 	</div>
-	<!--//일정등록-->
+	<!--일정등록-->
 
+	<script type="text/javascript" src="${path}/js/image.js"></script>
 	<script>
 		$('#soppModal').on('show.bs.modal', function(e) {
 			var button = $(e.relatedTarget);
@@ -327,7 +328,7 @@
 			$("#contModal").modal("hide");
 		}
 
-		function fn_SaveSched() {
+		async function fn_SaveSched() {
 			var schedData = {};
 			schedData.schedFrom = setDateHourMinute($("#schedSdate").val(), $("#startTime").val()); 
 			schedData.schedTo = setDateHourMinute($("#schedEdate").val(), $("#endTime").val());
@@ -336,9 +337,10 @@
 			schedData.userNo 		= $("#userNo").val();
 			schedData.custNo 		= $("#custNo").val() ? Number($("#custNo").val()) : 0;
 			schedData.soppNo 		= $("#soppNo").val() ? Number($("#soppNo").val()) : 0;
-
+			
 			if($("textarea").attr("style") === "display: none;"){
-				schedData.schedDesc 		= tinyMCE.get("schedDesc").getContent();
+				var content = tinyMCE.get("schedDesc").getContent();
+				schedData.schedDesc  = await uploadImage(content, "${path}");
 			}else{
 				schedData.schedDesc 		= $("#schedDesc").val();
 			}

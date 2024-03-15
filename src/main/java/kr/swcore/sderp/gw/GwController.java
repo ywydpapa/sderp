@@ -400,8 +400,6 @@ public class GwController {
     @RequestMapping("myDocCopyInsert.do")
     public int myDocCopyInsert(@ModelAttribute GwDTO dto, GwFileDataDTO dtoa) throws InterruptedException {
         gwService.myDocCopyInsert(dto);
-        System.out.println("dto.getGetId() ===============================" + dto.getGetId());
-        System.out.println(dto.getDocNo());
         dtoa.setDocNo(dto.getDocNo());
         dtoa.setUpdateNo(dto.getGetId());
         int estUpdate = gwService.updateFile(dtoa);
@@ -472,7 +470,6 @@ public class GwController {
     @RequestMapping("insertData1.do")
     public ResponseEntity<?> insertData1(@ModelAttribute GwDTO dto) {
         Map<String, Object> param = new HashMap<>();
-        System.out.println("        dto.getDocAmount()" + dto.getDocAmount());
 
         gwService.update_amount(dto);
 
@@ -656,8 +653,6 @@ public class GwController {
             GwFileDataDTO dto) {
         dto.setDocNo(docNo);
         dto.setLastdocNo(lastdocNo);
-        System.out.println(dto.getDocNo());
-        System.out.println(dto.getLastdocNo());
         gwService.uploadFile2(dto);
     }
 

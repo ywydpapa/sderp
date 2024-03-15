@@ -372,7 +372,7 @@
         </c:if>
         <button class="btn btn-md btn-inverse" onClick="javascript:location='${path}/gw/mylist.do'">취소</button>
     </div><!-- list.do -->
-    <!--//계약등록-->
+    <!--계약등록-->
 
     <script>
         $('#custModal').on('show.bs.modal', function(e) {

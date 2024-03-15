@@ -250,7 +250,7 @@ uri="http://java.sun.com/jsp/jstl/functions"%>
 
       function fnSetDetail(value, info) {
       	var path;
-
+		tinymce.remove();
       	if(value == '770010') {
       		path = '${path}/sales/write.do?simple=Y';
       	}else if(value == '770100'){
@@ -275,11 +275,10 @@ uri="http://java.sun.com/jsp/jstl/functions"%>
       			$('#detail-content').find('.modal-dialog').draggable({
       				handle: ".modal-header"
       			});
-
       			fnSetCurrentDate();
-
       			setTimeout(() => {
       				autoCompleteSet();
+					setTiny();
       			}, 300);
       		});
       	}

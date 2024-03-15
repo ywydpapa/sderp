@@ -270,7 +270,6 @@
 										</div>
 									</td>
 								</tr>
-								
 								<tr>
 									<th scope="row" class="requiredTextCss">지원일자</th>
 									<td colspan="3">
@@ -307,8 +306,7 @@
 								<!-- table new  -->
 								<tr>
 									<th scope="row">설명</th>
-									<td colspan="7"><textarea name="techdDesc" id="techdDesc" rows="8"
-											class="form-control">${dto.techdDesc}</textarea></td>
+									<td colspan="7"><textarea name="techdDesc" id="techdDesc" class="form-control">${dto.techdDesc}</textarea></td>
 								</tr>
 								<!-- table new  -->
 								
@@ -321,15 +319,14 @@
 					<c:if test="${dto.userNo eq sessionScope.userNo || sessionScope.userRole eq 'ADMIN'}">
 						<button class="btn btn-md btn-danger" onClick="fn_sprtDelete()">삭제</button>
 						<button class="btn btn-md btn-primary" onClick="fn_sprtUpdate()">수정</button>
-						<button class="btn btn-md btn-inverse modal-cancel-btn" onClick="javascript:location='${path}/techd/list.do'">취소</button>
 					</c:if>
 				</div>
 			</div>
 		</div>
 	</div>
-	<!--//기술지원 대상등록-->
+	<!--기술지원 대상등록-->
 
-
+	<script type="text/javascript" src="${path}/js/image.js"></script>
 	<script>
 	$('#custModal').on('show.bs.modal', function(e) {
 		var button = $(e.relatedTarget);
@@ -406,7 +403,8 @@
 		$("#contModal").modal("hide");
 	}
 
-	function fn_sprtUpdate() {
+
+	async function fn_sprtUpdate() {
 		if($("#techdTitle").val() === ""){
 			alert("기술지원 요청명을 입력하십시오.");
 			$("#techdTitle").focus();
@@ -451,12 +449,12 @@
 			sprtData.techdSteps			= $("#techdSteps").val();	 // 진행단계
 			sprtData.endCustNo 			= $("#endCustNo").val() ? Number($("#endCustNo").val()) : 0;	
 			
-			if($("textarea").attr("style") === "display: none;"){
-				sprtData.techdDesc			= tinyMCE.get("techdDesc").getContent();
-			}else{
-				sprtData.techdDesc 		= $("#techdDesc").val();
+			if ($("textarea").attr("style") === "display: none;") {
+				var content = tinyMCE.get("techdDesc").getContent();
+				sprtData.techdDesc = await uploadImage(content, "${path}");
+			} else {
+				sprtData.techdDesc = $("#techdDesc").val();
 			}
-			
 			sprtData.techdNo			= Number($("#techdNo").val());
 		
 			$.ajax({
@@ -481,12 +479,13 @@
 					}
 				}, // HTTP 요청이 실패하면 오류와 상태에 관한 정보가 fail() 메소드로 전달됨.
 				error: function(xhr, status, errorThrown) {
-					alert("통신 실패");
+					alert("통신 실패", xhr, status, errorThrown);
 				},
 			});
 		}
 	}
 
+	//TODO: 해당 techdDesc에 이미지가 있는지 확인하여 있다면 해당 이미지를 DB에서 삭제하는 로직이 필요
 	function fn_sprtDelete() {
 		var sprtData = {};
 		sprtData.techdNo = $("#techdNo").val();

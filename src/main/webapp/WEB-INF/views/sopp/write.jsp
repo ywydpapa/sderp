@@ -416,7 +416,7 @@
 		$("#endCustModal").modal("hide");
 	}
 
-	function fn_soppInsert() {
+	async function fn_soppInsert() {
 		var soppData = {};
 		soppData.soppTitle 		= $("#soppTitle").val();
 		if($("#userName").val() != "")  	soppData.userNo = Number($("#userNo").val());

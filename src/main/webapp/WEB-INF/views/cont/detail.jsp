@@ -889,7 +889,7 @@
 			if($("#contType").val() != "")		contData.contType 			= $("#contType").val();				// 판매방식
 			var content = tinyMCE.get("contDesc").getContent();
 			if(content !== "")		{
-				contData.contDesc = await uploadImage(content);
+				contData.contDesc = await uploadImage(content, "${path}");
 			} else {
 				contData.contDesc = "";
 			}				// 계약내용
@@ -1003,7 +1003,7 @@
 			
 			var content = tinyMCE.get("contDesc").getContent();
 			if(content !== "")		{
-				contData.contDesc = await uploadImage(content);
+				contData.contDesc = await uploadImage(content, "${path}");
 			} else {
 				contData.contDesc = "";
 			}

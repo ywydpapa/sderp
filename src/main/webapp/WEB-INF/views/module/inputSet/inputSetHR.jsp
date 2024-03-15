@@ -104,7 +104,7 @@
         
         var content = tinyMCE.get("hrDesc").getContent();
         if(content !== "")		{
-          temp.hrDesc = await uploadImage(content);
+          temp.hrDesc = await uploadImage(content, "${path}");
         } else {
             alert("신청내용을 기입해 주십시오.");
             $("#hrDesc").focus();

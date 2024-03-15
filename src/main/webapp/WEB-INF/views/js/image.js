@@ -1,4 +1,4 @@
-async function uploadImage(content) {
+async function uploadImage(content, path) {
   var base64StartIndex = content.indexOf(' src="data:image/png;base64,');
   while (base64StartIndex !== -1) {
     var base64EndIndex = content.indexOf('">', base64StartIndex);
@@ -7,7 +7,7 @@ async function uploadImage(content) {
         base64StartIndex + ' src="data:image/png;base64,'.length,
         base64EndIndex
       );
-      var newImageUrl = await convertBase64Image(base64String);
+      var newImageUrl = await convertBase64Image(base64String, path);
       content =
         content.substring(0, base64StartIndex) +
         '<img src="' +
@@ -19,7 +19,7 @@ async function uploadImage(content) {
   return content;
 }
 
-async function uploadImageToServer(pngImage) {
+async function uploadImageToServer(pngImage, path) {
   var base64Data = {};
   base64Data.userNo = "${dto.userNo}";
   base64Data.base64 = pngImage;
@@ -29,7 +29,7 @@ async function uploadImageToServer(pngImage) {
 
   try {
     const response = await $.ajax({
-      url: "/sderp/imageInsert.do",
+      url: path + "/imageInsert.do",
       data: base64Data,
       method: "POST",
       dataType: "json",
@@ -46,7 +46,7 @@ async function uploadImageToServer(pngImage) {
   return uploadedImageUrl;
 }
 
-async function convertBase64Image(base64String) {
+async function convertBase64Image(base64String, path) {
   var maxWidth = 1920;
   var maxHeight = 1024;
 
@@ -69,8 +69,8 @@ async function convertBase64Image(base64String) {
     context.drawImage(img, 0, 0, newWidth, newHeight);
 
     var resizedBase64 = canvas.toDataURL("image/png").replace(/^data:image\/png;base64,/, "");
-    return await uploadImageToServer(resizedBase64);
+    return await uploadImageToServer(resizedBase64, path);
   } else {
-    return await uploadImageToServer(base64String);
+    return await uploadImageToServer(base64String, path);
   }
 }

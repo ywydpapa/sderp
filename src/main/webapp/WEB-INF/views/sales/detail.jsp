@@ -225,7 +225,7 @@
 
 			if($("textarea").attr("style") === "display: none;"){
 				var content = tinyMCE.get("salesDesc").getContent();
-				salesData.salesDesc = await uploadImage(content);
+				salesData.salesDesc = await uploadImage(content, "${path}");
 			} else {
 				alert("영업활동 내용을 입력해 주십시오.");
 				return;

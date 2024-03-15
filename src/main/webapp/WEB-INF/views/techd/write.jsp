@@ -515,7 +515,7 @@
 			
 			var content = tinyMCE.get("techdDesc").getContent();
 			if($("textarea").attr("style") === "display: none;"){
-				sprtData.techdDesc = await uploadImage(content);
+				sprtData.techdDesc = await uploadImage(content, "${path}");
 			}else{
 				sprtData.techdDesc = $("#techdDesc").val();
 			}

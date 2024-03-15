@@ -103,7 +103,7 @@
 			
 			var content = tinyMCE.get("notiContents").getContent();
 			if(content !== null && content !== undefined && content !== "") {
-				noticeData.notiContents = await uploadImage(content);
+				noticeData.notiContents = await uploadImage(content, "${path}");
 			} else {
 				noticeData.notiContents = "";
 			}

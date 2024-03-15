@@ -307,7 +307,7 @@
 			
 			if($("textarea").attr("style") === "display: none;"){
 				var content = tinyMCE.get("salesDesc").getContent();
-				salesData.salesDesc = await uploadImage(content);
+				salesData.salesDesc = await uploadImage(content, "${path}");
 			} else {
 				salesData.salesDesc = $("#salesDesc").val();
 			}		

@@ -965,7 +965,7 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
         var content = tinyMCE.get("contDesc").getContent();
         if(content !== "")		{
-          contData.contDesc = await uploadImage(content);
+          contData.contDesc = await uploadImage(content, "${path}");
         } else {
           contData.contDesc = "";
         }			// 계약내용

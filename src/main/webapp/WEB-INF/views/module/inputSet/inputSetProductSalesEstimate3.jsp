@@ -510,13 +510,13 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
       var productRemark = "";
 			if(content !== "")		{
         var content = tinyMCE.get("data02Remark").getContent();
-				productRemark = await uploadImage(content).replaceAll('"', "'");;
+				productRemark = await uploadImage(content, "${path}").replaceAll('"', "'");;
 			} 
 
       var productSpec = "";
 			if(content !== "")		{
         var content = tinyMCE.get("data02Spec").getContent();
-				productSpec = await uploadImage(content).replaceAll('"', "'");;
+				productSpec = await uploadImage(content, "${path}").replaceAll('"', "'");;
 			} 
 
       dataArray[flagIndex].custNo = $("#productSalesEstimateCustNo").val();
@@ -680,13 +680,13 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
       var productRemark = "";
 			if(content !== "")		{
         var content = tinyMCE.get("data02Remark").getContent();
-				productRemark = await uploadImage(content).replaceAll('"', "'");;
+				productRemark = await uploadImage(content, "${path}").replaceAll('"', "'");;
 			} 
 
       var productSpec = "";
 			if(content !== "")		{
         var content = tinyMCE.get("data02Spec").getContent();
-				productSpec = await uploadImage(content).replaceAll('"', "'");;
+				productSpec = await uploadImage(content, "${path}").replaceAll('"', "'");;
 			} 
 
       var qutylist = $("#qutylist tbody");
@@ -846,7 +846,7 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
       var estComSpec = "";
 			if(content !== "")		{
         var content = tinyMCE.get("estComSpec").getContent();
-				estComSpec = await uploadImage(content).replaceAll('"', "'");;
+				estComSpec = await uploadImage(content, "${path}").replaceAll('"', "'");;
 			} 
 
       $.ajax({
@@ -982,7 +982,7 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
         var estComSpec = "";
         if(content !== "")		{
           var content = tinyMCE.get("estComSpec").getContent();
-          estComSpec = await uploadImage(content).replaceAll('"', "'");;
+          estComSpec = await uploadImage(content, "${path}").replaceAll('"', "'");;
         } 
 
         $.ajax({

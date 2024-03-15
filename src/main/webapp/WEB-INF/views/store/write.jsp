@@ -596,7 +596,7 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
           var content = tinyMCE.get("comment").getContent();
           if(content != ""){
-            storeData.comment = await uploadImage(content);
+            storeData.comment = await uploadImage(content, "${path}");
           } 
 
           storeData.storeUnit = $("#storeUnit").val() * 1;

@@ -1268,7 +1268,7 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
       var content = tinyMCE.get("docDesc").getContent();
 			if(content !== "")		{
-				data02Data.docDesc = await uploadImage(content);
+				data02Data.docDesc = await uploadImage(content, "${path}");
 			} 
 
 
@@ -1402,7 +1402,7 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
       var content = tinyMCE.get("docDesc").getContent();
 			if(content !== "")		{
-				data02Data.docDesc = await uploadImage(content);
+				data02Data.docDesc = await uploadImage(content, "${path}");
 			} 
 
       data02Data.docAmount = parseInt(
@@ -1523,7 +1523,7 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
       var content = tinyMCE.get("docDesc").getContent();
 			if(content !== "")		{
-				data02Data.docDesc = await uploadImage(content);
+				data02Data.docDesc = await uploadImage(content, "${path}");
 			} 
 
       data02Data.docAmount = parseInt(
@@ -1561,7 +1561,7 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
           } else {
             var content = tinyMCE.get("appComment").getContent();
             if(content !== "")		{
-              data02App.appComment = await uploadImage(content);
+              data02App.appComment = await uploadImage(content, "${path}");
             } 
           }
 
@@ -1680,7 +1680,7 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
       var content = tinyMCE.get("docDesc").getContent();
 			if(content !== "")		{
-				data02Data.docDesc = await uploadImage(content);
+				data02Data.docDesc = await uploadImage(content, "${path}");
 			} 
 
       data02Data.docAmount = parseInt(
@@ -1811,7 +1811,7 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
       var content = tinyMCE.get("docDesc").getContent();
 			if(content !== "")		{
-				data02Data.docDesc = await uploadImage(content);
+				data02Data.docDesc = await uploadImage(content, "${path}");
 			} 
 
       data02Data.docAmount = parseInt(
@@ -1846,7 +1846,7 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
               var content = tinyMCE.get("appComment").getContent();
               if(content !== "")		{
-                data02App.appComment = await uploadImage(content);
+                data02App.appComment = await uploadImage(content, "${path}");
               } 
   
               updateFile.docNo = docNo;
@@ -1937,7 +1937,7 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
           var content = tinyMCE.get("docDesc").getContent();
           if(content !== "")		{
-            data02Data.docDesc = await uploadImage(content);
+            data02Data.docDesc = await uploadImage(content, "${path}");
           } 
 
           data02Data.docAmount = parseInt(
@@ -1972,7 +1972,7 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
                   var content = tinyMCE.get("appComment").getContent();
                   if(content !== "")		{
-                    data02App.appComment = await uploadImage(content);
+                    data02App.appComment = await uploadImage(content, "${path}");
                   } 
 
                   updateFile.docNo = docNo;
@@ -2054,7 +2054,7 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
           var content = tinyMCE.get("docDesc").getContent();
           if(content !== "")		{
-            data02Data.docDesc = await uploadImage(content);
+            data02Data.docDesc = await uploadImage(content, "${path}");
           } 
 
           data02Data.docAmount = parseInt(
@@ -2089,7 +2089,7 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
                   var content = tinyMCE.get("appComment").getContent();
                   if(content !== "")		{
-                    data02App.appComment = await uploadImage(content);
+                    data02App.appComment = await uploadImage(content, "${path}");
                   } 
 
                   updateFile.docNo = docNo;
@@ -2393,7 +2393,7 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
       var content = tinyMCE.get("docDesc").getContent();
       if(content !== "")		{
-        data02Data.docDesc = await uploadImage(content);
+        data02Data.docDesc = await uploadImage(content, "${path}");
       } 
 
       data02Data.docAmount = parseInt(

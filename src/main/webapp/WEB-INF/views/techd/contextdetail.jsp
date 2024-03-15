@@ -802,7 +802,7 @@
 
 			var content = tinyMCE.get("contDesc").getContent();
 			if(content != ""){
-				contData.contDesc = await uploadImage(content);		// 계약내용
+				contData.contDesc = await uploadImage(content, "${path}");		// 계약내용
 			} 
 
 			if (!contData.contTitle) {
@@ -902,7 +902,7 @@
 
 			var content = tinyMCE.get("contDesc").getContent();
 			if(content != ""){
-				contData.contDesc = await uploadImage(content);		// 계약내용
+				contData.contDesc = await uploadImage(content, "${path}");		// 계약내용
 			} 
 
 			if (!contData.contTitle) {

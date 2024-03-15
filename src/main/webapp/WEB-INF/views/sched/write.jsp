@@ -340,7 +340,7 @@
 			
 			if($("textarea").attr("style") === "display: none;"){
 				var content = tinyMCE.get("schedDesc").getContent();
-				schedData.schedDesc  = await uploadImage(content);
+				schedData.schedDesc  = await uploadImage(content, "${path}");
 			}else{
 				schedData.schedDesc 		= $("#schedDesc").val();
 			}

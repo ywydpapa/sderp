@@ -432,7 +432,7 @@
 		
 		var content = tinyMCE.get("soppDesc").getContent();
 		if(content != ""){
-			soppData.soppDesc = await uploadImage(content);
+			soppData.soppDesc = await uploadImage(content, "${path}");
 		} 
 		
 		if($("#maintenanceTarget").val() !== "") soppData.maintenanceTarget = $("#maintenanceTarget").val();

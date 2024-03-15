@@ -585,7 +585,7 @@
 
 			var content = tinyMCE.get("custMemo").getContent();
 			if($("textarea[id='custMemo']").attr("style") === "display: none;"){
-				custData2.custMemo = await uploadImage(content);
+				custData2.custMemo = await uploadImage(content, "${path}");
 			}else{
 				custData2.custMemo = $("#custMemo").val();
 			}
@@ -650,7 +650,7 @@
 			
 			if($("#custVatmemo").attr("style") === "display: none;"){
 				var content = tinyMCE.get("custVatmemo").getContent();
-				custData4.custVatmemo = await uploadImage(content);
+				custData4.custVatmemo = await uploadImage(content, "${path}");
 			} else {
 				custData4.custVatmemo = $("#custVatmemo").val();
 			}

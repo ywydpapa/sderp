@@ -318,7 +318,7 @@ tr.shown td.details-control {
 
 				var content = tinyMCE.get("comment").getContent();
 				if(content != ""){
-					storeData.comment = await uploadImage(content);
+					storeData.comment = await uploadImage(content, "${path}");
 				} 
 
 				storeData.storeUnit = $("#storeUnit").val() * 1;
@@ -363,7 +363,7 @@ tr.shown td.details-control {
 
 			var content = tinyMCE.get("comment").getContent();
 			if(content != ""){
-				comment = await uploadImage(content);
+				comment = await uploadImage(content, "${path}");
 			} 
 
 

@@ -139,6 +139,7 @@
 	
 	<script type="text/javascript" src="${path}/js/image.js"></script>
 	<script>
+
 		$('#custModal').on('show.bs.modal', function(e) {
 			var button = $(e.relatedTarget);
 			var modal = $(this);
@@ -311,7 +312,7 @@
 
 			if($("textarea").attr("style") === "display: none;"){
 				var content = tinyMCE.get("salesDesc").getContent();
-				salesData.salesDesc = await uploadImage(content);
+				salesData.salesDesc = await uploadImage(content, "${path}");
 			} else {
 				alert("영업활동 내용을 입력해 주십시오.");
 				return;
@@ -362,7 +363,6 @@
 				$("#endCustName").focus();
 				return;
 			} */
-
 			$.ajax({ url: "${path}/sales/insert.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소 
 						data: salesData , // HTTP 요청과 함께 서버로 보낼 데이터 
 						method: "POST", // HTTP 요청 메소드(GET, POST 등) 

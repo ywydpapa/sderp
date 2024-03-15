@@ -892,7 +892,7 @@ ${dto.soppDesc}</textarea
 
         var content = tinyMCE.get("soppDesc").getContent();
         if(content != ""){
-          soppData.soppDesc = await uploadImage(content);
+          soppData.soppDesc = await uploadImage(content, "${path}");
         } else {
           soppData.soppDesc = "";
         }

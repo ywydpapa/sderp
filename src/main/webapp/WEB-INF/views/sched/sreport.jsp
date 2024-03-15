@@ -673,13 +673,13 @@ async function fn_Create(){
 
 	if(praddContent !== ""){
 		var content = tinyMCE.get("praddtext").getContent();
-		sreportData.prComment = await uploadImage(content);
+		sreportData.prComment = await uploadImage(content, "${path}");
 	}else{
 		sreportData.prComment = $("#praddtext").val();
 	}
 	if(thaddContent !== ""){
 		var content = tinyMCE.get("thaddtext").getContent();
-		sreportData.thComment = await uploadImage(content);
+		sreportData.thComment = await uploadImage(content, "${path}");
 	}else{
 		sreportData.thComment = $("#thaddtext").val();
 	}
@@ -730,7 +730,7 @@ async function fn_Create2(){
 	sreportData.thCheck 	= $(".nxaddchk").attr("data-check");
 	if(thaddContent !== ""){
 		var content = tinyMCE.get("nxaddtext").getContent();
-		sreportData.thComment = await uploadImage(content);
+		sreportData.thComment = await uploadImage(content, "${path}");
 	}else{
 		sreportData.thComment = $("#nxaddtext").val();
 	}
@@ -738,7 +738,7 @@ async function fn_Create2(){
 	sreportData.prCheck 	= $(".thaddchk").attr("data-check");
 	if(praddContent !== ""){
 		var content = tinyMCE.get("thaddtext").getContent();
-		sreportData.prComment = await uploadImage(content);
+		sreportData.prComment = await uploadImage(content, "${path}");
 	}else{
 		sreportData.prComment = $("#thaddtext").val();
 	}
@@ -917,7 +917,7 @@ async function linecopy(){
 	var aa = "";
 	if(praddContent !== ""){
 		var content = tinyMCE.get("praddtext").getContent();
-		aa = await uploadImage(content);
+		aa = await uploadImage(content, "${path}");
 	}else{
 		aa = $("#praddtext").val();
 	}
@@ -926,7 +926,7 @@ async function linecopy(){
 	var bb = "";
 	if(praddContent !== ""){
 		var content = tinyMCE.get("thaddtext").getContent();
-		bb = await uploadImage(content);
+		bb = await uploadImage(content, "${path}");
 	}else{
 		bb = $("#thaddtext").val();
 	}

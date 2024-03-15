@@ -72,7 +72,7 @@
 
 			var content = tinyMCE.get("notiContents").getContent();
 			if(content !== "")		{
-				noticeData.notiContents = await uploadImage(content);
+				noticeData.notiContents = await uploadImage(content, "${path}");
 			} else {
 				alert("내용을 입력해주십시오.");
 				return;

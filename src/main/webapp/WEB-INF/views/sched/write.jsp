@@ -9,6 +9,17 @@
 <jsp:include page="../head.jsp"/>
 <jsp:include page="../body-top.jsp"/>
 
+<style>
+	@media screen and(max-width:1100px) {
+		tr,td {
+			display: block!important;
+		}
+		.row_3_content {
+			display: block;
+		}
+	}
+</style>
+
 <div id="main_content">
 </c:if>
 	<!-- Page-header start 페이지 타이틀-->
@@ -53,11 +64,14 @@
 										</div>
 									</td>
 								</tr>
-								<tr>
-									<th scope="row">장소</th>
-									<td><input type="text" class="form-control"
-										id="schedPlace" name="schedPlace" placeholder="장소를 입력하세요">
-									</td>
+								<tr class="row_3">
+									
+										<th scope="row">장소</th>
+										<td><input type="text" class="form-control"
+											id="schedPlace" name="schedPlace" placeholder="장소를 입력하세요">
+										</td>
+									
+									
 									<%-- <th scope="row">계약 관련</th>
 									<td>
 										<div class="input-group input-group-sm mb-0">

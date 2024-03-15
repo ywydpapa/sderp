@@ -2,6 +2,7 @@
 		 pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+
 <c:set var="path" value ="${pageContext.request.contextPath}"/>
 
 <!DOCTYPE html>
@@ -50,6 +51,13 @@
 					} else {
 						data.push({"name": "userNo", "value": ""});
 					}
+
+					if(soppSearhing || soppSCB) {
+						data.push({"name": "userNo", "value": $("#userNo").val()});		
+					} else {
+						data.push({"name" : "userNo", "value" : ""});
+					}
+
 					data.push({"name":"custNo", "value" : $("#custNo").val()});							// 거래처
 					data.push({"name":"buyrNo", "value" : $("#buyrNo").val()});							// 엔드유저
 					data.push({"name":"soppType", "value" : $("#soppType option:selected").val()});		// 판매방식
@@ -282,7 +290,25 @@
 			soppSCB = true;
 			soppTable.search("").draw();
 		}
+
+		// 이 함수는 DataTable의 컬럼 렌더링 함수 내부 또는 적절한 위치에서 호출되어야 합니다.
+		function updateSooplistTitle(data, row) {
+			// .sooplist_title 요소를 찾습니다.
+			const titleElement = document.querySelector('.sooplist_title');
+		
+			// 요소가 존재하고, 유효한 데이터가 있을 때만 처리합니다.
+			if (titleElement && data && row.soppNo) {
+			// .sooplist_title 내부를 업데이트합니다.
+			titleElement.innerHTML = '<a href="javascript:fnSetPageEx(\'' + row.soppNo + '\')" title="' + data + '">' + data + '</a>';
+			}
+		}
+		
+		// 예시 사용 방법
+		// 이 예시에서는 'soppTitle'과 'soppNo'가 유효한 데이터를 가지고 있다고 가정합니다.
+		<!-- updateSooplistTitle("예시 영업기회명", {soppNo: "12345"}); -->
 	</script>
+
+
 	<style>
 		a {
 			text-decoration:underline;
@@ -300,285 +326,351 @@
 			white-space: nowrap;
 		}
 	</style>
-
-	<c:if test="${preserveSearchCondition != 'Y'}">
-		<!-- DB TABLE 실행 -->
-		<!--영업기회조회-->
-		<!-- Page-header start 페이지 타이틀-->
-		<div class="page-header2">
-			<div class="row align-items-end">
-				<div class="col-lg-12">
-					<div class="page-header-title" style="float:left;">
-						<div style="margin-top:15px;">
-							<h6 style="font-weight:600;">영업기회조회</h6>
+	<!-- 펼치기 가능한 버튼,테이블 리스트/리스트 클릭시 여백을 감싸는 최상단 wrap -->
+	<div class="sooplist">	
+		<!-- 펼치기 가능한 버튼/테이블 리스트를 감싸는 wrap -->
+		<div class="sooplist_fist">
+			<c:if test="${preserveSearchCondition != 'Y'}">
+				<!-- DB TABLE 실행 -->
+				<!--영업기회조회-->
+				<!-- Page-header start 페이지 타이틀-->
+				<div class="page-header2">
+					<div class="row align-items-end">
+						<div class="col-lg-12">
+							<div class="page-header-title" style="float:left;">
+								<div style="margin-top:15px;">
+									<h6 style="font-weight:600;">영업기회조회</h6>
+								</div>
+							</div>
+							<div class="btn_wr" style="float:right;">
+								<!-- hide and show -->
+								<button class="btn btn-sm btn-success" id="fold"
+									onclick="acordian_action()" >펼치기</button>
+								<button class="btn btn-sm btn-success" id="fold2"
+									onclick="acordian_action1()" style="display: none;">접기</button>
+								<!-- hide and show -->
+								<button class="btn btn-sm btn-inverse" onClick="javascript:fnClearall()"><i class="icofont icofont-spinner-alt-3"></i>초기화</button>
+								<button class="btn btn-sm btn-primary" onClick="javascript:fnListcon()"><i class="icofont icofont-search"></i>검색</button>
+								<button class="btn btn-sm btn-outline" onClick="javascript:location='${path}/sopp/write.do'"><i class="icofont icofont-pencil-alt-2"></i>등록</button>
+							</div>
 						</div>
-					</div>
-					<div class="btn_wr" style="float:right;">
-						<!-- hide and show -->
-						<button class="btn btn-sm btn-success" id="fold"
-							onclick="acordian_action()" >펼치기</button>
-						<button class="btn btn-sm btn-success" id="fold2"
-							onclick="acordian_action1()" style="display: none;">접기</button>
-						<!-- hide and show -->
-						<button class="btn btn-sm btn-inverse" onClick="javascript:fnClearall()"><i class="icofont icofont-spinner-alt-3"></i>초기화</button>
-						<button class="btn btn-sm btn-primary" onClick="javascript:fnListcon()"><i class="icofont icofont-search"></i>검색</button>
-						<button class="btn btn-sm btn-outline" onClick="javascript:location='${path}/sopp/write.do'"><i class="icofont icofont-pencil-alt-2"></i>등록</button>
 					</div>
 				</div>
-			</div>
-		</div>
-		<!--Page-header end 페이지 타이틀 -->
+				<!--Page-header end 페이지 타이틀 -->
 
-		<!--영업기회조회-->
-		<div class="cnt_wr" id="acordian" style="display:none;">
-			<div class="row">
-				<form id="searchForm" method="post" onsubmit="return false;" class="col-sm-12">
-					<div class="col-sm-12">
-						<div class="card_box sch_it">
-							<!--row-->
-							<div class="form-group row">
-								<!--담당자-->
-								<div class="col-sm-12 col-xl-2">
-									<label class="col-form-label" for="userName">담당자</label>
-									<div class="input-group input-group-sm mb-0">
-										<select class="form-control" id="userName" name="userName" onchange="autoCompleteSelect(this);">
-											<option value="">선택</option>
-											<c:forEach var="row" items="${listUser}">
-												<option data-no="${row.userNo}" value="${row.userName}">${row.userName}</option>
-											</c:forEach>
-										</select>
-										<input type="hidden" name="userNo" id="userNo" value="" /> 
-										<!-- <input type="text" class="form-control" name="userName" id="userName" autocomplete="off"> --> 
-										<%-- <span class="input-group-btn">
-											<button class="btn btn-primary sch-company"
-													data-remote="${path}/modal/popup.do?popId=user"
-													type="button" data-toggle="modal" data-target="#userModal">
-												<i class="icofont icofont-search"></i>
-											</button>
-										</span>
-										<!--modal-->
-										<div class="modal fade " id="userModal" tabindex="-1" role="dialog">
-											<div class="modal-dialog modal-80size" role="document">
-												<div class="modal-content modal-80size">
-													<div class="modal-header">
-														<h4 class="modal-title"></h4>
-														<button type="button" class="close" data-dismiss="modal"
-																aria-label="Close">
-															<span aria-hidden="true">&times;</span>
-														</button>
+				<!--영업기회조회-->
+				<div class="cnt_wr" id="acordian" style="display:none;">
+					<div class="row">
+						<form id="searchForm" method="post" onsubmit="return false;" class="col-sm-12">
+							<div class="col-sm-12">
+								<div class="card_box sch_it">
+									<!--row-->
+									<div class="form-group row">
+										<!--담당자-->
+										<div class="col-sm-12 col-xl-2">
+											<label class="col-form-label" for="userName">담당자</label>
+											<div class="input-group input-group-sm mb-0">
+												<select class="form-control" id="userName" name="userName" onchange="autoCompleteSelect(this);">
+													<option value="">선택</option>
+													<c:forEach var="row" items="${listUser}">
+														<option data-no="${row.userNo}" value="${row.userName}">${row.userName}</option>
+													</c:forEach>
+												</select>
+												<input type="hidden" name="userNo" id="userNo" value="" /> 
+												<!-- <input type="text" class="form-control" name="userName" id="userName" autocomplete="off"> --> 
+												<%-- <span class="input-group-btn">
+													<button class="btn btn-primary sch-company"
+															data-remote="${path}/modal/popup.do?popId=user"
+															type="button" data-toggle="modal" data-target="#userModal">
+														<i class="icofont icofont-search"></i>
+													</button>
+												</span>
+												<!--modal-->
+												<div class="modal fade " id="userModal" tabindex="-1" role="dialog">
+													<div class="modal-dialog modal-80size" role="document">
+														<div class="modal-content modal-80size">
+															<div class="modal-header">
+																<h4 class="modal-title"></h4>
+																<button type="button" class="close" data-dismiss="modal"
+																		aria-label="Close">
+																	<span aria-hidden="true">&times;</span>
+																</button>
+															</div>
+															<div class="modal-body">
+																<h5>사용자목록</h5>
+																<p>Loading!!!</p>
+															</div>
+															<div class="modal-footer">
+																<button type="button"
+																		class="btn btn-default waves-effect "
+																		data-dismiss="modal">닫기</button>
+															</div>
+														</div>
 													</div>
-													<div class="modal-body">
-														<h5>사용자목록</h5>
-														<p>Loading!!!</p>
-													</div>
-													<div class="modal-footer">
-														<button type="button"
-																class="btn btn-default waves-effect "
-																data-dismiss="modal">닫기</button>
-													</div>
-												</div>
+												</div> --%>
+												<!--//modal-->
 											</div>
-										</div> --%>
-										<!--//modal-->
-									</div>
-								</div>
-								<!--//담당자-->
-								<!--거래처-->
-								<div class="col-sm-12 col-xl-2">
-									<label class="col-form-label" for="custName">거래처</label>
-									<div class="input-group input-group-sm">
-										<select class="form-control" id="custName" name="custName" onchange="autoCompleteSelect(this);">
-											<option value="">선택</option>
-											<c:forEach var="row" items="${listCust}">
-												<option data-no="${row.custNo}" value="${row.custName}">${row.custName}</option>
-											</c:forEach>
-										</select>
-										<input type="hidden" name="custNo" id="custNo" value="" />
-										<!-- <input type="text" class="form-control" name="custName" id="custName" autocomplete="off"> -->
-										<%-- <span class="input-group-btn">
-												<button class="btn btn-primary sch-company"
-														data-remote="${path}/modal/popup.do?popId=cust"
-														type="button" data-toggle="modal" data-target="#custModal">
-													<i class="icofont icofont-search"></i>
-												</button>
-											</span>
-										<!--modal-->
-										<div class="modal fade " id="custModal" tabindex="-1"
-											 role="dialog">
-											<div class="modal-dialog modal-80size" role="document">
-												<div class="modal-content modal-80size">
-													<div class="modal-header">
-														<h4 class="modal-title">매출처검색</h4>
-														<button type="button" class="close" data-dismiss="modal"
-																aria-label="Close">
-															<span aria-hidden="true">&times;</span>
+										</div>
+										<!--//담당자-->
+										<!--거래처-->
+										<div class="col-sm-12 col-xl-2">
+											<label class="col-form-label" for="custName">거래처</label>
+											<div class="input-group input-group-sm">
+												<select class="form-control" id="custName" name="custName" onchange="autoCompleteSelect(this);">
+													<option value="">선택</option>
+													<c:forEach var="row" items="${listCust}">
+														<option data-no="${row.custNo}" value="${row.custName}">${row.custName}</option>
+													</c:forEach>
+												</select>
+												<input type="hidden" name="custNo" id="custNo" value="" />
+												<!-- <input type="text" class="form-control" name="custName" id="custName" autocomplete="off"> -->
+												<%-- <span class="input-group-btn">
+														<button class="btn btn-primary sch-company"
+																data-remote="${path}/modal/popup.do?popId=cust"
+																type="button" data-toggle="modal" data-target="#custModal">
+															<i class="icofont icofont-search"></i>
 														</button>
+													</span>
+												<!--modal-->
+												<div class="modal fade " id="custModal" tabindex="-1"
+													role="dialog">
+													<div class="modal-dialog modal-80size" role="document">
+														<div class="modal-content modal-80size">
+															<div class="modal-header">
+																<h4 class="modal-title">매출처검색</h4>
+																<button type="button" class="close" data-dismiss="modal"
+																		aria-label="Close">
+																	<span aria-hidden="true">&times;</span>
+																</button>
+															</div>
+															<div class="modal-body">
+																<h5>매출처목록</h5>
+																<p>Loading!!!</p>
+															</div>
+															<div class="modal-footer">
+																<button type="button"
+																		class="btn btn-default waves-effect "
+																		data-dismiss="modal">닫기</button>
+															</div>
+														</div>
 													</div>
-													<div class="modal-body">
-														<h5>매출처목록</h5>
-														<p>Loading!!!</p>
-													</div>
-													<div class="modal-footer">
-														<button type="button"
-																class="btn btn-default waves-effect "
-																data-dismiss="modal">닫기</button>
-													</div>
-												</div>
+												</div> --%>
+												<!--//modal-->
 											</div>
-										</div> --%>
-										<!--//modal-->
+										</div>
+										<!--//거래처-->
+										<!-- 상품 -->
+										<div class="col-sm-12 col-xl-2">
+											<label class="col-form-label" for="custmemberName">카테고리(제품회사명)</label>
+											<div class="input-group input-group-sm mb-0">
+												<input type="text" class="form-control form-control-sm col-xl-12" name="categories" id="categories" data-completeSet="true" style="width:100%;">
+											</div>
+										</div>
+										<!-- //상품 -->
+										<div class="col-sm-12 col-xl-2">
+											<label class="col-form-label" for="custmemberName">엔드유저</label>
+											<div class="input-group input-group-sm mb-0">
+												<select class="form-control" id="buyrName" name="buyrName" onchange="autoCompleteSelect(this);">
+													<option value="">선택</option>
+													<c:forEach var="row" items="${listCust}">
+														<option data-no="${row.custNo}" value="${row.custName}">${row.custName}</option>
+													</c:forEach>
+												</select>
+												<input type="hidden" name="custmemberNo" id="buyrNo" value="" />
+												<!-- <input type="text" class="form-control" name="buyrName" id="buyrName" autocomplete="off"> -->
+											</div>
+										</div>
+										<div class="col-sm-12 col-xl-3">
+											<label class="col-form-label">영업기회명</label>
+											<p class="input_inline mb-0">
+												<%-- <select class="form-control form-control-sm col-xl-12" id="soppTitle" name="soppTitle" onchange="autoCompleteSelect(this);">
+													<option value="">선택</option>
+													<c:forEach var="row" items="${listSopp}">
+														<option data-no="${row.soppNo}" value="${row.soppTitle}">${row.soppTitle}</option>
+													</c:forEach>
+												</select> --%>
+												<input type="text" class="form-control form-control-sm col-xl-12" name="soppTitle" id="soppTitle" data-completeSet="true" style="width:100%;">
+												<input type="hidden" class="form-control" name="soppNo" id="soppNo" value="${dto.soppNo}" />
+											</p>
+										</div>
 									</div>
-								</div>
-								<!--//거래처-->
-								<!-- 상품 -->
-								<div class="col-sm-12 col-xl-2">
-									<label class="col-form-label" for="custmemberName">카테고리(제품회사명)</label>
-									<div class="input-group input-group-sm mb-0">
-										<input type="text" class="form-control form-control-sm col-xl-12" name="categories" id="categories" data-completeSet="true" style="width:100%;">
+									<!--//row-->
+									<div class="form-group row">
+										<div class="col-sm-2">
+											<label class="col-form-label" for="soppType">판매방식</label>
+											<select class="form-control form-control-sm" name="soppType" id="soppType" title="선택">
+												<option value>선택</option>
+												<c:forEach var = "saleslist" items="${saleslist}">
+													<option value="${saleslist.codeNo}">${saleslist.desc03}</option>
+												</c:forEach>
+											</select>
+										</div>
+										<div class="col-sm-2">
+											<label class="col-form-label" for="soppType">계약구분</label>
+											<select class="form-control form-control-sm" name="cntrctMth" id="cntrctMth" title="선택">
+												<option value>선택</option>
+												<c:forEach var = "saleslist" items="${contractType}">
+													<option value="${saleslist.codeNo}">${saleslist.desc03}</option>
+												</c:forEach>
+											</select>
+										</div>
+										<div class="col-sm-2">
+											<label class="col-form-label" for="soppStatus">진행단계</label>
+											<select class="form-control form-control-sm" name="soppStatus" id="soppStatus" title="선택">
+												<option value>선택</option>
+												<c:forEach var = "sstatuslist" items="${sstatuslist}">
+													<option value="${sstatuslist.codeNo}">${sstatuslist.desc03}</option>
+												</c:forEach>
+											</select>
+										</div>
+										<!--등록/수정일-->
+										<div class="col-sm-12 col-xl-3">
+											<label class="col-form-label">등록/수정일</label>
+											<p class="input_inline mb-0">
+												<input class="form-control form-control-sm col-xl-6" type="date" max="9999-12-30" id="targetDatefrom2" > ~
+												<input class="form-control form-control-sm col-xl-6" type="date" max="9999-12-31" id="targetDateto2">
+											</p>
+										</div>
+										<!--//등록/수정일-->
+										<!--매출예정일-->
+										<div class="col-sm-12 col-xl-3">
+											<label class="col-form-label">매출예정일</label>
+											<p class="input_inline mb-0">
+												<input class="form-control form-control-sm col-xl-6" type="date" max="9999-12-30" id="targetDatefrom"> ~
+												<input class="form-control form-control-sm col-xl-6" type="date" max="9999-12-31" id="targetDateto">
+											</p>
+										</div>
+										<!--//매출예정일-->
 									</div>
-								</div>
-								<!-- //상품 -->
-								<div class="col-sm-12 col-xl-2">
-									<label class="col-form-label" for="custmemberName">엔드유저</label>
-									<div class="input-group input-group-sm mb-0">
-										<select class="form-control" id="buyrName" name="buyrName" onchange="autoCompleteSelect(this);">
-											<option value="">선택</option>
-											<c:forEach var="row" items="${listCust}">
-												<option data-no="${row.custNo}" value="${row.custName}">${row.custName}</option>
-											</c:forEach>
-										</select>
-										<input type="hidden" name="custmemberNo" id="buyrNo" value="" />
-										<!-- <input type="text" class="form-control" name="buyrName" id="buyrName" autocomplete="off"> -->
-									</div>
-								</div>
-								<div class="col-sm-12 col-xl-3">
-									<label class="col-form-label">영업기회명</label>
-									<p class="input_inline mb-0">
-										<%-- <select class="form-control form-control-sm col-xl-12" id="soppTitle" name="soppTitle" onchange="autoCompleteSelect(this);">
-											<option value="">선택</option>
-											<c:forEach var="row" items="${listSopp}">
-												<option data-no="${row.soppNo}" value="${row.soppTitle}">${row.soppTitle}</option>
-											</c:forEach>
-										</select> --%>
-										<input type="text" class="form-control form-control-sm col-xl-12" name="soppTitle" id="soppTitle" data-completeSet="true" style="width:100%;">
-										<input type="hidden" class="form-control" name="soppNo" id="soppNo" value="${dto.soppNo}" />
-									</p>
 								</div>
 							</div>
-							<!--//row-->
-							<div class="form-group row">
-								<div class="col-sm-2">
-									<label class="col-form-label" for="soppType">판매방식</label>
-									<select class="form-control form-control-sm" name="soppType" id="soppType" title="선택">
-										<option value>선택</option>
-										<c:forEach var = "saleslist" items="${saleslist}">
-											<option value="${saleslist.codeNo}">${saleslist.desc03}</option>
-										</c:forEach>
-									</select>
+						</form>
+					</div>
+				</div>
+				<!--//영업기회조회-->
+			</c:if>
+
+			<div class="table_content">
+				<!--리스트 table-->
+				<div class="cnt_wr" id="list-container">
+					<div class="row">
+						<div class="col-sm-12">
+							<div class="card-block table-border-style">
+								<div class="table-responsive">
+									<table id="soppTable" class="table table-striped table-bordered nowrap ">
+										<colgroup>
+											<col width="2.5%">
+											<col width="2.5%">
+											<col width="5%">
+											<col width="30%">
+											<col width="7.5%">
+											<col width="7%">
+											<col width="2%">
+											<col width="10%">
+											<col width="7%">
+											<col width="3%">
+										</colgroup>
+										<thead>
+										<tr>
+											<th>등록/수정일</th>
+											<th>판매방식</th>
+											<th>계약구분</th>
+											<th>영업기회명</th>
+											<th>매출처</th>
+											<th>엔드유저</th>
+											<th>카테고리(제품회사명)</th>
+											<th>담당사원</th>
+											<th>예상매출액</th>
+											<th>진행단계</th>
+											<th>매출예정일</th>
+										</tr>
+										</thead>
+										<tbody>
+										<%--
+										<!-- <c:forEach var="row" items="${list}">
+										<tr>
+											<th scope="row"><input class="border-checkbox" type="checkbox" id="checkbox0"></th>
+											<td>${row.soppTypeN}</td>
+											<td><a href="javascript:fnSetPage('${path}/sopp/detail/${row.soppNo}')" title="${row.soppTitle}">${row.soppTitle}</a></td>
+											<td class="custName">${row.custName}</td>
+											<td>${row.userName}</td>
+											<td class="text-right"><fmt:formatNumber type="number" maxFractionDigits="3" value="${row.soppTargetAmt}" /></td>
+											<td <c:if test="${row.soppStatusN eq '계약진행보류'}">style="color:red"</c:if>>${row.soppStatusN}</td>
+											<td class="text-right">${row.soppTargetDate}</td>
+										</tr>
+										</c:forEach> -->
+										--%>
+										</tbody>
+									</table>
 								</div>
-								<div class="col-sm-2">
-									<label class="col-form-label" for="soppType">계약구분</label>
-									<select class="form-control form-control-sm" name="cntrctMth" id="cntrctMth" title="선택">
-										<option value>선택</option>
-										<c:forEach var = "saleslist" items="${contractType}">
-											<option value="${saleslist.codeNo}">${saleslist.desc03}</option>
-										</c:forEach>
-									</select>
-								</div>
-								<div class="col-sm-2">
-									<label class="col-form-label" for="soppStatus">진행단계</label>
-									<select class="form-control form-control-sm" name="soppStatus" id="soppStatus" title="선택">
-										<option value>선택</option>
-										<c:forEach var = "sstatuslist" items="${sstatuslist}">
-											<option value="${sstatuslist.codeNo}">${sstatuslist.desc03}</option>
-										</c:forEach>
-									</select>
-								</div>
-								<!--등록/수정일-->
-								<div class="col-sm-12 col-xl-3">
-									<label class="col-form-label">등록/수정일</label>
-									<p class="input_inline mb-0">
-										<input class="form-control form-control-sm col-xl-6" type="date" max="9999-12-30" id="targetDatefrom2" > ~
-										<input class="form-control form-control-sm col-xl-6" type="date" max="9999-12-31" id="targetDateto2">
-									</p>
-								</div>
-								<!--//등록/수정일-->
-								<!--매출예정일-->
-								<div class="col-sm-12 col-xl-3">
-									<label class="col-form-label">매출예정일</label>
-									<p class="input_inline mb-0">
-										<input class="form-control form-control-sm col-xl-6" type="date" max="9999-12-30" id="targetDatefrom"> ~
-										<input class="form-control form-control-sm col-xl-6" type="date" max="9999-12-31" id="targetDateto">
-									</p>
-								</div>
-								<!--//매출예정일-->
 							</div>
 						</div>
 					</div>
-				</form>
+				</div>
+				<!--//리스트 table-->
+
+				<!-- 리스트 내용 확인 container -->
+				<!-- <div class="table_contedivnt">
+					<div class="table_contedivnt_wrap">
+						<div class="table_contedivnt_wrap_inner"></div>
+					</div>
+				</div> -->
 			</div>
 		</div>
-		<!--//영업기회조회-->
-	</c:if>
-
-	<!--리스트 table-->
-	<div class="cnt_wr" id="list-container">
-		<div class="row">
-			<div class="col-sm-12">
-				<div class="card-block table-border-style">
-					<div class="table-responsive">
-						<table id="soppTable" class="table table-striped table-bordered nowrap ">
-							<colgroup>
-								<col width="2.5%">
-								<col width="2.5%">
-								<col width="5%">
-								<col width="30%">
-								<col width="7.5%">
-								<col width="7.5%">
-								<col width="3%">
-								<col width="14%">
-								<col width="7%">
-								<col width="3%">
-							</colgroup>
-							<thead>
-							<tr>
-								<th>등록/수정일</th>
-								<th>판매방식</th>
-								<th>계약구분</th>
-								<th>영업기회명</th>
-								<th>매출처</th>
-								<th>엔드유저</th>
-								<th>카테고리(제품회사명)</th>
-								<th>담당사원</th>
-								<th>예상매출액</th>
-								<th>진행단계</th>
-								<th>매출예정일</th>
-							</tr>
-							</thead>
-							<tbody>
-							<%--
-							<c:forEach var="row" items="${list}">
-							<tr>
-								<th scope="row"><input class="border-checkbox" type="checkbox" id="checkbox0"></th>
-								<td>${row.soppTypeN}</td>
-								<td><a href="javascript:fnSetPage('${path}/sopp/detail/${row.soppNo}')" title="${row.soppTitle}">${row.soppTitle}</a></td>
-								<td>${row.custName}</td>
-								<td>${row.userName}</td>
-								<td class="text-right"><fmt:formatNumber type="number" maxFractionDigits="3" value="${row.soppTargetAmt}" /></td>
-								<td <c:if test="${row.soppStatusN eq '계약진행보류'}">style="color:red"</c:if>>${row.soppStatusN}</td>
-								<td class="text-right">${row.soppTargetDate}</td>
-							</tr>
-							</c:forEach>
-							--%>
-							</tbody>
-						</table>
+		<div class="sooplist_second">
+			<div class="sooplist_second_wrap">
+				<div class="sooplist_second_wrap_inner">
+					<div class="sooplist_second_backBttton">
+						<div class="back_button">
+							<img src="${path}/assets/images/back_button.svg" alt="back_button">
+						</div>
+					</div>
+					<div class="sooplist_second_header">
+						<div class="sooplist_title row">
+							
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-	<!--//리스트 table-->
+
+	<style>
+	.sooplist {
+		display: flex;
+		gap: 10px;
+	}
+	.sooplist_fist {
+		position: relative;
+		z-index: 998;
+		width: 100vw;
+		transition: width 0.5s ease; 
+	}
+	.sooplist_second {
+		position: relative;
+		z-index: 999;
+		display: block;
+		width: 0; 
+		right: -100%;
+		min-height: 100vh;
+		max-height: 3800px;
+		border: 1px solid black;
+		transition: left 0.5s ease; 
+	}
 	
+	.sooplist_second.active {
+		width: 30vw; 
+		left: 0; 
+		display: block; 
+	}
+
+	.back_button > img {
+		width: 60px;
+	}
+
+
+
+	</style>
 	<script>
 	function acordian_action(){
 		if($("#acordian").css("display") == "none"){
@@ -605,6 +697,20 @@
 </script>
 	
 	<script>
+		<!-- 각 row 클릭했을떄 -->
+		$(document).on('click', '.odd', function() {
+			console.log("click");
+			$(".sooplist_fist").css({"width": "80vw", "max-width": "70vw", "overflow-x":"scroll"});
+			$(".sooplist_second").addClass("active");
+		});
+		<!-- backbutton 클릭했을때 -->
+		$(document).ready(function() {
+			$(".back_button > img").click(function(){
+				$(".sooplist_fist").css({"width": "100vw", "max-width": "100vw", "overflow-x":"hidden"});
+				$(".sooplist_second").removeClass("active");
+			});
+		});
+
 		$("#targetDatefrom").change(function(){
 			var dateValue = $(this).val();
 			var dateValueArr = dateValue.split("-");

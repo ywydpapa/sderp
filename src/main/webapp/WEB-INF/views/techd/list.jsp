@@ -121,7 +121,7 @@
 							if(data == null || data == undefined) {
 								return '';
 							} else {
-								return '<span title="'+data+'">'+data+'</span>';
+								return '<span>'+data.replaceAll(/<img[^>]*>/g, "")+'</span>';
 							}
 						},
 					},
@@ -375,11 +375,11 @@
 											<input class="form-control form-control-sm col-xl-6" type="date" max="9999-12-30" id="regSDate" onChange="javascript:inputDate($('#regSDate').val(), $('#regEDate').val(),this)"> ~ <input class="form-control form-control-sm col-xl-6" type="date" max="9999-12-31" id="regEDate" onChange="javascript:inputDate($('#regSDate').val(), $('#regEDate').val(),this)">
 										</p>
 									</div>
-									<div class="col-sm-12 col-xl-3 ex_reduce">
+																		<div class="col-sm-12 col-xl-3 ex_reduce">
 										<label class="col-form-label">기술지원요청내용</label>
 										<input type="text" class="form-control form-control-sm" id="techdDesc" name="techdDesc" placeholder="" onsubmit="return false">
 									</div>
-								</div>
+																	</div>
 								<!-- <div class="col-sm-12 col-xl-3">
 									<label class="col-form-label">일정시작일</label>
 									<p class="input_inline">
@@ -391,7 +391,7 @@
 					</form>
 				</div>
 			</div>
-			<!--//기술지원 대상조회-->
+			<!--기술지원 대상조회-->
 		</c:if>
 
 		 <!--리스트 table-->
@@ -417,7 +417,7 @@
 										<th>등록일</th>
 										<th>등록구분</th>
 										<th>요청명</th>
-										<th>기술지원요청내용</th>
+									    <th>기술지원요청내용</th>
 										<th>매출처</th>
 										<th>진행단계</th>
 										<th>담당사원</th>
@@ -451,7 +451,7 @@
 				</div>
 			</div>
 		</div>
-		<!--//리스트 table-->
+		<!--리스트 table-->
 	<script>
 	$(document).ready(function(){
 		dtButtonSet();
@@ -684,9 +684,9 @@
 
 		// 기술지원요청내용 엔터키 누를경우 원치않는 행동발생하여 이벤트 방지 코드 추가
 		$('#techdDesc').keydown(function(event) {
-			if (event.keyCode === 13) {
-				event.preventDefault();
-			}
+		if (event.keyCode === 13) {
+		event.preventDefault();
+		}
 		})
 	</script>
 </div>

@@ -348,6 +348,8 @@
 	<!--//table-->
 </div>
 <jsp:include page="../body-bottom.jsp"/>
+
+<script type="text/javascript" src="${path}/js/image.js"></script>
 <script>
 /* function fn_Print() {
 	$("#printdiv").attr("style", "display:block");
@@ -661,17 +663,27 @@ $(document).on("click", "[type='checkbox']", function(){
 	}
 });
 
-function fn_Create(){
+async function fn_Create(){
 	var sreportData = {};
 	var checkData = [];
 	sreportData.userNo 		= Number("${userNo}");
 	sreportData.compNo 		= Number("${compNo}");
-	sreportData.prComment	= tinyMCE.get("praddtext").getContent();
 	sreportData.prCheck 	= $(".praddchk").attr("data-check");
-	sreportData.thComment	= tinyMCE.get("thaddtext").getContent();
 	sreportData.thCheck 	= $(".thaddchk").attr("data-check");
-	
-	
+
+	if(praddContent !== ""){
+		var content = tinyMCE.get("praddtext").getContent();
+		sreportData.prComment = await uploadImage(content, "${path}");
+	}else{
+		sreportData.prComment = $("#praddtext").val();
+	}
+	if(thaddContent !== ""){
+		var content = tinyMCE.get("thaddtext").getContent();
+		sreportData.thComment = await uploadImage(content, "${path}");
+	}else{
+		sreportData.thComment = $("#thaddtext").val();
+	}
+
 	$("input[type='checkbox']").each(function(){
 		if(typeof $(this).attr("data-id") != "undefined" && typeof $(this).attr("data-check") != "undefined" && $(this).attr("data-name") == "checks"){
 			var tempArray = [];
@@ -709,15 +721,28 @@ function fn_Create(){
 	});
 }
 
-function fn_Create2(){
+async function fn_Create2(){
 	var sreportData = {};
 	var checkData = [];
 	sreportData.userNo 		= Number("${userNo}");
 	sreportData.compNo 		= Number("${compNo}");
-	sreportData.prComment	= tinyMCE.get("thaddtext").getContent();
-	sreportData.prCheck 	= $(".thaddchk").attr("data-check");
-	sreportData.thComment	= tinyMCE.get("nxaddtext").getContent();
+
 	sreportData.thCheck 	= $(".nxaddchk").attr("data-check");
+	if(thaddContent !== ""){
+		var content = tinyMCE.get("nxaddtext").getContent();
+		sreportData.thComment = await uploadImage(content, "${path}");
+	}else{
+		sreportData.thComment = $("#nxaddtext").val();
+	}
+
+	sreportData.prCheck 	= $(".thaddchk").attr("data-check");
+	if(praddContent !== ""){
+		var content = tinyMCE.get("thaddtext").getContent();
+		sreportData.prComment = await uploadImage(content, "${path}");
+	}else{
+		sreportData.prComment = $("#thaddtext").val();
+	}
+	
 	$("input[type='checkbox']").each(function(){
 		if(typeof $(this).attr("data-id") != "undefined" && typeof $(this).attr("data-check") != "undefined" && $(this).attr("data-name") == "checks"){
 			var tempArray = [];
@@ -887,11 +912,26 @@ function tblTest(){
 	setSecondsr1();
 }
 
-function linecopy(){
-	var aa = tinyMCE.get("praddtext").getContent();
+async function linecopy(){
+
+	var aa = "";
+	if(praddContent !== ""){
+		var content = tinyMCE.get("praddtext").getContent();
+		aa = await uploadImage(content, "${path}");
+	}else{
+		aa = $("#praddtext").val();
+	}
 	$("#prprntext").html(aa);
-	var bb = tinyMCE.get("thaddtext").getContent();
+
+	var bb = "";
+	if(praddContent !== ""){
+		var content = tinyMCE.get("thaddtext").getContent();
+		bb = await uploadImage(content, "${path}");
+	}else{
+		bb = $("#thaddtext").val();
+	}
 	$("#thprntext").html(bb);
+	
 }
 
 $("#praddtext,#thaddtext").change(function(){

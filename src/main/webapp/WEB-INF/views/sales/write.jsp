@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <c:set var="path" value ="${pageContext.request.contextPath}"/>
 <c:if test="${empty simple}">
 <!DOCTYPE html>
@@ -134,8 +135,11 @@
 			</div>
 		</div>
 	</div>
-	<!--//영업활동등록-->
+	<!--영업활동등록-->
+	
+	<script type="text/javascript" src="${path}/js/image.js"></script>
 	<script>
+
 		$('#custModal').on('show.bs.modal', function(e) {
 			var button = $(e.relatedTarget);
 			var modal = $(this);
@@ -294,7 +298,7 @@
 			$("#soppModal").modal("hide");
 		}
 
-		function fn_SaveSales() {
+		async function fn_SaveSales() {
 			var salesData = {};
 			salesData.salesFrdatetime = setDateHourMinute($("#salesFrdatetime").val(), $("#startTime").val()); 
 			salesData.salesTodatetime = setDateHourMinute($("#salesTodatetime").val(), $("#endTime").val());
@@ -305,12 +309,14 @@
 			salesData.soppNo 		= $("#soppName").val() != "" ? Number($("#soppNo").val()) : 0;
 			salesData.ptncNo 		= $("#endCustName").val() != "" ? Number($("#endCustNo").val()) : 0;
 			salesData.salesType 		= $("#salesType").val();
-			
+
 			if($("textarea").attr("style") === "display: none;"){
-				salesData.salesDesc			= tinyMCE.get("salesDesc").getContent();
-			}else{
-				salesData.salesDesc 		= $("#salesDesc").val();
-			}
+				var content = tinyMCE.get("salesDesc").getContent();
+				salesData.salesDesc = await uploadImage(content, "${path}");
+			} else {
+				alert("영업활동 내용을 입력해 주십시오.");
+				return;
+			}		
 			
 			if (!salesData.salesFrdatetime){
 				alert("영업활동의 시작일을 선택해 주십시오.");
@@ -357,7 +363,6 @@
 				$("#endCustName").focus();
 				return;
 			} */
-
 			$.ajax({ url: "${path}/sales/insert.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소 
 						data: salesData , // HTTP 요청과 함께 서버로 보낼 데이터 
 						method: "POST", // HTTP 요청 메소드(GET, POST 등) 
@@ -384,7 +389,7 @@
 			}
 		
 		setTimeComboBox(['#startTime', '#endTime']);
-
+		setTiny();	
 	</script>
 <c:if test="${empty simple}">
 </div>

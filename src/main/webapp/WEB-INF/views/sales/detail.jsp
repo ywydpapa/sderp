@@ -125,7 +125,7 @@
 										내용
 									</th>
 									<td colspan="7">
-										<textarea name="salesDesc" id="salesDesc" rows="7" class="form-control form-control-sm">${dto.salesDesc}</textarea>
+										<textarea name="salesDesc" id="salesDesc" rows="7" class="form-control">${dto.salesDesc}</textarea>
 									</td>
 								</tr>
 							</tbody>
@@ -143,9 +143,9 @@
 			</div>
 		</div>
 	</div>
-	<!--//영업활동등록-->
+	<!--영업활동등록-->
 
-
+	<script type="text/javascript" src="${path}/js/image.js"></script>
 	<script>
 		$('#custModal').on('show.bs.modal', function(e) {
 			var button = $(e.relatedTarget);
@@ -209,7 +209,7 @@
 			$("#endCustModal").modal("hide");
 		}
 
-		function fn_UpdateSales() {
+		async function fn_UpdateSales() {
 			var salesData = {};
 			salesData.salesNo = $("#salesNo").val();
 			salesData.salesFrdatetime = setDateHourMinute($("#salesFrdatetime").val(), $("#startTime").val()); 
@@ -221,12 +221,15 @@
 			salesData.soppNo 		= $("#soppName").val() != "" ? Number($("#soppNo").val()) : 0;
 			salesData.ptncNo 		= $("#endCustName").val() != "" ? Number($("#endCustNo").val()) : 0;
 			salesData.salesType 		= $("#salesType").val();
-			
+
+
 			if($("textarea").attr("style") === "display: none;"){
-				salesData.salesDesc			= tinyMCE.get("salesDesc").getContent();
-			}else{
-				salesData.salesDesc 		= $("#salesDesc").val();
-			}
+				var content = tinyMCE.get("salesDesc").getContent();
+				salesData.salesDesc = await uploadImage(content, "${path}");
+			} else {
+				alert("영업활동 내용을 입력해 주십시오.");
+				return;
+			}		
 			
 			if (!salesData.salesFrdatetime){
 				alert("영업활동의 시작일을 선택해 주십시오.");

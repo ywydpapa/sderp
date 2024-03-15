@@ -64,7 +64,7 @@ public class StoreController {
 
 	@Inject
 	CodeService codeService;
-	
+
 	private static final Logger logger = LoggerFactory.getLogger(StoreController.class);
 
 	// 占쏙옙占쏙옙트 占쏙옙占쏙옙占쏙옙 占쏙옙회
@@ -76,14 +76,20 @@ public class StoreController {
 			@RequestParam(value = "productCategoryName", required = false) String productCategoryName,
 			@RequestParam(value = "productName", required = false) String productName,
 			@RequestParam(value = "serialNo", required = false) String serialNo) {
-		
-			if(storeNo != null)     dto.setStoreNo(storeNo);
-			if(productNo != null)	dto.setProductNo(productNo);
-			if(custName != null)	dto.setCustName(custName);
-			if(productCategoryName != null)	dto.setProductCategoryName(productCategoryName);
-			if(productName != null)	dto.setProductName(productName);
-			if(serialNo != null)	dto.setSerialNo(serialNo);
-		
+
+		if (storeNo != null)
+			dto.setStoreNo(storeNo);
+		if (productNo != null)
+			dto.setProductNo(productNo);
+		if (custName != null)
+			dto.setCustName(custName);
+		if (productCategoryName != null)
+			dto.setProductCategoryName(productCategoryName);
+		if (productName != null)
+			dto.setProductName(productName);
+		if (serialNo != null)
+			dto.setSerialNo(serialNo);
+
 		mav.addObject("store", storeService.listStore(session, dto));
 		mav.setViewName("store/list");
 
@@ -92,7 +98,7 @@ public class StoreController {
 
 	// 占쏙옙占� 占쏙옙占쏙옙占쏙옙 占쏙옙회
 	@RequestMapping("writeStore.do")
-	public ModelAndView write(HttpSession session, CodeDTO dto, ModelAndView mav) {  
+	public ModelAndView write(HttpSession session, CodeDTO dto, ModelAndView mav) {
 		mav.addObject("list1", codeService.listCode01(session));
 		mav.addObject("list2", codeService.listCode02(session));
 		mav.addObject("list3", codeService.listCode03(session));
@@ -130,12 +136,12 @@ public class StoreController {
 		mav.addObject("list1", codeService.listCode01(session));
 		mav.addObject("list2", codeService.listCode02(session));
 		mav.addObject("list3", codeService.listCode03(session));
-		//mav.addObject("dtoList", storeService.storeDetail(storeNo));
+		// mav.addObject("dtoList", storeService.storeDetail(storeNo));
 		mav.addObject("inoutList", storeInoutService.getInoutStoreList(storeNo));
 		mav.setViewName("store/detail");
 		return mav;
 	}
-	
+
 	@RequestMapping("/update.do")
 	public ResponseEntity<?> storeUpdate(HttpSession session, @ModelAttribute StoreDTO dto) {
 		Map<String, Object> param = new HashMap<>();
@@ -160,7 +166,6 @@ public class StoreController {
 		return ResponseEntity.ok(param);
 	}
 
-
 	@RequestMapping("/inOutInsert.do")
 	public ResponseEntity<?> storeInOutInsert(HttpSession session, StoreDTO sdto, @RequestBody String requestbody) {
 		String compNo = (String) session.getAttribute("compNo");
@@ -172,7 +177,7 @@ public class StoreController {
 		int storeOutSoppInsert = 0;
 		int process1 = 0;
 		int lastStoreNo = 0;
-		int firstCount =  -1; 
+		int firstCount = -1;
 		org.json.JSONArray jarr = new org.json.JSONArray(data);
 		org.json.JSONObject json = null;
 		for (int i = 0; i < jarr.length(); i++) {
@@ -191,8 +196,8 @@ public class StoreController {
 			dto.setComment(json.getString("comment"));
 			dto.setInoutType(json.getString("inoutType"));
 			dto.setLocationNo(json.getString("locationNo"));
-			 
-			//입고인 경우 
+
+			// 입고인 경우
 			if (json.getString("inoutType").equals("IN")) {
 				storeDto.setCompNo(Integer.valueOf(compNo));
 				storeDto.setProductNo(json.getInt("productNo"));
@@ -200,34 +205,32 @@ public class StoreController {
 				storeDto.setLocationNo(json.getString("locationNo"));
 				storeDto.setComment(json.getString("comment"));
 				storeDto.setSerialNo(json.getString("serialNo"));
-				String storeNo = "0"; 
-                 
-				
-				// 입력된 시리얼 번호가 있는경우 
-			     if(!json.getString("serialNo").equals("")) {
-			    	// 해당 시리얼 번호로 재고 수량이 0인 재고 생성 
-			    	process1 = storeService.insertStore2(session, storeDto);
-			    	// 그 재고 번호를 구함 
-			    	lastStoreNo = storeService.getLastStoreNo(session, storeDto);
-			    
-			     
-			     // 입력된 시리얼 번호가 없는 경우 
-			     } else { 
-			    	 // 해당 상품 + 시리얼 번호 없음으로 등록된 재고가 있는지 확인함 
-			    	firstCount = storeService.getCount(json.getInt("productNo"));  
-			    	// 시리얼 번호 없는 것으로 등록된 재고가 있는 경우 
-			    	if (firstCount != 0) {
-			    	storeNo =String.valueOf(storeService.getStoreNo(session, json.getInt("productNo")));
-			    	lastStoreNo = Integer.valueOf(storeNo); 
-			    	process1  = 1; 
-			    	} else {
-			    		// 시리얼 번호 없는 것으로 등록된 재고가 없는경우 > 재고 수량이 0 이고 시리얼 번호 없는 재고 생성 
-			    	process1 = storeService.insertStore2(session, storeDto);
-				    lastStoreNo = storeService.getLastStoreNo(session, storeDto);
-			    	}
-			    }
-			     
-			     // 해당하는 재고 번호로 입고 데이터 insert 
+				String storeNo = "0";
+
+				// 입력된 시리얼 번호가 있는경우
+				if (!json.getString("serialNo").equals("")) {
+					// 해당 시리얼 번호로 재고 수량이 0인 재고 생성
+					process1 = storeService.insertStore2(session, storeDto);
+					// 그 재고 번호를 구함
+					lastStoreNo = storeService.getLastStoreNo(session, storeDto);
+
+					// 입력된 시리얼 번호가 없는 경우
+				} else {
+					// 해당 상품 + 시리얼 번호 없음으로 등록된 재고가 있는지 확인함
+					firstCount = storeService.getCount(json.getInt("productNo"));
+					// 시리얼 번호 없는 것으로 등록된 재고가 있는 경우
+					if (firstCount != 0) {
+						storeNo = String.valueOf(storeService.getStoreNo(session, json.getInt("productNo")));
+						lastStoreNo = Integer.valueOf(storeNo);
+						process1 = 1;
+					} else {
+						// 시리얼 번호 없는 것으로 등록된 재고가 없는경우 > 재고 수량이 0 이고 시리얼 번호 없는 재고 생성
+						process1 = storeService.insertStore2(session, storeDto);
+						lastStoreNo = storeService.getLastStoreNo(session, storeDto);
+					}
+				}
+
+				// 해당하는 재고 번호로 입고 데이터 insert
 				if (process1 > 0) {
 					if (lastStoreNo != -1) {
 						dto.setStoreNo(lastStoreNo);
@@ -238,17 +241,16 @@ public class StoreController {
 				} else {
 					param.put("code", "20001");
 				}
-				
-				// 출고인 경우  데이터 insert 함 
+
+				// 출고인 경우 데이터 insert 함
 			} else {
 				dto.setStoreNo(Integer.valueOf(json.getString("storeNo")));
 				storeInoutInsert = storeInoutService.insertInoutStore(session, dto);
-				System.out.println(dto.toString());
 				storeInoutService.outSoppInsert(session, dto);
 				storeDto.setStoreQty(json.getInt("inoutQty") * -1);
 				storeDto.setStoreNo(dto.getStoreNo());
 			}
-			
+
 			// 기존 재고에 입고, 출고 재고 계산해서 업데이트
 			if (storeInoutInsert > 0) {
 				sqlSession.update("store.plusStoreQty", storeDto);
@@ -275,8 +277,8 @@ public class StoreController {
 		dto.setCompNo(Integer.valueOf(compNo));
 
 		if (inoutType != null || productName != null || storeNo != null || serialNo != null || locationNo != null
-				|| from != null || to != null || contTitle != null ) {
-			if(contTitle != null) {
+				|| from != null || to != null || contTitle != null) {
+			if (contTitle != null) {
 				dto.setContTitle(contTitle);
 			}
 			if (inoutType != null) {
@@ -301,7 +303,7 @@ public class StoreController {
 				dto.setTo(to);
 			}
 			mav.addObject("inOutAllList", storeInoutService.search(session, dto));
-		} else {  
+		} else {
 
 			mav.addObject("inOutAllList", storeInoutService.getAllList(session, dto));
 		}
@@ -311,49 +313,46 @@ public class StoreController {
 		mav.addObject("list3", codeService.listCode03(session));
 		mav.setViewName("store/inoutList");
 		return mav;
-	} 
-	
-	
+	}
 
 	@RequestMapping("/inOutUpate.do")
-	   public ResponseEntity<?> storeInOutUpated(HttpSession session, StoreInoutDTO dto, StoreInoutDTO idto) {
-	      Map<String, Object> param = new HashMap<>();
-	      int process1 = 0;
-	      String compNo = (String) session.getAttribute("compNo");
-	      StoreDTO sdto = new StoreDTO();
-	      idto.setCompNo(Integer.valueOf(compNo));
-	      sdto.setCompNo(Integer.valueOf(compNo));
-	      sdto.setStoreNo(idto.getStoreNo()); // 수정할 store 의 수량을 구함
-	      sdto.setSerialNo(idto.getSerialNo());
-	      // 재고 수량과 입출고 기록에 더해주면 됨
-	      if (idto.getInoutType().equals("IN")) {
-	         sdto.setStoreQty(dto.getInoutQty());
-	      } else {
-	         sdto.setStoreQty(dto.getInoutQty() * -1);
-	      }
-	      
-	      if(sdto.getSerialNo() !=null) {
-	         sqlSession.update("store.serialUpdate", sdto);
-	      }
-	      process1 = sqlSession.update("store.plusStoreQty", sdto);
-	      process1 = storeInoutService.updateInoutStore(session, dto);
-	      param.put("code", "10001");
-	      
-	        if (idto.getLocationNo() != null || idto.getComment() != null || idto.getInoutAmount() != null) {
-	              process1 = storeInoutService.updateEtc(session, dto);
-	              if(process1 > 0) {
-	               param.put("code", "10001");
-	              } else {
-	                 param.put("code", "20001");
-	              }
-	        }
-	         return ResponseEntity.ok(param);
-	   }
+	public ResponseEntity<?> storeInOutUpated(HttpSession session, StoreInoutDTO dto, StoreInoutDTO idto) {
+		Map<String, Object> param = new HashMap<>();
+		int process1 = 0;
+		String compNo = (String) session.getAttribute("compNo");
+		StoreDTO sdto = new StoreDTO();
+		idto.setCompNo(Integer.valueOf(compNo));
+		sdto.setCompNo(Integer.valueOf(compNo));
+		sdto.setStoreNo(idto.getStoreNo()); // 수정할 store 의 수량을 구함
+		sdto.setSerialNo(idto.getSerialNo());
+		// 재고 수량과 입출고 기록에 더해주면 됨
+		if (idto.getInoutType().equals("IN")) {
+			sdto.setStoreQty(dto.getInoutQty());
+		} else {
+			sdto.setStoreQty(dto.getInoutQty() * -1);
+		}
 
+		if (sdto.getSerialNo() != null) {
+			sqlSession.update("store.serialUpdate", sdto);
+		}
+		process1 = sqlSession.update("store.plusStoreQty", sdto);
+		process1 = storeInoutService.updateInoutStore(session, dto);
+		param.put("code", "10001");
 
+		if (idto.getLocationNo() != null || idto.getComment() != null || idto.getInoutAmount() != null) {
+			process1 = storeInoutService.updateEtc(session, dto);
+			if (process1 > 0) {
+				param.put("code", "10001");
+			} else {
+				param.put("code", "20001");
+			}
+		}
+		return ResponseEntity.ok(param);
+	}
 
 	@RequestMapping("/inOutDetail/{inoutNo}")
-	public ModelAndView getInoutDetail(@PathVariable int inoutNo, ModelAndView mav, HttpSession session, StoreInoutDTO dto) {
+	public ModelAndView getInoutDetail(@PathVariable int inoutNo, ModelAndView mav, HttpSession session,
+			StoreInoutDTO dto) {
 		mav.addObject("custDataList", custService.getAllDataList(session));
 		mav.setViewName("store/inoutDetail");
 		mav.addObject("list1", codeService.listCode01(session));
@@ -361,21 +360,21 @@ public class StoreController {
 		mav.addObject("list3", codeService.listCode03(session));
 		String compNo = (String) session.getAttribute("compNo");
 		dto.setCompNo(Integer.valueOf(compNo));
-		//dto.setInoutNo(inoutNo);
+		// dto.setInoutNo(inoutNo);
 		mav.addObject("detail", storeInoutService.getInout(dto));
 		return mav;
 	}
-	
-	@RequestMapping("/checkSerial") 
-	@ResponseBody 
+
+	@RequestMapping("/checkSerial")
+	@ResponseBody
 	public String checkSerial(@RequestBody StoreDTO dto) {
-	    String result = null;
-		 if(storeService.checkSerial(dto) > 0) {
-			 result = "{\"result\": \"failure\"}"; 
-		 } else {
-			 result ="{\"result\": \"success\"}"; 
-		 }
-		return result; 
+		String result = null;
+		if (storeService.checkSerial(dto) > 0) {
+			result = "{\"result\": \"failure\"}";
+		} else {
+			result = "{\"result\": \"success\"}";
+		}
+		return result;
 	}
 
 }

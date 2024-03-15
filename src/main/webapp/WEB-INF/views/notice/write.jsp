@@ -62,14 +62,22 @@
 			</div>
 		</div>
 	</div>
+
+	<script type="text/javascript" src="${path}/js/image.js"></script>
 	<script>
-	
-		function fn_SaveSales() {
+		async function fn_SaveSales() {
 			var noticeData = {};
 			noticeData.notiTitle 		= $("#notiTitle").val();
-			noticeData.notiContents		= tinyMCE.get("notiContents").getContent();
 			noticeData.userNo 		= $("#userNo").val();
-	
+
+			var content = tinyMCE.get("notiContents").getContent();
+			if(content !== "")		{
+				noticeData.notiContents = await uploadImage(content, "${path}");
+			} else {
+				alert("내용을 입력해주십시오.");
+				return;
+			}		
+
 			if (!noticeData.notiTitle){
 				alert("제목을 입력해주십시오.");
 				return;

@@ -340,28 +340,28 @@ from
 		)
 	</insert>
 
- <update id="updateTechd">
-	update swc_techd 
-	set 
-	custNo = #{endCustNo},
-	soppNo = #{soppNo},
-	contNo = #{contNo},
-	endCustNo = #{endCustNo},
-	custmemberNo = #{custmemberNo},
-	cntrctMth = #{cntrctMth},
-	techdTitle = #{techdTitle},
-	techdDesc = #{techdDesc},
-	techdItemmodel = #{techdItemmodel},
-	techdItemversion = #{techdItemversion},
-	techdPlace = #{techdPlace},
-	techdFrom = #{techdFrom},
-	techdTo = #{techdTo},
-	techdType = #{techdType},
-	techdSteps = #{techdSteps},
-	userNo = #{userNo},
-	modDatetime	= NOW()
-	where techdNo=#{techdNo}
- </update>
+	<update id="updateTechd">
+		update swc_techd 
+		set 
+		custNo = #{endCustNo},
+		soppNo = #{soppNo},
+		contNo = #{contNo},
+		endCustNo = #{endCustNo},
+		custmemberNo = #{custmemberNo},
+		cntrctMth = #{cntrctMth},
+		techdTitle = #{techdTitle},
+		techdDesc = #{techdDesc},
+		techdItemmodel = #{techdItemmodel},
+		techdItemversion = #{techdItemversion},
+		techdPlace = #{techdPlace},
+		techdFrom = #{techdFrom},
+		techdTo = #{techdTo},
+		techdType = #{techdType},
+		techdSteps = #{techdSteps},
+		userNo = #{userNo},
+		modDatetime	= NOW()
+		where techdNo=#{techdNo}
+	</update>
 
 	<update id="techStoreUpdate">
 		update swc_techstore

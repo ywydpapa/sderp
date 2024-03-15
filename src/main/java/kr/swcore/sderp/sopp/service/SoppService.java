@@ -1,6 +1,7 @@
 package kr.swcore.sderp.sopp.service;
 
 import kr.swcore.sderp.common.dto.PageDTO;
+import kr.swcore.sderp.cont.dto.ContDTO;
 import kr.swcore.sderp.sopp.dto.SoppDTO;
 import kr.swcore.sderp.sopp.dto.SoppFileDataDTO;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -29,8 +30,14 @@ public interface SoppService {
 		int insertSopp(SoppDTO dto);
 		int insertSopp(HttpSession session, SoppDTO dto);
 		int update2Sopp(HttpSession session, SoppDTO dto);
+		int updateSoppStatus(SoppDTO dto);
 		Map<String, Object> updateAprvOrReject(HttpSession session, SoppDTO dto);
 		int uploadFile(HttpSession session, int soppNo, MultipartHttpServletRequest fileList) throws IOException;
 		Integer deleteFile(HttpSession session, SoppFileDataDTO dto);
 		SoppFileDataDTO downloadFile(SoppFileDataDTO dto);
+		int soppListApp(SoppDTO dto);
+		int beforeAppUpdate(int soppNo);
+		int assignPps(SoppDTO dto);
+		List<SoppDTO> selectSoppdetail(HttpSession session, SoppDTO dto);
+		List<ContDTO> soppContList(int soppNo);
 }

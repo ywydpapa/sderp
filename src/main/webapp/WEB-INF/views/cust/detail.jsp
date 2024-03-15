@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <c:set var="path" value ="${pageContext.request.contextPath}"/>
 <!DOCTYPE html>
@@ -35,8 +36,9 @@
 					<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#tab03" role="tab">담당자 정보</a></li>
 					<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#tab04" role="tab">세무/거래관련 정보</a></li>
 					<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#tab05" role="tab">업체 업종 정보</a></li>
-					<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#tab06" role="tab">업체 영업 정보</a></li>
-					<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#tab07" role="tab">업체 계약 정보</a></li>
+					<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#tab06" role="tab">영업 정보(${fn:length(saleslist)})</a></li>
+					<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#tab07" role="tab">업체 계약 정보(${fn:length(contlist)})</a></li>
+					<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#tab08" role="tab">기술지원 정보(${fn:length(techdlist)})</a></li>
 				</ul>
 				<!-- Tab panes -->
 				<div class="tab-content tabs m-t-20">
@@ -58,7 +60,7 @@
 											</tr>
 											<tr>
 												<th scope="row">거래처명</th>
-												<td><input type="text" name="custName" id="custName"
+												<td><input type="text" name="custName" id="custName" data-completeSet="true"
 													value="${dto.custName}" class="form-control form-control-sm">
 												</td>
 											</tr>
@@ -71,7 +73,7 @@
 											<tr>
 												<th scope="row">사업자번호</th>
 												<td><input name="custVatno" id="custVatno"
-													value="${dto.custVatno}" readonly
+													value="${dto.custVatno}"
 													class="form-control form-control-sm"></td>
 											</tr>
 											<tr>
@@ -91,7 +93,7 @@
 								</form>
 								<div class="btn_wr text-right mt-3">
 									<button class="btn btn-md btn-success f-left" onClick="javascript:location='${path}/cust/list.do'">목록</button>
-									<button class="btn btn-md btn-primary" onClick="fn_custDelete01();">삭제</button>
+									<button class="btn btn-md btn-danger" onClick="fn_custDelete01();">삭제</button>
 									<button class="btn btn-md btn-primary" onClick="fn_custUpdate01();">수정</button>
 								</div>
 							</div>
@@ -117,7 +119,7 @@
 											<tr>
 												<th scope="row">주소</th>
 												<td><input name="custAddr" id="custAddr" type="text"
-													value="${dto02.custAddr}" class="form-control form-control-sm">
+													value="${dto02.custAddr}" class="form-control form-control-sm" placeholder="우편번호를 등록하시면 자동등록 됩니다..." readonly>
 												</td>
 											</tr>
 											<tr>
@@ -267,6 +269,24 @@
 													class="form-control form-control-sm"></td>
 											</tr>
 											<tr>
+												<th scope="row">기준연도</th>
+												<td><input name="custByear" id="custByear" type="text" placeholder="년도만 입력해주십시오.(ex:2022)" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" maxlength="4"
+													value="${dto04.custByear}"
+													class="form-control form-control-sm"></td>
+											</tr>
+											<tr>
+												<th scope="row">줄돈</th>
+												<td><input name="custBBalance" id="custDRbalance" placeholder="숫자만 입력해주십시오." oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" type="text" maxlength="15"
+													value="${dto04.custDRbalance}"
+													class="form-control form-control-sm"></td>
+											</tr>
+											<tr>
+												<th scope="row">받을돈</th>
+												<td><input name="custBBalance" id="custCRbalance" placeholder="숫자만 입력해주십시오." oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" type="text" maxlength="15"
+													value="${dto04.custCRbalance}"
+													class="form-control form-control-sm"></td>
+											</tr>
+											<tr>
 												<th scope="row">계산서 이메일</th>
 												<td><input name="custVatemail1" id="custVatemail1" type="email"
 													value="${dto04.custVatemail}"
@@ -371,7 +391,30 @@
 						<div class="card-block table-border-style">
 							<div class="table-responsive">
 								<form name="form6" method="post" onsubmit="return false;">
-
+									<table class="table table-sm bst02">
+										<colgroup>
+											<col width="25%" />
+											<col width="25%" />
+											<col width="25%" />
+											<col width="25%" />
+										</colgroup>
+										<tbody>
+										<tr>
+											<th class="text-center">영업일자</th>
+											<th class="text-center">영업명</th>
+											<th class="text-center">담당자</th>
+											<th class="text-center">계약상세</th>
+										</tr>
+										<c:forEach var="slist" items="${saleslist}">
+											<tr>
+												<td class="text-center">${fn:substring(slist.regDatetime, 0, 10)}</td>
+												<td>${slist.salesTitle}</td>
+												<td class="text-center">${slist.userName}</td>
+												<td>${slist.salesDesc}</td>
+											</tr>
+										</c:forEach>
+										</tbody>
+									</table>
 								</form>
 								<div class="btn_wr text-right mt-3">
 									<button class="btn btn-md btn-success f-left" onClick="javascript:location='${path}/cust/list.do'">목록</button>
@@ -383,7 +426,66 @@
 						<div class="card-block table-border-style">
 							<div class="table-responsive">
 								<form name="form7" method="post" onsubmit="return false;">
+									<table class="table table-sm bst02">
+										<colgroup>
+											<col width="25%" />
+											<col width="25%" />
+											<col width="25%" />
+											<col width="25%" />
+										</colgroup>
+										<tbody>
+										<tr>
+											<th class="text-center">계약일자</th>
+											<th class="text-center">계약명</th>
+											<th class="text-center">계약금액</th>
+											<th class="text-center">계약상세</th>
+										</tr>
+                                  <c:forEach var="clist" items="${contlist}">
+										<tr>
+											<td class="text-center">${clist.paymaintSdate}~${clist.paymaintEdate}</td>
+											<td>${clist.contTitle}</td>
+											<td class="text-right"><fmt:formatNumber value="${clist.contAmt}" pattern="#,###"/></td>
+											<td>${clist.contDesc}</td>
+										</tr>
+								  </c:forEach>
+										</tbody>
+									</table>
 
+								</form>
+								<div class="btn_wr text-right mt-3">
+									<button class="btn btn-md btn-success f-left" onClick="javascript:location='${path}/cust/list.do'">목록</button>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="tab-pane " id="tab08" role="tabpanel">
+						<div class="card-block table-border-style">
+							<div class="table-responsive">
+								<form name="form8" method="post" onsubmit="return false;">
+									<table class="table table-sm bst02">
+										<colgroup>
+											<col width="10%" />
+											<col width="25%" />
+											<col width="50%" />
+											<col width="15%" />
+										</colgroup>
+										<tbody>
+										<tr>
+											<th class="text-center">지원일자</th>
+											<th class="text-center">기술지원명</th>
+											<th class="text-center">요청내용</th>
+											<th class="text-center">담당자</th>
+										</tr>
+										<c:forEach var="tlist" items="${techdlist}">
+											<tr>
+												<td>${tlist.techdFrom}</td>
+												<td>${tlist.techdTitle}</td>
+												<td>${tlist.techdDesc}</td>
+												<td class="text-center">${tlist.userName}</td>
+											</tr>
+										</c:forEach>
+										</tbody>
+									</table>
 
 								</form>
 								<div class="btn_wr text-right mt-3">
@@ -399,6 +501,7 @@
 	</div>
 	<!-- Bootstrap tab card end -->
 	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+	<script type="text/javascript" src="${path}/js/image.js"></script>
 	<script>
 
 	function fn_Reloaddata01(url, data){
@@ -443,9 +546,11 @@
 
 		function fn_custUpdate01(){
 			var custData = {};
+			custData.compNo = "${sessionScope.compNo}";
 			custData.custNo 		= $("#custNo").val();
 			custData.custName 		= $("#custName").val();
 			custData.custBossname 	= $("#custBossname").val();
+			custData.custVatno 		= $("#custVatno").val();
 			custData.custEmail 		= $("#custEmail").val();
 			custData.custVatemail 	= $("#custVatemail").val();
 
@@ -457,8 +562,8 @@
 					.done(function(data) {
 						if(data.code == 10001){
 							alert("저장 성공");
-							var url = '${path}/cust/list.do';
-							location.href = url;
+							/*var url = '${path}/cust/list.do';
+							location.href = url;*/
 						}else{
 							alert("저장 실패");
 						}
@@ -468,7 +573,7 @@
 					});
 			}
 
-		function fn_custUpdate02(){
+		async function fn_custUpdate02(){
 			var custData2 = {};
 			custData2.custNo 		= $("#custNo").val();
 			custData2.custPostno 	= $("#custPostno").val();
@@ -476,8 +581,14 @@
 			custData2.custAddr2 	= $("#custAddr2").val();
 			custData2.custTel 		= $("#custTel").val();
 			custData2.custFax 		= $("#custFax").val();
-			custData2.custMemo 		= $("#custMemo").val();
+			
 
+			var content = tinyMCE.get("custMemo").getContent();
+			if($("textarea[id='custMemo']").attr("style") === "display: none;"){
+				custData2.custMemo = await uploadImage(content);
+			}else{
+				custData2.custMemo = $("#custMemo").val();
+			}
 			$.ajax({ url: "${path}/cust/insert02.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
 						data: custData2 , // HTTP 요청과 함께 서버로 보낼 데이터
 						method: "POST", // HTTP 요청 메소드(GET, POST 등)
@@ -524,15 +635,25 @@
 					});
 			}
 
-		function fn_custUpdate04(){
+		async function fn_custUpdate04(){
+			var compNo = "${sessionScope.compNo}";
 			var custData4 = {};
 			custData4.custNo 		= $("#custNo").val();
+			custData4.compNo		= compNo;
+			custData4.custByear	= $("#custByear").val();
+			custData4.custCRbalance	= $("#custCRbalance").val();
+			custData4.custDRbalance	= $("#custDRbalance").val();
 			custData4.custVatemail	= $("#custVatemail").val();
-			custData4.custVatno		= $("#custVatno").val();
+			custData4.custVatno		= $("#custVatno1").val();
 			custData4.custVattype 	= $("#custVattype").val();
 			custData4.custVatbiz	= $("#custVatbiz").val();
-			custData4.custVatmemo 	= $("#custVatmemo").val();
-
+			
+			if($("#custVatmemo").attr("style") === "display: none;"){
+				var content = tinyMCE.get("custVatmemo").getContent();
+				custData4.custVatmemo = await uploadImage(content);
+			} else {
+				custData4.custVatmemo = $("#custVatmemo").val();
+			}
 			$.ajax({ url: "${path}/cust/insert04.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
 						data: custData4 , // HTTP 요청과 함께 서버로 보낼 데이터
 						method: "POST", // HTTP 요청 메소드(GET, POST 등)

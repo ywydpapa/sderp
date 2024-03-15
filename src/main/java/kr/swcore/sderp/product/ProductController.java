@@ -18,6 +18,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import kr.swcore.sderp.cust.service.CustService;
 import kr.swcore.sderp.product.dto.ProductDTO;
 import kr.swcore.sderp.product.service.ProductService;
 
@@ -31,6 +32,9 @@ public class ProductController {
 
 	@Inject
 	ProductdataService productdataService;
+	
+	@Inject
+	CustService custService;
 	
 	@RequestMapping("list.do")
 	public ModelAndView list(HttpSession session, ModelAndView mav) {
@@ -69,13 +73,18 @@ public class ProductController {
 	@RequestMapping("/detail/{productNo}")
 	public ModelAndView detail(HttpSession session, @PathVariable("productNo") int productNo, ModelAndView mav) {
 		mav.setViewName("product/detail");
+		mav.addObject("listCust", custService.listCust(session));
+		mav.addObject("categoryList", productService.listProductGoodsCategory(session));
 		mav.addObject("dto", productService.detailProduct(session, productNo));
 		return mav;
 	}
 	
 	@RequestMapping("write.do")
-	public String write() {
-		return "product/write";
+	public ModelAndView write(HttpSession session, ModelAndView mav) {
+		mav.addObject("listCust", custService.listCust(session));
+		mav.addObject("categoryList", productService.listProductGoodsCategory(session));
+		mav.setViewName("product/write");
+		return mav;
 	}
 
 	@RequestMapping(value ="insert.do", method= RequestMethod.POST)

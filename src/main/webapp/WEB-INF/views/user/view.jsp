@@ -10,16 +10,36 @@
 
 <div id="main_content">
 	<script type="text/javascript">
-	<c:if test="${userInfo.userId == sessionScope.userNo || sessionScope.userRole eq 'ADMIN'}">
+	<c:if test="${userInfo.userNo == sessionScope.userNo || sessionScope.userRole eq 'ADMIN'}">
 		function fn_userUpdate() {
-
 			var userData = {};
-
+			//전화번도 유효성 검사
+			var regExp = /^[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}/;
+			var userTel		= $("#userTel").val();
+			
+			if( !regExp.test(userTel)) {
+			     alert("전화번호를 다시 입력해주세요.");
+			     return;
+			};
+			//전화번도 유효성 검사
+			userData.userNo 		= $("#userNo").val();
 			userData.userId 		= $("#userId").val();
-			userData.userPasswd 	= $("#userPasswd").val();
+			//이메일, 전화번호
+			userData.userEmail		= $("#userEmail").val();
+			userData.userTel		= $("#userTel").val();
+			
+			if($("[name='userPasswd']").attr("data-number") == 1){
+				userData.userPasswd 	= 1;
+			}else{
+				userData.userPasswd		= 0;
+			}
+			
 			userData.userName 		= $("#userName").val();
 			userData.userRole 		= $("#userRole").val();
-
+			userData.org_id 		= $("#userDept").val();
+			userData.attrib			= $("#userAttrib").val();
+			userData.userOtp		= $("#userOtp").val();
+			userData.userKey 		= $("#userRoleAA").val()+$("#userRoleBB").val()+$("#userRoleCC").val()+$("#userRoleDD").val()+$("#userRoleEE").val()+$("#userRoleFF").val()+$("#userRoleGG").val()+$("#userRoleHH").val()+$("#userRoleII").val()+$("#userRoleJJ").val()+$("#userRoleKK").val()+$("#userRoleLL").val()+$("#userRoleMM").val()+$("#userRoleNN").val();
 			$.ajax({ url: "${path}/user/update.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
 						data: userData , // HTTP 요청과 함께 서버로 보낼 데이터
 						method: "POST", // HTTP 요청 메소드(GET, POST 등)
@@ -62,26 +82,30 @@
 					<div class="table-responsive">
 						<table class="table table-sm bst02">
 							<colgroup>
-								<col width="25%" />
-								<col width="75%"/>
+								<col width="25%"/>
+								<col width="25%"/>
+								<col width="13%"/>
+								<col width="12%"/>
+								<col width="13%"/>
+								<col width="12%"/>
 							</colgroup>
 							<tbody>
 								<tr>
 									<th scope="row">아이디</th>
 									<td>
-										<input name="userId" id="userId" value="${userInfo.userId}" class="form-control form-control-sm" readonly>
+										<input name="userId" id="userId" value="${userInfo.userId}" class="form-control form-control-sm" readonly ><input type="hidden" id="userNo" value="${userInfo.userNo}" readonly >
 									</td>
 								</tr>
 								<tr>
 									<th scope="row">비밀번호</th>
 									<td>
-										<input type="password" name="userPasswd" id="userPasswd" value="" class="form-control form-control-sm" required>
+										<label><input type="checkbox" name="userPasswd" id="userPasswd" data-number="0" class="form-control">암호 초기화</label>
 									</td>
 								</tr>
 								<tr>
 									<th scope="row">이름</th>
 									<td>
-										<input name="userName" id="userName"  value="${userInfo.userName}" class="form-control form-control-sm">
+										<input name="userName" id="userName" data-completeSet="true" value="${userInfo.userName}" class="form-control form-control-sm">
 									</td>
 								</tr>
 								<tr>
@@ -91,6 +115,168 @@
 										<option value="CUSER"<c:if test="${userInfo.userRole eq 'CUSER'}">selected</c:if> >일반사용자</option>
 										<option value="PUSER"<c:if test="${userInfo.userRole eq 'PUSER'}">selected</c:if>>조직관리자</option>
 										<option value="ADMIN"<c:if test="${userInfo.userRole eq 'ADMIN'}">selected</c:if>>시스템관리자</option>
+										</select>
+									</td>
+								</tr>
+								<tr>
+									<td>부서</td>
+									<td><select class="form-control" name="userDept" id="userDept">
+										<c:forEach var="listDept" items="${listDept}">
+										<option value="${listDept.org_id}">${listDept.org_title}</option>
+										</c:forEach>
+										</select></td>
+								</tr>
+								<tr>
+									<td>로그인 설정</td>
+									<td><select class="form-control" id="userAttrib">
+										<option value="10000">로그인 가능</option>
+										<option value="XXXXX">로그인 금지</option>
+										</select></td>
+								</tr>
+								<!-- tel -->
+								<tr>
+									<td>전화번호</td>
+									<td><input type="text" class="form-control form-control-sm" id="userTel" name="userTel" value="${userInfo.userTel}" placeholder="000-0000-0000">
+									</td>
+								</tr>
+								<!-- tel value="${userInfo.userTel}"-->
+								<!-- e-mail -->
+								<tr>
+									<td>이메일</td>
+									<td><input type="text" class="form-control form-control-sm" id="userEmail" name="userEmail" value="${userInfo.userEmail}">
+									</td>
+								</tr>
+								<!-- e-mail value="${userInfo.userEmail}"-->
+								<tr>
+									<td>표시 순서</td>
+									<td>
+										<input type="text" name="userOtp" id="userOtp" value="${userInfo.userOtp}">  
+									</td>
+								</tr>
+								<tr align="center">
+									<td rowspan="10">화면권한 설정</td>
+									<td> 화면 구분 </td>
+									<td> 화면코드 </td>
+									<td> 권한설정 </td>
+									<td> 화면코드 </td>
+									<td> 권한설정 </td>
+								</tr>
+								<tr>
+									<td> 일정관리 </td>
+									<td> AA </td>
+									<td><select class="form-control" id="userRoleAA">
+										<option value="AA0">권한없음</option>
+										<option value="AA5">읽기전용</option>
+										<option value="AA7">읽기쓰기</option>
+										</select>
+									</td>
+									<td> BB </td>
+									<td><select class="form-control" id="userRoleBB">
+										<option value="BB0">권한없음</option>
+										<option value="BB5">읽기전용</option>
+										<option value="BB7">읽기쓰기</option>
+										</select>
+									</td>
+								</tr>
+								<tr>
+									<td> 영업활동관리 </td>
+									<td> CC </td>
+									<td><select class="form-control" id="userRoleCC">
+										<option value="CC0">권한없음</option>
+										<option value="CC5">읽기전용</option>
+										<option value="CC7">읽기쓰기</option>
+										</select>
+									</td>
+									<td> DD </td>
+									<td><select class="form-control" id="userRoleDD">
+										<option value="DD0">권한없음</option>
+										<option value="DD5">읽기전용</option>
+										<option value="DD7">읽기쓰기</option>
+										</select>
+									</td>
+								</tr>
+								<tr>
+									<td> 영업기회관리 </td>
+									<td> EE </td>
+									<td><select class="form-control" id="userRoleEE">
+										<option value="EE0">권한없음</option>
+										<option value="EE5">읽기전용</option>
+										<option value="EE7">읽기쓰기</option>
+										</select>
+									</td>
+									<td> FF </td>
+									<td><select class="form-control" id="userRoleFF">
+										<option value="FF0">권한없음</option>
+										<option value="FF5">읽기전용</option>
+										<option value="FF7">읽기쓰기</option>
+										</select>
+									</td>
+								</tr>
+								<tr>
+									<td> 수주판매보고 관리 </td>
+									<td> GG </td>
+									<td><select class="form-control" id="userRoleGG">
+										<option value="GG0">권한없음</option>
+										<option value="GG5">읽기전용</option>
+										<option value="GG7">읽기쓰기</option>
+										</select>
+									</td>
+									<td> HH </td>
+									<td><select class="form-control" id="userRoleHH">
+										<option value="HH0">권한없음</option>
+										<option value="HH5">읽기전용</option>
+										<option value="HH7">읽기쓰기</option>
+										</select>
+									</td>
+								</tr>
+								<tr>
+									<td> 계약관리 </td>
+									<td> II </td>
+									<td><select class="form-control" id="userRoleII">
+										<option value="II0">권한없음</option>
+										<option value="II5">읽기전용</option>
+										<option value="II7">읽기쓰기</option>
+										</select>
+									</td>
+									<td> JJ </td>
+									<td><select class="form-control" id="userRoleJJ">
+										<option value="JJ0">권한없음</option>
+										<option value="JJ5">읽기전용</option>
+										<option value="JJ7">읽기쓰기</option>
+										</select>
+									</td>
+								</tr>
+								<tr>
+									<td> 기술지원 관리 </td>
+									<td> KK </td>
+									<td><select class="form-control" id="userRoleKK">
+										<option value="KK0">권한없음</option>
+										<option value="KK5">읽기전용</option>
+										<option value="KK7">읽기쓰기</option>
+										</select>
+									</td>
+									<td> LL </td>
+									<td><select class="form-control" id="userRoleLL">
+										<option value="LL0">권한없음</option>
+										<option value="LL5">읽기전용</option>
+										<option value="LL7">읽기쓰기</option>
+										</select>
+									</td>
+								</tr>
+								<tr>
+									<td> 설정 관리 </td>
+									<td> MM </td>
+									<td><select class="form-control" id="userRoleMM">
+										<option value="MM0">권한없음</option>
+										<option value="MM5">읽기전용</option>
+										<option value="MM7">읽기쓰기</option>
+										</select>
+									</td>
+									<td> NN </td>
+									<td><select class="form-control" id="userRoleNN">
+										<option value="NN0">권한없음</option>
+										<option value="NN5">읽기전용</option>
+										<option value="NN7">읽기쓰기</option>
 										</select>
 									</td>
 								</tr>
@@ -109,3 +295,20 @@
 	</div>
 </div>
 <jsp:include page="../body-bottom.jsp"/>
+<script>
+	$("[name='userPasswd']").change(function(){
+		if($(this).attr("data-number") == 0){
+			$(this).attr("data-number", 1);
+		}else{
+			$(this).attr("data-number", 0);
+		}
+	});
+
+	$("[id^='userRole']").find("option").each(function(index, item){
+		var userKey = "${userInfo.userKey}";
+		
+		if(userKey.indexOf(item.value) != -1){
+			$(this).attr("selected", true);
+		}
+	})
+</script>

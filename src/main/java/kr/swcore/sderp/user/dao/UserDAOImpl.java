@@ -46,6 +46,12 @@ public class UserDAOImpl implements UserDAO {
 	}
 
 	@Override
+	public int updateUserPass(UserDTO dto) {
+		// TODO Auto-generated method stub
+		return sqlSession.update("user.updateUserpass",dto);
+	}
+	
+	@Override
 	public int updateUser(UserDTO dto) {
 		// TODO Auto-generated method stub
 		return sqlSession.update("user.updateUser",dto);
@@ -78,6 +84,18 @@ public class UserDAOImpl implements UserDAO {
 	@Override
 	public UserDTO userSessionCheck(UserDTO dto) {
 		return sqlSession.selectOne("user.userSessionCheck", dto);
+	}
+
+	@Override
+	public List<UserDTO> allList() {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("user.allList");
+	}
+
+	@Override
+	public List<UserDTO> listuser_data(String userName) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("user.listuser_data", userName);
 	}
 
 

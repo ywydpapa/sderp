@@ -25,7 +25,7 @@
 	<!--기술지원 대상등록-->
 	<div class="cnt_wr">
 		<div class="row">
-			<div class="col-sm-12">
+			<div class="col-sm-12 col_wrap">
 				<div class="card-block table-border-style">
 					<div class="table-responsive">
 						<table class="table table-sm bst02">
@@ -40,9 +40,9 @@
 								<col width="15%"/>
 							</colgroup>
 							<tbody>
-								<tr>
-									<th scope="row" class="requiredTextCss">등록구분</th>
-									<td colspan="3">
+								<div>
+									<div scope="row" class="requiredTextCss">등록구분</div>
+									<div colspan="3">
 										<div class="form-radio">
 											<form>
 												<div class="radio radio-inline">
@@ -54,293 +54,328 @@
 												</div>
 											</form>
 										</div>
-									</td>
-								</tr>
-								<tr>
-									<th scope="row" class="requiredTextCss">기술지원 요청명</th>
-									<td><input type="text" class="form-control form-control-sm" id="techdTitle" name="techdTitle" placeholder="기술지원 요청명을 입력하십시오" required></td>
-									<th scope="row" class="techdDetailSopp requiredTextCss">영업기회</th>
-									<td class="techdDetailSopp">
-										<div class="input-group input-group-sm mb-0">
-											<select class="form-control" id="soppTitle" name="soppTitle" onchange="autoCompleteSelect(this);">
-												<option value="">선택</option>
-												<c:forEach var="row" items="${listSopp}">
-													<option data-no="${row.soppNo}" value="${row.soppTitle}">${row.soppTitle}</option>
-												</c:forEach>
-											</select>
-											<input type="hidden" name="soppNo" id="soppNo" value="" /> 
-											<%-- <input type="text" class="form-control" name="soppTitle" id="soppTitle" value="${dto.soppTitle}" autocomplete="off" /> --%> 
-											<%-- <span class="input-group-btn">
-												<button class="btn btn-primary sch-opportunity2"
-														data-remote="${path}/modal/popup.do?popId=sopp"
-														type="button" data-toggle="modal" data-target="#soppModal">
-													<i class="icofont icofont-search"></i>
-												</button>
-											</span>
-											<div class="modal fade " id="soppModal" tabindex="-1" role="dialog">
-												<div class="modal-dialog modal-80size" role="document">
-													<div class="modal-content modal-80size">
-														<div class="modal-header">
-															<h4 class="modal-title"></h4>
-															<button type="button" class="close" onclick="$('#soppModal').modal('hide');"
-																	aria-label="Close">
-																<span aria-hidden="true">&times;</span>
-															</button>
-														</div>
-														<div class="modal-body">
-															<h5>영업기회목록</h5>
-															<p>Loading!!!</p>
-														</div>
-														<div class="modal-footer">
-															<button type="button"
-																	class="btn btn-default waves-effect "
-																	onclick="$('#soppModal').modal('hide');">닫기</button>
-														</div>
-													</div>
-												</div>
-											</div> --%>
-										</div>
-									</td>
-									<th scope="row" class="techdDetailCont requiredTextCss">계약</th>
-									<td class="techdDetailCont">
-										<div class="input-group input-group-sm mb-0">
-											<input type="hidden" id="contSoppNo" />
-											<select class="form-control" id="contTitle" name="contTitle" onchange="autoCompleteSelect(this);">
-												<option value="">선택</option>
-												<c:forEach var="row" items="${listCont}">
-													<option data-no="${row.contNo}" data-sopp="${row.soppNo}" value="${row.contTitle}">${row.contTitle}</option>
-												</c:forEach>
-											</select>
-											<input type="hidden" name="contNo" id="contNo" value="" /> 
-											<%-- <input type="text" class="form-control" name="contTitle" id="contTitle" value="${dto.contTitle}" autocomplete="off" /> --%> 
-											<%-- <span class="input-group-btn">
-												<button class="btn btn-primary sch-opportunity2"
-														data-remote="${path}/modal/popup.do?popId=cont"
-														type="button" data-toggle="modal" data-target="#contModal">
-													<i class="icofont icofont-search"></i>
-												</button>
-											</span>
-											<div class="modal fade " id="contModal" tabindex="-1"
-												 role="dialog">
-												<div class="modal-dialog modal-80size" role="document">
-													<div class="modal-content modal-80size">
-														<div class="modal-header">
-															<h4 class="modal-title"></h4>
-															<button type="button" class="close" onclick="$('#contModal').modal('hide');"
-																	aria-label="Close">
-																<span aria-hidden="true">&times;</span>
-															</button>
-														</div>
-														<div class="modal-body">
-															<h5>계약 목록</h5>
-															<p>Loading!!!</p>
-														</div>
-														<div class="modal-footer">
-															<button type="button"
-																	class="btn btn-default waves-effect "
-																	onclick="$('#contModal').modal('hide');">닫기</button>
-														</div>
-													</div>
-												</div>
-											</div> --%>
-										</div>
-									</td>
-									<th scope="row" class="requiredTextCss">엔드유저</th>
-									<td>
-										<div class="input-group input-group-sm mb-0">
-											<select class="form-control" id="endCustName" name="endCustName" onchange="autoCompleteSelect(this);">
-												<option value="">선택</option>
-												<c:forEach var="row" items="${listCust}">
-													<option data-no="${row.custNo}" value="${row.custName}">${row.custName}</option>
-												</c:forEach>
-											</select>
-											<input type="hidden" name="endCustNo" id="endCustNo" value="" /> 
-											<!-- <input type="text" class="form-control" name="endCustName" id="endCustName" value="" autocomplete="off"/> -->
-											<%-- <span class="input-group-btn">
-												<button class="btn btn-primary sch-company" data-remote="${path}/modal/popup.do?popId=endCust" type="button" data-toggle="modal" data-target="#endCustModal">
-													<i class="icofont icofont-search"></i>
-												</button>
-											</span>
-											<div class="modal fade " id="endCustModal" tabindex="-1"
-												role="dialog">
-												<div class="modal-dialog modal-80size" role="document">
-													<div class="modal-content modal-80size">
-														<div class="modal-header">
-															<h4 class="modal-title">엔드유저검색</h4>
-															<button type="button" class="close" onclick="$('#endCustModal').modal('hide');"
-																aria-label="Close">
-																<span aria-hidden="true">&times;</span>
-															</button>
-														</div>
-														<div class="modal-body">
-															<h5>엔드유저목록</h5>
-															<p>Loading!!!</p>
-														</div>
-														<div class="modal-footer">
-															<button type="button"
-																class="btn btn-default waves-effect "
-																onclick="$('#endCustModal').modal('hide');">닫기</button>
-															<button type="button" class="btn btn-success waves-effect" id="custRegSimple">간편추가</button>
-														</div>
-														<div style="display: none; border: solid; width: 80%; margin: auto; margin-bottom: 5px;" id="custRegSimple_div">
-															<table>
-																<colgroup>
-																	<col width="10%">
-																	<col width="75%">
-																	<col width="15%">
-																</colgroup>
-																<tbody>
-																	<tr>
-																		<th>엔드유저명*</th>
-																		<td><input type="text" value="" id="custRegSimple_custName" style="width: 100%;"> </td>
-																		<td><button type="button" class="btn-sm btn-dark" id="custRegSimple_custName_check">중복확인</button></td>
-																	</tr>
-																	<tr>
-																		<th>담당자</th>
-																		<td><input type="text" value="" id="custRegSimple_custMemerName" style="width: 100%;" placeholder="미입력시 미정으로 세팅됩니다."></td>
-																		<td><button type="button" class="btn-sm btn-success" id="custRegSimple_custName_register">등록</button></td>
-																	</tr>
-																</tbody>
-															</table>
-														</div>
-													</div>
-												</div>
-											</div> --%>
-										</div>
-									</td>
-									<th scope="row">엔드유저 담당자</th>
-									<td>
-										<div class="input-group input-group-sm mb-0">
-											<select class="form-control" id="custmemberName" name="custmemberName" onchange="autoCompleteSelect(this);">
-												<option value="">선택</option>
-												<c:forEach var="row" items="${listCustMember}">
-													<option data-no="${row.custData03no}" value="${row.custMname}">${row.custMname}</option>
-												</c:forEach>
-											</select>
-											<input type="hidden" name="custmemberNo" id="custmemberNo" value="" />
-											<!-- <input type="text" class="form-control" name="custmemberName"  id="custmemberName" value="" autocomplete="off"/> -->
-											<%-- <span class="input-group-btn">
-												<button class="btn btn-primary sch-partner"
-													data-remote="${path}/modal/popup.do?popId=custmem&compNo="
-													type="button" data-toggle="modal" data-target="#custmemberModal"
-													id="custmemberModalbtn">
-													<i class="icofont icofont-search"></i>
-												</button>
-											</span>
-											<div class="modal fade " id="custmemberModal" tabindex="-1"
-												role="dialog">
-												<div class="modal-dialog modal-80size" role="document">
-													<div class="modal-content modal-80size">
-														<div class="modal-header">
-															<h4 class="modal-title">고객 검색</h4>
-															<button type="button" class="close" onclick="$('#custmemberModal').modal('hide');"
-																aria-label="Close">
-																<span aria-hidden="true">&times;</span>
-															</button>
-														</div>
-														<div class="modal-body">
-															<h5>엔드유저 담당자 목록</h5>
-															<p>엔드유저(거래처)를 먼저 입력해주셔야 목록이 보입니다.</p>
-														</div>
-														<div class="modal-footer">
-															<button type="button"
-																class="btn btn-default waves-effect "
-																onclick="$('#custmemberModal').modal('hide');">닫기</button>
-														</div>
-													</div>
-												</div>
-											</div> --%>
-										</div>
-									</td>
-								</tr>
-								<tr>
-									<th scope="row">모델</th>
-									<td colspan="7">
-										<input type="text" class="form-control form-control-sm"	id="techdItemmodel" name="techdItemmodel" placeholder="" value="${dto.techdItemmodel}">
-									</td>
-								</tr>
-								<tr>
-									<th>버전</th>
-									<td colspan="7">
-										<input type="text" class="form-control form-control-sm"	id="techdItemversion" name="techdItemversion" placeholder="" value="${dto.techdItemversion}">
-									</td>
-								</tr>
-								<tr>
-									<th scope="row">장소</th>
-									<td><input type="text" class="form-control form-control-sm" id="techdPlace" name="techdPlace" placeholder=""></td>
-									<th scope="row" class="requiredTextCss">담당사원</th>
-									<td>
-										<div class="input-group input-group-sm mb-0">
-											<input type="text" class="form-control" name="userName" readonly id="userName" data-completeSet="true" value="${sessionScope.userName}" /> 
-											<input type="hidden" name="userNo" id="userNo" value="${sessionScope.userNo}" /> 
-											<%-- <span class="input-group-btn">
-												<button class="btn btn-primary sch-company"
-														data-remote="${path}/modal/popup.do?popId=user"
-														type="button" data-toggle="modal" data-target="#userModal">
-													<i class="icofont icofont-search"></i>
-												</button>
-											</span>
-											<div class="modal fade " id="userModal" tabindex="-1"
-												 role="dialog">
-												<div class="modal-dialog modal-80size" role="document">
-													<div class="modal-content modal-80size">
-														<div class="modal-header">
-															<h4 class="modal-title">담당사원 검색</h4>
-															<button type="button" class="close" onclick="$('#userModal').modal('hide');"
-																	aria-label="Close">
-																<span aria-hidden="true">&times;</span>
-															</button>
-														</div>
-														<div class="modal-body">
-															<h5>사용자목록</h5>
-															<p>Loading!!!</p>
-														</div>
-														<div class="modal-footer">
-															<button type="button"
-																	class="btn btn-default waves-effect "
-																	onclick="$('#userModal').modal('hide');">닫기</button>
-														</div>
-													</div>
-												</div>
-											</div> --%>
-										</div>
-									</td>
-								</tr>
-								<tr>
-									<th scope="row" class="requiredTextCss">지원일자</th>
-									<td colspan="3">
-										<!-- <div class="col-sm-9 f-left m-b-0 p-l-0"> -->
-											<div class="input-group input-group-sm mb-0 mr-1">
-												<input class="form-control form-control-sm col-md-4 m-r-10" type="date" max="9999-12-30" id="techdFrom" name="techdFrom" onChange="javascript:inputDate(setDateHourMinute($('#techdFrom').val(), $('#startTime').val()), setDateHourMinute($('#techdTo').val(), $('#endTime').val()),this)">
-												<select id="startTime" style="width:100px" onChange="javascript:inputDate(setDateHourMinute($('#techdFrom').val(), $('#startTime').val()), setDateHourMinute($('#techdTo').val(), $('#endTime').val()),this)"></select>
-												<span style="line-height:30px;">&nbsp;~&nbsp;</span>
-												<input class="form-control form-control-sm col-md-4 m-r-10" type="date" max="9999-12-31" id="techdTo" name="techdTo" onChange="javascript:inputDate(setDateHourMinute($('#techdFrom').val(), $('#startTime').val()), setDateHourMinute($('#techdTo').val(), $('#endTime').val()),this)">
-												<select id="endTime" style="width:100px" onChange="javascript:inputDate(setDateHourMinute($('#techdFrom').val(), $('#startTime').val()), setDateHourMinute($('#techdTo').val(), $('#endTime').val()),this)"></select>
+									</div>
+								</div>
+								<div>
+									<div class="row_flex">
+										<div class="row_flex_wrap">
+										<div class="row_flex_content">
+										<!-- 기술지원 요청명 -->
+											<div scope="row" class="requiredTextCss row_flex_title">기술지원 요청명</div>
+											<div class="row_flex_box">
+												<input type="text" class="form-control form-control-sm" id="techdTitle" name="techdTitle" placeholder="기술지원 요청명을 입력하십시오" required>
 											</div>
-										<!-- </div> -->
-									</td>
-									<th scope="row">지원형태</th>
-									<td><select name="techdType" id="techdType" class="form-control form-control-sm">
-									<option value="">선택</option>
-									<c:forEach var="rows" items="${sprttype}">
-									<option value="${rows.codeNo}">${rows.desc03}</option>
-									</c:forEach>
-									</select></td>
-									<th scope="row">진행단계</th>
-									<td><select name="techdSteps" id="techdSteps"
-										class="form-control form-control-sm">
+										</div>
+										<div class="row_flex_content">
+											<!-- 영업기회  -->
+											<div scope="row" class="requiredTextCss row_flex_title border_none">영업기회</div>
+											<div class="techdDetailSopp">
+												<div class="input-group input-group-sm mb-0 row_flex_box">
+													<select class="form-control" id="soppTitle" name="soppTitle" onchange="autoCompleteSelect(this);">
+														<option value="">선택</option>
+														<c:forEach var="row" items="${listSopp}">
+															<option data-no="${row.soppNo}" value="${row.soppTitle}">${row.soppTitle}</option>
+														</c:forEach>
+													</select>
+													<input type="hidden" name="soppNo" id="soppNo" value="" /> 
+													<%-- <input type="text" class="form-control" name="soppTitle" id="soppTitle" value="${dto.soppTitle}" autocomplete="off" /> --%> 
+													<%-- <span class="input-group-btn">
+														<button class="btn btn-primary sch-opportunity2"
+																data-remote="${path}/modal/popup.do?popId=sopp"
+																type="button" data-toggle="modal" data-target="#soppModal">
+															<i class="icofont icofont-search"></i>
+														</button>
+													</span>
+													<div class="modal fade " id="soppModal" tabindex="-1" role="dialog">
+														<div class="modal-dialog modal-80size" role="document">
+															<div class="modal-content modal-80size">
+																<div class="modal-header">
+																	<h4 class="modal-title"></h4>
+																	<button type="button" class="close" onclick="$('#soppModal').modal('hide');"
+																			aria-label="Close">
+																		<span aria-hidden="true">&times;</span>
+																	</button>
+																</div>
+																<div class="modal-body">
+																	<h5>영업기회목록</h5>
+																	<p>Loading!!!</p>
+																</div>
+																<div class="modal-footer">
+																	<button type="button"
+																			class="btn btn-default waves-effect "
+																			onclick="$('#soppModal').modal('hide');">닫기</button>
+																</div>
+															</div>
+														</div>
+													</div> --%>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="row_flex_content_second">
+										<div scope="row" class="techdDetailCont requiredTextCss row_flex_title">계약</div>
+										<div class="techdDetailCont">
+											<div class="input-group input-group-sm mb-0 row_flex_box">
+												<input type="hidden" id="contSoppNo" />
+												<select class="form-control" id="contTitle" name="contTitle" onchange="autoCompleteSelect(this);">
+													<option value="">선택</option>
+													<c:forEach var="row" items="${listCont}">
+														<option data-no="${row.contNo}" data-sopp="${row.soppNo}" value="${row.contTitle}">${row.contTitle}</option>
+													</c:forEach>
+												</select>
+												<input type="hidden" name="contNo" id="contNo" value="" /> 
+												<%-- <input type="text" class="form-control" name="contTitle" id="contTitle" value="${dto.contTitle}" autocomplete="off" /> --%> 
+												<%-- <span class="input-group-btn">
+													<button class="btn btn-primary sch-opportunity2"
+															data-remote="${path}/modal/popup.do?popId=cont"
+															type="button" data-toggle="modal" data-target="#contModal">
+														<i class="icofont icofont-search"></i>
+													</button>
+												</span>
+												<div class="modal fade " id="contModal" tabindex="-1"
+													role="dialog">
+													<div class="modal-dialog modal-80size" role="document">
+														<div class="modal-content modal-80size">
+															<div class="modal-header">
+																<h4 class="modal-title"></h4>
+																<button type="button" class="close" onclick="$('#contModal').modal('hide');"
+																		aria-label="Close">
+																	<span aria-hidden="true">&times;</span>
+																</button>
+															</div>
+															<div class="modal-body">
+																<h5>계약 목록</h5>
+																<p>Loading!!!</p>
+															</div>
+															<div class="modal-footer">
+																<button type="button"
+																		class="btn btn-default waves-effect "
+																		onclick="$('#contModal').modal('hide');">닫기</button>
+															</div>
+														</div>
+													</div>
+												</div> --%>
+											</div>
+										</div>
+									</div>
+									<div class="row_flex_wrap">
+										<div class="row_flex_content">
+											<div scope="row" class="requiredTextCss row_flex_title border_none">엔드유저</div>
+											<div class="row_flex_box">
+												<div class="input-group input-group-sm mb-0">
+													<select class="form-control" id="endCustName" name="endCustName" onchange="autoCompleteSelect(this);">
+														<option value="">선택</option>
+														<c:forEach var="row" items="${listCust}">
+															<option data-no="${row.custNo}" value="${row.custName}">${row.custName}</option>
+														</c:forEach>
+													</select>
+													<input type="hidden" name="endCustNo" id="endCustNo" value="" /> 
+													<!-- <input type="text" class="form-control" name="endCustName" id="endCustName" value="" autocomplete="off"/> -->
+													<%-- <span class="input-group-btn">
+														<button class="btn btn-primary sch-company" data-remote="${path}/modal/popup.do?popId=endCust" type="button" data-toggle="modal" data-target="#endCustModal">
+															<i class="icofont icofont-search"></i>
+														</button>
+													</span>
+													<div class="modal fade " id="endCustModal" tabindex="-1"
+														role="dialog">
+														<div class="modal-dialog modal-80size" role="document">
+															<div class="modal-content modal-80size">
+																<div class="modal-header">
+																	<h4 class="modal-title">엔드유저검색</h4>
+																	<button type="button" class="close" onclick="$('#endCustModal').modal('hide');"
+																		aria-label="Close">
+																		<span aria-hidden="true">&times;</span>
+																	</button>
+																</div>
+																<div class="modal-body">
+																	<h5>엔드유저목록</h5>
+																	<p>Loading!!!</p>
+																</div>
+																<div class="modal-footer">
+																	<button type="button"
+																		class="btn btn-default waves-effect "
+																		onclick="$('#endCustModal').modal('hide');">닫기</button>
+																	<button type="button" class="btn btn-success waves-effect" id="custRegSimple">간편추가</button>
+																</div>
+																<div style="display: none; border: solid; width: 80%; margin: auto; margin-bottom: 5px;" id="custRegSimple_div">
+																	<table>
+																		<colgroup>
+																			<col width="10%">
+																			<col width="75%">
+																			<col width="15%">
+																		</colgroup>
+																		<tbody>
+																			<div>
+																				<div>엔드유저명*</div>
+																				<div><input type="text" value="" id="custRegSimple_custName" style="width: 100%;"> </div>
+																				<div><button type="button" class="btn-sm btn-dark" id="custRegSimple_custName_check">중복확인</button></div>
+																			</div>
+																			<div>
+																				<div>담당자</div>
+																				<div><input type="text" value="" id="custRegSimple_custMemerName" style="width: 100%;" placeholder="미입력시 미정으로 세팅됩니다."></div>
+																				<div><button type="button" class="btn-sm btn-success" id="custRegSimple_custName_register">등록</button></div>
+																			</div>
+																		</tbody>
+																	</table>
+																</div>
+															</div>
+														</div>
+													</div> --%>
+												</div>
+											</div>
+										</div>
+										<div class="row_flex_content">
+											<div scope="row" class="row_flex_title border_none">엔드유저 담당자</div>
+											<div class="row_flex_box">
+												<div class="input-group input-group-sm mb-0">
+													<select class="form-control" id="custmemberName" name="custmemberName" onchange="autoCompleteSelect(this);">
+														<option value="">선택</option>
+														<c:forEach var="row" items="${listCustMember}">
+															<option data-no="${row.custData03no}" value="${row.custMname}">${row.custMname}</option>
+														</c:forEach>
+													</select>
+													<input type="hidden" name="custmemberNo" id="custmemberNo" value="" />
+													<!-- <input type="text" class="form-control" name="custmemberName"  id="custmemberName" value="" autocomplete="off"/> -->
+													<%-- <span class="input-group-btn">
+														<button class="btn btn-primary sch-partner"
+															data-remote="${path}/modal/popup.do?popId=custmem&compNo="
+															type="button" data-toggle="modal" data-target="#custmemberModal"
+															id="custmemberModalbtn">
+															<i class="icofont icofont-search"></i>
+														</button>
+													</span>
+													<div class="modal fade " id="custmemberModal" tabindex="-1"
+														role="dialog">
+														<div class="modal-dialog modal-80size" role="document">
+															<div class="modal-content modal-80size">
+																<div class="modal-header">
+																	<h4 class="modal-title">고객 검색</h4>
+																	<button type="button" class="close" onclick="$('#custmemberModal').modal('hide');"
+																		aria-label="Close">
+																		<span aria-hidden="true">&times;</span>
+																	</button>
+																</div>
+																<div class="modal-body">
+																	<h5>엔드유저 담당자 목록</h5>
+																	<p>엔드유저(거래처)를 먼저 입력해주셔야 목록이 보입니다.</p>
+																</div>
+																<div class="modal-footer">
+																	<button type="button"
+																		class="btn btn-default waves-effect "
+																		onclick="$('#custmemberModal').modal('hide');">닫기</button>
+																</div>
+															</div>
+														</div>
+													</div> --%>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="row_flex border-bottom">
+									<div class="row_flex_wrap">
+										<div class="row_flex_content">
+											<div scope="row" class="row_flex_title">모델</div>
+											<div colspan="7" class="row_flex_box">
+												<input type="text" class="form-control form-control-sm"	id="techdItemmodel" name="techdItemmodel" placeholder="" value="${dto.techdItemmodel}">
+											</div>
+										</div>
+										<div class="row_flex_content">
+											<div class="row_flex_title">버전</div>
+											<div colspan="7" class="row_flex_box">
+												<input type="text" class="form-control form-control-sm"	id="techdItemversion" name="techdItemversion" placeholder="" value="${dto.techdItemversion}">
+											</div>
+										</div>
+									</div>
+									<div class="row_flex_wrap">
+										<div class="row_flex_content">
+											<div scope="row" class="row_flex_title">장소</div>
+											<div class="row_flex_box"><input type="text" class="form-control form-control-sm" id="techdPlace" name="techdPlace" placeholder=""></div>
+										</div>
+										<div class="row_flex_content">
+											<div scope="row" class="requiredTextCss row_flex_title" >담당사원</div>
+											<div class="width100">
+												<div class="input-group input-group-sm mb-0 row_flex_box">
+													<input type="text" class="form-control" name="userName" readonly id="userName" data-completeSet="true" value="${sessionScope.userName}" /> 
+													<input type="hidden" name="userNo" id="userNo" value="${sessionScope.userNo}" /> 
+													<%-- <span class="input-group-btn">
+														<button class="btn btn-primary sch-company"
+																data-remote="${path}/modal/popup.do?popId=user"
+																type="button" data-toggle="modal" data-target="#userModal">
+															<i class="icofont icofont-search"></i>
+														</button>
+													</span>
+													<div class="modal fade " id="userModal" tabindex="-1"
+														role="dialog">
+														<div class="modal-dialog modal-80size" role="document">
+															<div class="modal-content modal-80size">
+																<div class="modal-header">
+																	<h4 class="modal-title">담당사원 검색</h4>
+																	<button type="button" class="close" onclick="$('#userModal').modal('hide');"
+																			aria-label="Close">
+																		<span aria-hidden="true">&times;</span>
+																	</button>
+																</div>
+																<div class="modal-body">
+																	<h5>사용자목록</h5>
+																	<p>Loading!!!</p>
+																</div>
+																<div class="modal-footer">
+																	<button type="button"
+																			class="btn btn-default waves-effect "
+																			onclick="$('#userModal').modal('hide');">닫기</button>
+																</div>
+															</div>
+														</div>
+													</div> --%>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div>
+									<div class="row_flex_content block">
+										<div scope="row" class="requiredTextCss row_flex_title">지원일자</div>
+										<div colspan="3">
+											<!-- <div class="col-sm-9 f-left m-b-0 p-l-0"> -->
+												<div class="input-group input-group-sm mb-0 mr-1 row_flex_box">
+													<input class="form-control form-control-sm col-md-4 m-r-10" type="date" max="9999-12-30" id="techdFrom" name="techdFrom" onChange="javascript:inputDate(setDateHourMinute($('#techdFrom').val(), $('#startTime').val()), setDateHourMinute($('#techdTo').val(), $('#endTime').val()),this)">
+													<select id="startTime" style="width:100px" onChange="javascript:inputDate(setDateHourMinute($('#techdFrom').val(), $('#startTime').val()), setDateHourMinute($('#techdTo').val(), $('#endTime').val()),this)"></select>
+													<span style="line-height:30px;">&nbsp;~&nbsp;</span>
+													<input class="form-control form-control-sm col-md-4 m-r-10" type="date" max="9999-12-31" id="techdTo" name="techdTo" onChange="javascript:inputDate(setDateHourMinute($('#techdFrom').val(), $('#startTime').val()), setDateHourMinute($('#techdTo').val(), $('#endTime').val()),this)">
+													<select id="endTime" style="width:100px" onChange="javascript:inputDate(setDateHourMinute($('#techdFrom').val(), $('#startTime').val()), setDateHourMinute($('#techdTo').val(), $('#endTime').val()),this)"></select>
+												</div>
+											<!-- </div> -->
+										</div>
+									</div>
+									<div class="row_flex_wrap100">
+										<div class="row_flex_content">
+											<div scope="row" class="row_flex_title">지원형태</div>
+											<div class="row_flex_box"><select name="techdType" id="techdType" class="form-control form-control-sm">
 											<option value="">선택</option>
-									<c:forEach var="rows" items="${sprtstat}">
-									<option value="${rows.codeNo}">${rows.desc03}</option>
-									</c:forEach>
+											<c:forEach var="rows" items="${sprttype}">
+											<option value="${rows.codeNo}">${rows.desc03}</option>
+											</c:forEach>
+											</select></div>
+										</div>
+										<div class="row_flex_content">
+											<div scope="row" class="row_flex_title">진행단계</div>
+											<div class="row_flex_box"><select name="techdSteps" id="techdSteps"
+												class="form-control form-control-sm">
+													<option value="">선택</option>
+											<c:forEach var="rows" items="${sprtstat}">
+											<option value="${rows.codeNo}">${rows.desc03}</option>
+											</c:forEach>
 
-									</select></td>
-								</tr>
-								<tr>
-									<th scope="row">설명</th>
-									<td colspan="7"><textarea name="techdDesc" id="techdDesc" rows="8"
-											class="form-control"></textarea></td>
-								</tr>
+											</select></div>
+										</div>
+									</div>
+								</div>
+								<div>
+									<div scope="row">설명</div>
+									<div colspan="7"><textarea name="techdDesc" id="techdDesc" rows="8"
+											class="form-control"></textarea></div>
+								</div>
 							</tbody>
 						</table>
 					</div>

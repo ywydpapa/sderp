@@ -306,7 +306,7 @@ select.form-control:not([size]):not([multiple]) {
 .modal-dialog {
   width: auto;
   display: table;
-  min-width: 700px;
+  min-width: 1200px;
 }
 .modal-content {
   border: none;
@@ -377,6 +377,163 @@ select.form-control:not([size]):not([multiple]) {
   width: 84px !important;
 }
 .modal-content {
-  width: 120%;
+  /* width: 120%; */
   max-width: 1500px;
+}
+
+@media (min-width: 576px) {
+  .modal-dialog {
+    margin: 0 !important;
+  }
+}
+
+.modal-dialog {
+  position: absolute !important;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) !important;
+  margin: 0 !important;
+}
+
+/* 모달창 수정 css  */
+.table-responsive {
+  /* max-height: 500px; */
+}
+
+table {
+  width: 100%;
+}
+
+.row_flex {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  /* gap: 10px; */
+}
+.row_flex_wrap {
+  display: flex;
+  align-items: center;
+  width: 50%;
+  /* gap: 20px; */
+}
+.row_flex_content {
+  width: 50%;
+  display: flex;
+  align-items: center;
+  border-top: 1px solid #ddd;
+}
+
+.row_flex_title {
+  padding: 0.3rem 1rem;
+  /* border-bottom: 1px solid #ddd; */
+  background: #f8f8f8;
+  min-width: 50%;
+  text-align: center;
+}
+
+/* 모달창 media 쿼리  */
+/* @media screen and (max-width: 1100px) {
+  .table-sm > tbody > tr,
+  .table-sm > tbody > tr > th {
+    display: block !important;
+  }
+} */
+
+@media (max-width: 1100px) {
+  .modal-content {
+    max-width: 700px;
+  }
+  .modal-dialog {
+    min-width: 500px;
+    width: 700px;
+  }
+  .radio-inline {
+    display: inline-block !important;
+  }
+  .col_wrap {
+    max-height: 500px;
+    overflow-y: scroll;
+  }
+  .row_flex_title {
+    min-width: 30%;
+  }
+  .row_flex_box {
+    min-width: 70%;
+  }
+  .row_flex {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    width: 100%;
+  }
+  .row_flex_wrap {
+    display: block;
+    width: 100%;
+  }
+  .row_flex_wrap100 {
+    display: block !important;
+  }
+  .row_flex_content {
+    width: 100%;
+  }
+  .techdDetailSopp {
+    width: 100%;
+  }
+  .block {
+    display: block !important;
+  }
+}
+
+@media (max-width: 425px) {
+  .modal-content {
+    max-width: 400px;
+  }
+  .modal-dialog {
+    min-width: 400px !important;
+    width: 400px;
+  }
+}
+
+.row_flex_title {
+  border-left: 1px solid #ddd;
+  background: #f8f8f8;
+  padding: 0.6rem 0.1rem;
+  vertical-align: middle;
+  border-right: 1px solid #ddd;
+  font-size: 14px;
+}
+
+.row_flex_box {
+  width: 100%;
+  padding: 0.25rem 0.3rem;
+}
+
+.border_none {
+  border-top: none !important;
+}
+
+.width100 {
+  width: 100%;
+}
+.techdDetailSopp {
+  width: 100%;
+}
+.mr-1 {
+  padding: 0.3rem;
+  border-left: 1px solid #ddd;
+  border-right: 1px solid #ddd;
+}
+
+.row_flex_wrap100 {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  border-bottom: 1px solid #ddd;
+}
+
+.border-bottom {
+  border-bottom: 1px solid #ddd;
+}
+
+.block {
+  display: flex;
 }

@@ -508,14 +508,14 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
         .replace(/[\D\s\._\-]+/g, "");
 
       var productRemark = "";
+      var content = tinyMCE.get("data02Remark").getContent();
 			if(content !== "")		{
-        var content = tinyMCE.get("data02Remark").getContent();
 				productRemark = await uploadImage(content, "${path}").replaceAll('"', "'");;
 			} 
 
       var productSpec = "";
+      var content = tinyMCE.get("data02Spec").getContent();
 			if(content !== "")		{
-        var content = tinyMCE.get("data02Spec").getContent();
 				productSpec = await uploadImage(content, "${path}").replaceAll('"', "'");;
 			} 
 
@@ -678,14 +678,14 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
           );
 
       var productRemark = "";
+      var content = tinyMCE.get("data02Remark").getContent();
 			if(content !== "")		{
-        var content = tinyMCE.get("data02Remark").getContent();
 				productRemark = await uploadImage(content, "${path}").replaceAll('"', "'");;
 			} 
 
       var productSpec = "";
+      var content = tinyMCE.get("data02Spec").getContent();
 			if(content !== "")		{
-        var content = tinyMCE.get("data02Spec").getContent();
 				productSpec = await uploadImage(content, "${path}").replaceAll('"', "'");;
 			} 
 
@@ -796,6 +796,7 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
     var data02Data = {};
     var updateData = {};
     var dataInfo = {};
+    var content = tinyMCE.get("estComSpec").getContent();
 
     if ($("#estTitle").val() === "") {
       alert("견적제목을 입력해주세요.");
@@ -825,7 +826,7 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
       alert("견적서 유효기간을 입력해주십시오.");
       $("#estComTerm").focus();
       return false;
-    } else if (tinyMCE.get("estComSpec").getContent() === "") {
+    } else if (content === "") {
       alert("Spec을 입력해주십시오.");
       $("#estComSpec").focus();
       return false;
@@ -845,7 +846,6 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
       var estComSpec = "";
 			if(content !== "")		{
-        var content = tinyMCE.get("estComSpec").getContent();
 				estComSpec = await uploadImage(content, "${path}").replaceAll('"', "'");;
 			} 
 
@@ -1052,7 +1052,7 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
     }
   }
 
-  function fn_data02Update() {
+  async function fn_data02Update() {
     var getDate = new Date();
 
     var year = getDate.getFullYear();
@@ -1179,11 +1179,10 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
                   dataInfoUpdate.estComAdd = $("#estComAdd").val();
                   dataInfoUpdate.estComPhone = $("#estComPhone").val();
                   dataInfoUpdate.estComFax = $("#estComFax").val();
-                  dataInfoUpdate.estComTerm = $("#estComTerm").val();
-                  dataInfoUpdate.estComSpec = tinyMCE
-                    .get("estComSpec")
-                    .getContent()
-                    .replaceAll('"', "'");
+                  dataInfoUpdate.estComTerm = $("#estComTerm").val();   
+
+                  var schedDescContent = tinyMCE.get("schedDesc").getContent();
+                  dataInfoUpdate.estComSpec = await uploadImage(schedDescContent, "${path}").replaceAll('"', "'");
 
                   $.ajax({
                     url: "${path}/gw/estInfoUpdate.do",
@@ -1201,10 +1200,8 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
                       dataInfoInsert.estComPhone = $("#estComPhone").val();
                       dataInfoInsert.estComFax = $("#estComFax").val();
                       dataInfoInsert.estComTerm = $("#estComTerm").val();
-                      dataInfoInsert.estComSpec = tinyMCE
-                        .get("estComSpec")
-                        .getContent()
-                        .replaceAll('"', "'");
+                      var estComSpecContent = tinyMCE.get("estComSpec").getContent();
+                      dataInfoInsert.estComSpec = await uploadImage(estComSpecContent, "${path}").replaceAll('"', "'");
 
                       $.ajax({
                         url: "${path}/gw/estInfoInsert.do",

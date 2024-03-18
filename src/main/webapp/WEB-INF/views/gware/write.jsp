@@ -5,7 +5,10 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> <%@ taglib prefix="fmt"
 uri="http://java.sun.com/jsp/jstl/fmt" %> <%@ taglib prefix="fn"
 uri="http://java.sun.com/jsp/jstl/functions"%>
-
+<!DOCTYPE html>
+<html>
+  <jsp:include page="../head.jsp" />
+  <jsp:include page="../body-top2.jsp" />
 <link href="${path}/fullcalendar4/core/main.css" rel="stylesheet" />
 <link href="${path}/fullcalendar4/daygrid/main.css" rel="stylesheet" />
 <link href="${path}/fullcalendar4/bootstrap/main.css" rel="stylesheet" />
@@ -311,10 +314,8 @@ uri="http://java.sun.com/jsp/jstl/functions"%>
   }
 </style>
 
-<!DOCTYPE html>
-<html>
-  <jsp:include page="../head.jsp" />
-  <jsp:include page="../body-top2.jsp" />
+
+
 
   <div id="main_content">
     <!-- Page-header start 페이지 타이틀-->

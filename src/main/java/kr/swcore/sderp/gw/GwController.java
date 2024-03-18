@@ -7,9 +7,11 @@ import kr.swcore.sderp.gw.dto.GwDTO;
 import kr.swcore.sderp.gw.dto.GwFileDataDTO;
 import kr.swcore.sderp.gw.service.GwService;
 import kr.swcore.sderp.product.service.ProductService;
+import kr.swcore.sderp.sopp.dto.SoppDTO;
 import kr.swcore.sderp.sopp.service.SoppService;
 import kr.swcore.sderp.organiz.Service.OrganizService;
 import kr.swcore.sderp.user.service.UserService;
+import kr.swcore.sderp.util.service.UtilService;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -54,6 +56,9 @@ public class GwController {
 
     @Inject
     OrganizService organizService;
+
+    @Inject
+    UtilService utilService;
 
     @RequestMapping("list.do")
     public ModelAndView docList(HttpSession session, ModelAndView mav) {
@@ -191,6 +196,7 @@ public class GwController {
 
     @RequestMapping("purDetail/{docNo}")
     public ModelAndView purDetail(HttpSession session, @PathVariable("docNo") int docNo, ModelAndView mav) {
+
         mav.addObject("detailList", gwService.detailDoc(docNo));
         mav.addObject("detailListApp", gwService.detailDocApp(docNo));
         mav.addObject("detailListData", gwService.detailDocData(docNo));
@@ -283,6 +289,22 @@ public class GwController {
     public ModelAndView estdetail(@PathVariable String estId, @PathVariable int estVer, HttpSession session,
             ModelAndView mav, GwDTO dto) {
         mav.setViewName("gware/estdetail");
+
+        // 견적서 출력 정보 estComSpec
+        // Spec 견적 정보 data02Spec
+        // 비고 data02Remark
+
+        // SoppDTO soppDTO = soppService.detailSopp(soppNo);
+        // String soppDesc = soppDTO.getSoppDesc();
+
+        // List<String> uuids = utilService.extractUuidsFromHtml(soppDesc);
+
+        // for (String uuid : uuids) {
+        // String base64 = utilService.getBase64FromServer(uuid);
+        // if (soppDesc != null) {
+        // soppDesc = soppDesc.replace(uuid, "data:image/png;base64," + base64);
+        // }
+        // }
         mav.addObject("detail", gwService.detailEst(dto));
         mav.addObject("list", gwService.listEstitems(dto));
         mav.addObject("infoItem", gwService.infoGetItem(dto));

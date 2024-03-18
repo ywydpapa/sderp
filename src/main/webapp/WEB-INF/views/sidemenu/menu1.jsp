@@ -165,7 +165,7 @@
 				</li>
 			</ul>
 		</li>
-		<li class="pcoded-hasmenu pcoded <c:if test="${path2 eq '/pps/ppslist.do' || path2 eq '/pps/ppsStatusList.do'|| path2 eq '/pps/mppsStatusList.do' || fn:startsWith(path2, '/pps/ppsdetail') || fn:startsWith(path2, '/pps/statusdetail')}">pcoded-trigger</c:if>">
+		<%-- <li class="pcoded-hasmenu pcoded <c:if test="${path2 eq '/pps/ppslist.do' || path2 eq '/pps/ppsStatusList.do'|| path2 eq '/pps/mppsStatusList.do' || fn:startsWith(path2, '/pps/ppsdetail') || fn:startsWith(path2, '/pps/statusdetail')}">pcoded-trigger</c:if>">
 			<a href="javascript:void(0)">
 					<span class="pcoded-micon">
 						<i class="ti-package"></i>
@@ -183,15 +183,17 @@
 						<span class="pcoded-mcaret"></span>
 					</a>
 				</li>
-				<%-- <li class="pcoded-hasmenu">
-					<a href="${path}/pps/ppsStatusList.do">
-						<span class="pcoded-micon">
-							<i class="ti-angle-right"></i>
-						</span>
-						<span class="pcoded-mtext" data-i18n="nav.menu-levels.menu-level-22">조달 진행 상황</span>
-						<span class="pcoded-mcaret"></span>
-					</a>
-				</li> --%>
+
+					<li class="pcoded-hasmenu">
+						<a href="${path}/pps/ppsStatusList.do">
+							<span class="pcoded-micon">
+								<i class="ti-angle-right"></i>
+							</span>
+							<span class="pcoded-mtext" data-i18n="nav.menu-levels.menu-level-22">조달 진행 상황</span>
+							<span class="pcoded-mcaret"></span>
+						</a>
+					</li>
+
 				<li class="pcoded-hasmenu">
 					<a href="${path}/pps/mppsStatusList.do">
 						<span class="pcoded-micon">
@@ -202,7 +204,8 @@
 					</a>
 				</li>
 			</ul>
-		</li>
+		</li> --%>
+		
 		<c:if test="${sessionScope.userRole eq 'ADMIN'}">
 			<li class="pcoded-hasmenu pcoded <c:if test="${path2 eq '/sopp/list2.do' || path2 eq '/sopp/list2.do' || fn:startsWith(path2, '/sopp/detail2')}">pcoded-trigger</c:if>">
 				<a href="javascript:void(0)">

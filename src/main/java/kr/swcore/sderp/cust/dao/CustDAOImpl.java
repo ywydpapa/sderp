@@ -25,6 +25,11 @@ public class CustDAOImpl implements CustDAO {
 	public List<CustDTO> listCust(SoppDTO soppdto) {
 		return sqlSession.selectList("cust.listCust", soppdto);
 	}
+	
+	@Override
+	public List<CustDTO> tempListCust(SoppDTO soppdto) {
+		return sqlSession.selectList("cust.tempListCust", soppdto);
+	}
 
 	@Override
 	public CustDTO detailCust(int custNo) {
@@ -48,6 +53,12 @@ public class CustDAOImpl implements CustDAO {
 	public int updateCust01(CustDTO dto) {
 		// TODO Auto-generated method stub
 		return sqlSession.update("cust.updateCust", dto);
+	}
+	
+	@Override
+	public int updateCustTemp(CustDTO dto) {
+		// TODO Auto-generated method stub
+		return sqlSession.update("cust.updateCustTemp", dto);
 	}
 
 	@Override
@@ -157,5 +168,27 @@ public class CustDAOImpl implements CustDAO {
 	@Override
 	public List<CustDTO> listCustNameSimilarCheck(CustDTO custDTO) {
 		return sqlSession.selectList("cust.listCustNameSimilarCheck", custDTO);
+	}
+
+	@Override
+	public CustDTO sessionSelectCust(int custCompNo) {
+		return sqlSession.selectOne("cust.sessionSelectCust", custCompNo);
+	}
+
+	@Override
+	public int tempSelectCustInsert(CustDTO dto) {
+		// TODO Auto-generated method stub
+		return sqlSession.insert("cust.tempSelectCustInsert",dto);
+	}
+
+	@Override
+	public List<CustDTO> listCustMember(SoppDTO soppDto) {
+		return sqlSession.selectList("cust.listCustMember", soppDto);
+	}
+	
+	@Override
+	public List<CustDTO> getAllDataList(int compNo) {
+		return sqlSession.selectList("cust.getAllCustDataList",compNo);
+		
 	}
 }

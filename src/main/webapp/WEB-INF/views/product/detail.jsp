@@ -47,7 +47,7 @@
 								<p>
 									- 복제 순서<br/>
 									1) 복제버튼 클릭<br/>
-									2) 기본정보 탭 > <span style="color: red">공급사 / 제품그룹 / 상품명</span>중 1개 이상 변경<br/>
+									2) 기본정보 탭 > <span style="color: red">고객사 / 제품그룹 / 상품명</span>중 1개 이상 변경<br/>
 									3) 상세정보 탭 > 하위상품 수정 또는 삭제<br/>
 									4) 등록<br/>
 									<br/>
@@ -76,17 +76,23 @@
 												</td>
 											</tr>
 											<tr>
-												<th scope="row" class="requiredTextCss">공급사</th>
+												<th scope="row" class="requiredTextCss">고객사</th>
 												<td>
 													<div class="input-group input-group-sm mb-0">
-														<input name="product" id ="custName" value="${dto.custName}" class="form-control form-control-sm" readonly>
+														<select class="form-control" id="custName" name="custName" onchange="autoCompleteSelect(this);">
+															<option value="">선택</option>
+															<c:forEach var="row" items="${listCust}">
+																<option data-no="${row.custNo}" value="${row.custName}" <c:if test="${row.custName eq dto.custName}">selected</c:if>>${row.custName}</option>
+															</c:forEach>
+														</select>
 														<input type="hidden" id ="custNo" value="${dto.custNo}" class="form-control form-control-sm">
-														<span class="input-group-btn">
+														<%-- <input name="product" id ="custName" value="${dto.custName}" class="form-control form-control-sm" autocomplete="off"> --%>
+														<%-- <span class="input-group-btn">
 															<button class="btn btn-primary sch-company" data-remote="${path}/modal/popup.do?popId=cust" type="button" data-toggle="modal" data-target="#custModal"><i class="icofont icofont-search"></i></button>
-														</span>
+														</span> --%>
 													</div>
 													<!--모달 팝업-->
-													<div class="modal fade" id="custModal" tabindex="-1" role="dialog">
+													<%-- <div class="modal fade" id="custModal" tabindex="-1" role="dialog">
 														<div class="modal-dialog modal-80size" role="document">
 															<div class="modal-content modal-80size">
 																<div class="modal-header">
@@ -100,7 +106,7 @@
 																	<p>거래처 목록이 불러오는 중이거나 없습니다.</p>
 																</div>
 																<div class="modal-footer">
-																	<button type="button" class="btn btn-default waves-effect " data-dismiss="modal">Close</button>
+																	<button type="button" class="btn btn-default waves-effect " data-dismiss="modal">닫기</button>
 																	<button type="button" class="btn btn-success waves-effect" id="custRegSimple">간편추가</button>
 																</div>
 																<div style="display: none; border: solid; width: 80%; margin: auto; margin-bottom: 5px;" id="custRegSimple_div">
@@ -126,7 +132,7 @@
 																</div>
 															</div>
 														</div>
-													</div>
+													</div> --%>
 													<!--//모달 팝업-->
 												</td>
 											</tr>
@@ -134,14 +140,20 @@
 												<th scope="row" class="requiredTextCss">제품그룹</th>
 												<td>
 													<div class="input-group input-group-sm mb-0">
-														<input name="product" id ="productCategoryName" value="${dto.productCategoryName}" class="form-control form-control-sm">
+														<select class="form-control" id="productCategoryName" name="productCategoryName" onchange="autoCompleteSelect(this);">
+															<option value="">선택</option>
+															<c:forEach var="row" items="${categoryList}">
+																<option data-no="${row.productNo}" value="${row.productCategoryName}" <c:if test="${row.productCategoryName eq dto.productCategoryName}">selected</c:if>>${row.productCategoryName}</option>
+															</c:forEach>
+														</select>
 														<input type="hidden" name="product" id ="productCategoryNo" value="${dto.productCategoryNo}" class="form-control form-control-sm">
-														<span class="input-group-btn">
+														<%-- <input name="product" id ="productCategoryName" value="${dto.productCategoryName}" class="form-control form-control-sm"> --%>
+														<%-- <span class="input-group-btn">
 															<button class="btn btn-primary sch-company" data-remote="${path}/modal/popup.do?popId=productGoodsCategory" type="button" data-toggle="modal" data-target="#productCategoryModal"><i class="icofont icofont-search"></i></button>
-														</span>
+														</span> --%>
 													</div>
 													<!--모달 팝업-->
-													<div class="modal fade" id="productCategoryModal" tabindex="-1" role="dialog">
+													<!-- <div class="modal fade" id="productCategoryModal" tabindex="-1" role="dialog">
 														<div class="modal-dialog modal-80size" role="document">
 															<div class="modal-content modal-80size">
 																<div class="modal-header">
@@ -155,18 +167,18 @@
 																	<p>등록된 카테고리가 없거나 로딩중입니다.</p>
 																</div>
 																<div class="modal-footer">
-																	<button type="button" class="btn btn-default waves-effect " data-dismiss="modal">Close</button>
+																	<button type="button" class="btn btn-default waves-effect " data-dismiss="modal">닫기</button>
 																</div>
 															</div>
 														</div>
-													</div>
+													</div> -->
 													<!--//모달 팝업-->
 												</td>
 											</tr>
 											<tr>
 												<th scope="row" class="requiredTextCss">상품명</th>
 												<td>
-													<input name="product" id ="productName" value="${dto.productName}" class="form-control form-control-sm">
+													<input name="product" id ="productName" value="${dto.productName}" data-completeSet="true" class="form-control form-control-sm">
 												</td>
 											</tr>
 											<tr>
@@ -196,7 +208,7 @@
 								<p>
 									- 복제 순서<br/>
 									1) 복제버튼 클릭<br/>
-									2) 기본정보 탭 > <span style="color: red">공급사 / 제품그룹 / 상품명</span>중 1개 이상 변경<br/>
+									2) 기본정보 탭 > <span style="color: red">고객사 / 제품그룹 / 상품명</span>중 1개 이상 변경<br/>
 									3) 상세정보 탭 > 하위상품 수정 또는 삭제<br/>
 									4) 등록<br/>
 									<br/>
@@ -542,7 +554,7 @@
 		}
 
 		if(fn_oldDiffNew()){
-			alert("기존 공급사 / 제품그룹 / 상품명과 동일합니다.");
+			alert("기존 고객사 / 제품그룹 / 상품명과 동일합니다.");
 			return false;
 		}
 
@@ -564,7 +576,7 @@
 		}
 		productData.productDefaultPrice = Number(productDefaultPrice);			// 상품 기본 가격
 		productData.productDesc	 		= $("#productDesc").val();				// 상품 설명
-		productData.custNo				= $("#custNo").val();					// 공급사(외래키)
+		productData.custNo				= $("#custNo").val();					// 고객사(외래키)
 
 		var productdataDTOList = new Array();
 		var tableData = $("#tab02").find("tbody tr");
@@ -618,14 +630,18 @@
 	}
 
 	function fn_productUpdate() {
-		if(fn_itemDuplicate()){
-			alert("항목은 중복으로 저장할수 없습니다.");
-			return false;
-		}
-
-		if(necessaryCheck()){
-			alert("기본정보 탭에 있는 필수값을 입력해주십시오. 가격은 양의 숫자만 가능합니다.(콤마가능)");
-			return false;
+		if($("#custName").val() === ""){
+			alert("고객사를 입력해주세요.");
+			$("#custName").focus();
+			return;
+		} else if($("#productName").val() === ""){
+			alert("상품명을 입력해주세요.");
+			$("#productName").focus();
+			return;
+		} else if($("#productDefaultPrice").val() === ""){
+			alert("상품 가격을 입력해주세요.");
+			$("#productDefaultPrice").focus();
+			return;
 		}
 
 		var productData 				= new Object();
@@ -643,7 +659,7 @@
 		}
 		productData.productDefaultPrice = Number(productDefaultPrice);			// 상품 기본 가격
 		productData.productDesc	 		= $("#productDesc").val();				// 상품 설명
-		productData.custNo				= $("#custNo").val();					// 공급사(외래키)
+		productData.custNo				= $("#custNo").val();					// 고객사(외래키)
 
 		var productdataDTOList = new Array();
 		var tableData = $("#tab02").find("tbody tr");

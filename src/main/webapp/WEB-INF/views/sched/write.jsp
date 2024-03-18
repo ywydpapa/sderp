@@ -31,36 +31,39 @@
 					<div class="table-responsive">
 						<table class="table table-sm bst02">
 							<colgroup>
-								<col width="15%" />
-								<col width="35%" />
-								<col width="15%" />
-								<col width="35%" />
+								<col width="5%"/>
+								<col width="15%"/>
+								<col width="5%"/>
+								<col width="15%"/>
+								<col width="5%"/>
+								<col width="15%"/>
+								<col width="5%"/>
+								<col width="15%"/>
 							</colgroup>
 							<tbody>
 								<tr>
 									<th scope="row" class="requiredTextCss">일정일자</th>
 									<td colspan="3">
 										<div class="input-group input-group-sm mb-0 mr-1">
-											<input class="form-control form-control-sm col-md-4 m-r-10" type="date" id="schedSdate" value="" onChange="javascript:inputDate(setDateHourMinute($('#schedSdate').val(), $('#startTime').val()), setDateHourMinute($('#schedEdate').val(), $('#endTime').val()), this)">
+											<input class="form-control col-xl-2" style="width:400px" type="date" max="9999-12-30" id="schedSdate" name="schedSdate" onChange="javascript:inputDate(setDateHourMinute($('#schedSdate').val(), $('#startTime').val()), setDateHourMinute($('#schedEdate').val(), $('#endTime').val()), this)">
 											<select id="startTime" style="width:100px" onChange="javascript:inputDate(setDateHourMinute($('#schedSdate').val(), $('#startTime').val()), setDateHourMinute($('#schedEdate').val(), $('#endTime').val()), this)"></select>
-											<span> ~ </span>
-											<input class="form-control form-control-sm col-md-4 m-r-10" type="date" id="schedEdate" value="" onChange="javascript:inputDate(setDateHourMinute($('#schedSdate').val(), $('#startTime').val()), setDateHourMinute($('#schedEdate').val(), $('#endTime').val()), this)">
+											<span style="line-height:30px;">&nbsp;~&nbsp;</span>
+											<input class="form-control col-xl-2" type="date" id="schedEdate" name="schedEdate" max="9999-12-31" onChange="javascript:inputDate(setDateHourMinute($('#schedSdate').val(), $('#startTime').val()), setDateHourMinute($('#schedEdate').val(), $('#endTime').val()), this)">
 											<select id="endTime" style="width:100px" onChange="javascript:inputDate(setDateHourMinute($('#schedSdate').val(), $('#startTime').val()), setDateHourMinute($('#schedEdate').val(), $('#endTime').val()), this)"></select>
 										</div>
 									</td>
 								</tr>
 								<tr>
 									<th scope="row">장소</th>
-									<td><input type="text" class="form-control form-control-sm"
+									<td><input type="text" class="form-control"
 										id="schedPlace" name="schedPlace" placeholder="장소를 입력하세요">
 									</td>
-									<th scope="row">계약 관련</th>
+									<%-- <th scope="row">계약 관련</th>
 									<td>
 										<div class="input-group input-group-sm mb-0">
-											<input type="text" class="form-control" name="contTitle"
-												id="contTitle" value="" readonly /> <input type="hidden"
-												name="contNo" id="contNo" value="" /> <span
-												class="input-group-btn">
+											<input type="text" class="form-control" name="contTitle" id="contTitle" autocomplete="off"> 
+											<input type="hidden" name="contNo" id="contNo" value="" /> 
+											<span class="input-group-btn">
 												<button class="btn btn-primary sch-opportunity2"
 													data-remote="${path}/modal/popup.do?popId=cont"
 													type="button" data-toggle="modal" data-target="#contModal">
@@ -85,22 +88,32 @@
 														<div class="modal-footer">
 															<button type="button"
 																class="btn btn-default waves-effect "
-																onclick="$('#contModal').modal('hide');">Close</button>
+																onclick="$('#contModal').modal('hide');">닫기</button>
 														</div>
 													</div>
 												</div>
 											</div>
 										</div>
-									</td>
-								</tr>
-								<tr>
-									<th scope="row">영업기회</th>
+									</td> --%>
+									<th scope="row" class="requiredTextCss">담당사원</th>
 									<td>
 										<div class="input-group input-group-sm mb-0">
-											<input type="text" class="form-control" name="soppTitle"
-												id="soppTitle" value="" readonly /> <input type="hidden"
-												name="soppNo" id="soppNo" value="" /> <span
-												class="input-group-btn">
+											<input type="text" class="form-control" name="userName" id="userName" data-completeSet="true" value="${sessionScope.userName}" autocomplete="off" readonly /> 
+											<input type="hidden" name="userNo" id="userNo" value="${sessionScope.userNo}" /> 
+										</div>
+									</td>
+									<th scope="row">영업기회</th>
+									<td colspan="3">
+										<div class="input-group input-group-sm mb-0">
+											<select class="form-control" id="soppTitle" name="soppTitle" onchange="autoCompleteSelect(this);">
+												<option value="">선택</option>
+												<c:forEach var="row" items="${listSopp}">
+													<option data-no="${row.soppNo}" value="${row.soppTitle}">${row.soppTitle}</option>
+												</c:forEach>
+											</select>
+											<input type="hidden" name="soppNo" id="soppNo" value="" /> 
+											<!-- <input type="text" class="form-control" name="soppTitle" id="soppTitle" autocomplete="off"> --> 
+											<%-- <span class="input-group-btn">
 												<button class="btn btn-primary sch-opportunity2"
 													data-remote="${path}/modal/popup.do?popId=sopp"
 													type="button" data-toggle="modal" data-target="#soppModal">
@@ -125,49 +138,11 @@
 														<div class="modal-footer">
 															<button type="button"
 																class="btn btn-default waves-effect "
-																onclick="$('#soppModal').modal('hide');">Close</button>
+																onclick="$('#soppModal').modal('hide');">닫기</button>
 														</div>
 													</div>
 												</div>
-											</div>
-										</div>
-									</td>
-									<th scope="row" class="requiredTextCss">담당사원</th>
-									<td>
-										<div class="input-group input-group-sm mb-0">
-											<input type="text" class="form-control" name="userName"
-												id="userName" value="${sessionScope.userName}" readonly /> <input type="hidden"
-												name="userNo" id="userNo" value="${sessionScope.userNo}" /> <span
-												class="input-group-btn">
-												<button class="btn btn-primary sch-company"
-													data-remote="${path}/modal/popup.do?popId=user"
-													type="button" data-toggle="modal" data-target="#userModal">
-													<i class="icofont icofont-search"></i>
-												</button>
-											</span>
-											<div class="modal fade " id="userModal" tabindex="-1"
-												role="dialog">
-												<div class="modal-dialog modal-80size" role="document">
-													<div class="modal-content modal-80size">
-														<div class="modal-header">
-															<h4 class="modal-title"></h4>
-															<button type="button" class="close" onclick="$('#userModal').modal('hide');"
-																aria-label="Close">
-																<span aria-hidden="true">&times;</span>
-															</button>
-														</div>
-														<div class="modal-body">
-															<h5>사용자목록</h5>
-															<p>Loading!!!</p>
-														</div>
-														<div class="modal-footer">
-															<button type="button"
-																class="btn btn-default waves-effect "
-																onclick="$('#userModal').modal('hide');">Close</button>
-														</div>
-													</div>
-												</div>
-											</div>
+											</div> --%>
 										</div>
 									</td>
 								</tr>
@@ -175,10 +150,15 @@
 									<th scope="row">매출처</th>
 									<td>
 										<div class="input-group input-group-sm mb-0">
-											<input type="text" class="form-control" name="custName"
-												id="custName" value="" readonly /> <input type="hidden"
-												name="custNo" id="custNo" value="" /> <span
-												class="input-group-btn">
+											<select class="form-control" id="custName" name="custName" onchange="autoCompleteSelect(this);">
+												<option value="">선택</option>
+												<c:forEach var="row" items="${listCust}">
+													<option data-no="${row.custNo}" value="${row.custName}">${row.custName}</option>
+												</c:forEach>
+											</select>
+											<input type="hidden" name="custNo" id="custNo" value="" />
+											<!-- <input type="text" class="form-control" name="custName" id="custName" autocomplete="off"> -->
+											<%-- <span class="input-group-btn">
 												<button class="btn btn-primary sch-company"
 													data-remote="${path}/modal/popup.do?popId=cust"
 													type="button" data-toggle="modal" data-target="#custModal">
@@ -203,22 +183,22 @@
 														<div class="modal-footer">
 															<button type="button"
 																class="btn btn-default waves-effect "
-																onclick="$('#custModal').modal('hide');">Close</button>
+																onclick="$('#custModal').modal('hide');">닫기</button>
 														</div>
 													</div>
 												</div>
-											</div>
+											</div> --%>
 										</div>
 									</td>
-									<th scope="row">엔드유저</th>
+									<%-- <th scope="row">엔드유저</th>
 									<td>
 										<div class="input-group input-group-sm mb-0">
-											<input type="text" class="form-control" name="ptncName"
-												id="ptncName" value="" readonly />
-											<input type="hidden"
-												name="ptncNo" id="ptncNo" value="" />
-											<span
-												class="input-group-btn">
+											<input type="text" class="form-control" name="ptncName" id="ptncName" autocomplete="off">
+											<input type="hidden" name="ptncNo" id="ptncNo" value="" />
+											
+											<input type="text" class="form-control" name="ptncName" id="ptncName" value="" readonly />
+											<input type="hidden" name="ptncNo" id="ptncNo" value="" />
+											<span class="input-group-btn">
 												<button class="btn btn-dark sch-partner"
 													data-remote="${path}/modal/popup.do?popId=ptnc"
 													type="button" data-toggle="modal" data-target="#ptncModal" disabled>
@@ -243,26 +223,24 @@
 														<div class="modal-footer">
 															<button type="button"
 																class="btn btn-default waves-effect "
-																onclick="$('#ptncModal').modal('hide');">Close</button>
+																onclick="$('#ptncModal').modal('hide');">닫기</button>
 														</div>
 													</div>
 												</div>
 											</div>
 										</div>
-									</td>
-								</tr>
-								<tr>
-									<th scope="row">일정구분</th>
+									</td> --%>
+									<%-- <th scope="row">일정구분</th>
 									<td><select name="schedType" id="schedType"
-										class="form-control form-control-sm">
+										class="form-control">
 											<option value="">기타일정</option>
-											<%-- <c:forEach var="schedtype" items="${schedtype}">
+											<c:forEach var="schedtype" items="${schedtype}">
 												<option value="${schedtype.codeNo}">${schedtype.desc03}</option>
-											</c:forEach> --%>
-									</select></td>
+											</c:forEach>
+									</select></td> --%>
 									<th scope="row">활동형태</th>
 									<td><select name="schedCat" id="schedCat"
-										class="form-control form-control-sm">
+										class="form-control">
 											<option value="">선택</option>
 											<c:forEach var="acttype" items="${acttype}">
 												<option value="${acttype.codeNo}">${acttype.desc03}</option>
@@ -271,13 +249,11 @@
 								</tr>
 								<tr>
 									<th scope="row" class="requiredTextCss">제목</th>
-									<td colspan="3"><input type="text"
-										class="form-control form-control-sm" id="schedTitle"
-										name="schedTitle" placeholder=""></td>
+									<td colspan="7"><input type="text" class="form-control" id="schedTitle" name="schedTitle" placeholder=""></td>
 								</tr>
 								<tr>
 									<th scope="row">내용</th>
-									<td colspan="3"><textarea name="schedDesc" id="schedDesc"
+									<td colspan="7"><textarea name="schedDesc" id="schedDesc"
 											rows="8" class="form-control"></textarea></td>
 								</tr>
 							</tbody>
@@ -292,8 +268,9 @@
 			</div>
 		</div>
 	</div>
-	<!--//일정등록-->
+	<!--일정등록-->
 
+	<script type="text/javascript" src="${path}/js/image.js"></script>
 	<script>
 		$('#soppModal').on('show.bs.modal', function(e) {
 			var button = $(e.relatedTarget);
@@ -351,7 +328,7 @@
 			$("#contModal").modal("hide");
 		}
 
-		function fn_SaveSched() {
+		async function fn_SaveSched() {
 			var schedData = {};
 			schedData.schedFrom = setDateHourMinute($("#schedSdate").val(), $("#startTime").val()); 
 			schedData.schedTo = setDateHourMinute($("#schedEdate").val(), $("#endTime").val());
@@ -360,39 +337,56 @@
 			schedData.userNo 		= $("#userNo").val();
 			schedData.custNo 		= $("#custNo").val() ? Number($("#custNo").val()) : 0;
 			schedData.soppNo 		= $("#soppNo").val() ? Number($("#soppNo").val()) : 0;
-			schedData.schedDesc 		= $("#schedDesc").val();
-			schedData.schedType 		= $("#schedType").val();
+			
+			if($("textarea").attr("style") === "display: none;"){
+				var content = tinyMCE.get("schedDesc").getContent();
+				schedData.schedDesc  = await uploadImage(content, "${path}");
+			}else{
+				schedData.schedDesc 		= $("#schedDesc").val();
+			}
+			
+			schedData.schedType 		= $("#schedType").val() ? Number($("#schedType").val()) : 0;
 			schedData.schedCat 		= $("#schedCat").val();
 			schedData.contNo		= $("#contNo").val() ? Number($("#contNo").val()) : 0;
+			schedData.schedCheck = 1;
 			
-			$.ajax({ url: "${path}/sched/insert.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소 
-						data: schedData , // HTTP 요청과 함께 서버로 보낼 데이터 
-						method: "POST", // HTTP 요청 메소드(GET, POST 등) 
-						dataType: "json" // 서버에서 보내줄 데이터의 타입 
-					}) // HTTP 요청이 성공하면 요청한 데이터가 done() 메소드로 전달됨. .
-					.done(function(data) {
-						if(data.code == 10001){
-							alert("저장 성공");
-							var eventModal = $('#eventModal');
-							if(eventModal[0]) {
-								$(".modal-backdrop").remove();
-								var url ='${path}/calendar/calmain.do';
-								location.href = url;
-							}else {
-								var url = '${path}/sched/list.do';
-								location.href = url;
-							}
-						}else{
-							alert("저장 실패");
+			if(!schedData.schedFrom || !schedData.schedTo){
+				alert("일정일자를 선택하십시오.");
+				return
+			}else if(!schedData.schedTitle){
+				alert("제목을 입력하십시오.");
+				return;
+			}else{
+				$.ajax({ 
+					url: "${path}/sched/insert.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소 
+					data: schedData , // HTTP 요청과 함께 서버로 보낼 데이터 
+					method: "POST", // HTTP 요청 메소드(GET, POST 등) 
+					dataType: "json" // 서버에서 보내줄 데이터의 타입 
+				}) // HTTP 요청이 성공하면 요청한 데이터가 done() 메소드로 전달됨. .
+				.done(function(data) {
+					if(data.code == 10001){
+						alert("저장 성공");
+						var eventModal = $('#eventModal');
+						if(eventModal[0]) {
+							$(".modal-backdrop").remove();
+							var url ='${path}/calendar/calmain.do';
+							location.href = url;
+						}else {
+							var url = '${path}/sched/list.do';
+							location.href = url;
 						}
-					}) // HTTP 요청이 실패하면 오류와 상태에 관한 정보가 fail() 메소드로 전달됨. 
-					.fail(function(xhr, status, errorThrown) { 
-						alert("통신 실패");
-					});
+					}else{
+						alert("저장 실패");
+					}
+				}) // HTTP 요청이 실패하면 오류와 상태에 관한 정보가 fail() 메소드로 전달됨. 
+				.fail(function(xhr, status, errorThrown) { 
+					alert("통신 실패");
+				});
+				
+			}
 		}
 		
 		setTimeComboBox(['#startTime', '#endTime']);
-
 	</script>
 <c:if test="${empty simple}">
 </div>

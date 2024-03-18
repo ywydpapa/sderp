@@ -121,7 +121,7 @@
 							if(data == null || data == undefined) {
 								return '';
 							} else {
-								return '<span title="'+data+'">'+data+'</span>';
+								return '<span>'+data.replaceAll(/<img[^>]*>/g, "")+'</span>';
 							}
 						},
 					},
@@ -197,6 +197,13 @@
 					}
 				},
 				// docs : https://legacy.datatables.net/usage/i18n
+				dom: 'Bfrtip',
+				buttons: [
+					{
+						extend: 'excel',
+						filename: '기술지원 리스트',
+					},
+				],
 
 			});
 
@@ -250,10 +257,29 @@
 			<div class="page-header2">
 				<div class="row align-items-end">
 					<div class="col-lg-12">
-						<div class="page-header-title">
-							<div class="d-inline">
-								기술지원 조회
+						<div class="page-header-title" style="float:left;">
+							<div style="margin-top:15px;">
+								<h6 style="font-weight:600;">기술지원 조회</h6>
 							</div>
+						</div>
+						<div class="btn_wr text-right" style="right;">
+							<!-- hide and show -->
+							<button class="btn btn-sm btn-success" id="fold" onclick="acordian_action()">
+								펼치기
+							</button>
+							<button class="btn btn-sm btn-success" id="fold2" onclick="acordian_action1()" style=" display: none;">
+								접기
+							</button>
+							<!-- hide and show -->
+							<button class="btn btn-sm btn-inverse" onClick="javascript:fnClearall()">
+								<i class="icofont icofont-spinner-alt-3"></i>초기화
+							</button>
+							<button class="btn btn-sm btn-primary" onClick="javascript:fnListcon()" id="search">
+								<i class="icofont icofont-search"></i>검색
+							</button>
+							<button class="btn btn-sm btn-outline"onClick="javascript:location='${path}/techd/write.do'">
+								<i class="icofont icofont-pencil-alt-2"></i>등록
+							</button>
 						</div>
 					</div>
 				</div>
@@ -262,83 +288,39 @@
 
 
 			<!--기술지원 대상조회-->
-			<div class="cnt_wr">
+			<div class="cnt_wr" id="acordian" style="display:none;">
 				<div class="row">
 					<form id="searchForm" method="post" onsubmit="return false;" class="col-sm-12">
 						<div class="col-sm-12">
 							<div class="card_box sch_it">
-								<div class="btn_wr text-right">
-									<button class="btn btn-sm btn-inverse" onClick="javascript:fnClearall()"><i class="icofont icofont-spinner-alt-3"></i>초기화</button>
-									<button class="btn btn-sm btn-primary" onClick="javascript:fnListcon()"><i class="icofont icofont-search"></i>검색</button>
-									<button class="btn btn-sm btn-outline"onClick="javascript:location='${path}/techd/write.do'"><i class="icofont icofont-pencil-alt-2"></i>등록</button>
-
-								</div>
 								<div class="form-group row">
-									<div class="col-sm-12 col-xl-3">
+									<div class="col-sm-12 col-xl-2">
 										<label class="col-form-label" for="userName">담당사원</label>
 										<div class="input-group input-group-sm mb-0">
-											<input type="text" class="form-control" name="userName" id="userName" value="${sessionScope.userName}" readonly />
-											<input type="hidden" name="userNo" id="userNo" value="${sessionScope.userNo}" />
-											<span class="input-group-btn">
-												<button class="btn btn-primary sch-company" data-remote="${path}/modal/popup.do?popId=user" type="button" data-toggle="modal" data-target="#userModal">
-													<i class="icofont icofont-search"></i>
-												</button>
-											</span>
-											<div class="modal fade " id="userModal" tabindex="-1"
-												role="dialog">
-												<div class="modal-dialog modal-80size" role="document">
-													<div class="modal-content modal-80size">
-														<div class="modal-header">
-															<h4 class="modal-title"></h4>
-															<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-																<span aria-hidden="true">&times;</span>
-															</button>
-														</div>
-														<div class="modal-body">
-															<h5>사용자목록</h5>
-															<p>Loading!!!</p>
-														</div>
-														<div class="modal-footer">
-															<button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
-														</div>
-													</div>
-												</div>
-											</div>
+											<select class="form-control" id="userName" name="userName" onchange="autoCompleteSelect(this);">
+												<option value="">선택</option>
+												<c:forEach var="row" items="${listUser}">
+													<option data-no="${row.userNo}" value="${row.userName}">${row.userName}</option>
+												</c:forEach>
+											</select>
+											<input type="hidden" name="userNo" id="userNo" value="" /> 
+											<!-- <input type="text" class="form-control" name="userName" id="userName" autocomplete="off"> --> 
 										</div>
 									</div>
-									<div class="col-sm-12 col-xl-3">
+									<div class="col-sm-12 col-xl-2">
 										<label class="col-form-label" for="custName">엔드유저</label>
 										<div class="input-group input-group-sm mb-0">
-											<input type="text" class="form-control" name="custName" id="custName" value="" readonly />
+											<select class="form-control" id="custName" name="custName" onchange="autoCompleteSelect(this);">
+												<option value="">선택</option>
+												<c:forEach var="row" items="${listCust}">
+													<option data-no="${row.custNo}" value="${row.custName}">${row.custName}</option>
+												</c:forEach>
+											</select>
 											<input type="hidden" name="custNo" id="custNo" value="" />
-											<span class="input-group-btn">
-												<button class="btn btn-primary sch-company" data-remote="${path}/modal/popup.do?popId=cust" type="button" data-toggle="modal" data-target="#custModal">
-													<i class="icofont icofont-search"></i>
-												</button>
-											</span>
-											<div class="modal fade " id="custModal" tabindex="-1"
-												role="dialog">
-												<div class="modal-dialog modal-80size" role="document">
-													<div class="modal-content modal-80size">
-														<div class="modal-header">
-															<h4 class="modal-title"></h4>
-															<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-																<span aria-hidden="true">&times;</span>
-															</button>
-														</div>
-														<div class="modal-body">
-															<h5>거래처목록</h5>
-															<p>Loading!!!</p>
-														</div>
-														<div class="modal-footer">
-															<button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
-														</div>
-													</div>
-												</div>
-											</div>
+											<!-- <input type="text" class="form-control" name="custName" id="custName" autocomplete="off"> -->
 										</div>
 									</div>
-									<div class="col-sm-12 col-xl-3">
+									<%-- <div class="col-sm-12 col-xl-2">
 										<label class="col-form-label" for="custmemberName">엔드유저 담당자</label>
 										<div class="input-group input-group-sm mb-0">
 											<input type="text" class="form-control" name="custmemberName" id="custmemberName" value="" readonly />
@@ -362,14 +344,14 @@
 															<p>거래처를 먼저 입력해주셔야 목록이 보입니다.</p>
 														</div>
 														<div class="modal-footer">
-															<button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
+															<button type="button" class="btn btn-default waves-effect" data-dismiss="modal">닫기</button>
 														</div>
 													</div>
 												</div>
 											</div>
 										</div>
-									</div>
-									<div class="col-sm-1.5">
+									</div> --%>
+									<div class="col-sm-2">
 										<label class="col-form-label" for="co_name">진행단계</label>
 										<select name="select" class="form-control form-control-sm" id="techdSteps">
 											<option value>선택</option>
@@ -378,7 +360,7 @@
 											</c:forEach>
 										</select>
 									</div>
-									<div class="col-sm-1.5" style="margin-left: 20px;">
+									<div class="col-sm-1.5">
 										<label class="col-form-label" for="co_name">등록구분</label>
 										<select name="select" class="form-control form-control-sm" id="cntrctMth">
 											<option value>선택</option>
@@ -387,29 +369,29 @@
 											</c:forEach>
 										</select>
 									</div>
-								</div>
-								<div class="form-group row">
-									<div class="col-sm-12 col-xl-3">
-										<label class="col-form-label">일정시작일</label>
-										<p class="input_inline"><input class="form-control form-control-sm col-xl-6" type="date" id="targetDatefrom" onChange="javascript:inputDate($('#targetDatefrom').val(), $('#targetDateto').val(),this)"> ~ <input class="form-control form-control-sm col-xl-6" type="date" id="targetDateto" onChange="javascript:inputDate($('#targetDatefrom').val(), $('#targetDateto').val(),this)">
-										</p>
-									</div>
-									<div class="col-sm-12 col-xl-3">
+									<div class="col-sm-2 ex_reduce">
 										<label class="col-form-label">등록일</label>
-										<p class="input_inline"><input class="form-control form-control-sm col-xl-6" type="date" id="regSDate" onChange="javascript:inputDate($('#regSDate').val(), $('#regEDate').val(),this)"> ~ <input class="form-control form-control-sm col-xl-6" type="date" id="regEDate" onChange="javascript:inputDate($('#regSDate').val(), $('#regEDate').val(),this)">
+										<p class="input_inline">
+											<input class="form-control form-control-sm col-xl-6" type="date" max="9999-12-30" id="regSDate" onChange="javascript:inputDate($('#regSDate').val(), $('#regEDate').val(),this)"> ~ <input class="form-control form-control-sm col-xl-6" type="date" max="9999-12-31" id="regEDate" onChange="javascript:inputDate($('#regSDate').val(), $('#regEDate').val(),this)">
 										</p>
 									</div>
-									<div class="col-sm-12 col-xl-6">
+																		<div class="col-sm-12 col-xl-3 ex_reduce">
 										<label class="col-form-label">기술지원요청내용</label>
-										<input type="text" class="form-control form-control-sm" id="techdDesc" name="" placeholder="" onsubmit="return false">
+										<input type="text" class="form-control form-control-sm" id="techdDesc" name="techdDesc" placeholder="" onsubmit="return false">
 									</div>
-								</div>
+																	</div>
+								<!-- <div class="col-sm-12 col-xl-3">
+									<label class="col-form-label">일정시작일</label>
+									<p class="input_inline">
+										<input class="form-control form-control-sm col-xl-6" type="date" max="9999-12-30" id="targetDatefrom" onChange="javascript:inputDate($('#targetDatefrom').val(), $('#targetDateto').val(),this)"> ~ <input class="form-control form-control-sm col-xl-6" type="date" max="9999-12-31" id="targetDateto" onChange="javascript:inputDate($('#targetDatefrom').val(), $('#targetDateto').val(),this)">
+									</p>
+								</div> -->
 							</div>
 						</div>
 					</form>
 				</div>
 			</div>
-			<!--//기술지원 대상조회-->
+			<!--기술지원 대상조회-->
 		</c:if>
 
 		 <!--리스트 table-->
@@ -435,7 +417,7 @@
 										<th>등록일</th>
 										<th>등록구분</th>
 										<th>요청명</th>
-										<th>기술지원요청내용</th>
+									    <th>기술지원요청내용</th>
 										<th>매출처</th>
 										<th>진행단계</th>
 										<th>담당사원</th>
@@ -469,10 +451,169 @@
 				</div>
 			</div>
 		</div>
-		<!--//리스트 table-->
-
-
+		<!--리스트 table-->
 	<script>
+	$(document).ready(function(){
+		dtButtonSet();
+	})
+	
+	function acordian_action(){
+		if($("#acordian").css("display") == "none"){
+		    $("#acordian").show();
+		    $("#fold").hide();
+		    $("#fold2").show();
+
+		} else {
+		    $("#acordian").hide();
+		    $("#fold").show();
+		}
+	}
+	function acordian_action1(){
+		if($("#acordian").css("display") != "none"){
+		    $("#acordian").hide();
+		    $("#fold").show();
+		    $("#fold2").hide();
+
+		} else {
+		    $("#acordian").show();
+		    $("#fold").hide();
+		}
+	}
+	
+		$("input[type='text']").keyup(function(e){
+			if(e.keyCode == 13){
+				$("#search").click();
+			}
+		});
+		
+		$("#targetDatefrom").change(function(){
+			var dateValue = $(this).val();
+			var dateValueArr = dateValue.split("-");
+			var dateValueCom = new Date(dateValueArr[0], parseInt(dateValueArr[1])-1, dateValueArr[2]);
+			var EdateValue = $("#targetDateto").val();
+			var EdateDateArr = EdateValue.split("-");
+			var EdateDateCom = new Date(EdateDateArr[0], parseInt(EdateDateArr[1])-1, EdateDateArr[2]);
+			
+			if(EdateValue == ""){
+				dateValueCom.setDate(dateValueCom.getDate()+1);
+			}else if(dateValueCom.getTime() > EdateDateCom.getTime()){
+				alert("시작일이 종료일보다 클 수 없습니다.");
+				dateValueCom.setDate(dateValueCom.getDate()+1);
+			}else{
+				return null;
+			}
+			
+			var year = dateValueCom.getFullYear();
+			var month = dateValueCom.getMonth()+1;
+			var day = dateValueCom.getDate();
+			
+			if(month < 10){
+				month = "0" + month;
+			}
+			
+			if(day < 10){
+				day = "0" + day;
+			}
+			
+			$("#targetDateto").val(year + "-" + month + "-" + day);
+		});
+		
+		$("#targetDateto").change(function(){
+			var SdateValue = $("#targetDatefrom").val();
+			var SdateValueArr = SdateValue.split("-");
+			var SdateValueCom = new Date(SdateValueArr[0], parseInt(SdateValueArr[1])-1, SdateValueArr[2]);
+			var thisDateValue = $(this).val();
+			var thisDateArr = thisDateValue.split("-");
+			var thisDateCom = new Date(thisDateArr[0], parseInt(thisDateArr[1])-1, thisDateArr[2]);
+			
+			if(SdateValue == ""){
+				thisDateCom.setDate(thisDateCom.getDate()-1);
+			}else if(SdateValueCom.getTime() > thisDateCom.getTime()){
+				alert("종료일이 시작일보다 작을 수 없습니다.");
+				thisDateCom.setDate(thisDateCom.getDate()-1);
+			}else{
+				return null;
+			}
+			
+			var year = thisDateCom.getFullYear();
+			var month = thisDateCom.getMonth()+1;
+			var day = thisDateCom.getDate();
+			
+			if(month < 10){
+				month = "0" + month;
+			}
+			
+			if(day < 10){
+				day = "0" + day;
+			}
+			
+			$("#targetDatefrom").val(year + "-" + month + "-" + day);
+		});
+		
+		$("#regSDate").change(function(){
+			var dateValue = $(this).val();
+			var dateValueArr = dateValue.split("-");
+			var dateValueCom = new Date(dateValueArr[0], parseInt(dateValueArr[1])-1, dateValueArr[2]);
+			var EdateValue = $("#regEDate").val();
+			var EdateDateArr = EdateValue.split("-");
+			var EdateDateCom = new Date(EdateDateArr[0], parseInt(EdateDateArr[1])-1, EdateDateArr[2]);
+			
+			if(EdateValue == ""){
+				dateValueCom.setDate(dateValueCom.getDate()+1);
+			}else if(dateValueCom.getTime() > EdateDateCom.getTime()){
+				alert("시작일이 종료일보다 클 수 없습니다.");
+				dateValueCom.setDate(dateValueCom.getDate()+1);
+			}else{
+				return null;
+			}
+			
+			var year = dateValueCom.getFullYear();
+			var month = dateValueCom.getMonth()+1;
+			var day = dateValueCom.getDate();
+			
+			if(month < 10){
+				month = "0" + month;
+			}
+			
+			if(day < 10){
+				day = "0" + day;
+			}
+			
+			$("#regEDate").val(year + "-" + month + "-" + day);
+		});
+		
+		$("#regEDate").change(function(){
+			var SdateValue = $("#regSDate").val();
+			var SdateValueArr = SdateValue.split("-");
+			var SdateValueCom = new Date(SdateValueArr[0], parseInt(SdateValueArr[1])-1, SdateValueArr[2]);
+			var thisDateValue = $(this).val();
+			var thisDateArr = thisDateValue.split("-");
+			var thisDateCom = new Date(thisDateArr[0], parseInt(thisDateArr[1])-1, thisDateArr[2]);
+			
+			if(SdateValue == ""){
+				thisDateCom.setDate(thisDateCom.getDate()-1);
+			}else if(SdateValueCom.getTime() > thisDateCom.getTime()){
+				alert("종료일이 시작일보다 작을 수 없습니다.");
+				thisDateCom.setDate(thisDateCom.getDate()-1);
+			}else{
+				return null;
+			}
+			
+			var year = thisDateCom.getFullYear();
+			var month = thisDateCom.getMonth()+1;
+			var day = thisDateCom.getDate();
+			
+			if(month < 10){
+				month = "0" + month;
+			}
+			
+			if(day < 10){
+				day = "0" + day;
+			}
+			
+			$("#regSDate").val(year + "-" + month + "-" + day);
+		});
+		
 		$('#userModal').on('show.bs.modal', function(e) {
 			var button = $(e.relatedTarget);
 			var modal = $(this);
@@ -498,7 +639,7 @@
 			$(".modal-backdrop").remove();
 			$("#userModal").modal("hide");
 		}
-		function fnSetCustData(a, b) {
+		function fnSetEndCustData(a, b) {
 			$("#custNo").val(b);
 			$("#custName").val(a);
 			$(".modal-backdrop").remove();
@@ -543,9 +684,9 @@
 
 		// 기술지원요청내용 엔터키 누를경우 원치않는 행동발생하여 이벤트 방지 코드 추가
 		$('#techdDesc').keydown(function(event) {
-			if (event.keyCode === 13) {
-				event.preventDefault();
-			}
+		if (event.keyCode === 13) {
+		event.preventDefault();
+		}
 		})
 	</script>
 </div>

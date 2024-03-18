@@ -5,6 +5,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.sql.Timestamp;
 
 @Getter
@@ -87,7 +88,26 @@ public class ContDTO implements Cloneable{
 
 	private String custMemberName;
 	private String buyrMemberName;
+	private BigInteger sumAmt;
+	private BigInteger sumProfit;
+	private String listDateFrom;
 	// sopp 복사 끝
+	
+	private String custVatno;
+	private String custBossname;
+	private String custEmail;
+	
+	private String vatStatus;
+	
+	private Integer buyrNo_second;
+	
+	//부 담당사원
+	private int secondUserNo;
+	private String secondUserName;
+	private String maintenanceTarget;
+	
+	private int tempSoppNo;
+	private String categories;
 	
 	public ContDTO() {
 		super();

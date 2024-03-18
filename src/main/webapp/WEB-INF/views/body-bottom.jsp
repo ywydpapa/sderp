@@ -15,7 +15,31 @@
 		</div>
 	</div>
 </div>
-
+<style>
+	.select2-container .select2-selection--single{
+		display: flex;
+    	align-items: center;
+    	height: 31px;
+	}
+	
+	.select2-container--default .select2-selection--single .select2-selection__rendered {
+		background-color: white;
+		line-height: 10px!important;
+		min-width: 100px !important;
+	}
+	
+	.select2-container--default .select2-selection--single .select2-selection__arrow{
+		height: 100%;
+	}
+	
+	.select2-container--open {
+	    z-index: 999999999999 !important;
+	}
+	
+	.form-control{
+		min-width: 100px !important;
+	}
+</style>
 <script>
 	$("#userInfoChangeModal").on('show.bs.modal', function(e){
 		$("#userInfoForm")[0].reset();
@@ -31,13 +55,5 @@
 
 <script src="${path}/assets/js/jquery.mCustomScrollbar.concat.min.js"></script>
 <script type="text/javascript" src="${path}/assets/js/script.js"></script>
-<script type="text/javascript">
-$(".header-notification")
-.mouseout(function () {
-	$(".show-notification").css("display","none");
-}).mouseover(function() {
-	$(".show-notification").css("display","block");
-});
-</script>
 </body>
 </html>

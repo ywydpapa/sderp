@@ -1,0 +1,104 @@
+package kr.swcore.sderp.store.service;
+
+import kr.swcore.sderp.product.dto.ProductDTO;
+import kr.swcore.sderp.store.dto.StoreDTO;
+import kr.swcore.sderp.store.dao.StoreDAO;
+import kr.swcore.sderp.util.SessionInfoGet;
+import org.springframework.stereotype.Service;
+
+import javax.inject.Inject;
+import javax.servlet.http.HttpSession;
+import java.util.List;
+
+@Service
+public class StoreServiceImpl implements StoreService{
+
+    @Inject
+    StoreDAO storeDao;
+
+    @Override
+    public List<StoreDTO> listStore(HttpSession session, StoreDTO dto) {
+        Integer compNo = SessionInfoGet.getCompNo(session);
+        dto.setCompNo(compNo);
+        return storeDao.listStore(dto);
+    }
+
+    @Override
+    public int insertStore(HttpSession session, StoreDTO dto) {
+        Integer compNo = SessionInfoGet.getCompNo(session);
+        Integer userNo = SessionInfoGet.getUserNo(session);
+        dto.setCompNo(compNo);
+        dto.setUserNo(userNo);
+        return storeDao.insertStore(dto);
+    }
+
+    @Override
+    public int updateStore(HttpSession session,StoreDTO dto) {
+        return storeDao.updateStore(dto);
+    }
+
+    @Override
+    public int deleteStore(HttpSession session, StoreDTO dto) {
+        return storeDao.deleteStore(dto);
+    }
+
+	@Override
+	public List<StoreDTO> storeDetail(int storeNo) {
+	    return storeDao.getDetail(storeNo);
+	
+	}
+
+	@Override
+	public List<StoreDTO> storeList(HttpSession session, StoreDTO dto) {
+	    Integer compNo = SessionInfoGet.getCompNo(session);
+        dto.setCompNo(compNo);
+		return storeDao.getStoreList(dto);
+	
+	}
+
+	// ���� �� �ڵ� =============================================================================================================== 
+	@Override
+	public int insertStore2(HttpSession session, StoreDTO storeDto) {
+		 Integer userNo = SessionInfoGet.getUserNo(session);
+		 storeDto.setUserNo(userNo);
+		 
+		  return storeDao.insertStore2(storeDto);
+	}
+
+	@Override
+	public int getLastStoreNo(HttpSession session, StoreDTO storeDto) {
+		 Integer userNo = SessionInfoGet.getUserNo(session);
+		 storeDto.setUserNo(userNo);
+		 
+		  return storeDao.getLastStoreNo(storeDto);
+	}
+
+	@Override
+	public int getStoreNo(HttpSession session, int productNo) {
+		
+		 
+		  return storeDao.getStoreNo(productNo);
+	}
+
+	@Override
+	public int getCount(int productNo) {
+		// TODO Auto-generated method stub
+		return storeDao.getCount(productNo);
+	}
+
+	@Override
+	public int checkSerial(StoreDTO dto) {
+		// TODO Auto-generated method stub
+		return storeDao.checkSerial(dto);
+	}
+
+	@Override
+	public StoreDTO getStoreOneList(StoreDTO dto) {
+		return storeDao.getStoreOneList(dto);
+	}
+
+	@Override
+	public int storeUpdateQty(StoreDTO dto) {
+		return storeDao.storeUpdateQty(dto);
+	}
+}

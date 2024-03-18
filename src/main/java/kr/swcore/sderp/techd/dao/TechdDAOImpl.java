@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import kr.swcore.sderp.store.dto.StoreDTO;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
@@ -24,6 +25,11 @@ public class TechdDAOImpl implements TechdDAO {
 	}
 
 	@Override
+	public List<TechdDTO> listTechdbycust(int custNo) {
+		return sqlSession.selectList("techd.listTechdbycust", custNo);
+	}
+
+	@Override
 	public List<TechdDTO> listTechd(TechdDTO dto) {
 		return sqlSession.selectList("techd.listTechd", dto);
 	}
@@ -41,6 +47,26 @@ public class TechdDAOImpl implements TechdDAO {
 	@Override
 	public List<SalesDTO> listTechdinsopp(SoppDTO soppDto) {
 		return sqlSession.selectList("techd.listTechdinsopp", soppDto);
+	}
+
+	@Override
+	public List<StoreDTO> techStoreList(StoreDTO dto) {
+		return sqlSession.selectList("techd.techStoreList", dto);
+	}
+
+	@Override
+	public int techStoreWrite(StoreDTO dto) {
+		return sqlSession.insert("techd.techStoreWrite", dto);
+	}
+
+	@Override
+	public int techStoreUpdate(StoreDTO dto) {
+		return sqlSession.update("techd.techStoreUpdate", dto);
+	}
+
+	@Override
+	public StoreDTO techStoreDetail(StoreDTO dto) {
+		return sqlSession.selectOne("techd.techStoreDetail", dto);
 	}
 
 	@Override

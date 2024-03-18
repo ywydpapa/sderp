@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import kr.swcore.sderp.cust.dto.CustdataDTO;
 import org.springframework.stereotype.Service;
 
 import kr.swcore.sderp.cust.dao.CustDAO;
@@ -33,6 +32,12 @@ public class CustServiceImpl implements CustService {
 		SoppDTO soppdto = SessionInfoGet.getCompNoDto(session);
 		return custDao.listCust(soppdto);
 	}
+	
+	@Override
+	public List<CustDTO> tempListCust(HttpSession session) {
+		SoppDTO soppdto = SessionInfoGet.getCompNoDto(session);
+		return custDao.tempListCust(soppdto);
+	}
 
 	@Override
 	public CustDTO detailCust(int custNo) {
@@ -44,6 +49,12 @@ public class CustServiceImpl implements CustService {
 	public int updateCust01(CustDTO dto) {
 		// TODO Auto-generated method stub
 		return custDao.updateCust01(dto);
+	}
+	
+	@Override
+	public int updateCustTemp(CustDTO dto) {
+		// TODO Auto-generated method stub
+		return custDao.updateCustTemp(dto);
 	}
 
 	@Override
@@ -215,5 +226,31 @@ public class CustServiceImpl implements CustService {
 		}
 
 		return rtn;
+	}
+
+	@Override
+	public CustDTO sessionSelectCust(HttpSession session) {
+		int custCompNo = SessionInfoGet.getCompNo(session);
+		
+		return custDao.sessionSelectCust(custCompNo);
+	}
+
+	@Override
+	public int tempSelectCustInsert(CustDTO dto) {
+		// TODO Auto-generated method stub
+		return custDao.tempSelectCustInsert(dto);
+	}
+
+	@Override
+	public List<CustDTO> listCustMember(HttpSession session) {
+		// TODO Auto-generated method stub
+		SoppDTO custDto = SessionInfoGet.getCompNoDto(session);
+		return custDao.listCustMember(custDto);
+	}
+	
+	@Override
+	public List<CustDTO> getAllDataList(HttpSession session) {
+		int compNo = SessionInfoGet.getCompNo(session);
+		return custDao.getAllDataList(compNo);
 	}
 }

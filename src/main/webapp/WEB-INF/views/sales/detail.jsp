@@ -33,20 +33,24 @@
 					<div class="table-responsive">
 						<table class="table table-sm bst02">
 							<colgroup>
-								<col width="15%" />
-								<col width="35%" />
-								<col width="15%" />
-								<col width="35%" />
+								<col width="5%"/>
+								<col width="15%"/>
+								<col width="5%"/>
+								<col width="15%"/>
+								<col width="5%"/>
+								<col width="15%"/>
+								<col width="5%"/>
+								<col width="15%"/>
 							</colgroup>
 							<tbody>
 								<tr>
 									<th scope="row" class="requiredTextCss">활동일</th>
 									<td colspan="3">
 										<div class="input-group input-group-sm mb-0 mr-1">
-											<input id="salesFrdatetime" class="form-control form-control form-control-sm col-md-4 m-r-10" type="date" value ="" onChange="javascript:inputDate(setDateHourMinute($('#salesFrdatetime').val(), $('#startTime').val()), setDateHourMinute($('#salesTodatetime').val(), $('#endTime').val()), this)">
+											<input id="salesFrdatetime" style="width:400px" class="form-control col-xl-2" type="date" max="9999-12-30" value ="" onChange="javascript:inputDate(setDateHourMinute($('#salesFrdatetime').val(), $('#startTime').val()), setDateHourMinute($('#salesTodatetime').val(), $('#endTime').val()), this)">
 											<select id="startTime" style="width:100px" onChange="javascript:inputDate(setDateHourMinute($('#salesFrdatetime').val(), $('#startTime').val()), setDateHourMinute($('#salesTodatetime').val(), $('#endTime').val()), this)"></select>
-											<span> ~ </span>
-											<input id="salesTodatetime" class="form-control form-control form-control-sm col-md-4 m-r-10" type="date" value ="" onChange="javascript:inputDate(setDateHourMinute($('#salesFrdatetime').val(), $('#startTime').val()), setDateHourMinute($('#salesTodatetime').val(), $('#endTime').val()), this)">
+											<span style="line-height:30px;">&nbsp;~&nbsp;</span>
+											<input id="salesTodatetime" class="form-control col-xl-2" type="date" max="9999-12-31" value ="" onChange="javascript:inputDate(setDateHourMinute($('#salesFrdatetime').val(), $('#startTime').val()), setDateHourMinute($('#salesTodatetime').val(), $('#endTime').val()), this)">
 											<select id="endTime" style="width:100px" onChange="javascript:inputDate(setDateHourMinute($('#salesFrdatetime').val(), $('#startTime').val()), setDateHourMinute($('#salesTodatetime').val(), $('#endTime').val()), this)"></select>
 										</div>
 									</td>
@@ -54,161 +58,75 @@
 								<tr>
 									<th scope="row">장소</th>
 									<td><input type="text" class="form-control form-control-sm" id="salesPlace" name="salesPlace" value="${dto.salesPlace}"></td>
-									<th>활동형태</th>
+									<th class="requiredTextCss">활동형태</th>
 									<td><select name="salesType" id="salesType" class="form-control form-control-sm">
 										<c:forEach var="acttype" items="${acttype}">
 										<option value="${acttype.codeNo}" <c:if test="${acttype.codeNo == dto.salesType}">selected</c:if>>${acttype.desc03}</option>
 										</c:forEach>
 									</select></td>
-								</tr>
-								<tr>
 									<th class="requiredTextCss">담당사원</th>
 									<td>
 										<div class="input-group input-group-sm mb-0">
-											<input type="text" class="form-control" name="userName" id="userName" value="${dto.userName}" />
+											<input type="text" class="form-control" name="userName" id="userName" data-completeSet="true" value="${dto.userName}" readonly>
 											<input type="hidden" class="form-control" name="userNo" id="userNo" value="${dto.userNo}" />
-											 <span class="input-group-btn">
-												<button class="btn btn-primary sch-company"
-													data-remote="${path}/modal/popup.do?popId=user"
-													type="button" data-toggle="modal" data-target="#userModal">
-													<i class="icofont icofont-search"></i>
-												</button>
-											</span>
-											<div class="modal fade " id="userModal" tabindex="-1"
-												role="dialog">
-												<div class="modal-dialog modal-80size" role="document">
-													<div class="modal-content modal-80size">
-														<div class="modal-header">
-															<h4 class="modal-title">사용자목록</h4>
-															<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-																<span aria-hidden="true">&times;</span>
-															</button>
-														</div>
-														<div class="modal-body">
-															<h5>사용자목록</h5>
-															<p>Loading!!!</p>
-														</div>
-														<div class="modal-footer">
-															<%--<button type="button"
-																class="btn btn-default waves-effect "
-																onclick="$('#userModal').modal('hide');">Close</button>--%>
-															<button type="button" class="btn btn-default waves-effect " data-dismiss="modal">Close</button>
-														</div>
-													</div>
-												</div>
-											</div>
 										</div>
 									</td>
 									<th scope="row">영업기회</th>
 									<td>
 										<div class="input-group input-group-sm mb-0">
-											<input type="text" class="form-control" name="soppTitle" id="soppTitle" value="${dto.soppTitle}" />
+											<select class="form-control" id="soppTitle" name="soppTitle" onchange="autoCompleteSelect(this);">
+												<option value="">선택</option>
+												<c:forEach var="row" items="${listSopp}">
+													<option data-no="${row.soppNo}" value="${row.soppTitle}" <c:if test="${row.soppTitle eq dto.soppTitle}">selected</c:if>>${row.soppTitle}</option>
+												</c:forEach>
+											</select>
 											<input type="hidden" class="form-control" name="soppNo" id="soppNo" value="${dto.soppNo }" />
-											<span class="input-group-btn">
-												<button class="btn btn-primary sch-opportunity2"
-													data-remote="${path}/modal/popup.do?popId=sopp"
-													type="button" data-toggle="modal" data-target="#soppModal">
-													<i class="icofont icofont-search"></i>
-												</button>
-											</span>
-											<div class="modal fade " id="soppModal" tabindex="-1" role="dialog">
-												<div class="modal-dialog modal-80size" role="document">
-													<div class="modal-content modal-80size">
-														<div class="modal-header">
-															<h4 class="modal-title">영업기회목록</h4>
-															<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-																<span aria-hidden="true">&times;</span>
-															</button>
-														</div>
-														<div class="modal-body">
-															<h5>영업기회목록</h5>
-															<p>Loading!!!</p>
-														</div>
-														<div class="modal-footer">
-															<button type="button" class="btn btn-default waves-effect " data-dismiss="modal">Close</button>
-														</div>
-													</div>
-												</div>
-											</div>
+											<%-- <input type="text" class="form-control" name="soppTitle" id="soppTitle" value="${dto.soppTitle}"> --%>
 										</div>
 									</td>
+								</tr>
+								<tr>
+									
 								</tr>
 								<tr>
 									<th scope="row">매출처</th>
 									<td>
 										<div class="input-group input-group-sm mb-0">
-											<input type="text" class="form-control" name="custName" id="custName" value="${dto.custName}" />
-											 <input type="hidden" name="custNo" id="custNo" value="${dto.custNo}" /> <span class="input-group-btn">
-												<button class="btn btn-primary sch-company"
-													data-remote="${path}/modal/popup.do?popId=cust"
-													type="button" data-toggle="modal" data-target="#custModal">
-													<i class="icofont icofont-search"></i>
-												</button>
-											</span>
-											<div class="modal fade " id="custModal" tabindex="-1"
-												role="dialog">
-												<div class="modal-dialog modal-80size" role="document">
-													<div class="modal-content modal-80size">
-														<div class="modal-header">
-															<h4 class="modal-title">매출처목록</h4>
-															<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-																<span aria-hidden="true">&times;</span>
-															</button>
-														</div>
-														<div class="modal-body">
-															<h5>매출처목록</h5>
-															<p>Loading!!!</p>
-														</div>
-														<div class="modal-footer">
-															<button type="button" class="btn btn-default waves-effect " data-dismiss="modal">Close</button>
-														</div>
-													</div>
-												</div>
-											</div>
+											<select class="form-control" id="custName" name="custName" onchange="autoCompleteSelect(this);">
+												<option value="">선택</option>
+												<c:forEach var="row" items="${listCust}">
+													<option data-no="${row.custNo}" value="${row.custName}" <c:if test="${row.custName eq dto.custName}">selected</c:if>>${row.custName}</option>
+												</c:forEach>
+											</select>
+											<input type="hidden" name="custNo" id="custNo" value="${dto.custNo}" />
+											<%-- <input type="text" class="form-control" name="custName" id="custName" value="${dto.custName}"> --%>
 										</div>
 									</td>
 									<th scope="row">엔드유저</th>
 									<td>
 										<div class="input-group input-group-sm mb-0">
-											<input type="text" class="form-control" id="endCustName" value="${dto.ptncName}" />
+											<select class="form-control" id="endCustName" name="endCustName" onchange="autoCompleteSelect(this);">
+												<option value="">선택</option>
+												<c:forEach var="row" items="${listCust}">
+													<option data-no="${row.custNo}" value="${row.custName}" <c:if test="${row.custName eq dto.ptncName}">selected</c:if>>${row.custName}</option>
+												</c:forEach>
+											</select>
 											<input type="hidden" id="endCustNo" value="${dto.ptncNo}" />
-											<span class="input-group-btn">
-												<button class="btn btn-primary sch-partner" data-remote="${path}/modal/popup.do?popId=endCust" type="button" data-toggle="modal" data-target="#endCustModal">
-													<i class="icofont icofont-search"></i>
-												</button>
-											</span>
-											<div class="modal fade " id="endCustModal" tabindex="-1" role="dialog">
-												<div class="modal-dialog modal-80size" role="document">
-													<div class="modal-content modal-80size">
-														<div class="modal-header">
-															<h4 class="modal-title"></h4>
-															<button type="button" class="close" onclick="$('#endCustModal').modal('hide');" aria-label="Close">
-																<span aria-hidden="true">&times;</span>
-															</button>
-														</div>
-														<div class="modal-body">
-															<h5>엔드유저 목록</h5>
-															<p>Loading!!!</p>
-														</div>
-														<div class="modal-footer">
-															<button type="button" class="btn btn-default waves-effect" onclick="$('#endCustModal').modal('hide');">Close</button>
-														</div>
-													</div>
-												</div>
-											</div>
+											<%-- <input type="text" class="form-control" id="endCustName" value="${dto.ptncName}"> --%>
 										</div>
 									</td>
-								</tr>
-								<tr>
 									<th scope="row" class="requiredTextCss">제목</th>
 									<td colspan="3"><input type="text"
 										class="form-control form-control-sm" id="salesTitle" name="salesTitle"
 										value="${dto.salesTitle}"></td>
 								</tr>
 								<tr>
-									<th scope="row">내용</th>
-									<td colspan="3"><textarea name="salesDesc" id="salesDesc" rows="8"
-											class="form-control">${dto.salesDesc}</textarea></td>
+									<th scope="row">
+										내용
+									</th>
+									<td colspan="7">
+										<textarea name="salesDesc" id="salesDesc" rows="7" class="form-control">${dto.salesDesc}</textarea>
+									</td>
 								</tr>
 							</tbody>
 						</table>
@@ -218,17 +136,16 @@
 					<input type="hidden" id="salesNo" value ="${dto.salesNo}">
 					<button class="btn btn-md btn-success f-left modal-list-btn" onClick="javascript:location.href='${path}/sales/list.do'">목록</button>
 					<c:if test="${dto.userNo eq sessionScope.userNo || sessionScope.userRole eq 'ADMIN'}">
-						<button class="btn btn-md btn-danger" onClick="fn_DeleteSales()">삭제</button>
 						<button class="btn btn-md btn-primary" onClick="fn_UpdateSales()">수정</button>
-						<button class="btn btn-md btn-inverse modal-list-btn" onClick="javascript:location='${path}/sales/list.do'">취소</button>
+						<button class="btn btn-md btn-danger" onClick="fn_DeleteSales()">삭제</button>
 					</c:if>
 				</div>
 			</div>
 		</div>
 	</div>
-	<!--//영업활동등록-->
+	<!--영업활동등록-->
 
-
+	<script type="text/javascript" src="${path}/js/image.js"></script>
 	<script>
 		$('#custModal').on('show.bs.modal', function(e) {
 			var button = $(e.relatedTarget);
@@ -292,7 +209,7 @@
 			$("#endCustModal").modal("hide");
 		}
 
-		function fn_UpdateSales() {
+		async function fn_UpdateSales() {
 			var salesData = {};
 			salesData.salesNo = $("#salesNo").val();
 			salesData.salesFrdatetime = setDateHourMinute($("#salesFrdatetime").val(), $("#startTime").val()); 
@@ -304,7 +221,60 @@
 			salesData.soppNo 		= $("#soppName").val() != "" ? Number($("#soppNo").val()) : 0;
 			salesData.ptncNo 		= $("#endCustName").val() != "" ? Number($("#endCustNo").val()) : 0;
 			salesData.salesType 		= $("#salesType").val();
-			salesData.salesDesc 		= $("#salesDesc").val();
+
+
+			if($("textarea").attr("style") === "display: none;"){
+				var content = tinyMCE.get("salesDesc").getContent();
+				salesData.salesDesc = await uploadImage(content, "${path}");
+			} else {
+				alert("영업활동 내용을 입력해 주십시오.");
+				return;
+			}		
+			
+			if (!salesData.salesFrdatetime){
+				alert("영업활동의 시작일을 선택해 주십시오.");
+				return;
+			}
+			else if (!salesData.salesTodatetime){
+				alert("영업활동의 종료일을 선택해 주십시오.");
+				return;
+			}
+			else if (!salesData.salesType){
+				alert("활동형태를 선택해주십시오.");
+				return;
+			}
+			else if (!salesData.userNo){
+				alert("담당사원을 선택해 주십시오.");
+				return;
+			}else if (!salesData.salesTitle) {
+				alert("영업활동 제목을 입력해 주십시오.");		
+				return;
+			}
+			/* else if($("#soppTitle").val() !== "" && !autoCompleteVali($("#soppTitle").val(), "sopp")){
+				alert("조회된 영업기회가 없습니다.\n다시 확인해 주세요.");
+				$("#soppTitle").focus();
+				return;
+			}else if($("#custName").val() !== "" && !autoCompleteVali($("#custName").val(), "cust")){
+				alert("조회된 거래처가 없습니다.\n다시 확인해주세요.");
+				$("#custName").focus();
+				return;
+			}else if($("#endCustName").val() !== "" && !autoCompleteVali($("#endCustName").val(), "cust")){
+				alert("조회된 엔드유저가 없습니다.\n다시 확인해주세요.");
+				$("#endCustName").focus();
+				return;
+			}else if($("#soppTitle").val() !== "" && ($("#soppNo").val() === "" || $("#soppNo").val() == 0)){
+				alert("영업기회를 제대로 선택해주세요.");
+				$("#soppTitle").focus();
+				return;
+			}else if($("#custName").val() !== "" && ($("#custNo").val() === "" || $("#custNo").val() == 0)){
+				alert("매출처를 제대로 선택해주세요.");
+				$("#custName").focus();
+				return;
+			}else if($("#endCustName").val() !== "" && ($("#endCustNo").val() === "" || $("#endCustNo").val() == 0)){
+				alert("엔드유저를 제대로 선택해주세요.");
+				$("#endCustName").focus();
+				return;
+			} */
 			
 			$.ajax({
 				url: "${path}/sales/update.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소

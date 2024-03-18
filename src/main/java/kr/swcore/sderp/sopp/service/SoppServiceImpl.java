@@ -2,6 +2,7 @@ package kr.swcore.sderp.sopp.service;
 
 import kr.swcore.sderp.common.dto.PageDTO;
 import kr.swcore.sderp.common.dto.WrapperDTO;
+import kr.swcore.sderp.cont.dto.ContDTO;
 import kr.swcore.sderp.sopp.dao.SoppDAO;
 import kr.swcore.sderp.sopp.dto.SoppDTO;
 import kr.swcore.sderp.sopp.dto.SoppFileDataDTO;
@@ -16,6 +17,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -36,8 +40,10 @@ public class SoppServiceImpl implements SoppService {
 	@Override
 	public List<SoppDTO> listSopp(HttpSession session, PageDTO pageDTO) {
 		Integer compNo = SessionInfoGet.getCompNo(session);
+		String listDateFrom = SessionInfoGet.getlistDateFrom(session);
 		SoppDTO dto = new SoppDTO();
 		dto.setCompNo(compNo);
+		dto.setListDateFrom(listDateFrom);
 
 		if(pageDTO != null) {
 			Integer limit = pageDTO.getLimit();
@@ -54,18 +60,21 @@ public class SoppServiceImpl implements SoppService {
 
 	@Override
 	public Object listSopp(HttpSession session, String param, HttpServletRequest request, HttpServletResponse response) {
+		String listDateFrom = SessionInfoGet.getlistDateFrom(session);
 		SoppDTO dto = new SoppDTO();
 		Integer compNo = SessionInfoGet.getCompNo(session);											// 로그인 회사 구분 코드
 		String userNostr = request.getParameter("userNo");
 		Integer userNo = userNostr.equals("") == true ? 0 : Integer.valueOf(userNostr);				// 담당자
 		String custNostr =  request.getParameter("custNo");
 		Integer custNo = custNostr.equals("") == true ? 0 : Integer.valueOf(custNostr);				// 거래처
+		String categories = request.getParameter("categories") != null ? (String) request.getParameter("categories") : ""; //카테고리
 		String buyrNostr = request.getParameter("buyrNo");
 		Integer buyrNo = buyrNostr.equals("") == true ? 0 : Integer.valueOf(buyrNostr);				// 엔드유저
 		String soppTypestr = request.getParameter("soppType");
 		Integer soppType = soppTypestr.equals("") == true ? 0 : Integer.valueOf(soppTypestr);		// 판매방식
 		String cntrctMthstr = request.getParameter("cntrctMth");
 		Integer cntrctMth = cntrctMthstr.equals("") == true ? 0 : Integer.valueOf(cntrctMthstr);	// 계약구분
+		String soppTitle = request.getParameter("soppTitle") != null ? (String) request.getParameter("soppTitle") : "";
 		String soppStatus = request.getParameter("soppStatus") != null ? (String) request.getParameter("soppStatus") : "";				// 진행단계	// TODO : varchar 에서 int 변경시 수정해야할 변경
 		String targetDatefrom = request.getParameter("targetDatefrom") != null ? (String) request.getParameter("targetDatefrom") : "";	// 매출예정 시작일
 		String targetDateto = request.getParameter("targetDateto") != null ? (String) request.getParameter("targetDateto") : "";		// 매출예정 마감일
@@ -77,12 +86,15 @@ public class SoppServiceImpl implements SoppService {
 		dto.setCustNo(custNo);
 		dto.setBuyrNo(buyrNo);
 		dto.setSoppType(soppType);
+		dto.setSoppTitle(soppTitle);
 		dto.setCntrctMth(cntrctMth);
 		dto.setSoppStatus(soppStatus);
 		dto.setTargetDatefrom(targetDatefrom);
 		dto.setTargetDateto(targetDateto);
 		dto.setTargetDatefrom2(targetDatefrom2);
 		dto.setTargetDateto2(targetDateto2);
+		dto.setListDateFrom(listDateFrom);
+		dto.setCategories(categories);
 
 		String sEcho = request.getParameter("sEcho");
 		String limitstr = request.getParameter("iDisplayLength");
@@ -135,6 +147,7 @@ public class SoppServiceImpl implements SoppService {
 
 	@Override
 	public Object listSopp2(HttpSession session, String param, HttpServletRequest request, HttpServletResponse response) {
+		String listDateFrom = SessionInfoGet.getlistDateFrom(session);
 		SoppDTO dto = new SoppDTO();
 		Integer compNo = SessionInfoGet.getCompNo(session);											// 로그인 회사 구분 코드
 		String userNostr = request.getParameter("userNo");
@@ -164,6 +177,7 @@ public class SoppServiceImpl implements SoppService {
 		dto.setTargetDateto(targetDateto);
 		dto.setTargetDatefrom2(targetDatefrom2);
 		dto.setTargetDateto2(targetDateto2);
+		dto.setListDateFrom(listDateFrom);
 
 		String sEcho = request.getParameter("sEcho");
 		String limitstr = request.getParameter("iDisplayLength");
@@ -292,6 +306,11 @@ public class SoppServiceImpl implements SoppService {
 	}
 
 	@Override
+	public int updateSoppStatus(SoppDTO dto) {
+		return soppDao.updateSoppStatus(dto);
+	}
+
+	@Override
 	public Map<String, Object> updateAprvOrReject(HttpSession session, SoppDTO dto) {
 		Integer compNo = SessionInfoGet.getCompNo(session);
 		dto.setCompNo(compNo);
@@ -338,6 +357,10 @@ public class SoppServiceImpl implements SoppService {
 		soppFile.setFileId(UUID.randomUUID().toString());
 		soppFile.setFileName(file.getOriginalFilename());
 		soppFile.setFileContent(file.getBytes());
+		soppFile.setFileSize(fileList.getParameter("fileSize"));
+		Path mimeType_base = Paths.get("D:/"+ file.getOriginalFilename());
+		String mimeType = Files.probeContentType(mimeType_base);
+		soppFile.setFileExtention(mimeType);
 		soppFile.setFileDesc(fileList.getParameter("fileDesc"));
 		soppFile.setSoppNo(soppNo);
 		soppFile.setUserNo(Integer.valueOf((String)session.getAttribute("userNo")));
@@ -354,6 +377,31 @@ public class SoppServiceImpl implements SoppService {
 	public SoppFileDataDTO downloadFile(SoppFileDataDTO dto) {
 		return soppDao.downloadFile(dto);
 	}
-	
 
+	@Override
+	public int soppListApp(SoppDTO dto) {
+		return soppDao.soppListApp(dto);
+	}
+
+	@Override
+	public int beforeAppUpdate(int soppNo) {
+		return soppDao.beforeAppUpdate(soppNo);
+	}
+
+	@Override
+	public int assignPps(SoppDTO dto) {
+		return soppDao.assignPps(dto);
+	}
+
+	@Override
+	public List<SoppDTO> selectSoppdetail(HttpSession session, SoppDTO dto) {
+		Integer compNo = SessionInfoGet.getCompNo(session);
+		dto.setCompNo(compNo);
+		return soppDao.selectSoppdetail(dto);
+	}
+
+	@Override
+	public List<ContDTO> soppContList(int soppNo) {
+		return soppDao.soppContList(soppNo);
+	}
 }

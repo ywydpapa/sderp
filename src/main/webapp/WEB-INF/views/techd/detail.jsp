@@ -30,11 +30,16 @@
 					<div class="table-responsive">
 						<table class="table table-sm bst02">
 							<colgroup>
-								<col width="15%" />
-								<col width="35%" />
-								<col width="15%" />
-								<col width="35%" />
+								<col width="5%"/>
+								<col width="15%"/>
+								<col width="5%"/>
+								<col width="15%"/>
+								<col width="5%"/>
+								<col width="15%"/>
+								<col width="5%"/>
+								<col width="15%"/>
 							</colgroup>
+							
 							<tbody>
 								<tr>
 									<th scope="row" class="requiredTextCss">등록구분<input hidden value="${dto.techdNo}" id="techdNo"></th>
@@ -42,7 +47,7 @@
 										<div class="form-radio">
 											<form>
 												<div class="radio radio-inline">
-													<label> <input type="radio" name="contractType" value="NEW" <c:if test="${dto.cntrctMthN == '판매계약'}">checked</c:if>> <i class="helper"></i>신규 영업지원</label>
+													<label style="margin-top: 10px;"> <input type="radio" name="contractType" value="NEW" <c:if test="${dto.cntrctMthN == '판매계약'}">checked</c:if>> <i class="helper"></i>신규 영업지원</label>
 												</div>
 												<div class="radio radio-inline">
 													<label> <input type="radio" name="contractType" value="ING" <c:if test="${dto.cntrctMthN == '유지보수'}">checked</c:if>> <i class="helper"></i>유지보수 </label>
@@ -57,9 +62,15 @@
 									<th scope="row" class="techdDetailSopp requiredTextCss">영업기회</th>
 									<td class="techdDetailSopp">
 										<div class="input-group input-group-sm mb-0">
-											<input type="text" class="form-control" name="soppTitle" id="soppTitle" value="${dto.soppTitle}" readonly />
+											<select class="form-control" id="soppTitle" name="soppTitle" onchange="autoCompleteSelect(this);">
+												<option value="">선택</option>
+												<c:forEach var="row" items="${listSopp}">
+													<option data-no="${row.soppNo}" value="${row.soppTitle}" <c:if test="${row.soppTitle eq dto.soppTitle}">selected</c:if>>${row.soppTitle}</option>
+												</c:forEach>
+											</select>
 											<input type="hidden" name="soppNo" id="soppNo" value="${dto.soppNo}" />
-											<span class="input-group-btn">
+											<%-- <input type="text" class="form-control" name="soppTitle" id="soppTitle" value="${dto.soppTitle}" autocomplete="off" /> --%>
+											<%-- <span class="input-group-btn">
 												<button class="btn btn-primary sch-opportunity2" data-remote="${path}/modal/popup.do?popId=sopp" type="button" data-toggle="modal" data-target="#soppModal">
 													<i class="icofont icofont-search"></i>
 												</button>
@@ -79,19 +90,25 @@
 															<p>Loading!!!</p>
 														</div>
 														<div class="modal-footer">
-															<button type="button" class="btn btn-default waves-effect"	onclick="$('#soppModal').modal('hide');">Close</button>
+															<button type="button" class="btn btn-default waves-effect"	onclick="$('#soppModal').modal('hide');">닫기</button>
 														</div>
 													</div>
 												</div>
-											</div>
+											</div> --%>
 										</div>
 									</td>
 									<th scope="row" class="techdDetailCont requiredTextCss">계약</th>
 									<td class="techdDetailCont">
 										<div class="input-group input-group-sm mb-0">
-											<input type="text" class="form-control" name="contTitle" id="contTitle" value="${dto.contTitle}" readonly />
+											<select class="form-control" id="contTitle" name="contTitle" onchange="autoCompleteSelect(this);">
+												<option value="">선택</option>
+												<c:forEach var="row" items="${listCont}">
+													<option data-no="${row.contNo}" value="${row.contTitle}" <c:if test="${row.contTitle eq dto.contTitle}">selected</c:if>>${row.contTitle}</option>
+												</c:forEach>
+											</select>
 											<input type="hidden" name="contNo" id="contNo" value="${dto.contNo}" />
-											<span class="input-group-btn">
+											<%-- <input type="text" class="form-control" name="contTitle" id="contTitle" value="${dto.contTitle}" autocomplete="off" /> --%>
+											<%-- <span class="input-group-btn">
 												<button class="btn btn-primary sch-opportunity2" data-remote="${path}/modal/popup.do?popId=cont" type="button" data-toggle="modal" data-target="#contModal">
 													<i class="icofont icofont-search"></i>
 												</button>
@@ -110,24 +127,27 @@
 															<p>Loading!!!</p>
 														</div>
 														<div class="modal-footer">
-															<button type="button" class="btn btn-default waves-effect"	onclick="$('#contModal').modal('hide');">Close</button>
+															<button type="button" class="btn btn-default waves-effect"	onclick="$('#contModal').modal('hide');">닫기</button>
 														</div>
 													</div>
 												</div>
-											</div>
+											</div> --%>
 										</div>
 									</td>
-								</tr>
-								<tr>
+									
 									<th scope="row" class="requiredTextCss">엔드유저</th>
 									<td>
 										<div class="input-group input-group-sm mb-0">
-											<input type="text" class="form-control" name="custName" readonly
-												id="custName" value="${dto.custName}" /> <input type="hidden" name="custNo"
-												id="custNo" value="${dto.custNo}" /> <span class="input-group-btn">
-												<button class="btn btn-primary sch-company"
-													data-remote="${path}/modal/popup.do?popId=cust"
-													type="button" data-toggle="modal" data-target="#custModal">
+											<select class="form-control" id="endCustName" name="endCustName" onchange="autoCompleteSelect(this);">
+												<option value="">선택</option>
+												<c:forEach var="row" items="${listCust}">
+													<option data-no="${row.custNo}" value="${row.custName}" <c:if test="${row.custNo eq dto.endCustNo}">selected</c:if>>${row.custName}</option>
+												</c:forEach>
+											</select>
+											<input type="hidden" name="endCustNo" id="endCustNo" value="${dto.endCustNo}" />
+											<%-- <input type="text" class="form-control" name="endCustName" id="endCustName" value="${dto.endCustName}" autocomplete="off"/> --%> 
+											<%-- <span class="input-group-btn">
+												<button class="btn btn-primary sch-company" data-remote="${path}/modal/popup.do?popId=cust" type="button" data-toggle="modal" data-target="#custModal">
 													<i class="icofont icofont-search"></i>
 												</button>
 											</span>
@@ -145,19 +165,26 @@
 															<p>Loading!!!</p>
 														</div>
 														<div class="modal-footer">
-															<button type="button" class="btn btn-default waves-effect"	onclick="$('#custModal').modal('hide');">Close</button>
+															<button type="button" class="btn btn-default waves-effect"	onclick="$('#custModal').modal('hide');">닫기</button>
 														</div>
 													</div>
 												</div>
-											</div>
+											</div> --%>
 										</div>
 									</td>
+									
 									<th scope="row">엔드유저 담당자</th>
 									<td>
 										<div class="input-group input-group-sm mb-0">
-											<input type="text" class="form-control" name="custmemberName"  id="custmemberName" value="${dto.custmemberName}" readonly/>
+											<select class="form-control" id="custmemberName" name="custmemberName" onchange="autoCompleteSelect(this);">
+												<option value="">선택</option>
+												<c:forEach var="row" items="${listCustMember}">
+													<option data-no="${row.custData03no}" value="${row.custMname}" <c:if test="${row.custMname eq dto.custmemberName}">selected</c:if>>${row.custMname}</option>
+												</c:forEach>
+											</select>
 											<input type="hidden" name="custmemberNo" id="custmemberNo" value="${dto.custmemberNo}" />
-											<span class="input-group-btn">
+											<%-- <input type="text" class="form-control" name="custmemberName"  id="custmemberName" value="${dto.custmemberName}" autocomplete="off"/> --%>
+											<%-- <span class="input-group-btn">
 												<button class="btn btn-primary sch-partner"
 													data-remote="${path}/modal/popup.do?popId=custmem&compNo="
 													type="button" data-toggle="modal" data-target="#custmemberModal"
@@ -183,21 +210,23 @@
 														<div class="modal-footer">
 															<button type="button"
 																class="btn btn-default waves-effect "
-																onclick="$('#custmemberModal').modal('hide');">Close</button>
+																onclick="$('#custmemberModal').modal('hide');">닫기</button>
 														</div>
 													</div>
 												</div>
-											</div>
+											</div> --%>
 										</div>
-									</td>
+									</td>	
 								</tr>
 								<tr>
 									<th scope="row">모델</th>
-									<td>
+									<td colspan="7">
 										<input type="text" class="form-control form-control-sm"	id="techdItemmodel" name="techdItemmodel" placeholder="" value="${dto.techdItemmodel}">
 									</td>
+								</tr>
+								<tr>
 									<th>버전</th>
-									<td>
+									<td colspan="7">
 										<input type="text" class="form-control form-control-sm"	id="techdItemversion" name="techdItemversion" placeholder="" value="${dto.techdItemversion}">
 									</td>
 								</tr>
@@ -209,9 +238,9 @@
 									<th scope="row" class="requiredTextCss">담당사원</th>
 									<td>
 										<div class="input-group input-group-sm mb-0">
-											<input type="text" class="form-control" name="userName" readonly id="userName" value="${dto.userName}" />
+											<input type="text" class="form-control" name="userName" readonly id="userName" data-completeSet="true" value="${dto.userName}" />
 											<input type="hidden" name="userNo" id="userNo" value="${dto.userNo}" />
-											<span class="input-group-btn">
+											<%-- <span class="input-group-btn">
 												<button class="btn btn-primary sch-company"
 														data-remote="${path}/modal/popup.do?popId=user"
 														type="button" data-toggle="modal" data-target="#userModal">
@@ -233,11 +262,11 @@
 															<p>Loading!!!</p>
 														</div>
 														<div class="modal-footer">
-															<button type="button" class="btn btn-default waves-effect" onclick="$('#userModal').modal('hide');">Close</button>
+															<button type="button" class="btn btn-default waves-effect" onclick="$('#userModal').modal('hide');">닫기</button>
 														</div>
 													</div>
 												</div>
-											</div>
+											</div> --%>
 										</div>
 									</td>
 								</tr>
@@ -246,16 +275,15 @@
 									<td colspan="3">
 										<!-- <div class="col-sm-9 f-left m-b-0 p-l-0"> -->
 											<div class="input-group input-group-sm mb-0 mr-1">
-												<input class="form-control form-control-sm col-md-4 m-r-10" type="date" id="techdFrom" name="techdFrom" value="${dto.targetDatefrom}" onChange="javascript:inputDate(setDateHourMinute($('#techdFrom').val(), $('#startTime').val()), setDateHourMinute($('#techdTo').val(), $('#endTime').val()),this)">
+												<input class="form-control form-control-sm col-md-4 m-r-10" type="date" max="9999-12-30" id="techdFrom" name="techdFrom" value="${dto.targetDatefrom}" onChange="javascript:inputDate(setDateHourMinute($('#techdFrom').val(), $('#startTime').val()), setDateHourMinute($('#techdTo').val(), $('#endTime').val()),this)">
 												<select id="startTime" style="width:100px" onChange="javascript:inputDate(setDateHourMinute($('#techdFrom').val(), $('#startTime').val()), setDateHourMinute($('#techdTo').val(), $('#endTime').val()),this)"></select>
-												<span> ~ </span>
-												<input class="form-control form-control-sm col-md-4 m-r-10" type="date" id="techdTo" name="techdTo" value="${dto.targetDateto}" onChange="javascript:inputDate(setDateHourMinute($('#techdFrom').val(), $('#startTime').val()), setDateHourMinute($('#techdTo').val(), $('#endTime').val()),this)">
+												<span style="line-height:30px;">&nbsp;~&nbsp;</span>
+												<input class="form-control form-control-sm col-md-4 m-r-10" type="date" max="9999-12-31" id="techdTo" name="techdTo" value="${dto.targetDateto}" onChange="javascript:inputDate(setDateHourMinute($('#techdFrom').val(), $('#startTime').val()), setDateHourMinute($('#techdTo').val(), $('#endTime').val()),this)">
 												<select id="endTime" style="width:100px" onChange="javascript:inputDate(setDateHourMinute($('#techdFrom').val(), $('#startTime').val()), setDateHourMinute($('#techdTo').val(), $('#endTime').val()),this)"></select>
 											</div>
 										<!-- </div> -->
 									</td>
-								</tr>
-								<tr>
+									
 									<th scope="row">지원형태</th>
 									<td><select name="techdType" id="techdType" class="form-control form-control-sm">
 									<option value="">선택</option>
@@ -274,11 +302,14 @@
 									</c:forEach>
 									</select></td>
 								</tr>
+								
+								<!-- table new  -->
 								<tr>
 									<th scope="row">설명</th>
-									<td colspan="3"><textarea name="techdDesc" id="techdDesc" rows="8"
-											class="form-control">${dto.techdDesc}</textarea></td>
+									<td colspan="7"><textarea name="techdDesc" id="techdDesc" class="form-control">${dto.techdDesc}</textarea></td>
 								</tr>
+								<!-- table new  -->
+								
 							</tbody>
 						</table>
 					</div>
@@ -288,15 +319,14 @@
 					<c:if test="${dto.userNo eq sessionScope.userNo || sessionScope.userRole eq 'ADMIN'}">
 						<button class="btn btn-md btn-danger" onClick="fn_sprtDelete()">삭제</button>
 						<button class="btn btn-md btn-primary" onClick="fn_sprtUpdate()">수정</button>
-						<button class="btn btn-md btn-inverse modal-cancel-btn" onClick="javascript:location='${path}/techd/list.do'">취소</button>
 					</c:if>
 				</div>
 			</div>
 		</div>
 	</div>
-	<!--//기술지원 대상등록-->
+	<!--기술지원 대상등록-->
 
-
+	<script type="text/javascript" src="${path}/js/image.js"></script>
 	<script>
 	$('#custModal').on('show.bs.modal', function(e) {
 		var button = $(e.relatedTarget);
@@ -373,82 +403,89 @@
 		$("#contModal").modal("hide");
 	}
 
-	function fn_sprtUpdate() {
-		var sprtData = {};
-		var contractType					= $("input[name='contractType']:checked").val();	// 신규 영업지원 or 기존계약
-		if(contractType == 'NEW'){
-			sprtData.soppNo					= Number($("#soppNo").val());			// 영업기회
-			sprtData.contNo					= 0;							// 기존계약
-			sprtData.cntrctMth				= Number(${contractType[0].codeNo});
-		} else if (contractType == 'ING'){
-			sprtData.soppNo					= 0;							// 영업기회
-			sprtData.contNo					= Number($("#contNo").val());			// 기존계약
-			sprtData.cntrctMth				= Number(${contractType[1].codeNo});
-		}
-		sprtData.techdTitle			= $("#techdTitle").val();					// 기술지원 요청명
-		sprtData.userNo				= $("#userNo").val() ? Number($("#userNo").val()) : 0;						// 담당사원
-		sprtData.custNo				= $("#custNo").val() ? Number($("#custNo").val()) : 0;						// 거래처
-		sprtData.custmemberNo		= $("#custmemberNo").val() ? Number($("#custmemberNo").val()) : 0;					// 고객
-		sprtData.techdItemmodel		= $("#techdItemmodel").val();				// 모델
-		sprtData.techdItemversion	= $("#techdItemversion").val();				// 버전
-		sprtData.techdPlace			= $("#techdPlace").val();					// 장소
-		sprtData.techdFrom			= setDateHourMinute($("#techdFrom").val(), $("#startTime").val());					// 지원일자 시작
-		sprtData.techdTo			= setDateHourMinute($("#techdTo").val(), $("#endTime").val());						// 지원일자 종료
-		sprtData.techdType			= $("#techdType").val();					// 지원형태
-		sprtData.techdSteps			= $("#techdSteps").val();					// 진행단계
-		sprtData.techdDesc			= $("#techdDesc").val();					// 설명
-		sprtData.techdNo			= Number($("#techdNo").val());
 
-		if(!sprtData.techdTitle){
-			alert("기술지원 요청명을 입력하십시오.!!");
-			return;
-		} else if(!contractType) {
-			alert("영업기회(신규 영업지원) 및 계약을 입력하십시오.");
-			return;
-		} else if(contractType != undefined) {
+	async function fn_sprtUpdate() {
+		if($("#techdTitle").val() === ""){
+			alert("기술지원 요청명을 입력하십시오.");
+			$("#techdTitle").focus();
+			return false;
+		} else if($("#techdFrom").val() === "" || $("#techdTo").val() === ""){
+			alert("지원일자를 선택하십시오.");
+			return false;
+		} else if($("#endCustName").val() === ""){
+			alert("엔드유저를 선택하십시오.");
+			$("#endCustName").focus();
+			return false;
+		} else if ($("[name=\"contractType\"]:checked").val() === "NEW" && $("#soppTitle").val() === ""){
+			alert("영업기회을 입력하십시오.");
+			$("#soppTitle").focus();
+			return false;
+		} else if ($("[name=\"contractType\"]:checked").val() === "ING" && $("#contTitle").val() == ""){
+			alert("계약을 입력하십시오.");
+			$("#contTitle").focus();
+			return false;
+		}else{
+			var sprtData = {};
+			var contractType					= $("input[name='contractType']:checked").val();	// 신규 영업지원 or 기존계약
 			if(contractType == 'NEW'){
-				if ($("#soppTitle").val() == "" || $("#soppTitle").val() == "0"){
-					alert("영업기회을 입력하십시오.");
-					return;
-				}
+				sprtData.soppNo					= Number($("#soppNo").val());			// 영업기회
+				sprtData.contNo					= 0;							// 기존계약
+				sprtData.cntrctMth				= Number(${contractType[0].codeNo});
 			} else if (contractType == 'ING'){
-				if ($("#contTitle").val() == "" || $("#contTitle").val() == "0"){
-					alert("계약을 입력하십시오.");
-					return;
-				}
+				sprtData.soppNo					= 0;							// 영업기회
+				sprtData.contNo					= Number($("#contNo").val());			// 기존계약
+				sprtData.cntrctMth				= Number(${contractType[1].codeNo});
 			}
+			sprtData.techdTitle			= $("#techdTitle").val();					// 기술지원 요청명
+			sprtData.userNo				= $("#userNo").val() ? Number($("#userNo").val()) : 0;						// 담당사원
+			sprtData.custNo				= $("#endCustNo").val() ? Number($("#endCustNo").val()) : 0;						// 거래처
+			sprtData.custmemberNo		= $("#custmemberNo").val() ? Number($("#custmemberNo").val()) : 0;					// 고객
+			sprtData.techdItemmodel		= $("#techdItemmodel").val();				// 모델
+			sprtData.techdItemversion	= $("#techdItemversion").val();				// 버전
+			sprtData.techdPlace			= $("#techdPlace").val();					// 장소
+			sprtData.techdFrom			= setDateHourMinute($("#techdFrom").val(), $("#startTime").val());					// 지원일자 시작
+			sprtData.techdTo			= setDateHourMinute($("#techdTo").val(), $("#endTime").val());						// 지원일자 종료
+			sprtData.techdType			= $("#techdType").val();					// 지원형태
+			sprtData.techdSteps			= $("#techdSteps").val();	 // 진행단계
+			sprtData.endCustNo 			= $("#endCustNo").val() ? Number($("#endCustNo").val()) : 0;	
+			
+			if ($("textarea").attr("style") === "display: none;") {
+				var content = tinyMCE.get("techdDesc").getContent();
+				sprtData.techdDesc = await uploadImage(content, "${path}");
+			} else {
+				sprtData.techdDesc = $("#techdDesc").val();
+			}
+			sprtData.techdNo			= Number($("#techdNo").val());
+		
+			$.ajax({
+				url: "${path}/techd/update.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
+				data: sprtData , // HTTP 요청과 함께 서버로 보낼 데이터
+				method: "POST", // HTTP 요청 메소드(GET, POST 등)
+				dataType: "json", // 서버에서 보내줄 데이터의 타입
+				success: function(data) {
+					if(data.code == 10001){
+						alert("저장 성공");
+						var eventModal = $('#eventModal');
+						if(eventModal[0]) {
+							$(".modal-backdrop").remove();
+							var url ='${path}/calendar/calmain.do';
+							location.href = url;
+						}else {
+							var url = '${path}/techd/list.do';
+							location.href = url;
+						}
+					}else{
+						alert("저장 실패");
+					}
+				}, // HTTP 요청이 실패하면 오류와 상태에 관한 정보가 fail() 메소드로 전달됨.
+				error: function(xhr, status, errorThrown) {
+					alert("통신 실패", xhr, status, errorThrown);
+				},
+			});
 		}
-
-		// console.dir(sprtData);
-
-
-		$.ajax({
-			url: "${path}/techd/update.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
-			data: sprtData , // HTTP 요청과 함께 서버로 보낼 데이터
-			method: "POST", // HTTP 요청 메소드(GET, POST 등)
-			dataType: "json" // 서버에서 보내줄 데이터의 타입
-		}) // HTTP 요청이 성공하면 요청한 데이터가 done() 메소드로 전달됨..
-		.done(function(data) {
-			if(data.code == 10001){
-				alert("저장 성공");
-				var eventModal = $('#eventModal');
-				if(eventModal[0]) {
-					$(".modal-backdrop").remove();
-					var url ='${path}/calendar/calmain.do';
-					location.href = url;
-				}else {
-					var url = '${path}/techd/list.do';
-					location.href = url;
-				}
-			}else{
-				alert("저장 실패");
-			}
-		}) // HTTP 요청이 실패하면 오류와 상태에 관한 정보가 fail() 메소드로 전달됨.
-		.fail(function(xhr, status, errorThrown) {
-			alert("통신 실패");
-		});
 	}
 
+	//TODO: 해당 techdDesc에 이미지가 있는지 확인하여 있다면 해당 이미지를 DB에서 삭제하는 로직이 필요
 	function fn_sprtDelete() {
 		var sprtData = {};
 		sprtData.techdNo = $("#techdNo").val();

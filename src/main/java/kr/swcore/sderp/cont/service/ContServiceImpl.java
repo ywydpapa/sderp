@@ -1,5 +1,9 @@
 package kr.swcore.sderp.cont.service;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.*;
 
 import javax.inject.Inject;
@@ -8,14 +12,15 @@ import javax.servlet.http.HttpSession;
 import kr.swcore.sderp.code.dao.CodeDAO;
 import kr.swcore.sderp.code.dto.CodeDTO;
 import kr.swcore.sderp.common.dto.PageDTO;
-import kr.swcore.sderp.salesTarget.dto.SalesTargetDTO;
 import org.springframework.stereotype.Service;
 
 import kr.swcore.sderp.cont.dao.ContDAO;
 import kr.swcore.sderp.cont.dto.ContDTO;
+import kr.swcore.sderp.cont.dto.ContFileDataDTO;
 import kr.swcore.sderp.sopp.dto.SoppDTO;
 import kr.swcore.sderp.util.SessionInfoGet;
-import org.springframework.transaction.interceptor.TransactionAspectSupport;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 @Service
 public class ContServiceImpl implements ContService {
@@ -31,10 +36,22 @@ public class ContServiceImpl implements ContService {
 		// TODO Auto-generated method stub
 		return contDao.listCont();
 	}
-	
+
+	@Override
+	public List<ContDTO> listCont3m() {
+		return contDao.listCont3m();
+	}
+
+	@Override
+	public List<ContDTO> listContbycust(int custNo) {
+		return contDao.listContbycust(custNo);
+	}
+
 	@Override
 	public List<ContDTO> listCont(HttpSession session, PageDTO pageDTO, ContDTO dto) {
 		SoppDTO soppdto = SessionInfoGet.getCompNoDto(session);
+		String listDateFrom = SessionInfoGet.getlistDateFrom(session);
+		soppdto.setListDateFrom(listDateFrom);
 
 		if(pageDTO != null) {
 			Integer limit = pageDTO.getLimit();
@@ -49,6 +66,8 @@ public class ContServiceImpl implements ContService {
 	@Override
 	public List<ContDTO> listconCont(HttpSession session, ContDTO dto) {
 		int compNo = SessionInfoGet.getCompNo(session);
+		String listDateFrom = SessionInfoGet.getlistDateFrom(session);
+		dto.setListDateFrom(listDateFrom);
 		dto.setCompNo(compNo);
 		return contDao.listconCont(dto);
 	}
@@ -163,5 +182,94 @@ public class ContServiceImpl implements ContService {
 		returnMap.put("data", contDTOList);
 
 		return returnMap;
+	}
+
+	@Override
+	public List<ContDTO> listFile(int contNo) {
+		// TODO Auto-generated method stub
+		return contDao.listFile(contNo);
+	}
+
+	@Override
+	public int uploadFile(HttpSession session, int contNo, MultipartHttpServletRequest fileList) throws IOException {
+		MultipartFile file = fileList.getFile("file");
+		ContFileDataDTO contFile = new ContFileDataDTO();
+		contFile.setFileId(UUID.randomUUID().toString());
+		contFile.setFileName(file.getOriginalFilename());
+		contFile.setFileContent(file.getBytes());
+		Path mimeType_base = Paths.get("D:/"+ file.getOriginalFilename());
+		String mimeType = Files.probeContentType(mimeType_base);
+		contFile.setFileExtention(mimeType);
+		contFile.setFileSize(fileList.getParameter("fileSize"));
+		contFile.setFileDesc(fileList.getParameter("fileDesc"));
+		contFile.setContNo(contNo);
+		contFile.setUserNo(Integer.valueOf((String)session.getAttribute("userNo")));
+		
+		return contDao.uploadFile(contFile);
+	}
+
+	@Override
+	public Integer deleteFile(HttpSession session, ContFileDataDTO dto) {
+		// TODO Auto-generated method stub
+		return contDao.deleteFile(dto);
+	}
+
+	@Override
+	public ContFileDataDTO downloadFile(ContFileDataDTO dto) {
+		// TODO Auto-generated method stub
+		return contDao.downloadFile(dto);
+	}
+
+	@Override
+	public ContDTO listSumCont(HttpSession session) {
+		int compNo = SessionInfoGet.getCompNo(session);
+		return contDao.listSumCont(compNo);
+	}
+
+	@Override
+	public int soppListUpdate(HttpSession session, ContDTO dto) {
+		return contDao.soppListUpdate(dto);
+	}
+
+	@Override
+	public int extInsert(ContDTO dto) {
+		// TODO Auto-generated method stub
+		return contDao.extInsert(dto);
+	}
+	
+	@Override
+	public int extAttUpdate(ContDTO dto) {
+		// TODO Auto-generated method stub
+		return contDao.extAttUpdate(dto);
+	}
+
+	@Override
+	public List<ContDTO> defaultgradata01() {
+		// TODO Auto-generated method stub
+		return contDao.defaultgradata01();
+	}
+
+	@Override
+	public int insert_maintenance(HttpSession session, ContDTO dto) {
+		// TODO Auto-generated method stub
+		return contDao.insert_maintenance(dto);
+	}
+
+	@Override
+	public int update_maintenance(ContDTO dto) {
+		// TODO Auto-generated method stub
+		return contDao.update_maintenance(dto);
+	}
+
+	@Override
+	public int contAmtUpdate(ContDTO dto) {
+		// TODO Auto-generated method stub
+		return contDao.contAmtUpdate(dto);
+	}
+
+	@Override
+	public void updateSopp_buyrno(ContDTO dto) {
+		// TODO Auto-generated method stub
+		contDao.updateSopp_buyrno(dto);
 	}
 }

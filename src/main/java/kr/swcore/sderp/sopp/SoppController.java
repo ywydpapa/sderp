@@ -2,30 +2,15 @@ package kr.swcore.sderp.sopp;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-
-import kr.swcore.sderp.account.service.AccountService;
 import kr.swcore.sderp.code.service.CodeService;
-import kr.swcore.sderp.cont.dto.ContDTO;
-import kr.swcore.sderp.cont.service.ContService;
-import kr.swcore.sderp.cust.service.CustService;
-import kr.swcore.sderp.gw.service.GwService;
-import kr.swcore.sderp.product.service.ProductService;
 import kr.swcore.sderp.sales.service.SalesService;
 import kr.swcore.sderp.sopp.dto.SoppDTO;
 import kr.swcore.sderp.sopp.dto.SoppFileDataDTO;
 import kr.swcore.sderp.sopp.dto.SoppdataDTO;
 import kr.swcore.sderp.sopp.service.SoppService;
 import kr.swcore.sderp.sopp.service.SoppdataService;
-import kr.swcore.sderp.store.dto.StoreDTO;
-import kr.swcore.sderp.store.dto.StoreInoutDTO;
-import kr.swcore.sderp.store.service.StoreInoutService;
-import kr.swcore.sderp.store.service.StoreService;
-import kr.swcore.sderp.techd.dto.TechdDTO;
 import kr.swcore.sderp.techd.service.TechdService;
 import kr.swcore.sderp.user.dto.UserDTO;
-import kr.swcore.sderp.user.service.UserService;
-import kr.swcore.sderp.util.service.UtilService;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpHeaders;
@@ -42,80 +27,46 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 @Controller
 
 @RequestMapping("/sopp/*")
 public class SoppController {
-
+	
+	
 	private static final Logger logger = LoggerFactory.getLogger(SoppController.class);
-
+	
 	@Inject
 	SoppService soppService;
-
+	
 	@Inject
 	SoppdataService soppdataService;
-
+	
 	@Inject
 	SalesService salesService;
-
-	@Inject
+	
+	@Inject 
 	CodeService codeService;
-
+	
 	@Inject
 	TechdService techdService;
-
-	@Inject
-	GwService gwService;
-
-	@Inject
-	ContService contService;
-
-	@Inject
-	CustService custService;
-
-	@Inject
-	UserService userService;
-
-	@Inject
-	ProductService productService;
-
-	@Inject
-	AccountService accountService;
-
-	@Inject
-	StoreInoutService storeInoutService;
-
-	@Inject
-	StoreService storeService;
-
-	@Inject
-	UtilService utilService;
-
+	
 	@RequestMapping("list.do")
 	public ModelAndView list(HttpSession session, ModelAndView mav) {
 		mav.setViewName("sopp/list");
 		mav.addObject("saleslist", codeService.listSalestype(session));
 		mav.addObject("sstatuslist", codeService.listSstatus(session));
 		mav.addObject("contractType", codeService.listContractType(session));
-		mav.addObject("listUser", userService.userList(session));
-		mav.addObject("listSopp", soppService.listSopp(session, null));
-		mav.addObject("listCust", custService.listCust(session));
-		mav.addObject("listProduct", productService.listProduct(session));
 		mav.addObject("list", soppService.listSopp(session, null));
-		mav.addObject("first", "Y");
+		mav.addObject("first","Y");
 		return mav;
 	}
 
 	@RequestMapping(value = "list/data", produces = "application/json;charset=UTF-8", method = RequestMethod.POST)
-	public @ResponseBody String listData(HttpSession session, @RequestBody String param, HttpServletRequest request,
-			HttpServletResponse response) {
+	public @ResponseBody
+	String listData(HttpSession session, @RequestBody String param, HttpServletRequest request, HttpServletResponse response){
 		Gson ojb = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
 		return ojb.toJson(soppService.listSopp(session, param, request, response));
 	}
@@ -134,16 +85,14 @@ public class SoppController {
 		mav.addObject("saleslist", codeService.listSalestype(session));
 		mav.addObject("sstatuslist", codeService.listSstatus(session));
 		mav.addObject("contractType", codeService.listContractType(session));
-		mav.addObject("listUser", userService.userList(session));
-		mav.addObject("listCust", custService.listCust(session));
 		mav.addObject("list", soppService.listSopp2(session));
-		mav.addObject("first", "Y");
+		mav.addObject("first","Y");
 		return mav;
 	}
 
 	@RequestMapping(value = "list2/data", produces = "application/json;charset=UTF-8", method = RequestMethod.POST)
-	public @ResponseBody String list2Data(HttpSession session, @RequestBody String param, HttpServletRequest request,
-			HttpServletResponse response) {
+	public @ResponseBody
+	String list2Data(HttpSession session, @RequestBody String param, HttpServletRequest request, HttpServletResponse response){
 		Gson ojb = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
 		return ojb.toJson(soppService.listSopp2(session, param, request, response));
 	}
@@ -165,61 +114,26 @@ public class SoppController {
 
 	@RequestMapping("/detail/{soppNo}")
 	public ModelAndView detail(@PathVariable("soppNo") int soppNo, ModelAndView mav, HttpSession session) {
-
-		SoppDTO soppDTO = soppService.detailSopp(soppNo);
-		String soppDesc = soppDTO.getSoppDesc();
-
-		List<String> uuids = utilService.extractUuidsFromHtml(soppDesc);
-
-		for (String uuid : uuids) {
-			String base64 = utilService.getBase64FromServer(uuid);
-			if (soppDesc != null) {
-				soppDesc = soppDesc.replace(uuid, "data:image/png;base64," + base64);
-			}
-		}
-		soppDTO.setSoppDesc(soppDesc);
-		mav.addObject("dto", soppDTO);
+		mav.addObject("dto", soppService.detailSopp(soppNo));
+		mav.addObject("dtodata01", soppdataService.listSoppdata01(soppNo));
 		mav.addObject("dtodata02", soppdataService.listSoppdata02(soppNo));
 		mav.addObject("saleslist", codeService.listSalestype(session));
 		mav.addObject("sstatuslist", codeService.listSstatus(session));
-		mav.addObject("salesinsopp", salesService.listSalesinsopp(session, soppNo, 0));
-		mav.addObject("techdinsopp", techdService.listTechdinsopp(session, soppNo, 0));
-		// mav.addObject("soppInoutList",storeInoutService.getSoppInout(soppNo));
-		mav.addObject("soppFiles", soppService.listFile(soppNo));
-		mav.addObject("dtodata01", soppdataService.listSoppdata01(soppNo));
-		mav.addObject("dtoContdata01", soppdataService.listContdata01(soppNo));
-		mav.addObject("soppContList", soppService.soppContList(soppNo));
-		mav.addObject("estList", gwService.getEstSopp(session, soppNo));
-		mav.addObject("listUser", userService.userList(session));
-		mav.addObject("listCust", custService.listCust(session));
-		mav.addObject("listProduct", productService.listProduct(session));
-		mav.addObject("listCustMember", custService.listCustMember(session));
-		mav.addObject("listVatB", accountService.modalVatB(session));
-		mav.addObject("listVatS", accountService.modalVatS(session));
+		mav.addObject("salesinsopp",salesService.listSalesinsopp(session, soppNo));
+		mav.addObject("techdinsopp",techdService.listTechdinsopp(session, soppNo));
+		mav.addObject("soppFiles",soppService.listFile(soppNo));
 		mav.setViewName("sopp/detail");
 		return mav;
-	}
-
-	@RequestMapping("hovermodaldetail/{soppNo}")
-	public ResponseEntity<?> hovermodaldetail(@PathVariable("soppNo") int soppNo, HttpSession session,
-			@ModelAttribute SoppDTO dto) {
-		Map<String, Object> param = new HashMap<>();
-		param.put("data", soppService.detailSopp(soppNo));
-		param.put("data2", soppdataService.listSoppdata01_showdetail(soppNo));
-		return ResponseEntity.ok(param);
 	}
 
 	@RequestMapping("/detail2/{soppNo}")
 	public ModelAndView detail2(@PathVariable("soppNo") int soppNo, ModelAndView mav, HttpSession session) {
 		mav.addObject("dto", soppService.detailSopp(soppNo));
+		mav.addObject("dtodata01", soppdataService.listSoppdata01(soppNo));
 		mav.addObject("dtodata02", soppdataService.listSoppdata02(soppNo));
 		mav.addObject("saleslist", codeService.listSalestype(session));
 		mav.addObject("sstatuslist", codeService.listSstatus(session));
-		mav.addObject("salesinsopp", salesService.listSalesinsopp(session, soppNo, 0));
-		mav.addObject("techdinsopp", techdService.listTechdinsopp(session, soppNo, 0));
-		mav.addObject("soppFiles", soppService.listFile(soppNo));
-		mav.addObject("dtodata01", soppdataService.listSoppdata01(soppNo));
-		mav.addObject("estList", gwService.getEstSopp(session, soppNo));
+		mav.addObject("salesinsopp",salesService.listSalesinsopp(session, soppNo));
 		mav.setViewName("sopp/detail2");
 		return mav;
 	}
@@ -237,15 +151,14 @@ public class SoppController {
 		mav.setViewName("sopp/qutylist");
 		return mav;
 	}
-
+	
 	@RequestMapping("/uploadfile/{soppNo}")
-	public ResponseEntity<?> uploadFile(HttpSession session, @PathVariable("soppNo") int soppNo,
-			@ModelAttribute SoppDTO dto, MultipartHttpServletRequest fileList) throws IOException {
+	public ResponseEntity<?> uploadFile(HttpSession session, @PathVariable("soppNo") int soppNo, @ModelAttribute SoppDTO dto, MultipartHttpServletRequest fileList) throws IOException {
 		int uploadFile = soppService.uploadFile(session, soppNo, fileList);
 		Map<String, Object> param = new HashMap<>();
-		if (uploadFile > 0) {
+		if(uploadFile > 0) {
 			param.put("code", "10001");
-			param.put("data", soppService.listFile(soppNo));
+			param.put("data",soppService.listFile(soppNo));
 		} else {
 			param.put("code", "20001");
 		}
@@ -253,10 +166,10 @@ public class SoppController {
 	}
 
 	@RequestMapping("/deleteFile")
-	public ResponseEntity<?> removeFile(HttpSession session, @ModelAttribute SoppFileDataDTO dto) {
+	public ResponseEntity<?> removeFile(HttpSession session, @ModelAttribute SoppFileDataDTO dto){
 		int uploadFile = soppService.deleteFile(session, dto);
 		Map<String, Object> param = new HashMap<>();
-		if (uploadFile > 0) {
+		if(uploadFile > 0) {
 			param.put("code", "10001");
 			param.put("data", soppService.listFile(dto.getSoppNo()));
 		} else {
@@ -264,32 +177,27 @@ public class SoppController {
 		}
 		return ResponseEntity.ok(param);
 	}
-
+	
 	@RequestMapping("/downloadfile")
-	public ResponseEntity<?> downloadFile(HttpSession session, HttpServletResponse response,
-			@ModelAttribute SoppFileDataDTO dto) throws IOException {
+	public ResponseEntity<?> downloadFile(HttpSession session, HttpServletResponse response, @ModelAttribute SoppFileDataDTO dto) throws IOException {
 		SoppFileDataDTO soppFile = soppService.downloadFile(dto);
-		String fileName = "\"" + soppFile.getFileName() + "\"";
+		String fileName = soppFile.getFileName();
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
 		headers.add("Content-Disposition", new String(fileName.getBytes("utf-8"), "ISO-8859-1"));
 		ResponseEntity<byte[]> entity = new ResponseEntity<byte[]>(soppFile.getFileContent(), headers, HttpStatus.OK);
-
+		
 		return entity;
 	}
 
 	@RequestMapping("write.do")
 	public ModelAndView write(HttpSession session, ModelAndView mav) {
 		mav.addObject("saleslist", codeService.listSalestype(session));
-		UserDTO userDTO = new UserDTO();
+		UserDTO userDTO =  new UserDTO();
 		userDTO.setUserName((String) session.getAttribute("userName"));
-		userDTO.setUserNo(Integer.valueOf((String) session.getAttribute("userNo")));
-		mav.addObject("userInfo", userDTO);
+		userDTO.setUserNo(Integer.valueOf((String)session.getAttribute("userNo")));
+		mav.addObject("userInfo",userDTO);
 		mav.addObject("saleslist", codeService.listSalestype(session));
-		mav.addObject("listUser", userService.userList(session));
-		mav.addObject("listCust", custService.listCust(session));
-		mav.addObject("listProduct", productService.listProduct(session));
-		mav.addObject("listCustMember", custService.listCustMember(session));
 		mav.setViewName("sopp/write");
 		return mav;
 	}
@@ -298,7 +206,7 @@ public class SoppController {
 	public String write2() {
 		return "sopp/write2";
 	}
-
+	
 	@RequestMapping("insert.do")
 	public ResponseEntity<?> insert(HttpSession session, HttpServletRequest request, @ModelAttribute SoppDTO dto) {
 		Map<String, Object> param = new HashMap<>();
@@ -311,249 +219,125 @@ public class SoppController {
 	public ResponseEntity<?> update2Sopp(HttpSession session, @ModelAttribute SoppDTO dto) {
 		Map<String, Object> param = new HashMap<>();
 		int soppInsert = soppService.update2Sopp(session, dto);
-		if (soppInsert > 0) {
-			param.put("code", "10001");
-		} else {
-			param.put("code", "20001");
+		if (soppInsert >0) {
+			param.put("code","10001"); 
+		}
+		else {param.put("code","20001");
 		}
 		return ResponseEntity.ok(param);
 	}
 
-	@RequestMapping(value = "Aprv.do", method = RequestMethod.POST)
+	@RequestMapping(value ="Aprv.do", method= RequestMethod.POST)
 	public ResponseEntity<?> Aprv(HttpSession session, @RequestBody SoppDTO dto) {
 		Map<String, Object> param = new HashMap<>();
 		param = soppService.updateAprvOrReject(session, dto);
 		return ResponseEntity.ok(param);
 	}
-
+	
 	@RequestMapping("insertdata01.do")
 	public ResponseEntity<?> insertdata01(HttpSession session, @ModelAttribute SoppdataDTO dto) {
 		Map<String, Object> param = new HashMap<>();
-
 		int soppdataInsert = soppdataService.insertSoppdata01(session, dto);
-		if (soppdataInsert > 0) {
-			param.put("code", "10001");
-		} else {
-			param.put("code", "20001");
+		if (soppdataInsert >0) {
+			param.put("code","10001"); 
+		}
+		else {param.put("code","20001");
 		}
 		return ResponseEntity.ok(param);
 	}
 
-	@RequestMapping("insertdata01_defalut.do")
-	public ResponseEntity<?> insertdata01_defalut(HttpSession session, @ModelAttribute SoppdataDTO dto) {
-		Map<String, Object> param = new HashMap<>();
-
-		int soppdataInsert = soppdataService.insertdata01_defalut(session, dto);
-		if (soppdataInsert > 0) {
-			param.put("code", "10001");
-		} else {
-			param.put("code", "20001");
-		}
-		return ResponseEntity.ok(param);
-	}
-
+	
 	@RequestMapping("insertdata02.do")
-	public ResponseEntity<?> insertdata02(HttpSession session, @ModelAttribute SoppdataDTO dto) {
+	public ResponseEntity<?> insertdata02(HttpSession session,@ModelAttribute SoppdataDTO dto) {
 		Map<String, Object> param = new HashMap<>();
 		int soppdataInsert = soppdataService.insertSoppdata01(session, dto);
-		if (soppdataInsert > 0) {
-			param.put("code", "10001");
-		} else {
-			param.put("code", "20001");
+		if (soppdataInsert >0) {
+			param.put("code","10001"); 
+		}
+		else {param.put("code","20001");
 		}
 		return ResponseEntity.ok(param);
 	}
 
 	@RequestMapping("updatedata01.do")
-	public ResponseEntity<?> updatedata01(HttpSession session, @ModelAttribute SoppdataDTO dto) {
+	public ResponseEntity<?> updatedata01(HttpSession session, @ModelAttribute SoppdataDTO dto, HttpServletRequest servletRequest) {
 		Map<String, Object> param = new HashMap<>();
-		int soppdataInsert = soppdataService.updateSoppdata01(session, dto);
-		if (soppdataInsert > 0) {
-			param.put("code", "10001");
-		} else {
-			param.put("code", "20001");
+		int soppdataInsert = soppdataService.updateSoppdata01(session, dto, servletRequest);
+		if (soppdataInsert >0) {
+			param.put("code","10001");
+		}
+		else {param.put("code","20001");
 		}
 		return ResponseEntity.ok(param);
 	}
 
+	
 	@RequestMapping("update1.do")
 	public ResponseEntity<?> update(@RequestParam Map<String, Object> params) {
 		logger.info("sopp update1 logger : " + params.toString());
-
+		
 		Map<String, Object> param = new HashMap<>();
-		// int soppUpdate = soppService.updateSopp(dto);
+		//int soppUpdate = soppService.updateSopp(dto);
 		int soppUpdate = 1;
-		if (soppUpdate > 0) {
-			param.put("code", "10001");
-		} else {
-			param.put("code", "20001");
+		if (soppUpdate >0) {
+			param.put("code","10001"); 
+		}
+		else {param.put("code","20001");
 		}
 		return ResponseEntity.ok(param);
 	}
-
-	@RequestMapping("contSoppNoUpdate.do")
-	public ResponseEntity<?> contSoppNoUpdate(@ModelAttribute ContDTO dto) {
-		Map<String, Object> param = new HashMap<>();
-		int contUpdate = soppdataService.contSoppNoUpdate(dto);
-		if (contUpdate > 0) {
-			param.put("code", "10001");
-		} else {
-			param.put("code", "20001");
-		}
-		return ResponseEntity.ok(param);
-	}
-
-	@RequestMapping("contAssign.do")
-	public ResponseEntity<?> contAssign(@ModelAttribute SoppdataDTO dto) {
-		Map<String, Object> param = new HashMap<>();
-		int contUpdate = soppdataService.contAssign(dto);
-		if (contUpdate > 0) {
-			param.put("code", "10001");
-		} else {
-			param.put("code", "20001");
-		}
-		return ResponseEntity.ok(param);
-	}
-
+	
+	
 	@RequestMapping("update.do")
 	public ResponseEntity<?> update(HttpSession session, @ModelAttribute SoppDTO dto) {
 		logger.info("sopp logger : " + dto.toString());
-
+		
 		Map<String, Object> param = new HashMap<>();
 		int soppUpdate = soppService.updateSopp(session, dto);
-		if (soppUpdate > 0) {
-			param.put("code", "10001");
-		} else {
-			param.put("code", "20001");
+		if (soppUpdate >0) {
+			param.put("code","10001"); 
+		}
+		else {param.put("code","20001");
 		}
 		return ResponseEntity.ok(param);
 	}
 
 	@RequestMapping("delete.do")
-	public ResponseEntity<?> delete(@ModelAttribute SoppDTO dto) {
-		Map<String, Object> param = new HashMap<>();
-		int soppUpdate = soppService.deleteSopp(dto.getSoppNo());
-		if (soppUpdate > 0) {
-			param.put("code", "10001");
-		} else {
-			param.put("code", "20001");
+			public ResponseEntity<?> delete(@ModelAttribute SoppDTO dto) {
+			Map<String, Object> param = new HashMap<>();
+			int soppUpdate = soppService.deleteSopp(dto.getSoppNo());
+			if (soppUpdate >0) {
+				param.put("code","10001"); 
+			}
+			else {param.put("code","20001");
+			}
+			return ResponseEntity.ok(param);
 		}
-		return ResponseEntity.ok(param);
-	}
-
-	@RequestMapping("updateSoppStatus.do")
-	public ResponseEntity<?> updSStatus(@ModelAttribute SoppDTO dto) {
-		Map<String, Object> param = new HashMap<>();
-		int soppUpdate = soppService.updateSoppStatus(dto);
-		if (soppUpdate > 0) {
-			param.put("code", "10001");
-		} else {
-			param.put("code", "20001");
-		}
-		return ResponseEntity.ok(param);
-	}
-
+			
 	@RequestMapping("deletedata01.do")
 	public ResponseEntity<?> delete(@ModelAttribute SoppdataDTO dto) {
-		Map<String, Object> param = new HashMap<>();
-
-		if (dto.getInoutNo() > 0) {
-			StoreDTO storeDto = new StoreDTO();
-			StoreInoutDTO inoutDto = new StoreInoutDTO();
-			inoutDto.setInoutNo(dto.getInoutNo());
-			inoutDto = storeInoutService.getInout(inoutDto);
-			storeDto.setStoreNo(inoutDto.getStoreNo());
-			storeDto = storeService.getStoreOneList(storeDto);
-			storeDto.setStoreQty(inoutDto.getInoutQty() + storeDto.getStoreQty());
-			int storeResult = storeService.storeUpdateQty(storeDto);
-			int inoutResult = storeInoutService.contInoutDelete(inoutDto.getInoutNo());
-		}
-
-		int soppdataUpdate = soppdataService.deleteSoppdata01(dto.getSoppdataNo());
-		if (soppdataUpdate > 0) {
-			param.put("code", "10001");
-		} else {
-			param.put("code", "20001");
-		}
-		return ResponseEntity.ok(param);
+	Map<String, Object> param = new HashMap<>();
+	int soppdataUpdate = soppdataService.deleteSoppdata01(dto.getSoppdataNo());
+	if (soppdataUpdate >0) {
+		param.put("code","10001"); 
 	}
+	else {param.put("code","20001");
+	}
+	return ResponseEntity.ok(param);
+}
+
 
 	@RequestMapping("deletedata02.do")
 	public ResponseEntity<?> delete02(@ModelAttribute SoppdataDTO dto) {
-		Map<String, Object> param = new HashMap<>();
-		int soppdataUpdate = soppdataService.deleteSoppdata01(dto.getSoppdataNo());
-		if (soppdataUpdate > 0) {
-			param.put("code", "10001");
-		} else {
-			param.put("code", "20001");
-		}
-		return ResponseEntity.ok(param);
+	Map<String, Object> param = new HashMap<>();
+	int soppdataUpdate = soppdataService.deleteSoppdata01(dto.getSoppdataNo());
+	if (soppdataUpdate >0) {
+		param.put("code","10001"); 
 	}
-
-	@RequestMapping("soppListApp.do")
-	public ResponseEntity<?> soppListApp(HttpSession session, @ModelAttribute SoppDTO dto) {
-		Map<String, Object> param = new HashMap<>();
-
-		List<SoppDTO> selectSoppdetail = soppService.selectSoppdetail(session, dto);
-
-		if (selectSoppdetail.get(0).getMaintenance_S() != null) {
-			dto.setMaintenance_S(selectSoppdetail.get(0).getMaintenance_S());
-			dto.setMaintenance_E(selectSoppdetail.get(0).getMaintenance_E());
-		} else {
-			dto.setMaintenance_S(null);
-			dto.setMaintenance_E(null);
-		}
-
-		int soppdataInsert = soppService.soppListApp(dto);
-		param.put("getNo", dto.getGetNo());
-		if (soppdataInsert > 0) {
-			param.put("code", "10001");
-		} else {
-			param.put("code", "20001");
-		}
-		return ResponseEntity.ok(param);
+	else {param.put("code","20001");
 	}
+	return ResponseEntity.ok(param);
+}
 
-	@ResponseBody
-	@RequestMapping("selectSoppData/{soppNo}")
-	public List<SoppdataDTO> selectSoppData(@PathVariable("soppNo") int soppNo) {
-		List<SoppdataDTO> dataList = soppdataService.listSoppdata01(soppNo);
-
-		return dataList;
-	}
-
-	@RequestMapping("soppListUpdate.do")
-	public ResponseEntity<?> soppListUpdate(HttpSession session, @ModelAttribute ContDTO dto) {
-		logger.info("sopp logger : " + dto.toString());
-
-		Map<String, Object> param = new HashMap<>();
-		int soppUpdate = contService.soppListUpdate(session, dto);
-		if (soppUpdate > 0) {
-			param.put("code", "10001");
-		} else {
-			param.put("code", "20001");
-		}
-		return ResponseEntity.ok(param);
-	}
-
-	@RequestMapping("beforeAppUpdate/{soppNo}")
-	public ResponseEntity<?> beforeAppUpdate(@PathVariable("soppNo") int soppNo) {
-		Map<String, Object> param = new HashMap<>();
-		int soppUpdate = soppService.beforeAppUpdate(soppNo);
-		if (soppUpdate > 0) {
-			param.put("code", "10001");
-		} else {
-			param.put("code", "20001");
-		}
-		return ResponseEntity.ok(param);
-	}
-
-	@RequestMapping("assignPps.do")
-	public ResponseEntity<?> assignPps(@ModelAttribute SoppDTO dto) {
-		Map<String, Object> param = new HashMap<>();
-		soppService.assignPps(dto);
-		param.put("getNo", dto.getGetNo());
-		return ResponseEntity.ok(param);
-	}
 
 }

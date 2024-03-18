@@ -16,19 +16,12 @@ public class SchedDTO extends PageDTO {
 	private int soppNo;
 	private int custNo;
 	private int contNo;
-	private int salesNo;
-	private int techdNo;
 	private int id;
 	private String schedName;
 	private String schedFrom;
 	private String schedTo;
 	private String schedTitle;
 	private String schedDesc;
-	private int schedCheck;
-	
-	private int techdCheck;
-	private int salesCheck;
-	
 	private String subschedNo;
 	private String schedActive;
 	private String schedAllday;
@@ -55,29 +48,12 @@ public class SchedDTO extends PageDTO {
 	private String eTime;
 	private String userId;
 	private String cntrctMth;
-	private String weektype;
-	private String weekdays;
-	private Integer weekno;
-	private String title;
-	private String start;
-	private String end;
-	private String prComment;
-	private int prCheck;
-	private String thComment;
-	private int thCheck;
-	private String nxComment;
-	private int nxCheck;
-	private String srepMemo;
-	private String sreportNo;
+
+
+	// 확장
 	private int endCustNo;
-	private String regSDate;
-	private String regEDate;
-	private Integer ord_id;
-	private Integer weekNum;
-	private String org_title;
-	private String stype;
-	
-	private String listDateFrom;
+	private String regSDate;	// 등록일 시작
+	private String regEDate;	// 등록일 끝
 
 	public SchedDTO() {
 		super();

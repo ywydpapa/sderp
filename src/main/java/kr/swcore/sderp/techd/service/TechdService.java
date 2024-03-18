@@ -8,24 +8,20 @@ import javax.servlet.http.HttpSession;
 
 import kr.swcore.sderp.common.dto.PageDTO;
 import kr.swcore.sderp.sales.dto.SalesDTO;
-import kr.swcore.sderp.store.dto.StoreDTO;
 import kr.swcore.sderp.techd.dto.TechdDTO;
+import org.springframework.web.bind.annotation.RequestBody;
 
 public interface TechdService {
 
 	List<TechdDTO> listTechd();
-	List<TechdDTO> listTechdbycust(int custNo);
 	List<TechdDTO> listTechd(HttpSession session, PageDTO pageDTO);
 	Object listTechd(HttpSession session, String param, HttpServletRequest request, HttpServletResponse response);
 	List<TechdDTO> listconTechd(HttpSession session, TechdDTO dto);
-	List<SalesDTO> listTechdinsopp(HttpSession session, int soppNo, int contNo);
+	List<SalesDTO> listTechdinsopp(HttpSession session, int soppNo);
 	TechdDTO detailTechd(int techdNo);
 	int updateTechd(TechdDTO dto);
 	int deleteTechd(int techdNo);
 	int insertTechd(TechdDTO dto);
 	int insertTechd(HttpSession session, TechdDTO dto);
-	int techStoreWrite(HttpSession session, StoreDTO dto);
-	List<StoreDTO> techStoreList(StoreDTO dto);
-	StoreDTO techStoreDetail(StoreDTO dto);
-	int techStoreUpdate(HttpSession session, StoreDTO dto);
+
 }

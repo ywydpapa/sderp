@@ -155,6 +155,19 @@ public class TechdController {
 		mav.setViewName("techd/contextdetail");
 		ContDTO contDTO = new ContDTO();
 		contDTO = contService.detailCont(contNo);
+
+		String contDesc = contDTO.getContDesc();
+
+		List<String> uuids = utilService.extractUuidsFromHtml(contDesc);
+
+		for (String uuid : uuids) {
+			String base64 = utilService.getBase64FromServer(uuid);
+			if (contDesc != null) {
+				contDesc = contDesc.replace(uuid, "data:image/png;base64," + base64);
+			}
+		}
+		contDTO.setContDesc(contDesc);
+
 		mav.addObject("contDto", contDTO);
 		mav.addObject("dto", soppService.detailSopp(soppNo));
 		mav.addObject("dtodata01", soppdataService.listSoppdata01(soppNo));
@@ -219,15 +232,12 @@ public class TechdController {
 		TechdDTO techdDTO = techdService.detailTechd(techdNo);
 		techdDesc = techdDTO.getTechdDesc();
 
-		// HTML 코드에서 이미지 태그의 src 속성 값을 정규식으로 추출하여 UUID를 얻습니다.
-		List<String> uuids = extractUuidsFromHtml(techdDesc);
+		List<String> uuids = utilService.extractUuidsFromHtml(techdDesc);
 
-		// 얻은 UUID를 서버에 전송하여 해당 이미지의 Base64 값을 요청하고, 받은 Base64 값을 HTML 코드에서 이미지 태그의 src
-		// 속성을 치환합니다.
 		for (String uuid : uuids) {
-			String base64 = getBase64FromServer(uuid); // 서버로부터 Base64 값 가져오기
+			String base64 = utilService.getBase64FromServer(uuid);
 			if (techdDesc != null) {
-				techdDesc = techdDesc.replace(uuid, "data:image/png;base64," + base64); // 이미지 태그의 src 속성 치환
+				techdDesc = techdDesc.replace(uuid, "data:image/png;base64," + base64);
 			}
 		}
 		techdDTO.setTechdDesc(techdDesc);
@@ -246,36 +256,6 @@ public class TechdController {
 		}
 
 		return mav;
-	}
-
-	// HTML 코드에서 이미지 태그의 src 속성 값을 추출하여 UUID를 얻는 메서드
-	public List<String> extractUuidsFromHtml(String htmlCode) {
-		List<String> uuids = new ArrayList<>();
-		String regex = "<img\\s+src\\s*=\\s*\"([^\"]+)\"[^>]*>";
-		Pattern pattern = Pattern.compile(regex);
-		Matcher matcher = pattern.matcher(htmlCode);
-
-		while (matcher.find()) {
-			String src = matcher.group(1);
-			// src 속성 값에서 UUID 추출
-			String[] parts = src.split("/");
-			String uuid = parts[parts.length - 1]; // 이미지 경로에서 마지막 부분을 UUID로 가정합니다.
-			uuids.add(uuid);
-		}
-
-		return uuids;
-	}
-	// 서버에 UUID를 전송하여 해당 이미지의 Base64 값을 요청하는 메서드
-
-	public String getBase64FromServer(String uuid) {
-		// 여기에 uuid를 기반으로 이미지를 조회하고 base64 형식으로 변환하는 로직을 추가하세요
-		// 조회한 이미지를 base64 형식으로 변환한 후 param에 추가하세요
-		String base64Data = utilService.getBase64(uuid);
-		if (base64Data != null) {
-			return base64Data;
-		} else {
-			return "error";
-		}
 	}
 
 	@RequestMapping("/detail2/{techdNo}")

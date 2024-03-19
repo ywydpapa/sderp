@@ -52,6 +52,12 @@ body {
   padding: 5px 10px;
   border-bottom: 1px solid #9ea9bb;
 }
+.page-header2 .page-header-title {
+  align-items: baseline;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
 .page-header2 .page-header-title .d-inline {
   font-weight: 600;
 }
@@ -108,6 +114,9 @@ body {
 .bst02 tr td:first-child {
   border-left: 1px solid #ddd;
 }
+.bst02 tr td.text-area {
+  padding: 0 !important;
+}
 .bst02 tr th {
   border-left: 1px solid #e9ecef;
   border-bottom: 1px solid #ddd;
@@ -162,7 +171,7 @@ body {
 }
 .btn-outline:hover {
   background-color: #6d717e;
-  border-color: #df1d24;
+  border-color: #6d717e;
   color: #fff;
   cursor: pointer;
   -webkit-transition: all ease-in 0.3s;
@@ -218,9 +227,7 @@ select.form-control:not([size]):not([multiple]) {
   background: #fff;
   box-sizing: border-box;
 }
-.main-body .page-wrapper .page-body .cnt_wr {
-  margin-bottom: 20px;
-}
+
 .card_box {
   border: 1px solid #ddd;
   padding: 10px 1rem;
@@ -518,7 +525,6 @@ table {
   width: 100%;
 }
 .mr-1 {
-  padding: 0.3rem;
   border-left: 1px solid #ddd;
   border-right: 1px solid #ddd;
 }

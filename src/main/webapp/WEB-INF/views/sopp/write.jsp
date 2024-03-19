@@ -19,238 +19,245 @@
 </style>
 
 <div id="main_content">
-	<!-- Page-header start 페이지 타이틀-->
-	<div class="page-header2">
-		<div class="row align-items-end">
-			<div class="col-lg-12">
-				<div class="page-header-title">
-					<div class="d-inline">
-						영업기회등록
+	<div class="accordion" id="accordionExample">
+		<!-- Page-header start 페이지 타이틀-->
+		<div class="card">
+			<div class="card-header" id="headingOne" style="padding: 4px; overflow:hidden; border-bottom:solid 1px #CCCCC;">
+				<div class="mb-0" style="display:flex;justify-content: space-between; ">
+					<h5 class="d-flex" style="color: #312d85; align-items: center; margin:0;padding-left:12px;">
+					영업기회등록
+					</h5>
+					<button class="btn btn-link text-right" onclick="console.log(aria-expanded)" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne" style="color: #312d85; padding:10px;">
+						<i class="fa fa-angle-down"></i>
+					</button>
+				</div>
+			</div>
+		</div>
+		<div class="cnt_wr">
+			<div class="row">
+				<div class="col-sm-12">
+					<div class="card-block table-border-style">
+						<div class="table-responsive">
+							<div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+								<table class="table table-sm bst02">
+									<colgroup>
+										<col width="5%"/>
+										<col width="15%"/>
+										<col width="5%"/>
+										<col width="15%"/>
+										<col width="5%"/>
+										<col width="15%"/>
+										<col width="5%"/>
+										<col width="15%"/>
+									</colgroup>
+									<tbody>
+										<tr>
+											<th scope="row" class="requiredTextCss">담당자</th>
+											<td>
+												<div class="input-group input-group-sm mb-0">
+													<input type="text" class="form-control" name="userName"	id="userName" value="${userInfo.userName}" data-completeSet="true" autocomplete="off" readonly>
+													<input type="hidden" name="userNo" id="userNo" value="${userInfo.userNo}" />
+												</div>
+											</td>
+											<th scope="row" class="requiredTextCss">(부)담당자</th>
+											<td>
+												<select class="form-control" id="secondUserName" name="secondUserName" onchange="autoCompleteSelect(this);">
+													<option value="">선택</option>
+													<c:forEach var="row" items="${listUser}">
+														<option data-no="${row.userNo}" value="${row.userName}" <c:if test="${row.userName eq sessionScope.secondUserName}">selected</c:if>>${row.userName}</option>
+													</c:forEach>
+												</select>
+												<input type="hidden" class="form-control" name="secondUserNo" id="secondUserNo" value="${sessionScope.secondUserNo}" />
+											</td>
+											<th class="requiredTextCss" scope="row">매출처</th>
+											<td>
+												<div class="input-group input-group-sm mb-0">
+													<select class="form-control" id="custName" name="custName" onchange="autoCompleteSelect(this);">
+														<option value="">선택</option>
+														<c:forEach var="row" items="${listCust}">
+															<option data-no="${row.custNo}" value="${row.custName}">${row.custName}</option>
+														</c:forEach>
+													</select>
+													<input type="hidden" name="custNo" id="custNo" value="" />
+													<!-- <input type="text" class="form-control" name="custName" id="custName" autocomplete="off" value=""> -->
+												</div>
+											</td>
+											<th scope="row">매출처 담당자</th>
+											<td>
+												<div class="input-group input-group-sm mb-0">
+													<select class="form-control" id="custmemberName" name="custmemberName" onchange="autoCompleteSelect(this);">
+														<option value="">선택</option>
+														<c:forEach var="row" items="${listCustMember}">
+															<option data-no="${row.custData03no}" value="${row.custMname}">${row.custMname}</option>
+														</c:forEach>
+													</select>
+													<input type="hidden" name="custmemberNo" id="custmemberNo" value="" />
+													<!-- <input type="text" class="form-control" name="custmemberName"  id="custmemberName" value="" autocomplete="off"> -->
+												</div>
+											</td>
+											<%-- <th scope="row" class="requiredTextCss">상품</th>
+											<td>
+												<select class="form-control" id="productName" name="productName" onchange="productSelect(this);">
+													<option value="">선택</option>
+													<c:forEach var="row" items="${listProduct}">
+														<option data-no="${row.productNo}" value="${row.productName}">${row.productName}</option>
+													</c:forEach>
+												</select>
+												<div class="form-control"></div>
+												<input type="hidden" id="productNo" name="productNo" value="">
+												<input type="text" class="form-control form-control-sm" id="productName" name="productName" autocomplete="off">
+											</td> --%>
+										</tr>
+										<tr>
+											<th class="requiredTextCss" scope="row">엔드유저</th>
+											<td>
+												<div class="input-group input-group-sm mb-0">
+													<select class="form-control" id="endCustName" name="endCustName" onchange="autoCompleteSelect(this);">
+														<option value="">선택</option>
+														<c:forEach var="row" items="${listCust}">
+															<option data-no="${row.custNo}" value="${row.custName}">${row.custName}</option>
+														</c:forEach>
+													</select>
+													<input type="hidden" id="endCustNo" value="" />
+													<!-- <input type="text" class="form-control" id="endCustName" value="" autocomplete="off"> -->
+												</div>
+											</td>
+											<th scope="row" class="requiredTextCss">진행단계</th>
+											<td>
+												<select name="soppStatus" id="soppStatus" class="form-control form-control-sm">
+													<option value="10178">영업정보파악</option>
+													<option value="10179">초기접촉</option>
+													<option value="10180">제안서제출 및 PT</option>
+													<option value="10181">견적서제출</option>
+													<%--<option value="10182">계약요청</option>
+													<option value="">수금완료</option>
+													<option value="">은행입금</option>
+													<option value="10187">계약실패</option>
+													<option value="10193">계약진행보류</option>
+													<option value="">발주서입수</option>
+													<option value="">협력사요청</option>--%>
+												</select>
+											</td>
+											<th scope="row">가능성</th>
+											<td class="text-right">
+												<span class="input_inline">
+													<input type="text" class="form-control form-control-sm" id="soppSrate" name="soppSrate"  style="text-align:right;" value="0">
+												</span>
+												%
+											</td>
+											<th class="requiredTextCss" scope="row">계약구분</th>
+											<td><select name="cntrctMth" id="cntrctMth"
+												class="form-control form-control-sm" onchange="test()">
+													<option value="">선택</option>
+													<option value="10247">판매계약</option>
+													<option value="10248">유지보수</option>
+													<option value="10254">임대계약</option>
+											</select></td>
+										</tr>
+										<tr>
+											<th scope="row">매출예정일</th>
+											<td>
+												<input class="form-control form-control-sm" name="soppTargetDate" id="soppTargetDate" type="date" max="9999-12-31" value="0">
+											</td>
+											<th class="requiredTextCss" scope="row">판매방식</th>
+											<td>
+											<!-- <select name="soppType" id="soppType"
+												class="form-control form-control-sm col-md-4">
+													<option value="">선택</option>
+													<option value="101">신규</option>
+													<option value="102">노후화교체</option>
+													<option value="103">윈백</option>
+													<option value="104">증설</option>
+													<option value="105">이중화</option>
+													<option value="106">조달구매</option>
+													<option value="199">기타</option>
+											</select> -->
+												<select class="form-control form-control-sm" name="soppType" id="soppType">
+													<option value>선택</option>
+													<c:forEach var = "saleslist" items="${saleslist}">
+														<option value="${saleslist.codeNo}">${saleslist.desc03}</option>
+													</c:forEach>
+												</select>
+											</td>
+											<th class="requiredTextCss" scope="row">유지보수대상</th>
+											<td>
+												<select class="form-control form-control-sm" name="maintenanceTarget" id="maintenanceTarget">
+													<option value="N">No</option>
+													<option value="Y">Yes</option>
+												</select>
+											</td>
+											<th scope="row">예상매출</th>
+											<td class="text-right"><span class="input_inline">
+												<input type="text" class="form-control form-control-sm" id="soppTargetAmt" name="soppTargetAmt" onkeyup="moneyFormatInput(this);" style="text-align:right;" value="0"></span>원
+											</td>
+											<th class="requiredTextCss" id="Maintenance_name" style="display: none;">유지보수 기간</th>
+											<td id="Maintenance_input" style="display: none; line-height: 30px;">
+												<div class="input-group input-group-sm mb-0">
+													<input class="form-control form-control-sm col-sm-6 m-r-5" type="date" max="9999-12-30" id="maintenance_S"> ~ <input class="form-control form-control-sm col-sm-6 m-l-5" type="date" max="9999-12-31" id="maintenance_E">
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<th scope="row" class="requiredTextCss">카테고리<br />(제품회사명)</th>
+											<td colspan="7">
+												<div class="input-group m-0 productInputDiv">
+													<select onchange="changeSelect(this);">
+														<option value="productName">항목선택</option>
+														<option value="inputText">직접입력</option>
+													</select>
+													<select id="productName" name="productName" onchange="productSelect(this);">
+														<option value="">선택</option>
+														<c:forEach var="row" items="${listProduct}">
+															<option data-no="${row.productNo}" value="${row.custName}">${row.productName}(${row.custName})</option>
+														</c:forEach>
+													</select>
+													<div class="input-group m-0" style="display:none; width: 20%;">
+														<input type="text" class="form-control" id="inputText" placeholder="제품에 대한 회사명을 입력해주세요.">
+														<button type="button" class="btn btn-sm btn-primary" onclick="inputSelect(this);">추가</button>
+													</div>
+													<div class="form-control text-break w-100" style="display: block; word-break: break-all; white-space: normal;"></div>
+												</div>
+												<!-- <input type="hidden" id="productNo" name="productNo" value=""> -->
+												<!-- <input type="text" class="form-control form-control-sm" id="productName" name="productName" autocomplete="off"> -->
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+							<table class="table table-sm bst02">
+								<colgroup>
+									<col width="7%"/>
+									<col width="93%"/>
+								</colgroup>
+								<tbody>
+									<tr>
+										<th scope="row" class="requiredTextCss">영업기회명</th>
+										<td >
+											<input type="text" class="form-control form-control-sm" id="soppTitle" name="soppTitle" data-completeSet="true" autocomplete="off" value="">
+											<input type="hidden" id="soppNo" name="soppNo" value="">
+										</td>	
+									</tr>					
+								</tbody>
+							</table>
+							</tr>
+							<textarea name="soppDesc" id="soppDesc" rows="8" class="form-control">${dto.soppDesc}</textarea>
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
 	<!--Page-header end 페이지 타이틀 -->
-	<!--Page-header end 페이지 타이틀 -->
 	<div class="cnt_wr">
 		<!-- Row start -->
 		<div class="row">
-			<div class="col-lg-12 col-xl-12">
-				<!-- Nav tabs -->
-				<ul class="nav nav-tabs  tabs" role="tablist">
-					<li class="nav-item"><a class="nav-link active"
-						data-toggle="tab" href="#tab01" role="tab">기본정보</a></li>
-				</ul>
+			<div class="col-lg-12 col-xl-12">			
 				<!-- Tab panes -->
-				<div class="tab-content tabs m-t-20">
+				<div class="tab-content tabs ">
 					<div class="tab-pane active" id="tab01" role="tabpanel">
 						<div class="cnt_wr">
 							<div class="row">
 								<div class="col-sm-12">
-									<div class="card-block table-border-style">
-										<div class="table-responsive">
-											<table class="table table-sm bst02">
-												<colgroup>
-													<col width="5%"/>
-													<col width="15%"/>
-													<col width="5%"/>
-													<col width="15%"/>
-													<col width="5%"/>
-													<col width="15%"/>
-													<col width="5%"/>
-													<col width="15%"/>
-												</colgroup>
-												<tbody>
-													<tr>
-														<th scope="row" class="requiredTextCss">담당자</th>
-														<td>
-															<div class="input-group input-group-sm mb-0">
-																<input type="text" class="form-control" name="userName"	id="userName" value="${userInfo.userName}" data-completeSet="true" autocomplete="off" readonly>
-																<input type="hidden" name="userNo" id="userNo" value="${userInfo.userNo}" />
-															</div>
-														</td>
-														<th scope="row" class="requiredTextCss">(부)담당자</th>
-														<td>
-															<select class="form-control" id="secondUserName" name="secondUserName" onchange="autoCompleteSelect(this);">
-																<option value="">선택</option>
-																<c:forEach var="row" items="${listUser}">
-																	<option data-no="${row.userNo}" value="${row.userName}" <c:if test="${row.userName eq sessionScope.secondUserName}">selected</c:if>>${row.userName}</option>
-																</c:forEach>
-															</select>
-															<input type="hidden" class="form-control" name="secondUserNo" id="secondUserNo" value="${sessionScope.secondUserNo}" />
-														</td>
-														<th class="requiredTextCss" scope="row">매출처</th>
-														<td>
-															<div class="input-group input-group-sm mb-0">
-																<select class="form-control" id="custName" name="custName" onchange="autoCompleteSelect(this);">
-																	<option value="">선택</option>
-																	<c:forEach var="row" items="${listCust}">
-																		<option data-no="${row.custNo}" value="${row.custName}">${row.custName}</option>
-																	</c:forEach>
-																</select>
-																<input type="hidden" name="custNo" id="custNo" value="" />
-																<!-- <input type="text" class="form-control" name="custName" id="custName" autocomplete="off" value=""> -->
-															</div>
-														</td>
-														<th scope="row">매출처 담당자</th>
-														<td>
-															<div class="input-group input-group-sm mb-0">
-																<select class="form-control" id="custmemberName" name="custmemberName" onchange="autoCompleteSelect(this);">
-																	<option value="">선택</option>
-																	<c:forEach var="row" items="${listCustMember}">
-																		<option data-no="${row.custData03no}" value="${row.custMname}">${row.custMname}</option>
-																	</c:forEach>
-																</select>
-																<input type="hidden" name="custmemberNo" id="custmemberNo" value="" />
-																<!-- <input type="text" class="form-control" name="custmemberName"  id="custmemberName" value="" autocomplete="off"> -->
-															</div>
-														</td>
-														<%-- <th scope="row" class="requiredTextCss">상품</th>
-														<td>
-															<select class="form-control" id="productName" name="productName" onchange="productSelect(this);">
-																<option value="">선택</option>
-																<c:forEach var="row" items="${listProduct}">
-																	<option data-no="${row.productNo}" value="${row.productName}">${row.productName}</option>
-																</c:forEach>
-															</select>
-															<div class="form-control"></div>
-															<input type="hidden" id="productNo" name="productNo" value="">
-															<input type="text" class="form-control form-control-sm" id="productName" name="productName" autocomplete="off">
-														</td> --%>
-													</tr>
-													
-													<tr>
-														<th class="requiredTextCss" scope="row">엔드유저</th>
-														<td>
-															<div class="input-group input-group-sm mb-0">
-																<select class="form-control" id="endCustName" name="endCustName" onchange="autoCompleteSelect(this);">
-																	<option value="">선택</option>
-																	<c:forEach var="row" items="${listCust}">
-																		<option data-no="${row.custNo}" value="${row.custName}">${row.custName}</option>
-																	</c:forEach>
-																</select>
-																<input type="hidden" id="endCustNo" value="" />
-																<!-- <input type="text" class="form-control" id="endCustName" value="" autocomplete="off"> -->
-															</div>
-														</td>
-														<th scope="row" class="requiredTextCss">진행단계</th>
-														<td>
-															<select name="soppStatus" id="soppStatus" class="form-control form-control-sm">
-																<option value="10178">영업정보파악</option>
-																<option value="10179">초기접촉</option>
-																<option value="10180">제안서제출 및 PT</option>
-																<option value="10181">견적서제출</option>
-																<%--<option value="10182">계약요청</option>
-																<option value="">수금완료</option>
-																<option value="">은행입금</option>
-																<option value="10187">계약실패</option>
-																<option value="10193">계약진행보류</option>
-																<option value="">발주서입수</option>
-																<option value="">협력사요청</option>--%>
-															</select>
-														</td>
-														<th scope="row">가능성</th>
-														<td class="text-right">
-															<span class="input_inline">
-																<input type="text" class="form-control form-control-sm" id="soppSrate" name="soppSrate"  style="text-align:right;" value="0">
-															</span>
-															%
-														</td>
-														<th class="requiredTextCss" scope="row">계약구분</th>
-														<td><select name="cntrctMth" id="cntrctMth"
-															class="form-control form-control-sm" onchange="test()">
-																<option value="">선택</option>
-																<option value="10247">판매계약</option>
-																<option value="10248">유지보수</option>
-																<option value="10254">임대계약</option>
-														</select></td>
-													</tr>
-													
-													<tr>
-														<th scope="row">매출예정일</th>
-														<td>
-															<input class="form-control form-control-sm" name="soppTargetDate" id="soppTargetDate" type="date" max="9999-12-31" value="0">
-														</td>
-														<th class="requiredTextCss" scope="row">판매방식</th>
-														<td>
-														<!-- <select name="soppType" id="soppType"
-															class="form-control form-control-sm col-md-4">
-																<option value="">선택</option>
-																<option value="101">신규</option>
-																<option value="102">노후화교체</option>
-																<option value="103">윈백</option>
-																<option value="104">증설</option>
-																<option value="105">이중화</option>
-																<option value="106">조달구매</option>
-																<option value="199">기타</option>
-														</select> -->
-															<select class="form-control form-control-sm" name="soppType" id="soppType">
-																<option value>선택</option>
-																<c:forEach var = "saleslist" items="${saleslist}">
-																	<option value="${saleslist.codeNo}">${saleslist.desc03}</option>
-																</c:forEach>
-															</select>
-														</td>
-														<th scope="row">예상매출</th>
-														<td class="text-right"><span class="input_inline">
-															<input type="text" class="form-control form-control-sm" id="soppTargetAmt" name="soppTargetAmt" onkeyup="moneyFormatInput(this);" style="text-align:right;" value="0"></span>원
-														</td>
-														<th class="requiredTextCss" id="Maintenance_name" style="display: none;">유지보수 기간</th>
-														<td id="Maintenance_input" style="display: none; line-height: 30px;">
-															<div class="input-group input-group-sm mb-0">
-																<input class="form-control form-control-sm col-sm-6 m-r-5" type="date" max="9999-12-30" id="maintenance_S"> ~ <input class="form-control form-control-sm col-sm-6 m-l-5" type="date" max="9999-12-31" id="maintenance_E">
-															</div>
-														</td>
-													</tr>
-													<tr>
-                                                       	<th scope="row" class="requiredTextCss">카테고리<br />(제품회사명)</th>
-														<td colspan="7">
-															<div class="input-group m-0 productInputDiv">
-																<select onchange="changeSelect(this);">
-																	<option value="productName">항목선택</option>
-																	<option value="inputText">직접입력</option>
-																</select>
-																<select id="productName" name="productName" onchange="productSelect(this);">
-																	<option value="">선택</option>
-																	<c:forEach var="row" items="${listProduct}">
-																		<option data-no="${row.productNo}" value="${row.custName}">${row.productName}(${row.custName})</option>
-																	</c:forEach>
-																</select>
-																<div class="input-group m-0" style="display:none; width: 20%;">
-																	<input type="text" class="form-control" id="inputText" placeholder="제품에 대한 회사명을 입력해주세요.">
-																	<button type="button" class="btn btn-sm btn-primary" onclick="inputSelect(this);">추가</button>
-																</div>
-																<div class="form-control text-break w-100" style="display: block; word-break: break-all; white-space: normal;"></div>
-															</div>
-															<!-- <input type="hidden" id="productNo" name="productNo" value=""> -->
-															<!-- <input type="text" class="form-control form-control-sm" id="productName" name="productName" autocomplete="off"> -->
-														</td>
-													</tr>
-													<tr>
-														<th class="requiredTextCss" scope="row">유지보수대상</th>
-														<td>
-															<select class="form-control form-control-sm" name="maintenanceTarget" id="maintenanceTarget">
-																<option value="N">No</option>
-																<option value="Y">Yes</option>
-															</select>
-														</td>
-													</tr>
-													<tr>
-														<th scope="row" class="requiredTextCss">영업기회명</th>
-														<td colspan="7">
-															<input type="text" class="form-control form-control-sm" id="soppTitle" name="soppTitle" data-completeSet="true" autocomplete="off" value="">
-															<input type="hidden" id="soppNo" name="soppNo" value="">
-														</td>
-													</tr>
-													<tr>
-														<th scope="row">설명</th>
-														<td colspan="7"><textarea name="soppDesc" id="soppDesc" rows="8" class="form-control">${dto.soppDesc}</textarea></td>
-													</tr>
-												</tbody>
-											</table>
-										</div>
-									</div>
 									<div class="btn_wr text-right mt-3">
 										<button class="btn btn-md btn-success f-left" onClick="javascript:location='${path}/sopp/list.do'">목록</button>
 										<button class="btn btn-md btn-primary" onClick="fn_soppInsert()">등록</button>
@@ -259,7 +266,6 @@
 								</div>
 							</div>
 						</div>
-						<!--//영업기회등록-->
 					</div>
 				</div>
 			</div>
@@ -539,6 +545,7 @@
 			});
 		}); */
 	});
+	setTiny(540);
 	</script>
 </div>
 <jsp:include page="../body-bottom.jsp"/>

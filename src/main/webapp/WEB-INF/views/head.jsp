@@ -69,7 +69,7 @@ uri="http://java.sun.com/jsp/jstl/fmt" %>
     }
     @media only screen and (min-width: 993px) and (max-width: 1672px) {
       body {
-        overflow-x: scroll;
+        overflow-x: auto;
       }
     }
 
@@ -323,7 +323,7 @@ uri="http://java.sun.com/jsp/jstl/fmt" %>
     	}
     }
 
-	function setTiny(){
+	function setTiny(height){
     	var plugins = [
     	    "advlist", "autolink", "lists", "link", "image", "charmap", "preview", "anchor",
     	    "searchreplace", "visualblocks", "code", "fullscreen", "insertdatetime", "media", "table",
@@ -340,7 +340,6 @@ uri="http://java.sun.com/jsp/jstl/fmt" %>
 		
 			   tinymce.init({
 				language: "ko_KR",
-				height: 500,
 				menubar: false,
 				plugins: plugins,
 				toolbar: edit_toolbar,
@@ -352,25 +351,26 @@ uri="http://java.sun.com/jsp/jstl/fmt" %>
 					input.setAttribute('type', 'file');
 					input.setAttribute('accept', 'image/*');
 					input.addEventListener('change', (e) => {
-					  const file = e.target.files[0];
-				
-					  const reader = new FileReader();
-					  reader.addEventListener('load', () => {
+						const file = e.target.files[0];
+						
+						const reader = new FileReader();
+						reader.addEventListener('load', () => {
 						const id = 'blobid' + (new Date()).getTime();
 						const blobCache =  tinymce.activeEditor.editorUpload.blobCache;
 						const base64 = reader.result.split(',')[1];
 						const blobInfo = blobCache.create(id, file, base64);
 						blobCache.add(blobInfo);
 						cb(blobInfo.blobUri(), { title: file.name });
-					  });
-					  reader.readAsDataURL(file);
 					});
+					reader.readAsDataURL(file);
+				});
 				
-					input.click();
-				},
-				selector: 'textarea',
-				height : "400",
-			});
+				input.click();
+			},
+			selector: 'textarea',
+			height : height ? height : 400,
+			skin: 'snow',
+		});
     }
     function selectAllimClick(e){
     	var updateData = {};

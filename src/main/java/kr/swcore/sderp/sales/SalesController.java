@@ -107,16 +107,19 @@ public class SalesController {
 		SalesDTO salesDTO = salesService.detailSales(salesNo);
 		String salesDesc = salesDTO.getSalesDesc();
 
-		List<String> uuids = utilService.extractUuidsFromHtml(salesDesc);
+		if (salesDesc == null) {
+			salesDesc = "";
+		} else {
+			List<String> uuids = utilService.extractUuidsFromHtml(salesDesc);
 
-		for (String uuid : uuids) {
-			String base64 = utilService.getBase64FromServer(uuid);
-			if (salesDesc != null) {
-				salesDesc = salesDesc.replace(uuid, "data:image/png;base64," + base64);
+			for (String uuid : uuids) {
+				String base64 = utilService.getBase64FromServer(uuid);
+				if (salesDesc != null) {
+					salesDesc = salesDesc.replace(uuid, "data:image/png;base64," + base64);
+				}
 			}
 		}
 		salesDTO.setSalesDesc(salesDesc);
-
 		mav.addObject("dto", salesDTO);
 		mav.addObject("acttype", codeService.listActtype(session));
 		mav.addObject("listUser", userService.userList(session));

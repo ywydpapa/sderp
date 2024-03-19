@@ -158,16 +158,19 @@ public class TechdController {
 
 		String contDesc = contDTO.getContDesc();
 
-		List<String> uuids = utilService.extractUuidsFromHtml(contDesc);
+		if (contDesc == null) {
+			contDesc = "";
+		} else {
+			List<String> uuids = utilService.extractUuidsFromHtml(contDesc);
 
-		for (String uuid : uuids) {
-			String base64 = utilService.getBase64FromServer(uuid);
-			if (contDesc != null) {
-				contDesc = contDesc.replace(uuid, "data:image/png;base64," + base64);
+			for (String uuid : uuids) {
+				String base64 = utilService.getBase64FromServer(uuid);
+				if (contDesc != null) {
+					contDesc = contDesc.replace(uuid, "data:image/png;base64," + base64);
+				}
 			}
 		}
 		contDTO.setContDesc(contDesc);
-
 		mav.addObject("contDto", contDTO);
 		mav.addObject("dto", soppService.detailSopp(soppNo));
 		mav.addObject("dtodata01", soppdataService.listSoppdata01(soppNo));
@@ -232,16 +235,19 @@ public class TechdController {
 		TechdDTO techdDTO = techdService.detailTechd(techdNo);
 		techdDesc = techdDTO.getTechdDesc();
 
-		List<String> uuids = utilService.extractUuidsFromHtml(techdDesc);
+		if (techdDesc == null) {
+			techdDesc = "";
+		} else {
+			List<String> uuids = utilService.extractUuidsFromHtml(techdDesc);
 
-		for (String uuid : uuids) {
-			String base64 = utilService.getBase64FromServer(uuid);
-			if (techdDesc != null) {
-				techdDesc = techdDesc.replace(uuid, "data:image/png;base64," + base64);
+			for (String uuid : uuids) {
+				String base64 = utilService.getBase64FromServer(uuid);
+				if (techdDesc != null) {
+					techdDesc = techdDesc.replace(uuid, "data:image/png;base64," + base64);
+				}
 			}
 		}
 		techdDTO.setTechdDesc(techdDesc);
-
 		mav.addObject("dto", techdDTO);
 		mav.addObject("sprttype", codeService.listSprttype(session));
 		mav.addObject("sprtstat", codeService.listSprtstat(session));

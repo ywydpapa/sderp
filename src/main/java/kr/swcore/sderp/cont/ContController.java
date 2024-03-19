@@ -168,14 +168,19 @@ public class ContController {
 
 		String contDesc = contDTO.getContDesc();
 
-		List<String> uuids = utilService.extractUuidsFromHtml(contDesc);
+		if (contDesc == null) {
+			contDesc = "";
+		} else {
+			List<String> uuids = utilService.extractUuidsFromHtml(contDesc);
 
-		for (String uuid : uuids) {
-			String base64 = utilService.getBase64FromServer(uuid);
-			if (contDesc != null) {
-				contDesc = contDesc.replace(uuid, "data:image/png;base64," + base64);
+			for (String uuid : uuids) {
+				String base64 = utilService.getBase64FromServer(uuid);
+				if (contDesc != null) {
+					contDesc = contDesc.replace(uuid, "data:image/png;base64," + base64);
+				}
 			}
 		}
+
 		contDTO.setContDesc(contDesc);
 
 		mav.addObject("contDto", contDTO);

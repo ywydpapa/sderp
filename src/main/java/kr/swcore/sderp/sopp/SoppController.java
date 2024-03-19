@@ -169,12 +169,16 @@ public class SoppController {
 		SoppDTO soppDTO = soppService.detailSopp(soppNo);
 		String soppDesc = soppDTO.getSoppDesc();
 
-		List<String> uuids = utilService.extractUuidsFromHtml(soppDesc);
+		if (soppDesc == null) {
+			soppDesc = "";
+		} else {
+			List<String> uuids = utilService.extractUuidsFromHtml(soppDesc);
 
-		for (String uuid : uuids) {
-			String base64 = utilService.getBase64FromServer(uuid);
-			if (soppDesc != null) {
-				soppDesc = soppDesc.replace(uuid, "data:image/png;base64," + base64);
+			for (String uuid : uuids) {
+				String base64 = utilService.getBase64FromServer(uuid);
+				if (soppDesc != null) {
+					soppDesc = soppDesc.replace(uuid, "data:image/png;base64," + base64);
+				}
 			}
 		}
 		soppDTO.setSoppDesc(soppDesc);

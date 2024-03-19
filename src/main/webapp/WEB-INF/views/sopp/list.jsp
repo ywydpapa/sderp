@@ -142,7 +142,7 @@
 							if(data == null || data == undefined) {
 								return '';
 							} else {
-								return '<a href="javascript:fnSetPageEx(\''+row.soppNo+'\')" title="'+data+'">'+data+'</a>';
+								return '<a href="javascript:fnSetPageEx(\''+row.soppNo+'\')" title="'+data+'">'+data+'</a> <span class="open_slide">열기</span>';
 							}
 						},
 					},
@@ -586,8 +586,8 @@
 										</tr>
 										</thead>
 										<tbody>
-										<%--
-										<!-- <c:forEach var="row" items="${list}">
+									
+										<c:forEach var="row" items="${list}">
 										<tr>
 											<th scope="row"><input class="border-checkbox" type="checkbox" id="checkbox0"></th>
 											<td>${row.soppTypeN}</td>
@@ -598,8 +598,8 @@
 											<td <c:if test="${row.soppStatusN eq '계약진행보류'}">style="color:red"</c:if>>${row.soppStatusN}</td>
 											<td class="text-right">${row.soppTargetDate}</td>
 										</tr>
-										</c:forEach> -->
-										--%>
+										</c:forEach>
+										
 										</tbody>
 									</table>
 								</div>
@@ -644,7 +644,7 @@
 		position: relative;
 		z-index: 998;
 		width: 100vw;
-		transition: width 0.5s ease; 
+		transition: width 1s ease; 
 	}
 	.sooplist_second {
 		position: relative;
@@ -655,7 +655,7 @@
 		min-height: 100vh;
 		max-height: 3800px;
 		border: 1px solid black;
-		transition: left 0.5s ease; 
+		transition: left 1s ease; 
 	}
 	
 	.sooplist_second.active {
@@ -667,7 +667,14 @@
 	.back_button > img {
 		width: 60px;
 	}
-
+	.open_slide {
+		cursor: pointer;
+		border: 1px solid #312d85;
+		background-color: #312d85;
+		padding: 0px 5px;
+		color: white;
+		text-align: center;
+	}
 
 
 	</style>
@@ -698,11 +705,12 @@
 	
 	<script>
 		<!-- 각 row 클릭했을떄 -->
-		$(document).on('click', '.odd', function() {
+		$(document).on('click', '.open_slide', function() {
 			console.log("click");
 			$(".sooplist_fist").css({"width": "80vw", "max-width": "70vw", "overflow-x":"scroll"});
 			$(".sooplist_second").addClass("active");
 		});
+
 		<!-- backbutton 클릭했을때 -->
 		$(document).ready(function() {
 			$(".back_button > img").click(function(){
